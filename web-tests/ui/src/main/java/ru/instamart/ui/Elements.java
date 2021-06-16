@@ -1552,14 +1552,27 @@ public class Elements {
     /** Каталог товаров */
     public interface Catalog {
 
+        interface Search {
+            static ElementData snippet() {
+                return new ElementData(By.xpath("//div[@data-qa='search_result_products_products_grid_item_0']"),
+                        "сниппет товара");
+            }
+        }
+
+        static ElementData snippet() {
+            return new ElementData(By.xpath("//div[@data-qa='category_department_taxons_list_taxon_item_0_product_item_0']"),
+                    "снипед продукта");
+        }
+
         static ElementData emptySearchPlaceholder() {
-            return new ElementData(By.cssSelector(".resource-not-found__message-block"),
+            return new ElementData(By.xpath("//div[@data-qa='search_result_products_products_grid_no_products_title']"),
                     "плейсхолдер пустой поисковой выдачи");
         }
 
         interface Product {
+            //
             static ElementData snippet() {
-                return new ElementData(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_0_product_item_0']"),
+                return new ElementData(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']"),
                         "сниппет продукта");
             }
 
@@ -1585,7 +1598,7 @@ public class Elements {
             }
 
             static ElementData plusButton() {
-                return new ElementData(By.xpath("//li[@class='product']//div[contains(@class,'add-cart__up')]"),
+                return new ElementData(By.xpath("//button[contains(@class, 'ProductCardAddToCart__3zcwI')]"),
                         "кнопка \"+\" в сниппете продукта");
             }
 

@@ -6,6 +6,7 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.lib.Addresses;
@@ -51,13 +52,14 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
         checkIsUserNotAuthorized("Произошла регистрация пользователя с пустыми реквизитами");
     }
 
+    @Skip
     @CaseId(2044)
     @Story("Регистрация на странице ретейлера")
     @Test(
             description = "Тест таймаута повторной отправки смс при быстром перелогине",
             groups = {
                     "sbermarket-Ui-smoke","sbermarket-regression"
-            }, enabled = false
+            }
     )
     public void timeOutForSendindSMS() {
         phone = Generate.phoneNumber();

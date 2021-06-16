@@ -1,30 +1,26 @@
 package ru.instamart.test.ui.orders;
 
 import io.qase.api.annotation.CaseId;
+import org.testng.Assert;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.setting.Config;
-import ru.instamart.kraken.testdata.TestVariables;
-import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.Generate;
-import ru.instamart.kraken.testdata.PaymentTypes;
-import ru.instamart.test.ui.TestBase;
-import ru.instamart.ui.checkpoint.order.OrdersCheckpoints;
+import ru.instamart.kraken.testdata.*;
 import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.kraken.testdata.lib.Pages;
-import ru.instamart.kraken.testdata.JuridicalData;
 import ru.instamart.kraken.testdata.pagesdata.PaymentCardData;
 import ru.instamart.kraken.testdata.pagesdata.PaymentTypeData;
+import ru.instamart.test.ui.TestBase;
+import ru.instamart.ui.Elements;
+import ru.instamart.ui.checkpoint.order.OrdersCheckpoints;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.shop.Order;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
-import ru.instamart.ui.Elements;
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import ru.instamart.ui.report.CustomReport;
 
 import static io.qameta.allure.Allure.step;
 
@@ -124,11 +120,11 @@ public class BasicOrdersTests extends TestBase {
         );
     }
 
+    @Skip
     @CaseId(1672)
     @Test(
             description = "Тест заказа с новой картой оплаты c 3ds",
-            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"},
-            enabled = false
+            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"}
     )
     public void successCompleteCheckoutWithNewPaymentCard() {
         PaymentCardData creditCardData = TestVariables.testOrderDetails().getPaymentDetails().getCreditCard();
@@ -141,11 +137,11 @@ public class BasicOrdersTests extends TestBase {
         orderCheck.checkPaymentMethod(paymentMethod);
     }
 
+    @Skip
     @CaseId(2066)
     @Test(
             description = "Тест заказа с новой картой оплаты без 3ds",
-            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"},
-            enabled = false
+            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"}
     )
     public void successCompleteCheckoutWithNewNoSecurePaymentCard() {
         PaymentCardData creditCardData = TestVariables.testOrderDetailsWithout3ds().getPaymentDetails().getCreditCard();

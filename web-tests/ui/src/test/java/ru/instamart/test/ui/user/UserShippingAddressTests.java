@@ -6,6 +6,7 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.test.ui.TestBase;
@@ -20,10 +21,10 @@ import ru.instamart.ui.module.shop.ShippingAddressModal;
 
 @Epic("STF UI")
 @Feature("Адрес доставки")
-public class UserShippingAddressTests extends TestBase {
+public final class UserShippingAddressTests extends TestBase {
 
-    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
-    ShippingAddressCheckpoints shippingChecks = new ShippingAddressCheckpoints();
+    private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    private final ShippingAddressCheckpoints shippingChecks = new ShippingAddressCheckpoints();
 
     @BeforeMethod(alwaysRun = true,
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
@@ -175,6 +176,7 @@ public class UserShippingAddressTests extends TestBase {
         shippingChecks.checkIsSetAddresEqualsToInput(Addresses.Moscow.testAddress(),kraken.grab().currentShipAddress());
     }
 
+    @Skip
     @CaseId(35)
     @Story("Сохранение и изменение адреса доставки")
     @Test(
@@ -182,7 +184,7 @@ public class UserShippingAddressTests extends TestBase {
             groups = {
                     "metro-regression",
                     "sbermarket-Ui-smoke"
-            },enabled = false
+            }
     )
     public void successChangeShippingAddressToRecent() {
         User.Do.registration();
@@ -221,12 +223,14 @@ public class UserShippingAddressTests extends TestBase {
         shippingChecks.checkIsShippingAddressSet("Адрес доставки не был введен");
     }
 
+    @Skip
     @Test(
             description = "Тест на успешный выбор нового магазина в модалке феникса после изменения адреса доставки",
             groups = {
                     "metro-regression",
                     "sbermarket-Ui-smoke","ui-smoke-production"
-            },enabled = false
+            },
+            enabled = false
     )
     public void successSelectNewStoreAfterShipAddressChange() {
         kraken.get().page("vkusvill");

@@ -13,9 +13,11 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class ShoppingCatalogTests extends TestBase {
-    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
-    ItemCardAndCatalogCheckpoints itemChecks = new ItemCardAndCatalogCheckpoints();
+public final class ShoppingCatalogTests extends TestBase {
+
+    private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    private final ItemCardAndCatalogCheckpoints itemChecks = new ItemCardAndCatalogCheckpoints();
+
     @BeforeClass(alwaysRun = true,
             description = "Подготавливаем тестовое окружение к тестовому прогону")
     public void setup() {
@@ -89,11 +91,12 @@ public class ShoppingCatalogTests extends TestBase {
     public void successOperateItemCardOnDepartmentPage() {
         Shop.CatalogDrawer.open();
         Shop.CatalogDrawer.goToDepartment("Яйца");
-        Shop.Catalog.Item.open();
+        Shop.Search.open();
         itemChecks.checkIsItemCardOpen("Не открывается карточка продукта в department-категории\n");
         Shop.ItemCard.close();
         itemChecks.checkIsItemCardClosed("Не закрывается карточка продукта в department-категории\n");
     }
+
     @CaseId(1600)
     @Test(
             description = "Тест открывания/закрывания карточки продукта в taxon-категории",
@@ -102,7 +105,7 @@ public class ShoppingCatalogTests extends TestBase {
     public void successOperateItemCardOnTaxonPage() {
         Shop.CatalogDrawer.open();
         Shop.CatalogDrawer.goToTaxon("Крупы");
-        Shop.Catalog.Item.open();
+        Shop.Search.open();
         itemChecks.checkIsItemCardOpen("Не открывается карточка продукта в taxon-категории\n");
         Shop.ItemCard.close();
         itemChecks.checkIsItemCardClosed("Не закрывается карточка продукта в taxon-категории\n");
@@ -115,7 +118,7 @@ public class ShoppingCatalogTests extends TestBase {
     )
     public void successOperateItemCardOnSearchPage() {
         Shop.Search.searchField("хлеб");
-        Shop.Catalog.Item.open();
+        Shop.Search.openCard();
         itemChecks.checkIsItemCardOpen("Не открывается карточка продукта в выдаче поиска\n");
         Shop.ItemCard.close();
         itemChecks.checkIsItemCardClosed("Не закрывается карточка продукта в выдаче поиска\n");

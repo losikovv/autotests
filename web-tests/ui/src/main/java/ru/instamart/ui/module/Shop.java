@@ -508,6 +508,32 @@ public final class Shop extends Base {
             log.info("> нажимаем товарную подсказку в поиске");
             kraken.perform().click(Elements.Header.Search.productSuggest());
         }
+
+        @Step("Открываем карточку товара в выбранной категории")
+        public static void open() {
+            catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),2);
+            kraken.perform().click(Elements.Catalog.snippet());
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfElementLocated(Elements.ItemCard.popup().getLocator()),
+                    "Не открывается карточка товара");
+            kraken.perform().switchToActiveElement();
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfElementLocated(Elements.ItemCard.image().getLocator()),
+                    "Не отображается контент в карточке товара");
+        }
+
+        @Step("Открываем карточку товара после поиска")
+        public static void openCard() {
+            catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),2);
+            kraken.perform().click(Elements.Catalog.Search.snippet());
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfElementLocated(Elements.ItemCard.popup().getLocator()),
+                    "Не открывается карточка товара");
+            kraken.perform().switchToActiveElement();
+            kraken.await().fluently(
+                    ExpectedConditions.visibilityOfElementLocated(Elements.ItemCard.image().getLocator()),
+                    "Не отображается контент в карточке товара");
+        }
     }
 
     public static class UserProfile {
