@@ -1,19 +1,19 @@
 package ru.instamart.kraken.testdata;
 
-import ru.instamart.kraken.testdata.pagesdata.TenantData;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
-public class Tenants {
+@RequiredArgsConstructor
+@Getter
+@ToString
+public enum Tenants {
+    SBERMARKET("СберМАРКЕТ", "sbermarket"),
+    METRO("METRO Delivery CC", "metro"),
+    LENTA("ЛЕНТА", "lenta"),
+    OKEY("Гипермаркет ОКЕЙ", "okey"),
+    SELGROS("SELGROS Cash&Carry", "selgros");
 
-    public static TenantData metro() {
-        return new TenantData("METRO Delivery CC", "metro");
-    }
-
-    public static TenantData sbermarket() {
-        return new TenantData("СберМАРКЕТ", "sbermarket");
-    }
-
-    public static TenantData lenta() {
-        return new TenantData("ЛЕНТА", "lenta");
-    }
-
+    private final String title;
+    private final String alias;
 }

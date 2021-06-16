@@ -5,11 +5,13 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
+import org.testng.SkipException;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.v2.PromotionsV2Request;
 import ru.instamart.api.response.v2.ProductsV2Response;
 import ru.instamart.api.response.v2.ReferralProgramV2Response;
+import ru.instamart.kraken.testdata.Tenants;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import static org.testng.Assert.assertNotNull;
@@ -25,6 +27,9 @@ public class PromotionsV2Test extends RestBase {
     @Test(  description = "Получаем инфу о реферальной программе",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getReferralProgram() {
+        if (!EnvironmentData.INSTANCE.getTenant().equals(Tenants.SBERMARKET.getAlias())) {
+            throw new SkipException("Скип теста не на дефолтном тенанте");
+        }
         response = PromotionsV2Request.ReferralProgram.GET();
         checkStatusCode200(response);
         assertNotNull(response.as(ReferralProgramV2Response.class).getReferralProgram(),
