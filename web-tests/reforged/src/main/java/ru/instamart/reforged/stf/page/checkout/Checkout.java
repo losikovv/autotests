@@ -1,4 +1,4 @@
-package ru.instamart.reforged.stf.page;
+package ru.instamart.reforged.stf.page.checkout;
 
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +7,7 @@ import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
 import ru.instamart.reforged.stf.frame.checkout.*;
+import ru.instamart.reforged.stf.page.StfPage;
 import ru.instamart.reforged.stf.page.checkout.*;
 
 @Slf4j
