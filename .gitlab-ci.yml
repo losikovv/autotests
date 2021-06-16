@@ -99,6 +99,24 @@ tests:ApiInstamart:
       - web-tests/api/logs/
     expire_in: 1 week
 
+tests:preprodApiMetro:
+  when: manual
+  stage: tests
+  image: $CI_REGISTRY_IMAGE
+  script:
+    - gradle clean build apiInstamartRegress -Penv=metro-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - cd web-tests
+    - bash ./report.sh api api-metro-preprod
+  tags:
+    - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/api/build/allure-results/
+      - web-tests/api/logs/
+    expire_in: 1 week
+
 tests:prodApiInstamart:
   when: manual
   stage: tests
