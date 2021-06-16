@@ -252,7 +252,7 @@ public final class QaseService {
                     .testRunResults()
                     .filter()
                     .caseId((int) testCase.getId())
-                    .fromEndTime(LocalDateTime.now().minusDays(1));
+                    .fromEndTime(LocalDateTime.now().minusDays(7));
 
             List<TestRunResult> testRunResults = qaseApi
                     .testRunResults()
@@ -261,17 +261,17 @@ public final class QaseService {
 
             boolean automated = false;
             for (TestRunResult testRunResult : testRunResults) {
-                if (testRunResult.getComment().startsWith(DESCRIPTION_PREFIX)) {
+                if (testRunResult.getComment().startsWith(DESCRIPTION_PREFIX.trim())) {
                     automated = true;
                     automatedNumber++;
                     break;
                 }
             }
             if (testCase.getAutomation() == 2 && !automated) {
-                qaseApi.testCases().update(projectCode, (int) testCase.getId(), Automation.automated);
+                qaseApi.testCases().update(projectCode, (int) testCase.getId(), Automation.is_not_automated);
                 actualizedNumber++;
             } else if (testCase.getAutomation() != 2 && automated) {
-                qaseApi.testCases().update(projectCode, (int) testCase.getId(), Automation.is_not_automated);
+                qaseApi.testCases().update(projectCode, (int) testCase.getId(), Automation.automated);
                 actualizedNumber++;
             }
         }
