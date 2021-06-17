@@ -1,25 +1,28 @@
 package ru.instamart.ui.manager;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.InvalidCookieDomainException;
+import org.openqa.selenium.WebDriver;
 import ru.instamart.api.helper.InstamartApiHelper;
-import ru.instamart.ui.helper.*;
-import ru.instamart.ui.service.WebDriverService;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.ui.helper.*;
 import ru.instamart.ui.module.Administration;
-import ru.instamart.ui.module.checkout.Checkout;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
-import org.openqa.selenium.WebDriver;
+import ru.instamart.ui.module.checkout.Checkout;
+import ru.instamart.ui.service.WebDriverService;
 
 import static java.util.Objects.isNull;
 
+@Slf4j
 public final class AppManager {
 
-    public static final Cookie abCookie = new Cookie("external_analytics_anonymous_id",
+    private static final Cookie abCookie = new Cookie("external_analytics_anonymous_id",
             "a27fe645-8674-4038-b4c4-4fad81181cd4",
-            EnvironmentData.INSTANCE.getBasicUrl(),
-            "",
+            ".sbermarket.tech",
+            "/",
             null);
 
     @Getter
@@ -69,13 +72,12 @@ public final class AppManager {
         webDriverService.closeDriver();
     }
 
-    public static void deleteAllCookie() {
-        getWebDriver().manage().deleteAllCookies();
-        setABCookie();
-    }
-
-    private static void setABCookie() {
-        getWebDriver().manage().addCookie(abCookie);
+    public static void setABCookie() {
+        try {
+            getWebDriver().manage().addCookie(abCookie);
+        } catch (InvalidCookieDomainException e) {
+            log.error("FAILED: Add cookie ", e);
+        }
     }
 
     public BrowseHelper get() { return browseHelper; }

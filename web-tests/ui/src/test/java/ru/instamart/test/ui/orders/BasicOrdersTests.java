@@ -67,7 +67,6 @@ public class BasicOrdersTests extends TestBase {
         step("Очистка окружения после теста ", ()->{
             Order.cancelLastActiveOrder();
             User.Logout.quickly();
-            AppManager.deleteAllCookie();
         });
     }
     // TODO Тесты на изменение телефона и контактов

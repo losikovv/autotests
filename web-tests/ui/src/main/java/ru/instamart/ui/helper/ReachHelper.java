@@ -48,8 +48,7 @@ public final class ReachHelper extends HelperBase {
     }
 
     public void seoCatalog() {
-        User.Logout.quickly();
-        AppManager.deleteAllCookie();
+        AppManager.closeWebDriver();
         kraken.get().seoCatalogPage();
     }
 
