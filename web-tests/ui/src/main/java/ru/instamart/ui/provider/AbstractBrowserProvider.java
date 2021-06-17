@@ -17,6 +17,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 import ru.instamart.kraken.setting.Config;
+import ru.instamart.ui.manager.AppManager;
 
 import java.net.URI;
 import java.util.Optional;
@@ -73,6 +74,7 @@ public abstract class AbstractBrowserProvider {
         if (BASIC_TIMEOUT > 0) {
             driver.manage().timeouts().implicitlyWait(BASIC_TIMEOUT, TimeUnit.SECONDS);
         }
+        driver.manage().addCookie(AppManager.abCookie);
     }
 
     /**

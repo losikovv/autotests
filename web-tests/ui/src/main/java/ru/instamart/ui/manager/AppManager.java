@@ -16,7 +16,11 @@ import static java.util.Objects.isNull;
 
 public final class AppManager {
 
-    private static final Cookie abCookie = new Cookie("external_analytics_anonymous_id", "a27fe645-8674-4038-b4c4-4fad81181cd4");
+    public static final Cookie abCookie = new Cookie("external_analytics_anonymous_id",
+            "a27fe645-8674-4038-b4c4-4fad81181cd4",
+            EnvironmentData.INSTANCE.getBasicUrl(),
+            "",
+            null);
 
     @Getter
     private static final WebDriverService webDriverService = new WebDriverService();
