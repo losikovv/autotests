@@ -20,8 +20,8 @@ import static java.util.Objects.isNull;
 public final class AppManager {
 
     private static final Cookie abCookie = new Cookie("external_analytics_anonymous_id",
-            "a27fe645-8674-4038-b4c4-4fad81181cd4",
-            ".sbermarket.tech",
+            "c196a347-c3c9-421c-b3dc-b50eb8824f5f",
+            "sbermarket.tech",
             "/",
             null);
 
@@ -74,6 +74,7 @@ public final class AppManager {
 
     public static void setABCookie() {
         try {
+            getWebDriver().manage().getCookies().removeIf(cookie -> cookie.getName().equals(abCookie.getName()));
             getWebDriver().manage().addCookie(abCookie);
         } catch (InvalidCookieDomainException e) {
             log.error("FAILED: Add cookie ", e);

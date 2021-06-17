@@ -3,10 +3,10 @@ package ru.instamart.ui.helper;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.TimeoutException;
-import ru.instamart.ui.manager.AppManager;
 import ru.instamart.kraken.testdata.lib.Pages;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.kraken.testdata.pagesdata.PageData;
+import ru.instamart.ui.manager.AppManager;
 
 @Slf4j
 public final class BrowseHelper extends HelperBase {
