@@ -9,4 +9,5 @@ import ru.instamart.api.model.BaseObject;
 public class EmployeeV1 extends BaseObject {
 	private Integer id;
 	private UserV1 user;
+	private Boolean approved;
 }

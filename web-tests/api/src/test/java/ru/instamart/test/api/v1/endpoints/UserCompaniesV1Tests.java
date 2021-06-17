@@ -2,6 +2,7 @@ package ru.instamart.test.api.v1.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
@@ -33,6 +34,7 @@ public class UserCompaniesV1Tests extends RestBase {
             company = response.as(CompanyV1Response.class).getCompany();
     }
 
+    @Story("Web")
     @CaseId(616)
     @Test(description = "Список компаний пользователя",
             groups = {"api-instamart-regress"})
@@ -43,6 +45,7 @@ public class UserCompaniesV1Tests extends RestBase {
         assertTrue(response.as(CompaniesV1Response.class).getCompanies().contains(company));
     }
 
+    @Story("Web")
     @CaseId(617)
     @Test(description = "Компания пользователя",
             groups = {"api-instamart-regress"})
@@ -52,6 +55,7 @@ public class UserCompaniesV1Tests extends RestBase {
         assertEquals(company.getId(), response.as(CompanyV1Response.class).getCompany().getId(), "id компании не совпадает с запрошенным");
     }
 
+    @Story("Web")
     @CaseId(618)
     @Test(description = "Персональный менеджер компании",
             groups = {"api-instamart-regress"})
@@ -61,6 +65,7 @@ public class UserCompaniesV1Tests extends RestBase {
         assertNull(response.as(CompanyManagerV1Response.class).getManager());
     }
 
+    @Story("Web")
     @CaseId(619)
     @Test(description = "Список сотрудников компании",
             groups = {"api-instamart-regress"})
@@ -70,6 +75,7 @@ public class UserCompaniesV1Tests extends RestBase {
         assertFalse(response.as(EmployeesV1Response.class).getEmployees().isEmpty());
     }
 
+    @Story("Web")
     @CaseId(620)
     @Test(description = "Баланс  компании",
             groups = {"api-instamart-regress"})
@@ -79,6 +85,7 @@ public class UserCompaniesV1Tests extends RestBase {
         assertNull(response.as(PaymentAccountV1Response.class).getPaymentAccount());
     }
 
+    @Story("Web")
     @CaseId(621)
     @Test(description = "Обновление баланса  компании",
             groups = {"api-instamart-regress"})
@@ -88,6 +95,7 @@ public class UserCompaniesV1Tests extends RestBase {
         assertFalse(response.as(PaymentAccountV1Response.class).getPaymentAccount().getErrors().getExternalPaymentAccount().isEmpty());
     }
 
+    @Story("Web")
     @CaseId(622)
     @Test(description = "Ошибка при повторной регистрации компании",
             groups = {"api-instamart-regress"})
@@ -97,6 +105,7 @@ public class UserCompaniesV1Tests extends RestBase {
         assertFalse(response.as(CompanyV1Response.class).getCompany().getErrors().getInn().isEmpty());
     }
 
+    @Story("Web")
     @CaseId(623)
     @Test(description = "Статус регистрации компании (зарегистрирована)",
             groups = {"api-instamart-regress"})

@@ -2,6 +2,7 @@ package ru.instamart.test.api.v1.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
@@ -24,6 +25,7 @@ public class CompanyPresenceV1Tests extends RestBase {
     public void preconditions() {
     }
 
+    @Story("Web")
     @CaseId(624)
     @Test(description = "Статус регистрации компании (незарегистрирована)",
             groups = {"api-instamart-regress"})

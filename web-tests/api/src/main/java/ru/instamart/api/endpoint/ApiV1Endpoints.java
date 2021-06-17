@@ -11,6 +11,9 @@ public final class ApiV1Endpoints {
     public static final String USER_SESSIONS = "user_sessions";
     public static final String COMPANY_PRESENCE = "company_presence?inn={inn}";
     public static final String LEGAL_ENTITY = "legal_entity?inn={inn}";
+    public static final String COMPANY_SALES_CONTRACT = "company_sales_contracts";
+    public static final String COMPANY_EMPLOYEES = "company_employees";
+    public static final String COMPANY_MANAGERS = "company_managers";
 
     public static final class Offers {
         public static final String UUID = "offers/{offerUuid}";
@@ -62,5 +65,31 @@ public final class ApiV1Endpoints {
                 public static final String REFRESH = "user/companies/{companyID}/payment_account/refresh";
             }
         }
+    }
+
+    /**Страница компании в админке*/
+    public static final class Company {
+        public static final String BY_INN = "companies?inn={inn}";
+        public static final String BY_ID = "companies/{companyID}";
+
+        public static final class PaymentAccount {
+            public static final String REFRESH = "companies/{companyID}/payment_account/refresh";
+        }
+
+        public static final class SecurityCode {
+            public static final String REFRESH = "companies/{companyID}/security_code/refresh";
+        }
+    }
+
+    public static final class CompanySalesContracts {
+        public static final String ARCHIVE = "company_sales_contracts/{contractID}/archive";
+    }
+
+    public static final class CompanyEmployees {
+        public static final String BY_ID = "company_employees/{employeeID}";
+    }
+
+    public static final class CompanyManagers {
+        public static final String BY_ID = "company_managers/{managerID}";
     }
 }
