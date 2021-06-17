@@ -71,7 +71,7 @@ public final class AppManager {
 
     public static void deleteAllCookie() {
         getWebDriver().manage().deleteAllCookies();
-        setABCookie();
+        //setABCookie();
     }
 
     private static void setABCookie() {
