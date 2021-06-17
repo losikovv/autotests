@@ -11,6 +11,7 @@ import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.test.ui.TestBase;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.search.SearchResultCheckpoints;
+import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.Elements;
 import org.testng.annotations.Test;
@@ -62,7 +63,7 @@ public class ShoppingSearchTests extends TestBase {
         Shop.Search.searchItem("шоколад");
         baseChecks.checkPageIsAvailable();
         searchChecks.checkIsSearchResultNotEmpty("Отсутствуют результаты поиска");
-        searchChecks.checkIsProductAvailable("Отсутствуют продукты в результатах поиска");
+        searchChecks.checkIsProductAvailableOnSearchPage("Отсутствуют продукты в результатах поиска");
     }
 
     @CaseId(1179)
@@ -72,7 +73,7 @@ public class ShoppingSearchTests extends TestBase {
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successSearchItemUsingCategorySuggests() {
-        kraken.getWebDriver().get("https://stf-kraken.k-stage.sbermarket.tech/auchan");//костыль из-за бейсик авторизации
+        AppManager.getWebDriver().get("https://stf-kraken.k-stage.sbermarket.tech/auchan");//костыль из-за бейсик авторизации
         Shop.Search.searchField("Сыры",false);
         searchChecks.checkIsSearchSuggestPresent("Отсутствуют категорийные подсказки\n");
         Shop.Search.selectCategorySuggest();
@@ -87,7 +88,7 @@ public class ShoppingSearchTests extends TestBase {
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successSearchItemUsingProductSuggests() {
-        kraken.getWebDriver().get("https://stf-kraken.k-stage.sbermarket.tech/auchan");//костыль из-за бейсик авторизации
+        AppManager.getWebDriver().get("https://stf-kraken.k-stage.sbermarket.tech/auchan");//костыль из-за бейсик авторизации
         Shop.Search.searchField("Мороженое",false);
         searchChecks.checkIsSearchSuggestPresent("Отсутствуют категорийные подсказки\n");
         searchChecks.checkIsProductSuggestPresent("Отсутствуют товарные подсказки\n");

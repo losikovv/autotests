@@ -39,11 +39,21 @@ public class SearchResultCheckpoints implements Checkpoint {
         log.info("✓ Успешно");
     }
 
+    @Step("Проверяем, что продукт доступен на странице поиска")
+    public void checkIsProductAvailableOnSearchPage(String errorMessage){
+        log.info("> проверяем,  что продукт доступен на странице");
+        assertTrue(
+                kraken.detect().isProductAvailableOnSearch(),
+                failMessage(errorMessage)
+        );
+        log.info("✓ Успешно");
+    }
+
     @Step("Проверяем, что юзер перешел в искомую категорию продуктов")
     public void checkIsTaxonRedirectCorrect(String taxon, String errorMessage){
         log.info("> проверяем,  что юзер перешел в искомую категорию продуктов");
         assertTrue(
-                kraken.detect().isTextElementContainsText(taxon,Elements.Header.Search.taxonResult()),
+                kraken.detect().isTextElementContainsText(taxon,Elements.CategoryPage.title()),
                 failMessage(errorMessage)
         );
         log.info("✓ Успешно");

@@ -4,20 +4,18 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.Generate;
-import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.util.ThreadUtil;
+import ru.instamart.kraken.testdata.lib.Addresses;
+import ru.instamart.test.ui.TestBase;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.shipping.ShippingAddressCheckpoints;
 import ru.instamart.ui.checkpoint.shoppingcart.ShoppingCartCheckpoints;
 import ru.instamart.ui.checkpoint.users.UsersAuthorizationCheckpoints;
-import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import ru.instamart.test.ui.TestBase;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
 
 @Epic("STF UI")

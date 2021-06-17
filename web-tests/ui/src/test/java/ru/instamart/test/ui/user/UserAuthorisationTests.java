@@ -7,18 +7,19 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.test.ui.TestBase;
-import ru.instamart.ui.manager.AppManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.testdata.lib.Addresses;
+import ru.instamart.test.ui.TestBase;
+import ru.instamart.ui.Elements;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.users.UsersAuthorizationCheckpoints;
-import ru.instamart.kraken.testdata.lib.Addresses;
-import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
-import ru.instamart.ui.Elements;
 
 @Epic("STF UI")
 @Feature("Авторизация")
@@ -284,11 +285,11 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
         checkIsUserAuthorized("Не работает авторизация через MailRu");
     }
 
+    @Skip
     @CaseId(1461)
     @Test(
             description = "Тест успешной авторизация через Sber ID",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"},
-            enabled = false
+            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     @Story("Авторизация через SberID")
     public void successRegWithSberID() {
