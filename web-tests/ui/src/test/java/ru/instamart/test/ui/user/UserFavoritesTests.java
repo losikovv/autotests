@@ -132,16 +132,16 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         User.Do.sendSms(Config.DEFAULT_SMS);
 
         Shop.Search.searchItem("молоко");
-        Shop.Catalog.Item.addToFavorites();
+        Shop.Search.addToFavorites();
 
         Shop.Search.searchItem("бананы");
-        Shop.Catalog.Item.addToFavorites();
+        Shop.Search.addToFavorites();
 
         Shop.Search.searchItem("яйца");
-        Shop.Catalog.Item.addToFavorites();
+        Shop.Search.addToFavorites();
 
         Shop.Search.searchItem("хлеб");
-        Shop.Catalog.Item.addToFavorites();
+        Shop.Search.addToFavorites();
 
         Shop.Favorites.cleanFavorites();
         checkFavoriteIsEmpty();

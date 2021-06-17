@@ -13,7 +13,11 @@ public final class TestMethodSelector implements IMethodSelector {
     public boolean includeMethod(IMethodSelectorContext context, ITestNGMethod method, boolean isTestMethod) {
         final Method testMethod = method.getConstructorOrMethod().getMethod();
 
-        return !isTestMethod || !testMethod.isAnnotationPresent(Skip.class);
+        if (isTestMethod && testMethod.isAnnotationPresent(Skip.class)) {
+            context.setStopped(true);
+            return false;
+        }
+        return true;
     }
 
     @Override

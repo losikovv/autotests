@@ -1608,7 +1608,7 @@ public class Elements {
             }
             //TODO поправить локатор. Находит 622 элемента
             static ElementData favButton() {
-                return new ElementData(By.xpath("//*[@class='product']//div[contains(@class,'favorite-button')]"),
+                return new ElementData(By.xpath("//button[contains(@class, 'ProductCardFavoriteButton')]"),
                         "кнопка избранного в сниппете продукта");
             }
 

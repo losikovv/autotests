@@ -534,6 +534,17 @@ public final class Shop extends Base {
                     ExpectedConditions.visibilityOfElementLocated(Elements.ItemCard.image().getLocator()),
                     "Не отображается контент в карточке товара");
         }
+
+        @Step("Добавляем товар в любимые товары через сниппет товара в каталоге")
+        public static void addToFavorites() {
+            log.info("Добавляем товар в любимые товары через сниппет товара в каталоге");
+            catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),2);
+            step("Наводим курсор на элемент", () ->
+                    kraken.perform().hoverOn(Elements.Catalog.Search.snippet()));
+            step("Добавляем товар в любимые", ()->
+                    kraken.perform().click(Elements.Catalog.Product.favButton()));
+            //TODO fluent Ожидание добавления любимого товара
+        }
     }
 
     public static class UserProfile {

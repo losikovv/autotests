@@ -1,10 +1,13 @@
 package ru.instamart.test.ui.shopping;
 
 import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.testdata.lib.Pages;
+import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.test.ui.TestBase;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.itemcard.ItemCardAndCatalogCheckpoints;
 import ru.instamart.kraken.testdata.lib.Addresses;
+import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
@@ -21,7 +24,6 @@ public final class ShoppingCatalogTests extends TestBase {
     @BeforeClass(alwaysRun = true,
             description = "Подготавливаем тестовое окружение к тестовому прогону")
     public void setup() {
-        User.Logout.quickly();
         kraken.get().page(Config.DEFAULT_RETAILER);
         ShippingAddressModal.open();
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
@@ -77,6 +79,7 @@ public final class ShoppingCatalogTests extends TestBase {
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successOperateItemCardOnRetailerPage() {
+        AppManager.getWebDriver().get("https://stf-kraken.k-stage.sbermarket.tech/metro");//костыль из-за бейсик авторизации
         Shop.Catalog.Item.open();
         itemChecks.checkIsItemCardOpen("Не открывается карточка продукта на главной\n");
         Shop.ItemCard.close();

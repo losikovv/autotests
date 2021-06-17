@@ -229,8 +229,7 @@ public final class UserShippingAddressTests extends TestBase {
             groups = {
                     "metro-regression",
                     "sbermarket-Ui-smoke","ui-smoke-production"
-            },
-            enabled = false
+            }
     )
     public void successSelectNewStoreAfterShipAddressChange() {
         kraken.get().page("vkusvill");
