@@ -29,7 +29,7 @@ public final class UserShippingAddressTests extends TestBase {
     @BeforeMethod(alwaysRun = true,
             description ="Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void quickLogout() {
-        AppManager.getWebDriver().manage().deleteAllCookies();
+        AppManager.deleteAllCookie();
         User.Logout.logout();
     }
 

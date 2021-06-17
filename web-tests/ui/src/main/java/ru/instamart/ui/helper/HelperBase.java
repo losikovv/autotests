@@ -22,9 +22,4 @@ public class HelperBase {
             acceptNextAlert = true;
         }
     }
-
-    /** Удалить куки */
-    public void deleteAllCookies() {
-        AppManager.getWebDriver().manage().deleteAllCookies();
-    }
 }
