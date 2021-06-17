@@ -2,9 +2,7 @@ package ru.instamart.reforged.stf.page.checkout;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.Button;
-import ru.instamart.reforged.core.component.Checkbox;
-import ru.instamart.reforged.core.component.Input;
+import ru.instamart.reforged.core.component.*;
 
 public class PaymentStep {
 
@@ -23,7 +21,13 @@ public class PaymentStep {
 
     private final Button addNewPaymentCard = new Button(By.xpath("//span[contains(text(),'Добавить новую карту')]"));
     private final Button submitFromCheckoutColumn = new Button(By.xpath("//div[@class='checkout-column']//button[@data-qa='checkout_order_button']"));
-
+    //    private final ElementCollection selectPaymentCard = new ElementCollection(By.xpath("//div[contains(@class, 'payment_tools')]//div"));
+//    private final ElementCollection changeFirstPaymentCard = new ElementCollection(By.xpath("//div[contains(@class, 'checkout-panel--active')]//button[contains(text(),'Изменить')]"));    private final ElementCollection selectPaymentCard = new ElementCollection(By.xpath("//div[contains(@class, 'payment_tools')]//div"));
+    private final ElementCollection selectPaymentCard = new ElementCollection(By.xpath("//div[contains(@class, 'payment_tools')]//div"));
+    private final ElementCollection changeFirstPaymentCard = new ElementCollection(By.xpath("//div[contains(@class, 'checkout-panel--active')]//button[contains(text(),'Изменить')]"));
+    ////div[@class='loyalty-program__name'][contains(text(), 'Много')]//ancestor::div[@class='loyalty-program__content']//following-sibling::div[@class='loyalty-program__edit']
+    //div[contains(@class, 'payment_tools')]/div[contains(text(), '4444')]//ancestor::button//following-sibling::button[text() ='Изменить']    private final Button submitFromCheckoutColumn = new Button(By.xpath("//div[@class='checkout-column']//button[@data-qa='checkout_order_button']"));
+    ////div[@class='loyalty-program__edit']/parent::div//div[contains(text(), 'Много')]
     @Step("Выбрать метод оплаты Картой при получении")
     public void clickToByCardToCourier() {
         byCardToCourier.click();
@@ -84,4 +88,15 @@ public class PaymentStep {
     public void clickToSubmitFromCheckoutColumn() {
         submitFromCheckoutColumn.click();
     }
+
+    @Step("Выбрать карту {0}")
+    public void clickToPaymentCard(String data){
+        selectPaymentCard.clickOnElementWithText(data);
+    }
+
+    @Step("Изменить карту {0}")
+    public void clickToChangePaymentCard(String data){
+        changeFirstPaymentCard.clickOnElementWithText(data);
+    }
+
 }
