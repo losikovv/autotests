@@ -15,7 +15,7 @@ import ru.instamart.api.request.shopper.app.SessionsSHPRequest;
 import ru.instamart.api.request.v1.TokensV1Request;
 import ru.instamart.api.request.v1.UserSessionsV1Request;
 import ru.instamart.api.request.v2.PhoneConfirmationsV2Request;
-import ru.instamart.api.request.v2.SessionV2Request;
+import ru.instamart.api.request.v2.AuthProvidersV2Request;
 import ru.instamart.api.response.delivery_club.TokenDCResponse;
 import ru.instamart.api.response.shopper.app.SessionsSHPResponse;
 import ru.instamart.api.response.v1.TokensV1Response;
@@ -136,7 +136,7 @@ public final class SessionFactory {
     }
 
     private static SessionInfo createApiV2FacebookSession(final UserData userData) {
-        final Response response = SessionV2Request.POST(AuthProviderV2.FACEBOOK, userData, UUID.randomUUID().toString());
+        final Response response = AuthProvidersV2Request.Sessions.POST(AuthProviderV2.FACEBOOK, userData, UUID.randomUUID().toString());
         checkStatusCode200(response);
         final SessionsV2Response sessionResponse = response.as(SessionsV2Response.class);
         log.info("Авторизуемся: {}", userData.getLogin());
