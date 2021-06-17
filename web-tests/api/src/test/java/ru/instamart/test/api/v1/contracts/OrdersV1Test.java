@@ -39,6 +39,7 @@ public class OrdersV1Test extends RestBase {
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
         final OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        if (order == null) throw new SkipException("Заказ не удалось оплатить");
         orderNumber = order.getNumber();
         shipmentNumber = order.getShipments().get(0).getNumber();
         SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());

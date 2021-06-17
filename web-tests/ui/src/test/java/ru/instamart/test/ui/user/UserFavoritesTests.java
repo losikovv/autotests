@@ -8,15 +8,16 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.test.ui.TestBase;
-import ru.instamart.ui.manager.AppManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.setting.Config;
-import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.Generate;
+import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.testdata.lib.Pages;
+import ru.instamart.test.ui.TestBase;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.favorite.FavoriteItemsCheckpoints;
 import ru.instamart.ui.checkpoint.users.UsersAuthorizationCheckpoints;
-import ru.instamart.kraken.testdata.lib.Pages;
+import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 
@@ -131,28 +132,29 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         User.Do.sendSms(Config.DEFAULT_SMS);
 
         Shop.Search.searchItem("молоко");
-        Shop.Catalog.Item.addToFavorites();
+        Shop.Search.addToFavorites();
 
         Shop.Search.searchItem("бананы");
-        Shop.Catalog.Item.addToFavorites();
+        Shop.Search.addToFavorites();
 
         Shop.Search.searchItem("яйца");
-        Shop.Catalog.Item.addToFavorites();
+        Shop.Search.addToFavorites();
 
         Shop.Search.searchItem("хлеб");
-        Shop.Catalog.Item.addToFavorites();
+        Shop.Search.addToFavorites();
 
         Shop.Favorites.cleanFavorites();
         checkFavoriteIsEmpty();
     }
 
+    @Skip
     @CaseId(1269)
     @Test(  description = "Проверка работоспособности фильтров Любимых товаров",
             groups = {
                     "sbermarket-Ui-smoke",
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
-            },enabled = false
+            }
     )
     public void successApplyFilters() {
         Shop.AuthModal.openAuthOnLanding();
@@ -175,13 +177,13 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         assertAll();
     }
 
+    @Skip
     @CaseId(1270)
     @Test(  description = "Проверка работоспособности подгрузки страниц в Любимых товарах",
             groups = {
                     "sbermarket-Ui-smoke",
                     "metro-regression",
-                    "sbermarket-regression"},
-            enabled = false
+                    "sbermarket-regression"}
     )
     public void successShowMoreLoad() {
         Shop.AuthModal.openAuthOnLanding();
@@ -257,13 +259,13 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         checkIsUserAuthorized();
     }
 
+    @Skip
     @CaseId(1492)
     @Test(  description = "Тест добавления товаров в корзину из списка любимых товаров",
             groups = {
                     "sbermarket-Ui-smoke",
                     "metro-regression",
-                    "sbermarket-regression"},
-            enabled = false
+                    "sbermarket-regression"}
     )
     public void successAddFavoriteProductToCart() {
         Shop.AuthModal.openAuthOnLanding();

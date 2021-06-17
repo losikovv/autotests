@@ -486,6 +486,17 @@ public final class DetectionHelper extends HelperBase {
         }
     }
 
+    @Step("Проверяем наличие товаров на странице поиска")
+    public boolean isProductAvailableOnSearch() {
+        if(kraken.detect().isElementPresent(Elements.Catalog.Search.snippet())){
+            log.info("✓ Есть доступные товары");
+            return true;
+        } else {
+            log.warn("Нет доступных товаров!");
+            return false;
+        }
+    }
+
     /** Определить есть ли любимые товары на странице */
     @Step("Смотрим наличие товара в любимых")
     public boolean isFavoriteProductAvailable() {

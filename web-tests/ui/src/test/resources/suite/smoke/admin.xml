@@ -5,6 +5,11 @@
         <listener class-name="ru.instamart.ui.listener.UiExecutionListener"/>
         <listener class-name="ru.instamart.ui.listener.UiListener"/>
     </listeners>
+    <method-selectors>
+        <method-selector>
+            <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+        </method-selector>
+    </method-selectors>
     <test verbose="1" name="Admin UI tests" parallel="classes" thread-count="5">
         <classes>
             <class name="ru.instamart.test.ui.administration.AdministrationAccessTests"/>

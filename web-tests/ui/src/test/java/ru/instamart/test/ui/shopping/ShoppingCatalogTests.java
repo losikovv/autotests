@@ -1,10 +1,13 @@
 package ru.instamart.test.ui.shopping;
 
 import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.testdata.lib.Pages;
+import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.test.ui.TestBase;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.itemcard.ItemCardAndCatalogCheckpoints;
 import ru.instamart.kraken.testdata.lib.Addresses;
+import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
@@ -13,13 +16,14 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class ShoppingCatalogTests extends TestBase {
-    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
-    ItemCardAndCatalogCheckpoints itemChecks = new ItemCardAndCatalogCheckpoints();
+public final class ShoppingCatalogTests extends TestBase {
+
+    private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    private final ItemCardAndCatalogCheckpoints itemChecks = new ItemCardAndCatalogCheckpoints();
+
     @BeforeClass(alwaysRun = true,
             description = "Подготавливаем тестовое окружение к тестовому прогону")
     public void setup() {
-        User.Logout.quickly();
         kraken.get().page(Config.DEFAULT_RETAILER);
         ShippingAddressModal.open();
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
@@ -75,6 +79,7 @@ public class ShoppingCatalogTests extends TestBase {
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successOperateItemCardOnRetailerPage() {
+        AppManager.getWebDriver().get("https://stf-kraken.k-stage.sbermarket.tech/metro");//костыль из-за бейсик авторизации
         Shop.Catalog.Item.open();
         itemChecks.checkIsItemCardOpen("Не открывается карточка продукта на главной\n");
         Shop.ItemCard.close();
@@ -89,11 +94,12 @@ public class ShoppingCatalogTests extends TestBase {
     public void successOperateItemCardOnDepartmentPage() {
         Shop.CatalogDrawer.open();
         Shop.CatalogDrawer.goToDepartment("Яйца");
-        Shop.Catalog.Item.open();
+        Shop.Search.open();
         itemChecks.checkIsItemCardOpen("Не открывается карточка продукта в department-категории\n");
         Shop.ItemCard.close();
         itemChecks.checkIsItemCardClosed("Не закрывается карточка продукта в department-категории\n");
     }
+
     @CaseId(1600)
     @Test(
             description = "Тест открывания/закрывания карточки продукта в taxon-категории",
@@ -102,7 +108,7 @@ public class ShoppingCatalogTests extends TestBase {
     public void successOperateItemCardOnTaxonPage() {
         Shop.CatalogDrawer.open();
         Shop.CatalogDrawer.goToTaxon("Крупы");
-        Shop.Catalog.Item.open();
+        Shop.Search.open();
         itemChecks.checkIsItemCardOpen("Не открывается карточка продукта в taxon-категории\n");
         Shop.ItemCard.close();
         itemChecks.checkIsItemCardClosed("Не закрывается карточка продукта в taxon-категории\n");
@@ -115,7 +121,7 @@ public class ShoppingCatalogTests extends TestBase {
     )
     public void successOperateItemCardOnSearchPage() {
         Shop.Search.searchField("хлеб");
-        Shop.Catalog.Item.open();
+        Shop.Search.openCard();
         itemChecks.checkIsItemCardOpen("Не открывается карточка продукта в выдаче поиска\n");
         Shop.ItemCard.close();
         itemChecks.checkIsItemCardClosed("Не закрывается карточка продукта в выдаче поиска\n");
