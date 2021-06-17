@@ -17,7 +17,6 @@ public final class ApiV2EndPoints {
     public static final String PRODUCTS = "v2/products?sid={sid}&q={query}";
     public static final String PURCHASED_PRODUCTS = "v2/purchased_products?sid={sid}";
     public static final String RETAILERS = "v2/retailers";
-    public static final String SESSIONS = "v2/sessions";
     public static final String SHIPPING_METHODS = "v2/shipping_methods?sid={sid}";
     public static final String STORES = "v2/stores";
     public static final String TAXONS = "v2/taxons?sid={sid}";
@@ -108,11 +107,6 @@ public final class ApiV2EndPoints {
         public static final class Suggestions {
             public static final String BY_QUERY = "v2/searches/suggestions?sid={sid}&q={query}";
         }
-    }
-
-    public static final class Sessions {
-        public static final String BY_TOKEN = "v2/sessions/{token}";
-        public static final String USER = "v2/sessions/{token}/user";
     }
 
     public static final class Shipments {
