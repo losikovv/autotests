@@ -25,13 +25,14 @@ public interface Tab {
         driver.switchTo().window(windowHandles.get(0));
     }
 
+    //todo исправить закрытие драйвера. Сейчас после закрытия ошибка: org.openqa.selenium.NoSuchWindowException: no such window: target window already closed
     default void closeAndSwitchToNextWindow() {
-        getWebDriver().close();
+        //getWebDriver().close();
         switchToNextWindow();
     }
 
     default void closeAndSwitchToPrevWindow() {
-        getWebDriver().close();
+        //getWebDriver().close();
         switchToFirstWindow();
     }
 }

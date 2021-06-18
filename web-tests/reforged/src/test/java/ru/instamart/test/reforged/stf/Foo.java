@@ -69,9 +69,9 @@ public class Foo {
 //        StfRouter.home().interactAuthModal().fillSMS("111111");
         StfRouter.home().interactAuthModal().authViaMail();
         mail.closeAndSwitchToNextWindow();
-        mail.fillName("");
+        mail.fillName("vanek_samara");
         mail.clickToEnterPassword();
-        mail.fillPassword("");
+        mail.fillPassword("A0pc47gh");
         //mail.clickToEnterPassword();
         mail.clickToSubmit();
         mail.closeAndSwitchToPrevWindow();
