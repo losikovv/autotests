@@ -12,9 +12,6 @@ public class EditRequisites implements CommonFrameButtons {
     private final Input requisitesName = new Input(By.xpath("//input[@name='requisites.name']"));
     private final Input requisitesAddress = new Input(By.xpath("//input[@name='requisites.address']"));
     private final Checkbox needInvoice = new Checkbox(By.xpath("//div[@class='modal-form']//input[@type='checkbox']"));
-//    private final Button save = new Button(By.xpath("//button[@data-qa='checkout_modal_requisites_form_save_button']"));
-//    private final Button delete = new Button(By.xpath("//button[@data-qa='checkout_modal_requisites_form_delete_button']"));
-//    private final Button close = new Button(By.xpath("//header/button"));
 
     @Step("Заполнить поле Юридического лицо")
     public void fillRequisitesName(String data) {

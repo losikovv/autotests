@@ -5,6 +5,8 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import ru.instamart.reforged.core.page.Tab;
+import ru.instamart.reforged.stf.frame.auth.AuthMail;
 import ru.instamart.reforged.stf.frame.checkout.EditLoyaltyPromoCode;
 import ru.instamart.reforged.stf.frame.checkout.EditPaymentCard;
 import ru.instamart.reforged.stf.page.checkout.Checkout;
@@ -50,6 +52,7 @@ public class Foo {
         String noCallAndReplace = "Не звонить мне. Подобрать замену";
         String noCallAndRemove = "Не звонить мне. Убрать из заказа";
         //9999919613
+        AuthMail mail = new AuthMail();
         Checkout checkout = new Checkout();
         DeliveryOptionsStep deliveryOptionsStep = checkout.setDeliveryOptions();
         ContactsStep contactStep = checkout.setContacts();
@@ -61,15 +64,26 @@ public class Foo {
 
         StfRouter.home().goToPage();
         StfRouter.home().openLoginModal();
-        StfRouter.home().interactAuthModal().fillPhone("9999919613");
+//        StfRouter.home().interactAuthModal().fillPhone("9999919613");
+//        StfRouter.home().interactAuthModal().sendSms();
+//        StfRouter.home().interactAuthModal().fillSMS("111111");
+        StfRouter.home().interactAuthModal().authViaMail();
+        mail.closeAndSwitchToNextWindow();
+        mail.fillName("");
+        mail.clickToEnterPassword();
+        mail.fillPassword("");
+        //mail.clickToEnterPassword();
+        mail.clickToSubmit();
+        mail.closeAndSwitchToPrevWindow();
         StfRouter.home().interactAuthModal().sendSms();
-        StfRouter.home().interactAuthModal().fillSMS("111111");
+        //ожидание загрузки страницы
+        StfRouter.home().interactAuthModal().fillSMS("1111");
         //ожидание загрузки страницы
         checkout.goToPage();
-        deliveryOptionsStep.clickToSubmitForDelivery();
-        contactStep.clickToSubmit();
-        policyStep.clickToPolicy(noCallAndReplace);
-        policyStep.clickToSubmit();
+//        deliveryOptionsStep.clickToSubmitForDelivery();
+//        contactStep.clickToSubmit();
+//        policyStep.clickToPolicy(noCallAndReplace);
+//        policyStep.clickToSubmit();
 //        slotStep.setFirstActiveSlot();
 //        paymentStep.clickToByCardOnline();
 //        paymentStep.clickToAddNewPaymentCard();

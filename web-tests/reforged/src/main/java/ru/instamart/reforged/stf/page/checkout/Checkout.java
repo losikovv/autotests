@@ -80,17 +80,17 @@ public final class Checkout implements StfPage {
     }
 
     @Step("Нажать Оформить заказ в сайдбаре")
-    public void clickToSubmitFromSidebar(){
+    public void clickToSubmitFromSidebar() {
         submitFromCheckoutSidebar.click();
     }
 
     @Step("Нажать Применить промокод")
-    public void clickToAddPromoCode(){
+    public void clickToAddPromoCode() {
         addPromoCode.click();
     }
 
     @Step("Нажать Добавить карту лояльности {0}")
-    public void clickToAddLoyaltyCard(String data){
+    public void clickToAddLoyaltyCard(String data) {
         addLoyaltyCard.clickOnElementWithText(data);
     }
 }

@@ -9,7 +9,7 @@ import static ru.instamart.ui.manager.AppManager.getWebDriver;
 
 public interface Tab {
 
-    default void switchToNextTab() {
+    default void switchToNextWindow() {
         final WebDriver driver = getWebDriver();
         final String currentTabHandle = driver.getWindowHandle();
         final Optional<String> newTabHandle = driver.getWindowHandles()
@@ -19,19 +19,19 @@ public interface Tab {
         newTabHandle.ifPresent(s -> driver.switchTo().window(s));
     }
 
-    default void switchToFirstTab() {
+    default void switchToFirstWindow() {
         final WebDriver driver = getWebDriver();
         final List<String> windowHandles = List.copyOf(driver.getWindowHandles());
         driver.switchTo().window(windowHandles.get(0));
     }
 
-    default void closeAndSwitchToNextTab() {
+    default void closeAndSwitchToNextWindow() {
         getWebDriver().close();
-        switchToNextTab();
+        switchToNextWindow();
     }
 
-    default void closeAndSwitchToPrevTab() {
+    default void closeAndSwitchToPrevWindow() {
         getWebDriver().close();
-        switchToFirstTab();
+        switchToFirstWindow();
     }
 }

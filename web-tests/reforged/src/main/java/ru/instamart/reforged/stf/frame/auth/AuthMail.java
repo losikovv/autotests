@@ -6,8 +6,9 @@ import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Input;
 import ru.instamart.reforged.core.component.Selector;
+import ru.instamart.reforged.core.page.Tab;
 
-public final class AuthMail {
+public final class AuthMail implements Tab {
 
     private final Input name = new Input(By.xpath("//input[@name='username']"));
     private final Selector domain = new Selector(By.xpath("//select[@name='Domain']"));
@@ -20,7 +21,7 @@ public final class AuthMail {
     private final Button login = new Button(By.xpath("//button[@data-test-id='submit-button']"));
 
     @Step("Ввести email на странице авторизации через mail.ru")
-    public void setName(final String text) {
+    public void fillName(final String text) {
         name.fill(text);
     }
 
@@ -35,7 +36,7 @@ public final class AuthMail {
     }
 
     @Step("Ввести пароль на странице авторизации через mail.ru")
-    public void setPassword(final String text) {
+    public void fillPassword(final String text) {
         password.fill(text);
     }
 
