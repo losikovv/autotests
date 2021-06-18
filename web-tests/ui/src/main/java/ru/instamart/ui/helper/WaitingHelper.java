@@ -12,6 +12,7 @@ import ru.instamart.kraken.setting.Config;
 import ru.instamart.ui.data.ElementData;
 import ru.instamart.ui.Elements;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
@@ -81,6 +82,26 @@ public final class WaitingHelper extends HelperBase {
                 .pollingEvery(250, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class)
                 .until((ExpectedCondition<Boolean>) input -> input.findElement(data.getLocator()).getText().length() != 0);
+    }
+
+    public List<WebElement> isElementsExist(final ElementData data) {
+        return createWait(data)
+                .until((ExpectedCondition<List<WebElement>>) driver -> {
+                    final List<WebElement> webElements = driver.findElements(data.getLocator());
+                    if (webElements.size() > 0) {
+                        return webElements;
+                    }
+                    throw new NoSuchElementException("Elements not found or size <= 1");
+                });
+    }
+
+    private FluentWait<WebDriver> createWait(final ElementData data) {
+        return new FluentWait<>(AppManager.getWebDriver())
+                .withTimeout(data.getTimeout(), TimeUnit.SECONDS)
+                .withMessage(data.getDescription())
+                .pollingEvery(250, TimeUnit.MILLISECONDS)
+                .ignoring(NoSuchElementException.class)
+                .ignoring(NotFoundException.class);
     }
 
     public void fluentlyWithWindowsHandler(Function conditions){

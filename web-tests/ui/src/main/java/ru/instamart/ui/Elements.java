@@ -349,7 +349,7 @@ public class Elements {
 
             static ElementData currentShipAddress() {
                 return new ElementData(
-                        By.xpath("//header//*[@data-qa='current-ship-address']"),
+                        By.xpath("//span[@data-qa='current-ship-address']"),
                             "текущий адрес доставки в шапке сайта");
             }
 
@@ -939,6 +939,11 @@ public class Elements {
         static ElementData pickNewAddressReteilerButton() {
             return new ElementData(By.xpath("//*[@data-qa='editable_info_change_button']"),
                     "кнопка выбрать другой адрес у ретейлера");
+        }
+
+        static ElementData dropdown() {
+            return new ElementData(By.xpath("//div[contains(@class,'dropdown')]/div/*[text()]"),
+                    "выпадающий список адресов");
         }
     }
 

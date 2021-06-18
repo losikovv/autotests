@@ -2,14 +2,18 @@ package ru.instamart.ui.module.shop;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.ElementNotSelectableException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.instamart.api.model.v2.AddressV2;
-import ru.instamart.ui.manager.AppManager;
 import ru.instamart.kraken.setting.Config;
-import ru.instamart.ui.module.Base;
 import ru.instamart.ui.Elements;
+import ru.instamart.ui.helper.JsHelper;
+import ru.instamart.ui.manager.AppManager;
+import ru.instamart.ui.module.Base;
+
+import java.util.List;
 
 public final class ShippingAddressModal extends Base {
     private static final Logger log = LoggerFactory.getLogger(ShippingAddressModal.class);
@@ -65,10 +69,7 @@ public final class ShippingAddressModal extends Base {
     @Step("Вводим адрес в адресной модалке: {0}")
     public static void fill(String address) {
         log.info("> водим адрес в адресной модалке: {}",address);
-        kraken.await().fluently(
-                ExpectedConditions.visibilityOfElementLocated(
-                        Elements.Modals.AddressModal.adressImageOnMap().getLocator()),
-                "Не подгружается карта яндекса",10);
+        JsHelper.ymapReady();
         kraken.perform().fillField(Elements.Modals.AddressModal.addressField(), address);
     }
 
@@ -76,13 +77,10 @@ public final class ShippingAddressModal extends Base {
     @Step("Выбираем первый предложенный адрес")
     public static void selectAddressSuggest() {
         log.info("> выбираем первый предложенный адрес");
-        kraken.await().fluently(
-                ExpectedConditions.invisibilityOfElementLocated(Elements.spinner().getLocator()),
-                "элемент спинер не исчез, выбор саджестов невозможен",5);
-        kraken.perform().click(Elements.Modals.AddressModal.addressSuggest());
-        kraken.await().fluently(
-                ExpectedConditions.invisibilityOfElementLocated(Elements.Modals.AddressModal.addressSuggest().getLocator()),
-                "саджесты не выбраны и все еще отображаются",Config.BASIC_TIMEOUT);
+        final List<WebElement> dropdown = kraken.await().isElementsExist(Elements.Modals.AddressModal.dropdown());
+        final WebElement webElement = dropdown.stream().findFirst().orElseThrow();
+        webElement.click();
+        //TODO: Ожидание смены геопозиции
     }
 
     /** Применить введенный адрес в адресной модалке */
@@ -90,10 +88,6 @@ public final class ShippingAddressModal extends Base {
     public static void submit() throws AssertionError {
         log.info("> применяем введенный адрес в адресной модалке");
         kraken.perform().click(Elements.Modals.AddressModal.submitButton());
-        kraken.await().fluently(
-                ExpectedConditions.invisibilityOfElementLocated(
-                        Elements.Modals.AddressModal.submitButton().getLocator()),
-                "Превышено время ожидания применения адреса доставки",10);
     }
 
     @Step("Нажимаем кнопку изменить адрес доставки")
