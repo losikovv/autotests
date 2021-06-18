@@ -1,6 +1,7 @@
 package ru.instamart.ui.manager;
 
 import lombok.Getter;
+import org.openqa.selenium.Cookie;
 import ru.instamart.api.helper.InstamartApiHelper;
 import ru.instamart.ui.helper.*;
 import ru.instamart.ui.service.WebDriverService;
@@ -14,6 +15,12 @@ import org.openqa.selenium.WebDriver;
 import static java.util.Objects.isNull;
 
 public final class AppManager {
+
+    public static final Cookie abCookie = new Cookie("external_analytics_anonymous_id",
+            "a27fe645-8674-4038-b4c4-4fad81181cd4",
+            EnvironmentData.INSTANCE.getBasicUrl(),
+            "",
+            null);
 
     @Getter
     private static final WebDriverService webDriverService = new WebDriverService();
@@ -64,6 +71,11 @@ public final class AppManager {
 
     public static void deleteAllCookie() {
         getWebDriver().manage().deleteAllCookies();
+        //setABCookie();
+    }
+
+    private static void setABCookie() {
+        getWebDriver().manage().addCookie(abCookie);
     }
 
     public BrowseHelper get() { return browseHelper; }

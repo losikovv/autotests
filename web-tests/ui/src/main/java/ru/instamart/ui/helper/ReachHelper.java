@@ -49,7 +49,7 @@ public final class ReachHelper extends HelperBase {
 
     public void seoCatalog() {
         User.Logout.quickly();
-        deleteAllCookies();
+        AppManager.deleteAllCookie();
         kraken.get().seoCatalogPage();
     }
 

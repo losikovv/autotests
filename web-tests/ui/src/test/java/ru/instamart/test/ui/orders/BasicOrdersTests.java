@@ -17,6 +17,7 @@ import ru.instamart.kraken.testdata.pagesdata.PaymentTypeData;
 import ru.instamart.test.ui.TestBase;
 import ru.instamart.ui.Elements;
 import ru.instamart.ui.checkpoint.order.OrdersCheckpoints;
+import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.shop.Order;
@@ -66,7 +67,7 @@ public class BasicOrdersTests extends TestBase {
         step("Очистка окружения после теста ", ()->{
             Order.cancelLastActiveOrder();
             User.Logout.quickly();
-            kraken.perform().deleteAllCookies();
+            AppManager.deleteAllCookie();
         });
     }
     // TODO Тесты на изменение телефона и контактов

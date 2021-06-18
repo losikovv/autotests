@@ -16,6 +16,7 @@
             <class name="ru.instamart.test.api.v1.endpoints.UserCompaniesV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.CompanyPresenceV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.LegalEntityV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.CompaniesV1Tests"/>
         </classes>
     </test>
     <!-- api-v2-tests -->
@@ -42,7 +43,6 @@
             <class name="ru.instamart.test.api.v2.endpoints.ResetPasswordV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.RetailersV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.SearchesV2Test"/>
-            <class name="ru.instamart.test.api.v2.endpoints.SessionsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.ShipAddressV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.SimpleRecsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.StoresV2Test"/>

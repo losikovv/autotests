@@ -325,7 +325,7 @@ public final class User extends Base {
         @Step("Делаем быструю деавторизацию из админки с удалением файлов куки")
         public static void quicklyAdmin() {
             log.info("> удаляем куки...");
-            AppManager.getWebDriver().manage().deleteAllCookies();
+            AppManager.deleteAllCookie();
             kraken.get().adminPage("");
             if (kraken.detect().isInAdmin()) {
                 log.info("✓ Готово");
