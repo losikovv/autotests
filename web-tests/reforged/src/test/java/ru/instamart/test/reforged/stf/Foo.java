@@ -66,10 +66,11 @@ public class Foo {
         StfRouter.home().interactAuthModal().fillSMS("111111");
         //ожидание загрузки страницы
         checkout.goToPage();
-//        firstStep.clickToSubmitForDelivery();
-//        secondStep.clickToSubmit();
-//        thirdStep.clickToSubmit();
-//        fourthStep.setFirstActiveSlot();
+        deliveryOptionsStep.clickToSubmitForDelivery();
+        contactStep.clickToSubmit();
+        policyStep.clickToPolicy(noCallAndReplace);
+        policyStep.clickToSubmit();
+//        slotStep.setFirstActiveSlot();
 //        paymentStep.clickToByCardOnline();
 //        paymentStep.clickToAddNewPaymentCard();
 //        editPaymentCardModal.fillCardNumber("4242424242424242");
@@ -78,15 +79,15 @@ public class Foo {
 //        editPaymentCardModal.fillCvv("123");
 //        editPaymentCardModal.fillHolderName("TEST TESTOV");
 //        editPaymentCardModal.clickToSave();
-        checkout.clickToAddLoyaltyCard("Много");
-        loyaltyBonusModal.fillValue("11600350");
-        loyaltyBonusModal.clickToSaveModal();
-        loyaltyBonusModal.clickToCloseModal();
-        checkout.clickToAddLoyaltyCard("Много");
-        loyaltyBonusModal.fillValue("11600350");
-        loyaltyBonusModal.clickToSaveModal();
-        loyaltyBonusModal.clickToCloseModal();
-        checkout.clickToSubmitFromSidebar();
+//        checkout.clickToAddLoyaltyCard("Много");
+//        loyaltyBonusModal.fillValue("11600350");
+//        loyaltyBonusModal.clickToSaveModal();
+//        loyaltyBonusModal.clickToCloseModal();
+//        checkout.clickToAddLoyaltyCard("Много");
+//        loyaltyBonusModal.fillValue("11600350");
+//        loyaltyBonusModal.clickToSaveModal();
+//        loyaltyBonusModal.clickToCloseModal();
+//        checkout.clickToSubmitFromSidebar();
     }
 
     @AfterMethod(alwaysRun = true, description = "Прикрепляем скриншот интерфейса, если UI тест упал")

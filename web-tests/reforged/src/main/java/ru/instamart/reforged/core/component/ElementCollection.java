@@ -32,7 +32,6 @@ public final class ElementCollection extends CollectionComponent {
             if (elementText.contains(text)) {
                 log.info("Click on element {} with text {}", we, elementText);
                 we.click();
-                break;
             }
         }
     }

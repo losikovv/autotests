@@ -7,7 +7,7 @@ import ru.instamart.reforged.core.component.ElementCollection;
 
 public class ReplacementPolicyStep {
 
-    private final ElementCollection replacementPolicy = new ElementCollection(By.xpath("//div[contains(@class, 'replacement-policy')]"));
+    private final ElementCollection replacementPolicy = new ElementCollection(By.xpath("//div[@class = 'replacement-policy__desc']"));
     private final Button submit = new Button(By.xpath("//button[@data-qa='checkout_replacement_policy_submit_button']"));
 
     @Step("Выбрать способ {0}")
