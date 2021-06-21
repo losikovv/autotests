@@ -59,14 +59,6 @@ public class Foo {
 //        StfRouter.home().interactAuthModal().fillPhone("9999919613");
 //        StfRouter.home().interactAuthModal().sendSms();
 //        StfRouter.home().interactAuthModal().fillSMS("111111");
-        StfRouter.home().interactAuthModal().authViaMail();
-        StfRouter.home().interactAuthModal().interactAuthMailWindow().switchToNextWindow();
-        StfRouter.home().interactAuthModal().interactAuthMailWindow().fillName("vanek_samara");
-        StfRouter.home().interactAuthModal().interactAuthMailWindow().clickToEnterPassword();
-        StfRouter.home().interactAuthModal().interactAuthMailWindow().fillPassword("A0pc47gh");
-        //mail.clickToEnterPassword();
-        StfRouter.home().interactAuthModal().interactAuthMailWindow().clickToSubmit();
-        StfRouter.home().interactAuthModal().interactAuthMailWindow().switchToFirstWindow();
         //StfRouter.home().interactAuthModal().sendSms();
         //ожидание загрузки страницы
         //StfRouter.home().interactAuthModal().fillSMS("1111");
