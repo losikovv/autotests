@@ -5,7 +5,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import ru.instamart.reforged.core.page.Tab;
+import ru.instamart.reforged.action.JsAction;
 import ru.instamart.reforged.stf.frame.auth.AuthMail;
 import ru.instamart.reforged.stf.frame.checkout.EditLoyaltyPromoCode;
 import ru.instamart.reforged.stf.frame.checkout.EditPaymentCard;
@@ -13,6 +13,7 @@ import ru.instamart.reforged.stf.page.checkout.Checkout;
 import ru.instamart.reforged.stf.page.StfRouter;
 import ru.instamart.reforged.stf.page.checkout.*;
 import ru.instamart.ui.listener.UiExecutionListener;
+import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.report.CustomReport;
 
 @Listeners(UiExecutionListener.class)
@@ -52,15 +53,6 @@ public class Foo {
         String noCallAndReplace = "Не звонить мне. Подобрать замену";
         String noCallAndRemove = "Не звонить мне. Убрать из заказа";
         //9999919613
-        AuthMail mail = new AuthMail();
-        Checkout checkout = new Checkout();
-        DeliveryOptionsStep deliveryOptionsStep = checkout.setDeliveryOptions();
-        ContactsStep contactStep = checkout.setContacts();
-        ReplacementPolicyStep policyStep = checkout.setReplacementPolicy();
-        SlotStep slotStep = checkout.setSlot();
-        PaymentStep paymentStep = checkout.paymentStep();
-        EditLoyaltyPromoCode loyaltyBonusModal = checkout.interactEditLoyaltyPromoCodeModal();
-        EditPaymentCard editPaymentCardModal = checkout.interactEditPaymentCardModal();
 
         StfRouter.home().goToPage();
         StfRouter.home().openLoginModal();
@@ -68,18 +60,18 @@ public class Foo {
 //        StfRouter.home().interactAuthModal().sendSms();
 //        StfRouter.home().interactAuthModal().fillSMS("111111");
         StfRouter.home().interactAuthModal().authViaMail();
-        mail.closeAndSwitchToNextWindow();
-        mail.fillName("vanek_samara");
-        mail.clickToEnterPassword();
-        mail.fillPassword("A0pc47gh");
+        StfRouter.home().interactAuthModal().interactAuthMailWindow().switchToNextWindow();
+        StfRouter.home().interactAuthModal().interactAuthMailWindow().fillName("vanek_samara");
+        StfRouter.home().interactAuthModal().interactAuthMailWindow().clickToEnterPassword();
+        StfRouter.home().interactAuthModal().interactAuthMailWindow().fillPassword("A0pc47gh");
         //mail.clickToEnterPassword();
-        mail.clickToSubmit();
-        mail.closeAndSwitchToPrevWindow();
-        StfRouter.home().interactAuthModal().sendSms();
+        StfRouter.home().interactAuthModal().interactAuthMailWindow().clickToSubmit();
+        StfRouter.home().interactAuthModal().interactAuthMailWindow().switchToFirstWindow();
+        //StfRouter.home().interactAuthModal().sendSms();
         //ожидание загрузки страницы
-        StfRouter.home().interactAuthModal().fillSMS("1111");
+        //StfRouter.home().interactAuthModal().fillSMS("1111");
         //ожидание загрузки страницы
-        checkout.goToPage();
+        //StfRouter.checkout().goToPage();
 //        deliveryOptionsStep.clickToSubmitForDelivery();
 //        contactStep.clickToSubmit();
 //        policyStep.clickToPolicy(noCallAndReplace);

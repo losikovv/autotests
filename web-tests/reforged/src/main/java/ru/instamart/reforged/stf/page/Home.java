@@ -6,13 +6,13 @@ import org.openqa.selenium.By;
 import ru.instamart.reforged.action.JsAction;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Link;
-import ru.instamart.reforged.core.page.Tab;
+import ru.instamart.reforged.core.page.Window;
 import ru.instamart.reforged.stf.checkpoint.HomeCheck;
 import ru.instamart.reforged.stf.frame.Address;
 import ru.instamart.reforged.stf.frame.auth.AuthModal;
 
 @Slf4j
-public final class Home implements StfPage, Tab, HomeCheck {
+public final class Home implements StfPage, Window, HomeCheck {
 
     private final Button loginButton = new Button(By.xpath("//button[contains(@class, 'home_header')]"));
     private final Button forYourself = new Button(By.xpath("//button[@aria-controls='b2c-tab']"));

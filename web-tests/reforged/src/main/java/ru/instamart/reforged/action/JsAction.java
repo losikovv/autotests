@@ -1,16 +1,35 @@
 package ru.instamart.reforged.action;
 
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.concurrent.TimeUnit;
+
 import static ru.instamart.ui.manager.AppManager.getWebDriver;
 
+@Slf4j
 public final class JsAction {
+
+    public static void reactReady() {
+        final WebDriverWait wait = new WebDriverWait(getWebDriver(), 5);
+        wait.pollingEvery(250, TimeUnit.MILLISECONDS);
+        wait.until((ExpectedCondition<Boolean>) wb -> {
+            final String result = String.valueOf(execute("return typeof ReactRailsUJS.components"));
+            log.debug("React status is {}", result);
+            return result.equals("object");
+        });
+    }
 
     public static void ymapReady() {
         final WebDriverWait wait = new WebDriverWait(getWebDriver(), 5);
-        wait.until((ExpectedCondition<Boolean>) wb -> execute("return typeof ymaps").equals("object"));
+        wait.pollingEvery(250, TimeUnit.MILLISECONDS);
+        wait.until((ExpectedCondition<Boolean>) wb -> {
+            final String result = String.valueOf(execute("return typeof ymaps"));
+            log.debug("ymap status is {}", result);
+            return result.equals("object");
+        });
     }
 
     public static void waitForDocumentReady() {

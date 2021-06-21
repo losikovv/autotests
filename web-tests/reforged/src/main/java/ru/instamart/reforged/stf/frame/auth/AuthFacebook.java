@@ -4,9 +4,9 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Input;
-import ru.instamart.reforged.core.page.Tab;
+import ru.instamart.reforged.core.page.Window;
 
-public final class AuthFacebook implements Tab {
+public final class AuthFacebook implements Window {
 
     private final Input email = new Input(By.xpath("//input[@id='email']"));
     private final Input password = new Input(By.xpath("//input[@id='pass']"));

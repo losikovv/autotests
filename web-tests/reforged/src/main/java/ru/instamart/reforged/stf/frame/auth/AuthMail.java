@@ -6,9 +6,9 @@ import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Input;
 import ru.instamart.reforged.core.component.Selector;
-import ru.instamart.reforged.core.page.Tab;
+import ru.instamart.reforged.core.page.Window;
 
-public final class AuthMail implements Tab {
+public final class AuthMail implements Window {
 
     private final Input name = new Input(By.xpath("//input[@name='username']"));
     private final Selector domain = new Selector(By.xpath("//select[@name='Domain']"));
