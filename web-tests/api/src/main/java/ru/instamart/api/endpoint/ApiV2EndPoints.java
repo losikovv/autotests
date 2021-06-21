@@ -3,6 +3,8 @@ package ru.instamart.api.endpoint;
 public final class ApiV2EndPoints {
 
     public static final String ADDRESSES = "v2/addresses";
+    public static final String ADS = "v2/ads";
+    public static final String ADS_IMAGES = "v2/ads-images?image_path={image}";
     public static final String BONUS_CARDS = "v2/bonus_cards";
     public static final String BONUS_PROGRAMS = "v2/bonus_programs";
     public static final String CATEGORIES = "v2/categories?sid={sid}";
@@ -17,6 +19,8 @@ public final class ApiV2EndPoints {
     public static final String PRODUCTS = "v2/products?sid={sid}&q={query}";
     public static final String PURCHASED_PRODUCTS = "v2/purchased_products?sid={sid}";
     public static final String RETAILERS = "v2/retailers";
+    public static final String SESSIONS = "v2/sessions";
+    public static final String SIMPLE_ADS = "v2/simple-ads";
     public static final String SHIPPING_METHODS = "v2/shipping_methods?sid={sid}";
     public static final String STORES = "v2/stores";
     public static final String TAXONS = "v2/taxons?sid={sid}";

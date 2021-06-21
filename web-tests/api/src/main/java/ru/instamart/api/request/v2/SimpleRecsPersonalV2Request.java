@@ -3,6 +3,7 @@ package ru.instamart.api.request.v2;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.qameta.allure.Step;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.*;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
@@ -15,6 +16,7 @@ public class SimpleRecsPersonalV2Request extends ApiV2RequestBase {
     public static Response POST(SimpleRecsV2 simpleRecs) {
         return givenWithSpec()
                 .body(MapperService.INSTANCE.objectToMap(simpleRecs))
+                .contentType(ContentType.JSON)
                 .post(ApiV2EndPoints.SimpleRecs.PERSONAL);
     }
 
