@@ -86,7 +86,7 @@ public enum Specification {
 
         apiV2RequestSpec = new RequestSpecBuilder()
                 .setBaseUri(apiV2FullUrl)
-//                .setBasePath("api/")
+                .setBasePath("api/")
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssured())
                 .build();
