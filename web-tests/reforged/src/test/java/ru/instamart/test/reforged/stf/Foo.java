@@ -5,15 +5,11 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import ru.instamart.reforged.action.JsAction;
-import ru.instamart.reforged.stf.frame.auth.AuthMail;
-import ru.instamart.reforged.stf.frame.checkout.EditLoyaltyPromoCode;
-import ru.instamart.reforged.stf.frame.checkout.EditPaymentCard;
-import ru.instamart.reforged.stf.page.checkout.Checkout;
+import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.reforged.stf.frame.auth.AuthSberId;
 import ru.instamart.reforged.stf.page.StfRouter;
-import ru.instamart.reforged.stf.page.checkout.*;
 import ru.instamart.ui.listener.UiExecutionListener;
-import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.report.CustomReport;
 
 @Listeners(UiExecutionListener.class)
@@ -52,6 +48,9 @@ public class Foo {
         String callAndRemove = "Позвонить мне. Убрать из заказа, если не смогу ответить";
         String noCallAndReplace = "Не звонить мне. Подобрать замену";
         String noCallAndRemove = "Не звонить мне. Убрать из заказа";
+        AuthSberId sberIdPage = StfRouter.home().interactAuthModal().interactAuthSberIdPage();
+        UserData user = UserManager.getDefaultSberIdUser();
+
         //9999919613
 
         StfRouter.home().goToPage();
@@ -59,41 +58,12 @@ public class Foo {
 //        StfRouter.home().interactAuthModal().fillPhone("9999919613");
 //        StfRouter.home().interactAuthModal().sendSms();
 //        StfRouter.home().interactAuthModal().fillSMS("111111");
-        StfRouter.home().interactAuthModal().authViaMail();
-        StfRouter.home().interactAuthModal().interactAuthMailWindow().switchToNextWindow();
-        StfRouter.home().interactAuthModal().interactAuthMailWindow().fillName("vanek_samara");
-        StfRouter.home().interactAuthModal().interactAuthMailWindow().clickToEnterPassword();
-        StfRouter.home().interactAuthModal().interactAuthMailWindow().fillPassword("A0pc47gh");
-        //mail.clickToEnterPassword();
-        StfRouter.home().interactAuthModal().interactAuthMailWindow().clickToSubmit();
-        StfRouter.home().interactAuthModal().interactAuthMailWindow().switchToFirstWindow();
-        //StfRouter.home().interactAuthModal().sendSms();
-        //ожидание загрузки страницы
-        //StfRouter.home().interactAuthModal().fillSMS("1111");
-        //ожидание загрузки страницы
-        //StfRouter.checkout().goToPage();
-//        deliveryOptionsStep.clickToSubmitForDelivery();
-//        contactStep.clickToSubmit();
-//        policyStep.clickToPolicy(noCallAndReplace);
-//        policyStep.clickToSubmit();
-//        slotStep.setFirstActiveSlot();
-//        paymentStep.clickToByCardOnline();
-//        paymentStep.clickToAddNewPaymentCard();
-//        editPaymentCardModal.fillCardNumber("4242424242424242");
-//        editPaymentCardModal.fillExpMonth("12");
-//        editPaymentCardModal.fillExpYear("2024");
-//        editPaymentCardModal.fillCvv("123");
-//        editPaymentCardModal.fillHolderName("TEST TESTOV");
-//        editPaymentCardModal.clickToSave();
-//        checkout.clickToAddLoyaltyCard("Много");
-//        loyaltyBonusModal.fillValue("11600350");
-//        loyaltyBonusModal.clickToSaveModal();
-//        loyaltyBonusModal.clickToCloseModal();
-//        checkout.clickToAddLoyaltyCard("Много");
-//        loyaltyBonusModal.fillValue("11600350");
-//        loyaltyBonusModal.clickToSaveModal();
-//        loyaltyBonusModal.clickToCloseModal();
-//        checkout.clickToSubmitFromSidebar();
+        StfRouter.home().interactAuthModal().authViaSberId();
+        sberIdPage.clickToChangeAuthTypeOnLogin();
+        sberIdPage.fillLogin(user.getLogin());
+        sberIdPage.clickToSubmitLogin();
+        sberIdPage.fillPassword(user.getPassword());
+        sberIdPage.clickToSubmitPassword();
     }
 
     @AfterMethod(alwaysRun = true, description = "Прикрепляем скриншот интерфейса, если UI тест упал")
