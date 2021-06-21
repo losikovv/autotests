@@ -220,9 +220,13 @@ public final class PerformHelper extends HelperBase {
     }
 
     public void switchToMainWindow() {
-        final WebDriver driver = getWebDriver();
-        final List<String> windowHandles = List.copyOf(driver.getWindowHandles());
-        driver.switchTo().window(windowHandles.get(0));
+        if (kraken.await().checkIfPopupWindowClosed()) {
+            final WebDriver driver = getWebDriver();
+            final List<String> windowHandles = List.copyOf(driver.getWindowHandles());
+            driver.switchTo().window(windowHandles.get(0));
+        } else {
+            log.error("Popup still alive");
+        }
     }
 
     /** Обновить страницу */

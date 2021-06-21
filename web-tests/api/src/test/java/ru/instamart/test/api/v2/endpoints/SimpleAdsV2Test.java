@@ -12,7 +12,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.request.v2.AdsImages;
+import ru.instamart.api.request.v2.AdsImagesV2Request;
 import ru.instamart.api.request.v2.SimpleAdsV2Request;
 import ru.instamart.api.response.v2.SimpleAdsV2Response;
 
@@ -33,7 +33,7 @@ public class SimpleAdsV2Test extends RestBase {
     }
 
     @CaseId(282)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-prod"},
             description = "Упрощенный запрос нативной рекламы с обязательными параметрами")
     public void simpleAdsTest() {
         SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters = SimpleAdsV2Request.SimpleAdsV2.builder()
@@ -71,7 +71,7 @@ public class SimpleAdsV2Test extends RestBase {
     }
 
     @CaseId(628)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-prod"},
             description = "Упрощенный запрос нативной рекламы с всеми доступными параметрами")
     public void simpleAdsAllParameterTest() {
         SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters = SimpleAdsV2Request.SimpleAdsV2.builder()
@@ -173,7 +173,7 @@ public class SimpleAdsV2Test extends RestBase {
                 .getImage().getUrl();
 
         //проверка существования файла запросом заголовков
-        final Response responseImage = AdsImages.HEAD(imagePath);
+        final Response responseImage = AdsImagesV2Request.HEAD(imagePath);
         assertEquals(responseImage.getHeader("Content-Type"), "image/png");
     }
 
@@ -185,7 +185,7 @@ public class SimpleAdsV2Test extends RestBase {
         String imagePath = "imegenotfound";
 
         //проверка существования файла запросом заголовков
-        final Response responseImage = AdsImages.HEAD(imagePath);
+        final Response responseImage = AdsImagesV2Request.HEAD(imagePath);
         checkStatusCode404(responseImage);
     }
 }
