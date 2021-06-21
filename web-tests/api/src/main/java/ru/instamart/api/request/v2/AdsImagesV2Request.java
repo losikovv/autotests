@@ -5,7 +5,7 @@ import io.restassured.response.Response;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
 
-public class AdsImages extends ApiV2RequestBase {
+public class AdsImagesV2Request extends ApiV2RequestBase {
 
 
     @Step("{method} /" + ApiV2EndPoints.ADS_IMAGES)
