@@ -244,4 +244,12 @@ public final class OrdersV2Request extends ApiV2RequestBase {
                     .delete(ApiV2EndPoints.Orders.PROMOTION_CODE, orderNumber, promoCode);
         }
     }
+
+    public static class PromotionLimit {
+
+        public static Response GET(String orderNumber){
+            return givenWithAuth()
+                    .get(ApiV2EndPoints.Orders.PROMOTION_LIMITS, orderNumber);
+        }
+    }
 }
