@@ -1,6 +1,7 @@
 package ru.instamart.ui.module.shop;
 
 import io.qameta.allure.Step;
+import lombok.SneakyThrows;
 import org.openqa.selenium.ElementNotSelectableException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -78,6 +79,7 @@ public final class ShippingAddressModal extends Base {
     }
 
     /** Выбрать первый адресный саджест */
+    @SneakyThrows
     @Step("Выбираем первый предложенный адрес")
     public static void selectAddressSuggest() {
         log.info("> выбираем первый предложенный адрес");
@@ -85,9 +87,7 @@ public final class ShippingAddressModal extends Base {
         final WebElement webElement = dropdown.stream().findFirst().orElseThrow();
         webElement.click();
         //TODO: Ожидание смены геопозиции
-        kraken.await().fluently(
-                ExpectedConditions.invisibilityOfElementLocated(Elements.Modals.AddressModal.addressSuggest().getLocator()),
-                "саджесты не выбраны и все еще отображаются", 5);
+        Thread.sleep(2000);
     }
 
     /** Применить введенный адрес в адресной модалке */
