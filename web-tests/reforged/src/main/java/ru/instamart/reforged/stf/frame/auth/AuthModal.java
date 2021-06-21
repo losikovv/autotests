@@ -34,6 +34,7 @@ public final class AuthModal implements Close, AuthModalCheck {
     private final AuthMail authMailWindow = new AuthMail();
     private final AuthFacebook authFacebookWindow = new AuthFacebook();
     private final AuthVk authVkWindow = new AuthVk();
+    private final AuthSberId authSberIdPage = new AuthSberId();
 
     public void fillPhone(final UserData userData) {
         fillPhone(userData.getPhone());
@@ -49,6 +50,10 @@ public final class AuthModal implements Close, AuthModalCheck {
 
     public AuthVk interactAuthVkWindow() {
         return authVkWindow;
+    }
+
+    public AuthSberId interactAuthSberIdPage() {
+        return authSberIdPage;
     }
 
     @Step("Заполнить поле с телефоном {phone}")
@@ -89,5 +94,10 @@ public final class AuthModal implements Close, AuthModalCheck {
     @Step("Войти через facebook")
     public void authViaFacebook() {
         facebook.click();
+    }
+
+    @Step("Войти через sberId")
+    public void authViaSberId() {
+        sberId.click();
     }
 }
