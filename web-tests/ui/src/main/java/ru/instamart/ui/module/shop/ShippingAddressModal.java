@@ -73,6 +73,10 @@ public final class ShippingAddressModal extends Base {
         kraken.perform().fillField(Elements.Modals.AddressModal.addressField(), address);
     }
 
+    public static void clearField() {
+        kraken.perform().clearField(Elements.Modals.AddressModal.addressField());
+    }
+
     /** Выбрать первый адресный саджест */
     @Step("Выбираем первый предложенный адрес")
     public static void selectAddressSuggest() {
@@ -81,6 +85,9 @@ public final class ShippingAddressModal extends Base {
         final WebElement webElement = dropdown.stream().findFirst().orElseThrow();
         webElement.click();
         //TODO: Ожидание смены геопозиции
+        kraken.await().fluently(
+                ExpectedConditions.invisibilityOfElementLocated(Elements.Modals.AddressModal.addressSuggest().getLocator()),
+                "саджесты не выбраны и все еще отображаются", 3);
     }
 
     /** Применить введенный адрес в адресной модалке */
@@ -88,6 +95,10 @@ public final class ShippingAddressModal extends Base {
     public static void submit() throws AssertionError {
         log.info("> применяем введенный адрес в адресной модалке");
         kraken.perform().click(Elements.Modals.AddressModal.submitButton());
+        kraken.await().fluently(
+                ExpectedConditions.invisibilityOfElementLocated(
+                        Elements.Modals.AddressModal.submitButton().getLocator()),
+                "Превышено время ожидания применения адреса доставки",1);
     }
 
     @Step("Нажимаем кнопку изменить адрес доставки")

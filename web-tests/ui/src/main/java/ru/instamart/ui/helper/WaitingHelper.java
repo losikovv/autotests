@@ -76,12 +76,15 @@ public final class WaitingHelper extends HelperBase {
                 .until(ExpectedConditions.urlToBe(url));
     }
 
-    public void getText(final ElementData data) {
-        new FluentWait<>(AppManager.getWebDriver())
-                .withTimeout(data.getTimeout(), TimeUnit.SECONDS)
-                .pollingEvery(250, TimeUnit.MILLISECONDS)
-                .ignoring(NoSuchElementException.class)
-                .until((ExpectedCondition<Boolean>) input -> input.findElement(data.getLocator()).getText().length() != 0);
+    public WebElement getValue(final ElementData data) {
+        return createWait(data)
+                .until((ExpectedCondition<WebElement>) driver -> {
+                    final WebElement webElement = driver.findElement(data.getLocator());
+                    if (webElement.getAttribute("value").length() != 0) {
+                        return webElement;
+                    }
+                    throw new NoSuchElementException("Element without text");
+                });
     }
 
     public List<WebElement> isElementsExist(final ElementData data) {
@@ -91,7 +94,7 @@ public final class WaitingHelper extends HelperBase {
                     if (webElements.size() > 0) {
                         return webElements;
                     }
-                    throw new NoSuchElementException("Elements not found or size <= 1");
+                    throw new NoSuchElementException("Elements not found or size < 1");
                 });
     }
 

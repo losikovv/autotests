@@ -11,6 +11,7 @@
     </method-selectors>
     <test verbose="1" name="All In UI-API suite" parallel="classes" thread-count="5">
         <classes>
+            <class name="ru.instamart.test.ui.user.UserShippingAddressTests"/>
             <class name="ru.instamart.test.ui.administration.AdministrationAccessTests"/>
             <class name="ru.instamart.test.ui.administration.AdministrationLoginTests"/>
             <class name="ru.instamart.test.ui.administration.AdministrationPagesSectionTests"/>
@@ -66,7 +67,6 @@
             <class name="ru.instamart.test.ui.user.UserPersonalDataPolicyTests"/>
             <class name="ru.instamart.test.ui.user.UserProfileTests"/>
             <class name="ru.instamart.test.ui.user.UserRegistrationTests"/>
-            <class name="ru.instamart.test.ui.user.UserShippingAddressTests"/>
         </classes>
     </test> <!-- mr-tests -->
 </suite> <!-- Custom suite -->

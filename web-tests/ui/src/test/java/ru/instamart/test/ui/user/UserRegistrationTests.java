@@ -24,9 +24,8 @@ import ru.instamart.ui.module.shop.ShippingAddressModal;
 @Feature("Регистрация пользователя")
 public final class UserRegistrationTests extends TestBase implements UsersAuthorizationCheckpoints {
 
-    private static String phone;
-    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
-    ShoppingCartCheckpoints shopChecks = new ShoppingCartCheckpoints();
+    private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    private final ShoppingCartCheckpoints shopChecks = new ShoppingCartCheckpoints();
 
     @BeforeMethod(alwaysRun = true,
             description ="Завершаем сессию, текущего пользователя")
@@ -62,7 +61,7 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
             }
     )
     public void timeOutForSendindSMS() {
-        phone = Generate.phoneNumber();
+        final String phone = Generate.phoneNumber();
         kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
         User.Do.registration(phone,true);
@@ -82,10 +81,9 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
             groups = {"metro-acceptance","sbermarket-Ui-smoke","MRAutoCheck"}
     )
     public void successRegOnLanding() {
-        phone = Generate.phoneNumber();
         kraken.get().baseUrl();
         Shop.AuthModal.openAuthLending();
-        User.Do.registration(phone,true);
+        User.Do.registration(Generate.phoneNumber(),true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         checkIsUserAuthorized("Не работает регистрация на лендинге");
     }
@@ -101,9 +99,8 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
     )
     public void successRegOnMainPage() {
         kraken.get().page(Config.DEFAULT_RETAILER);
-        phone = Generate.phoneNumber();
         Shop.AuthModal.openAuthRetailer();
-        User.Do.registration(phone,true);
+        User.Do.registration(Generate.phoneNumber(),true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         checkIsUserAuthorized("Не работает регистрация на витрине магазина");
     }
@@ -118,12 +115,11 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
             }
     )
     public void successRegFromAddressModal() throws AssertionError {
-        phone = Generate.phoneNumber();
         kraken.get().page(Config.DEFAULT_RETAILER);
         ShippingAddressModal.open();
         ShippingAddressModal.openAuthModal();
 //        baseChecks.checkIsAuthModalOpen("Не работает переход на авторизацию из адресной модалки");
-        User.Do.registration(phone,true);
+        User.Do.registration(Generate.phoneNumber(),true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         checkIsUserAuthorized("Не работает регистрация из адресной модалки феникса");
     }
@@ -139,7 +135,6 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
             }
     )
     public void successRegFromCart() {
-        phone = Generate.phoneNumber();
         kraken.get().page(Config.DEFAULT_RETAILER);
         ShippingAddressModal.open();
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
@@ -151,7 +146,7 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
         baseChecks.checkIsAuthModalOpen("Не открывается авторизационная" +
                 " модалка при переходе неавторизованным из корзины в чекаут");
 
-        User.Do.registration(phone,true);
+        User.Do.registration(Generate.phoneNumber(),true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         checkAutoCheckoutRedirect("Нет автоперехода в чекаут после регистрации из корзины");
         kraken.get().baseUrl();
@@ -167,10 +162,9 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
             groups = {"sbermarket-Ui-smoke"}
     )
     public void successRegWithoutMailingCheckbox() {
-        phone = Generate.phoneNumber();
         kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
-        User.Do.registration(phone,false);
+        User.Do.registration(Generate.phoneNumber(),false);
         User.Do.sendSms(Config.DEFAULT_SMS);
         checkIsUserAuthorized("Не работает регистрация без согласия на получение почтовой рассылки");
     }

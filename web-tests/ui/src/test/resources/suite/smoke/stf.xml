@@ -12,6 +12,7 @@
   </method-selectors>
   <test verbose="1" name="Web UI tests" parallel="classes" thread-count="5">
     <classes>
+      <class name="ru.instamart.test.ui.user.UserShippingAddressTests"/>
       <class name="ru.instamart.test.ui.checkout.BasicCheckoutTests"/>
       <class name="ru.instamart.test.ui.site.BasicMetroTests"/>
       <class name="ru.instamart.test.ui.site.BasicLentaTests"/>
@@ -61,7 +62,6 @@
       <class name="ru.instamart.test.ui.user.UserPersonalDataPolicyTests"/>
       <class name="ru.instamart.test.ui.user.UserProfileTests"/>
       <class name="ru.instamart.test.ui.user.UserRegistrationTests"/>
-      <class name="ru.instamart.test.ui.user.UserShippingAddressTests"/>
     </classes>
   </test>
 </suite>
