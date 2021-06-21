@@ -11,7 +11,9 @@ import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.ui.manager.AppManager;
 
 import java.util.List;
+import java.util.Optional;
 
+import static ru.instamart.ui.manager.AppManager.getWebDriver;
 import static ru.instamart.ui.module.Base.kraken;
 
 @Slf4j
@@ -199,9 +201,13 @@ public final class PerformHelper extends HelperBase {
 
     /** Переключиться на следующую вкладку */
     public void switchToNextWindow() {
-        for (String winHandle : AppManager.getWebDriver().getWindowHandles()) {
-            AppManager.getWebDriver().switchTo().window(winHandle); // switch focus of WebDriver to the next found window handle
-        }
+        final WebDriver driver = getWebDriver();
+        final String currentHandle = driver.getWindowHandle();
+        final Optional<String> newTabHandle = driver.getWindowHandles()
+                .stream()
+                .filter(handle -> !handle.equals(currentHandle))
+                .findFirst();
+        newTabHandle.ifPresent(s -> driver.switchTo().window(s));
     }
 
     public void switchToWindowIndex(final int index) {
@@ -214,17 +220,9 @@ public final class PerformHelper extends HelperBase {
     }
 
     public void switchToMainWindow() {
-        if (kraken.await().checkIfPopupWindowClosed()) {
-            switchToWindowIndex(0);
-        } else {
-            log.error("Popup still alive");
-        }
-    }
-
-    /** Переключиться на дефолтный контент */
-    public void switchToDefaultContent() {
-        //driver.switchTo().parentFrame();
-        AppManager.getWebDriver().switchTo().defaultContent();
+        final WebDriver driver = getWebDriver();
+        final List<String> windowHandles = List.copyOf(driver.getWindowHandles());
+        driver.switchTo().window(windowHandles.get(0));
     }
 
     /** Обновить страницу */

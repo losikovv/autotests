@@ -263,7 +263,7 @@ public final class User extends Base {
 
         @Step("Переходим на base url для авторизации через Vkontakte")
         public static void withVkontakte(UserData user) {
-            kraken.perform().switchToWindowIndex(1);
+            kraken.perform().switchToNextWindow();
             kraken.perform().fillField(Elements.Social.Vkontakte.loginField(),user.getLogin());
             kraken.perform().fillField(Elements.Social.Vkontakte.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.Vkontakte.submitButton());
@@ -272,7 +272,7 @@ public final class User extends Base {
 
         @Step("Переходим на base url для авторизации через Facebook")
         public static void withFacebook(UserData user) {
-            kraken.perform().switchToWindowIndex(1);
+            kraken.perform().switchToNextWindow();
             kraken.perform().fillField(Elements.Social.Facebook.loginField(),user.getLogin());
             kraken.perform().fillField(Elements.Social.Facebook.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.Facebook.submitButton());
@@ -281,7 +281,7 @@ public final class User extends Base {
 
         @Step("Переходим на base url для авторизации через Mail.ru")
         public static void withMailRu(UserData user) {
-            kraken.perform().switchToWindowIndex(1);
+            kraken.perform().switchToNextWindow();
             kraken.perform().fillField(Elements.Social.MailRu.loginField(),user.getLogin());
             kraken.perform().click(Elements.Social.MailRu.nextButton());
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
