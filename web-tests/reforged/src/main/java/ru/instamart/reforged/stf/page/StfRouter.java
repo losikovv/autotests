@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.page;
 
 import ru.instamart.reforged.core.page.Router;
+import ru.instamart.reforged.stf.page.checkout.Checkout;
 import ru.instamart.reforged.stf.page.faq.*;
 import ru.instamart.reforged.stf.page.user.UserCompanies;
 import ru.instamart.reforged.stf.page.user.UserEdit;
@@ -61,5 +62,10 @@ public final class StfRouter extends Router {
         return (Terms) getPage(Terms.class);
     }
 
-    private StfRouter() {}
+    public static Checkout checkout() {
+        return (Checkout) getPage(Checkout.class);
+    }
+
+    private StfRouter() {
+    }
 }

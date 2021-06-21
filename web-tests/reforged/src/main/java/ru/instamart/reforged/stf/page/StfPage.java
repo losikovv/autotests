@@ -7,6 +7,7 @@ import ru.instamart.ui.manager.AppManager;
 public interface StfPage extends Page {
 
     default void goToPage() {
+        //todo ожидать загрузку скриптов
         AppManager.getWebDriver().get(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + pageUrl());
     }
 }
