@@ -7,12 +7,15 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.instamart.kraken.testdata.lib.Pages;
+import ru.instamart.kraken.testdata.pagesdata.CheckoutStepData;
+import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.testdata.pagesdata.LoyaltiesData;
+import ru.instamart.kraken.testdata.pagesdata.WidgetData;
+import ru.instamart.ui.Elements;
 import ru.instamart.ui.data.ElementData;
 import ru.instamart.ui.manager.AppManager;
-import ru.instamart.kraken.testdata.lib.Pages;
-import ru.instamart.kraken.testdata.pagesdata.*;
 import ru.instamart.ui.module.Shop;
-import ru.instamart.ui.Elements;
 
 @RequiredArgsConstructor
 @Slf4j

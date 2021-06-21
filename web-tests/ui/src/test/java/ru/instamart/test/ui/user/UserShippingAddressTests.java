@@ -288,6 +288,7 @@ public final class UserShippingAddressTests extends TestBase {
         shippingChecks.checkIsAddressOutOfZone(
                 "Не открывается модалка Адрес вне зоны доставки");
         ShippingAddressModal.selectNewAdress();
+        ShippingAddressModal.clearField();
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
         ShippingAddressModal.selectAddressSuggest();
         ShippingAddressModal.submit();

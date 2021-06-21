@@ -87,7 +87,7 @@ public final class ShippingAddressModal extends Base {
         //TODO: Ожидание смены геопозиции
         kraken.await().fluently(
                 ExpectedConditions.invisibilityOfElementLocated(Elements.Modals.AddressModal.addressSuggest().getLocator()),
-                "саджесты не выбраны и все еще отображаются", 3);
+                "саджесты не выбраны и все еще отображаются", 5);
     }
 
     /** Применить введенный адрес в адресной модалке */
@@ -109,8 +109,6 @@ public final class ShippingAddressModal extends Base {
                 ExpectedConditions.visibilityOfElementLocated(
                         Elements.Modals.AddressModal.popup().getLocator()),
                 "Не открылась модалка ввода адреса доставки\n",Config.BASIC_TIMEOUT);
-        log.info("> очищаем адресную строку");
-        kraken.perform().fillField(Elements.Modals.AddressModal.addressField(), "");
     }
 
     @Step("Нажимаем кнопку изменить адрес доставки у выбранного ретейлера")
@@ -121,8 +119,6 @@ public final class ShippingAddressModal extends Base {
                 ExpectedConditions.visibilityOfElementLocated(
                         Elements.Modals.AddressModal.popup().getLocator()),
                 "Не открылась модалка ввода адреса доставки\n",Config.BASIC_TIMEOUT);
-        log.info("> очищаем адресную строку");
-        kraken.perform().fillField(Elements.Modals.AddressModal.addressField(), "");
     }
 
     /** Ищем доступные магазины по введенному адресу */
