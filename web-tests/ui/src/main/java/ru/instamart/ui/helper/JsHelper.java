@@ -17,6 +17,10 @@ public final class JsHelper {
         execute("document.evaluate(\""+locator+"\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollIntoView(true);");
     }
 
+    public static void setCookieValue(final String name, final String value) {
+        execute("document.cookie=\""+name+"="+value+"\"");
+    }
+
     private static Object execute(final String js) {
         return ((JavascriptExecutor) getWebDriver()).executeScript(js);
     }

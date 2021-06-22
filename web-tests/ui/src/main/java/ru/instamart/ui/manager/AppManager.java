@@ -14,16 +14,15 @@ import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.checkout.Checkout;
 import ru.instamart.ui.service.WebDriverService;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+
 import static java.util.Objects.isNull;
 
 @Slf4j
 public final class AppManager {
 
-    private static final Cookie abCookie = new Cookie("external_analytics_anonymous_id",
-            "c196a347-c3c9-421c-b3dc-b50eb8824f5f",
-            "sbermarket.tech",
-            "/",
-            null);
     //cookies_consented = yes
     private static final Cookie cookieAlert = new Cookie("cookies_consented",
             "yes",
@@ -92,8 +91,7 @@ public final class AppManager {
     }
 
     private static void setABCookie() {
-        getWebDriver().manage().getCookies().removeIf(cookie -> cookie.getName().equals(abCookie.getName()));
-        getWebDriver().manage().addCookie(abCookie);
+        JsHelper.setCookieValue("external_analytics_anonymous_id", "c196a347-c3c9-421c-b3dc-b50eb8824f5f");
     }
 
     public BrowseHelper get() { return browseHelper; }
