@@ -537,9 +537,6 @@ public final class DetectionHelper extends HelperBase {
 
     /** Определить наличие пустого списка любимых товаров */
     public boolean isFavoritesEmpty() {
-        if(!kraken.detect().isInFavorites()) {
-            kraken.get().userFavoritesPage();
-        }
         if(kraken.detect().isElementPresent(Elements.Favorites.placeholder())){
             log.info("Нет любимых товаров");
            return true;

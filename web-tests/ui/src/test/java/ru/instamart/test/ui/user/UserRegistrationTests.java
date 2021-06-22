@@ -16,6 +16,7 @@ import ru.instamart.ui.Elements;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.shoppingcart.ShoppingCartCheckpoints;
 import ru.instamart.ui.checkpoint.users.UsersAuthorizationCheckpoints;
+import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
@@ -30,6 +31,7 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
     @BeforeMethod(alwaysRun = true,
             description ="Завершаем сессию, текущего пользователя")
     public void quickLogout() {
+        AppManager.getWebDriver().manage().getCookies().removeIf(cookie -> cookie.getName().equals("_Instamart_session"));
         User.Logout.logout();
     }
 

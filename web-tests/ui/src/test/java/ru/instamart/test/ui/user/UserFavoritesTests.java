@@ -30,11 +30,6 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
     @BeforeMethod(alwaysRun = true,
             description = "Выполняем шаги предусловий для теста")
     public void quickLogout() {
-        kraken.get().baseUrl();
-    }
-
-    @AfterMethod(alwaysRun = true, description = "Закрыть браузер")
-    public void closeBrowser() {
         AppManager.closeWebDriver();
     }
 
@@ -45,7 +40,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
                     "metro-acceptance","metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"}
     )
-    public void noAccessToFavoritesForUnauthorizedUser(){
+    public void noAccessToFavoritesForUnauthorizedUser() {
         baseChecks.checkPageIsUnavailable(Pages.UserProfile.favorites());
     }
 
@@ -59,6 +54,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
     )
     @Flaky
     public void successOpenFavorites() {
+        kraken.get().baseUrl();
         Shop.AuthModal.openAuthOnLanding();
         User.Do.registration(Generate.phoneNumber(),true);
         User.Do.sendSms(Config.DEFAULT_SMS);
@@ -74,12 +70,16 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
                     "sbermarket-acceptance","sbermarket-regression"}
     )
     public void noFavoriteItemsByDefault() {
+        kraken.get().baseUrl();
         Shop.AuthModal.openAuthOnLanding();
         User.Do.registration(Generate.phoneNumber(),true);
         User.Do.sendSms(Config.DEFAULT_SMS);
+        Shop.Favorites.openFavorites();
         checkFavoriteIsEmpty();
     }
 
+    @Skip
+    @Issue("STF-8253")
     @CaseId(1266)
     @Test(  description = "Добавление любимого товара из карточки товара и проверка списка",
             groups = {
@@ -87,6 +87,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
                     "sbermarket-regression"}
     )
     public void successAddFavoriteOnItemCard() {
+        kraken.get().baseUrl();
         Shop.AuthModal.openAuthOnLanding();
         User.Do.registration(Generate.phoneNumber(),true);
         User.Do.sendSms(Config.DEFAULT_SMS);
@@ -94,9 +95,12 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToFavorites();
 
+        Shop.Favorites.openFavorites();
         checkFavoriteIsNotEmpty();
     }
 
+    @Skip
+    @Issue("STF-8253")
     @CaseId(1267)
     @Test(  description = "Удаление любимого товара из карточки товара и проверка списка",
             groups = {
@@ -105,6 +109,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
                     "sbermarket-regression"}
     )
     public void successDeleteFavoriteOnItemCard() {
+        kraken.get().baseUrl();
         Shop.AuthModal.openAuthOnLanding();
         User.Do.registration(Generate.phoneNumber(),true);
         User.Do.sendSms(Config.DEFAULT_SMS);
@@ -118,6 +123,8 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         checkFavoriteIsEmpty();
     }
 
+    @Skip
+    @Issue("STF-8253")
     @CaseId(1268)
     @Test(  description = "Удаление всех любимых товаров",
             groups = {
@@ -127,6 +134,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
             }
     )
     public void successCleanupFavorites() {
+        kraken.get().baseUrl();
         Shop.AuthModal.openAuthOnLanding();
         User.Do.registration(Generate.phoneNumber(),true);
         User.Do.sendSms(Config.DEFAULT_SMS);
@@ -143,11 +151,13 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         Shop.Search.searchItem("хлеб");
         Shop.Search.addToFavorites();
 
+        Shop.Favorites.openFavorites();
         Shop.Favorites.cleanFavorites();
         checkFavoriteIsEmpty();
     }
 
     @Skip
+    @Issue("STF-8253")
     @CaseId(1269)
     @Test(  description = "Проверка работоспособности фильтров Любимых товаров",
             groups = {
@@ -157,6 +167,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
             }
     )
     public void successApplyFilters() {
+        kraken.get().baseUrl();
         Shop.AuthModal.openAuthOnLanding();
         Shop.AuthModal.hitSberIdButton();
         User.Auth.withSberID(UserManager.getDefaultSberIdUser());
@@ -178,6 +189,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
     }
 
     @Skip
+    @Issue("STF-8253")
     @CaseId(1270)
     @Test(  description = "Проверка работоспособности подгрузки страниц в Любимых товарах",
             groups = {
@@ -186,6 +198,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
                     "sbermarket-regression"}
     )
     public void successShowMoreLoad() {
+        kraken.get().baseUrl();
         Shop.AuthModal.openAuthOnLanding();
         Shop.AuthModal.hitSberIdButton();
         User.Auth.withSberID(UserManager.getDefaultSberIdUser());
@@ -222,24 +235,6 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         checkIsUserAuthorized();
     }
 
-    @CaseId(1496)
-    @Test(  description = "Авторизация, при попытке добавить товар из каталога в избранное неавторизованным",
-            groups = {
-                    "metro-regression",
-                    "sbermarket-regression"}
-    )
-    public void successAuthAfterAddFavoriteOnCatalog() {
-        kraken.get().page(Pages.Retailers.metro());
-        Shop.Catalog.Item.addToFavorites();
-
-        checkAuthFrameOpen();
-
-        Shop.AuthModal.hitSberIdButton();
-        User.Auth.withSberID(UserManager.getDefaultSberIdUser());
-
-        checkIsUserAuthorized();
-    }
-
     @CaseId(1272)
     @Test(  description = "Авторизация, при попытке добавить товар из карточки товара в избранное неавторизованным",
             groups = {
@@ -248,18 +243,20 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
     )
     public void successAuthAfterAddFavoriteOnItemCard() {
         kraken.get().page(Pages.Retailers.metro());
+        AppManager.getWebDriver().get("https://stf-kraken.k-stage.sbermarket.tech/metro");
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToFavorites();
 
         checkAuthFrameOpen();
 
-        Shop.AuthModal.hitSberIdButton();
-        User.Auth.withSberID(UserManager.getDefaultSberIdUser());
+        User.Do.registration("9999999999",true);
+        User.Do.sendSms(Config.DEFAULT_SMS);
 
         checkIsUserAuthorized();
     }
 
     @Skip
+    @Issue("STF-8253")
     @CaseId(1492)
     @Test(  description = "Тест добавления товаров в корзину из списка любимых товаров",
             groups = {
@@ -268,6 +265,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
                     "sbermarket-regression"}
     )
     public void successAddFavoriteProductToCart() {
+        kraken.get().baseUrl();
         Shop.AuthModal.openAuthOnLanding();
         Shop.AuthModal.hitSberIdButton();
         User.Auth.withSberID(UserManager.getDefaultSberIdUser());
@@ -285,6 +283,8 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         checkCartEmpty();
     }
 
+    @Skip
+    @Issue("STF-8253")
     @CaseId(1494)
     @Test(  description = "Тест добавления товаров в корзину из карточки товара, открытой из списка любимых товаров",
             groups = {
@@ -292,6 +292,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
                     "sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAddFavoriteProductsFromCardToCart() {
+        kraken.get().baseUrl();
         Shop.AuthModal.openAuthOnLanding();
         Shop.AuthModal.hitSberIdButton();
         User.Auth.withSberID(UserManager.getDefaultSberIdUser());

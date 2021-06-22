@@ -26,13 +26,10 @@ public final class UserLogoutTests extends TestBase implements UsersAuthorizatio
     private final ShoppingCartCheckpoints shopChecks = new ShoppingCartCheckpoints();
     private final ShippingAddressCheckpoints shippingChecks = new ShippingAddressCheckpoints();
 
-    private String phone;
-
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void quickLogout() {
         User.Logout.logout();
-        phone = Generate.phoneNumber();
     }
 
     @CaseId(1473)
@@ -45,7 +42,7 @@ public final class UserLogoutTests extends TestBase implements UsersAuthorizatio
     public void successQuickLogout() {
         kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
-        User.Do.registration(phone,true);
+        User.Do.registration(Generate.phoneNumber(),true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         baseChecks.checkPageIsAvailable();
         checkIsUserAuthorized("Юзер не авторизован на сайте");
@@ -63,7 +60,7 @@ public final class UserLogoutTests extends TestBase implements UsersAuthorizatio
     public void successManualLogout() {
         kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
-        User.Do.registration(phone,true);
+        User.Do.registration(Generate.phoneNumber(),true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         baseChecks.checkPageIsAvailable();
         checkIsUserAuthorized("Юзер не авторизован на сайте");
@@ -83,17 +80,15 @@ public final class UserLogoutTests extends TestBase implements UsersAuthorizatio
     public void noShipAddressAndEmptyCartAfterLogout() {
         kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
-        User.Do.registration(phone,true);
+        User.Do.registration(Generate.phoneNumber(),true);
         User.Do.sendSms(Config.DEFAULT_SMS);
         checkIsUserAuthorized("Юзер не авторизован на сайте");
         ShippingAddressModal.open();
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
         ShippingAddressModal.selectAddressSuggest();
         ShippingAddressModal.submit();
-        kraken.get().page(Config.DEFAULT_RETAILER);
         Shop.Catalog.Item.addToCart();
         User.Logout.logout();
-        User.Logout.quickly();
         checkIsUserNotAuthorized("Не выполнены предусловия - не работает логаут");
         shippingChecks.checkIsShippingAddressNotSet("Логаут");
         kraken.get().page(Config.DEFAULT_RETAILER);

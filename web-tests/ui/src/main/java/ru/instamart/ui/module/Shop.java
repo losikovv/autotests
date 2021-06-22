@@ -79,9 +79,6 @@ public final class Shop extends Base {
         @Step("Открываем модалку авторизации на Лендинге")
         public static void openAuthLending(){
             log.info("> открываем модалку авторизации");
-            kraken.await().fluently(
-                    ExpectedConditions.visibilityOfElementLocated(
-                            Elements.Landings.SbermarketLanding.MainBlock.Stores.homeLanding().getLocator()));
             kraken.perform().click(Elements.Landings.SbermarketLanding.Header.loginButton());
             kraken.await().fluently(
                     ExpectedConditions.visibilityOfElementLocated(
@@ -391,8 +388,8 @@ public final class Shop extends Base {
             /** Добавить товар в корзину через сниппет товара в каталоге */
             @Step("Добавляем товар в корзину через сниппет товара в каталоге")
             public static void addToCart() {
-                kraken.perform().hoverOn(Elements.Catalog.Product.snippet());
-                kraken.perform().click(Elements.Catalog.Product.plusButton());
+                //kraken.perform().hoverOn(Elements.Catalog.Product.snippet());
+                kraken.perform().hoverAndClick(Elements.Catalog.Product.plusButton());
                 //TODO fluent Ожидание добавления товара в корзину
             }
 
@@ -432,12 +429,8 @@ public final class Shop extends Base {
             /** Открыть карточку товара в каталоге */
             @Step("Открываем карточку товара в каталоге")
             public static void open() {
-                catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),2);
                 kraken.perform().click(Elements.Catalog.Product.snippet());
-                kraken.await().fluently(
-                        ExpectedConditions.visibilityOfElementLocated(Elements.ItemCard.popup().getLocator()),
-                        "Не открывается карточка товара");
-                kraken.perform().switchToActiveElement();
+                //kraken.perform().switchToActiveElement();
                 kraken.await().fluently(
                         ExpectedConditions.visibilityOfElementLocated(Elements.ItemCard.image().getLocator()),
                         "Не отображается контент в карточке товара");
@@ -537,12 +530,8 @@ public final class Shop extends Base {
         @Step("Добавляем товар в любимые товары через сниппет товара в каталоге")
         public static void addToFavorites() {
             log.info("Добавляем товар в любимые товары через сниппет товара в каталоге");
-            catchAndCloseAd(Elements.Modals.AuthModal.expressDelivery(),2);
-            step("Наводим курсор на элемент", () ->
-                    kraken.perform().hoverOn(Elements.Catalog.Search.snippet()));
-            step("Добавляем товар в любимые", ()->
-                    kraken.perform().click(Elements.Catalog.Product.favButton()));
-            //TODO fluent Ожидание добавления любимого товара
+            step("Добавляем товар в любимые", () ->
+                    kraken.perform().hoverAndClick(Elements.Catalog.Product.favButton()));
         }
     }
 
@@ -597,18 +586,6 @@ public final class Shop extends Base {
                             .elementToBeClickable(Elements.Header.favoritesButton().getLocator()),
                     "кнопка перехода в любимые товары недоступна");
             kraken.perform().click(Elements.Header.favoritesButton());
-            try {
-                kraken.await().fluently(
-                        ExpectedConditions
-                                .visibilityOfElementLocated(Elements.Favorites.placeholder().getLocator()),
-                        "Нет любимых товаров", 5);
-            } catch (TimeoutException e){
-                kraken.await().fluently(
-                        ExpectedConditions
-                                .visibilityOfElementLocated(Elements.Catalog.Product.FirstSnippetFavorite().getLocator()),
-                        "Есть любимые товары", 5);
-                log.info("Есть любимые товары");
-            }
         }
 
         /** Открыть карточку товара в каталоге */

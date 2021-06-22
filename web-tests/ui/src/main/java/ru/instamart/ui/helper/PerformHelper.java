@@ -91,6 +91,14 @@ public final class PerformHelper extends HelperBase {
         }
     }
 
+    public void hoverAndClick(final ElementData element) {
+        final Matcher matcher = LOCATOR.matcher(element.getLocator().toString());
+        while (matcher.find()) {
+            log.info("Hover and click to element {}", element.getLocator());
+            JsHelper.hoverAndClick(matcher.group());
+        }
+    }
+
     public void scrollTo(final ElementData element) {
         final Matcher matcher = LOCATOR.matcher(element.getLocator().toString());
         while (matcher.find()) {

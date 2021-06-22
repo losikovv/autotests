@@ -21,6 +21,10 @@ public final class JsHelper {
         execute("document.cookie=\""+name+"="+value+"\"");
     }
 
+    public static void hoverAndClick(final String locator) {
+        execute("document.evaluate(\""+locator+"\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click();");
+    }
+
     private static Object execute(final String js) {
         return ((JavascriptExecutor) getWebDriver()).executeScript(js);
     }
