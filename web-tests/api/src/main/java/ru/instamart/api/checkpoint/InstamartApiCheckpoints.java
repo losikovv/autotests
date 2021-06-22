@@ -4,7 +4,6 @@ import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Assert;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.TaxonV2;
@@ -16,48 +15,45 @@ import java.util.List;
 import static java.util.Objects.isNull;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
+import static org.testng.Assert.assertEquals;
 
 @Slf4j
 public class InstamartApiCheckpoints {
 
-    @Step("Ответ вернул 200")
+    @Step("Ответ вернул {statusCode}")
+    public static void checkStatusCode(Response response, int statusCode) {
+        assertEquals(
+                response.statusCode(),
+                statusCode,
+                "\n" + response.statusLine() + "\n" + response.body().asString());
+
+        if (statusCode == 200) response.then().contentType(ContentType.JSON);
+    }
+
     public static void checkStatusCode200(Response response) {
-        if (response.statusCode() != 200) {
-            Assert.fail("\n" + response.statusLine() +
-                        "\n" + response.body().asString());
-        }
-        response.then().contentType(ContentType.JSON);
+        checkStatusCode(response, 200);
     }
 
-    @Step("Ответ вернул 400")
     public static void checkStatusCode400(final Response response) {
-        response.then().statusCode(400);
+        checkStatusCode(response, 400);
     }
 
-    @Step("Ответ вернул 401")
     public static void checkStatusCode401(final Response response) {
-        response.then().statusCode(401);
-    }
+        checkStatusCode(response, 401);    }
 
-    @Step("Ответ вернул 403")
     public static void checkStatusCode403(final Response response) {
-        response.then().statusCode(403);
-    }
+        checkStatusCode(response, 403);    }
 
-    @Step("Ответ вернул 404")
     public static void checkStatusCode404(final Response response) {
-        response.then().statusCode(404);
-    }
+        checkStatusCode(response, 404);    }
 
     @Step("Ответ вернул 200 или 404")
     public static void checkStatusCode200or404(final Response response) {
         response.then().statusCode(anyOf(is(200), is(404)));
     }
 
-    @Step("Ответ вернул 422")
     public static void checkStatusCode422(final Response response) {
-        response.then().statusCode(422);
-    }
+        checkStatusCode(response, 422);    }
 
     /**
      * Проверяем, что дата доставки заказа сегодня
