@@ -233,42 +233,54 @@ public class RestDataProvider extends RestBase {
                 {StoresV2Request.Store.builder()
                         .lat(RestAddresses.Moscow.defaultAddress().getLat())
                         .lon(RestAddresses.Moscow.defaultAddress().getLon())
-                        .build()
+                        .build(),
+                        200
                 },
                 {StoresV2Request.Store.builder()
                         .lat(RestAddresses.Moscow.defaultAddress().getLat())
-                        .build()
+                        .build(),
+                        422
+                },
+                {StoresV2Request.Store.builder()
+                        .lon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .build(),
+                        422
                 },
                 {StoresV2Request.Store.builder()
                         .lat(RestAddresses.Moscow.defaultAddress().getLat())
                         .lon(RestAddresses.Moscow.defaultAddress().getLon())
                         .shippingMethod("pickup")
-                        .build()
+                        .build(),
+                        200
                 },
                 {StoresV2Request.Store.builder()
                         .lat(RestAddresses.Moscow.defaultAddress().getLat())
                         .lon(RestAddresses.Moscow.defaultAddress().getLon())
                         .shippingMethod("by_courier")
-                        .build()
+                        .build(),
+                        200
                 },
                 {StoresV2Request.Store.builder()
                         .lat(RestAddresses.Moscow.defaultAddress().getLat())
                         .lon(RestAddresses.Moscow.defaultAddress().getLon())
                         .shippingMethod("fake")
-                        .build()
+                        .build(),
+                        200
                 },
                 {StoresV2Request.Store.builder()
                         .lat(RestAddresses.Moscow.defaultAddress().getLat())
                         .lon(RestAddresses.Moscow.defaultAddress().getLon())
                         .operationalZoneId(1)
-                        .build()
+                        .build(),
+                        200
                 },
                 {StoresV2Request.Store.builder()
                         .lat(RestAddresses.Moscow.defaultAddress().getLat())
                         .lon(RestAddresses.Moscow.defaultAddress().getLon())
                         .operationalZoneId(99999999)
-                        .build()
-                }
+                        .build(),
+                        200
+                },
         };
     }
 

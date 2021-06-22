@@ -15,8 +15,7 @@ import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Получение списка магазинов")
@@ -44,10 +43,11 @@ public final class StoresV2Test extends RestBase {
             dataProviderClass = RestDataProvider.class,
             dataProvider = "getStores",
             description = "Получаем список всех магазинов по указанным координатам")
-    public void testStoresWithData(final StoresV2Request.Store store) {
+    public void testStoresWithData(final StoresV2Request.Store store,
+                                   final int statusCode) {
         final Response response = StoresV2Request.GET(store);
-        checkStatusCode200(response);
-        assertNotNull(response.as(StoresV2Response.class).getStores(),
+        checkStatusCode(response, statusCode);
+        if (statusCode == 200) assertNotNull(response.as(StoresV2Response.class).getStores(),
                 "Не вернулись магазины по указанным координатам");
     }
 
