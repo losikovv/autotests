@@ -44,4 +44,88 @@ public class CompaniesV1Tests extends RestBase {
         checkStatusCode200(response);
         assertEquals(company.getInn(), response.as(CompaniesV1Response.class).getCompanies().get(0).getInn());
     }
+
+    @Story("Admin Web")
+    @CaseId(630)
+    @Test(description = "Переход на страницу компании",
+            groups = {"api-instamart-regress"})
+    public void getCompaniesByID() {
+        Response response = CompaniesV1Request.GET(company.getId());
+        checkStatusCode200(response);
+        assertEquals(company.getId(), response.as(CompanyV1Response.class).getCompany().getId());
+    }
+
+    @Story("Admin Web")
+    @CaseId(631)
+    @Test(description = "Смена наименования компании",
+            groups = {"api-instamart-regress"})
+    public void putCompanyName() {
+        CompanyV1 companyName = new CompanyV1();
+        companyName.setName(UserManager.juridical().getJuridicalName());
+        Response response = CompaniesV1Request.PUT(company.getId(), companyName);
+        checkStatusCode200(response);
+        assertEquals(companyName.getName(), response.as(CompanyV1Response.class).getCompany().getName());
+    }
+
+    @Story("Admin Web")
+    @CaseId(632)
+    @Test(description = "Добавление комментария менеджера",
+            groups = {"api-instamart-regress"})
+    public void putManagerComment() {
+        CompanyV1 companyComment = new CompanyV1();
+        companyComment.setManagerComment("Test");
+        Response response = CompaniesV1Request.PUT(company.getId(), companyComment);
+        checkStatusCode200(response);
+        assertEquals(companyComment.getManagerComment(), response.as(CompanyV1Response.class).getCompany().getManagerComment());
+    }
+
+    @Story("Admin Web")
+    @CaseId(633)
+    @Test(description = "Смена ссылки на компанию в CRM",
+            groups = {"api-instamart-regress"})
+    public void putLinkToCrm() {
+        CompanyV1 companyLink = new CompanyV1();
+        companyLink.setLinkToCrm("https://test2.ru");
+        Response response = CompaniesV1Request.PUT(company.getId(), companyLink);
+        checkStatusCode200(response);
+        assertEquals(companyLink.getLinkToCrm(), response.as(CompanyV1Response.class).getCompany().getLinkToCrm());
+    }
+
+    @Story("Admin Web")
+    @CaseId(634)
+    @Test(description = "Добавление постоплаты в качества способа оплаты",
+            groups = {"api-instamart-regress"})
+    public void putPostpay() {
+        CompanyV1 companyPostpay = new CompanyV1();
+        companyPostpay.setPostpay(true);
+        Response response = CompaniesV1Request.PUT(company.getId(), companyPostpay);
+        checkStatusCode200(response);
+        assertEquals(companyPostpay.getPostpay(), response.as(CompanyV1Response.class).getCompany().getPostpay());
+    }
+
+    @Story("Admin Web")
+    @CaseId(635)
+    @Test(description = "Добавление предоплаты в качества способа оплаты",
+            groups = {"api-instamart-regress"})
+    public void putPrepay() {
+        CompanyV1 companyPrepay = new CompanyV1();
+        companyPrepay.setPrepay(true);
+        Response response = CompaniesV1Request.PUT(company.getId(), companyPrepay);
+        checkStatusCode200(response);
+        assertEquals(companyPrepay.getPrepay(), response.as(CompanyV1Response.class).getCompany().getPrepay());
+    }
+
+    @Story("Admin Web")
+    @CaseId(636)
+    @Test(description = "Добавление оплаты по депозиту в качества способа оплаты",
+            groups = {"api-instamart-regress"})
+    public void putDeposit() {
+        CompanyV1 companyDeposit = new CompanyV1();
+        companyDeposit.setDeposit(true);
+        Response response = CompaniesV1Request.PUT(company.getId(), companyDeposit);
+        checkStatusCode200(response);
+        assertEquals(companyDeposit.getDeposit(), response.as(CompanyV1Response.class).getCompany().getDeposit());
+    }
+
+
 }

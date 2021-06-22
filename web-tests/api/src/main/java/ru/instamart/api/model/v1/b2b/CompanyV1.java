@@ -1,13 +1,15 @@
 package ru.instamart.api.model.v1.b2b;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import ru.instamart.api.model.BaseObject;
 import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CompanyV1 extends BaseObject {
     private Boolean prepay;
     private Boolean postpay;
