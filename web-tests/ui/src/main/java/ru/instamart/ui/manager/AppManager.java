@@ -24,6 +24,12 @@ public final class AppManager {
             "sbermarket.tech",
             "/",
             null);
+    //cookies_consented = yes
+    private static final Cookie cookieAlert = new Cookie("cookies_consented",
+            "yes",
+            "sbermarket.tech",
+            "/",
+            null);
 
     @Getter
     private static final WebDriverService webDriverService = new WebDriverService();
@@ -72,13 +78,22 @@ public final class AppManager {
         webDriverService.closeDriver();
     }
 
-    public static void setABCookie() {
+    public static void setCookie() {
         try {
-            getWebDriver().manage().getCookies().removeIf(cookie -> cookie.getName().equals(abCookie.getName()));
-            getWebDriver().manage().addCookie(abCookie);
+            setABCookie();
+            setCookieAlert();
         } catch (InvalidCookieDomainException e) {
             log.error("FAILED: Add cookie ", e);
         }
+    }
+
+    private static void setCookieAlert() {
+        getWebDriver().manage().addCookie(cookieAlert);
+    }
+
+    private static void setABCookie() {
+        getWebDriver().manage().getCookies().removeIf(cookie -> cookie.getName().equals(abCookie.getName()));
+        getWebDriver().manage().addCookie(abCookie);
     }
 
     public BrowseHelper get() { return browseHelper; }

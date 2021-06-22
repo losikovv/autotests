@@ -26,6 +26,13 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
         jsonObject.put("profile.default_content_settings.geolocation", 2);
         jsonObject.put("profile.managed_default_content_settings.geolocation", 2);
 
+        //TODO: Добавить поддержку профилей в Moon
+        /*options.addArguments("--allow-profiles-outside-user-dir");
+        options.addArguments("--enable-profile-shortcut-manager");
+        options.addArguments("--disable-blink-features=AutomationControlled");
+        options.addArguments("--user-data-dir=" + FileUtils.getResourceDir("Selenium"));
+        options.addArguments("--profile-directory=Profile");*/
+
         options.addArguments("--disable-extensions");
         options.addArguments("--disable-geolocation");
         options.addArguments("--no-sandbox");
@@ -33,6 +40,7 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
         options.addArguments("--window-size=1920,1080");
 
         options.setExperimentalOption("prefs", jsonObject);
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         options.setCapability("detach", true);
         options.setCapability(CapabilityType.LOGGING_PREFS, getLogPref());
         options.setPageLoadStrategy(PageLoadStrategy.NORMAL); //TODO: Проверить с eager

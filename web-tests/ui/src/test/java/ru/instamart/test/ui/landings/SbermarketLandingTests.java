@@ -1,16 +1,16 @@
 package ru.instamart.test.ui.landings;
 
-import ru.instamart.ui.checkpoint.BaseUICheckpoints;
-import ru.instamart.kraken.testdata.lib.Addresses;
-import ru.instamart.ui.module.Shop;
-import ru.instamart.ui.module.User;
-import ru.instamart.ui.module.shop.ShippingAddressModal;
-import ru.instamart.ui.Elements;
 import io.qase.api.annotation.CaseId;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.test.ui.TestBase;
+import ru.instamart.ui.Elements;
+import ru.instamart.ui.checkpoint.BaseUICheckpoints;
+import ru.instamart.ui.module.Shop;
+import ru.instamart.ui.module.User;
+import ru.instamart.ui.module.shop.ShippingAddressModal;
 
 import static io.qameta.allure.Allure.step;
 
@@ -28,7 +28,6 @@ public class SbermarketLandingTests extends TestBase {
     )
     public void successValidateSbermarketLanding() {
         baseChecks.checkPageIsAvailable();
-        kraken.perform().hoverOn(Elements.Landings.SbermarketLanding.Header.container());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.Header.container());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.Header.logo());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.Header.loginButton());
@@ -40,6 +39,7 @@ public class SbermarketLandingTests extends TestBase {
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.addressButton());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.text());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.Stores.list());
+        kraken.perform().scrollTo(Elements.Landings.SbermarketLanding.MainBlock.Stores.button());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.Stores.button());
         baseChecks.checkIsElementPresent(Elements.Landings.SbermarketLanding.MainBlock.Stores.showAll());
         kraken.perform().click(Elements.Landings.SbermarketLanding.MainBlock.Stores.showAll());

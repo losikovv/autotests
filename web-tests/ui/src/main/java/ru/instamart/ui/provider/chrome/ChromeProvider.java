@@ -24,7 +24,13 @@ public final class ChromeProvider extends AbstractBrowserProvider {
         jsonObject.put("profile.default_content_settings.geolocation", 2);
         jsonObject.put("profile.managed_default_content_settings.geolocation", 2);
 
+        options.addArguments("--disable-extensions");
+        options.addArguments("--disable-geolocation");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+
         options.setExperimentalOption("prefs", jsonObject);
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         options.setCapability(CapabilityType.LOGGING_PREFS, getLogPref());
         options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
@@ -32,7 +38,7 @@ public final class ChromeProvider extends AbstractBrowserProvider {
         capabilities.setBrowserName("chrome");
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 //        capabilities.setVersion(version);
-        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+        capabilities.setCapability("moon:options", Map.<String, Object>of(
                 "enableVNC", VNC,
                 "enableVideo", VIDEO
         ));

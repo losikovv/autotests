@@ -153,7 +153,6 @@ public final class Shop extends Base {
         @Step("Нажимаем кнопку авторизация через Vkontakte")
         public static void hitVkontakteButton() {
             log.info("> нажимаем кнопку авторизация через Vkontakte");
-            kraken.perform().setWindow();
             kraken.perform().click(Elements.Modals.AuthModal.vkontakteButton());
         }
         @Step("Нажимаем кнопку авторизация через Facebook")

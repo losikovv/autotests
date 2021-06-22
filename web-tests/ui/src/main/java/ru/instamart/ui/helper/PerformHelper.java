@@ -12,6 +12,8 @@ import ru.instamart.ui.manager.AppManager;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static ru.instamart.ui.manager.AppManager.getWebDriver;
 import static ru.instamart.ui.module.Base.kraken;
@@ -19,15 +21,7 @@ import static ru.instamart.ui.module.Base.kraken;
 @Slf4j
 public final class PerformHelper extends HelperBase {
 
-    private static String windowHandler;
-
-    public void setWindow(){
-        windowHandler = AppManager.getWebDriver().getWindowHandle();
-    }
-
-    public String getWindow(){
-        return windowHandler;
-    }
+    private static final Pattern LOCATOR = Pattern.compile("/[^\\r\\n]*");
 
     /** Кликнуть элемент предпочтительно использование именно этого метода*/
     public void click(ElementData element) {
@@ -94,6 +88,14 @@ public final class PerformHelper extends HelperBase {
             log.error("Невозможно навести на элемент <{}> \nЭлемент не отображается на {}",
                     element.getLocator(),
                     kraken.grab().currentURL());
+        }
+    }
+
+    public void scrollTo(final ElementData element) {
+        final Matcher matcher = LOCATOR.matcher(element.getLocator().toString());
+        while (matcher.find()) {
+            log.info("Scroll to element {}", element.getLocator());
+            JsHelper.scrollToElement(matcher.group());
         }
     }
 

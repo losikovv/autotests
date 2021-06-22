@@ -19,7 +19,8 @@ public final class BrowseHelper extends HelperBase {
         }
         try {
             AppManager.getWebDriver().get(url);
-            AppManager.setABCookie();
+            AppManager.setCookie();
+            AppManager.getWebDriver().navigate().refresh();
         } catch (TimeoutException t) {
             log.info("Истекло время перехода по URL {}", url);
         }

@@ -13,6 +13,10 @@ public final class JsHelper {
         wait.until((ExpectedCondition<Boolean>) wb -> execute("return typeof ymaps").equals("object"));
     }
 
+    public static void scrollToElement(final String locator) {
+        execute("document.evaluate(\""+locator+"\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollIntoView(true);");
+    }
+
     private static Object execute(final String js) {
         return ((JavascriptExecutor) getWebDriver()).executeScript(js);
     }
