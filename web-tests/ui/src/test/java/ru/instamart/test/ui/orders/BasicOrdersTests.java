@@ -44,13 +44,10 @@ public class BasicOrdersTests extends TestBase {
     @BeforeMethod(alwaysRun = true,
             description ="Аутентификация и выбор адреса доставки")
     public void preconditions() {
-        User.Logout.logout();
-        String phone;
-        phone = Generate.phoneNumber();
         step("Аутентификация", ()-> {
             kraken.get().baseUrl();
             Shop.AuthModal.open();
-            User.Do.registration(phone, false);
+            User.Do.registration(Generate.phoneNumber(), false);
             User.Do.sendSms(Config.DEFAULT_SMS);
         });
         step("Выбор адреса доставки", ()-> {

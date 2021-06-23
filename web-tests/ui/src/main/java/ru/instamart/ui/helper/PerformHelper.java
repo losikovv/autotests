@@ -131,6 +131,11 @@ public final class PerformHelper extends HelperBase {
         }
     }
 
+    public void fill(final ElementData data, final String text) {
+        final WebElement webElement = kraken.await().shouldBeClickable(data);
+        kraken.await().fillField(webElement, text);
+    }
+
     public void clearField(final ElementData element) {
         final WebElement webElement = kraken.await().getValue(element);
         webElement.click();

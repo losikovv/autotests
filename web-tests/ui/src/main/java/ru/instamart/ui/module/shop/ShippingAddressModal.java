@@ -71,7 +71,7 @@ public final class ShippingAddressModal extends Base {
     public static void fill(String address) {
         log.info("> водим адрес в адресной модалке: {}",address);
         JsHelper.ymapReady();
-        kraken.perform().fillField(Elements.Modals.AddressModal.addressField(), address);
+        kraken.perform().fill(Elements.Modals.AddressModal.addressField(), address);
     }
 
     public static void clearField() {

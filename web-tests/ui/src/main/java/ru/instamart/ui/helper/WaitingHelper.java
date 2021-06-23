@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.ui.manager.AppManager;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.ui.data.ElementData;
@@ -98,10 +99,38 @@ public final class WaitingHelper extends HelperBase {
                 });
     }
 
+    public void fillField(final WebElement element, final String text) {
+        createWait().until(keysSendCondition(element, text));
+    }
+
+    public static ExpectedCondition<Boolean> keysSendCondition(final WebElement element, final String text) {
+        return driver -> {
+            if (element.isDisplayed()) {
+                if (element.getAttribute("value").length() != 0) {
+                    element.click();
+                    element.sendKeys(Keys.COMMAND + "a");
+                    element.sendKeys(Keys.CONTROL + "a");
+                    element.sendKeys(Keys.DELETE);
+                }
+                element.sendKeys(text);
+                return element.getAttribute("value").equals(text);
+            }
+            return false;
+        };
+    }
+
     private FluentWait<WebDriver> createWait(final ElementData data) {
         return new FluentWait<>(AppManager.getWebDriver())
                 .withTimeout(data.getTimeout(), TimeUnit.SECONDS)
                 .withMessage(data.getDescription())
+                .pollingEvery(250, TimeUnit.MILLISECONDS)
+                .ignoring(NoSuchElementException.class)
+                .ignoring(NotFoundException.class);
+    }
+
+    private FluentWait<WebDriver> createWait() {
+        return new FluentWait<>(AppManager.getWebDriver())
+                .withTimeout(10, TimeUnit.SECONDS)
                 .pollingEvery(250, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class)
                 .ignoring(NotFoundException.class);

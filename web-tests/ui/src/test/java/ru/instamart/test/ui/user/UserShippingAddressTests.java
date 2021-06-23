@@ -142,7 +142,6 @@ public final class UserShippingAddressTests extends TestBase {
         ShippingAddressModal.submit();
         shippingChecks.checkIsShippingAddressSet("Адрес доставки сброшен после отмены ввода");
         ShippingAddressModal.open();
-        ShippingAddressModal.clearField();
         ShippingAddressModal.fill(Addresses.Moscow.testAddress());
         ShippingAddressModal.selectAddressSuggest();
         ShippingAddressModal.close();
@@ -168,7 +167,6 @@ public final class UserShippingAddressTests extends TestBase {
         ShippingAddressModal.submit();
         shippingChecks.checkIsShippingAddressSet("Адрес доставки сбрасывается при попытке изменения");
         ShippingAddressModal.open();
-        ShippingAddressModal.clearField();
         ShippingAddressModal.fill(Addresses.Moscow.testAddress());
         ShippingAddressModal.selectAddressSuggest();
         ShippingAddressModal.submit();
@@ -263,7 +261,6 @@ public final class UserShippingAddressTests extends TestBase {
         shippingChecks.checkIsChangeStoreModalOpen(
                 "Не открывается модалка с магазинами доступными по новому адресу");
         ShippingAddressModal.selectNewAdressRetailer();
-        ShippingAddressModal.clearField();
         ShippingAddressModal.fill(Addresses.Moscow.testAddress());
         ShippingAddressModal.selectAddressSuggest();
         ShippingAddressModal.submit();
@@ -288,7 +285,6 @@ public final class UserShippingAddressTests extends TestBase {
         shippingChecks.checkIsAddressOutOfZone(
                 "Не открывается модалка Адрес вне зоны доставки");
         ShippingAddressModal.selectNewAdress();
-        ShippingAddressModal.clearField();
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
         ShippingAddressModal.selectAddressSuggest();
         ShippingAddressModal.submit();
