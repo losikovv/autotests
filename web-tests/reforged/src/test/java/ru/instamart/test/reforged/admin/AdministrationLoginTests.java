@@ -92,5 +92,6 @@ public final class AdministrationLoginTests {
         login().submit();
         main().clickToProfileMenu();
         main().clickToLogout();
+        login().checkPageContains(login().pageUrl());
     }
 }

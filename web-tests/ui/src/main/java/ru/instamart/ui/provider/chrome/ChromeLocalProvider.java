@@ -25,6 +25,8 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
 
         jsonObject.put("profile.default_content_settings.geolocation", 2);
         jsonObject.put("profile.managed_default_content_settings.geolocation", 2);
+        jsonObject.put("credentials_enable_service", false);
+        jsonObject.put("profile.password_manager_enabled", false);
 
         //TODO: Добавить поддержку профилей в Moon
         /*options.addArguments("--allow-profiles-outside-user-dir");
@@ -38,12 +40,13 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--window-size=1920,1080");
+        options.addArguments("--disable-notifications");
 
         options.setExperimentalOption("prefs", jsonObject);
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         options.setCapability("detach", true);
         options.setCapability(CapabilityType.LOGGING_PREFS, getLogPref());
-        options.setPageLoadStrategy(PageLoadStrategy.NORMAL); //TODO: Проверить с eager
+        options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
 
         createLocalChromeDriver(Optional.of(options));

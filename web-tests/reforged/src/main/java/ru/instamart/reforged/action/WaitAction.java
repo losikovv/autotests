@@ -14,6 +14,7 @@ import ru.instamart.ui.manager.AppManager;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 @Slf4j
 public final class WaitAction {
@@ -56,12 +57,14 @@ public final class WaitAction {
                 });
     }
 
-    public static void urlToBePresent(final String url) {
-        new FluentWait<>(AppManager.getWebDriver())
-                .withTimeout(Config.BASIC_TIMEOUT, TimeUnit.SECONDS)
-                .pollingEvery(250, TimeUnit.MILLISECONDS)
-                .ignoring(NoSuchElementException.class)
+    public static boolean urlEquals(final String url) {
+        return createWait(Config.BASIC_TIMEOUT, "Текущая страница отличается от ожидаемой")
                 .until(ExpectedConditions.urlToBe(url));
+    }
+
+    public static boolean urlContains(final String url) {
+        return createWait(Config.BASIC_TIMEOUT, "Текущая страница отличается от ожидаемой")
+                .until(ExpectedConditions.urlContains(url));
     }
 
     private static FluentWait<WebDriver> createWait(final Component component) {
@@ -71,6 +74,13 @@ public final class WaitAction {
                 .pollingEvery(250, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class)
                 .ignoring(NotFoundException.class);
+    }
+
+    private static FluentWait<WebDriver> createWait(final int wait, final String errorMsg) {
+        return new FluentWait<>(AppManager.getWebDriver())
+                .withTimeout(wait, TimeUnit.SECONDS)
+                .withMessage(errorMsg)
+                .pollingEvery(250, TimeUnit.MILLISECONDS);
     }
 
     private WaitAction() {}

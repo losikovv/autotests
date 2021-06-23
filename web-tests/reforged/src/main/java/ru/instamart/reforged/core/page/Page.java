@@ -2,7 +2,7 @@ package ru.instamart.reforged.core.page;
 
 import ru.instamart.reforged.action.JsAction;
 
-public interface Page {
+public interface Page extends PageCheck {
 
     String pageUrl();
 

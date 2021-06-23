@@ -23,11 +23,14 @@ public final class ChromeProvider extends AbstractBrowserProvider {
 
         jsonObject.put("profile.default_content_settings.geolocation", 2);
         jsonObject.put("profile.managed_default_content_settings.geolocation", 2);
+        jsonObject.put("credentials_enable_service", false);
+        jsonObject.put("profile.password_manager_enabled", false);
 
         options.addArguments("--disable-extensions");
         options.addArguments("--disable-geolocation");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-notifications");
 
         options.setExperimentalOption("prefs", jsonObject);
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
