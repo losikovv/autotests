@@ -24,6 +24,11 @@ public class Router {
         }
     }
 
+    public static void cleanPage() {
+        final long currentThreadId = Thread.currentThread().getId();
+        pageThread.remove(currentThreadId);
+    }
+
     @SuppressWarnings("unchecked")
     private static <T> T initPage(final Class<T> pageClass) {
         try {

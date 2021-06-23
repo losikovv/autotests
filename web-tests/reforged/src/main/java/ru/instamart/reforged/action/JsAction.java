@@ -53,6 +53,14 @@ public final class JsAction {
         execute("scrollTo(0,document.body.scrollHeight)");
     }
 
+    public static void clearField(final String locator) {
+        execute("document.evaluate(\""+locator+"\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).setAttribute('value', '');");
+    }
+
+    public static void setCookieValue(final String name, final String value) {
+        execute("document.cookie=\""+name+"="+value+"\"");
+    }
+
     /**
      * Клик в первый элемент соответствующий xpath
      * @param locator - элемент в который нужно кликнуть

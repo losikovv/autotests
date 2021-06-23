@@ -8,4 +8,8 @@ public interface Check {
 
     Logger log = LoggerFactory.getLogger(Check.class);
     KrakenAssert krakenAssert = new KrakenAssert();
+
+    default void assertAll() {
+        krakenAssert.assertAll();
+    }
 }

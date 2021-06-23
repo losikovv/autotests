@@ -4,8 +4,13 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.reforged.admin.AdminRout;
+import ru.instamart.ui.manager.AppManager;
+import ru.instamart.ui.module.User;
 
 import static ru.instamart.reforged.admin.AdminRout.login;
 import static ru.instamart.reforged.admin.AdminRout.main;
@@ -14,13 +19,22 @@ import static ru.instamart.reforged.admin.AdminRout.main;
 @Feature("Страница логина")
 public final class AdministrationLoginTests {
 
+    @AfterMethod(alwaysRun = true,
+            description ="Выполняем шаги предусловий для теста")
+    public void afterTest() {
+        AppManager.closeWebDriver();
+        AdminRout.cleanPage();
+    }
+
+    //TODO: Зачем этот тест ? если этих полей нет, то и следующие тесты не выполняться и покажут что на странице что то не так
     @CaseId(439)
     @Story("Тест валидации элементов логин-страницы админки")
     @Test(description = "Тест валидации элементов логин-страницы админки",
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void successValidateAdministrationLoginPage() {
-
+        login().goToPage();
+        login().checkTitle();
     }
 
     @CaseId(440)
@@ -29,7 +43,12 @@ public final class AdministrationLoginTests {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void noAuthWithEmptyFields() {
-
+        login().goToPage();
+        login().setUsername("");
+        login().setPassword("");
+        login().submit();
+        login().checkErrorEmptyEmail();
+        login().checkErrorEmptyPassword();
     }
 
     @CaseId(441)
@@ -38,7 +57,11 @@ public final class AdministrationLoginTests {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void noAuthWithIncorrectUsername() {
-
+        login().goToPage();
+        login().setUsername("wrongUsername");
+        login().setPassword("123456");
+        login().submit();
+        login().checkErrorInvalidEmail();
     }
 
     @CaseId(442)
@@ -47,7 +70,11 @@ public final class AdministrationLoginTests {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void noAuthWithNonexistingUser() {
-
+        login().goToPage();
+        login().setUsername("nonexistinguser@instamart.ru");
+        login().setPassword("123456");
+        login().submit();
+        login().checkErrorInvalidEmailOrPassword();
     }
 
     @CaseId(443)
@@ -56,7 +83,11 @@ public final class AdministrationLoginTests {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void noAuthWithShortPassword() {
-
+        login().goToPage();
+        login().setUsername(UserManager.getDefaultUser().getLogin());
+        login().setPassword("123");
+        login().submit();
+        login().checkErrorShortPassword();
     }
 
     @CaseId(444)
@@ -65,7 +96,11 @@ public final class AdministrationLoginTests {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void noAuthWithWrongPassword() {
-
+        login().goToPage();
+        login().setUsername(UserManager.getDefaultUser().getLogin());
+        login().setPassword("wrongpassword");
+        login().submit();
+        login().checkErrorInvalidEmailOrPassword();
     }
 
     @CaseId(415)
@@ -92,6 +127,6 @@ public final class AdministrationLoginTests {
         login().submit();
         main().clickToProfileMenu();
         main().clickToLogout();
-        login().checkPageContains(login().pageUrl());
+        login().checkTitle();
     }
 }
