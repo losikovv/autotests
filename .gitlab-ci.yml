@@ -86,12 +86,10 @@ tests:ApiInstamart:
     - echo $TEST_SET
     - echo $URL_STF
     - echo $URL_SHP
-    - if [ $URL_STF =~ ^stf-kraken ]; then $ALLURE_POSTFIX="preprod"; else $ALLURE_POSTFIX="staging"; fi
-    - echo $ALLURE_POSTFIX
     - gradle clean build apiInstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
     - cd web-tests
-    - bash ./report.sh api api-instamart-$ALLURE_POSTFIX
+    - bash ./report.sh api api-instamart-regress
   tags:
     - k8s-stage
   artifacts:
