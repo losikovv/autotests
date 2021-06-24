@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.instamart.kraken.setting.Config;
-import ru.instamart.reforged.action.JsAction;
+import ru.instamart.reforged.core.action.JsAction;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

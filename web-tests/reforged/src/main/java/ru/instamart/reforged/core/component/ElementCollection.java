@@ -4,7 +4,7 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import ru.instamart.reforged.action.WaitAction;
+import ru.instamart.reforged.core.action.WaitAction;
 
 import java.util.List;
 
@@ -32,6 +32,7 @@ public final class ElementCollection extends CollectionComponent {
             if (elementText.contains(text)) {
                 log.info("Click on element {} with text {}", we, elementText);
                 we.click();
+                break;
             }
         }
     }

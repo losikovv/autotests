@@ -1,12 +1,13 @@
 package ru.instamart.reforged.core.page;
 
 import org.openqa.selenium.WebDriver;
-import ru.instamart.ui.manager.AppManager;
+import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.core.service.KrakenDriver;
 
 import java.util.List;
 import java.util.Optional;
 
-import static ru.instamart.ui.manager.AppManager.getWebDriver;
+import static ru.instamart.reforged.core.service.KrakenDriver.getWebDriver;
 
 public interface Window {
 
@@ -28,14 +29,14 @@ public interface Window {
 
     default void closeAndSwitchToNextWindow() {
         if (getWebDriver().getWindowHandles().size() > 1) {
-            AppManager.closeWebDriver();
+            Kraken.close();
         }
         switchToNextWindow();
     }
 
     default void closeAndSwitchToPrevWindow() {
         if (getWebDriver().getWindowHandles().size() > 1) {
-            AppManager.closeWebDriver();
+            Kraken.close();
         }
         switchToFirstWindow();
     }

@@ -6,14 +6,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
-import ru.instamart.reforged.action.JsAction;
+import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.core.action.JsAction;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.stf.block.AuthoredHeader;
 import ru.instamart.reforged.stf.drawer.Cart;
 import ru.instamart.reforged.stf.frame.Address;
 import ru.instamart.reforged.stf.frame.ProductCard;
-import ru.instamart.ui.manager.AppManager;
 
 @Slf4j
 public final class Shop implements StfPage {
@@ -87,7 +87,7 @@ public final class Shop implements StfPage {
     }
 
     public void goToPage(final ShopUrl shop) {
-        AppManager.getWebDriver().get(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + shop.getUrl());
+        Kraken.open(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + shop.getUrl());
     }
 
     @Override

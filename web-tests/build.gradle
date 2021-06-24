@@ -37,8 +37,8 @@ project(":reforged") {
     apply plugin: "java-library"
 
     dependencies {
-        implementation project(":ui")
         implementation project(":kraken")
+        implementation project(":api")
         implementation project(":qase-api")
 
         implementation lib.jackson

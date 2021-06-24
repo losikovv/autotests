@@ -1,13 +1,13 @@
-package ru.instamart.reforged.action;
+package ru.instamart.reforged.core.action;
 
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
-import static ru.instamart.ui.manager.AppManager.getWebDriver;
+import static ru.instamart.reforged.core.Kraken.execute;
+import static ru.instamart.reforged.core.service.KrakenDriver.getWebDriver;
 
 @Slf4j
 public final class JsAction {
@@ -67,10 +67,6 @@ public final class JsAction {
      */
     public static void hoverAndClick(final String locator) {
         execute("document.evaluate(\""+locator+"\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click();");
-    }
-
-    private static Object execute(final String js) {
-        return ((JavascriptExecutor) getWebDriver()).executeScript(js);
     }
 
     private JsAction() {}

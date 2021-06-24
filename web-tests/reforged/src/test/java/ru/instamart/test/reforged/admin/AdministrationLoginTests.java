@@ -5,12 +5,9 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.reforged.admin.AdminRout;
-import ru.instamart.ui.manager.AppManager;
-import ru.instamart.ui.module.User;
+import ru.instamart.reforged.core.Kraken;
 
 import static ru.instamart.reforged.admin.AdminRout.login;
 import static ru.instamart.reforged.admin.AdminRout.main;
@@ -22,8 +19,7 @@ public final class AdministrationLoginTests {
     @AfterMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void afterTest() {
-        AppManager.closeWebDriver();
-        AdminRout.cleanPage();
+        Kraken.close();
     }
 
     //TODO: Зачем этот тест ? если этих полей нет, то и следующие тесты не выполняться и покажут что на странице что то не так

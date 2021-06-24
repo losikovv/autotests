@@ -1,20 +1,16 @@
-package ru.instamart.reforged.action;
+package ru.instamart.reforged.core.action;
 
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.NotFoundException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.reforged.core.component.Component;
-import ru.instamart.ui.manager.AppManager;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+
+import static ru.instamart.reforged.core.Kraken.createWait;
 
 @Slf4j
 public final class WaitAction {
@@ -49,7 +45,6 @@ public final class WaitAction {
         return createWait(component)
                 .until((ExpectedCondition<List<WebElement>>) driver -> {
                     final List<WebElement> webElements = driver.findElements(component.getBy());
-                    log.error("WE {}", webElements.size());
                     if (webElements.size() > 0) {
                         return webElements;
                     }
@@ -65,22 +60,6 @@ public final class WaitAction {
     public static boolean urlContains(final String url) {
         return createWait(Config.BASIC_TIMEOUT, "Текущая страница отличается от ожидаемой")
                 .until(ExpectedConditions.urlContains(url));
-    }
-
-    private static FluentWait<WebDriver> createWait(final Component component) {
-        return new FluentWait<>(AppManager.getWebDriver())
-                .withTimeout(component.getTimeout(), TimeUnit.SECONDS)
-                .withMessage(component.getErrorMsg())
-                .pollingEvery(250, TimeUnit.MILLISECONDS)
-                .ignoring(NoSuchElementException.class)
-                .ignoring(NotFoundException.class);
-    }
-
-    private static FluentWait<WebDriver> createWait(final int wait, final String errorMsg) {
-        return new FluentWait<>(AppManager.getWebDriver())
-                .withTimeout(wait, TimeUnit.SECONDS)
-                .withMessage(errorMsg)
-                .pollingEvery(250, TimeUnit.MILLISECONDS);
     }
 
     private WaitAction() {}

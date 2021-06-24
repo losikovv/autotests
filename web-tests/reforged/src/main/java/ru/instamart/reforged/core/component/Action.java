@@ -6,7 +6,7 @@ import org.openqa.selenium.interactions.Actions;
 
 import java.util.function.Consumer;
 
-import static ru.instamart.ui.manager.AppManager.getWebDriver;
+import static ru.instamart.reforged.core.service.KrakenDriver.getWebDriver;
 
 @RequiredArgsConstructor
 public final class Action {

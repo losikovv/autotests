@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import ru.instamart.reforged.action.WaitAction;
+import ru.instamart.reforged.core.action.WaitAction;
 
 @ToString(callSuper = true)
 @Slf4j

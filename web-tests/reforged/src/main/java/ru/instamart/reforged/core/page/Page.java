@@ -1,6 +1,7 @@
 package ru.instamart.reforged.core.page;
 
-import ru.instamart.reforged.action.JsAction;
+import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.core.action.JsAction;
 
 public interface Page extends PageCheck {
 
@@ -12,5 +13,13 @@ public interface Page extends PageCheck {
 
     default void scrollDown() {
         JsAction.scrollToTheBottom();
+    }
+
+    default void confirmBrowserAlert() {
+        Kraken.alertConfirm();
+    }
+
+    default void declineBrowserAlert() {
+        Kraken.alertDismiss();
     }
 }

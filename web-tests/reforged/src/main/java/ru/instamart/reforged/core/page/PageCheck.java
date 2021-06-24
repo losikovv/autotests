@@ -1,6 +1,6 @@
 package ru.instamart.reforged.core.page;
 
-import ru.instamart.reforged.action.WaitAction;
+import ru.instamart.reforged.core.action.WaitAction;
 
 public interface PageCheck {
 

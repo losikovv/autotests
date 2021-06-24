@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.component.Element;
 
-import static ru.instamart.reforged.action.WaitAction.shouldBeVisible;
+import static ru.instamart.reforged.core.action.WaitAction.shouldBeVisible;
 
 public interface MainCheck extends Check {
 

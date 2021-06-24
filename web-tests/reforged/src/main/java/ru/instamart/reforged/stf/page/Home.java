@@ -3,7 +3,7 @@ package ru.instamart.reforged.stf.page;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
-import ru.instamart.reforged.action.JsAction;
+import ru.instamart.reforged.core.action.JsAction;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Link;
 import ru.instamart.reforged.core.page.Window;

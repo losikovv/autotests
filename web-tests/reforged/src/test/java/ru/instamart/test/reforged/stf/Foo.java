@@ -7,10 +7,10 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.reforged.core.listener.UiExecutionListener;
+import ru.instamart.reforged.core.report.CustomReport;
 import ru.instamart.reforged.stf.frame.auth.AuthSberId;
 import ru.instamart.reforged.stf.page.StfRouter;
-import ru.instamart.ui.listener.UiExecutionListener;
-import ru.instamart.ui.report.CustomReport;
 
 @Listeners(UiExecutionListener.class)
 public class Foo {
