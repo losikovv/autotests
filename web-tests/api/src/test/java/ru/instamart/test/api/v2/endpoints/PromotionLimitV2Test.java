@@ -16,6 +16,7 @@ import ru.instamart.api.response.v2.PromotionLimitV2Response;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import static org.testng.Assert.assertEquals;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
@@ -33,7 +34,7 @@ public final class PromotionLimitV2Test extends RestBase {
     }
 
     @CaseId(309)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Проверка условий оплаты бонусами")
     public void bonusPaymentTermsTest() {
         apiV2.fillCart(
@@ -42,6 +43,7 @@ public final class PromotionLimitV2Test extends RestBase {
         );
         String orderNumber = apiV2.getCurrentOrderNumber();
         final Response response = OrdersV2Request.PromotionLimit.GET(orderNumber);
+        checkStatusCode200(response);
         final PromotionLimitV2Response promotionLimitV2Response = response.as(PromotionLimitV2Response.class);
         assertEquals(promotionLimitV2Response.getPromotionLimits().get(0).getType(), "instacoins_value");
         assertEquals(promotionLimitV2Response.getPromotionLimits().get(0).getMaxValue(), 0);

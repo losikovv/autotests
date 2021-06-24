@@ -1,5 +1,6 @@
 package ru.instamart.api.checkpoint;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -20,13 +21,12 @@ import static org.testng.Assert.assertEquals;
 @Slf4j
 public class InstamartApiCheckpoints {
 
-    @Step("Ответ вернул {statusCode}")
     public static void checkStatusCode(Response response, int statusCode) {
+        Allure.step("Проверка statusCode = "+statusCode+" для response");
         assertEquals(
                 response.statusCode(),
                 statusCode,
                 "\n" + response.statusLine() + "\n" + response.body().asString());
-
         if (statusCode == 200) response.then().contentType(ContentType.JSON);
     }
 
@@ -47,8 +47,8 @@ public class InstamartApiCheckpoints {
     public static void checkStatusCode404(final Response response) {
         checkStatusCode(response, 404);    }
 
-    @Step("Ответ вернул 200 или 404")
     public static void checkStatusCode200or404(final Response response) {
+        Allure.step("Проверка statusCode 200 или 404 для response");
         response.then().statusCode(anyOf(is(200), is(404)));
     }
 
