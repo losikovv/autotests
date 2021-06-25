@@ -90,6 +90,8 @@ tests:ApiInstamart:
     - gradle clean build apiInstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
     - cd web-tests
+    - echo $ALLURE_POSTFIX
+    - echo ALLURE_POSTFIX
     - bash ./report.sh api api-instamart-$ALLURE_POSTFIX
   tags:
     - k8s-stage
