@@ -37,6 +37,10 @@ public final class Kraken {
         getWebDriver().switchTo().frame(index);
     }
 
+    public static void switchToParentFrame() {
+        getWebDriver().switchTo().parentFrame();
+    }
+
     public static Object execute(final String js) {
         return ((JavascriptExecutor) KrakenDriver.getWebDriver()).executeScript(js);
     }

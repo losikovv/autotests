@@ -18,6 +18,10 @@ public final class ElementCollection extends CollectionComponent {
         super(by);
     }
 
+    public ElementCollection(final By by, final boolean isCashDisable) {
+        super(by, isCashDisable);
+    }
+
     public ElementCollection(final By by, final String description) {
         super(by, description);
     }
@@ -40,7 +44,7 @@ public final class ElementCollection extends CollectionComponent {
     @Override
     protected List<WebElement> getComponents() {
         log.info("Get {}'s with locator {}", getClass().getSimpleName(), getBy());
-        if (isNull(components)) {
+        if (isNull(components) || isCashDisable) {
             components = WaitAction.isOneOrMoreElementsExist(this);
         }
         return components;

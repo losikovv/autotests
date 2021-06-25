@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import ru.instamart.reforged.core.action.WaitAction;
 
+import static java.util.Objects.isNull;
+
 @ToString(callSuper = true)
 @Slf4j
 public final class Selector extends Component {
@@ -15,6 +17,10 @@ public final class Selector extends Component {
 
     public Selector(final By by) {
         super(by);
+    }
+
+    public Selector(final By by, final boolean isCashDisable) {
+        super(by, isCashDisable);
     }
 
     public Selector(final By by, final String description) {
@@ -28,7 +34,7 @@ public final class Selector extends Component {
     @Override
     protected WebElement getComponent() {
         log.info("Create {} with locator {}", getClass().getSimpleName(), getBy());
-        if (component == null) {
+        if (isNull(component) || isCashDisable) {
             component = WaitAction.shouldBeClickable(this);
         }
         return component;
@@ -46,7 +52,7 @@ public final class Selector extends Component {
 
     private Select getSelect() {
         log.info("Create Select with locator {}", getBy());
-        if (select == null) {
+        if (isNull(component)) {
             select = new Select(getComponent());
         }
         return select;

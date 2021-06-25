@@ -6,6 +6,8 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.core.action.WaitAction;
 
+import static java.util.Objects.isNull;
+
 @Slf4j
 public final class Table extends Component {
 
@@ -47,7 +49,7 @@ public final class Table extends Component {
     @Override
     protected WebElement getComponent() {
         log.info("Create {} with locator {}", getClass().getSimpleName(), getBy());
-        if (component == null) {
+        if (isNull(component) || isCashDisable) {
             component = WaitAction.shouldBeVisible(this);
         }
         return component;

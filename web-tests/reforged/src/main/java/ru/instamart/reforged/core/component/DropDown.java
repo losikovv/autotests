@@ -18,6 +18,10 @@ public final class DropDown extends CollectionComponent {
         super(by);
     }
 
+    public DropDown(final By by, final boolean isCashDisable) {
+        super(by, isCashDisable);
+    }
+
     public DropDown(final By by, final String description) {
         super(by, description);
     }
@@ -60,7 +64,7 @@ public final class DropDown extends CollectionComponent {
     @Override
     protected List<WebElement> getComponents() {
         log.info("Get {}'s with locator {}", getClass().getSimpleName(), getBy());
-        if (isNull(components)) {
+        if (isNull(components) || isCashDisable) {
             components = WaitAction.isElementsExist(this);
         }
         return components;

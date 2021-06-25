@@ -6,12 +6,18 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.core.action.WaitAction;
 
+import static java.util.Objects.isNull;
+
 @ToString(callSuper = true)
 @Slf4j
 public class RadioButton extends Component {
 
     public RadioButton(final By by) {
         super(by);
+    }
+
+    public RadioButton(final By by, final boolean isCashDisable) {
+        super(by, isCashDisable);
     }
 
     public RadioButton(final By by, final String description) {
@@ -25,7 +31,7 @@ public class RadioButton extends Component {
     @Override
     protected WebElement getComponent() {
         log.info("Create {} with locator {}", getClass().getSimpleName(), getBy());
-        if (component == null) {
+        if (isNull(component) || isCashDisable) {
             component = WaitAction.shouldBeClickable(this);
         }
         return component;

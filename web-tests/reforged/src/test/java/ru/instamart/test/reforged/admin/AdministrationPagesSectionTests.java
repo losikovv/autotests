@@ -32,9 +32,6 @@ public final class AdministrationPagesSectionTests {
         pages().goToPage();
         pages().checkTable();
         pages().checkTableEntry();
-        pages().checkTableNextPage();
-        pages().checkTableEditAction();
-        pages().checkTableDeleteAction();
     }
 
     @CaseId(13)
@@ -45,7 +42,8 @@ public final class AdministrationPagesSectionTests {
     public void createDeletePage() {
         final StaticPageData staticPage = StaticPages.newStaticPage();
         newPages().goToPage();
-        newPages().create(staticPage);
+        newPages().fillPageData(staticPage);
+        newPages().submit();
     }
 
     @CaseId(14)

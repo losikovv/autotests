@@ -15,6 +15,10 @@ public abstract class CollectionComponent extends Component {
         super(by);
     }
 
+    public CollectionComponent(final By by, final boolean isCashDisable) {
+        super(by, isCashDisable);
+    }
+
     public CollectionComponent(final By by, final String description) {
         super(by, description);
     }

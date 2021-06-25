@@ -6,12 +6,18 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.core.action.WaitAction;
 
+import static java.util.Objects.isNull;
+
 @ToString(callSuper = true)
 @Slf4j
 public final class Element extends Component {
 
     public Element(final By by) {
         super(by);
+    }
+
+    public Element(final By by, final boolean isCashDisable) {
+        super(by, isCashDisable);
     }
 
     public Element(final By by, final String description) {
@@ -25,7 +31,7 @@ public final class Element extends Component {
     @Override
     protected WebElement getComponent() {
         log.info("Create {} with locator {}", getClass().getSimpleName(), getBy());
-        if (component == null) {
+        if (isNull(component) || isCashDisable) {
             component = WaitAction.shouldBeVisible(this);
         }
         return component;
