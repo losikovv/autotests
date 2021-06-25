@@ -21,7 +21,9 @@ stages:
     - gradle clean build apiShopperRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
     - cd web-tests
-    - bash ./report.sh api api-shopper-regress
+    - if [ $URL_STF == "stf-kraken.k-stage.sbermarket.tech" ]; then ALLURE_POSTFIX="preprod"; else ALLURE_POSTFIX="staging"; fi
+    - echo $ALLURE_POSTFIX
+    - bash ./report.sh api api-shopper-$ALLURE_POSTFIX
   tags:
     - k8s-stage
   artifacts:
