@@ -46,18 +46,6 @@ public abstract class ExecutionListener implements IExecutionListener {
                         Map.entry("Administration", EnvironmentData.INSTANCE.getAdminUrl()),
                         Map.entry("Shopper", EnvironmentData.INSTANCE.getShopperUrl())),
                 System.getProperty("user.dir") + "/build/allure-results/");
-
-        switch (EnvironmentData.INSTANCE.getServer()) {
-            case "preprod":
-                System.setProperty("ALLURE_POSTFIX", "preprod");
-                break;
-            case "production":
-                System.setProperty("ALLURE_POSTFIX", "production");
-                break;
-            default:
-                System.setProperty("ALLURE_POSTFIX", "staging");
-                break;
-        }
     }
 
     private void revealKraken() {
