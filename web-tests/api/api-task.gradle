@@ -132,6 +132,6 @@ task apiSurge(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
-    systemProperty 'qase.Project', 'SHAPI'
+    systemProperty 'qase.Project', 'SURGE'
     systemProperty 'qase.Title', 'Surge API Regress'
 }

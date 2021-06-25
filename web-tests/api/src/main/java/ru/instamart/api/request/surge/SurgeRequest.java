@@ -18,13 +18,27 @@ public class SurgeRequest extends SurgeRequestBase {
         }
 
         @Step("{method} /" + SurgeEndpoints.STORES)
-        public static Response PUT(String storeUuid, Boolean hdmEnabled) {
+        public static Response PUT(String storeUuid, Object hdmEnabled, String token) {
             JSONObject requestParams = new JSONObject();
             requestParams.put("hdmEnabled", hdmEnabled);
-            return givenWithAuth()
+            return givenWithAuth(token)
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .put(SurgeEndpoints.STORES, storeUuid);
+        }
+
+        public static Response PUT(String storeUuid, Object hdmEnabled) {
+            return PUT(storeUuid, hdmEnabled, null);
+        }
+
+        @Step("{method} /" + SurgeEndpoints.STORES)
+        public static Response POST(String storeUuid, Object hdmEnabled) {
+            JSONObject postRequestParams = new JSONObject();
+            postRequestParams.put("hdmEnabled", hdmEnabled);
+            return givenWithAuth()
+                    .contentType(ContentType.JSON)
+                    .body(postRequestParams)
+                    .post(SurgeEndpoints.STORES, storeUuid);
         }
     }
 }
