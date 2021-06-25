@@ -1,7 +1,6 @@
 package ru.instamart.kraken.helper;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -16,9 +15,8 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.util.Map;
 
+@Slf4j
 public class AllureHelper {
-
-    private static final Logger log = LoggerFactory.getLogger(AllureHelper.class);
 
     public static void allureEnvironmentWriter(Map<String, String> environmentValuesSet)  {
         try {

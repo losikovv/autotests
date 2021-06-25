@@ -4,6 +4,7 @@ variables:
   GIT_SUBMODULE_STRATEGY: normal
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   CI_RUN_ALL_JOBS: "true"
+  ALLURE_POSTFIX: "preprod"
 
 before_script:
   - cd web-tests
@@ -89,7 +90,7 @@ tests:ApiInstamart:
     - gradle clean build apiInstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
     - cd web-tests
-    - bash ./report.sh api api-instamart-regress
+    - bash ./report.sh api api-instamart-$ALLURE_POSTFIX
   tags:
     - k8s-stage
   artifacts:
