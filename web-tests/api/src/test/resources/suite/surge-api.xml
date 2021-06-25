@@ -2,6 +2,7 @@
 <suite name="SURGE-API-SUITE" parallel="tests" thread-count="1" verbose="1">
   <listeners>
     <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
+    <listener class-name="ru.instamart.api.listener.ApiListener"/>
   </listeners>
   <test verbose="1" name="SURGE API" parallel="classes" thread-count="1">
     <classes>
