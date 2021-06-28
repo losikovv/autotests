@@ -3,9 +3,8 @@ package ru.instamart.reforged.admin.checkpoint;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.Check;
+import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.component.Element;
-
-import static ru.instamart.reforged.core.action.WaitAction.shouldBeVisible;
 
 public interface MainCheck extends Check {
 
@@ -13,6 +12,6 @@ public interface MainCheck extends Check {
 
     @Step("Пользователь авторизовался")
     default void checkAuth() {
-        shouldBeVisible(user);
+        Kraken.waitAction().shouldBeVisible(user);
     }
 }

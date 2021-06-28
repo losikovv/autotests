@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.core.action.JsAction;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.stf.block.AuthoredHeader;
@@ -49,7 +48,7 @@ public final class Shop implements StfPage {
     @Step("Открыть окно ввода адреса доставки")
     public void openAddressFrame() {
         openAddress.click();
-        JsAction.ymapReady();
+        Kraken.jsAction().ymapReady();
     }
 
     @Step("Нажать на плюс у первого товара")

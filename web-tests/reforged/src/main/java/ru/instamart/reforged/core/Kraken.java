@@ -1,11 +1,17 @@
 package ru.instamart.reforged.core;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.Logs;
 import org.openqa.selenium.support.ui.FluentWait;
+import ru.instamart.reforged.core.action.JsAction;
+import ru.instamart.reforged.core.action.WaitAction;
 import ru.instamart.reforged.core.component.Component;
 import ru.instamart.reforged.core.service.KrakenDriver;
 
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +28,7 @@ public final class Kraken {
         closeWebDriver();
     }
 
-    public static Logs logs() {
+    public static Logs getAllLogs() {
         return getWebDriver().manage().logs();
     }
 
@@ -42,27 +48,27 @@ public final class Kraken {
         getWebDriver().switchTo().parentFrame();
     }
 
+    public static Actions action() {
+        return new Actions(getWebDriver());
+    }
+
+    public static JsAction jsAction() {
+        return JsAction.INSTANCE;
+    }
+
+    public static WaitAction waitAction() {
+        return WaitAction.INSTANCE;
+    }
+
+    public static LogEntries getLogs(final String logType) {
+        return getWebDriver().manage().logs().get(logType);
+    }
+
     public static Object execute(final String js) {
         return ((JavascriptExecutor) getWebDriver()).executeScript(js);
     }
 
     public static Set<Cookie> getCookie() {
         return getWebDriver().manage().getCookies();
-    }
-
-    public static FluentWait<WebDriver> createWait(final Component component) {
-        return new FluentWait<>(getWebDriver())
-                .withTimeout(component.getTimeout(), TimeUnit.SECONDS)
-                .withMessage(component.getErrorMsg())
-                .pollingEvery(250, TimeUnit.MILLISECONDS)
-                .ignoring(NoSuchElementException.class)
-                .ignoring(NotFoundException.class);
-    }
-
-    public static FluentWait<WebDriver> createWait(final int wait, final String errorMsg) {
-        return new FluentWait<>(getWebDriver())
-                .withTimeout(wait, TimeUnit.SECONDS)
-                .withMessage(errorMsg)
-                .pollingEvery(250, TimeUnit.MILLISECONDS);
     }
 }

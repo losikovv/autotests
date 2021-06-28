@@ -3,10 +3,8 @@ package ru.instamart.reforged.admin.checkpoint;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.Check;
+import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.component.Element;
-import ru.instamart.reforged.core.component.Link;
-
-import static ru.instamart.reforged.core.action.WaitAction.shouldBeVisible;
 
 public interface PagesCheck extends Check {
 
@@ -15,11 +13,11 @@ public interface PagesCheck extends Check {
 
     @Step("Проверяем присутствие элемента Таблица на странице")
     default void checkTable() {
-        shouldBeVisible(table).isDisplayed();
+        Kraken.waitAction().shouldBeVisible(table).isDisplayed();
     }
 
     @Step("Проверяем присутствие элемента Внутри Таблицы на странице")
     default void checkTableEntry() {
-        shouldBeVisible(tableEntry).isDisplayed();
+        Kraken.waitAction().shouldBeVisible(tableEntry).isDisplayed();
     }
 }

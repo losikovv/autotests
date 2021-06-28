@@ -4,7 +4,7 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import ru.instamart.reforged.core.action.WaitAction;
+import ru.instamart.reforged.core.Kraken;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public final class ElementCollection extends CollectionComponent {
     protected List<WebElement> getComponents() {
         log.info("Get {}'s with locator {}", getClass().getSimpleName(), getBy());
         if (isNull(components) || isCashDisable) {
-            components = WaitAction.isOneOrMoreElementsExist(this);
+            components = Kraken.waitAction().isElementsExist(this);
         }
         return components;
     }

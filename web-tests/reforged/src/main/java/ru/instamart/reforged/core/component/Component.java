@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.instamart.kraken.setting.Config;
-import ru.instamart.reforged.core.action.JsAction;
+import ru.instamart.reforged.core.Kraken;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -80,7 +80,7 @@ public abstract class Component {
         final Matcher matcher = LOCATOR.matcher(by.toString());
         while (matcher.find()) {
             log.info("Hover and click to element {}", by);
-            JsAction.hoverAndClick(matcher.group());
+            Kraken.jsAction().hoverAndClick(matcher.group());
         }
     }
 
@@ -91,7 +91,7 @@ public abstract class Component {
         final Matcher matcher = LOCATOR.matcher(by.toString());
         while (matcher.find()) {
             log.info("Scroll to element {}", by);
-            JsAction.scrollToElement(matcher.group());
+            Kraken.jsAction().scrollToElement(matcher.group());
         }
     }
 }

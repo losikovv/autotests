@@ -10,9 +10,11 @@ import static ru.instamart.reforged.core.Kraken.execute;
 import static ru.instamart.reforged.core.service.KrakenDriver.getWebDriver;
 
 @Slf4j
-public final class JsAction {
+public enum JsAction {
 
-    public static void reactReady() {
+    INSTANCE;
+
+    public void reactReady() {
         final WebDriverWait wait = new WebDriverWait(getWebDriver(), 5);
         wait.pollingEvery(250, TimeUnit.MILLISECONDS);
         wait.until((ExpectedCondition<Boolean>) wb -> {
@@ -22,7 +24,7 @@ public final class JsAction {
         });
     }
 
-    public static void ymapReady() {
+    public void ymapReady() {
         final WebDriverWait wait = new WebDriverWait(getWebDriver(), 5);
         wait.pollingEvery(250, TimeUnit.MILLISECONDS);
         wait.until((ExpectedCondition<Boolean>) wb -> {
@@ -32,12 +34,12 @@ public final class JsAction {
         });
     }
 
-    public static void waitForDocumentReady() {
+    public void waitForDocumentReady() {
         final WebDriverWait wait = new WebDriverWait(getWebDriver(), 5);
         wait.until((ExpectedCondition<Boolean>) wb -> execute("return document.readyState").toString().equals("complete"));
     }
 
-    public static void scrollToTheTop() {
+    public void scrollToTheTop() {
         execute("scrollTo(0,0)");
     }
 
@@ -45,19 +47,23 @@ public final class JsAction {
      * Скролл до элемента
      * @param locator - локатор достается из компонента через регулярку {@link ru.instamart.reforged.core.component.Component}
      */
-    public static void scrollToElement(final String locator) {
+    public void scrollToElement(final String locator) {
         execute("document.evaluate(\""+locator+"\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollIntoView(true);");
     }
 
-    public static void scrollToTheBottom() {
+    public void scrollToTheBottom() {
         execute("scrollTo(0,document.body.scrollHeight)");
     }
 
-    public static void clearField(final String locator) {
+    public void clearField(final String locator) {
         execute("document.evaluate(\""+locator+"\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).setAttribute('value', '');");
     }
 
-    public static void setCookieValue(final String name, final String value) {
+    public void clearLocalStorage() {
+        execute("localStorage.clear();");
+    }
+
+    public void setCookieValue(final String name, final String value) {
         execute("document.cookie=\""+name+"="+value+"\"");
     }
 
@@ -65,9 +71,11 @@ public final class JsAction {
      * Клик в первый элемент соответствующий xpath
      * @param locator - элемент в который нужно кликнуть
      */
-    public static void hoverAndClick(final String locator) {
+    public void hoverAndClick(final String locator) {
         execute("document.evaluate(\""+locator+"\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click();");
     }
 
-    private JsAction() {}
+    public JsAction getInstance() {
+        return INSTANCE;
+    }
 }

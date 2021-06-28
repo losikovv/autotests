@@ -2,8 +2,8 @@ package ru.instamart.reforged.admin.checkpoint;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import ru.instamart.reforged.core.action.WaitAction;
 import ru.instamart.reforged.core.Check;
+import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.component.Element;
 
 public interface LoginCheck extends Check {
@@ -17,32 +17,31 @@ public interface LoginCheck extends Check {
 
     @Step("Проверяем что на странице отображается заголовок Вход")
     default void checkTitle() {
-        WaitAction.shouldBeVisible(title);
+        Kraken.waitAction().shouldBeVisible(title);
     }
 
     @Step("Проверяем текст сообщения об ошибке с пустым полем username")
     default void checkErrorEmptyEmail() {
-        WaitAction.shouldBeVisible(errorSetEmail).isDisplayed();
+        Kraken.waitAction().shouldBeVisible(errorSetEmail).isDisplayed();
     }
 
     @Step("Проверяем текст сообщения об ошибке с неверным форматом для поля username")
     default void checkErrorInvalidEmail() {
-        WaitAction.shouldBeClickable(errorInvalidFormatEmail).isSelected();
+        Kraken.waitAction().shouldBeClickable(errorInvalidFormatEmail).isSelected();
     }
 
     @Step("Проверяем текст сообщения об ошибке с пустым полем password")
     default void checkErrorEmptyPassword() {
-        WaitAction.shouldBeVisible(errorSetPassword).isDisplayed();
+        Kraken.waitAction().shouldBeVisible(errorSetPassword).isDisplayed();
     }
 
     @Step("Проверяем текст сообщения об ошибке с коротким значением для поля password")
     default void checkErrorShortPassword() {
-        WaitAction.shouldBeVisible(errorShortPassword).isDisplayed();
+        Kraken.waitAction().shouldBeVisible(errorShortPassword).isDisplayed();
     }
 
     @Step("Проверяем текст сообщения об ошибке для несуществующего пользователя")
     default void checkErrorInvalidEmailOrPassword() {
-        WaitAction.shouldBeVisible(errorInvalidEmailOrPassword).isDisplayed();
+        Kraken.waitAction().shouldBeVisible(errorInvalidEmailOrPassword).isDisplayed();
     }
-    
 }

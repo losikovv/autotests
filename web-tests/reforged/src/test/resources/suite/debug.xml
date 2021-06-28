@@ -1,11 +1,19 @@
 <!DOCTYPE suite SYSTEM 'http://testng.org/testng-1.0.dtd'>
 <suite name="DEBUG-SUITE" verbose="1">
     <listeners>
-        <listener class-name="ru.instamart.ui.listener.UiExecutionListener"/>
+        <listener class-name="ru.instamart.reforged.core.listener.UiExecutionListener"/>
+        <listener class-name="ru.instamart.reforged.core.listener.UiListener"/>
     </listeners>
+    <method-selectors>
+        <method-selector>
+            <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+        </method-selector>
+    </method-selectors>
     <test verbose="1" name="Debug UI" parallel="methods" thread-count="2">
         <classes>
-            <class name="ru.instamart.test.reforged.stf.Foo"/>
+            <class name="ru.instamart.test.reforged.admin.AdministrationLoginTests">
+                <methods><include name="successValidateAdministrationLoginPage"/></methods>
+            </class>
         </classes>
     </test>
 </suite>

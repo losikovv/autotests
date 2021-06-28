@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import ru.instamart.reforged.core.action.WaitAction;
+import ru.instamart.reforged.core.Kraken;
 
 import static java.util.Objects.isNull;
 
@@ -35,7 +35,7 @@ public final class Selector extends Component {
     protected WebElement getComponent() {
         log.info("Create {} with locator {}", getClass().getSimpleName(), getBy());
         if (isNull(component) || isCashDisable) {
-            component = WaitAction.shouldBeClickable(this);
+            component = Kraken.waitAction().shouldBeClickable(this);
         }
         return component;
     }

@@ -1,14 +1,14 @@
 package ru.instamart.reforged.core.page;
 
-import ru.instamart.reforged.core.action.WaitAction;
+import ru.instamart.reforged.core.Kraken;
 
 public interface PageCheck {
 
     default void checkPageEquals(final String expectedUrl) {
-        WaitAction.urlEquals(expectedUrl);
+        Kraken.waitAction().urlEquals(expectedUrl);
     }
 
     default void checkPageContains(final String expectedUrl) {
-        WaitAction.urlContains(expectedUrl);
+        Kraken.waitAction().urlContains(expectedUrl);
     }
 }

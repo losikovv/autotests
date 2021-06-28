@@ -7,7 +7,6 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogType;
-import org.openqa.selenium.logging.Logs;
 import ru.instamart.kraken.helper.LogAttachmentHelper;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.service.KrakenDriver;
@@ -33,17 +32,15 @@ public final class CustomReport {
     @Attachment(value = "Браузерный лог", type = "text/plain")
     public static String addBrowserLog() {
         final StringJoiner joiner = new StringJoiner("\n");
-        final Logs logs = Kraken.logs();
-        final LogEntries logEntries = logs.get(LogType.BROWSER);
-
-        logEntries.forEach(log -> joiner.add(log.getMessage()));
+        Kraken.getLogs(LogType.BROWSER)
+                .forEach(log -> joiner.add(log.getMessage()));
 
         return joiner.toString();
     }
 
     @Attachment(value = "Содержимое страницы", type = "text/html")
     public static String addSourcePage() {
-        return KrakenDriver.getWebDriver().getPageSource();
+        return KrakenDriver.getSource();
     }
 
     /** Создаем скриншот для добавления его в Qase */

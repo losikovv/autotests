@@ -14,7 +14,7 @@ public final class Address implements Close {
     private final Button selfDelivery = new Button(By.xpath("//button[@data-qa='address-edit-selector-pickup']"));
 
     private final Input address = new Input(By.xpath("//input[@data-qa='address-modal-input']"));
-    private final DropDown dropDownAddress = new DropDown(By.xpath("//div[contains(@class,'dropdown')]//*[text()]"));
+    private final DropDown dropDownAddress = new DropDown(By.xpath("//div[contains(@class,'dropdown')]/div/*[text()]"));
     private final Button save = new Button(By.xpath("//button[@data-qa='address-modal-submit']"));
 
     private final Selector selectCity = new Selector(By.xpath("//select[@data-qa='city-selector-control']"));
