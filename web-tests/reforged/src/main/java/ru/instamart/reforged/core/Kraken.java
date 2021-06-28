@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.reforged.core.component.Component;
 import ru.instamart.reforged.core.service.KrakenDriver;
 
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static ru.instamart.reforged.core.service.KrakenDriver.closeWebDriver;
@@ -38,7 +39,11 @@ public final class Kraken {
     }
 
     public static Object execute(final String js) {
-        return ((JavascriptExecutor) KrakenDriver.getWebDriver()).executeScript(js);
+        return ((JavascriptExecutor) getWebDriver()).executeScript(js);
+    }
+
+    public static Set<Cookie> getCookie() {
+        return getWebDriver().manage().getCookies();
     }
 
     public static FluentWait<WebDriver> createWait(final Component component) {
