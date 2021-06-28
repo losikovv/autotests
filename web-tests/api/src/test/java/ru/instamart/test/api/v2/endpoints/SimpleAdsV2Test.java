@@ -182,7 +182,7 @@ public class SimpleAdsV2Test extends RestBase {
     @Test(groups = {"api-instamart-prod"},
             description = "Запрос проверки не существующего изображения")
     public void simpleAdsGetNotExistingImageTest() {
-        String imagePath = "imegenotfound";
+        String imagePath = "imageNotFound";
 
         //проверка существования файла запросом заголовков
         final Response responseImage = AdsImagesV2Request.HEAD(imagePath);

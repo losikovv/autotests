@@ -1,5 +1,6 @@
 package ru.instamart.api.helper;
 
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.api.enums.v2.AuthProviderV2;
@@ -18,6 +19,7 @@ public final class RegistrationHelper {
     /**
      * Регистрация
      */
+    @Step("Регистрация пользователя: ")
     public static void registration(final UserData user) {
         final Response response = AuthProvidersV2Request.Sessions.POST(
                 AuthProviderV2.FACEBOOK,
