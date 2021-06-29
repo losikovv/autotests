@@ -4,7 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.setting.Config;
@@ -28,11 +28,10 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
     private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     private final ShoppingCartCheckpoints shopChecks = new ShoppingCartCheckpoints();
 
-    @BeforeMethod(alwaysRun = true,
-            description ="Завершаем сессию, текущего пользователя")
+    @AfterMethod(alwaysRun = true,
+            description ="Завершаем сессию браузера", dependsOnMethods = "captureFinish")
     public void quickLogout() {
-        AppManager.getWebDriver().manage().getCookies().removeIf(cookie -> cookie.getName().equals("_Instamart_session"));
-        User.Logout.logout();
+        AppManager.closeWebDriver();
     }
 
     @CaseId(1552)
@@ -73,7 +72,7 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
         User.Do.registrationWithoutConfirmation(phone);
         baseChecks.checkIsElementDisabled(Elements.Modals.AuthModal.continueButton());
         kraken.get().baseUrl();
-        checkIsUserNotAuthorized("Произошла регистрация пользователя с уже используемым email");
+        checkIsUserNotAuthorized("Произошла регистрация пользователя с уже используемым телефоном");
     }
 
     @CaseId(1541)
