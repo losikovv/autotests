@@ -19,7 +19,7 @@ public final class AdministrationLoginTests {
     @AfterMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void afterTest() {
-        Kraken.close();
+        Kraken.closeBrowser();
     }
 
     //TODO: Зачем этот тест ? если этих полей нет, то и следующие тесты не выполняться и покажут что на странице что то не так

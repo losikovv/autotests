@@ -1,22 +1,16 @@
 package ru.instamart.reforged.core;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.logging.LogEntries;
-import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.Logs;
-import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.reforged.core.action.JsAction;
 import ru.instamart.reforged.core.action.WaitAction;
-import ru.instamart.reforged.core.component.Component;
-import ru.instamart.reforged.core.service.KrakenDriver;
 
-import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
-import static ru.instamart.reforged.core.service.KrakenDriver.closeWebDriver;
-import static ru.instamart.reforged.core.service.KrakenDriver.getWebDriver;
+import static ru.instamart.reforged.core.service.KrakenDriver.*;
 
 public final class Kraken {
 
@@ -24,8 +18,28 @@ public final class Kraken {
         getWebDriver().get(url);
     }
 
-    public static void close() {
+    public static void closeWindow() {
+        getWebDriver().close();
+    }
+
+    public static void closeBrowser() {
         closeWebDriver();
+    }
+
+    public static String currentUrl() {
+        return getWebDriver().getCurrentUrl();
+    }
+
+    public static boolean is404() {
+        return title().contains("404");
+    }
+
+    public static boolean is500() {
+        return title().contains("500");
+    }
+
+    public static boolean is502() {
+        return title().contains("502");
     }
 
     public static Logs getAllLogs() {
@@ -41,7 +55,7 @@ public final class Kraken {
     }
 
     public static void switchFrame(final int index) {
-        getWebDriver().switchTo().frame(index);
+        waitAction().frameShouldBeVisible(index);
     }
 
     public static void switchToParentFrame() {

@@ -57,6 +57,11 @@ public enum WaitAction {
                 .until(ExpectedConditions.urlContains(url));
     }
 
+    public void frameShouldBeVisible(final int frame) {
+        createWait(Config.BASIC_TIMEOUT, "Фрейм не загрузился")
+                .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frame));
+    }
+
     private FluentWait<WebDriver> createWait(final Component component) {
         return new FluentWait<>(getWebDriver())
                 .withTimeout(component.getTimeout(), TimeUnit.SECONDS)

@@ -17,7 +17,7 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 public final class AdministrationPagesSectionTests {
 
     @BeforeClass(alwaysRun = true,
-            description ="Выполняем шаги предусловий для теста")
+            description = "Выполняем шаги предусловий для теста")
     public void beforeTest() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -25,7 +25,7 @@ public final class AdministrationPagesSectionTests {
 
     @CaseId(507)
     @Story("Тест на проверку элементов на вкладке статических страниц")
-    @Test(  description = "Тест на проверку элементов на вкладке статических страниц",
+    @Test(description = "Тест на проверку элементов на вкладке статических страниц",
             groups = {"admin-ui-smoke"}
     )
     public void validatePagesRootPage() {
@@ -36,22 +36,39 @@ public final class AdministrationPagesSectionTests {
 
     @CaseId(13)
     @Story("Тест создания и удаления статической страницы")
-    @Test(  description = "Тест создания и удаления статической страницы",
+    @Test(description = "Тест создания и удаления статической страницы",
             groups = {"admin-ui-smoke"}
     )
     public void createDeletePage() {
         final StaticPageData staticPage = StaticPages.newStaticPage();
-        newPages().goToPage();
+        pages().goToPage();
+        pages().clickToNewPage();
         newPages().fillPageData(staticPage);
         newPages().submit();
+        pages().openSitePage(staticPage.getPageURL());
+        pages().checkPageIsAvailable();
+        pages().goToPage();
+        pages().deleteEntry(staticPage.getPageName());
     }
 
     @CaseId(14)
     @Story("Тест редактирования статической страницы")
-    @Test(  description = "Тест редактирования статической страницы",
+    @Test(description = "Тест редактирования статической страницы",
             groups = {"admin-ui-smoke"}
     )
-    public void createAndEditStaticPage(){
+    public void createAndEditStaticPage() {
+        final StaticPageData staticPage = StaticPages.newStaticPage();
+        final StaticPageData staticPageEdited = StaticPages.editedStaticPage();
         pages().goToPage();
+        newPages().goToPage();
+        newPages().fillPageData(staticPage);
+        newPages().submit();
+        pages().editEntry(staticPage.getPageName());
+        newPages().fillPageData(staticPageEdited);
+        newPages().submit();
+        pages().openSitePage(staticPageEdited.getPageURL());
+        pages().checkPageIsAvailable();
+        pages().goToPage();
+        pages().deleteEntry(staticPageEdited.getPageName());
     }
 }

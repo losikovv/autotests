@@ -18,6 +18,11 @@ public final class Pages implements AdminPage, PagesCheck {
         newPageButton.click();
     }
 
+    @Step("Перейти к редактированию страницы {0}")
+    public void editEntry(final String name) {
+        table.getLine(name).findElement(By.xpath(".//ancestor::td[@class='actions']/a[@data-action='edit']")).click();
+    }
+
     @Step("Удалить запись {0} из таблицы")
     public void deleteEntry(final String name) {
         table.getLine(name).findElement(By.xpath(".//ancestor::td[@class='actions']/a[@data-action='remove']")).click();

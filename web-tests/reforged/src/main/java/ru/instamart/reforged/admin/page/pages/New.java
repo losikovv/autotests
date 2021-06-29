@@ -39,8 +39,7 @@ public final class New implements AdminPage {
         fillMetaTitle(data.getText());
         fillMetaKeywords(data.getText());
         fillMetaDescription(data.getText());
-        fillPageLayout(data.getText());
-        fillForeignLink(data.getText());
+        fillForeignLink(data.getPageURL());
         fillPagePosition(data.getPosition());
     }
 

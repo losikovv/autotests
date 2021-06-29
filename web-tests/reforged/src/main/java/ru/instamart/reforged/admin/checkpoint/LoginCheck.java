@@ -27,7 +27,7 @@ public interface LoginCheck extends Check {
 
     @Step("Проверяем текст сообщения об ошибке с неверным форматом для поля username")
     default void checkErrorInvalidEmail() {
-        Kraken.waitAction().shouldBeClickable(errorInvalidFormatEmail).isSelected();
+        Kraken.waitAction().shouldBeClickable(errorInvalidFormatEmail).isDisplayed();
     }
 
     @Step("Проверяем текст сообщения об ошибке с пустым полем password")

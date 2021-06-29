@@ -29,14 +29,14 @@ public interface Window {
 
     default void closeAndSwitchToNextWindow() {
         if (getWebDriver().getWindowHandles().size() > 1) {
-            Kraken.close();
+            Kraken.closeWindow();
         }
         switchToNextWindow();
     }
 
     default void closeAndSwitchToPrevWindow() {
         if (getWebDriver().getWindowHandles().size() > 1) {
-            Kraken.close();
+            Kraken.closeWindow();
         }
         switchToFirstWindow();
     }
