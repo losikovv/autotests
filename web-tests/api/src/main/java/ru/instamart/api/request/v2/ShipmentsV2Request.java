@@ -17,4 +17,13 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
                     .get(ApiV2EndPoints.Shipments.SHIPPING_RATES, shipmentNumber);
         }
     }
+
+    public static class LineItems {
+
+        @Step("{method} /" + ApiV2EndPoints.Shipments.LINE_ITEMS)
+        public static Response GET(String shipmentNumber) {
+            return givenWithAuth()
+                    .get(ApiV2EndPoints.Shipments.LINE_ITEMS, shipmentNumber);
+        }
+    }
 }

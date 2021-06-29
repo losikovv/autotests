@@ -15,6 +15,7 @@ import ru.instamart.api.model.v2.LineItemV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.ProductV2;
 import ru.instamart.api.request.v2.OrdersV2Request;
+import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.LineItemsV2Response;
 import ru.instamart.api.response.v2.OrderV2Response;
@@ -241,5 +242,31 @@ public class OrdersV2Test extends RestBase {
         softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Заказ не существует");
         softAssert.assertAll();
 
+    }
+
+    @CaseId(321)
+    @Story("Получение line_items для shipments")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Существующий id")
+    public void getShipmentLineItems200() {
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        response = ShipmentsV2Request.LineItems.GET(apiV2.getShipmentsNumber());
+        assertNotNull(response.as(LineItemsV2Response.class).getLineItems(), "Не вернулись товары заказа");
+    }
+
+    @CaseId(322)
+    @Story("Получение line_items для shipments")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Несуществующий id")
+    public void getShipmentLineItems404() {
+        response = ShipmentsV2Request.LineItems.GET("failedOrderNumber");
+        checkStatusCode404(response);
+        ErrorResponse error = response.as(ErrorResponse.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(error.getErrors().getBase(), "Доставка не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Доставка не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Доставка не существует");
+        softAssert.assertAll();
     }
 }
