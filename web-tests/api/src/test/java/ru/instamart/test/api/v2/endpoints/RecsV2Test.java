@@ -5,14 +5,13 @@ import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.junit.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.request.v2.PersonalV2Request;
-import ru.instamart.api.request.v2.SimpleRecsPersonalV2Request;
 import ru.instamart.api.response.v2.RecsV2Response;
 
-import java.util.Arrays;
 import java.util.UUID;
 
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
@@ -66,13 +65,14 @@ public class RecsV2Test extends RestBase {
     }
 
     @CaseId(288)
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Запрос рекомендаций с отсуствующим обязательным параметром",
             dataProvider = "testNegativeRecsTest",
             dataProviderClass = RestDataProvider.class
     )
-    public void testNegativeRecsTest(SimpleRecsPersonalV2Request.SimpleRecsV2 simpleRecsV2) {
-        final Response response = SimpleRecsPersonalV2Request.POST(simpleRecsV2);
+    @Parameters({"RequestJson", "Description"})
+    public void testNegativeRecsTest(PersonalV2Request.RecsV2 simpleRecsV2, String desc) {
+        final Response response = PersonalV2Request.POST(simpleRecsV2);
         checkStatusCode400(response);
     }
 }
