@@ -7,6 +7,7 @@ import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
@@ -121,7 +122,8 @@ public class SimpleAdsV2Test extends RestBase {
             dataProvider = "negativeSimpleAdsData",
             dataProviderClass = RestDataProvider.class,
             description = "Упрощенный запрос нативной рекламы с негативными параметрами")
-    public void simpleAdsNegativeParameterTest(SimpleAdsV2Request.SimpleAdsV2 simpleAdsV2) {
+    @Parameters({"RequestJson", "Description"})
+    public void simpleAdsNegativeParameterTest(SimpleAdsV2Request.SimpleAdsV2 simpleAdsV2, String desc) {
         final Response response = SimpleAdsV2Request.POST(simpleAdsV2);
         checkStatusCode400(response);
     }
