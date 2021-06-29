@@ -30,7 +30,9 @@ public class PersonalV2Request extends ApiV2RequestBase {
     @Data
     public static class RecsV2 {
         private String reqId;
+        private int tmax;
         private Context context;
+        @Singular
         private List<PlacementsItem> placements;
     }
 
