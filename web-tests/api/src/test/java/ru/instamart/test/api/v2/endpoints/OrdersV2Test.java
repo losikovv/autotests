@@ -34,7 +34,7 @@ public class OrdersV2Test extends RestBase {
     }
 
     @CaseId(4)
-    @Test(  description = "Получаем заказы",
+    @Test(description = "Получаем заказы",
             groups = {"api-instamart-smoke", "MRAutoCheck", "api-instamart-prod"})
     public void getOrders() {
         response = OrdersV2Request.GET();
@@ -43,7 +43,7 @@ public class OrdersV2Test extends RestBase {
     }
 
     @CaseId(5)
-    @Test(  description = "Получаем текущий заказ",
+    @Test(description = "Получаем текущий заказ",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getCurrentOrder() {
         response = OrdersV2Request.Current.GET();
@@ -53,7 +53,7 @@ public class OrdersV2Test extends RestBase {
     }
 
     @CaseId(9)
-    @Test(  description = "Получаем заказ",
+    @Test(description = "Получаем заказ",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getOrder() {
         response = OrdersV2Request.GET(apiV2.getCurrentOrderNumber());
@@ -62,7 +62,7 @@ public class OrdersV2Test extends RestBase {
     }
 
     @CaseId(19)
-    @Test(  description = "Получаем заказы для оценки",
+    @Test(description = "Получаем заказы для оценки",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getUnratedOrders() {
         response = OrdersV2Request.Unrated.GET();
@@ -71,7 +71,7 @@ public class OrdersV2Test extends RestBase {
     }
 
     @CaseId(16)
-    @Test(  description = "Получаем товары в заказе",
+    @Test(description = "Получаем товары в заказе",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getOrderLineItems() {
         response = OrdersV2Request.LineItems.GET(apiV2.getCurrentOrderNumber());
@@ -81,7 +81,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(313)
     @Story("Применение промокода")
-    @Test(  groups = {"api-instamart-smoke"},
+    @Test(groups = {"api-instamart-smoke"},
             description = "Существующий id")
     public void orderWithPromoCode() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
@@ -91,15 +91,15 @@ public class OrdersV2Test extends RestBase {
         OrderV2 order = response.as(OrderV2Response.class).getOrder();
         assertNotNull(order.getPromotionCodes(), "Промокод не применился");
 
-        response = OrdersV2Request.Promotions.DELETE(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
-        checkStatusCode200(response);
-        order = response.as(OrderV2Response.class).getOrder();
-        assertTrue(order.getPromotionCodes().isEmpty(), "Промокод не удалился");
+//        response = OrdersV2Request.Promotions.DELETE(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
+//        checkStatusCode200(response);
+//        order = response.as(OrderV2Response.class).getOrder();
+//        assertTrue(order.getPromotionCodes().isEmpty(), "Промокод не удалился");
     }
 
     @CaseId(314)
     @Story("Применение промокода")
-    @Test(  groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Несуществующий id")
     public void orderWithInvalidPromoCode() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
@@ -109,9 +109,30 @@ public class OrdersV2Test extends RestBase {
         assertNotNull(errorResponse, "Не вернулась ошибки");
     }
 
+    @CaseId(315)
+    @Story("Удаление промокода")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Существующий id")
+    public void deletePromoCodeForOrder() {
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+
+        response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
+        response.prettyPeek();
+        checkStatusCode200(response);
+        OrderV2 order = response.as(OrderV2Response.class).getOrder();
+        assertNotNull(order.getPromotionCodes(), "Промокод не применился");
+
+        response = OrdersV2Request.Promotions.DELETE(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
+        checkStatusCode200(response);
+        response.prettyPeek();
+        order = response.as(OrderV2Response.class).getOrder();
+        assertTrue(order.getPromotionCodes().isEmpty(), "Промокод не удалился");
+
+    }
+
     @CaseId(316)
     @Story("Удаление промокода")
-    @Test(  groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Несуществующий id заказа")
     public void deletePromoCodeForInvalidOrder() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
@@ -129,7 +150,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(318)
     @Story("Удаление промокода")
-    @Test(  groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Несуществующий promoCode")
     public void deleteInvalidPromoCode() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
