@@ -128,7 +128,6 @@
               "retailer_sku",
               "rsku",
               "stock_rate",
-              "stock_rate_description",
               "max_stock_rate",
               "discount_ends_at",
               "price_type",
