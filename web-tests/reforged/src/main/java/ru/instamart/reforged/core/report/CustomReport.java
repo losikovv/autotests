@@ -13,7 +13,9 @@ import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.service.KrakenDriver;
 
 import java.io.File;
-import java.util.*;
+import java.util.Collections;
+import java.util.Set;
+import java.util.StringJoiner;
 
 public final class CustomReport {
 
@@ -54,33 +56,48 @@ public final class CustomReport {
     @Attachment(value = "Куки браузера", type = "text/plain")
     public static String addCookieLog(final String title) {
         final Set<Cookie> cookies = Kraken.getCookie();
-        final OptionalInt maxLineLength = cookies
+        final int maxLineLength = cookies
                 .stream()
-                .filter(Objects::nonNull)
                 .map(Cookie::getValue)
-                .map(String::length)
-                .mapToInt(Integer::intValue)
-                .max();
-        final int count = maxLineLength.orElse(0) >= 20 ? maxLineLength.getAsInt() + 1:20;
+                .mapToInt(String::length)
+                .max().orElse(0);
+        final int count = maxLineLength >= 20 ? Math.min(maxLineLength + 1, 120) : 20;
         final StringBuilder sb = new StringBuilder();
         sb.append("Report for ").append(title).append('\n');
 
         final String delimiter = '+' + Joiner
                 .on('+')
-                .join(joinLine(10),
+                .join(joinLine(40),
                         joinLine(count),
-                        joinLine(10)) + "+\n";
+                        joinLine(40)) + "+\n";
         sb.append(delimiter);
-        sb.append(String.format("|%-10s|%-" + count + "s|%-10s|%n", "Name", "Value", "Domain"));
+        sb.append(String.format("|%-40s|%-" + count + "s|%-40s|%n", "Name", "Value", "Domain"));
         sb.append(delimiter);
 
         for (final Cookie e : cookies) {
-            sb.append(String.format("|%-10s|%-" + count + "s|%-10s|%n", e.getName(), e.getValue(), e.getDomain()));
+            //TODO: Жутко, но по другому не придумал
+            final String tmp = e.getValue().replaceAll(".{120}(?=.)", "$0\n");
+            final String[] splitString = splitString(tmp);
+            final int countLine = splitString.length;
+            if (countLine > 1) {
+                for (int i = 0; i < countLine; i++) {
+                    if (i == 0) {
+                        sb.append(String.format("|%-40s|%-" + count + "s|%-40s|%n", e.getName(), splitString[i], e.getDomain()));
+                    } else {
+                        sb.append(String.format("|%-40s|%-" + count + "s|%-40s|%n", "", splitString[i], ""));
+                    }
+                }
+            } else {
+                sb.append(String.format("|%-40s|%-" + count + "s|%-40s|%n", e.getName(), e.getValue(), e.getDomain()));
+            }
+            sb.append(delimiter);
         }
 
-        sb.append(delimiter);
-
         return sb.toString();
+    }
+
+    private static String[] splitString(String str){
+        return str.split("\r\n|\r|\n");
     }
 
     private static String joinLine(final int count) {
