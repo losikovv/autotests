@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
+import org.junit.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
@@ -23,47 +24,45 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 public class RecsV2Test extends RestBase {
 
     @CaseId(287)
-    @Test(groups = {"api-instamart-prod"}, description = "Запрос рекомендаций с обязательными параметрами")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Запрос рекомендаций с обязательными параметрами")
     public void testRecsTest() {
         PersonalV2Request.RecsV2 recsV2 = PersonalV2Request.RecsV2.builder()
                 .reqId(UUID.randomUUID().toString())
-                .placements(
-                        Arrays.asList(PersonalV2Request.PlacementsItem.builder()
+                .tmax(5000)
+                .placement(
+                        PersonalV2Request.PlacementsItem.builder()
                                 .placementId(UUID.randomUUID().toString())
                                 .ext(PersonalV2Request.PlacementsExt.builder()
                                         .componentId(2)
                                         .order(1)
                                         .build())
-                                .build())
+                                .build()
                 )
                 .context(
                         PersonalV2Request.Context.builder()
-                                .site(PersonalV2Request.Site.builder()
-                                        .domain("ru.sbermarket.new-app")
-                                        .page("test")
-                                        .ext(PersonalV2Request.SiteAndAppExt.builder()
-                                                .categoryId(1)
-                                                .storeId("1")
-                                                .tenantId(1)
-                                                .build())
-                                        .build()
-                                )
                                 .app(
                                         PersonalV2Request.App.builder()
+                                                .domain("ru.sbermarket.new-app")
+                                                .ver("1.0.0.1")
                                                 .ext(PersonalV2Request.SiteAndAppExt.builder()
                                                         .categoryId(1)
                                                         .storeId("1")
-                                                        .tenantId(1)
                                                         .build())
                                                 .build()
                                 )
+                                .user(PersonalV2Request.User.builder()
+                                        .id(UUID.randomUUID().toString())
+                                        .build())
                                 .build()
                 )
                 .build();
 
         final Response response = PersonalV2Request.POST(recsV2);
         checkStatusCode200(response);
-        response.as(RecsV2Response.class);
+        final RecsV2Response recsV2Response = response.as(RecsV2Response.class);
+        Assert.assertNotNull(recsV2Response.getRecs());
+
     }
 
     @CaseId(288)
