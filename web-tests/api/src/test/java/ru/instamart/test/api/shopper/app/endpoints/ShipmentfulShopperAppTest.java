@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
+import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -35,6 +36,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);
         OrderV2 order = apiV2.order(userData, EnvironmentData.INSTANCE.getDefaultSid());
+        if (order == null) throw new SkipException("Заказ не удалось оплатить");
         String isDeliveryToday = checkIsDeliveryToday(order);
         shopperApp.authorisation(UserManager.getDefaultShopper());
         shopperApp.deleteCurrentAssembly();
