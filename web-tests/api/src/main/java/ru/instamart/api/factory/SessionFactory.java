@@ -81,7 +81,8 @@ public final class SessionFactory {
     }
 
     public static void createSessionToken(final SessionType type, final UserData userData) {
-        final SessionId sessionId = new SessionId(Thread.currentThread().getId(), type);
+        final SessionId sessionId = new SessionId(Thread.currentThread().getId(),
+                type == SessionType.API_V2_PHONE ? SessionType.API_V2_FB : type);
         final SessionInfo session = sessionMap.get(sessionId);
         if (nonNull(session) && !session.getLogin().equals(userData.getLogin())) {
             sessionMap.put(sessionId, createSession(type, userData));
