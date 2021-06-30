@@ -23,7 +23,8 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 public final class SessionsV2Test extends RestBase {
 
     @CaseId(180)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Валидация сессионного токена")
+    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
+            description = "Валидация сессионного токена")
     public void testSessionToken() {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);
@@ -33,7 +34,8 @@ public final class SessionsV2Test extends RestBase {
     }
 
     @CaseId(179)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Невалидные сессионный токен")
+    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Невалидные сессионный токен")
     public void testInvalidToken() {
         final Response response = SessionsV2Request.GET("aaaaaaaaa");
         checkStatusCode404(response);
@@ -52,7 +54,8 @@ public final class SessionsV2Test extends RestBase {
     }
 
     @CaseId(181)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Валидация данных по сессионному токену")
+    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Валидация данных по сессионному токену")
     public void testUserDataWithInvalidToken() {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);

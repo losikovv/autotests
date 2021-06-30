@@ -121,14 +121,12 @@ public class OrdersV2Test extends RestBase {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
 
         response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
-        response.prettyPeek();
         checkStatusCode200(response);
         OrderV2 order = response.as(OrderV2Response.class).getOrder();
         assertNotNull(order.getPromotionCodes(), "Промокод не применился");
 
         response = OrdersV2Request.Promotions.DELETE(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
         checkStatusCode200(response);
-        response.prettyPeek();
         order = response.as(OrderV2Response.class).getOrder();
         assertTrue(order.getPromotionCodes().isEmpty(), "Промокод не удалился");
 

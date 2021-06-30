@@ -8,9 +8,9 @@ import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.PurchasedProductsV2Request;
 import ru.instamart.api.response.v2.ProductsV2Response;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
@@ -40,8 +40,7 @@ public final class PurchasedProductsV2Test extends RestBase {
 
     @CaseId(266)
     @Story("Получить список ранее купленных продуктов")
-    @Test(  enabled = false, //todo включить после реализации мобильной авторизации
-            description = "Существующий sid",
+    @Test(  description = "Существующий sid",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void testGetPurchasedProductWithValidSid() {
         final Response response = PurchasedProductsV2Request.GET(
