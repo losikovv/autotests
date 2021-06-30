@@ -6,6 +6,7 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.lib.Addresses;
@@ -70,6 +71,7 @@ public final class UserLogoutTests extends TestBase implements UsersAuthorizatio
         checkIsUserNotAuthorized("Не работает логаут");
     }
 
+    @Skip
     @CaseId(1475)
     @Story("Позитивный кейс")
     @Test(  description = "Тест сброса адреса доставки и корзины после деавторизации",
