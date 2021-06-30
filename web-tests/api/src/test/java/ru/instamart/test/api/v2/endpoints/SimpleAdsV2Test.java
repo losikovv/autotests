@@ -7,6 +7,7 @@ import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
@@ -20,7 +21,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertTrue;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
@@ -33,7 +34,7 @@ public class SimpleAdsV2Test extends RestBase {
     }
 
     @CaseId(282)
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Упрощенный запрос нативной рекламы с обязательными параметрами")
     public void simpleAdsTest() {
         SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters = SimpleAdsV2Request.SimpleAdsV2.builder()
@@ -71,7 +72,7 @@ public class SimpleAdsV2Test extends RestBase {
     }
 
     @CaseId(628)
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Упрощенный запрос нативной рекламы с всеми доступными параметрами")
     public void simpleAdsAllParameterTest() {
         SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters = SimpleAdsV2Request.SimpleAdsV2.builder()
@@ -117,17 +118,18 @@ public class SimpleAdsV2Test extends RestBase {
     }
 
     @CaseId(284)
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProvider = "negativeSimpleAdsData",
             dataProviderClass = RestDataProvider.class,
             description = "Упрощенный запрос нативной рекламы с негативными параметрами")
-    public void simpleAdsNegativeParameterTest(SimpleAdsV2Request.SimpleAdsV2 simpleAdsV2) {
+    @Parameters({"RequestJson", "Description"})
+    public void simpleAdsNegativeParameterTest(SimpleAdsV2Request.SimpleAdsV2 simpleAdsV2, String desc) {
         final Response response = SimpleAdsV2Request.POST(simpleAdsV2);
         checkStatusCode400(response);
     }
 
     @CaseId(285)
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Запрос проверки существующего изображения")
     public void simpleAdsGetExistingImageTest() {
         SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters = SimpleAdsV2Request.SimpleAdsV2.builder()
@@ -172,20 +174,18 @@ public class SimpleAdsV2Test extends RestBase {
                 .iterator().next()
                 .getImage().getUrl();
 
-        //проверка существования файла запросом заголовков
-        final Response responseImage = AdsImagesV2Request.HEAD(imagePath);
-        assertEquals(responseImage.getHeader("Content-Type"), "image/png");
+        final Response responseImage = AdsImagesV2Request.GET(imagePath);
+        assertTrue(responseImage.getHeader("Content-Type").startsWith("image/"));
     }
 
 
     @CaseId(286)
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Запрос проверки не существующего изображения")
     public void simpleAdsGetNotExistingImageTest() {
         String imagePath = "imageNotFound";
 
-        //проверка существования файла запросом заголовков
-        final Response responseImage = AdsImagesV2Request.HEAD(imagePath);
+        final Response responseImage = AdsImagesV2Request.GET(imagePath);
         checkStatusCode404(responseImage);
     }
 }

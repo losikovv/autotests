@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
@@ -20,7 +21,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 public class SimpleRecsV2Test extends RestBase {
 
     @CaseId(287)
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Упрощенный запрос блока рекомендаций с обязательными параметрами")
     public void testSimpleRecsTest() {
         SimpleRecsPersonalV2Request.SimpleRecsV2 allRequiredParameters = SimpleRecsPersonalV2Request.SimpleRecsV2.builder()
@@ -53,12 +54,13 @@ public class SimpleRecsV2Test extends RestBase {
     }
 
     @CaseId(288)
-    @Test(groups = {"api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Упрощенный запрос блока рекомендаций с отсутствующим обязательным параметром",
             dataProvider = "testNegativeSimpleRecsTest",
             dataProviderClass = RestDataProvider.class
     )
-    public void testNegativeSimpleRecsTest(SimpleRecsPersonalV2Request.SimpleRecsV2 simpleRecsV2) {
+    @Parameters({"RequestJson", "Description"})
+    public void testNegativeSimpleRecsTest(SimpleRecsPersonalV2Request.SimpleRecsV2 simpleRecsV2, String desc) {
         final Response response = SimpleRecsPersonalV2Request.POST(simpleRecsV2);
         checkStatusCode400(response);
     }

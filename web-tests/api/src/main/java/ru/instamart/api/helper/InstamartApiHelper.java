@@ -771,6 +771,22 @@ public final class InstamartApiHelper {
     }
 
     /**
+     * Узнаем shipment number заказа
+     */
+    public String getShipmentsNumber() {
+        Response response = OrdersV2Request.POST();
+        checkStatusCode200(response);
+        currentShipmentNumber.set(response
+                .as(OrderV2Response.class)
+                .getOrder()
+                .getShipments().get(0)
+                .getNumber());
+        Allure.step("SHIPMENT_NUMBER текущего заказа: " + currentShipmentNumber.get());
+        log.info("SHIPMENT_NUMBER текущего заказа: {}", currentShipmentNumber.get());
+        return currentShipmentNumber.get();
+    }
+
+    /**
      * Получаем список активных (принят, собирается, в пути) заказов
      */
     @Step("Список активных (принят, собирается, в пути) заказов: ")
