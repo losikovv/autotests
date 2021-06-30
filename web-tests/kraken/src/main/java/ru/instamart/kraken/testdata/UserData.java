@@ -2,8 +2,8 @@ package ru.instamart.kraken.testdata;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import ru.instamart.kraken.util.PhoneCrypt;
 
-@AllArgsConstructor
 @Data
 public final class UserData {
 
@@ -31,6 +31,16 @@ public final class UserData {
         this(login, password, null);
     }
 
+    public UserData(String role, String login, String phone, String password, String name, String token, String encryptedPhone) {
+        this.role = role;
+        this.login = login;
+        this.phone = phone;
+        this.password = password;
+        this.name = name;
+        this.token = token;
+        this.encryptedPhone = generateEncryptedPhone();
+    }
+
     public String getFirstName() {
         if (name == null) return "FirstName";
 
@@ -48,6 +58,6 @@ public final class UserData {
     }
 
     public String generateEncryptedPhone() {
-        return "";
+        return PhoneCrypt.INSTANCE.encryptPhone(phone);
     }
 }
