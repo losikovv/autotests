@@ -14,20 +14,25 @@ public final class Shipments implements AdminPage, ShipmentsCheck {
     private final Input searchNumber = new Input(By.id("search_number"));
     private final Button submit = new Button(By.xpath("//button[@type='submit']"));
 
-    private final Element foundShipment = new Element(By.className("leader-text"));
+    private final Element foundCount = new Element(By.className("leader-text"));
 
     @Step("Получить номер заказа из первой строки")
-    public String getShipmentNumber() {
+    public String getOrderNumber() {
         return table.getFirstLine().findElement(By.xpath("//td/span[2]/a")).getText();
     }
 
-    @Step("Получить количество найденных товаров")
-    public String getFoundShipmentCount() {
-        return foundShipment.getText();
+    @Step("Получить номер отправки из первой строки")
+    public String getShipmentNumber() {
+        return table.getFirstLine().findElement(By.xpath("//td/span/a")).getText();
     }
 
-    @Step("Вставить номер заказа {0} в поле для поиска")
-    public void setShipmentNumber(final String shipmentNumber) {
+    @Step("Получить количество найденных товаров")
+    public String getFoundCount() {
+        return foundCount.getText();
+    }
+
+    @Step("Вставить номер отправки или заказа {0} в поле для поиска")
+    public void setShipmentOrOrderNumber(final String shipmentNumber) {
         searchNumber.fill(shipmentNumber);
     }
 

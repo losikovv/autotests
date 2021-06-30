@@ -42,11 +42,11 @@ public final class AdministrationShipmentsSectionTests {
     )
     public void successSearchOrderByOrderNumber() {
         shipments().goToPage();
-        final String shipmentNumber = shipments().getShipmentNumber();
-        shipments().setShipmentNumber(shipmentNumber);
+        final String orderNumber = shipments().getOrderNumber();
+        shipments().setShipmentOrOrderNumber(orderNumber);
         shipments().search();
-        shipments().checkFoundShipmentCount(shipments().getFoundShipmentCount(), 1);
-        shipments().checkShipmentNumber(shipments().getShipmentNumber(), shipmentNumber);
+        shipments().checkFoundOrderOrShipmentCount(shipments().getFoundCount(), 1);
+        shipments().checkOrderOrShipmentNumber(shipments().getOrderNumber(), orderNumber);
     }
 
     @CaseId(445)
@@ -55,7 +55,12 @@ public final class AdministrationShipmentsSectionTests {
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     )
     public void successSearchOrderByShipmentNumber() {
-
+        shipments().goToPage();
+        final String shipmentNumber = shipments().getShipmentNumber();
+        shipments().setShipmentOrOrderNumber(shipmentNumber);
+        shipments().search();
+        shipments().checkFoundOrderOrShipmentCount(shipments().getFoundCount(), 1);
+        shipments().checkOrderOrShipmentNumber(shipments().getShipmentNumber(), shipmentNumber);
     }
 
     // TODO тест можно ускорить - использовать тестовый заказ из конфига
