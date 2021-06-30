@@ -43,7 +43,7 @@ public final class ElementCollection extends CollectionComponent {
 
     @Override
     protected List<WebElement> getComponents() {
-        log.info("Get {}'s with locator {}", getClass().getSimpleName(), getBy());
+        log.debug("Get {}'s with locator {}", getClass().getSimpleName(), getBy());
         if (isNull(components) || isCashDisable) {
             components = Kraken.waitAction().isElementsExist(this);
         }

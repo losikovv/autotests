@@ -30,7 +30,7 @@ public final class Element extends Component {
 
     @Override
     protected WebElement getComponent() {
-        log.info("Create {} with locator {}", getClass().getSimpleName(), getBy());
+        log.debug("Create {} with locator {}", getClass().getSimpleName(), getBy());
         if (isNull(component) || isCashDisable) {
             component = Kraken.waitAction().shouldBeVisible(this);
         }
@@ -42,8 +42,8 @@ public final class Element extends Component {
         log.info("Click {} with locator {}", getClass().getSimpleName(), getBy());
     }
 
-    public void getText() {
-        getComponent().getText();
+    public String getText() {
         log.info("Get text {} with locator {}", getClass().getSimpleName(), getBy());
+        return getComponent().getText();
     }
 }

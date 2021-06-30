@@ -11,18 +11,26 @@ import static java.util.Objects.isNull;
 @Slf4j
 public final class Table extends Component {
 
-    private ElementCollection lines = new ElementCollection(By.xpath("//tbody/tr"));
+    private final ElementCollection lines;
 
     public Table() {
         super(By.xpath("//table"));
+        this.lines = new ElementCollection(By.xpath("//tbody/tr"));
+    }
+
+    public Table(final boolean isCashDisable) {
+        super(By.xpath("//table"), isCashDisable);
+        this.lines = new ElementCollection(By.xpath("//tbody/tr"), isCashDisable);
     }
 
     public Table(final String description) {
         super(By.xpath("//table"), description);
+        this.lines = new ElementCollection(By.xpath("//tbody/tr"));
     }
 
     public Table(final String description, final String errorMsg) {
         super(By.xpath("//table"), description, errorMsg);
+        this.lines = new ElementCollection(By.xpath("//tbody/tr"));
     }
 
     public WebElement getLine(final int index) {
@@ -48,7 +56,7 @@ public final class Table extends Component {
 
     @Override
     protected WebElement getComponent() {
-        log.info("Create {} with locator {}", getClass().getSimpleName(), getBy());
+        log.debug("Create {} with locator {}", getClass().getSimpleName(), getBy());
         if (isNull(component) || isCashDisable) {
             component = Kraken.waitAction().shouldBeVisible(this);
         }

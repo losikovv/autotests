@@ -30,7 +30,7 @@ public class RadioButton extends Component {
 
     @Override
     protected WebElement getComponent() {
-        log.info("Create {} with locator {}", getClass().getSimpleName(), getBy());
+        log.debug("Create {} with locator {}", getClass().getSimpleName(), getBy());
         if (isNull(component) || isCashDisable) {
             component = Kraken.waitAction().shouldBeClickable(this);
         }
