@@ -16,7 +16,7 @@ public final class ApiV2EndPoints {
     public static final String PAYMENT_TOOLS = "v2/payment_tools";
     public static final String PAYMENT_TOOL_TYPES = "v2/payment_tool_types";
     public static final String PHONE_CONFIRMATIONS = "v2/phone_confirmations?phone={encryptedPhoneNumber}";
-    public static final String PRODUCTS = "v2/products?sid={sid}&q={query}";
+    public static final String PRODUCTS = "v2/products";
     public static final String PURCHASED_PRODUCTS = "v2/purchased_products?sid={sid}";
     public static final String RETAILERS = "v2/retailers";
     public static final String SIMPLE_ADS = "v2/simple-ads";
@@ -87,7 +87,6 @@ public final class ApiV2EndPoints {
 
     public static final class Products {
         public static final String BY_ID = "v2/products/{productId}";
-        public static final String BY_SID = "v2/products/?sid={sid}";
     }
 
     public static final class Promotions {
