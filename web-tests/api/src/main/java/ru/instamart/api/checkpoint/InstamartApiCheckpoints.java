@@ -6,7 +6,9 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.asserts.SoftAssert;
+import ru.instamart.api.enums.v2.ProductSortTypeV2;
 import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.api.model.v2.SortV2;
 import ru.instamart.api.model.v2.TaxonV2;
 
 import java.time.LocalDateTime;
@@ -39,13 +41,16 @@ public class InstamartApiCheckpoints {
     }
 
     public static void checkStatusCode401(final Response response) {
-        checkStatusCode(response, 401);    }
+        checkStatusCode(response, 401);
+    }
 
     public static void checkStatusCode403(final Response response) {
-        checkStatusCode(response, 403);    }
+        checkStatusCode(response, 403);
+    }
 
     public static void checkStatusCode404(final Response response) {
-        checkStatusCode(response, 404);    }
+        checkStatusCode(response, 404);
+    }
 
     public static void checkStatusCode200or404(final Response response) {
         Allure.step("Проверка statusCode 200 или 404 для response");
@@ -53,7 +58,22 @@ public class InstamartApiCheckpoints {
     }
 
     public static void checkStatusCode422(final Response response) {
-        checkStatusCode(response, 422);    }
+        checkStatusCode(response, 422);
+    }
+
+    @Step("Продукты отсортированы {sortTypeV2.name}")
+    public static void checkSort(final ProductSortTypeV2 sortTypeV2, final List<SortV2> sorts) {
+
+        for (SortV2 sort : sorts) {
+            Boolean active = sort.getKey().equals(sortTypeV2.getKey());
+            assertEquals(sort.getActive(), active);
+
+            if (active) {
+                assertEquals(sort.getName(), sortTypeV2.getName());
+                assertEquals(sort.getOrder(), sortTypeV2.getOrder());
+            }
+        }
+    }
 
     /**
      * Проверяем, что дата доставки заказа сегодня
