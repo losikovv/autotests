@@ -1,5 +1,6 @@
 package ru.instamart.test.api.shopper.app.e2e;
 
+import org.testng.SkipException;
 import ru.instamart.api.checkpoint.InstamartApiCheckpoints;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.helper.RegistrationHelper;
@@ -26,6 +27,7 @@ public class ShopperAppE2ETest extends RestBase {
         final UserData user = UserManager.getUser();
         RegistrationHelper.registration(user);
         OrderV2 order = apiV2.order(user, EnvironmentData.INSTANCE.getDefaultSid(), 4);
+        if (order == null) throw new SkipException("Заказ не удалось оплатить");
         shipmentNumber = order.getShipments().get(0).getNumber();
         InstamartApiCheckpoints.checkIsDeliveryToday(order);
     }
