@@ -114,6 +114,11 @@ public final class ApiV2EndPoints {
         }
     }
 
+    public static final class Sessions {
+        public static final String BY_TOKEN = "v2/sessions/{token}";
+        public static final String USER = "v2/sessions/{token}/user";
+    }
+
     public static final class Shipments {
         public static final String SHIPPING_RATES = "v2/shipments/{shipmentNumber}/shipping_rates";
         public static final String LINE_ITEMS = "v2/shipments/{shipmentNumber}/line_items";

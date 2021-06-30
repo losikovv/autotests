@@ -151,7 +151,7 @@ public final class UserManager {
         if (isNull(defaultApiUser)) {
             defaultApiUser = new UserData(
                     "superuser",
-                    "test@test.test",
+                    "cmiqnmwt1lbmrtv0vdln@temp.temp",
                     "79999999966",
                     "",
                     "autotest superuser",
