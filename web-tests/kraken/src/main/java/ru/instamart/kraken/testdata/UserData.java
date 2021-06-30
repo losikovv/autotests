@@ -46,4 +46,8 @@ public final class UserData {
 
         return fullName.length > 1 ? fullName[1] : "LastName";
     }
+
+    public String generateEncryptedPhone() {
+        return "";
+    }
 }
