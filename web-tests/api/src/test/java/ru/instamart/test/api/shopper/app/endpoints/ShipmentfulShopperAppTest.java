@@ -46,6 +46,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @AfterClass(alwaysRun = true,
                 description = "Удаляем текущую сборку")
     public void cleanup() {
+        shopperApp.authorisation(UserManager.getDefaultShopper());
         shopperApp.deleteCurrentAssembly();
     }
 
