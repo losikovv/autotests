@@ -3,13 +3,13 @@ package ru.instamart.ui.module;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ru.instamart.kraken.util.ThreadUtil;
-import ru.instamart.ui.manager.AppManager;
 import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
-import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.ui.Elements;
+import ru.instamart.ui.manager.AppManager;
 
 @Slf4j
 public final class User extends Base {
@@ -73,14 +73,8 @@ public final class User extends Base {
         @Step("Деавторизуемся на сайте")
         public static void logoutOnSite() {
             log.info("> деавторизуемся на сайте");
-            for (int i=0;i<60;i++){
-                kraken.perform().click(Elements.Header.profileButton());
-                if(AppManager.getWebDriver().findElement(Elements.AccountMenu.logoutButton().getLocator()).isDisplayed()){
-                    break;
-                }else{
-                    ThreadUtil.simplyAwait(0.3);
-                }
-            }
+            kraken.perform().click(Elements.Header.profileButton());
+            kraken.await().shouldBeVisible(Elements.AccountMenu.logoutButton());
             kraken.perform().click(Elements.AccountMenu.logoutButton());
         }
 

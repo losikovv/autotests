@@ -40,10 +40,13 @@ public final class ChromeProvider extends AbstractBrowserProvider {
 
         capabilities.setBrowserName("chrome");
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+        capabilities.setCapability("sessionTimeout", "5m");
 //        capabilities.setVersion(version);
         capabilities.setCapability("moon:options", Map.<String, Object>of(
                 "enableVNC", VNC,
-                "enableVideo", VIDEO
+                "enableVideo", VIDEO,
+                "sessionTimeout", "5m",
+                "screenResolution", "1920x1080x24"
         ));
 
         createRemoteDriver(capabilities);
