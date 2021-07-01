@@ -2,9 +2,11 @@ package ru.instamart.api.model.v1.b2b;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import lombok.experimental.Accessors;
 import ru.instamart.api.model.BaseObject;
 import java.util.List;
 
+@Accessors (chain = true)
 @Data
 @EqualsAndHashCode(callSuper=false)
 @Builder

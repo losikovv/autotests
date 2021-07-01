@@ -23,15 +23,15 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 @Epic("ApiV1")
 @Feature("B2B endpoints")
 public class UserCompaniesV1Tests extends RestBase {
-
     private final JuridicalData companyData = UserManager.juridical();
     private CompanyV1 company;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-            SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
-            Response response = UserCompaniesV1Request.POST(companyData);
-            company = response.as(CompanyV1Response.class).getCompany();
+        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
+        Response response = UserCompaniesV1Request.POST(companyData);
+        checkStatusCode200(response);
+        company = response.as(CompanyV1Response.class).getCompany();
     }
 
     @Story("Web")

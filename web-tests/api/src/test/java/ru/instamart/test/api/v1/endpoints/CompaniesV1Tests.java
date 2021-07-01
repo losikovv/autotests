@@ -24,7 +24,6 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 @Epic("ApiV1")
 @Feature("B2B endpoints")
 public class CompaniesV1Tests extends RestBase {
-
     private final JuridicalData companyData = UserManager.juridical();
     private CompanyV1 company;
 
@@ -32,6 +31,7 @@ public class CompaniesV1Tests extends RestBase {
     public void preconditions() {
         SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
         Response response = UserCompaniesV1Request.POST(companyData);
+        checkStatusCode200(response);
         company = response.as(CompanyV1Response.class).getCompany();
     }
 
@@ -60,8 +60,8 @@ public class CompaniesV1Tests extends RestBase {
     @Test(description = "Смена наименования компании",
             groups = {"api-instamart-regress"})
     public void putCompanyName() {
-        CompanyV1 companyName = new CompanyV1();
-        companyName.setName(UserManager.juridical().getJuridicalName());
+        CompanyV1 companyName = new CompanyV1().setName(UserManager.juridical().getJuridicalName());
+
         Response response = CompaniesV1Request.PUT(company.getId(), companyName);
         checkStatusCode200(response);
         assertEquals(companyName.getName(), response.as(CompanyV1Response.class).getCompany().getName());
@@ -72,8 +72,8 @@ public class CompaniesV1Tests extends RestBase {
     @Test(description = "Добавление комментария менеджера",
             groups = {"api-instamart-regress"})
     public void putManagerComment() {
-        CompanyV1 companyComment = new CompanyV1();
-        companyComment.setManagerComment("Test");
+        CompanyV1 companyComment = new CompanyV1().setManagerComment("Test");
+
         Response response = CompaniesV1Request.PUT(company.getId(), companyComment);
         checkStatusCode200(response);
         assertEquals(companyComment.getManagerComment(), response.as(CompanyV1Response.class).getCompany().getManagerComment());
@@ -84,8 +84,8 @@ public class CompaniesV1Tests extends RestBase {
     @Test(description = "Смена ссылки на компанию в CRM",
             groups = {"api-instamart-regress"})
     public void putLinkToCrm() {
-        CompanyV1 companyLink = new CompanyV1();
-        companyLink.setLinkToCrm("https://test2.ru");
+        CompanyV1 companyLink = new CompanyV1().setLinkToCrm("https://test2.ru");
+
         Response response = CompaniesV1Request.PUT(company.getId(), companyLink);
         checkStatusCode200(response);
         assertEquals(companyLink.getLinkToCrm(), response.as(CompanyV1Response.class).getCompany().getLinkToCrm());
@@ -96,8 +96,8 @@ public class CompaniesV1Tests extends RestBase {
     @Test(description = "Добавление постоплаты в качества способа оплаты",
             groups = {"api-instamart-regress"})
     public void putPostpay() {
-        CompanyV1 companyPostpay = new CompanyV1();
-        companyPostpay.setPostpay(true);
+        CompanyV1 companyPostpay = new CompanyV1().setPostpay(true);
+
         Response response = CompaniesV1Request.PUT(company.getId(), companyPostpay);
         checkStatusCode200(response);
         assertEquals(companyPostpay.getPostpay(), response.as(CompanyV1Response.class).getCompany().getPostpay());
@@ -108,8 +108,8 @@ public class CompaniesV1Tests extends RestBase {
     @Test(description = "Добавление предоплаты в качества способа оплаты",
             groups = {"api-instamart-regress"})
     public void putPrepay() {
-        CompanyV1 companyPrepay = new CompanyV1();
-        companyPrepay.setPrepay(true);
+        CompanyV1 companyPrepay = new CompanyV1().setPrepay(true);
+
         Response response = CompaniesV1Request.PUT(company.getId(), companyPrepay);
         checkStatusCode200(response);
         assertEquals(companyPrepay.getPrepay(), response.as(CompanyV1Response.class).getCompany().getPrepay());
@@ -120,8 +120,8 @@ public class CompaniesV1Tests extends RestBase {
     @Test(description = "Добавление оплаты по депозиту в качества способа оплаты",
             groups = {"api-instamart-regress"})
     public void putDeposit() {
-        CompanyV1 companyDeposit = new CompanyV1();
-        companyDeposit.setDeposit(true);
+        CompanyV1 companyDeposit = new CompanyV1().setDeposit(true);
+
         Response response = CompaniesV1Request.PUT(company.getId(), companyDeposit);
         checkStatusCode200(response);
         assertEquals(companyDeposit.getDeposit(), response.as(CompanyV1Response.class).getCompany().getDeposit());
