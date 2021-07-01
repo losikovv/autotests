@@ -36,4 +36,5 @@ public class CompanyV1 extends BaseObject {
     private List<CompanyDocumentV1> companyDocuments;
     @JsonProperty(value = "sales_contracts")
     private List<SalesContractV1> salesContracts;
+    private ManagerV1 manager;
 }

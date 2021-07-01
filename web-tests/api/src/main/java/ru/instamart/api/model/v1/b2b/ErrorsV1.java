@@ -11,6 +11,9 @@ import java.util.List;
 @EqualsAndHashCode(callSuper=false)
 public class ErrorsV1 extends BaseObject {
 	private List<String> inn;
+	private List<String> number;
 	@JsonProperty(value = "external_payment_account")
 	private List<String> externalPaymentAccount;
+	@JsonProperty(value = "archived_at")
+	private List<String> archivedAt;
 }

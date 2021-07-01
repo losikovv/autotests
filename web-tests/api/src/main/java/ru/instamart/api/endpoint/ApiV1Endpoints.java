@@ -83,6 +83,7 @@ public final class ApiV1Endpoints {
 
     public static final class CompanySalesContracts {
         public static final String ARCHIVE = "company_sales_contracts/{contractID}/archive";
+        public static final String BY_ID = "company_sales_contracts/{contractID}";
     }
 
     public static final class CompanyEmployees {

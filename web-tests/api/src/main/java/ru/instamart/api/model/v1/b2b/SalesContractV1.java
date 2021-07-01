@@ -13,4 +13,5 @@ public class SalesContractV1 extends BaseObject {
 	private Integer id;
 	@JsonProperty(value = "signing_date")
 	private String signingDate;
+	private ErrorsV1 errors;
 }
