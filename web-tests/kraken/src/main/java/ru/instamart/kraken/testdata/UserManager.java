@@ -26,6 +26,7 @@ public final class UserManager {
     private static UserData defaultMailRuUser;
     private static UserData defaultSberIdUser;
     private static UserData defaultApiUser;
+    private static UserData defaultDcUser;
 
     public static UserData getNullUser() {
         return generateData("empty", 0);
@@ -81,8 +82,7 @@ public final class UserManager {
                     "7777777777",
                     PASSWD_1,
                     "autotest superadmin",
-                    Crypt.INSTANCE.decrypt("etIbXhyM1zqCCpiTObFcm0Bb5vTw6rAFrB5Ir9/shcQ="),
-                    null
+                    Crypt.INSTANCE.decrypt("etIbXhyM1zqCCpiTObFcm0Bb5vTw6rAFrB5Ir9/shcQ=")
             );
         }
         return defaultAdmin;
@@ -163,13 +163,13 @@ public final class UserManager {
     }
 
     public static UserData getDeliveryClubUser() {
-        if (isNull(defaultApiUser)) {
-            return  defaultApiUser = new UserData(
+        if (isNull(defaultDcUser)) {
+            return  defaultDcUser = new UserData(
                     "dc",
                     "dcsmstage"
             );
         }
-        return defaultApiUser;
+        return defaultDcUser;
     }
 
     public static List<UserData> getUserDataList() {

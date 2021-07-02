@@ -1,6 +1,5 @@
 package ru.instamart.kraken.util;
 
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.Cipher;
@@ -20,7 +19,10 @@ public enum PhoneCrypt {
     private static final String ENCRYPT_ALGO = "AES/CBC/PKCS5Padding";
     private static final String ALGORITHM="AES";
     private static final int IV_SIZE = 16; // in bytes
-    private static final byte[] CIPHER_KEY_PHONE = "Qqh79BpFGPpEWpdsNsZDwHgo65Xa5LHy53ahcN9caHM=".getBytes(StandardCharsets.UTF_8);
+    //"Qqh79BpFGPpEWpdsNsZDwHgo65Xa5LHy53ahcN9caHM="
+    private static final byte[] CIPHER_KEY_PHONE = new byte[]{66, -88, 123, -12, 26, 69, 24, -6, 68, 90, -105, 108, 54, -58, 67, -64, 120, 40, -21, -107, -38, -28, -79, -14, -25, 118, -95, 112, -33, 92, 104, 115};
+    private static final SecretKeySpec SECRET_KEY_SPEC = new SecretKeySpec(CIPHER_KEY_PHONE, ALGORITHM);
+    private static final Base64.Encoder encoder = Base64.getEncoder();
 
     /**
      * def encrypt(plain, key: ENV['CIPHER_KEY'])
@@ -34,27 +36,27 @@ public enum PhoneCrypt {
      *     end
      */
     public String encryptPhone(final String phone) {
-        final Base64.Encoder encoder = Base64.getEncoder();
-        final Base64.Decoder decoder = Base64.getDecoder();
-        final byte[] encryptedTextByte = decoder.decode(CIPHER_KEY_PHONE);
         final byte[] iv = getRandomNonce();
-        final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-        final SecretKeySpec secretKey = new SecretKeySpec(encryptedTextByte, ALGORITHM);
         final IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
+        String result = "error";
         try {
             final Cipher cipher = Cipher.getInstance(ENCRYPT_ALGO);
-            cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivParameterSpec);
+            cipher.init(Cipher.ENCRYPT_MODE, SECRET_KEY_SPEC, ivParameterSpec);
 
-            outputStream.write(iv);
-            outputStream.write(cipher.update(phone.getBytes(StandardCharsets.UTF_8)));
-            outputStream.write(cipher.doFinal());
+            try(final ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+                outputStream.write(iv);
+                outputStream.write(cipher.update(phone.getBytes(StandardCharsets.UTF_8)));
+                outputStream.write(cipher.doFinal());
+                result = encoder.encodeToString(outputStream.toByteArray());
+            } catch (Exception e) {
+                log.error("FATA: Can't concatenate byte");
+            }
 
-            return encoder.encodeToString(outputStream.toByteArray());
+            return result;
         } catch (Exception e) {
             log.error("FATAL: Can't encrypt phone={}", phone);
         }
-        return "";
+        return result;
     }
 
     private byte[] getRandomNonce() {

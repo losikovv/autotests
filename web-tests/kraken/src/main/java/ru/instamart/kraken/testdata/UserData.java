@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import ru.instamart.kraken.util.PhoneCrypt;
 
+import static java.util.Objects.isNull;
+
+@AllArgsConstructor
 @Data
 public final class UserData {
 
@@ -16,7 +19,7 @@ public final class UserData {
     private String encryptedPhone;
 
     public UserData( String role, String login, String phone, String password, String name) {
-        this(role, login, phone, password, name, null, null);
+        this(role, login, phone, password, name, null);
     }
 
     public UserData( String role, String login, String password, String name) {
@@ -31,7 +34,8 @@ public final class UserData {
         this(login, password, null);
     }
 
-    public UserData(String role, String login, String phone, String password, String name, String token, String encryptedPhone) {
+    public UserData(String role, String login, String phone, String password, String name, String token) {
+        this(role, login, phone, password, name, token, token);
         this.role = role;
         this.login = login;
         this.phone = phone;
@@ -57,7 +61,10 @@ public final class UserData {
         return fullName.length > 1 ? fullName[1] : "LastName";
     }
 
-    public String generateEncryptedPhone() {
+    private String generateEncryptedPhone() {
+        if (isNull(phone) || phone.isEmpty()) {
+            return "phone_empty";
+        }
         return PhoneCrypt.INSTANCE.encryptPhone(phone);
     }
 }
