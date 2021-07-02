@@ -252,4 +252,12 @@ public final class OrdersV2Request extends ApiV2RequestBase {
                     .get(ApiV2EndPoints.Orders.PROMOTION_LIMITS, orderNumber);
         }
     }
+
+    public static class LineItemCancellations{
+        @Step("{method} /" + ApiV2EndPoints.Orders.LINE_ITEM_CANCELLATIONS)
+        public static Response GET(String orderNumber){
+            return givenWithAuth()
+                    .get(ApiV2EndPoints.Orders.LINE_ITEM_CANCELLATIONS, orderNumber);
+        }
+    }
 }
