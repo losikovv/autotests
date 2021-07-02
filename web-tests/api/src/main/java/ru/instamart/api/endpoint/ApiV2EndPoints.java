@@ -121,6 +121,7 @@ public final class ApiV2EndPoints {
     public static final class Shipments {
         public static final String SHIPPING_RATES = "v2/shipments/{shipmentNumber}/shipping_rates";
         public static final String LINE_ITEMS = "v2/shipments/{shipmentNumber}/line_items";
+        public static final String LINE_ITEM_CANCELLATIONS = "v2/shipments/{shipmentNumber}/line_item_cancellations";
     }
 
     public static final class Stores {

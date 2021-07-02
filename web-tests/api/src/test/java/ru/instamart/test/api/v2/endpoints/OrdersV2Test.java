@@ -122,12 +122,14 @@ public class OrdersV2Test extends RestBase {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
 
         response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
+        response.prettyPeek();
         checkStatusCode200(response);
         OrderV2 order = response.as(OrderV2Response.class).getOrder();
         assertNotNull(order.getPromotionCodes(), "Промокод не применился");
 
         response = OrdersV2Request.Promotions.DELETE(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
         checkStatusCode200(response);
+        response.prettyPeek();
         order = response.as(OrderV2Response.class).getOrder();
         assertTrue(order.getPromotionCodes().isEmpty(), "Промокод не удалился");
 
@@ -296,22 +298,20 @@ public class OrdersV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(637)
-    @Story("Получение списка отмененных позиций по заказу")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
-            description = "Существующий id с отмененными позициями")
-    public void getLineItemCancellationsWithItem200() {
-        OrderV2 order = apiV2.order(
-                SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
-                EnvironmentData.INSTANCE.getDefaultSid(),
-                4
-        );
-        String orderNumber = order.getNumber();
-        String shipmentNumber = order.getShipments().get(0).getNumber();
-        shopperApp.complexCollect(shipmentNumber);
-        response = OrdersV2Request.LineItemCancellations.GET(orderNumber);
-        checkStatusCode200(response);
-        assertNotNull(response.as(LineItemCancellationsV2Response.class).getLineItemCancellations(), "Нет отмененных позиций заказа");
+    @CaseId(326)
+    @Story("Получение списка отмененных позиций по подзаказу")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Несуществующий id")
+    public void getShipmentLineItem404() {
+        response = ShipmentsV2Request.LineItemCancellations.GET("failedOrderNumber");
+        checkStatusCode404(response);
+
+        ErrorResponse error = response.as(ErrorResponse.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(error.getErrors().getBase(), "Доставка не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Доставка не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Доставка не существует");
+        softAssert.assertAll();
     }
 }
