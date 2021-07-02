@@ -6,6 +6,10 @@ public final class StringUtil {
         return "\n> " + text;
     }
 
+    public static int extractNumberFromString(final String text) {
+        return Integer.parseInt(text.replaceAll("\\D+",""));
+    }
+
     private StringUtil() {
     }
 }

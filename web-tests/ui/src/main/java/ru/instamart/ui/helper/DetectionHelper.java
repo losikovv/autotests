@@ -12,6 +12,7 @@ import ru.instamart.kraken.testdata.pagesdata.CheckoutStepData;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.kraken.testdata.pagesdata.LoyaltiesData;
 import ru.instamart.kraken.testdata.pagesdata.WidgetData;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.ui.Elements;
 import ru.instamart.ui.data.ElementData;
 import ru.instamart.ui.manager.AppManager;
@@ -446,7 +447,10 @@ public final class DetectionHelper extends HelperBase {
 
     /** Определить пуст ли селектор */
     public boolean isStoresDrawerEmpty() {
-        return kraken.detect().isElementDisplayed(Elements.StoreSelector.placeholder());
+        final WebElement element = kraken.await().shouldBeText(Elements.StoreSelector.placeholder());
+        return StringUtil.extractNumberFromString(element.getText()) == 0;
+
+        //return kraken.detect().isElementDisplayed(Elements.StoreSelector.placeholder());
     }
 
     /**Определить доступен ли селектор магазинов*/

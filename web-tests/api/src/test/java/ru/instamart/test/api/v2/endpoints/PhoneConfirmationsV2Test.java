@@ -14,6 +14,7 @@ import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.PhoneTokenV2Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
 import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.ThreadUtil;
 
 import static org.junit.Assert.assertNotNull;
@@ -35,7 +36,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
             String errorMessage = response.as(ErrorResponse.class).getErrors().getBase();
             if (errorMessage.startsWith("До повторной отправки:")) {
                 log.error(errorMessage);
-                ThreadUtil.simplyAwait(Integer.parseInt(errorMessage.replaceAll("[\\D]", "")) + 1);
+                ThreadUtil.simplyAwait(StringUtil.extractNumberFromString(errorMessage) + 1);
                 response = PhoneConfirmationsV2Request.POST(UserManager.getDefaultApiUser().getEncryptedPhone());
             }
         }

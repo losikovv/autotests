@@ -152,7 +152,7 @@ public final class ShippingAddressModal extends Base {
     @Step("Закрываем модалку адреса")
     public static void close() {
         log.info("> закрываем модалку адреса");
-        kraken.perform().click(Elements.Modals.AddressModal.closeButton());
+        kraken.perform().closeAction();
         kraken.await().fluently(
                 ExpectedConditions.invisibilityOfElementLocated(
                         Elements.Modals.AddressModal.closeButton().getLocator()),

@@ -291,4 +291,8 @@ public final class PerformHelper extends HelperBase {
         JavascriptExecutor jse = (JavascriptExecutor) AppManager.getWebDriver();
         jse.executeScript("arguments[0].scrollIntoView();", AppManager.getWebDriver().findElement(element.getLocator()));
     }
+
+    public void closeAction() {
+        new Actions(AppManager.getWebDriver()).sendKeys(Keys.ESCAPE).perform();
+    }
 }

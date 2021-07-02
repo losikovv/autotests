@@ -1038,7 +1038,7 @@ public class Elements {
 
         static ElementData placeholder() {
             return new ElementData(
-                    By.xpath("//*[@data-qa='store-selector']//div[@class='store-selector__empty' and text()='Нет доступных магазинов по выбранному адресу']"),
+                    By.xpath("//div[contains(text(), 'К вам привозят')]"),
                         "плейсхолдер пустой шторки выбора магазинов");
         }
 

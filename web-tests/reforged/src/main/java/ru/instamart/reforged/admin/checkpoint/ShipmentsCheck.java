@@ -2,7 +2,7 @@ package ru.instamart.reforged.admin.checkpoint;
 
 import io.qameta.allure.Step;
 import org.testng.Assert;
-import ru.instamart.reforged.core.util.StringUtil;
+import ru.instamart.kraken.util.StringUtil;
 
 public interface ShipmentsCheck {
 

@@ -251,7 +251,7 @@ public final class Shop extends Base {
         @Step("Закрываем шторку выбора магазина")
         public static void close() {
             log.info("> закрываем шторку выбора магазина");
-            kraken.perform().click(Elements.StoreSelector.closeButton());
+            kraken.perform().closeAction();
             kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(
                     Elements.StoreSelector.drawer().getLocator()),"не закрывается выбора магазинов",
                     Config.BASIC_TIMEOUT);

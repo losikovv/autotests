@@ -88,6 +88,17 @@ public final class WaitingHelper extends HelperBase {
                 });
     }
 
+    public WebElement shouldBeText(final ElementData data) {
+        return createWait(data)
+                .until((ExpectedCondition<WebElement>) driver -> {
+                    final WebElement webElement = driver.findElement(data.getLocator());
+                    if (webElement.getText().length() != 0) {
+                        return webElement;
+                    }
+                    throw new NoSuchElementException("Element without text");
+                });
+    }
+
     public List<WebElement> isElementsExist(final ElementData data) {
         return createWait(data)
                 .until((ExpectedCondition<List<WebElement>>) driver -> {
