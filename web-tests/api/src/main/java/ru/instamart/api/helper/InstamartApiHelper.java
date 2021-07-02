@@ -967,7 +967,7 @@ public final class InstamartApiHelper {
     /**
      * Оформить тестовый заказ у юзера в определенном магазине
      */
-    @Step("Оформляем заказ у юзера {user.login} в магазине с sid = {sid} c itemsNumber = {itemsNumber}")
+    @Step("Оформляем заказ у юзера {user.login} в магазине с sid = {sid} c количеством товаров в корзине = {itemsNumber}")
     public OrderV2 order(UserData user, int sid, int itemsNumber) {
         dropCart(user, getAddressBySid(sid));
         fillCartOnSid(sid, itemsNumber);

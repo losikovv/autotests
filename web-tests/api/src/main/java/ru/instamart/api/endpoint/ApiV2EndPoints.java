@@ -71,7 +71,7 @@ public final class ApiV2EndPoints {
         public static final String PROMOTIONS = "v2/orders/{orderNumber}/promotions";
         public static final String PROMOTION_CODE = "v2/orders/{orderNumber}/promotions/{promoCode}";
         public static final String PROMOTION_LIMITS = "v2/orders/{orderNumber}/promotion_limits";
-
+        public static final String LINE_ITEM_CANCELLATIONS = "v2/orders/{orderNumber}/line_item_cancellations";
     }
 
     public static final class Passwords {

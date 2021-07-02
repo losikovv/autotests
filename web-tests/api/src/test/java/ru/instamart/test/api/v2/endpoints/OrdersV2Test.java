@@ -17,6 +17,7 @@ import ru.instamart.api.model.v2.ProductV2;
 import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.response.ErrorResponse;
+import ru.instamart.api.response.v2.LineItemCancellationsV2Response;
 import ru.instamart.api.response.v2.LineItemsV2Response;
 import ru.instamart.api.response.v2.OrderV2Response;
 import ru.instamart.api.response.v2.OrdersV2Response;
@@ -266,5 +267,51 @@ public class OrdersV2Test extends RestBase {
         softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Доставка не существует");
         softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Доставка не существует");
         softAssert.assertAll();
+    }
+
+    @CaseId(323)
+    @Story("Получение списка отмененных позиций по заказу")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Существующий id без отмененных позиций")
+    public void getLineItemCancellations200() {
+        apiV2.order(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        response = OrdersV2Request.LineItemCancellations.GET(apiV2.getCurrentOrderNumber());
+        assertTrue(response.as(LineItemCancellationsV2Response.class).getLineItemCancellations().isEmpty());
+
+    }
+
+    @CaseId(324)
+    @Story("Получение списка отмененных позиций по заказу")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Несуществующий id")
+    public void getLineItemCancellations404() {
+        response = OrdersV2Request.LineItemCancellations.GET("failedOrderNumber");
+        checkStatusCode404(response);
+        ErrorResponse error = response.as(ErrorResponse.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(error.getErrors().getBase(), "Заказ не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Заказ не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Заказ не существует");
+        softAssert.assertAll();
+    }
+
+    @CaseId(637)
+    @Story("Получение списка отмененных позиций по заказу")
+    @Test(enabled = false,
+            groups = {"api-instamart-regress"},
+            description = "Существующий id с отмененными позициями")
+    public void getLineItemCancellationsWithItem200() {
+        OrderV2 order = apiV2.order(
+                SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
+                EnvironmentData.INSTANCE.getDefaultSid(),
+                4
+        );
+        String orderNumber = order.getNumber();
+        String shipmentNumber = order.getShipments().get(0).getNumber();
+        shopperApp.complexCollect(shipmentNumber);
+        response = OrdersV2Request.LineItemCancellations.GET(orderNumber);
+        checkStatusCode200(response);
+        assertNotNull(response.as(LineItemCancellationsV2Response.class).getLineItemCancellations(), "Нет отмененных позиций заказа");
     }
 }
