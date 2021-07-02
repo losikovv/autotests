@@ -13,6 +13,7 @@ import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.response.v2.LineItemCancellationsV2Response;
+import ru.instamart.api.response.v2.LineItemReplacementsV2Response;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import static org.testng.Assert.*;
@@ -59,5 +60,16 @@ public class OrdersComplexCollectV2Test extends RestBase {
         response = ShipmentsV2Request.LineItemCancellations.GET(orderNumber);
         checkStatusCode200(response);
         assertFalse(response.as(LineItemCancellationsV2Response.class).getLineItemCancellations().isEmpty(), "Нет отмененных позиций для достаки");
+    }
+
+    @CaseId(327)
+    @Story("Получение списка замененных позиций по заказу")
+    @Test(enabled = false,
+            groups = {"api-instamart-regress"},
+            description = "Существующий id с отмененными позициями")
+    public void getShipmentLineItemReplacements200() {
+        response = OrdersV2Request.LineItemReplacements.GET(orderNumber);
+        checkStatusCode200(response);
+        assertFalse(response.as(LineItemReplacementsV2Response.class).getLineItemReplacements().isEmpty(), "Нет отмененных позиций для достаки");
     }
 }
