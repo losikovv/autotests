@@ -61,7 +61,7 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getAvailableRetailers() {
         Specification.setResponseSpecDataProvider();
 
-        List<RetailerV2> retailerList = apiV2.availableRetailers();
+        List<RetailerV2> retailerList = apiV2.getAvailableRetailers();
 
         Specification.setResponseSpecDefault();
 
@@ -81,7 +81,7 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getAvailableRetailersSpree() {
         Specification.setResponseSpecDataProvider();
 
-        List<RetailerV2> retailerList = apiV2.availableRetailersSpree();
+        List<RetailerV2> retailerList = apiV2.getAvailableRetailersSpree();
 
         Specification.setResponseSpecDefault();
 
@@ -101,7 +101,7 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getAvailableStores() {
         Specification.setResponseSpecDataProvider();
 
-        List<StoreV2> storeList = apiV2.availableStores();
+        List<StoreV2> storeList = apiV2.getAvailableStores();
         Specification.setResponseSpecDefault();
 
         Object[][] storeArray = new Object[storeList.size()][1];
@@ -120,9 +120,9 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getStoreOfEachRetailer() {
         Specification.setResponseSpecDataProvider();
 
-        List<StoreV2> storeList = apiV2.availableRetailers()
+        List<StoreV2> storeList = apiV2.getAvailableRetailers()
                 .stream().parallel()
-                .map(apiV2::availableStores)
+                .map(apiV2::getAvailableStores)
                 .map(retailerStores -> retailerStores.get(retailerStores.size() - 1))
                 .collect(Collectors.toList());
 
@@ -149,7 +149,7 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getAvailableZones() {
         Specification.setResponseSpecDataProvider();
 
-        List<StoreV2> stores = apiV2.availableStores();
+        List<StoreV2> stores = apiV2.getAvailableStores();
 
         List<StoreV2> zoneStores = new ArrayList<>();
         List<String> zoneNames = new ArrayList<>();
@@ -204,9 +204,9 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getOfferOfEachRetailer() {
         Specification.setResponseSpecDataProvider();
 
-        List<StoreV2> storeList = apiV2.availableRetailers()
+        List<StoreV2> storeList = apiV2.getAvailableRetailers()
                 .stream().parallel()
-                .map(apiV2::availableStores)
+                .map(apiV2::getAvailableStores)
                 .map(retailerStores -> retailerStores.get(retailerStores.size() - 1))
                 .collect(Collectors.toList());
 
