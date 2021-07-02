@@ -13,7 +13,6 @@ import ru.instamart.api.request.v2.PhoneConfirmationsV2Request;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.PhoneTokenV2Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
-import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.ThreadUtil;
 
@@ -30,14 +29,14 @@ public class PhoneConfirmationsV2Test extends RestBase {
     @Test(  description = "Отправляем запрос на получение смс с кодом",
             groups = {"api-instamart-smoke"})
     public void postPhoneConfirmations() {
-        Response response = PhoneConfirmationsV2Request.POST(UserManager.getDefaultApiUser().getEncryptedPhone());
+        Response response = PhoneConfirmationsV2Request.POST("bjg8q2s53S057R4rWgL9PHDhF6UOdFIPGwzzhMH+BYE=");
 
         if (response.statusCode() == 422) {
             String errorMessage = response.as(ErrorResponse.class).getErrors().getBase();
             if (errorMessage.startsWith("До повторной отправки:")) {
                 log.error(errorMessage);
                 ThreadUtil.simplyAwait(StringUtil.extractNumberFromString(errorMessage) + 1);
-                response = PhoneConfirmationsV2Request.POST(UserManager.getDefaultApiUser().getEncryptedPhone());
+                response = PhoneConfirmationsV2Request.POST("bjg8q2s53S057R4rWgL9PHDhF6UOdFIPGwzzhMH+BYE=");
             }
         }
 
