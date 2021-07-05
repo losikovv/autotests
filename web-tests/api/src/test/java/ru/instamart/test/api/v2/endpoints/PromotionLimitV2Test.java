@@ -30,7 +30,7 @@ public final class PromotionLimitV2Test extends RestBase {
 
     @AfterMethod(alwaysRun = true)
     public void cleanup() {
-        apiV2.deleteItemsFromCart();
+        apiV2.deleteAllShipments();
     }
 
     @CaseId(309)

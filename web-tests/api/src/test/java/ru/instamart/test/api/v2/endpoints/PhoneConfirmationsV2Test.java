@@ -10,11 +10,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.model.v2.PhoneTokenV2;
 import ru.instamart.api.request.v2.PhoneConfirmationsV2Request;
-import ru.instamart.api.response.ErrorResponse;
-import ru.instamart.api.response.v2.PhoneTokenV2Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
-import ru.instamart.kraken.util.StringUtil;
-import ru.instamart.kraken.util.ThreadUtil;
 
 import static org.junit.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
@@ -29,19 +25,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
     @Test(  description = "Отправляем запрос на получение смс с кодом",
             groups = {"api-instamart-smoke"})
     public void postPhoneConfirmations() {
-        Response response = PhoneConfirmationsV2Request.POST("bjg8q2s53S057R4rWgL9PHDhF6UOdFIPGwzzhMH+BYE=");
-
-        if (response.statusCode() == 422) {
-            String errorMessage = response.as(ErrorResponse.class).getErrors().getBase();
-            if (errorMessage.startsWith("До повторной отправки:")) {
-                log.error(errorMessage);
-                ThreadUtil.simplyAwait(StringUtil.extractNumberFromString(errorMessage) + 1);
-                response = PhoneConfirmationsV2Request.POST("bjg8q2s53S057R4rWgL9PHDhF6UOdFIPGwzzhMH+BYE=");
-            }
-        }
-
-        checkStatusCode200(response);
-        PhoneTokenV2 phoneToken = response.as(PhoneTokenV2Response.class).getPhoneToken();
+        PhoneTokenV2 phoneToken = apiV2.sendSMS("bjg8q2s53S057R4rWgL9PHDhF6UOdFIPGwzzhMH+BYE=");
         assertNotNull(phoneToken.getResendLimit());
         assertNotNull(phoneToken.getCodeLength());
     }
