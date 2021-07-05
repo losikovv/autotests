@@ -383,4 +383,36 @@ public class OrdersV2Test extends RestBase {
         softAssert.assertFalse(error.getErrorMessages().get(0).getHumanMessage().isEmpty());
         softAssert.assertAll();
     }
+
+    @CaseId(335)
+    @Story("Удаление позиции заказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "")
+    public void deleteLineItems200() {
+        Integer productId = apiV2.fillCart(
+                SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
+                EnvironmentData.INSTANCE.getDefaultSid()
+        ).get(0).getId();
+
+        response = LineItemsV2Request.DELETE(productId);
+        checkStatusCode200(response);
+        assertNotNull(response.as(LineItemV2Response.class).getLineItem(), "Не вернулись товары");
+    }
+
+    @CaseId(336)
+    @Story("Удаление позиции заказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "")
+    public void deleteLineItems404() {
+        response = LineItemsV2Request.DELETE(0);
+        checkStatusGroup400(response);
+
+        ErrorResponse error = response.as(ErrorResponse.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(error.getErrors().getBase(), "Позиция не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Позиция не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Позиция не существует");
+        softAssert.assertAll();
+    }
 }
