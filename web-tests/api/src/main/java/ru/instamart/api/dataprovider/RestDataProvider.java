@@ -9,6 +9,7 @@ import ru.instamart.api.common.Specification;
 import ru.instamart.api.enums.v2.AuthProviderV2;
 import ru.instamart.api.model.v1.OfferV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
+import ru.instamart.api.model.v2.ProductV2;
 import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.api.model.v2.StoreV2;
 import ru.instamart.api.model.v2.ZoneV2;
@@ -19,6 +20,7 @@ import ru.instamart.api.request.v2.SimpleAdsV2Request;
 import ru.instamart.api.request.v2.SimpleRecsPersonalV2Request;
 import ru.instamart.api.request.v2.StoresV2Request;
 import ru.instamart.api.response.v1.OperationalZonesV1Response;
+import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -817,5 +819,16 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-
+    @DataProvider(name = "ordersLineItems")
+    public static Object[][] ordersLineItems() {
+        List<ProductV2> products = apiV2.getProductFromEachDepartmentInStore(EnvironmentData.INSTANCE.getDefaultSid());
+        Long product = products.get(0).getId();
+        return new Object[][]{
+                {0, 0, "failedOrderNumbers"},
+                {0, 0, apiV2.getCurrentOrderNumber()},
+                {product, 0, "failedOrderNumbers"},
+                {product, 0, apiV2.getCurrentOrderNumber()},
+                {0, 1, apiV2.getCurrentOrderNumber()}
+        };
+    }
 }
