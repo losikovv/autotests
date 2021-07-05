@@ -210,7 +210,7 @@ public class OrdersV2Test extends RestBase {
     @CaseId(321)
     @Story("Получение line_items для shipments")
     @Test(groups = {"api-instamart-regress"},
-            description = "Существующий id")
+            description = "Получение line_items для shipments с существующим id")
     public void getShipmentLineItems200() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
         response = ShipmentsV2Request.LineItems.GET(apiV2.getShipmentsNumber());
@@ -220,7 +220,7 @@ public class OrdersV2Test extends RestBase {
     @CaseId(322)
     @Story("Получение line_items для shipments")
     @Test(groups = {"api-instamart-regress"},
-            description = "Несуществующий id")
+            description = "Получение line_items для shipments для заказа с несуществующим id")
     public void getShipmentLineItems404() {
         response = ShipmentsV2Request.LineItems.GET("failedOrderNumber");
         checkStatusCode404(response);
@@ -236,7 +236,7 @@ public class OrdersV2Test extends RestBase {
     @CaseId(323)
     @Story("Получение списка отмененных позиций по заказу")
     @Test(groups = {"api-instamart-regress"},
-            description = "Существующий id без отмененных позиций")
+            description = "Получение списка отмененных позиций по заказу с существующим id")
     public void getLineItemCancellations200() {
         apiV2.order(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
         response = OrdersV2Request.LineItemCancellations.GET(apiV2.getCurrentOrderNumber());
@@ -247,7 +247,7 @@ public class OrdersV2Test extends RestBase {
     @CaseId(324)
     @Story("Получение списка отмененных позиций по заказу")
     @Test(groups = {"api-instamart-regress"},
-            description = "Несуществующий id")
+            description = "Получение списка отмененных позиций по заказу с несуществующим id")
     public void getLineItemCancellations404() {
         response = OrdersV2Request.LineItemCancellations.GET("failedOrderNumber");
         checkStatusCode404(response);
@@ -263,7 +263,7 @@ public class OrdersV2Test extends RestBase {
     @CaseId(326)
     @Story("Получение списка отмененных позиций по подзаказу")
     @Test(groups = {"api-instamart-regress"},
-            description = "Несуществующий id")
+            description = "Получение списка отмененных позиций по подзаказу с несуществующим id")
     public void getShipmentLineItem404() {
         response = ShipmentsV2Request.LineItemCancellations.GET("failedOrderNumber");
         checkStatusCode404(response);
@@ -280,8 +280,8 @@ public class OrdersV2Test extends RestBase {
     @CaseId(328)
     @Story("Получение списка замененных позиций по заказу")
     @Test(groups = {"api-instamart-regress"},
-            description = "Несуществующий id")
-    public void getShipmentLineItemReplacements404() {
+            description = "Получение списка замененных позиций по заказу с несуществующим id")
+    public void getOrdersLineItemReplacements404() {
         response = OrdersV2Request.LineItemReplacements.GET("failedOrderNumber");
         checkStatusCode404(response);
 
@@ -291,6 +291,23 @@ public class OrdersV2Test extends RestBase {
         softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
         softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Заказ не существует");
         softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Заказ не существует");
+        softAssert.assertAll();
+    }
+
+    @CaseId(330)
+    @Story("Получение списка замененных позиций по подзаказу")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получение списка замененных позиций по подзаказу c несуществующим id")
+    public void getShipmentLineItemReplacements404() {
+        response = ShipmentsV2Request.LineItemReplacements.GET("failedOrderNumber");
+        checkStatusCode404(response);
+
+        ErrorResponse error = response.as(ErrorResponse.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(error.getErrors().getBase(), "Доставка не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Доставка не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Доставка не существует");
         softAssert.assertAll();
     }
 }
