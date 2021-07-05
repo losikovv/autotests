@@ -6,7 +6,9 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.common.Specification;
+import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.AuthProviderV2;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OfferV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.model.v2.ProductV2;
@@ -829,6 +831,21 @@ public class RestDataProvider extends RestBase {
                 {product, 0, "failedOrderNumbers"},
                 {product, 0, apiV2.getCurrentOrderNumber()},
                 {0, 1, apiV2.getCurrentOrderNumber()}
+        };
+    }
+
+    @DataProvider(name = "changeLineItems")
+    public static Object[][] changeLineItems() {
+        Integer productId = apiV2.fillCart(
+                SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
+                EnvironmentData.INSTANCE.getDefaultSid()
+        ).get(0).getId();
+        return new Object[][]{
+                {0, 0},
+                {0, 1},
+                {-1, 1},
+                {0, -1},
+                {productId, -1}
         };
     }
 }
