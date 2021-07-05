@@ -38,7 +38,7 @@ public final class Autocomplete extends Component {
     }
 
     public void fill(final String data) {
-        getComponent().sendKeys(data);
         log.info("Fill {} with locator {} and data {}", getClass().getSimpleName(), getBy(), data);
+        getComponent().sendKeys(data);
     }
 }

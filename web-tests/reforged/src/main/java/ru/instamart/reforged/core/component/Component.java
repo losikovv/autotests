@@ -84,6 +84,11 @@ public abstract class Component {
         }
     }
 
+    public void jsClick() {
+        log.info("JS Click on {} with locator {}", getClass().getSimpleName(), getBy());
+        Kraken.jsAction().click(component);
+    }
+
     /**
      * В обход дома через js скролит до элемента
      */

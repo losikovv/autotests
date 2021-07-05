@@ -78,8 +78,14 @@ public final class Kraken {
         return getWebDriver().manage().logs().get(logType);
     }
 
-    public static Object execute(final String js) {
-        return ((JavascriptExecutor) getWebDriver()).executeScript(js);
+    @SuppressWarnings("unchecked")
+    public static <T> T execute(final String js) {
+        return (T) ((JavascriptExecutor) getWebDriver()).executeScript(js);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T execute(final String js, final Object... arguments) {
+        return (T) ((JavascriptExecutor) getWebDriver()).executeScript(js, arguments);
     }
 
     public static Set<Cookie> getCookie() {

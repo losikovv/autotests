@@ -41,13 +41,13 @@ public final class Selector extends Component {
     }
 
     public void selectByText(final String text) {
-        getSelect().selectByVisibleText(text);
         log.info("Select {} with locator {} and text {}", getClass().getSimpleName(), getBy(), text);
+        getSelect().selectByVisibleText(text);
     }
 
     public void selectByIndex(final int index) {
-        getSelect().selectByIndex(index);
         log.info("Select {} with locator {} and index {}", getClass().getSimpleName(), getBy(), index);
+        getSelect().selectByIndex(index);
     }
 
     private Select getSelect() {

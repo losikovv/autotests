@@ -38,7 +38,7 @@ public final class Link extends Component {
     }
 
     public void click() {
-        getComponent().click();
         log.info("Click {} with locator {}", getClass().getSimpleName(), getBy());
+        getComponent().click();
     }
 }

@@ -31,15 +31,15 @@ public final class DropDown extends CollectionComponent {
     }
 
     public void selectFirst() {
+        log.info("Select first {} with locator {}", getClass().getSimpleName(), getBy());
         final WebElement webElement = getComponents().stream().findFirst().orElseThrow();
         webElement.click();
-        log.info("Select first {} with locator {}", getClass().getSimpleName(), getBy());
     }
 
     public void selectAny() {
+        log.info("Select any {} with locator {}", getClass().getSimpleName(), getBy());
         final WebElement webElement = getComponents().stream().findAny().orElseThrow();
         webElement.click();
-        log.info("Select any {} with locator {}", getClass().getSimpleName(), getBy());
     }
 
     public void withText(final String text) {
@@ -47,7 +47,7 @@ public final class DropDown extends CollectionComponent {
             if (wb.getText().equals(text)) {
                 wb.click();
                 log.info("Select {} with locator {} and text {}", getClass().getSimpleName(), getBy(), text);
-                return;
+                break;
             }
         }
     }
@@ -55,8 +55,9 @@ public final class DropDown extends CollectionComponent {
     public void containsText(final String text) {
         for (final WebElement wb : getComponents()) {
             if (wb.getText().contains(text)) {
-                wb.click();
                 log.info("Select {} with locator {} and contain text {}", getClass().getSimpleName(), getBy(), text);
+                wb.click();
+                break;
             }
         }
     }

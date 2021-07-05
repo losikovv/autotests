@@ -38,8 +38,8 @@ public final class Element extends Component {
     }
 
     public void click() {
-        getComponent().click();
         log.info("Click {} with locator {}", getClass().getSimpleName(), getBy());
+        getComponent().click();
     }
 
     public String getText() {

@@ -38,7 +38,7 @@ public class RadioButton extends Component {
     }
 
     public void set() {
-        getComponent().click();
         log.info("Set {} with locator {}", getClass().getSimpleName(), getBy());
+        getComponent().click();
     }
 }

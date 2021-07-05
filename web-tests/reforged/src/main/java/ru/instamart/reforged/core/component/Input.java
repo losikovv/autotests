@@ -38,13 +38,22 @@ public final class Input extends Component {
     }
 
     public void fill(final String data) {
+        log.info("Fill {} with locator {} and data {}", getClass().getSimpleName(), getBy(), data);
         clear();
         getComponent().sendKeys(data);
-        log.info("Fill {} with locator {} and data {}", getClass().getSimpleName(), getBy(), data);
+    }
+
+    /**
+     * Устанавливает текст в инпут через js код
+     * @param data
+     */
+    public void jsFill(final String data) {
+        log.info("JS Fill {} with locator {} and data {}", getClass().getSimpleName(), getBy(), data);
+        Kraken.jsAction().setValue(component, data);
     }
 
     public void clear() {
-        getComponent().clear();
         log.info("Clear input field");
+        getComponent().clear();
     }
 }

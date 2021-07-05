@@ -38,12 +38,12 @@ public final class Checkbox extends Component {
     }
 
     public void check() {
-        getComponent().click();
         log.info("Check {} with locator {}", getClass().getSimpleName(), getBy());
+        getComponent().click();
     }
 
     public void uncheck() {
-        getComponent().click();
         log.info("Uncheck {} with locator {}", getClass().getSimpleName(), getBy());
+        getComponent().click();
     }
 }
