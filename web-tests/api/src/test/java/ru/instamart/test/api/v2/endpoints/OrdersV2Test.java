@@ -9,24 +9,23 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.model.v2.LineItemV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.ProductV2;
+import ru.instamart.api.request.v2.LineItemsV2Request;
 import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.response.ErrorResponse;
-import ru.instamart.api.response.v2.LineItemCancellationsV2Response;
-import ru.instamart.api.response.v2.LineItemsV2Response;
-import ru.instamart.api.response.v2.OrderV2Response;
-import ru.instamart.api.response.v2.OrdersV2Response;
+import ru.instamart.api.response.v2.*;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+
+import java.util.List;
 
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Заказы")
@@ -308,6 +307,39 @@ public class OrdersV2Test extends RestBase {
         softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
         softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Доставка не существует");
         softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Доставка не существует");
+        softAssert.assertAll();
+    }
+
+    @CaseId(331)
+    @Story("Добавление позиции к заказу")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Добавление позиции к заказу с обязательными полями")
+    public void setLineItems200() {
+        List<ProductV2> products = apiV2.getProductFromEachDepartmentInStore(EnvironmentData.INSTANCE.getDefaultSid());
+        Long product = products.get(0).getId();
+
+        response = LineItemsV2Request.POST(product, 1, apiV2.getCurrentOrderNumber());
+        checkStatusCode200(response);
+        assertNotNull(response.as(LineItemV2Response.class).getLineItem(), "Не вернулись товары");
+
+    }
+
+
+    @CaseId(332)
+    @Story("Добавление позиции к заказу")
+    @Test(groups = {"api-instamart-regress"},
+            dataProvider = "ordersLineItems",
+            dataProviderClass = RestDataProvider.class,
+            description = "Добавление позиции к заказу с невалидными данными")
+    public void setLineItems404(long productId, int quantity, String orderNumber) {
+        response = LineItemsV2Request.POST(productId, quantity, orderNumber);
+        checkStatusGroup400(response);
+        ErrorResponse error = response.as(ErrorResponse.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(error.getErrors().getBase().isEmpty());
+        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
+        softAssert.assertFalse(error.getErrorMessages().get(0).getMessage().isEmpty());
+        softAssert.assertFalse(error.getErrorMessages().get(0).getHumanMessage().isEmpty());
         softAssert.assertAll();
     }
 }
