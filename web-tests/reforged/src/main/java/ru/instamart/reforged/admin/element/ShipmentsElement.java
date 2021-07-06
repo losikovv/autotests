@@ -10,7 +10,7 @@ import ru.instamart.reforged.core.component.Table;
 
 @Getter
 @Accessors(fluent = true)
-public final class ShipmentsElement implements IElement {
+public final class ShipmentsElement {
 
     private final Input orderDateFrom = new Input(By.id("search_completed_at_st"));
     private final Input orderDateTo = new Input(By.id("search_completed_at_end"));
@@ -46,7 +46,7 @@ public final class ShipmentsElement implements IElement {
 
     private final Table table = new Table(true);
 
-    private final Button submit = new Button(By.id("//button[@type='submit']"));
+    private final Button submit = new Button(By.xpath("//button[@type='submit']"));
 
     private final Element title = new Element(By.xpath("//div[@class='table-cell']"));
 }

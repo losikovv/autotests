@@ -17,12 +17,12 @@ public final class Shipments extends ShipmentsCheck implements AdminPage {
 
     @Step("Получить номер заказа из первой строки")
     public String getOrderNumber() {
-        return element.table().getFirstLine().findElement(By.id("//td/span[2]/a")).getText();
+        return element.table().getFirstLine().findElement(By.xpath("//td/span[2]/a")).getText();
     }
 
     @Step("Получить номер отправки из первой строки")
     public String getShipmentNumber() {
-        return element.table().getFirstLine().findElement(By.id("//td/span/a")).getText();
+        return element.table().getFirstLine().findElement(By.xpath("//td/span/a")).getText();
     }
 
     @Step("Получить количество найденных товаров")
