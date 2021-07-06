@@ -135,3 +135,17 @@ task apiSurge(type: Test) {
     systemProperty 'qase.Project', 'SURGE'
     systemProperty 'qase.Title', 'Surge API Regress'
 }
+
+task localRun(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        options {
+            listeners.add("ru.instamart.api.listener.ApiExecutionListener")
+            listeners.add("ru.instamart.api.listener.ApiListener")
+        }
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+}

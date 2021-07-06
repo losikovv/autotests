@@ -178,3 +178,17 @@ task debug(type: Test) {
     }
 }
 
+task localRun(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        options {
+            listeners.add("ru.instamart.ui.listener.UiExecutionListener")
+            listeners.add("ru.instamart.ui.listener.UiListener")
+        }
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+}
+
