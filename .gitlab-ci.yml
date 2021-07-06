@@ -12,10 +12,6 @@ stages:
   - tests
 
 .template_tests_apishopper:
-  only:
-    variables:
-      - $TEST_API_SHOPPER == 'true' && $CI_RUN_ALL_JOBS == 'false'
-      - $CI_RUN_ALL_JOBS == 'true'
   resource_group: apiShopper
   stage: tests
   image: $CI_REGISTRY_IMAGE
@@ -153,6 +149,10 @@ tests:prodApiInstamart:
     expire_in: 1 week
 
 tests:ApiShopper:
+  only:
+    variables:
+      - $TEST_API_SHOPPER == 'true' && $CI_RUN_ALL_JOBS == 'false'
+      - $CI_RUN_ALL_JOBS == 'true'
   extends:
     - ".template_tests_apishopper"
     - ".template_run_all_jobs_at_a_time_on_master"
