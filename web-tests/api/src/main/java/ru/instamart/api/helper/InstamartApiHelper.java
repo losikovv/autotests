@@ -957,10 +957,12 @@ public final class InstamartApiHelper {
      * Наполнить корзину и выбрать адрес у юзера в определенном магазине
      */
     @Step("Наполнение корзины для пользователя {user.login} в магазине с sid={sid}")
-    public void fillCart(UserData user, int sid) {
+    public List<LineItemV2> fillCart(UserData user, int sid) {
         dropCart(user, getAddressBySid(sid));
-
         fillCartOnSid(sid);
+        Response response = OrdersV2Request.LineItems.GET(getCurrentOrderNumber());
+        checkStatusCode200(response);
+        return response.as(LineItemsV2Response.class).getLineItems();
     }
 
     /**

@@ -12,6 +12,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.v2.LineItemV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.ProductV2;
 import ru.instamart.api.request.v2.LineItemsV2Request;
@@ -23,8 +24,7 @@ import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import java.util.List;
 
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
@@ -340,6 +340,79 @@ public class OrdersV2Test extends RestBase {
         softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
         softAssert.assertFalse(error.getErrorMessages().get(0).getMessage().isEmpty());
         softAssert.assertFalse(error.getErrorMessages().get(0).getHumanMessage().isEmpty());
+        softAssert.assertAll();
+    }
+
+    @CaseId(333)
+    @Story("Редактирование позиции заказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Редактирование позиции заказа с существующим id")
+    public void changeLineItems200() {
+        List<LineItemV2> cart = apiV2.fillCart(
+                SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
+                EnvironmentData.INSTANCE.getDefaultSid()
+        );
+        Integer productId = cart.get(0).getId();
+        Integer internalAmount = cart.get(0).getQuantity();
+        response = LineItemsV2Request.PUT(productId, 100);
+        checkStatusCode200(response);
+
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertNotEquals(response.as(LineItemV2Response.class).getLineItem().getQuantity(), internalAmount, "Начальное количество не отличается от измененного");
+        softAssert.assertEquals(response.as(LineItemV2Response.class).getLineItem().getQuantity().toString(), "100", "Начальное количество не отличается от измененного");
+        softAssert.assertAll();
+
+
+    }
+
+    @CaseId(334)
+    @Story("Редактирование позиции заказа")
+    @Test(groups = {"api-instamart-regress"},
+            dataProvider = "changeLineItems",
+            dataProviderClass = RestDataProvider.class,
+            description = "Редактирование позиции заказа с несуществующим id")
+    public void changeLineItems404(long productId, int qty) {
+        response = LineItemsV2Request.PUT(productId, qty);
+        checkStatusGroup400(response);
+
+        ErrorResponse error = response.as(ErrorResponse.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(error.getErrors().getBase().isEmpty());
+        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
+        softAssert.assertFalse(error.getErrorMessages().get(0).getMessage().isEmpty());
+        softAssert.assertFalse(error.getErrorMessages().get(0).getHumanMessage().isEmpty());
+        softAssert.assertAll();
+    }
+
+    @CaseId(335)
+    @Story("Удаление позиции заказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "")
+    public void deleteLineItems200() {
+        Integer productId = apiV2.fillCart(
+                SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
+                EnvironmentData.INSTANCE.getDefaultSid()
+        ).get(0).getId();
+
+        response = LineItemsV2Request.DELETE(productId);
+        checkStatusCode200(response);
+        assertNotNull(response.as(LineItemV2Response.class).getLineItem(), "Не вернулись товары");
+    }
+
+    @CaseId(336)
+    @Story("Удаление позиции заказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "")
+    public void deleteLineItems404() {
+        response = LineItemsV2Request.DELETE(0);
+        checkStatusGroup400(response);
+
+        ErrorResponse error = response.as(ErrorResponse.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(error.getErrors().getBase(), "Позиция не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Позиция не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Позиция не существует");
         softAssert.assertAll();
     }
 }
