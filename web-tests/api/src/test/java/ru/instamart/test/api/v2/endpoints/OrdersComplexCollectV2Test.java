@@ -43,7 +43,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
     @Story("Получение списка отмененных позиций по заказу")
     @Test(enabled = false,
             groups = {"api-instamart-regress"},
-            description = "Существующий id с отмененными позициями")
+            description = "Получение списка отмененных позиций по заказу для существующего id")
     public void getLineItemCancellationsWithItem200() {
         response = OrdersV2Request.LineItemCancellations.GET(orderNumber);
         checkStatusCode200(response);
@@ -55,7 +55,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
     @Story("Получение списка отмененных позиций по подзаказу")
     @Test(enabled = false,
             groups = {"api-instamart-regress"},
-            description = "Существующий id с отмененными позициями")
+            description = "Получение списка отмененных позиций по подзаказу для существующего id")
     public void getShipmentLineItem200() {
         response = ShipmentsV2Request.LineItemCancellations.GET(orderNumber);
         checkStatusCode200(response);
@@ -66,9 +66,21 @@ public class OrdersComplexCollectV2Test extends RestBase {
     @Story("Получение списка замененных позиций по заказу")
     @Test(enabled = false,
             groups = {"api-instamart-regress"},
-            description = "Существующий id с отмененными позициями")
-    public void getShipmentLineItemReplacements200() {
+            description = "Получение списка замененных позиций по заказу по существующему id")
+    public void getOrdersLineItemReplacements200() {
         response = OrdersV2Request.LineItemReplacements.GET(orderNumber);
+        checkStatusCode200(response);
+        assertFalse(response.as(LineItemReplacementsV2Response.class).getLineItemReplacements().isEmpty(), "Нет отмененных позиций для достаки");
+    }
+
+
+    @CaseId(329)
+    @Story("Получение списка замененных позиций по подзаказуу")
+    @Test(enabled = false,
+            groups = {"api-instamart-regress"},
+            description = "Получение списка замененных позиций по подзаказу по существующему id")
+    public void getShipmentLineItemReplacements200() {
+        response = ShipmentsV2Request.LineItemReplacements.GET(orderNumber);
         checkStatusCode200(response);
         assertFalse(response.as(LineItemReplacementsV2Response.class).getLineItemReplacements().isEmpty(), "Нет отмененных позиций для достаки");
     }

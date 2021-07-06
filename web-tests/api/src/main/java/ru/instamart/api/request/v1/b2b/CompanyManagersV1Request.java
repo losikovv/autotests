@@ -16,7 +16,7 @@ public class CompanyManagersV1Request extends ApiV1RequestBase {
 
     @Step("{method} /" + ApiV1Endpoints.COMPANY_MANAGERS)
     public static Response POST(Integer companyID, ManagerV1 manager) {
-        if (EnvironmentData.INSTANCE.getServer().equals("preprod")) {
+        if (EnvironmentData.INSTANCE.getBasicUrl().equals("https://stf-kraken.k-stage.sbermarket.tech/")) {
             JSONObject body = new JSONObject();
             JSONObject requestParams = new JSONObject();
             requestParams.put("user_id", manager.getUser().getId());

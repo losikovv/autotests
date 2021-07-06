@@ -33,4 +33,11 @@ public final class LineItemsV2Request extends ApiV2RequestBase {
         return givenWithAuth()
                 .delete(ApiV2EndPoints.LineItems.BY_ID, productId);
     }
+
+    @Step("{method} /" + ApiV2EndPoints.LineItems.BY_ID)
+    public static Response PUT(long productId, int qty){
+        return givenWithAuth()
+                .formParam("line_item[packs]", qty)
+                .put(ApiV2EndPoints.LineItems.BY_ID, productId);
+    }
 }
