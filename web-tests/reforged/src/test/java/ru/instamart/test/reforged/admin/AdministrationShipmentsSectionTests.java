@@ -41,7 +41,12 @@ public final class AdministrationShipmentsSectionTests {
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     )
     public void validateDefaultAdminShipmentsPage() {
-        //TODO: Не понимаю такие тесты
+        shipments().goToPage();
+        shipments().checkPageTitle();
+        shipments().checkOrderDateFrom();
+        shipments().checkOrderDateTo();
+        shipments().checkCustomerName();
+        shipments().checkCustomerSurName();
     }
 
     // TODO test shipmentsTableNotEmptyByDefault
