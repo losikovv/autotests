@@ -426,9 +426,19 @@ public class OrdersV2Test extends RestBase {
         Integer paymentsId = apiV2.getPaymentTools().get(0).getId();
         Integer shipmentId = apiV2.getShippingWithOrder().getId();
         Integer deliveryWindow = apiV2.getAvailableDeliveryWindow().getId();
-        Response response = OrdersV2Request.PUT(1, "", "", paymentsId, shipmentId, deliveryWindow, 0, apiV2.getCurrentOrderNumber());
+        String orderNumber = apiV2.getCurrentOrderNumber();
+
+        Response response = OrdersV2Request.PUT(1, "", "", paymentsId, shipmentId, deliveryWindow, 0, orderNumber);
         checkStatusCode200(response);
-        response.prettyPeek();
+
+        OrderV2Response order = response.as(OrderV2Response.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(order.getOrder().getReplacementPolicy().getId().toString(), "1", "Код замены неверен");
+        softAssert.assertEquals(order.getOrder().getReplacementPolicy().getDescription(), "Позвонить мне. Подобрать замену, если не смогу ответить", "Описание замены неверно указанному");
+        softAssert.assertEquals(order.getOrder().getShipments().get(0).getId(), shipmentId, "Id достаки неверный");
+        softAssert.assertEquals(order.getOrder().getShipments().get(0).getDeliveryWindow().getId(), deliveryWindow, "Id окна достаки неверен");
+        softAssert.assertEquals(order.getOrder().getNumber(), orderNumber, "orderNumber неверен");
+        softAssert.assertAll();
     }
 
     @CaseId(338)
