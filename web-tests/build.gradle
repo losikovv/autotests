@@ -137,3 +137,18 @@ project(":qase-api") {
         annotationProcessor lib.lombok
     }
 }
+
+project(":ab") {
+    apply plugin: "java-library"
+
+    dependencies {
+        implementation project(":kraken")
+
+        implementation lib.lombok
+        implementation lib.okhttp
+        implementation lib.jacksonAnnotations
+        implementation lib.jackson
+
+        annotationProcessor lib.lombok
+    }
+}
