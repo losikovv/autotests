@@ -63,6 +63,7 @@ project(":kraken") {
 
     dependencies {
         implementation project(":qase-api")
+        implementation project(":ab")
 
         implementation lib.jackson
         implementation lib.allureTestng
@@ -142,12 +143,11 @@ project(":ab") {
     apply plugin: "java-library"
 
     dependencies {
-        implementation project(":kraken")
-
         implementation lib.lombok
         implementation lib.okhttp
         implementation lib.jacksonAnnotations
         implementation lib.jackson
+        implementation lib.logback
 
         annotationProcessor lib.lombok
     }
