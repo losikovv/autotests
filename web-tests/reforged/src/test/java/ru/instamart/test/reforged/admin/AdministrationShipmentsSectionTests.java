@@ -38,6 +38,20 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().checkCustomerSurName();
     }
 
+    @CaseId(176)
+    @Story("Тест на работоспособность фильтрации и пагинации списка заказов")
+    @Test(  description = "Тест на работоспособность фильтрации и пагинации списка заказов",
+            groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
+    )
+    public void validateFilterPagingAdminShipmentsPage() {
+        shipments().goToPage();
+        shipments().checkPageTitle();
+        shipments().checkOrderDateFrom();
+        shipments().checkOrderDateTo();
+        shipments().checkCustomerName();
+        shipments().checkCustomerSurName();
+    }
+
     // TODO test shipmentsTableNotEmptyByDefault
 
     // TODO test successShowEmptySearchPlaceholder
