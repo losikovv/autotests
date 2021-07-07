@@ -24,7 +24,8 @@ import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import java.util.List;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
@@ -414,5 +415,46 @@ public class OrdersV2Test extends RestBase {
         softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Позиция не существует");
         softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Позиция не существует");
         softAssert.assertAll();
+    }
+
+    @CaseId(337)
+    @Story("Заполнение информации о заказе")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Заполнение информации о заказе с существующим id")
+    public void fillingInOrderInformation200() {
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        Integer paymentsId = apiV2.getPaymentTools().get(0).getId();
+        Integer shipmentId = apiV2.getShippingWithOrder().getId();
+        Integer deliveryWindow = apiV2.getAvailableDeliveryWindow().getId();
+        Response response = OrdersV2Request.PUT(1, "", "", paymentsId, shipmentId, deliveryWindow, 0, apiV2.getCurrentOrderNumber());
+        checkStatusCode200(response);
+        response.prettyPeek();
+    }
+
+    @CaseId(338)
+    @Story("Заполнение информации о заказе")
+    @Test(groups = {"api-instamart-regress"},
+            dataProvider = "fillingInOrderInformationDp",
+            dataProviderClass = RestDataProvider.class,
+            description = "Заполнение информации о заказе с несуществующим id")
+    public void fillingInOrderInformation404(int replacementPolicyId,
+                                             String phoneNumber,
+                                             String instructions,
+                                             int paymentToolId,
+                                             int shipmentId,
+                                             int deliveryWindowId,
+                                             int shipmentMethodId,
+                                             String orderNumber) {
+        Response response = OrdersV2Request.PUT(
+                replacementPolicyId,
+                phoneNumber,
+                instructions,
+                paymentToolId,
+                shipmentId,
+                deliveryWindowId,
+                shipmentMethodId,
+                orderNumber
+        );
+        checkStatusCode404(response);
     }
 }

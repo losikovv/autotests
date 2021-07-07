@@ -415,7 +415,7 @@ public final class InstamartApiHelper {
      * Получаем первый доступный слот
      */
     @Step("Получаем первый доступный слот")
-    DeliveryWindowV2 getAvailableDeliveryWindow() {
+    public DeliveryWindowV2 getAvailableDeliveryWindow() {
         Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get());
         checkStatusCode200(response);
 
@@ -456,9 +456,7 @@ public final class InstamartApiHelper {
      */
     @Step("Выбираем id способа оплаты (по умолчанию Картой курьеру)")
     PaymentToolV2 getAvailablePaymentTool() {
-        Response response = PaymentToolsV2Request.GET();
-        checkStatusCode200(response);
-        List<PaymentToolV2> paymentTools = response.as(PaymentToolsV2Response.class).getPaymentTools();
+        List<PaymentToolV2> paymentTools = getPaymentTools();
 
         StringJoiner availablePaymentToolsText = new StringJoiner(
                 "\n• ",
@@ -478,7 +476,7 @@ public final class InstamartApiHelper {
                 availablePaymentToolsText.add(selectedPaymentToolText);
             } else availablePaymentToolsText.add(paymentTools.get(i).toString());
         }
-        Allure.step("Доступный список доставки: " + availablePaymentToolsText);
+        Allure.step("Доступный список оплаты: " + availablePaymentToolsText);
 
         log.info(availablePaymentToolsText.toString());
         return selectedPaymentTool;
@@ -827,6 +825,36 @@ public final class InstamartApiHelper {
         log.info("SHIPMENT_NUMBER текущего заказа: {}", currentShipmentNumber.get());
         return currentShipmentNumber.get();
     }
+
+    @Step("Получаем список способов оплаыты")
+    public List<PaymentToolV2> getPaymentTools() {
+        Response response = PaymentToolsV2Request.GET();
+        checkStatusCode200(response);
+        return response.as(PaymentToolsV2Response.class).getPaymentTools();
+    }
+
+    @Step("Получение списка способв доставки для sid = {sid}")
+    public List<ShippingMethodV2> getShippingMethods(int sid) {
+        Response response = ShippingMethodsV2Request.GET(sid);
+        checkStatusCode200(response);
+        return response.as(ShippingMethodsV2Response.class).getShippingMethods();
+    }
+
+    public List<ShippingMethodV2> getShippingMethods(){
+        return getShippingMethods(currentSid.get());
+    }
+
+    @Step("Получаем данные достаки для заказа")
+    public ShipmentV2 getShippingWithOrder(){
+        final Response response = OrdersV2Request.Current.GET();
+        checkStatusCode200(response);
+        return response
+                .as(OrderV2Response.class)
+                .getOrder()
+                .getShipments()
+                .get(0);
+    }
+
 
     /**
      * Получаем список активных (принят, собирается, в пути) заказов
