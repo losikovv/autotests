@@ -848,4 +848,32 @@ public class RestDataProvider extends RestBase {
                 {productId, -1}
         };
     }
+
+    @DataProvider(name = "fillingInOrderInformationDp")
+    public static Object[][] fillingInOrderInformationDp() {
+
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        Integer paymentsId = apiV2.getPaymentTools().get(0).getId();
+        Integer shipmentId = apiV2.getShippingWithOrder().getId();
+        Integer shipmentMethodId = apiV2.getShippingMethods().get(0).getId();
+        Integer deliveryWindow = apiV2.getAvailableDeliveryWindow().getId();
+        return new Object[][]{
+                {0, "", "", 0, 0, 0, 0, ""},
+                {0, "", "", 0, 0, 0, 0, apiV2.getCurrentOrderNumber()},
+                {1, "", "", 0, 0, 0, 0, ""},
+                {0, "+79771234567", "", 0, 0, 0, 0, ""},
+                {0, "", "test", 0, 0, 0, 0, ""},
+                {0, "", "", paymentsId, 0, 0, 0, ""},
+                {0, "", "", 0, shipmentId, 0, 0, ""},
+                {0, "", "", 0, 0, deliveryWindow, shipmentMethodId, ""},
+
+                {0, "", "", paymentsId, shipmentId, 0, shipmentMethodId, apiV2.getCurrentOrderNumber()},
+                {1, "", "", paymentsId, shipmentId, 0, shipmentMethodId, apiV2.getCurrentOrderNumber()},
+
+                {1, "", "", 0, shipmentId, 0, shipmentMethodId, apiV2.getCurrentOrderNumber()},
+                {1, "", "", paymentsId, 0, 0, shipmentMethodId, apiV2.getCurrentOrderNumber()},
+                {1, "", "", paymentsId, shipmentId, 0, 0, apiV2.getCurrentOrderNumber()},
+                {1, "+79771234567", "test", paymentsId, shipmentId, 0, shipmentMethodId, ""}
+        };
+    }
 }
