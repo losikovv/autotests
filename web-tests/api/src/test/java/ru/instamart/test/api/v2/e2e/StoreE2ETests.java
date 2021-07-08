@@ -41,7 +41,7 @@ public class StoreE2ETests extends RestBase {
     public void departmentsOnMainPages(StoreV2 store) {
         log.info(store.toString());
 
-        SoftAssert softAssert = new SoftAssert();
+        final SoftAssert softAssert = new SoftAssert();
         apiV2.getProductsFromEachDepartmentInStore(store.getId(), softAssert);
         softAssert.assertAll();
     }
