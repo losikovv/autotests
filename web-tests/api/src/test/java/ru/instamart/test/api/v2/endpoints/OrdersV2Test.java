@@ -17,6 +17,7 @@ import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.ProductV2;
 import ru.instamart.api.request.v2.LineItemsV2Request;
 import ru.instamart.api.request.v2.OrdersV2Request;
+import ru.instamart.api.request.v2.PaymentToolsV2Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.*;
@@ -496,5 +497,24 @@ public class OrdersV2Test extends RestBase {
         softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Заказ не существует");
         softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Заказ не существует");
         softAssert.assertAll();
+    }
+
+    @CaseId(682)
+    @Story("Получить способы оплаты")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получить способы оплаты")
+    public void getPaymentMethods() {
+        response = PaymentToolsV2Request.GET();
+        checkStatusCode200(response);
+        PaymentToolsV2Response paymentToolsV2Response = response.as(PaymentToolsV2Response.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(paymentToolsV2Response.getPaymentTools().get(0).getName(), "Картой курьеру");
+        softAssert.assertEquals(paymentToolsV2Response.getPaymentTools().get(0).getType(), "lifepay");
+        softAssert.assertEquals(paymentToolsV2Response.getPaymentTools().get(1).getName(), "На кассе");
+        softAssert.assertEquals(paymentToolsV2Response.getPaymentTools().get(1).getType(), "cash_desk");
+        softAssert.assertEquals(paymentToolsV2Response.getPaymentTools().get(2).getName(), "Внешний платеж через партнера");
+        softAssert.assertEquals(paymentToolsV2Response.getPaymentTools().get(2).getType(), "external_partner_pay");
+        softAssert.assertEquals(paymentToolsV2Response.getPaymentTools().get(2).getName(), "Платеж через СберАпп");
+        softAssert.assertEquals(paymentToolsV2Response.getPaymentTools().get(2).getType(), "sber_app_pay");
     }
 }
