@@ -41,7 +41,6 @@ public class ShipmentsV2Test extends RestBase {
     public void getDeliveryWindows200() {
         Integer shipmentId = apiV2.getShippingWithOrder().getId();
         Response response = ShipmentsV2Request.DeliveryWindows.GET(shipmentId.toString(), today);
-        response.prettyPeek();
         checkStatusCode200(response);
         assertNotNull(response.as(DeliveryWindowsV2Response.class).getDeliveryWindows(), "Нет окон доставки");
     }
