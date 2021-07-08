@@ -1,6 +1,7 @@
 package ru.instamart.kraken.service;
 
 import ru.instamart.ab.AbApi;
+import ru.instamart.ab.model.Setting;
 import ru.instamart.kraken.util.Crypt;
 
 public final class AbService {
@@ -12,6 +13,6 @@ public final class AbService {
     private final AbApi abApi;
 
     private AbService() {
-        this.abApi = new AbApi(BASE_AB_SERVICE_URL);
+        this.abApi = new AbApi(new Setting(BASE_AB_SERVICE_URL, USER, PASS));
     }
 }
