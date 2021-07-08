@@ -44,4 +44,13 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
                     .get(ApiV2EndPoints.Shipments.LINE_ITEM_REPLACEMENTS, shipmentNumber);
         }
     }
+
+    public static class DeliveryWindows{
+
+        @Step("{method} /" + ApiV2EndPoints.Shipments.DELIVERY_WINDOWS)
+        public static Response GET(String shipmentId, String date){
+            return givenWithAuth()
+                    .get(ApiV2EndPoints.Shipments.DELIVERY_WINDOWS, shipmentId, date);
+        }
+    }
 }
