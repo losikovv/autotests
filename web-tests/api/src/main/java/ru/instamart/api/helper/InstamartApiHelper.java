@@ -798,6 +798,7 @@ public final class InstamartApiHelper {
     /**
      * Узнаем номер заказа
      */
+    @Step("Узнаем номер заказа")
     public String getCurrentOrderNumber() {
         Response response = OrdersV2Request.POST();
         checkStatusCode200(response);

@@ -455,16 +455,46 @@ public class OrdersV2Test extends RestBase {
                                              int deliveryWindowId,
                                              int shipmentMethodId,
                                              String orderNumber) {
-        Response response = OrdersV2Request.PUT(
-                replacementPolicyId,
-                phoneNumber,
-                instructions,
-                paymentToolId,
-                shipmentId,
-                deliveryWindowId,
-                shipmentMethodId,
+        response = OrdersV2Request.PUT(replacementPolicyId,
+                phoneNumber, instructions, paymentToolId,
+                shipmentId, deliveryWindowId, shipmentMethodId,
                 orderNumber
         );
         checkStatusCode404(response);
+    }
+
+    @CaseId(341)
+    @Story("Отмена заказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Отмена заказа с существующим номером заказа")
+    public void cancellationsOrders200() {
+        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        String orderNumber = order.getNumber();
+        response = OrdersV2Request.Cancellations.POST(orderNumber, "test");
+        checkStatusCode200(response);
+        CancellationsV2Response cancellationsV2Response = response.as(CancellationsV2Response.class);
+
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(cancellationsV2Response.getCancellation().getReason(), "test", "Причина отмены отличная от исходной");
+        softAssert.assertEquals(cancellationsV2Response.getCancellation().getOrder().getNumber(), orderNumber, "Номер заказа неверный");
+        softAssert.assertAll();
+
+    }
+
+    @CaseId(342)
+    @Story("Отмена заказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Отмена заказа с несуществующим номером заказа")
+    public void cancellationsOrders404() {
+        response = OrdersV2Request.Cancellations.POST("failedOrderNumber", "test");
+        checkStatusCode404(response);
+
+        ErrorResponse error = response.as(ErrorResponse.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(error.getErrors().getBase(), "Заказ не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Заказ не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Заказ не существует");
+        softAssert.assertAll();
     }
 }
