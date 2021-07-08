@@ -27,13 +27,13 @@ public final class TokenObtain {
         obtain.setPassword(password);
         final Request request = new Request.Builder()
                 .url(url + Endpoint.OBTAIN)
-                .post(RequestBody.create(Mapper.INSTANCE.objectToString(obtain), AbApiClient.HEADER))
+                .post(RequestBody.create(Mapper.INSTANCE.objectToString(obtain), AbApiClient.TYPE))
                 .build();
-        final Response response = client.newCall(request).execute();
-        if (!response.isSuccessful()) {
-            throw new IOException("FAILED jwt token obtain: " + Objects.requireNonNull(response.body()).string());
+        try(final Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException("FAILED jwt token obtain: " + Objects.requireNonNull(response.body()).string());
+            }
+            return Mapper.INSTANCE.jsonToObject(Objects.requireNonNull(response.body()).string(), JwtResponse.class);
         }
-
-        return Mapper.INSTANCE.jsonToObject(Objects.requireNonNull(response.body()).string(), JwtResponse.class);
     }
 }

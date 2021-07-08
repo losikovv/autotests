@@ -2,7 +2,11 @@ package ru.instamart.kraken.service;
 
 import ru.instamart.ab.AbApi;
 import ru.instamart.ab.model.Setting;
+import ru.instamart.ab.model.request.UserGroups;
+import ru.instamart.ab.model.response.AuthorsResponse;
 import ru.instamart.kraken.util.Crypt;
+
+import java.util.UUID;
 
 public final class AbService {
 
@@ -14,5 +18,13 @@ public final class AbService {
 
     private AbService() {
         this.abApi = new AbApi(new Setting(BASE_AB_SERVICE_URL, USER, PASS));
+    }
+
+    public void changeUserGroup(final UserGroups userGroups) {
+        this.abApi.getUserGroupsService().update(userGroups);
+    }
+
+    public AuthorsResponse getAuthor() {
+        return this.abApi.getAbTestsService().getAuthor();
     }
 }
