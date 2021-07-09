@@ -56,6 +56,18 @@
 </div>
 </#if>
 
+
+<#if (data.formParam)?has_content>
+<h4>Data params</h4>
+<div>
+    <#list data.formParam as name, value>
+        <div>
+            <pre><code><b>${name}</b>: ${value}</code></pre>
+        </div>
+    </#list>
+</div>
+</#if>
+
 <#if data.curl??>
 <h4>Curl</h4>
 <div>
