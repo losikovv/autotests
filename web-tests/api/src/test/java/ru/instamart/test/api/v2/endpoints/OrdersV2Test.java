@@ -531,13 +531,10 @@ public class OrdersV2Test extends RestBase {
 
         response = OrdersV2Request.Completion.POST(apiV2.getCurrentOrderNumber());
         if (response.getStatusCode() == 422) {
-            response.prettyPeek();
             ErrorResponse error = response.as(ErrorResponse.class);
-
             response = apiV2.slotAvailabilityCheck(response);
         }
         checkStatusCode200(response);
-        response.prettyPeek();
         OrderV2Response order = response.as(OrderV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
 
