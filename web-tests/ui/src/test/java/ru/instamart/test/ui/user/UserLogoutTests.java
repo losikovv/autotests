@@ -4,7 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.setting.Config;
@@ -15,6 +15,8 @@ import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.shipping.ShippingAddressCheckpoints;
 import ru.instamart.ui.checkpoint.shoppingcart.ShoppingCartCheckpoints;
 import ru.instamart.ui.checkpoint.users.UsersAuthorizationCheckpoints;
+import ru.instamart.ui.helper.JsHelper;
+import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
@@ -27,10 +29,10 @@ public final class UserLogoutTests extends TestBase implements UsersAuthorizatio
     private final ShoppingCartCheckpoints shopChecks = new ShoppingCartCheckpoints();
     private final ShippingAddressCheckpoints shippingChecks = new ShippingAddressCheckpoints();
 
-    @BeforeMethod(alwaysRun = true,
-            description ="Выполняем шаги предусловий для теста")
+    @AfterMethod(alwaysRun = true, dependsOnMethods = "captureFinish",
+            description = "Выполняем шаги предусловий для теста")
     public void quickLogout() {
-        User.Logout.logout();
+        AppManager.closeWebDriver();
     }
 
     @CaseId(1473)
@@ -47,7 +49,7 @@ public final class UserLogoutTests extends TestBase implements UsersAuthorizatio
         User.Do.sendSms(Config.DEFAULT_SMS);
         baseChecks.checkPageIsAvailable();
         checkIsUserAuthorized("Юзер не авторизован на сайте");
-        User.Logout.logout();
+        User.Logout.jsLogout();
         checkIsUserNotAuthorized("Не работает быстрый логаут");
     }
 
@@ -90,7 +92,7 @@ public final class UserLogoutTests extends TestBase implements UsersAuthorizatio
         ShippingAddressModal.selectAddressSuggest();
         ShippingAddressModal.submit();
         Shop.Catalog.Item.addToCart();
-        User.Logout.logout();
+        User.Logout.jsLogout();
         checkIsUserNotAuthorized("Не выполнены предусловия - не работает логаут");
         shippingChecks.checkIsShippingAddressNotSet("Логаут");
         kraken.get().page(Config.DEFAULT_RETAILER);

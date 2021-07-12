@@ -9,6 +9,7 @@ import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.ui.Elements;
+import ru.instamart.ui.helper.JsHelper;
 import ru.instamart.ui.manager.AppManager;
 
 @Slf4j
@@ -304,6 +305,12 @@ public final class User extends Base {
         @Step("Логаут")
         public static void logout() {
             kraken.get().page("logout");
+        }
+
+        @Step("JS Логаут")
+        public static void jsLogout() {
+            JsHelper.clearSession();
+            kraken.perform().refresh();
         }
 
         /** Быстрая деавторизация удалением кук */

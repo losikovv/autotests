@@ -1577,7 +1577,7 @@ public class Elements {
         interface Product {
             //
             static ElementData snippet() {
-                return new ElementData(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']"),
+                return new ElementData(By.xpath("//li[@class='product']//div[contains(@class,'product__img')]//img[contains(@alt,text())]"),
                         "сниппет продукта");
             }
 
