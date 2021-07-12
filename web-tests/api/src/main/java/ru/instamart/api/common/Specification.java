@@ -1,6 +1,5 @@
 package ru.instamart.api.common;
 
-import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
@@ -81,14 +80,14 @@ public enum Specification {
                 .setBaseUri(apiV1FullUrl)
                 .setBasePath("api/")
                 .setAccept(ContentType.JSON)
-                .addFilter(new AllureRestAssured())
+                .addFilter(new AllureRestAssuredCustom())
                 .build();
 
         apiV2RequestSpec = new RequestSpecBuilder()
                 .setBaseUri(apiV2FullUrl)
                 .setBasePath("api/")
                 .setAccept(ContentType.JSON)
-                .addFilter(new AllureRestAssured())
+                .addFilter(new AllureRestAssuredCustom())
                 .build();
 
         shopperRequestSpec = new RequestSpecBuilder()
@@ -98,14 +97,14 @@ public enum Specification {
                 .addHeader(
                         "Client-Ver",
                         "99.9.9")
-                .addFilter(new AllureRestAssured())
+                .addFilter(new AllureRestAssuredCustom())
                 .build();
 
         surgeRequestSpec = new RequestSpecBuilder()
                 .setBaseUri("https://paas-content-operations-surge.k-stage.sbermarket.tech")
                 .setBasePath("api/")
                 .setAccept(ContentType.JSON)
-                .addFilter(new AllureRestAssured())
+                .addFilter(new AllureRestAssuredCustom())
                 .build();
     }
 
