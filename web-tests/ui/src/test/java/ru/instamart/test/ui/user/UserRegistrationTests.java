@@ -54,7 +54,7 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
         checkIsUserNotAuthorized("Произошла регистрация пользователя с пустыми реквизитами");
     }
 
-    @Skip
+    /*@Skip
     @CaseId(2044)
     @Story("Регистрация на странице ретейлера")
     @Test(
@@ -75,7 +75,7 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
         baseChecks.checkIsElementDisabled(Elements.Modals.AuthModal.continueButton());
         kraken.get().baseUrl();
         checkIsUserNotAuthorized("Произошла регистрация пользователя с уже используемым телефоном");
-    }
+    }*/
 
     @CaseId(1541)
     @Story("Регистрация на лендинге")

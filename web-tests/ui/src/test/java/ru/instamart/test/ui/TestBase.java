@@ -24,11 +24,11 @@ public class TestBase {
     @AfterMethod(alwaysRun = true, description = "Вспомогательные отчеты")
     public void captureFinish(final ITestResult result) {
         CustomReport.addSystemLog();
+        CustomReport.addCookieLog(result.getName());
         if (!result.isSuccess()) {
             CustomReport.addSourcePage();
             CustomReport.addBrowserLog();
             CustomReport.takeScreenshot();
-            CustomReport.addCookieLog(result.getName());
         }
     }
 
