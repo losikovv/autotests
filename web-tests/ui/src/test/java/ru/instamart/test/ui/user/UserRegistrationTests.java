@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.listener.Skip;
@@ -31,7 +32,8 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
 
     @AfterMethod(alwaysRun = true,
             description ="Завершаем сессию браузера", dependsOnMethods = "captureFinish")
-    public void quickLogout() {
+    public void quickLogout(final ITestResult result) {
+        log.error("Close browser for test {}", result.getName());
         AppManager.closeWebDriver();
     }
 
@@ -54,7 +56,7 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
         checkIsUserNotAuthorized("Произошла регистрация пользователя с пустыми реквизитами");
     }
 
-    /*@Skip
+    @Skip
     @CaseId(2044)
     @Story("Регистрация на странице ретейлера")
     @Test(
@@ -75,7 +77,7 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
         baseChecks.checkIsElementDisabled(Elements.Modals.AuthModal.continueButton());
         kraken.get().baseUrl();
         checkIsUserNotAuthorized("Произошла регистрация пользователя с уже используемым телефоном");
-    }*/
+    }
 
     @CaseId(1541)
     @Story("Регистрация на лендинге")

@@ -25,10 +25,11 @@ public class TestBase {
     public void captureFinish(final ITestResult result) {
         CustomReport.addSystemLog();
         CustomReport.addCookieLog(result.getName());
+        CustomReport.takeScreenshot();
         if (!result.isSuccess()) {
             CustomReport.addSourcePage();
             CustomReport.addBrowserLog();
-            CustomReport.takeScreenshot();
+
         }
     }
 
