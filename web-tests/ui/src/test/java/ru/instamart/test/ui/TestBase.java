@@ -26,6 +26,7 @@ public class TestBase {
         CustomReport.addSystemLog();
         CustomReport.addCookieLog(result.getName());
         CustomReport.takeScreenshot();
+        CustomReport.addLocalStorage();
         if (!result.isSuccess()) {
             CustomReport.addSourcePage();
             CustomReport.addBrowserLog();

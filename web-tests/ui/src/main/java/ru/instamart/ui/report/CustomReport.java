@@ -9,9 +9,11 @@ import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.Logs;
 import ru.instamart.kraken.helper.LogAttachmentHelper;
+import ru.instamart.ui.helper.JsHelper;
 import ru.instamart.ui.manager.AppManager;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
 import java.util.StringJoiner;
@@ -45,6 +47,15 @@ public final class CustomReport {
     @Attachment(value = "Содержимое страницы", type = "text/html")
     public static String addSourcePage() {
         return AppManager.getWebDriver().getPageSource();
+    }
+
+    @Attachment(value = "LocalStorage", type = "text/plain")
+    public static String addLocalStorage() {
+        final StringJoiner joiner = new StringJoiner("\n");
+        final String[] storage = JsHelper.getLocalStorage().split(",");
+        Arrays.stream(storage).forEach(joiner::add);
+
+        return joiner.toString();
     }
 
     /** Создаем скриншот для добавления его в Qase */
