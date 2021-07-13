@@ -1,6 +1,7 @@
 package ru.instamart.test.ui;
 
 import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
 import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
@@ -17,6 +18,7 @@ public class TestBase {
     @BeforeMethod(alwaysRun = true)
     public void captureStart() {
         LogAttachmentHelper.start();
+        log.info("Browser session id: {}", ((RemoteWebDriver) AppManager.getWebDriver()).getSessionId());
     }
 
     @AfterMethod(alwaysRun = true, description = "Вспомогательные отчеты")

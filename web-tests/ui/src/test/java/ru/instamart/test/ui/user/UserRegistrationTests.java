@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.listener.Skip;
@@ -44,6 +45,7 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
     )
     public void noRegWithEmptyRequisites() {
         kraken.get().page(Config.DEFAULT_RETAILER);
+        log.info("Browser session id: {}", ((RemoteWebDriver) AppManager.getWebDriver()).getSessionId());
         Shop.AuthModal.openAuthRetailer();
         User.Do.registration("",true);
         baseChecks.checkIsErrorMessageElementPresentByPhone("Номер должен начинаться с \"+7 (9..\"",
