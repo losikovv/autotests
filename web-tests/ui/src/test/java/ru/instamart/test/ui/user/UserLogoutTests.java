@@ -5,7 +5,6 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.listener.Skip;
@@ -17,7 +16,6 @@ import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.shipping.ShippingAddressCheckpoints;
 import ru.instamart.ui.checkpoint.shoppingcart.ShoppingCartCheckpoints;
 import ru.instamart.ui.checkpoint.users.UsersAuthorizationCheckpoints;
-import ru.instamart.ui.helper.JsHelper;
 import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
@@ -65,7 +63,6 @@ public final class UserLogoutTests extends TestBase implements UsersAuthorizatio
     )
     public void successManualLogout() {
         kraken.get().page(Config.DEFAULT_RETAILER);
-        log.info("Browser session id: {}", ((RemoteWebDriver) AppManager.getWebDriver()).getSessionId());
         Shop.AuthModal.openAuthRetailer();
         User.Do.registration(Generate.phoneNumber(),true);
         User.Do.sendSms(Config.DEFAULT_SMS);
