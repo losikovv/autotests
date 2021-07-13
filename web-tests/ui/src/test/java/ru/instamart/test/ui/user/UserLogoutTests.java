@@ -6,6 +6,7 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.setting.Config;
@@ -30,7 +31,7 @@ public final class UserLogoutTests extends TestBase implements UsersAuthorizatio
     private final ShoppingCartCheckpoints shopChecks = new ShoppingCartCheckpoints();
     private final ShippingAddressCheckpoints shippingChecks = new ShippingAddressCheckpoints();
 
-    @AfterMethod(alwaysRun = true, dependsOnMethods = "captureFinish",
+    @BeforeMethod(alwaysRun = true,
             description = "Выполняем шаги предусловий для теста")
     public void quickLogout() {
         AppManager.closeWebDriver();

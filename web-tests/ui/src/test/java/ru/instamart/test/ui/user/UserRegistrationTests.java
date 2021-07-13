@@ -7,6 +7,7 @@ import io.qase.api.annotation.CaseId;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.setting.Config;
@@ -30,10 +31,9 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
     private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
     private final ShoppingCartCheckpoints shopChecks = new ShoppingCartCheckpoints();
 
-    @AfterMethod(alwaysRun = true,
-            description ="Завершаем сессию браузера", dependsOnMethods = "captureFinish")
+    @BeforeMethod(alwaysRun = true,
+            description ="Завершаем сессию браузера")
     public void quickLogout(final ITestResult result) {
-        log.error("Close browser for test {}", result.getName());
         AppManager.closeWebDriver();
     }
 
