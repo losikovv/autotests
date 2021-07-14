@@ -33,6 +33,7 @@ import java.util.stream.Collectors;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.fail;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.common.RestStaticTestData.userPhone;
 
 @Slf4j
 public final class InstamartApiHelper {
@@ -490,7 +491,7 @@ public final class InstamartApiHelper {
         Response response = OrdersV2Request.PUT(
                 //currentAddressId.get(), //параметр ломает оформление заказа в некоторых магазинах
                 1,
-                "+7 (987) 654 32 10",
+                userPhone,
                 "test",
                 currentPaymentTool.get().getId(),
                 currentShipmentId.get(),
@@ -1027,14 +1028,6 @@ public final class InstamartApiHelper {
         setAddressAttributes(user, address);
     }
 
-    /**
-     * Оформить тестовый заказ у юзера по определенному адресу
-     */
-    @Step("Оформляем заказ у юзера {user.login} по адресу {address.fullAddress} для ритейлера {retailer}")
-    public OrderV2 order(UserData user, AddressV2 address, String retailer) {
-        fillCart(user, address, retailer);
-        return setDefaultAttributesAndCompleteOrder();
-    }
 
     @Step("Запроленение корзины и аттрибутов заказа без оформления")
     public void fillingCartAndOrderAttributesWithoutCompletition(UserData user, int sid){
@@ -1043,6 +1036,25 @@ public final class InstamartApiHelper {
         getAvailableShippingMethod();
         getAvailableDeliveryWindow();
         setDefaultOrderAttributes();
+    }
+
+    @Step("Запроленение корзины и аттрибутов заказа без оформления")
+    public void fillingCartAndOrderAttributesWithoutCompletition(UserData user, AddressV2 address){
+        fillCart(user, address);
+        getAvailablePaymentTool();
+        getAvailableShippingMethod();
+        getAvailableDeliveryWindow();
+        setDefaultOrderAttributes();
+    }
+
+
+    /**
+     * Оформить тестовый заказ у юзера по определенному адресу
+     */
+    @Step("Оформляем заказ у юзера {user.login} по адресу {address.fullAddress} для ритейлера {retailer}")
+    public OrderV2 order(UserData user, AddressV2 address, String retailer) {
+        fillCart(user, address, retailer);
+        return setDefaultAttributesAndCompleteOrder();
     }
 
     /**
