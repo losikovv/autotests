@@ -1,4 +1,4 @@
-package ru.instamart.reforged.admin.element;
+package ru.instamart.reforged.admin.block;
 
 import lombok.Getter;
 import lombok.experimental.Accessors;
@@ -7,7 +7,7 @@ import ru.instamart.reforged.core.component.Element;
 
 @Getter
 @Accessors(fluent = true)
-public final class HeaderElement {
+public final class AuthoredHeader {
     private final Element adminNavigationTitle = new Element(By.xpath("//*[@title='Домашняя страница системы администрирования']"));
     private final Element adminName = new Element(By.xpath("//span[contains(@class,'user_menu')]"));
     private final Element adminAvatar = new Element(By.xpath("//span[contains(@class,'ant-avatar-icon')]"));

@@ -1,17 +1,41 @@
 package ru.instamart.reforged.admin.checkpoint;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
+import lombok.RequiredArgsConstructor;
+import ru.instamart.reforged.admin.block.AuthoredHeader;
+import ru.instamart.reforged.admin.element.MainElement;
 import ru.instamart.reforged.core.Check;
-import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.core.component.Element;
 
-public interface MainCheck extends Check {
+import static ru.instamart.reforged.core.Kraken.waitAction;
 
-    Element user = new Element(By.xpath("//span[@class='ant-avatar ant-avatar-circle ant-avatar-icon']"));
+@RequiredArgsConstructor
+public class MainCheck implements Check {
+
+    protected final MainElement element;
+    protected final AuthoredHeader headerElement;
+
+    @Step("Проверяем, что отображается adminNavigationTitle")
+    public void checkAdminNavigationTitle() {
+        waitAction().shouldBeVisible(headerElement.adminNavigationTitle());
+    }
+
+    @Step("Проверяем, что отображается adminName")
+    public void checkAdminName() {
+        waitAction().shouldBeVisible(headerElement.adminName());
+    }
+
+    @Step("Проверяем, что отображается adminAvatar")
+    public void checkAdminAvatar() {
+        waitAction().shouldBeVisible(headerElement.adminAvatar());
+    }
+
+    @Step("Проверяем, что отображается logoutDropdown")
+    public void checkLogoutDropdown() {
+        waitAction().shouldBeVisible(headerElement.logoutDropdown());
+    }
 
     @Step("Пользователь авторизовался")
-    default void checkAuth() {
-        Kraken.waitAction().shouldBeVisible(user);
+    public void checkAuth() {
+        waitAction().shouldBeVisible(element.user());
     }
 }
