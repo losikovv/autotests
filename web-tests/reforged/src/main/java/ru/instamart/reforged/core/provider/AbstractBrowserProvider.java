@@ -70,9 +70,6 @@ public abstract class AbstractBrowserProvider {
         if (FULL_SCREEN_MODE) {
             driver.manage().window().maximize();
         }
-        if (BASIC_TIMEOUT > 0) {
-            driver.manage().timeouts().implicitlyWait(BASIC_TIMEOUT, TimeUnit.SECONDS);
-        }
     }
 
     /**

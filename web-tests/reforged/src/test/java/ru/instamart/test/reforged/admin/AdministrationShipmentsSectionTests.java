@@ -4,8 +4,6 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.model.v2.OrderV2;
@@ -13,26 +11,14 @@ import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
-import ru.instamart.reforged.core.Kraken;
+import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.admin.AdminRout.login;
 import static ru.instamart.reforged.admin.AdminRout.shipments;
 
 @Epic("Админка STF")
 @Feature("Управление заказами")
-public final class AdministrationShipmentsSectionTests {
-
-    @BeforeMethod(alwaysRun = true,
-            description = "Выполняем шаги предусловий для теста")
-    public void beforeTest() {
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void close() {
-        Kraken.closeBrowser();
-    }
+public final class AdministrationShipmentsSectionTests extends BaseTest {
 
     @Skip
     @CaseId(175)
@@ -41,6 +27,9 @@ public final class AdministrationShipmentsSectionTests {
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     )
     public void validateDefaultAdminShipmentsPage() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
         shipments().goToPage();
         shipments().checkPageTitle();
         shipments().checkOrderDateFrom();
@@ -59,6 +48,9 @@ public final class AdministrationShipmentsSectionTests {
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     )
     public void successSearchOrderByOrderNumber() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
         shipments().goToPage();
         final String orderNumber = shipments().getOrderNumber();
         shipments().setShipmentOrOrderNumber(orderNumber);
@@ -73,6 +65,9 @@ public final class AdministrationShipmentsSectionTests {
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     )
     public void successSearchOrderByShipmentNumber() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
         shipments().goToPage();
         final String shipmentNumber = shipments().getShipmentNumber();
         shipments().setShipmentOrOrderNumber(shipmentNumber);

@@ -12,6 +12,7 @@ import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.service.KrakenDriver;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
 import java.util.StringJoiner;
@@ -23,12 +24,6 @@ public final class CustomReport {
         final String result = LogAttachmentHelper.getContent();
         LogAttachmentHelper.stop();
         return result;
-    }
-
-    /** Создаем скриншот и добавляем его в Allure */
-    @Attachment(value = "Скриншот с веб страницы", type = "image/jpg")
-    public static byte[] takeScreenshot() {
-        return ((TakesScreenshot) KrakenDriver.getWebDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
     @Attachment(value = "Браузерный лог", type = "text/plain")
@@ -45,13 +40,28 @@ public final class CustomReport {
         return KrakenDriver.getSource();
     }
 
+    @Attachment(value = "LocalStorage", type = "text/plain")
+    public static String addLocalStorage() {
+        final StringJoiner joiner = new StringJoiner("\n");
+        final String[] storage = Kraken.jsAction().getLocalStorage().split(",");
+        Arrays.stream(storage).forEach(joiner::add);
+
+        return joiner.toString();
+    }
+
+    /** Создаем скриншот и добавляем его в Allure */
+    @Attachment(value = "Скриншот с веб страницы", type = "image/jpg")
+    public static byte[] takeScreenshot() {
+        return ((TakesScreenshot) KrakenDriver.getWebDriver()).getScreenshotAs(OutputType.BYTES);
+    }
+
     /** Создаем скриншот для добавления его в Qase */
     public static File takeScreenshotFile () {
         return ((TakesScreenshot) KrakenDriver.getWebDriver()).getScreenshotAs(OutputType.FILE);
     }
 
     @Attachment(value = "Куки браузера", type = "text/plain")
-    public static String addCookieLog(final String title) {
+    public static String addCookieLog() {
         final Set<Cookie> cookies = Kraken.getCookie();
         final int maxLineLength = cookies
                 .stream()
@@ -60,8 +70,6 @@ public final class CustomReport {
                 .max().orElse(0);
         final int count = maxLineLength >= 20 ? Math.min(maxLineLength + 1, 120) : 20;
         final StringBuilder sb = new StringBuilder();
-        sb.append("Report for ").append(title).append('\n');
-
         final String delimiter = '+' + Joiner
                 .on('+')
                 .join(joinLine(40),

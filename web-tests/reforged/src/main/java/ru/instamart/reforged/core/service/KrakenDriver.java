@@ -1,6 +1,8 @@
 package ru.instamart.reforged.core.service;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.SessionId;
 
 public final class KrakenDriver {
 
@@ -24,6 +26,10 @@ public final class KrakenDriver {
 
     public static String getSource() {
         return getWebDriver().getPageSource();
+    }
+
+    public static SessionId getSessionId() {
+        return ((RemoteWebDriver)getWebDriver()).getSessionId();
     }
 
     public static WebDriver getWebDriver() {
