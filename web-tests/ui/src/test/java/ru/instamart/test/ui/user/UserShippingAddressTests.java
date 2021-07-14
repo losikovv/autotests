@@ -121,7 +121,7 @@ public final class UserShippingAddressTests extends TestBase {
         ShippingAddressModal.selectAddressSuggest();
         ShippingAddressModal.submit();
         shippingChecks.checkIsShippingAddressSet("Адрес доставки не установлен");
-        shippingChecks.checkIsSetAddresEqualsToInput(Addresses.Moscow.defaultAddress(),
+        shippingChecks.checkIsSetAddressEqualsToInput(Addresses.Moscow.defaultAddress(),
                 kraken.grab().currentShipAddress());
     }
 
@@ -170,7 +170,7 @@ public final class UserShippingAddressTests extends TestBase {
         ShippingAddressModal.fill(Addresses.Moscow.testAddress());
         ShippingAddressModal.selectAddressSuggest();
         ShippingAddressModal.submit();
-        shippingChecks.checkIsSetAddresEqualsToInput(Addresses.Moscow.testAddress(), kraken.grab().currentShipAddress());
+        shippingChecks.checkIsSetAddressEqualsToInput(Addresses.Moscow.testAddress(), kraken.grab().currentShipAddress());
     }
 
     @Skip
@@ -265,7 +265,7 @@ public final class UserShippingAddressTests extends TestBase {
         ShippingAddressModal.fill(Addresses.Moscow.testAddress());
         ShippingAddressModal.selectAddressSuggest();
         ShippingAddressModal.submit();
-        shippingChecks.checkIsSetAddresEqualsToInput(Addresses.Moscow.testAddress(),
+        shippingChecks.checkIsSetAddressEqualsToInput(Addresses.Moscow.testAddress(),
                 kraken.grab().currentShipAddress());
     }
 
@@ -289,7 +289,7 @@ public final class UserShippingAddressTests extends TestBase {
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
         ShippingAddressModal.selectAddressSuggest();
         ShippingAddressModal.submit();
-        shippingChecks.checkIsSetAddresEqualsToInput(Addresses.Moscow.defaultAddress(),
+        shippingChecks.checkIsSetAddressEqualsToInput(Addresses.Moscow.defaultAddress(),
                 kraken.grab().currentShipAddress());
     }
 }

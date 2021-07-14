@@ -88,6 +88,17 @@ public final class WaitingHelper extends HelperBase {
                 });
     }
 
+    public String getText(final By locator) {
+        return createWait()
+                .until((ExpectedCondition<String>) driver -> {
+                    final WebElement webElement = driver.findElement(locator);
+                    if (webElement.getText().length() != 0) {
+                        return webElement.getText();
+                    }
+                    throw new NoSuchElementException("Element without text");
+                });
+    }
+
     public WebElement shouldBeText(final ElementData data) {
         return createWait(data)
                 .until((ExpectedCondition<WebElement>) driver -> {
@@ -141,7 +152,7 @@ public final class WaitingHelper extends HelperBase {
 
     private FluentWait<WebDriver> createWait() {
         return new FluentWait<>(AppManager.getWebDriver())
-                .withTimeout(10, TimeUnit.SECONDS)
+                .withTimeout(Config.BASIC_TIMEOUT, TimeUnit.SECONDS)
                 .pollingEvery(250, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class)
                 .ignoring(NotFoundException.class);

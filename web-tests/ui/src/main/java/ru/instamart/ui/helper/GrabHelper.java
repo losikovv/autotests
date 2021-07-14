@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.ui.data.ElementData;
@@ -63,8 +64,9 @@ public final class GrabHelper extends HelperBase {
     /** Взять текст элемента по локатору */
     public String text(By locator) {
         try {
-            return AppManager.getWebDriver().findElement(locator).getText();
-        } catch (NoSuchElementException e) {
+            return kraken.await().getText(locator);
+            //return AppManager.getWebDriver().findElement(locator).getText();
+        } catch (TimeoutException e) {
             return "empty";
         }
     }
