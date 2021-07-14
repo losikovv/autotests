@@ -20,7 +20,7 @@ public abstract class Component {
     private static final Pattern LOCATOR = Pattern.compile("/[^\\r\\n]*");
 
     protected WebElement component;
-    protected boolean isCashDisable = false;
+    protected boolean isCacheDisable = true;
 
     @Getter
     private final By by;
@@ -41,13 +41,13 @@ public abstract class Component {
         this.action = new Action(this);
     }
 
-    public Component(final By by, final boolean isCashDisable) {
+    public Component(final By by, final boolean isCacheDisable) {
         this.by = by;
         this.timeout = Config.BASIC_TIMEOUT;
         this.description = "Вызвали " + this.getClass().getSimpleName() + " " + by.toString();
         this.errorMsg = "Элемент " + by + " не найден";
         this.action = new Action(this);
-        this.isCashDisable = isCashDisable;
+        this.isCacheDisable = isCacheDisable;
     }
 
     public Component(final By by, final String description) {
