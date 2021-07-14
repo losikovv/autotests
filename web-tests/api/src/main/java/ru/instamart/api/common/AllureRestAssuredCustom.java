@@ -2,7 +2,6 @@ package ru.instamart.api.common;
 
 import io.qameta.allure.attachment.DefaultAttachmentProcessor;
 import io.qameta.allure.attachment.FreemarkerAttachmentRenderer;
-
 import io.qameta.allure.attachment.http.HttpResponseAttachment;
 import io.restassured.filter.FilterContext;
 import io.restassured.filter.OrderedFilter;
@@ -43,9 +42,14 @@ public class AllureRestAssuredCustom implements OrderedFilter {
 
         if (Objects.nonNull(requestSpec.getBody())) {
             requestAttachmentBuilder.setBody(prettifier.getPrettifiedBodyIfPossible(requestSpec));
-        } else if (Objects.nonNull(requestSpec.getFormParams())) {
+        }
+        if (Objects.nonNull(requestSpec.getFormParams())) {
             requestAttachmentBuilder.setFormParams(requestSpec.getFormParams());
-        } else if(Objects.nonNull(requestSpec.getQueryParams())){
+        }
+        if (Objects.nonNull(requestSpec.getRequestParams())) {
+            requestAttachmentBuilder.setFormParams(requestSpec.getRequestParams());
+        }
+        if (Objects.nonNull(requestSpec.getQueryParams())) {
             requestAttachmentBuilder.setFormParams(requestSpec.getQueryParams());
         }
 
