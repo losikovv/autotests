@@ -20,7 +20,7 @@ public class HttpRequestAttachmentCustom implements AttachmentData {
 
     private final String curl;
 
-    private final Map<String, String> formParam;
+    private final Map<String, Object> formParam;
 
     private final Map<String, String> headers;
 
@@ -29,7 +29,7 @@ public class HttpRequestAttachmentCustom implements AttachmentData {
 
     public HttpRequestAttachmentCustom(final String name, final String url, final String method,
                                        final String body, final String curl, final Map<String, String> headers,
-                                       final Map<String, String> cookies, final Map<String, String> formParam) {
+                                       final Map<String, String> cookies, final Map<String, Object> formParam) {
         this.name = name;
         this.url = url;
         this.method = method;
@@ -51,7 +51,7 @@ public class HttpRequestAttachmentCustom implements AttachmentData {
         private final String name;
 
         private final String url;
-        private final Map<String, String> formParam = new HashMap<>();
+        private final Map<String, Object> formParam = new HashMap<>();
         private final Map<String, String> headers = new HashMap<>();
         private final Map<String, String> cookies = new HashMap<>();
         private String method;
@@ -158,11 +158,11 @@ public class HttpRequestAttachmentCustom implements AttachmentData {
                     .append('\'');
         }
 
-        private static void appendFormParam(final StringBuilder builder, final String key, final String value) {
+        private static void appendFormParam(final StringBuilder builder, final String key, final Object value) {
             builder.append(" -F '")
                     .append(key)
                     .append('=')
-                    .append(value)
+                    .append(value.toString())
                     .append('\'');
         }
 
