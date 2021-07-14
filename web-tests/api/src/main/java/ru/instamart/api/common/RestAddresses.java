@@ -2,7 +2,20 @@ package ru.instamart.api.common;
 
 import ru.instamart.api.model.v2.AddressV2;
 
+import java.util.List;
+
+import static java.util.List.of;
+
 public class RestAddresses {
+
+    public static List<AddressV2> getDefaultAllAddress() {
+        return of(Moscow.defaultAddress(), SaintPetersburg.defaultAddress(), Kazan.defaultAddress(),
+                Ekaterinburg.defaultAddress(), NizhnyNovgorod.defaultAddress(), RostovNaDonu.defaultAddress(),
+                Ufa.defaultAddress(), Krasnodar.defaultAddress(), Samara.defaultAddress(),
+                Voronezh.defaultAddress(), Omsk.defaultAddress(), Volgograd.defaultAddress(),
+                Novosibirsk.defaultAddress(), Chelyabinsk.defaultAddress(), Tyumen.defaultAddress(),
+                Perm.defaultAddress());
+    }
 
     public static class Moscow {
 
