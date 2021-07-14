@@ -15,6 +15,7 @@ public final class ApiV2EndPoints {
     public static final String PASSWORDS = "v2/passwords";
     public static final String PAYMENT_TOOLS = "v2/payment_tools";
     public static final String PAYMENT_TOOL_TYPES = "v2/payment_tool_types";
+    public static final String PAYMENT_TOOL_TYPES_WITH_ORDER_NUMBER = "v2/payment_tool_types?order_number={orderNumber}";
     public static final String PHONE_CONFIRMATIONS = "v2/phone_confirmations?phone={encryptedPhoneNumber}";
     public static final String PRODUCTS = "v2/products";
     public static final String PURCHASED_PRODUCTS = "v2/purchased_products?sid={sid}";
