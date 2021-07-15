@@ -1,5 +1,6 @@
 package ru.instamart.reforged.stf.page;
 
+import ru.instamart.reforged.admin.page.sections.Oktell;
 import ru.instamart.reforged.core.page.Router;
 import ru.instamart.reforged.stf.page.checkout.Checkout;
 import ru.instamart.reforged.stf.page.faq.*;
@@ -64,6 +65,10 @@ public final class StfRouter extends Router {
 
     public static Checkout checkout() {
         return (Checkout) getPage(Checkout.class);
+    }
+
+    public static Oktell oktell() {
+        return (Oktell) getPage(Oktell.class);
     }
 
     private StfRouter() {
