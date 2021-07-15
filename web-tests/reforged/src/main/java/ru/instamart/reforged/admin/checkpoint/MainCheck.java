@@ -16,26 +16,26 @@ public class MainCheck implements Check {
 
     @Step("Проверяем, что отображается adminNavigationTitle")
     public void checkAdminNavigationTitle() {
-        waitAction().shouldBeVisible(headerElement.adminNavigationTitle());
+        waitAction().shouldBeVisible(headerElement.adminNavigationTitle()).isDisplayed();
     }
 
     @Step("Проверяем, что отображается adminName")
     public void checkAdminName() {
-        waitAction().shouldBeVisible(headerElement.adminName());
+        waitAction().shouldBeVisible(headerElement.adminName()).isDisplayed();
     }
 
     @Step("Проверяем, что отображается adminAvatar")
     public void checkAdminAvatar() {
-        waitAction().shouldBeVisible(headerElement.adminAvatar());
+        waitAction().shouldBeVisible(headerElement.adminAvatar()).isDisplayed();
     }
 
     @Step("Проверяем, что отображается logoutDropdown")
     public void checkLogoutDropdown() {
-        waitAction().shouldBeVisible(headerElement.logoutDropdown());
+        waitAction().shouldBeVisible(headerElement.logoutDropdown()).isDisplayed();
     }
 
     @Step("Пользователь авторизовался")
     public void checkAuth() {
-        waitAction().shouldBeVisible(element.user());
+        waitAction().shouldBeVisible(element.user()).isDisplayed();
     }
 }
