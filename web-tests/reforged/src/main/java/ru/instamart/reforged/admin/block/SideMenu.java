@@ -19,7 +19,7 @@ public final class SideMenu {
         private final Element rootsParameters  = new Element(By.xpath("//a[@title='Параметры маршрутизации']"));
         private final Element multipleOrder  = new Element(By.xpath("//a[@title='Мульти заказ']"));
 
-    private final Element ContentDropdown = new Element(By.xpath("//div[@role='button']//*[text()='Контент']"));
+    private final Element contentDropdown = new Element(By.xpath("//div[@role='button']//*[text()='Контент']"));
         private final Element products  = new Element(By.xpath("//a[@title='Продукты']"));
         private final Element goodsOptions  = new Element(By.xpath("//a[@title='Товарные опции']"));
         private final Element properties  = new Element(By.xpath("//a[@title='Свойства']"));
@@ -31,7 +31,7 @@ public final class SideMenu {
 
     private final Element settings  = new Element(By.xpath("//a[@title='Настройки']"));
 
-    private final Element marketing = new Element(By.xpath("//div[@role='button']//*[text()='Маркетинг']"));
+    private final Element marketingDropdown = new Element(By.xpath("//div[@role='button']//*[text()='Маркетинг']"));
         private final Element promoCards  = new Element(By.xpath("//a[@title='Промо карточки']"));
         private final Element promoActions = new Element(By.xpath("//a[@title='Промоакции']"));
         private final Element welcomeBanners  = new Element(By.xpath("//a[@title='Welcome баннеры']"));
@@ -48,7 +48,7 @@ public final class SideMenu {
         private final Element marketingCategories  = new Element(By.xpath("//a[@title='Маркетинговые категории']"));
 
 
-    private final Element staff = new Element(By.xpath("//div[@role='button']//*[text()='Персонал']"));
+    private final Element staffDropdown = new Element(By.xpath("//div[@role='button']//*[text()='Персонал']"));
         private final Element workSchedule  = new Element(By.xpath("//a[@title='Смены']"));
         private final Element tariffs  = new Element(By.xpath("//a[@title='Тарифы']"));
         private final Element collectors  = new Element(By.xpath("//a[@title='Сборщики']"));
