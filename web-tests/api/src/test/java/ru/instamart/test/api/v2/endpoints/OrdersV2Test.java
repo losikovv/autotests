@@ -29,7 +29,7 @@ import java.util.List;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
-import static ru.instamart.api.common.RestStaticTestData.userPhone;
+import static ru.instamart.api.common.RestStaticTestData.*;
 
 @Epic("ApiV2")
 @Feature("Заказы")
@@ -524,21 +524,16 @@ public class OrdersV2Test extends RestBase {
     @CaseId(343)
     @Story("Завершение заказа")
     @Test(groups = {"api-instamart-regress"},
-            dataProvider = "defaultAddressDelivery",
-            dataProviderClass = RestDataProvider.class,
             description = "Завершение заказа с существующим id")
-    public void orderCompletion200(AddressV2 addressV2) {
+    public void orderCompletion200() {
         String orderNumber = apiV2.getCurrentOrderNumber();
-
-        apiV2.fillingCartAndOrderAttributesWithoutCompletition(
-                SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
-                addressV2);
+        apiV2.fillingCartAndOrderAttributesWithoutCompletition(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
 
         String shipmentNumber = apiV2.getShipmentsNumber();
 
         response = OrdersV2Request.Completion.POST(apiV2.getCurrentOrderNumber());
         if (response.getStatusCode() == 422) {
-            ErrorResponse error = response.as(ErrorResponse.class);
+            response.as(ErrorResponse.class);
             response = apiV2.slotAvailabilityCheck(response);
         }
         checkStatusCode200(response);
@@ -548,13 +543,13 @@ public class OrdersV2Test extends RestBase {
         softAssert.assertEquals(order.getOrder().getNumber(), orderNumber, "Error order number");
         softAssert.assertEquals(order.getOrder().getShipments().get(0).getNumber(), shipmentNumber, "Error shipments number");
 
-//        softAssert.assertEquals(order.getOrder().getAddress().getFullAddress(), addressV2.getFullAddress(), "Адрес отличается от заполненного");
-        softAssert.assertEquals(order.getOrder().getAddress().getCity(), addressV2.getCity(), "Город отличается от заполненного");
+        softAssert.assertEquals(order.getOrder().getAddress().getFullAddress(), userFullAddress, "Адрес отличается от заполненного");
+        softAssert.assertEquals(order.getOrder().getAddress().getCity(), userCity, "Город отличается от заполненного");
         softAssert.assertEquals(order.getOrder().getAddress().getPhone(), userPhone, "Номер телефона отличается от заполненного");
-        softAssert.assertEquals(order.getOrder().getAddress().getStreet(), addressV2.getStreet(), "Улица отличается от заполненного");
-        softAssert.assertEquals(order.getOrder().getAddress().getBuilding(), addressV2.getBuilding(), "Дом отличается от заполненного");
-        softAssert.assertEquals(order.getOrder().getAddress().getLat(), addressV2.getLat(), "Координаты отличаются");
-        softAssert.assertEquals(order.getOrder().getAddress().getLon(), addressV2.getLon(), "Координаты отличаются");
+        softAssert.assertEquals(order.getOrder().getAddress().getStreet(), userStreet, "Улица отличается от заполненного");
+        softAssert.assertEquals(order.getOrder().getAddress().getBuilding(), userBuilding, "Дом отличается от заполненного");
+        softAssert.assertEquals(order.getOrder().getAddress().getLat().toString(), userLat, "Координаты отличаются");
+        softAssert.assertEquals(order.getOrder().getAddress().getLon().toString(), userLon, "Координаты отличаются");
         softAssert.assertFalse(order.getOrder().getAddress().getDeliveryToDoor(), "delivery_to_door is true");
 
         softAssert.assertEquals(order.getOrder().getPayment().getState(), "checkout", "Оплата отличается от выбранного");

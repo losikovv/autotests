@@ -98,7 +98,7 @@ public final class ShippingAddressModal extends Base {
         kraken.await().fluently(
                 ExpectedConditions.invisibilityOfElementLocated(
                         Elements.Modals.AddressModal.submitButton().getLocator()),
-                "Превышено время ожидания применения адреса доставки",1);
+                "Превышено время ожидания применения адреса доставки",3);
     }
 
     @Step("Нажимаем кнопку изменить адрес доставки")
