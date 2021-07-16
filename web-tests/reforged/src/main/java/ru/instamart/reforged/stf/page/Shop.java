@@ -29,6 +29,7 @@ public final class Shop implements StfPage {
     private final ProductCard productCard = new ProductCard();
     private final Cart cart = new Cart();
     private final Address address = new Address();
+    private final CategoryMenu categoryMenu = new CategoryMenu();
 
     public AuthoredHeader interactHeader() {
         return header;
@@ -45,8 +46,6 @@ public final class Shop implements StfPage {
     public Address interactAddress() {
         return address;
     }
-
-    private final CategoryMenu categoryMenu = new CategoryMenu();
 
     public CategoryMenu interactCategoryMenu() {
         return categoryMenu;
