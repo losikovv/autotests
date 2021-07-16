@@ -11,6 +11,7 @@ import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.stf.block.AuthoredHeader;
 import ru.instamart.reforged.stf.drawer.Cart;
+import ru.instamart.reforged.stf.drawer.CategoryMenu;
 import ru.instamart.reforged.stf.frame.Address;
 import ru.instamart.reforged.stf.frame.ProductCard;
 
@@ -28,6 +29,7 @@ public final class Shop implements StfPage {
     private final ProductCard productCard = new ProductCard();
     private final Cart cart = new Cart();
     private final Address address = new Address();
+    private final CategoryMenu categoryMenu = new CategoryMenu();
 
     public AuthoredHeader interactHeader() {
         return header;
@@ -44,6 +46,11 @@ public final class Shop implements StfPage {
     public Address interactAddress() {
         return address;
     }
+
+    public CategoryMenu interactCategoryMenu() {
+        return categoryMenu;
+    }
+
 
     @Step("Открыть окно ввода адреса доставки")
     public void openAddressFrame() {

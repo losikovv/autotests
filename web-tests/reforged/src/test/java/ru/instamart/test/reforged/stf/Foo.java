@@ -10,6 +10,7 @@ import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.reforged.core.listener.UiExecutionListener;
 import ru.instamart.reforged.core.report.CustomReport;
 import ru.instamart.reforged.stf.frame.auth.AuthSberId;
+import ru.instamart.reforged.stf.page.Shop;
 import ru.instamart.reforged.stf.page.StfRouter;
 
 @Listeners(UiExecutionListener.class)
@@ -48,9 +49,6 @@ public class Foo {
         String callAndRemove = "Позвонить мне. Убрать из заказа, если не смогу ответить";
         String noCallAndReplace = "Не звонить мне. Подобрать замену";
         String noCallAndRemove = "Не звонить мне. Убрать из заказа";
-        AuthSberId sberIdPage = StfRouter.home().interactAuthModal().interactAuthSberIdPage();
-        UserData user = UserManager.getDefaultSberIdUser();
-
         //9999919613
 
         StfRouter.home().goToPage();
@@ -58,12 +56,12 @@ public class Foo {
 //        StfRouter.home().interactAuthModal().fillPhone("9999919613");
 //        StfRouter.home().interactAuthModal().sendSms();
 //        StfRouter.home().interactAuthModal().fillSMS("111111");
-        StfRouter.home().interactAuthModal().authViaSberId();
-        sberIdPage.clickToChangeAuthTypeOnLogin();
-        sberIdPage.fillLogin(user.getLogin());
-        sberIdPage.clickToSubmitLogin();
-        sberIdPage.fillPassword(user.getPassword());
-        sberIdPage.clickToSubmitPassword();
+        StfRouter.home().interactAuthModal().fillPhone("9999919613");
+        StfRouter.home().interactAuthModal().sendSms();
+        StfRouter.home().interactAuthModal().fillSMS("111111");
+        StfRouter.shop().interactHeader().clickToCategoryMenu();
+        StfRouter.shop().interactCategoryMenu().moveOnCategory("Постное меню");
+        StfRouter.shop().interactCategoryMenu().clickToCategoryByName("Растительные масла");
     }
 
     @AfterMethod(alwaysRun = true, description = "Прикрепляем скриншот интерфейса, если UI тест упал")

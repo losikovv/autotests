@@ -41,10 +41,21 @@ public final class ElementCollection extends CollectionComponent {
         }
     }
 
+    public void moveOnElementWithText(final String text) {
+        for (final WebElement we : getComponents()) {
+            final String elementText = we.getText();
+            if (elementText.contains(text)) {
+                log.info("Hover on element {} with text {}", we, elementText);
+                Kraken.action().moveToElement(we).perform();
+                break;
+            }
+        }
+    }
+
     @Override
     protected List<WebElement> getComponents() {
         log.debug("Get {}'s with locator {}", getClass().getSimpleName(), getBy());
-        if (isNull(components) || isCashDisable) {
+        if (isNull(components) || isCacheDisable) {
             components = Kraken.waitAction().isElementsExist(this);
         }
         return components;

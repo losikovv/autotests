@@ -4,24 +4,17 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.testdata.StaticPages;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.pagesdata.StaticPageData;
+import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
 @Feature("Работа со статическими страницами")
-public final class AdministrationPagesSectionTests {
-
-    @BeforeClass(alwaysRun = true,
-            description = "Выполняем шаги предусловий для теста")
-    public void beforeTest() {
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
-    }
+public final class AdministrationPagesSectionTests extends BaseTest {
 
     @CaseId(507)
     @Story("Тест на проверку элементов на вкладке статических страниц")
@@ -29,6 +22,8 @@ public final class AdministrationPagesSectionTests {
             groups = {"admin-ui-smoke"}
     )
     public void validatePagesRootPage() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
         pages().goToPage();
         pages().checkTable();
         pages().checkTableEntry();
@@ -41,6 +36,9 @@ public final class AdministrationPagesSectionTests {
     )
     public void createDeletePage() {
         final StaticPageData staticPage = StaticPages.newStaticPage();
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
         pages().goToPage();
         pages().clickToNewPage();
         newPages().fillPageData(staticPage);
@@ -59,6 +57,9 @@ public final class AdministrationPagesSectionTests {
     public void createAndEditStaticPage() {
         final StaticPageData staticPage = StaticPages.newStaticPage();
         final StaticPageData staticPageEdited = StaticPages.editedStaticPage();
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
         pages().goToPage();
         newPages().goToPage();
         newPages().fillPageData(staticPage);

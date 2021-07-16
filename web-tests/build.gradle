@@ -48,6 +48,7 @@ project(":reforged") {
         implementation lib.allureJavaCommons
         implementation lib.testng
         implementation lib.jsonSimple
+        implementation lib.webdrivermanager
 
         compileOnly lib.lombok
 
