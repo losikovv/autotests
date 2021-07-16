@@ -836,6 +836,12 @@ public final class InstamartApiHelper {
         return currentShipmentNumber.get();
     }
 
+    public OrderV2 getOpenOrder(){
+        Response response = OrdersV2Request.POST();
+        checkStatusCode200(response);
+        return response.as(OrderV2Response.class).getOrder();
+    }
+
     @Step("Получаем список способов оплаыты")
     public List<PaymentToolV2> getPaymentTools() {
         Response response = PaymentToolsV2Request.GET();
@@ -884,7 +890,6 @@ public final class InstamartApiHelper {
                     orders.addAll(OrdersV2Request.GET(OrderStatusV2.ACTIVE, i).as(OrdersV2Response.class).getOrders());
                 }
             }
-//            Allure.addAttachment("Список активных заказов:", ContentType.TEXT.toString(), orders.stream().map(i->i.getNumber()).collect(Collectors.joining(",")));
             log.info("Список активных заказов:");
             orders.forEach(order -> log.info(order.getNumber()));
             for (OrderV2 order : orders) {

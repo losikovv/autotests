@@ -3,7 +3,6 @@ package ru.instamart.api.dataprovider;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.common.Specification;
 import ru.instamart.api.enums.SessionType;
@@ -11,7 +10,10 @@ import ru.instamart.api.enums.v2.AuthProviderV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OfferV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
-import ru.instamart.api.model.v2.*;
+import ru.instamart.api.model.v2.ProductV2;
+import ru.instamart.api.model.v2.RetailerV2;
+import ru.instamart.api.model.v2.StoreV2;
+import ru.instamart.api.model.v2.ZoneV2;
 import ru.instamart.api.request.v1.OperationalZonesV1Request;
 import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
 import ru.instamart.api.request.v2.PersonalV2Request;
@@ -26,7 +28,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static ru.instamart.api.common.RestAddresses.*;
+import static ru.instamart.api.common.RestAddresses.Moscow;
+import static ru.instamart.api.common.RestAddresses.getDefaultAllAddress;
 
 public class RestDataProvider extends RestBase {
 
@@ -69,7 +72,7 @@ public class RestDataProvider extends RestBase {
         Specification.setResponseSpecDefault();
 
         return retailerList.stream()
-                .map(list->new Object[]{list})
+                .map(list -> new Object[]{list})
                 .toArray(Object[][]::new);
     }
 
@@ -87,7 +90,7 @@ public class RestDataProvider extends RestBase {
         Specification.setResponseSpecDefault();
 
         return retailerList.stream()
-                .map(list->new Object[]{list})
+                .map(list -> new Object[]{list})
                 .toArray(Object[][]::new);
     }
 
@@ -104,7 +107,7 @@ public class RestDataProvider extends RestBase {
         Specification.setResponseSpecDefault();
 
         return storeList.stream()
-                .map(list->new Object[]{list})
+                .map(list -> new Object[]{list})
                 .toArray(Object[][]::new);
     }
 
@@ -126,7 +129,7 @@ public class RestDataProvider extends RestBase {
         Specification.setResponseSpecDefault();
 
         return storeList.stream()
-                .map(list->new Object[]{list})
+                .map(list -> new Object[]{list})
                 .toArray(Object[][]::new);
     }
 
@@ -179,7 +182,7 @@ public class RestDataProvider extends RestBase {
         Specification.setResponseSpecDefault();
 
         return operationalZoneList.stream()
-                .map(list->new Object[]{list})
+                .map(list -> new Object[]{list})
                 .toArray(Object[][]::new);
     }
 
@@ -213,7 +216,7 @@ public class RestDataProvider extends RestBase {
         Specification.setResponseSpecDefault();
 
         return offerList.stream()
-                .map(list->new Object[]{list})
+                .map(list -> new Object[]{list})
                 .toArray(Object[][]::new);
     }
 
@@ -864,12 +867,19 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-    @DataProvider(name="defaultAddressDelivery")
-    public static Object[][] defaultAddressDelivery(){
+    @DataProvider(name = "defaultAddressDelivery")
+    public static Object[][] defaultAddressDelivery() {
         return getDefaultAllAddress().stream()
-                .map(list->new Object[]{list})
+                .map(list -> new Object[]{list})
                 .toArray(Object[][]::new);
     }
 
-
+    @DataProvider(name = "shipmentsServiceRateData")
+    public static Object[][] shipmentsServiceRateData() {
+        return new Object[][]{
+                //shipmentNumber, deliveryWindowId
+                {"failedShipmentNumber", null},
+                {"", "failedDeliveryWindow"}
+        };
+    }
 }
