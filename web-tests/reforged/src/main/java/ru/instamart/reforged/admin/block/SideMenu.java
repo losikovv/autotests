@@ -3,23 +3,23 @@ package ru.instamart.reforged.admin.block;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import org.openqa.selenium.By;
+import ru.instamart.reforged.core.component.DropDown;
 import ru.instamart.reforged.core.component.Element;
 
 @Getter
 @Accessors(fluent = true)
 public final class SideMenu {
-    //TODO: dropdown elements
-    private final Element storesDropdown = new Element(By.xpath("//div[@role='button']//*[text()='Магазины']"));
-        private final Element regionsSideMenuElem  = new Element(By.xpath("//a[@title='Регионы']"));
+    private final DropDown storesDropdown = new DropDown(By.xpath("//div[@role='button']//*[text()='Магазины']"));
+        private final Element regions = new Element(By.xpath("//a[@title='Регионы']"));
         private final Element retailers  = new Element(By.xpath("//a[@title='Ритейлеры']"));
         private final Element shipmentArea  = new Element(By.xpath("//a[@title='Территория доставки']"));
 
-    private final Element ordersDropdown = new Element(By.xpath("//div[@role='button']//*[text()='Заказы']"));
+    private final DropDown ordersDropdown = new DropDown(By.xpath("//div[@role='button']//*[text()='Заказы']"));
         private final Element logisticControl  = new Element(By.xpath("//a[@title='Управление логистикой']"));
         private final Element rootsParameters  = new Element(By.xpath("//a[@title='Параметры маршрутизации']"));
         private final Element multipleOrder  = new Element(By.xpath("//a[@title='Мульти заказ']"));
 
-    private final Element contentDropdown = new Element(By.xpath("//div[@role='button']//*[text()='Контент']"));
+    private final DropDown contentDropdown = new DropDown(By.xpath("//div[@role='button']//*[text()='Контент']"));
         private final Element products  = new Element(By.xpath("//a[@title='Продукты']"));
         private final Element goodsOptions  = new Element(By.xpath("//a[@title='Товарные опции']"));
         private final Element properties  = new Element(By.xpath("//a[@title='Свойства']"));
@@ -31,7 +31,7 @@ public final class SideMenu {
 
     private final Element settings  = new Element(By.xpath("//a[@title='Настройки']"));
 
-    private final Element marketingDropdown = new Element(By.xpath("//div[@role='button']//*[text()='Маркетинг']"));
+    private final DropDown marketingDropdown = new DropDown(By.xpath("//div[@role='button']//*[text()='Маркетинг']"));
         private final Element promoCards  = new Element(By.xpath("//a[@title='Промо карточки']"));
         private final Element promoActions = new Element(By.xpath("//a[@title='Промоакции']"));
         private final Element welcomeBanners  = new Element(By.xpath("//a[@title='Welcome баннеры']"));
@@ -48,11 +48,11 @@ public final class SideMenu {
         private final Element marketingCategories  = new Element(By.xpath("//a[@title='Маркетинговые категории']"));
 
 
-    private final Element staffDropdown = new Element(By.xpath("//div[@role='button']//*[text()='Персонал']"));
+    private final DropDown staffDropdown = new DropDown(By.xpath("//div[@role='button']//*[text()='Персонал']"));
         private final Element workSchedule  = new Element(By.xpath("//a[@title='Смены']"));
         private final Element tariffs  = new Element(By.xpath("//a[@title='Тарифы']"));
         private final Element collectors  = new Element(By.xpath("//a[@title='Сборщики']"));
-        private final Element partnersInput  = new Element(By.xpath("//a[@title='Импорт партнеров']"));
+        private final Element partnersImport = new Element(By.xpath("//a[@title='Импорт партнеров']"));
 
     private final Element users  = new Element(By.xpath("//a[@title='Пользователи']"));
 
