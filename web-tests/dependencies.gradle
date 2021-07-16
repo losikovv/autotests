@@ -11,7 +11,8 @@ ext.versions = [
         lombok: '1.18.20',
         konghq: '3.11.11',
         jackson: '2.12.3',
-        okhttp: '4.9.0'
+        okhttp: '4.9.0',
+        webdrivermanager: '4.4.3'
 ]
 
 ext.lib = [
@@ -31,5 +32,6 @@ ext.lib = [
         konghq: "com.konghq:unirest-java:$versions.konghq",
         okhttp: "com.squareup.okhttp3:okhttp:$versions.okhttp",
         jackson: "com.fasterxml.jackson.core:jackson-databind:$versions.jackson",
-        jacksonAnnotations: "com.fasterxml.jackson.core:jackson-annotations:$versions.jackson"
+        jacksonAnnotations: "com.fasterxml.jackson.core:jackson-annotations:$versions.jackson",
+        webdrivermanager: "io.github.bonigarcia:webdrivermanager:$versions.webdrivermanager"
 ]
