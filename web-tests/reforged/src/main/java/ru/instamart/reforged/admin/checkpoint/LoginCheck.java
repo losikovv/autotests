@@ -14,6 +14,7 @@ public interface LoginCheck extends Check {
     Element errorSetPassword = new Element(By.xpath("//div[@role='alert' and text()='Укажите пароль']"));
     Element errorShortPassword = new Element(By.xpath("//div[@role='alert' and text()='Пароль должен содержать не менее 6 символов']"));
     Element errorInvalidEmailOrPassword = new Element(By.xpath("//div[@role='alert' and text()='Неверный email или пароль']"));
+    Element errorNotificationNoPermission = new Element(By.xpath("//div[contains(text(), 'У вас нет прав для этого действия')]"));
 
     @Step("Проверяем что на странице отображается заголовок Вход")
     default void checkTitle() {
@@ -43,5 +44,10 @@ public interface LoginCheck extends Check {
     @Step("Проверяем текст сообщения об ошибке для несуществующего пользователя")
     default void checkErrorInvalidEmailOrPassword() {
         Kraken.waitAction().shouldBeVisible(errorInvalidEmailOrPassword).isDisplayed();
+    }
+
+    @Step("Проверяем наличие нотификации с ошибкой нехватки прав")
+    default void checkPermissionError() {
+        Kraken.waitAction().shouldBeVisible(errorNotificationNoPermission).isDisplayed();
     }
 }
