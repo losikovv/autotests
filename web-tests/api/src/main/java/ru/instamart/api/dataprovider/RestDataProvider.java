@@ -11,10 +11,7 @@ import ru.instamart.api.enums.v2.AuthProviderV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OfferV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
-import ru.instamart.api.model.v2.ProductV2;
-import ru.instamart.api.model.v2.RetailerV2;
-import ru.instamart.api.model.v2.StoreV2;
-import ru.instamart.api.model.v2.ZoneV2;
+import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.v1.OperationalZonesV1Request;
 import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
 import ru.instamart.api.request.v2.PersonalV2Request;
@@ -28,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import static ru.instamart.api.common.RestAddresses.*;
 
 public class RestDataProvider extends RestBase {
 
@@ -69,11 +68,9 @@ public class RestDataProvider extends RestBase {
 
         Specification.setResponseSpecDefault();
 
-        Object[][] retailerArray = new Object[retailerList.size()][1];
-        for (int i = 0; i < retailerList.size(); i++) {
-            retailerArray[i][0] = retailerList.get(i);
-        }
-        return retailerArray;
+        return retailerList.stream()
+                .map(list->new Object[]{list})
+                .toArray(Object[][]::new);
     }
 
     @DataProvider(name = "retailersSpree-parallel", parallel = true)
@@ -89,11 +86,9 @@ public class RestDataProvider extends RestBase {
 
         Specification.setResponseSpecDefault();
 
-        Object[][] retailerArray = new Object[retailerList.size()][1];
-        for (int i = 0; i < retailerList.size(); i++) {
-            retailerArray[i][0] = retailerList.get(i);
-        }
-        return retailerArray;
+        return retailerList.stream()
+                .map(list->new Object[]{list})
+                .toArray(Object[][]::new);
     }
 
     @DataProvider(name = "stores-parallel", parallel = true)
@@ -108,11 +103,9 @@ public class RestDataProvider extends RestBase {
         List<StoreV2> storeList = apiV2.getAvailableStores();
         Specification.setResponseSpecDefault();
 
-        Object[][] storeArray = new Object[storeList.size()][1];
-        for (int i = 0; i < storeList.size(); i++) {
-            storeArray[i][0] = storeList.get(i);
-        }
-        return storeArray;
+        return storeList.stream()
+                .map(list->new Object[]{list})
+                .toArray(Object[][]::new);
     }
 
     @DataProvider(name = "storeOfEachRetailer-parallel", parallel = true)
@@ -132,11 +125,9 @@ public class RestDataProvider extends RestBase {
 
         Specification.setResponseSpecDefault();
 
-        Object[][] storeArray = new Object[storeList.size()][1];
-        for (int i = 0; i < storeList.size(); i++) {
-            storeArray[i][0] = storeList.get(i);
-        }
-        return storeArray;
+        return storeList.stream()
+                .map(list->new Object[]{list})
+                .toArray(Object[][]::new);
     }
 
     @Test()
@@ -187,11 +178,9 @@ public class RestDataProvider extends RestBase {
 
         Specification.setResponseSpecDefault();
 
-        Object[][] operationalZoneArray = new Object[operationalZoneList.size()][1];
-        for (int i = 0; i < operationalZoneList.size(); i++) {
-            operationalZoneArray[i][0] = operationalZoneList.get(i);
-        }
-        return operationalZoneArray;
+        return operationalZoneList.stream()
+                .map(list->new Object[]{list})
+                .toArray(Object[][]::new);
     }
 
     @Test()
@@ -223,63 +212,61 @@ public class RestDataProvider extends RestBase {
 
         Specification.setResponseSpecDefault();
 
-        Object[][] offerArray = new Object[offerList.size()][1];
-        for (int i = 0; i < offerList.size(); i++) {
-            offerArray[i][0] = offerList.get(i);
-        }
-        return offerArray;
+        return offerList.stream()
+                .map(list->new Object[]{list})
+                .toArray(Object[][]::new);
     }
 
     @DataProvider(name = "getStores")
     public static Object[][] getStores() {
         return new Object[][]{
                 {StoresV2Request.Store.builder()
-                        .lat(RestAddresses.Moscow.defaultAddress().getLat())
-                        .lon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .lat(Moscow.defaultAddress().getLat())
+                        .lon(Moscow.defaultAddress().getLon())
                         .build(),
                         200
                 },
                 {StoresV2Request.Store.builder()
-                        .lat(RestAddresses.Moscow.defaultAddress().getLat())
+                        .lat(Moscow.defaultAddress().getLat())
                         .build(),
                         422
                 },
                 {StoresV2Request.Store.builder()
-                        .lon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .lon(Moscow.defaultAddress().getLon())
                         .build(),
                         422
                 },
                 {StoresV2Request.Store.builder()
-                        .lat(RestAddresses.Moscow.defaultAddress().getLat())
-                        .lon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .lat(Moscow.defaultAddress().getLat())
+                        .lon(Moscow.defaultAddress().getLon())
                         .shippingMethod("pickup")
                         .build(),
                         200
                 },
                 {StoresV2Request.Store.builder()
-                        .lat(RestAddresses.Moscow.defaultAddress().getLat())
-                        .lon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .lat(Moscow.defaultAddress().getLat())
+                        .lon(Moscow.defaultAddress().getLon())
                         .shippingMethod("by_courier")
                         .build(),
                         200
                 },
                 {StoresV2Request.Store.builder()
-                        .lat(RestAddresses.Moscow.defaultAddress().getLat())
-                        .lon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .lat(Moscow.defaultAddress().getLat())
+                        .lon(Moscow.defaultAddress().getLon())
                         .shippingMethod("fake")
                         .build(),
                         200
                 },
                 {StoresV2Request.Store.builder()
-                        .lat(RestAddresses.Moscow.defaultAddress().getLat())
-                        .lon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .lat(Moscow.defaultAddress().getLat())
+                        .lon(Moscow.defaultAddress().getLon())
                         .operationalZoneId(1)
                         .build(),
                         200
                 },
                 {StoresV2Request.Store.builder()
-                        .lat(RestAddresses.Moscow.defaultAddress().getLat())
-                        .lon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .lat(Moscow.defaultAddress().getLat())
+                        .lon(Moscow.defaultAddress().getLon())
                         .operationalZoneId(99999999)
                         .build(),
                         200
@@ -876,4 +863,13 @@ public class RestDataProvider extends RestBase {
                 {1, "+79771234567", "test", paymentsId, shipmentId, 0, shipmentMethodId, ""}
         };
     }
+
+    @DataProvider(name="defaultAddressDelivery")
+    public static Object[][] defaultAddressDelivery(){
+        return getDefaultAllAddress().stream()
+                .map(list->new Object[]{list})
+                .toArray(Object[][]::new);
+    }
+
+
 }

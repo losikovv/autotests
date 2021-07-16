@@ -1,6 +1,7 @@
 package ru.instamart.ui.checkpoint.shipping;
 
 import io.qameta.allure.Step;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.ui.checkpoint.Checkpoint;
 
 import static org.testng.Assert.assertFalse;
@@ -65,26 +66,29 @@ public class ShippingAddressCheckpoints implements Checkpoint {
     }
 
     @Step("Проверяем, что утановленный адрес: \"{0}\" \n совпадает с адресом, отображаемом на странице: \"{1}\"")
-    public void checkIsSetAddresEqualsToInput(String defaultAddress, String currentAddress){
-        final String[] defaultAdressList = defaultAddress.split(", ");
-        log.info("> проверяем, что установленный адрес: {} совпадает с адресом на странице: {}",
+    public void checkIsSetAddressEqualsToInput(String defaultAddress, String currentAddress) {
+        final SoftAssert softAssert = new SoftAssert();
+        final String[] defaultAddressList = defaultAddress.split(", ");
+        log.info("> проверяем, что установленный адрес: '{}' совпадает с адресом на странице: '{}'",
                 defaultAddress,
                 currentAddress);
-        String checkState;
-        for (final String check: defaultAdressList){
-            if (currentAddress.contains(check)) checkState = "contains";
+        boolean checkState = false;
+        for (final String check: defaultAddressList){
+            if (currentAddress.contains(check)) {
+                checkState = true;
+            }
             else {
                 log.info("> в введенном адресе отсутсвует: {}", check);
-                checkState ="doesn't";
+                checkState = false;
             }
-            krakenAssert.assertEquals(
-                    checkState, "contains",
+            softAssert.assertTrue(
+                    checkState,
                     "\n> В адресе отображаемом на странице отсутсвует элемент: "
                             +"\n> отображаемый адрес: " + currentAddress
                             +"\n> Ожидаемый элемент: " + check
             );
         }
-        assertAll();
+        softAssert.assertAll();
         log.info("✓ Успешно");
     }
 
