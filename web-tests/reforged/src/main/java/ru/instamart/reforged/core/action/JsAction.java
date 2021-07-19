@@ -128,7 +128,8 @@ public enum JsAction {
     }
 
     public String getLocalStorage() {
-        return String.valueOf(execute("return window.localStorage"));
+        final Object o = execute("return window.localStorage");
+        return String.valueOf(o);
     }
 
     public static void ajaxRequest(final String endpoint, final String method) {
