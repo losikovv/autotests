@@ -18,11 +18,6 @@ public final class Table extends Component {
         this.lines = new ElementCollection(By.xpath("//tbody/tr"));
     }
 
-    public Table(final boolean isCacheDisable) {
-        super(By.xpath("//table"), isCacheDisable);
-        this.lines = new ElementCollection(By.xpath("//tbody/tr"), isCacheDisable);
-    }
-
     public Table(final String description) {
         super(By.xpath("//table"), description);
         this.lines = new ElementCollection(By.xpath("//tbody/tr"));

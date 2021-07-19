@@ -19,21 +19,29 @@ public final class Selector extends Component {
         super(by);
     }
 
-    public Selector(final By by, final boolean isCashDisable) {
-        super(by, isCashDisable);
-    }
-
     public Selector(final By by, final String description) {
         super(by, description);
+    }
+
+    public Selector(final By by, final long timeout) {
+        super(by, timeout);
+    }
+
+    public Selector(final By by, final long timeout, final String description) {
+        super(by, timeout, description);
     }
 
     public Selector(final By by, final String description, final String errorMsg) {
         super(by, description, errorMsg);
     }
 
+    public Selector(final By by, final long timeout, final String description, final String errorMsg) {
+        super(by, timeout, description, errorMsg);
+    }
+
     @Override
     protected WebElement getComponent() {
-        log.debug("Create {} with locator {}", getClass().getSimpleName(), getBy());
+        log.debug("Create {} with locator {}", getDescription(), getBy());
         if (isNull(component) || isCacheDisable) {
             component = Kraken.waitAction().shouldBeClickable(this);
         }
@@ -41,12 +49,12 @@ public final class Selector extends Component {
     }
 
     public void selectByText(final String text) {
-        log.info("Select {} with locator {} and text {}", getClass().getSimpleName(), getBy(), text);
+        log.info("Select {} with locator {} and text {}", getDescription(), getBy(), text);
         getSelect().selectByVisibleText(text);
     }
 
     public void selectByIndex(final int index) {
-        log.info("Select {} with locator {} and index {}", getClass().getSimpleName(), getBy(), index);
+        log.info("Select {} with locator {} and index {}", getDescription(), getBy(), index);
         getSelect().selectByIndex(index);
     }
 

@@ -18,16 +18,24 @@ public final class ElementCollection extends CollectionComponent {
         super(by);
     }
 
-    public ElementCollection(final By by, final boolean isCashDisable) {
-        super(by, isCashDisable);
-    }
-
     public ElementCollection(final By by, final String description) {
         super(by, description);
     }
 
+    public ElementCollection(final By by, final long timeout) {
+        super(by, timeout);
+    }
+
+    public ElementCollection(final By by, final long timeout, final String description) {
+        super(by, timeout, description);
+    }
+
     public ElementCollection(final By by, final String description, final String errorMsg) {
         super(by, description, errorMsg);
+    }
+
+    public ElementCollection(final By by, final long timeout, final String description, final String errorMsg) {
+        super(by, timeout, description, errorMsg);
     }
 
     public void clickOnElementWithText(final String text) {

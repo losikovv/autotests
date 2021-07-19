@@ -13,7 +13,7 @@ import ru.instamart.reforged.core.component.Input;
 
 public final class New implements AdminPage {
 
-    private final Input title = new Input(By.id("page_title"), false);
+    private final Input title = new Input(By.id("page_title"));
     private final Input slug = new Input(By.id("page_slug"));
     private final Input body = new Input(By.xpath("//html/body"));
     private final Input metaTitle = new Input(By.id("page_meta_title"));

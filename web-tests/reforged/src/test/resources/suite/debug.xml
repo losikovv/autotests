@@ -9,11 +9,9 @@
             <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
         </method-selector>
     </method-selectors>
-    <test verbose="1" name="Debug UI" parallel="methods" thread-count="2">
+    <test verbose="1" name="Debug UI" parallel="methods" thread-count="3">
         <classes>
-            <class name="ru.instamart.test.reforged.admin.AdministrationLoginTests">
-                <methods><include name="successValidateAdministrationLoginPage"/></methods>
-            </class>
+            <class name="ru.instamart.test.reforged.admin.AdministrationLoginTests"/>
         </classes>
     </test>
 </suite>

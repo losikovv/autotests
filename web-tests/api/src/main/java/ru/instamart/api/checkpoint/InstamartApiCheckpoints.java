@@ -52,6 +52,10 @@ public class InstamartApiCheckpoints {
         checkStatusCode(response, 404);
     }
 
+    public static void checkStatusCode500(final Response response) {
+        checkStatusCode(response, 500);
+    }
+
     public static void checkStatusGroup400(final Response response){
         Allure.step("Проверка statusCode в группе клиентских ошибок (400-499) для response");
         assertEquals(

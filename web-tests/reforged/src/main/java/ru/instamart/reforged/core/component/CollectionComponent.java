@@ -15,16 +15,24 @@ public abstract class CollectionComponent extends Component {
         super(by);
     }
 
-    public CollectionComponent(final By by, final boolean isCashDisable) {
-        super(by, isCashDisable);
-    }
-
     public CollectionComponent(final By by, final String description) {
         super(by, description);
     }
 
+    public CollectionComponent(final By by, final long timeout) {
+        super(by, timeout);
+    }
+
+    public CollectionComponent(final By by, final long timeout, final String description) {
+        super(by, timeout, description);
+    }
+
     public CollectionComponent(final By by, final String description, final String errorMsg) {
         super(by, description, errorMsg);
+    }
+
+    public CollectionComponent(final By by, final long timeout, final String description, final String errorMsg) {
+        super(by, timeout, description, errorMsg);
     }
 
     @Override
