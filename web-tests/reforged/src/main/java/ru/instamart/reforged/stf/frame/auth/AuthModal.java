@@ -4,13 +4,12 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.reforged.core.component.Link;
-import ru.instamart.reforged.stf.checkpoint.AuthModalCheck;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Checkbox;
 import ru.instamart.reforged.core.component.Input;
 import ru.instamart.reforged.stf.frame.Close;
 
-public final class AuthModal implements Close, AuthModalCheck {
+public final class AuthModal implements Close {
 
     private final Input phoneField = new Input(By.xpath("//input[@data-qa='tel_login_form_input']"));
     private final Button sendSms = new Button(By.xpath("//button[@data-qa='tel_login_form_button']"));

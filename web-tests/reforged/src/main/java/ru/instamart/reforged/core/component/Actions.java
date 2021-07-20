@@ -8,7 +8,7 @@ import ru.instamart.reforged.core.Kraken;
 import java.util.function.Consumer;
 
 @RequiredArgsConstructor
-public final class Action {
+public final class Actions {
 
     private final Component component;
     private final Consumer<WebElement> hover = (we) -> Kraken.action().moveToElement(we).perform();

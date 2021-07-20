@@ -18,6 +18,7 @@ public final class Config {
 
     public static int BASIC_TIMEOUT;
     public static int WAITING_TIMEOUT;
+    public static long POLLING_INTERVAL;
     public static String REMOTE_URL;
     public static boolean VIDEO;
     public static boolean VNC;
@@ -43,6 +44,7 @@ public final class Config {
 
         BASIC_TIMEOUT = coreSettings.getInt("basicTimeout", 2);
         WAITING_TIMEOUT = coreSettings.getInt("waitingTimeout", 30);
+        POLLING_INTERVAL = coreSettings.getLong("pollingInterval", 250);
         DEFAULT_SMS = coreSettings.getString("defaultSms","111111");
 
         REMOTE_URL = coreSettings.getString("remoteUrl", "http://localhost:4444/wd/hub");

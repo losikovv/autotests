@@ -67,7 +67,7 @@ public enum WaitAction {
         return new FluentWait<>(getWebDriver())
                 .withTimeout(component.getTimeout(), TimeUnit.SECONDS)
                 .withMessage(component.getErrorMsg())
-                .pollingEvery(250, TimeUnit.MILLISECONDS)
+                .pollingEvery(Config.POLLING_INTERVAL, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class)
                 .ignoring(NotFoundException.class);
     }
@@ -76,7 +76,7 @@ public enum WaitAction {
         return new FluentWait<>(getWebDriver())
                 .withTimeout(wait, TimeUnit.SECONDS)
                 .withMessage(errorMsg)
-                .pollingEvery(250, TimeUnit.MILLISECONDS);
+                .pollingEvery(Config.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
     }
 
     public WaitAction getInstance() {

@@ -5,10 +5,13 @@ import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import java.util.concurrent.TimeUnit;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import static ru.instamart.reforged.core.Kraken.execute;
 import static ru.instamart.reforged.core.service.KrakenDriver.getWebDriver;
 
@@ -17,19 +20,12 @@ public enum JsAction {
 
     INSTANCE;
 
-    public void reactReady() {
-        final WebDriverWait wait = new WebDriverWait(getWebDriver(), 5);
-        wait.pollingEvery(250, TimeUnit.MILLISECONDS);
-        wait.until((ExpectedCondition<Boolean>) wb -> {
-            final String result = String.valueOf(execute("return typeof ReactRailsUJS.components"));
-            log.debug("React status is {}", result);
-            return result.equals("object");
-        });
-    }
-
+    /**
+     * Ожидание инициализации яндекс карт
+     */
     public void ymapReady() {
-        final WebDriverWait wait = new WebDriverWait(getWebDriver(), 5);
-        wait.pollingEvery(250, TimeUnit.MILLISECONDS);
+        final WebDriverWait wait = new WebDriverWait(getWebDriver(), Config.BASIC_TIMEOUT);
+        wait.pollingEvery(Config.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
         wait.until((ExpectedCondition<Boolean>) wb -> {
             final String result = String.valueOf(execute("return typeof ymaps"));
             log.debug("ymap status is {}", result);
@@ -37,13 +33,21 @@ public enum JsAction {
         });
     }
 
+    /**
+     * Ожидание инициализации реактовского jQuery
+     */
     public void jQueryReady() {
-        final WebDriverWait wait = new WebDriverWait(getWebDriver(), 5);
+        final WebDriverWait wait = new WebDriverWait(getWebDriver(), Config.BASIC_TIMEOUT);
+        wait.pollingEvery(Config.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
         wait.until((ExpectedCondition<Boolean>) wb -> (Boolean) execute("return ReactRailsUJS.jQuery.active==0"));
     }
 
+    /**
+     * Ожидание загрузки дома
+     */
     public void waitForDocumentReady() {
-        final WebDriverWait wait = new WebDriverWait(getWebDriver(), 5);
+        final WebDriverWait wait = new WebDriverWait(getWebDriver(), Config.BASIC_TIMEOUT);
+        wait.pollingEvery(Config.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
         wait.until((ExpectedCondition<Boolean>) wb -> execute("return document.readyState").toString().equals("complete"));
     }
 
@@ -56,7 +60,7 @@ public enum JsAction {
      * @param locator - локатор достается из компонента через регулярку {@link ru.instamart.reforged.core.component.Component}
      */
     public void scrollToElement(final String locator) {
-        execute("document.evaluate(\""+locator+"\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollIntoView(true);");
+        execute("document.evaluate(\"" + locator + "\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollIntoView(true);");
     }
 
     public void scrollToTheBottom() {
@@ -64,7 +68,7 @@ public enum JsAction {
     }
 
     public void clearField(final String locator) {
-        execute("document.evaluate(\""+locator+"\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).setAttribute('value', '');");
+        execute("document.evaluate(\"" + locator + "\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).setAttribute('value', '');");
     }
 
     public void click(final WebElement element) {
@@ -76,16 +80,18 @@ public enum JsAction {
     }
 
     public void setCookieValue(final String name, final String value) {
-        execute("document.cookie=\""+name+"="+value+"\"");
+        execute("document.cookie=\"" + name + "=" + value + "\"");
     }
 
     public void setValue(final WebElement element, String text) {
-        if (text == null || text.isEmpty()) {
+        if (isNull(text) || text.isEmpty()) {
             element.clear();
         }
-        String error = setValueByJs(element, text);
-        if (error != null) throw new InvalidElementStateException(error);
-        else {
+        final String error = setValueByJs(element, text);
+
+        if (nonNull(error)) {
+            throw new InvalidElementStateException(error);
+        } else {
             execute("var webElement = arguments[0];\n" +
                     "var eventNames = arguments[1];\n" +
                     "for (var i = 0; i < eventNames.length; i++) {" +
@@ -124,9 +130,13 @@ public enum JsAction {
      * @param locator - элемент в который нужно кликнуть
      */
     public void hoverAndClick(final String locator) {
-        execute("document.evaluate(\""+locator+"\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click();");
+        execute("document.evaluate(\"" + locator + "\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click();");
     }
 
+    /**
+     * Получение списка данных из localStorage
+     * @return
+     */
     public String getLocalStorage() {
         final Object o = execute("return window.localStorage");
         return String.valueOf(o);

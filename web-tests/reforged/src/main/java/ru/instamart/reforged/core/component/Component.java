@@ -1,7 +1,6 @@
 package ru.instamart.reforged.core.component;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
@@ -30,14 +29,14 @@ public abstract class Component {
     @Getter
     private final String errorMsg;
 
-    private final Action action;
+    private final Actions actions;
 
     public Component(final By by, final long timeout, final String description, final String errorMsg) {
         this.by = by;
         this.timeout = timeout;
         this.description = description == null ? this.getClass().getSimpleName() : description;
         this.errorMsg = errorMsg == null ? "Элемент " + by + " не найден" : errorMsg;
-        this.action = new Action(this);
+        this.actions = new Actions(this);
     }
 
     public Component(final By by) {
@@ -69,7 +68,7 @@ public abstract class Component {
 
     public void mouseOver() {
         log.info("Element {} '{}' hover", description, by);
-        action.mouseOver();
+        actions.mouseOver();
     }
 
     /**
