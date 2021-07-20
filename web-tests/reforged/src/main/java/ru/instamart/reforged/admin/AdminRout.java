@@ -5,6 +5,7 @@ import ru.instamart.reforged.admin.shipment.ShipmentsPage;
 import ru.instamart.reforged.admin.login.LoginPage;
 import ru.instamart.reforged.admin.pages.new_page.NewPage;
 import ru.instamart.reforged.admin.pages.Pages;
+import ru.instamart.reforged.admin.users.UsersPage;
 import ru.instamart.reforged.core.page.Router;
 
 public final class AdminRout extends Router {
@@ -25,9 +26,14 @@ public final class AdminRout extends Router {
         return (ShipmentsPage) getPage(ShipmentsPage.class);
     }
 
+    public static UsersPage users() {
+        return (UsersPage) getPage(UsersPage.class);
+    }
+
     public static MainPage main() {
         return (MainPage) getPage(MainPage.class);
     }
 
-    private AdminRout() {}
+    private AdminRout() {
+    }
 }
