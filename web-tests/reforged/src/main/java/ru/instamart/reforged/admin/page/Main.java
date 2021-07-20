@@ -1,15 +1,13 @@
 package ru.instamart.reforged.admin.page;
 
 import io.qameta.allure.Step;
-import ru.instamart.reforged.admin.block.AuthoredHeader;
-import ru.instamart.reforged.admin.block.SideMenu;
 import ru.instamart.reforged.admin.checkpoint.MainCheck;
 import ru.instamart.reforged.admin.element.MainElement;
 
 public final class Main extends MainCheck implements AdminPage {
 
     public Main() {
-        super(new MainElement(),new AuthoredHeader(), new SideMenu());
+        super(new MainElement());
     }
 
     @Step("Нажать на меню профиля")

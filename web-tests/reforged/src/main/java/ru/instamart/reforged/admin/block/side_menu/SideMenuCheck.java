@@ -1,20 +1,19 @@
-package ru.instamart.reforged.admin.checkpoint;
+package ru.instamart.reforged.admin.block.side_menu;
 
 import io.qameta.allure.Step;
-import ru.instamart.reforged.admin.block.SideMenu;
 import ru.instamart.reforged.core.Check;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
-public interface SideMenuCheck extends Check {
-    protected SideMenu sideMenuElement;
+public interface SideMenuCheck extends Check, SideMenuElement {
+
 
     @Step("Открытие storesDropdown")
     default void storesDropdownOpen(){
-        sideMenuElement.storesDropdown().scrollTo();
+        storesDropdown().scrollTo();
 
-        do{waitAction().shouldBeVisible(sideMenuElement.storesDropdown()).click();}
-        while (!waitAction().shouldBeVisible(sideMenuElement.regions()).isDisplayed());
+        do{waitAction().shouldBeVisible(storesDropdown).click();}
+        while (!waitAction().shouldBeVisible(regions).isDisplayed());
     }
 
     @Step("Сворачивание storesDropdown")

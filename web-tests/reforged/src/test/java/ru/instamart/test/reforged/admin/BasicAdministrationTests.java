@@ -7,6 +7,7 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.test.reforged.BaseTest;
 
 
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -15,14 +16,12 @@ import static ru.instamart.reforged.stf.page.StfRouter.oktell;
 
 @Epic("Админка STF")
 @Feature("Базовый функционал и навигация в админке")
-public final class BasicAdministrationTests {
+public final class BasicAdministrationTests extends BaseTest {
 
     @BeforeClass(alwaysRun = true,
             description = "Выполняем шаги предусловий для теста")
     public void beforeTest() {
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
-        main().goToPage();
+
     }
 
     @CaseId(419)
@@ -31,6 +30,9 @@ public final class BasicAdministrationTests {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void successCheckAdminSectionsAvailability() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+        main().goToPage();
         shipments().goToPage();
         shipments().checkPageIsAvailable();
         retailers().goToPage();
@@ -57,6 +59,9 @@ public final class BasicAdministrationTests {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void successCheckOktellViewAvailability() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+        main().goToPage();
         oktell().goToPage();
         oktell().checkPageIsAvailable();
     }
@@ -67,6 +72,9 @@ public final class BasicAdministrationTests {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void successValidateHeader() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+        main().goToPage();
         main().checkAdminNavigationTitle();
         main().checkAdminName();
         main().checkAdminAvatar();
@@ -79,6 +87,9 @@ public final class BasicAdministrationTests {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void successValidateNavigationMenu() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+        main().goToPage();
         main().storesDropdownOpen();
         main().regionsClick();
         main().checkPageIsAvailable();
