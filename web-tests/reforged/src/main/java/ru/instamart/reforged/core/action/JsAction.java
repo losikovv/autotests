@@ -37,9 +37,9 @@ public enum JsAction {
         });
     }
 
-    public static void jQueryReady() {
+    public void jQueryReady() {
         final WebDriverWait wait = new WebDriverWait(getWebDriver(), 5);
-        wait.until((ExpectedCondition<Boolean>) wb -> (Boolean) execute("return jQuery.active==0"));
+        wait.until((ExpectedCondition<Boolean>) wb -> (Boolean) execute("return ReactRailsUJS.jQuery.active==0"));
     }
 
     public void waitForDocumentReady() {

@@ -1,23 +1,18 @@
-package ru.instamart.reforged.admin.checkpoint;
+package ru.instamart.reforged.admin.pages;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.core.component.Element;
 
-public interface PagesCheck extends Check {
-
-    Element table = new Element(By.xpath("//table"));
-    Element tableEntry = new Element(By.id("page_2"));
+public interface PagesCheck extends Check, PagesElement {
 
     @Step("Проверяем присутствие элемента Таблица на странице")
     default void checkTable() {
-        Kraken.waitAction().shouldBeVisible(table).isDisplayed();
+        Kraken.waitAction().shouldBeVisible(tableElement);
     }
 
     @Step("Проверяем присутствие элемента Внутри Таблицы на странице")
     default void checkTableEntry() {
-        Kraken.waitAction().shouldBeVisible(tableEntry).isDisplayed();
+        Kraken.waitAction().shouldBeVisible(tableEntry);
     }
 }

@@ -1,4 +1,4 @@
-package ru.instamart.reforged.admin.page;
+package ru.instamart.reforged.admin;
 
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.reforged.core.Kraken;
@@ -8,5 +8,7 @@ public interface AdminPage extends Page {
 
     default void goToPage() {
         Kraken.open(EnvironmentData.INSTANCE.getAdminUrlWithHttpAuth() + pageUrl());
+        Kraken.jsAction().waitForDocumentReady();
+        Kraken.jsAction().jQueryReady();
     }
 }
