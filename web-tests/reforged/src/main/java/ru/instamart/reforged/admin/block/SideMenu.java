@@ -4,61 +4,60 @@ import lombok.Getter;
 import lombok.experimental.Accessors;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.DropDown;
-import ru.instamart.reforged.core.component.Element;
+import ru.instamart.reforged.core.component.Link;
 
 @Getter
 @Accessors(fluent = true)
 public final class SideMenu {
     private final DropDown storesDropdown = new DropDown(By.xpath("//div[@role='button']//*[text()='Магазины']"));
-        private final Element regions = new Element(By.xpath("//a[@title='Регионы']"));
-        private final Element retailers  = new Element(By.xpath("//a[@title='Ритейлеры']"));
-        private final Element shipmentArea  = new Element(By.xpath("//a[@title='Территория доставки']"));
+    private final Link regions = new Link(By.xpath("//a[contains(@href, '/admin/operational_zones')]"));
+    private final Link retailers = new Link(By.xpath("//a[contains(@href, '/admin/retailers')]"));
+    private final Link shipmentArea = new Link(By.xpath("//a[contains(@href, '/admin/delivery_areas')]"));
 
     private final DropDown ordersDropdown = new DropDown(By.xpath("//div[@role='button']//*[text()='Заказы']"));
-        private final Element logisticControl  = new Element(By.xpath("//a[@title='Управление логистикой']"));
-        private final Element rootsParameters  = new Element(By.xpath("//a[@title='Параметры маршрутизации']"));
-        private final Element multipleOrder  = new Element(By.xpath("//a[@title='Мульти заказ']"));
+    private final Link logisticControl = new Link(By.xpath("//a[contains(@href, '/admin/routes')]"));
+    private final Link rootsParameters = new Link(By.xpath("//a[contains(@href, '/admin/scheduling_modes')]"));
+    private final Link multipleOrder = new Link(By.xpath("//a[contains(@href, '/admin/shipments')]"));
 
     private final DropDown contentDropdown = new DropDown(By.xpath("//div[@role='button']//*[text()='Контент']"));
-        private final Element products  = new Element(By.xpath("//a[@title='Продукты']"));
-        private final Element goodsOptions  = new Element(By.xpath("//a[@title='Товарные опции']"));
-        private final Element properties  = new Element(By.xpath("//a[@title='Свойства']"));
-        private final Element brands  = new Element(By.xpath("//a[@title='Бренды']"));
-        private final Element manufacturers  = new Element(By.xpath("//a[@title='Производители']"));
-        private final Element manufacturersCountries  = new Element(By.xpath("//a[@title='Страны производства']"));
-        private final Element categories  = new Element(By.xpath("//a[@title='Категории']"));
-        private final Element contentImport  = new Element(By.xpath("//a[@title='Импорт']"));
+    private final Link products = new Link(By.xpath("//a[contains(@href, '/admin/products')]"));
+    private final Link goodsOptions = new Link(By.xpath("//a[contains(@href, '/admin/option_types')]"));
+    private final Link properties = new Link(By.xpath("//a[contains(@href, '/admin/properties')]"));
+    private final Link brands = new Link(By.xpath("//a[contains(@href, '/admin/brands')]"));
+    private final Link manufacturers = new Link(By.xpath("//a[contains(@href, '/admin/manufacturers')]"));
+    private final Link manufacturingCountries = new Link(By.xpath("//a[contains(@href, '/manufacturing_countries')]"));
+    private final Link categories = new Link(By.xpath("//a[contains(@href, '/admin/taxonomies')]"));
+    private final Link contentImport = new Link(By.xpath("//a[contains(@href, '/admin/imports')]"));
 
-    private final Element settings  = new Element(By.xpath("//a[@title='Настройки']"));
+    private final Link settings = new Link(By.xpath("//a[contains(@href, '/admin/general_settings/edit')]"));
 
     private final DropDown marketingDropdown = new DropDown(By.xpath("//div[@role='button']//*[text()='Маркетинг']"));
-        private final Element promoCards  = new Element(By.xpath("//a[@title='Промо карточки']"));
-        private final Element promoActions = new Element(By.xpath("//a[@title='Промоакции']"));
-        private final Element welcomeBanners  = new Element(By.xpath("//a[@title='Welcome баннеры']"));
-        private final Element ads  = new Element(By.xpath("//a[@title='Реклама']"));
-        private final Element carts  = new Element(By.xpath("//a[@title='Корзины']"));
-        private final Element bonusCards  = new Element(By.xpath("//a[@title='Бонусные карты']"));
-        private final Element retailerPrograms = new Element(By.xpath("//a[@title='Программы ритейлеров']"));
-        private final Element referralProgram  = new Element(By.xpath("//a[@title='Реферальная программа']"));
-        private final Element newCities  = new Element(By.xpath("//a[@title='Новые города']"));
-        private final Element inAppBanners  = new Element(By.xpath("//a[@title='In app баннеры']"));
-        private final Element bonusCount  = new Element(By.xpath("//a[@title='Бонусный счет']"));
-        private final Element redirects  = new Element(By.xpath("//a[@title='Редиректы']"));
-        private final Element sampling  = new Element(By.xpath("//a[@title='Семплинг']"));
-        private final Element marketingCategories  = new Element(By.xpath("//a[@title='Маркетинговые категории']"));
-
+    private final Link promoCards = new Link(By.xpath("//a[contains(@href, '/admin/promo_cards')]"));
+    private final Link promoActions = new Link(By.xpath("//a[contains(@href, '/admin/promotions')]"));
+    private final Link welcomeBanners = new Link(By.xpath("//a[contains(@href, '/admin/welcome_banners')]"));
+    private final Link ads = new Link(By.xpath("//a[contains(@href, '/admin/ad_banners')]"));
+    private final Link carts = new Link(By.xpath("//a[contains(@href, '/admin/source_channel_buckets')]"));
+    private final Link bonusCards = new Link(By.xpath("//a[contains(@href, '/admin/loyalty_programs')]"));
+    private final Link retailerPrograms = new Link(By.xpath("//a[contains(@href, '/admin/retailer_loyalty_programs')]"));
+    private final Link referralProgram = new Link(By.xpath("//a[contains(@href, '/admin/referral_program_config/edit')]"));
+    private final Link newCities = new Link(By.xpath("//a[contains(@href, '/admin/city_landings')]"));
+    private final Link inAppBanners = new Link(By.xpath("//a[contains(@href, '/admin/promotion_cards')]"));
+    private final Link bonusCount = new Link(By.xpath("//a[contains(@href, '/admin/bonus_account')]"));
+    private final Link redirects = new Link(By.xpath("//a[contains(@href, '/admin/redirects')]"));
+    private final Link sampling = new Link(By.xpath("//a[contains(@href, '/admin/samples')]"));
+    private final Link marketingCategories = new Link(By.xpath("//a[contains(@href, '/admin/marketing_categories')]"));
 
     private final DropDown staffDropdown = new DropDown(By.xpath("//div[@role='button']//*[text()='Персонал']"));
-        private final Element workSchedule  = new Element(By.xpath("//a[@title='Смены']"));
-        private final Element tariffs  = new Element(By.xpath("//a[@title='Тарифы']"));
-        private final Element collectors  = new Element(By.xpath("//a[@title='Сборщики']"));
-        private final Element partnersImport = new Element(By.xpath("//a[@title='Импорт партнеров']"));
+    private final Link shifts = new Link(By.xpath("//a[contains(@href, '/admin/shifts')]"));
+    private final Link tariffs = new Link(By.xpath("//a[contains(@href, '/admin/tariffs')]"));
+    private final Link collectors = new Link(By.xpath("//a[contains(@href, '/admin/shoppers')]"));
+    private final Link partnersImport = new Link(By.xpath("//a[contains(@href, '/admin/import_partners')]"));
 
-    private final Element users  = new Element(By.xpath("//a[@title='Пользователи']"));
+    private final Link users = new Link(By.xpath("//a[contains(@href, '/admin/users')]"));
 
-    private final Element pages  = new Element(By.xpath("//a[@title='Страницы']"));
+    private final Link pages = new Link(By.xpath("//a[contains(@href, '/admin/pages')]"));
 
-    private final Element companies  = new Element(By.xpath("//a[@title='Компании']"));
+    private final Link companies = new Link(By.xpath("//a[contains(@href, '/admin/companies')]"));
 
 
 }
