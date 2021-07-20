@@ -27,6 +27,7 @@ public final class UserManager {
     private static UserData defaultSberIdUser;
     private static UserData defaultApiUser;
     private static UserData defaultDcUser;
+    private static UserData defaultUserWithoutPermission;
 
     public static UserData getNullUser() {
         return generateData("empty", 0);
@@ -173,11 +174,13 @@ public final class UserManager {
     }
 
     public static UserData userWithoutAdminPermission() {
-            defaultUser = new UserData(
-                    Crypt.INSTANCE.decrypt("/8ZLKryjqgRaKxzm+e+sBxdXsHUgJjhzRa1Rdj+OH3A="),
-                    Crypt.INSTANCE.decrypt("D6giUCvojo9oJSqbgxdzAg==")
+        if (isNull(defaultUserWithoutPermission)) {
+            return defaultUserWithoutPermission = new UserData(
+                    Crypt.INSTANCE.decrypt("ECME0oVDIK76qsrZeUtsFPmH3StNoTg4V5ow1j3ejSI="),
+                    PASSWD_1
             );
-        return defaultUser;
+        }
+        return defaultUserWithoutPermission;
     }
 
     public static List<UserData> getUserDataList() {
