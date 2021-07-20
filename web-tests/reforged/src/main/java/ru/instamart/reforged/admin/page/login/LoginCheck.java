@@ -35,4 +35,9 @@ public interface LoginCheck extends Check, LoginElement {
     default void checkErrorInvalidEmailOrPassword() {
         Kraken.waitAction().shouldBeVisible(errorInvalidEmailOrPassword);
     }
+
+    @Step("Проверяем, что на странице появилась нотификации 'У вас недостаточно прав'")
+    default void checkPermissionError() {
+        Kraken.waitAction().shouldBeVisible(errorNoPermission);
+    }
 }

@@ -118,4 +118,16 @@ public final class AdministrationLoginTests extends BaseTest {
         main().clickToLogout();
         login().checkTitle();
     }
+
+    @CaseId(417)
+    @Story("Тест недоступности админки пользователю без админ. прав")
+    @Test(description = "Тест недоступности админки пользователю без админ. прав",
+            groups = "")
+    public void loginWithoutAdminPermission() {
+        login().goToPage();
+        login().setUsername(UserManager.userWithoutAdminPermission().getLogin());
+        login().setPassword(UserManager.userWithoutAdminPermission().getPassword());
+        login().submit();
+        login().checkPermissionError();
+    }
 }

@@ -17,4 +17,6 @@ public interface LoginElement {
     Element errorSetPassword = new Element(By.xpath("//div[@role='alert' and text()='Укажите пароль']"));
     Element errorShortPassword = new Element(By.xpath("//div[@role='alert' and text()='Пароль должен содержать не менее 6 символов']"));
     Element errorInvalidEmailOrPassword = new Element(By.xpath("//div[@role='alert' and text()='Неверный email или пароль']"));
+    Element errorNoPermission = new Element(By.xpath("//div[@class = 'flash error' and text()='У вас нет прав для этого действия. Если они вам необходимы, обратитесь за помощью в Helpdesk.']"),
+            "нотификация с ошибкой 'У вас нет прав для этого действия'");
 }
