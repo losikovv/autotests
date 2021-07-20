@@ -27,6 +27,7 @@ public final class UserManager {
     private static UserData defaultSberIdUser;
     private static UserData defaultApiUser;
     private static UserData defaultDcUser;
+    private static UserData defaultUserWithoutPermission;
 
     public static UserData getNullUser() {
         return generateData("empty", 0);
@@ -99,7 +100,7 @@ public final class UserManager {
 
     public static UserData getDefaultGmailUser() {
         if (isNull(defaultGmailUser)) {
-            return  defaultGmailUser = new UserData(
+            return defaultGmailUser = new UserData(
                     Crypt.INSTANCE.decrypt("mh5OayUtpk/8stH+dR7HBnyeKJB94fsqjaZfeO77LqI="),
                     PASSWD_2
             );
@@ -139,7 +140,7 @@ public final class UserManager {
 
     public static UserData getDefaultSberIdUser() {
         if (isNull(defaultSberIdUser)) {
-            return  defaultSberIdUser = new UserData(
+            return defaultSberIdUser = new UserData(
                     Crypt.INSTANCE.decrypt("6ln1zIxi8BWCxz3YNZwc8w=="),
                     PASSWD_3
             );
@@ -164,12 +165,22 @@ public final class UserManager {
 
     public static UserData getDeliveryClubUser() {
         if (isNull(defaultDcUser)) {
-            return  defaultDcUser = new UserData(
+            return defaultDcUser = new UserData(
                     "dc",
                     "dcsmstage"
             );
         }
         return defaultDcUser;
+    }
+
+    public static UserData userWithoutAdminPermission() {
+        if (isNull(defaultUserWithoutPermission)) {
+            return defaultUserWithoutPermission = new UserData(
+                    Crypt.INSTANCE.decrypt("ECME0oVDIK76qsrZeUtsFPmH3StNoTg4V5ow1j3ejSI="),
+                    PASSWD_1
+            );
+        }
+        return defaultUserWithoutPermission;
     }
 
     public static List<UserData> getUserDataList() {

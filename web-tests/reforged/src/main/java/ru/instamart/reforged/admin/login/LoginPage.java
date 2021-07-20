@@ -1,8 +1,10 @@
-package ru.instamart.reforged.admin.page.login;
+package ru.instamart.reforged.admin.login;
 
 import io.qameta.allure.Step;
 import ru.instamart.kraken.testdata.UserData;
-import ru.instamart.reforged.admin.page.AdminPage;
+import ru.instamart.reforged.admin.AdminPage;
+
+import static ru.instamart.reforged.admin.AdminRout.main;
 
 public final class LoginPage implements AdminPage, LoginCheck {
 
@@ -11,6 +13,7 @@ public final class LoginPage implements AdminPage, LoginCheck {
         setUsername(userData.getLogin());
         setPassword(userData.getPassword());
         submit();
+        main().checkAuth();
     }
 
     @Step("Заполнить поле email {0}")

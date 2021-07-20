@@ -1,17 +1,10 @@
-package ru.instamart.reforged.admin.page.pages;
+package ru.instamart.reforged.admin.pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import ru.instamart.reforged.admin.checkpoint.PagesCheck;
-import ru.instamart.reforged.admin.page.AdminPage;
-import ru.instamart.reforged.core.component.Element;
-import ru.instamart.reforged.core.component.Link;
-import ru.instamart.reforged.core.component.Table;
+import ru.instamart.reforged.admin.AdminPage;
 
 public final class Pages implements AdminPage, PagesCheck {
-
-    private final Link newPageButton = new Link(By.xpath("//a[@class='button icon-plus']"));
-    private final Table table = new Table();
 
     @Step("Перейти к созданию новой страницы")
     public void clickToNewPage() {

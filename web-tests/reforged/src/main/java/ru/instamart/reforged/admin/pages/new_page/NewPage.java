@@ -1,35 +1,11 @@
-package ru.instamart.reforged.admin.page.pages;
+package ru.instamart.reforged.admin.pages.new_page;
 
 import io.qameta.allure.Step;
-import io.qameta.allure.Story;
-import lombok.SneakyThrows;
-import org.openqa.selenium.By;
 import ru.instamart.kraken.testdata.pagesdata.StaticPageData;
-import ru.instamart.reforged.admin.page.AdminPage;
+import ru.instamart.reforged.admin.AdminPage;
 import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.core.component.Button;
-import ru.instamart.reforged.core.component.Checkbox;
-import ru.instamart.reforged.core.component.Input;
 
-public final class New implements AdminPage {
-
-    private final Input title = new Input(By.id("page_title"));
-    private final Input slug = new Input(By.id("page_slug"));
-    private final Input body = new Input(By.xpath("//html/body"));
-    private final Input metaTitle = new Input(By.id("page_meta_title"));
-    private final Input metaKeywords = new Input(By.id("page_meta_keywords"));
-    private final Input metaDescription = new Input(By.id("page_meta_description"));
-    private final Input pageLayout = new Input(By.id("page_layout"));
-    private final Input foreignLink = new Input(By.id("page_foreign_link"));
-    private final Input pagePosition = new Input(By.id("page_position"));
-
-    private final Checkbox sidebar = new Checkbox(By.id("page_show_in_sidebar"));
-    private final Checkbox header = new Checkbox(By.id("page_show_in_header"));
-    private final Checkbox footer = new Checkbox(By.id("page_show_in_footer"));
-    private final Checkbox pageVisible = new Checkbox(By.id("page_visible"));
-    private final Checkbox renderLayoutAsPartial = new Checkbox(By.id("page_render_layout_as_partial"));
-
-    private final Button submit = new Button(By.xpath("//button[@type='submit']"));
+public final class NewPage implements AdminPage, NewPageElement {
 
     @Step("Заполнить страницу данными {0}")
     public void fillPageData(final StaticPageData data) {

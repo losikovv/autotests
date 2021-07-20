@@ -1,4 +1,4 @@
-package ru.instamart.reforged.admin.page.login;
+package ru.instamart.reforged.admin.login;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
@@ -34,5 +34,10 @@ public interface LoginCheck extends Check, LoginElement {
     @Step("Проверяем текст сообщения об ошибке для несуществующего пользователя")
     default void checkErrorInvalidEmailOrPassword() {
         Kraken.waitAction().shouldBeVisible(errorInvalidEmailOrPassword);
+    }
+
+    @Step("Проверяем, что на странице появилась нотификации 'У вас недостаточно прав'")
+    default void checkPermissionError() {
+        Kraken.waitAction().shouldBeVisible(errorNoPermission);
     }
 }
