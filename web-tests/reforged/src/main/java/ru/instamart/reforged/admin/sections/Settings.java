@@ -1,6 +1,6 @@
-package ru.instamart.reforged.admin.page.sections;
+package ru.instamart.reforged.admin.sections;
 
-import ru.instamart.reforged.admin.page.AdminPage;
+import ru.instamart.reforged.admin.AdminPage;
 
 public final class Settings implements AdminPage {
     @Override

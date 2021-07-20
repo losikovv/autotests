@@ -75,10 +75,10 @@ public final class BasicAdministrationTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
         main().goToPage();
-        main().checkAdminNavigationTitle();
-        main().checkAdminName();
-        main().checkAdminAvatar();
-        main().checkLogoutDropdown();
+        main().interactAuthoredHeader().checkAdminNavigationTitle();
+        main().interactAuthoredHeader().checkAdminName();
+        main().interactAuthoredHeader().checkAdminAvatar();
+        main().interactAuthoredHeader().checkLogoutDropdown();
     }
 
     @CaseId(4)
@@ -90,95 +90,95 @@ public final class BasicAdministrationTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
         main().goToPage();
-        main().storesDropdownOpen();
-        main().regionsClick();
+        main().interactSideMenu().storesDropdownOpen();
+        main().interactSideMenu().regionsClick();
         main().checkPageIsAvailable();
-        main().retailersClick();
+        main().interactSideMenu().retailersClick();
         main().checkPageIsAvailable();
-        main().shipmentAreaClick();
+        main().interactSideMenu().shipmentAreaClick();
         main().checkPageIsAvailable();
-        main().storesDropdownClose();
+        main().interactSideMenu().storesDropdownClose();
 
-        main().ordersDropdownOpen();
-        main().logisticControlClick();
+        main().interactSideMenu().ordersDropdownOpen();
+        main().interactSideMenu().logisticControlClick();
         main().checkPageIsAvailable();
-        main().rootsParametersClick();
+        main().interactSideMenu().rootsParametersClick();
         main().checkPageIsAvailable();
-        main().multipleOrderClick();
+        main().interactSideMenu().multipleOrderClick();
         main().checkPageIsAvailable();
-        main().ordersDropdownClose();
+        main().interactSideMenu().ordersDropdownClose();
 
-        main().contentDropdownOpen();
-        main().productsClick();
+        main().interactSideMenu().contentDropdownOpen();
+        main().interactSideMenu().productsClick();
         main().checkPageIsAvailable();
-        main().goodsOptionsClick();
+        main().interactSideMenu().goodsOptionsClick();
         main().checkPageIsAvailable();
-        main().propertiesClick();
+        main().interactSideMenu().propertiesClick();
         main().checkPageIsAvailable();
-        main().brandsClick();
+        main().interactSideMenu().brandsClick();
         main().checkPageIsAvailable();
-        main().manufacturersClick();
+        main().interactSideMenu().manufacturersClick();
         main().checkPageIsAvailable();
-        main().manufacturersCountriesClick();
+        main().interactSideMenu().manufacturersCountriesClick();
         main().checkPageIsAvailable();
-        main().categoriesClick();
+        main().interactSideMenu().categoriesClick();
         main().checkPageIsAvailable();
-        main().contentImportClick();
+        main().interactSideMenu().contentImportClick();
         main().checkPageIsAvailable();
-        main().contentDropdownClose();
+        main().interactSideMenu().contentDropdownClose();
 
-        main().settingsClick();
-        main().checkPageIsAvailable();
-
-        main().marketingDropdownOpen();
-        main().promoCardsClick();
-        main().checkPageIsAvailable();
-        main().promoActionsClick();
-        main().checkPageIsAvailable();
-        main().welcomeBannersClick();
-        main().checkPageIsAvailable();
-        main().adsClick();
-        main().checkPageIsAvailable();
-        main().cartsClick();
-        main().checkPageIsAvailable();
-        main().bonusCardsClick();
-        main().checkPageIsAvailable();
-        main().retailerProgramsClick();
-        main().checkPageIsAvailable();
-        main().referralProgramClick();
-        main().checkPageIsAvailable();
-        main().newCitiesClick();
-        main().checkPageIsAvailable();
-        main().inAppBannersClick();
-        main().checkPageIsAvailable();
-        main().bonusCountClick();
-        main().checkPageIsAvailable();
-        main().redirectsClick();
-        main().checkPageIsAvailable();
-        main().samplingClick();
-        main().checkPageIsAvailable();
-        main().marketingCategoriesClick();
-        main().checkPageIsAvailable();
-        main().marketingDropdownClose();
-
-        main().staffDropdownOpen();
-        main().workScheduleClick();
-        main().checkPageIsAvailable();
-        main().tariffsClick();
-        main().checkPageIsAvailable();
-        main().collectorsClick();
-        main().checkPageIsAvailable();
-        main().partnersImportClick();
-        main().checkPageIsAvailable();
-        main().staffDropdownClose();
-
-        main().usersClick();
+        main().interactSideMenu().settingsClick();
         main().checkPageIsAvailable();
 
-        main().pagesClick();
+        main().interactSideMenu().marketingDropdownOpen();
+        main().interactSideMenu().promoCardsClick();
+        main().checkPageIsAvailable();
+        main().interactSideMenu().promoActionsClick();
+        main().checkPageIsAvailable();
+        main().interactSideMenu().welcomeBannersClick();
+        main().checkPageIsAvailable();
+        main().interactSideMenu().adsClick();
+        main().checkPageIsAvailable();
+        main().interactSideMenu().cartsClick();
+        main().checkPageIsAvailable();
+        main().interactSideMenu().bonusCardsClick();
+        main().checkPageIsAvailable();
+        main().interactSideMenu().retailerProgramsClick();
+        main().checkPageIsAvailable();
+        main().interactSideMenu().referralProgramClick();
+        main().checkPageIsAvailable();
+        main().interactSideMenu().newCitiesClick();
+        main().checkPageIsAvailable();
+        main().interactSideMenu().inAppBannersClick();
+        main().checkPageIsAvailable();
+        main().interactSideMenu().bonusCountClick();
+        main().checkPageIsAvailable();
+        main().interactSideMenu().redirectsClick();
+        main().checkPageIsAvailable();
+        main().interactSideMenu().samplingClick();
+        main().checkPageIsAvailable();
+        main().interactSideMenu().marketingCategoriesClick();
+        main().checkPageIsAvailable();
+        main().interactSideMenu().marketingDropdownClose();
+
+        main().interactSideMenu().staffDropdownOpen();
+        main().interactSideMenu().workScheduleClick();
+        main().checkPageIsAvailable();
+        main().interactSideMenu().tariffsClick();
+        main().checkPageIsAvailable();
+        main().interactSideMenu().collectorsClick();
+        main().checkPageIsAvailable();
+        main().interactSideMenu().partnersImportClick();
+        main().checkPageIsAvailable();
+        main().interactSideMenu().staffDropdownClose();
+
+        main().interactSideMenu().usersClick();
         main().checkPageIsAvailable();
 
-        main().companiesClick();
+        main().interactSideMenu().pagesClick();
+        main().checkPageIsAvailable();
+
+        main().interactSideMenu().companiesClick();
         main().checkPageIsAvailable();
     }
 }

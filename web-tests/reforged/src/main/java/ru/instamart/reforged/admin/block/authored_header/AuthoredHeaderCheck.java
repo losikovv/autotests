@@ -1,4 +1,4 @@
-package ru.instamart.reforged.admin.block.AuthoredHeader;
+package ru.instamart.reforged.admin.block.authored_header;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;

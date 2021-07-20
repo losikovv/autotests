@@ -10,7 +10,7 @@ public interface SideMenuCheck extends Check, SideMenuElement {
 
     @Step("Открытие storesDropdown")
     default void storesDropdownOpen(){
-        storesDropdown().scrollTo();
+        storesDropdown.scrollTo();
 
         do{waitAction().shouldBeVisible(storesDropdown).click();}
         while (!waitAction().shouldBeVisible(regions).isDisplayed());
@@ -18,293 +18,293 @@ public interface SideMenuCheck extends Check, SideMenuElement {
 
     @Step("Сворачивание storesDropdown")
     default void storesDropdownClose(){
-        sideMenuElement.storesDropdown().scrollTo();
+        storesDropdown.scrollTo();
 
-        do{waitAction().shouldBeVisible(sideMenuElement.storesDropdown()).click();}
-        while (!waitAction().shouldNotBeVisible(sideMenuElement.regions()));
+        do{waitAction().shouldBeVisible(storesDropdown).click();}
+        while (!waitAction().shouldNotBeVisible(regions));
     }
 
     @Step("Нажатие на regions")
     default void regionsClick(){
-        sideMenuElement.regions().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.regions()).click();
+        regions.scrollTo();
+        waitAction().shouldBeVisible(regions).click();
     }
 
     @Step("Нажатие на retailers")
     default void retailersClick(){
-        sideMenuElement.retailers().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.retailers()).click();
+        retailers.scrollTo();
+        waitAction().shouldBeVisible(retailers).click();
     }
 
     @Step("Нажатие на shipmentArea")
     default void shipmentAreaClick(){
-        sideMenuElement.shipmentArea().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.shipmentArea()).click();
+        shipmentArea.scrollTo();
+        waitAction().shouldBeVisible(shipmentArea).click();
     }
 
     @Step("Открытие ordersDropdown")
     default void ordersDropdownOpen(){
-        sideMenuElement.storesDropdown().scrollTo();
+        storesDropdown.scrollTo();
 
-        do{waitAction().shouldBeVisible(sideMenuElement.ordersDropdown()).click();}
-        while (!waitAction().shouldBeVisible(sideMenuElement.logisticControl()).isDisplayed());
+        do{waitAction().shouldBeVisible(ordersDropdown).click();}
+        while (!waitAction().shouldBeVisible(logisticControl).isDisplayed());
     }
 
     @Step("Сворачивание ordersDropdown")
     default void ordersDropdownClose(){
-        sideMenuElement.storesDropdown().scrollTo();
+        storesDropdown.scrollTo();
 
-        do{waitAction().shouldBeVisible(sideMenuElement.ordersDropdown()).click();}
-        while (!waitAction().shouldNotBeVisible(sideMenuElement.logisticControl()));
+        do{waitAction().shouldBeVisible(ordersDropdown).click();}
+        while (!waitAction().shouldNotBeVisible(logisticControl));
     }
 
     @Step("Нажатие на logisticControl")
     default void logisticControlClick(){
-        sideMenuElement.logisticControl().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.logisticControl()).click();
+        logisticControl.scrollTo();
+        waitAction().shouldBeVisible(logisticControl).click();
     }
 
     @Step("Нажатие на rootsParameters")
     default void rootsParametersClick(){
-        sideMenuElement.rootsParameters().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.rootsParameters()).click();
+        rootsParameters.scrollTo();
+        waitAction().shouldBeVisible(rootsParameters).click();
     }
 
     @Step("Нажатие на multipleOrder")
     default void multipleOrderClick(){
-        sideMenuElement.multipleOrder().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.multipleOrder()).click();
+        multipleOrder.scrollTo();
+        waitAction().shouldBeVisible(multipleOrder).click();
     }
 
 
     @Step("Открытие contentDropdown")
     default void contentDropdownOpen(){
-        sideMenuElement.contentDropdown().scrollTo();
+        contentDropdown.scrollTo();
 
-        do{waitAction().shouldBeVisible(sideMenuElement.contentDropdown()).click();}
-        while (!waitAction().shouldBeVisible(sideMenuElement.products()).isDisplayed());
+        do{waitAction().shouldBeVisible(contentDropdown).click();}
+        while (!waitAction().shouldBeVisible(products).isDisplayed());
     }
 
     @Step("Сворачивание contentDropdown")
     default void contentDropdownClose(){
-        sideMenuElement.contentDropdown().scrollTo();
+        contentDropdown.scrollTo();
 
-        do{waitAction().shouldBeVisible(sideMenuElement.contentDropdown()).click();}
-        while (!waitAction().shouldNotBeVisible(sideMenuElement.products()));
+        do{waitAction().shouldBeVisible(contentDropdown).click();}
+        while (!waitAction().shouldNotBeVisible(products));
     }
 
     @Step("Нажатие на products")
     default void productsClick(){
-        sideMenuElement.products().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.products()).click();
+        products.scrollTo();
+        waitAction().shouldBeVisible(products).click();
     }
 
     @Step("Нажатие на goodsOptions")
     default void goodsOptionsClick(){
-        sideMenuElement.goodsOptions().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.goodsOptions()).click();
+        goodsOptions.scrollTo();
+        waitAction().shouldBeVisible(goodsOptions).click();
     }
 
     @Step("Нажатие на properties")
     default void propertiesClick(){
-        sideMenuElement.properties().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.properties()).click();
+        properties.scrollTo();
+        waitAction().shouldBeVisible(properties).click();
     }
 
     @Step("Нажатие на brands")
     default void brandsClick(){
-        sideMenuElement.brands().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.brands()).click();
+        brands.scrollTo();
+        waitAction().shouldBeVisible(brands).click();
     }
 
     @Step("Нажатие на manufacturers")
     default void manufacturersClick(){
-        sideMenuElement.manufacturers().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.manufacturers()).click();
+        manufacturers.scrollTo();
+        waitAction().shouldBeVisible(manufacturers).click();
     }
 
     @Step("Нажатие на manufacturersCountries")
     default void manufacturersCountriesClick(){
-        sideMenuElement.manufacturingCountries().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.manufacturingCountries()).click();
+        manufacturingCountries.scrollTo();
+        waitAction().shouldBeVisible(manufacturingCountries).click();
     }
 
     @Step("Нажатие на categories")
     default void categoriesClick(){
-        sideMenuElement.categories().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.categories()).click();
+        categories.scrollTo();
+        waitAction().shouldBeVisible(categories).click();
     }
 
     @Step("Нажатие на contentImport")
     default void contentImportClick(){
-        sideMenuElement.contentImport().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.contentImport()).click();
+        contentImport.scrollTo();
+        waitAction().shouldBeVisible(contentImport).click();
     }
 
     @Step("Нажатие на settings")
     default void settingsClick(){
-        sideMenuElement.settings().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.settings()).click();
+        settings.scrollTo();
+        waitAction().shouldBeVisible(settings).click();
     }
 
 
     @Step("Открытие marketingDropdown")
     default void marketingDropdownOpen(){
-        sideMenuElement.marketingDropdown().scrollTo();
+        marketingDropdown.scrollTo();
 
-        do{waitAction().shouldBeVisible(sideMenuElement.marketingDropdown()).click();}
-        while (!waitAction().shouldBeVisible(sideMenuElement.promoCards()).isDisplayed());
+        do{waitAction().shouldBeVisible(marketingDropdown).click();}
+        while (!waitAction().shouldBeVisible(promoCards).isDisplayed());
     }
 
     @Step("Сворачивание marketingDropdown")
     default void marketingDropdownClose(){
-        sideMenuElement.marketingDropdown().scrollTo();
+        marketingDropdown.scrollTo();
 
-        do{waitAction().shouldBeVisible(sideMenuElement.marketingDropdown()).click();}
-        while (!waitAction().shouldNotBeVisible(sideMenuElement.promoCards()));
+        do{waitAction().shouldBeVisible(marketingDropdown).click();}
+        while (!waitAction().shouldNotBeVisible(promoCards));
     }
 
     @Step("Нажатие на promoCards")
     default void promoCardsClick(){
-        sideMenuElement.promoCards().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.promoCards()).click();
+        promoCards.scrollTo();
+        waitAction().shouldBeVisible(promoCards).click();
     }
 
     @Step("Нажатие на promoActions")
     default void promoActionsClick(){
-        sideMenuElement.promoActions().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.promoActions()).click();
+        promoActions.scrollTo();
+        waitAction().shouldBeVisible(promoActions).click();
     }
 
     @Step("Нажатие на welcomeBanners")
     default void welcomeBannersClick(){
-        sideMenuElement.welcomeBanners().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.welcomeBanners()).click();
+        welcomeBanners.scrollTo();
+        waitAction().shouldBeVisible(welcomeBanners).click();
     }
 
     @Step("Нажатие на ads")
     default void adsClick(){
-        sideMenuElement.ads().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.ads()).click();
+        ads.scrollTo();
+        waitAction().shouldBeVisible(ads).click();
     }
 
     @Step("Нажатие на carts")
     default void cartsClick(){
-        sideMenuElement.carts().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.carts()).click();
+        carts.scrollTo();
+        waitAction().shouldBeVisible(carts).click();
     }
 
     @Step("Нажатие на bonusCards")
     default void bonusCardsClick(){
-        sideMenuElement.bonusCards().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.bonusCards()).click();
+        bonusCards.scrollTo();
+        waitAction().shouldBeVisible(bonusCards).click();
     }
 
     @Step("Нажатие на retailerPrograms")
     default void retailerProgramsClick(){
-        sideMenuElement.retailerPrograms().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.retailerPrograms()).click();
+        retailerPrograms.scrollTo();
+        waitAction().shouldBeVisible(retailerPrograms).click();
     }
 
     @Step("Нажатие на referralProgram")
     default void referralProgramClick(){
-        sideMenuElement.referralProgram().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.referralProgram()).click();
+        referralProgram.scrollTo();
+        waitAction().shouldBeVisible(referralProgram).click();
     }
 
     @Step("Нажатие на newCities")
     default void newCitiesClick(){
-        sideMenuElement.newCities().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.newCities()).click();
+        newCities.scrollTo();
+        waitAction().shouldBeVisible(newCities).click();
     }
 
     @Step("Нажатие на inAppBanners")
     default void inAppBannersClick(){
-        sideMenuElement.inAppBanners().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.inAppBanners()).click();
+        inAppBanners.scrollTo();
+        waitAction().shouldBeVisible(inAppBanners).click();
     }
 
     @Step("Нажатие на bonusCount")
     default void bonusCountClick(){
-        sideMenuElement.bonusCount().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.bonusCount()).click();
+        bonusCount.scrollTo();
+        waitAction().shouldBeVisible(bonusCount).click();
     }
 
     @Step("Нажатие на redirects")
     default void redirectsClick(){
-        sideMenuElement.redirects().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.redirects()).click();
+        redirects.scrollTo();
+        waitAction().shouldBeVisible(redirects).click();
     }
 
     @Step("Нажатие на sampling")
     default void samplingClick(){
-        sideMenuElement.sampling().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.sampling()).click();
+        sampling.scrollTo();
+        waitAction().shouldBeVisible(sampling).click();
     }
 
     @Step("Нажатие на marketingCategories")
     default void marketingCategoriesClick(){
-        sideMenuElement.marketingCategories().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.marketingCategories()).click();
+        marketingCategories.scrollTo();
+        waitAction().shouldBeVisible(marketingCategories).click();
     }
 
 
     @Step("Открытие staffDropdown")
     default void staffDropdownOpen(){
-        sideMenuElement.staffDropdown().scrollTo();
+        staffDropdown.scrollTo();
 
-        do{waitAction().shouldBeVisible(sideMenuElement.staffDropdown()).click();}
-        while (!waitAction().shouldBeVisible(sideMenuElement.shifts()).isDisplayed());
+        do{waitAction().shouldBeVisible(staffDropdown).click();}
+        while (!waitAction().shouldBeVisible(shifts).isDisplayed());
     }
 
     @Step("Сворачивание staffDropdown")
     default void staffDropdownClose(){
-        sideMenuElement.staffDropdown().scrollTo();
+        staffDropdown.scrollTo();
 
-        do{waitAction().shouldBeVisible(sideMenuElement.staffDropdown()).click();}
-        while (!waitAction().shouldNotBeVisible(sideMenuElement.shifts()));
+        do{waitAction().shouldBeVisible(staffDropdown).click();}
+        while (!waitAction().shouldNotBeVisible(shifts));
     }
 
 
     @Step("Нажатие на workSchedule")
     default void workScheduleClick(){
-        sideMenuElement.shifts().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.shifts()).click();
+        shifts.scrollTo();
+        waitAction().shouldBeVisible(shifts).click();
     }
 
     @Step("Нажатие на tariffs")
     default void tariffsClick(){
-        sideMenuElement.tariffs().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.tariffs()).click();
+        tariffs.scrollTo();
+        waitAction().shouldBeVisible(tariffs).click();
     }
 
     @Step("Нажатие на collectors")
     default void collectorsClick(){
-        sideMenuElement.collectors().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.collectors()).click();
+        collectors.scrollTo();
+        waitAction().shouldBeVisible(collectors).click();
     }
 
     @Step("Нажатие на partnersInput")
     default void partnersImportClick(){
-        sideMenuElement.partnersImport().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.partnersImport()).click();
+        partnersImport.scrollTo();
+        waitAction().shouldBeVisible(partnersImport).click();
     }
 
     @Step("Нажатие на users")
     default void usersClick(){
-        sideMenuElement.users().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.users()).click();
+        users.scrollTo();
+        waitAction().shouldBeVisible(users).click();
     }
 
     @Step("Нажатие на pages")
     default void pagesClick(){
-        sideMenuElement.pages().scrollTo();
-        waitAction().shouldBeVisible(sideMenuElement.pages()).click();
+        pages.scrollTo();
+        waitAction().shouldBeVisible(pages).click();
     }
 
     @Step("Нажатие на companies")
     default void companiesClick(){
-        sideMenuElement.companies().scrollTo();
-        waitAction().shouldBeClickable(sideMenuElement.companies()).click();
+        companies.scrollTo();
+        waitAction().shouldBeClickable(companies).click();
     }
 }

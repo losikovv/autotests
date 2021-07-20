@@ -1,12 +1,11 @@
 package ru.instamart.reforged.admin;
 
-import ru.instamart.reforged.admin.block.AuthoredHeader.AuthoredHeaderElement;
 import ru.instamart.reforged.admin.main.MainPage;
 import ru.instamart.reforged.admin.shipment.ShipmentsPage;
 import ru.instamart.reforged.admin.login.LoginPage;
 import ru.instamart.reforged.admin.pages.new_page.NewPage;
 import ru.instamart.reforged.admin.pages.Pages;
-import ru.instamart.reforged.admin.page.sections.*;
+import ru.instamart.reforged.admin.sections.*;
 import ru.instamart.reforged.core.page.Router;
 
 public final class AdminRout extends Router {
