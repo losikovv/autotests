@@ -48,7 +48,7 @@ public interface SideMenuElement {
     DropDown staffDropdown = new DropDown(By.xpath("//div[@role='button']//*[text()='Персонал']"));
     Link shifts = new Link(By.xpath("//a[contains(@href, '/admin/shifts')]"));
     Link tariffs = new Link(By.xpath("//a[contains(@href, '/admin/tariffs')]"));
-    Link collectors = new Link(By.xpath("//a[contains(@href, '/admin/shoppers')]"));
+    Link shoppers = new Link(By.xpath("//a[contains(@href, '/admin/shoppers')]"));
     Link partnersImport = new Link(By.xpath("//a[contains(@href, '/admin/import_partners')]"));
 
     Link users = new Link(By.xpath("//a[contains(@href, '/admin/users')]"));

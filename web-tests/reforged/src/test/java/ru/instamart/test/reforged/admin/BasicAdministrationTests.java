@@ -32,7 +32,7 @@ public final class BasicAdministrationTests extends BaseTest {
     public void successCheckAdminSectionsAvailability() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
-        main().goToPage();
+
         shipments().goToPage();
         shipments().checkPageIsAvailable();
         retailers().goToPage();
@@ -61,7 +61,7 @@ public final class BasicAdministrationTests extends BaseTest {
     public void successCheckOktellViewAvailability() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
-        main().goToPage();
+
         oktell().goToPage();
         oktell().checkPageIsAvailable();
     }
@@ -74,7 +74,7 @@ public final class BasicAdministrationTests extends BaseTest {
     public void successValidateHeader() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
-        main().goToPage();
+
         main().interactAuthoredHeader().checkAdminNavigationTitle();
         main().interactAuthoredHeader().checkAdminName();
         main().interactAuthoredHeader().checkAdminAvatar();
@@ -89,26 +89,26 @@ public final class BasicAdministrationTests extends BaseTest {
     public void successValidateNavigationMenu() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
-        main().goToPage();
-        main().interactSideMenu().storesDropdownOpen();
+
+        main().interactSideMenu().storesDropdownClick();
         main().interactSideMenu().regionsClick();
         main().checkPageIsAvailable();
         main().interactSideMenu().retailersClick();
         main().checkPageIsAvailable();
         main().interactSideMenu().shipmentAreaClick();
         main().checkPageIsAvailable();
-        main().interactSideMenu().storesDropdownClose();
+        main().interactSideMenu().storesDropdownClick();
 
-        main().interactSideMenu().ordersDropdownOpen();
+        main().interactSideMenu().ordersDropdownClick();
         main().interactSideMenu().logisticControlClick();
         main().checkPageIsAvailable();
         main().interactSideMenu().rootsParametersClick();
         main().checkPageIsAvailable();
         main().interactSideMenu().multipleOrderClick();
         main().checkPageIsAvailable();
-        main().interactSideMenu().ordersDropdownClose();
+        main().interactSideMenu().ordersDropdownClick();
 
-        main().interactSideMenu().contentDropdownOpen();
+        main().interactSideMenu().contentDropdownClick();
         main().interactSideMenu().productsClick();
         main().checkPageIsAvailable();
         main().interactSideMenu().goodsOptionsClick();
@@ -119,18 +119,18 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().manufacturersClick();
         main().checkPageIsAvailable();
-        main().interactSideMenu().manufacturersCountriesClick();
+        main().interactSideMenu().manufacturingCountriesClick();
         main().checkPageIsAvailable();
         main().interactSideMenu().categoriesClick();
         main().checkPageIsAvailable();
         main().interactSideMenu().contentImportClick();
         main().checkPageIsAvailable();
-        main().interactSideMenu().contentDropdownClose();
+        main().interactSideMenu().contentDropdownClick();
 
         main().interactSideMenu().settingsClick();
         main().checkPageIsAvailable();
 
-        main().interactSideMenu().marketingDropdownOpen();
+        main().interactSideMenu().marketingDropdownClick();
         main().interactSideMenu().promoCardsClick();
         main().checkPageIsAvailable();
         main().interactSideMenu().promoActionsClick();
@@ -159,18 +159,18 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().marketingCategoriesClick();
         main().checkPageIsAvailable();
-        main().interactSideMenu().marketingDropdownClose();
+        main().interactSideMenu().marketingDropdownClick();
 
-        main().interactSideMenu().staffDropdownOpen();
-        main().interactSideMenu().workScheduleClick();
+        main().interactSideMenu().staffDropdownClick();
+        main().interactSideMenu().shiftsClick();
         main().checkPageIsAvailable();
         main().interactSideMenu().tariffsClick();
         main().checkPageIsAvailable();
-        main().interactSideMenu().collectorsClick();
+        main().interactSideMenu().shoppersClick();
         main().checkPageIsAvailable();
         main().interactSideMenu().partnersImportClick();
         main().checkPageIsAvailable();
-        main().interactSideMenu().staffDropdownClose();
+        main().interactSideMenu().staffDropdownClick();
 
         main().interactSideMenu().usersClick();
         main().checkPageIsAvailable();
