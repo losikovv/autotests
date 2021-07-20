@@ -1,12 +1,11 @@
 package ru.instamart.reforged.admin.shipment;
 
 import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.Button;
-import ru.instamart.reforged.core.component.Element;
-import ru.instamart.reforged.core.component.Input;
-import ru.instamart.reforged.core.component.Table;
+import ru.instamart.reforged.core.component.*;
 
 public interface ShipmentsElement {
+
+//    public static String deliveryDate = null;
 
     Input orderDateFrom = new Input(By.id("search_completed_at_st"));
     Input orderDateTo = new Input(By.id("search_completed_at_end"));
@@ -45,4 +44,24 @@ public interface ShipmentsElement {
     Button submit = new Button(By.xpath("//button[@type='submit']"));
 
     Element title = new Element(By.xpath("//div[@class='table-cell']"));
+
+    Button nextPager = new Button(By.linkText("Следущая"),
+            "ссылка Следующая страница");
+    Button previousPager = new Button(By.linkText("Предыдущая"),
+            "ссылка Предыдущая страница");
+    Button lastPage = new Button(By.linkText("Последняя"),
+            "ссылка Последняя страница");
+    Button firstPage = new Button(By.linkText("Первая"),
+            "ссылка Первая страница");
+    Button currentPage = new Button(By.xpath("//span[@class='page current']"),
+            "номер текущей страницы пейджера");
+
+    Element dateAndTimeFirstCell = new Element(
+            By.xpath("//th[text()='Дата и время доставки']//following::a[contains(@href,'delivery_windows')] [1]"),
+            "дата и время доставки из первой ячейки в таблице");
+
+    ElementCollection dateAndTimeColumn = new ElementCollection(
+            By.xpath("//th[text()='Дата и время доставки']//following::a[contains(@href,'delivery_windows')]"),
+            "дата и время доставки из первой ячейки в таблице");
+
 }

@@ -39,20 +39,39 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     }
 
     @CaseId(176)
-    @Story("Тест на работоспособность фильтрации и пагинации списка заказов")
-    @Test(  description = "Тест на работоспособность фильтрации и пагинации списка заказов",
+    @Story("Тест на работоспособность пагинации списка заказов")
+    @Test(  description = "Тест на работоспособность пагинации списка заказов",
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     )
-    public void validateFilterPagingAdminShipmentsPage() {
+    public void validatePagerOnAdminShipmentsPage() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
         shipments().goToPage();
         shipments().checkPageTitle();
-        shipments().checkOrderDateFrom();
-        shipments().checkOrderDateTo();
-        shipments().checkCustomerName();
-        shipments().checkCustomerSurName();
+        shipments().nextPagerClick();
+        shipments().checkCurrentPageNumber("2");
+        shipments().previousPagerClick();
+        shipments().checkCurrentPageNumber("1");
+        shipments().lastPageClick();
+        shipments().checkLastPagePager();
+        shipments().firstPageClick();
+        shipments().checkFirstPagePager();
+    }
+
+    @CaseId(172)
+    @Story("Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ")
+    @Test(  description = "Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ",
+            groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
+    )
+    public void validateFilterDateAndTimeAdminShipmentsPage() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        shipments().goToPage();
+        shipments().checkPageTitle();
+        shipments().setDateAndTimeFilterFromTableDefault();
+        shipments().checkDateAndTimeShipmentsColumn();
     }
 
     // TODO test shipmentsTableNotEmptyByDefault

@@ -61,7 +61,7 @@ public final class ElementCollection extends CollectionComponent {
     }
 
     @Override
-    protected List<WebElement> getComponents() {
+    public List<WebElement> getComponents() {
         log.debug("Get {}'s with locator {}", getClass().getSimpleName(), getBy());
         if (isNull(components) || isCacheDisable) {
             components = Kraken.waitAction().isElementsExist(this);
