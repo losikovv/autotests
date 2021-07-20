@@ -44,6 +44,9 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     )
     public void validateFilterPagingAdminShipmentsPage() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
         shipments().goToPage();
         shipments().checkPageTitle();
         shipments().checkOrderDateFrom();
