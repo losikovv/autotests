@@ -1,8 +1,11 @@
 package ru.instamart.reforged.stf.page;
 
 import ru.instamart.reforged.core.page.Router;
-import ru.instamart.reforged.stf.page.checkout.Checkout;
+import ru.instamart.reforged.stf.page.business.BusinessPage;
+import ru.instamart.reforged.stf.page.checkout.CheckoutPage;
 import ru.instamart.reforged.stf.page.faq.*;
+import ru.instamart.reforged.stf.page.home.HomePage;
+import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.reforged.stf.page.user.UserCompanies;
 import ru.instamart.reforged.stf.page.user.UserEdit;
 import ru.instamart.reforged.stf.page.user.UserFavorites;
@@ -10,8 +13,8 @@ import ru.instamart.reforged.stf.page.user.UserShipments;
 
 public final class StfRouter extends Router {
 
-    public static Home home() {
-        return (Home) getPage(Home.class);
+    public static HomePage home() {
+        return (HomePage) getPage(HomePage.class);
     }
 
     public static UserCompanies userCompanies() {
@@ -30,12 +33,12 @@ public final class StfRouter extends Router {
         return (UserShipments) getPage(UserShipments.class);
     }
 
-    public static Shop shop() {
-        return (Shop) getPage(Shop.class);
+    public static ShopPage shop() {
+        return (ShopPage) getPage(ShopPage.class);
     }
 
-    public static Business business() {
-        return (Business) getPage(Business.class);
+    public static BusinessPage business() {
+        return (BusinessPage) getPage(BusinessPage.class);
     }
 
     public static About about() {
@@ -62,8 +65,8 @@ public final class StfRouter extends Router {
         return (Terms) getPage(Terms.class);
     }
 
-    public static Checkout checkout() {
-        return (Checkout) getPage(Checkout.class);
+    public static CheckoutPage checkout() {
+        return (CheckoutPage) getPage(CheckoutPage.class);
     }
 
     private StfRouter() {

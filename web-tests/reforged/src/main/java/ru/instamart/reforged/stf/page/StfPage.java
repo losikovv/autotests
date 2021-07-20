@@ -9,6 +9,6 @@ public interface StfPage extends Page {
     default void goToPage() {
         Kraken.open(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + pageUrl());
         Kraken.jsAction().waitForDocumentReady();
-        Kraken.jsAction().reactReady();
+        Kraken.jsAction().jQueryReady();
     }
 }

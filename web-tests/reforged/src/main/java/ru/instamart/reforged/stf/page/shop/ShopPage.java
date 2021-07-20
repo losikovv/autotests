@@ -1,35 +1,18 @@
-package ru.instamart.reforged.stf.page;
+package ru.instamart.reforged.stf.page.shop;
 
 import io.qameta.allure.Step;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.By;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.core.component.Button;
-import ru.instamart.reforged.core.component.Element;
-import ru.instamart.reforged.stf.block.AuthoredHeader;
-import ru.instamart.reforged.stf.drawer.Cart;
+import ru.instamart.reforged.stf.block.header.AuthoredHeader;
 import ru.instamart.reforged.stf.drawer.CategoryMenu;
+import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.Address;
 import ru.instamart.reforged.stf.frame.ProductCard;
+import ru.instamart.reforged.stf.page.StfPage;
 
-@Slf4j
-public final class Shop implements StfPage {
-
-    private final Button openAddress = new Button(By.xpath("//button[@data-qa='select-button']"));
-    private final Element firstProductCard = new Element(By.xpath("//li[@class='product']"));
-    private final Element plusFirstItemToCart = new Element(By.xpath("//div[contains(@class, 'add-cart__up')]"));
-    private final Element minusFirstItemFromCart = new Element(By.xpath("//div[contains(@class, 'add-cart__down')]"));
-    private final Element addFirstItemToFavorite = new Element(By.xpath("//div[contains(@class, 'favorite-button-default')]"));
-    private final Element deleteFirstItemFromFavorite = new Element(By.xpath("//div[contains(@class, 'favorite-button--active')]"));
-
-    private final AuthoredHeader header = new AuthoredHeader();
-    private final ProductCard productCard = new ProductCard();
-    private final Cart cart = new Cart();
-    private final Address address = new Address();
-    private final CategoryMenu categoryMenu = new CategoryMenu();
+public final class ShopPage implements StfPage, ShopCheck {
 
     public AuthoredHeader interactHeader() {
         return header;

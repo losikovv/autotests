@@ -1,4 +1,4 @@
-package ru.instamart.reforged.stf.page.checkout;
+package ru.instamart.reforged.stf.page.checkout.step;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
