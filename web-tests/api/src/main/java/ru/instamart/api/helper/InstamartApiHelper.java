@@ -33,6 +33,7 @@ import java.util.stream.Collectors;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.fail;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.common.RestStaticTestData.userPhone;
 
 @Slf4j
 public final class InstamartApiHelper {
@@ -490,7 +491,7 @@ public final class InstamartApiHelper {
         Response response = OrdersV2Request.PUT(
                 //currentAddressId.get(), //параметр ломает оформление заказа в некоторых магазинах
                 1,
-                "+7 (987) 654 32 10",
+                userPhone,
                 "test",
                 currentPaymentTool.get().getId(),
                 currentShipmentId.get(),
@@ -523,40 +524,48 @@ public final class InstamartApiHelper {
         orderCompleted.set(false);
         Response response = OrdersV2Request.Completion.POST(currentOrderNumber.get());
         if (response.getStatusCode() == 422) {
-            ErrorsV2 errors = response.as(ErrorResponse.class).getErrors();
-
-            if (errors.getShipments() != null) {
-                String notAvailableDeliveryWindow = "Выбранный интервал стал недоступен";
-                if (errors.getShipments().contains(notAvailableDeliveryWindow)) {
-                    Allure.step(notAvailableDeliveryWindow);
-                    log.error(notAvailableDeliveryWindow);
-                    getAvailableDeliveryWindow();
-                    setDefaultOrderAttributes();
-                    response = OrdersV2Request.Completion.POST(currentOrderNumber.get());
-                } else fail(response.body().toString());
-            }
-            if (errors.getPayments() != null) {
-                String notAvailablePaymentMethod = "Заказ не может быть оплачен указанным способом";
-                if (errors.getPayments().contains(notAvailablePaymentMethod)) {
-                    Allure.step(notAvailablePaymentMethod + " " + currentPaymentTool.get());
-                    log.error("{} {}", notAvailablePaymentMethod, currentPaymentTool.get());
-                    //ToDo помечать тест желтым, если заказ не может быть оплачен указанным способом
-                    return null;
-                } else fail(response.body().toString());
-            }
+            response = slotAvailabilityCheck(response);
         }
+        if(Objects.isNull(response))
+            return null;
+
         checkStatusCode200(response);
 
         OrderV2 order = response.as(OrderV2Response.class).getOrder();
         List<AlertV2> alerts = order.getShipments().get(0).getAlerts();
 
-        for (AlertV2 alert : alerts)
-            log.error(alert.getFullMessage());
+        alerts.stream()
+                .forEach(alert -> log.error(alert.getFullMessage()));
 
         Allure.step("Оформлен заказ: " + order.getNumber());
         log.info("Оформлен заказ: {}", order.getNumber());
         orderCompleted.set(true);
         return order;
+    }
+
+    public Response slotAvailabilityCheck(Response response){
+        ErrorsV2 errors = response.as(ErrorResponse.class).getErrors();
+
+        if (errors.getShipments() != null) {
+            String notAvailableDeliveryWindow = "Выбранный интервал стал недоступен";
+            if (errors.getShipments().contains(notAvailableDeliveryWindow)) {
+                Allure.step(notAvailableDeliveryWindow);
+                log.error(notAvailableDeliveryWindow);
+                getAvailableDeliveryWindow();
+                setDefaultOrderAttributes();
+                response = OrdersV2Request.Completion.POST(currentOrderNumber.get());
+            } else fail(response.body().toString());
+        }
+        if (errors.getPayments() != null) {
+            String notAvailablePaymentMethod = "Заказ не может быть оплачен указанным способом";
+            if (errors.getPayments().contains(notAvailablePaymentMethod)) {
+                Allure.step(notAvailablePaymentMethod + " " + currentPaymentTool.get());
+                log.error("{} {}", notAvailablePaymentMethod, currentPaymentTool.get());
+                //ToDo помечать тест желтым, если заказ не может быть оплачен указанным способом
+                return null;
+            } else fail(response.body().toString());
+        }
+        return response;
     }
 
     /**
@@ -827,6 +836,12 @@ public final class InstamartApiHelper {
         return currentShipmentNumber.get();
     }
 
+    public OrderV2 getOpenOrder(){
+        Response response = OrdersV2Request.POST();
+        checkStatusCode200(response);
+        return response.as(OrderV2Response.class).getOrder();
+    }
+
     @Step("Получаем список способов оплаыты")
     public List<PaymentToolV2> getPaymentTools() {
         Response response = PaymentToolsV2Request.GET();
@@ -875,7 +890,6 @@ public final class InstamartApiHelper {
                     orders.addAll(OrdersV2Request.GET(OrderStatusV2.ACTIVE, i).as(OrdersV2Response.class).getOrders());
                 }
             }
-//            Allure.addAttachment("Список активных заказов:", ContentType.TEXT.toString(), orders.stream().map(i->i.getNumber()).collect(Collectors.joining(",")));
             log.info("Список активных заказов:");
             orders.forEach(order -> log.info(order.getNumber()));
             for (OrderV2 order : orders) {
@@ -1018,6 +1032,26 @@ public final class InstamartApiHelper {
 
         setAddressAttributes(user, address);
     }
+
+
+    @Step("Запроленение корзины и аттрибутов заказа без оформления")
+    public void fillingCartAndOrderAttributesWithoutCompletition(UserData user, int sid){
+        fillCart(user, sid);
+        getAvailablePaymentTool();
+        getAvailableShippingMethod();
+        getAvailableDeliveryWindow();
+        setDefaultOrderAttributes();
+    }
+
+    @Step("Запроленение корзины и аттрибутов заказа без оформления")
+    public void fillingCartAndOrderAttributesWithoutCompletition(UserData user, AddressV2 address){
+        fillCart(user, address);
+        getAvailablePaymentTool();
+        getAvailableShippingMethod();
+        getAvailableDeliveryWindow();
+        setDefaultOrderAttributes();
+    }
+
 
     /**
      * Оформить тестовый заказ у юзера по определенному адресу

@@ -16,29 +16,37 @@ public final class Link extends Component {
         super(by);
     }
 
-    public Link(final By by, final boolean isCashDisable) {
-        super(by, isCashDisable);
-    }
-
     public Link(final By by, final String description) {
         super(by, description);
+    }
+
+    public Link(final By by, final long timeout) {
+        super(by, timeout);
+    }
+
+    public Link(final By by, final long timeout, final String description) {
+        super(by, timeout, description);
     }
 
     public Link(final By by, final String description, final String errorMsg) {
         super(by, description, errorMsg);
     }
 
+    public Link(final By by, final long timeout, final String description, final String errorMsg) {
+        super(by, timeout, description, errorMsg);
+    }
+
     @Override
     protected WebElement getComponent() {
-        log.debug("Create {} with locator {}", getClass().getSimpleName(), getBy());
-        if (isNull(component) || isCashDisable) {
+        log.debug("Create {} with locator {}", getDescription(), getBy());
+        if (isNull(component) || isCacheDisable) {
             component = Kraken.waitAction().shouldBeClickable(this);
         }
         return component;
     }
 
     public void click() {
-        log.info("Click {} with locator {}", getClass().getSimpleName(), getBy());
+        log.info("Click {} with locator {}", getDescription(), getBy());
         getComponent().click();
     }
 }

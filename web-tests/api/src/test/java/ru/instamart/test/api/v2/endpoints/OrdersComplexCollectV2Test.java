@@ -47,7 +47,6 @@ public class OrdersComplexCollectV2Test extends RestBase {
     public void getLineItemCancellationsWithItem200() {
         response = OrdersV2Request.LineItemCancellations.GET(orderNumber);
         checkStatusCode200(response);
-        response.prettyPeek();
         assertFalse(response.as(LineItemCancellationsV2Response.class).getLineItemCancellations().isEmpty(), "Нет отмененных позиций заказа");
     }
 

@@ -12,7 +12,6 @@ import ru.instamart.reforged.core.Kraken;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@RequiredArgsConstructor
 @ToString
 @Slf4j
 public abstract class Component {
@@ -20,7 +19,7 @@ public abstract class Component {
     private static final Pattern LOCATOR = Pattern.compile("/[^\\r\\n]*");
 
     protected WebElement component;
-    protected boolean isCashDisable = false;
+    protected boolean isCacheDisable = true;
 
     @Getter
     private final By by;
@@ -33,43 +32,43 @@ public abstract class Component {
 
     private final Action action;
 
-    public Component(final By by) {
+    public Component(final By by, final long timeout, final String description, final String errorMsg) {
         this.by = by;
-        this.timeout = Config.BASIC_TIMEOUT;
-        this.description = "Вызвали " + this.getClass().getSimpleName() + " " + by.toString();
-        this.errorMsg = "Элемент " + by + " не найден";
+        this.timeout = timeout;
+        this.description = description == null ? this.getClass().getSimpleName() : description;
+        this.errorMsg = errorMsg == null ? "Элемент " + by + " не найден" : errorMsg;
         this.action = new Action(this);
     }
 
-    public Component(final By by, final boolean isCashDisable) {
-        this.by = by;
-        this.timeout = Config.BASIC_TIMEOUT;
-        this.description = "Вызвали " + this.getClass().getSimpleName() + " " + by.toString();
-        this.errorMsg = "Элемент " + by + " не найден";
-        this.action = new Action(this);
-        this.isCashDisable = isCashDisable;
+    public Component(final By by) {
+        this(by, Config.BASIC_TIMEOUT, null, null);
+    }
+
+    public Component(final By by, final long timeout) {
+        this(by, timeout, null, null);
+    }
+
+    public Component(final By by, final boolean isCacheDisable) {
+        this(by, Config.BASIC_TIMEOUT, null, null);
+        this.isCacheDisable = isCacheDisable;
     }
 
     public Component(final By by, final String description) {
-        this.by = by;
-        this.timeout = Config.BASIC_TIMEOUT;
-        this.description = description;
-        this.errorMsg = "Элемент " + by.toString() + " не найден";
-        this.action = new Action(this);
+        this(by, Config.BASIC_TIMEOUT, description, null);
+    }
+
+    public Component(final By by, final long timeout, final String description) {
+        this(by, timeout, description, null);
     }
 
     public Component(final By by, final String description, final String errorMsg) {
-        this.by = by;
-        this.timeout = Config.BASIC_TIMEOUT;
-        this.description = description;
-        this.errorMsg = errorMsg;
-        this.action = new Action(this);
+        this(by, Config.BASIC_TIMEOUT, description, errorMsg);
     }
 
     protected abstract WebElement getComponent();
 
     public void mouseOver() {
-        log.info("Element {} hover", by);
+        log.info("Element {} '{}' hover", description, by);
         action.mouseOver();
     }
 
@@ -79,13 +78,13 @@ public abstract class Component {
     public void hoverAndClick() {
         final Matcher matcher = LOCATOR.matcher(by.toString());
         while (matcher.find()) {
-            log.info("Hover and click to element {}", by);
+            log.info("Hover and click to element {} '{}'", description, by);
             Kraken.jsAction().hoverAndClick(matcher.group());
         }
     }
 
     public void jsClick() {
-        log.info("JS Click on {} with locator {}", getClass().getSimpleName(), getBy());
+        log.info("JS Click on {} with locator {} '{}'", getClass().getSimpleName(), description, by);
         Kraken.jsAction().click(component);
     }
 
@@ -95,7 +94,7 @@ public abstract class Component {
     public void scrollTo() {
         final Matcher matcher = LOCATOR.matcher(by.toString());
         while (matcher.find()) {
-            log.info("Scroll to element {}", by);
+            log.info("Scroll to element {} '{}'", description, by);
             Kraken.jsAction().scrollToElement(matcher.group());
         }
     }

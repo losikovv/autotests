@@ -33,7 +33,7 @@
             <class name="ru.instamart.test.api.v2.endpoints.LineItemsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.OnboardingPagesV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.OrdersV2Test"/>
-            <class name="ru.instamart.test.api.v2.endpoints.OrdersComplexCollectV2Test"/>
+<!--            <class name="ru.instamart.test.api.v2.endpoints.OrdersComplexCollectV2Test"/>-->
             <class name="ru.instamart.test.api.v2.endpoints.PaymentToolsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.PhoneConfirmationsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.ProductsV2Test"/>

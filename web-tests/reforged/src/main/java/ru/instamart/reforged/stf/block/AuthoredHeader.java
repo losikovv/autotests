@@ -30,7 +30,7 @@ public final class AuthoredHeader {
     private final Link help = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Помощь')]"));
     private final Link deliveryAndPayment = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Доставка')]"));
 
-
+    private final Button categoryMenu = new Button(By.xpath("//button[@data-qa='catalog-button']"));
     private final Button storeSelector = new Button(By.xpath("//button[@data-qa='open-store-selector-button']"));
     private final Input searchInput = new Input(By.xpath("//div[@data-qa='search']/form/input"));
     private final Button searchButton = new Button(By.xpath("//div[@data-qa='search']/form/button"));
@@ -146,5 +146,10 @@ public final class AuthoredHeader {
     @Step("Открыть страницу Доставка и оплата")
     public void clickToDeliveryAndPayment() {
         deliveryAndPayment.click();
+    }
+
+    @Step("Открыть каталог")
+    public void clickToCategoryMenu() {
+        categoryMenu.click();
     }
 }

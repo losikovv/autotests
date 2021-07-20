@@ -12,6 +12,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.LineItemV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.ProductV2;
@@ -28,6 +29,7 @@ import java.util.List;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.common.RestStaticTestData.*;
 
 @Epic("ApiV2")
 @Feature("Заказы")
@@ -469,7 +471,8 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Отмена заказа с существующим номером заказа")
     public void cancellationsOrders200() {
-        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
+                EnvironmentData.INSTANCE.getDefaultSid());
         String orderNumber = order.getNumber();
         response = OrdersV2Request.Cancellations.POST(orderNumber, "test");
         checkStatusCode200(response);
@@ -516,5 +519,142 @@ public class OrdersV2Test extends RestBase {
         softAssert.assertEquals(paymentToolsV2Response.getPaymentTools().get(2).getType(), "external_partner_pay");
         softAssert.assertEquals(paymentToolsV2Response.getPaymentTools().get(2).getName(), "Платеж через СберАпп");
         softAssert.assertEquals(paymentToolsV2Response.getPaymentTools().get(2).getType(), "sber_app_pay");
+    }
+
+    @CaseId(343)
+    @Story("Завершение заказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Завершение заказа с существующим id")
+    public void orderCompletion200() {
+        String orderNumber = apiV2.getCurrentOrderNumber();
+        apiV2.fillingCartAndOrderAttributesWithoutCompletition(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+
+        String shipmentNumber = apiV2.getShipmentsNumber();
+
+        response = OrdersV2Request.Completion.POST(apiV2.getCurrentOrderNumber());
+        if (response.getStatusCode() == 422) {
+            response.as(ErrorResponse.class);
+            response = apiV2.slotAvailabilityCheck(response);
+        }
+        checkStatusCode200(response);
+        OrderV2Response order = response.as(OrderV2Response.class);
+        final SoftAssert softAssert = new SoftAssert();
+
+        softAssert.assertEquals(order.getOrder().getNumber(), orderNumber, "Error order number");
+        softAssert.assertEquals(order.getOrder().getShipments().get(0).getNumber(), shipmentNumber, "Error shipments number");
+
+        softAssert.assertEquals(order.getOrder().getAddress().getFullAddress(), userFullAddress, "Адрес отличается от заполненного");
+        softAssert.assertEquals(order.getOrder().getAddress().getCity(), userCity, "Город отличается от заполненного");
+        softAssert.assertEquals(order.getOrder().getAddress().getPhone(), userPhone, "Номер телефона отличается от заполненного");
+        softAssert.assertEquals(order.getOrder().getAddress().getStreet(), userStreet, "Улица отличается от заполненного");
+        softAssert.assertEquals(order.getOrder().getAddress().getBuilding(), userBuilding, "Дом отличается от заполненного");
+        softAssert.assertEquals(order.getOrder().getAddress().getLat().toString(), userLat, "Координаты отличаются");
+        softAssert.assertEquals(order.getOrder().getAddress().getLon().toString(), userLon, "Координаты отличаются");
+        softAssert.assertFalse(order.getOrder().getAddress().getDeliveryToDoor(), "delivery_to_door is true");
+
+        softAssert.assertEquals(order.getOrder().getPayment().getState(), "checkout", "Оплата отличается от выбранного");
+        softAssert.assertEquals(order.getOrder().getReplacementPolicy().getId().toString(), "1", "Код замены товара отличается");
+        softAssert.assertEquals(order.getOrder().getReplacementPolicy().getDescription(), "Позвонить мне. Подобрать замену, если не смогу ответить", "Описание замены товара отличается");
+        softAssert.assertAll();
+
+
+    }
+
+    @CaseId(344)
+    @Story("Завершение заказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Завершение заказа с несуществующим id")
+    public void orderCompletion404() {
+        response = OrdersV2Request.Completion.POST("failedOrderNumber");
+        checkStatusCode404(response);
+
+        ErrorResponse error = response.as(ErrorResponse.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(error.getErrors().getBase(), "Заказ не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Заказ не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Заказ не существует");
+        softAssert.assertAll();
+
+    }
+
+    @CaseId(345)
+    @Story("Очистка заказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Очистка заказа с существующим id")
+    public void clearOrder200() {
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        String orderNumber = apiV2.getCurrentOrderNumber();
+        response = OrdersV2Request.Shipments.DELETE(orderNumber);
+        OrderV2Response orderV2Response = response.as(OrderV2Response.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(orderV2Response.getOrder().getNumber(), orderNumber, "Номер заказа отдичается");
+        softAssert.assertEquals(orderV2Response.getOrder().getTotal().toString(), "0.0", "total не равен 0");
+        softAssert.assertEquals(orderV2Response.getOrder().getItemCount().toString(), "0", "item_count не равен 0");
+        softAssert.assertEquals(orderV2Response.getOrder().getItemTotal().toString(), "0.0", "item_total не равен 0");
+        softAssert.assertEquals(orderV2Response.getOrder().getItemDiscountTotal().toString(), "0.0", "item_discount_total не равен 0");
+        softAssert.assertEquals(orderV2Response.getOrder().getShipTotal().toString(), "0.0", "ship_total не равен 0");
+        softAssert.assertEquals(orderV2Response.getOrder().getAdjustmentTotal().toString(), "0.0", "adjustment_total не равен 0");
+        softAssert.assertEquals(orderV2Response.getOrder().getPromoTotal().toString(), "0.0", "promo_total не равен 0");
+        softAssert.assertTrue(orderV2Response.getOrder().getShipments().isEmpty(), "Доставка не удалилась");
+        softAssert.assertAll();
+    }
+
+    @CaseId(346)
+    @Story("Очистка заказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Очистка заказа с несуществующим id")
+    public void clearOrder404() {
+        response = OrdersV2Request.Shipments.DELETE("failedOrderNumber");
+        checkStatusCode404(response);
+        ErrorResponse error = response.as(ErrorResponse.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(error.getErrors().getBase(), "Заказ не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Заказ не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Заказ не существует");
+        softAssert.assertAll();
+
+    }
+
+    @CaseId(347)
+    @Story("Очистка подзаказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Очистка подзаказа с существующим id")
+    public void clearShipments200() {
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        String shipmentNumber = apiV2.getShipmentsNumber();
+        String orderNumber = apiV2.getCurrentOrderNumber();
+        response = ShipmentsV2Request.DELETE(shipmentNumber);
+
+        checkStatusCode200(response);
+        OrderV2Response orderV2Response = response.as(OrderV2Response.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(orderV2Response.getOrder().getNumber(), orderNumber, "Номер заказа отдичается");
+        softAssert.assertEquals(orderV2Response.getOrder().getTotal().toString(), "0.0", "total не равен 0");
+        softAssert.assertEquals(orderV2Response.getOrder().getItemCount().toString(), "0", "item_count не равен 0");
+        softAssert.assertEquals(orderV2Response.getOrder().getItemTotal().toString(), "0.0", "item_total не равен 0");
+        softAssert.assertEquals(orderV2Response.getOrder().getItemDiscountTotal().toString(), "0.0", "item_discount_total не равен 0");
+        softAssert.assertEquals(orderV2Response.getOrder().getShipTotal().toString(), "0.0", "ship_total не равен 0");
+        softAssert.assertEquals(orderV2Response.getOrder().getAdjustmentTotal().toString(), "0.0", "adjustment_total не равен 0");
+        softAssert.assertEquals(orderV2Response.getOrder().getPromoTotal().toString(), "0.0", "promo_total не равен 0");
+        softAssert.assertTrue(orderV2Response.getOrder().getShipments().isEmpty(), "Доставка не удалилась");
+        softAssert.assertAll();
+    }
+
+    @CaseId(348)
+    @Story("Очистка подзаказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Очистка подзаказа с несуществующим id")
+    public void clearShipments404() {
+        response = ShipmentsV2Request.DELETE("failedNumber");
+        checkStatusCode404(response);
+        ErrorResponse error = response.as(ErrorResponse.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(error.getErrors().getBase(), "Доставка не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Доставка не существует");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Доставка не существует");
+        softAssert.assertAll();
     }
 }

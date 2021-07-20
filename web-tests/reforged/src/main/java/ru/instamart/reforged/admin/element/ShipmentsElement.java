@@ -44,7 +44,7 @@ public final class ShipmentsElement {
     private final Button clearFilterButton = new Button(By.xpath("//a[@class='button icon-remove']"));
     private final Element foundCount = new Element(By.className("leader-text"));
 
-    private final Table table = new Table(true);
+    private final Table table = new Table();
 
     private final Button submit = new Button(By.xpath("//button[@type='submit']"));
 

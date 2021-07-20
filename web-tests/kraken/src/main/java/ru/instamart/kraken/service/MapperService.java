@@ -32,4 +32,17 @@ public enum MapperService {
             return "";
         }
     }
+
+    public <T> T jsonToObject(final String json, final Class<T> response) {
+        if (json == null || json.isEmpty()) {
+            log.warn("Json is empty or null='{}'", json);
+            return null;
+        }
+        try {
+            return objectMapper.readValue(json, response);
+        } catch (JsonProcessingException e) {
+            log.error("FATAL: read response={} or convert to object={}", json, response.getSimpleName());
+        }
+        return null;
+    }
 }

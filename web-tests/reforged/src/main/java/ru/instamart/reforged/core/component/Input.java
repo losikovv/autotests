@@ -16,29 +16,37 @@ public final class Input extends Component {
         super(by);
     }
 
-    public Input(final By by, final boolean isCashDisable) {
-        super(by, isCashDisable);
-    }
-
     public Input(final By by, final String description) {
         super(by, description);
+    }
+
+    public Input(final By by, final long timeout) {
+        super(by, timeout);
+    }
+
+    public Input(final By by, final long timeout, final String description) {
+        super(by, timeout, description);
     }
 
     public Input(final By by, final String description, final String errorMsg) {
         super(by, description, errorMsg);
     }
 
+    public Input(final By by, final long timeout, final String description, final String errorMsg) {
+        super(by, timeout, description, errorMsg);
+    }
+
     @Override
     protected WebElement getComponent() {
-        log.debug("Create {} with locator {}", getClass().getSimpleName(), getBy());
-        if (isNull(component) || isCashDisable) {
+        log.debug("Create {} with locator {}", getDescription(), getBy());
+        if (isNull(component) || isCacheDisable) {
             component = Kraken.waitAction().shouldBeClickable(this);
         }
         return component;
     }
 
     public void fill(final String data) {
-        log.info("Fill {} with locator {} and data {}", getClass().getSimpleName(), getBy(), data);
+        log.info("Fill {} with locator {} and data {}", getDescription(), getBy(), data);
         clear();
         getComponent().sendKeys(data);
     }
@@ -48,7 +56,7 @@ public final class Input extends Component {
      * @param data
      */
     public void jsFill(final String data) {
-        log.info("JS Fill {} with locator {} and data {}", getClass().getSimpleName(), getBy(), data);
+        log.info("JS Fill {} with locator {} and data {}", getDescription(), getBy(), data);
         Kraken.jsAction().setValue(component, data);
     }
 

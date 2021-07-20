@@ -1,5 +1,6 @@
 package ru.instamart.reforged.core.provider.chrome;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.json.simple.JSONObject;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
@@ -16,12 +17,7 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
     public void createDriver(final String version) {
         var options = new ChromeOptions();
         var jsonObject = new JSONObject();
-        if (System.getProperty("os.name").contains("Mac")) {
-            System.setProperty("webdriver.chrome.driver", FileUtils.getResourceDir("WebDriverMac/chromedriver"));
-        } else {
-            System.setProperty("webdriver.chrome.driver", FileUtils.getResourceDir("WebDriverLinux/chromedriver"));
-            options.setHeadless(true);
-        }
+        WebDriverManager.chromedriver().setup();
 
         jsonObject.put("profile.default_content_settings.geolocation", 2);
         jsonObject.put("profile.managed_default_content_settings.geolocation", 2);

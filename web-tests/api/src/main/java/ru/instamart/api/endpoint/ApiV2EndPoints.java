@@ -15,6 +15,7 @@ public final class ApiV2EndPoints {
     public static final String PASSWORDS = "v2/passwords";
     public static final String PAYMENT_TOOLS = "v2/payment_tools";
     public static final String PAYMENT_TOOL_TYPES = "v2/payment_tool_types";
+    public static final String PAYMENT_TOOL_TYPES_WITH_ORDER_NUMBER = "v2/payment_tool_types?order_number={orderNumber}";
     public static final String PHONE_CONFIRMATIONS = "v2/phone_confirmations?phone={encryptedPhoneNumber}";
     public static final String PRODUCTS = "v2/products";
     public static final String PURCHASED_PRODUCTS = "v2/purchased_products?sid={sid}";
@@ -120,11 +121,13 @@ public final class ApiV2EndPoints {
     }
 
     public static final class Shipments {
-        public static final String SHIPPING_RATES = "v2/shipments/{shipmentNumber}/shipping_rates";
+        public static final String SHIPMENTS= "v2/shipments/{shipmentNumber}";
+        public static final String DELIVERY_WINDOWS = "v2/shipments/{shipmentId}/delivery_windows/?date={date}";
         public static final String LINE_ITEMS = "v2/shipments/{shipmentNumber}/line_items";
         public static final String LINE_ITEM_CANCELLATIONS = "v2/shipments/{shipmentNumber}/line_item_cancellations";
         public static final String LINE_ITEM_REPLACEMENTS = "v2/shipments/{shipmentNumber}/line_item_replacements";
-        public static final String DELIVERY_WINDOWS = "v2/shipments/{shipmentId}/delivery_windows/?date={date}";
+        public static final String SERVICE_RATE = "v2/shipments/{shipmentNumber}/service_rate?{deliveryWindowId}";
+        public static final String SHIPPING_RATES = "v2/shipments/{shipmentNumber}/shipping_rates";
     }
 
     public static final class Stores {

@@ -16,29 +16,37 @@ public class RadioButton extends Component {
         super(by);
     }
 
-    public RadioButton(final By by, final boolean isCashDisable) {
-        super(by, isCashDisable);
-    }
-
     public RadioButton(final By by, final String description) {
         super(by, description);
+    }
+
+    public RadioButton(final By by, final long timeout) {
+        super(by, timeout);
+    }
+
+    public RadioButton(final By by, final long timeout, final String description) {
+        super(by, timeout, description);
     }
 
     public RadioButton(final By by, final String description, final String errorMsg) {
         super(by, description, errorMsg);
     }
 
+    public RadioButton(final By by, final long timeout, final String description, final String errorMsg) {
+        super(by, timeout, description, errorMsg);
+    }
+
     @Override
     protected WebElement getComponent() {
-        log.debug("Create {} with locator {}", getClass().getSimpleName(), getBy());
-        if (isNull(component) || isCashDisable) {
+        log.debug("Create {} with locator {}", getDescription(), getBy());
+        if (isNull(component) || isCacheDisable) {
             component = Kraken.waitAction().shouldBeClickable(this);
         }
         return component;
     }
 
     public void set() {
-        log.info("Set {} with locator {}", getClass().getSimpleName(), getBy());
+        log.info("Set {} with locator {}", getDescription(), getBy());
         getComponent().click();
     }
 }

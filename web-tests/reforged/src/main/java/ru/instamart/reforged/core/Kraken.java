@@ -79,11 +79,6 @@ public final class Kraken {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T execute(final String js) {
-        return (T) ((JavascriptExecutor) getWebDriver()).executeScript(js);
-    }
-
-    @SuppressWarnings("unchecked")
     public static <T> T execute(final String js, final Object... arguments) {
         return (T) ((JavascriptExecutor) getWebDriver()).executeScript(js, arguments);
     }

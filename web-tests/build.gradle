@@ -48,6 +48,7 @@ project(":reforged") {
         implementation lib.allureJavaCommons
         implementation lib.testng
         implementation lib.jsonSimple
+        implementation lib.webdrivermanager
 
         compileOnly lib.lombok
 
@@ -63,6 +64,7 @@ project(":kraken") {
 
     dependencies {
         implementation project(":qase-api")
+        implementation project(":ab")
 
         implementation lib.jackson
         implementation lib.allureTestng
@@ -134,6 +136,20 @@ project(":qase-api") {
         implementation lib.jsonSimple
         implementation lib.konghq
         testImplementation lib.logback
+        annotationProcessor lib.lombok
+    }
+}
+
+project(":ab") {
+    apply plugin: "java-library"
+
+    dependencies {
+        implementation lib.lombok
+        implementation lib.okhttp
+        implementation lib.jacksonAnnotations
+        implementation lib.jackson
+        implementation lib.logback
+
         annotationProcessor lib.lombok
     }
 }

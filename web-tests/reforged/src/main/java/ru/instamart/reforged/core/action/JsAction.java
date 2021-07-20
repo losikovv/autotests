@@ -5,6 +5,7 @@ import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import java.util.concurrent.TimeUnit;
 
@@ -34,6 +35,11 @@ public enum JsAction {
             log.debug("ymap status is {}", result);
             return result.equals("object");
         });
+    }
+
+    public static void jQueryReady() {
+        final WebDriverWait wait = new WebDriverWait(getWebDriver(), 5);
+        wait.until((ExpectedCondition<Boolean>) wb -> (Boolean) execute("return jQuery.active==0"));
     }
 
     public void waitForDocumentReady() {
@@ -119,6 +125,15 @@ public enum JsAction {
      */
     public void hoverAndClick(final String locator) {
         execute("document.evaluate(\""+locator+"\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click();");
+    }
+
+    public String getLocalStorage() {
+        final Object o = execute("return window.localStorage");
+        return String.valueOf(o);
+    }
+
+    public static void ajaxRequest(final String endpoint, final String method) {
+        execute(String.format("$.ajax({url : '%s', method : '%s'});", EnvironmentData.INSTANCE.getBasicUrl() + endpoint, method));
     }
 
     public JsAction getInstance() {

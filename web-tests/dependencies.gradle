@@ -10,7 +10,9 @@ ext.versions = [
         aspectjweaver: '1.9.6',
         lombok: '1.18.20',
         konghq: '3.11.11',
-        jackson: '2.12.3'
+        jackson: '2.12.3',
+        okhttp: '4.9.0',
+        webdrivermanager: '4.4.3'
 ]
 
 ext.lib = [
@@ -28,5 +30,8 @@ ext.lib = [
         allureRestAssuredReport: "io.qameta.allure:allure-rest-assured:$versions.allure",
         lombok: "org.projectlombok:lombok:$versions.lombok",
         konghq: "com.konghq:unirest-java:$versions.konghq",
-        jackson: "com.fasterxml.jackson.core:jackson-databind:$versions.jackson"
+        okhttp: "com.squareup.okhttp3:okhttp:$versions.okhttp",
+        jackson: "com.fasterxml.jackson.core:jackson-databind:$versions.jackson",
+        jacksonAnnotations: "com.fasterxml.jackson.core:jackson-annotations:$versions.jackson",
+        webdrivermanager: "io.github.bonigarcia:webdrivermanager:$versions.webdrivermanager"
 ]

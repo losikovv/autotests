@@ -18,11 +18,6 @@ public final class Table extends Component {
         this.lines = new ElementCollection(By.xpath("//tbody/tr"));
     }
 
-    public Table(final boolean isCashDisable) {
-        super(By.xpath("//table"), isCashDisable);
-        this.lines = new ElementCollection(By.xpath("//tbody/tr"), isCashDisable);
-    }
-
     public Table(final String description) {
         super(By.xpath("//table"), description);
         this.lines = new ElementCollection(By.xpath("//tbody/tr"));
@@ -57,7 +52,7 @@ public final class Table extends Component {
     @Override
     protected WebElement getComponent() {
         log.debug("Create {} with locator {}", getClass().getSimpleName(), getBy());
-        if (isNull(component) || isCashDisable) {
+        if (isNull(component) || isCacheDisable) {
             component = Kraken.waitAction().shouldBeVisible(this);
         }
         return component;

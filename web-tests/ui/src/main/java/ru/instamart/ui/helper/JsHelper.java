@@ -43,6 +43,10 @@ public final class JsHelper {
         ajaxReady();
     }
 
+    public static String getLocalStorage() {
+        return String.valueOf(execute("return window.localStorage"));
+    }
+
     private static Object execute(final String js) {
         return ((JavascriptExecutor) getWebDriver()).executeScript(js);
     }
