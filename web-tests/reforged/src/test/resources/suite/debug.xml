@@ -12,6 +12,7 @@
     <test verbose="1" name="Debug UI" parallel="methods" thread-count="3">
         <classes>
             <class name="ru.instamart.test.reforged.admin.AdministrationLoginTests"/>
+            <class name="ru.instamart.test.reforged.admin.AdministrationShipmentsSectionTests"/>
         </classes>
     </test>
 </suite>

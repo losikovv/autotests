@@ -60,6 +60,10 @@ public final class ElementCollection extends CollectionComponent {
         }
     }
 
+    public List<WebElement> getElements() {
+        return getComponents();
+    }
+
     @Override
     protected List<WebElement> getComponents() {
         log.debug("Get {}'s with locator {}", getClass().getSimpleName(), getBy());
