@@ -4,6 +4,7 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import ru.instamart.kraken.setting.Config;
 import ru.instamart.reforged.core.Kraken;
 
 import static java.util.Objects.isNull;
@@ -46,9 +47,14 @@ public final class Input extends Component {
     }
 
     public void fill(final String data) {
-        log.info("Fill {} with locator {} and data {}", getDescription(), getBy(), data);
         clear();
-        getComponent().sendKeys(data);
+
+        if (Config.USE_JS_FILL) {
+            jsFill(data);
+        } else {
+            log.info("Fill {} with locator {} and data {}", getDescription(), getBy(), data);
+            getComponent().sendKeys(data);
+        }
     }
 
     /**

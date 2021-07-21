@@ -45,15 +45,21 @@ public final class Checkbox extends Component {
         return component;
     }
 
-    //TODO: Реализовать проверку на то что нажат чекбокс или нет
     public void check() {
-        log.info("Check {} with locator {}", getDescription(), getBy());
-        getComponent().click();
+        if (getComponent().isSelected()) {
+            log.info("Checkbox {} with locator {} is checked before!", getDescription(), getBy());
+        } else {
+            log.info("Check {} with locator {}", getDescription(), getBy());
+            getComponent().click();
+        }
     }
 
-    //TODO: Реализовать проверку на то что нажат чекбокс или нет
     public void uncheck() {
-        log.info("Uncheck {} with locator {}", getDescription(), getBy());
-        getComponent().click();
+        if (!getComponent().isSelected()) {
+            log.info("Checkbox {} with locator {} is unchecked before!", getDescription(), getBy());
+        } else {
+            log.info("Uncheck {} with locator {}", getDescription(), getBy());
+            getComponent().click();
+        }
     }
 }

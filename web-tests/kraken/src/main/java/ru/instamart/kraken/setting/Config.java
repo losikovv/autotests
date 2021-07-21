@@ -25,6 +25,9 @@ public final class Config {
     public static boolean FULL_SCREEN_MODE;
     public static final boolean REST_IGNORE_PROPERTIES = true;
 
+    public static boolean USE_JS_CLICK;
+    public static boolean USE_JS_FILL;
+
     public static String QASE_API_TOKEN;
 
     public static void load() {
@@ -54,6 +57,9 @@ public final class Config {
 
         // Запуск тестов на полном экране
         FULL_SCREEN_MODE = coreSettings.getBoolean("fullScreenMode", false);
+
+        USE_JS_CLICK = coreSettings.getBoolean("useJsClick", false);
+        USE_JS_FILL = coreSettings.getBoolean("useJsFill", false);
 
         QASE_API_TOKEN = coreSettings.getString("qaseApiToken", "");
     }
