@@ -8,7 +8,7 @@ import ru.instamart.reforged.core.component.Table;
 public interface PagesElement {
 
     Element tableElement = new Element(By.xpath("//table"));
-    Element tableEntry = new Element(By.id("page_2"));
+    Element tableEntry = new Element(By.id("page_11"));
 
     Link newPageButton = new Link(By.xpath("//a[@class='button icon-plus']"));
     Table table = new Table();

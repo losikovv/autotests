@@ -15,8 +15,8 @@
             <class name="ru.instamart.test.reforged.admin.AdministrationLoginTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationPagesSectionTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationShipmentsSectionTests"/>
-            <!--<class name="ru.instamart.test.reforged.admin.AdministrationUsersSectionTests"/>
-            <class name="ru.instamart.test.reforged.admin.BasicAdministrationTests"/>-->
+            <!--<class name="ru.instamart.test.reforged.admin.AdministrationUsersSectionTests"/>-->
+            <class name="ru.instamart.test.reforged.admin.BasicAdministrationTests"/>
         </classes>
     </test>
 </suite>
