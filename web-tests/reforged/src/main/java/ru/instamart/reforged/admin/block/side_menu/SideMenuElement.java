@@ -1,12 +1,11 @@
 package ru.instamart.reforged.admin.block.side_menu;
 
-import lombok.Getter;
-import lombok.experimental.Accessors;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.DropDown;
 import ru.instamart.reforged.core.component.Link;
 
 public interface SideMenuElement {
+
     DropDown storesDropdown = new DropDown(By.xpath("//div[@role='button']//*[text()='Магазины']"));
     Link regions = new Link(By.xpath("//a[contains(@href, '/admin/operational_zones')]"));
     Link retailers = new Link(By.xpath("//a[contains(@href, '/admin/retailers')]"));
@@ -56,6 +55,4 @@ public interface SideMenuElement {
     Link pages = new Link(By.xpath("//a[contains(@href, '/admin/pages')]"));
 
     Link companies = new Link(By.xpath("//a[contains(@href, '/admin/companies')]"));
-
-
 }

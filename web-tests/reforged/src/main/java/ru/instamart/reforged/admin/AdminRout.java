@@ -50,8 +50,6 @@ public final class AdminRout extends Router {
         return (Users) getPage(Users.class);
     }
 
-
-
     public static ShipmentsPage shipments() {
         return (ShipmentsPage) getPage(ShipmentsPage.class);
     }
@@ -60,6 +58,9 @@ public final class AdminRout extends Router {
         return (MainPage) getPage(MainPage.class);
     }
 
+    public static Oktell oktell() {
+        return (Oktell) getPage(Oktell.class);
+    }
 
     private AdminRout() {}
 }

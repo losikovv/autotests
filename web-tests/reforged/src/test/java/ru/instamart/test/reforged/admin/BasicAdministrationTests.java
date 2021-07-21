@@ -4,25 +4,15 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.test.reforged.BaseTest;
 
-
 import static ru.instamart.reforged.admin.AdminRout.*;
-import static ru.instamart.reforged.stf.page.StfRouter.oktell;
-
 
 @Epic("Админка STF")
 @Feature("Базовый функционал и навигация в админке")
 public final class BasicAdministrationTests extends BaseTest {
-
-    @BeforeClass(alwaysRun = true,
-            description = "Выполняем шаги предусловий для теста")
-    public void beforeTest() {
-
-    }
 
     @CaseId(419)
     @Story("Тест доступности корневых разделов админки")
@@ -62,7 +52,7 @@ public final class BasicAdministrationTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        oktell().goToPage();
+        oktell().openSitePage(oktell().pageUrl());
         oktell().checkPageIsAvailable();
     }
 
@@ -90,6 +80,7 @@ public final class BasicAdministrationTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
+        main().interactSideMenu().checkStoresDropdownIsClickable();
         main().interactSideMenu().storesDropdownClick();
         main().interactSideMenu().regionsClick();
         main().checkPageIsAvailable();
@@ -97,8 +88,8 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().shipmentAreaClick();
         main().checkPageIsAvailable();
-        main().interactSideMenu().storesDropdownClick();
 
+        main().interactSideMenu().checkOrdersDropdownIsClickable();
         main().interactSideMenu().ordersDropdownClick();
         main().interactSideMenu().logisticControlClick();
         main().checkPageIsAvailable();
@@ -106,8 +97,10 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().multipleOrderClick();
         main().checkPageIsAvailable();
+        main().interactSideMenu().checkOrdersDropdownIsClickable();
         main().interactSideMenu().ordersDropdownClick();
 
+        main().interactSideMenu().checkContentDropdownIsClickable();
         main().interactSideMenu().contentDropdownClick();
         main().interactSideMenu().productsClick();
         main().checkPageIsAvailable();
@@ -125,11 +118,13 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().contentImportClick();
         main().checkPageIsAvailable();
+        main().interactSideMenu().checkContentDropdownIsClickable();
         main().interactSideMenu().contentDropdownClick();
 
         main().interactSideMenu().settingsClick();
         main().checkPageIsAvailable();
 
+        main().interactSideMenu().checkMarketingDropdownIsClickable();
         main().interactSideMenu().marketingDropdownClick();
         main().interactSideMenu().promoCardsClick();
         main().checkPageIsAvailable();
@@ -159,8 +154,10 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().marketingCategoriesClick();
         main().checkPageIsAvailable();
+        main().interactSideMenu().checkMarketingDropdownIsClickable();
         main().interactSideMenu().marketingDropdownClick();
 
+        main().interactSideMenu().checkStaffDropdownIsClickable();
         main().interactSideMenu().staffDropdownClick();
         main().interactSideMenu().shiftsClick();
         main().checkPageIsAvailable();
@@ -170,6 +167,7 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().partnersImportClick();
         main().checkPageIsAvailable();
+        main().interactSideMenu().checkStaffDropdownIsClickable();
         main().interactSideMenu().staffDropdownClick();
 
         main().interactSideMenu().usersClick();

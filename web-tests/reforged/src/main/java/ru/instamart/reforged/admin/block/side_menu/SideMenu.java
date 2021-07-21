@@ -1,253 +1,253 @@
 package ru.instamart.reforged.admin.block.side_menu;
 
 import io.qameta.allure.Step;
-
-import static ru.instamart.reforged.core.Kraken.waitAction;
+import ru.instamart.reforged.core.action.WaitAction;
 
 public final class SideMenu implements SideMenuCheck {
+
     @Step("Нажатие на storesDropdown")
     public void storesDropdownClick() {
         storesDropdown.scrollTo();
-        waitAction().shouldBeClickable(storesDropdown).click();
+        storesDropdown.click();
     }
 
     @Step("Нажатие на regions")
     public void regionsClick() {
         regions.scrollTo();
-        waitAction().shouldBeVisible(regions).click();
+        regions.click();
     }
 
     @Step("Нажатие на retailers")
     public void retailersClick() {
         retailers.scrollTo();
-        waitAction().shouldBeVisible(retailers).click();
+        retailers.click();
     }
 
     @Step("Нажатие на shipmentArea")
     public void shipmentAreaClick() {
         shipmentArea.scrollTo();
-        waitAction().shouldBeVisible(shipmentArea).click();
+        shipmentArea.click();
     }
 
     @Step("Нажатие на ordersDropdown")
     public void ordersDropdownClick() {
         ordersDropdown.scrollTo();
-        waitAction().shouldBeClickable(ordersDropdown).click();
+        ordersDropdown.click();
     }
 
     @Step("Нажатие на logisticControl")
     public void logisticControlClick() {
         logisticControl.scrollTo();
-        waitAction().shouldBeVisible(logisticControl).click();
+        logisticControl.click();
     }
 
     @Step("Нажатие на rootsParameters")
     public void rootsParametersClick() {
         rootsParameters.scrollTo();
-        waitAction().shouldBeVisible(rootsParameters).click();
+        rootsParameters.click();
     }
 
     @Step("Нажатие на multipleOrder")
     public void multipleOrderClick() {
         multipleOrder.scrollTo();
-        waitAction().shouldBeVisible(multipleOrder).click();
+        multipleOrder.click();
     }
 
     @Step("Нажатие на contentDropdown")
     public void contentDropdownClick() {
         contentDropdown.scrollTo();
-        waitAction().shouldBeClickable(contentDropdown).click();
+        contentDropdown.click();
     }
 
     @Step("Нажатие на products")
     public void productsClick() {
         products.scrollTo();
-        waitAction().shouldBeVisible(products).click();
+        products.click();
     }
 
     @Step("Нажатие на goodsOptions")
     public void goodsOptionsClick() {
         goodsOptions.scrollTo();
-        waitAction().shouldBeVisible(goodsOptions).click();
+        goodsOptions.click();
     }
 
     @Step("Нажатие на properties")
     public void propertiesClick() {
         properties.scrollTo();
-        waitAction().shouldBeVisible(properties).click();
+        properties.click();
     }
 
     @Step("Нажатие на brands")
     public void brandsClick() {
         brands.scrollTo();
-        waitAction().shouldBeVisible(brands).click();
+        brands.click();
     }
 
     @Step("Нажатие на manufacturers")
     public void manufacturersClick() {
         manufacturers.scrollTo();
-        waitAction().shouldBeVisible(manufacturers).click();
+        manufacturers.click();
     }
 
     @Step("Нажатие на manufacturingCountries")
     public void manufacturingCountriesClick() {
         manufacturingCountries.scrollTo();
-        waitAction().shouldBeVisible(manufacturingCountries).click();
+        manufacturingCountries.click();
     }
 
     @Step("Нажатие на categories")
     public void categoriesClick() {
         categories.scrollTo();
-        waitAction().shouldBeVisible(categories).click();
+        categories.click();
     }
 
     @Step("Нажатие на contentImport")
     public void contentImportClick() {
         contentImport.scrollTo();
-        waitAction().shouldBeVisible(contentImport).click();
+        contentImport.click();
     }
 
     @Step("Нажатие на settings")
     public void settingsClick() {
         settings.scrollTo();
-        waitAction().shouldBeVisible(settings).click();
+        settings.click();
     }
 
     @Step("Нажатие на marketingDropdown")
     public void marketingDropdownClick() {
         marketingDropdown.scrollTo();
-        waitAction().shouldBeClickable(marketingDropdown).click();
+        marketingDropdown.click();
     }
 
     @Step("Нажатие на promoCards")
     public void promoCardsClick() {
         promoCards.scrollTo();
-        waitAction().shouldBeVisible(promoCards).click();
+        promoCards.click();
     }
 
     @Step("Нажатие на promoActions")
     public void promoActionsClick() {
         promoActions.scrollTo();
-        waitAction().shouldBeVisible(promoActions).click();
+        promoActions.click();
     }
 
     @Step("Нажатие на welcomeBanners")
     public void welcomeBannersClick() {
         welcomeBanners.scrollTo();
-        waitAction().shouldBeVisible(welcomeBanners).click();
+        welcomeBanners.click();
     }
 
     @Step("Нажатие на ads")
     public void adsClick() {
         ads.scrollTo();
-        waitAction().shouldBeVisible(ads).click();
+        ads.click();
     }
 
     @Step("Нажатие на carts")
     public void cartsClick() {
         carts.scrollTo();
-        waitAction().shouldBeVisible(carts).click();
+        carts.click();
     }
 
     @Step("Нажатие на bonusCards")
     public void bonusCardsClick() {
         bonusCards.scrollTo();
-        waitAction().shouldBeVisible(bonusCards).click();
+        bonusCards.click();
     }
 
     @Step("Нажатие на retailerPrograms")
     public void retailerProgramsClick() {
         retailerPrograms.scrollTo();
-        waitAction().shouldBeVisible(retailerPrograms).click();
+        retailerPrograms.click();
     }
 
     @Step("Нажатие на referralProgram")
     public void referralProgramClick() {
         referralProgram.scrollTo();
-        waitAction().shouldBeVisible(referralProgram).click();
+        referralProgram.click();
     }
 
     @Step("Нажатие на newCities")
     public void newCitiesClick() {
         newCities.scrollTo();
-        waitAction().shouldBeVisible(newCities).click();
+        newCities.click();
     }
 
     @Step("Нажатие на inAppBanners")
     public void inAppBannersClick() {
         inAppBanners.scrollTo();
-        waitAction().shouldBeVisible(inAppBanners).click();
+        inAppBanners.click();
     }
 
     @Step("Нажатие на bonusCount")
     public void bonusCountClick() {
         bonusCount.scrollTo();
-        waitAction().shouldBeVisible(bonusCount).click();
+        bonusCount.click();
     }
 
     @Step("Нажатие на redirects")
     public void redirectsClick() {
         redirects.scrollTo();
-        waitAction().shouldBeVisible(redirects).click();
+        redirects.click();
     }
 
     @Step("Нажатие на sampling")
     public void samplingClick() {
         sampling.scrollTo();
-        waitAction().shouldBeVisible(sampling).click();
+        sampling.click();
     }
 
     @Step("Нажатие на marketingCategories")
     public void marketingCategoriesClick() {
         marketingCategories.scrollTo();
-        waitAction().shouldBeVisible(marketingCategories).click();
+        marketingCategories.click();
     }
 
     @Step("Открытие staffDropdown")
     public void staffDropdownClick() {
         staffDropdown.scrollTo();
-        waitAction().shouldBeClickable(staffDropdown).click();
+        staffDropdown.click();
     }
 
     @Step("Нажатие на shifts")
     public void shiftsClick() {
         shifts.scrollTo();
-        waitAction().shouldBeVisible(shifts).click();
+        shifts.click();
     }
 
     @Step("Нажатие на tariffs")
     public void tariffsClick() {
         tariffs.scrollTo();
-        waitAction().shouldBeVisible(tariffs).click();
+        tariffs.click();
     }
 
     @Step("Нажатие на shoppers")
     public void shoppersClick() {
         shoppers.scrollTo();
-        waitAction().shouldBeVisible(shoppers).click();
+        shoppers.click();
     }
 
     @Step("Нажатие на partnersInput")
     public void partnersImportClick() {
         partnersImport.scrollTo();
-        waitAction().shouldBeVisible(partnersImport).click();
+        partnersImport.click();
     }
 
     @Step("Нажатие на users")
     public void usersClick() {
         users.scrollTo();
-        waitAction().shouldBeVisible(users).click();
+        users.click();
     }
 
     @Step("Нажатие на pages")
     public void pagesClick() {
         pages.scrollTo();
-        waitAction().shouldBeVisible(pages).click();
+        pages.click();
     }
 
     @Step("Нажатие на companies")
     public void companiesClick() {
         companies.scrollTo();
-        waitAction().shouldBeClickable(companies).click();
+        companies.click();
     }
 }

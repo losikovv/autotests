@@ -8,11 +8,11 @@ import ru.instamart.reforged.admin.block.side_menu.SideMenu;
 public final class MainPage implements AdminPage, MainCheck {
 
 
-    public SideMenu interactSideMenu(){
+    public SideMenu interactSideMenu() {
         return sideMenu;
     }
 
-    public AuthoredHeader interactAuthoredHeader(){
+    public AuthoredHeader interactAuthoredHeader() {
         return authoredHeader;
     }
 

@@ -26,5 +26,4 @@ public interface AuthoredHeaderCheck extends Check, AuthoredHeaderElement {
     default void checkLogoutDropdown() {
         waitAction().shouldBeVisible(logoutDropdown).isDisplayed();
     }
-
 }

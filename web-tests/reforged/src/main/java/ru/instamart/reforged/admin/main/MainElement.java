@@ -6,6 +6,7 @@ import ru.instamart.reforged.admin.block.side_menu.SideMenu;
 import ru.instamart.reforged.core.component.Element;
 
 public interface MainElement {
+
     SideMenu sideMenu = new SideMenu();
     AuthoredHeader authoredHeader = new AuthoredHeader();
 

@@ -67,10 +67,6 @@ public final class StfRouter extends Router {
         return (Checkout) getPage(Checkout.class);
     }
 
-    public static Oktell oktell() {
-        return (Oktell) getPage(Oktell.class);
-    }
-
     private StfRouter() {
     }
 }
