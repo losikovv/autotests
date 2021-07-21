@@ -53,6 +53,7 @@ public final class Input extends Component {
 
     /**
      * Устанавливает текст в инпут через js код
+     *
      * @param data
      */
     public void jsFill(final String data) {
@@ -63,5 +64,10 @@ public final class Input extends Component {
     public void clear() {
         log.info("Clear input field");
         getComponent().clear();
+    }
+
+    public String getValue() {
+        log.info("Get value");
+        return getComponent().getAttribute("value");
     }
 }
