@@ -125,7 +125,7 @@ public final class AdministrationLoginTests extends BaseTest {
     @CaseId(417)
     @Story("Тест недоступности админки пользователю без админ. прав")
     @Test(description = "Тест недоступности админки пользователю без админ. прав",
-            groups = "")
+            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"})
     public void loginWithoutAdminPermission() {
         login().goToPage();
         login().setUsername(UserManager.userWithoutAdminPermission().getLogin());
