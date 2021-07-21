@@ -74,6 +74,23 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().checkDateAndTimeShipmentsColumn();
     }
 
+
+//    @CaseId(173)
+    //TODO test is not finished
+    @Story("Тест на работоспособность фильтра ТЕЛЕФОН СОДЕРЖИТ")
+    @Test(  description = "Тест на работоспособность фильтра ТЕЛЕФОН СОДЕРЖИТ",
+            groups = {}
+    )
+    public void validateFilterPhoneShipmentsPage() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        shipments().goToPage();
+        shipments().checkPageTitle();
+        shipments().setDateAndTimeFilterFromTableDefault();
+        shipments().checkDateAndTimeShipmentsColumn();
+    }
+
     // TODO test shipmentsTableNotEmptyByDefault
 
     // TODO test successShowEmptySearchPlaceholder
