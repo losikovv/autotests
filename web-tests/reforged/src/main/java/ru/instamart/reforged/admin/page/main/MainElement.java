@@ -1,4 +1,4 @@
-package ru.instamart.reforged.admin.main;
+package ru.instamart.reforged.admin.page.main;
 
 import org.openqa.selenium.By;
 import ru.instamart.reforged.admin.block.authored_header.AuthoredHeader;

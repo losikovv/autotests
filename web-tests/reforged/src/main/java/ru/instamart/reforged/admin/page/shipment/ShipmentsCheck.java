@@ -1,4 +1,4 @@
-package ru.instamart.reforged.admin.shipment;
+package ru.instamart.reforged.admin.page.shipment;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
@@ -40,12 +40,12 @@ public interface ShipmentsCheck extends Check, ShipmentsElement {
         assertEquals(StringUtil.extractNumberFromString(actualCount), expectedCount, "Найдено больше или меньше заказов");
     }
 
-    @Step("Проверяем что найденный заказ\\отправка={0} соответствует ожидаемому={1}")
+    @Step("Проверяем что найденный заказ={0} соответствует ожидаемому={1}")
     default void checkOrderOrShipmentNumber(final String actualOrderNumber, final String expectedOrderNumber) {
         assertEquals(actualOrderNumber, expectedOrderNumber, "Найден неверный заказ");
     }
 
-    @Step("Проверяем, что был совершен переход на правильную страницу пейджера заказов")
+    @Step("Проверяем, что был совершен переход на {0} страницу пейджера заказов")
     default void checkCurrentPageNumber(final String expectedPage) {
         assertEquals(currentPage.getText(), expectedPage,
                 "Номер страницы не соответсвует ожидаемому значению");
@@ -61,12 +61,11 @@ public interface ShipmentsCheck extends Check, ShipmentsElement {
         waitAction().shouldNotBeVisible(firstPage);
     }
 
-    @Step("Проверяем, что колонка Дата и Время содержит только отфильтрованные значения")
-    default void checkDateAndTimeShipmentsColumn(String deliveryDate) {
-        for (WebElement element : dateAndTimeColumn.getElements()) {
+    @Step("Проверяем, что колонка Дата и Время содержит только отфильтрованные значения {0}")
+    default void checkDateAndTimeShipmentsColumn(final String deliveryDate) {
+        dateAndTimeColumn.getElements().forEach(element -> {
             krakenAssert.assertTrue(element.getText().contains(deliveryDate), "В колонке присутствует дата отличная от примененного фильтра");
-        }
+        });
         krakenAssert.assertAll();
     }
-
 }

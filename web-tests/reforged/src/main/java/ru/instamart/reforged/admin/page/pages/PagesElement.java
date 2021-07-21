@@ -1,4 +1,4 @@
-package ru.instamart.reforged.admin.pages;
+package ru.instamart.reforged.admin.page.pages;
 
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Element;

@@ -1,4 +1,4 @@
-package ru.instamart.reforged.admin.shipment;
+package ru.instamart.reforged.admin.page.shipment;
 
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.*;

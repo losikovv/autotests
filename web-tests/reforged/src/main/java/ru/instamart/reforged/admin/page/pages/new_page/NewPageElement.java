@@ -1,4 +1,4 @@
-package ru.instamart.reforged.admin.pages.new_page;
+package ru.instamart.reforged.admin.page.pages.new_page;
 
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;

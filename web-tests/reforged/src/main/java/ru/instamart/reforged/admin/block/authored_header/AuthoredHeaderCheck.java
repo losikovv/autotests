@@ -9,21 +9,21 @@ public interface AuthoredHeaderCheck extends Check, AuthoredHeaderElement {
 
     @Step("Проверяем, что отображается adminNavigationTitle")
     default void checkAdminNavigationTitle() {
-        waitAction().shouldBeVisible(adminNavigationTitle).isDisplayed();
+        waitAction().shouldBeVisible(adminNavigationTitle);
     }
 
     @Step("Проверяем, что отображается adminName")
     default void checkAdminName() {
-        waitAction().shouldBeVisible(adminName).isDisplayed();
+        waitAction().shouldBeVisible(adminName);
     }
 
     @Step("Проверяем, что отображается adminAvatar")
     default void checkAdminAvatar() {
-        waitAction().shouldBeVisible(adminAvatar).isDisplayed();
+        waitAction().shouldBeVisible(adminAvatar);
     }
 
     @Step("Проверяем, что отображается logoutDropdown")
     default void checkLogoutDropdown() {
-        waitAction().shouldBeVisible(logoutDropdown).isDisplayed();
+        waitAction().shouldBeVisible(logoutDropdown);
     }
 }

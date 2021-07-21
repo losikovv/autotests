@@ -1,4 +1,4 @@
-package ru.instamart.reforged.admin.pages.new_page;
+package ru.instamart.reforged.admin.page.pages.new_page;
 
 import io.qameta.allure.Step;
 import ru.instamart.kraken.testdata.pagesdata.StaticPageData;

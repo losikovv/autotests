@@ -1,4 +1,4 @@
-package ru.instamart.reforged.admin.main;
+package ru.instamart.reforged.admin.page.main;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;

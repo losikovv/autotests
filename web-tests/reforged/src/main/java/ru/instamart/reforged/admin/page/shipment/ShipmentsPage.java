@@ -1,4 +1,4 @@
-package ru.instamart.reforged.admin.shipment;
+package ru.instamart.reforged.admin.page.shipment;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
