@@ -247,7 +247,7 @@ public class ShipmentsV2Test extends RestBase {
     public void nextDeliver404() {
         response = StoresV2Request.NextDeliveries.GET(0);
         checkStatusCode404(response);
-        check.errorAssert(response, "Доставка не существует");
+        check.errorAssert(response, "Магазин не существует");
     }
 
     @CaseId(370)

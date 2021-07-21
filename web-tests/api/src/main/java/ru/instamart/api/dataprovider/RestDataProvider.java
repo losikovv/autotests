@@ -894,8 +894,8 @@ public class RestDataProvider extends RestBase {
                 {DateTimeFormatter.ISO_OFFSET_DATE_TIME},
                 {DateTimeFormatter.ISO_ZONED_DATE_TIME},
                 {DateTimeFormatter.ISO_DATE_TIME},
-                {DateTimeFormatter.ISO_ORDINAL_DATE},
-                {DateTimeFormatter.ISO_WEEK_DATE},
+//                {DateTimeFormatter.ISO_ORDINAL_DATE},
+//                {DateTimeFormatter.ISO_WEEK_DATE},
                 {DateTimeFormatter.ISO_INSTANT},
                 {DateTimeFormatter.RFC_1123_DATE_TIME}
         };
