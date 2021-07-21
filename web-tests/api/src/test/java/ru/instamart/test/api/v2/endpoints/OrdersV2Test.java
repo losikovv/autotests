@@ -8,11 +8,12 @@ import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import ru.instamart.api.checkpoint.BaseApiCheckpoints;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.enums.v2.PaymentToolsV2;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.LineItemV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.ProductV2;
@@ -34,6 +35,7 @@ import static ru.instamart.api.common.RestStaticTestData.*;
 @Epic("ApiV2")
 @Feature("Заказы")
 public class OrdersV2Test extends RestBase {
+    private final BaseApiCheckpoints check = new BaseApiCheckpoints();
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
@@ -172,7 +174,6 @@ public class OrdersV2Test extends RestBase {
         assertNotNull(errorResponse, "Промокод удалился");
     }
 
-
     @CaseId(319)
     @Story("Получение списка позиций по заказу")
     @Test(groups = {"api-instamart-regress"},
@@ -199,15 +200,7 @@ public class OrdersV2Test extends RestBase {
     public void retrievingListOfItemsForOrderForNonExistentId() {
         response = OrdersV2Request.LineItems.GET("failedOrderNumber");
         checkStatusCode404(response);
-
-        ErrorResponse error = response.as(ErrorResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(error.getErrors().getBase(), "Заказ не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Заказ не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Заказ не существует");
-        softAssert.assertAll();
-
+        check.errorAssert(response, "Заказ не существует");
     }
 
     @CaseId(321)
@@ -227,13 +220,7 @@ public class OrdersV2Test extends RestBase {
     public void getShipmentLineItems404() {
         response = ShipmentsV2Request.LineItems.GET("failedOrderNumber");
         checkStatusCode404(response);
-        ErrorResponse error = response.as(ErrorResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(error.getErrors().getBase(), "Доставка не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Доставка не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Доставка не существует");
-        softAssert.assertAll();
+        check.errorAssert(response, "Доставка не существует");
     }
 
     @CaseId(323)
@@ -254,13 +241,7 @@ public class OrdersV2Test extends RestBase {
     public void getLineItemCancellations404() {
         response = OrdersV2Request.LineItemCancellations.GET("failedOrderNumber");
         checkStatusCode404(response);
-        ErrorResponse error = response.as(ErrorResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(error.getErrors().getBase(), "Заказ не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Заказ не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Заказ не существует");
-        softAssert.assertAll();
+        check.errorAssert(response, "Заказ не существует");
     }
 
     @CaseId(326)
@@ -270,14 +251,7 @@ public class OrdersV2Test extends RestBase {
     public void getShipmentLineItem404() {
         response = ShipmentsV2Request.LineItemCancellations.GET("failedOrderNumber");
         checkStatusCode404(response);
-
-        ErrorResponse error = response.as(ErrorResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(error.getErrors().getBase(), "Доставка не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Доставка не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Доставка не существует");
-        softAssert.assertAll();
+        check.errorAssert(response, "Доставка не существует");
     }
 
     @CaseId(328)
@@ -287,14 +261,7 @@ public class OrdersV2Test extends RestBase {
     public void getOrdersLineItemReplacements404() {
         response = OrdersV2Request.LineItemReplacements.GET("failedOrderNumber");
         checkStatusCode404(response);
-
-        ErrorResponse error = response.as(ErrorResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(error.getErrors().getBase(), "Заказ не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Заказ не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Заказ не существует");
-        softAssert.assertAll();
+        check.errorAssert(response, "Заказ не существует");
     }
 
     @CaseId(330)
@@ -304,14 +271,7 @@ public class OrdersV2Test extends RestBase {
     public void getShipmentLineItemReplacements404() {
         response = ShipmentsV2Request.LineItemReplacements.GET("failedOrderNumber");
         checkStatusCode404(response);
-
-        ErrorResponse error = response.as(ErrorResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(error.getErrors().getBase(), "Доставка не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Доставка не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Доставка не существует");
-        softAssert.assertAll();
+        check.errorAssert(response, "Доставка не существует");
     }
 
     @CaseId(331)
@@ -328,7 +288,6 @@ public class OrdersV2Test extends RestBase {
 
     }
 
-
     @CaseId(332)
     @Story("Добавление позиции к заказу")
     @Test(groups = {"api-instamart-regress"},
@@ -338,13 +297,7 @@ public class OrdersV2Test extends RestBase {
     public void setLineItems404(long productId, int quantity, String orderNumber) {
         response = LineItemsV2Request.POST(productId, quantity, orderNumber);
         checkStatusGroup400(response);
-        ErrorResponse error = response.as(ErrorResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertFalse(error.getErrors().getBase().isEmpty());
-        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
-        softAssert.assertFalse(error.getErrorMessages().get(0).getMessage().isEmpty());
-        softAssert.assertFalse(error.getErrorMessages().get(0).getHumanMessage().isEmpty());
-        softAssert.assertAll();
+        check.errorTextIsNotEmpty(response);
     }
 
     @CaseId(333)
@@ -378,14 +331,7 @@ public class OrdersV2Test extends RestBase {
     public void changeLineItems404(long productId, int qty) {
         response = LineItemsV2Request.PUT(productId, qty);
         checkStatusGroup400(response);
-
-        ErrorResponse error = response.as(ErrorResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertFalse(error.getErrors().getBase().isEmpty());
-        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
-        softAssert.assertFalse(error.getErrorMessages().get(0).getMessage().isEmpty());
-        softAssert.assertFalse(error.getErrorMessages().get(0).getHumanMessage().isEmpty());
-        softAssert.assertAll();
+        check.errorTextIsNotEmpty(response);
     }
 
     @CaseId(335)
@@ -410,14 +356,7 @@ public class OrdersV2Test extends RestBase {
     public void deleteLineItems404() {
         response = LineItemsV2Request.DELETE(0);
         checkStatusGroup400(response);
-
-        ErrorResponse error = response.as(ErrorResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(error.getErrors().getBase(), "Позиция не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Позиция не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Позиция не существует");
-        softAssert.assertAll();
+        check.errorAssert(response, "Позиция не существует");
     }
 
     @CaseId(337)
@@ -492,14 +431,7 @@ public class OrdersV2Test extends RestBase {
     public void cancellationsOrders404() {
         response = OrdersV2Request.Cancellations.POST("failedOrderNumber", "test");
         checkStatusCode404(response);
-
-        ErrorResponse error = response.as(ErrorResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(error.getErrors().getBase(), "Заказ не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Заказ не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Заказ не существует");
-        softAssert.assertAll();
+        check.errorAssert(response, "Заказ не существует");
     }
 
     @CaseId(682)
@@ -511,14 +443,11 @@ public class OrdersV2Test extends RestBase {
         checkStatusCode200(response);
         PaymentToolsV2Response paymentToolsV2Response = response.as(PaymentToolsV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(paymentToolsV2Response.getPaymentTools().get(0).getName(), "Картой курьеру");
-        softAssert.assertEquals(paymentToolsV2Response.getPaymentTools().get(0).getType(), "lifepay");
-        softAssert.assertEquals(paymentToolsV2Response.getPaymentTools().get(1).getName(), "На кассе");
-        softAssert.assertEquals(paymentToolsV2Response.getPaymentTools().get(1).getType(), "cash_desk");
-        softAssert.assertEquals(paymentToolsV2Response.getPaymentTools().get(2).getName(), "Внешний платеж через партнера");
-        softAssert.assertEquals(paymentToolsV2Response.getPaymentTools().get(2).getType(), "external_partner_pay");
-        softAssert.assertEquals(paymentToolsV2Response.getPaymentTools().get(2).getName(), "Платеж через СберАпп");
-        softAssert.assertEquals(paymentToolsV2Response.getPaymentTools().get(2).getType(), "sber_app_pay");
+        paymentToolsV2Response.getPaymentTools().stream()
+                .forEach(value -> softAssert.assertNotNull(PaymentToolsV2.getIfKeyIsPresent(value.getType())));
+        paymentToolsV2Response.getPaymentTools().stream()
+                .forEach(value -> softAssert.assertNotNull(PaymentToolsV2.getIfNameIsPresent(value.getName())));
+        softAssert.assertAll();
     }
 
     @CaseId(343)
@@ -556,8 +485,6 @@ public class OrdersV2Test extends RestBase {
         softAssert.assertEquals(order.getOrder().getReplacementPolicy().getId().toString(), "1", "Код замены товара отличается");
         softAssert.assertEquals(order.getOrder().getReplacementPolicy().getDescription(), "Позвонить мне. Подобрать замену, если не смогу ответить", "Описание замены товара отличается");
         softAssert.assertAll();
-
-
     }
 
     @CaseId(344)
@@ -567,15 +494,7 @@ public class OrdersV2Test extends RestBase {
     public void orderCompletion404() {
         response = OrdersV2Request.Completion.POST("failedOrderNumber");
         checkStatusCode404(response);
-
-        ErrorResponse error = response.as(ErrorResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(error.getErrors().getBase(), "Заказ не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Заказ не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Заказ не существует");
-        softAssert.assertAll();
-
+        check.errorAssert(response, "Заказ не существует");
     }
 
     @CaseId(345)
@@ -607,14 +526,7 @@ public class OrdersV2Test extends RestBase {
     public void clearOrder404() {
         response = OrdersV2Request.Shipments.DELETE("failedOrderNumber");
         checkStatusCode404(response);
-        ErrorResponse error = response.as(ErrorResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(error.getErrors().getBase(), "Заказ не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Заказ не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Заказ не существует");
-        softAssert.assertAll();
-
+        check.errorAssert(response, "Заказ не существует");
     }
 
     @CaseId(347)
@@ -649,12 +561,6 @@ public class OrdersV2Test extends RestBase {
     public void clearShipments404() {
         response = ShipmentsV2Request.DELETE("failedNumber");
         checkStatusCode404(response);
-        ErrorResponse error = response.as(ErrorResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(error.getErrors().getBase(), "Доставка не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Доставка не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Доставка не существует");
-        softAssert.assertAll();
+        check.errorAssert(response, "Доставка не существует");
     }
 }

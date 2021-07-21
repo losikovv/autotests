@@ -23,6 +23,7 @@ import ru.instamart.api.request.v2.StoresV2Request;
 import ru.instamart.api.response.v1.OperationalZonesV1Response;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -880,6 +881,23 @@ public class RestDataProvider extends RestBase {
                 //shipmentNumber, deliveryWindowId
                 {"failedShipmentNumber", null},
                 {"", "failedDeliveryWindow"}
+        };
+    }
+
+    @DataProvider(name = "dateFormats")
+    public static Object[][] dateFormats(){
+        return new Object[][]{
+                {DateTimeFormatter.BASIC_ISO_DATE},
+                {DateTimeFormatter.ISO_OFFSET_DATE},
+                {DateTimeFormatter.ISO_DATE},
+                {DateTimeFormatter.ISO_LOCAL_DATE_TIME},
+                {DateTimeFormatter.ISO_OFFSET_DATE_TIME},
+                {DateTimeFormatter.ISO_ZONED_DATE_TIME},
+                {DateTimeFormatter.ISO_DATE_TIME},
+//                {DateTimeFormatter.ISO_ORDINAL_DATE},
+//                {DateTimeFormatter.ISO_WEEK_DATE},
+                {DateTimeFormatter.ISO_INSTANT},
+                {DateTimeFormatter.RFC_1123_DATE_TIME}
         };
     }
 }
