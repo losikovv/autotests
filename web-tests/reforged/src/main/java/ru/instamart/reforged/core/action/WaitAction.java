@@ -18,9 +18,7 @@ import java.util.concurrent.TimeUnit;
 import static ru.instamart.reforged.core.service.KrakenDriver.getWebDriver;
 
 @Slf4j
-public enum WaitAction {
-
-    INSTANCE;
+public final class WaitAction {
 
     public WebElement shouldBeClickable(final Component component) {
         return createWait(component)
@@ -77,9 +75,5 @@ public enum WaitAction {
                 .withTimeout(wait, TimeUnit.SECONDS)
                 .withMessage(errorMsg)
                 .pollingEvery(Config.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
-    }
-
-    public WaitAction getInstance() {
-        return INSTANCE;
     }
 }

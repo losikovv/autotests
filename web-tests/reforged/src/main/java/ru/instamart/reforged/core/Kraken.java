@@ -14,6 +14,9 @@ import static ru.instamart.reforged.core.service.KrakenDriver.*;
 
 public final class Kraken {
 
+    private static final JsAction jsAction = new JsAction();
+    private static final WaitAction wait = new WaitAction();
+
     public static void open(final String url) {
         getWebDriver().get(url);
     }
@@ -67,15 +70,15 @@ public final class Kraken {
     }
 
     public static JsAction jsAction() {
-        return JsAction.INSTANCE;
+        return jsAction;
     }
 
     public static WaitAction waitAction() {
-        return WaitAction.INSTANCE;
+        return wait;
     }
 
     public static LogEntries getLogs(final String logType) {
-        return getWebDriver().manage().logs().get(logType);
+        return getAllLogs().get(logType);
     }
 
     @SuppressWarnings("unchecked")

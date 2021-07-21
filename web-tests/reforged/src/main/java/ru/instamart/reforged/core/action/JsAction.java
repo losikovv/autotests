@@ -16,9 +16,7 @@ import static ru.instamart.reforged.core.Kraken.execute;
 import static ru.instamart.reforged.core.service.KrakenDriver.getWebDriver;
 
 @Slf4j
-public enum JsAction {
-
-    INSTANCE;
+public final class JsAction {
 
     /**
      * Ожидание инициализации яндекс карт
@@ -142,11 +140,7 @@ public enum JsAction {
         return String.valueOf(o);
     }
 
-    public static void ajaxRequest(final String endpoint, final String method) {
+    public void ajaxRequest(final String endpoint, final String method) {
         execute(String.format("$.ajax({url : '%s', method : '%s'});", EnvironmentData.INSTANCE.getBasicUrl() + endpoint, method));
-    }
-
-    public JsAction getInstance() {
-        return INSTANCE;
     }
 }
