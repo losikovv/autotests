@@ -1,7 +1,6 @@
 package ru.instamart.reforged.admin.block.side_menu;
 
 import io.qameta.allure.Step;
-import ru.instamart.reforged.core.action.WaitAction;
 
 public final class SideMenu implements SideMenuCheck {
 
