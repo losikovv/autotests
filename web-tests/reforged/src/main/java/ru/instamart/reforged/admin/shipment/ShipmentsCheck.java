@@ -5,13 +5,10 @@ import org.openqa.selenium.WebElement;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 
-import java.util.List;
-
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface ShipmentsCheck extends Check, ShipmentsElement {
-
 
     @Step("Проверяем что отображается заголовок")
     default void checkPageTitle() {
@@ -49,10 +46,11 @@ public interface ShipmentsCheck extends Check, ShipmentsElement {
     }
 
     @Step("Проверяем, что был совершен переход на правильную страницу пейджера заказов")
-    default void checkCurrentPageNumber(final String expectedPage){
-        assertEquals(currentPage.getText(),expectedPage,
+    default void checkCurrentPageNumber(final String expectedPage) {
+        assertEquals(currentPage.getText(), expectedPage,
                 "Номер страницы не соответсвует ожидаемому значению");
     }
+
     @Step("Проверяем, что открылась последняя страница пейджера с заказами")
     default void checkLastPagePager() {
         waitAction().shouldNotBeVisible(lastPage);
@@ -64,11 +62,11 @@ public interface ShipmentsCheck extends Check, ShipmentsElement {
     }
 
     @Step("Проверяем, что колонка Дата и Время содержит только отфильтрованные значения")
-    default void checkDateAndTimeShipmentsColumn(){
-        List<WebElement> elements = dateAndTimeColumn.getComponents();
-        for (WebElement element:elements) {
-            krakenAssert.assertTrue(element.getText().contains(variables.deliveryDate),"В колонке присутствует дата отличная от примененного фильтра");
+    default void checkDateAndTimeShipmentsColumn(String deliveryDate) {
+        for (WebElement element : dateAndTimeColumn.getElements()) {
+            krakenAssert.assertTrue(element.getText().contains(deliveryDate), "В колонке присутствует дата отличная от примененного фильтра");
         }
+        krakenAssert.assertAll();
     }
 
 }

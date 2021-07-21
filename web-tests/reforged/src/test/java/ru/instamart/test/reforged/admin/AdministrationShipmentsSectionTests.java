@@ -23,8 +23,8 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     @Skip
     @CaseId(175)
     @Story("Тест на корректное отображение элементов страницы со списком заказов в админке")
-    @Test(  description = "Тест на корректное отображение элементов страницы со списком заказов в админке",
-            groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
+    @Test(description = "Тест на корректное отображение элементов страницы со списком заказов в админке",
+            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void validateDefaultAdminShipmentsPage() {
         login().goToPage();
@@ -40,8 +40,8 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
     @CaseId(176)
     @Story("Тест на работоспособность пагинации списка заказов")
-    @Test(  description = "Тест на работоспособность пагинации списка заказов",
-            groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
+    @Test(description = "Тест на работоспособность пагинации списка заказов",
+            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void validatePagerOnAdminShipmentsPage() {
         login().goToPage();
@@ -61,8 +61,8 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
     @CaseId(172)
     @Story("Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ")
-    @Test(  description = "Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ",
-            groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
+    @Test(description = "Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ",
+            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void validateFilterDateAndTimeAdminShipmentsPage() {
         login().goToPage();
@@ -70,15 +70,17 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
         shipments().goToPage();
         shipments().checkPageTitle();
-        shipments().setDateAndTimeFilterFromTableDefault();
-        shipments().checkDateAndTimeShipmentsColumn();
+        String deliveryDate = shipments().getFirstDeliveryDateFromTable();
+        shipments().setDateAndTimeFilterFromTableDefault(deliveryDate);
+        shipments().applyFilterButton();
+        shipments().checkDateAndTimeShipmentsColumn(deliveryDate);
     }
 
 
-//    @CaseId(173)
+    //    @CaseId(173)
     //TODO test is not finished
     @Story("Тест на работоспособность фильтра ТЕЛЕФОН СОДЕРЖИТ")
-    @Test(  description = "Тест на работоспособность фильтра ТЕЛЕФОН СОДЕРЖИТ",
+    @Test(description = "Тест на работоспособность фильтра ТЕЛЕФОН СОДЕРЖИТ",
             groups = {}
     )
     public void validateFilterPhoneShipmentsPage() {
@@ -87,8 +89,8 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
         shipments().goToPage();
         shipments().checkPageTitle();
-        shipments().setDateAndTimeFilterFromTableDefault();
-        shipments().checkDateAndTimeShipmentsColumn();
+//        shipments().setDateAndTimeFilterFromTableDefault();
+//        shipments().checkDateAndTimeShipmentsColumn();
     }
 
     // TODO test shipmentsTableNotEmptyByDefault
@@ -97,8 +99,8 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
     @CaseId(182)
     @Story("Тест поиска заказа по номеру заказа в админке")
-    @Test(  description = "Тест поиска заказа по номеру заказа в админке",
-            groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
+    @Test(description = "Тест поиска заказа по номеру заказа в админке",
+            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void successSearchOrderByOrderNumber() {
         login().goToPage();
@@ -114,8 +116,8 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
     @CaseId(445)
     @Story("Тест поиска заказа по номеру шипмента в админке")
-    @Test(  description = "Тест поиска заказа по номеру шипмента в админке",
-            groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
+    @Test(description = "Тест поиска заказа по номеру шипмента в админке",
+            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void successSearchOrderByShipmentNumber() {
         login().goToPage();
@@ -132,8 +134,8 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     // TODO тест можно ускорить - использовать тестовый заказ из конфига
     // TODO поправить тест после того как починб тест заказа
     @Story("Тест возобновления и отмены заказа через админку")
-    @Test(  description = "Тест возобновления и отмены заказа через админку",
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
+    @Test(description = "Тест возобновления и отмены заказа через админку",
+            groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successResumeAndCancelOrder() {
         final ApiHelper helper = new ApiHelper();
@@ -147,7 +149,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
     // Нужен юзер
     @Story("Тест поиска B2B заказа в админке")
-    @Test(  description = "Тест поиска B2B заказа в админке",
+    @Test(description = "Тест поиска B2B заказа в админке",
             groups = {"sbermarket-regression"}
     )
     public void successSearchB2BOrder() {

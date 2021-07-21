@@ -5,8 +5,6 @@ import ru.instamart.reforged.core.component.*;
 
 public interface ShipmentsElement {
 
-//    public static String deliveryDate = null;
-
     Input orderDateFrom = new Input(By.id("search_completed_at_st"));
     Input orderDateTo = new Input(By.id("search_completed_at_end"));
     Input customerName = new Input(By.id("search_first_name"));
