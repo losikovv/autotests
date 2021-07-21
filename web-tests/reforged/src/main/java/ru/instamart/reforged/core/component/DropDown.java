@@ -70,6 +70,20 @@ public final class DropDown extends CollectionComponent {
         }
     }
 
+    public void click() {
+        log.info("Click {} with locator {}", getDescription(), getBy());
+        getComponent().click();
+    }
+
+    @Override
+    protected WebElement getComponent() {
+        log.debug("Create {} with locator {}", getDescription(), getBy());
+        if (isNull(component) || isCacheDisable) {
+            component = Kraken.waitAction().shouldBeVisible(this);
+        }
+        return component;
+    }
+
     @Override
     protected List<WebElement> getComponents() {
         log.debug("Get {}'s with locator {}", getDescription(), getBy());

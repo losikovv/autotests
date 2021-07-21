@@ -116,6 +116,5 @@ public class BasicAdministrationTests extends TestBase {
             baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Семплинг"));
             baseChecks.checkTransitionValidation(Elements.Administration.submenuElement("Маркетинговые категории"));
 
-
     }
 }
