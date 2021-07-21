@@ -395,7 +395,9 @@ public class Elements {
             }
 
             static ElementData forBusinessButton() {
-                return infoButton("\uD83D\uDC69\u200D\uD83D\uDCBB Для бизнеса");
+                return new ElementData(
+                        By.xpath("//a[contains(text(),'Покупайте для бизнеса')]"),
+                        "кнопка \"Покупайте для бизнеса\" в шапке сайта");
             }
 
             static ElementData mnogoruButton() {
