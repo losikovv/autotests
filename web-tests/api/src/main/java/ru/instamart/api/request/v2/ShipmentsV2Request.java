@@ -19,6 +19,10 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
 
         @Step("{method} /" + ApiV2EndPoints.Shipments.DELIVERY_WINDOWS)
         public static Response GET(String shipmentId, String date) {
+            if (Objects.nonNull(date))
+                date = "date=" + date;
+            else
+                date = "";
             return givenWithAuth()
                     .get(ApiV2EndPoints.Shipments.DELIVERY_WINDOWS, shipmentId, date);
         }
@@ -68,9 +72,13 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
          * Получаем доступные слоты
          */
         @Step("{method} /" + ApiV2EndPoints.Shipments.SHIPPING_RATES)
-        public static Response GET(String shipmentNumber) {
+        public static Response GET(String shipmentNumber, String date) {
+            if (Objects.nonNull(date))
+                date = "date=" + date;
+            else
+                date = "";
             return givenWithAuth()
-                    .get(ApiV2EndPoints.Shipments.SHIPPING_RATES, shipmentNumber);
+                    .get(ApiV2EndPoints.Shipments.SHIPPING_RATES, shipmentNumber, date);
         }
     }
 }

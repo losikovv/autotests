@@ -27,6 +27,7 @@ import ru.instamart.kraken.util.ThreadUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -417,7 +418,7 @@ public final class InstamartApiHelper {
      */
     @Step("Получаем первый доступный слот")
     public DeliveryWindowV2 getAvailableDeliveryWindow() {
-        Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get());
+        Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), LocalDate.now().toString());
         checkStatusCode200(response);
 
         List<ShippingRateV2> shippingRates = response.as(ShippingRatesV2Response.class).getShippingRates();
@@ -635,7 +636,7 @@ public final class InstamartApiHelper {
      * Получить адрес доставки, зная только sid
      */
     @Step("Получаем адрес доставки по sid = {sid} магазина ")
-    AddressV2 getAddressBySid(int sid) {
+    public AddressV2 getAddressBySid(int sid) {
         currentSid.set(sid);
         Response response = StoresV2Request.GET(sid);
 

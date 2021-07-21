@@ -53,6 +53,22 @@ public final class StoresV2Request extends ApiV2RequestBase {
         }
     }
 
+    public static class NextDeliveries{
+
+        @Step("{method} /" + ApiV2EndPoints.Stores.NEXT_DELIVERIES)
+        public static Response GET(final int sid){
+            return givenWithAuth()
+                    .get(ApiV2EndPoints.Stores.NEXT_DELIVERIES, sid);
+        }
+
+        @Step("{method} /" + ApiV2EndPoints.Stores.NEXT_DELIVERIES)
+        public static Response GET(final int sid, Map<String, String> params){
+            return givenWithAuth()
+                    .params(params)
+                    .get(ApiV2EndPoints.Stores.NEXT_DELIVERIES, sid);
+        }
+    }
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @AllArgsConstructor
     @NoArgsConstructor
