@@ -54,4 +54,9 @@ public final class Checkbox extends Component {
         log.info("Uncheck {} with locator {}", getDescription(), getBy());
         getComponent().click();
     }
+
+    public Boolean checkboxState() {
+        log.info("Get {} state", getDescription());
+        return getComponent().isSelected();
+    }
 }

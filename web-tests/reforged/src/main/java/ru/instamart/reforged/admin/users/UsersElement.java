@@ -1,10 +1,7 @@
 package ru.instamart.reforged.admin.users;
 
 import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.Button;
-import ru.instamart.reforged.core.component.Element;
-import ru.instamart.reforged.core.component.Input;
-import ru.instamart.reforged.core.component.Link;
+import ru.instamart.reforged.core.component.*;
 
 public interface UsersElement {
 
@@ -26,8 +23,9 @@ public interface UsersElement {
         Input password = new Input(By.id("user_password"));
         Input passwordConfirmation = new Input(By.id("user_password_confirmation"));
         Input userComment = new Input(By.id("user_customer_comment"));
+        Checkbox roleAdminCheckbox = new Checkbox(By.xpath("//label[text()='Admin']/preceding-sibling::input[@type='checkbox']"));
+        Checkbox b2bUser = new Checkbox(By.id("user_b2b"));
 
-        //уточнить, случше искать по явному совпадению 2х классов или со совпадению одного класса
         Button saveChanges = new Button(By.xpath("//div[@data-hook='admin_user_edit_form_button']//button[@class='icon-refresh button']"));
     }
 }
