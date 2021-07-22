@@ -29,9 +29,8 @@ public class UserRegistrationTests extends BaseTest {
         shop().interactAuthModal().fillPhone("");
         shop().interactAuthModal().sendSms();
         shop().interactAuthModal().checkPhoneErrorIsVisible();
-        home().openSitePage(Config.DEFAULT_RETAILER);
-        shop().interactHeader().checkProfileButtonNotVisible();
-        shop().interactHeader().checkLoginIsVisible();
+        home().goToPage();
+        home().checkLoginButtonIsVisible();
     }
 
     @Skip

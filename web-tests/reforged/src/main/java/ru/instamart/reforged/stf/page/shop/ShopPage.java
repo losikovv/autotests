@@ -12,6 +12,7 @@ import ru.instamart.reforged.stf.frame.Address;
 import ru.instamart.reforged.stf.frame.ProductCard;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 import ru.instamart.reforged.stf.page.StfPage;
+import ru.instamart.reforged.stf.page.home.HomeElement;
 
 import static ru.instamart.reforged.stf.page.home.HomeElement.authModal;
 
