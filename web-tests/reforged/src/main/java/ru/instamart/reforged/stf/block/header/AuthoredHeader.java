@@ -6,7 +6,7 @@ import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.drawer.StoreSelector;
 import ru.instamart.reforged.stf.frame.Address;
 
-public final class AuthoredHeader implements AuthoredHeaderElement {
+public final class AuthoredHeader implements AuthoredHeaderCheck {
 
     public Cart interactCart() {
         return cartFrame;

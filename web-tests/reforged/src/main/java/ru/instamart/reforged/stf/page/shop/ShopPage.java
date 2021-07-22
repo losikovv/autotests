@@ -10,9 +10,16 @@ import ru.instamart.reforged.stf.drawer.CategoryMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.Address;
 import ru.instamart.reforged.stf.frame.ProductCard;
+import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 import ru.instamart.reforged.stf.page.StfPage;
 
+import static ru.instamart.reforged.stf.page.home.HomeElement.authModal;
+
 public final class ShopPage implements StfPage, ShopCheck {
+
+    public AuthModal interactAuthModal() {
+        return authModal;
+    }
 
     public AuthoredHeader interactHeader() {
         return header;

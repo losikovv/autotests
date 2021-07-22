@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.page.Window;
 import ru.instamart.reforged.stf.frame.Address;
-import ru.instamart.reforged.stf.frame.auth.AuthModal;
+import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 import ru.instamart.reforged.stf.page.StfPage;
 
 public final class HomePage implements StfPage, Window, HomeCheck {
