@@ -34,11 +34,11 @@ public final class UserManager {
     }
 
     public static UserData getUser() {
-        return generateData("ru.instamart.test.ui.user", 0);
+        return generateData("user", 0);
     }
 
     public static UserData getUser(final int prefix) {
-        return generateData("ru.instamart.test.ui.user", prefix);
+        return generateData("user", prefix);
     }
 
     public static UserData getAdmin() {

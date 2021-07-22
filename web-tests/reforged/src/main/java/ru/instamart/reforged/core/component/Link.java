@@ -4,6 +4,7 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import ru.instamart.kraken.setting.Config;
 import ru.instamart.reforged.core.Kraken;
 
 import static java.util.Objects.isNull;
@@ -46,8 +47,12 @@ public final class Link extends Component {
     }
 
     public void click() {
-        log.info("Click {} with locator {}", getDescription(), getBy());
-        getComponent().click();
+        if (Config.USE_JS_CLICK) {
+            jsClick();
+        } else {
+            log.info("Click {} with locator {}", getDescription(), getBy());
+            getComponent().click();
+        }
     }
 
     public String getText() {

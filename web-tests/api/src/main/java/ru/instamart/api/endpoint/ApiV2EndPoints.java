@@ -122,17 +122,18 @@ public final class ApiV2EndPoints {
 
     public static final class Shipments {
         public static final String SHIPMENTS= "v2/shipments/{shipmentNumber}";
-        public static final String DELIVERY_WINDOWS = "v2/shipments/{shipmentId}/delivery_windows/?date={date}";
+        public static final String DELIVERY_WINDOWS = "v2/shipments/{shipmentId}/delivery_windows/?{date}";
         public static final String LINE_ITEMS = "v2/shipments/{shipmentNumber}/line_items";
         public static final String LINE_ITEM_CANCELLATIONS = "v2/shipments/{shipmentNumber}/line_item_cancellations";
         public static final String LINE_ITEM_REPLACEMENTS = "v2/shipments/{shipmentNumber}/line_item_replacements";
         public static final String SERVICE_RATE = "v2/shipments/{shipmentNumber}/service_rate?{deliveryWindowId}";
-        public static final String SHIPPING_RATES = "v2/shipments/{shipmentNumber}/shipping_rates";
+        public static final String SHIPPING_RATES = "v2/shipments/{shipmentNumber}/shipping_rates?{date}";
     }
 
     public static final class Stores {
         public static final String BY_SID = "v2/stores/{sid}";
         public static final String HEALTH_CHECK = "v2/stores/{sid}/healthcheck";
+        public static final String NEXT_DELIVERIES = "v2/stores/{sid}/next_deliveries";
         public static final String PROMOTION_CARDS = "v2/stores/{sid}/promotion_cards";
     }
 

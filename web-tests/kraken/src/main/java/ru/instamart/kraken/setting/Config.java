@@ -18,11 +18,15 @@ public final class Config {
 
     public static int BASIC_TIMEOUT;
     public static int WAITING_TIMEOUT;
+    public static long POLLING_INTERVAL;
     public static String REMOTE_URL;
     public static boolean VIDEO;
     public static boolean VNC;
     public static boolean FULL_SCREEN_MODE;
     public static final boolean REST_IGNORE_PROPERTIES = true;
+
+    public static boolean USE_JS_CLICK;
+    public static boolean USE_JS_FILL;
 
     public static String QASE_API_TOKEN;
 
@@ -43,6 +47,7 @@ public final class Config {
 
         BASIC_TIMEOUT = coreSettings.getInt("basicTimeout", 2);
         WAITING_TIMEOUT = coreSettings.getInt("waitingTimeout", 30);
+        POLLING_INTERVAL = coreSettings.getLong("pollingInterval", 250);
         DEFAULT_SMS = coreSettings.getString("defaultSms","111111");
 
         REMOTE_URL = coreSettings.getString("remoteUrl", "http://localhost:4444/wd/hub");
@@ -52,6 +57,9 @@ public final class Config {
 
         // Запуск тестов на полном экране
         FULL_SCREEN_MODE = coreSettings.getBoolean("fullScreenMode", false);
+
+        USE_JS_CLICK = coreSettings.getBoolean("useJsClick", false);
+        USE_JS_FILL = coreSettings.getBoolean("useJsFill", false);
 
         QASE_API_TOKEN = coreSettings.getString("qaseApiToken", "");
     }

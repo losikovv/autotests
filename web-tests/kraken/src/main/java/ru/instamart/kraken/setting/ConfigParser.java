@@ -71,6 +71,21 @@ public final class ConfigParser {
         }
     }
 
+    public long getLong(final String key, final long defaultValue) {
+        final String value = getValue(key);
+        if (value == null) {
+            log.warn("[" + this.file.getName() + "] missing property for key: " + key + " using default value: " + defaultValue);
+            return defaultValue;
+        }
+
+        try {
+            return Long.parseLong(value);
+        } catch (NumberFormatException e) {
+            log.warn("[" + this.file.getName() + "] Invalid value specified for key: " + key + " specified value: " + value + " should be \"long\" using default value: " + defaultValue);
+            return defaultValue;
+        }
+    }
+
     private String getValue(final String key) {
         final String value = this.properties.getProperty(key);
         return value != null ? value.trim() : null;
