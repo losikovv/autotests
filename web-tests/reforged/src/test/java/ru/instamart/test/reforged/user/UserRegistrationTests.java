@@ -5,9 +5,10 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.listener.Skip;
+import ru.instamart.kraken.helper.KrakenAssert;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.Generate;
+import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -41,7 +42,12 @@ public class UserRegistrationTests extends BaseTest {
             groups = {"metro-acceptance","sbermarket-Ui-smoke","MRAutoCheck"}
     )
     public void successRegOnLanding() {
-
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().fillPhone(Generate.phoneNumber());
+        home().interactAuthModal().sendSms();
+        home().interactAuthModal().fillSMS(Config.DEFAULT_SMS);
+        shop().interactHeader().checkProfileButtonVisible();
     }
 
     @CaseId(1543)
@@ -54,7 +60,12 @@ public class UserRegistrationTests extends BaseTest {
             }
     )
     public void successRegOnMainPage() {
-
+        home().openSitePage(Config.DEFAULT_RETAILER);
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().fillPhone(Generate.phoneNumber());
+        shop().interactAuthModal().sendSms();
+        shop().interactAuthModal().fillSMS(Config.DEFAULT_SMS);
+        shop().interactHeader().checkProfileButtonVisible();
     }
 
     @CaseId(1542)
@@ -66,8 +77,14 @@ public class UserRegistrationTests extends BaseTest {
                     "sbermarket-regression","sbermarket-Ui-smoke"
             }
     )
-    public void successRegFromAddressModal() throws AssertionError {
-
+    public void successRegFromAddressModal() {
+        home().openSitePage(Config.DEFAULT_RETAILER);
+        shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().clickToLogin();
+        shop().interactAuthModal().fillPhone(Generate.phoneNumber());
+        shop().interactAuthModal().sendSms();
+        shop().interactAuthModal().fillSMS(Config.DEFAULT_SMS);
+        shop().interactHeader().checkProfileButtonVisible();
     }
 
     @CaseId(748)
@@ -81,6 +98,19 @@ public class UserRegistrationTests extends BaseTest {
             }
     )
     public void successRegFromCart() {
+        home().openSitePage(Config.DEFAULT_RETAILER);
+        shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().selectFirstAddress();
+        shop().interactAddress().checkAddressDropdownNotVisible();
+        shop().interactAddress().checkSaveButtonIsClickable();
+        shop().interactAddress().clickOnSave();
+        shop().plusFirstItemToCart();
+        shop().interactHeader().clickToCart();
+        while(shop().interactCart().checkMinSumAlertIsVisible()) {
+            shop().interactCart().increaseCount();
+        }
+        shop().interactCart().submitOrder();
 
     }
 

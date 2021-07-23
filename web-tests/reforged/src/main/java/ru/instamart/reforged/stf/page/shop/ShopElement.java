@@ -6,7 +6,7 @@ import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.stf.block.header.AuthoredHeader;
 import ru.instamart.reforged.stf.drawer.CategoryMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
-import ru.instamart.reforged.stf.frame.Address;
+import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.ProductCard;
 
 public interface ShopElement {

@@ -7,9 +7,14 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface AuthoredHeaderCheck extends Check, AuthoredHeaderElement {
 
-    @Step("Проверяем, что кнопка профиля не видна = юзер не залогинен")
+    @Step("Проверяем, что кнопка профиля не видна")
     default void checkProfileButtonNotVisible() {
         waitAction().shouldNotBeVisible(profile);
+    }
+
+    @Step("Проверяем, что кнопка профиля видна")
+    default void checkProfileButtonVisible() {
+        waitAction().shouldBeVisible(profile);
     }
 
     default void checkLoginIsVisible() {

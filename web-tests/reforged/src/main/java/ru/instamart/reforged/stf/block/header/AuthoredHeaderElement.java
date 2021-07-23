@@ -8,7 +8,7 @@ import ru.instamart.reforged.core.component.Link;
 import ru.instamart.reforged.stf.drawer.account_menu.AccountMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.drawer.StoreSelector;
-import ru.instamart.reforged.stf.frame.Address;
+import ru.instamart.reforged.stf.frame.address.Address;
 
 public interface AuthoredHeaderElement {
 

@@ -7,7 +7,9 @@ import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Link;
 import ru.instamart.reforged.stf.frame.ClearCart;
 
-public final class Cart implements CartElement {
+import static org.testng.Assert.assertTrue;
+
+public final class Cart implements CartCheck {
 
     @Step("Закрыть корзину")
     public void closeCart() {

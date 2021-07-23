@@ -8,11 +8,10 @@ import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.stf.block.header.AuthoredHeader;
 import ru.instamart.reforged.stf.drawer.CategoryMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
-import ru.instamart.reforged.stf.frame.Address;
+import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.ProductCard;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 import ru.instamart.reforged.stf.page.StfPage;
-import ru.instamart.reforged.stf.page.home.HomeElement;
 
 import static ru.instamart.reforged.stf.page.home.HomeElement.authModal;
 
