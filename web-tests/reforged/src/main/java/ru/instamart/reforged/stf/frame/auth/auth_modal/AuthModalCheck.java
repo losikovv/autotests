@@ -3,6 +3,7 @@ package ru.instamart.reforged.stf.frame.auth.auth_modal;
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
 
+import static org.testng.Assert.assertFalse;
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface AuthModalCheck extends Check, AuthModalElement {
@@ -11,4 +12,10 @@ public interface AuthModalCheck extends Check, AuthModalElement {
     default void checkPhoneErrorIsVisible() {
         waitAction().shouldBeVisible(phoneError);
     }
+
+    @Step("Проверяем, что кнопка получения смс недоступна")
+    default void checkSendSmsNotEnabled() {
+        assertFalse(waitAction().shouldBeVisible(sendSms).isEnabled());
+    }
+
 }

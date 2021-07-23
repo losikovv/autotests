@@ -7,6 +7,7 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -31,19 +32,6 @@ public class UserRegistrationTests extends BaseTest {
         shop().interactAuthModal().checkPhoneErrorIsVisible();
         home().goToPage();
         home().checkLoginButtonIsVisible();
-    }
-
-    @Skip
-    @CaseId(2044)
-    @Story("Регистрация на странице ретейлера")
-    @Test(
-            description = "Тест таймаута повторной отправки смс при быстром перелогине",
-            groups = {
-                    "sbermarket-Ui-smoke","sbermarket-regression"
-            }
-    )
-    public void timeOutForSendindSMS() {
-
     }
 
     @CaseId(1541)
