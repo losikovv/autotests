@@ -81,6 +81,10 @@ public final class ApiV2EndPoints {
         public static final String RESET = "v2/passwords/reset";
     }
 
+    public static final class Phones{
+        public static final String BY_ID = "v2/phones/{phoneId}";
+    }
+
     public static final class PhoneConfirmations {
         public static final String PHONE_NUMBER =
                 "v2/phone_confirmations/{phoneNumber}?" +

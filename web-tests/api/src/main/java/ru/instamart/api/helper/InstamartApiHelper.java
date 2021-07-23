@@ -1106,4 +1106,11 @@ public final class InstamartApiHelper {
     public void cancelActiveOrders() {
         getActiveOrders().forEach(order -> cancelOrder(order.getNumber()));
     }
+
+    @Step("Получаем дынные о номерах телефонов")
+    public PhonesV2Response getPhoneId() {
+        Response response = PhonesV2Request.GET();
+        checkStatusCode200(response);
+        return response.as(PhonesV2Response.class);
+    }
 }
