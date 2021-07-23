@@ -34,19 +34,19 @@ public final class UserManager {
     }
 
     public static UserData getUser() {
-        return generateData("user", 0);
+        return generateData(UserRoles.USER.getRole(), 0);
     }
 
     public static UserData getUser(final int prefix) {
-        return generateData("user", prefix);
+        return generateData(UserRoles.USER.getRole(), prefix);
     }
 
     public static UserData getAdmin() {
-        return generateData("admin", 0);
+        return generateData(UserRoles.ADMIN.getRole(), 0);
     }
 
     public static UserData getAdmin(final int prefix) {
-        return generateData("admin", prefix);
+        return generateData(UserRoles.ADMIN.getRole(), prefix);
     }
 
     public static JuridicalData juridical() {
