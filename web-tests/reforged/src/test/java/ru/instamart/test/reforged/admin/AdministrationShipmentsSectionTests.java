@@ -77,11 +77,10 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     }
 
 
-    //    @CaseId(173)
-    //TODO test is not finished
+    @CaseId(173)
     @Story("Тест на работоспособность фильтра ТЕЛЕФОН СОДЕРЖИТ")
     @Test(description = "Тест на работоспособность фильтра ТЕЛЕФОН СОДЕРЖИТ",
-            groups = {}
+            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void validateFilterPhoneShipmentsPage() {
         login().goToPage();
@@ -89,8 +88,35 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
         shipments().goToPage();
         shipments().checkPageTitle();
-//        shipments().setDateAndTimeFilterFromTableDefault();
-//        shipments().checkDateAndTimeShipmentsColumn();
+        String phone = shipments().getFirstPhoneFromTable();
+        shipments().setPhoneFilterFromTableDefault(phone);
+        shipments().applyFilterButton();
+        shipments().checkPhoneShipmentsColumn(phone);
+        //TODO После индексации БД нужно дописать тест добавить переход на последнюю страницу и калькуляцию
+        //и калькуляцию математики, соответствие количества заказов и страниц пейджера
+        // в 172 тест тоже это нужно вставить
+    }
+
+    @CaseId(174)
+    @Story("Тест на работоспособность мультифильтра")
+    @Test(description = "Тест на работоспособность мультифильтра",
+            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
+    )
+    public void validateMultiFiltersShipmentsPage() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        shipments().goToPage();
+        shipments().checkPageTitle();
+        String phone = shipments().getFirstPhoneFromTable();
+        String deliveryDate = shipments().getFirstDeliveryDateFromTable();
+        shipments().setPhoneAndDateFilterDefault(phone,deliveryDate);
+        shipments().applyFilterButton();
+        shipments().checkPhoneShipmentsColumn(phone);
+        shipments().checkDateAndTimeShipmentsColumn(deliveryDate);
+        //TODO После индексации БД нужно дописать тест добавить переход на последнюю страницу и калькуляцию
+        //и калькуляцию математики, соответствие количества заказов и страниц пейджера
+        // в 172 тест тоже это нужно вставить
     }
 
     // TODO test shipmentsTableNotEmptyByDefault

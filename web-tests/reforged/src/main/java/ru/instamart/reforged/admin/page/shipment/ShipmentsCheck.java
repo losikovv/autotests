@@ -1,7 +1,6 @@
 package ru.instamart.reforged.admin.page.shipment;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebElement;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 
@@ -61,10 +60,19 @@ public interface ShipmentsCheck extends Check, ShipmentsElement {
         waitAction().shouldNotBeVisible(firstPage);
     }
 
-    @Step("Проверяем, что колонка Дата и Время содержит только отфильтрованные значения {0}")
+    @Step("Проверяем, что колонка Дата и Время содержит только отфильтрованные значения: {0}")
     default void checkDateAndTimeShipmentsColumn(final String deliveryDate) {
         dateAndTimeColumn.getElements().forEach(element -> {
             krakenAssert.assertTrue(element.getText().contains(deliveryDate), "В колонке присутствует дата отличная от примененного фильтра");
+        });
+        krakenAssert.assertAll();
+    }
+
+    @Step("Проверяем, что колонка Куда содержит только отфильтрованные значения: {0}")
+    default void checkPhoneShipmentsColumn(final String phone) {
+        phoneColumn.getElements().forEach(element -> {
+            krakenAssert.assertTrue(element.getText().contains(phone),
+                    String.format("В колонке присутствует телефон отличный от примененного фильтра: {}", element.getText()));
         });
         krakenAssert.assertAll();
     }

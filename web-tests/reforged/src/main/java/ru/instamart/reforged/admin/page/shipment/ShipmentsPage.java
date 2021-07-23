@@ -56,7 +56,7 @@ public final class ShipmentsPage implements AdminPage, ShipmentsCheck {
         firstPage.click();
     }
 
-    @Step("Подставляем в фильтр Дата и Время доставки первое значение из таблицы заказов")
+    @Step("Подставляем в фильтр Дата и Время переданное значение: {0}")
     public void setDateAndTimeFilterFromTableDefault(String deliveryDate) {
         deliveryTimeFrom.fill(deliveryDate);
     }
@@ -71,6 +71,23 @@ public final class ShipmentsPage implements AdminPage, ShipmentsCheck {
         dateAndTimeFirstCell.mouseOver();
         String[] dateAndTime = dateAndTimeFirstCell.getText().split(" ");
         return dateAndTime[0].replace("с", "");
+    }
+
+    @Step("Получаем номер телефона из первой стройки таблицы с заказами")
+    public String getFirstPhoneFromTable() {
+        dateAndTimeFirstCell.mouseOver();
+        return phoneFirstCell.getText();
+    }
+
+    @Step("Подставляем в фильтр телефон переданное значение: {0}")
+    public void setPhoneFilterFromTableDefault(String phone) {
+        phoneNumberContains.fill(phone);
+    }
+
+    @Step("Подставляем в фильтр телефон и дата переданные значения: {0}, {1}")
+    public void setPhoneAndDateFilterDefault(String phone, String date) {
+        phoneNumberContains.fill(phone);
+        deliveryTimeFrom.fill(date);
     }
 
     @Override
