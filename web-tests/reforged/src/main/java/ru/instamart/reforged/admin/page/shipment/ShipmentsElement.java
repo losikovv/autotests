@@ -30,7 +30,7 @@ public interface ShipmentsElement {
     Input weightFrom = new Input(By.id("search_total_weight_st"));
     Input weightTo = new Input(By.id("search_total_weight_end"));
     Input completedOnly = new Input(By.id("search_only_completed"));
-    Input b2bOnly = new Input(By.id("search_only_b2b"));
+    Checkbox b2bOnly = new Checkbox(By.id("search_only_b2b"));
     Input metroOnly = new Input(By.id("search_tenant"));
     Input deliveryChangedOnly = new Input(By.id("search_delivery_window_changed"));
     Button applyFilterButton = new Button(By.xpath("//button[@class='icon-search button']"));

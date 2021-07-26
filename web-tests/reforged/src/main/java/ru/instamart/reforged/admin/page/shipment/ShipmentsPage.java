@@ -73,6 +73,11 @@ public final class ShipmentsPage implements AdminPage, ShipmentsCheck {
         return dateAndTime[0].replace("с", "");
     }
 
+    @Step("Выбрать фильтр только B2B клиенты")
+    public void setB2BOrders() {
+        b2bOnly.check();
+    }
+
     @Override
     public String pageUrl() {
         return "shipments";

@@ -11,10 +11,10 @@ import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.reforged.admin.page.usersEdit.UsersEditPage;
 import ru.instamart.test.reforged.BaseTest;
 
-import static ru.instamart.reforged.admin.AdminRout.login;
-import static ru.instamart.reforged.admin.AdminRout.shipments;
+import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
 @Feature("Управление заказами")
@@ -158,6 +158,38 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         helper.auth(userData);
 
         final OrderV2 orderV2 = helper.makeOrder(userData, EnvironmentData.INSTANCE.getDefaultSid(), 3);
+
+        //TODO: Заказ появляется в админке с задержкой рандомной
+    }
+
+    @Story("Тест поиска B2B заказа после снятия признака B2B")
+    @Test(description = "Тест поиска B2B заказа в админке",
+            groups = {"Тест поиска B2B заказа после снятия признака B2B"}
+    )
+    public void successSearchB2BOrderAfterRevokeB2BRole() {
+        final ApiHelper helper = new ApiHelper();
+        final UserData userData = UserManager.getUser();
+        final UsersEditPage usersEdit = new UsersEditPage();
+        helper.auth(userData);
+
+        users().goToPage();
+        users().fillSearchByPhoneNumber(userData.getPhone());
+        users().clickToSearch();
+        users().clickToEditUser();
+
+        usersEdit.setB2BUser();
+        usersEdit.clickToSave();
+
+        usersEdit.unsetB2BUser();
+        usersEdit.clickToSave();
+
+        shipments().goToPage();
+        shipments().setB2BOrders();
+        shipments().setShipmentOrOrderNumber("H03153077634");
+        shipments().search();
+
+
+        //final OrderV2 orderV2 = helper.makeOrder(userData, EnvironmentData.INSTANCE.getDefaultSid(), 3);
 
         //TODO: Заказ появляется в админке с задержкой рандомной
     }

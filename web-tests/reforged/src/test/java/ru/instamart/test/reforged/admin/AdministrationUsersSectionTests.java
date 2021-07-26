@@ -9,6 +9,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.reforged.admin.page.usersEdit.UsersEditPage;
 import ru.instamart.reforged.core.service.KrakenDriver;
 import ru.instamart.test.reforged.BaseTest;
 
@@ -20,6 +21,7 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 public class AdministrationUsersSectionTests extends BaseTest {
 
     final ApiHelper helper = new ApiHelper();
+    final UsersEditPage usersEdit = new UsersEditPage();
 
     @CaseId(31)
     @Story("Тест поиска пользователя в админке")
@@ -35,7 +37,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
 
         users().goToPage();
         users().fillSearchByEmail(email);
-        users().clickToSubmit();
+        users().clickToSearch();
         users().checkFoundUserEmail(users().getFoundUserEmail(), email);
     }
 
@@ -57,14 +59,15 @@ public class AdministrationUsersSectionTests extends BaseTest {
 
         users().goToPage();
         users().fillSearchByPhoneNumber(phoneNumber);
-        users().clickToSubmit();
+        users().clickToSearch();
         users().clickToEditUser();
-        users().clearUserEmail();
-        users().fillUserEmail(email);
-        users().fillPassword(password);
-        users().fillPasswordConfirmation(password);
-        users().checkAdminRole();
-        users().clickToSaveUserProfileChanges();
+
+        usersEdit.clearUserEmail();
+        usersEdit.fillUserEmail(email);
+        usersEdit.fillPassword(password);
+        usersEdit.fillPasswordConfirmation(password);
+        usersEdit.checkAdminRole();
+        usersEdit.clickToSave();
         main().doLogout();
 
         login().goToPage();
@@ -80,10 +83,11 @@ public class AdministrationUsersSectionTests extends BaseTest {
 
         users().goToPage();
         users().fillSearchByPhoneNumber(phoneNumber);
-        users().clickToSubmit();
+        users().clickToSearch();
         users().clickToEditUser();
-        users().checkAdminRole();
-        users().clickToSaveUserProfileChanges();
+
+        usersEdit.uncheckAdminRole();
+        usersEdit.clickToSave();
         main().doLogout();
 
         login().goToPage();
@@ -111,13 +115,14 @@ public class AdministrationUsersSectionTests extends BaseTest {
 
         users().goToPage();
         users().fillSearchByPhoneNumber(phoneNumber);
-        users().clickToSubmit();
+        users().clickToSearch();
         users().clickToEditUser();
-        users().clearUserEmail();
-        users().fillUserEmail(email);
 
-        users().clickToSaveUserProfileChanges();
-        users().checkEditUserEmail(users().getEditUserEmail(), email);
+        usersEdit.clearUserEmail();
+        usersEdit.fillUserEmail(email);
+
+        usersEdit.clickToSave();
+        usersEdit.checkEditUserEmail(usersEdit.getEditUserEmail(), email);
     }
 
     @CaseId(34)
@@ -137,17 +142,18 @@ public class AdministrationUsersSectionTests extends BaseTest {
 
         users().goToPage();
         users().fillSearchByPhoneNumber(phoneNumber);
-        users().clickToSubmit();
+        users().clickToSearch();
         users().clickToEditUser();
-        users().setB2BUser();
-        users().clickToSaveUserProfileChanges();
-        KrakenDriver.refresh();
-        users().checkB2BIsSelected();
 
-        users().unsetB2BUser();
-        users().clickToSaveUserProfileChanges();
+        usersEdit.setB2BUser();
+        usersEdit.clickToSave();
+        KrakenDriver.refresh();
+        usersEdit.checkB2BIsSelected();
+
+        usersEdit.unsetB2BUser();
+        usersEdit.clickToSave();
         KrakenDriver.refresh();
 
-        users().checkB2BIsNotSelected();
+        usersEdit.checkB2BIsNotSelected();
     }
 }
