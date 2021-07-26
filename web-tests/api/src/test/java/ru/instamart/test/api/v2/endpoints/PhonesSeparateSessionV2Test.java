@@ -88,7 +88,7 @@ public class PhonesSeparateSessionV2Test extends RestBase {
     @CaseId(441)
     @Story("Добавить новый телефон")
     @Test(groups = {"api-instamart-regress"},
-            description = "Добавить новый телефон с существующим id")
+            description = "Добавить новый телефон с валидным phone[value]")
     public void addPhones200() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
         Map<String, String> params = new HashMap<>();
