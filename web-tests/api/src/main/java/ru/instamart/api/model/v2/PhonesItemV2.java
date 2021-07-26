@@ -12,5 +12,5 @@ public class PhonesItemV2 extends BaseObject {
     private String code;
     @JsonProperty("human_number")
     private String humanNumber;
-    private int id;
+    private Integer id;
 }
