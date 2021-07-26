@@ -140,7 +140,7 @@ public class PhonesV2Test extends RestBase {
     @CaseId(442)
     @Story("Добавить новый телефон")
     @Test(groups = {"api-instamart-regress"},
-            description = "Добавить новый телефон с несуществующим id")
+            description = "Добавить новый телефон с невалидным phone[value]")
     public void addPhones404() {
         Map<String, String> params = new HashMap<>();
         params.put("phone[value]", "invalidPhoneNumber");
