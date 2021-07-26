@@ -55,6 +55,16 @@ public final class AuthModal implements Close, AuthModalCheck {
         forBusiness.uncheck();
     }
 
+    @Step("Поставить отметку получения рассылки")
+    public void checkPromoMailing() {
+        promo.check();
+    }
+
+    @Step("Убрать отметку получения рассылки")
+    public void uncheckPromoMailing() {
+        promo.uncheck();
+    }
+
     @Step("Заполнить поле с sms {sms}")
     public void fillSMS(final String sms) {
         smsInput.fill(sms);

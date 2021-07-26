@@ -121,6 +121,12 @@ public class UserRegistrationTests extends BaseTest {
             groups = {"sbermarket-Ui-smoke"}
     )
     public void successRegWithoutMailingCheckbox() {
-
+        home().openSitePage(Config.DEFAULT_RETAILER);
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().uncheckPromoMailing();
+        shop().interactAuthModal().fillPhone(Generate.phoneNumber());
+        shop().interactAuthModal().sendSms();
+        shop().interactAuthModal().fillSMS(Config.DEFAULT_SMS);
+        shop().interactHeader().checkProfileButtonVisible();
     }
 }
