@@ -35,6 +35,8 @@
             <class name="ru.instamart.test.api.v2.endpoints.OrdersV2Test"/>
 <!--            <class name="ru.instamart.test.api.v2.endpoints.OrdersComplexCollectV2Test"/>-->
             <class name="ru.instamart.test.api.v2.endpoints.PaymentToolsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.PhonesSeparateSessionV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.PhonesV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.PhoneConfirmationsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.ProductsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.PromotionLimitV2Test"/>
