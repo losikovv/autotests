@@ -99,6 +99,6 @@ public class PhonesSeparateSessionV2Test extends RestBase {
         PhoneV2Response phoneV2Response = response.as(PhoneV2Response.class);
         assertNotNull(phoneV2Response.getPhone(), "response is empty");
         response = PhonesV2Request.GET();
-        assertEquals(response.as(PhonesV2Response.class).getPhones().size(), 2, "Количество телефонов телефонов не равно 2");
+        assertEquals(response.as(PhonesV2Response.class).getPhones().size(), 2, "Количество телефонов не равно 2");
     }
 }
