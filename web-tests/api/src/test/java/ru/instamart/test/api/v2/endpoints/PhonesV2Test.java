@@ -134,6 +134,7 @@ public class PhonesV2Test extends RestBase {
             description = "Удалить телефон пользователя с несуществующим id")
     public void deletePhones404() {
         response = PhonesV2Request.PhonesById.DELETE("invalidPhoneId");
+        checkStatusCode404(response);
         check.errorAssert(response,  "translation missing: ru.activerecord.models.spree/phone не существует");
     }
 
@@ -145,6 +146,7 @@ public class PhonesV2Test extends RestBase {
         Map<String, String> params = new HashMap<>();
         params.put("phone[value]", "invalidPhoneNumber");
         response = PhonesV2Request.POST(params);
-        check.errorAssert(response, "является недействительным номером");
+        checkStatusCode422(response);
+        check.errorValueAssert(response, "является недействительным номером");
     }
 }
