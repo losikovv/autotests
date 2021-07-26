@@ -24,6 +24,21 @@ public class BaseApiCheckpoints {
         log.info("Success");
     }
 
+
+    @Step("Проверка правильного error сообщения")
+    public void errorValueAssert(Response response, String textError) {
+        log.info("Check error message: {} with response", textError);
+        ErrorResponse error = response.as(ErrorResponse.class);
+        krakenAssert.assertEquals(error.getErrors().getValue(), textError);
+        krakenAssert.assertEquals(error.getErrorMessages().get(0).getField(), "value");
+        krakenAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), textError);
+        krakenAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), textError);
+        krakenAssert.assertAll();
+        log.info("Success");
+    }
+
+
+
     @Step("Проверка на существования сообщения об ошибке")
     public void errorTextIsNotEmpty(Response response){
         ErrorResponse error = response.as(ErrorResponse.class);

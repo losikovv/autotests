@@ -13,4 +13,5 @@ public class ErrorsV2 extends BaseObject {
     private String shipments;
     private String base;
     private String payments;
+    private String value;
 }

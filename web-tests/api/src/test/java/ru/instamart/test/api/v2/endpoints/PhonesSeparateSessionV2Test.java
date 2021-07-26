@@ -12,6 +12,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.helper.RegistrationHelper;
 import ru.instamart.api.model.v2.PhonesItemV2;
 import ru.instamart.api.request.v2.PhonesV2Request;
+import ru.instamart.api.response.v2.PhoneV2Response;
 import ru.instamart.api.response.v2.PhonesV2Response;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.TestVariables;
@@ -24,7 +25,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 
 @Epic("ApiV2")
 @Feature("Телефоны пользователей")
-public class PhonesNotFoundV2Test extends RestBase {
+public class PhonesSeparateSessionV2Test extends RestBase {
     private BaseApiCheckpoints check = new BaseApiCheckpoints();
 
     @CaseId(433)
@@ -66,5 +67,18 @@ public class PhonesNotFoundV2Test extends RestBase {
         response = PhonesV2Request.PhonesById.GET(Integer.toString(phone.getId()));
         checkStatusCode403(response);
         check.errorAssert(response, "Пользователь не может выполнить это действие");
+    }
+
+    @CaseId(447)
+    @Story("Удалить телефон пользователя")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Удалить телефон пользователя с существующим id")
+    public void deletePhones200() {
+        SessionFactory.makeSession(SessionType.API_V2_FB);
+        PhonesItemV2 phone = apiV2.getPhoneId().getPhones().get(0);
+        response = PhonesV2Request.PhonesById.DELETE(phone.getId().toString());
+        checkStatusCode200(response);
+        PhoneV2Response phoneV2Response = response.as(PhoneV2Response.class);
+        assertEquals(phoneV2Response.getPhone(), phone, "phone mismatch");
     }
 }
