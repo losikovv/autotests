@@ -61,11 +61,6 @@ public final class ShipmentsPage implements AdminPage, ShipmentsCheck {
         deliveryTimeFrom.fill(deliveryDate);
     }
 
-    @Step("Нажать кнопку применить фильтр")
-    public void applyFilterButton() {
-        applyFilterButton.click();
-    }
-
     @Step("Получаем дату доставки из первой стройки таблицы с заказами")
     public String getFirstDeliveryDateFromTable() {
         dateAndTimeFirstCell.mouseOver();
@@ -84,10 +79,20 @@ public final class ShipmentsPage implements AdminPage, ShipmentsCheck {
         phoneNumberContains.fill(phone);
     }
 
-    @Step("Подставляем в фильтр телефон и дата переданные значения: {0}, {1}")
+    @Step("Подставляем в фильтры телефон и дата переданные значения: {0}, {1}")
     public void setPhoneAndDateFilterDefault(String phone, String date) {
         phoneNumberContains.fill(phone);
         deliveryTimeFrom.fill(date);
+    }
+
+    @Step("Получаем количество найденных заказов")
+    public String getNumberOfShipments() {
+        return FoundShipments.getText().replace("НАЙДЕНО ЗАКАЗОВ: ", "");
+    }
+
+    @Step("Получаем количество страниц пейджера после применения фильтра")
+    public String getNumberOfPagesAfterFiltration(final String numberOfShipments) {
+        return String.valueOf((Integer.valueOf(numberOfShipments) + 50 - 1) / 50);
     }
 
     @Override

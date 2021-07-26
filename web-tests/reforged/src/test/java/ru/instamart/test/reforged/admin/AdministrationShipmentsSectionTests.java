@@ -20,6 +20,8 @@ import static ru.instamart.reforged.admin.AdminRout.shipments;
 @Feature("Управление заказами")
 public final class AdministrationShipmentsSectionTests extends BaseTest {
 
+    //TODO продумать функцию предусловие для заполнения бд заказами
+
     @Skip
     @CaseId(175)
     @Story("Тест на корректное отображение элементов страницы со списком заказов в админке")
@@ -72,7 +74,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().checkPageTitle();
         String deliveryDate = shipments().getFirstDeliveryDateFromTable();
         shipments().setDateAndTimeFilterFromTableDefault(deliveryDate);
-        shipments().applyFilterButton();
+        shipments().search();
         shipments().checkDateAndTimeShipmentsColumn(deliveryDate);
     }
 
@@ -90,11 +92,8 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().checkPageTitle();
         String phone = shipments().getFirstPhoneFromTable();
         shipments().setPhoneFilterFromTableDefault(phone);
-        shipments().applyFilterButton();
+        shipments().search();
         shipments().checkPhoneShipmentsColumn(phone);
-        //TODO После индексации БД нужно дописать тест добавить переход на последнюю страницу и калькуляцию
-        //и калькуляцию математики, соответствие количества заказов и страниц пейджера
-        // в 172 тест тоже это нужно вставить
     }
 
     @CaseId(174)
@@ -110,13 +109,52 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().checkPageTitle();
         String phone = shipments().getFirstPhoneFromTable();
         String deliveryDate = shipments().getFirstDeliveryDateFromTable();
-        shipments().setPhoneAndDateFilterDefault(phone,deliveryDate);
-        shipments().applyFilterButton();
+        shipments().setPhoneAndDateFilterDefault(phone, deliveryDate);
+        shipments().search();
         shipments().checkPhoneShipmentsColumn(phone);
         shipments().checkDateAndTimeShipmentsColumn(deliveryDate);
-        //TODO После индексации БД нужно дописать тест добавить переход на последнюю страницу и калькуляцию
-        //и калькуляцию математики, соответствие количества заказов и страниц пейджера
-        // в 172 тест тоже это нужно вставить
+    }
+
+    @CaseId(1224)
+    @Story("Тест на проверку изменения количества заказов после применения фильтра, без пейджера")
+    @Test(description = "Тест на проверку изменения количества заказов после применения фильтра, без пейджера",
+            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
+    )
+    public void validateShipmentsAfterFiltrationWOTPager() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        shipments().goToPage();
+        shipments().checkPageTitle();
+        String shipmentsBeforeFiltration = shipments().getNumberOfShipments();
+        String shipment = shipments().getShipmentNumber();
+        shipments().setShipmentOrOrderNumber(shipment);
+        shipments().search();
+        String shipmentsAfterFiltration = shipments().getNumberOfShipments();
+        shipments().checkNumberOfShipmentsAfterFiltration(shipmentsBeforeFiltration, shipmentsAfterFiltration);
+        shipments().checkLastPagePager();
+    }
+
+    @CaseId(1225)
+    @Story("Тест на проверку изменения количества заказов после применения фильтра, с пейджером")
+    @Test(description = "Тест на проверку изменения количества заказов после применения фильтра, с пейджером",
+            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
+    )
+    public void validateShipmentsAfterFiltrationWithPager() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        shipments().goToPage();
+        shipments().checkPageTitle();
+        String shipmentsBeforeFiltration = shipments().getNumberOfShipments();
+        String phone = shipments().getFirstPhoneFromTable();
+        shipments().setPhoneFilterFromTableDefault(phone);
+        shipments().search();
+        String shipmentsAfterFiltration = shipments().getNumberOfShipments();
+        String pages = shipments().getNumberOfPagesAfterFiltration(shipmentsAfterFiltration);
+        shipments().checkNumberOfShipmentsAfterFiltration(shipmentsBeforeFiltration, shipmentsAfterFiltration);
+        shipments().lastPageClick();
+        shipments().checkCurrentPageNumber(pages);
     }
 
     // TODO test shipmentsTableNotEmptyByDefault
