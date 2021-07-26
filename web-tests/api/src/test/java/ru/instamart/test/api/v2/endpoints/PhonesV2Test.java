@@ -73,7 +73,7 @@ public class PhonesV2Test extends RestBase {
 
     @CaseId(443)
     @Story("Обновить телефон пользователя")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Обновить телефон пользователя по существующему id")
     public void updatePhone400() {
         Integer phoneId = apiV2.getPhoneId().getPhones().get(0).getId();
@@ -85,7 +85,7 @@ public class PhonesV2Test extends RestBase {
 
     @CaseId(444)
     @Story("Обновить телефон пользователя")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Обновить телефон пользователя по несуществующему id")
     public void updatePhone404() {
         Map<String, String> params = new HashMap<>();
@@ -97,7 +97,7 @@ public class PhonesV2Test extends RestBase {
 
     @CaseId(445)
     @Story("Обновить телефон пользователя")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Обновить телефон пользователя по существующему id")
     public void updatePhone200() {
         PhonesItemV2 phone = apiV2.getPhoneId().getPhones().get(0);
@@ -117,14 +117,13 @@ public class PhonesV2Test extends RestBase {
 
     @CaseId(446)
     @Story("Обновить телефон пользователя")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Обновить телефон пользователя по существующему id")
     public void updatePhone20() {
         PhonesItemV2 phone = apiV2.getPhoneId().getPhones().get(0);
         Map<String, String> params = new HashMap<>();
         params.put("phone[value]", "invalidPhoneNumber");
         response = PhonesV2Request.PhonesById.PUT(phone.getId().toString(), params);
-        response.prettyPeek();
         checkStatusCode422(response);
         check.errorValueAssert(response, "является недействительным номером");
     }
@@ -136,5 +135,16 @@ public class PhonesV2Test extends RestBase {
     public void deletePhones404() {
         response = PhonesV2Request.PhonesById.DELETE("invalidPhoneId");
         check.errorAssert(response,  "translation missing: ru.activerecord.models.spree/phone не существует");
+    }
+
+    @CaseId(442)
+    @Story("Добавить новый телефон")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Добавить новый телефон с невалидным phone[value]")
+    public void addPhones404() {
+        Map<String, String> params = new HashMap<>();
+        params.put("phone[value]", "invalidPhoneNumber");
+        response = PhonesV2Request.POST(params);
+        check.errorAssert(response, "является недействительным номером");
     }
 }

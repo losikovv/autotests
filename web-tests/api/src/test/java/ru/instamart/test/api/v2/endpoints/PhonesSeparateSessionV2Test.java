@@ -19,7 +19,10 @@ import ru.instamart.kraken.testdata.TestVariables;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserRoles;
 
-import static org.testng.Assert.assertEquals;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode403;
 
@@ -80,5 +83,22 @@ public class PhonesSeparateSessionV2Test extends RestBase {
         checkStatusCode200(response);
         PhoneV2Response phoneV2Response = response.as(PhoneV2Response.class);
         assertEquals(phoneV2Response.getPhone(), phone, "phone mismatch");
+    }
+
+    @CaseId(441)
+    @Story("Добавить новый телефон")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Добавить новый телефон с валидным phone[value]")
+    public void addPhones200() {
+        SessionFactory.makeSession(SessionType.API_V2_FB);
+        Map<String, String> params = new HashMap<>();
+        String newPhone = Generate.phoneNumber();
+        params.put("phone[value]", newPhone);
+        response = PhonesV2Request.POST(params);
+        checkStatusCode200(response);
+        PhoneV2Response phoneV2Response = response.as(PhoneV2Response.class);
+        assertNotNull(phoneV2Response.getPhone(), "response is empty");
+        response = PhonesV2Request.GET();
+        assertEquals(response.as(PhonesV2Response.class).getPhones().size(), 2, "Количество телефонов не равно 2");
     }
 }
