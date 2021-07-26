@@ -20,7 +20,6 @@ public class PhoneNumberHelper {
 
         } catch (ParseException e) {
             log.error("Ошибка валидации номера телефона. ", e);
-            e.printStackTrace();
         }
         return null;
     }
