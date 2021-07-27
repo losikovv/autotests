@@ -3,7 +3,10 @@ plugins {
     id 'io.qameta.allure' version '2.8.1'
 }
 
-apply from: 'reforged-task.gradle'
+apply from: 'stf-task.gradle'
+apply from: 'admin-task.gradle'
+apply from: 'tenant-task.gradle'
+apply from: 'task.gradle'
 
 allure {
     version = versions.allure
