@@ -92,13 +92,13 @@ public class PhonesSeparateSessionV2Test extends RestBase {
     public void addPhones200() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
         Map<String, String> params = new HashMap<>();
-        String newPhone = Generate.phoneNumber();
-        params.put("phone[value]", newPhone);
+        params.put("phone[value]", Generate.phoneNumber());
         response = PhonesV2Request.POST(params);
         checkStatusCode200(response);
         PhoneV2Response phoneV2Response = response.as(PhoneV2Response.class);
         assertNotNull(phoneV2Response.getPhone(), "response is empty");
         response = PhonesV2Request.GET();
+        checkStatusCode200(response);
         assertEquals(response.as(PhonesV2Response.class).getPhones().size(), 2, "Количество телефонов не равно 2");
     }
 }

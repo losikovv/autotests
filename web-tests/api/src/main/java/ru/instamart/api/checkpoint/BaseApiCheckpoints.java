@@ -5,42 +5,40 @@ import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.response.ErrorResponse;
-import ru.instamart.kraken.helper.KrakenAssert;
 
 @Slf4j
 public class BaseApiCheckpoints {
 
-    private final KrakenAssert krakenAssert = new KrakenAssert();
-
-    @Step("Проверка правильного error сообщения")
+    @Step("Проверка правильного error сообщения. Type = base")
     public void errorAssert(Response response, String textError) {
+        final SoftAssert softAssert = new SoftAssert();
         log.info("Check error message: {} with response", textError);
         ErrorResponse error = response.as(ErrorResponse.class);
-        krakenAssert.assertEquals(error.getErrors().getBase(), textError);
-        krakenAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
-        krakenAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), textError);
-        krakenAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), textError);
-        krakenAssert.assertAll();
+        softAssert.assertEquals(error.getErrors().getBase(), textError);
+        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), textError);
+        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), textError);
+        softAssert.assertAll();
         log.info("Success");
     }
 
 
-    @Step("Проверка правильного error сообщения")
+    @Step("Проверка правильного error сообщения. Type = value")
     public void errorValueAssert(Response response, String textError) {
+        final SoftAssert softAssert = new SoftAssert();
         log.info("Check error message: {} with response", textError);
         ErrorResponse error = response.as(ErrorResponse.class);
-        krakenAssert.assertEquals(error.getErrors().getValue(), textError);
-        krakenAssert.assertEquals(error.getErrorMessages().get(0).getField(), "value");
-        krakenAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), textError);
-        krakenAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), textError);
-        krakenAssert.assertAll();
+        softAssert.assertEquals(error.getErrors().getValue(), textError);
+        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "value");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), textError);
+        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), textError);
+        softAssert.assertAll();
         log.info("Success");
     }
-
 
 
     @Step("Проверка на существования сообщения об ошибке")
-    public void errorTextIsNotEmpty(Response response){
+    public void errorTextIsNotEmpty(Response response) {
         ErrorResponse error = response.as(ErrorResponse.class);
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertFalse(error.getErrors().getBase().isEmpty());
