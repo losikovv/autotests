@@ -1,9 +1,9 @@
 package ru.instamart.reforged.admin.page.shipment;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebElement;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
+import ru.instamart.reforged.core.Kraken;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -61,11 +61,27 @@ public interface ShipmentsCheck extends Check, ShipmentsElement {
         waitAction().shouldNotBeVisible(firstPage);
     }
 
-    @Step("Проверяем, что колонка Дата и Время содержит только отфильтрованные значения {0}")
+    @Step("Проверяем, что колонка Дата и Время содержит только отфильтрованные значения: {0}")
     default void checkDateAndTimeShipmentsColumn(final String deliveryDate) {
         dateAndTimeColumn.getElements().forEach(element -> {
             krakenAssert.assertTrue(element.getText().contains(deliveryDate), "В колонке присутствует дата отличная от примененного фильтра");
         });
+        krakenAssert.assertAll();
+    }
+
+    @Step("Проверяем, что колонка Куда содержит только отфильтрованные значения: {0}")
+    default void checkPhoneShipmentsColumn(final String phone) {
+        phoneColumn.getElements().forEach(element -> {
+            krakenAssert.assertTrue(element.getText().contains(phone),
+                    String.format("В колонке присутствует телефон отличный от примененного фильтра: {}", element.getText()));
+        });
+        krakenAssert.assertAll();
+    }
+
+    @Step("Проверяем, что количество заказов до фильтрации: {0}, отличается от количества заказов после фильтрации: {1}")
+    default void checkNumberOfShipmentsAfterFiltration(final String beforeFiltration, final String afterFiltration) {
+        krakenAssert.assertNotEquals(beforeFiltration, afterFiltration,
+                "после применения фильтра количество заказов не изменилось");
         krakenAssert.assertAll();
     }
 }
