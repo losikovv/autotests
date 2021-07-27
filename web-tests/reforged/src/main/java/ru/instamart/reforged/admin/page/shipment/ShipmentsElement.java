@@ -60,6 +60,17 @@ public interface ShipmentsElement {
 
     ElementCollection dateAndTimeColumn = new ElementCollection(
             By.xpath("//th[text()='Дата и время доставки']//following::a[contains(@href,'delivery_windows')]"),
-            "дата и время доставки из первой ячейки в таблице");
+            "список всех дат и времен доставки из колонки после фильтрации");
 
+    Element phoneFirstCell = new Element(
+            By.xpath("//th[text()='Куда']//following::div[@class='where-to__phone with-tip'] [1]"),
+            "телефон клиента из первой ячейки в таблице");
+
+    ElementCollection phoneColumn = new ElementCollection(
+            By.xpath("//table/tbody/tr/td[count(//table/thead/tr/th[.='Куда']/preceding-sibling::th)+1]"),
+            "список всех телефонов из колонки после фильтрации");
+
+    Element foundShipments = new Element(
+            By.xpath("//div[contains(text(),'Найдено заказов:')]"),
+            "элемент с количеством найденных заказов");
 }

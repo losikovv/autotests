@@ -15,6 +15,12 @@ public final class PhonesV2Request extends ApiV2RequestBase {
                 .get(ApiV2EndPoints.PHONES);
     }
 
+    public static Response POST(Map<String, String> params){
+        return givenWithAuth()
+                .params(params)
+                .post(ApiV2EndPoints.PHONES);
+    }
+
     public static class PhonesById {
         @Step("{method} /" + ApiV2EndPoints.Phones.BY_ID)
         public static Response GET(String phoneId) {

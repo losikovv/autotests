@@ -56,14 +56,9 @@ public final class ShipmentsPage implements AdminPage, ShipmentsCheck {
         firstPage.click();
     }
 
-    @Step("Подставляем в фильтр Дата и Время доставки первое значение из таблицы заказов")
+    @Step("Подставляем в фильтр Дата и Время переданное значение: {0}")
     public void setDateAndTimeFilterFromTableDefault(String deliveryDate) {
         deliveryTimeFrom.fill(deliveryDate);
-    }
-
-    @Step("Нажать кнопку применить фильтр")
-    public void applyFilterButton() {
-        applyFilterButton.click();
     }
 
     @Step("Получаем дату доставки из первой стройки таблицы с заказами")
@@ -71,6 +66,33 @@ public final class ShipmentsPage implements AdminPage, ShipmentsCheck {
         dateAndTimeFirstCell.mouseOver();
         String[] dateAndTime = dateAndTimeFirstCell.getText().split(" ");
         return dateAndTime[0].replace("с", "");
+    }
+
+    @Step("Получаем номер телефона из первой стройки таблицы с заказами")
+    public String getFirstPhoneFromTable() {
+        dateAndTimeFirstCell.mouseOver();
+        return phoneFirstCell.getText();
+    }
+
+    @Step("Подставляем в фильтр телефон переданное значение: {0}")
+    public void setPhoneFilterFromTableDefault(String phone) {
+        phoneNumberContains.fill(phone);
+    }
+
+    @Step("Подставляем в фильтры телефон и дата переданные значения: {0}, {1}")
+    public void setPhoneAndDateFilterDefault(String phone, String date) {
+        phoneNumberContains.fill(phone);
+        setDateAndTimeFilterFromTableDefault(date);
+    }
+
+    @Step("Получаем количество найденных заказов")
+    public String getNumberOfShipments() {
+        return foundShipments.getText().replace("НАЙДЕНО ЗАКАЗОВ: ", "");
+    }
+
+    @Step("Получаем количество страниц пейджера после применения фильтра")
+    public String getNumberOfPagesAfterFiltration(final String numberOfShipments) {
+        return String.valueOf((Integer.valueOf(numberOfShipments) + 50 - 1) / 50);
     }
 
     @Step("Выбрать фильтр только B2B клиенты")
