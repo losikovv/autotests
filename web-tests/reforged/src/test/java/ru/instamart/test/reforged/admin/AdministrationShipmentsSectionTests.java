@@ -78,7 +78,6 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().checkDateAndTimeShipmentsColumn(deliveryDate);
     }
 
-
     @CaseId(173)
     @Story("Тест на работоспособность фильтра ТЕЛЕФОН СОДЕРЖИТ")
     @Test(description = "Тест на работоспособность фильтра ТЕЛЕФОН СОДЕРЖИТ",
@@ -87,7 +86,6 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     public void validateFilterPhoneShipmentsPage() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
-
         shipments().goToPage();
         shipments().checkPageTitle();
         String phone = shipments().getFirstPhoneFromTable();
