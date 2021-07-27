@@ -131,6 +131,6 @@ public final class AdministrationLoginTests extends BaseTest {
         login().setUsername(UserManager.userWithoutAdminPermission().getLogin());
         login().setPassword(UserManager.userWithoutAdminPermission().getPassword());
         login().submit();
-        login().checkPermissionError();
+        main().checkIsNotAuth();
     }
 }
