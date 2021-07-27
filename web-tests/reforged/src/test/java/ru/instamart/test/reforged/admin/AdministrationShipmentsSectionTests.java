@@ -167,10 +167,17 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
             groups = {"Тест поиска B2B заказа после снятия признака B2B"}
     )
     public void successSearchB2BOrderAfterRevokeB2BRole() {
-        final ApiHelper helper = new ApiHelper();
-        final UserData userData = UserManager.getUser();
+        final UserData userData = UserManager.forB2BUser();
         final UsersEditPage usersEdit = new UsersEditPage();
-        helper.auth(userData);
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        shipments().goToPage();
+        shipments().setB2BOrders();
+        shipments().search();
+        //вместо создания заказа получаю первый любой b2b заказ
+        String shipmentNumber = shipments().getShipmentNumber();
 
         users().goToPage();
         users().fillSearchByPhoneNumber(userData.getPhone());
@@ -182,15 +189,16 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
         usersEdit.unsetB2BUser();
         usersEdit.clickToSave();
+        main().doLogout();
+
+        login().goToPage();
+        login().auth(userData);
 
         shipments().goToPage();
         shipments().setB2BOrders();
-        shipments().setShipmentOrOrderNumber("H03153077634");
+        shipments().setShipmentOrOrderNumber(shipmentNumber);
         shipments().search();
 
-
-        //final OrderV2 orderV2 = helper.makeOrder(userData, EnvironmentData.INSTANCE.getDefaultSid(), 3);
-
-        //TODO: Заказ появляется в админке с задержкой рандомной
+        shipments().checkOrderOrShipmentNumber(shipments().getShipmentNumber(), shipmentNumber);
     }
 }
