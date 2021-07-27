@@ -5,6 +5,8 @@ import ru.instamart.reforged.core.component.*;
 
 public interface AddressElement {
 
+    Element addressModal = new Element((By.xpath("//div[@data-qa='address-modal']")));
+
     Button delivery = new Button(By.xpath("//button[@data-qa='address-edit-selector-delivery']"));
     Button selfDelivery = new Button(By.xpath("//button[@data-qa='address-edit-selector-pickup']"));
 
@@ -22,4 +24,5 @@ public interface AddressElement {
     Element prevAddresses = new Element(By.xpath("//div[@data-qa='address-modal-addresses']"));
     Element login = new Element(By.xpath("//span[@data-qa='address-modal-login']"));
 
+    Element markerImageOnMapInAdvice = new Element(By.xpath("//div[contains(@class, 'notice')]/descendant::img[contains(@src, '/marker')]"));
 }

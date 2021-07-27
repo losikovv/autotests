@@ -1,13 +1,6 @@
 package ru.instamart.reforged.stf.drawer.cart;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.Button;
-import ru.instamart.reforged.core.component.Element;
-import ru.instamart.reforged.core.component.Link;
-import ru.instamart.reforged.stf.frame.ClearCart;
-
-import static org.testng.Assert.assertTrue;
 
 public final class Cart implements CartCheck {
 
@@ -44,6 +37,14 @@ public final class Cart implements CartCheck {
     @Step("Увеличить кол-во товара")
     public void increaseCount() {
         increaseCount.hoverAndClick();
+    }
+
+    @Step("Увеличить кол-во товара до минимального, доступного к заказу")
+    public void increaseCountToMin() {
+        while (!checkOrderButtonIsEnabled()) {
+            increaseCount.hoverAndClick();
+            checkSpinnerIsNotVisible();
+        }
     }
 
     @Step("Уменьшить кол-во товара")

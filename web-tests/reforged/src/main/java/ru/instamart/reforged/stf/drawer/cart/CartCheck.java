@@ -7,9 +7,13 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface CartCheck extends Check, CartElement {
 
-    @Step("Проверяем, алерт мин суммы заказа не виден")
-    default boolean checkMinSumAlertIsVisible() {
-        waitAction().shouldBeVisible(minSumAlert).isDisplayed();
-        return true;
+    @Step("Проверяем, что кнопка заказа доступна")
+    default boolean checkOrderButtonIsEnabled() {
+        return waitAction().shouldBeVisible(submitOrder).isEnabled();
+    }
+
+    @Step("Проверяем, что спиннер пропал")
+    default void checkSpinnerIsNotVisible() {
+        waitAction().shouldNotBeVisible(cartSpinner);
     }
 }

@@ -1,7 +1,7 @@
 package ru.instamart.reforged.stf.page.checkout;
 
 import io.qameta.allure.Step;
-import ru.instamart.reforged.stf.frame.checkout.*;
+import ru.instamart.reforged.stf.frame.checkout.subsections.*;
 import ru.instamart.reforged.stf.page.StfPage;
 import ru.instamart.reforged.stf.page.checkout.step.*;
 

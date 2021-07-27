@@ -5,7 +5,6 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.helper.KrakenAssert;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.lib.Addresses;
@@ -102,16 +101,18 @@ public class UserRegistrationTests extends BaseTest {
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkAddressDropdownNotVisible();
-        shop().interactAddress().checkSaveButtonIsClickable();
+        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();
+        shop().interactAddress().checkAddressModalIsNotVisible();
         shop().plusFirstItemToCart();
+        home().openSitePage(Config.DEFAULT_RETAILER);
         shop().interactHeader().clickToCart();
-        while(shop().interactCart().checkMinSumAlertIsVisible()) {
-            shop().interactCart().increaseCount();
-        }
+        shop().interactCart().increaseCountToMin();
         shop().interactCart().submitOrder();
-
+        shop().interactAuthModal().fillPhone(Generate.phoneNumber());
+        shop().interactAuthModal().sendSms();
+        shop().interactAuthModal().fillSMS(Config.DEFAULT_SMS);
+        checkout().checkCheckoutButtonIsVisible();
     }
 
     @CaseId(1545)

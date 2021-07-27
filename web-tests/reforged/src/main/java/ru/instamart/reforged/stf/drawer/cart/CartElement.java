@@ -40,4 +40,5 @@ public interface CartElement {
     Button prevRetailSlide = new Button(By.xpath("//button[@aria-label='Previous slide']"), "предыдущий слайд блока Не забудьте купить");
 
     Button submitOrder = new Button(By.xpath("//button[@data-qa='cart_checkout_button']"), "кнопка Сделать заказ");
+    Element cartSpinner = new Element(By.xpath("//div[@data-qa='line-item']/descendant::div[contains(@class, 'Spinner')] "), "спиннер пересчета цены позиции");
 }
