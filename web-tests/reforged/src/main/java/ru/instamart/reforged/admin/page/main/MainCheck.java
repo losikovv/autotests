@@ -10,4 +10,9 @@ public interface MainCheck extends Check, MainElement {
     default void checkAuth() {
         Kraken.waitAction().shouldBeVisible(user);
     }
+
+    @Step("Пользователь не авторизовался")
+    default void checkIsNotAuth() {
+        Kraken.waitAction().shouldNotBeVisible(user);
+    }
 }

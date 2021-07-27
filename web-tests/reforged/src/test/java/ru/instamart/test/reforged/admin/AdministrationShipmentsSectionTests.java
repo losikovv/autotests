@@ -11,10 +11,10 @@ import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.reforged.admin.page.usersEdit.UsersEditPage;
 import ru.instamart.test.reforged.BaseTest;
 
-import static ru.instamart.reforged.admin.AdminRout.login;
-import static ru.instamart.reforged.admin.AdminRout.shipments;
+import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
 @Feature("Управление заказами")
@@ -222,5 +222,45 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         final OrderV2 orderV2 = helper.makeOrder(userData, EnvironmentData.INSTANCE.getDefaultSid(), 3);
 
         //TODO: Заказ появляется в админке с задержкой рандомной
+    }
+
+    @Story("Тест поиска B2B заказа после снятия признака B2B")
+    @Test(description = "Тест поиска B2B заказа после снятия признака B2B",
+            groups = {""}
+    )
+    public void successSearchB2BOrderAfterRevokeB2BRole() {
+        final UserData userData = UserManager.forB2BUser();
+        final UsersEditPage usersEdit = new UsersEditPage();
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        shipments().goToPage();
+        shipments().setB2BOrders();
+        shipments().search();
+        //вместо создания заказа получаю первый любой b2b заказ
+        String shipmentNumber = shipments().getShipmentNumber();
+
+        users().goToPage();
+        users().fillSearchByPhoneNumber(userData.getPhone());
+        users().clickToSearch();
+        users().clickToEditUser();
+
+        usersEdit.setB2BUser();
+        usersEdit.clickToSave();
+
+        usersEdit.unsetB2BUser();
+        usersEdit.clickToSave();
+        main().doLogout();
+
+        login().goToPage();
+        login().auth(userData);
+
+        shipments().goToPage();
+        shipments().setB2BOrders();
+        shipments().setShipmentOrOrderNumber(shipmentNumber);
+        shipments().search();
+
+        shipments().checkOrderOrShipmentNumber(shipments().getShipmentNumber(), shipmentNumber);
     }
 }

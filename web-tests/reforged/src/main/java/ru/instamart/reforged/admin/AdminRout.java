@@ -6,6 +6,7 @@ import ru.instamart.reforged.admin.page.login.LoginPage;
 import ru.instamart.reforged.admin.page.pages.new_page.NewPage;
 import ru.instamart.reforged.admin.page.pages.Pages;
 import ru.instamart.reforged.admin.page.sections.*;
+import ru.instamart.reforged.admin.page.users.UsersPage;
 import ru.instamart.reforged.core.page.Router;
 
 public final class AdminRout extends Router {
@@ -46,12 +47,12 @@ public final class AdminRout extends Router {
         return (Staff) getPage(Staff.class);
     }
 
-    public static Users users() {
-        return (Users) getPage(Users.class);
-    }
-
     public static ShipmentsPage shipments() {
         return (ShipmentsPage) getPage(ShipmentsPage.class);
+    }
+
+    public static UsersPage users() {
+        return (UsersPage) getPage(UsersPage.class);
     }
 
     public static MainPage main() {
@@ -62,5 +63,6 @@ public final class AdminRout extends Router {
         return (Oktell) getPage(Oktell.class);
     }
 
-    private AdminRout() {}
+    private AdminRout() {
+    }
 }

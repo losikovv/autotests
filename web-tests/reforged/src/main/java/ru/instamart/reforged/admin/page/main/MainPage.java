@@ -5,6 +5,8 @@ import ru.instamart.reforged.admin.AdminPage;
 import ru.instamart.reforged.admin.block.authored_header.AuthoredHeader;
 import ru.instamart.reforged.admin.block.side_menu.SideMenu;
 
+import static ru.instamart.reforged.admin.AdminRout.login;
+
 public final class MainPage implements AdminPage, MainCheck {
 
 
@@ -24,6 +26,13 @@ public final class MainPage implements AdminPage, MainCheck {
     @Step("Нажать на кнопку выхода")
     public void clickToLogout() {
         logout.click();
+    }
+
+    @Step("Выйти из профиля")
+    public void doLogout() {
+        clickToProfileMenu();
+        clickToLogout();
+        login().checkTitle();
     }
 
     @Override

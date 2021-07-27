@@ -28,6 +28,7 @@ public final class UserManager {
     private static UserData defaultApiUser;
     private static UserData defaultDcUser;
     private static UserData defaultUserWithoutPermission;
+    private static UserData forB2BUser;
 
     public static UserData getNullUser() {
         return generateData("empty", 0);
@@ -178,6 +179,21 @@ public final class UserManager {
             return defaultUserWithoutPermission = new UserData(
                     Crypt.INSTANCE.decrypt("ECME0oVDIK76qsrZeUtsFPmH3StNoTg4V5ow1j3ejSI="),
                     PASSWD_1
+            );
+        }
+        return defaultUserWithoutPermission;
+    }
+
+    public static UserData forB2BUser() {
+        if (isNull(forB2BUser)) {
+            return forB2BUser = new UserData(
+                    "",
+                    Crypt.INSTANCE.decrypt("4iwwd7hWsW7NN4TyGWohVfIbI/Qx5ujSol6s9rPHw0g="),
+                    "79229995566",
+                    PASSWD_1,
+                    "",
+                    "",
+                    "Ng2CtCt2yUSlgMT6fkb+zxxilAIU7sWH85GJBK/KG9U="
             );
         }
         return defaultUserWithoutPermission;

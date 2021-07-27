@@ -54,4 +54,9 @@ public final class Link extends Component {
             getComponent().click();
         }
     }
+
+    public String getText() {
+        log.info("Get text {} with locator {}", getDescription(), getBy());
+        return getComponent().getText();
+    }
 }

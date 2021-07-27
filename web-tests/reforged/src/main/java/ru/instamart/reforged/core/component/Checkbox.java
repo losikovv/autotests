@@ -62,4 +62,9 @@ public final class Checkbox extends Component {
             getComponent().click();
         }
     }
+
+    public Boolean checkboxState() {
+        log.info("Get {} state", getDescription());
+        return getComponent().isSelected();
+    }
 }

@@ -11,7 +11,7 @@ public final class Generate {
     }
 
     public static String userId() {
-        return digitalString(7);
+        return digitalString(9);
     }
 
     /**
@@ -37,7 +37,7 @@ public final class Generate {
     }
 
     public static String testUserPhone(String userId) {
-        return "777" + userId;
+        return "9" + userId;
     }
 
     public static String testUserName(String role) {

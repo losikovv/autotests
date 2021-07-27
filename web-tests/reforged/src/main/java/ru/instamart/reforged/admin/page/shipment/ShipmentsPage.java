@@ -95,6 +95,11 @@ public final class ShipmentsPage implements AdminPage, ShipmentsCheck {
         return String.valueOf((Integer.valueOf(numberOfShipments) + 50 - 1) / 50);
     }
 
+    @Step("Выбрать фильтр только B2B клиенты")
+    public void setB2BOrders() {
+        b2bOnly.check();
+    }
+
     @Override
     public String pageUrl() {
         return "shipments";
