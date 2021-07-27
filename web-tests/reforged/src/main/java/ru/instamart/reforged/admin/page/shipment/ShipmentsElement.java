@@ -70,7 +70,7 @@ public interface ShipmentsElement {
             By.xpath("//table/tbody/tr/td[count(//table/thead/tr/th[.='Куда']/preceding-sibling::th)+1]"),
             "список всех телефонов из колонки после фильтрации");
 
-    Element FoundShipments = new Element(
+    Element foundShipments = new Element(
             By.xpath("//div[contains(text(),'Найдено заказов:')]"),
             "элемент с количеством найденных заказов");
 }

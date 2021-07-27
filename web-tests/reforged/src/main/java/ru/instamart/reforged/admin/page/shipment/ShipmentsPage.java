@@ -82,12 +82,12 @@ public final class ShipmentsPage implements AdminPage, ShipmentsCheck {
     @Step("Подставляем в фильтры телефон и дата переданные значения: {0}, {1}")
     public void setPhoneAndDateFilterDefault(String phone, String date) {
         phoneNumberContains.fill(phone);
-        deliveryTimeFrom.fill(date);
+        setDateAndTimeFilterFromTableDefault(date);
     }
 
     @Step("Получаем количество найденных заказов")
     public String getNumberOfShipments() {
-        return FoundShipments.getText().replace("НАЙДЕНО ЗАКАЗОВ: ", "");
+        return foundShipments.getText().replace("НАЙДЕНО ЗАКАЗОВ: ", "");
     }
 
     @Step("Получаем количество страниц пейджера после применения фильтра")
