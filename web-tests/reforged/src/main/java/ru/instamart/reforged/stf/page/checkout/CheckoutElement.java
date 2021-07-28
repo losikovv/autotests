@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
-import ru.instamart.reforged.stf.frame.checkout.*;
+import ru.instamart.reforged.stf.frame.checkout.subsections.*;
 import ru.instamart.reforged.stf.page.checkout.step.*;
 
 public interface CheckoutElement {

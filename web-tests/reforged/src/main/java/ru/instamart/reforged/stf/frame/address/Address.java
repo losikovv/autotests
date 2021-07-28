@@ -1,4 +1,4 @@
-package ru.instamart.reforged.stf.frame;
+package ru.instamart.reforged.stf.frame.address;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
@@ -7,25 +7,9 @@ import ru.instamart.reforged.core.component.DropDown;
 import ru.instamart.reforged.core.component.Input;
 import ru.instamart.reforged.core.component.Selector;
 import ru.instamart.reforged.core.component.Element;
+import ru.instamart.reforged.stf.frame.Close;
 
-public final class Address implements Close {
-
-    private final Button delivery = new Button(By.xpath("//button[@data-qa='address-edit-selector-delivery']"));
-    private final Button selfDelivery = new Button(By.xpath("//button[@data-qa='address-edit-selector-pickup']"));
-
-    private final Input address = new Input(By.xpath("//input[@data-qa='address-modal-input']"));
-    private final DropDown dropDownAddress = new DropDown(By.xpath("//div[contains(@class,'dropdown')]/div/*[text()]"));
-    private final Button save = new Button(By.xpath("//button[@data-qa='address-modal-submit']"));
-
-    private final Selector selectCity = new Selector(By.xpath("//select[@data-qa='city-selector-control']"));
-    private final Element storeList = new Element(By.xpath("//div[@data-qa='expandable-store-list']"), "список магазинов для самовывоза");
-    private final Element storeItem = new Element(By.xpath("//div[@data-qa='store-item']"));
-    private final Element availableStoreCounter = new Element(By.xpath("//div[@data-qa='expandable-store-list-counter']"));
-    private final Button selectStoreButton = new Button(By.xpath("//button[@data-qa='store-item-btn']"));
-    private final Element otherRetailers = new Element(By.xpath("//div[@data-qa='address-edit']//span[contains(text(), 'Выбрать другой магазин')]"));
-    private final Button changeStore = new Button(By.xpath("//button[@data-qa='selected-store-btn']"));
-    private final Element prevAddresses = new Element(By.xpath("//div[@data-qa='address-modal-addresses']"));
-
+public final class Address implements Close, AddressCheck {
 
     @Step("Выбрать доставку")
     public void selectDelivery() {
@@ -80,5 +64,10 @@ public final class Address implements Close {
     @Step("Изменить выбранный магазин самовывоза")
     public void changeStore() {
         changeStore.click();
+    }
+
+    @Step("Изменить выбранный магазин самовывоза")
+    public void clickToLogin() {
+        login.click();
     }
 }

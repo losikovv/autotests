@@ -52,29 +52,6 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
         checkIsUserNotAuthorized("Произошла регистрация пользователя с пустыми реквизитами");
     }
 
-    @Skip
-    @CaseId(2044)
-    @Story("Регистрация на странице ретейлера")
-    @Test(
-            description = "Тест таймаута повторной отправки смс при быстром перелогине",
-            groups = {
-                    "sbermarket-Ui-smoke","sbermarket-regression"
-            }
-    )
-    public void timeOutForSendindSMS() {
-        final String phone = Generate.phoneNumber();
-        kraken.get().page(Config.DEFAULT_RETAILER);
-        Shop.AuthModal.openAuthRetailer();
-        User.Do.registration(phone,true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
-        User.Logout.quickly();
-        Shop.AuthModal.openAuthLending();
-        User.Do.registrationWithoutConfirmation(phone);
-        baseChecks.checkIsElementDisabled(Elements.Modals.AuthModal.continueButton());
-        kraken.get().baseUrl();
-        checkIsUserNotAuthorized("Произошла регистрация пользователя с уже используемым телефоном");
-    }
-
     @CaseId(1541)
     @Story("Регистрация на лендинге")
     @Test(

@@ -3,8 +3,8 @@ package ru.instamart.reforged.stf.page.home;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Link;
-import ru.instamart.reforged.stf.frame.Address;
-import ru.instamart.reforged.stf.frame.auth.AuthModal;
+import ru.instamart.reforged.stf.frame.address.Address;
+import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 
 public interface HomeElement {
 
