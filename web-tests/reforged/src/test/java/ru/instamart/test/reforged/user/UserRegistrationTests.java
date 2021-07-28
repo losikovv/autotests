@@ -21,7 +21,7 @@ public class UserRegistrationTests extends BaseTest {
     @Test(
             description = "Негативный тест попытки зарегистрировать пользователя с пустыми реквизитами",
             groups = {
-                    "metro-acceptance", "metro-regression","sbermarket-Ui-smoke","ui-smoke-production"
+                    "metro-acceptance", "metro-regression", "sbermarket-Ui-smoke", "ui-smoke-production"
             }
     )
     public void noRegWithEmptyRequisites() {
@@ -38,7 +38,7 @@ public class UserRegistrationTests extends BaseTest {
     @Story("Регистрация на лендинге")
     @Test(
             description = "Регистрация нового пользователя на лендинге",
-            groups = {"metro-acceptance","sbermarket-Ui-smoke","MRAutoCheck"}
+            groups = {"metro-acceptance", "sbermarket-Ui-smoke", "MRAutoCheck"}
     )
     public void successRegOnLanding() {
         home().goToPage();
@@ -72,8 +72,8 @@ public class UserRegistrationTests extends BaseTest {
     @Test(
             description = "Тест регистрации из адресной модалки феникса",
             groups = {
-                    "metro-regression","metro-acceptance",
-                    "sbermarket-regression","sbermarket-Ui-smoke"
+                    "metro-regression", "metro-acceptance",
+                    "sbermarket-regression", "sbermarket-Ui-smoke"
             }
     )
     public void successRegFromAddressModal() {
@@ -93,7 +93,7 @@ public class UserRegistrationTests extends BaseTest {
             description = "Тест регистрации при переходе из корзины в чекаут",
             groups = {
                     "metro-regression",
-                    "sbermarket-regression","sbermarket-Ui-smoke"
+                    "sbermarket-regression", "sbermarket-Ui-smoke"
             }
     )
     public void successRegFromCart() {
