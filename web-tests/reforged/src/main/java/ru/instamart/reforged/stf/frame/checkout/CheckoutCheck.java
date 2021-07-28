@@ -9,6 +9,6 @@ public interface CheckoutCheck extends Check, CheckoutElement {
 
     @Step("Проверяем видна ли кнопка оформления заказа из чекаута")
     default void checkCheckoutButtonIsVisible() {
-        waitAction().shouldBeVisible(checkoutButton).isDisplayed();
+        waitAction().shouldBeVisible(checkoutButton);
     }
 }
