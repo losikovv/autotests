@@ -14,6 +14,6 @@ public interface CartCheck extends Check, CartElement {
 
     @Step("Проверяем, что спиннер пропал")
     default void checkSpinnerIsNotVisible() {
-        waitAction().shouldNotBeVisible(cartSpinner);
+        waitAction().shouldNotBeVisible(costSpinner);
     }
 }
