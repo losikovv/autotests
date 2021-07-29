@@ -293,8 +293,8 @@ tests:AdminUiSmoke:
   artifacts:
     when: always
     paths:
-      - web-tests/ui/build/allure-results/
-      - web-tests/ui/logs/
+      - web-tests/reforged/build/allure-results/
+      - web-tests/reforged/logs/
     expire_in: 1 week
 
 tests:prodUiSmoke:
