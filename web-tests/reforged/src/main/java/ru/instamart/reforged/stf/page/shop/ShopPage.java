@@ -57,7 +57,7 @@ public final class ShopPage implements StfPage, ShopCheck {
         Kraken.jsAction().ymapReady();
     }
 
-    @Step("Нажать на плюс у первого товара")
+    @Step("Нажать на плюс у первого товара при невыбранном адресе")
     public void plusFirstItemToCart() {
         firstProductCard.mouseOver();
         plusFirstItemToCart.click();
@@ -67,6 +67,12 @@ public final class ShopPage implements StfPage, ShopCheck {
     public void minusFirstItemFromCart() {
         firstProductCard.mouseOver();
         minusFirstItemFromCart.click();
+    }
+
+    @Step("Нажать на плюс у первого товара при выбранном адресе")
+    public void plusFirstItemToCartAddedAddress() {
+//        firstProductCard.scrollTo();
+        plusFirstItemToCartAddedAddress.click();
     }
 
     @Step("Добавить первый товар в избранное")
