@@ -41,6 +41,14 @@ public final class JsAction {
     }
 
     /**
+     * Ожидание инициализации ajax
+     */
+    public static void ajaxReady() {
+        final WebDriverWait wait = new WebDriverWait(getWebDriver(), 5);
+        wait.until((ExpectedCondition<Boolean>) wb -> (Boolean) execute("return jQuery.active==0"));
+    }
+
+    /**
      * Ожидание загрузки дома
      */
     public void waitForDocumentReady() {
@@ -129,6 +137,17 @@ public final class JsAction {
      */
     public void hoverAndClick(final String locator) {
         execute("document.evaluate(\"" + locator + "\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click();");
+    }
+
+    /**
+     * Очистка сессии
+     */
+    public static void clearSession() {
+        execute("$.ajax({\n" +
+                "     url : '"+ EnvironmentData.INSTANCE.getBasicUrl() + "api/user_sessions',\n" +
+                "     method : 'delete'\n" +
+                "});");
+        ajaxReady();
     }
 
     /**

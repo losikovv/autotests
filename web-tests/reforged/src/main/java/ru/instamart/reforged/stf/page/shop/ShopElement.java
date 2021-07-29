@@ -5,6 +5,7 @@ import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.block.header.Header;
+import ru.instamart.reforged.stf.component.user.User;
 import ru.instamart.reforged.stf.drawer.CategoryMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.address.Address;
@@ -18,6 +19,7 @@ public interface ShopElement {
     Address address = new Address();
     CategoryMenu categoryMenu = new CategoryMenu();
     Footer footer = new Footer();
+    User user = new User();
 
     Button openAddress = new Button(By.xpath("//button[@data-qa='select-button']"));
     Element firstProductCard = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']"));
