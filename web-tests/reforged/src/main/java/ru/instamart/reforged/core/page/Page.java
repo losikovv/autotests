@@ -56,4 +56,14 @@ public interface Page extends PageCheck {
                 failMessage("Ошибка 502 на странице " + Kraken.currentUrl())
         );
     }
+
+    @Step("Проверяем что находимся на ожидаемой странице")
+    default void checkPageUrl(final String url) {
+        Kraken.waitAction().urlEquals(url);
+    }
+
+    @Step("Проверяем что страница не открылась")
+    default void checkForbiddenPageUrl(final String url) {
+        Assert.assertNotEquals(Kraken.currentUrl(), url, "Текущая страница должна быть недоступна");
+    }
 }

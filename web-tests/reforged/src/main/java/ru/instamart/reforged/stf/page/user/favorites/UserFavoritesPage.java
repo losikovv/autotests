@@ -1,8 +1,8 @@
-package ru.instamart.reforged.stf.page.user;
+package ru.instamart.reforged.stf.page.user.favorites;
 
 import ru.instamart.reforged.stf.page.StfPage;
 
-public final class UserFavorites implements StfPage {
+public final class UserFavoritesPage implements StfPage, UserFavoritesCheck {
 
     @Override
     public String pageUrl() {
