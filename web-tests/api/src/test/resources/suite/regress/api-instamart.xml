@@ -22,6 +22,7 @@
     <!-- api-v2-tests -->
     <test verbose="1" name="API v2 Tests" parallel="none" thread-count="10">
         <classes>
+            <class name="ru.instamart.test.api.v2.endpoints.AbTestsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.AddressesV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.AuthProviderV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.BonusCardsV2Test"/>
