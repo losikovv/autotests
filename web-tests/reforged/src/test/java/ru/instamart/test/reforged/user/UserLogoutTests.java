@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.Generate;
+import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.home;
@@ -61,6 +62,23 @@ public class UserLogoutTests extends BaseTest {
             }
     )
     public void noShipAddressAndEmptyCartAfterLogout() {
-
+        home().openSitePage(Config.DEFAULT_RETAILER);
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().fillPhone(Generate.phoneNumber());
+        shop().interactAuthModal().sendSms();
+        shop().interactAuthModal().fillSMS(Config.DEFAULT_SMS);
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().selectFirstAddress();
+        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddress().clickOnSave();
+        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().plusFirstItemToCartAddedAddress();
+        home().openSitePage(Config.DEFAULT_RETAILER);
+        shop().interactUser().clearSessionLogout();
+        shop().interactHeader().checkLoginIsVisible();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartIsEmpty();
     }
 }
