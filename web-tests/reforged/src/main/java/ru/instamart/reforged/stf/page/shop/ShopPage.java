@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.stf.block.header.AuthoredHeader;
+import ru.instamart.reforged.stf.component.user.User;
 import ru.instamart.reforged.stf.drawer.CategoryMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.address.Address;
@@ -41,6 +42,9 @@ public final class ShopPage implements StfPage, ShopCheck {
         return categoryMenu;
     }
 
+    public User interactUser() {
+        return user;
+    }
 
     @Step("Открыть окно ввода адреса доставки")
     public void openAddressFrame() {
