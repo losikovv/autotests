@@ -40,7 +40,16 @@ public class UserLogoutTests extends BaseTest {
             }
     )
     public void successManualLogout() {
-
+        home().openSitePage(Config.DEFAULT_RETAILER);
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().fillPhone(Generate.phoneNumber());
+        shop().interactAuthModal().sendSms();
+        shop().interactAuthModal().fillSMS(Config.DEFAULT_SMS);
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().clickToProfile();
+        shop().interactHeader().interactAccountMenu().clickToLogout();
+        home().goToPage();
+        home().checkLoginButtonIsVisible();
     }
 
     @Skip
