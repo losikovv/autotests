@@ -12,5 +12,4 @@ public final class User implements UserCheck {
         JsAction.clearSession();
         refresh();
     }
-
 }

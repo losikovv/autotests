@@ -22,6 +22,4 @@ public interface ShopCheck extends Check, ShopElement {
     default void checkCartNotificationIsVisible() {
         waitAction().shouldBeVisible(cartNotification);
     }
-
-
 }
