@@ -5,12 +5,13 @@ import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.request.v2.StoresV2Request;
 import ru.instamart.api.response.v2.PromotionCardsV2Response;
 import ru.instamart.api.response.v2.StoreV2Response;
 import ru.instamart.api.response.v2.StoresV2Response;
-import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import static org.testng.Assert.assertFalse;
@@ -72,5 +73,18 @@ public final class StoresV2Test extends RestBase {
     public void testGetFastDeliveryStatusWithInvalidSid() {
         final Response response = StoresV2Request.GET(6666);
         checkStatusCode404(response);
+    }
+
+    @CaseId(196)
+    @Test(groups = {"api-instamart-regress"}, description = "Получаем магазин")
+    public void testGetStoresWithDefaultSid() {
+        final Response response = StoresV2Request.GET(EnvironmentData.INSTANCE.getDefaultSid());
+        response.prettyPeek();
+        checkStatusCode200(response);
+        StoreV2Response store = response.as(StoreV2Response.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(store.getStore().getId(), Integer.toString(EnvironmentData.INSTANCE.getDefaultSid()), "Id магазина не совпадает");
+        softAssert.assertEquals(store.getStore().getOperationalTimes().size(), 7, "Количество рабочих дней не равно 7");
+        softAssert.assertAll();
     }
 }
