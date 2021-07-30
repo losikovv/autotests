@@ -26,4 +26,6 @@ public interface ShopElement {
     Element addFirstItemToFavorite = new Element(By.xpath("//div[contains(@class, 'favorite-button-default')]"));
     Element deleteFirstItemFromFavorite = new Element(By.xpath("//div[contains(@class, 'favorite-button--active')]"));
     Button plusFirstItemToCartAddedAddress = new Button(By.xpath("//button[@title='Добавить в корзину']"));
+    Button minusFirstItemFromCartAddedAddress = new Button(By.xpath("//button[@title='Убрать из корзины']"));
+    Element cartNotification = new Element(By.xpath("//div[@class='notification']"));
 }

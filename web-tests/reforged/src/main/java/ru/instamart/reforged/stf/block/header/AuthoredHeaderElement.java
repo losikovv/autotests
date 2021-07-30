@@ -1,10 +1,7 @@
 package ru.instamart.reforged.stf.block.header;
 
 import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.Button;
-import ru.instamart.reforged.core.component.DropDown;
-import ru.instamart.reforged.core.component.Input;
-import ru.instamart.reforged.core.component.Link;
+import ru.instamart.reforged.core.component.*;
 import ru.instamart.reforged.stf.drawer.account_menu.AccountMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.drawer.StoreSelector;
@@ -21,6 +18,7 @@ public interface AuthoredHeaderElement {
     Button pickup = new Button(By.xpath("//button[@data-qa='ship_selector_type_pickup']"));
     Button selectAddress = new Button(By.xpath("//button[@data-qa='select-button']"));
     Button firstSelectAddress = new Button(By.xpath("//button[@data-qa='shipping_method_button']"));
+    Element enteredAddress = new Element(By.xpath("//span[@data-qa='current-ship-address']"));
 
     Link forB2B = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Для бизнеса')]"));
     Link forBrands = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Для производителей')]"));
