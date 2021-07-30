@@ -3,7 +3,6 @@ package ru.instamart.test.reforged.user;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.lib.Addresses;
@@ -16,9 +15,9 @@ public class UserLogoutTests extends BaseTest {
 
     @CaseId(1473)
     @Story("Позитивный кейс")
-    @Test(  description = "Тест успешной быстрой деавторизации",
+    @Test(description = "Тест успешной быстрой деавторизации",
             groups = {
-                    "metro-acceptance", "metro-regression","sbermarket-Ui-smoke"
+                    "metro-acceptance", "metro-regression", "sbermarket-Ui-smoke"
             }
     )
     public void successQuickLogout() {
@@ -35,9 +34,9 @@ public class UserLogoutTests extends BaseTest {
 
     @CaseId(1474)
     @Story("Позитивный кейс")
-    @Test(  description = "Тест успешной деавторизации",
+    @Test(description = "Тест успешной деавторизации",
             groups = {
-                    "metro-acceptance", "metro-regression","sbermarket-Ui-smoke"
+                    "metro-acceptance", "metro-regression", "sbermarket-Ui-smoke"
             }
     )
     public void successManualLogout() {
@@ -53,12 +52,11 @@ public class UserLogoutTests extends BaseTest {
         home().checkLoginButtonIsVisible();
     }
 
-    @Skip
     @CaseId(1475)
     @Story("Позитивный кейс")
-    @Test(  description = "Тест сброса адреса доставки и корзины после деавторизации",
+    @Test(description = "Тест сброса адреса доставки и корзины после деавторизации",
             groups = {
-                    "metro-acceptance", "metro-regression","sbermarket-Ui-smoke"
+                    "metro-acceptance", "metro-regression", "sbermarket-Ui-smoke"
             }
     )
     public void noShipAddressAndEmptyCartAfterLogout() {
@@ -74,10 +72,16 @@ public class UserLogoutTests extends BaseTest {
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();
         shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
         shop().plusFirstItemToCartAddedAddress();
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        shop().checkMinusButtonAddedAddressIsVisible();
+        shop().checkCartNotificationIsVisible();
+        shop().checkCartNotificationIsNotVisible();
         shop().interactUser().clearSessionLogout();
-        shop().interactHeader().checkLoginIsVisible();
+        home().goToPage();
+        home().checkLoginButtonIsVisible();
+        home().openSitePage(Config.DEFAULT_RETAILER);
+        shop().interactHeader().checkEnteredAddressNotVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartIsEmpty();
     }

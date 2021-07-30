@@ -71,7 +71,6 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     @Step("Нажать на плюс у первого товара при выбранном адресе")
     public void plusFirstItemToCartAddedAddress() {
-//        firstProductCard.scrollTo();
         plusFirstItemToCartAddedAddress.click();
     }
 
