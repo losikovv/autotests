@@ -2,6 +2,7 @@ package ru.instamart.api.endpoint;
 
 public final class ApiV2EndPoints {
 
+    public static final String AB_TESTS = "v2/ab_tests";
     public static final String ADDRESSES = "v2/addresses";
     public static final String ADS = "v2/ads";
     public static final String ADS_IMAGES = "v2/ads-images?image_path={image}";
@@ -27,6 +28,10 @@ public final class ApiV2EndPoints {
     public static final String TAXONS = "v2/taxons?sid={sid}";
     public static final String USERS = "v2/users";
     public static final String DELIVERY_AVAILABILITY = "v2/delivery_availability?lat={lat}&lon={lon}";
+
+    public static final class AbTests{
+        public static final String DEVICE_ID = "v2/ab_tests?device_id={deviceId}";
+    }
 
     public static final class Addresses {
         public static final String BY_ID = "v2/addresses/{id}";
