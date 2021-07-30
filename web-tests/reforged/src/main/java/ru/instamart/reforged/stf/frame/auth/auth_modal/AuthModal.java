@@ -2,6 +2,8 @@ package ru.instamart.reforged.stf.frame.auth.auth_modal;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.reforged.core.component.Link;
 import ru.instamart.reforged.core.component.Button;
@@ -40,6 +42,20 @@ public final class AuthModal implements Close, AuthModalCheck {
         return authSberIdPage;
     }
 
+    @Step("Зарегистрировать пользователя по телефону")
+    public void createAccount() {
+        fillPhone(Generate.phoneNumber());
+        sendSms();
+        fillDefaultSMS();
+    }
+
+    @Step("Зарегистрировать пользователя {0} по телефону")
+    public void createAccount(final UserData userData) {
+        fillPhone(userData.getPhone());
+        sendSms();
+        fillDefaultSMS();
+    }
+
     @Step("Заполнить поле с телефоном {phone}")
     public void fillPhone(final String phone) {
         phoneField.fill(phone);
@@ -68,6 +84,11 @@ public final class AuthModal implements Close, AuthModalCheck {
     @Step("Заполнить поле с sms {sms}")
     public void fillSMS(final String sms) {
         smsInput.fill(sms);
+    }
+
+    @Step("Заполнить поле с sms значением из конфига")
+    public void fillDefaultSMS() {
+        smsInput.fill(Config.DEFAULT_SMS);
     }
 
     @Step("Отправить форму")

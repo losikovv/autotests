@@ -56,7 +56,8 @@ public final class Element extends Component {
     }
 
     public String getText() {
-        log.info("Get text {} with locator {}", getDescription(), getBy());
-        return getComponent().getText();
+        final String text = getComponent().getText();
+        log.info("Get text '{}' for {} with locator {}", text, getDescription(), getBy());
+        return text;
     }
 }

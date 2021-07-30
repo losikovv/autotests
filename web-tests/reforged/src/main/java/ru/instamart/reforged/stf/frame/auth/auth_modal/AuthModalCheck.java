@@ -11,5 +11,4 @@ public interface AuthModalCheck extends Check, AuthModalElement {
     default void checkPhoneErrorIsVisible() {
         waitAction().shouldBeVisible(phoneError);
     }
-
 }

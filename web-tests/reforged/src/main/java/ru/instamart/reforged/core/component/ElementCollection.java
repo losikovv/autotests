@@ -38,6 +38,19 @@ public final class ElementCollection extends CollectionComponent {
         super(by, timeout, description, errorMsg);
     }
 
+    public void clickOnFirst() {
+        log.info("Click first {} with locator {}", getDescription(), getBy());
+        final WebElement webElement = getComponents().stream().findFirst().orElseThrow();
+        webElement.click();
+    }
+
+    public void clickOnAll() {
+        for (final WebElement we : getComponents()) {
+            log.info("Click on element {} with", we);
+            we.click();
+        }
+    }
+
     public void clickOnElementWithText(final String text) {
         for (final WebElement we : getComponents()) {
             final String elementText = we.getText();
@@ -62,6 +75,10 @@ public final class ElementCollection extends CollectionComponent {
 
     public List<WebElement> getElements() {
         return getComponents();
+    }
+
+    public int elementCount() {
+        return getComponents().size();
     }
 
     @Override
