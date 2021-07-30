@@ -5,7 +5,10 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
+import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.listener.Skip;
+import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.reforged.stf.page.StfPage;
 import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.test.reforged.BaseTest;
@@ -15,6 +18,8 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Epic("STF UI")
 @Feature("Любимые товары")
 public final class UserFavoritesTests extends BaseTest {
+
+    private final ApiHelper apiHelper = new ApiHelper();
 
     @CaseId(1263)
     @Test(  description = "Тест недоступности страницы любимых товаров неавторизованному юзеру",
@@ -192,21 +197,21 @@ public final class UserFavoritesTests extends BaseTest {
                     "sbermarket-regression"}
     )
     public void successAddFavoriteProductToCart() {
+        final UserData userData = UserManager.getUser();
+        userData.setPhone("79999999999");
+
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().fillPhone("79999999999");
-        home().interactAuthModal().sendSms();
-        home().interactAuthModal().fillDefaultSMS();
+        home().interactAuthModal().createAccount(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         userFavorites().goToPage();
         userFavorites().addToCartFirstFavoriteItem();
         userFavorites().interactHeader().clickToCart();
         userFavorites().interactHeader().interactCart().checkCartNotEmpty();
-        //TODO: Очистку реализовать через апи, когда появится метод
-        userFavorites().interactHeader().interactCart().clearCart();
-        userFavorites().interactHeader().interactCart().confirmClearCart();
-        userFavorites().interactHeader().interactCart().checkCartNotEmpty();
+
+        apiHelper.auth(userData);
+        apiHelper.dropCart(userData);
     }
 
     @Skip
@@ -218,20 +223,20 @@ public final class UserFavoritesTests extends BaseTest {
                     "sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAddFavoriteProductsFromCardToCart() {
+        final UserData userData = UserManager.getUser();
+        userData.setPhone("79999999999");
+
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().fillPhone("79999999999");
-        home().interactAuthModal().sendSms();
-        home().interactAuthModal().fillDefaultSMS();
+        home().interactAuthModal().createAccount(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         userFavorites().goToPage();
         userFavorites().openCartForFirstFavoriteItem();
         userFavorites().interactProductCart().clickOnBuy();
         userFavorites().interactHeader().interactCart().checkCartNotEmpty();
-        //TODO: Очистку реализовать через апи, когда появится метод
-        userFavorites().interactHeader().interactCart().clearCart();
-        userFavorites().interactHeader().interactCart().confirmClearCart();
-        userFavorites().interactHeader().interactCart().checkCartNotEmpty();
+
+        apiHelper.auth(userData);
+        apiHelper.dropCart(userData);
     }
 }

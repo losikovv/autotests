@@ -45,6 +45,11 @@ public final class UserData {
         this.encryptedPhone = generateEncryptedPhone();
     }
 
+    public void setPhone(final String phone) {
+        this.phone = phone;
+        this.encryptedPhone = generateEncryptedPhone();
+    }
+
     public String getFirstName() {
         if (name == null) return "FirstName";
 
