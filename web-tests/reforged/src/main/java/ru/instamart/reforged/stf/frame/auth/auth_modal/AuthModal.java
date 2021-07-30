@@ -43,10 +43,17 @@ public final class AuthModal implements Close, AuthModalCheck {
     }
 
     @Step("Зарегистрировать пользователя по телефону")
-    public void phoneRegistration() {
+    public void createAccount() {
         fillPhone(Generate.phoneNumber());
         sendSms();
-        fillSMS(Config.DEFAULT_SMS);
+        fillDefaultSMS();
+    }
+
+    @Step("Зарегистрировать пользователя {0} по телефону")
+    public void createAccount(final UserData userData) {
+        fillPhone(userData.getPhone());
+        sendSms();
+        fillDefaultSMS();
     }
 
     @Step("Заполнить поле с телефоном {phone}")
@@ -77,6 +84,11 @@ public final class AuthModal implements Close, AuthModalCheck {
     @Step("Заполнить поле с sms {sms}")
     public void fillSMS(final String sms) {
         smsInput.fill(sms);
+    }
+
+    @Step("Заполнить поле с sms значением из конфига")
+    public void fillDefaultSMS() {
+        smsInput.fill(Config.DEFAULT_SMS);
     }
 
     @Step("Отправить форму")

@@ -1,9 +1,11 @@
 package ru.instamart.reforged.core.page;
 
 import io.qameta.allure.Step;
+import org.openqa.selenium.Cookie;
 import org.testng.Assert;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.core.service.KrakenDriver;
 
 import static ru.instamart.kraken.util.StringUtil.failMessage;
 
@@ -19,6 +21,18 @@ public interface Page extends PageCheck {
     @Step("Открыть страницу {0} на сайте")
     default void openSitePage(final String page) {
         Kraken.open(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page);
+    }
+
+    @Step("Обновить страницу")
+    default void refresh() {
+        KrakenDriver.refresh();
+        Kraken.jsAction().waitForDocumentReady();
+        Kraken.jsAction().jQueryReady();
+    }
+
+    @Step("Добавить куки {0}")
+    default void addCookie(final Cookie cookie) {
+        Kraken.addCookie(cookie);
     }
 
     @Step("Скроллим страницу вверх")

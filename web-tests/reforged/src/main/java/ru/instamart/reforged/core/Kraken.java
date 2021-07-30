@@ -81,6 +81,10 @@ public final class Kraken {
         return getAllLogs().get(logType);
     }
 
+    public static void addCookie(final Cookie cookie) {
+        getWebDriver().manage().addCookie(cookie);
+    }
+
     @SuppressWarnings("unchecked")
     public static <T> T execute(final String js, final Object... arguments) {
         return (T) ((JavascriptExecutor) getWebDriver()).executeScript(js, arguments);
