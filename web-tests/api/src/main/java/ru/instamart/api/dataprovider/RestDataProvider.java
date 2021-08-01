@@ -3,17 +3,16 @@ package ru.instamart.api.dataprovider;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.common.Specification;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.AuthProviderV2;
+import ru.instamart.api.enums.v2.SippingMethodsV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OfferV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
-import ru.instamart.api.model.v2.ProductV2;
-import ru.instamart.api.model.v2.RetailerV2;
-import ru.instamart.api.model.v2.StoreV2;
-import ru.instamart.api.model.v2.ZoneV2;
+import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.v1.OperationalZonesV1Request;
 import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
 import ru.instamart.api.request.v2.PersonalV2Request;
@@ -885,7 +884,7 @@ public class RestDataProvider extends RestBase {
     }
 
     @DataProvider(name = "dateFormats")
-    public static Object[][] dateFormats(){
+    public static Object[][] dateFormats() {
         return new Object[][]{
                 {DateTimeFormatter.BASIC_ISO_DATE},
                 {DateTimeFormatter.ISO_OFFSET_DATE},
@@ -898,6 +897,57 @@ public class RestDataProvider extends RestBase {
 //                {DateTimeFormatter.ISO_WEEK_DATE},
                 {DateTimeFormatter.ISO_INSTANT},
                 {DateTimeFormatter.RFC_1123_DATE_TIME}
+        };
+    }
+
+    @DataProvider(name = "storeData")
+    public static Object[][] storeData() {
+        return new Object[][]{
+                {StoresV2Request.Store.builder()
+                        .lat(RestAddresses.Moscow.defaultAddress().getLat())
+                        .build()
+                },
+                {StoresV2Request.Store.builder()
+                        .lon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .build()
+                },
+                {StoresV2Request.Store.builder()
+                        .shippingMethod(SippingMethodsV2.BY_COURIER.getMethod())
+                        .build()
+                },
+                {StoresV2Request.Store.builder()
+                        .shippingMethod(SippingMethodsV2.PICKUP.getMethod())
+                        .build()
+                },
+                {StoresV2Request.Store.builder()
+                        .operationalZoneId(1)
+                        .build()
+                }
+        };
+    }
+
+    @DataProvider(name = "storeDataWithLatAndLon")
+    public static Object[][] storeDataWithLatAndLon() {
+        AddressV2 address = Moscow.defaultAddress();
+        return new Object[][]{
+                {StoresV2Request.Store.builder()
+                        .lat(address.getLat())
+                        .lon(address.getLon())
+                        .shippingMethod(SippingMethodsV2.BY_COURIER.getMethod())
+                        .build()
+                },
+                {StoresV2Request.Store.builder()
+                        .lat(address.getLat())
+                        .lon(address.getLon())
+                        .shippingMethod(SippingMethodsV2.PICKUP.getMethod())
+                        .build()
+                },
+                {StoresV2Request.Store.builder()
+                        .lat(address.getLat())
+                        .lon(address.getLon())
+                        .operationalZoneId(1)
+                        .build()
+                }
         };
     }
 }
