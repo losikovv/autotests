@@ -5,22 +5,31 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import ru.instamart.kraken.helper.LogAttachmentHelper;
+import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.report.CustomReport;
 import ru.instamart.reforged.core.service.KrakenDriver;
+
+import java.lang.reflect.Method;
 
 @Slf4j
 public class BaseTest {
 
     @BeforeMethod(alwaysRun = true)
-    public void captureStart() {
+    public void captureStart(final Method method) {
         LogAttachmentHelper.start();
+        if (method.isAnnotationPresent(DoNotOpenBrowser.class)) {
+            return;
+        }
         log.info("Browser session id: {}", KrakenDriver.getSessionId());
     }
 
     @AfterMethod(alwaysRun = true, description = "Завершение теста")
-    public void tearDown(final ITestResult result) {
+    public void tearDown(final Method method, final ITestResult result) {
         CustomReport.addSystemLog();
+        if (method.isAnnotationPresent(DoNotOpenBrowser.class)) {
+            return;
+        }
         if (!result.isSuccess()) {
             CustomReport.addSourcePage();
             CustomReport.addBrowserLog();

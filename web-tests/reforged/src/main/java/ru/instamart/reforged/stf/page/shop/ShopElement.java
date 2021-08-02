@@ -3,7 +3,8 @@ package ru.instamart.reforged.stf.page.shop;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
-import ru.instamart.reforged.stf.block.header.AuthoredHeader;
+import ru.instamart.reforged.stf.block.footer.Footer;
+import ru.instamart.reforged.stf.block.header.Header;
 import ru.instamart.reforged.stf.drawer.CategoryMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.address.Address;
@@ -11,11 +12,12 @@ import ru.instamart.reforged.stf.frame.ProductCard;
 
 public interface ShopElement {
 
-    AuthoredHeader header = new AuthoredHeader();
+    Header header = new Header();
     ProductCard productCard = new ProductCard();
     Cart cart = new Cart();
     Address address = new Address();
     CategoryMenu categoryMenu = new CategoryMenu();
+    Footer footer = new Footer();
 
     Button openAddress = new Button(By.xpath("//button[@data-qa='select-button']"));
     Element firstProductCard = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']"));

@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.stf.block.header.AuthoredHeader;
+import ru.instamart.reforged.stf.block.footer.Footer;
+import ru.instamart.reforged.stf.block.header.Header;
 import ru.instamart.reforged.stf.drawer.CategoryMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.address.Address;
@@ -21,7 +22,7 @@ public final class ShopPage implements StfPage, ShopCheck {
         return authModal;
     }
 
-    public AuthoredHeader interactHeader() {
+    public Header interactHeader() {
         return header;
     }
 
@@ -41,6 +42,9 @@ public final class ShopPage implements StfPage, ShopCheck {
         return categoryMenu;
     }
 
+    public Footer interactFooter() {
+        return footer;
+    }
 
     @Step("Открыть окно ввода адреса доставки")
     public void openAddressFrame() {

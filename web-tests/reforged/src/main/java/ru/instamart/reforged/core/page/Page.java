@@ -2,11 +2,11 @@ package ru.instamart.reforged.core.page;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.Cookie;
-import org.testng.Assert;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.service.KrakenDriver;
 
+import static org.testng.Assert.*;
 import static ru.instamart.kraken.util.StringUtil.failMessage;
 
 public interface Page extends PageCheck {
@@ -57,17 +57,25 @@ public interface Page extends PageCheck {
 
     @Step("Проверяем доступность текущей страницы")
     default void checkPageIsAvailable() throws AssertionError {
-        Assert.assertFalse(
+        assertFalse(
                 Kraken.is404(),
                 failMessage("Ошибка 404 на странице " + Kraken.currentUrl())
         );
-        Assert.assertFalse(
+        assertFalse(
                 Kraken.is500(),
                 failMessage("Ошибка 500 на странице " + Kraken.currentUrl())
         );
-        Assert.assertFalse(
+        assertFalse(
                 Kraken.is502(),
                 failMessage("Ошибка 502 на странице " + Kraken.currentUrl())
+        );
+    }
+
+    @Step("Проверяем что страница недоступна")
+    default void checkPageIsUnavailable() throws AssertionError {
+        assertTrue(
+                Kraken.is404(),
+                failMessage("Нет ожидаемой ошибки 404 на странице " + Kraken.currentUrl())
         );
     }
 
@@ -78,6 +86,6 @@ public interface Page extends PageCheck {
 
     @Step("Проверяем что страница не открылась")
     default void checkForbiddenPageUrl(final String url) {
-        Assert.assertNotEquals(Kraken.currentUrl(), url, "Текущая страница должна быть недоступна");
+        assertNotEquals(Kraken.currentUrl(), url, "Текущая страница должна быть недоступна");
     }
 }

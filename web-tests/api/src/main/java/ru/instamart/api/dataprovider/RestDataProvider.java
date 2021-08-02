@@ -91,6 +91,7 @@ public class RestDataProvider extends RestBase {
         Specification.setResponseSpecDefault();
 
         return retailerList.stream()
+                .filter(RetailerV2::getAvailable) //Фильтрует только доступных ретейлеров
                 .map(list -> new Object[]{list})
                 .toArray(Object[][]::new);
     }

@@ -5,6 +5,10 @@ import ru.instamart.reforged.stf.frame.checkout.CheckoutPage;
 import ru.instamart.reforged.stf.page.business.BusinessPage;
 import ru.instamart.reforged.stf.page.faq.*;
 import ru.instamart.reforged.stf.page.home.HomePage;
+import ru.instamart.reforged.stf.page.landings.AeroflotPage;
+import ru.instamart.reforged.stf.page.landings.MnogoruPage;
+import ru.instamart.reforged.stf.page.landings.gift.CertificatePage;
+import ru.instamart.reforged.stf.page.landings.job.JobPage;
 import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.reforged.stf.page.user.UserCompanies;
 import ru.instamart.reforged.stf.page.user.UserEdit;
@@ -41,32 +45,52 @@ public final class StfRouter extends Router {
         return (BusinessPage) getPage(BusinessPage.class);
     }
 
-    public static About about() {
-        return (About) getPage(About.class);
+    public static AboutPage about() {
+        return (AboutPage) getPage(AboutPage.class);
     }
 
-    public static Contacts contacts() {
-        return (Contacts) getPage(Contacts.class);
+    public static ContactsPage contacts() {
+        return (ContactsPage) getPage(ContactsPage.class);
     }
 
-    public static Delivery delivery() {
-        return (Delivery) getPage(Delivery.class);
+    public static DeliveryPage delivery() {
+        return (DeliveryPage) getPage(DeliveryPage.class);
     }
 
-    public static Faq faq() {
-        return (Faq) getPage(Faq.class);
+    public static FaqPage faq() {
+        return (FaqPage) getPage(FaqPage.class);
     }
 
-    public static Rules rules() {
-        return (Rules) getPage(Rules.class);
+    public static RulesPage rules() {
+        return (RulesPage) getPage(RulesPage.class);
     }
 
-    public static Terms terms() {
-        return (Terms) getPage(Terms.class);
+    public static TermsPage terms() {
+        return (TermsPage) getPage(TermsPage.class);
+    }
+
+    public static HowWeWorkPage howWeWork() {
+        return (HowWeWorkPage) getPage(HowWeWorkPage.class);
     }
 
     public static CheckoutPage checkout() {
         return (CheckoutPage) getPage(CheckoutPage.class);
+    }
+
+    public static CertificatePage certificate() {
+        return (CertificatePage) getPage(CertificatePage.class);
+    }
+
+    public static JobPage job() {
+        return (JobPage) getPage(JobPage.class);
+    }
+
+    public static MnogoruPage mnogory() {
+        return (MnogoruPage) getPage(MnogoruPage.class);
+    }
+
+    public static AeroflotPage aeroflot() {
+        return (AeroflotPage) getPage(AeroflotPage.class);
     }
 
     private StfRouter() {

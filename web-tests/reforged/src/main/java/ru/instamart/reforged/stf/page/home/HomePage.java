@@ -3,6 +3,7 @@ package ru.instamart.reforged.stf.page.home;
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.page.Window;
+import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 import ru.instamart.reforged.stf.page.StfPage;
@@ -15,6 +16,10 @@ public final class HomePage implements StfPage, Window, HomeCheck {
 
     public Address interactAddressModal() {
         return addressModal;
+    }
+
+    public Footer interactFooter() {
+        return footer;
     }
 
     @Step("Открыть модалку авторизации")
