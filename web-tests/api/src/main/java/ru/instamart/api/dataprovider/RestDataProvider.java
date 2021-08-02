@@ -96,34 +96,6 @@ public class RestDataProvider extends RestBase {
                 .toArray(Object[][]::new);
     }
 
-    @DataProvider(name = "filteredAvailableRetailersSpree", parallel = true)
-    public static Object[][] getFilteredAvailableRetailersSpree() {
-        Specification.setResponseSpecDataProvider();
-
-        List<RetailerV2> retailerList = apiV2.getAvailableRetailersSpree();
-
-        Specification.setResponseSpecDefault();
-
-        return retailerList.stream()
-                .filter(RetailerV2::getAvailable) //Фильтрует только доступных ретейлеров
-                .map(list -> new Object[]{list})
-                .toArray(Object[][]::new);
-    }
-
-    @DataProvider(name = "filteredUnavailableRetailersSpree", parallel = true)
-    public static Object[][] getFilteredUnavailableRetailersSpree() {
-        Specification.setResponseSpecDataProvider();
-
-        List<RetailerV2> retailerList = apiV2.getAvailableRetailersSpree();
-
-        Specification.setResponseSpecDefault();
-
-        return retailerList.stream()
-                .filter(r -> !r.getAvailable()) //Фильтрует только недоступных ретейлеров
-                .map(list -> new Object[]{list})
-                .toArray(Object[][]::new);
-    }
-
     @DataProvider(name = "stores-parallel", parallel = true)
     public static Object[][] getAvailableStoresParallel() {
         return getAvailableStores();

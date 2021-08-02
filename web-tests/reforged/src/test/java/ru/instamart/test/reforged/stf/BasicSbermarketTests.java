@@ -5,12 +5,16 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
-import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.model.v2.RetailerV2;
+import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.reforged.core.DoNotOpenBrowser;
+import ru.instamart.reforged.core.StaticPage;
+import ru.instamart.reforged.core.service.Curl;
 import ru.instamart.reforged.stf.page.StfPage;
 import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.test.reforged.BaseTest;
 
+import static org.testng.Assert.assertTrue;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -181,89 +185,69 @@ public final class BasicSbermarketTests extends BaseTest {
         terms().checkPageIsAvailable();
     }
 
-    //TODO: Тесты просто на проверку того что страница не 500 лучше сделать через curl например
-    //для всех методов ниже
-
+    @DoNotOpenBrowser
     @CaseId(1437)
     @Story("Витрины ретейлеров")
-    @Test(  dataProvider = "filteredAvailableRetailersSpree" ,
-            dataProviderClass = RestDataProvider.class,
+    @Test(  dataProviderClass = StaticPage.class,
+            dataProvider = "filteredAvailableRetailersSpree",
             description = "Тест доступности витрин ритейлеров Сбермаркета ",
             groups = {"sbermarket-Ui-smoke","MRAutoCheck","ui-smoke-production"}
     )
     public void successCheckSbermarketAvailableRetailers(final RetailerV2 retailer) {
-        home().openSitePage(retailer.getSlug());
-        home().checkPageIsAvailable();
+        final String fullUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + retailer.getSlug();
+        assertTrue(Curl.pageAvailable(fullUrl), "Страница " + fullUrl + " недоступна");
     }
 
+    @DoNotOpenBrowser
     @CaseId(1437)
     @Story("Витрины ретейлеров")
-    @Test(  dataProvider = "filteredUnavailableRetailersSpree" ,
-            dataProviderClass = RestDataProvider.class,
+    @Test(  dataProviderClass = StaticPage.class,
+            dataProvider = "filteredUnavailableRetailersSpree",
             description = "Тест недоступности витрин ритейлеров Сбермаркета ",
             groups = {"sbermarket-Ui-smoke","MRAutoCheck","ui-smoke-production"}
     )
     public void successCheckSbermarketUnavailableRetailers(final RetailerV2 retailer) {
-        home().openSitePage(retailer.getSlug());
-        home().checkPageIsUnavailable();
+        final String fullUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + retailer.getSlug();
+        assertTrue(Curl.pageUnavailable(fullUrl), "Страница " + fullUrl + " доступна");
     }
 
+    @DoNotOpenBrowser
     @CaseId(1433)
     @Story("Партнерские лендинги")
     @Test(
+            dataProviderClass = StaticPage.class,
+            dataProvider = "landingPage",
             description = "Тест доступности партнерских лендингов",
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
-    public void successCheckPartnerLandingsAreAvailable() {
-        mnogory().goToPage();
-        mnogory().checkPageIsAvailable();
-
-        aeroflot().goToPage();
-        aeroflot().checkPageIsAvailable();
+    public void successCheckPartnerLandingsAreAvailable(final String url) {
+        assertTrue(Curl.pageAvailable(url), "Страница " + url + " недоступна");
     }
 
+    @DoNotOpenBrowser
     @CaseId(1814)
     @Story("Сервисные страницы")
     @Test(
+            dataProviderClass = StaticPage.class,
+            dataProvider = "servicePage",
             description = "Тест доступности сервисных страниц",
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
 
-    public void successServicePagesAreAvailable() {
-        certificate().goToPage();
-        certificate().checkPageIsAvailable();
-
-        //TODO: Там внезапно нет реакта
-        //job().goToPage();
-        //job().checkPageIsAvailable();
+    public void successServicePagesAreAvailable(final String url) {
+        assertTrue(Curl.pageAvailable(url), "Страница " + url + " недоступна");
     }
 
+    @DoNotOpenBrowser
     @CaseId(1432)
     @Story("Статические страницы")
     @Test(
+            dataProviderClass = StaticPage.class,
+            dataProvider = "faqPage",
             description = "Тест доступности статических страниц",
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
-    public void successCheckStaticPagesAreAvailable() {
-        about().goToPage();
-        about().checkPageIsAvailable();
-
-        contacts().goToPage();
-        contacts().checkPageIsAvailable();
-
-        delivery().goToPage();
-        delivery().checkPageIsAvailable();
-
-        faq().goToPage();
-        faq().checkPageIsAvailable();
-
-        howWeWork().goToPage();
-        howWeWork().checkPageIsAvailable();
-
-        rules().goToPage();
-        rules().checkPageIsAvailable();
-
-        terms().goToPage();
-        terms().checkPageIsAvailable();
+    public void successCheckStaticPagesAreAvailable(final String url) {
+        assertTrue(Curl.pageAvailable(url), "Страница " + url + " недоступна");
     }
 }

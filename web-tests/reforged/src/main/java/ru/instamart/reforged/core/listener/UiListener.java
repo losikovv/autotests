@@ -4,6 +4,7 @@ import io.qase.api.enums.RunResultStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.*;
 import ru.instamart.kraken.service.QaseService;
+import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.report.CustomReport;
 
 @Slf4j
@@ -37,6 +38,9 @@ public final class UiListener implements ITestListener, ISuiteListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
+        if (result.getMethod().getConstructorOrMethod().getMethod().isAnnotationPresent(DoNotOpenBrowser.class)) {
+            return;
+        }
         this.qaseService.sendResult(result, RunResultStatus.failed, qaseService.uploadScreenshot(CustomReport.takeScreenshotFile()));
     }
 
