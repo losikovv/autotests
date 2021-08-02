@@ -3,6 +3,7 @@ package ru.instamart.reforged.stf.page.home;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Link;
+import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 
@@ -10,6 +11,7 @@ public interface HomeElement {
 
     AuthModal authModal = new AuthModal();
     Address addressModal = new Address();
+    Footer footer = new Footer();
 
     Button loginButton = new Button(By.xpath("//button[contains(@class, 'home_header')]"));
     Button forYourself = new Button(By.xpath("//button[@aria-controls='b2c-tab']"));

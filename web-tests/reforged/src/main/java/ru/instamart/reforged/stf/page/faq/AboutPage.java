@@ -2,10 +2,10 @@ package ru.instamart.reforged.stf.page.faq;
 
 import ru.instamart.reforged.stf.page.StfPage;
 
-public final class Contacts implements StfPage {
+public final class AboutPage implements StfPage {
 
     @Override
     public String pageUrl() {
-        return "/contacts";
+        return "about-sbermarket";
     }
 }

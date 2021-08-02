@@ -6,7 +6,7 @@ import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.drawer.StoreSelector;
 import ru.instamart.reforged.stf.frame.address.Address;
 
-public final class AuthoredHeader implements AuthoredHeaderCheck {
+public final class Header implements HeaderCheck {
 
     public Cart interactCart() {
         return cartFrame;
@@ -22,6 +22,11 @@ public final class AuthoredHeader implements AuthoredHeaderCheck {
 
     public StoreSelector interactStoreSelector() {
         return storeSelectorDrawer;
+    }
+
+    @Step("Нажать на лого")
+    public void clickToLogo() {
+        logo.click();
     }
 
     @Step("Выбрать магазин")

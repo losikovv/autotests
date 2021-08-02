@@ -5,12 +5,12 @@ import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
 import ru.instamart.reforged.core.component.Link;
-import ru.instamart.reforged.stf.block.header.AuthoredHeader;
+import ru.instamart.reforged.stf.block.header.Header;
 import ru.instamart.reforged.stf.frame.ProductCard;
 
 public interface UseFavoritesElement {
 
-    AuthoredHeader header = new AuthoredHeader();
+    Header header = new Header();
     ProductCard productCart = new ProductCard();
 
     Element emptyFavorites = new Element(By.className("empty-favorites"), "плейсхолдер пустого списка");
