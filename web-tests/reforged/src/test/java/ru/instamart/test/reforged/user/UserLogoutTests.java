@@ -76,8 +76,8 @@ public class UserLogoutTests extends BaseTest {
         shop().plusFirstItemToCartAddedAddress();
         shop().checkMinusButtonAddedAddressIsVisible();
         shop().checkCartNotificationIsVisible();
-        shop().checkCartNotificationIsNotVisible();
-        shop().interactUser().clearSessionLogout();
+        shop().interactHeader().clickToProfile();
+        shop().interactHeader().interactAccountMenu().clickToLogout();
         home().goToPage();
         home().checkLoginButtonIsVisible();
         home().openSitePage(Config.DEFAULT_RETAILER);

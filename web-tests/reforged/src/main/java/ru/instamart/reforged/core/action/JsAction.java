@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static ru.instamart.reforged.core.Kraken.execute;
+import static ru.instamart.reforged.core.Kraken.jsAction;
 import static ru.instamart.reforged.core.service.KrakenDriver.getWebDriver;
 
 @Slf4j
@@ -38,14 +39,6 @@ public final class JsAction {
         final WebDriverWait wait = new WebDriverWait(getWebDriver(), Config.BASIC_TIMEOUT);
         wait.pollingEvery(Config.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
         wait.until((ExpectedCondition<Boolean>) wb -> (Boolean) execute("return ReactRailsUJS.jQuery.active==0"));
-    }
-
-    /**
-     * Ожидание инициализации ajax
-     */
-    public static void ajaxReady() {
-        final WebDriverWait wait = new WebDriverWait(getWebDriver(), 5);
-        wait.until((ExpectedCondition<Boolean>) wb -> (Boolean) execute("return jQuery.active==0"));
     }
 
     /**
@@ -147,7 +140,7 @@ public final class JsAction {
                 "     url : '"+ EnvironmentData.INSTANCE.getBasicUrl() + "api/user_sessions',\n" +
                 "     method : 'delete'\n" +
                 "});");
-        ajaxReady();
+        jsAction().jQueryReady();
     }
 
     /**
