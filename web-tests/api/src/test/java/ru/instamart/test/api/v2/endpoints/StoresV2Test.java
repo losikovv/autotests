@@ -6,6 +6,8 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import ru.instamart.api.checkpoint.BaseApiCheckpoints;
+import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.request.v2.StoresV2Request;
@@ -14,13 +16,13 @@ import ru.instamart.api.response.v2.StoreV2Response;
 import ru.instamart.api.response.v2.StoresV2Response;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Получение списка магазинов")
 public final class StoresV2Test extends RestBase {
+    private final BaseApiCheckpoints check = new BaseApiCheckpoints();
 
     @CaseId(1)
     @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Получаем магазин")
@@ -79,12 +81,82 @@ public final class StoresV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"}, description = "Получаем магазин")
     public void testGetStoresWithDefaultSid() {
         final Response response = StoresV2Request.GET(EnvironmentData.INSTANCE.getDefaultSid());
-        response.prettyPeek();
         checkStatusCode200(response);
         StoreV2Response store = response.as(StoreV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(store.getStore().getId(), Integer.toString(EnvironmentData.INSTANCE.getDefaultSid()), "Id магазина не совпадает");
         softAssert.assertEquals(store.getStore().getOperationalTimes().size(), 7, "Количество рабочих дней не равно 7");
         softAssert.assertAll();
+    }
+
+    @CaseId(188)
+    @Test(groups = {"api-instamart-regress"},
+            dataProvider = "storeData",
+            dataProviderClass = RestDataProvider.class,
+            description = "Получить список магазинов с указанием lon или lon")
+    public void getStoresData(StoresV2Request.Store store) {
+        final Response response = StoresV2Request.GET(store);
+        checkStatusCode422(response);
+        check.errorAssert(response, "lat and lon params are both required");
+    }
+
+    @CaseId(189)
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получение списка магазинов с указанием lat и lon")
+    public void getStoresWithLatAndLon() {
+        final Response response = StoresV2Request.GET(
+                StoresV2Request.Store.builder()
+                        .lat(RestAddresses.NizhnyNovgorod.defaultAddress().getLat())
+                        .lon(RestAddresses.NizhnyNovgorod.defaultAddress().getLon())
+                        .build()
+        );
+        checkStatusCode200(response);
+        StoresV2Response storesV2Response = response.as(StoresV2Response.class);
+        final SoftAssert sa = new SoftAssert();
+        sa.assertFalse(storesV2Response.getStores().isEmpty(), "Stores is missed");
+        sa.assertTrue(storesV2Response.getStoreLabels().isEmpty(), "Stores Labels not empty");
+        sa.assertEquals(storesV2Response.getStores().get(0).getId(), EnvironmentData.INSTANCE.getDefaultSid(), "Id магазина отличается");
+        sa.assertEquals(storesV2Response.getStores().get(0).getId(), "METRO, Нижний Новгород Нартова", "Наименование отличается");
+        sa.assertEquals(storesV2Response.getStores().get(0).getRetailer().getId(), java.util.Optional.of(1), "Ретейлер не соответствует");
+        sa.assertAll();
+    }
+
+    @CaseId(190)
+    @Test(groups = {"api-instamart-regress"},
+            dataProvider = "storeDataWithLatAndLon",
+            dataProviderClass = RestDataProvider.class,
+            description = "Получение списка магазинов  с валидными значениями")
+    public void getStores(StoresV2Request.Store store) {
+        final Response response = StoresV2Request.GET(store);
+        checkStatusCode200(response);
+        assertFalse(response.as(StoresV2Response.class).getStores().isEmpty(), "Stores is missed");
+    }
+
+    @CaseId(193)
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получение списка магазинов  с невалидным shippingMethod")
+    public void getStoresNOtValidShippingMethod() {
+        final Response response = StoresV2Request.GET(StoresV2Request.Store.builder()
+                .lat(RestAddresses.NizhnyNovgorod.defaultAddress().getLat())
+                .lon(RestAddresses.NizhnyNovgorod.defaultAddress().getLon())
+                .shippingMethod("notValidShippingMethod")
+                .build()
+        );
+        checkStatusCode200(response);
+        assertFalse(response.as(StoresV2Response.class).getStores().isEmpty(), "Stores is missed");
+    }
+
+    @CaseId(195)
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получение списка магазинов  с невалидным shippingMethod")
+    public void getStoresNOtValidOperationalZoneId() {
+        final Response response = StoresV2Request.GET(StoresV2Request.Store.builder()
+                .lat(RestAddresses.Moscow.defaultAddress().getLat())
+                .lon(RestAddresses.Moscow.defaultAddress().getLon())
+                .operationalZoneId(-1)
+                .build()
+        );
+        checkStatusCode200(response);
+        assertTrue(response.as(StoresV2Response.class).getStores().isEmpty(), "Stores is missed");
     }
 }
