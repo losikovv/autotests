@@ -46,14 +46,17 @@ public final class QaseService {
     private static final LocalDateTime DAYS_TO_DIE = LocalDateTime.now().minusWeeks(3);
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    @Deprecated private final int PLAN_ID = Integer.parseInt(System.getProperty("qase.plan.id", "0"));
-    @Deprecated private final int SUITE_ID = Integer.parseInt(System.getProperty("qase.suite.id", "0"));
+    @Deprecated
+    private final int PLAN_ID = Integer.parseInt(System.getProperty("qase.plan.id", "0"));
+    @Deprecated
+    private final int SUITE_ID = Integer.parseInt(System.getProperty("qase.suite.id", "0"));
     private final String PIPELINE_URL = System.getProperty("pip_url", "https://gitlab.sbermarket.tech/qa/automag/-/pipelines");
-    private boolean qase = Boolean.parseBoolean(System.getProperty("qase","false"));
-
     private final String projectCode;
-    @Getter private final QaseApi qaseApi;
-    @Deprecated private final List<Integer> testCasesList;
+    @Getter
+    private final QaseApi qaseApi;
+    @Deprecated
+    private final List<Integer> testCasesList;
+    private boolean qase = Boolean.parseBoolean(System.getProperty("qase", "false"));
     private boolean started = false;
 
     private String testRunName;
@@ -160,14 +163,11 @@ public final class QaseService {
 
         final CaseId[] caseIDs = getCaseIDs(result);
 
-        if (caseIDs != null) {
-            if (result instanceof TestResult) {
-                TestResult testResult = (TestResult) result;
-                int index = testResult.getParameterIndex();
-                Long caseIdItem = caseIDs[index].value();
-                if (caseIdItem != null) {
-                    createTestResult(caseIdItem, status, timeSpent, comment, stacktrace, isDefect, attachmentHash);
-                }
+        if (caseIDs != null && result instanceof TestResult) {
+            int index = ((TestResult) result).getParameterIndex();
+            Long caseIdItem = caseIDs[index].value();
+            if (caseIdItem != null) {
+                createTestResult(caseIdItem, status, timeSpent, comment, stacktrace, isDefect, attachmentHash);
             }
         }
     }
@@ -267,7 +267,7 @@ public final class QaseService {
 
         int automatedNumber = 0;
         int actualizedNumber = 0;
-        for (TestCase testCase: allTestCases) {
+        for (TestCase testCase : allTestCases) {
 
             TestRunResultService.Filter filter = qaseApi
                     .testRunResults()
@@ -301,7 +301,8 @@ public final class QaseService {
         log.info("Сейчас актуализировано: {}", actualizedNumber);
     }
 
-    @Deprecated private void addTestCasesFromChildSuite(final TestCaseService.Filter filter, final int parentId, final List<Suite> suites) {
+    @Deprecated
+    private void addTestCasesFromChildSuite(final TestCaseService.Filter filter, final int parentId, final List<Suite> suites) {
         suites.forEach(suite -> {
             if (suite.getParentId() != null && suite.getParentId() == parentId) {
                 int suiteId = (int) suite.getId();
@@ -312,7 +313,8 @@ public final class QaseService {
         });
     }
 
-    @Deprecated private void addTestCasesToList(final TestCaseService.Filter filter) {
+    @Deprecated
+    private void addTestCasesToList(final TestCaseService.Filter filter) {
         qaseApi.testCases()
                 .getAll(projectCode, filter)
                 .getTestCaseList()
