@@ -3,7 +3,7 @@ ext.versions = [
         jsonSimple: '1.1.1',
         selenium: '3.8.1',
         seleniumChromeDriver: '3.14.0',
-        testng: '6.8.8',
+        testng: '6.13.1',
         restAssured: '4.3.1',
         jetbrainsAnnotations: '19.0.0',
         allure: '2.13.8',

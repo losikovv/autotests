@@ -2,6 +2,7 @@ package ru.instamart.kraken.service;
 
 import io.qameta.allure.TmsLink;
 import io.qase.api.QaseApi;
+import io.qase.api.annotation.CaseIDs;
 import io.qase.api.annotation.CaseId;
 import io.qase.api.enums.Automation;
 import io.qase.api.enums.RunResultStatus;
@@ -17,6 +18,7 @@ import io.qase.api.services.TestRunResultService;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.ITestResult;
+import org.testng.internal.TestResult;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.kraken.util.Crypt;
@@ -153,22 +155,41 @@ public final class QaseService {
 
         final Long caseId = getCaseId(result);
         if (caseId != null) {
-            try {
-                qaseApi.testRunResults()
-                        .create(projectCode,
-                                runId,
-                                caseId,
-                                status,
-                                timeSpent,
-                                null,
-                                DESCRIPTION_PREFIX + comment,
-                                stacktrace,
-                                isDefect,
-                                attachmentHash
-                        );
-            } catch (Exception e) {
-                log.error("FATAL: can't update test run [caseId={} run={} project={}]", caseId, runId, projectCode, e);
+            createTestResult(caseId, status, timeSpent, comment, stacktrace, isDefect, attachmentHash);
+        }
+
+        final CaseId[] caseIDs = getCaseIDs(result);
+
+        if (caseIDs != null) {
+            if (result instanceof TestResult) {
+                TestResult testResult = (TestResult) result;
+                int index = testResult.getParameterIndex();
+                Long caseIdItem = caseIDs[index].value();
+                if (caseIdItem != null) {
+                    createTestResult(caseIdItem, status, timeSpent, comment, stacktrace, isDefect, attachmentHash);
+                }
             }
+        }
+    }
+
+    private void createTestResult(final Long caseId, final RunResultStatus status, final Duration timeSpent,
+                                  final String comment, final String stacktrace, final Boolean isDefect,
+                                  final List<String> attachmentHash) {
+        try {
+            qaseApi.testRunResults()
+                    .create(projectCode,
+                            runId,
+                            caseId,
+                            status,
+                            timeSpent,
+                            null,
+                            DESCRIPTION_PREFIX + comment,
+                            stacktrace,
+                            isDefect,
+                            attachmentHash
+                    );
+        } catch (Exception e) {
+            log.error("FATAL: can't update test run [caseId={} run={} project={}]", caseId, runId, projectCode, e);
         }
     }
 
@@ -316,6 +337,24 @@ public final class QaseService {
             } catch (NumberFormatException e) {
                 log.error("String could not be parsed as Long", e);
             }
+        }
+        return null;
+    }
+
+    /**
+     * Получаем список CaseId
+     *
+     * @param result
+     * @return
+     */
+    private CaseId[] getCaseIDs(final ITestResult result) {
+        final Method method = result
+                .getMethod()
+                .getConstructorOrMethod()
+                .getMethod();
+        if (method.isAnnotationPresent(CaseIDs.class)) {
+            return method
+                    .getDeclaredAnnotation(CaseIDs.class).value();
         }
         return null;
     }
