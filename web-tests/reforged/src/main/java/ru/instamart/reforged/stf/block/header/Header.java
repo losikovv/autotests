@@ -123,4 +123,5 @@ public final class Header implements HeaderCheck {
     public void clickToCategoryMenu() {
         categoryMenu.click();
     }
+
 }

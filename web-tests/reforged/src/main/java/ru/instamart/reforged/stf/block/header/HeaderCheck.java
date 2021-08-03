@@ -3,6 +3,7 @@ package ru.instamart.reforged.stf.block.header;
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
 
+import static org.testng.Assert.assertEquals;
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface HeaderCheck extends Check, HeaderElement {
@@ -90,6 +91,12 @@ public interface HeaderCheck extends Check, HeaderElement {
     @Step("Проверяем, что кнопка профиля видна")
     default void checkProfileButtonVisible() {
         waitAction().shouldBeVisible(profile);
+    }
+
+    @Step("Проверяем, что не выбран адрес доставки")
+    default void checkIsShippingAddressNotSet() {
+        waitAction().shouldBeVisible(firstSelectAddress);
+        assertEquals(firstSelectAddress.getText(), "Выберите адрес доставки");
     }
 
     default void checkLoginIsVisible() {
