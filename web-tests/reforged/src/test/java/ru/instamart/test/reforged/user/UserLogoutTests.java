@@ -75,7 +75,7 @@ public class UserLogoutTests extends BaseTest {
 
         apiHelper.dropAndFillCart(userData, EnvironmentData.INSTANCE.getDefaultSid());
 
-        home().openSitePage(Config.DEFAULT_RETAILER+"?sid="+EnvironmentData.INSTANCE.getDefaultSid());
+        home().openSitePage(Config.DEFAULT_RETAILER + "?sid=" + EnvironmentData.INSTANCE.getDefaultSid());
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartNotEmpty();
         shop().interactCart().closeCart();
