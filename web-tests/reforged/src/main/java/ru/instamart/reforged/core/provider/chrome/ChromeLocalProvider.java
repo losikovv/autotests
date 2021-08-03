@@ -42,7 +42,7 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         options.setCapability("detach", true);
         options.setCapability(CapabilityType.LOGGING_PREFS, getLogPref());
-        options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+        options.setPageLoadStrategy(PageLoadStrategy.EAGER);
         options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
 
         createLocalChromeDriver(Optional.of(options));
