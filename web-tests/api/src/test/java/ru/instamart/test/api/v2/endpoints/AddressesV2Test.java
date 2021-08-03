@@ -4,17 +4,18 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
+import io.qase.api.annotation.CaseIDs;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.AddressesV2Request;
 import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
 import ru.instamart.api.response.v2.AddressV2Response;
-import ru.instamart.api.dataprovider.RestDataProvider;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
@@ -64,6 +65,8 @@ public final class AddressesV2Test extends RestBase {
     }
 
     //TODO: Валидацию не завезли, отписал апсекам, завели баг
+    @CaseIDs({@CaseId(207), @CaseId(208), @CaseId(209), @CaseId(210), @CaseId(211), @CaseId(212), @CaseId(213),
+            @CaseId(214), @CaseId(215), @CaseId(216)})
     @Issue("SBUG-35")
     @Story("Создание нового адреса доставки")
     @Test(groups = {"api-instamart-regress"},
@@ -101,7 +104,9 @@ public final class AddressesV2Test extends RestBase {
 
     //TODO: Валидацию не завезли, отписал апсекам, завели баг
     //217-230
-    @CaseId(217)
+    @CaseIDs({@CaseId(217), @CaseId(218), @CaseId(219), @CaseId(220), @CaseId(221),
+            @CaseId(222), @CaseId(223), @CaseId(224), @CaseId(225), @CaseId(226),
+            @CaseId(227), @CaseId(228), @CaseId(229), @CaseId(230)})
     @Issue("SBUG-35")
     @Story("Редактирование адреса доставки")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
