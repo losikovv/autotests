@@ -9,6 +9,7 @@ public final class ApiV2EndPoints {
     public static final String BONUS_CARDS = "v2/bonus_cards";
     public static final String BONUS_PROGRAMS = "v2/bonus_programs";
     public static final String CATEGORIES = "v2/categories?sid={sid}";
+    public static final String DEEPLINKS = "v2/deeplinks";
     public static final String DEPARTMENTS = "v2/departments?sid={sid}&offers_limit={numberOfProductsFromEachDepartment}";
     public static final String LINE_ITEMS = "v2/line_items";
     public static final String ONBOARDING_PAGES = "v2/onboarding_pages";
@@ -46,6 +47,11 @@ public final class ApiV2EndPoints {
                 "v2/bonus_cards?bonus_card[bonus_program_id]={bonusProgramId}&bonus_card[number]={bonusCardNumber}";
         public static final String BY_ID = "v2/bonus_cards/{bonusCardId}";
     }
+
+    public static final class Deeplinks {
+        public static final String BY_URL = "v2/deeplinks?web_url={webUrl}";
+    }
+
 
     public static final class Departments {
         public static final String BY_ID = "v2/departments/{id}?sid={sid}";
