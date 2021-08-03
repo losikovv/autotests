@@ -13,6 +13,7 @@ public interface AddressElement {
     Input address = new Input(By.xpath("//input[@data-qa='address-modal-input']"));
     DropDown dropDownAddress = new DropDown(By.xpath("//div[contains(@class,'dropdown')]/div/*[text()]"));
     Button save = new Button(By.xpath("//button[@data-qa='address-modal-submit']"));
+    Element outOfShippingZone = new Element(By.xpath("//div[text()='Адрес не в зоне доставки']"));
 
     Selector selectCity = new Selector(By.xpath("//select[@data-qa='city-selector-control']"));
     Element storeList = new Element(By.xpath("//div[@data-qa='expandable-store-list']"), "список магазинов для самовывоза");

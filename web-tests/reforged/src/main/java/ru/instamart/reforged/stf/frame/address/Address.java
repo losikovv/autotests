@@ -1,12 +1,7 @@
 package ru.instamart.reforged.stf.frame.address;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.Button;
-import ru.instamart.reforged.core.component.DropDown;
-import ru.instamart.reforged.core.component.Input;
-import ru.instamart.reforged.core.component.Selector;
-import ru.instamart.reforged.core.component.Element;
+import lombok.SneakyThrows;
 import ru.instamart.reforged.stf.frame.Close;
 
 public final class Address implements Close, AddressCheck {
@@ -31,9 +26,12 @@ public final class Address implements Close, AddressCheck {
         dropDownAddress.selectAny();
     }
 
+    @SneakyThrows
     @Step("Выбрать первый адрес из совпадений")
     public void selectFirstAddress() {
         dropDownAddress.selectFirst();
+        //TODO: Ожидание смены геопозиции
+        Thread.sleep(2000);
     }
 
     @Step("Выбрать самовывоз")

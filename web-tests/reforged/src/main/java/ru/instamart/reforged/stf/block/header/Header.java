@@ -123,4 +123,9 @@ public final class Header implements HeaderCheck {
     public void clickToCategoryMenu() {
         categoryMenu.click();
     }
+
+    @Step("Получить текст выбранный адрес")
+    public String getShippingAddressFromHeader() {
+        return currentShipAddress.getText();
+    }
 }

@@ -8,18 +8,23 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 public interface StoreSelectorCheck extends Check, StoreSelectorElement {
 
 
-    @Step("Проверяем, что окно выбора магазина отображается")
-    default void checkStoreSelectorFrameIsPresent() {
+    @Step("Проверяем, что окно выбора магазина открыто")
+    default void checkStoreSelectorFrameIsOpen() {
         waitAction().shouldBeVisible(storeSelector);
     }
 
     @Step("Проверяем, что в окне выбора магазинов доступен хотя бы один магазин")
-    default void checkStoreDrawerIsNotEmpty() {
+    default void checkStoreSelectorDrawerIsNotEmpty() {
         waitAction().shouldBeVisible(storeCard);
     }
 
-    @Step("Проверяем, что окно выбора магазина не отображается")
-    default void checkStoreSelectorFrameIsNotPresent() {
+    @Step("Проверяем, что в окне выбора магазинов нет магазинов для выбора")
+    default void checkStoreSelectorDrawerIsEmpty() {
+        waitAction().shouldNotBeVisible(storeCard);
+    }
+
+    @Step("Проверяем, что окно выбора магазина закрыто")
+    default void checkStoreSelectorFrameIsNotOpen() {
         waitAction().shouldNotBeVisible(storeSelector);
     }
 }

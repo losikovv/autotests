@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.block.header;
 
 import io.qameta.allure.Step;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.reforged.core.Check;
 
 import static org.testng.Assert.assertEquals;
@@ -96,6 +97,37 @@ public interface HeaderCheck extends Check, HeaderElement {
     @Step("Проверяем, что не выбран адрес доставки")
     default void checkIsShippingAddressNotSet() {
         assertEquals(firstSelectAddress.getText(), "Выберите адрес доставки");
+    }
+
+    @Step("Проверяем, что выбран адрес доставки")
+    default void checkIsShippingAddressSet() {
+        waitAction().shouldNotBeVisible(currentShipAddress);
+    }
+
+    @Step("Проверяем, что утановленный адрес: \"{0}\" \n совпадает с адресом, отображаемом на странице: \"{1}\"")
+    default void checkIsSetAddressEqualsToInput(String defaultAddress, String currentAddress) {
+        final SoftAssert softAssert = new SoftAssert();
+        final String[] defaultAddressList = defaultAddress.split(", ");
+        log.info("> проверяем, что установленный адрес: '{}' совпадает с адресом на странице: '{}'",
+                defaultAddress,
+                currentAddress);
+        boolean checkState = false;
+        for (final String check : defaultAddressList) {
+            if (currentAddress.contains(check)) {
+                checkState = true;
+            } else {
+                log.info("> в введенном адресе отсутсвует: {}", check);
+                checkState = false;
+            }
+            softAssert.assertTrue(
+                    checkState,
+                    "\n> В адресе отображаемом на странице отсутсвует элемент: "
+                            + "\n> отображаемый адрес: " + currentAddress
+                            + "\n> Ожидаемый элемент: " + check
+            );
+        }
+        softAssert.assertAll();
+        log.info("✓ Успешно");
     }
 
     default void checkLoginIsVisible() {
