@@ -80,7 +80,6 @@ public final class BasicAdministrationTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        main().interactSideMenu().checkStoresDropdownIsClickable();
         main().interactSideMenu().storesDropdownClick();
         main().interactSideMenu().regionsClick();
         main().checkPageIsAvailable();
@@ -89,7 +88,6 @@ public final class BasicAdministrationTests extends BaseTest {
         main().interactSideMenu().shipmentAreaClick();
         main().checkPageIsAvailable();
 
-        main().interactSideMenu().checkOrdersDropdownIsClickable();
         main().interactSideMenu().ordersDropdownClick();
         main().interactSideMenu().logisticControlClick();
         main().checkPageIsAvailable();
@@ -97,10 +95,8 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().multipleOrderClick();
         main().checkPageIsAvailable();
-        main().interactSideMenu().checkOrdersDropdownIsClickable();
         main().interactSideMenu().ordersDropdownClick();
 
-        main().interactSideMenu().checkContentDropdownIsClickable();
         main().interactSideMenu().contentDropdownClick();
         main().interactSideMenu().productsClick();
         main().checkPageIsAvailable();
@@ -118,13 +114,11 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().contentImportClick();
         main().checkPageIsAvailable();
-        main().interactSideMenu().checkContentDropdownIsClickable();
         main().interactSideMenu().contentDropdownClick();
 
         main().interactSideMenu().settingsClick();
         main().checkPageIsAvailable();
 
-        main().interactSideMenu().checkMarketingDropdownIsClickable();
         main().interactSideMenu().marketingDropdownClick();
         main().interactSideMenu().promoCardsClick();
         main().checkPageIsAvailable();
@@ -154,10 +148,8 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().marketingCategoriesClick();
         main().checkPageIsAvailable();
-        main().interactSideMenu().checkMarketingDropdownIsClickable();
         main().interactSideMenu().marketingDropdownClick();
 
-        main().interactSideMenu().checkStaffDropdownIsClickable();
         main().interactSideMenu().staffDropdownClick();
         main().interactSideMenu().shiftsClick();
         main().checkPageIsAvailable();
@@ -167,7 +159,6 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().partnersImportClick();
         main().checkPageIsAvailable();
-        main().interactSideMenu().checkStaffDropdownIsClickable();
         main().interactSideMenu().staffDropdownClick();
 
         main().interactSideMenu().usersClick();
