@@ -3,9 +3,12 @@ package ru.instamart.test.reforged.user;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
+import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.Generate;
-import ru.instamart.kraken.testdata.lib.Addresses;
+import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.home;
@@ -60,22 +63,22 @@ public class UserLogoutTests extends BaseTest {
             }
     )
     public void noShipAddressAndEmptyCartAfterLogout() {
+        final ApiHelper apiHelper = new ApiHelper();
+        final UserData userData = UserManager.getUser();
+
         home().openSitePage(Config.DEFAULT_RETAILER);
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().fillPhone(Generate.phoneNumber());
+        shop().interactAuthModal().fillPhone(userData.getPhone());
         shop().interactAuthModal().sendSms();
         shop().interactAuthModal().fillSMS(Config.DEFAULT_SMS);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
-        shop().interactHeader().checkEnteredAddressIsVisible();
-        shop().plusFirstItemToCartAddedAddress();
-        shop().checkMinusButtonAddedAddressIsVisible();
-        shop().checkCartNotificationIsVisible();
+
+        apiHelper.dropAndFillCart(userData, EnvironmentData.INSTANCE.getDefaultSid());
+
+        home().openSitePage(Config.DEFAULT_RETAILER+"?sid="+EnvironmentData.INSTANCE.getDefaultSid());
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartNotEmpty();
+        shop().interactCart().closeCart();
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToLogout();
         home().goToPage();
@@ -83,6 +86,6 @@ public class UserLogoutTests extends BaseTest {
         home().openSitePage(Config.DEFAULT_RETAILER);
         shop().interactHeader().checkEnteredAddressNotVisible();
         shop().interactHeader().clickToCart();
-        shop().interactCart().checkCartIsEmpty();
+        shop().interactCart().checkCartEmpty();
     }
 }
