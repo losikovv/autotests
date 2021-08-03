@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.test.reforged.BaseTest;
 
@@ -42,7 +43,26 @@ public class UserShippingAddressTests extends BaseTest {
 
         shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsPresent();
         shop().interactHeader().interactStoreSelector().checkStoreDrawerIsNotEmpty();
-        shop().interactHeader().interactStoreSelector().clickToCloseButton();
+        shop().interactHeader().interactStoreSelector().close();
         shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsNotPresent();
+    }
+
+    @CaseId(31)
+    @Story("Сохранение и изменение адреса доставки")
+    @Test(
+            description = "Тест отмены ввода адреса доставки на витрине ритейлера",
+            groups = {
+                    "metro-acceptance", "metro-regres" +
+                    "sion",
+                    "sbermarket-Ui-smoke", "ui-smoke-production"
+            }
+    )
+    public void noShippingAddressSetOnClose() {
+
+        shop().goToPage(ShopPage.ShopUrl.METRO);
+        shop().interactHeader().clickToSelectAddressFirstTime();
+        shop().interactHeader().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactHeader().interactAddress().close();
+        shop().interactHeader().checkIsShippingAddressNotSet();
     }
 }

@@ -95,7 +95,6 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем, что не выбран адрес доставки")
     default void checkIsShippingAddressNotSet() {
-        waitAction().shouldBeVisible(firstSelectAddress);
         assertEquals(firstSelectAddress.getText(), "Выберите адрес доставки");
     }
 

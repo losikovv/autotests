@@ -5,11 +5,6 @@ import ru.instamart.reforged.stf.frame.Close;
 
 public class StoreSelector implements StoreSelectorCheck, Close {
 
-    @Step("Закрыть выбор магазинов")
-    public void clickToCloseButton() {
-        closeModal.click();
-    }
-
     @Step("Выбрать первый магазин в списке")
     public void clickToStoreCard() {
         storeCard.click();
