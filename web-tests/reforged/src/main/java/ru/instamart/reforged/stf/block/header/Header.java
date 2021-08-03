@@ -3,7 +3,7 @@ package ru.instamart.reforged.stf.block.header;
 import io.qameta.allure.Step;
 import ru.instamart.reforged.stf.drawer.account_menu.AccountMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
-import ru.instamart.reforged.stf.drawer.StoreSelector;
+import ru.instamart.reforged.stf.drawer.store_selector.StoreSelector;
 import ru.instamart.reforged.stf.frame.address.Address;
 
 public final class Header implements HeaderCheck {
@@ -123,5 +123,4 @@ public final class Header implements HeaderCheck {
     public void clickToCategoryMenu() {
         categoryMenu.click();
     }
-
 }
