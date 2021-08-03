@@ -84,8 +84,8 @@ public final class StoresV2Test extends RestBase {
         checkStatusCode200(response);
         StoreV2Response store = response.as(StoreV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(store.getStore().getId(), Integer.toString(EnvironmentData.INSTANCE.getDefaultSid()), "Id магазина не совпадает");
-        softAssert.assertEquals(store.getStore().getOperationalTimes().size(), 7, "Количество рабочих дней не равно 7");
+        softAssert.assertEquals(store.getStore().getId(), EnvironmentData.INSTANCE.getDefaultSid(), "Id магазина не совпадает");
+        softAssert.assertEquals(Integer.valueOf(store.getStore().getOperationalTimes().size()), Integer.valueOf(7), "Количество рабочих дней не равно 7");
         softAssert.assertAll();
     }
 
@@ -116,8 +116,8 @@ public final class StoresV2Test extends RestBase {
         sa.assertFalse(storesV2Response.getStores().isEmpty(), "Stores is missed");
         sa.assertTrue(storesV2Response.getStoreLabels().isEmpty(), "Stores Labels not empty");
         sa.assertEquals(storesV2Response.getStores().get(0).getId(), EnvironmentData.INSTANCE.getDefaultSid(), "Id магазина отличается");
-        sa.assertEquals(storesV2Response.getStores().get(0).getId(), "METRO, Нижний Новгород Нартова", "Наименование отличается");
-        sa.assertEquals(storesV2Response.getStores().get(0).getRetailer().getId(), java.util.Optional.of(1), "Ретейлер не соответствует");
+        sa.assertEquals(storesV2Response.getStores().get(0).getName(), "METRO, Нижний Новгород Нартова", "Наименование отличается");
+        sa.assertEquals(storesV2Response.getStores().get(0).getRetailer().getId(), Integer.valueOf(1), "Ретейлер не соответствует");
         sa.assertAll();
     }
 
