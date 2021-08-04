@@ -2,7 +2,6 @@ package ru.instamart.ab.model.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 /**
  * domainObtainJwtRequest{
@@ -14,7 +13,7 @@ import lombok.RequiredArgsConstructor;
  * }
  */
 @Data
-public final class JwtObtain {
+public final class JwtObtain implements IRequest {
 
     private String code;
     @JsonProperty(value = "callback_url")

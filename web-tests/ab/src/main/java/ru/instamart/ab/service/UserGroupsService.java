@@ -19,7 +19,16 @@ public final class UserGroupsService {
         try {
             client.post(UserGroupsResponse.class, Endpoint.USER_GROUPS, userGroup);
         } catch (IOException e) {
-            log.error("", e);
+            log.error("FATAL: User can't be update for some reason", e);
+        }
+    }
+
+    //http://bs-ab-admin.k-stage.sbermarket.tech/api/v1/users-groups?identityId={anonymous_id}&abTestId={test_id}
+    public void delete(final UserGroups userGroups) {
+        try {
+            client.delete(UserGroupsResponse.class, Endpoint.USER_GROUPS, userGroups);
+        } catch (IOException e) {
+            log.error("FATAL: User can't be deleted from some reason", e);
         }
     }
 }

@@ -10,9 +10,16 @@ import lombok.Data;
  * }
  */
 @Data
-public final class UserGroups {
+public final class UserGroups implements IRequest {
 
     private String identityId;
     private String abTestId;
     private String abGroupId;
+
+    public static void main(String[] args) {
+        UserGroups userGroups = new UserGroups();
+        userGroups.setAbGroupId("asfasfaf");
+
+        System.out.println(userGroups.getQuery());
+    }
 }

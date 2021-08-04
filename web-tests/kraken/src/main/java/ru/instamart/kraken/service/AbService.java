@@ -6,8 +6,6 @@ import ru.instamart.ab.model.request.UserGroups;
 import ru.instamart.ab.model.response.AuthorsResponse;
 import ru.instamart.kraken.util.Crypt;
 
-import java.util.UUID;
-
 public final class AbService {
 
     public final String BASE_AB_SERVICE_URL = "https://bs-ab-admin.k-stage.sbermarket.tech/api/v1";
@@ -24,7 +22,15 @@ public final class AbService {
         this.abApi.getUserGroupsService().update(userGroups);
     }
 
+    public void deleteUserGroup(final UserGroups userGroups) {
+        this.abApi.getUserGroupsService().delete(userGroups);
+    }
+
     public AuthorsResponse getAuthor() {
         return this.abApi.getAbTestsService().getAuthor();
+    }
+
+    public Object getAllTests() {
+        return this.abApi.getAbTestsService().getAllAbTests();
     }
 }

@@ -41,7 +41,7 @@ public enum Mapper {
         try {
             return objectMapper.readValue(json, response);
         } catch (JsonProcessingException e) {
-            log.error("FATAL: read response={} or convert to object={}", json, response.getSimpleName());
+            log.error("FATAL: read response={} or convert to object={}", json, response.getSimpleName(), e);
         }
         return null;
     }
