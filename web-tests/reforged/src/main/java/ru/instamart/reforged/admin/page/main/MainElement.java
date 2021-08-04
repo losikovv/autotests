@@ -10,6 +10,6 @@ public interface MainElement {
     SideMenu sideMenu = new SideMenu();
     AuthoredHeader authoredHeader = new AuthoredHeader();
 
-    Element user = new Element(By.xpath("//span[@class='ant-avatar ant-avatar-circle ant-avatar-icon']"));
-    Element logout = new Element(By.xpath("//span[@class='anticon anticon-logout ant-dropdown-menu-item-icon']"));
+    Element user = new Element(By.xpath("//span[@data-qa='header_user_name']"));
+    Element logout = new Element(By.xpath("//span[@data-qa='header_logout_button']"));
 }

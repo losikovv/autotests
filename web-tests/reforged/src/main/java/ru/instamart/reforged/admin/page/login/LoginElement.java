@@ -7,16 +7,16 @@ import ru.instamart.reforged.core.component.Input;
 
 public interface LoginElement {
 
-    Input username = new Input(By.name("email"));
-    Input password = new Input(By.name("password"));
-    Button submit = new Button(By.xpath("//button[@type='submit']"));
+    Input username = new Input(By.xpath("//input[@data-qa='login_form_email_input']"));
+    Input password = new Input(By.xpath("//input[@data-qa='login_form_password_input']"));
+    Button submit = new Button(By.xpath("//button[@data-qa='login_form_submit']"));
 
-    Element title = new Element(By.xpath("//h1[text()='Вход']"));
-    Element errorSetEmail = new Element(By.xpath("//div[@role='alert' and text()='Укажите email']"));
-    Element errorInvalidFormatEmail = new Element(By.xpath("//div[@role='alert' and text()='Email адрес имеет неправильный формат']"));
-    Element errorSetPassword = new Element(By.xpath("//div[@role='alert' and text()='Укажите пароль']"));
-    Element errorShortPassword = new Element(By.xpath("//div[@role='alert' and text()='Пароль должен содержать не менее 6 символов']"));
-    Element errorInvalidEmailOrPassword = new Element(By.xpath("//div[@role='alert' and text()='Неверный email или пароль']"));
+    Element title = new Element(By.xpath("//h1[@data-qa='login_form_title']"));
+    Element errorSetEmail = new Element(By.xpath("//span[@data-qa='login_form_email_input_alert_message_error' and text()='Укажите email']"));
+    Element errorInvalidFormatEmail = new Element(By.xpath("//span[@data-qa='login_form_email_input_alert_message_error' and text()='Email адрес имеет неправильный формат']"));
+    Element errorSetPassword = new Element(By.xpath("//span[@data-qa='login_form_password_input_alert_message_error' and text()='Укажите пароль']"));
+    Element errorShortPassword = new Element(By.xpath("//span[@data-qa='login_form_password_input_alert_message_error' and text()='Пароль должен содержать не менее 6 символов']"));
+    Element errorInvalidEmailOrPassword = new Element(By.xpath("//span[@data-qa='login_form_email_input_alert_message_error' and text()='Неверный email или пароль']"));
     Element errorNoPermission = new Element(By.xpath("//div[@class = 'flash error' and text()='У вас нет прав для этого действия. Если они вам необходимы, обратитесь за помощью в Helpdesk.']"),
             "нотификация с ошибкой 'У вас нет прав для этого действия'");
 }
