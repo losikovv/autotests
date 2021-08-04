@@ -144,6 +144,7 @@ public final class ApiV2EndPoints {
         public static final String LINE_ITEM_REPLACEMENTS = "v2/shipments/{shipmentNumber}/line_item_replacements";
         public static final String SERVICE_RATE = "v2/shipments/{shipmentNumber}/service_rate?{deliveryWindowId}";
         public static final String SHIPPING_RATES = "v2/shipments/{shipmentNumber}/shipping_rates?{date}";
+        public static final String STATE = "v2/shipments/{shipmentNumber}/state";
     }
 
     public static final class Stores {
