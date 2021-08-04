@@ -90,6 +90,6 @@ public class UserLogoutTests extends BaseTest {
         home().openSitePage(Config.DEFAULT_RETAILER);
         shop().interactHeader().checkEnteredAddressNotVisible();
         shop().interactHeader().clickToCart();
-        shop().interactCart().checkCartIsEmpty();
+        shop().interactCart().checkCartEmpty();
     }
 }

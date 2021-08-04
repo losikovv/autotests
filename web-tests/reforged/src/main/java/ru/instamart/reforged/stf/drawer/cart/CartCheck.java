@@ -18,12 +18,12 @@ public interface CartCheck extends Check, CartElement {
     }
 
     @Step("Проверка что корзина пуста")
-    default void checkCartIsEmpty() {
+    default void checkCartEmpty() {
         waitAction().shouldBeVisible(placeholder);
     }
 
     @Step("Проверяем, что корзина не пустая")
-    default void checkCartIsNotEmpty() {
+    default void checkCartNotEmpty() {
         waitAction().shouldNotBeVisible(placeholder);
     }
 }
