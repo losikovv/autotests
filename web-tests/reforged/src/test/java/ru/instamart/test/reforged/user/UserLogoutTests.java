@@ -26,13 +26,13 @@ public class UserLogoutTests extends BaseTest {
             }
     )
     public void successQuickLogout() {
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().fillPhone(Generate.phoneNumber());
         shop().interactAuthModal().sendSms();
         shop().interactAuthModal().fillSMS(Config.DEFAULT_SMS);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().interactUser().clearSessionLogout();
+        shop().interactHeader().clearSessionLogout();
         home().goToPage();
         home().checkLoginButtonIsVisible();
     }
@@ -45,7 +45,7 @@ public class UserLogoutTests extends BaseTest {
             }
     )
     public void successManualLogout() {
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().fillPhone(Generate.phoneNumber());
         shop().interactAuthModal().sendSms();
@@ -53,7 +53,6 @@ public class UserLogoutTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToLogout();
-        home().goToPage();
         home().checkLoginButtonIsVisible();
     }
 
@@ -70,7 +69,7 @@ public class UserLogoutTests extends BaseTest {
         final ApiHelper apiHelper = new ApiHelper();
         final UserData userData = UserManager.getUser();
 
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().fillPhone(userData.getPhone());
         shop().interactAuthModal().sendSms();
@@ -79,15 +78,14 @@ public class UserLogoutTests extends BaseTest {
 
         apiHelper.dropAndFillCart(userData, EnvironmentData.INSTANCE.getDefaultSid());
 
-        home().openSitePage(Config.DEFAULT_RETAILER + "?sid=" + EnvironmentData.INSTANCE.getDefaultSid());
+        shop().goToShopPageWithDefaultSid();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartNotEmpty();
         shop().interactCart().closeCart();
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToLogout();
-        home().goToPage();
         home().checkLoginButtonIsVisible();
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        shop().goToPage();
         shop().interactHeader().checkEnteredAddressNotVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartEmpty();

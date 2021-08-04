@@ -1,10 +1,13 @@
 package ru.instamart.reforged.stf.block.header;
 
 import io.qameta.allure.Step;
+import ru.instamart.reforged.core.action.JsAction;
 import ru.instamart.reforged.stf.drawer.account_menu.AccountMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.drawer.StoreSelector;
 import ru.instamart.reforged.stf.frame.address.Address;
+
+import static ru.instamart.reforged.core.service.KrakenDriver.refresh;
 
 public final class Header implements HeaderCheck {
 
@@ -122,5 +125,12 @@ public final class Header implements HeaderCheck {
     @Step("Открыть каталог")
     public void clickToCategoryMenu() {
         categoryMenu.click();
+    }
+
+    /* метод clearSessionLogout() нежелательный к использованию, потенциально флакует много тестов */
+    @Step("js логаут с очисткой сессии")
+    public void clearSessionLogout() {
+        JsAction.clearSession();
+        refresh();
     }
 }
