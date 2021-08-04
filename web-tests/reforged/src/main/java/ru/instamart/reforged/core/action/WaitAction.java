@@ -1,14 +1,12 @@
 package ru.instamart.reforged.core.action;
 
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.NotFoundException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.kraken.setting.Config;
+import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.component.Component;
 
 import javax.annotation.Nullable;
@@ -75,5 +73,26 @@ public final class WaitAction {
                 .withTimeout(wait, TimeUnit.SECONDS)
                 .withMessage(errorMsg)
                 .pollingEvery(Config.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
+    }
+
+    public void fillField(final Component component, final String text) {
+        createWait(component).until(keysSendCondition(component, text));
+    }
+
+    public static ExpectedCondition<Boolean> keysSendCondition(final Component component, final String text) {
+        final WebElement element = Kraken.waitAction().shouldBeClickable(component);
+        return driver -> {
+            if (element.isDisplayed()) {
+                if (element.getAttribute("value").length() != 0) {
+                    element.click();
+                    element.sendKeys(Keys.COMMAND + "a");
+                    element.sendKeys(Keys.CONTROL + "a");
+                    element.sendKeys(Keys.DELETE);
+                }
+                element.sendKeys(text);
+                return element.getAttribute("value").equals(text);
+            }
+            return false;
+        };
     }
 }

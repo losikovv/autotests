@@ -11,6 +11,7 @@ public interface AddressElement {
     Button selfDelivery = new Button(By.xpath("//button[@data-qa='address-edit-selector-pickup']"));
 
     Input address = new Input(By.xpath("//input[@data-qa='address-modal-input']"));
+
     DropDown dropDownAddress = new DropDown(By.xpath("//div[contains(@class,'dropdown')]/div/*[text()]"));
     Button save = new Button(By.xpath("//button[@data-qa='address-modal-submit']"));
     Element outOfShippingZone = new Element(By.xpath("//div[text()='Адрес не в зоне доставки']"));

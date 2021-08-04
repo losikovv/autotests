@@ -9,4 +9,9 @@ public class StoreSelector implements StoreSelectorCheck, Close {
     public void clickToStoreCard() {
         storeCard.click();
     }
+
+    @Step("Нажать Изменить адресс")
+    public void clickToChangeAddress() {
+        editAddress.click();
+    }
 }

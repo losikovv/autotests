@@ -2,6 +2,9 @@ package ru.instamart.reforged.stf.frame.address;
 
 import io.qameta.allure.Step;
 import lombok.SneakyThrows;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.stf.frame.Close;
 
 public final class Address implements Close, AddressCheck {
@@ -13,12 +16,23 @@ public final class Address implements Close, AddressCheck {
 
     @Step("Указать адрес доставки")
     public void setAddress(final String text) {
-        address.fill(text);
+        Kraken.waitAction().fillField(address, text);
     }
 
     @Step("Очистить поле адреса")
     public void clear() {
         address.clear();
+    }
+
+
+    @Step("Очистить поле адреса")
+    public void clearAddressField(String text) {
+        final WebElement webElement = Kraken.waitAction().getValue(address);
+        webElement.click();
+        webElement.sendKeys(Keys.COMMAND + "a");
+        webElement.sendKeys(Keys.CONTROL + "a");
+        webElement.sendKeys(Keys.DELETE);
+
     }
 
     @Step("Выбрать любой адрес из совпадений")
