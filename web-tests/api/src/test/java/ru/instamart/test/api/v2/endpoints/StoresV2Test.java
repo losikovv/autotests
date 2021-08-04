@@ -6,7 +6,6 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.api.checkpoint.BaseApiCheckpoints;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
@@ -17,12 +16,12 @@ import ru.instamart.api.response.v2.StoresV2Response;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import static org.testng.Assert.*;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Получение списка магазинов")
 public final class StoresV2Test extends RestBase {
-    private final BaseApiCheckpoints check = new BaseApiCheckpoints();
 
     @CaseId(1)
     @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Получаем магазин")
@@ -97,7 +96,7 @@ public final class StoresV2Test extends RestBase {
     public void getStoresData(StoresV2Request.Store store) {
         final Response response = StoresV2Request.GET(store);
         checkStatusCode422(response);
-        check.errorAssert(response, "lat and lon params are both required");
+        errorAssert(response, "lat and lon params are both required");
     }
 
     @CaseId(189)
