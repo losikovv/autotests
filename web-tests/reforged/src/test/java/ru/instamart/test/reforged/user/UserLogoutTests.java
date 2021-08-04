@@ -1,5 +1,6 @@
 package ru.instamart.test.reforged.user;
 
+import io.qameta.allure.Flaky;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
@@ -55,6 +56,8 @@ public class UserLogoutTests extends BaseTest {
         home().checkLoginButtonIsVisible();
     }
 
+
+    @Flaky
     @CaseId(1475)
     @Story("Позитивный кейс")
     @Test(description = "Тест сброса адреса доставки и корзины после деавторизации",
