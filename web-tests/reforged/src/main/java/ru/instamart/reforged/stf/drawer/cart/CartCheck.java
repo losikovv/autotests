@@ -2,7 +2,6 @@ package ru.instamart.reforged.stf.drawer.cart;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
-import ru.instamart.reforged.core.Kraken;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
@@ -18,13 +17,13 @@ public interface CartCheck extends Check, CartElement {
         waitAction().shouldNotBeVisible(costSpinner);
     }
 
-    @Step("Проверяем, что корзина не пустая")
-    default void checkCartNotEmpty() {
-        Kraken.waitAction().shouldNotBeVisible(placeholder);
+    @Step("Проверка что корзина пуста")
+    default void checkCartIsEmpty() {
+        waitAction().shouldBeVisible(placeholder);
     }
 
-    @Step("Проверяем, что корзина пустая")
-    default void checkCartEmpty() {
-        Kraken.waitAction().shouldBeVisible(placeholder);
+    @Step("Проверяем, что корзина не пустая")
+    default void checkCartIsNotEmpty() {
+        waitAction().shouldNotBeVisible(placeholder);
     }
 }
