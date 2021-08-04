@@ -1,8 +1,11 @@
 package ru.instamart.reforged.admin.page.usersEdit;
 
 import io.qameta.allure.Step;
+import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.stf.page.StfPage;
 
-public class UsersEditPage implements UsersEditEditCheck {
+public final class UsersEditPage implements StfPage, UsersEditEditCheck {
 
     @Step("Заполнить поле email на странице редактирования пользователя: {0}")
     public void fillUserEmail(String data) {
@@ -54,4 +57,17 @@ public class UsersEditPage implements UsersEditEditCheck {
         saveChanges.click();
     }
 
+    @Override
+    public void goToPage() {
+        goToPage(1);
+    }
+
+    public void goToPage(final int id) {
+        Kraken.open(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + "admin/users/" + id + "/edit");
+    }
+
+    @Override
+    public String pageUrl() {
+        return "";
+    }
 }

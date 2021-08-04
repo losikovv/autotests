@@ -13,7 +13,7 @@ public final class LoginPage implements AdminPage, LoginCheck {
         setUsername(userData.getLogin());
         setPassword(userData.getPassword());
         submit();
-        main().checkAuth();
+        main().interactAuthoredHeader().checkAdminAuth();
     }
 
     @Step("Заполнить поле email {0}")

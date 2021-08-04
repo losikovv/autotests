@@ -103,7 +103,7 @@ public final class AdministrationLoginTests extends BaseTest {
         login().setPassword(UserManager.getDefaultAdmin().getPassword());
         login().submit();
 
-        main().checkAuth();
+        main().interactAuthoredHeader().checkAdminAuth();
     }
 
     @CaseId(2)
@@ -116,8 +116,8 @@ public final class AdministrationLoginTests extends BaseTest {
         login().setPassword(UserManager.getDefaultAdmin().getPassword());
         login().submit();
 
-        main().clickToProfileMenu();
-        main().clickToLogout();
+        main().interactAuthoredHeader().clickToProfileMenu();
+        main().interactAuthoredHeader().clickToLogout();
 
         login().checkTitle();
     }
@@ -131,6 +131,6 @@ public final class AdministrationLoginTests extends BaseTest {
         login().setUsername(UserManager.userWithoutAdminPermission().getLogin());
         login().setPassword(UserManager.userWithoutAdminPermission().getPassword());
         login().submit();
-        main().checkIsNotAuth();
+        main().interactAuthoredHeader().checkIsNotAuth();
     }
 }
