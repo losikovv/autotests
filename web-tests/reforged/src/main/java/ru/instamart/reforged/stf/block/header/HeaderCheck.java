@@ -95,4 +95,14 @@ public interface HeaderCheck extends Check, HeaderElement {
     default void checkLoginIsVisible() {
         waitAction().shouldBeVisible(login);
     }
+
+    @Step("Проверяем, что отображается введенный адрес")
+    default void checkEnteredAddressIsVisible() {
+        waitAction().shouldBeVisible(enteredAddress);
+    }
+
+    @Step("Проверяем, что не отображается введенный адрес")
+    default void checkEnteredAddressNotVisible() {
+        waitAction().shouldNotBeVisible(enteredAddress);
+    }
 }

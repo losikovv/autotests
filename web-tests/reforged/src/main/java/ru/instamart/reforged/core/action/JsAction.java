@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static ru.instamart.reforged.core.Kraken.execute;
+import static ru.instamart.reforged.core.Kraken.jsAction;
 import static ru.instamart.reforged.core.service.KrakenDriver.getWebDriver;
 
 @Slf4j
@@ -144,6 +145,17 @@ public final class JsAction {
      */
     public void hoverAndClick(final String locator) {
         execute("document.evaluate(\"" + locator + "\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click();");
+    }
+
+    /**
+     * Очистка сессии
+     */
+    public static void clearSession() {
+        execute("$.ajax({\n" +
+                "     url : '"+ EnvironmentData.INSTANCE.getBasicUrl() + "api/user_sessions',\n" +
+                "     method : 'delete'\n" +
+                "});");
+        jsAction().jQueryReady();
     }
 
     /**
