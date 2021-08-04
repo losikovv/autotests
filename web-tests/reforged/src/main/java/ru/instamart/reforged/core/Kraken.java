@@ -1,5 +1,6 @@
 package ru.instamart.reforged.core;
 
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.interactions.Actions;
@@ -12,6 +13,7 @@ import java.util.Set;
 
 import static ru.instamart.reforged.core.service.KrakenDriver.*;
 
+@Slf4j
 public final class Kraken {
 
     private static final JsAction jsAction = new JsAction();
@@ -87,7 +89,12 @@ public final class Kraken {
 
     @SuppressWarnings("unchecked")
     public static <T> T execute(final String js, final Object... arguments) {
-        return (T) ((JavascriptExecutor) getWebDriver()).executeScript(js, arguments);
+        try {
+            return (T) ((JavascriptExecutor) getWebDriver()).executeScript(js, arguments);
+        } catch (Exception e) {
+            log.error("Fail when execute js code {}", js);
+        }
+        return null;
     }
 
     public static Set<Cookie> getCookie() {

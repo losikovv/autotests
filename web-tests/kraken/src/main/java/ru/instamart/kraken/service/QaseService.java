@@ -2,6 +2,7 @@ package ru.instamart.kraken.service;
 
 import io.qameta.allure.TmsLink;
 import io.qase.api.QaseApi;
+import io.qase.api.annotation.CaseIDs;
 import io.qase.api.annotation.CaseId;
 import io.qase.api.enums.Automation;
 import io.qase.api.enums.RunResultStatus;
@@ -17,6 +18,7 @@ import io.qase.api.services.TestRunResultService;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.ITestResult;
+import org.testng.internal.TestResult;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.kraken.util.Crypt;
@@ -44,14 +46,17 @@ public final class QaseService {
     private static final LocalDateTime DAYS_TO_DIE = LocalDateTime.now().minusWeeks(3);
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    @Deprecated private final int PLAN_ID = Integer.parseInt(System.getProperty("qase.plan.id", "0"));
-    @Deprecated private final int SUITE_ID = Integer.parseInt(System.getProperty("qase.suite.id", "0"));
+    @Deprecated
+    private final int PLAN_ID = Integer.parseInt(System.getProperty("qase.plan.id", "0"));
+    @Deprecated
+    private final int SUITE_ID = Integer.parseInt(System.getProperty("qase.suite.id", "0"));
     private final String PIPELINE_URL = System.getProperty("pip_url", "https://gitlab.sbermarket.tech/qa/automag/-/pipelines");
-    private boolean qase = Boolean.parseBoolean(System.getProperty("qase","false"));
-
     private final String projectCode;
-    @Getter private final QaseApi qaseApi;
-    @Deprecated private final List<Integer> testCasesList;
+    @Getter
+    private final QaseApi qaseApi;
+    @Deprecated
+    private final List<Integer> testCasesList;
+    private boolean qase = Boolean.parseBoolean(System.getProperty("qase", "false"));
     private boolean started = false;
 
     private String testRunName;
@@ -153,22 +158,38 @@ public final class QaseService {
 
         final Long caseId = getCaseId(result);
         if (caseId != null) {
-            try {
-                qaseApi.testRunResults()
-                        .create(projectCode,
-                                runId,
-                                caseId,
-                                status,
-                                timeSpent,
-                                null,
-                                DESCRIPTION_PREFIX + comment,
-                                stacktrace,
-                                isDefect,
-                                attachmentHash
-                        );
-            } catch (Exception e) {
-                log.error("FATAL: can't update test run [caseId={} run={} project={}]", caseId, runId, projectCode, e);
+            createTestResult(caseId, status, timeSpent, comment, stacktrace, isDefect, attachmentHash);
+        }
+
+        final CaseId[] caseIDs = getCaseIDs(result);
+
+        if (caseIDs != null && result instanceof TestResult) {
+            int index = ((TestResult) result).getParameterIndex();
+            Long caseIdItem = caseIDs[index].value();
+            if (caseIdItem != null) {
+                createTestResult(caseIdItem, status, timeSpent, comment, stacktrace, isDefect, attachmentHash);
             }
+        }
+    }
+
+    private void createTestResult(final Long caseId, final RunResultStatus status, final Duration timeSpent,
+                                  final String comment, final String stacktrace, final Boolean isDefect,
+                                  final List<String> attachmentHash) {
+        try {
+            qaseApi.testRunResults()
+                    .create(projectCode,
+                            runId,
+                            caseId,
+                            status,
+                            timeSpent,
+                            null,
+                            DESCRIPTION_PREFIX + comment,
+                            stacktrace,
+                            isDefect,
+                            attachmentHash
+                    );
+        } catch (Exception e) {
+            log.error("FATAL: can't update test run [caseId={} run={} project={}]", caseId, runId, projectCode, e);
         }
     }
 
@@ -246,7 +267,7 @@ public final class QaseService {
 
         int automatedNumber = 0;
         int actualizedNumber = 0;
-        for (TestCase testCase: allTestCases) {
+        for (TestCase testCase : allTestCases) {
 
             TestRunResultService.Filter filter = qaseApi
                     .testRunResults()
@@ -280,7 +301,8 @@ public final class QaseService {
         log.info("Сейчас актуализировано: {}", actualizedNumber);
     }
 
-    @Deprecated private void addTestCasesFromChildSuite(final TestCaseService.Filter filter, final int parentId, final List<Suite> suites) {
+    @Deprecated
+    private void addTestCasesFromChildSuite(final TestCaseService.Filter filter, final int parentId, final List<Suite> suites) {
         suites.forEach(suite -> {
             if (suite.getParentId() != null && suite.getParentId() == parentId) {
                 int suiteId = (int) suite.getId();
@@ -291,7 +313,8 @@ public final class QaseService {
         });
     }
 
-    @Deprecated private void addTestCasesToList(final TestCaseService.Filter filter) {
+    @Deprecated
+    private void addTestCasesToList(final TestCaseService.Filter filter) {
         qaseApi.testCases()
                 .getAll(projectCode, filter)
                 .getTestCaseList()
@@ -316,6 +339,24 @@ public final class QaseService {
             } catch (NumberFormatException e) {
                 log.error("String could not be parsed as Long", e);
             }
+        }
+        return null;
+    }
+
+    /**
+     * Получаем список CaseId
+     *
+     * @param result
+     * @return
+     */
+    private CaseId[] getCaseIDs(final ITestResult result) {
+        final Method method = result
+                .getMethod()
+                .getConstructorOrMethod()
+                .getMethod();
+        if (method.isAnnotationPresent(CaseIDs.class)) {
+            return method
+                    .getDeclaredAnnotation(CaseIDs.class).value();
         }
         return null;
     }

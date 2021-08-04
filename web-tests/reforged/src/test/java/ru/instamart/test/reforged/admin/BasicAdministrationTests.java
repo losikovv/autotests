@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.admin;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Flaky;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
@@ -66,11 +67,12 @@ public final class BasicAdministrationTests extends BaseTest {
         login().auth(UserManager.getDefaultAdmin());
 
         main().interactAuthoredHeader().checkAdminNavigationTitle();
-        main().interactAuthoredHeader().checkAdminName();
+        main().interactAuthoredHeader().checkAdminAuth();
         main().interactAuthoredHeader().checkAdminAvatar();
         main().interactAuthoredHeader().checkLogoutDropdown();
     }
 
+    @Flaky
     @CaseId(4)
     @Story("Тест валидности ссылок навигационного меню в шапке админки")
     @Test(description = "Тест валидности ссылок навигационного меню в шапке админки",
@@ -80,7 +82,6 @@ public final class BasicAdministrationTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        main().interactSideMenu().checkStoresDropdownIsClickable();
         main().interactSideMenu().storesDropdownClick();
         main().interactSideMenu().regionsClick();
         main().checkPageIsAvailable();
@@ -89,7 +90,6 @@ public final class BasicAdministrationTests extends BaseTest {
         main().interactSideMenu().shipmentAreaClick();
         main().checkPageIsAvailable();
 
-        main().interactSideMenu().checkOrdersDropdownIsClickable();
         main().interactSideMenu().ordersDropdownClick();
         main().interactSideMenu().logisticControlClick();
         main().checkPageIsAvailable();
@@ -97,10 +97,7 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().multipleOrderClick();
         main().checkPageIsAvailable();
-        main().interactSideMenu().checkOrdersDropdownIsClickable();
-        main().interactSideMenu().ordersDropdownClick();
 
-        main().interactSideMenu().checkContentDropdownIsClickable();
         main().interactSideMenu().contentDropdownClick();
         main().interactSideMenu().productsClick();
         main().checkPageIsAvailable();
@@ -118,13 +115,7 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().contentImportClick();
         main().checkPageIsAvailable();
-        main().interactSideMenu().checkContentDropdownIsClickable();
-        main().interactSideMenu().contentDropdownClick();
 
-        main().interactSideMenu().settingsClick();
-        main().checkPageIsAvailable();
-
-        main().interactSideMenu().checkMarketingDropdownIsClickable();
         main().interactSideMenu().marketingDropdownClick();
         main().interactSideMenu().promoCardsClick();
         main().checkPageIsAvailable();
@@ -154,10 +145,7 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().marketingCategoriesClick();
         main().checkPageIsAvailable();
-        main().interactSideMenu().checkMarketingDropdownIsClickable();
-        main().interactSideMenu().marketingDropdownClick();
 
-        main().interactSideMenu().checkStaffDropdownIsClickable();
         main().interactSideMenu().staffDropdownClick();
         main().interactSideMenu().shiftsClick();
         main().checkPageIsAvailable();
@@ -167,8 +155,9 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().partnersImportClick();
         main().checkPageIsAvailable();
-        main().interactSideMenu().checkStaffDropdownIsClickable();
-        main().interactSideMenu().staffDropdownClick();
+
+        main().interactSideMenu().settingsClick();
+        main().checkPageIsAvailable();
 
         main().interactSideMenu().usersClick();
         main().checkPageIsAvailable();

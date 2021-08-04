@@ -99,11 +99,11 @@ public enum EnvironmentData {
         return protocol + "://" + shopperUrl + "/";
     }
 
-    public int getDefaultSid() {
+    public Integer getDefaultSid() {
         return Integer.parseInt(defaultSid);
     }
 
-    public int getDefaultShopperSid() {
+    public Integer getDefaultShopperSid() {
         return Integer.parseInt(defaultShopperSid);
     }
 }

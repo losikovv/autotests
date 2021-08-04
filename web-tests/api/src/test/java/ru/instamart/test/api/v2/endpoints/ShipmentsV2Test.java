@@ -8,18 +8,15 @@ import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.api.checkpoint.BaseApiCheckpoints;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.request.v2.StoresV2Request;
-import ru.instamart.api.response.v2.DeliveryWindowsV2Response;
-import ru.instamart.api.response.v2.NextDeliveriesV2Response;
-import ru.instamart.api.response.v2.ServiceRateV2Response;
-import ru.instamart.api.response.v2.ShippingRatesV2Response;
+import ru.instamart.api.response.v2.*;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import java.time.LocalDate;
@@ -31,6 +28,7 @@ import java.util.Map;
 import java.util.stream.IntStream;
 
 import static org.testng.Assert.*;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
@@ -38,7 +36,6 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 public class ShipmentsV2Test extends RestBase {
 
     private final String today = LocalDate.now().toString();
-    private BaseApiCheckpoints check = new BaseApiCheckpoints();
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
@@ -64,7 +61,7 @@ public class ShipmentsV2Test extends RestBase {
     public void getDeliveryWindows404() {
         Response response = ShipmentsV2Request.DeliveryWindows.GET("failedShipmentId", today);
         checkStatusCode404(response);
-        check.errorAssert(response, "Доставка не существует");
+        errorAssert(response, "Доставка не существует");
     }
 
     @CaseId(354)
@@ -85,7 +82,7 @@ public class ShipmentsV2Test extends RestBase {
     public void serviceRate404() {
         response = ShipmentsV2Request.ServiceRate.GET(apiV2.getShipmentsNumber(), null);
         checkStatusCode400(response);
-        check.errorAssert(response, "Отсутствует обязательный параметр 'delivery_window_id'");
+        errorAssert(response, "Отсутствует обязательный параметр 'delivery_window_id'");
     }
 
     @CaseId(355)
@@ -182,7 +179,7 @@ public class ShipmentsV2Test extends RestBase {
     public void shippingRates404() {
         response = ShipmentsV2Request.ShippingRates.GET("failedShippingNumber", today);
         checkStatusCode404(response);
-        check.errorAssert(response, "Доставка не существует");
+        errorAssert(response, "Доставка не существует");
     }
 
     @CaseId(365)
@@ -247,7 +244,7 @@ public class ShipmentsV2Test extends RestBase {
     public void nextDeliver404() {
         response = StoresV2Request.NextDeliveries.GET(0);
         checkStatusCode404(response);
-        check.errorAssert(response, "Магазин не существует");
+        errorAssert(response, "Магазин не существует");
     }
 
     @CaseId(370)
@@ -284,5 +281,26 @@ public class ShipmentsV2Test extends RestBase {
         checkStatusCode200(response);
         NextDeliveriesV2Response nextDeliveriesV2Response = response.as(NextDeliveriesV2Response.class);
         assertEquals(nextDeliveriesV2Response.getNextDeliveries().size(), 0, "next delivery is not empty");
+    }
+
+    @CaseId(785)
+    @Story("Получения статуса шипмента")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получения статуса шипмента с существующим shipmentNumber")
+    public void getShipmentState200() {
+        String number = apiV2.getShipmentsNumber();
+        final Response response = ShipmentsV2Request.State.GET(number);
+        checkStatusCode200(response);
+        assertEquals(response.as(StateV2Response.class).getState(), StateV2.PENDING.getValue(), "State shipment not mismatch");
+    }
+
+    @CaseId(786)
+    @Story("Получения статуса шипмента")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получения статуса шипмента с несуществующим shipmentNumber")
+    public void getShipmentState404() {
+        final Response response = ShipmentsV2Request.State.GET("failedShipmentNumber");
+        checkStatusCode404(response);
+        errorAssert(response, "Доставка не существует");
     }
 }

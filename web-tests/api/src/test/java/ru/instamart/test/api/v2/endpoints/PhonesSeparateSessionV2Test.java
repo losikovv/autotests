@@ -5,7 +5,6 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
-import ru.instamart.api.checkpoint.BaseApiCheckpoints;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
@@ -23,13 +22,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.testng.Assert.*;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode403;
 
 @Epic("ApiV2")
 @Feature("Телефоны пользователей")
 public class PhonesSeparateSessionV2Test extends RestBase {
-    private BaseApiCheckpoints check = new BaseApiCheckpoints();
 
     @CaseId(433)
     @Story("Получить список всех телефонов пользователя")
@@ -69,7 +68,7 @@ public class PhonesSeparateSessionV2Test extends RestBase {
         SessionFactory.createSessionToken(SessionType.API_V2_FB, testUser);
         response = PhonesV2Request.PhonesById.GET(Integer.toString(phone.getId()));
         checkStatusCode403(response);
-        check.errorAssert(response, "Пользователь не может выполнить это действие");
+        errorAssert(response, "Пользователь не может выполнить это действие");
     }
 
     @CaseId(447)

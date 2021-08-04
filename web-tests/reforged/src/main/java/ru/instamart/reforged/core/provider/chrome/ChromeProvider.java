@@ -35,7 +35,7 @@ public final class ChromeProvider extends AbstractBrowserProvider {
         options.setExperimentalOption("prefs", jsonObject);
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         options.setCapability(CapabilityType.LOGGING_PREFS, getLogPref());
-        options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+        options.setPageLoadStrategy(PageLoadStrategy.EAGER);
         options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
 
         capabilities.setBrowserName("chrome");
