@@ -10,7 +10,7 @@ import ru.instamart.api.response.ErrorResponse;
 public class BaseApiCheckpoints {
 
     @Step("Проверка правильного error сообщения. Type = base")
-    public void errorAssert(Response response, String textError) {
+    public static void errorAssert(Response response, String textError) {
         final SoftAssert softAssert = new SoftAssert();
         log.info("Check error message: {} with response", textError);
         ErrorResponse error = response.as(ErrorResponse.class);
@@ -24,7 +24,7 @@ public class BaseApiCheckpoints {
 
 
     @Step("Проверка правильного error сообщения. Type = value")
-    public void errorValueAssert(Response response, String textError) {
+    public static void errorValueAssert(Response response, String textError) {
         final SoftAssert softAssert = new SoftAssert();
         log.info("Check error message: {} with response", textError);
         ErrorResponse error = response.as(ErrorResponse.class);
@@ -38,7 +38,7 @@ public class BaseApiCheckpoints {
 
 
     @Step("Проверка на существования сообщения об ошибке")
-    public void errorTextIsNotEmpty(Response response) {
+    public static void errorTextIsNotEmpty(Response response) {
         ErrorResponse error = response.as(ErrorResponse.class);
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertFalse(error.getErrors().getBase().isEmpty());

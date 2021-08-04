@@ -9,19 +9,15 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.reforged.admin.page.usersEdit.UsersEditPage;
-import ru.instamart.reforged.core.service.KrakenDriver;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
-
 
 @Epic("Админка STF")
 @Feature("Управление юзерами")
 public class AdministrationUsersSectionTests extends BaseTest {
 
-    final ApiHelper helper = new ApiHelper();
-    final UsersEditPage usersEdit = new UsersEditPage();
+    private final ApiHelper helper = new ApiHelper();
 
     @CaseId(31)
     @Story("Тест поиска пользователя в админке")
@@ -29,8 +25,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
             groups = {"sbermarket-acceptance", "sbermarket-regression", ""}
     )
     public void successSearchUser() {
-
-        String email = UserManager.getDefaultAdmin().getLogin();
+        final String email = UserManager.getDefaultAdmin().getLogin();
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -47,11 +42,10 @@ public class AdministrationUsersSectionTests extends BaseTest {
             groups = {""}
     )
     public void successGrantAndRevokeAdmin() {
-
         final UserData userData = UserManager.getUser();
-        String email = Generate.emailAdmin();
-        String password = userData.getPassword();
-        String phoneNumber = userData.getPhone();
+        final String email = Generate.emailAdmin();
+        final String password = userData.getPassword();
+        final String phoneNumber = userData.getPhone();
         helper.auth(userData);
 
         login().goToPage();
@@ -62,12 +56,12 @@ public class AdministrationUsersSectionTests extends BaseTest {
         users().clickToSearch();
         users().clickToEditUser();
 
-        usersEdit.clearUserEmail();
-        usersEdit.fillUserEmail(email);
-        usersEdit.fillPassword(password);
-        usersEdit.fillPasswordConfirmation(password);
-        usersEdit.checkAdminRole();
-        usersEdit.clickToSave();
+        usersEdit().clearUserEmail();
+        usersEdit().fillUserEmail(email);
+        usersEdit().fillPassword(password);
+        usersEdit().fillPasswordConfirmation(password);
+        usersEdit().checkAdminRole();
+        usersEdit().clickToSave();
         main().doLogout();
 
         login().goToPage();
@@ -75,7 +69,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         login().setPassword(password);
         login().submit();
 
-        main().checkAuth();
+        main().interactAuthoredHeader().checkAdminAuth();
         main().doLogout();
 
         login().goToPage();
@@ -86,8 +80,8 @@ public class AdministrationUsersSectionTests extends BaseTest {
         users().clickToSearch();
         users().clickToEditUser();
 
-        usersEdit.uncheckAdminRole();
-        usersEdit.clickToSave();
+        usersEdit().uncheckAdminRole();
+        usersEdit().clickToSave();
         main().doLogout();
 
         login().goToPage();
@@ -95,7 +89,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         login().setPassword(password);
         login().submit();
 
-        main().checkIsNotAuth();
+        main().interactAuthoredHeader().checkIsNotAuth();
     }
 
     @CaseId(33)
@@ -104,25 +98,23 @@ public class AdministrationUsersSectionTests extends BaseTest {
             groups = {"sbermarket-regression", ""}
     )
     public void successChangeEmail() {
-
         final UserData userData = UserManager.getUser();
-        String email = Generate.email();
-        String phoneNumber = userData.getPhone();
+        final String email = Generate.email();
         helper.auth(userData);
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
         users().goToPage();
-        users().fillSearchByPhoneNumber(phoneNumber);
+        users().fillSearchByPhoneNumber(userData.getPhone());
         users().clickToSearch();
         users().clickToEditUser();
 
-        usersEdit.clearUserEmail();
-        usersEdit.fillUserEmail(email);
+        usersEdit().clearUserEmail();
+        usersEdit().fillUserEmail(email);
 
-        usersEdit.clickToSave();
-        usersEdit.checkEditUserEmail(usersEdit.getEditUserEmail(), email);
+        usersEdit().clickToSave();
+        usersEdit().checkEditUserEmail(usersEdit().getEditUserEmail(), email);
     }
 
     @CaseId(34)
@@ -132,28 +124,26 @@ public class AdministrationUsersSectionTests extends BaseTest {
     )
     //TODO в основном тесте есть еще проверка невозможности поиска заказа b2b. Лучше вынести в отдельный тест в shipments
     public void successGrantAndRevokeB2BStatus() {
-
         final UserData userData = UserManager.getUser();
-        String phoneNumber = userData.getPhone();
         helper.auth(userData);
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
         users().goToPage();
-        users().fillSearchByPhoneNumber(phoneNumber);
+        users().fillSearchByPhoneNumber(userData.getPhone());
         users().clickToSearch();
         users().clickToEditUser();
 
-        usersEdit.setB2BUser();
-        usersEdit.clickToSave();
-        KrakenDriver.refresh();
-        usersEdit.checkB2BIsSelected();
+        usersEdit().setB2BUser();
+        usersEdit().clickToSave();
+        usersEdit().refresh();
+        usersEdit().checkB2BIsSelected();
 
-        usersEdit.unsetB2BUser();
-        usersEdit.clickToSave();
-        KrakenDriver.refresh();
+        usersEdit().unsetB2BUser();
+        usersEdit().clickToSave();
+        usersEdit().refresh();
 
-        usersEdit.checkB2BIsNotSelected();
+        usersEdit().checkB2BIsNotSelected();
     }
 }

@@ -79,7 +79,7 @@ public final class DropDown extends CollectionComponent {
     protected WebElement getComponent() {
         log.debug("Create {} with locator {}", getDescription(), getBy());
         if (isNull(component) || isCacheDisable) {
-            component = Kraken.waitAction().shouldBeVisible(this);
+            component = Kraken.waitAction().shouldBeClickable(this);
         }
         return component;
     }
