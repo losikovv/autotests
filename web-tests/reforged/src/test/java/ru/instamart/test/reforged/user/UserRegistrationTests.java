@@ -99,7 +99,7 @@ public class UserRegistrationTests extends BaseTest {
     public void successRegFromCart() {
         home().openSitePage(Config.DEFAULT_RETAILER);
         shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();

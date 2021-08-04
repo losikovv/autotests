@@ -5,16 +5,23 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.core.service.KrakenDriver.refresh;
+import static ru.instamart.reforged.stf.page.StfRouter.home;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
 @Feature("Адрес доставки")
 public class UserShippingAddressTests extends BaseTest {
+
+    String defaultAddress = Addresses.Moscow.defaultAddress();
+    String testAddress = Addresses.Moscow.testAddress();
+    String outOfZoneAddress = Addresses.Moscow.outOfZoneAddress();
+
 
     @CaseId(1558)
     @Story("Дефолтные настройки адреса доставки")
@@ -27,7 +34,7 @@ public class UserShippingAddressTests extends BaseTest {
     )
     public void noShippingAddressByDefault() {
 
-        shop().goToPage(ShopPage.ShopUrl.METRO);
+        home().openSitePage(Config.DEFAULT_RETAILER);
         shop().interactHeader().checkIsShippingAddressNotSet();
     }
 
@@ -39,7 +46,7 @@ public class UserShippingAddressTests extends BaseTest {
     )
     public void successOperateDefaultShopList() {
 
-        shop().goToPage(ShopPage.ShopUrl.METRO);
+        home().openSitePage(Config.DEFAULT_RETAILER);
         shop().interactHeader().clickToStoreSelector();
 
         shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsOpen();
@@ -59,10 +66,13 @@ public class UserShippingAddressTests extends BaseTest {
     )
     public void noShippingAddressSetOnClose() {
 
-        shop().goToPage(ShopPage.ShopUrl.METRO);
+        home().openSitePage(Config.DEFAULT_RETAILER);
+
         shop().interactHeader().clickToSelectAddressFirstTime();
-        shop().interactHeader().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactHeader().interactAddress().fillAddress(defaultAddress);
         shop().interactHeader().interactAddress().close();
+
+        shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsNotOpen();
         shop().interactHeader().checkIsShippingAddressNotSet();
     }
 
@@ -76,13 +86,16 @@ public class UserShippingAddressTests extends BaseTest {
     )
     public void noAvailableShopsOutOfDeliveryZone() {
 
-        shop().goToPage(ShopPage.ShopUrl.METRO);
+        home().openSitePage(Config.DEFAULT_RETAILER);
+
         shop().interactHeader().clickToSelectAddressFirstTime();
-        shop().interactHeader().interactAddress().setAddress(Addresses.Moscow.outOfZoneAddress());
+        shop().interactHeader().interactAddress().fillAddress(outOfZoneAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
         shop().interactHeader().interactAddress().checkIsAddressOutOfZone();
+
         shop().interactHeader().interactAddress().close();
+
         shop().interactHeader().clickToStoreSelector();
         shop().interactHeader().interactStoreSelector().checkStoreSelectorDrawerIsEmpty();
         shop().interactHeader().interactStoreSelector().close();
@@ -100,16 +113,16 @@ public class UserShippingAddressTests extends BaseTest {
     )
     public void successSetShippingAddressOnRetailerPage() {
 
-        String defaultAddress = Addresses.Moscow.defaultAddress();
-        String currentAddress;
+        home().openSitePage(Config.DEFAULT_RETAILER);
 
-        shop().goToPage(ShopPage.ShopUrl.METRO);
         shop().interactHeader().clickToSelectAddressFirstTime();
-        shop().interactHeader().interactAddress().setAddress(defaultAddress);
+        shop().interactHeader().interactAddress().fillAddress(defaultAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
-        currentAddress = shop().interactHeader().getShippingAddressFromHeader();
-        shop().interactHeader().checkIsSetAddressEqualsToInput(defaultAddress, currentAddress);
+
+        shop().interactHeader().checkIsSetAddressEqualsToInput(
+                defaultAddress,
+                shop().interactHeader().getShippingAddressFromHeader());
     }
 
     @CaseId(33)
@@ -118,26 +131,28 @@ public class UserShippingAddressTests extends BaseTest {
             description = "Тест отмены изменения адреса доставки",
             groups = {
                     "metro-regression",
-                    "sbermarket-Ui-smoke","ui-smoke-production"
+                    "sbermarket-Ui-smoke", "ui-smoke-production"
             }
     )
     public void noChangeShippingAddressOnCancel() {
-        shop().goToPage(ShopPage.ShopUrl.METRO);
+
+        home().openSitePage(Config.DEFAULT_RETAILER);
+
         shop().interactHeader().clickToSelectAddressFirstTime();
-        shop().interactHeader().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactHeader().interactAddress().fillAddress(defaultAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
 
         shop().interactHeader().checkIsShippingAddressSet();
-        refresh(); //обновляется страница, чтобы получить элемент selectAddress был виден
+        refresh(); //обновляется страница, чтобы получить элемент selectAddress
 
         shop().interactHeader().clickToSelectAddress();
-        //shop().interactHeader().interactAddress().clear();
-        shop().interactHeader().interactAddress().setAddress(Addresses.Moscow.testAddress());
+        shop().interactHeader().interactAddress().fillAddress(testAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().close();
+
         shop().interactHeader().checkIsSetAddressEqualsToInput(
-                Addresses.Moscow.defaultAddress(),
+                defaultAddress,
                 shop().interactHeader().getShippingAddressFromHeader()
         );
     }
@@ -148,33 +163,31 @@ public class UserShippingAddressTests extends BaseTest {
             description = "Тест изменения адреса доставки",
             groups = {
                     "metro-acceptance", "metro-regression",
-                    "sbermarket-Ui-smoke","ui-smoke-production"
+                    "sbermarket-Ui-smoke", "ui-smoke-production"
             }
     )
     public void successChangeShippingAddress() {
-        shop().goToPage(ShopPage.ShopUrl.METRO);
+
+        home().openSitePage(Config.DEFAULT_RETAILER);
         shop().interactHeader().clickToSelectAddressFirstTime();
-        shop().interactHeader().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactHeader().interactAddress().fillAddress(defaultAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
 
         shop().interactHeader().checkIsShippingAddressSet();
-        refresh(); //обновляется страница, чтобы получить элемент selectAddress был виден
+        refresh(); //обновляется страница, чтобы получить элемент selectAddress
 
         shop().interactHeader().clickToSelectAddress();
 
-        //shop().interactHeader().interactAddress().clearAddressField();
-        shop().interactHeader().interactAddress().setAddress(Addresses.Moscow.testAddress());
+        shop().interactHeader().interactAddress().fillAddress(testAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
-        refresh();//костыль, чтобы получить корректный адрес
+
         shop().interactHeader().checkIsSetAddressEqualsToInput(
-                Addresses.Moscow.testAddress(),
+                testAddress,
                 shop().interactHeader().getShippingAddressFromHeader()
         );
     }
-
-
 
     @CaseId(1569)
     @Story("Зона доставки")
@@ -182,23 +195,51 @@ public class UserShippingAddressTests extends BaseTest {
             description = "Тест на успешный выбор нового адреса в модалке феникса после ввода адреса," +
                     " по которому нет доставки текущего ритейлера",
             groups = {
-                    "metro-regression", "sbermarket-Ui-smoke","ui-smoke-production"
+                    "metro-regression", "sbermarket-Ui-smoke", "ui-smoke-production"
             }
     )
     public void successSetNewAddressAfterOutOfRetailerZoneAddressChange() {
+
         shop().goToPage(ShopPage.ShopUrl.LENTA);
         shop().interactHeader().clickToSelectAddressFirstTime();
-        shop().interactHeader().interactAddress().setAddress(Addresses.Kazan.defaultAddress());
+        shop().interactHeader().interactAddress().fillAddress(Addresses.Kazan.defaultAddress());
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
-        //проверка, что окно не закрылось?
+
         shop().interactHeader().interactStoreSelector().clickToChangeAddress();
-        shop().interactHeader().interactAddress().setAddress(Addresses.Moscow.testAddress());
+        shop().interactHeader().interactAddress().fillAddress(testAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
-        refresh();//костыль, чтобы получить корректный адрес
+
         shop().interactHeader().checkIsSetAddressEqualsToInput(
-                Addresses.Moscow.testAddress(),
+                testAddress,
+                shop().interactHeader().getShippingAddressFromHeader()
+        );
+    }
+
+    @CaseId(1570)
+    @Story("Зона доставки")
+    @Test(
+            description = "Тест на успешный выбор нового адреса в модалке феникса, после ввода адреса вне зоны доставки",
+            groups = {
+                    "metro-regression", "sbermarket-Ui-smoke", "ui-smoke-production"
+            }
+    )
+    public void successSetNewAddressAfterOutOfZoneAddressChange() {
+
+        home().openSitePage(Config.DEFAULT_RETAILER);
+        shop().interactHeader().clickToSelectAddressFirstTime();
+        shop().interactHeader().interactAddress().fillAddress(outOfZoneAddress);
+        shop().interactHeader().interactAddress().selectFirstAddress();
+        shop().interactHeader().interactAddress().clickOnSave();
+
+        shop().interactHeader().interactAddress().clickToChangeAddress();
+        shop().interactHeader().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactHeader().interactAddress().selectFirstAddress();
+        shop().interactHeader().interactAddress().clickOnSave();
+
+        shop().interactHeader().checkIsSetAddressEqualsToInput(
+                Addresses.Moscow.defaultAddress(),
                 shop().interactHeader().getShippingAddressFromHeader()
         );
     }

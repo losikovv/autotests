@@ -106,6 +106,7 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем, что утановленный адрес: \"{0}\" \n совпадает с адресом, отображаемом на странице: \"{1}\"")
     default void checkIsSetAddressEqualsToInput(String defaultAddress, String currentAddress) {
+
         final SoftAssert softAssert = new SoftAssert();
         final String[] defaultAddressList = defaultAddress.split(", ");
         log.info("> проверяем, что установленный адрес: '{}' совпадает с адресом на странице: '{}'",

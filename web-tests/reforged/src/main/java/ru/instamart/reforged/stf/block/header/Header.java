@@ -6,6 +6,8 @@ import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.drawer.store_selector.StoreSelector;
 import ru.instamart.reforged.stf.frame.address.Address;
 
+import static ru.instamart.reforged.stf.page.StfRouter.shop;
+
 public final class Header implements HeaderCheck {
 
     public Cart interactCart() {
@@ -126,6 +128,7 @@ public final class Header implements HeaderCheck {
 
     @Step("Получить текст выбранный адрес")
     public String getShippingAddressFromHeader() {
+        shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
         return currentShipAddress.getText();
     }
 }
