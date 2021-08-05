@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import ru.instamart.ab.interceptor.JwtAuthInterceptor;
 import ru.instamart.ab.model.Setting;
+import ru.instamart.ab.model.request.IRequest;
 import ru.instamart.utils.Mapper;
 
 import java.io.IOException;
@@ -68,11 +69,9 @@ public final class AbApiClient {
         }
     }
 
-    public <T> T delete(Class<T> responseClass, final String endpoint, final Object json) throws IOException {
-        final RequestBody body = RequestBody.create(Mapper.INSTANCE.objectToString(json), TYPE);
+    public <T> T delete(Class<T> responseClass, final String endpoint, final IRequest params) throws IOException {
         final Request request = new Request.Builder()
-                .url(setting.getBasicUrl() + endpoint)
-                .delete(body)
+                .url(setting.getBasicUrl() + endpoint + params.getQuery())
                 .build();
         try (final Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful()) {
