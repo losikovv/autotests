@@ -7,13 +7,13 @@ public final class SideMenu implements SideMenuCheck {
     @Step("Нажатие на storesDropdown")
     public void storesDropdownClick() {
         storesDropdown.scrollTo();
-        storesDropdown.click();
+        storesDropdown.hoverAndClick();
     }
 
     @Step("Нажатие на regions")
     public void regionsClick() {
         regions.scrollTo();
-        regions.click();
+        regions.hoverAndClick();
     }
 
     @Step("Нажатие на retailers")
@@ -31,7 +31,7 @@ public final class SideMenu implements SideMenuCheck {
     @Step("Нажатие на ordersDropdown")
     public void ordersDropdownClick() {
         ordersDropdown.scrollTo();
-        ordersDropdown.click();
+        ordersDropdown.hoverAndClick();
     }
 
     @Step("Нажатие на logisticControl")
@@ -55,7 +55,7 @@ public final class SideMenu implements SideMenuCheck {
     @Step("Нажатие на contentDropdown")
     public void contentDropdownClick() {
         contentDropdown.scrollTo();
-        contentDropdown.click();
+        contentDropdown.hoverAndClick();
     }
 
     @Step("Нажатие на products")
@@ -115,7 +115,7 @@ public final class SideMenu implements SideMenuCheck {
     @Step("Нажатие на marketingDropdown")
     public void marketingDropdownClick() {
         marketingDropdown.scrollTo();
-        marketingDropdown.click();
+        marketingDropdown.hoverAndClick();
     }
 
     @Step("Нажатие на promoCards")
@@ -199,13 +199,13 @@ public final class SideMenu implements SideMenuCheck {
     @Step("Нажатие на marketingCategories")
     public void marketingCategoriesClick() {
         marketingCategories.scrollTo();
-        marketingCategories.click();
+        marketingCategories.hoverAndClick();
     }
 
     @Step("Открытие staffDropdown")
     public void staffDropdownClick() {
         staffDropdown.scrollTo();
-        staffDropdown.click();
+        staffDropdown.hoverAndClick();
     }
 
     @Step("Нажатие на shifts")
