@@ -89,6 +89,7 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().shipmentAreaClick();
         main().checkPageIsAvailable();
+        main().interactSideMenu().storesDropdownClick();
 
         main().interactSideMenu().ordersDropdownClick();
         main().interactSideMenu().logisticControlClick();
@@ -97,6 +98,7 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().multipleOrderClick();
         main().checkPageIsAvailable();
+        main().interactSideMenu().ordersDropdownClick();
 
         main().interactSideMenu().contentDropdownClick();
         main().interactSideMenu().productsClick();
@@ -115,6 +117,7 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().contentImportClick();
         main().checkPageIsAvailable();
+        main().interactSideMenu().contentDropdownClick();
 
         main().interactSideMenu().marketingDropdownClick();
         main().interactSideMenu().promoCardsClick();
@@ -145,6 +148,7 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().marketingCategoriesClick();
         main().checkPageIsAvailable();
+        main().interactSideMenu().marketingDropdownClick();
 
         main().interactSideMenu().staffDropdownClick();
         main().interactSideMenu().shiftsClick();
@@ -155,6 +159,7 @@ public final class BasicAdministrationTests extends BaseTest {
         main().checkPageIsAvailable();
         main().interactSideMenu().partnersImportClick();
         main().checkPageIsAvailable();
+        main().interactSideMenu().staffDropdownClick();
 
         main().interactSideMenu().settingsClick();
         main().checkPageIsAvailable();
