@@ -21,13 +21,14 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 @Epic("ApiV2")
 @Feature("Авторизация")
 public class PhoneConfirmationsV2Test extends RestBase {
+    String phoneNumber = "9871234123";
 
     @CaseId(626)
     @Story("Авторизация по номеру телефона")
     @Test(description = "Отправляем запрос на получение смс с кодом",
             groups = {"api-instamart-smoke"})
     public void postPhoneConfirmations() {
-        PhoneTokenV2 phoneToken = apiV2.sendSMS(PhoneCrypt.INSTANCE.encryptPhone("9871234123"));
+        PhoneTokenV2 phoneToken = apiV2.sendSMS(PhoneCrypt.INSTANCE.encryptPhone(phoneNumber));
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(phoneToken.getResendLimit(), Integer.valueOf(60), "resend_limit mismatch");
         softAssert.assertEquals(phoneToken.getCodeLength(), Integer.valueOf(6), "code_length mismatch");
@@ -40,10 +41,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
             groups = {"api-instamart-smoke"},
             dependsOnMethods = "postPhoneConfirmations")
     public void putPhoneConfirmations() {
-        Response response = PhoneConfirmationsV2Request.PUT(
-                "79999999966",
-                "111111",
-                true);
+        Response response = PhoneConfirmationsV2Request.PUT(phoneNumber, "111111", true);
         checkStatusCode200(response);
         assertNotNull(response.as(SessionsV2Response.class).getSession().getAccessToken());
     }
