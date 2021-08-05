@@ -27,7 +27,7 @@ public final class JwtAuthInterceptor implements Interceptor {
     @NotNull
     @Override
     public Response intercept(@NotNull Chain chain) throws IOException {
-        Request request = newRequestWithAccessToken(chain.request(), jwtResponse.getAccess());
+        final Request request = newRequestWithAccessToken(chain.request(), jwtResponse.getAccess());
         return chain.proceed(request);
     }
 

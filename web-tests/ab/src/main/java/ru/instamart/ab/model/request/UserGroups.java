@@ -10,7 +10,7 @@ import lombok.Data;
  * }
  */
 @Data
-public final class UserGroups {
+public final class UserGroups implements IRequest {
 
     private String identityId;
     private String abTestId;

@@ -1,4 +1,4 @@
-package ru.instamart.kraken.service;
+package ru.instamart.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,14 +8,14 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Map;
 
 @Slf4j
-public enum MapperService {
+public enum Mapper {
 
     INSTANCE;
 
     @Getter
     private final ObjectMapper objectMapper;
 
-    MapperService() {
+    Mapper() {
         this.objectMapper = new ObjectMapper();
     }
 
@@ -29,8 +29,8 @@ public enum MapperService {
             return objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
             log.error("FATAL: write object={} as string", object);
-            return "";
         }
+        return "empty";
     }
 
     public <T> T jsonToObject(final String json, final Class<T> response) {
@@ -41,7 +41,7 @@ public enum MapperService {
         try {
             return objectMapper.readValue(json, response);
         } catch (JsonProcessingException e) {
-            log.error("FATAL: read response={} or convert to object={}", json, response.getSimpleName());
+            log.error("FATAL: read response={} or convert to object={}", json, response.getSimpleName(), e);
         }
         return null;
     }

@@ -7,10 +7,12 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.model.v2.PhoneTokenV2;
 import ru.instamart.api.request.v2.PhoneConfirmationsV2Request;
 import ru.instamart.api.response.v2.SessionsV2Response;
+import ru.instamart.kraken.util.PhoneCrypt;
 
 import static org.junit.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
@@ -22,12 +24,14 @@ public class PhoneConfirmationsV2Test extends RestBase {
 
     @CaseId(626)
     @Story("Авторизация по номеру телефона")
-    @Test(  description = "Отправляем запрос на получение смс с кодом",
+    @Test(description = "Отправляем запрос на получение смс с кодом",
             groups = {"api-instamart-smoke"})
     public void postPhoneConfirmations() {
-        PhoneTokenV2 phoneToken = apiV2.sendSMS("bjg8q2s53S057R4rWgL9PHDhF6UOdFIPGwzzhMH+BYE=");
-        assertNotNull(phoneToken.getResendLimit());
-        assertNotNull(phoneToken.getCodeLength());
+        PhoneTokenV2 phoneToken = apiV2.sendSMS(PhoneCrypt.INSTANCE.encryptPhone("9871234123"));
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(phoneToken.getResendLimit(), Integer.valueOf(60), "resend_limit mismatch");
+        softAssert.assertEquals(phoneToken.getCodeLength(), Integer.valueOf(6), "code_length mismatch");
+        softAssert.assertAll();
     }
 
     @CaseId(627)

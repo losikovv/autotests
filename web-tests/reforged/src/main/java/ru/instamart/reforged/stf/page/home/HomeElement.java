@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.page.home;
 
 import org.openqa.selenium.By;
+
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Link;
 import ru.instamart.reforged.stf.block.footer.Footer;
