@@ -59,13 +59,12 @@ public final class WaitAction {
                 .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frame));
     }
 
-    public void fillField(final Component component, final String text) {
+    public void fillField(final WebElement element, final String data) {
         createWait(Config.BASIC_TIMEOUT, "Текущее содержимое поля отличается от ожидаемого")
-                .until(keysSendCondition(component, text));
+                .until(keysSendCondition(element, data));
     }
 
-    private static ExpectedCondition<Boolean> keysSendCondition(final Component component, final String text) {
-        final WebElement element = Kraken.waitAction().shouldBeClickable(component);
+    private static ExpectedCondition<Boolean> keysSendCondition(final WebElement element, final String data) {
         return driver -> {
             if (element.isDisplayed()) {
                 final String value = element.getAttribute("value");
@@ -74,8 +73,8 @@ public final class WaitAction {
                     element.sendKeys(Keys.CONTROL + "a");
                     element.sendKeys(Keys.DELETE);
                 }
-                element.sendKeys(text);
-                return value.equals(text);
+                element.sendKeys(data);
+                return value.equals(data);
             }
             return false;
         };

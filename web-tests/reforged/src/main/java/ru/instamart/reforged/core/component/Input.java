@@ -59,10 +59,11 @@ public final class Input extends Component {
 
     /**
      * Заполнение поле с очисткой и ожиданием, что введенный текст точно совпадает с ожидаемым
-     * @param text - текст который необходимо ввести
+     * @param data - текст который необходимо ввести
      */
-    public void fillField(final String text) {
-        Kraken.waitAction().fillField(this, text);
+    public void fillField(final String data) {
+        log.info("Fill with wait and check {} with locator {} and data {}", getDescription(), getBy(), data);
+        Kraken.waitAction().fillField(getComponent(), data);
     }
 
     /**
@@ -72,7 +73,7 @@ public final class Input extends Component {
      */
     public void jsFill(final String data) {
         log.info("JS Fill {} with locator {} and data {}", getDescription(), getBy(), data);
-        Kraken.jsAction().setValue(component, data);
+        Kraken.jsAction().setValue(getComponent(), data);
     }
 
     public void clear() {
