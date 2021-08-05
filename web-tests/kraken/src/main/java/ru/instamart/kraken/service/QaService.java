@@ -1,5 +1,6 @@
 package ru.instamart.kraken.service;
 
+import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.qa.Api;
 import ru.instamart.qa.model.Setting;
 import ru.instamart.qa.model.response.QaSessionResponse;
@@ -9,7 +10,7 @@ public final class QaService {
     private final Api api;
 
     private QaService() {
-        this.api = new Api(new Setting(/*EnvironmentData.INSTANCE.getBasicUrl()*/"https://stf-kraken.k-stage.sbermarket.tech/"));
+        this.api = new Api(new Setting(EnvironmentData.INSTANCE.getBasicUrl()));
     }
 
     /**
