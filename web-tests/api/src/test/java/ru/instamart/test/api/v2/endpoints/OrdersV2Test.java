@@ -8,7 +8,6 @@ import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.api.checkpoint.BaseApiCheckpoints;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.SessionType;
@@ -29,13 +28,14 @@ import java.util.List;
 
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorTextIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 import static ru.instamart.api.common.RestStaticTestData.*;
 
 @Epic("ApiV2")
 @Feature("Заказы")
 public class OrdersV2Test extends RestBase {
-    private final BaseApiCheckpoints check = new BaseApiCheckpoints();
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
@@ -200,7 +200,7 @@ public class OrdersV2Test extends RestBase {
     public void retrievingListOfItemsForOrderForNonExistentId() {
         response = OrdersV2Request.LineItems.GET("failedOrderNumber");
         checkStatusCode404(response);
-        check.errorAssert(response, "Заказ не существует");
+        errorAssert(response, "Заказ не существует");
     }
 
     @CaseId(321)
@@ -220,7 +220,7 @@ public class OrdersV2Test extends RestBase {
     public void getShipmentLineItems404() {
         response = ShipmentsV2Request.LineItems.GET("failedOrderNumber");
         checkStatusCode404(response);
-        check.errorAssert(response, "Доставка не существует");
+        errorAssert(response, "Доставка не существует");
     }
 
     @CaseId(323)
@@ -241,7 +241,7 @@ public class OrdersV2Test extends RestBase {
     public void getLineItemCancellations404() {
         response = OrdersV2Request.LineItemCancellations.GET("failedOrderNumber");
         checkStatusCode404(response);
-        check.errorAssert(response, "Заказ не существует");
+        errorAssert(response, "Заказ не существует");
     }
 
     @CaseId(326)
@@ -251,7 +251,7 @@ public class OrdersV2Test extends RestBase {
     public void getShipmentLineItem404() {
         response = ShipmentsV2Request.LineItemCancellations.GET("failedOrderNumber");
         checkStatusCode404(response);
-        check.errorAssert(response, "Доставка не существует");
+        errorAssert(response, "Доставка не существует");
     }
 
     @CaseId(328)
@@ -261,7 +261,7 @@ public class OrdersV2Test extends RestBase {
     public void getOrdersLineItemReplacements404() {
         response = OrdersV2Request.LineItemReplacements.GET("failedOrderNumber");
         checkStatusCode404(response);
-        check.errorAssert(response, "Заказ не существует");
+        errorAssert(response, "Заказ не существует");
     }
 
     @CaseId(330)
@@ -271,7 +271,7 @@ public class OrdersV2Test extends RestBase {
     public void getShipmentLineItemReplacements404() {
         response = ShipmentsV2Request.LineItemReplacements.GET("failedOrderNumber");
         checkStatusCode404(response);
-        check.errorAssert(response, "Доставка не существует");
+        errorAssert(response, "Доставка не существует");
     }
 
     @CaseId(331)
@@ -297,7 +297,7 @@ public class OrdersV2Test extends RestBase {
     public void setLineItems404(long productId, int quantity, String orderNumber) {
         response = LineItemsV2Request.POST(productId, quantity, orderNumber);
         checkStatusGroup400(response);
-        check.errorTextIsNotEmpty(response);
+        errorTextIsNotEmpty(response);
     }
 
     @CaseId(333)
@@ -331,7 +331,7 @@ public class OrdersV2Test extends RestBase {
     public void changeLineItems404(long productId, int qty) {
         response = LineItemsV2Request.PUT(productId, qty);
         checkStatusGroup400(response);
-        check.errorTextIsNotEmpty(response);
+        errorTextIsNotEmpty(response);
     }
 
     @CaseId(335)
@@ -356,7 +356,7 @@ public class OrdersV2Test extends RestBase {
     public void deleteLineItems404() {
         response = LineItemsV2Request.DELETE(0);
         checkStatusGroup400(response);
-        check.errorAssert(response, "Позиция не существует");
+        errorAssert(response, "Позиция не существует");
     }
 
     @CaseId(337)
@@ -431,7 +431,7 @@ public class OrdersV2Test extends RestBase {
     public void cancellationsOrders404() {
         response = OrdersV2Request.Cancellations.POST("failedOrderNumber", "test");
         checkStatusCode404(response);
-        check.errorAssert(response, "Заказ не существует");
+        errorAssert(response, "Заказ не существует");
     }
 
     @CaseId(682)
@@ -490,7 +490,7 @@ public class OrdersV2Test extends RestBase {
     public void orderCompletion404() {
         response = OrdersV2Request.Completion.POST("failedOrderNumber");
         checkStatusCode404(response);
-        check.errorAssert(response, "Заказ не существует");
+        errorAssert(response, "Заказ не существует");
     }
 
     @CaseId(345)
@@ -522,7 +522,7 @@ public class OrdersV2Test extends RestBase {
     public void clearOrder404() {
         response = OrdersV2Request.Shipments.DELETE("failedOrderNumber");
         checkStatusCode404(response);
-        check.errorAssert(response, "Заказ не существует");
+        errorAssert(response, "Заказ не существует");
     }
 
     @CaseId(347)
@@ -557,6 +557,6 @@ public class OrdersV2Test extends RestBase {
     public void clearShipments404() {
         response = ShipmentsV2Request.DELETE("failedNumber");
         checkStatusCode404(response);
-        check.errorAssert(response, "Доставка не существует");
+        errorAssert(response, "Доставка не существует");
     }
 }

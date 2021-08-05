@@ -3,6 +3,7 @@ package ru.instamart.reforged.stf.page.shop;
 import io.qameta.allure.Step;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.stf.block.footer.Footer;
@@ -13,8 +14,6 @@ import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.ProductCard;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 import ru.instamart.reforged.stf.page.StfPage;
-
-import static ru.instamart.reforged.stf.page.home.HomeElement.authModal;
 
 public final class ShopPage implements StfPage, ShopCheck {
 
@@ -52,7 +51,7 @@ public final class ShopPage implements StfPage, ShopCheck {
         Kraken.jsAction().ymapReady();
     }
 
-    @Step("Нажать на плюс у первого товара")
+    @Step("Нажать на плюс у первого товара при невыбранном адресе")
     public void plusFirstItemToCart() {
         firstProductCard.mouseOver();
         plusFirstItemToCart.click();
@@ -62,6 +61,11 @@ public final class ShopPage implements StfPage, ShopCheck {
     public void minusFirstItemFromCart() {
         firstProductCard.mouseOver();
         minusFirstItemFromCart.click();
+    }
+
+    @Step("Нажать на плюс у первого товара при выбранном адресе")
+    public void plusFirstItemToCartAddedAddress() {
+        plusFirstItemToCartAddedAddress.click();
     }
 
     @Step("Добавить первый товар в избранное")
@@ -86,6 +90,11 @@ public final class ShopPage implements StfPage, ShopCheck {
         goToPage(ShopUrl.DEFAULT);
     }
 
+    @Step("Открыть дефолтный магазин с дефолтным sid")
+    public void goToShopPageWithDefaultSid() {
+        openSitePage(Config.DEFAULT_RETAILER + "?sid=" + EnvironmentData.INSTANCE.getDefaultSid());
+    }
+
     public void goToPage(final ShopUrl shop) {
         Kraken.open(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + shop.getUrl());
     }
@@ -98,7 +107,7 @@ public final class ShopPage implements StfPage, ShopCheck {
     @RequiredArgsConstructor
     @Getter
     public enum ShopUrl {
-        DEFAULT(""),
+        DEFAULT(Config.DEFAULT_RETAILER),
         METRO("metro"),
         LENTA("lenta"),
         AUCHAN("auchan");

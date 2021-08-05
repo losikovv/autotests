@@ -7,6 +7,7 @@ import ru.instamart.reforged.admin.page.pages.new_page.NewPage;
 import ru.instamart.reforged.admin.page.pages.Pages;
 import ru.instamart.reforged.admin.page.sections.*;
 import ru.instamart.reforged.admin.page.users.UsersPage;
+import ru.instamart.reforged.admin.page.usersEdit.UsersEditPage;
 import ru.instamart.reforged.core.page.Router;
 
 public final class AdminRout extends Router {
@@ -61,6 +62,10 @@ public final class AdminRout extends Router {
 
     public static Oktell oktell() {
         return (Oktell) getPage(Oktell.class);
+    }
+
+    public static UsersEditPage usersEdit() {
+        return (UsersEditPage) getPage(UsersEditPage.class);
     }
 
     private AdminRout() {

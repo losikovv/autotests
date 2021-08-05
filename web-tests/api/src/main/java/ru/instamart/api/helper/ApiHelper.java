@@ -42,12 +42,13 @@ public class ApiHelper {
      * encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
     @Step ("Наполняем корзину с помощью API")
-    public void dropAndFillCart(final UserData user, final Integer sid, final Integer itemsNumber) {
-        dropCart(user);
-
-        apiV2.fillCartOnSid(sid, itemsNumber);
+    public void dropAndFillCart(final UserData user, final Integer sid) {
+        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, user);
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+        apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
+        apiV2.fillCartOnSid(sid);
     }
-
     /**
      * @param user должен иметь phone и encryptedPhone
      * encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])

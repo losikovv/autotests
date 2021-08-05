@@ -9,7 +9,6 @@ import static ru.instamart.reforged.admin.AdminRout.login;
 
 public final class MainPage implements AdminPage, MainCheck {
 
-
     public SideMenu interactSideMenu() {
         return sideMenu;
     }
@@ -18,20 +17,10 @@ public final class MainPage implements AdminPage, MainCheck {
         return authoredHeader;
     }
 
-    @Step("Нажать на меню профиля")
-    public void clickToProfileMenu() {
-        user.click();
-    }
-
-    @Step("Нажать на кнопку выхода")
-    public void clickToLogout() {
-        logout.click();
-    }
-
     @Step("Выйти из профиля")
     public void doLogout() {
-        clickToProfileMenu();
-        clickToLogout();
+        authoredHeader.clickToProfileMenu();
+        authoredHeader.clickToLogout();
         login().checkTitle();
     }
 

@@ -19,7 +19,7 @@ public final class ApiV2EndPoints {
     public static final String PAYMENT_TOOL_TYPES = "v2/payment_tool_types";
     public static final String PAYMENT_TOOL_TYPES_WITH_ORDER_NUMBER = "v2/payment_tool_types?order_number={orderNumber}";
     public static final String PHONES = "v2/phones";
-    public static final String PHONE_CONFIRMATIONS = "v2/phone_confirmations?phone={encryptedPhoneNumber}";
+    public static final String PHONE_CONFIRMATIONS = "v2/phone_confirmations";
     public static final String PRODUCTS = "v2/products";
     public static final String PURCHASED_PRODUCTS = "v2/purchased_products?sid={sid}";
     public static final String RETAILERS = "v2/retailers";
@@ -144,6 +144,7 @@ public final class ApiV2EndPoints {
         public static final String LINE_ITEM_REPLACEMENTS = "v2/shipments/{shipmentNumber}/line_item_replacements";
         public static final String SERVICE_RATE = "v2/shipments/{shipmentNumber}/service_rate?{deliveryWindowId}";
         public static final String SHIPPING_RATES = "v2/shipments/{shipmentNumber}/shipping_rates?{date}";
+        public static final String STATE = "v2/shipments/{shipmentNumber}/state";
     }
 
     public static final class Stores {

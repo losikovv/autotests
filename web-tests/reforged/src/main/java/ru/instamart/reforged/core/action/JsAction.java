@@ -8,11 +8,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static ru.instamart.reforged.core.Kraken.execute;
+import static ru.instamart.reforged.core.Kraken.jsAction;
 import static ru.instamart.reforged.core.service.KrakenDriver.getWebDriver;
 
 @Slf4j
@@ -25,8 +27,10 @@ public final class JsAction {
         final WebDriverWait wait = new WebDriverWait(getWebDriver(), Config.BASIC_TIMEOUT);
         wait.pollingEvery(Config.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
         wait.until((ExpectedCondition<Boolean>) wb -> {
-            final String result = String.valueOf(execute("return typeof ymaps"));
-            log.debug("ymap status is {}", result);
+            final Object result = execute("return typeof ymaps");
+            if (Objects.isNull(result)) {
+                return false;
+            }
             return result.equals("object");
         });
     }
@@ -37,7 +41,13 @@ public final class JsAction {
     public void jQueryReady() {
         final WebDriverWait wait = new WebDriverWait(getWebDriver(), Config.BASIC_TIMEOUT);
         wait.pollingEvery(Config.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
-        wait.until((ExpectedCondition<Boolean>) wb -> (Boolean) execute("return ReactRailsUJS.jQuery.active==0"));
+        wait.until((ExpectedCondition<Boolean>) wb -> {
+            final Object reactState = execute("return ReactRailsUJS.jQuery.active==0");
+            if (Objects.isNull(reactState)) {
+                return false;
+            }
+            return (Boolean) reactState;
+        });
     }
 
     /**
@@ -46,7 +56,13 @@ public final class JsAction {
     public void waitForDocumentReady() {
         final WebDriverWait wait = new WebDriverWait(getWebDriver(), Config.BASIC_TIMEOUT);
         wait.pollingEvery(Config.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
-        wait.until((ExpectedCondition<Boolean>) wb -> execute("return document.readyState").toString().equals("complete"));
+        wait.until((ExpectedCondition<Boolean>) wb -> {
+            final Object state = execute("return document.readyState");
+            if (Objects.isNull(state)) {
+                return false;
+            }
+            return state.equals("complete");
+        });
     }
 
     public void scrollToTheTop() {
@@ -132,8 +148,18 @@ public final class JsAction {
     }
 
     /**
-     * Получение списка данных из localStorage
-     * @return
+     * Очистка сессии
+     */
+    public static void clearSession() {
+        execute("$.ajax({\n" +
+                "     url : '"+ EnvironmentData.INSTANCE.getBasicUrl() + "api/user_sessions',\n" +
+                "     method : 'delete'\n" +
+                "});");
+        jsAction().jQueryReady();
+    }
+
+    /**
+     * @return - Получение списка данных из localStorage
      */
     public String getLocalStorage() {
         final Object o = execute("return window.localStorage");
