@@ -1,8 +1,8 @@
 package ru.instamart.ab.model.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import ru.instamart.ab.service.Mapper;
 
 import java.util.Date;
 import java.util.List;
@@ -47,7 +47,8 @@ public final class AbTests {
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     private static final class Params {
-        private int feature_state;
+        @JsonProperty(value = "feature_state")
+        private int featureState;
         private String name;
     }
 }

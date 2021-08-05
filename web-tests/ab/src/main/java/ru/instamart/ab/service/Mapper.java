@@ -29,8 +29,8 @@ public enum Mapper {
             return objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
             log.error("FATAL: write object={} as string", object);
-            return "";
         }
+        return "empty";
     }
 
     public <T> T jsonToObject(final String json, final Class<T> response) {

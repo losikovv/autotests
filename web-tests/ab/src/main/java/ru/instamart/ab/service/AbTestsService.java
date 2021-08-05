@@ -17,20 +17,30 @@ public final class AbTestsService {
 
     private final AbApiClient client;
 
+    /**
+     * Получить список авторов
+     * @return - {@link AuthorsResponse}
+     */
     public AuthorsResponse getAuthor() {
         try {
             return client.get(AuthorsResponse.class, Endpoint.AUTHORS);
         } catch (IOException e) {
-            log.error("", e);
+            log.error("FATAL: Can't get authors", e);
         }
         return new AuthorsResponse();
     }
 
+    /**
+     * curl -X GET "http://bs-ab-admin.k-stage.sbermarket.tech/api/v1/ab-tests?limit=1000&offset=0&status=2"
+     * -H  "accept: application/json"
+     * -H "Authorization:JWT {access_token}"
+     * @return - {@link AbTests}
+     */
     public AbTests getAllAbTests() {
         try {
             return client.get(AbTests.class, Endpoint.AB_TESTS);
         } catch (IOException e) {
-            log.error("", e);
+            log.error("FATAL: Can't obtain all tests", e);
         }
         return new AbTests();
     }

@@ -15,6 +15,14 @@ public final class UserGroupsService {
 
     private final AbApiClient client;
 
+    /**
+     * curl -X POST "http://bs-ab-admin.k-stage.sbermarket.tech/api/v1/users-groups"
+     * -H  "accept: application/json"
+     * -H  "Content-Type: application/json"
+     * -d "{  \"identityId\": \"string\",  \"abTestId\": \"string\",  \"abGroupId\": \"string\"}"
+     * -H "Authorization:JWT {access_token}"
+     * @param userGroup - данные для обновления тестовой группы пользователя
+     */
     public void update(final UserGroups userGroup) {
         try {
             client.post(UserGroupsResponse.class, Endpoint.USER_GROUPS, userGroup);
@@ -23,7 +31,12 @@ public final class UserGroupsService {
         }
     }
 
-    //http://bs-ab-admin.k-stage.sbermarket.tech/api/v1/users-groups?identityId={anonymous_id}&abTestId={test_id}
+    /**
+     * curl -X DELETE "http://bs-ab-admin.k-stage.sbermarket.tech/api/v1/users-groups?identityId={anonymous_id}&abTestId={test_id}"
+     * -H  "accept: application/json"
+     * -H "Authorization:JWT {access_token}"
+     * @param userGroups - данные для удаления тестовой группы пользователя
+     */
     public void delete(final UserGroups userGroups) {
         try {
             client.delete(UserGroupsResponse.class, Endpoint.USER_GROUPS, userGroups);
