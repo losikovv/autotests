@@ -65,6 +65,7 @@ project(":kraken") {
     dependencies {
         implementation project(":qase-api")
         implementation project(":ab")
+        implementation project(":qa-api")
 
         implementation lib.jackson
         implementation lib.allureTestng
@@ -109,6 +110,7 @@ project(":api") {
     dependencies {
         implementation project(":kraken")
         implementation project(":qase-api")
+        implementation project(":utils")
 
         implementation lib.restAssured
         implementation lib.aspectjweaver
@@ -144,8 +146,39 @@ project(":ab") {
     apply plugin: "java-library"
 
     dependencies {
+        implementation project(":utils")
+
         implementation lib.lombok
         implementation lib.okhttp
+        implementation lib.jacksonAnnotations
+        implementation lib.jackson
+        implementation lib.logback
+
+        annotationProcessor lib.lombok
+    }
+}
+
+project(":qa-api") {
+    apply plugin: "java-library"
+
+    dependencies {
+        implementation project(":utils")
+
+        implementation lib.lombok
+        implementation lib.okhttp
+        implementation lib.jacksonAnnotations
+        implementation lib.jackson
+        implementation lib.logback
+
+        annotationProcessor lib.lombok
+    }
+}
+
+project(":utils") {
+    apply plugin: "java-library"
+
+    dependencies {
+        implementation lib.lombok
         implementation lib.jacksonAnnotations
         implementation lib.jackson
         implementation lib.logback

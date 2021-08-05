@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.ToString;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
-import ru.instamart.kraken.service.MapperService;
+import ru.instamart.utils.Mapper;
 
 public final class AddressesV2Request extends ApiV2RequestBase {
 
@@ -23,7 +23,7 @@ public final class AddressesV2Request extends ApiV2RequestBase {
     @Step("{method} /" + ApiV2EndPoints.ADDRESSES)
     public static Response POST(final Addresses addresses) {
         return givenWithAuth()
-                .formParams(MapperService.INSTANCE.objectToMap(addresses))
+                .formParams(Mapper.INSTANCE.objectToMap(addresses))
                 .post(ApiV2EndPoints.ADDRESSES);
     }
 
@@ -36,7 +36,7 @@ public final class AddressesV2Request extends ApiV2RequestBase {
     @Step("{method} /" + ApiV2EndPoints.Addresses.BY_ID)
     public static Response PUT(final int id, final Addresses addresses) {
         return givenWithAuth()
-                .formParams(MapperService.INSTANCE.objectToMap(addresses))
+                .formParams(Mapper.INSTANCE.objectToMap(addresses))
                 .put(ApiV2EndPoints.Addresses.BY_ID, id);
     }
 
