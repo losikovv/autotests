@@ -11,14 +11,14 @@ import lombok.Builder;
 import lombok.Data;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
-import ru.instamart.kraken.service.MapperService;
+import ru.instamart.utils.Mapper;
 
 public class SimpleAdsV2Request extends ApiV2RequestBase {
 
     @Step("{method} /" + ApiV2EndPoints.SIMPLE_ADS)
     public static Response POST(SimpleAdsV2 simpleAdsV2) {
         return givenWithAuth()
-                .body(MapperService.INSTANCE.objectToMap(simpleAdsV2))
+                .body(Mapper.INSTANCE.objectToMap(simpleAdsV2))
                 .contentType(ContentType.JSON)
                 .post(ApiV2EndPoints.SIMPLE_ADS);
     }
@@ -26,7 +26,7 @@ public class SimpleAdsV2Request extends ApiV2RequestBase {
     @Step("{method} /" + ApiV2EndPoints.SIMPLE_ADS)
     public static Response POST(SimpleAdsV2 simpleAdsV2, Header header) {
         return givenWithAuth()
-                .body(MapperService.INSTANCE.objectToMap(simpleAdsV2))
+                .body(Mapper.INSTANCE.objectToMap(simpleAdsV2))
                 .header(header)
                 .contentType(ContentType.JSON)
                 .post(ApiV2EndPoints.SIMPLE_ADS);
@@ -35,7 +35,7 @@ public class SimpleAdsV2Request extends ApiV2RequestBase {
     @Step("{method} /" + ApiV2EndPoints.SIMPLE_ADS)
     public static Response POST(SimpleAdsV2 simpleAdsV2, Headers headers) {
         return givenWithAuth()
-                .body(MapperService.INSTANCE.objectToMap(simpleAdsV2))
+                .body(Mapper.INSTANCE.objectToMap(simpleAdsV2))
                 .headers(headers)
                 .contentType(ContentType.JSON)
                 .post(ApiV2EndPoints.SIMPLE_ADS);

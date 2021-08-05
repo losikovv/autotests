@@ -5,17 +5,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
-import ru.instamart.kraken.service.MapperService;
+import ru.instamart.utils.Mapper;
 
 public class SimpleRecsPersonalV2Request extends ApiV2RequestBase {
 
     @Step("{method} /" + ApiV2EndPoints.SimpleRecs.PERSONAL)
     public static Response POST(SimpleRecsV2 simpleRecs) {
         return givenWithSpec()
-                .body(MapperService.INSTANCE.objectToMap(simpleRecs))
+                .body(Mapper.INSTANCE.objectToMap(simpleRecs))
                 .contentType(ContentType.JSON)
                 .post(ApiV2EndPoints.SimpleRecs.PERSONAL);
     }
