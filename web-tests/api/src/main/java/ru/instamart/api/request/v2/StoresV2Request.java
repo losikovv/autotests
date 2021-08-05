@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
-import ru.instamart.kraken.service.MapperService;
+import ru.instamart.utils.Mapper;
 
 import java.util.Map;
 
@@ -21,7 +21,7 @@ public final class StoresV2Request extends ApiV2RequestBase {
      */
     @Step("{method} /" + ApiV2EndPoints.STORES)
     public static Response GET(final Store store) {
-        final Map<String, Object> params = MapperService.INSTANCE.objectToMap(store);
+        final Map<String, Object> params = Mapper.INSTANCE.objectToMap(store);
         return givenWithSpec()
                 .params(params)
                 .get(ApiV2EndPoints.STORES);

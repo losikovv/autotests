@@ -8,7 +8,7 @@ import ru.instamart.ab.AbApiClient;
 import ru.instamart.ab.Endpoint;
 import ru.instamart.ab.model.request.JwtObtain;
 import ru.instamart.ab.model.response.JwtResponse;
-import ru.instamart.ab.service.Mapper;
+import ru.instamart.utils.Mapper;
 
 import java.io.IOException;
 import java.util.Objects;

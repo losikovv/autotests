@@ -7,7 +7,7 @@ import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.DeliveryClubEndpoints;
 import ru.instamart.api.model.delivery_club.*;
 import ru.instamart.api.request.DeliveryClubRequestBase;
-import ru.instamart.kraken.service.MapperService;
+import ru.instamart.utils.Mapper;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -123,7 +123,7 @@ public class StoresDCRequest extends DeliveryClubRequestBase {
                             .deliveryPrice("199")
                             .build())
                     .build();
-            final String body = MapperService.INSTANCE.objectToString(order);
+            final String body = Mapper.INSTANCE.objectToString(order);
             return givenWithAuth()
                     .contentType(ContentType.JSON)
                     .body(body)
