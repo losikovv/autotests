@@ -58,6 +58,14 @@ public final class Input extends Component {
     }
 
     /**
+     * Заполнение поле с очисткой и ожиданием, что введенный текст точно совпадает с ожидаемым
+     * @param text - текст который необходимо ввести
+     */
+    public void fillField(final String text) {
+        Kraken.waitAction().fillField(this, text);
+    }
+
+    /**
      * Устанавливает текст в инпут через js код
      *
      * @param data

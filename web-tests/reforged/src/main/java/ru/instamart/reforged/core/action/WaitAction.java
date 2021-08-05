@@ -59,6 +59,28 @@ public final class WaitAction {
                 .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frame));
     }
 
+    public void fillField(final Component component, final String text) {
+        createWait(Config.BASIC_TIMEOUT, "Текущее содержимое поля отличается от ожидаемого")
+                .until(keysSendCondition(component, text));
+    }
+
+    private static ExpectedCondition<Boolean> keysSendCondition(final Component component, final String text) {
+        final WebElement element = Kraken.waitAction().shouldBeClickable(component);
+        return driver -> {
+            if (element.isDisplayed()) {
+                final String value = element.getAttribute("value");
+                if (value.length() != 0) {
+                    element.sendKeys(Keys.COMMAND + "a");
+                    element.sendKeys(Keys.CONTROL + "a");
+                    element.sendKeys(Keys.DELETE);
+                }
+                element.sendKeys(text);
+                return value.equals(text);
+            }
+            return false;
+        };
+    }
+
     private FluentWait<WebDriver> createWait(final Component component) {
         return new FluentWait<>(getWebDriver())
                 .withTimeout(component.getTimeout(), TimeUnit.SECONDS)
@@ -73,26 +95,5 @@ public final class WaitAction {
                 .withTimeout(wait, TimeUnit.SECONDS)
                 .withMessage(errorMsg)
                 .pollingEvery(Config.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
-    }
-
-    public void fillField(final Component component, final String text) {
-        createWait(component).until(keysSendCondition(component, text));
-    }
-
-    public static ExpectedCondition<Boolean> keysSendCondition(final Component component, final String text) {
-        final WebElement element = Kraken.waitAction().shouldBeClickable(component);
-        return driver -> {
-            if (element.isDisplayed()) {
-                if (element.getAttribute("value").length() != 0) {
-                    element.click();
-                    element.sendKeys(Keys.COMMAND + "a");
-                    element.sendKeys(Keys.CONTROL + "a");
-                    element.sendKeys(Keys.DELETE);
-                }
-                element.sendKeys(text);
-                return element.getAttribute("value").equals(text);
-            }
-            return false;
-        };
     }
 }

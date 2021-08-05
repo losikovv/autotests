@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.block.header;
 
 import io.qameta.allure.Step;
+import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.action.JsAction;
 import ru.instamart.reforged.stf.drawer.account_menu.AccountMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
@@ -87,11 +88,13 @@ public final class Header implements HeaderCheck {
     @Step("Нажать на Выберите адрес доставки(первый выбор адреса)")
     public void clickToSelectAddressFirstTime() {
         firstSelectAddress.click();
+        Kraken.jsAction().ymapReady();
     }
 
     @Step("Нажать на выбор адреса")
     public void clickToSelectAddress() {
         selectAddress.click();
+        Kraken.jsAction().ymapReady();
     }
 
     @Step("Открыть страницу Ваши компании")
