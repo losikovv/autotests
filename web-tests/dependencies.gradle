@@ -13,7 +13,8 @@ ext.versions = [
         jackson: '2.12.3',
         okhttp: '4.9.0',
         webdrivermanager: '4.4.3',
-        pgsqlJDBC: '42.1.4'
+        pgsqlJDBC: '42.1.4',
+        kafkaClients: '2.8.0'
 ]
 
 ext.lib = [
@@ -35,5 +36,6 @@ ext.lib = [
         jackson: "com.fasterxml.jackson.core:jackson-databind:$versions.jackson",
         jacksonAnnotations: "com.fasterxml.jackson.core:jackson-annotations:$versions.jackson",
         webdrivermanager: "io.github.bonigarcia:webdrivermanager:$versions.webdrivermanager",
-        pgsqlJDBC: "org.postgresql:postgresql:$versions.pgsqlJDBC"
+        pgsqlJDBC: "org.postgresql:postgresql:$versions.pgsqlJDBC",
+        kafkaClients: "org.apache.kafka:kafka-clients:$versions.kafkaClients"
 ]
