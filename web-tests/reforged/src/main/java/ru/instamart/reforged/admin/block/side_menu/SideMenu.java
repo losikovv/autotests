@@ -7,246 +7,246 @@ public final class SideMenu implements SideMenuCheck {
     @Step("Нажатие на storesDropdown")
     public void storesDropdownClick() {
         storesDropdown.scrollTo();
-        storesDropdown.click();
+        storesDropdown.hoverAndClick();
     }
 
     @Step("Нажатие на regions")
     public void regionsClick() {
         regions.scrollTo();
-        regions.click();
+        regions.hoverAndClick();
     }
 
     @Step("Нажатие на retailers")
     public void retailersClick() {
         retailers.scrollTo();
-        retailers.click();
+        retailers.hoverAndClick();
     }
 
     @Step("Нажатие на shipmentArea")
     public void shipmentAreaClick() {
         shipmentArea.scrollTo();
-        shipmentArea.click();
+        shipmentArea.hoverAndClick();
     }
 
     @Step("Нажатие на ordersDropdown")
     public void ordersDropdownClick() {
         ordersDropdown.scrollTo();
-        ordersDropdown.click();
+        ordersDropdown.hoverAndClick();
     }
 
     @Step("Нажатие на logisticControl")
     public void logisticControlClick() {
         logisticControl.scrollTo();
-        logisticControl.click();
+        logisticControl.hoverAndClick();
     }
 
     @Step("Нажатие на rootsParameters")
     public void rootsParametersClick() {
         rootsParameters.scrollTo();
-        rootsParameters.click();
+        rootsParameters.hoverAndClick();
     }
 
     @Step("Нажатие на multipleOrder")
     public void multipleOrderClick() {
         multipleOrder.scrollTo();
-        multipleOrder.click();
+        multipleOrder.hoverAndClick();
     }
 
     @Step("Нажатие на contentDropdown")
     public void contentDropdownClick() {
         contentDropdown.scrollTo();
-        contentDropdown.click();
+        contentDropdown.hoverAndClick();
     }
 
     @Step("Нажатие на products")
     public void productsClick() {
         products.scrollTo();
-        products.click();
+        products.hoverAndClick();
     }
 
     @Step("Нажатие на goodsOptions")
     public void goodsOptionsClick() {
         goodsOptions.scrollTo();
-        goodsOptions.click();
+        goodsOptions.hoverAndClick();
     }
 
     @Step("Нажатие на properties")
     public void propertiesClick() {
         properties.scrollTo();
-        properties.click();
+        properties.hoverAndClick();
     }
 
     @Step("Нажатие на brands")
     public void brandsClick() {
         brands.scrollTo();
-        brands.click();
+        brands.hoverAndClick();
     }
 
     @Step("Нажатие на manufacturers")
     public void manufacturersClick() {
         manufacturers.scrollTo();
-        manufacturers.click();
+        manufacturers.hoverAndClick();
     }
 
     @Step("Нажатие на manufacturingCountries")
     public void manufacturingCountriesClick() {
         manufacturingCountries.scrollTo();
-        manufacturingCountries.click();
+        manufacturingCountries.hoverAndClick();
     }
 
     @Step("Нажатие на categories")
     public void categoriesClick() {
         categories.scrollTo();
-        categories.click();
+        categories.hoverAndClick();
     }
 
     @Step("Нажатие на contentImport")
     public void contentImportClick() {
         contentImport.scrollTo();
-        contentImport.click();
+        contentImport.hoverAndClick();
     }
 
     @Step("Нажатие на settings")
     public void settingsClick() {
         settings.scrollTo();
-        settings.click();
+        settings.hoverAndClick();
     }
 
     @Step("Нажатие на marketingDropdown")
     public void marketingDropdownClick() {
         marketingDropdown.scrollTo();
-        marketingDropdown.click();
+        marketingDropdown.hoverAndClick();
     }
 
     @Step("Нажатие на promoCards")
     public void promoCardsClick() {
         promoCards.scrollTo();
-        promoCards.click();
+        promoCards.hoverAndClick();
     }
 
     @Step("Нажатие на promoActions")
     public void promoActionsClick() {
         promoActions.scrollTo();
-        promoActions.click();
+        promoActions.hoverAndClick();
     }
 
     @Step("Нажатие на welcomeBanners")
     public void welcomeBannersClick() {
         welcomeBanners.scrollTo();
-        welcomeBanners.click();
+        welcomeBanners.hoverAndClick();
     }
 
     @Step("Нажатие на ads")
     public void adsClick() {
         ads.scrollTo();
-        ads.click();
+        ads.hoverAndClick();
     }
 
     @Step("Нажатие на carts")
     public void cartsClick() {
         carts.scrollTo();
-        carts.click();
+        carts.hoverAndClick();
     }
 
     @Step("Нажатие на bonusCards")
     public void bonusCardsClick() {
         bonusCards.scrollTo();
-        bonusCards.click();
+        bonusCards.hoverAndClick();
     }
 
     @Step("Нажатие на retailerPrograms")
     public void retailerProgramsClick() {
         retailerPrograms.scrollTo();
-        retailerPrograms.click();
+        retailerPrograms.hoverAndClick();
     }
 
     @Step("Нажатие на referralProgram")
     public void referralProgramClick() {
         referralProgram.scrollTo();
-        referralProgram.click();
+        referralProgram.hoverAndClick();
     }
 
     @Step("Нажатие на newCities")
     public void newCitiesClick() {
         newCities.scrollTo();
-        newCities.click();
+        newCities.hoverAndClick();
     }
 
     @Step("Нажатие на inAppBanners")
     public void inAppBannersClick() {
         inAppBanners.scrollTo();
-        inAppBanners.click();
+        inAppBanners.hoverAndClick();
     }
 
     @Step("Нажатие на bonusCount")
     public void bonusCountClick() {
         bonusCount.scrollTo();
-        bonusCount.click();
+        bonusCount.hoverAndClick();
     }
 
     @Step("Нажатие на redirects")
     public void redirectsClick() {
         redirects.scrollTo();
-        redirects.click();
+        redirects.hoverAndClick();
     }
 
     @Step("Нажатие на sampling")
     public void samplingClick() {
         sampling.scrollTo();
-        sampling.click();
+        sampling.hoverAndClick();
     }
 
     @Step("Нажатие на marketingCategories")
     public void marketingCategoriesClick() {
         marketingCategories.scrollTo();
-        marketingCategories.click();
+        marketingCategories.hoverAndClick();
     }
 
     @Step("Открытие staffDropdown")
     public void staffDropdownClick() {
         staffDropdown.scrollTo();
-        staffDropdown.click();
+        staffDropdown.hoverAndClick();
     }
 
     @Step("Нажатие на shifts")
     public void shiftsClick() {
         shifts.scrollTo();
-        shifts.click();
+        shifts.hoverAndClick();
     }
 
     @Step("Нажатие на tariffs")
     public void tariffsClick() {
         tariffs.scrollTo();
-        tariffs.click();
+        tariffs.hoverAndClick();
     }
 
     @Step("Нажатие на shoppers")
     public void shoppersClick() {
         shoppers.scrollTo();
-        shoppers.click();
+        shoppers.hoverAndClick();
     }
 
     @Step("Нажатие на partnersInput")
     public void partnersImportClick() {
         partnersImport.scrollTo();
-        partnersImport.click();
+        partnersImport.hoverAndClick();
     }
 
     @Step("Нажатие на users")
     public void usersClick() {
         users.scrollTo();
-        users.click();
+        users.hoverAndClick();
     }
 
     @Step("Нажатие на pages")
     public void pagesClick() {
         pages.scrollTo();
-        pages.click();
+        pages.hoverAndClick();
     }
 
     @Step("Нажатие на companies")
     public void companiesClick() {
         companies.scrollTo();
-        companies.click();
+        companies.hoverAndClick();
     }
 }

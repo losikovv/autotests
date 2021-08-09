@@ -1700,7 +1700,7 @@ public class Elements {
                     "каунтер количества доступного товара в карточке товара");
             }
             static ElementData quantityByCount(int count) {
-                return new ElementData(By.xpath("//div[contains(@class,'popup_cart_actions') and contains(text(),'"+count+"')]"),
+                return new ElementData(By.xpath("//div[contains(@class,'QuantityInput')]/span[contains(text(), '"+count+" шт')]"),
                         "каунтер количества добавленного товара");
             }
 

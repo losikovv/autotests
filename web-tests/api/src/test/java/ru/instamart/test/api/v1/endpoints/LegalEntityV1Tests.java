@@ -2,6 +2,7 @@ package ru.instamart.test.api.v1.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
@@ -14,7 +15,7 @@ import ru.instamart.api.request.v1.b2b.LegalEntityV1Request;
 import ru.instamart.api.response.v1.b2b.LegalEntityV1Response;
 import ru.instamart.kraken.testdata.UserManager;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 
 @Epic("ApiV1")
@@ -24,10 +25,12 @@ public class LegalEntityV1Tests extends RestBase {
     public void preconditions() {
     }
 
+    @Issue("STF-8755")
     @Story("Web")
     @CaseId(625)
-    @Test(description = "Загрузка реквизитов компании из Контур-Фокус",
-            groups = {"api-instamart-regress"})
+    @Test(  description = "Загрузка реквизитов компании из Контур-Фокус",
+            groups = {"api-instamart-regress"},
+            enabled = false)
     public void getWithoutLegalEntity() {
         SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
 
