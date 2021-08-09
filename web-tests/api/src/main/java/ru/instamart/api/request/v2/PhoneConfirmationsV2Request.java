@@ -6,6 +6,7 @@ import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
+import ru.instamart.kraken.setting.Config;
 
 public class PhoneConfirmationsV2Request extends ApiV2RequestBase {
 
@@ -23,7 +24,7 @@ public class PhoneConfirmationsV2Request extends ApiV2RequestBase {
     }
 
     public static Response PUT(String phoneNumber) {
-        return PUT(phoneNumber, "111111", true);
+        return PUT(phoneNumber, Config.DEFAULT_SMS, true);
     }
 
     @Step("{method} /" + ApiV2EndPoints.PhoneConfirmations.PHONE_NUMBER)

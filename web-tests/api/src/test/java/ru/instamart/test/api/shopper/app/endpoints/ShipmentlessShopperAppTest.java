@@ -6,6 +6,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.shopper.app.ReasonSHP;
 import ru.instamart.api.request.shopper.app.*;
 import ru.instamart.api.response.shopper.app.*;
+import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import io.qameta.allure.Epic;
@@ -25,7 +26,6 @@ import static org.testng.Assert.assertNotNull;
 @Feature("Endpoints")
 public class ShipmentlessShopperAppTest extends RestBase {
     private final String phone = "79588128783";
-    private final String code = "111111";
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
@@ -193,7 +193,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Test( description = "Авторизация по номеру телефона и коду из смс",
             groups = {"api-shopper-smoke"})
     public void postOtpsAuthorizations200() {
-        response = OtpsSHPRequest.Authorizations.POST(phone, code);
+        response = OtpsSHPRequest.Authorizations.POST(phone, Config.DEFAULT_SMS);
 
         checkStatusCode200(response);
         String accessToken = response.as(SessionsSHPResponse.class).getData().getAttributes().getAccessToken();
