@@ -189,6 +189,8 @@ public final class InstamartApiHelper {
      */
     @Step("Удаляем товары из корзины")
     public OrderV2 deleteAllShipments() {
+        if (currentOrderNumber.get() == null) fail("Номер текущего заказа null");
+
         Response response = OrdersV2Request.Shipments.DELETE(currentOrderNumber.get());
         checkStatusCode200(response);
 
