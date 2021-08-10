@@ -53,7 +53,7 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     @Step("Нажать на плюс у первого товара при невыбранном адресе")
     public void plusFirstItemToCart() {
-        firstProductCard.mouseOver();
+        firstProductCardOld.mouseOver();
         plusFirstItemToCart.click();
     }
 

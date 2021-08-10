@@ -23,6 +23,7 @@ public interface ShopElement {
 
     Button openAddress = new Button(By.xpath("//button[@data-qa='select-button']"));
     Element firstProductCard = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']"));
+    Element firstProductCardOld = new Element(By.xpath("//li[contains(@class, 'product')]"), "карточка первого продукта");
     Element plusFirstItemToCart = new Element(By.xpath("//div[contains(@class, 'add-cart__up')]"));
     Element minusFirstItemFromCart = new Element(By.xpath("//div[contains(@class, 'add-cart__down')]"));
     Element addFirstItemToFavorite = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']/button"));
