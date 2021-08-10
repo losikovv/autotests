@@ -14,7 +14,9 @@ public final class AuthSberId {
     private final Button changeAuthTypeOnPhone = new Button(By.xpath("//span[text() = 'Войти по номеру телефона']/parent::button"));
     private final Button submitLogin = new Button(By.xpath("//button[@type='submit']"));
     private final Button submitPassword = new Button(By.xpath("//button[@type='submit']"));
+    private final Button submitSmsCode = new Button(By.xpath("//button[@type='submit']"));
     private final Button receivedSms = new Button(By.xpath("//span[text() = 'Я получил СМС-код']/parent::button"));
+    private final Input smsCode = new Input(By.xpath("//input[@name='code']"), "поле ввода кода из смс");
 
     @Step("Ввести номер телефона на странице авторизации через sberID")
     public void fillPhoneNumber(String data) {
@@ -44,6 +46,21 @@ public final class AuthSberId {
     @Step("Нажать подтвердить пароль")
     public void clickToSubmitPassword() {
         submitPassword.click();
+    }
+
+    @Step("Нажать 'Я получил смс'")
+    public void clickToReceivedSms() {
+        receivedSms.click();
+    }
+
+    @Step("Ввести смс - код")
+    public void enterCode(String code) {
+        smsCode.fill(code);
+    }
+
+    @Step("Нажать подтвердить смс")
+    public void clickToSubmitSmsCode() {
+        submitSmsCode.click();
     }
 
 }
