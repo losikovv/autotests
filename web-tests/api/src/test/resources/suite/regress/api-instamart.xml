@@ -81,4 +81,11 @@
             <class name="ru.instamart.test.api.delivery_club.endpoints.StoresWithoutAuthDCTest"/>
         </classes>
     </test>
+
+    <!-- api-kube-tests  -->
+    <test verbose="1" name="API KUBERNETES Tests" parallel="none" thread-count="1">
+        <classes>
+            <class name="ru.instamart.test.api.KubernetesClientTest"/>
+        </classes>
+    </test>
 </suite>

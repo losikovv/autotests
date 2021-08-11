@@ -123,6 +123,7 @@ project(":api") {
         implementation lib.restAssuredSchemaValidator
         implementation lib.pgsqlJDBC
         implementation lib.kafkaClients
+        implementation lib.kubernetesClient
 
         compileOnly lib.lombok
 
