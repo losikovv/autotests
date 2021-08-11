@@ -1,5 +1,6 @@
 package ru.instamart.api.factory;
 
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ import ru.instamart.api.response.v1.TokensV1Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.util.ThreadUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -127,7 +129,9 @@ public final class SessionFactory {
     }
 
     private static SessionInfo createApiV2PhoneSession(final UserData userData) {
-        PhoneConfirmationsV2Request.POST(userData.getEncryptedPhone());
+        final Response postResponse = PhoneConfirmationsV2Request.POST(userData.getEncryptedPhone());
+        checkStatusCode200(postResponse);
+        ThreadUtil.simplyAwait(1);
         final Response response = PhoneConfirmationsV2Request.PUT(userData.getPhone());
         checkStatusCode200(response);
         final SessionsV2Response sessionResponse = response.as(SessionsV2Response.class);

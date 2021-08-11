@@ -11,6 +11,7 @@ public interface AddressElement {
     Button selfDelivery = new Button(By.xpath("//button[@data-qa='address-edit-selector-pickup']"));
 
     Input address = new Input(By.xpath("//input[@data-qa='address-modal-input']"));
+    Element prevAddresses = new Element(By.xpath("//div[@data-qa='address-modal-addresses']//div[@class='address-modal__address']"));
 
     DropDown dropDownAddress = new DropDown(By.xpath("//div[contains(@class,'dropdown')]/div/*[text()]"));
     Button save = new Button(By.xpath("//button[@data-qa='address-modal-submit']"));
@@ -24,7 +25,7 @@ public interface AddressElement {
     Button selectStoreButton = new Button(By.xpath("//button[@data-qa='store-item-btn']"));
     Element otherRetailers = new Element(By.xpath("//div[@data-qa='address-edit']//span[contains(text(), 'Выбрать другой магазин')]"));
     Button changeStore = new Button(By.xpath("//button[@data-qa='selected-store-btn']"));
-    Element prevAddresses = new Element(By.xpath("//div[@data-qa='address-modal-addresses']"));
+    //Element prevAddresses = new Element(By.xpath("//div[@data-qa='address-modal-addresses']"));
     Element login = new Element(By.xpath("//span[@data-qa='address-modal-login']"));
 
     Element markerImageOnMapInAdvice = new Element(By.xpath("//div[contains(@class, 'notice')]/descendant::img[contains(@src, '/marker')]"));

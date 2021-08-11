@@ -105,7 +105,7 @@ public interface HeaderCheck extends Check, HeaderElement {
     }
 
     @Step("Проверяем, что утановленный адрес: \"{0}\" \n совпадает с адресом, отображаемом на странице: \"{1}\"")
-    default void checkIsSetAddressEqualsToInput(String defaultAddress, String currentAddress) {
+    default void checkIsSetAddressEqualToInput(String defaultAddress, String currentAddress) {
 
         final SoftAssert softAssert = new SoftAssert();
         final String[] defaultAddressList = defaultAddress.split(", ");
@@ -128,6 +128,28 @@ public interface HeaderCheck extends Check, HeaderElement {
             );
         }
         softAssert.assertAll();
+        log.info("✓ Успешно");
+    }
+
+    @Step("Проверяем, что установленный адрес:\"{0}\" не изменился")
+    default void checkIsSetAddressNotEqualToInput(String defaultAddress, String currentAddress){
+        final String[] defaultAddressList = defaultAddress.split(", ");
+        log.info("> проверяем, что адрес доставки не изменился: {}", defaultAddress);
+        String checkState;
+        for(final String check: defaultAddressList){
+            if (currentAddress.contains(check)) checkState = "contains";
+            else {
+                log.info("> в введенном адресе отсутсвует: {}", check);
+                checkState ="doesn't";
+            }
+            krakenAssert.assertNotEquals(
+                    checkState, "contains",
+                    "\n> Адрес доставки изменен после выбора предыдущего: "
+                            +"\n> отображаемый адрес: " + currentAddress
+                            +"\n> Ожидаемый элемент: " + check
+            );
+        }
+        assertAll();
         log.info("✓ Успешно");
     }
 

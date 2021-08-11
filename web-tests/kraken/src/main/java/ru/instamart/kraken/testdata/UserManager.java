@@ -29,6 +29,7 @@ public final class UserManager {
     private static UserData defaultDcUser;
     private static UserData defaultUserWithoutPermission;
     private static UserData forB2BUser;
+    private static UserData addressUser;
 
     public static UserData getNullUser() {
         return generateData("empty", 0);
@@ -197,6 +198,20 @@ public final class UserManager {
             );
         }
         return defaultUserWithoutPermission;
+    }
+
+    public static UserData addressUser() {
+            return addressUser = new UserData(
+                    "",
+                    "",
+//                    "79990009911",
+                    "79990009911",
+                    "",
+                    "",
+                    "",
+                    "Nvbfu7BpbhdfhQ6+bk7Rjw5S/bYV5UGFoF5nYHV6p/g="
+//                    "qX1dj2iFbDlqhcx3MDi8EM9ehxAuz+jCOiYiVaN59UY="
+            );
     }
 
     public static List<UserData> getUserDataList() {

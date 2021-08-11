@@ -5,7 +5,11 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
+import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.test.reforged.BaseTest;
@@ -21,6 +25,7 @@ public class UserShippingAddressTests extends BaseTest {
     String defaultAddress = Addresses.Moscow.defaultAddress();
     String testAddress = Addresses.Moscow.testAddress();
     String outOfZoneAddress = Addresses.Moscow.outOfZoneAddress();
+    private final ApiHelper helper = new ApiHelper();
 
 
     @CaseId(1558)
@@ -120,7 +125,7 @@ public class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
 
-        shop().interactHeader().checkIsSetAddressEqualsToInput(
+        shop().interactHeader().checkIsSetAddressEqualToInput(
                 defaultAddress,
                 shop().interactHeader().getShippingAddressFromHeader());
     }
@@ -151,7 +156,7 @@ public class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().close();
 
-        shop().interactHeader().checkIsSetAddressEqualsToInput(
+        shop().interactHeader().checkIsSetAddressEqualToInput(
                 defaultAddress,
                 shop().interactHeader().getShippingAddressFromHeader()
         );
@@ -183,7 +188,7 @@ public class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
 
-        shop().interactHeader().checkIsSetAddressEqualsToInput(
+        shop().interactHeader().checkIsSetAddressEqualToInput(
                 testAddress,
                 shop().interactHeader().getShippingAddressFromHeader()
         );
@@ -211,7 +216,7 @@ public class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
 
-        shop().interactHeader().checkIsSetAddressEqualsToInput(
+        shop().interactHeader().checkIsSetAddressEqualToInput(
                 testAddress,
                 shop().interactHeader().getShippingAddressFromHeader()
         );
@@ -238,9 +243,97 @@ public class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
 
-        shop().interactHeader().checkIsSetAddressEqualsToInput(
+        shop().interactHeader().checkIsSetAddressEqualToInput(
                 Addresses.Moscow.defaultAddress(),
                 shop().interactHeader().getShippingAddressFromHeader()
         );
+    }
+
+    @Skip
+    @CaseId(35)
+    @Story("Сохранение и изменение адреса доставки")
+    @Test(
+            description = "Тест изменения адреса на предыдущий из списка адресной модалки",
+            groups = {
+                    "metro-regression",
+                    "sbermarket-Ui-smoke"
+            }
+    )
+    public void successChangeShippingAddressToRecent() {
+
+        UserData user = UserManager.addressUser();
+        String firstPrevAdr;
+        helper.makeAndCancelOrder(user, 1, 1);
+
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().fillPhone(user);
+        home().interactAuthModal().sendSms();
+        home().interactAuthModal().fillDefaultSMSWithSleep();
+        //исправить тему с адресом и тесты начнут работать корректно
+
+        shop().interactHeader().clickToSelectAddress();
+        shop().interactHeader().interactAddress().fillAddress(defaultAddress);
+        shop().interactHeader().interactAddress().selectFirstAddress();
+        shop().interactHeader().interactAddress().clickOnSave();
+
+
+        refresh();
+
+        shop().interactHeader().clickToSelectAddress();
+        firstPrevAdr = shop().interactHeader().interactAddress().getFirstPrevAddress();
+        shop().interactHeader().interactAddress().clickOnFirstPrevAddress();
+        shop().interactHeader().interactAddress().clickOnSave();
+
+        shop().interactHeader().checkIsSetAddressEqualToInput(
+                shop().interactHeader().getShippingAddressFromHeader(),
+                firstPrevAdr);
+
+    }
+
+    @Skip
+    @CaseId(1567)
+    @Story("Сохранение и изменение адреса доставки")
+    @Test(
+            description = "Тест на ввод адреса в модалке после добавления товара из каталога",
+            groups = {
+                    "metro-regression",
+                    "sbermarket-Ui-smoke", "ui-smoke-production"
+            }
+    )
+    public void successSetShippingAddressAfterAddingProductFromCatalog() {
+
+        home().openSitePage(Config.DEFAULT_RETAILER);
+
+        shop().plusFirstItemToCartOld();
+        shop().interactHeader().interactAddress().fillAddress(defaultAddress);
+        shop().interactHeader().interactAddress().selectFirstAddress();
+        shop().interactHeader().interactAddress().clickOnSave();
+
+        shop().interactHeader().checkIsShippingAddressSet();
+        shop().checkOldSnippet();
+    }
+
+    @Skip
+    @Test(
+            description = "Тест на успешный выбор нового магазина в модалке феникса после изменения адреса доставки",
+            groups = {
+                    "metro-regression",
+                    "sbermarket-Ui-smoke", "ui-smoke-production"
+            }
+    )
+    public void successSelectNewStoreAfterShipAddressChange() {
+
+        shop().goToPage(ShopPage.ShopUrl.VKUSVILL);
+
+        shop().interactHeader().clickToSelectAddress();
+        shop().interactHeader().interactAddress().fillAddress(Addresses.Kazan.defaultAddress());
+        shop().interactHeader().interactAddress().selectFirstAddress();
+        shop().interactHeader().interactAddress().clickOnSave();
+
+        shop().interactHeader().interactStoreSelector().clickToStoreCard();
+
+        shop().plusFirstItemToCartOld();
+        shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsNotOpen();
     }
 }

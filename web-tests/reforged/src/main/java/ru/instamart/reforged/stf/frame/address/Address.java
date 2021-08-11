@@ -5,8 +5,6 @@ import lombok.SneakyThrows;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.stf.frame.Close;
 
-import static ru.instamart.reforged.stf.page.StfRouter.shop;
-
 public final class Address implements Close, AddressCheck {
 
     @Step("Выбрать доставку")
@@ -16,7 +14,13 @@ public final class Address implements Close, AddressCheck {
 
     @Step("Указать адрес доставки")
     public void fillAddress(final String text) {
+        Kraken.waitAction().shouldBeVisible(address);
         address.fillField(text);
+    }
+
+    @Step("Указать адрес доставки")
+    public void setAddress(final String text) {
+        address.fill(text);
     }
 
     @Step("Очистить поле адреса")
@@ -75,5 +79,17 @@ public final class Address implements Close, AddressCheck {
     @Step("Нажать Выбрать другой адрес")
     public void clickToChangeAddress() {
         chooseOtherAddress.click();
+    }
+
+    @SneakyThrows
+    @Step("Клик на первую запись блока Предыдущие адреса")
+    public void clickOnFirstPrevAddress() {
+        prevAddresses.click();
+        Thread.sleep(2000);
+    }
+
+    @Step("Получить текста первого адреса из блока Предыдущие адреса")
+    public String getFirstPrevAddress() {
+        return prevAddresses.getText();
     }
 }
