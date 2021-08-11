@@ -5,6 +5,8 @@ import ru.instamart.reforged.core.component.*;
 
 public interface AuthModalElement {
 
+    Element modal = new Element(By.xpath("//form[@data-qa='tel_login_form']"), "модальное окно логина/регистрации");
+
     Input phoneField = new Input(By.xpath("//input[@data-qa='tel_login_form_input']"));
     Button sendSms = new Button(By.xpath("//button[@data-qa='tel_login_form_button']"));
     Checkbox forBusiness = new Checkbox(By.xpath("//input[@data-qa='registration_form_b2b_checkbox']"));

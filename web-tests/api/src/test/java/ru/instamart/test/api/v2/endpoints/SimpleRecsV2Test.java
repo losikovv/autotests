@@ -2,6 +2,7 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Parameters;
@@ -20,9 +21,11 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 @Feature("Упрощенный запрос блока рекомендаций.")
 public class SimpleRecsV2Test extends RestBase {
 
+    @Issue("STF-8819")
     @CaseId(287)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
-            description = "Упрощенный запрос блока рекомендаций с обязательными параметрами")
+    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Упрощенный запрос блока рекомендаций с обязательными параметрами",
+            enabled = false)
     public void testSimpleRecsTest() {
         SimpleRecsPersonalV2Request.SimpleRecsV2 allRequiredParameters = SimpleRecsPersonalV2Request.SimpleRecsV2.builder()
                 .context(SimpleRecsPersonalV2Request.Context.builder()
@@ -54,7 +57,7 @@ public class SimpleRecsV2Test extends RestBase {
     }
 
     @CaseId(288)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Упрощенный запрос блока рекомендаций с отсутствующим обязательным параметром",
             dataProvider = "testNegativeSimpleRecsTest",
             dataProviderClass = RestDataProvider.class

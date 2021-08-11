@@ -71,7 +71,7 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     @Step("Нажать на минус у первого товара")
     public void minusFirstItemFromCartOld() {
-        firstProductCard.mouseOver();
+        firstItemSnippetOld.mouseOver();
         minusFirstItemFromCartOld.click();
     }
 

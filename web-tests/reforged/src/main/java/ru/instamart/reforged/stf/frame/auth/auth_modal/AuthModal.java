@@ -116,7 +116,7 @@ public final class AuthModal implements Close, AuthModalCheck {
 
     @Step("Войти через facebook")
     public void authViaFacebook() {
-        facebook.click();
+        facebook.hoverAndClick();
     }
 
     @Step("Войти через sberId")
