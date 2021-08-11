@@ -7,21 +7,22 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.ItemV2;
 import ru.instamart.api.request.v2.FavoritesV2Request;
 import ru.instamart.api.response.v2.FavoritesItemV2Response;
 import ru.instamart.api.response.v2.FavoritesListItemsV2Response;
 import ru.instamart.api.response.v2.FavoritesSkuListItemV2Response;
+import ru.instamart.api.response.v2.ProductSkuV2Response;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.*;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic(value = "ApiV2")
-@Feature(value = "Избранное")
+@Feature(value = "Избранные товары")
 public class FavoritesListV2Test extends RestBase {
 
     private final long PRODUCT_ID = 239210;
@@ -99,5 +100,53 @@ public class FavoritesListV2Test extends RestBase {
         checkStatusCode200(response);
         response = FavoritesV2Request.ProductSku.DELETE(PRODUCT_SKU);
         checkStatusCode200(response);
+    }
+
+    @CaseId(788)
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Получаем пустой список любимых товаров без обязательного параметра sid")
+    public void testEmptyFavoritesList400() {
+        final Response response = FavoritesV2Request.GET();
+        checkStatusCode400(response);
+        errorAssert(response, "Отсутствует обязательный параметр 'sid'");
+    }
+
+    @CaseId(788)
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Получаем пустой список любимых товаров без обязательного параметра sid")
+    public void testEmptyFavoritesListWithSidParams400() {
+        final Response response = FavoritesV2Request.GET("");
+        checkStatusCode400(response);
+        errorAssert(response, "Отсутствует обязательный параметр 'sid'");
+    }
+
+    @CaseId(524)
+    @Story("Список SKU товаров из избранного")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Список SKU товаров из избранного. В избранном нет товаров")
+    public void getFavoritesSku() {
+        Response response = FavoritesV2Request.ProductSku.GET();
+        checkStatusCode200(response);
+        ProductSkuV2Response productSkuV2Response = response.as(ProductSkuV2Response.class);
+        assertTrue(productSkuV2Response.getProductsSku().isEmpty(), "Избранное не пустое");
+    }
+
+    @CaseId(526)
+    @Story("Добавить товар в избранное")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Добавить товар в избранное с несуществующим id")
+    public void addFavoritesList404() {
+        final Response response = FavoritesV2Request.POST("invalidNumber_0120102012");
+        checkStatusCode404(response);
+        errorAssert(response, "Продукт не существует");
+    }
+
+    @CaseId(528)
+    @Story("Удаление товара из избранного")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Удаление товара из избранного с несуществующим id")
+    public void deleteFavoritesList404() {
+        final Response response = FavoritesV2Request.DELETE("invalidNumber_0120102012");
+        checkStatusCode404(response);
+        errorAssert(response, "Элемент списка не существует");
     }
 }
