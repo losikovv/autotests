@@ -31,6 +31,7 @@
             <class name="ru.instamart.test.api.v2.endpoints.DeliveryAvailabilityV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.CategoriesV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.DepartmentsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.FavoritesListMoreSessionV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.FavoritesListV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.LineItemsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.OnboardingPagesV2Test"/>
