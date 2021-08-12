@@ -66,7 +66,7 @@ public class RecsV2Test extends RestBase {
 
     @CaseId(288)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
-            description = "Запрос рекомендаций с отсуствующим обязательным параметром",
+            description = "Запрос рекомендаций с отсутствующим обязательным параметром",
             dataProvider = "testNegativeRecsTest",
             dataProviderClass = RestDataProvider.class
     )
