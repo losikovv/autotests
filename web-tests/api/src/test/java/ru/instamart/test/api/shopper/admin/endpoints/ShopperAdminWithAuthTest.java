@@ -22,6 +22,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
+import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 
 @Epic("Shopper Admin Panel API")
 @Feature("Endpoints")
@@ -36,7 +37,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     private final Integer driverId = 2;
     private final String routeScheduleStatus = "disabled";
     private final String shopperStatus = "disabled";
-    private final String today = LocalDate.now().toString();
+    private final String today = getDateFromMSK().toString();
 
     @BeforeMethod(alwaysRun = true)
     public void auth() {
@@ -93,7 +94,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     @Test(  description = "Список доставок",
             groups = {"api-shopper-regress"})
     public void getShipments200() {
-        Response response = ShopperAdminRequest.Shipments.GET(sid,  LocalDate.now().minusDays(1).toString());
+        Response response = ShopperAdminRequest.Shipments.GET(sid,  getDateFromMSK().minusDays(1).toString());
         checkStatusCode200(response);
     }
 
