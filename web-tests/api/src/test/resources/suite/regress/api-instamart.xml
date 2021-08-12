@@ -31,6 +31,7 @@
             <class name="ru.instamart.test.api.v2.endpoints.DeliveryAvailabilityV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.CategoriesV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.DepartmentsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.FavoritesListMoreSessionV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.FavoritesListV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.LineItemsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.OnboardingPagesV2Test"/>
@@ -78,6 +79,13 @@
             <class name="ru.instamart.test.api.delivery_club.endpoints.AuthenticationDCTest"/>
             <class name="ru.instamart.test.api.delivery_club.endpoints.StoresWithAuthDCTest"/>
             <class name="ru.instamart.test.api.delivery_club.endpoints.StoresWithoutAuthDCTest"/>
+        </classes>
+    </test>
+
+    <!-- api-kube-tests  -->
+    <test verbose="1" name="API KUBERNETES Tests" parallel="none" thread-count="1">
+        <classes>
+            <class name="ru.instamart.test.api.KubernetesClientTest"/>
         </classes>
     </test>
 </suite>

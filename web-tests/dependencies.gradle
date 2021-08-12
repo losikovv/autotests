@@ -14,7 +14,8 @@ ext.versions = [
         okhttp: '4.9.0',
         webdrivermanager: '4.4.3',
         pgsqlJDBC: '42.1.4',
-        kafkaClients: '2.8.0'
+        kafkaClients: '2.8.0',
+        kubernetesClient: '13.0.0'
 ]
 
 ext.lib = [
@@ -37,5 +38,6 @@ ext.lib = [
         jacksonAnnotations: "com.fasterxml.jackson.core:jackson-annotations:$versions.jackson",
         webdrivermanager: "io.github.bonigarcia:webdrivermanager:$versions.webdrivermanager",
         pgsqlJDBC: "org.postgresql:postgresql:$versions.pgsqlJDBC",
-        kafkaClients: "org.apache.kafka:kafka-clients:$versions.kafkaClients"
+        kafkaClients: "org.apache.kafka:kafka-clients:$versions.kafkaClients",
+        kubernetesClient: "io.kubernetes:client-java:$versions.kubernetesClient"
 ]
