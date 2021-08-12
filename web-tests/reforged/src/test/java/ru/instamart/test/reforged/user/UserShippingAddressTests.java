@@ -270,7 +270,6 @@ public class UserShippingAddressTests extends BaseTest {
         home().interactAuthModal().fillPhone(user);
         home().interactAuthModal().sendSms();
         home().interactAuthModal().fillDefaultSMSWithSleep();
-        //исправить тему с адресом и тесты начнут работать корректно
 
         shop().interactHeader().clickToSelectAddress();
         shop().interactHeader().interactAddress().fillAddress(defaultAddress);

@@ -57,7 +57,7 @@ public final class ShopPage implements StfPage, ShopCheck {
         plusFirstItemToCartAddedAddress.click();
     }
 
-    @Step("Нажать на плюс у первого товара при невыбранном адресе")
+    @Step("Нажать на плюс у первого товара при невыбранном адресе(старый каталог)")
     public void plusFirstItemToCartOld() {
         firstItemSnippetOld.mouseOver();
         plusFirstItemToCartOld.click();
@@ -69,7 +69,7 @@ public final class ShopPage implements StfPage, ShopCheck {
         minusFirstItemFromCartAddedAddress.click();
     }
 
-    @Step("Нажать на минус у первого товара")
+    @Step("Нажать на минус у первого товара(старый каталог)")
     public void minusFirstItemFromCartOld() {
         firstItemSnippetOld.mouseOver();
         minusFirstItemFromCartOld.click();
