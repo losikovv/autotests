@@ -37,6 +37,7 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.fail;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.common.RestStaticTestData.userPhone;
+import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 
 @Slf4j
 public final class InstamartApiHelper {
@@ -423,7 +424,7 @@ public final class InstamartApiHelper {
      */
     @Step("Получаем первый доступный слот")
     public DeliveryWindowV2 getAvailableDeliveryWindow() {
-        Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), LocalDate.now().toString());
+        Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), getDateFromMSK().toString());
         checkStatusCode200(response);
 
         List<ShippingRateV2> shippingRates = response.as(ShippingRatesV2Response.class).getShippingRates();
