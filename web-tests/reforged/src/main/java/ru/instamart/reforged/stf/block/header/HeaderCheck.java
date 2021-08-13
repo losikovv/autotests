@@ -125,7 +125,6 @@ public interface HeaderCheck extends Check, HeaderElement {
                             + "\n> Ожидаемый элемент: " + check
             );
         }
-        krakenAssert.assertAll();
         log.info("✓ Успешно");
     }
 
@@ -147,7 +146,6 @@ public interface HeaderCheck extends Check, HeaderElement {
                             +"\n> Ожидаемый элемент: " + check
             );
         }
-        krakenAssert.assertAll();
         log.info("✓ Успешно");
     }
 
