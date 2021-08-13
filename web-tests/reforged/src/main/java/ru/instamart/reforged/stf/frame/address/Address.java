@@ -1,12 +1,9 @@
 package ru.instamart.reforged.stf.frame.address;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.Button;
-import ru.instamart.reforged.core.component.DropDown;
-import ru.instamart.reforged.core.component.Input;
-import ru.instamart.reforged.core.component.Selector;
-import ru.instamart.reforged.core.component.Element;
+import lombok.SneakyThrows;
+import ru.instamart.kraken.util.ThreadUtil;
+import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.stf.frame.Close;
 
 public final class Address implements Close, AddressCheck {
@@ -14,6 +11,12 @@ public final class Address implements Close, AddressCheck {
     @Step("Выбрать доставку")
     public void selectDelivery() {
         delivery.click();
+    }
+
+    @Step("Указать адрес доставки")
+    public void fillAddress(final String text) {
+        Kraken.waitAction().shouldBeVisible(address);
+        address.fillField(text);
     }
 
     @Step("Указать адрес доставки")
@@ -31,9 +34,12 @@ public final class Address implements Close, AddressCheck {
         dropDownAddress.selectAny();
     }
 
+    @SneakyThrows
     @Step("Выбрать первый адрес из совпадений")
     public void selectFirstAddress() {
         dropDownAddress.selectFirst();
+        //TODO: Ожидание смены геопозиции
+        ThreadUtil.simplyAwait(2);
     }
 
     @Step("Выбрать самовывоз")
@@ -69,5 +75,22 @@ public final class Address implements Close, AddressCheck {
     @Step("Изменить выбранный магазин самовывоза")
     public void clickToLogin() {
         login.click();
+    }
+
+    @Step("Нажать Выбрать другой адрес")
+    public void clickToChangeAddress() {
+        chooseOtherAddress.click();
+    }
+
+    @SneakyThrows
+    @Step("Клик на первую запись блока Предыдущие адреса")
+    public void clickOnFirstPrevAddress() {
+        firstPrevAddresses.click();
+        ThreadUtil.simplyAwait(2);
+    }
+
+    @Step("Получить текст первого адреса из блока Предыдущие адреса")
+    public String getFirstPrevAddress() {
+        return firstPrevAddresses.getText();
     }
 }

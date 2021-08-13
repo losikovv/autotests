@@ -668,6 +668,32 @@ public final class InstamartApiHelper {
     }
 
     /**
+     * Получить адрес доставки, зная только sid
+     */
+    @Step("Получаем адрес доставки по sid = {sid} магазина ")
+    public AddressV2 getAddressBySidMy(int sid) {
+        currentSid.set(sid);
+        Response response = StoresV2Request.GET(sid);
+
+        if (response.statusCode() == 422) {
+            if (response.as(ErrorResponse.class)
+                    .getErrors()
+                    .getBase()
+                    .contains("По указанному адресу"))
+                fail("Магазин отключен " + Pages.Admin.stores(currentSid.get()));
+        }
+        checkStatusCode200(response);
+        StoreV2 store = response.as(StoreV2Response.class).getStore();
+        if (store == null) fail(response.body().asString());
+
+        AddressV2 address = store.getLocation();
+        log.info("Получен адрес {}", address.getFullAddress());
+        Allure.step("Получен адрес " + address.getFullAddress());
+
+        return address;
+    }
+
+    /**
      * Получить список активных ритейлеров как список объектов Retailer
      */
     @Step("Получаем список активных ритейлеров: ")

@@ -94,4 +94,27 @@ public class ApiHelper {
 
         return apiV2.cancelOrder(orderNumber);
     }
+
+    /**
+     * @param user должен иметь phone и encryptedPhone
+     * encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     */
+    @Step ("Оформляем и отменяем заказ с помощью API")
+    public void makeAndCancelOrder(final UserData user, final Integer sid, final Integer itemsNumber) {
+        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, user);
+
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+
+        apiV2.setAddressAttributes(user, apiV2.getAddressBySidMy(sid));
+        apiV2.fillCartOnSid(sid, itemsNumber);
+
+        apiV2.getAvailablePaymentTool();
+        apiV2.getAvailableShippingMethod();
+        apiV2.getAvailableDeliveryWindow();
+
+        apiV2.setDefaultOrderAttributes();
+        OrderV2 orderInfo = apiV2.completeOrder();
+        apiV2.cancelOrder(orderInfo.getNumber());
+    }
 }

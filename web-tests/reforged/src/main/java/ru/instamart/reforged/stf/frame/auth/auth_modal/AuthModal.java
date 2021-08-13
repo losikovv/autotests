@@ -1,10 +1,12 @@
 package ru.instamart.reforged.stf.frame.auth.auth_modal;
 
 import io.qameta.allure.Step;
+import lombok.SneakyThrows;
 import org.openqa.selenium.By;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.core.component.Link;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Checkbox;
@@ -88,6 +90,13 @@ public final class AuthModal implements Close, AuthModalCheck {
 
     @Step("Заполнить поле с sms значением из конфига")
     public void fillDefaultSMS() {
+        smsInput.fill(Config.DEFAULT_SMS);
+    }
+
+    @SneakyThrows
+    @Step("Заполнить поле с sms значением из конфига(с ожиданием)")
+    public void fillDefaultSMSWithSleep() {
+        ThreadUtil.simplyAwait(1);
         smsInput.fill(Config.DEFAULT_SMS);
     }
 

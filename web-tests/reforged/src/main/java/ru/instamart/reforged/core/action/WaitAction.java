@@ -1,14 +1,12 @@
 package ru.instamart.reforged.core.action;
 
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.NotFoundException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.kraken.setting.Config;
+import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.component.Component;
 
 import javax.annotation.Nullable;
@@ -59,6 +57,27 @@ public final class WaitAction {
     public void frameShouldBeVisible(final int frame) {
         createWait(Config.BASIC_TIMEOUT, "Фрейм не загрузился")
                 .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frame));
+    }
+
+    public void fillField(final WebElement element, final String data) {
+        createWait(Config.BASIC_TIMEOUT, "Текущее содержимое поля отличается от ожидаемого")
+                .until(keysSendCondition(element, data));
+    }
+
+    private static ExpectedCondition<Boolean> keysSendCondition(final WebElement element, final String data) {
+        return driver -> {
+            if (element.isDisplayed()) {
+                final String value = element.getAttribute("value");
+                if (value.length() != 0) {
+                    element.sendKeys(Keys.COMMAND + "a");
+                    element.sendKeys(Keys.CONTROL + "a");
+                    element.sendKeys(Keys.DELETE);
+                }
+                element.sendKeys(data);
+                return value.equals(data);
+            }
+            return false;
+        };
     }
 
     private FluentWait<WebDriver> createWait(final Component component) {

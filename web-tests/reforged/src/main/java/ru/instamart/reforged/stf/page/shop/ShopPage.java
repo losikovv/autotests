@@ -53,14 +53,26 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     @Step("Нажать на плюс у первого товара при невыбранном адресе")
     public void plusFirstItemToCart() {
-        firstProductCardOld.mouseOver();
-        plusFirstItemToCart.click();
+        firstProductCard.mouseOver();
+        plusFirstItemToCartAddedAddress.click();
+    }
+
+    @Step("Нажать на плюс у первого товара при невыбранном адресе(старый каталог)")
+    public void plusFirstItemToCartOld() {
+        firstItemSnippetOld.mouseOver();
+        plusFirstItemToCartOld.click();
     }
 
     @Step("Нажать на минус у первого товара")
     public void minusFirstItemFromCart() {
         firstProductCard.mouseOver();
-        minusFirstItemFromCart.click();
+        minusFirstItemFromCartAddedAddress.click();
+    }
+
+    @Step("Нажать на минус у первого товара(старый каталог)")
+    public void minusFirstItemFromCartOld() {
+        firstItemSnippetOld.mouseOver();
+        minusFirstItemFromCartOld.click();
     }
 
     @Step("Нажать на плюс у первого товара при выбранном адресе")
@@ -110,7 +122,8 @@ public final class ShopPage implements StfPage, ShopCheck {
         DEFAULT(Config.DEFAULT_RETAILER),
         METRO("metro"),
         LENTA("lenta"),
-        AUCHAN("auchan");
+        AUCHAN("auchan"),
+        VKUSVILL("vkusvill");
 
         private final String url;
     }
