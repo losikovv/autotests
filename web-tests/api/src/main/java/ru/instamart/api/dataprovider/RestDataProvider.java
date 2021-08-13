@@ -488,30 +488,31 @@ public class RestDataProvider extends RestBase {
                         .build(),
                         "Отсутствует tmax"
                 },
-                {
-                        PersonalV2Request.RecsV2.builder()
-                                .reqId(UUID.randomUUID().toString())
-                                .tmax(5000)
-                                .context(
-                                        PersonalV2Request.Context.builder()
-                                                .app(
-                                                        PersonalV2Request.App.builder()
-                                                                .domain("ru.sbermarket.new-app")
-                                                                .ver("1.0.0.1")
-                                                                .ext(PersonalV2Request.SiteAndAppExt.builder()
-                                                                        .categoryId(1)
-                                                                        .storeId("1")
-                                                                        .build())
-                                                                .build()
-                                                )
-                                                .user(PersonalV2Request.User.builder()
-                                                        .id(UUID.randomUUID().toString())
-                                                        .build())
-                                                .build()
-                                )
-                                .build(),
-                        "Отсутствует placements"
-                },
+//               TODO:  task STF-8880
+//                {
+//                        PersonalV2Request.RecsV2.builder()
+//                                .reqId(UUID.randomUUID().toString())
+//                                .tmax(5000)
+//                                .context(
+//                                        PersonalV2Request.Context.builder()
+//                                                .app(
+//                                                        PersonalV2Request.App.builder()
+//                                                                .domain("ru.sbermarket.new-app")
+//                                                                .ver("1.0.0.1")
+//                                                                .ext(PersonalV2Request.SiteAndAppExt.builder()
+//                                                                        .categoryId(1)
+//                                                                        .storeId("1")
+//                                                                        .build())
+//                                                                .build()
+//                                                )
+//                                                .user(PersonalV2Request.User.builder()
+//                                                        .id(UUID.randomUUID().toString())
+//                                                        .build())
+//                                                .build()
+//                                )
+//                                .build(),
+//                        "Отсутствует placements"
+//                },
                 {
                         PersonalV2Request.RecsV2.builder()
                                 .reqId(UUID.randomUUID().toString())

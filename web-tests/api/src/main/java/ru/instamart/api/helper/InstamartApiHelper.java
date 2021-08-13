@@ -1137,4 +1137,21 @@ public final class InstamartApiHelper {
         checkStatusCode200(response);
         return response.as(PhonesV2Response.class);
     }
+
+    public String getSimpleAdsFirstImage(SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters) {
+
+        final Response response = SimpleAdsV2Request.POST(allRequiredParameters);
+        checkStatusCode200(response);
+        final SimpleAdsV2Response simpleAdsV2Response = response.as(SimpleAdsV2Response.class);
+        if(simpleAdsV2Response.getMedia().isEmpty()){
+            throw new SkipException("Рекомендаций нет");
+        }
+
+       return  simpleAdsV2Response.getMedia().stream()
+                .iterator().next()
+                .getAssets().stream()
+                .filter(img -> Objects.nonNull(img.getImage()))
+                .iterator().next()
+                .getImage().getUrl();
+    }
 }
