@@ -2,14 +2,15 @@ package ru.instamart.test.api.v1.contracts;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.model.v2.StoreV2;
 import ru.instamart.api.request.v1.StoresV1Request;
-import ru.instamart.api.dataprovider.RestDataProvider;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
@@ -18,9 +19,11 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 @Feature("Эндпоинты, используемые шоппер бэкендом")
 public class StoresV1Tests extends RestBase {
 
+    @Issue("STF-8886")
     @Story("Магазины")
     @CaseId(125)
-    @Test(  description = "Контрактный тест списка магазинов",
+    @Test( enabled = false,
+            description = "Контрактный тест списка магазинов",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getStores() {
         Response response = StoresV1Request.GET();
