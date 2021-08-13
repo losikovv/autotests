@@ -277,7 +277,6 @@ public final class UserShippingAddressTests extends TestBase {
             groups = {
                     "metro-regression","sbermarket-Ui-smoke","ui-smoke-production"
             }
-
     )
     public void successSetNewAddressAfterOutOfZoneAddressChange() {
         kraken.get().page(Config.DEFAULT_RETAILER);
