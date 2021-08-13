@@ -1,8 +1,6 @@
 package ru.instamart.test.ui.user;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -269,6 +267,9 @@ public final class UserShippingAddressTests extends TestBase {
                 kraken.grab().currentShipAddress());
     }
 
+    @Issue("ATST-661")
+    @Flaky
+    @Skip
     @CaseId(1570)
     @Story("Зона доставки")
     @Test(
