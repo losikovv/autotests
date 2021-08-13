@@ -2,6 +2,7 @@ package ru.instamart.reforged.stf.frame.address;
 
 import io.qameta.allure.Step;
 import lombok.SneakyThrows;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.stf.frame.Close;
 
@@ -38,7 +39,7 @@ public final class Address implements Close, AddressCheck {
     public void selectFirstAddress() {
         dropDownAddress.selectFirst();
         //TODO: Ожидание смены геопозиции
-        Thread.sleep(2000);
+        ThreadUtil.simplyAwait(2);
     }
 
     @Step("Выбрать самовывоз")
@@ -84,12 +85,12 @@ public final class Address implements Close, AddressCheck {
     @SneakyThrows
     @Step("Клик на первую запись блока Предыдущие адреса")
     public void clickOnFirstPrevAddress() {
-        prevAddresses.click();
-        Thread.sleep(2000);
+        firstPrevAddresses.click();
+        ThreadUtil.simplyAwait(2);
     }
 
-    @Step("Получить текста первого адреса из блока Предыдущие адреса")
+    @Step("Получить текст первого адреса из блока Предыдущие адреса")
     public String getFirstPrevAddress() {
-        return prevAddresses.getText();
+        return firstPrevAddresses.getText();
     }
 }

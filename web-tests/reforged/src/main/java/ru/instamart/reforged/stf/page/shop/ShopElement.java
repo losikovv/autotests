@@ -23,8 +23,8 @@ public interface ShopElement {
 
     Button openAddress = new Button(By.xpath("//button[@data-qa='select-button']"));
     Element firstProductCard = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']"));
-    Element plusFirstItemToCartOld = new Element(By.xpath("//div[contains(@class, 'add-cart__up')]"));
-    Element minusFirstItemFromCartOld = new Element(By.xpath("//div[contains(@class, 'add-cart__down')]"));
+    Element plusFirstItemToCartOld = new Element(By.xpath("//div[contains(@class, 'add-cart__up')]"), "кнопка плюс в карточке товара(старый каталог)");
+    Element minusFirstItemFromCartOld = new Element(By.xpath("//div[contains(@class, 'add-cart__down')]"), "кнопка минус в каточке товара(старый каталог)");
     Element addFirstItemToFavorite = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']/button"));
     Element deleteFirstItemFromFavorite = new Element(By.xpath("//div[contains(@class, 'favorite-button--active')]"));
     Button plusFirstItemToCartAddedAddress = new Button(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']//button[contains(@title, 'Добавить в корзину')]"),
@@ -32,5 +32,5 @@ public interface ShopElement {
     Button minusFirstItemFromCartAddedAddress = new Button(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']//button[contains(@title, 'Убрать из корзины')]"),
             "Кнопка убрать из корзины у первого элемента");
     Element cartNotification = new Element(By.xpath("//div[@class='notification']"));
-    Element firstItemSnippetOld = new Element(By.xpath("//li[@class='product']//div[contains(@class,'product__img')]//img[contains(@alt,text())]"));
+    Element firstItemSnippetOld = new Element(By.xpath("//li[@class='product']//div[contains(@class,'product__img')]//img[contains(@alt,text())]"), "первый сниппет товара(старый каталог)");
 }

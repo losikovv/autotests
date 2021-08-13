@@ -204,13 +204,11 @@ public final class UserManager {
             return addressUser = new UserData(
                     "",
                     "",
-//                    "79990009911",
                     "79990009911",
                     "",
                     "",
                     "",
                     "Nvbfu7BpbhdfhQ6+bk7Rjw5S/bYV5UGFoF5nYHV6p/g="
-//                    "qX1dj2iFbDlqhcx3MDi8EM9ehxAuz+jCOiYiVaN59UY="
             );
     }
 

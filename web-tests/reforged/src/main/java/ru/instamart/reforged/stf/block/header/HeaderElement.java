@@ -23,7 +23,6 @@ public interface HeaderElement {
     Button pickup = new Button(By.xpath("//button[@data-qa='ship_selector_type_pickup']"));
     Button selectAddress = new Button(By.xpath("//button[@data-qa='select-button']"));
     Button firstSelectAddress = new Button(By.xpath("//button[@data-qa='shipping_method_button']"));
-    Element currentShipAddress = new Element(By.xpath("//span[@data-qa='current-ship-address']"));
     Element hotlineWorkHoursText = new Element(By.xpath("//header//span[text()='" + TestVariables.CompanyParams.companyHotlineWorkhoursShort + "']"));
     Element enteredAddress = new Element(By.xpath("//span[@data-qa='current-ship-address']"), "Лэйбл отображающий введенный адрес в шапке");
 

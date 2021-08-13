@@ -9,7 +9,6 @@ import ru.instamart.reforged.stf.drawer.store_selector.StoreSelector;
 import ru.instamart.reforged.stf.frame.address.Address;
 
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
-
 import static ru.instamart.reforged.core.service.KrakenDriver.refresh;
 
 public final class Header implements HeaderCheck {
@@ -135,7 +134,7 @@ public final class Header implements HeaderCheck {
     @Step("Получить текст выбранный адрес")
     public String getShippingAddressFromHeader() {
         shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
-        return currentShipAddress.getText();
+        return enteredAddress.getText();
     }
 
     /* метод clearSessionLogout() нежелательный к использованию, потенциально флакует много тестов */
