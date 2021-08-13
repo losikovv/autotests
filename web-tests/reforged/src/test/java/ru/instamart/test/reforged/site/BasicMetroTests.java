@@ -2,7 +2,6 @@ package ru.instamart.test.reforged.site;
 
 import org.testng.annotations.Test;
 import ru.instamart.test.reforged.BaseTest;
-
 import static ru.instamart.reforged.stf.page.StfRouter.metro;
 
 public class BasicMetroTests extends BaseTest {
@@ -10,10 +9,26 @@ public class BasicMetroTests extends BaseTest {
     @Test(
             description = "Тест валидности элементов и ссылок в шапке METRO Delivery",
             groups = {"metro-smoke","metro-acceptance","metro-regression"}
-    ) public void successValidateMetroTenantHeader() throws InterruptedException {
+    ) public void successValidateMetroTenantHeader() {
         metro().goToPage();
+        metro().checkPageIsAvailable();
 
-
+        metro().interactHeader().checkHeaderVisible();
+        metro().interactHeader().checkSelectAddressButtonVisible();
+        metro().interactHeader().checkSelectAddressTextButtonVisible();
+        metro().interactHeader().checkHotlineWorkHoursVisible();
+        metro().interactHeader().checkHotlinePhoneVisible();
+        metro().interactHeader().checkDeliveryButtonVisible();
+        metro().interactHeader().checkPickupButtonVisible();
+        metro().interactHeader().checkShopLogoButtonVisible();
+        metro().interactHeader().checkForB2bVisible();
+        metro().interactHeader().checkHelpVisible();
+        metro().interactHeader().checkCategoryMenuVisible();
+        metro().interactHeader().checkSearchInputVisible();
+        metro().interactHeader().checkSearchButtonVisible();
+        metro().interactHeader().checkCartVisible();
+        metro().interactHeader().checkPartnershipLabelVisible();
+        metro().interactHeader().checkLoginIsVisible();
     }
 
     @Test(
