@@ -269,14 +269,15 @@ public final class UserShippingAddressTests extends TestBase {
 
     @Issue("ATST-661")
     @Flaky
-    @Skip
     @CaseId(1570)
     @Story("Зона доставки")
     @Test(
+            enabled = false,
             description = "Тест на успешный выбор нового адреса в модалке феникса, после ввода адреса вне зоны доставки",
             groups = {
                     "metro-regression","sbermarket-Ui-smoke","ui-smoke-production"
             }
+
     )
     public void successSetNewAddressAfterOutOfZoneAddressChange() {
         kraken.get().page(Config.DEFAULT_RETAILER);
