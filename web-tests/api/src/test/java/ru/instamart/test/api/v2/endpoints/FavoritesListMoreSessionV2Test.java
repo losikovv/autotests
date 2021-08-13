@@ -2,7 +2,6 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
@@ -45,10 +44,9 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
         assertEquals(favorites.getItems().get(0), product.getItem(), "data mismatch");
     }
 
-    @Issue("STF-8886")
     @CaseId(521)
     @Story("Получить список избранных товаров")
-    @Test(enabled = false,
+    @Test(
             groups = {"api-instamart-regress"},
             description = "Получить список избранных товаров. Отображение более 30 товаров на странице.")
     public void getFavoritesMore30Items() {
@@ -72,11 +70,9 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @Issue("STF-8886")
     @CaseId(520)
     @Story("Получить список избранных товаров")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Получаем пустой список любимых товаров у дефолтного магазина")
     public void emptyFavoritesForDefaultSid() {
         final Response response = FavoritesV2Request.GET(EnvironmentData.INSTANCE.getDefaultSid());
