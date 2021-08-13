@@ -2,14 +2,15 @@ package ru.instamart.test.api.v1.contracts;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.api.request.v1.RetailersV1Request;
-import ru.instamart.api.dataprovider.RestDataProvider;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
@@ -21,7 +22,7 @@ public class RetailersV1Tests extends RestBase {
 
     @Story("Ретейлеры")
     @CaseId(122)
-    @Test(  description = "Контрактный тест списка ретейлеров",
+    @Test(description = "Контрактный тест списка ретейлеров",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getRetailers() {
         Response response = RetailersV1Request.GET();
@@ -36,7 +37,7 @@ public class RetailersV1Tests extends RestBase {
 
     @Story("Ретейлеры")
     @CaseId(123)
-    @Test(  description = "Контрактный тест ретейлера",
+    @Test(description = "Контрактный тест ретейлера",
             groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "retailersSpree-parallel")
@@ -46,9 +47,11 @@ public class RetailersV1Tests extends RestBase {
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Retailer.json"));
     }
 
+    @Issue("STF-8886")
     @Story("Ретейлеры")
     @CaseId(124)
-    @Test(  description = "Контрактный тест списка штрихкодов у ретейлера",
+    @Test(enabled = false,
+            description = "Контрактный тест списка штрихкодов у ретейлера",
             groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "retailersSpree-parallel")
