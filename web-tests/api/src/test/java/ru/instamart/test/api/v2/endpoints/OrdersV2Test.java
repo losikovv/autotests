@@ -2,7 +2,6 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
@@ -175,11 +174,9 @@ public class OrdersV2Test extends RestBase {
         assertNotNull(errorResponse, "Промокод удалился");
     }
 
-    @Issue("STF-8886")
     @CaseId(319)
     @Story("Получение списка позиций по заказу")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test( groups = {"api-instamart-regress"},
             description = "Получение списка позиций по заказу. Существующий id")
     public void getingListOfItemsForOrder() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());

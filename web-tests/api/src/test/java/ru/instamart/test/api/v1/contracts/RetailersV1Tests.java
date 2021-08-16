@@ -2,7 +2,6 @@ package ru.instamart.test.api.v1.contracts;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
@@ -47,11 +46,9 @@ public class RetailersV1Tests extends RestBase {
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Retailer.json"));
     }
 
-    @Issue("STF-8886")
     @Story("Ретейлеры")
     @CaseId(124)
-    @Test(enabled = false,
-            description = "Контрактный тест списка штрихкодов у ретейлера",
+    @Test(description = "Контрактный тест списка штрихкодов у ретейлера",
             groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "retailersSpree-parallel")

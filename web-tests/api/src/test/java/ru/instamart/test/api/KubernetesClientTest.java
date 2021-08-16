@@ -20,7 +20,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public class KubernetesClientTest extends RestBase {
 
     @Story("Список подов для namespace")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(enabled = false,
+            groups = {"api-instamart-regress"},
             description = "Список подов для namespace = s-sb-stfkraken")
     public void kubeTest() throws IOException, ApiException {
         ApiClient client = Config.defaultClient();
