@@ -26,4 +26,7 @@ public interface CheckoutElement {
     Button deletePromoCode = new Button(By.xpath("//button[@data-qa='checkout_delete_coupon_code_button']"));
     ElementCollection addLoyaltyCard = new ElementCollection(By.xpath("//div[@class='loyalty-program__name']"));
     Element editLoyaltyCard = new Element(By.xpath(""));
+
+    Element minimizedDeliveryOptionStep = new Element(By.xpath("//div[@class='panel-header__text' and text() = 'Способ получения']//ancestor::div[@class='checkout-panel']"),
+            "панель свернутого шага Способ получения");
 }

@@ -9,21 +9,21 @@ import ru.instamart.reforged.core.component.RadioButton;
 
 public class DeliveryOptionsStep {
 
-    private final Button delivery = new Button(By.xpath("//button[@data-qa='checkout_form_shipping_kind_by_courier']"));
-    private final Button pickUp = new Button(By.xpath("//button[@data-qa='checkout_form_shipping_kind_pickup']"));
-    private final RadioButton forSelf = new RadioButton(By.xpath("//input[@data-qa='checkout_form_kind_home_radio_button']"));
-    private final RadioButton forBusiness = new RadioButton(By.xpath("//input[@data-qa='checkout_form_kind_office_radio_button']"));
-    private final Button addCompany = new Button(By.xpath("//button[@data-qa='checkout_add_company_button']"));
-    private final Input apartment = new Input(By.xpath("//input[@name='apartment']"));
-    private final Input floor = new Input(By.xpath("//input[@name='floor']"));
-    private final Checkbox elevator = new Checkbox(By.xpath("//input[@data-qa='ship_address_form_elevator_checkbox']"));
-    private final Input entrance = new Input(By.xpath("//input[@name='entrance']"));
-    private final Input doorPhone = new Input(By.xpath("//input[@name='doorPhone']"));
-    private final Checkbox contactlessDelivery = new Checkbox(By.xpath("//input[@data-qa='ship_address_form_contactless_delivery_checkbox']"));
-    private final Input comment = new Input(By.xpath("//textarea[@name='order[special_instructions]']"));
+    private final Button delivery = new Button(By.xpath("//button[@data-qa='checkout_form_shipping_kind_by_courier']"), "кнопка Доставка");
+    private final Button pickUp = new Button(By.xpath("//button[@data-qa='checkout_form_shipping_kind_pickup']"), "кнопка Самовывоз");
+    private final RadioButton forSelf = new RadioButton(By.xpath("//input[@data-qa='checkout_form_kind_home_radio_button']"), "радиобаттон Для себя");
+    private final RadioButton forBusiness = new RadioButton(By.xpath("//input[@data-qa='checkout_form_kind_office_radio_button']"), "радиобаттон Для бизнеса");
+    private final Button addCompany = new Button(By.xpath("//button[@data-qa='checkout_add_company_button']"), "кнопка Добавить компанию");
+    private final Input apartment = new Input(By.xpath("//input[@name='apartment']"), "поле Номер квартиры/офис");
+    private final Input floor = new Input(By.xpath("//input[@name='floor']"), "поле Этаж");
+    private final Checkbox elevator = new Checkbox(By.xpath("//input[@data-qa='ship_address_form_elevator_checkbox']"), "чекбокс Есть лифт");
+    private final Input entrance = new Input(By.xpath("//input[@name='entrance']"), "поле Подъезд");
+    private final Input doorPhone = new Input(By.xpath("//input[@name='doorPhone']"), "поле Код домофона");
+    private final Checkbox contactlessDelivery = new Checkbox(By.xpath("//input[@data-qa='ship_address_form_contactless_delivery_checkbox']"), "чекбокс бесплатной доставки");
+    private final Input comments = new Input(By.xpath("//textarea[@id='FormGroup_comments']"), "поле Комментарии по доставке");
 
-    private final Button submitStepWithDelivery = new Button(By.xpath("//button[@data-qa='checkout_ship_address_form_submit_button']"));
-    private final Button submitStepWithPickUp = new Button(By.xpath("//button[@data-qa=\"checkout_shipping_method_button'\"]"));
+    private final Button submitStepWithDelivery = new Button(By.xpath("//button[@data-qa='checkout_ship_address_form_submit_button']"), "кнопка Продолжить, если выбрана Доставка");
+    private final Button submitStepWithPickUp = new Button(By.xpath("//button[@data-qa=\"checkout_shipping_method_button'\"]"), "кнопка Продолжить, если выбран Самовывоз");
 
     @Step("Нажать Доставка")
     public void clickToDelivery() {
@@ -81,8 +81,8 @@ public class DeliveryOptionsStep {
     }
 
     @Step("Заполнить поле Код домофона")
-    public void fillComment(String data) {
-        comment.fill(data);
+    public void fillComments(String data) {
+        comments.fill(data);
     }
 
     @Step("Нажать Продолжить(для доставки)")
@@ -93,6 +93,76 @@ public class DeliveryOptionsStep {
     @Step("Нажать Продолжить(для самовывоза)")
     public void clickToSubmitForPickup() {
         submitStepWithPickUp.click();
+    }
+
+    @Step("Очистить поле Номер квартиры / офис")
+    public void clearApartment() {
+        apartment.clear();
+    }
+
+    @Step("Очистить поле Этаж")
+    public void clearFloor() {
+        floor.clear();
+    }
+
+    @Step("Очистить поле Подъезд")
+    public void clearEntrance() {
+        entrance.clear();
+    }
+
+    @Step("Очистить поле Код домофона")
+    public void clearDoorPhone() {
+        doorPhone.clear();
+    }
+
+    @Step("Очистить поле Комментарии по доставке")
+    public void clearComments() {
+        comments.clear();
+    }
+
+    @Step("Получить состояние радиобаттона Для себя")
+    public Boolean getForSelfState() {
+        return forSelf.radioButtonState();
+    }
+
+    @Step("Получить состояние радиобаттона Для бизнеса")
+    public Boolean getForBusinessState() {
+        return forBusiness.radioButtonState();
+    }
+
+    @Step("Получить значение поля Номер квартиры / офис")
+    public String getApartmentValue() {
+        return apartment.getValue();
+    }
+
+    @Step("Получить значение поля Этаж")
+    public String getFloorValue() {
+        return floor.getValue();
+    }
+
+    @Step("Получить состояние чекбокса Есть лифт")
+    public Boolean getElevatorState() {
+        return elevator.checkboxState();
+    }
+
+    @Step("Получить значение поля Подъезд")
+    public String getEntranceValue() {
+        return entrance.getValue();
+    }
+
+    @Step("Получить значение поля Код домофона")
+    public String getDoorPhoneValue() {
+        return doorPhone.getValue();
+    }
+
+    @Step("Получить значение поля Бесконтактная доставка")
+    public Boolean getContactlessDeliveryValue() {
+        return contactlessDelivery.checkboxState();
+    }
+
+    @Step("Получить значение поля Комментарии по доставке")
+    public String getCommentsValue() {
+        return comments.getValue();
     }
 
 }
