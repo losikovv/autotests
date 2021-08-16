@@ -122,6 +122,7 @@ project(":api") {
         implementation lib.testng
         implementation lib.restAssuredSchemaValidator
         implementation lib.pgsqlJDBC
+        implementation lib.mysqlJDBC
         implementation lib.kafkaClients
         implementation lib.kubernetesClient
 

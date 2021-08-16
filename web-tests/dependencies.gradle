@@ -15,7 +15,8 @@ ext.versions = [
         webdrivermanager: '4.4.3',
         pgsqlJDBC: '42.1.4',
         kafkaClients: '2.8.0',
-        kubernetesClient: '13.0.0'
+        kubernetesClient: '13.0.0',
+        mysqlJDBC: '8.0.26',
 ]
 
 ext.lib = [
@@ -39,5 +40,6 @@ ext.lib = [
         webdrivermanager: "io.github.bonigarcia:webdrivermanager:$versions.webdrivermanager",
         pgsqlJDBC: "org.postgresql:postgresql:$versions.pgsqlJDBC",
         kafkaClients: "org.apache.kafka:kafka-clients:$versions.kafkaClients",
-        kubernetesClient: "io.kubernetes:client-java:$versions.kubernetesClient"
+        kubernetesClient: "io.kubernetes:client-java:$versions.kubernetesClient",
+        mysqlJDBC: "mysql:mysql-connector-java:$versions.mysqlJDBC"
 ]
