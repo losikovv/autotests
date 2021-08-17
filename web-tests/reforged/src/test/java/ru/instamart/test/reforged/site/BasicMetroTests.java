@@ -57,7 +57,7 @@ public class BasicMetroTests extends BaseTest {
         metro().interactFooter().checkHotlineTextVisible();
         metro().interactFooter().checkHotlinePhoneNumberVisible();
         metro().interactFooter().checkHotlineWorkHoursVisible();
-
+        
         metro().interactFooter().checkDisclaimerVisible();
 
         metro().interactFooter().checkCustomerHelpVisible();
