@@ -4,6 +4,7 @@ import org.testng.annotations.DataProvider;
 import ru.instamart.api.common.Specification;
 import ru.instamart.api.helper.InstamartApiHelper;
 import ru.instamart.api.model.v2.RetailerV2;
+import ru.instamart.kraken.testdata.lib.Pages;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import java.util.List;
@@ -27,6 +28,19 @@ public final class StaticPage {
         };
     }
 
+    @DataProvider(name = "metroFaqPage", parallel = true)
+    public static Object[][] getMetroFaqPage() {
+        return new Object[][] {
+                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + metroAbout().pageUrl()},
+                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + metroDelivery().pageUrl()},
+                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + metroRules().pageUrl()},
+                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + metroReturnPolicy().pageUrl()},
+                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + metroFaq().pageUrl()},
+                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + metroTerms().pageUrl()},
+                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + metroContacts().pageUrl()}
+        };
+    }
+
     @DataProvider(name = "servicePage", parallel = true)
     public static Object[][] getServicePage() {
         return new Object[][] {
@@ -40,6 +54,13 @@ public final class StaticPage {
         return new Object[][] {
                 {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + mnogory().pageUrl()},
                 {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + aeroflot().pageUrl()}
+        };
+    }
+
+    @DataProvider(name = "metroAvailableRetailerPage", parallel = true)
+    public static Object[][] getMetroAvailableRetailerPage() {
+        return new Object[][] {
+                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + metro().pageUrl()},
         };
     }
 
