@@ -20,7 +20,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 
 @Epic("STF UI")
-@Feature("Чекаут. Шаг Способ получения")
+@Feature("Чекаут. Шаг #1. Способ получения")
 public class CheckoutAddressStepTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
