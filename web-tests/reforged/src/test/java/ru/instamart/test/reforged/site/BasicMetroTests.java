@@ -1,14 +1,27 @@
 package ru.instamart.test.reforged.site;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.testdata.lib.Pages;
+import ru.instamart.api.model.v2.RetailerV2;
+import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.reforged.core.DoNotOpenBrowser;
+import ru.instamart.reforged.core.StaticPage;
+import ru.instamart.reforged.core.service.Curl;
 import ru.instamart.reforged.stf.site.metro.MetroPage;
 import ru.instamart.test.reforged.BaseTest;
 
+import static org.testng.Assert.assertTrue;
 import static ru.instamart.reforged.stf.page.StfRouter.metro;
 
+@Epic("METRO UI")
+@Feature("Базовые тесты тенанта метро")
 public class BasicMetroTests extends BaseTest {
 
+    @CaseId(1440)
+    @Story("Валидация элементов")
     @Test(
             description = "Тест валидности элементов и ссылок в шапке METRO Delivery",
             groups = {"metro-smoke", "metro-acceptance", "metro-regression"}
@@ -36,6 +49,8 @@ public class BasicMetroTests extends BaseTest {
         metro().interactHeader().checkNearestDeliveryLabelVisible();
     }
 
+    @CaseId(1441)
+    @Story("Валидация элементов")
     @Test(
             description = "Тест валидности элементов и ссылок в подвале METRO Delivery",
             groups = {"metro-smoke", "metro-acceptance", "metro-regression"}
@@ -71,53 +86,41 @@ public class BasicMetroTests extends BaseTest {
         metro().interactFooter().checkPaymentInfoVisible();
     }
 
-    @Test(
-            description = "Тест доступности / недоступности витрин ритейлеров Metro Delivery-CC",
+    @DoNotOpenBrowser
+    @CaseId(1442)
+    @Story("Витрины ретейлеров")
+    @Test(  dataProviderClass = StaticPage.class,
+            dataProvider = "filteredUnavailableRetailersSpree",
+            description = "Тест недоступности витрин ретейлеров Metro Delivery-CC",
             groups = {"metro-smoke", "metro-acceptance", "metro-regression"}
     )
-    public void successCheckMetroRetailers() {
-        metro().openSitePage(Pages.Retailers.auchan().getPath());
-        metro().checkPageIsUnavailable();
-        metro().openSitePage(Pages.Retailers.azbuka().getPath());
-        metro().checkPageIsUnavailable();
-        metro().openSitePage(Pages.Retailers.vkusvill().getPath());
-        metro().checkPageIsUnavailable();
-        metro().openSitePage(Pages.Retailers.lenta().getPath());
-        metro().checkPageIsUnavailable();
-        metro().openSitePage(Pages.Retailers.karusel().getPath());
-        metro().checkPageIsUnavailable();
-        metro().openSitePage(Pages.Retailers.selgros().getPath());
-        metro().checkPageIsUnavailable();
-        metro().openSitePage(Pages.Retailers.flora().getPath());
-        metro().checkPageIsUnavailable();
-        metro().openSitePage(Pages.Retailers.foodcity().getPath());
-        metro().checkPageIsUnavailable();
-        metro().openSitePage(Pages.Retailers.magnit().getPath());
-        metro().checkPageIsUnavailable();
-        metro().openSitePage(Pages.Retailers.testretailer().getPath());
-        metro().checkPageIsUnavailable();
-        metro().openSitePage(Pages.Retailers.metro().getPath());
-        metro().checkPageIsAvailable();
+    public void successCheckMetroUnavailableRetailers(final RetailerV2 retailer) {
+        final String fullUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + retailer.getSlug();
+        assertTrue(Curl.pageUnavailable(fullUrl), "Страница " + fullUrl + " доступна");
     }
 
+    @DoNotOpenBrowser
+    @CaseId(1442)
+    @Story("Витрины ретейлеров")
+    @Test(  dataProviderClass = StaticPage.class,
+            dataProvider = "metroAvailableRetailerPage",
+            description = "Тест доступности витрин ретейлеров Metro Delivery-CC",
+            groups = {"metro-smoke", "metro-acceptance", "metro-regression"}
+    )
+    public void successCheckMetroAvailableRetailers(final String url) {
+        assertTrue(Curl.pageAvailable(url), "Страница " + url + " доступна");
+    }
+
+    @DoNotOpenBrowser
+    @CaseId(1443)
+    @Story("Статические страницы")
     @Test(
+            dataProviderClass = StaticPage.class,
+            dataProvider = "metroFaqPage",
             description = "Тест доступности статических страниц на METRO Delivery",
             groups = {"metro-smoke", "metro-acceptance", "metro-regression"}
     )
-    public void successCheckMetroTenantStaticPages() {
-        metro().openSitePage(Pages.Metro.about().getPath());
-        metro().checkPageIsAvailable();
-        metro().openSitePage(Pages.Metro.delivery().getPath());
-        metro().checkPageIsAvailable();
-        metro().openSitePage(Pages.Metro.rules().getPath());
-        metro().checkPageIsAvailable();
-        metro().openSitePage(Pages.Metro.returnPolicy().getPath());
-        metro().checkPageIsAvailable();
-        metro().openSitePage(Pages.Metro.faq().getPath());
-        metro().checkPageIsAvailable();
-        metro().openSitePage(Pages.Metro.terms().getPath());
-        metro().checkPageIsAvailable();
-        metro().openSitePage(Pages.Metro.contacts().getPath());
-        metro().checkPageIsAvailable();
+    public void successCheckStaticPagesAreAvailable(final String url) {
+        assertTrue(Curl.pageAvailable(url), "Страница " + url + " недоступна");
     }
 }

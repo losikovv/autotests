@@ -12,7 +12,7 @@ public final class MetroPage implements StfPage, MetroCheck {
     @Override
     @Step("Открыть страницу тенанта метро")
     public String pageUrl() {
-        return "";
+        return "metro";
     }
 
     @Override

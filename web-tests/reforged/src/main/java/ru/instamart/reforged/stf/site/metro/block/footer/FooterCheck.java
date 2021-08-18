@@ -82,7 +82,7 @@ public interface FooterCheck extends FooterElement, Check {
         waitAction().shouldBeVisible(deliveryZone);
     }
 
-    @Step("Проверяем, что раздел 'Доставка и оплата в футере отображается")
+    @Step("Проверяем, что раздел 'Доставка и оплата' в футере отображается")
     default void checkDeliveryAndPaymentVisible() {
         waitAction().shouldBeVisible(deliveryAndPayment);
     }

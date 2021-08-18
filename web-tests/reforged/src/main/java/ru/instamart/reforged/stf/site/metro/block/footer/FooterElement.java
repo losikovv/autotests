@@ -10,12 +10,12 @@ public interface FooterElement {
 
     Element footer = new Element(By.xpath("//footer"),
             "контейнер для футера");
-    Element logo = new Element(By.xpath("//footer//*[@class='logo-default']"),
+    Element logo = new Element(By.xpath("//footer//*[local-name()='svg'][@class='logo-default']"),
             "лого сбермаркета в футере");
 
     Element copyrightText = new Element(By.xpath("//footer//p[@class='tenant-footer__copyright-text']"),
             "текст о партнерстве в футере");
-    Element partnershipLogo = new Element(By.xpath("//footer//*[@class='logo-partner-metro']"),
+    Element partnershipLogo = new Element(By.xpath("//footer//*[local-name()='svg'][@class='logo-partner-metro']"),
             "лого компании-партнера в футере");
     Element copyrightShopName = new Element(By.xpath("//footer//p[@class='tenant-footer__copyright']"),
             "полное название компании-партнера в футере");
@@ -44,7 +44,7 @@ public interface FooterElement {
     Button deliveryZone = new Button(By.xpath("//footer//button[contains(@data-url,'/stores/1/shipping_methods')]"),
             "раздел 'Зоны доставки' в футере");
     Link deliveryAndPayment = new Link(By.xpath("//footer//a[contains(@href, '/delivery-metro')]"),
-            "раздел 'Доставка и оплата в футере'");
+            "раздел 'Доставка и оплата' в футере'");
     Button paymentInfo = new Button(By.xpath("//footer//button[contains(@data-url, '/payment_methods')]"),
             "раздел 'Оплата' в футере");
 }
