@@ -2,6 +2,7 @@ package ru.instamart.test.api.shopper.app.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.SkipException;
@@ -155,11 +156,13 @@ public class ShipmentfulShopperAppTest extends RestBase {
                 "Не вернулся заказ");
     }
 
+    @Issue("STF-8976")
     @Story("Получение информации о сборках")
     @CaseId(17)
     @Test(  description = "Получаем предзамены для позиций в сборке",
             groups = {"api-shopper-smoke", "api-shopper-prod"},
-            dependsOnMethods = "postAssembly200")
+            dependsOnMethods = "postAssembly200",
+            enabled = false)
     public void getAssemblyItemPrereplacements200() {
         response = AssemblyItemsSHPRequest.Prereplacements.GET(assemblyItemId);
         checkStatusCode200(response);
