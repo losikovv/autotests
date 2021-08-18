@@ -211,7 +211,7 @@ public class CheckoutAddressStepTests extends BaseTest {
     }
 
     @CaseIDs({@CaseId(1698), @CaseId(1699), @CaseId(1700), @CaseId(1701)})
-    @Test(description = "Тесты заполния, изменения и очистки все полей на шаге",
+    @Test(description = "Тесты заполнения, изменения и очистки всех полей",
             groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successFillAllFieldsAndProceedNext() {
