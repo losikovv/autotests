@@ -148,7 +148,7 @@ tests:metroSmokeReforged:
     - gradle clean build metroSmokeReforged -Penv=metro-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
     - cd web-tests
-    - bash ./report.sh ui ui-metro-preprod
+    - bash ./report.sh reforged ui-metro-preprod
   tags:
     - k8s-stage
   artifacts:
