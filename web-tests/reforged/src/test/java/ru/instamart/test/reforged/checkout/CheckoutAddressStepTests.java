@@ -6,7 +6,6 @@ import io.qase.api.annotation.CaseIDs;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.testdata.TestVariables;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
@@ -183,29 +182,6 @@ public class CheckoutAddressStepTests extends BaseTest {
         shop().checkFirstProductCard();
         refresh();
         checkout.setDeliveryOptions().fillComments(data.getCommentaries());
-        checkout.setDeliveryOptions().clickToSubmitForDelivery();
-        checkout.checkDeliveryOptionMinimized();
-    }
-
-    @Skip
-    @Test(description = "Тест успешного прохода далее с очищенными полями",
-            groups = {}
-    )
-    public void successProceedNextWithClearedFields() {
-        helper.dropAndFillCart(checkoutUser, 1);
-
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().fillPhone(checkoutUser.getPhone());
-        home().interactAuthModal().sendSms();
-        home().interactAuthModal().fillDefaultSMSWithSleep();
-        home().checkPageIsAvailable();
-        shop().checkFirstProductCard();
-        refresh();
-        checkout.setDeliveryOptions().clearFloor();
-        checkout.setDeliveryOptions().clearEntrance();
-        checkout.setDeliveryOptions().clearDoorPhone();
-        checkout.setDeliveryOptions().clearComments();
         checkout.setDeliveryOptions().clickToSubmitForDelivery();
         checkout.checkDeliveryOptionMinimized();
     }
