@@ -204,14 +204,24 @@ public final class UserManager {
             return addressUser = new UserData(
                     "",
                     "",
-//                    "79990009911",
-                    "79998833344",
+                    "79990009911",
                     "",
                     "",
                     "",
-//                    "Nvbfu7BpbhdfhQ6+bk7Rjw5S/bYV5UGFoF5nYHV6p/g="
-                    "sdNXYi6UE4dFJTI3qUgEJy7p8Csc72Tfq1gLUpijOA0="
+                    "Nvbfu7BpbhdfhQ6+bk7Rjw5S/bYV5UGFoF5nYHV6p/g="
             );
+    }
+
+    public static UserData checkoutUser() {
+        return new UserData(
+                "",
+                "",
+                "79998833344",
+                "",
+                "",
+                "",
+                "sdNXYi6UE4dFJTI3qUgEJy7p8Csc72Tfq1gLUpijOA0="
+        );
     }
 
     public static List<UserData> getUserDataList() {

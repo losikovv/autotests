@@ -1,7 +1,7 @@
 package ru.instamart.reforged.stf.page;
 
 import ru.instamart.reforged.core.page.Router;
-import ru.instamart.reforged.stf.frame.checkout.CheckoutPage;
+import ru.instamart.reforged.stf.page.checkout.CheckoutPage;
 import ru.instamart.reforged.stf.page.business.BusinessPage;
 import ru.instamart.reforged.stf.page.faq.*;
 import ru.instamart.reforged.stf.page.home.HomePage;

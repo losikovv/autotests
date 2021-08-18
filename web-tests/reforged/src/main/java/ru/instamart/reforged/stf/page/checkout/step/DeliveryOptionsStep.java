@@ -61,8 +61,13 @@ public class DeliveryOptionsStep {
     }
 
     @Step("Выбрать Есть лифт")
-    public void setElevator() {
+    public void checkElevator() {
         elevator.check();
+    }
+
+    @Step("Снять выбор Есть лифт")
+    public void uncheckElevator() {
+        elevator.uncheck();
     }
 
     @Step("Заполнить поле Подъезд")
@@ -76,8 +81,13 @@ public class DeliveryOptionsStep {
     }
 
     @Step("Выбрать Бесконтактная доставка")
-    public void setContactlessDelivery() {
+    public void checkContactlessDelivery() {
         contactlessDelivery.check();
+    }
+
+    @Step("Снять выбор Бесконтактная доставка")
+    public void uncheckContactlessDelivery() {
+        contactlessDelivery.uncheck();
     }
 
     @Step("Заполнить поле Код домофона")
@@ -156,7 +166,7 @@ public class DeliveryOptionsStep {
     }
 
     @Step("Получить значение поля Бесконтактная доставка")
-    public Boolean getContactlessDeliveryValue() {
+    public Boolean getContactlessDeliveryState() {
         return contactlessDelivery.checkboxState();
     }
 

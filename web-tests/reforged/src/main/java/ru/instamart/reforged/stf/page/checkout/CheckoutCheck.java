@@ -4,7 +4,14 @@ import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.Kraken;
 
+import static ru.instamart.reforged.core.Kraken.waitAction;
+
 public interface CheckoutCheck extends Check, CheckoutElement {
+
+    @Step("Проверяем видна ли кнопка оформления заказа из чекаута")
+    default void checkCheckoutButtonIsVisible() {
+        waitAction().shouldBeVisible(submitFromCheckoutSidebar);
+    }
 
     @Step("Проверяем, что шаг Способ получения свернулся")
     default void checkDeliveryOptionMinimized() {
@@ -36,6 +43,11 @@ public interface CheckoutCheck extends Check, CheckoutElement {
         krakenAssert.assertTrue(state, "чекбокс Есть лифт не выбран");
     }
 
+    @Step("Проверяем, что не выбран чекбокс Есть лифт")
+    default void checkElevatorIsNotSelected(Boolean state) {
+        krakenAssert.assertFalse(state, "чекбокс Есть лифт выбран");
+    }
+
     @Step("Проверяем, значение в поле Подъезд")
     default void checkEntranceValue(String actual, String expected) {
         krakenAssert.assertEquals(actual, expected, "значение в поле Подъезд неверное");
@@ -47,8 +59,13 @@ public interface CheckoutCheck extends Check, CheckoutElement {
     }
 
     @Step("Проверяем, что выбран чекбокс Бесконтактная доставка")
-    default void checkContactlessDeliveryState(Boolean state){
-        krakenAssert.assertTrue(state,"чекбокс Бесконтактная доставка не выбран");
+    default void checkContactlessDeliveryIsSelected(Boolean state) {
+        krakenAssert.assertTrue(state, "чекбокс Бесконтактная доставка не выбран");
+    }
+
+    @Step("Проверяем, что не выбран чекбокс Бесконтактная доставка")
+    default void checkContactlessDeliveryIsNotSelected(Boolean state) {
+        krakenAssert.assertFalse(state, "чекбокс Бесконтактная доставка не выбран");
     }
 
     @Step("Проверяем, значение в поле Код домофона")

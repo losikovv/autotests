@@ -6,6 +6,6 @@ public final class CheckoutPage implements StfPage, CheckoutCheck {
 
     @Override
     public String pageUrl() {
-        return "/checkout/edit";
+        return "checkout/edit";
     }
 }
