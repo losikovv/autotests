@@ -30,6 +30,7 @@
             <class name="ru.instamart.test.api.v2.endpoints.DeeplinksV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.DeliveryAvailabilityV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.CategoriesV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.CreditCardsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.DepartmentsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.FavoritesListMoreSessionV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.FavoritesListV2Test"/>
