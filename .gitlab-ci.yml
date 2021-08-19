@@ -145,7 +145,7 @@ tests:metroSmokeReforged:
     - echo $P_ENV
     - echo $URL_STF
     - echo $URL_SHP
-    - gradle clean build metroSmokeReforged -Penv=metro-preprod -Pqase=true
+    - gradle clean build metroSmokeReforged -Penv=metro-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
     - bash ./report.sh reforged ui-metro-preprod
