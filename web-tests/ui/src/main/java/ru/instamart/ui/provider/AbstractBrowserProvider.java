@@ -17,7 +17,6 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 import ru.instamart.kraken.setting.Config;
-import ru.instamart.kraken.util.Crypt;
 
 import java.net.URI;
 import java.util.Optional;
@@ -38,7 +37,7 @@ public abstract class AbstractBrowserProvider {
     protected void createRemoteDriver(final DesiredCapabilities capabilities) {
         try {
             this.driver = new RemoteWebDriver(
-                    URI.create(Crypt.INSTANCE.decrypt(Config.REMOTE_URL)).toURL(),
+                    URI.create(Config.REMOTE_URL).toURL(),
                     capabilities);
             ((RemoteWebDriver)driver).setFileDetector(new LocalFileDetector());
             applyOptions();
