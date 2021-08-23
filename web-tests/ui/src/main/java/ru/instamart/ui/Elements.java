@@ -279,7 +279,7 @@ public class Elements {
 
                 static ElementData citySelector() {
                     return new ElementData(
-                            By.xpath("//span[text()='Владивосток']"),
+                            By.xpath("//span[text()='Барнаул']"),
                             "селектор с городами");
                 }
 
@@ -705,7 +705,7 @@ public class Elements {
         }
 
         static ElementData personalDataWarningText() {
-            return new ElementData(By.xpath("//*[@class='auth-modal__form']//div[@class='privacy-terms']//text()']"),
+            return new ElementData(By.xpath("//*[@class='auth-modal__form']//div[@class='privacy-terms']//text()"),
                     "текст предупреждения о согласии с условиями на обработку персональных данных в модалке авторизации");
         }
 
@@ -978,7 +978,7 @@ public class Elements {
         }
 
         static ElementData refreshPricesButton() {
-            return new ElementData(By.className("//div[contains(@class,'prices-modal')]//a[@class='prices-modal__btn']"),
+            return new ElementData(By.xpath("//div[contains(@class,'prices-modal')]//a[@class='prices-modal__btn']"),
                     "кнопка 'Обновить цены' в модалке цен"
             );
         }
@@ -1740,7 +1740,7 @@ public class Elements {
             }
 
             static ElementData minusButton() {
-                return new ElementData(By.className("//button[@data-qa='addToCart_minus']"),
+                return new ElementData(By.xpath("//button[@data-qa='addToCart_minus']"),
                         "кнопка минус в карточке товара");
             }
 
@@ -2190,7 +2190,7 @@ public class Elements {
 
                     static ElementData title() {
                         return new ElementData(
-                                By.xpath("//div[@class='modal-form__title'"),
+                                By.xpath("//div[@class='modal-form__title']"),
                                 "заголовок модалки телефона в чекауте");
                     }
 
