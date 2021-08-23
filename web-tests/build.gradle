@@ -67,13 +67,14 @@ project(":kraken") {
         implementation project(":ab")
         implementation project(":qa-api")
 
+        implementation lib.testng
+        implementation lib.jsonSimple
         implementation lib.jackson
         implementation lib.allureTestng
         implementation lib.allureJavaCommons
-        compileOnly lib.lombok
+        implementation lib.pgsqlJDBC
 
-        implementation lib.testng
-        implementation lib.jsonSimple
+        compileOnly lib.lombok
         annotationProcessor lib.lombok
         testImplementation lib.logback
         testCompileOnly lib.lombok
@@ -120,8 +121,13 @@ project(":api") {
         implementation lib.jsonSimple
         implementation lib.testng
         implementation lib.restAssuredSchemaValidator
+        implementation lib.pgsqlJDBC
+        implementation lib.mysqlJDBC
+        implementation lib.kafkaClients
+        implementation lib.kubernetesClient
 
         compileOnly lib.lombok
+
         annotationProcessor lib.lombok
         testImplementation lib.logback
         testCompileOnly lib.lombok

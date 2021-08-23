@@ -37,6 +37,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static io.qase.api.utils.IntegrationUtils.getStacktrace;
+import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 
 @Slf4j
 public final class QaseService {
@@ -121,7 +122,7 @@ public final class QaseService {
         try {
             runId = qaseApi.testRuns().create(
                     projectCode,
-                    testRunName + " [" + EnvironmentData.INSTANCE.getName() + "] " + LocalDate.now(),
+                    testRunName + " [" + EnvironmentData.INSTANCE.getName() + "] " + getDateFromMSK(),
                     null,
                     DESCRIPTION_PREFIX + PIPELINE_URL);
             log.info("Create Test run={} for project={}", runId, projectCode);

@@ -10,9 +10,14 @@ public interface AddressElement {
     Button delivery = new Button(By.xpath("//button[@data-qa='address-edit-selector-delivery']"));
     Button selfDelivery = new Button(By.xpath("//button[@data-qa='address-edit-selector-pickup']"));
 
-    Input address = new Input(By.xpath("//input[@data-qa='address-modal-input']"));
+    Input address = new Input(By.xpath("//input[@data-qa='address-modal-input']"), "поле ввода адреса");
+    Element firstPrevAddresses = new Element(By.xpath("//div[@data-qa='address-modal-addresses']//div[@class='address-modal__address']"), "первый адрес из блока Предыдущие адреса");
+
     DropDown dropDownAddress = new DropDown(By.xpath("//div[contains(@class,'dropdown')]/div/*[text()]"));
-    Button save = new Button(By.xpath("//button[@data-qa='address-modal-submit']"));
+    Button save = new Button(By.xpath("//button[@data-qa='address-modal-submit']"), "кнопка Сохранить");
+    Element outOfShippingZone = new Element(By.xpath("//div[text()='Адрес не в зоне доставки']"), "лейбл Адрес не в зоне доставки");
+    Button chooseOtherAddress = new Button(By.xpath("//button[@data-qa='address-modal-other-address']"), "кнопка Выбрать другой адрес");
+    Button choosePickUp = new Button(By.xpath("//button[@data-qa='address-modal-pickup']"), "кнопка Выбрать самовывоз");
 
     Selector selectCity = new Selector(By.xpath("//select[@data-qa='city-selector-control']"));
     Element storeList = new Element(By.xpath("//div[@data-qa='expandable-store-list']"), "список магазинов для самовывоза");
@@ -21,7 +26,6 @@ public interface AddressElement {
     Button selectStoreButton = new Button(By.xpath("//button[@data-qa='store-item-btn']"));
     Element otherRetailers = new Element(By.xpath("//div[@data-qa='address-edit']//span[contains(text(), 'Выбрать другой магазин')]"));
     Button changeStore = new Button(By.xpath("//button[@data-qa='selected-store-btn']"));
-    Element prevAddresses = new Element(By.xpath("//div[@data-qa='address-modal-addresses']"));
     Element login = new Element(By.xpath("//span[@data-qa='address-modal-login']"));
 
     Element markerImageOnMapInAdvice = new Element(By.xpath("//div[contains(@class, 'notice')]/descendant::img[contains(@src, '/marker')]"));

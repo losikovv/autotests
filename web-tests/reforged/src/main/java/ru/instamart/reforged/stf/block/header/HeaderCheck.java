@@ -3,6 +3,7 @@ package ru.instamart.reforged.stf.block.header;
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
 
+import static org.testng.Assert.assertEquals;
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface HeaderCheck extends Check, HeaderElement {
@@ -90,6 +91,62 @@ public interface HeaderCheck extends Check, HeaderElement {
     @Step("Проверяем, что кнопка профиля видна")
     default void checkProfileButtonVisible() {
         waitAction().shouldBeVisible(profile);
+    }
+
+    @Step("Проверяем, что не выбран адрес доставки")
+    default void checkIsShippingAddressNotSet() {
+        assertEquals(firstSelectAddress.getText(), "Выберите адрес доставки");
+    }
+
+    @Step("Проверяем, что выбран адрес доставки")
+    default void checkIsShippingAddressSet() {
+        waitAction().shouldNotBeVisible(enteredAddress);
+    }
+
+    @Step("Проверяем, что утановленный адрес: \"{0}\" \n совпадает с адресом, отображаемом на странице: \"{1}\"")
+    default void checkIsSetAddressEqualToInput(String defaultAddress, String currentAddress) {
+
+        final String[] defaultAddressList = defaultAddress.split(", ");
+        log.info("> проверяем, что установленный адрес: '{}' совпадает с адресом на странице: '{}'",
+                defaultAddress,
+                currentAddress);
+        boolean checkState = false;
+        for (final String check : defaultAddressList) {
+            if (currentAddress.contains(check)) {
+                checkState = true;
+            } else {
+                log.info("> в введенном адресе отсутсвует: {}", check);
+                checkState = false;
+            }
+            krakenAssert.assertEquals(
+                    checkState,
+                    "\n> В адресе отображаемом на странице отсутсвует элемент: "
+                            + "\n> отображаемый адрес: " + currentAddress
+                            + "\n> Ожидаемый элемент: " + check
+            );
+        }
+        log.info("✓ Успешно");
+    }
+
+    @Step("Проверяем, что установленный адрес:\"{0}\" не изменился")
+    default void checkIsSetAddressNotEqualToInput(String defaultAddress, String currentAddress){
+        final String[] defaultAddressList = defaultAddress.split(", ");
+        log.info("> проверяем, что адрес доставки не изменился: {}", defaultAddress);
+        String checkState;
+        for(final String check: defaultAddressList){
+            if (currentAddress.contains(check)) checkState = "contains";
+            else {
+                log.info("> в введенном адресе отсутсвует: {}", check);
+                checkState ="doesn't";
+            }
+            krakenAssert.assertNotEquals(
+                    checkState, "contains",
+                    "\n> Адрес доставки изменен после выбора предыдущего: "
+                            +"\n> отображаемый адрес: " + currentAddress
+                            +"\n> Ожидаемый элемент: " + check
+            );
+        }
+        log.info("✓ Успешно");
     }
 
     default void checkLoginIsVisible() {

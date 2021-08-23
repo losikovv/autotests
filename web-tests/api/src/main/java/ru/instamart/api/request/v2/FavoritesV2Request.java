@@ -9,6 +9,18 @@ import java.util.HashMap;
 
 public final class FavoritesV2Request extends ApiV2RequestBase {
 
+    @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS)
+    public static Response GET() {
+        return givenWithAuth()
+                .get(ApiV2EndPoints.FavoritesList.ITEMS);
+    }
+
+    @Step("{method} /" + ApiV2EndPoints.FavoritesList.Items.BY_SID)
+    public static Response GET(final String sid) {
+        return givenWithAuth()
+                .get(ApiV2EndPoints.FavoritesList.Items.BY_SID, sid);
+    }
+
     @Step("{method} /" + ApiV2EndPoints.FavoritesList.Items.BY_SID)
     public static Response GET(final int sid) {
         return givenWithAuth()
@@ -23,7 +35,20 @@ public final class FavoritesV2Request extends ApiV2RequestBase {
     }
 
     @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS)
+    public static Response POST(final String id) {
+        return givenWithAuth()
+                .formParams(new HashMap<>(){{put("item[product_id]", id);}})
+                .post(ApiV2EndPoints.FavoritesList.ITEMS);
+    }
+
+    @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS)
     public static Response DELETE(final long id) {
+        return givenWithAuth()
+                .delete(ApiV2EndPoints.FavoritesList.ITEMS + "/" + id);
+    }
+
+    @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS)
+    public static Response DELETE(final String id) {
         return givenWithAuth()
                 .delete(ApiV2EndPoints.FavoritesList.ITEMS + "/" + id);
     }

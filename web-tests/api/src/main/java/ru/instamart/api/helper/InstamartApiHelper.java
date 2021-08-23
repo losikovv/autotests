@@ -27,14 +27,16 @@ import ru.instamart.kraken.util.ThreadUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.CoreMatchers.is;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.fail;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.common.RestStaticTestData.userPhone;
+import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 
 @Slf4j
 public final class InstamartApiHelper {
@@ -189,6 +191,8 @@ public final class InstamartApiHelper {
      */
     @Step("Удаляем товары из корзины")
     public OrderV2 deleteAllShipments() {
+        if (currentOrderNumber.get() == null) fail("Номер текущего заказа null");
+
         Response response = OrdersV2Request.Shipments.DELETE(currentOrderNumber.get());
         checkStatusCode200(response);
 
@@ -251,7 +255,8 @@ public final class InstamartApiHelper {
 
     /**
      * Получаем список продуктов
-     * @param sid сид магазина
+     *
+     * @param sid                                сид магазина
      * @param numberOfProductsFromEachDepartment количество продуктов из каждой категории (не больше 6)
      */
     private List<ProductV2> getProductsFromEachDepartmentInStore(int sid,
@@ -418,7 +423,7 @@ public final class InstamartApiHelper {
      */
     @Step("Получаем первый доступный слот")
     public DeliveryWindowV2 getAvailableDeliveryWindow() {
-        Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), LocalDate.now().toString());
+        Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), getDateFromMSK().toString());
         checkStatusCode200(response);
 
         List<ShippingRateV2> shippingRates = response.as(ShippingRatesV2Response.class).getShippingRates();
@@ -527,24 +532,21 @@ public final class InstamartApiHelper {
         if (response.getStatusCode() == 422) {
             response = slotAvailabilityCheck(response);
         }
-        if(Objects.isNull(response))
+        if (Objects.isNull(response))
             return null;
 
         checkStatusCode200(response);
 
         OrderV2 order = response.as(OrderV2Response.class).getOrder();
         List<AlertV2> alerts = order.getShipments().get(0).getAlerts();
-
-        alerts.stream()
-                .forEach(alert -> log.error(alert.getFullMessage()));
-
+        alerts.forEach(alert -> log.error(alert.getFullMessage()));
         Allure.step("Оформлен заказ: " + order.getNumber());
         log.info("Оформлен заказ: {}", order.getNumber());
         orderCompleted.set(true);
         return order;
     }
 
-    public Response slotAvailabilityCheck(Response response){
+    public Response slotAvailabilityCheck(Response response) {
         ErrorsV2 errors = response.as(ErrorResponse.class).getErrors();
 
         if (errors.getShipments() != null) {
@@ -660,6 +662,32 @@ public final class InstamartApiHelper {
         address.setCoordinates(zone);
         log.info("Выбраны координаты: {}", zone);
         Allure.step("Выбраны координаты: " + zone);
+
+        return address;
+    }
+
+    /**
+     * Получить адрес доставки, зная только sid
+     */
+    @Step("Получаем адрес доставки по sid = {sid} магазина ")
+    public AddressV2 getAddressBySidMy(int sid) {
+        currentSid.set(sid);
+        Response response = StoresV2Request.GET(sid);
+
+        if (response.statusCode() == 422) {
+            if (response.as(ErrorResponse.class)
+                    .getErrors()
+                    .getBase()
+                    .contains("По указанному адресу"))
+                fail("Магазин отключен " + Pages.Admin.stores(currentSid.get()));
+        }
+        checkStatusCode200(response);
+        StoreV2 store = response.as(StoreV2Response.class).getStore();
+        if (store == null) fail(response.body().asString());
+
+        AddressV2 address = store.getLocation();
+        log.info("Получен адрес {}", address.getFullAddress());
+        Allure.step("Получен адрес " + address.getFullAddress());
 
         return address;
     }
@@ -837,7 +865,7 @@ public final class InstamartApiHelper {
         return currentShipmentNumber.get();
     }
 
-    public OrderV2 getOpenOrder(){
+    public OrderV2 getOpenOrder() {
         Response response = OrdersV2Request.POST();
         checkStatusCode200(response);
         return response.as(OrderV2Response.class).getOrder();
@@ -857,12 +885,12 @@ public final class InstamartApiHelper {
         return response.as(ShippingMethodsV2Response.class).getShippingMethods();
     }
 
-    public List<ShippingMethodV2> getShippingMethods(){
+    public List<ShippingMethodV2> getShippingMethods() {
         return getShippingMethods(currentSid.get());
     }
 
     @Step("Получаем данные достаки для заказа")
-    public ShipmentV2 getShippingWithOrder(){
+    public ShipmentV2 getShippingWithOrder() {
         final Response response = OrdersV2Request.Current.GET();
         checkStatusCode200(response);
         return response
@@ -947,6 +975,27 @@ public final class InstamartApiHelper {
                 break;
             }
         }
+    }
+
+    public FavoritesItemV2Response addFavoritesProductBySid(Integer sid) {
+        ProductV2 product = getProductFromEachDepartmentInStore(sid).get(0);
+        final Response response = FavoritesV2Request.POST(product.getId());
+        checkStatusCode200(response);
+        return response.as(FavoritesItemV2Response.class);
+    }
+
+    public List<ProductV2> addFavoritesQtyListProductBySid(Integer sid, Integer qty) {
+        List<ProductV2> products = getProductFromEachDepartmentInStore(sid);
+        List<ProductV2> productsList = new ArrayList<>();
+        products.stream()
+                .limit(qty + 1)
+                .forEach(item -> {
+                    FavoritesV2Request.POST(item.getId()).then()
+                        .statusCode(anyOf(is(200), is(422)));
+                    productsList.add(item);
+                }
+                );
+        return productsList;
     }
 
     /**
@@ -1036,7 +1085,7 @@ public final class InstamartApiHelper {
 
 
     @Step("Запроленение корзины и аттрибутов заказа без оформления")
-    public void fillingCartAndOrderAttributesWithoutCompletition(UserData user, int sid){
+    public void fillingCartAndOrderAttributesWithoutCompletition(UserData user, int sid) {
         fillCart(user, sid);
         getAvailablePaymentTool();
         getAvailableShippingMethod();
@@ -1045,7 +1094,7 @@ public final class InstamartApiHelper {
     }
 
     @Step("Запроленение корзины и аттрибутов заказа без оформления")
-    public void fillingCartAndOrderAttributesWithoutCompletition(UserData user, AddressV2 address){
+    public void fillingCartAndOrderAttributesWithoutCompletition(UserData user, AddressV2 address) {
         fillCart(user, address);
         getAvailablePaymentTool();
         getAvailableShippingMethod();
@@ -1112,5 +1161,22 @@ public final class InstamartApiHelper {
         Response response = PhonesV2Request.GET();
         checkStatusCode200(response);
         return response.as(PhonesV2Response.class);
+    }
+
+    public String getSimpleAdsFirstImage(SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters) {
+
+        final Response response = SimpleAdsV2Request.POST(allRequiredParameters);
+        checkStatusCode200(response);
+        final SimpleAdsV2Response simpleAdsV2Response = response.as(SimpleAdsV2Response.class);
+        if (simpleAdsV2Response.getMedia() == null || simpleAdsV2Response.getMedia().isEmpty()) {
+            throw new SkipException("Рекомендаций нет");
+        }
+
+       return  simpleAdsV2Response.getMedia().stream()
+                .iterator().next()
+                .getAssets().stream()
+                .filter(img -> Objects.nonNull(img.getImage()))
+                .iterator().next()
+                .getImage().getUrl();
     }
 }

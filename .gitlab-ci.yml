@@ -9,11 +9,13 @@ before_script:
   - cd web-tests
 
 stages:
-  - tests
+  - tests-api
+  - tests-ui
+  - custom-run
 
 .template_tests_apishopper:
   resource_group: apiShopper
-  stage: tests
+  stage: tests-api
   image: $CI_REGISTRY_IMAGE
   script:
     - echo $P_ENV
@@ -31,6 +33,7 @@ stages:
       - web-tests/api/build/allure-results/
       - web-tests/api/logs/
     expire_in: 1 week
+  allow_failure: false
 
 .template_tests_apishopper_alone:
   only:
@@ -38,7 +41,7 @@ stages:
       - master
     variables:
       - $API_SHOPPER_ALONE == 'true' && $CI_RUN_ALL_JOBS == 'false'
-  allow_failure: true
+  allow_failure: false
 
 .template_run_all_jobs_at_a_time_on_master:
   only:
@@ -46,16 +49,16 @@ stages:
       - master
     variables:
       - $CI_RUN_ALL_JOBS == 'true'
-  allow_failure: true
 
 CustomSuiteTestRun:
+  allow_failure: true
+  when: manual
   only:
     variables:
+      - $TEST_CUSTOM_SUITE_TEST_RUN == 'true' && $CI_RUN_ALL_JOBS == 'false'
       - $CI_RUN_ALL_JOBS == 'true'
-  when: manual
-  stage: tests
-  services:
-    - selenium/standalone-chrome
+  stage: custom-run
+  image: $CI_REGISTRY_IMAGE
   script:
     - echo $P_ENV
     - echo $TEST_SET
@@ -66,19 +69,19 @@ CustomSuiteTestRun:
     - echo $PROXY_TIMEOUT
     - echo $URL_STF
     - echo $URL_SHP
-    - gradle clean build $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=$QASE -Pproxy_ip=$PROXY_IP -Pproxy_port=$PROXY_PORT -Pproxy_timeout=$PROXY_TIMEOUT -Pkey=$ATST_APP_SECRET_KEY -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
-    - wget https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.9.0/allure-commandline-2.9.0.tgz
-    - tar -xvpf allure-commandline-2.9.0.tgz
-    - ./allure-2.9.0/bin/allure generate --clean -o allure-reports build/allure-results
+    - gradle clean build $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=$QASE -Purl_stf=$URL_STF -Purl_shp=$URL_SHP -Pkey=$ATST_APP_SECRET_KEY
+  after_script:
+    - cd web-tests
+    - bash ./report.sh ui default
   tags:
     - k8s-stage
   artifacts:
     when: always
     paths:
-      - web-tests/build/allure-results/
-      - web-tests/logs/
-      - web-tests/allure-reports/
+      - web-tests/ui/build/allure-results/
+      - web-tests/ui/logs/
     expire_in: 1 week
+
 
 tests:ApiInstamart:
   only:
@@ -87,7 +90,7 @@ tests:ApiInstamart:
       - $CI_RUN_ALL_JOBS == 'true'
   extends: ".template_run_all_jobs_at_a_time_on_master"
   resource_group: apiInstamart:$URL_STF
-  stage: tests
+  stage: tests-api
   image: $CI_REGISTRY_IMAGE
   script:
     - echo $P_ENV
@@ -107,12 +110,13 @@ tests:ApiInstamart:
       - web-tests/api/build/allure-results/
       - web-tests/api/logs/
     expire_in: 1 week
+  allow_failure: false
 
 tests:preprodApiMetro:
   extends: ".template_run_all_jobs_at_a_time_on_master"
   resource_group: apiInstamart:$URL_STF
   when: manual
-  stage: tests
+  stage: tests-api
   image: $CI_REGISTRY_IMAGE
   script:
     - gradle clean build apiInstamartRegress -Penv=metro-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
@@ -127,12 +131,43 @@ tests:preprodApiMetro:
       - web-tests/api/build/allure-results/
       - web-tests/api/logs/
     expire_in: 1 week
+  allow_failure: false
+
+tests:metroSmokeReforged:
+  only:
+    variables:
+      - $TEST_UI_METRO_SMOKE == 'true' && $CI_RUN_ALL_JOBS == 'false'
+      - $CI_RUN_ALL_JOBS == 'true'
+  extends: ".template_run_all_jobs_at_a_time_on_master"
+  resource_group: metroSmokeReforged:$URL_STF
+  stage: tests-ui
+  needs:
+    - "tests:ApiInstamart"
+    - "tests:ApiShopper"
+  image: $CI_REGISTRY_IMAGE
+  script:
+    - echo $P_ENV
+    - echo $URL_STF
+    - echo $URL_SHP
+    - gradle clean build metroSmokeReforged -Penv=metro-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - cd web-tests
+    - bash ./report.sh reforged ui-metro-preprod
+  tags:
+    - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/reforged/build/allure-results/
+      - web-tests/reforged/logs/
+    expire_in: 1 week
+  allow_failure: false
 
 tests:prodApiInstamart:
   extends: ".template_run_all_jobs_at_a_time_on_master"
   resource_group: apiInstamartProd
   when: manual
-  stage: tests
+  stage: tests-api
   image: $CI_REGISTRY_IMAGE
   script:
     - gradle clean build apiInstamartProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
@@ -147,6 +182,7 @@ tests:prodApiInstamart:
       - web-tests/api/build/allure-results/
       - web-tests/api/logs/
     expire_in: 1 week
+  allow_failure: false
 
 tests:ApiShopper:
   only:
@@ -156,17 +192,19 @@ tests:ApiShopper:
   extends:
     - ".template_tests_apishopper"
     - ".template_run_all_jobs_at_a_time_on_master"
+  allow_failure: false
 
 tests:ApiShopper:alone:
   extends:
     - ".template_tests_apishopper"
     - ".template_tests_apishopper_alone"
+  allow_failure: false
 
 tests:prodApiShopper:
   extends: ".template_run_all_jobs_at_a_time_on_master"
   resource_group: apiShopperProd
   when: manual
-  stage: tests
+  stage: tests-api
   image: $CI_REGISTRY_IMAGE
   script:
     - gradle clean build apiShopperProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
@@ -181,11 +219,12 @@ tests:prodApiShopper:
       - web-tests/api/build/allure-results/
       - web-tests/api/logs/
     expire_in: 1 week
+  allow_failure: false
 
 tests:prodApiRetailer:
   extends: ".template_run_all_jobs_at_a_time_on_master"
   when: manual
-  stage: tests
+  stage: tests-api
   image: $CI_REGISTRY_IMAGE
   script:
     - gradle clean build apiRetailerE2E -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
@@ -200,13 +239,14 @@ tests:prodApiRetailer:
       - web-tests/api/build/allure-results/
       - web-tests/api/logs/
     expire_in: 1 week
+  allow_failure: false
 
 tests:surge:
   resource_group: testSurge
   only:
     variables:
       - $API_SURGE_ALONE == 'true' && $CI_RUN_ALL_JOBS == 'false'
-  stage: tests
+  stage: tests-api
   image: $CI_REGISTRY_IMAGE
   script:
     - gradle clean build apiSurge -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
@@ -221,6 +261,7 @@ tests:surge:
       - web-tests/api/build/allure-results/
       - web-tests/api/logs/
     expire_in: 1 week
+  allow_failure: false
 
 tests:UiSmoke:
   only:
@@ -228,7 +269,10 @@ tests:UiSmoke:
       - $TEST_UI_SMOKE == 'true' && $CI_RUN_ALL_JOBS == 'false'
       - $CI_RUN_ALL_JOBS == 'true'
   extends: ".template_run_all_jobs_at_a_time_on_master"
-  stage: tests
+  stage: tests-ui
+  needs:
+    - "tests:ApiInstamart"
+    - "tests:ApiShopper"
   resource_group: uismoke:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
   script:
@@ -247,11 +291,15 @@ tests:UiSmoke:
       - web-tests/ui/build/allure-results/
       - web-tests/ui/logs/
     expire_in: 1 week
+  allow_failure: true
 
 tests:UiRegress:
   extends: ".template_run_all_jobs_at_a_time_on_master"
   when: manual
-  stage: tests
+  stage: tests-ui
+  needs:
+    - "tests:ApiInstamart"
+    - "tests:ApiShopper"
   resource_group: uiregress:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
   script:
@@ -270,6 +318,7 @@ tests:UiRegress:
       - web-tests/ui/build/allure-results/
       - web-tests/ui/logs/
     expire_in: 1 week
+  allow_failure: true
 
 tests:AdminUiSmoke:
   only:
@@ -277,7 +326,10 @@ tests:AdminUiSmoke:
       - $TEST_ADMIN_UI_SMOKE == 'true' && $CI_RUN_ALL_JOBS == 'false'
       - $CI_RUN_ALL_JOBS == 'true'
   extends: ".template_run_all_jobs_at_a_time_on_master"
-  stage: tests
+  stage: tests-ui
+  needs:
+    - "tests:ApiInstamart"
+    - "tests:ApiShopper"
   resource_group: uismoke:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
   script:
@@ -296,11 +348,15 @@ tests:AdminUiSmoke:
       - web-tests/reforged/build/allure-results/
       - web-tests/reforged/logs/
     expire_in: 1 week
+  allow_failure: true
 
 tests:prodUiSmoke:
   extends: ".template_run_all_jobs_at_a_time_on_master"
   when: manual
-  stage: tests
+  stage: tests-ui
+  needs:
+    - "tests:ApiInstamart"
+    - "tests:ApiShopper"
   resource_group: uismoke:$CI_COMMIT_REF_SLUG
   image: $CI_REGISTRY_IMAGE
   script:
@@ -316,11 +372,12 @@ tests:prodUiSmoke:
       - web-tests/ui/build/allure-results/
       - web-tests/ui/logs/
     expire_in: 1 week
+  allow_failure: true
 
 tests:AutoMRCheck:
   only:
     - merge_requests
-  stage: tests
+  stage: tests-api
   image: $CI_REGISTRY_IMAGE
   script:
     - echo $P_ENV
@@ -338,13 +395,14 @@ tests:AutoMRCheck:
       - web-tests/api/logs/
       - web-tests/ui/logs/
     expire_in: 1 week
+  allow_failure: true
 
 tests:Debug:
   rules:
     - if: '$CI_COMMIT_BRANCH != "master"'
       when: manual
       allow_failure: true
-  stage: tests
+  stage: tests-api
   image: $CI_REGISTRY_IMAGE
   script:
     - echo $P_ENV

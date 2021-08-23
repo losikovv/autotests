@@ -11,11 +11,15 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.model.v2.PhoneTokenV2;
 import ru.instamart.api.request.v2.PhoneConfirmationsV2Request;
+import ru.instamart.api.response.v2.PhoneTokenV2Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
+import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.util.PhoneCrypt;
 
 import static org.junit.Assert.assertNotNull;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Slf4j
 @Epic("ApiV2")
@@ -37,12 +41,57 @@ public class PhoneConfirmationsV2Test extends RestBase {
 
     @CaseId(627)
     @Story("Авторизация по номеру телефона")
-    @Test(  description = "Получение токена авторизации по номеру телефона и коду из смс",
+    @Test(description = "Получение токена авторизации по номеру телефона и коду из смс",
             groups = {"api-instamart-smoke"},
             dependsOnMethods = "postPhoneConfirmations")
     public void putPhoneConfirmations() {
-        Response response = PhoneConfirmationsV2Request.PUT(phoneNumber, "111111", true);
+        Response response = PhoneConfirmationsV2Request.PUT(phoneNumber, Config.DEFAULT_SMS, true);
         checkStatusCode200(response);
         assertNotNull(response.as(SessionsV2Response.class).getSession().getAccessToken());
+    }
+
+    @CaseId(452)
+    @Story("Инициировать отправку кода подтверждения")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Инициировать отправку кода подтверждения  с невалидным значением для phone")
+    public void postPhoneConfirmations404() {
+        Response response = PhoneConfirmationsV2Request.POST(PhoneCrypt.INSTANCE.encryptPhone("invalidPhoneNumber"));
+        checkStatusCode422(response);
+        errorAssert(response, "PhoneToken: Value не может быть пустым");
+    }
+
+    @CaseId(453)
+    @Story("Инициировать отправку кода подтверждения")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Инициировать отправку кода подтверждения. Пользователь существует с указанным phone")
+    public void postPhoneConfirmationsPhoneNotExist200() {
+        Response response = PhoneConfirmationsV2Request.POST(PhoneCrypt.INSTANCE.encryptPhone(Generate.phoneNumber()));
+        response.prettyPeek();
+        checkStatusCode200(response);
+        PhoneTokenV2Response phoneToken = response.as(PhoneTokenV2Response.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(phoneToken.getPhoneToken().getResendLimit(), Integer.valueOf(60), "resend_limit mismatch");
+        softAssert.assertEquals(phoneToken.getPhoneToken().getCodeLength(), Integer.valueOf(6), "code_length mismatch");
+        softAssert.assertAll();
+    }
+
+    @CaseId(457)
+    @Story("Подтверждение телефона кодом")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Подтверждение телефона кодом с невалидным номером")
+    public void confirmPhonesWithInvalidNumber() {
+        Response response = PhoneConfirmationsV2Request.PUT("invalidPhoneNumber");
+        checkStatusCode422(response);
+        errorAssert(response, "PhoneToken: Value не может быть пустым");
+    }
+
+    @CaseId(459)
+    @Story("Подтверждение телефона кодом")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Подтверждение телефона кодом с валидным номером без запроса")
+    public void confirmPhonesWithValidPhone() {
+        Response response = PhoneConfirmationsV2Request.PUT(Generate.phoneNumber(), Config.DEFAULT_SMS, false);
+        checkStatusCode422(response);
+        errorAssert(response, "Неверный код");
     }
 }

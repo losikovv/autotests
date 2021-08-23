@@ -176,19 +176,18 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(319)
     @Story("Получение списка позиций по заказу")
-    @Test(groups = {"api-instamart-regress"},
-            description = "Существующий id")
+    @Test( groups = {"api-instamart-regress"},
+            description = "Получение списка позиций по заказу. Существующий id")
     public void getingListOfItemsForOrder() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
         response = OrdersV2Request.LineItems.GET(apiV2.getCurrentOrderNumber());
-
         checkStatusCode200(response);
         LineItemsV2Response lineItemsV2Response = response.as(LineItemsV2Response.class);
         final SoftAssert asserts = new SoftAssert();
-        asserts.assertEquals(lineItemsV2Response.getMeta().getCurrentPage().toString(), "1", "1");
-        asserts.assertEquals(lineItemsV2Response.getMeta().getTotalPages().toString(), "1", "2");
-        asserts.assertEquals(lineItemsV2Response.getMeta().getPerPage().toString(), "20", "3");
-        asserts.assertEquals(lineItemsV2Response.getMeta().getTotalCount().toString(), "1", "4");
+        asserts.assertEquals(lineItemsV2Response.getMeta().getCurrentPage(), Integer.valueOf(1), "current_page не равен 1");
+        asserts.assertEquals(lineItemsV2Response.getMeta().getTotalPages(), Integer.valueOf(1), "total_page не равен 2");
+        asserts.assertEquals(lineItemsV2Response.getMeta().getPerPage(), Integer.valueOf(20), "get_page не равен 20");
+        asserts.assertEquals(lineItemsV2Response.getMeta().getTotalCount(), Integer.valueOf(1), "total_count не равен 1");
         asserts.assertFalse(lineItemsV2Response.getLineItems().isEmpty(), "В заказе нет позиций");
         asserts.assertAll();
     }

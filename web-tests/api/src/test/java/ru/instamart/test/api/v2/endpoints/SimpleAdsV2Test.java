@@ -15,13 +15,10 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.AdsImagesV2Request;
 import ru.instamart.api.request.v2.SimpleAdsV2Request;
-import ru.instamart.api.response.v2.SimpleAdsV2Response;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
-import static org.testng.AssertJUnit.assertTrue;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
@@ -162,20 +159,12 @@ public class SimpleAdsV2Test extends RestBase {
                         .build()
                 )
                 .build();
-
-        final Response response = SimpleAdsV2Request.POST(allRequiredParameters);
-        checkStatusCode200(response);
-        final SimpleAdsV2Response simpleAdsV2Response = response.as(SimpleAdsV2Response.class);
-
-        String imagePath = simpleAdsV2Response.getMedia().stream()
-                .iterator().next()
-                .getAssets().stream()
-                .filter(img -> Objects.nonNull(img.getImage()))
-                .iterator().next()
-                .getImage().getUrl();
+        String imagePath = apiV2.getSimpleAdsFirstImage(allRequiredParameters);
 
         final Response responseImage = AdsImagesV2Request.GET(imagePath);
-        assertTrue(responseImage.getHeader("Content-Type").startsWith("image/"));
+        responseImage.then()
+                .statusCode(200)
+                .contentType("image/");
     }
 
 

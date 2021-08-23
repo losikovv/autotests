@@ -1,12 +1,14 @@
 package ru.instamart.reforged.stf.block.header;
 
 import io.qameta.allure.Step;
+import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.action.JsAction;
 import ru.instamart.reforged.stf.drawer.account_menu.AccountMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
-import ru.instamart.reforged.stf.drawer.StoreSelector;
+import ru.instamart.reforged.stf.drawer.store_selector.StoreSelector;
 import ru.instamart.reforged.stf.frame.address.Address;
 
+import static ru.instamart.reforged.stf.page.StfRouter.shop;
 import static ru.instamart.reforged.core.service.KrakenDriver.refresh;
 
 public final class Header implements HeaderCheck {
@@ -85,11 +87,13 @@ public final class Header implements HeaderCheck {
     @Step("Нажать на Выберите адрес доставки(первый выбор адреса)")
     public void clickToSelectAddressFirstTime() {
         firstSelectAddress.click();
+        Kraken.jsAction().ymapReady();
     }
 
     @Step("Нажать на выбор адреса")
     public void clickToSelectAddress() {
         selectAddress.click();
+        Kraken.jsAction().ymapReady();
     }
 
     @Step("Открыть страницу Ваши компании")
@@ -125,6 +129,12 @@ public final class Header implements HeaderCheck {
     @Step("Открыть каталог")
     public void clickToCategoryMenu() {
         categoryMenu.click();
+    }
+
+    @Step("Получить текст выбранный адрес")
+    public String getShippingAddressFromHeader() {
+        shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
+        return enteredAddress.getText();
     }
 
     /* метод clearSessionLogout() нежелательный к использованию, потенциально флакует много тестов */

@@ -22,4 +22,14 @@ public interface ShopCheck extends Check, ShopElement {
     default void checkCartNotificationIsVisible() {
         waitAction().shouldBeVisible(cartNotification);
     }
+
+    @Step("Проверяем, что отображается карточка товара")
+    default void checkFirstProductCard() {
+        waitAction().shouldBeVisible(firstProductCard);
+    }
+
+    @Step("Проверяем, что отображется сниппет старого каталога")
+    default void checkOldSnippet() {
+        waitAction().shouldBeVisible(firstItemSnippetOld);
+    }
 }
