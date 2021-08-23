@@ -41,27 +41,20 @@ public class AdministrationRetailerRegionsTests extends BaseTest {
     }
 
     @CaseId(472)
-    @Story("Верификация страницы регионов")
-    @Test(description = "Верификация страницы регионов",
+    @Story("Валидация страницы регионов")
+    @Test(description = "Валидация страницы регионов",
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void storeRegionsPageValidation() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        users().goToPage();
-
-    }
-
-    @CaseId(471)
-    @Story("Тест добавления удаления региона для магазинов в админке")
-    @Test(description = "Тест добавления удаления региона для магазинов в админке",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
-    public void successDeleteRetailerRegion() {
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
-
-
+        regions().goToPage();
+        regions().checkRegionsTableVisible();
+        regions().checkQuantityDeleteButtonsEqualsRegions();
+        regions().checkQuantityEditButtonsEqualsRegions();
+        regions().checkQuantityRowsNumbersEqualsRegions();
+        regions().checkPageTitleVisible();
+        regions().checkAddNewRegionButtonVisible();
     }
 }
