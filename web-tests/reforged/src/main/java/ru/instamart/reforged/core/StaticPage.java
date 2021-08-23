@@ -4,12 +4,12 @@ import org.testng.annotations.DataProvider;
 import ru.instamart.api.common.Specification;
 import ru.instamart.api.helper.InstamartApiHelper;
 import ru.instamart.api.model.v2.RetailerV2;
-import ru.instamart.kraken.testdata.lib.Pages;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import java.util.List;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
+import static ru.instamart.reforged.metro.page.MetroRouter.*;
 
 public final class StaticPage {
 
