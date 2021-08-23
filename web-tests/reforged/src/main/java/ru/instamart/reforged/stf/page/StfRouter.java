@@ -14,8 +14,7 @@ import ru.instamart.reforged.stf.page.user.UserCompanies;
 import ru.instamart.reforged.stf.page.user.UserEdit;
 import ru.instamart.reforged.stf.page.user.favorites.UserFavoritesPage;
 import ru.instamart.reforged.stf.page.user.UserShipments;
-import ru.instamart.reforged.stf.site.metro.MetroPage;
-import ru.instamart.reforged.stf.site.metro.faq.*;
+import ru.instamart.reforged.metro.page.home.MetroHomePage;
 
 public final class StfRouter extends Router {
 
@@ -41,10 +40,6 @@ public final class StfRouter extends Router {
 
     public static ShopPage shop() {
         return (ShopPage) getPage(ShopPage.class);
-    }
-
-    public static MetroPage metro() {
-        return (MetroPage) getPage(MetroPage.class);
     }
 
     public static BusinessPage business() {
@@ -97,34 +92,6 @@ public final class StfRouter extends Router {
 
     public static AeroflotPage aeroflot() {
         return (AeroflotPage) getPage(AeroflotPage.class);
-    }
-
-    public static MetroAboutPage metroAbout() {
-        return (MetroAboutPage) getPage(MetroAboutPage.class);
-    }
-
-    public static MetroDeliveryPage metroDelivery() {
-        return (MetroDeliveryPage) getPage(MetroDeliveryPage.class);
-    }
-
-    public static MetroRulesPage metroRules() {
-        return (MetroRulesPage) getPage(MetroRulesPage.class);
-    }
-
-    public static MetroReturnPolicyPage metroReturnPolicy() {
-        return (MetroReturnPolicyPage) getPage(MetroReturnPolicyPage.class);
-    }
-
-    public static MetroFaqPage metroFaq() {
-        return (MetroFaqPage) getPage(MetroFaqPage.class);
-    }
-
-    public static MetroTermsPage metroTerms() {
-        return (MetroTermsPage) getPage(MetroTermsPage.class);
-    }
-
-    public static MetroContactsPage metroContacts() {
-        return (MetroContactsPage) getPage(MetroContactsPage.class);
     }
 
     private StfRouter() {

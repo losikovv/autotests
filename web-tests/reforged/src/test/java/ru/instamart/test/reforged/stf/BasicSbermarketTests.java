@@ -7,11 +7,11 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.StaticPage;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.reforged.core.service.Curl;
-import ru.instamart.reforged.stf.page.StfPage;
 import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.test.reforged.BaseTest;
 
@@ -119,7 +119,7 @@ public final class BasicSbermarketTests extends BaseTest {
     public void successValidateElementInFooterSbermarket() {
         shop().goToPage(ShopUrl.METRO);
         shop().checkPageIsAvailable();
-        shop().addCookie(StfPage.cookieAlert);
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
         shop().refresh();
         shop().scrollDown();
 
@@ -163,7 +163,7 @@ public final class BasicSbermarketTests extends BaseTest {
     )
     public void testFooterLink() {
         home().goToPage();
-        home().addCookie(StfPage.cookieAlert);
+        home().addCookie(CookieFactory.COOKIE_ALERT);
         home().refresh();
         home().scrollDown();
 
