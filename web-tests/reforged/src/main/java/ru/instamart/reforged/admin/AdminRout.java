@@ -1,6 +1,10 @@
 package ru.instamart.reforged.admin;
 
 import ru.instamart.reforged.admin.page.main.MainPage;
+import ru.instamart.reforged.admin.page.retailers.RetailersPage;
+import ru.instamart.reforged.admin.page.retailers.add_new_shop.ShopAddPage;
+import ru.instamart.reforged.admin.page.retailers.regions.RegionsPage;
+import ru.instamart.reforged.admin.page.retailers.regions.add_new.RegionsAddPage;
 import ru.instamart.reforged.admin.page.shipment.ShipmentsPage;
 import ru.instamart.reforged.admin.page.login.LoginPage;
 import ru.instamart.reforged.admin.page.pages.new_page.NewPage;
@@ -36,8 +40,20 @@ public final class AdminRout extends Router {
         return (Products) getPage(Products.class);
     }
 
-    public static Retailers retailers() {
-        return (Retailers) getPage(Retailers.class);
+    public static RetailersPage retailers() {
+        return (RetailersPage) getPage(RetailersPage.class);
+    }
+
+    public static RegionsPage regions() {
+        return (RegionsPage) getPage(RegionsPage.class);
+    }
+
+    public static ShopAddPage shopAdd() {
+        return (ShopAddPage) getPage(ShopAddPage.class);
+    }
+
+    public static RegionsAddPage regionsAdd() {
+        return (RegionsAddPage) getPage(RegionsAddPage.class);
     }
 
     public static Settings settings() {
