@@ -11,6 +11,7 @@ import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.lib.Addresses;
+import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.test.reforged.BaseTest;
 
@@ -185,7 +186,7 @@ public class UserShippingAddressTests extends BaseTest {
             }
     )
     public void successSetNewAddressAfterOutOfRetailerZoneAddressChange() {
-        shop().goToPage(ShopPage.ShopUrl.LENTA);
+        shop().goToPage(ShopUrl.LENTA);
         shop().interactHeader().clickToSelectAddressFirstTime();
         shop().interactHeader().interactAddress().fillAddress(Addresses.Kazan.defaultAddress());
         shop().interactHeader().interactAddress().selectFirstAddress();
@@ -287,7 +288,7 @@ public class UserShippingAddressTests extends BaseTest {
             }
     )
     public void successSelectNewStoreAfterShipAddressChange() {
-        shop().goToPage(ShopPage.ShopUrl.VKUSVILL);
+        shop().goToPage(ShopUrl.VKUSVILL);
         shop().interactHeader().clickToSelectAddress();
         shop().interactHeader().interactAddress().fillAddress(Addresses.Kazan.defaultAddress());
         shop().interactHeader().interactAddress().selectFirstAddress();
