@@ -10,7 +10,7 @@ public final class QaService {
     private final Api api;
 
     private QaService() {
-        this.api = new Api(new Setting(EnvironmentData.INSTANCE.getBasicUrl()));
+        this.api = new Api(new Setting(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth()));
     }
 
     /**
@@ -20,5 +20,10 @@ public final class QaService {
      */
     public QaSessionResponse createSession(final String password) {
         return api.getSessionService().getSession(password);
+    }
+
+    //TODO: Not implemented
+    public void deleteSession(final String sessionId) {
+        api.getSessionService().deleteSession(sessionId);
     }
 }
