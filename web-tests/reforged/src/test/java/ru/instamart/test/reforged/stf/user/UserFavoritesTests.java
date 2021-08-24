@@ -1,4 +1,4 @@
-package ru.instamart.test.reforged.stf;
+package ru.instamart.test.reforged.stf.user;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -9,9 +9,8 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.instamart.reforged.stf.page.StfPage;
-import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -151,7 +150,7 @@ public final class UserFavoritesTests extends BaseTest {
         home().interactAuthModal().fillDefaultSMS();
         shop().interactHeader().checkProfileButtonVisible();
 
-        userFavorites().addCookie(StfPage.cookieAlert);
+        userFavorites().addCookie(CookieFactory.COOKIE_ALERT);
         userFavorites().goToPage();
         userFavorites().checkNotEmptyFavorites();
 
