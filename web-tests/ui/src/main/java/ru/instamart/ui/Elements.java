@@ -279,13 +279,13 @@ public class Elements {
 
                 static ElementData citySelector() {
                     return new ElementData(
-                            By.xpath("//span[text()='Барнаул']"),
+                            By.id("city"),
                             "селектор с городами");
                 }
 
                 static ElementData countrySelector() {
                     return new ElementData(
-                            By.xpath("//span[text()='РФ']"),
+                            By.id("citizenship"),
                             "селектор с доступными гражданствами");
                 }
 
