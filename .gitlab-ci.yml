@@ -51,7 +51,7 @@ stages:
       - $CI_RUN_ALL_JOBS == 'true'
 
 CustomSuiteTestRun:
-  allow_failure: false
+  allow_failure: true
   when: manual
   stage: custom-run
   image: $CI_REGISTRY_IMAGE
@@ -145,10 +145,10 @@ tests:metroSmokeReforged:
     - echo $P_ENV
     - echo $URL_STF
     - echo $URL_SHP
-    - gradle clean build metroSmokeReforged -Penv=metro-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
+    - gradle clean build metroSmokeReforged -Penv=metro-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
-    - bash ./report.sh ui ui-metro-preprod
+    - bash ./report.sh reforged ui-metro-preprod
   tags:
     - k8s-stage
   artifacts:

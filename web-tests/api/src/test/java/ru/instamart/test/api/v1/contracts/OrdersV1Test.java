@@ -10,9 +10,9 @@ import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v1.LineItemsV1Request;
 import ru.instamart.api.request.v1.OrdersV1Request;
@@ -107,15 +107,15 @@ public class OrdersV1Test extends RestBase {
                 .getProductSku();
     }
 
+    @Issue("STF-8976")
     @Story("Заказы")
     @CaseId(119)
     @Test(  description = "Контрактный тест списка предзамен для товара из шипмента",
             groups = "api-instamart-regress",
-            dependsOnMethods = "getLineItems")
+            dependsOnMethods = "getLineItems",
+            enabled = false)
     public void getShipmentProductsPrereplacements() {
-        Response response = ShipmentsV1Request.Products.Prereplacements.GET(
-                shipmentNumber,
-                Long.parseLong(productSku));
+        Response response = ShipmentsV1Request.Products.Prereplacements.GET(shipmentNumber, Long.parseLong(productSku));
         checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Prereplacements.json"));
     }

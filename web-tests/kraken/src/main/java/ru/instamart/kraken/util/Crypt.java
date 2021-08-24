@@ -74,7 +74,7 @@ public enum Crypt {
     public final String decrypt(final String encryptedText) {
         try {
             final Base64.Decoder decoder = Base64.getDecoder();
-            final byte[] encryptedTextByte = decoder.decode(encryptedText);
+            final byte[] encryptedTextByte = decoder.decode(encryptedText.getBytes(StandardCharsets.UTF_8));
             cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(new byte[16]));
 
             return new String(cipher.doFinal(encryptedTextByte), StandardCharsets.UTF_8);

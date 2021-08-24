@@ -8,7 +8,6 @@ import ru.instamart.kraken.helper.LogAttachmentHelper;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.report.CustomReport;
-import ru.instamart.reforged.core.service.KrakenDriver;
 
 import java.lang.reflect.Method;
 
@@ -18,10 +17,6 @@ public class BaseTest {
     @BeforeMethod(alwaysRun = true)
     public void captureStart(final Method method) {
         LogAttachmentHelper.start();
-        if (method.isAnnotationPresent(DoNotOpenBrowser.class)) {
-            return;
-        }
-        log.info("Browser session id: {}", KrakenDriver.getSessionId());
     }
 
     @AfterMethod(alwaysRun = true, description = "Завершение теста")

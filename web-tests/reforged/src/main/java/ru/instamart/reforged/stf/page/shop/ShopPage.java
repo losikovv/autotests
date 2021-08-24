@@ -1,11 +1,10 @@
 package ru.instamart.reforged.stf.page.shop;
 
 import io.qameta.allure.Step;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.block.header.Header;
 import ru.instamart.reforged.stf.drawer.CategoryMenu;
@@ -116,15 +115,4 @@ public final class ShopPage implements StfPage, ShopCheck {
         return "";
     }
 
-    @RequiredArgsConstructor
-    @Getter
-    public enum ShopUrl {
-        DEFAULT(Config.DEFAULT_RETAILER),
-        METRO("metro"),
-        LENTA("lenta"),
-        AUCHAN("auchan"),
-        VKUSVILL("vkusvill");
-
-        private final String url;
-    }
 }

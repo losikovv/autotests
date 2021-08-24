@@ -20,10 +20,8 @@ import ru.instamart.kraken.setting.Config;
 
 import java.net.URI;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
-import static ru.instamart.kraken.setting.Config.BASIC_TIMEOUT;
 import static ru.instamart.kraken.setting.Config.FULL_SCREEN_MODE;
 
 @Slf4j

@@ -143,6 +143,7 @@ public final class SessionFactory {
     private static SessionInfo createApiV2FacebookSession(final UserData userData) {
         final Response response = AuthProvidersV2Request.Sessions.POST(AuthProviderV2.FACEBOOK, userData, UUID.randomUUID().toString());
         checkStatusCode200(response);
+        ThreadUtil.simplyAwait(1);
         final SessionsV2Response sessionResponse = response.as(SessionsV2Response.class);
         log.info("Авторизуемся: {}", userData.getLogin());
         log.info("access_token: {}", sessionResponse.getSession().getAccessToken());
