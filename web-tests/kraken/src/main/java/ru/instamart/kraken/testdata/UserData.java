@@ -17,9 +17,10 @@ public final class UserData {
     private String name;
     private String token;
     private String encryptedPhone;
+    private String anonymousId;
 
     public UserData( String role, String login, String phone, String password, String name) {
-        this(role, login, phone, password, name, null);
+        this(role, login, phone, password, name, null, "empty");
     }
 
     public UserData( String role, String login, String password, String name) {
@@ -34,8 +35,8 @@ public final class UserData {
         this(login, password, null);
     }
 
-    public UserData(String role, String login, String phone, String password, String name, String token) {
-        this(role, login, phone, password, name, token, token);
+    public UserData(String role, String login, String phone, String password, String name, String token, String anonymousId) {
+        this(role, login, phone, password, name, token, token, "empty");
         this.role = role;
         this.login = login;
         this.phone = phone;
@@ -43,6 +44,7 @@ public final class UserData {
         this.name = name;
         this.token = token;
         this.encryptedPhone = generateEncryptedPhone();
+        this.anonymousId = anonymousId;
     }
 
     public void setPhone(final String phone) {

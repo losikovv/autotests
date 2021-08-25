@@ -9,7 +9,7 @@ public final class QaService {
 
     private final Api api;
 
-    private QaService() {
+    public QaService() {
         this.api = new Api(new Setting(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth()));
     }
 

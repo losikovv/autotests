@@ -1,9 +1,15 @@
 package ru.instamart.kraken.testdata;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.instamart.ab.model.request.UserGroups;
+import ru.instamart.ab.model.response.AbTests;
+import ru.instamart.kraken.service.AbService;
+import ru.instamart.kraken.service.QaService;
 import ru.instamart.kraken.util.Crypt;
+import ru.instamart.qa.model.response.QaSessionResponse;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Objects.isNull;
@@ -13,6 +19,8 @@ public final class UserManager {
 
     private static final List<UserData> USER_DATA_LIST = new ArrayList<>();
 
+    private static final QaService qaService = new QaService();
+    private static final AbService abService = new AbService();
     private static final String PASSWD_1 = Crypt.INSTANCE.decrypt("pPOEBSnWKrokeN1dNasL0g==");
     private static final String PASSWD_2 = Crypt.INSTANCE.decrypt("y3Brgz0jBmYYkmXSkdw5Jw==");
     private static final String PASSWD_3 = Crypt.INSTANCE.decrypt("HfaITuMU+0KIfKR2+YYg5A==");
@@ -85,7 +93,8 @@ public final class UserManager {
                     "7777777777",
                     PASSWD_1,
                     "autotest superadmin",
-                    Crypt.INSTANCE.decrypt("etIbXhyM1zqCCpiTObFcm0Bb5vTw6rAFrB5Ir9/shcQ=")
+                    Crypt.INSTANCE.decrypt("etIbXhyM1zqCCpiTObFcm0Bb5vTw6rAFrB5Ir9/shcQ="),
+                    "empty"
             );
         }
         return defaultAdmin;
@@ -159,7 +168,8 @@ public final class UserManager {
                     "",
                     "autotest superuser",
                     "",
-                    "bjg8q2s53S057R4rWgL9PHDhF6UOdFIPGwzzhMH+BYE="
+                    "bjg8q2s53S057R4rWgL9PHDhF6UOdFIPGwzzhMH+BYE=",
+                    "empty"
             );
         }
         return defaultApiUser;
@@ -194,13 +204,15 @@ public final class UserManager {
                     PASSWD_1,
                     "",
                     "",
-                    "Ng2CtCt2yUSlgMT6fkb+zxxilAIU7sWH85GJBK/KG9U="
+                    "Ng2CtCt2yUSlgMT6fkb+zxxilAIU7sWH85GJBK/KG9U=",
+                    "empty"
             );
         }
         return defaultUserWithoutPermission;
     }
 
     public static UserData addressUser() {
+        if (isNull(addressUser)) {
             return addressUser = new UserData(
                     "",
                     "",
@@ -208,8 +220,11 @@ public final class UserManager {
                     "",
                     "",
                     "",
-                    "Nvbfu7BpbhdfhQ6+bk7Rjw5S/bYV5UGFoF5nYHV6p/g="
+                    "Nvbfu7BpbhdfhQ6+bk7Rjw5S/bYV5UGFoF5nYHV6p/g=",
+                    "empty"
             );
+        }
+        return addressUser;
     }
 
     public static List<UserData> getUserDataList() {
@@ -246,5 +261,82 @@ public final class UserManager {
         log.info("Фамилия: {}", testUser.getLastName());
 
         return testUser;
+    }
+
+    /**
+     * При создании пользователь добавляется в список со всеми созданными пользователями,
+     * для того что бы по завершению прогона можно было получить всех пользователей участвовавших в прогоне и удалить их
+     * @return - {@link UserData}
+     */
+    private static UserData generateNewUser() {
+        final UserData userData = createUser(TestVariables.CompanyParams.companyName);
+        USER_DATA_LIST.add(userData);
+
+        return userData;
+    }
+
+    /**
+     * При создании пользователь добавляется в список со всеми созданными пользователями,
+     * для того что бы по завершению прогона можно было получить всех пользователей участвовавших в прогоне и удалить их
+     * @return - {@link UserData}
+     */
+    private static UserData generateNewUserWithoutAb(final String abTestId, final String abTestGroupId) {
+        final UserData userData = createUserWithoutAb(TestVariables.CompanyParams.companyName, abTestId, abTestGroupId);
+        USER_DATA_LIST.add(userData);
+
+        return userData;
+    }
+
+    /**
+     * Создание пользователя с использованием тестовой ручки
+     * @param password - обязательный параметр для создания через ручку
+     * @return - возвращает собранную {@link UserData} из параметров ответа
+     */
+    public static UserData createUser(final String password) {
+        final String role = UserRoles.USER.getRole();
+        final String userName = Generate.testUserName(role);
+        final QaSessionResponse sessionResponse = qaService.createSession(password);
+
+        log.info("Сгенерированы тестовые реквизиты для роли {}", role);
+        log.info("Телефон: {}", sessionResponse.getUser().getPhone());
+        log.info("Email: {}", sessionResponse.getUser().getEmail());
+        log.info("Anonymous id: {}", sessionResponse.getAnonymous().getValue());
+        log.info("Пароль: {}", password);
+        log.info("Сессия: {}", sessionResponse.getSession().getAccessToken());
+        log.info("ФИО: {}", userName);
+
+        return new UserData(
+                role,
+                sessionResponse.getUser().getEmail(),
+                sessionResponse.getUser().getPhone(),
+                password,
+                userName,
+                null,
+                sessionResponse.getAnonymous().getValue()
+        );
+    }
+
+    /**
+     * Создание пользователя с использованием {@link UserManager#createUser(String)}
+     * @param password - обязательный параметр для создания через ручку
+     * @param abTestId - UUID теста, который нужно будет переключить для созданного пользователя
+     * @param abTestGroupId - UUID группы на которую нужно будет переключить созданного пользователя
+     * @return - возвращает собранную {@link UserData} из параметров ответа
+     */
+    public static UserData createUserWithoutAb(final String password, final String abTestId, final String abTestGroupId) {
+        final UserData newUser = createUser(password);
+
+        final UserGroups userGroups = new UserGroups();
+        userGroups.setAbTestId(abTestId);
+        userGroups.setAbGroupId(abTestGroupId);
+        userGroups.setIdentityId(newUser.getAnonymousId());
+        abService.changeUserGroup(userGroups);
+
+        log.info("================================");
+        log.info("Измененный Ab Test {}", abTestId);
+        log.info("Группа для Ab теста {}", abTestGroupId);
+        log.info("================================");
+
+        return newUser;
     }
 }
