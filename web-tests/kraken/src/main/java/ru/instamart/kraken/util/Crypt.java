@@ -35,7 +35,7 @@ public enum Crypt {
 
     public void init() {
         try {
-            String key = System.getProperty("key", "LNnLjMGmXrao25HKlp46QGdyNhUs3hJA");
+            String key = System.getProperty("key", null);
             if (isNull(key)) {
                 //For local run
                 final Optional<File> keyFile = Arrays.stream(FileUtils.foundFile("../data/config/", "key_")).findFirst();

@@ -50,10 +50,4 @@ public final class AbService {
     public AbTests getAllTests() {
         return this.abApi.getAbTestsService().getAllAbTests();
     }
-
-    public static void main(String[] args) {
-        Crypt.INSTANCE.init();
-        AbService abService = new AbService();
-        abService.getAllTests().getTests().forEach(System.out::println);
-    }
 }
