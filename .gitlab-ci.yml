@@ -53,10 +53,6 @@ stages:
 CustomSuiteTestRun:
   allow_failure: true
   when: manual
-  only:
-    variables:
-      - $TEST_CUSTOM_SUITE_TEST_RUN == 'true' && $CI_RUN_ALL_JOBS == 'false'
-      - $CI_RUN_ALL_JOBS == 'true'
   stage: custom-run
   image: $CI_REGISTRY_IMAGE
   script:
