@@ -1,9 +1,15 @@
 package ru.instamart.kraken.testdata;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.instamart.ab.model.request.UserGroups;
+import ru.instamart.ab.model.response.AbTests;
+import ru.instamart.kraken.service.AbService;
+import ru.instamart.kraken.service.QaService;
 import ru.instamart.kraken.util.Crypt;
+import ru.instamart.qa.model.response.QaSessionResponse;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Objects.isNull;
@@ -13,6 +19,8 @@ public final class UserManager {
 
     private static final List<UserData> USER_DATA_LIST = new ArrayList<>();
 
+    private static final QaService qaService = new QaService();
+    private static final AbService abService = new AbService();
     private static final String PASSWD_1 = Crypt.INSTANCE.decrypt("pPOEBSnWKrokeN1dNasL0g==");
     private static final String PASSWD_2 = Crypt.INSTANCE.decrypt("y3Brgz0jBmYYkmXSkdw5Jw==");
     private static final String PASSWD_3 = Crypt.INSTANCE.decrypt("HfaITuMU+0KIfKR2+YYg5A==");
@@ -66,150 +74,141 @@ public final class UserManager {
 
     public static UserData getDefaultUser() {
         if (isNull(defaultUser)) {
-            defaultUser = new UserData(
-                    "superuser",
-                    Crypt.INSTANCE.decrypt("aDPCwj7Br+dx8nAMvfc+/zywS4BuPQ25pLnnhiT3WnQ="),
-                    "1488148814",
-                    PASSWD_1,
-                    "autotest superuser"
-            );
+            defaultUser = UserData.builder()
+                    .role("superuser")
+                    .email(Crypt.INSTANCE.decrypt("aDPCwj7Br+dx8nAMvfc+/zywS4BuPQ25pLnnhiT3WnQ="))
+                    .phone("1488148814")
+                    .password(PASSWD_1)
+                    .name("autotest superuser")
+                    .build();
         }
         return defaultUser;
     }
 
     public static UserData getDefaultAdmin() {
         if (isNull(defaultAdmin)) {
-            return defaultAdmin = new UserData(
-                    "superadmin",
-                    Crypt.INSTANCE.decrypt("Gh1MsACysUuEYv98vkOuOOx/HVxUh5J54NKCNSJCPFQ="),
-                    "7777777777",
-                    PASSWD_1,
-                    "autotest superadmin",
-                    Crypt.INSTANCE.decrypt("etIbXhyM1zqCCpiTObFcm0Bb5vTw6rAFrB5Ir9/shcQ=")
-            );
+            defaultAdmin = UserData.builder()
+                    .role("superadmin")
+                    .email(Crypt.INSTANCE.decrypt("Gh1MsACysUuEYv98vkOuOOx/HVxUh5J54NKCNSJCPFQ="))
+                    .phone("7777777777")
+                    .password(PASSWD_1)
+                    .name("autotest superadmin")
+                    .token(Crypt.INSTANCE.decrypt("etIbXhyM1zqCCpiTObFcm0Bb5vTw6rAFrB5Ir9/shcQ="))
+                    .build();
         }
         return defaultAdmin;
     }
 
     public static UserData getDefaultShopper() {
         if (isNull(defaultShopper)) {
-            return defaultShopper = new UserData(
-                    Crypt.INSTANCE.decrypt("/IsVBUY1et+En340g78Rvg=="),
-                    PASSWD_2);
+            defaultShopper = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("/IsVBUY1et+En340g78Rvg=="))
+                    .password(PASSWD_2)
+                    .build();
         }
         return defaultShopper;
     }
 
     public static UserData getDefaultGmailUser() {
         if (isNull(defaultGmailUser)) {
-            return defaultGmailUser = new UserData(
-                    Crypt.INSTANCE.decrypt("mh5OayUtpk/8stH+dR7HBnyeKJB94fsqjaZfeO77LqI="),
-                    PASSWD_2
-            );
+            defaultGmailUser = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("mh5OayUtpk/8stH+dR7HBnyeKJB94fsqjaZfeO77LqI="))
+                    .password(PASSWD_2)
+                    .build();
         }
         return defaultGmailUser;
     }
 
     public static UserData getDefaultVkUser() {
         if (isNull(defaultVkUser)) {
-            return defaultVkUser = new UserData(
-                    Crypt.INSTANCE.decrypt("6zWHFoRF1JgL9dmADTKTpQm7X0OkZzcK7JlvmU7dlLo="),
-                    PASSWD_1
-            );
+            defaultVkUser = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("6zWHFoRF1JgL9dmADTKTpQm7X0OkZzcK7JlvmU7dlLo="))
+                    .password(PASSWD_1)
+                    .build();
         }
         return defaultVkUser;
     }
 
     public static UserData getDefaultFbUser() {
         if (isNull(defaultFbUser)) {
-            return defaultFbUser = new UserData(
-                    Crypt.INSTANCE.decrypt("6zWHFoRF1JgL9dmADTKTpQm7X0OkZzcK7JlvmU7dlLo="),
-                    PASSWD_1
-            );
+            defaultFbUser = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("6zWHFoRF1JgL9dmADTKTpQm7X0OkZzcK7JlvmU7dlLo="))
+                    .password(PASSWD_1)
+                    .build();
         }
         return defaultFbUser;
     }
 
     public static UserData getDefaultMailRuUser() {
         if (isNull(defaultMailRuUser)) {
-            return defaultMailRuUser = new UserData(
-                    Crypt.INSTANCE.decrypt("6F+U8tpf0M8xSLKvz+UawQ=="),
-                    PASSWD_1
-            );
+            defaultMailRuUser = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("6F+U8tpf0M8xSLKvz+UawQ=="))
+                    .password(PASSWD_1)
+                    .build();
         }
         return defaultMailRuUser;
     }
 
     public static UserData getDefaultSberIdUser() {
         if (isNull(defaultSberIdUser)) {
-            return defaultSberIdUser = new UserData(
-                    Crypt.INSTANCE.decrypt("6ln1zIxi8BWCxz3YNZwc8w=="),
-                    PASSWD_3
-            );
+            defaultSberIdUser = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("6ln1zIxi8BWCxz3YNZwc8w=="))
+                    .password(PASSWD_2)
+                    .build();
         }
         return defaultSberIdUser;
     }
 
     public static UserData getDefaultApiUser() {
         if (isNull(defaultApiUser)) {
-            defaultApiUser = new UserData(
-                    "superuser",
-                    "cmiqnmwt1lbmrtv0vdln@temp.temp",
-                    "79999999966",
-                    "",
-                    "autotest superuser",
-                    "",
-                    "bjg8q2s53S057R4rWgL9PHDhF6UOdFIPGwzzhMH+BYE="
-            );
+            defaultApiUser = UserData.builder()
+                    .role("superuser")
+                    .email("cmiqnmwt1lbmrtv0vdln@temp.temp")
+                    .phone("79999999966")
+                    .name("autotest superuser")
+                    .build();
         }
         return defaultApiUser;
     }
 
     public static UserData getDeliveryClubUser() {
         if (isNull(defaultDcUser)) {
-            return defaultDcUser = new UserData(
-                    "dc",
-                    "dcsmstage"
-            );
+            defaultDcUser = UserData.builder()
+                    .email("dc")
+                    .password("dcsmstage")
+                    .build();
         }
         return defaultDcUser;
     }
 
     public static UserData userWithoutAdminPermission() {
         if (isNull(defaultUserWithoutPermission)) {
-            return defaultUserWithoutPermission = new UserData(
-                    Crypt.INSTANCE.decrypt("ECME0oVDIK76qsrZeUtsFPmH3StNoTg4V5ow1j3ejSI="),
-                    PASSWD_1
-            );
+            defaultUserWithoutPermission = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("ECME0oVDIK76qsrZeUtsFPmH3StNoTg4V5ow1j3ejSI="))
+                    .password(PASSWD_1)
+                    .build();
         }
         return defaultUserWithoutPermission;
     }
 
     public static UserData forB2BUser() {
         if (isNull(forB2BUser)) {
-            return forB2BUser = new UserData(
-                    "",
-                    Crypt.INSTANCE.decrypt("4iwwd7hWsW7NN4TyGWohVfIbI/Qx5ujSol6s9rPHw0g="),
-                    "79229995566",
-                    PASSWD_1,
-                    "",
-                    "",
-                    "Ng2CtCt2yUSlgMT6fkb+zxxilAIU7sWH85GJBK/KG9U="
-            );
+            forB2BUser = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("4iwwd7hWsW7NN4TyGWohVfIbI/Qx5ujSol6s9rPHw0g="))
+                    .phone("79229995566")
+                    .password(PASSWD_1)
+                    .build();
         }
         return defaultUserWithoutPermission;
     }
 
     public static UserData addressUser() {
-            return addressUser = new UserData(
-                    "",
-                    "",
-                    "79990009911",
-                    "",
-                    "",
-                    "",
-                    "Nvbfu7BpbhdfhQ6+bk7Rjw5S/bYV5UGFoF5nYHV6p/g="
-            );
+        if (isNull(addressUser)) {
+            addressUser = UserData.builder()
+                    .phone("79990009911")
+                    .build();
+        }
+        return addressUser;
     }
 
     public static List<UserData> getUserDataList() {
@@ -225,26 +224,104 @@ public final class UserManager {
 
     public static UserData testCredentials(final String role, final int prefixLength) {
         final String testUserId = Generate.userId();
-        final UserData testUser = new UserData(
-                role,
-                Generate.email(),
-                Generate.testUserPhone(testUserId),
-                TestVariables.CompanyParams.companyName,
-                Generate.testUserName(role)
-        );
+        final UserData testUser = UserData.builder()
+                .role(role)
+                .email(Generate.email())
+                .phone(Generate.testUserPhone(testUserId))
+                .password(TestVariables.CompanyParams.companyName)
+                .name(Generate.testUserName(role))
+                .build();
+
         if (prefixLength > 0) {
             final String prefix = Generate.literalString(prefixLength);
-            testUser.setLogin(prefix + "-" + testUser.getLogin());
+            testUser.setEmail(prefix + "-" + testUser.getEmail());
             testUser.setPassword(prefix + "-" + testUser.getPassword());
             testUser.setName(prefix + "-" + testUser.getName());
         }
+
         log.info("Сгенерированы тестовые реквизиты для роли {}", role);
         log.info("Телефон: {}", testUser.getPhone());
-        log.info("Email: {}", testUser.getLogin());
+        log.info("Email: {}", testUser.getEmail());
         log.info("Пароль: {}", testUser.getPassword());
         log.info("Имя: {}", testUser.getFirstName());
         log.info("Фамилия: {}", testUser.getLastName());
 
         return testUser;
+    }
+
+    /**
+     * При создании пользователь добавляется в список со всеми созданными пользователями,
+     * для того что бы по завершению прогона можно было получить всех пользователей участвовавших в прогоне и удалить их
+     * @return - {@link UserData}
+     */
+    private static UserData generateNewUser() {
+        final UserData userData = createUser(TestVariables.CompanyParams.companyName);
+        USER_DATA_LIST.add(userData);
+
+        return userData;
+    }
+
+    /**
+     * При создании пользователь добавляется в список со всеми созданными пользователями,
+     * для того что бы по завершению прогона можно было получить всех пользователей участвовавших в прогоне и удалить их
+     * @return - {@link UserData}
+     */
+    private static UserData generateNewUserWithoutAb(final String abTestId, final String abTestGroupId) {
+        final UserData userData = createUserWithoutAb(TestVariables.CompanyParams.companyName, abTestId, abTestGroupId);
+        USER_DATA_LIST.add(userData);
+
+        return userData;
+    }
+
+    /**
+     * Создание пользователя с использованием тестовой ручки
+     * @param password - обязательный параметр для создания через ручку
+     * @return - возвращает собранную {@link UserData} из параметров ответа
+     */
+    public static UserData createUser(final String password) {
+        final String role = UserRoles.USER.getRole();
+        final String userName = Generate.testUserName(role);
+        final QaSessionResponse sessionResponse = qaService.createSession(password);
+
+        log.info("Сгенерированы тестовые реквизиты для роли {}", role);
+        log.info("Телефон: {}", sessionResponse.getUser().getPhone());
+        log.info("Email: {}", sessionResponse.getUser().getEmail());
+        log.info("Anonymous id: {}", sessionResponse.getAnonymous().getValue());
+        log.info("Пароль: {}", password);
+        log.info("Сессия: {}", sessionResponse.getSession().getAccessToken());
+        log.info("ФИО: {}", userName);
+
+        return UserData.builder()
+                .role(role)
+                .email(sessionResponse.getUser().getEmail())
+                .phone(sessionResponse.getUser().getPhone())
+                .password(password)
+                .name(userName)
+                .anonymousId(sessionResponse.getAnonymous().getValue())
+                .build();
+    }
+
+    /**
+     * Создание пользователя с использованием {@link UserManager#createUser(String)}
+     * @param password - обязательный параметр для создания через ручку
+     * @param abTestId - UUID теста, который нужно будет переключить для созданного пользователя
+     * @param abTestGroupId - UUID группы на которую нужно будет переключить созданного пользователя
+     * @return - возвращает собранную {@link UserData} из параметров ответа
+     */
+    public static UserData createUserWithoutAb(final String password, final String abTestId, final String abTestGroupId) {
+        final UserData newUser = createUser(password);
+
+        final UserGroups userGroups = new UserGroups();
+        userGroups.setAbTestId(abTestId);
+        userGroups.setAbGroupId(abTestGroupId);
+        userGroups.setIdentityId(newUser.getAnonymousId());
+        abService.changeUserGroup(userGroups);
+
+        log.info("================================");
+        log.info("Измененный Ab Test {}", abTestId);
+        log.info("Группа для Ab теста {}", abTestGroupId);
+        log.info("================================");
+
+        return newUser;
     }
 }

@@ -110,7 +110,7 @@ public final class Administration extends Base {
 
         /** Поиск пользователей */
         public static void searchUser(UserData userData) {
-            searchUser(userData.getLogin());
+            searchUser(userData.getEmail());
         }
 
         @Step("Поиск пользователя по почте: {0}")
@@ -137,7 +137,7 @@ public final class Administration extends Base {
 
         /** Перейти в редактирование пользователя из указанного объекта userData */
         public static void editUser(UserData userData) {
-            editUser(userData.getLogin());
+            editUser(userData.getEmail());
         }
 
 //        /** Перейти в редактирование пользователя по номеру телефона */
@@ -200,7 +200,7 @@ public final class Administration extends Base {
         /** Предоставить админские права пользователю из указанного объекта userData */
         @Step("Предоставляем админские права пользователю из указанного объекта userData")
         public static void grantAdminPrivileges(UserData userData) {
-            editUser(userData.getLogin());
+            editUser(userData.getEmail());
             grantAdminPrivileges();
         }
 
@@ -222,7 +222,7 @@ public final class Administration extends Base {
         /** Отозвать админские права пользователю из указанного объекта userData */
         @Step("Отзываем админские права пользователю из указанного объекта userData")
         public static void revokeAdminPrivileges(UserData userData) {
-            editUser(userData.getLogin());
+            editUser(userData.getEmail());
             revokeAdminPrivileges();
         }
 

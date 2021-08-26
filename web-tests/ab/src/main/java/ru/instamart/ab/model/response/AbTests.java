@@ -14,7 +14,7 @@ public final class AbTests {
     private int abTestsCount;
 
     @Data
-    private static final class Test {
+    public static final class Test {
         public String id;
         public String name;
         public String linkToTask;
@@ -35,7 +35,7 @@ public final class AbTests {
     }
 
     @Data
-    private static final class Group {
+    public static final class Group {
         public String id;
         public String name;
         public String description;

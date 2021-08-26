@@ -142,7 +142,7 @@ public class UserPasswordRecoveryTests extends TestBase {
         User.PasswordRecovery.complete(UserManager.getDefaultGmailUser(),"newPassword");
         User.Logout.quickly();
 
-        User.Auth.withEmail(UserManager.getDefaultGmailUser().getLogin(), "newPassword","superuser");
+        User.Auth.withEmail(UserManager.getDefaultGmailUser().getEmail(), "newPassword","superuser");
 
         Assert.assertTrue(
                 kraken.detect().isUserAuthorised(),
@@ -162,7 +162,7 @@ public class UserPasswordRecoveryTests extends TestBase {
         User.PasswordRecovery.complete(UserManager.getDefaultGmailUser(),"password");
         User.Logout.quickly();
 
-        User.Auth.withEmail(UserManager.getDefaultGmailUser().getLogin(), "newPassword","superuser");
+        User.Auth.withEmail(UserManager.getDefaultGmailUser().getEmail(), "newPassword","superuser");
 
         Assert.assertFalse(
                 kraken.detect().isUserAuthorised(),

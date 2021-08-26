@@ -33,7 +33,7 @@ public final class RegistrationV2Test extends RestBase {
         final UserData userData = UserManager.getUser();
 
         final Response response = UsersV2Request.POST(
-                userData.getLogin(),
+                userData.getEmail(),
                 userData.getFirstName(),
                 userData.getLastName(),
                 userData.getPassword(),
@@ -46,7 +46,7 @@ public final class RegistrationV2Test extends RestBase {
 
         checkStatusCode200(response);
         final UserV2 userResponse = response.as(UserV2Response.class).getUser();
-        assertEquals(userResponse.getEmail(), userData.getLogin(), "Некорректный логин");
+        assertEquals(userResponse.getEmail(), userData.getEmail(), "Некорректный логин");
     }
 
     @CaseId(139)
@@ -55,7 +55,7 @@ public final class RegistrationV2Test extends RestBase {
         final UserData userData = UserManager.getUser();
 
         final Response response = UsersV2Request.POST(
-                userData.getLogin(),
+                userData.getEmail(),
                 userData.getFirstName(),
                 userData.getLastName(),
                 userData.getPassword(),
@@ -68,7 +68,7 @@ public final class RegistrationV2Test extends RestBase {
 
         checkStatusCode200(response);
         final UserV2 userResponse = response.as(UserV2Response.class).getUser();
-        assertEquals(userResponse.getEmail(), userData.getLogin(), "Некорректный логин");
+        assertEquals(userResponse.getEmail(), userData.getEmail(), "Некорректный логин");
     }
 
     @CaseId(140)
@@ -77,7 +77,7 @@ public final class RegistrationV2Test extends RestBase {
         final UserData userData = UserManager.getUser();
 
         final Response response = UsersV2Request.POST(
-                userData.getLogin(),
+                userData.getEmail(),
                 userData.getFirstName(),
                 userData.getLastName(),
                 userData.getPassword(),
@@ -90,7 +90,7 @@ public final class RegistrationV2Test extends RestBase {
 
         checkStatusCode200(response);
         final UserV2 userResponse = response.as(UserV2Response.class).getUser();
-        assertEquals(userResponse.getEmail(), userData.getLogin(), "Некорректный логин");
+        assertEquals(userResponse.getEmail(), userData.getEmail(), "Некорректный логин");
     }
 
     @CaseId(141)
@@ -99,7 +99,7 @@ public final class RegistrationV2Test extends RestBase {
         final UserData userData = UserManager.getUser();
 
         final Response response = UsersV2Request.POST(
-                userData.getLogin(),
+                userData.getEmail(),
                 userData.getFirstName(),
                 userData.getLastName(),
                 userData.getPassword(),
@@ -112,7 +112,7 @@ public final class RegistrationV2Test extends RestBase {
 
         checkStatusCode200(response);
         final UserV2 userResponse = response.as(UserV2Response.class).getUser();
-        assertEquals(userResponse.getEmail(), userData.getLogin(), "Некорректный логин");
+        assertEquals(userResponse.getEmail(), userData.getEmail(), "Некорректный логин");
     }
 
     @CaseId(142)
@@ -208,7 +208,7 @@ public final class RegistrationV2Test extends RestBase {
         final UserData userData = UserManager.getUser();
 
         final Response response = UsersV2Request.POST(
-                userData.getLogin(),
+                userData.getEmail(),
                 userData.getFirstName(),
                 userData.getLastName(),
                 userData.getPassword(),
@@ -221,7 +221,7 @@ public final class RegistrationV2Test extends RestBase {
 
         checkStatusCode200(response);
         final UserV2 userResponse = response.as(UserV2Response.class).getUser();
-        assertEquals(userResponse.getEmail(), userData.getLogin(), "Некорректный логин");
+        assertEquals(userResponse.getEmail(), userData.getEmail(), "Некорректный логин");
     }
 
     @CaseId(149)
@@ -230,7 +230,7 @@ public final class RegistrationV2Test extends RestBase {
         final UserData userData = UserManager.getUser();
 
         final Response response = UsersV2Request.POST(
-                userData.getLogin(),
+                userData.getEmail(),
                 userData.getFirstName(),
                 userData.getLastName(),
                 userData.getPassword(),
@@ -243,6 +243,6 @@ public final class RegistrationV2Test extends RestBase {
 
         checkStatusCode200(response);
         final UserV2 userResponse = response.as(UserV2Response.class).getUser();
-        assertEquals(userResponse.getEmail(), userData.getLogin(), "Некорректный логин");
+        assertEquals(userResponse.getEmail(), userData.getEmail(), "Некорректный логин");
     }
 }

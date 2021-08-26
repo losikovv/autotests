@@ -28,7 +28,7 @@ public final class User extends Base {
                 kraken.get().userProfilePage();
                 String currentUserEmail = kraken.grab().text(Elements.UserProfile.AccountPage.email());
                 log.info("> юзер: {}", currentUserEmail);
-                if (currentUserEmail == null || !currentUserEmail.equals(user.getLogin())) {
+                if (currentUserEmail == null || !currentUserEmail.equals(user.getEmail())) {
                     User.Logout.quickly();
                 }
                 kraken.get().url(startURL);
@@ -36,7 +36,7 @@ public final class User extends Base {
             Auth.withEmail(user);
             if (/*Config.MULTI_SESSION_MODE */false && kraken.detect().isElementPresent(
                     Elements.Modals.AuthModal.errorMessage("Неверный email или пароль"))) {
-                log.warn(">>> Юзер {}  не найден, регистрируем", user.getLogin());
+                log.warn(">>> Юзер {}  не найден, регистрируем", user.getEmail());
                 // костыль для stage-окружений
                 if (kraken.detect().server("staging")) {
                     kraken.get().baseUrl();
@@ -108,7 +108,7 @@ public final class User extends Base {
          */
         @Step("Регистрируем нового юзера с реквизитами из переданного объекта UserData: {0}")
         public static void registration(UserData userData) {
-            registration(userData.getName(), userData.getLogin(), userData.getPassword(),
+            registration(userData.getName(), userData.getEmail(), userData.getPassword(),
                     userData.getPassword());
         }
 
@@ -177,7 +177,7 @@ public final class User extends Base {
          * Регистрационная последовательность с реквизитами из переданного объекта UserData
          */
         public static void regSequence(UserData userData) {
-            regSequence(userData.getName(), userData.getLogin(), userData.getPassword(), userData.getPassword());
+            regSequence(userData.getName(), userData.getEmail(), userData.getPassword(), userData.getPassword());
         }
 
         /**
@@ -190,7 +190,7 @@ public final class User extends Base {
         public static class Gmail{
 
             public static void auth() {
-                auth(UserManager.getDefaultGmailUser().getLogin(), UserManager.getDefaultGmailUser().getPassword());
+                auth(UserManager.getDefaultGmailUser().getEmail(), UserManager.getDefaultGmailUser().getPassword());
             }
 
             @Step("Авторизуемся через Gmail")
@@ -247,7 +247,7 @@ public final class User extends Base {
         }
 
         public static void withEmail(UserData user) {
-            withEmail(user.getLogin(), user.getPassword(),user.getRole());
+            withEmail(user.getEmail(), user.getPassword(),user.getRole());
         }
 
         @Step("Авторизация через email")
@@ -259,7 +259,7 @@ public final class User extends Base {
         @Step("Переходим на base url для авторизации через Vkontakte")
         public static void withVkontakte(UserData user) {
             kraken.perform().switchToNextWindow();
-            kraken.perform().fillField(Elements.Social.Vkontakte.loginField(),user.getLogin());
+            kraken.perform().fillField(Elements.Social.Vkontakte.loginField(),user.getEmail());
             kraken.perform().fillField(Elements.Social.Vkontakte.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.Vkontakte.submitButton());
             kraken.perform().switchToMainWindow();
@@ -268,7 +268,7 @@ public final class User extends Base {
         @Step("Переходим на base url для авторизации через Facebook")
         public static void withFacebook(UserData user) {
             kraken.perform().switchToNextWindow();
-            kraken.perform().fillField(Elements.Social.Facebook.loginField(),user.getLogin());
+            kraken.perform().fillField(Elements.Social.Facebook.loginField(),user.getEmail());
             kraken.perform().fillField(Elements.Social.Facebook.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.Facebook.submitButton());
             kraken.perform().switchToMainWindow();
@@ -277,7 +277,7 @@ public final class User extends Base {
         @Step("Переходим на base url для авторизации через Mail.ru")
         public static void withMailRu(UserData user) {
             kraken.perform().switchToNextWindow();
-            kraken.perform().fillField(Elements.Social.MailRu.loginField(),user.getLogin());
+            kraken.perform().fillField(Elements.Social.MailRu.loginField(),user.getEmail());
             kraken.perform().click(Elements.Social.MailRu.nextButton());
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
                     Elements.Social.MailRu.passwordFieldUp().getLocator()),"поле ввода пароля не появилось",Config.BASIC_TIMEOUT);
@@ -290,7 +290,7 @@ public final class User extends Base {
         @Step("Переходим на base url для авторизации через Sber ID")
         public static void withSberID(final UserData user) {
             kraken.perform().click(Elements.Social.Sber.switchLoginType());
-            kraken.perform().fillField(Elements.Social.Sber.loginField(), user.getLogin());
+            kraken.perform().fillField(Elements.Social.Sber.loginField(), user.getEmail());
             kraken.perform().click(Elements.Social.Sber.submitButton());
             kraken.perform().fillField(Elements.Social.Sber.passwordField(), user.getPassword());
             kraken.perform().click(Elements.Social.Sber.submitButton());
@@ -337,7 +337,7 @@ public final class User extends Base {
     public static class PasswordRecovery {
 
         public static void request(UserData user) {
-            request(user.getLogin());
+            request(user.getEmail());
         }
 
         @Step("Запрашиваем восстановление пароля для: {0}")
@@ -355,7 +355,7 @@ public final class User extends Base {
             User.Do.Gmail.auth();
             User.Do.Gmail.openLastMail();
             User.Do.Gmail.proceedToRecovery();
-            log.info("> восстановливаем пароль '{}' для {}", recoveredPassword, user.getLogin());
+            log.info("> восстановливаем пароль '{}' для {}", recoveredPassword, user.getEmail());
             Shop.RecoveryModal.fillRecoveryForm(recoveredPassword, recoveredPassword);
             Shop.RecoveryModal.submitRecovery();
         }

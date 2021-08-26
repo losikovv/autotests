@@ -1049,7 +1049,7 @@ public final class InstamartApiHelper {
     /**
      * Наполнить корзину и выбрать адрес у юзера в определенном магазине
      */
-    @Step("Наполнение корзины для пользователя {user.login} в магазине с sid={sid}")
+    @Step("Наполнение корзины для пользователя {user.email} в магазине с sid={sid}")
     public List<LineItemV2> fillCart(UserData user, int sid) {
         dropCart(user, getAddressBySid(sid));
         fillCartOnSid(sid);
@@ -1061,7 +1061,7 @@ public final class InstamartApiHelper {
     /**
      * Наполнить корзину и выбрать адрес у юзера в определенном магазине по определенным координатам
      */
-    @Step("Наполнение корзины для пользователя {user.login} в магазине с sid={sid} по определенным координатам {coordinates.lat}/{coordinates.lon} ")
+    @Step("Наполнение корзины для пользователя {user.email} в магазине с sid={sid} по определенным координатам {coordinates.lat}/{coordinates.lon} ")
     public void fillCart(UserData user, int sid, ZoneV2 coordinates) {
         AddressV2 address = getAddressBySid(sid);
         address.setCoordinates(coordinates);
@@ -1074,7 +1074,7 @@ public final class InstamartApiHelper {
     /**
      * Очистить корзину и выбрать адрес у юзера
      */
-    @Step("Очистить корзину ползователя {user.login}")
+    @Step("Очистить корзину ползователя {user.email}")
     public void dropCart(UserData user, AddressV2 address) {
         SessionFactory.createSessionToken(SessionType.API_V2_FB, user);
         getCurrentOrderNumber();
@@ -1106,7 +1106,7 @@ public final class InstamartApiHelper {
     /**
      * Оформить тестовый заказ у юзера по определенному адресу
      */
-    @Step("Оформляем заказ у юзера {user.login} по адресу {address.fullAddress} для ритейлера {retailer}")
+    @Step("Оформляем заказ у юзера {user.email} по адресу {address.fullAddress} для ритейлера {retailer}")
     public OrderV2 order(UserData user, AddressV2 address, String retailer) {
         fillCart(user, address, retailer);
         return setDefaultAttributesAndCompleteOrder();
@@ -1115,7 +1115,7 @@ public final class InstamartApiHelper {
     /**
      * Оформить тестовый заказ у юзера в определенном магазине
      */
-    @Step("Оформляем заказ у юзера {user.login} в магазине с sid = {sid}")
+    @Step("Оформляем заказ у юзера {user.email} в магазине с sid = {sid}")
     public OrderV2 order(UserData user, int sid) {
         fillCart(user, sid);
         return setDefaultAttributesAndCompleteOrder();
@@ -1124,7 +1124,7 @@ public final class InstamartApiHelper {
     /**
      * Оформить тестовый заказ у юзера в определенном магазине
      */
-    @Step("Оформляем заказ у юзера {user.login} в магазине с sid = {sid} c количеством товаров в корзине = {itemsNumber}")
+    @Step("Оформляем заказ у юзера {user.email} в магазине с sid = {sid} c количеством товаров в корзине = {itemsNumber}")
     public OrderV2 order(UserData user, int sid, int itemsNumber) {
         dropCart(user, getAddressBySid(sid));
         fillCartOnSid(sid, itemsNumber);
@@ -1134,7 +1134,7 @@ public final class InstamartApiHelper {
     /**
      * Оформить тестовый заказ у юзера в определенном магазине по определенным координатам
      */
-    @Step("Оформляем заказ у юзера {user.login} в магазине с sid = {sid} c координатами lat/lon = {coordinates.lat}/{coordinates.lon}")
+    @Step("Оформляем заказ у юзера {user.email} в магазине с sid = {sid} c координатами lat/lon = {coordinates.lat}/{coordinates.lon}")
     public OrderV2 order(UserData user, int sid, ZoneV2 coordinates) {
         fillCart(user, sid, coordinates);
         return setDefaultAttributesAndCompleteOrder();

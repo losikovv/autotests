@@ -35,12 +35,12 @@ public class PhonesSeparateSessionV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Получить список всех телефонов пользователя. У пользователя нет телефонов")
     public void phoneNotFound() {
-        final UserData testUser = new UserData(
-                UserRoles.USER.getRole(),
-                Generate.email(),
-                TestVariables.CompanyParams.companyName,
-                Generate.testUserName(UserRoles.USER.getRole())
-        );
+        final UserData testUser = UserData.builder()
+                .role(UserRoles.USER.getRole())
+                .email(Generate.email())
+                .password(TestVariables.CompanyParams.companyName)
+                .name(Generate.testUserName(UserRoles.USER.getRole()))
+                .build();
         RegistrationHelper.registration(testUser);
         SessionFactory.createSessionToken(SessionType.API_V2_FB, testUser);
         response = PhonesV2Request.GET();
@@ -58,12 +58,12 @@ public class PhonesSeparateSessionV2Test extends RestBase {
         PhonesItemV2 phone = apiV2.getPhoneId().getPhones().get(0);
         SessionFactory.clearSession(SessionType.API_V2_FB);
         //Перелогин другим пользователем у которого нет телефона
-        final UserData testUser = new UserData(
-                UserRoles.USER.getRole(),
-                Generate.email(),
-                TestVariables.CompanyParams.companyName,
-                Generate.testUserName(UserRoles.USER.getRole())
-        );
+        final UserData testUser = UserData.builder()
+                .role(UserRoles.USER.getRole())
+                .email(Generate.email())
+                .password(TestVariables.CompanyParams.companyName)
+                .name(Generate.testUserName(UserRoles.USER.getRole()))
+                .build();
         RegistrationHelper.registration(testUser);
         SessionFactory.createSessionToken(SessionType.API_V2_FB, testUser);
         response = PhonesV2Request.PhonesById.GET(Integer.toString(phone.getId()));
