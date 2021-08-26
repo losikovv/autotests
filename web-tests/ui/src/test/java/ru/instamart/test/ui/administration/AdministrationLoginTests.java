@@ -87,7 +87,7 @@ public class AdministrationLoginTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     )
     public void noAuthWithShortPassword() {
-        kraken.perform().fillField(Elements.Administration.LoginPage.emailField(), UserManager.getDefaultUser().getLogin());
+        kraken.perform().fillField(Elements.Administration.LoginPage.emailField(), UserManager.getDefaultUser().getEmail());
         kraken.perform().fillField(Elements.Administration.LoginPage.passwordField(), "123");
         kraken.perform().click(Elements.Administration.LoginPage.submitButton());
         adminChecks.checkIsUserNotAutorisedAdminPage("На логин-странице админки возможна авторизация c коротким паролем");
@@ -101,7 +101,7 @@ public class AdministrationLoginTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression","admin-ui-smoke"}
     )
     public void noAuthWithWrongPassword() {
-        kraken.perform().fillField(Elements.Administration.LoginPage.emailField(), UserManager.getDefaultUser().getLogin());
+        kraken.perform().fillField(Elements.Administration.LoginPage.emailField(), UserManager.getDefaultUser().getEmail());
         kraken.perform().fillField(Elements.Administration.LoginPage.passwordField(), "wrongpassword");
         kraken.perform().click(Elements.Administration.LoginPage.submitButton());
         adminChecks.checkIsUserNotAutorisedAdminPage("На логин-странице админки возможна авторизация c неверным паролем");

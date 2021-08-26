@@ -18,7 +18,7 @@ public class AuthenticationDCRequest extends DeliveryClubRequestBase {
         }
 
         public static Response POST(final UserData userData) {
-            return POST(userData.getLogin(), userData.getPassword());
+            return POST(userData.getEmail(), userData.getPassword());
         }
     }
 }

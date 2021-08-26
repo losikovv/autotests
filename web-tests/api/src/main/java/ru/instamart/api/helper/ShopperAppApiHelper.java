@@ -29,7 +29,7 @@ import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode2
 public class ShopperAppApiHelper {
     private String currentAssemblyId;
 
-    @Step("Авторизация пользовалтелем: {user.login} в шопере")
+    @Step("Авторизация пользовалтелем: {user.email} в шопере")
     public void authorisation(UserData user) {
         SessionFactory.createSessionToken(SessionType.SHOPPER_APP, user);
     }
