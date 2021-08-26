@@ -143,7 +143,7 @@ public class K8sConsumer {
     private static Closeable getLogs(V1Pod pod, Consumer<String> tailFollowFun, int tailLines) {
         try {
             K8sConfig.getInstance().getCoreV1Api();
-            PodLogs logs = new PodLogs();
+            PodLogs logs = K8sConfig.getInstance().getPodLogs();
 
             AtomicBoolean closed = new AtomicBoolean(false);
             InputStream is = logs.streamNamespacedPodLog(pod.getMetadata().getNamespace(),

@@ -30,6 +30,8 @@ public final class Config {
 
     public static String QASE_API_TOKEN;
 
+    public static String BASE64_KUBE_CONFIG;
+
     public static void load() {
         final ConfigParser coreSettings = new ConfigParser(CONFIG_DIR+CORE_CONFIG_FILE);
 
@@ -62,5 +64,7 @@ public final class Config {
         USE_JS_FILL = coreSettings.getBoolean("useJsFill", false);
 
         QASE_API_TOKEN = coreSettings.getString("qaseApiToken", "");
+
+        BASE64_KUBE_CONFIG = coreSettings.getString("base64KubeConfig", "");
     }
 }
