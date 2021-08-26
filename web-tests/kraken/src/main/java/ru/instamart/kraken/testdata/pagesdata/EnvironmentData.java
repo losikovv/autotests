@@ -1,5 +1,6 @@
 package ru.instamart.kraken.testdata.pagesdata;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.kraken.util.Crypt;
 
@@ -17,7 +18,9 @@ public enum EnvironmentData {
 
     private static final String ENV_DIR = "../data/environment_configs/";
 
+    @Getter
     private String tenant;
+    @Getter
     private String server;
     private String basicUrl;
     private String httpAuth;
@@ -25,6 +28,14 @@ public enum EnvironmentData {
     private String defaultSid;
     private String defaultShopperSid;
     private String protocol;
+    //db connect
+    @Getter
+    private String dbUrl;
+    @Getter
+    private String dbUsername;
+    @Getter
+    private String dbPassword;
+
 
     public void load() {
         final String file = String.format(ENV_DIR + "%s.properties", DEFAULT_ENVIRONMENT);
@@ -37,7 +48,13 @@ public enum EnvironmentData {
             this.httpAuth = Crypt.INSTANCE.decrypt(properties.getProperty("httpAuth"));
             this.defaultSid = properties.getProperty("defaultSid");
             this.defaultShopperSid = properties.getProperty("defaultShopperSid");
+
+            this.dbUrl = properties.getProperty("dbUrl");
+            this.dbUsername = Crypt.INSTANCE.decrypt(properties.getProperty("dbUsername"));
+            this.dbPassword = Crypt.INSTANCE.decrypt(properties.getProperty("dbPassword"));
+
             this.protocol = System.getProperty("protocol", "https");
+
 
             String customBasicUrl = System.getProperty("url_stf");
             String customShopperUrl = System.getProperty("url_shp");
@@ -65,14 +82,6 @@ public enum EnvironmentData {
         } catch (IOException e) {
             log.error("Cant' load or parse file", e);
         }
-    }
-
-    public String getTenant() {
-        return tenant;
-    }
-
-    public String getServer() {
-        return server;
     }
 
     public String getName() {

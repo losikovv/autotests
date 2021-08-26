@@ -1,7 +1,7 @@
 package ru.instamart.kraken.database.util;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.instamart.kraken.util.Crypt;
+import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
@@ -17,10 +17,7 @@ import static org.testng.Assert.fail;
 @Slf4j
 public class ConnectionMySQLManager {
 
-    private static final String PASSWORD_KEY = "db.password";
-    private static final String USERNAME_KEY = "db.username";
-    private static final String URL_KEY = "db.url";
-    private static final Integer DEFAULT_POOL_SIZE = 5;
+    private static final Integer DEFAULT_POOL_SIZE = 1;
     private static BlockingQueue<Connection> pool;
     private static List<Connection> sourceConnections;
 
@@ -32,7 +29,15 @@ public class ConnectionMySQLManager {
     private ConnectionMySQLManager() {
     }
 
-    protected static void initConnectionPool() {
+    public static Connection get() {
+        try {
+            return pool.take();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void initConnectionPool() {
         pool = new ArrayBlockingQueue<>(DEFAULT_POOL_SIZE);
         sourceConnections = new ArrayList<>(DEFAULT_POOL_SIZE);
         for (int i = 0; i < DEFAULT_POOL_SIZE; i++) {
@@ -59,9 +64,9 @@ public class ConnectionMySQLManager {
     protected static Connection open() {
         try {
             return DriverManager.getConnection
-                    (PropertiesUtil.get(URL_KEY) + "?" +
-                            "user=" + Crypt.INSTANCE.decrypt(PropertiesUtil.get(USERNAME_KEY)) +
-                            "&password=" + Crypt.INSTANCE.decrypt(PropertiesUtil.get(PASSWORD_KEY)));
+                    (EnvironmentData.INSTANCE.getDbUrl() + "?" +
+                            "user=" + EnvironmentData.INSTANCE.getDbUsername() +
+                            "&password=" + EnvironmentData.INSTANCE.getDbPassword());
         } catch (SQLException ex) {
             log.error("SQLException: " + ex.getMessage() +
                     "SQLState: " + ex.getSQLState() +
