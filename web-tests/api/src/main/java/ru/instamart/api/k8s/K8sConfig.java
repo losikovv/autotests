@@ -21,13 +21,12 @@ public class K8sConfig {
         return Optional.ofNullable(INSTANCE).orElse(new K8sConfig());
     }
 
-    public static CoreV1Api getCoreV1Api() throws IOException {
+    public CoreV1Api getCoreV1Api() throws IOException {
         if (apiClient == null) {
             apiClient = Config.defaultClient();
             Configuration.setDefaultApiClient(apiClient);
             return new CoreV1Api();
         }
-
         return coreV1Api;
     }
 

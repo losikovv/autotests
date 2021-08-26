@@ -205,10 +205,14 @@ public class ShipmentsV2Test extends RestBase {
         ShippingRatesV2Response shippingRatesV2Response = response.as(ShippingRatesV2Response.class);
         assertNotEquals(shippingRatesV2Response.getShippingRates().size(), 0, "delivery rates is empty");
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(shippingRatesV2Response.getShippingRates().get(0).getDeliveryWindow().getStartsAt().startsWith(today), "Delivery window start date is incorrect");
-        softAssert.assertTrue(shippingRatesV2Response.getShippingRates().get(0).getDeliveryWindow().getEndsAt().startsWith(today), "Delivery window stop date is incorrect");
+        shippingRatesV2Response.getShippingRates().forEach(shipRate -> {
+            assertNotNull(shipRate.getTotalValue(), "total_value is null");
+            assertNotNull(shipRate.getDeliveryWindow().getId(), "id delivery Window is null");
+            assertNotNull(shipRate.getDeliveryWindow().getStartsAt(), "start at is null");
+            assertNotNull(shipRate.getDeliveryWindow().getEndsAt(), "ends at is null");
+            assertNotNull(shipRate.getDeliveryWindow().getKind(), "kind is null");
+        });
         List<String> availableDays = shippingRatesV2Response.getMeta().getAvailableDays();
-
         IntStream.range(0, availableDays.size())
                 .forEach(index -> softAssert.assertEquals(availableDays.get(index), getDateFromMSK().plusDays(index).toString()));
         softAssert.assertAll();

@@ -19,7 +19,6 @@ import ru.instamart.api.request.v2.SimpleAdsV2Request;
 import java.util.List;
 import java.util.UUID;
 
-import static org.testng.AssertJUnit.assertTrue;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
@@ -163,7 +162,9 @@ public class SimpleAdsV2Test extends RestBase {
         String imagePath = apiV2.getSimpleAdsFirstImage(allRequiredParameters);
 
         final Response responseImage = AdsImagesV2Request.GET(imagePath);
-        assertTrue(responseImage.getHeader("Content-Type").startsWith("image/"));
+        responseImage.then()
+                .statusCode(200)
+                .contentType("image/");
     }
 
 

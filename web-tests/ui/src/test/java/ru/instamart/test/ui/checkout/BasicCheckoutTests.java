@@ -1,6 +1,7 @@
 package ru.instamart.test.ui.checkout;
 
 import ru.instamart.api.common.RestAddresses;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.module.User;
@@ -26,7 +27,7 @@ public class BasicCheckoutTests extends TestBase {
         kraken.reach().checkout();
     }
 
-
+    @Skip
     @Test(  description = "Тест валидации дефолтного чекаута",
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )

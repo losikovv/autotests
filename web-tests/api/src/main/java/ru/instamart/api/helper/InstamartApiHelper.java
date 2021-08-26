@@ -27,7 +27,6 @@ import ru.instamart.kraken.util.ThreadUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -1169,7 +1168,7 @@ public final class InstamartApiHelper {
         final Response response = SimpleAdsV2Request.POST(allRequiredParameters);
         checkStatusCode200(response);
         final SimpleAdsV2Response simpleAdsV2Response = response.as(SimpleAdsV2Response.class);
-        if(simpleAdsV2Response.getMedia().isEmpty()){
+        if (simpleAdsV2Response.getMedia() == null || simpleAdsV2Response.getMedia().isEmpty()) {
             throw new SkipException("Рекомендаций нет");
         }
 
