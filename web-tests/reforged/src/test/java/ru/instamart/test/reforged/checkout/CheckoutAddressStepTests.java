@@ -10,11 +10,8 @@ import ru.instamart.kraken.testdata.TestVariables;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.pagesdata.AddressDetailsData;
-import ru.instamart.reforged.stf.page.checkout.CheckoutPage;
-import ru.instamart.reforged.stf.page.checkout.step.DeliveryOptionsStep;
 import ru.instamart.test.reforged.BaseTest;
 
-import static ru.instamart.reforged.core.service.KrakenDriver.refresh;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 
@@ -23,7 +20,6 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 public class CheckoutAddressStepTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
-    CheckoutPage checkout = new CheckoutPage();
     AddressDetailsData data = TestVariables.testAddressData();
     UserData checkoutUser = UserManager.checkoutUser();
 
@@ -34,16 +30,14 @@ public class CheckoutAddressStepTests extends BaseTest {
     public void successProceedNextWithDefaultStepState() {
         helper.dropAndFillCart(checkoutUser, 1);
 
+
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().fillPhone(checkoutUser.getPhone());
-        home().interactAuthModal().sendSms();
-        home().interactAuthModal().fillDefaultSMSWithSleep();
-        home().checkPageIsAvailable();
-        shop().checkFirstProductCard();
-        refresh();
-        checkout.setDeliveryOptions().clickToSubmitForDelivery();
-        checkout.checkDeliveryOptionMinimized();
+        home().interactAuthModal().authViaPhone(checkoutUser);
+        shop().interactHeader().checkProfileButtonVisible();
+        checkout().goToPage();
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+        checkout().checkDeliveryOptionMinimized();
     }
 
     @CaseId(1691)
@@ -55,15 +49,12 @@ public class CheckoutAddressStepTests extends BaseTest {
 
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().fillPhone(checkoutUser.getPhone());
-        home().interactAuthModal().sendSms();
-        home().interactAuthModal().fillDefaultSMSWithSleep();
-        home().checkPageIsAvailable();
-        shop().checkFirstProductCard();
-        refresh();
-        checkout.setDeliveryOptions().clickToForSelf();
-        checkout.setDeliveryOptions().clickToSubmitForDelivery();
-        checkout.checkDeliveryOptionMinimized();
+        home().interactAuthModal().authViaPhone(checkoutUser);
+        shop().interactHeader().checkProfileButtonVisible();
+        checkout().goToPage();
+        checkout().setDeliveryOptions().clickToForSelf();
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+        checkout().checkDeliveryOptionMinimized();
     }
 
     @CaseId(1692)
@@ -75,15 +66,12 @@ public class CheckoutAddressStepTests extends BaseTest {
 
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().fillPhone(checkoutUser.getPhone());
-        home().interactAuthModal().sendSms();
-        home().interactAuthModal().fillDefaultSMSWithSleep();
-        home().checkPageIsAvailable();
-        shop().checkFirstProductCard();
-        refresh();
-        checkout.setDeliveryOptions().fillApartment(data.getApartment());
-        checkout.setDeliveryOptions().clickToSubmitForDelivery();
-        checkout.checkDeliveryOptionMinimized();
+        home().interactAuthModal().authViaPhone(checkoutUser);
+        shop().interactHeader().checkProfileButtonVisible();
+        checkout().goToPage();
+        checkout().setDeliveryOptions().fillApartment(data.getApartment());
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+        checkout().checkDeliveryOptionMinimized();
     }
 
     @CaseId(1693)
@@ -95,15 +83,12 @@ public class CheckoutAddressStepTests extends BaseTest {
 
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().fillPhone(checkoutUser.getPhone());
-        home().interactAuthModal().sendSms();
-        home().interactAuthModal().fillDefaultSMSWithSleep();
-        home().checkPageIsAvailable();
-        shop().checkFirstProductCard();
-        refresh();
-        checkout.setDeliveryOptions().fillFloor(data.getFloor());
-        checkout.setDeliveryOptions().clickToSubmitForDelivery();
-        checkout.checkDeliveryOptionMinimized();
+        home().interactAuthModal().authViaPhone(checkoutUser);
+        shop().interactHeader().checkProfileButtonVisible();
+        checkout().goToPage();
+        checkout().setDeliveryOptions().fillFloor(data.getFloor());
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+        checkout().checkDeliveryOptionMinimized();
     }
 
     @CaseId(1694)
@@ -115,15 +100,12 @@ public class CheckoutAddressStepTests extends BaseTest {
 
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().fillPhone(checkoutUser.getPhone());
-        home().interactAuthModal().sendSms();
-        home().interactAuthModal().fillDefaultSMSWithSleep();
-        home().checkPageIsAvailable();
-        shop().checkFirstProductCard();
-        refresh();
-        checkout.setDeliveryOptions().checkElevator();
-        checkout.setDeliveryOptions().clickToSubmitForDelivery();
-        checkout.checkDeliveryOptionMinimized();
+        home().interactAuthModal().authViaPhone(checkoutUser);
+        shop().interactHeader().checkProfileButtonVisible();
+        checkout().goToPage();
+        checkout().setDeliveryOptions().checkElevator();
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+        checkout().checkDeliveryOptionMinimized();
     }
 
     @CaseId(1695)
@@ -135,15 +117,14 @@ public class CheckoutAddressStepTests extends BaseTest {
 
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().fillPhone(checkoutUser.getPhone());
-        home().interactAuthModal().sendSms();
-        home().interactAuthModal().fillDefaultSMSWithSleep();
-        home().checkPageIsAvailable();
-        shop().checkFirstProductCard();
-        refresh();
-        checkout.setDeliveryOptions().fillEntrance(data.getEntrance());
-        checkout.setDeliveryOptions().clickToSubmitForDelivery();
-        checkout.checkDeliveryOptionMinimized();
+        home().interactAuthModal().authViaPhone(checkoutUser);
+        shop().interactHeader().checkProfileButtonVisible();
+//        home().checkPageIsAvailable();
+//        shop().checkFirstProductCard();
+        checkout().goToPage();
+        checkout().setDeliveryOptions().fillEntrance(data.getEntrance());
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+        checkout().checkDeliveryOptionMinimized();
     }
 
     @CaseId(1696)
@@ -155,15 +136,12 @@ public class CheckoutAddressStepTests extends BaseTest {
 
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().fillPhone(checkoutUser.getPhone());
-        home().interactAuthModal().sendSms();
-        home().interactAuthModal().fillDefaultSMSWithSleep();
-        home().checkPageIsAvailable();
-        shop().checkFirstProductCard();
-        refresh();
-        checkout.setDeliveryOptions().fillDoorPhone(data.getDomofon());
-        checkout.setDeliveryOptions().clickToSubmitForDelivery();
-        checkout.checkDeliveryOptionMinimized();
+        home().interactAuthModal().authViaPhone(checkoutUser);
+        shop().interactHeader().checkProfileButtonVisible();
+        checkout().goToPage();
+        checkout().setDeliveryOptions().fillDoorPhone(data.getDomofon());
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+        checkout().checkDeliveryOptionMinimized();
     }
 
     @CaseId(1697)
@@ -175,15 +153,12 @@ public class CheckoutAddressStepTests extends BaseTest {
 
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().fillPhone(checkoutUser.getPhone());
-        home().interactAuthModal().sendSms();
-        home().interactAuthModal().fillDefaultSMSWithSleep();
-        home().checkPageIsAvailable();
-        shop().checkFirstProductCard();
-        refresh();
-        checkout.setDeliveryOptions().fillComments(data.getCommentaries());
-        checkout.setDeliveryOptions().clickToSubmitForDelivery();
-        checkout.checkDeliveryOptionMinimized();
+        home().interactAuthModal().authViaPhone(checkoutUser);
+        shop().interactHeader().checkProfileButtonVisible();
+        checkout().goToPage();
+        checkout().setDeliveryOptions().fillComments(data.getCommentaries());
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+        checkout().checkDeliveryOptionMinimized();
     }
 
     @CaseIDs({@CaseId(1698), @CaseId(1699), @CaseId(1700), @CaseId(1701)})
@@ -192,73 +167,70 @@ public class CheckoutAddressStepTests extends BaseTest {
     )
     public void successFillAllFieldsAndProceedNext() {
         helper.dropAndFillCart(checkoutUser, 1);
-        DeliveryOptionsStep deliveryOption = new DeliveryOptionsStep();
         AddressDetailsData changeData = TestVariables.testChangeAddressData();
 
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().fillPhone(checkoutUser.getPhone());
-        home().interactAuthModal().sendSms();
-        home().interactAuthModal().fillDefaultSMSWithSleep();
-        home().checkPageIsAvailable();
-        shop().checkFirstProductCard();
+        home().interactAuthModal().authViaPhone(checkoutUser);
+        shop().interactHeader().checkProfileButtonVisible();
         checkout().goToPage();
-        deliveryOption.clickToForSelf();
-        deliveryOption.fillApartment(data.getApartment());
-        deliveryOption.fillFloor(data.getFloor());
-        deliveryOption.checkElevator();
-        deliveryOption.fillEntrance(data.getEntrance());
-        deliveryOption.fillDoorPhone(data.getDomofon());
-        deliveryOption.checkContactlessDelivery();
-        deliveryOption.fillComments(data.getCommentaries());
-        deliveryOption.clickToSubmitForDelivery();
+        checkout().setDeliveryOptions().clickToForSelf();
+        checkout().setDeliveryOptions().clickToForSelf();
+        checkout().setDeliveryOptions().fillApartment(data.getApartment());
+        checkout().setDeliveryOptions().fillFloor(data.getFloor());
+        checkout().setDeliveryOptions().checkElevator();
+        checkout().setDeliveryOptions().fillEntrance(data.getEntrance());
+        checkout().setDeliveryOptions().fillDoorPhone(data.getDomofon());
+        checkout().setDeliveryOptions().checkContactlessDelivery();
+        checkout().setDeliveryOptions().fillComments(data.getCommentaries());
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
-        checkout.checkDeliveryOptionMinimized();
-        refresh();
-        checkout.checkForSelfIsSelected(deliveryOption.getForSelfState());
-        checkout.checkApartmentValue(deliveryOption.getApartmentValue(), data.getApartment());
-        checkout.checkFloorValue(deliveryOption.getFloorValue(), data.getFloor());
-        checkout.checkElevatorIsSelected(deliveryOption.getElevatorState());
-        checkout.checkEntranceValue(deliveryOption.getEntranceValue(), data.getEntrance());
-        checkout.checkDoorPhoneValue(deliveryOption.getDoorPhoneValue(), data.getDomofon());
-        checkout.checkContactlessDeliveryIsSelected(deliveryOption.getContactlessDeliveryState());
-        checkout.checkCommentsValue(deliveryOption.getCommentsValue(), data.getCommentaries());
-        checkout.assertAll();
+        checkout().checkDeliveryOptionMinimized();
+        shop().refresh();
+        checkout().setDeliveryOptions().checkForSelfIsSelected(checkout().setDeliveryOptions().getForSelfState());
+        checkout().setDeliveryOptions().checkApartmentValue(checkout().setDeliveryOptions().getApartmentValue(), data.getApartment());
+        checkout().setDeliveryOptions().checkFloorValue(checkout().setDeliveryOptions().getFloorValue(), data.getFloor());
+        checkout().setDeliveryOptions().checkElevatorIsSelected(checkout().setDeliveryOptions().getElevatorState());
+        checkout().setDeliveryOptions().checkEntranceValue(checkout().setDeliveryOptions().getEntranceValue(), data.getEntrance());
+        checkout().setDeliveryOptions().checkDoorPhoneValue(checkout().setDeliveryOptions().getDoorPhoneValue(), data.getDomofon());
+        checkout().setDeliveryOptions().checkContactlessDeliveryIsSelected(checkout().setDeliveryOptions().getContactlessDeliveryState());
+        checkout().setDeliveryOptions().checkCommentsValue(checkout().setDeliveryOptions().getCommentsValue(), data.getCommentaries());
+        checkout().assertAll();
 
-        deliveryOption.fillApartment("");
-        deliveryOption.fillFloor("");
-        deliveryOption.uncheckElevator();
-        deliveryOption.fillEntrance("");
-        deliveryOption.fillDoorPhone("");
-        deliveryOption.uncheckContactlessDelivery();
-        deliveryOption.fillComments("");
-        deliveryOption.clickToSubmitForDelivery();
-        refresh();
-        checkout.checkApartmentValue(deliveryOption.getApartmentValue(), "");
-        checkout.checkFloorValue(deliveryOption.getFloorValue(), "");
-        checkout.checkElevatorIsNotSelected(deliveryOption.getElevatorState());
-        checkout.checkEntranceValue(deliveryOption.getEntranceValue(), "");
-        checkout.checkDoorPhoneValue(deliveryOption.getDoorPhoneValue(), "");
-        checkout.checkContactlessDeliveryIsNotSelected(deliveryOption.getContactlessDeliveryState());
-        checkout.checkCommentsValue(deliveryOption.getCommentsValue(), "");
-        checkout.assertAll();
+        checkout().setDeliveryOptions().clearApartment();
+        checkout().setDeliveryOptions().clearFloor();
+        checkout().setDeliveryOptions().uncheckElevator();
+        checkout().setDeliveryOptions().clearEntrance();
+        checkout().setDeliveryOptions().clearDoorPhone();
+        checkout().setDeliveryOptions().uncheckContactlessDelivery();
+        checkout().setDeliveryOptions().clearComments();
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+        shop().refresh();
+        checkout().setDeliveryOptions().checkApartmentValue(checkout().setDeliveryOptions().getApartmentValue(), "");
+        checkout().setDeliveryOptions().checkFloorValue(checkout().setDeliveryOptions().getFloorValue(), "");
+        checkout().setDeliveryOptions().checkElevatorIsNotSelected(checkout().setDeliveryOptions().getElevatorState());
+        checkout().setDeliveryOptions().checkEntranceValue(checkout().setDeliveryOptions().getEntranceValue(), "");
+        checkout().setDeliveryOptions().checkDoorPhoneValue(checkout().setDeliveryOptions().getDoorPhoneValue(), "");
+        checkout().setDeliveryOptions().checkContactlessDeliveryIsNotSelected(checkout().setDeliveryOptions().getContactlessDeliveryState());
+        checkout().setDeliveryOptions().checkCommentsValue(checkout().setDeliveryOptions().getCommentsValue(), "");
+        checkout().assertAll();
 
-        deliveryOption.fillApartment(changeData.getApartment());
-        deliveryOption.fillFloor(changeData.getFloor());
-        deliveryOption.checkElevator();
-        deliveryOption.fillEntrance(changeData.getEntrance());
-        deliveryOption.fillDoorPhone(changeData.getDomofon());
-        deliveryOption.checkContactlessDelivery();
-        deliveryOption.fillComments(changeData.getCommentaries());
-        deliveryOption.clickToSubmitForDelivery();
-        refresh();
-        checkout.checkApartmentValue(deliveryOption.getApartmentValue(), changeData.getApartment());
-        checkout.checkFloorValue(deliveryOption.getFloorValue(), changeData.getFloor());
-        checkout.checkElevatorIsSelected(deliveryOption.getElevatorState());
-        checkout.checkEntranceValue(deliveryOption.getEntranceValue(), changeData.getEntrance());
-        checkout.checkDoorPhoneValue(deliveryOption.getDoorPhoneValue(), changeData.getDomofon());
-        checkout.checkContactlessDeliveryIsSelected(deliveryOption.getContactlessDeliveryState());
-        checkout.checkCommentsValue(deliveryOption.getCommentsValue(), changeData.getCommentaries());
-        checkout.assertAll();
+        checkout().setDeliveryOptions().fillApartment(changeData.getApartment());
+        checkout().setDeliveryOptions().fillFloor(changeData.getFloor());
+        checkout().setDeliveryOptions().checkElevator();
+        checkout().setDeliveryOptions().fillEntrance(changeData.getEntrance());
+        checkout().setDeliveryOptions().fillDoorPhone(changeData.getDomofon());
+        checkout().setDeliveryOptions().checkContactlessDelivery();
+        checkout().setDeliveryOptions().fillComments(changeData.getCommentaries());
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+        shop().refresh();
+        checkout().checkApartmentValue(checkout().setDeliveryOptions().getApartmentValue(), changeData.getApartment());
+        checkout().checkFloorValue(checkout().setDeliveryOptions().getFloorValue(), changeData.getFloor());
+        checkout().checkElevatorIsSelected(checkout().setDeliveryOptions().getElevatorState());
+        checkout().checkEntranceValue(checkout().setDeliveryOptions().getEntranceValue(), changeData.getEntrance());
+        checkout().checkDoorPhoneValue(checkout().setDeliveryOptions().getDoorPhoneValue(), changeData.getDomofon());
+        checkout().checkContactlessDeliveryIsSelected(checkout().setDeliveryOptions().getContactlessDeliveryState());
+        checkout().checkCommentsValue(checkout().setDeliveryOptions().getCommentsValue(), changeData.getCommentaries());
+        checkout().assertAll();
     }
 }

@@ -1,22 +1,10 @@
-package ru.instamart.reforged.stf.page.checkout;
+package ru.instamart.reforged.stf.page.checkout.firstStep;
 
 import io.qameta.allure.Step;
-import ru.instamart.reforged.core.Check;
-import ru.instamart.reforged.core.Kraken;
 
-import static ru.instamart.reforged.core.Kraken.waitAction;
+import static ru.instamart.reforged.core.Check.krakenAssert;
 
-public interface CheckoutCheck extends Check, CheckoutElement {
-
-    @Step("Проверяем видна ли кнопка оформления заказа из чекаута")
-    default void checkCheckoutButtonIsVisible() {
-        waitAction().shouldBeVisible(submitFromCheckoutSidebar);
-    }
-
-    @Step("Проверяем, что шаг 'Способ получения' свернулся")
-    default void checkDeliveryOptionMinimized() {
-        Kraken.waitAction().shouldBeVisible(minimizedDeliveryOptionStep);
-    }
+public interface DeliveryOptionCheck extends DeliveryOptionElement {
 
     @Step("Проверяем, что радиобаттон 'Для себя' выбран")
     default void checkForSelfIsSelected(Boolean state) {
@@ -72,4 +60,5 @@ public interface CheckoutCheck extends Check, CheckoutElement {
     default void checkCommentsValue(String actual, String expected) {
         krakenAssert.assertEquals(actual, expected, "значение в поле Код домофона неверное");
     }
+
 }

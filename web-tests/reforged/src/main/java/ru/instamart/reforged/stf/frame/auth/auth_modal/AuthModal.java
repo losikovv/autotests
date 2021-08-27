@@ -124,4 +124,14 @@ public final class AuthModal implements Close, AuthModalCheck {
     public void authViaSberId() {
         sberId.click();
     }
+
+    //TODO ThreadUtil.simplyAwait убрать после отключения проверки таймаута для повторной смс
+    @SneakyThrows
+    @Step("Авторизоваться пользователем {user.login}")
+    public void authViaPhone(final UserData userData) {
+        fillPhone(userData.getPhone());
+        sendSms();
+        ThreadUtil.simplyAwait(1);
+        fillDefaultSMS();
+    }
 }

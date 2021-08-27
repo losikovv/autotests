@@ -5,11 +5,15 @@ import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
 import ru.instamart.reforged.stf.frame.checkout.subsections.*;
-import ru.instamart.reforged.stf.page.checkout.step.*;
+import ru.instamart.reforged.stf.page.checkout.fifthStep.SlotStep;
+import ru.instamart.reforged.stf.page.checkout.fourthStep.PaymentStep;
+import ru.instamart.reforged.stf.page.checkout.secondStep.ContactsStep;
+import ru.instamart.reforged.stf.page.checkout.firstStep.DeliveryOptionStep;
+import ru.instamart.reforged.stf.page.checkout.thirdStep.ReplacementPolicyStep;
 
 public interface CheckoutElement {
 
-    DeliveryOptionsStep deliveryOptionsStep = new DeliveryOptionsStep();
+    DeliveryOptionStep deliveryOptionsStep = new DeliveryOptionStep();
     AddCompany addCompanyModal = new AddCompany();
     ContactsStep contactsStep = new ContactsStep();
     EditPhoneNumber editPhoneNumberModal = new EditPhoneNumber();
@@ -28,5 +32,5 @@ public interface CheckoutElement {
     Element editLoyaltyCard = new Element(By.xpath(""));
 
     Element minimizedDeliveryOptionStep = new Element(By.xpath("//div[@class='panel-header__text' and text() = 'Способ получения']//ancestor::div[@class='checkout-panel']"),
-            "панель свернутого шага Способ получения");
+            "панель свернутого шага 'Способ получения'");
 }
