@@ -24,9 +24,17 @@ public final class SessionService {
         try {
             return client.post(QaSessionResponse.class, Endpoint.SESSION, request);
         } catch (IOException e) {
-            log.error("FATAL: Can't obtain user session");
+            log.error("FATAL: Can't obtain user session", e);
         }
 
         return new QaSessionResponse();
+    }
+
+    public void deleteSession(final String sessionId) {
+        try {
+            client.delete(Endpoint.DELETE_SESSION + sessionId);
+        } catch (IOException e) {
+            log.error("FATAL: Can't delete user session={}", sessionId, e);
+        }
     }
 }

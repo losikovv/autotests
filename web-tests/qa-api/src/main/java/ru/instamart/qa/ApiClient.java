@@ -20,8 +20,11 @@ public final class ApiClient {
     public ApiClient(final Setting setting) {
         this.setting = setting;
         this.client = new OkHttpClient.Builder()
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(10, TimeUnit.SECONDS)
+                .authenticator(new BasicAuth(setting.getBasicUrl()))
+                //.addInterceptor(new LoggingInterceptor())
+                .connectTimeout(5, TimeUnit.SECONDS)
+                .readTimeout(5, TimeUnit.SECONDS)
+                .writeTimeout(5, TimeUnit.SECONDS)
                 .build();
     }
 
@@ -78,5 +81,17 @@ public final class ApiClient {
             }
             return Mapper.INSTANCE.jsonToObject(Objects.requireNonNull(response.body()).string(), responseClass);
         }
+    }
+
+    public String delete(final String endpoint) throws IOException {
+        final Request request = new Request.Builder()
+                .url(setting.getBasicUrl() + endpoint)
+                .build();
+        try (final Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException(String.format("FAILED delete request %s with status: %s", endpoint,  response.code()));
+            }
+        }
+        return "ok";
     }
 }

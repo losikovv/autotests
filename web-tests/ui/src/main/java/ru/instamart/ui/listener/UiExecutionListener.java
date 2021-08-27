@@ -30,6 +30,7 @@ public final class UiExecutionListener extends ExecutionListener {
 
     @Override
     public void onExecutionFinish() {
+        super.onExecutionFinish();
         // Тут может быть код для очистки окружения после прогона тестов
         log.info("We create {} new users", UserManager.getUserDataList().size());
     }

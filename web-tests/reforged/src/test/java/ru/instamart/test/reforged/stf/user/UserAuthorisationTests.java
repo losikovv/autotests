@@ -89,7 +89,7 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactAuthModal().authViaFacebook();
         shop().interactAuthModal().interactAuthFacebookWindow().switchToNextWindow();
         shop().interactAuthModal().interactAuthFacebookWindow()
-                .setEmail(UserManager.getDefaultFbUser().getLogin());
+                .setEmail(UserManager.getDefaultFbUser().getEmail());
         shop().interactAuthModal().interactAuthFacebookWindow()
                 .setPassword(UserManager.getDefaultFbUser().getPassword());
         shop().interactAuthModal().interactAuthFacebookWindow()
@@ -111,7 +111,7 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactAuthModal().authViaVk();
         shop().interactAuthModal().interactAuthVkWindow().switchToNextWindow();
         shop().interactAuthModal().interactAuthVkWindow()
-                .setEmail(UserManager.getDefaultVkUser().getLogin());
+                .setEmail(UserManager.getDefaultVkUser().getEmail());
         shop().interactAuthModal().interactAuthVkWindow()
                 .setPassword(UserManager.getDefaultVkUser().getPassword());
         shop().interactAuthModal().interactAuthVkWindow()
@@ -133,7 +133,7 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactAuthModal().authViaMail();
         shop().interactAuthModal().interactAuthMailWindow().switchToNextWindow();
         shop().interactAuthModal().interactAuthMailWindow()
-                .fillName(UserManager.getDefaultMailRuUser().getLogin());
+                .fillName(UserManager.getDefaultMailRuUser().getEmail());
         shop().interactAuthModal().interactAuthMailWindow()
                 .clickToEnterPassword();
         shop().interactAuthModal().interactAuthMailWindow()
@@ -156,7 +156,7 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaSberId();
         shop().interactAuthModal().interactAuthSberIdPage()
-                .fillPhoneNumber(UserManager.getDefaultSberIdUser().getLogin());
+                .fillPhoneNumber(UserManager.getDefaultSberIdUser().getEmail());
         shop().interactAuthModal().interactAuthSberIdPage().clickToSubmitLogin();
         shop().interactAuthModal().interactAuthSberIdPage().clickToReceivedSms();
         //TODO: необходимо автоматизировать получение смс, либо получить номер с заготовленной смс

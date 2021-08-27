@@ -9,13 +9,16 @@ import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.kraken.util.Crypt;
+import ru.instamart.kraken.util.ThreadUtil;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public abstract class ExecutionListener implements IExecutionListener {
 
     public static final String runId = Generate.testRunId();
+    private static final long start = System.nanoTime();
 
     // Нужно инициализировать в конструкторе, что бы гарантировать наличие конфигов до запуска чего либо
     public ExecutionListener() {
@@ -51,7 +54,20 @@ public abstract class ExecutionListener implements IExecutionListener {
     private void revealKraken() {
         log.info("ENVIRONMENT: {} ({})", EnvironmentData.INSTANCE.getName(), EnvironmentData.INSTANCE.getBasicUrl());
         log.info("TEST RUN ID: {}", runId);
-        log.info("ADMIN: {} / {}", UserManager.getDefaultAdmin().getLogin(), UserManager.getDefaultAdmin().getPassword());
-        log.info("USER: {} / {}", UserManager.getDefaultUser().getLogin(), UserManager.getDefaultUser().getPassword());
+        log.info("ADMIN: {} / {}", UserManager.getDefaultAdmin().getEmail(), UserManager.getDefaultAdmin().getPassword());
+        log.info("USER: {} / {}", UserManager.getDefaultUser().getEmail(), UserManager.getDefaultUser().getPassword());
+    }
+
+    @Override
+    public void onExecutionFinish() {
+        log.info("We wait {} seconds", ThreadUtil.ALL_WAIT_TIME.doubleValue());
+        log.info("All tests finished for {}", getReadableTime(System.nanoTime() - start));
+    }
+
+    private String getReadableTime(final Long nanos){
+        final long tempSec = nanos / (1000 * 1000 * 1000);
+        final long sec = tempSec % 60;
+        final long min = (tempSec /60) % 60;
+        return String.format("%dm %ds", min, sec);
     }
 }

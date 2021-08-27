@@ -10,7 +10,7 @@ public final class LoginPage implements AdminPage, LoginCheck {
 
     @Step("Авторизация {0}")
     public void auth(final UserData userData) {
-        setUsername(userData.getLogin());
+        setUsername(userData.getEmail());
         setPassword(userData.getPassword());
         submit();
         main().interactAuthoredHeader().checkAdminAuth();
