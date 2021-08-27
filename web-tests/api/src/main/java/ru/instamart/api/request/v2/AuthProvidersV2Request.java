@@ -27,7 +27,7 @@ public final class AuthProvidersV2Request extends ApiV2RequestBase {
             return POST(provider,
                     userData.getFirstName(),
                     userData.getLastName(),
-                    userData.getLogin(),
+                    userData.getEmail(),
                     userData.getPhone(),
                     uid);
         }

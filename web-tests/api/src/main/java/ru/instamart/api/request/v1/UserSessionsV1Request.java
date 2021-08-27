@@ -28,6 +28,6 @@ public class UserSessionsV1Request extends ApiV1RequestBase {
     }
 
     public static Response POST(UserData userData) {
-        return POST(userData.getLogin(), userData.getPassword());
+        return POST(userData.getEmail(), userData.getPassword());
     }
 }

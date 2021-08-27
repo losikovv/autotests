@@ -51,7 +51,7 @@ public final class SessionsV2Test extends RestBase {
         final Response response = SessionsV2Request.User.GET(SessionFactory.getSession(SessionType.API_V2_PHONE).getToken());
         checkStatusCode200(response);
         final UserDataV2Response userDataResponse = response.as(UserDataV2Response.class);
-        assertEquals(userDataResponse.getUser().getEmail(), userData.getLogin(), "Получены чужие данные");
+        assertEquals(userDataResponse.getUser().getEmail(), userData.getEmail(), "Получены чужие данные");
     }
 
     @CaseId(181)

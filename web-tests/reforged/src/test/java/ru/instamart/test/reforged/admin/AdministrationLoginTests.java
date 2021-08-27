@@ -73,7 +73,7 @@ public final class AdministrationLoginTests extends BaseTest {
     )
     public void noAuthWithShortPassword() {
         login().goToPage();
-        login().setUsername(UserManager.getDefaultUser().getLogin());
+        login().setUsername(UserManager.getDefaultUser().getEmail());
         login().setPassword("123");
         login().submit();
         login().checkErrorShortPassword();
@@ -86,7 +86,7 @@ public final class AdministrationLoginTests extends BaseTest {
     )
     public void noAuthWithWrongPassword() {
         login().goToPage();
-        login().setUsername(UserManager.getDefaultUser().getLogin());
+        login().setUsername(UserManager.getDefaultUser().getEmail());
         login().setPassword("wrongpassword");
         login().submit();
         login().checkErrorInvalidEmailOrPassword();
@@ -99,7 +99,7 @@ public final class AdministrationLoginTests extends BaseTest {
     )
     public void successAuthOnAdminLoginPage() {
         login().goToPage();
-        login().setUsername(UserManager.getDefaultAdmin().getLogin());
+        login().setUsername(UserManager.getDefaultAdmin().getEmail());
         login().setPassword(UserManager.getDefaultAdmin().getPassword());
         login().submit();
 
@@ -112,7 +112,7 @@ public final class AdministrationLoginTests extends BaseTest {
             groups = {"admin-ui-smoke"})
     public void successLogoutFromAdminPage() {
         login().goToPage();
-        login().setUsername(UserManager.getDefaultAdmin().getLogin());
+        login().setUsername(UserManager.getDefaultAdmin().getEmail());
         login().setPassword(UserManager.getDefaultAdmin().getPassword());
         login().submit();
 
@@ -128,7 +128,7 @@ public final class AdministrationLoginTests extends BaseTest {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"})
     public void loginWithoutAdminPermission() {
         login().goToPage();
-        login().setUsername(UserManager.userWithoutAdminPermission().getLogin());
+        login().setUsername(UserManager.userWithoutAdminPermission().getEmail());
         login().setPassword(UserManager.userWithoutAdminPermission().getPassword());
         login().submit();
         main().interactAuthoredHeader().checkIsNotAuth();

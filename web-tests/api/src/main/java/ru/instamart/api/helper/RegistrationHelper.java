@@ -25,7 +25,7 @@ public final class RegistrationHelper {
                 AuthProviderV2.FACEBOOK,
                 user.getFirstName(),
                 user.getLastName(),
-                user.getLogin(),
+                user.getEmail(),
                 user.getPhone(),
                 UUID.randomUUID().toString());
         checkStatusCode200(response);

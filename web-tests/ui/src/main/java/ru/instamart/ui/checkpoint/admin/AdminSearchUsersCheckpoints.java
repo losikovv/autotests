@@ -19,7 +19,7 @@ public class AdminSearchUsersCheckpoints extends BaseUICheckpoints {
         //TODO если в дальнейшем будет переиспользование данного метода, то строки для поиска нужно будет вынести в аргументы
         log.info("> проверяем, что искомый пользователь найден в системе");
         Assert.assertEquals(
-                kraken.grab().text(Elements.Administration.UsersSection.userEmail()), UserManager.getDefaultAdmin().getLogin(),
+                kraken.grab().text(Elements.Administration.UsersSection.userEmail()), UserManager.getDefaultAdmin().getEmail(),
                 "Не работает поиск пользователя в админке");
         log.info("✓ Успешно");
     }

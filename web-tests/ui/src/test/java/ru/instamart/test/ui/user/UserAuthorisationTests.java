@@ -93,7 +93,7 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
-        Shop.AuthModal.fillAuthorisationForm(UserManager.getDefaultUser().getLogin(), "");
+        Shop.AuthModal.fillAuthorisationForm(UserManager.getDefaultUser().getEmail(), "");
         Shop.AuthModal.submit();
 
         baseChecks.checkIsErrorMessageElementPresent("Укажите пароль",
@@ -133,7 +133,7 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
-        Shop.AuthModal.fillAuthorisationForm(UserManager.getDefaultUser().getLogin(), "wrongpassword");
+        Shop.AuthModal.fillAuthorisationForm(UserManager.getDefaultUser().getEmail(), "wrongpassword");
         Shop.AuthModal.submit();
 
         baseChecks.checkIsErrorMessageElementPresent("Неверный email или пароль",
@@ -154,7 +154,7 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
-        Shop.AuthModal.fillAuthorisationForm(testUser.getLogin(), testUser.getPassword());
+        Shop.AuthModal.fillAuthorisationForm(testUser.getEmail(), testUser.getPassword());
         Shop.AuthModal.submit();
 
         baseChecks.checkIsErrorMessageElementPresent("Неверный email или пароль",
@@ -174,7 +174,7 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
-        Shop.AuthModal.fillAuthorisationForm(UserManager.getDefaultUser().getLogin(), UserManager.getDefaultUser().getPassword());
+        Shop.AuthModal.fillAuthorisationForm(UserManager.getDefaultUser().getEmail(), UserManager.getDefaultUser().getPassword());
         Shop.AuthModal.close();
 
         baseChecks.checkIsAuthModalClosed();

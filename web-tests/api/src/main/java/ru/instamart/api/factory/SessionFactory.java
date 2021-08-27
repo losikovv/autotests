@@ -86,7 +86,7 @@ public final class SessionFactory {
         final SessionId sessionId = new SessionId(Thread.currentThread().getId(),
                 type == SessionType.API_V2_PHONE ? SessionType.API_V2_FB : type);
         final SessionInfo session = sessionMap.get(sessionId);
-        if (nonNull(session) && !session.getLogin().equals(userData.getLogin())) {
+        if (nonNull(session) && !session.getLogin().equals(userData.getEmail())) {
             sessionMap.put(sessionId, createSession(type, userData));
         } else if (isNull(session)) {
             sessionMap.put(sessionId, createSession(type, userData));
@@ -121,9 +121,9 @@ public final class SessionFactory {
     }
 
     private static SessionInfo createApiV1Session(final UserData userData) {
-        final Response response = UserSessionsV1Request.POST(userData.getLogin(), userData.getPassword());
+        final Response response = UserSessionsV1Request.POST(userData.getEmail(), userData.getPassword());
         checkStatusCode200(response);
-        log.info("Авторизуемся: {} / {}", userData.getLogin(), userData.getPassword());
+        log.info("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
         log.info("cookies: {}", response.getCookies());
         return new SessionInfo(userData, response.getCookies());
     }
@@ -145,17 +145,17 @@ public final class SessionFactory {
         checkStatusCode200(response);
         ThreadUtil.simplyAwait(1);
         final SessionsV2Response sessionResponse = response.as(SessionsV2Response.class);
-        log.info("Авторизуемся: {}", userData.getLogin());
+        log.info("Авторизуемся: {}", userData.getEmail());
         log.info("access_token: {}", sessionResponse.getSession().getAccessToken());
         return new SessionInfo(userData, sessionResponse.getSession().getAccessToken());
     }
 
     private static SessionInfo createShopperAppSession(final UserData userData) {
-        final Response response = SessionsSHPRequest.POST(userData.getLogin(), userData.getPassword());
+        final Response response = SessionsSHPRequest.POST(userData.getEmail(), userData.getPassword());
         ShopperApiCheckpoints.checkStatusCode200(response);
         final SessionsSHPResponse sessionsResponse = response.as(SessionsSHPResponse.class);
         final SessionSHP.Data.Attributes sessionAttributes = sessionsResponse.getData().getAttributes();
-        log.info("Авторизуемся: {} / {}", userData.getLogin(), userData.getPassword());
+        log.info("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
         log.info("access_token: {}", sessionAttributes.getAccessToken());
         log.info("refresh_token: {}", sessionAttributes.getRefreshToken());
         return new SessionInfo(userData, sessionAttributes.getAccessToken(), sessionAttributes.getRefreshToken());
@@ -167,7 +167,7 @@ public final class SessionFactory {
         checkStatusCode200(response);
         final ShoppersBackendV1 shoppersBackend = response.as(TokensV1Response.class).getShoppersBackend();
         final String token = "token=" + shoppersBackend.getClientJwt() + ", id=" + shoppersBackend.getClientId();
-        log.info("Авторизуемся: {} / {}", userData.getLogin(), userData.getPassword());
+        log.info("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
         log.info("token: {}", token);
         return new SessionInfo(userData, token);
     }
@@ -176,7 +176,7 @@ public final class SessionFactory {
         final Response response = AuthenticationDCRequest.Token.POST(userData);
         checkStatusCode200(response);
         final TokenDCResponse sessionResponse = response.as(TokenDCResponse.class);
-        log.info("Авторизуемся: {} / {}", userData.getLogin(), userData.getPassword());
+        log.info("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
         log.info("token: {}", sessionResponse.getToken());
         return new SessionInfo(userData, sessionResponse.getToken());
     }
@@ -218,7 +218,7 @@ public final class SessionFactory {
         }
 
         public String getLogin() {
-            return this.userData.getLogin();
+            return this.userData.getEmail();
         }
 
         public String getPassword() {
