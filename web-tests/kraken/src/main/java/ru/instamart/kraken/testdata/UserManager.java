@@ -212,15 +212,9 @@ public final class UserManager {
     }
 
     public static UserData checkoutUser() {
-        return new UserData(
-                "",
-                "",
-                "79998833344",
-                "",
-                "",
-                "",
-                "sdNXYi6UE4dFJTI3qUgEJy7p8Csc72Tfq1gLUpijOA0="
-        );
+        return UserData.builder()
+                .phone("79998833344")
+                .build();
     }
 
     public static List<UserData> getUserDataList() {
