@@ -43,7 +43,7 @@ public class RestDataProvider extends RestBase {
         return authProviderArray;
     }
 
-    @DataProvider(name = "query")
+    @DataProvider(name = "query", parallel = true)
     public static Object[][] getQuery() {
         Object[][] queryArray = new Object[7][3];
         queryArray[0] = new Object[]{1, "хлеб", 200};
@@ -340,7 +340,7 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-    @DataProvider(name = "deliveryAvailabilityV2TestData")
+    @DataProvider(name = "deliveryAvailabilityV2TestData", parallel = true)
     public static Object[][] deliveryAvailabilityV2TestData() {
         return new Object[][]{
                 {"", ""}, //Координаты не указаны
@@ -349,7 +349,7 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-    @DataProvider(name = "testNegativeSimpleRecsTest")
+    @DataProvider(name = "testNegativeSimpleRecsTest", parallel = true)
     public static Object[][] testNegativeSimpleRecsTest() {
         return new Object[][]{
                 {
@@ -454,7 +454,7 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-    @DataProvider(name = "testNegativeRecsTest")
+    @DataProvider(name = "testNegativeRecsTest", parallel = true)
     public static Object[][] testNegativeRecsTest() {
         return new Object[][]{
                 {PersonalV2Request.RecsV2.builder()
@@ -694,7 +694,7 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-    @DataProvider(name = "negativeSimpleAdsData")
+    @DataProvider(name = "negativeSimpleAdsData", parallel = true)
     public static Object[][] negativeSimpleAdsData() {
         return new Object[][]{
                 {
@@ -813,7 +813,7 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-    @DataProvider(name = "ordersLineItems")
+    @DataProvider(name = "ordersLineItems", parallel = true)
     public static Object[][] ordersLineItems() {
         List<ProductV2> products = apiV2.getProductFromEachDepartmentInStore(EnvironmentData.INSTANCE.getDefaultSid());
         Long product = products.get(0).getId();
@@ -902,7 +902,7 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-    @DataProvider(name = "storeData")
+    @DataProvider(name = "storeData", parallel = true)
     public static Object[][] storeData() {
         return new Object[][]{
                 {StoresV2Request.Store.builder()
@@ -928,7 +928,7 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-    @DataProvider(name = "storeDataWithLatAndLon")
+    @DataProvider(name = "storeDataWithLatAndLon", parallel = true)
     public static Object[][] storeDataWithLatAndLon() {
         AddressV2 address = Moscow.defaultAddress();
         return new Object[][]{

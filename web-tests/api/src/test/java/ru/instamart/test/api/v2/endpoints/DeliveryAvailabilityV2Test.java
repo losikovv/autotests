@@ -4,15 +4,15 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.DeliveryAvailabilityV2Request;
 import ru.instamart.api.response.v2.DeliveryAvailabilityV2Response;
-import ru.instamart.api.dataprovider.RestDataProvider;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -22,7 +22,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 @Feature("Проверка доступности магазина по координатам")
 public class DeliveryAvailabilityV2Test extends RestBase {
 
-    @BeforeMethod
+    @BeforeTest
     public void testUp() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
     }
