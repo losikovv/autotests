@@ -7,7 +7,7 @@ public final class StaticPages {
     public static StaticPageData newStaticPage() {
         return new StaticPageData(
                 "AAA",
-                "testURL",
+                "testUrl_" + Generate.literalString(6),
                 "textAAA",
                 "1",
                 "я маленькая тестовая страничка, которую должен видеть только селен"
@@ -17,12 +17,13 @@ public final class StaticPages {
     public static StaticPageData editedStaticPage() {
         return new StaticPageData(
                 "BBB",
-                "testURLB",
+                "testUrlEdited_" + Generate.literalString(6),
                 "textBBB",
                 "2",
                 "я большая тестовая страничка, очень очень большая и отредактированная"
         );
     }
 
-    private StaticPages() {}
+    private StaticPages() {
+    }
 }
