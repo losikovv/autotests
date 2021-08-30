@@ -1,5 +1,7 @@
 package ru.instamart.test.ui.orders;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -25,7 +27,9 @@ import ru.instamart.ui.module.shop.ShippingAddressModal;
 
 import static io.qameta.allure.Allure.step;
 
-public class BasicOrdersTests extends TestBase {
+@Epic("STF UI")
+@Feature("Покупка товара")
+public final class BasicOrdersTests extends TestBase {
 
     // TODO переделать в тесты заказа новым пользоватеем (генерим нового, делаем заказ с новым телом, с привязкой новой карты + повтор, заказ с новым юрлицом + повтор и все что тут есть)
 
@@ -38,7 +42,7 @@ public class BasicOrdersTests extends TestBase {
     // TODO successOrderWithPromocode
 
     // TODO successOrderWithDocumentsNeeded
-    OrdersCheckpoints orderCheck = new OrdersCheckpoints();
+    private final OrdersCheckpoints orderCheck = new OrdersCheckpoints();
 
 
     @BeforeMethod(alwaysRun = true,

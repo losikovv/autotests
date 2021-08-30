@@ -1,21 +1,22 @@
 package ru.instamart.test.ui.shopping;
 
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.kraken.testdata.lib.Pages;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
-import ru.instamart.test.ui.TestBase;
-import ru.instamart.ui.checkpoint.BaseUICheckpoints;
-import ru.instamart.ui.checkpoint.itemcard.ItemCardAndCatalogCheckpoints;
-import ru.instamart.kraken.testdata.lib.Addresses;
-import ru.instamart.ui.manager.AppManager;
-import ru.instamart.ui.module.Shop;
-import ru.instamart.ui.module.User;
-import ru.instamart.ui.module.shop.ShippingAddressModal;
-import ru.instamart.ui.Elements;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.testdata.lib.Addresses;
+import ru.instamart.test.ui.TestBase;
+import ru.instamart.ui.Elements;
+import ru.instamart.ui.checkpoint.BaseUICheckpoints;
+import ru.instamart.ui.checkpoint.itemcard.ItemCardAndCatalogCheckpoints;
+import ru.instamart.ui.manager.AppManager;
+import ru.instamart.ui.module.Shop;
+import ru.instamart.ui.module.shop.ShippingAddressModal;
 
+@Epic("STF UI")
+@Feature("Проверка каталога товаров")
 public final class ShoppingCatalogTests extends TestBase {
 
     private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
@@ -120,7 +121,7 @@ public final class ShoppingCatalogTests extends TestBase {
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successOperateItemCardOnSearchPage() {
-        Shop.Search.searchField("хлеб");
+        Shop.Search.searchField("сыр");
         Shop.Search.openCard();
         itemChecks.checkIsItemCardOpen("Не открывается карточка продукта в выдаче поиска\n");
         Shop.ItemCard.close();

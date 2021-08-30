@@ -476,7 +476,7 @@ public class Elements {
                 }
 
                 static ElementData searchListResult() {
-                    return new ElementData(By.xpath("//*[@data-qa='result-list']"),
+                    return new ElementData(By.xpath("//div[@data-qa='result-list']"),
                             "список с результатом поиска");
                 }
 
@@ -1579,7 +1579,7 @@ public class Elements {
         interface Product {
             //
             static ElementData snippet() {
-                return new ElementData(By.xpath("//li[@class='product']//div[contains(@class,'product__img')]//img[contains(@alt,text())]"),
+                return new ElementData(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']"),
                         "сниппет продукта");
             }
 
