@@ -1,0 +1,124 @@
+package ru.instamart.test.reforged.okey;
+
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import io.qase.api.annotation.CaseId;
+import org.testng.annotations.Test;
+import ru.instamart.api.model.v2.RetailerV2;
+import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.DoNotOpenBrowser;
+import ru.instamart.reforged.core.StaticPage;
+import ru.instamart.reforged.core.service.Curl;
+import ru.instamart.test.reforged.BaseTest;
+
+import static org.testng.Assert.assertTrue;
+import static ru.instamart.reforged.metro.page.MetroRouter.metro;
+import static ru.instamart.reforged.okey.page.OkeyRouter.okey;
+
+@Epic("OKEY UI")
+@Feature("Базовые тесты тенанта окей")
+public final class BasicOkeyTests extends BaseTest {
+
+    @CaseId(2777)
+    @Story("Валидация элементов")
+    @Test(
+            description = "Тест валидности элементов и ссылок в шапке Okey",
+            groups = {"okey-smoke", "okey-acceptance", "okey-regression"}
+    )
+    public void successValidateOkeyTenantHeader() {
+        okey().goToPage();
+        okey().checkPageIsAvailable();
+
+        okey().interactHeader().checkHeaderVisible();
+        okey().interactHeader().checkSelectAddressButtonVisible();
+        okey().interactHeader().checkSelectAddressTextButtonVisible();
+        okey().interactHeader().checkHotlineWorkHoursVisible();
+        okey().interactHeader().checkHotlinePhoneVisible();
+        okey().interactHeader().checkShopLogoButtonVisible();
+        okey().interactHeader().checkHelpVisible();
+        okey().interactHeader().checkCategoryMenuVisible();
+        okey().interactHeader().checkSearchInputVisible();
+        okey().interactHeader().checkSearchButtonVisible();
+        okey().interactHeader().checkCartVisible();
+        okey().interactHeader().checkPartnershipLabelVisible();
+        okey().interactHeader().checkLoginIsVisible();
+        okey().interactHeader().checkNearestDeliveryLabelVisible();
+    }
+
+    @CaseId(2778)
+    @Story("Валидация элементов")
+    @Test(
+            description = "Тест валидности элементов и ссылок в подвале Okey",
+            groups = {"okey-smoke", "okey-acceptance", "okey-regression"}
+    )
+    public void successValidateOkeyTenantFooter() {
+        okey().goToPage();
+        okey().checkPageIsAvailable();
+        okey().addCookie(CookieFactory.COOKIE_ALERT);
+        okey().refresh();
+        okey().scrollDown();
+
+        okey().interactFooter().checkFooterVisible();
+        okey().interactFooter().checkLogoVisible();
+
+        okey().interactFooter().checkCopyrightTextVisible();
+        okey().interactFooter().checkPartnershipLogoVisible();
+        okey().interactFooter().checkCopyrightShopNameVisible();
+
+        okey().interactFooter().checkHotlineTextVisible();
+        okey().interactFooter().checkHotlinePhoneNumberVisible();
+        okey().interactFooter().checkHotlineWorkHoursVisible();
+        
+        okey().interactFooter().checkDisclaimerVisible();
+
+        okey().interactFooter().checkCustomerHelpVisible();
+        okey().interactFooter().checkReturnsPolicyLinkVisible();
+        okey().interactFooter().checkPublicOfferLinkVisible();
+        okey().interactFooter().checkPersonalDataPolicyLinkVisible();
+
+        okey().interactFooter().checkAboutCompanyVisible();
+        okey().interactFooter().checkDeliveryZoneVisible();
+        okey().interactFooter().checkDeliveryAndPaymentVisible();
+        okey().interactFooter().checkPaymentInfoVisible();
+    }
+
+    @DoNotOpenBrowser
+    @CaseId(2779)
+    @Story("Витрины ретейлеров")
+    @Test(  dataProviderClass = StaticPage.class,
+            dataProvider = "filteredUnavailableRetailersSpree",
+            description = "Тест недоступности витрин ретейлеров Okey",
+            groups = {"okey-smoke", "okey-acceptance", "okey-regression"}
+    )
+    public void successCheckOkeyUnavailableRetailers(final RetailerV2 retailer) {
+        final String fullUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + retailer.getSlug();
+        assertTrue(Curl.pageUnavailable(fullUrl), "Страница " + fullUrl + " доступна");
+    }
+
+    @DoNotOpenBrowser
+    @CaseId(2779)
+    @Story("Витрины ретейлеров")
+    @Test(  dataProviderClass = StaticPage.class,
+            dataProvider = "okeyAvailableRetailerPage",
+            description = "Тест доступности витрин ретейлеров Okey",
+            groups = {"okey-smoke", "okey-acceptance", "okey-regression"}
+    )
+    public void successCheckOkeyAvailableRetailers(final String url) {
+        assertTrue(Curl.pageAvailable(url), "Страница " + url + " доступна");
+    }
+
+    @DoNotOpenBrowser
+    @CaseId(2780)
+    @Story("Статические страницы")
+    @Test(
+            dataProviderClass = StaticPage.class,
+            dataProvider = "okeyFaqPage",
+            description = "Тест доступности статических страниц на Okey",
+            groups = {"okey-smoke", "okey-acceptance", "okey-regression"}
+    )
+    public void successCheckOkeyStaticPagesAreAvailable(final String url) {
+        assertTrue(Curl.pageAvailable(url), "Страница " + url + " недоступна");
+    }
+}

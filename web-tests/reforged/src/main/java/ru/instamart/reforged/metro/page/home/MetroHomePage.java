@@ -8,7 +8,7 @@ public final class MetroHomePage implements MetroPage, MetroHomeCheck {
 
     @Override
     public String pageUrl() {
-        return "";
+        return "metro";
     }
 
     public Header interactHeader() {

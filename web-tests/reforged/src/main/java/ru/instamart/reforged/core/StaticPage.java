@@ -8,6 +8,7 @@ import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import java.util.List;
 
+import static ru.instamart.reforged.okey.page.OkeyRouter.*;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 import static ru.instamart.reforged.metro.page.MetroRouter.*;
 
@@ -41,6 +42,19 @@ public final class StaticPage {
         };
     }
 
+    @DataProvider(name = "okeyFaqPage", parallel = true)
+    public static Object[][] getOkeyFaqPage() {
+        return new Object[][] {
+                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + okeyAbout().pageUrl()},
+                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + okeyDelivery().pageUrl()},
+                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + okeyRules().pageUrl()},
+                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + okeyReturnPolicy().pageUrl()},
+                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + okeyFaq().pageUrl()},
+                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + okeyTerms().pageUrl()},
+                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + okeyContacts().pageUrl()}
+        };
+    }
+
     @DataProvider(name = "servicePage", parallel = true)
     public static Object[][] getServicePage() {
         return new Object[][] {
@@ -61,6 +75,13 @@ public final class StaticPage {
     public static Object[][] getMetroAvailableRetailerPage() {
         return new Object[][] {
                 {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + metro().pageUrl()},
+        };
+    }
+
+    @DataProvider(name = "okeyAvailableRetailerPage", parallel = true)
+    public static Object[][] getOkeyAvailableRetailerPage() {
+        return new Object[][] {
+                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + okey().pageUrl()},
         };
     }
 
