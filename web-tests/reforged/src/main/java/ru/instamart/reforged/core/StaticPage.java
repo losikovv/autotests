@@ -59,7 +59,8 @@ public final class StaticPage {
     public static Object[][] getServicePage() {
         return new Object[][] {
                 {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + certificate().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + job().pageUrl()}
+                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + job().pageUrl()},
+                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + driversHiring().pageUrl()}
         };
     }
 
