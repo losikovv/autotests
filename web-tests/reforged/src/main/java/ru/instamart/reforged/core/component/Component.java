@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 @Slf4j
 public abstract class Component {
 
-    private static final Pattern LOCATOR = Pattern.compile("/[^\\r\\n]*");
+    public static final Pattern LOCATOR = Pattern.compile("/[^\\r\\n]*");
 
     protected WebElement component;
     protected boolean isCacheDisable = true;

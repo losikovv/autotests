@@ -11,22 +11,22 @@ public interface CommonFrameButtons {
     Button delete = new Button(By.xpath("//div[@class='modal-form']//button[text() = 'Удалить']"));
     Button close = new Button(By.xpath("//header/button"));
 
-    @Step("Нажать Сохранить")
+    @Step("Нажать 'Сохранить'")
     default void clickToSaveModal() {
         save.click();
     }
 
-    @Step("Нажать Отменить")
+    @Step("Нажать 'Отменить'")
     default void clickToCancelModal() {
         cancel.click();
     }
 
-    @Step("Нажать Удалить")
+    @Step("Нажать 'Удалить'")
     default void clickToDeleteModal() {
         delete.click();
     }
 
-    @Step("Нажать закрыть")
+    @Step("Нажать 'Закрыть'")
     default void clickToCloseModal() {
         close.click();
     }

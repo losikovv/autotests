@@ -211,6 +211,13 @@ public final class UserManager {
         return addressUser;
     }
 
+    public static UserData checkoutUser() {
+        return UserData.builder()
+                .phone("79998833344")
+                .email("firstStepCheckout@sbermarket.ru")
+                .build();
+    }
+
     public static List<UserData> getUserDataList() {
         return USER_DATA_LIST;
     }

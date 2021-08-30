@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.reforged.core.Kraken;
 
+import java.util.regex.Matcher;
+
 import static java.util.Objects.isNull;
 
 @ToString(callSuper = true)
@@ -74,6 +76,17 @@ public final class Input extends Component {
     public void jsFill(final String data) {
         log.info("JS Fill {} with locator {} and data {}", getDescription(), getBy(), data);
         Kraken.jsAction().setValue(getComponent(), data);
+    }
+
+    /**
+     * Очистка инпута через js код
+     */
+    public void jsClear() {
+        final Matcher matcher = LOCATOR.matcher(getBy().toString());
+        while (matcher.find()) {
+            log.info("Clear input field '{}' from js", getDescription());
+            Kraken.jsAction().clearField(matcher.group());
+        }
     }
 
     public void clear() {

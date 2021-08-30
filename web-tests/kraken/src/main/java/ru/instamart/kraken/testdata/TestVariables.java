@@ -75,4 +75,26 @@ public interface TestVariables {
                 new DeliveryTimeData(4, 2)
         );
     }
+
+    static AddressDetailsData testAddressData() {
+        return new AddressDetailsData(
+                "",
+                "100",
+                "10",
+                true, "1",
+                "По номеру квартиры",
+                "Тестовый комментарий"
+        );
+    }
+
+    static AddressDetailsData testChangeAddressData() {
+        return new AddressDetailsData(
+                "",
+                "200",
+                "20",
+                true, "12",
+                "Не по номеру квартиры",
+                "Нетестовый комментарий"
+        );
+    }
 }

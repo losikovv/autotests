@@ -49,4 +49,9 @@ public class RadioButton extends Component {
         log.info("Set {} with locator {}", getDescription(), getBy());
         getComponent().click();
     }
+
+    public Boolean radioButtonState() {
+        log.info("Get {} state", getDescription());
+        return getComponent().isSelected();
+    }
 }

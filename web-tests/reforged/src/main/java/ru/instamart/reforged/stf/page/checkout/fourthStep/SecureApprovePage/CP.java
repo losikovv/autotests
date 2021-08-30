@@ -1,4 +1,4 @@
-package ru.instamart.reforged.stf.page.checkout.step.SecureApprovePage;
+package ru.instamart.reforged.stf.page.checkout.fourthStep.SecureApprovePage;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
