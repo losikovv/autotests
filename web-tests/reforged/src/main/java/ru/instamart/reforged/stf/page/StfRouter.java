@@ -9,6 +9,7 @@ import ru.instamart.reforged.stf.page.landings.AeroflotPage;
 import ru.instamart.reforged.stf.page.landings.MnogoruPage;
 import ru.instamart.reforged.stf.page.landings.gift.CertificatePage;
 import ru.instamart.reforged.stf.page.landings.job.JobPage;
+import ru.instamart.reforged.stf.page.notfound.Page404;
 import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.reforged.stf.page.user.UserCompanies;
 import ru.instamart.reforged.stf.page.user.UserEdit;
@@ -92,6 +93,10 @@ public final class StfRouter extends Router {
 
     public static AeroflotPage aeroflot() {
         return (AeroflotPage) getPage(AeroflotPage.class);
+    }
+
+    public static Page404 notfound() {
+        return (Page404) getPage(Page404.class);
     }
 
     private StfRouter() {
