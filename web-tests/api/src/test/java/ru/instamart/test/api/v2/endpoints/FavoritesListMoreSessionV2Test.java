@@ -104,7 +104,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
     @Story("Список SKU товаров из избранного")
     @Test(groups = {"api-instamart-regress"},
             description = "Список SKU товаров из избранного. 3 товар в избранном")
-    public void method() {
+    public void getFavoritesSku3Items() {
         apiV2.addFavoritesQtyListProductBySid(EnvironmentData.INSTANCE.getDefaultSid(), 3);
         Response response = FavoritesV2Request.ProductSku.GET();
         checkStatusCode200(response);
