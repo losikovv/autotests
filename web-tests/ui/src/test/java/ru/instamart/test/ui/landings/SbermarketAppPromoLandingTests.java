@@ -1,7 +1,6 @@
 package ru.instamart.test.ui.landings;
 
 import io.qase.api.annotation.CaseId;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.testdata.lib.Pages;
@@ -13,12 +12,6 @@ public final class SbermarketAppPromoLandingTests extends TestBase {
 
     private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 
-    @BeforeMethod(alwaysRun = true,
-            description ="Выполняем шаги предусловий для теста")
-    public void beforeTest() {
-        kraken.get().page(Pages.Landings.sberAppPromo());
-    }
-
     @Skip
     @CaseId(1685)
     @Test(
@@ -26,6 +19,7 @@ public final class SbermarketAppPromoLandingTests extends TestBase {
             groups = {"testing","sbermarket-Ui-smoke"}
     )
     public void successValidateSbermarketAppPromoLanding() {
+        kraken.get().page(Pages.Landings.sberAppPromo());
         baseChecks.checkPageIsAvailable();
         baseChecks.checkIsElementPresent(Elements.Landings.sberAppPromoLanding.submitButton());
     }

@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.TestVariables;
 import ru.instamart.kraken.testdata.Generate;
@@ -18,9 +19,10 @@ import org.testng.annotations.Test;
 
 @Epic("STF UI")
 @Feature("Поиск товаров")
-public class ShoppingSearchTests extends TestBase {
-    BaseUICheckpoints baseChecks = new BaseUICheckpoints();
-    SearchResultCheckpoints searchChecks = new SearchResultCheckpoints();
+public final class ShoppingSearchTests extends TestBase {
+
+    private final BaseUICheckpoints baseChecks = new BaseUICheckpoints();
+    private final SearchResultCheckpoints searchChecks = new SearchResultCheckpoints();
 
     @BeforeClass(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
@@ -81,6 +83,7 @@ public class ShoppingSearchTests extends TestBase {
         searchChecks.checkIsTaxonRedirectCorrect("Сыр","Отсутствуют продукты в результатах поиска по категорийной подсказке");
     }
 
+    @Skip
     @CaseId(1180)
     @Story("Позитивные сценарии")
     @Test (

@@ -118,6 +118,7 @@ public final class UserShippingAddressTests extends TestBase {
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
         ShippingAddressModal.selectAddressSuggest();
         ShippingAddressModal.submit();
+        kraken.perform().refresh();
         shippingChecks.checkIsShippingAddressSet("Адрес доставки не установлен");
         shippingChecks.checkIsSetAddressEqualsToInput(Addresses.Moscow.defaultAddress(),
                 kraken.grab().currentShipAddress());

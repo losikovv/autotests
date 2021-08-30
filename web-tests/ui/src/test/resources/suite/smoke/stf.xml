@@ -23,7 +23,7 @@
       <class name="ru.instamart.test.ui.checkout.CheckoutContactsStepTests"/>
       <class name="ru.instamart.test.ui.checkout.CheckoutDeliveryStepTests"/>
       <class name="ru.instamart.test.ui.checkout.CheckoutPaymentStepTests"/>
-      <!--<class name="ru.instamart.test.ui.checkout.CheckoutPromocodeTests"/>-->
+      <class name="ru.instamart.test.ui.checkout.CheckoutPromocodeTests"/>
       <class name="ru.instamart.test.ui.checkout.CheckoutReplacementsStepTests"/>
       <class name="ru.instamart.test.ui.checkout.CheckoutRetailerCardTests"/>
       <class name="ru.instamart.test.ui.addons.JivositeTests"/>
@@ -49,8 +49,8 @@
       <class name="ru.instamart.test.ui.landings.SbermarketLandingTests"/>
       <class name="ru.instamart.test.ui.addons.SeoCatalogTests"/>
       <class name="ru.instamart.test.ui.shopping.ShoppingCartTests"/>
-      <!--<class name="ru.instamart.test.ui.shopping.ShoppingCatalogTests"/>-->
-      <!--<class name="ru.instamart.test.ui.shopping.ShoppingSearchTests"/>-->
+      <class name="ru.instamart.test.ui.shopping.ShoppingCatalogTests"/>
+      <class name="ru.instamart.test.ui.shopping.ShoppingSearchTests"/>
       <class name="ru.instamart.test.ui.shopping.ShoppingTestsForExistingUser"/>
       <class name="ru.instamart.test.ui.shopping.ShoppingTestsForUnauthorizedUser"/>
       <class name="ru.instamart.test.ui.TestBase"/>
