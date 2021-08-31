@@ -1,9 +1,14 @@
 package ru.instamart.reforged.stf.page.notfound;
 
 import io.qameta.allure.Step;
+import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
 import ru.instamart.reforged.stf.page.StfPage;
 
 public final class Page404 implements StfPage, Page404Check {
+
+    public HelpDesk interactHelpDesk() {
+        return helpDesk;
+    }
 
     @Step("Нажать по кнопке 'Вернуться на главную'")
     public void clickToGoToMainPage() {

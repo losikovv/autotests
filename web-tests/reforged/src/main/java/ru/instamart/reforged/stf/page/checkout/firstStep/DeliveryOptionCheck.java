@@ -60,5 +60,4 @@ public interface DeliveryOptionCheck extends DeliveryOptionElement {
     default void checkCommentsValue(String actual, String expected) {
         krakenAssert.assertEquals(actual, expected, "значение в поле Код домофона неверное");
     }
-
 }

@@ -2,12 +2,11 @@ package ru.instamart.reforged.core.page;
 
 import org.openqa.selenium.WebDriver;
 import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.core.service.KrakenDriver;
 
 import java.util.List;
 import java.util.Optional;
 
-import static ru.instamart.reforged.core.service.KrakenDriver.getWebDriver;
+import static ru.instamart.reforged.core.Kraken.getWebDriver;
 
 public interface Window {
 

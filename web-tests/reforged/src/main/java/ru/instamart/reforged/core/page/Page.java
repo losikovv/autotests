@@ -4,7 +4,6 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.Cookie;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.core.service.KrakenDriver;
 
 import static org.testng.Assert.*;
 import static ru.instamart.kraken.util.StringUtil.failMessage;
@@ -25,7 +24,7 @@ public interface Page extends PageCheck {
 
     @Step("Обновить страницу")
     default void refresh() {
-        KrakenDriver.refresh();
+        Kraken.refresh();
         Kraken.jsAction().waitForDocumentReady();
         Kraken.jsAction().jQueryReady();
     }

@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Link;
 import ru.instamart.reforged.stf.block.footer.Footer;
+import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
 import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 
@@ -12,6 +13,7 @@ public interface HomeElement {
 
     AuthModal authModal = new AuthModal();
     Address addressModal = new Address();
+    HelpDesk helpDesk = new HelpDesk();
     Footer footer = new Footer();
 
     Button loginButton = new Button(By.xpath("//button[contains(@class, 'home_header')]"));
