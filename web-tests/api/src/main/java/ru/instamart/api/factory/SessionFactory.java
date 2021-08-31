@@ -1,6 +1,5 @@
 package ru.instamart.api.factory;
 
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -15,8 +14,8 @@ import ru.instamart.api.request.delivery_club.AuthenticationDCRequest;
 import ru.instamart.api.request.shopper.app.SessionsSHPRequest;
 import ru.instamart.api.request.v1.TokensV1Request;
 import ru.instamart.api.request.v1.UserSessionsV1Request;
-import ru.instamart.api.request.v2.PhoneConfirmationsV2Request;
 import ru.instamart.api.request.v2.AuthProvidersV2Request;
+import ru.instamart.api.request.v2.PhoneConfirmationsV2Request;
 import ru.instamart.api.response.delivery_club.TokenDCResponse;
 import ru.instamart.api.response.shopper.app.SessionsSHPResponse;
 import ru.instamart.api.response.v1.TokensV1Response;
@@ -86,6 +85,7 @@ public final class SessionFactory {
         final SessionId sessionId = new SessionId(Thread.currentThread().getId(),
                 type == SessionType.API_V2_PHONE ? SessionType.API_V2_FB : type);
         final SessionInfo session = sessionMap.get(sessionId);
+        //TODO: В связи с тем, что теперь для логина используется телефон, нужно перейти с email во всех проверках создания сессии
         if (nonNull(session) && !session.getLogin().equals(userData.getEmail())) {
             sessionMap.put(sessionId, createSession(type, userData));
         } else if (isNull(session)) {

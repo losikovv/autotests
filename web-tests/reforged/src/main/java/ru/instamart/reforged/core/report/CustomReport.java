@@ -5,11 +5,9 @@ import io.qameta.allure.Attachment;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogType;
 import ru.instamart.kraken.helper.LogAttachmentHelper;
 import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.core.service.KrakenDriver;
 
 import java.io.File;
 import java.util.Arrays;
@@ -37,7 +35,7 @@ public final class CustomReport {
 
     @Attachment(value = "Содержимое страницы", type = "text/html")
     public static String addSourcePage() {
-        return KrakenDriver.getSource();
+        return Kraken.getSource();
     }
 
     @Attachment(value = "LocalStorage", type = "text/plain")
@@ -52,12 +50,12 @@ public final class CustomReport {
     /** Создаем скриншот и добавляем его в Allure */
     @Attachment(value = "Скриншот с веб страницы", type = "image/jpg")
     public static byte[] takeScreenshot() {
-        return ((TakesScreenshot) KrakenDriver.getWebDriver()).getScreenshotAs(OutputType.BYTES);
+        return ((TakesScreenshot) Kraken.getWebDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
     /** Создаем скриншот для добавления его в Qase */
     public static File takeScreenshotFile () {
-        return ((TakesScreenshot) KrakenDriver.getWebDriver()).getScreenshotAs(OutputType.FILE);
+        return ((TakesScreenshot) Kraken.getWebDriver()).getScreenshotAs(OutputType.FILE);
     }
 
     @Attachment(value = "Куки браузера", type = "text/plain")

@@ -11,15 +11,14 @@ import ru.instamart.reforged.core.action.WaitAction;
 
 import java.util.Set;
 
-import static ru.instamart.reforged.core.service.KrakenDriver.*;
-
 @Slf4j
-public final class Kraken {
+public final class Kraken extends KrakenDriver {
 
     private static final JsAction jsAction = new JsAction();
     private static final WaitAction wait = new WaitAction();
 
     public static void open(final String url) {
+        log.info("Переход на страницу {}", url);
         getWebDriver().get(url);
     }
 

@@ -1,12 +1,13 @@
-package ru.instamart.reforged.core.service;
+package ru.instamart.reforged.core;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
+import ru.instamart.reforged.core.service.WebDriverContainer;
 
-public final class KrakenDriver {
+class KrakenDriver {
 
-    private static final WebDriverContainer container = new WebDriverContainer();
+    private static final WebDriverContainer CONTAINER = new WebDriverContainer();
 
     public static void refresh() {
         getWebDriver().navigate().refresh();
@@ -33,10 +34,10 @@ public final class KrakenDriver {
     }
 
     public static WebDriver getWebDriver() {
-        return container.createOrGetDriver();
+        return CONTAINER.createOrGetDriver();
     }
 
     public static void closeWebDriver() {
-        container.closeDriver();
+        CONTAINER.closeDriver();
     }
 }

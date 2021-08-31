@@ -7,6 +7,7 @@ import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.block.header.Header;
+import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
 import ru.instamart.reforged.stf.drawer.CategoryMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.address.Address;
@@ -42,6 +43,10 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     public Footer interactFooter() {
         return footer;
+    }
+
+    public HelpDesk interactHelpDesk() {
+        return helpDesk;
     }
 
     @Step("Открыть окно ввода адреса доставки")

@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.page.checkout;
 
 import io.qameta.allure.Step;
+import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
 import ru.instamart.reforged.stf.frame.checkout.subsections.*;
 import ru.instamart.reforged.stf.page.StfPage;
 import ru.instamart.reforged.stf.page.checkout.fifthStep.SlotStep;
@@ -49,6 +50,10 @@ public final class CheckoutPage implements StfPage, CheckoutCheck {
 
     public EditLoyaltyPromoCode interactEditLoyaltyPromoCodeModal() {
         return editLoyaltyPromoCodeModal;
+    }
+
+    public HelpDesk interactHelpDesk() {
+        return helpDesk;
     }
 
     @Step("Нажать Оформить заказ в сайдбаре")

@@ -6,14 +6,12 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.kraken.setting.Config;
-import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.component.Component;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static ru.instamart.reforged.core.service.KrakenDriver.getWebDriver;
+import static ru.instamart.reforged.core.Kraken.getWebDriver;
 
 @Slf4j
 public final class WaitAction {

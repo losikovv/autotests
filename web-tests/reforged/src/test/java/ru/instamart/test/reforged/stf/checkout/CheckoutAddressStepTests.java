@@ -1,4 +1,4 @@
-package ru.instamart.test.reforged.checkout;
+package ru.instamart.test.reforged.stf.checkout;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -14,22 +14,22 @@ import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
-
 @Epic("STF UI")
 @Feature("Чекаут. Шаг #1. Способ получения")
-public class CheckoutAddressStepTests extends BaseTest {
+public final class CheckoutAddressStepTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
-    AddressDetailsData data = TestVariables.testAddressData();
-    UserData checkoutUser = UserManager.checkoutUser();
+    private final AddressDetailsData data = TestVariables.testAddressData();
+    private final UserData checkoutUser = UserManager.checkoutUser();
 
     @CaseIDs({@CaseId(1698), @CaseId(1699), @CaseId(1700), @CaseId(1701)})
     @Test(description = "Тесты заполнения, изменения и очистки всех полей",
             groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successFillAllFieldsAndProceedNext() {
+        final AddressDetailsData changeData = TestVariables.testChangeAddressData();
+
         helper.dropAndFillCart(checkoutUser, 1);
-        AddressDetailsData changeData = TestVariables.testChangeAddressData();
 
         home().goToPage();
         home().openLoginModal();

@@ -9,7 +9,6 @@ import ru.instamart.reforged.stf.drawer.store_selector.StoreSelector;
 import ru.instamart.reforged.stf.frame.address.Address;
 
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
-import static ru.instamart.reforged.core.service.KrakenDriver.refresh;
 
 public final class Header implements HeaderCheck {
 
@@ -141,6 +140,6 @@ public final class Header implements HeaderCheck {
     @Step("js логаут с очисткой сессии")
     public void clearSessionLogout() {
         JsAction.clearSession();
-        refresh();
+        Kraken.refresh();
     }
 }

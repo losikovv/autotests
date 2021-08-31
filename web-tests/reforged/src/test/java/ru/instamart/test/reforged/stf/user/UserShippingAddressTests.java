@@ -12,10 +12,8 @@ import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.reforged.core.enums.ShopUrl;
-import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.test.reforged.BaseTest;
 
-import static ru.instamart.reforged.core.service.KrakenDriver.refresh;
 import static ru.instamart.reforged.stf.page.StfRouter.home;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -138,7 +136,7 @@ public final class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
         shop().interactHeader().checkIsShippingAddressSet();
-        refresh(); //обновляется страница, чтобы получить элемент selectAddress
+        shop().refresh(); //обновляется страница, чтобы получить элемент selectAddress
         shop().interactHeader().clickToSelectAddress();
         shop().interactHeader().interactAddress().fillAddress(testAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
@@ -165,7 +163,7 @@ public final class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
         shop().interactHeader().checkIsShippingAddressSet();
-        refresh(); //обновляется страница, чтобы получить элемент selectAddress
+        shop().refresh(); //обновляется страница, чтобы получить элемент selectAddress
         shop().interactHeader().clickToSelectAddress();
         shop().interactHeader().interactAddress().fillAddress(testAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
@@ -249,7 +247,7 @@ public final class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().interactAddress().fillAddress(defaultAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
-        refresh();
+        shop().refresh();
         shop().interactHeader().clickToSelectAddress();
         firstPrevAdr = shop().interactHeader().interactAddress().getFirstPrevAddress();
         shop().interactHeader().interactAddress().clickOnFirstPrevAddress();

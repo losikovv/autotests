@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
+import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
 import ru.instamart.reforged.stf.frame.checkout.subsections.*;
 import ru.instamart.reforged.stf.page.checkout.fifthStep.SlotStep;
 import ru.instamart.reforged.stf.page.checkout.fourthStep.PaymentStep;
@@ -23,6 +24,7 @@ public interface CheckoutElement {
     EditRequisites requisitesModal = new EditRequisites();
     EditPaymentCard editPaymentCardModal = new EditPaymentCard();
     EditLoyaltyPromoCode editLoyaltyPromoCodeModal = new EditLoyaltyPromoCode();
+    HelpDesk helpDesk = new HelpDesk();
 
     Button submitFromCheckoutSidebar = new Button(By.xpath("//aside[@class='checkout-sidebar']//button[@data-qa='checkout_order_button']"));
 

@@ -7,15 +7,14 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.reforged.core.Kraken;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static ru.instamart.reforged.core.Kraken.execute;
-import static ru.instamart.reforged.core.Kraken.jsAction;
-import static ru.instamart.reforged.core.service.KrakenDriver.getWebDriver;
+import static ru.instamart.reforged.core.Kraken.*;
 
 @Slf4j
 public final class JsAction {
