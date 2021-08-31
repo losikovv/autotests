@@ -15,7 +15,7 @@ public final class DriversHiringLandingTests extends BaseTest {
     @CaseId(1686)
     @Test(
             description = "Тест лендинга найма водителей Сбермаркета",
-            groups = {"testing","sbermarket-Ui-smoke"}
+            groups = {"testing", "sbermarket-Ui-smoke"}
     )
     public void successValidateSbermarketDriversHiringLanding() {
         driversHiring().goToPage();
