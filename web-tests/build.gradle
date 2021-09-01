@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.google.protobuf' version '0.8.17'
 }
 
 apply from: 'dependencies.gradle'
@@ -107,6 +108,24 @@ project(":ui") {
 
 project(":api") {
     apply plugin: "java-library"
+    apply plugin: 'com.google.protobuf'
+
+    protobuf {
+        generatedFilesBaseDir = "$projectDir/src/generated"
+        protoc {
+            artifact = lib.protobufProtoc
+        }
+        plugins {
+            grpc {
+                artifact = lib.protocGenGrpcJava
+            }
+        }
+        generateProtoTasks {
+            all()*.plugins {
+                grpc {}
+            }
+        }
+    }
 
     dependencies {
         implementation project(":kraken")
@@ -121,10 +140,17 @@ project(":api") {
         implementation lib.jsonSimple
         implementation lib.testng
         implementation lib.restAssuredSchemaValidator
+
         implementation lib.pgsqlJDBC
         implementation lib.mysqlJDBC
-        implementation lib.kafkaClients
         implementation lib.kubernetesClient
+
+        implementation lib.kafkaClients
+
+        implementation lib.grpcNettyShaded
+        implementation lib.grpcProtobuf
+        implementation lib.grpcStub
+        implementation lib.tomcatAnnotationsApi
 
         compileOnly lib.lombok
 

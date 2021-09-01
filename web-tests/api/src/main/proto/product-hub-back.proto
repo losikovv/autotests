@@ -1,0 +1,204 @@
+syntax = "proto3";
+
+package product_hub_back;
+
+option go_package = "gitlab.sbermarket.tech/paas/content/product-hub/pkg/server/grpc/product-hub-back";
+
+service ProductHubBack {
+	rpc SaveProducts(SaveProductsRequest) returns (SaveProductsResponse);
+	rpc SaveStocks(SaveStocksRequest) returns (SaveStocksResponse);
+	rpc SaveOffers(SaveOffersRequest) returns (SaveOffersResponse);
+	rpc SavePrices(SavePricesRequest) returns (SavePricesResponse);
+	rpc SaveCategories(SaveCategoriesRequest) returns (SaveCategoriesResponse);
+	rpc SaveAttributes(SaveAttributesRequest) returns (SaveAttributesResponse);
+	rpc SaveDictionaries(SaveDictionariesRequest) returns (SaveDictionariesResponse);
+	rpc SaveCategoryFilters(SaveCategoryFiltersRequest) returns (SaveCategoryFiltersResponse);
+}
+
+// SaveProducts
+message SaveProductsRequest {
+	repeated Product products = 1;
+}
+
+message SaveProductsResponse {
+	int64 save_products_count = 1;
+}
+
+// SaveOffers
+message SaveOffersRequest {
+	repeated Offer offers = 1;
+}
+
+message SaveOffersResponse {
+	int64 save_offers_count = 1;
+}
+
+// SaveStocks
+message SaveStocksRequest {
+	repeated Stock stocks = 1;
+}
+
+message SaveStocksResponse {
+	int64 save_stocks_count = 1;
+}
+
+// SavePrices
+message SavePricesRequest {
+	repeated Price prices = 1;
+}
+
+message SavePricesResponse {
+	int64 save_prices_count = 1;
+}
+
+// SaveCategories
+message SaveCategoriesRequest {
+	repeated Category categories = 1;
+}
+
+message SaveCategoriesResponse {
+	int64 save_categories_count = 1;
+}
+
+// SaveAttributes
+message SaveAttributesRequest {
+	repeated Attribute attributes = 1;
+}
+
+message SaveAttributesResponse {
+	int64 save_attributes_count = 1;
+}
+
+// SaveDictionaries
+message SaveDictionariesRequest {
+	repeated Dictionary dictionaries = 1;
+}
+
+message SaveDictionariesResponse {
+	int64 save_dictionaries_count = 1;
+}
+
+// SaveCategoryFilters
+message SaveCategoryFiltersRequest {
+	repeated CategoryFilters categoryFilters = 1;
+}
+
+message SaveCategoryFiltersResponse {
+	int64 save_category_filters_count = 1;
+}
+
+
+enum Status {
+	DISABLE = 0;
+	ENABLE = 1;
+}
+
+enum ValueType {
+	STRING = 0;
+	INTEGER = 1;
+	DOUBLE = 2;
+	BOOL = 3;
+	DATETIME = 4;
+	IMAGE = 5;
+}
+
+enum Pricer {
+	PER_ITEM = 0;  // за штуку
+	PER_ITEMS_PACKAGE = 1;  // за упаковку
+	PER_WEIGHT_PACKAGE = 2;  // весовой фасованный
+	PER_WEIGHT = 3;  // весовой, не фасованный
+}
+
+message Data {
+	string key = 1;
+	ValueType type = 2;
+	bool is_multi_value = 3;
+	repeated string values = 4;
+}
+
+message Product {
+	int64 sku = 1;
+	string name = 2;
+	repeated string category_ids = 3;
+	repeated AttributeValue attribute_values = 4;
+	Status status = 5;
+}
+
+message AttributeValue {
+	string attribute_key = 1;
+	string value = 2;
+	string dictionary_value_id = 3;
+}
+
+message Category {
+	string id = 1;
+	string name = 2;
+	string parent_id = 3;
+	repeated string retailer_ids = 4;
+	repeated Data category_data = 5;
+	repeated string tenant_ids = 6;
+	Status status = 7;
+}
+
+message Attribute {
+	string key = 1;
+	string dictionary_key = 2;
+	string name = 3;
+	ValueType type = 4;
+	bool is_multi_value = 5;
+	map<string, bool> flags = 6;
+	repeated Data attribute_data = 7;
+}
+
+message Dictionary {
+	string key = 1;
+	string name = 2;
+	ValueType type = 3;
+	repeated DictionaryValue values = 4;
+}
+
+message DictionaryValue {
+	message AdditionalDictionaryValue {
+		string dictionary_key = 1;
+		string dictionary_value_id = 2;
+	}
+	string id = 1;
+	string value = 2;
+	repeated Data value_data = 3;
+	repeated AdditionalDictionaryValue additional_dictionary_values = 4;
+}
+
+message Stock {
+	int64 sku = 1;
+	string store_id = 2;
+	string retailer_id = 3;
+	string retailer_sku = 4;
+	double stock = 5;
+	repeated Data stock_data = 6;
+	Status status = 7;
+}
+
+message Offer {
+	int64 sku = 1;
+	string retailer_id = 2;
+	string retailer_sku = 3;
+	Pricer pricer = 4;
+	repeated Data offer_data = 5;
+	Status status = 6;
+}
+
+message Price {
+	int64 sku = 1;
+	string store_id = 2;
+	string tenant_id = 3;
+	string retailer_id = 4;
+	string retailer_sku = 5;
+	double price = 6;
+	repeated Data price_data = 7;
+	Status status = 8;
+}
+
+message CategoryFilters {
+	string category_id = 1;
+	repeated string attribute_keys = 2;
+}

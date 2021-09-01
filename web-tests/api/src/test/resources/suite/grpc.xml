@@ -1,0 +1,20 @@
+<!DOCTYPE suite SYSTEM 'http://testng.org/testng-1.0.dtd'>
+<suite name="GRPC-SUITE" verbose="1">
+  <listeners>
+    <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
+    <listener class-name="ru.instamart.api.listener.ApiListener"/>
+  </listeners>
+  <test verbose="1" name="PRODUCT HUB">
+    <classes>
+      <class name="ru.instamart.test.grps.product.hub.ProductHubBackTest"/>
+      <class name="ru.instamart.test.grps.product.hub.ProductHubBackStreamTest"/>
+      <class name="ru.instamart.test.grps.product.hub.ProductHubFrontDataTest"/>
+      <class name="ru.instamart.test.grps.product.hub.ProductHubFrontMetaTest"/>
+    </classes>
+  </test>
+  <test verbose="1" name="PRODUCT FILTER">
+    <classes>
+      <class name="ru.instamart.test.grps.product.filter.ProductFilterTest"/>
+    </classes>
+  </test>
+</suite>
