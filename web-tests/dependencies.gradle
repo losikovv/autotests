@@ -17,6 +17,9 @@ ext.versions = [
         kafkaClients: '2.8.0',
         kubernetesClient: '13.0.0',
         mysqlJDBC: '8.0.26',
+        gRPC: '1.40.0',
+        tomcatAnnotationsApi: '10.0.10',
+        protobufProtoc: '3.17.3',
 ]
 
 ext.lib = [
@@ -41,5 +44,11 @@ ext.lib = [
         pgsqlJDBC: "org.postgresql:postgresql:$versions.pgsqlJDBC",
         kafkaClients: "org.apache.kafka:kafka-clients:$versions.kafkaClients",
         kubernetesClient: "io.kubernetes:client-java:$versions.kubernetesClient",
-        mysqlJDBC: "mysql:mysql-connector-java:$versions.mysqlJDBC"
+        mysqlJDBC: "mysql:mysql-connector-java:$versions.mysqlJDBC",
+        grpcNettyShaded: "io.grpc:grpc-netty-shaded:$versions.gRPC",
+        grpcProtobuf: "io.grpc:grpc-protobuf:$versions.gRPC",
+        grpcStub: "io.grpc:grpc-stub:$versions.gRPC",
+        protocGenGrpcJava: "io.grpc:protoc-gen-grpc-java:$versions.gRPC",
+        protobufProtoc: "com.google.protobuf:protoc:$versions.protobufProtoc",
+        tomcatAnnotationsApi: "org.apache.tomcat:tomcat-annotations-api:$versions.tomcatAnnotationsApi",
 ]

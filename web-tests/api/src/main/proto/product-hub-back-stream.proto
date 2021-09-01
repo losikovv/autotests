@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package product_hub_back_stream;
+
+option go_package = "gitlab.sbermarket.tech/paas/content/product-hub/pkg/server/grpc/product-hub-back-stream";
+
+service ProductHubBackStream {
+  rpc GetProducts(GetProductsRequest) returns (stream GetProductsResponse) {}
+}
+
+message GetProductsRequest {
+  int64 cursor_id = 1;
+  DisplayAttributes display_attributes = 2;
+}
+
+message DisplayAttributes {
+  repeated string keys = 1;
+  repeated string flags = 2;
+}
+
+enum Status {
+  DISABLE = 0;
+  ENABLE = 1;
+}
+
+enum ValueType {
+  STRING = 0;
+  INTEGER = 1;
+  DOUBLE = 2;
+  BOOL = 3;
+  DATETIME = 4;
+  IMAGE = 5;
+}
+
+message GetProductsResponse {
+  int64 cursor_id = 1;
+  repeated Product products = 2;
+  bool finish = 3;
+}
+
+message Product {
+  int64 sku = 1;
+  string name = 2;
+  repeated Category categories = 3;
+  repeated Attribute attributes = 4;
+  Status status = 5;
+  string updated_at = 6;
+}
+
+message Category {
+  string id = 1;
+  string name = 2;
+  repeated Data category_data = 3;
+}
+
+message Attribute {
+  string key = 1;
+  string name = 2;
+  string dictionary_key = 3;
+  ValueType type = 4;
+  bool is_multi_value = 5;
+  map<string, bool> flags = 6;
+  repeated Data attribute_data = 7;
+  repeated AttributeValue values = 8;
+}
+
+message AttributeValue {
+  string value = 1;
+  repeated Data value_data = 2;
+}
+
+message Data {
+  string key = 1;
+  ValueType type = 2;
+  bool is_multi_value = 3;
+  repeated string values = 4;
+}

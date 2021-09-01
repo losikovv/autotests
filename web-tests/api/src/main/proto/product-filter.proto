@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+package product_filter;
+
+option go_package = "gitlab.sbermarket.tech/paas/content/product-filter/pkg/server/grpc/product-filter";
+
+service ProductFilter {
+  rpc GetCategoryFacetsByCategoryIDs(GetCategoryFacetsByCategoryIDsRequest) returns (GetCategoryFacetsByCategoryIDsResponse);
+  rpc GetPopularProductsSKUByCategoryIDsBatches(GetPopularProductsSKUByCategoryIDsBatchesRequest) returns (GetPopularProductsSKUByCategoryIDsBatchesResponse);
+  rpc GetProductsSKUByAttributes(GetProductsSKUByAttributesRequest) returns (GetProductsSKUByAttributesResponse);
+}
+
+message GetCategoryFacetsByCategoryIDsRequest {
+  string store_id = 1;
+  string tenant_id = 2;
+  repeated string category_ids = 3;
+  bool available = 4;
+  bool products_has_discount = 5;
+}
+
+message GetCategoryFacetsByCategoryIDsResponse {
+  repeated CategoryFacet facets = 1;
+}
+
+message CategoryFacet {
+  string category_id = 1;
+  int64 product_count = 2;
+}
+
+message GetPopularProductsSKUByCategoryIDsBatchesRequest {
+  repeated CategoryIDsBatch category_ids_batches = 1;
+  int64 products_sku_limit = 2;
+  string store_id = 3;
+  string tenant_id = 4;
+  bool available = 5;
+}
+
+message GetPopularProductsSKUByCategoryIDsBatchesResponse {
+  repeated ProductsSKUBatch products_sku_batches = 1;
+}
+
+message CategoryIDsBatch {
+    repeated string category_ids = 1;
+}
+
+message ProductsSKUBatch {
+    repeated int64 sku = 1;
+}
+
+message GetProductsSKUByAttributesRequest {
+  string store_id = 1;
+  string tenant_id = 2;
+  repeated string category_ids = 3;
+  repeated AttributeFilter attribute_filters = 4;
+  int64 limit = 5;
+  int64 offset = 6;
+  bool available = 7;
+  Sort sort = 8;
+  SortBySKU sort_by_sku = 9;
+  repeated string except_attribute_keys = 10;
+}
+
+message GetProductsSKUByAttributesResponse {
+  repeated int64 sku = 1;
+  int64 product_count = 2;
+  repeated FilterFacet filter_facets = 3;
+}
+
+enum Sort {
+  POPULARITY = 0;
+  PRICE_ASC = 1;
+  PRICE_DESC = 2;
+}
+
+message SKUWithPosition {
+  int64 sku = 1;
+  int64 position = 2;
+}
+
+message SortBySKU {
+  repeated int64 sku = 1;
+  repeated SKUWithPosition sku_with_position = 2;
+}
+
+message AttributeFilter {
+  string attribute_key = 1;
+  repeated string attribute_values = 2;
+}
+
+message FilterFacet {
+  string attribute_key = 1;
+  repeated FilterFacetAttributeValues attribute_values = 2;
+}
+
+message FilterFacetAttributeValues {
+  string value = 1;
+  int64 product_count = 2;
+}

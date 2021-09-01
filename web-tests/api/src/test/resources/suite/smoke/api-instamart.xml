@@ -42,6 +42,7 @@
             <class name="ru.instamart.test.api.v2.endpoints.ShipAddressV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.StoresV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.TaxonsV2Test"/>
+            <class name="ru.instamart.test.api.product.hub.ProductHubTest"/>
             <!--class name="ru.instamart.test.api.v2.endpoints.UserV2Test"/-->
 
             <class name="ru.instamart.test.api.v2.e2e.OrderE2ETests"/>
