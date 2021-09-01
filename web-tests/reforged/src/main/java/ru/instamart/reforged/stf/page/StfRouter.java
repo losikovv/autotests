@@ -7,6 +7,7 @@ import ru.instamart.reforged.stf.page.faq.*;
 import ru.instamart.reforged.stf.page.home.HomePage;
 import ru.instamart.reforged.stf.page.landings.AeroflotPage;
 import ru.instamart.reforged.stf.page.landings.MnogoruPage;
+import ru.instamart.reforged.stf.page.landings.drivers_hiring.DriversHiringPage;
 import ru.instamart.reforged.stf.page.landings.gift.CertificatePage;
 import ru.instamart.reforged.stf.page.landings.job.JobPage;
 import ru.instamart.reforged.stf.page.notfound.Page404;
@@ -15,7 +16,6 @@ import ru.instamart.reforged.stf.page.user.UserCompanies;
 import ru.instamart.reforged.stf.page.user.UserEdit;
 import ru.instamart.reforged.stf.page.user.favorites.UserFavoritesPage;
 import ru.instamart.reforged.stf.page.user.UserShipments;
-import ru.instamart.reforged.metro.page.home.MetroHomePage;
 
 public final class StfRouter extends Router {
 
@@ -85,6 +85,10 @@ public final class StfRouter extends Router {
 
     public static JobPage job() {
         return (JobPage) getPage(JobPage.class);
+    }
+
+    public static DriversHiringPage driversHiring() {
+        return (DriversHiringPage) getPage(DriversHiringPage.class);
     }
 
     public static MnogoruPage mnogory() {
