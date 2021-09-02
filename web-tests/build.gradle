@@ -67,6 +67,7 @@ project(":kraken") {
         implementation project(":qase-api")
         implementation project(":ab")
         implementation project(":qa-api")
+        implementation project(":utils")
 
         implementation lib.testng
         implementation lib.jsonSimple

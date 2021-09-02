@@ -1,0 +1,15 @@
+{
+  "UserData": [{
+    "name": "Name",
+    "age": 23,
+    "city": "New City",
+    "married": false
+  },
+    {
+      "name": "Name1",
+      "age": 255,
+      "city": "New City1",
+      "married": true
+    }
+  ]
+}

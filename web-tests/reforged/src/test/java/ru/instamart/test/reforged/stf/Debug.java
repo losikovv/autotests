@@ -1,17 +1,37 @@
 package ru.instamart.test.reforged.stf;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import lombok.SneakyThrows;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import ru.instamart.reforged.core.listener.UiExecutionListener;
-import ru.instamart.reforged.core.report.CustomReport;
+import ru.instamart.kraken.data_provider.DataList;
+import ru.instamart.kraken.data_provider.JsonDataProvider;
+import ru.instamart.kraken.data_provider.JsonProvider;
 import ru.instamart.reforged.stf.page.StfRouter;
-import ru.instamart.test.reforged.BaseTest;
 
-@Listeners(UiExecutionListener.class)
-public final class Debug extends BaseTest {
+import java.util.List;
+
+public final class Debug {
+
+    @JsonDataProvider(path = "data/test.json", type = Root.class)
+    @Test(dataProviderClass = JsonProvider.class, dataProvider = "json")
+    public void foo(final UserData userData) {
+        System.out.println(userData);
+    }
+
+    @Data
+    public static final class UserData {
+        public String name;
+        public int age;
+        public String city;
+        public boolean married;
+    }
+
+    @Data
+    public static final class Root implements DataList<UserData> {
+        @JsonProperty("UserData")
+        public List<UserData> data;
+    }
 
     @SneakyThrows
     @Test
@@ -59,10 +79,5 @@ public final class Debug extends BaseTest {
         StfRouter.shop().interactHeader().clickToCategoryMenu();
         StfRouter.shop().interactCategoryMenu().moveOnCategory("Постное меню");
         StfRouter.shop().interactCategoryMenu().clickToCategoryByName("Растительные масла");
-    }
-
-    @AfterMethod(alwaysRun = true, description = "Прикрепляем скриншот интерфейса, если UI тест упал")
-    public void screenShot(final ITestResult result) {
-        CustomReport.takeScreenshot();
     }
 }
