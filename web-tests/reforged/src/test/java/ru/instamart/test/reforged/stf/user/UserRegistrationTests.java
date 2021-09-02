@@ -25,13 +25,11 @@ public final class UserRegistrationTests extends BaseTest {
             }
     )
     public void noRegWithEmptyRequisites() {
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().fillPhone("");
         shop().interactAuthModal().sendSms();
         shop().interactAuthModal().checkPhoneErrorIsVisible();
-        home().goToPage();
-        home().checkLoginButtonIsVisible();
     }
 
     @CaseId(1541)
@@ -59,7 +57,7 @@ public final class UserRegistrationTests extends BaseTest {
             }
     )
     public void successRegOnMainPage() {
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().fillPhone(Generate.phoneNumber());
         shop().interactAuthModal().sendSms();
@@ -77,7 +75,7 @@ public final class UserRegistrationTests extends BaseTest {
             }
     )
     public void successRegFromAddressModal() {
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().clickToLogin();
         shop().interactAuthModal().fillPhone(Generate.phoneNumber());
@@ -98,13 +96,14 @@ public final class UserRegistrationTests extends BaseTest {
     )
     public void successRegFromCart() {
         home().openSitePage(Config.DEFAULT_RETAILER);
-        shop().interactHeader().clickToSelectAddress();
+        shop().interactHeader().clickToSelectAddressFirstTime();
         shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().plusFirstItemToCart();
+
         home().openSitePage(Config.DEFAULT_RETAILER);
         shop().interactHeader().clickToCart();
         shop().interactCart().increaseCountToMin();
@@ -122,7 +121,7 @@ public final class UserRegistrationTests extends BaseTest {
             groups = {"sbermarket-Ui-smoke"}
     )
     public void successRegWithoutMailingCheckbox() {
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().uncheckPromoMailing();
         shop().interactAuthModal().fillPhone(Generate.phoneNumber());

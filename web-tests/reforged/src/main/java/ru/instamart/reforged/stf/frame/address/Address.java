@@ -72,7 +72,7 @@ public final class Address implements Close, AddressCheck {
         changeStore.click();
     }
 
-    @Step("Изменить выбранный магазин самовывоза")
+    @Step("Нажать на кнопку 'Войти'")
     public void clickToLogin() {
         login.click();
     }

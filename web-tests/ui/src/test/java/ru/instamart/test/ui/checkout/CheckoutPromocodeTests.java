@@ -39,7 +39,7 @@ public final class CheckoutPromocodeTests extends TestBase {
         Shop.Cart.proceedToCheckout();
     }
 
-    @CaseId(1729)
+    @CaseId(1727)
     @Story("Добавление промокода к заказу")
     @Test(
             description = "Тест успешного применения промокода в чекауте",
@@ -88,7 +88,7 @@ public final class CheckoutPromocodeTests extends TestBase {
     @CaseId(1730)
     @Story("Добавление промокода к заказу")
     @Test(
-            description = "Тест недобавления промокода при закрытии модалки промокода",
+            description = "Тест не добавления промокода при закрытии модалки промокода",
             groups = {"sbermarket-acceptance","sbermarket-regression","sbermarket-Ui-smoke"}
     )
     public void noPromocodeAddedOnModalClose(){

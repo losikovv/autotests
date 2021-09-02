@@ -17,6 +17,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Авторизация")
 public final class UserAuthorisationTests extends BaseTest {
 
+    @CaseId(1455)
     @Test(
             description = "Тест успешной авторизации на витрине",
             groups = {
@@ -33,6 +34,7 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
+    @CaseId(1456)
     @Test(
             description = "Тест авторизации из адресной модалки феникса",
             groups = {
@@ -50,6 +52,7 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
+    @CaseId(1457)
     @Test(
             description = "Тест успешной авторизации из корзины",
             groups = {
@@ -66,6 +69,7 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactAddress().clickOnSave();
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().plusFirstItemToCart();
+
         home().openSitePage(Config.DEFAULT_RETAILER);
         shop().interactHeader().clickToCart();
         shop().interactCart().increaseCountToMin();
@@ -99,7 +103,7 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
-    @CaseId(1458)
+    @CaseId(2735)
     @Test(
             description = "Тест успешной авторизация через ВКонтакте",
             groups = {"sbermarket-Ui-smoke", "ui-smoke-production"}

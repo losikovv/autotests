@@ -28,8 +28,8 @@ public interface ShopCheck extends Check, ShopElement {
         waitAction().shouldBeVisible(firstProductCard);
     }
 
-    @Step("Проверяем, что отображется сниппет старого каталога")
-    default void checkOldSnippet() {
-        waitAction().shouldBeVisible(firstItemSnippetOld);
+    @Step("Проверяем, что отображется сниппет каталога")
+    default void checkSnippet() {
+        waitAction().shouldBeVisible(firstProductCard);
     }
 }

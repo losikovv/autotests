@@ -15,17 +15,6 @@ import static ru.instamart.reforged.admin.AdminRout.main;
 @Feature("Страница логина")
 public final class AdministrationLoginTests extends BaseTest {
 
-    //TODO: Зачем этот тест ? если этих полей нет, то и следующие тесты не выполняться и покажут что на странице что то не так
-    @CaseId(439)
-    @Story("Тест валидации элементов логин-страницы админки")
-    @Test(description = "Тест валидации элементов логин-страницы админки",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
-    public void successValidateAdministrationLoginPage() {
-        login().goToPage();
-        login().checkTitle();
-    }
-
     @CaseId(440)
     @Story("Тест неуспешной авторизации с пустыми полями")
     @Test(description = "Тест неуспешной авторизации с пустыми полями",

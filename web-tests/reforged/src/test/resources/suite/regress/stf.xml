@@ -10,7 +10,7 @@
       <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
     </method-selector>
   </method-selectors>
-  <test verbose="1" name="Web UI tests" parallel="classes" thread-count="10">
+  <test verbose="1" name="Web UI tests" parallel="classes" thread-count="5">
     <classes>
       <class name="ru.instamart.test.reforged.stf.user.UserAuthorisationTests"/>
       <class name="ru.instamart.test.reforged.stf.user.UserFavoritesTests"/>
@@ -24,6 +24,8 @@
       <class name="ru.instamart.test.reforged.stf.HelpDeskChatTests"/>
 
       <class name="ru.instamart.test.reforged.stf.checkout.CheckoutAddressStepTests"/>
+
+      <class name="ru.instamart.test.reforged.stf.SeoCatalogTests"/>
     </classes>
   </test>
 </suite>

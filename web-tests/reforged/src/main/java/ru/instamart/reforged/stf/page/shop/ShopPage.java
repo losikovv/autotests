@@ -11,7 +11,7 @@ import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
 import ru.instamart.reforged.stf.drawer.CategoryMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.address.Address;
-import ru.instamart.reforged.stf.frame.ProductCard;
+import ru.instamart.reforged.stf.frame.product_card.ProductCard;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 import ru.instamart.reforged.stf.page.StfPage;
 
@@ -55,45 +55,24 @@ public final class ShopPage implements StfPage, ShopCheck {
         Kraken.jsAction().ymapReady();
     }
 
-    @Step("Нажать на плюс у первого товара при невыбранном адресе")
+    @Step("Нажать на плюс у первого товара")
     public void plusFirstItemToCart() {
-        firstProductCard.mouseOver();
-        plusFirstItemToCartAddedAddress.click();
-    }
-
-    @Step("Нажать на плюс у первого товара при невыбранном адресе(старый каталог)")
-    public void plusFirstItemToCartOld() {
-        firstItemSnippetOld.mouseOver();
-        plusFirstItemToCartOld.click();
+        plusFirstItemToCartAddedAddress.hoverAndClick();
     }
 
     @Step("Нажать на минус у первого товара")
     public void minusFirstItemFromCart() {
-        firstProductCard.mouseOver();
-        minusFirstItemFromCartAddedAddress.click();
-    }
-
-    @Step("Нажать на минус у первого товара(старый каталог)")
-    public void minusFirstItemFromCartOld() {
-        firstItemSnippetOld.mouseOver();
-        minusFirstItemFromCartOld.click();
-    }
-
-    @Step("Нажать на плюс у первого товара при выбранном адресе")
-    public void plusFirstItemToCartAddedAddress() {
-        plusFirstItemToCartAddedAddress.click();
+        minusFirstItemFromCartAddedAddress.hoverAndClick();
     }
 
     @Step("Добавить первый товар в избранное")
     public void addFirstItemToFavorite() {
-        firstProductCard.mouseOver();
-        addFirstItemToFavorite.click();
+        addFirstItemToFavorite.hoverAndClick();
     }
 
     @Step("Добавить первый товар в избранное")
     public void deleteFirstItemFromFavorite() {
-        firstProductCard.mouseOver();
-        deleteFirstItemFromFavorite.click();
+        deleteFirstItemFromFavorite.hoverAndClick();
     }
 
     @Step("Открыть карточку первого товара")
@@ -119,5 +98,4 @@ public final class ShopPage implements StfPage, ShopCheck {
     public String pageUrl() {
         return "";
     }
-
 }

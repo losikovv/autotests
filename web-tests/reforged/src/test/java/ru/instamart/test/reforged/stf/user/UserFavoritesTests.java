@@ -7,9 +7,12 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.listener.Skip;
+import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.test.reforged.BaseTest;
 
@@ -167,7 +170,7 @@ public final class UserFavoritesTests extends BaseTest {
                     "sbermarket-regression"}
     )
     public void successRegAfterAddFavoriteOnCatalog() {
-        shop().goToPage(ShopUrl.METRO);
+        shop().goToPage();
         shop().addFirstItemToFavorite();
         shop().interactAuthModal().createAccount();
         shop().interactHeader().checkProfileButtonVisible();
@@ -180,7 +183,8 @@ public final class UserFavoritesTests extends BaseTest {
                     "sbermarket-regression"}
     )
     public void successAuthAfterAddFavoriteOnItemCard() {
-        shop().goToPage(ShopUrl.METRO);
+        shop().goToPage();
+        Kraken.open(EnvironmentData.INSTANCE.getBasicUrl() + Config.DEFAULT_RETAILER);
         shop().openFirstProductCard();
         shop().interactProductCard().addToFavorite();
         shop().interactAuthModal().createAccount();

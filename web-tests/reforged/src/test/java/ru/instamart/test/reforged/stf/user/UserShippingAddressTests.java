@@ -257,7 +257,6 @@ public final class UserShippingAddressTests extends BaseTest {
                 firstPrevAdr);
     }
 
-    @Skip
     @CaseId(1567)
     @Story("Сохранение и изменение адреса доставки")
     @Test(
@@ -268,13 +267,13 @@ public final class UserShippingAddressTests extends BaseTest {
             }
     )
     public void successSetShippingAddressAfterAddingProductFromCatalog() {
-        home().openSitePage(Config.DEFAULT_RETAILER);
-        shop().plusFirstItemToCartOld();
+        shop().goToPage();
+        shop().plusFirstItemToCart();
         shop().interactHeader().interactAddress().fillAddress(defaultAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
         shop().interactHeader().checkIsShippingAddressSet();
-        shop().checkOldSnippet();
+        shop().checkSnippet();
     }
 
     @Skip
@@ -292,7 +291,7 @@ public final class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
         shop().interactHeader().interactStoreSelector().clickToStoreCard();
-        shop().plusFirstItemToCartOld();
+        shop().plusFirstItemToCart();
         shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsNotOpen();
     }
 }

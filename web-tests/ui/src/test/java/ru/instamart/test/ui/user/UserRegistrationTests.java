@@ -52,10 +52,10 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
         checkIsUserNotAuthorized("Произошла регистрация пользователя с пустыми реквизитами");
     }
 
-    @CaseId(1541)
+    @CaseId(1417)
     @Story("Регистрация на лендинге")
     @Test(
-            description = "Регистрация нового пользователя на лендинге",
+            description = "Новый пользователь. Без добавления e-mail",
             groups = {"metro-acceptance","sbermarket-Ui-smoke","MRAutoCheck"}
     )
     public void successRegOnLanding() {
@@ -106,7 +106,7 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
     @Story("Регистрация на странице ретейлера")
     @Test(
 
-            description = "Тест регистрации при переходе из корзины в чекаут",
+            description = "Авторизация при попытке перехода из корзины в чекаут",
             groups = {
                     "metro-regression",
                     "sbermarket-regression","sbermarket-Ui-smoke"
