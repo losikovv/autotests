@@ -16,7 +16,7 @@ public interface HomeElement {
     HelpDesk helpDesk = new HelpDesk();
     Footer footer = new Footer();
 
-    Button loginButton = new Button(By.xpath("//button[contains(@class, 'home_header')]"));
+    Button loginButton = new Button(By.xpath("//div/button[contains(text(), 'Войти')]"));
     Button forYourself = new Button(By.xpath("//button[@aria-controls='b2c-tab']"));
     Button forBusiness = new Button(By.xpath("//button[@aria-controls='b2b-tab']"));
     Button setAddress = new Button(By.xpath("//button[contains(@class, 'description')]"));

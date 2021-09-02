@@ -6,7 +6,7 @@ import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
 import ru.instamart.reforged.core.component.Link;
 import ru.instamart.reforged.stf.block.header.Header;
-import ru.instamart.reforged.stf.frame.ProductCard;
+import ru.instamart.reforged.stf.frame.product_card.ProductCard;
 
 public interface UseFavoritesElement {
 

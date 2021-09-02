@@ -7,6 +7,7 @@ import ru.instamart.kraken.setting.Config;
 @Getter
 @RequiredArgsConstructor
 public enum ShopUrl {
+
     DEFAULT(Config.DEFAULT_RETAILER),
     METRO("metro"),
     LENTA("lenta"),

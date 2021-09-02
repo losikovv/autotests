@@ -11,6 +11,7 @@ import ru.instamart.reforged.stf.page.landings.drivers_hiring.DriversHiringPage;
 import ru.instamart.reforged.stf.page.landings.gift.CertificatePage;
 import ru.instamart.reforged.stf.page.landings.job.JobPage;
 import ru.instamart.reforged.stf.page.notfound.Page404;
+import ru.instamart.reforged.stf.page.seo.SeoCatalogPage;
 import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.reforged.stf.page.user.UserCompanies;
 import ru.instamart.reforged.stf.page.user.UserEdit;
@@ -101,6 +102,10 @@ public final class StfRouter extends Router {
 
     public static Page404 notfound() {
         return (Page404) getPage(Page404.class);
+    }
+
+    public static SeoCatalogPage seo() {
+        return (SeoCatalogPage) getPage(SeoCatalogPage.class);
     }
 
     private StfRouter() {

@@ -171,7 +171,7 @@ public final class BasicOrdersTests extends TestBase {
 
     @CaseId(1673)
     @Test(
-            description = "Тест заказа с оплатой курьеру",
+            description = "Тест успешного заказа с оплатой картой курьеру",
             groups = {"sbermarket-regression","testing", "sbermarket-Ui-smoke"}
     )
     public void successOrderWithCardCourier() {

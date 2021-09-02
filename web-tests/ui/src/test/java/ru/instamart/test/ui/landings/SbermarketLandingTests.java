@@ -81,7 +81,7 @@ public class SbermarketLandingTests extends TestBase {
 
     @CaseId(2042)
     @Test(
-            description = "Тест появления кнопоки авторизации через СберБизнес для B2B",
+            description = "Кнопка СберБизнес ID при выбранном чекбоксе \"Хочу заказывать для бизнеса\"",
             groups = {"sbermarket-Ui-smoke", "testing"}
     )
     public void EnabledSberBussinesIdButton(){

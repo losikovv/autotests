@@ -58,7 +58,7 @@ public final class ShoppingSearchTests extends TestBase {
     @CaseId(1178)
     @Story("Позитивные сценарии")
     @Test (
-            description = "Тест упешного поиска товаров",
+            description = "Тест успешного поиска товаров",
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successSearchItem() {

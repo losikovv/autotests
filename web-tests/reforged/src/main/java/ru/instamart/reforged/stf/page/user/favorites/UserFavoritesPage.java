@@ -2,7 +2,7 @@ package ru.instamart.reforged.stf.page.user.favorites;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.stf.block.header.Header;
-import ru.instamart.reforged.stf.frame.ProductCard;
+import ru.instamart.reforged.stf.frame.product_card.ProductCard;
 import ru.instamart.reforged.stf.page.StfPage;
 
 public final class UserFavoritesPage implements StfPage, UserFavoritesCheck {

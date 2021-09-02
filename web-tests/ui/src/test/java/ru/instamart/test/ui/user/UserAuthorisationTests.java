@@ -257,7 +257,7 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
         checkIsUserAuthorized("Не работает авторизация через Facebook");
     }
 
-    @CaseId(1458)
+    @CaseId(2735)
     @Test(
             description = "Тест успешной авторизация через ВКонтакте",
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
