@@ -15,10 +15,7 @@ import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.v1.OperationalZonesV1Request;
 import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
-import ru.instamart.api.request.v2.PersonalV2Request;
-import ru.instamart.api.request.v2.SimpleAdsV2Request;
-import ru.instamart.api.request.v2.SimpleRecsPersonalV2Request;
-import ru.instamart.api.request.v2.StoresV2Request;
+import ru.instamart.api.request.v2.*;
 import ru.instamart.api.response.v1.OperationalZonesV1Response;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
@@ -30,6 +27,7 @@ import java.util.stream.Collectors;
 
 import static ru.instamart.api.common.RestAddresses.Moscow;
 import static ru.instamart.api.common.RestAddresses.getDefaultAllAddress;
+import static ru.instamart.kraken.helper.LegalEntityHelper.*;
 
 public class RestDataProvider extends RestBase {
 
@@ -949,6 +947,93 @@ public class RestDataProvider extends RestBase {
                         .lon(address.getLon())
                         .operationalZoneId(1)
                         .build()
+                }
+        };
+    }
+
+    @DataProvider(name = "innFailedList", parallel = true)
+    public static Object[][] innFailedList() {
+        return new Object[][]{
+                {"failedInnNumbers"},
+                {"461312796100"}, //ФЛ
+                {"2690798098"} //ЮЛ
+        };
+    }
+
+    @DataProvider(name = "postCompanyDocuments")
+    public static Object[][] postCompanyDocuments() {
+        String name = "ООО \"Ромашка_" + (int) (Math.random() * 9999) + "\"";
+        String inn = generateInnUL();
+        String kpp = generateKpp();
+        String bik = "043601607";
+        String corAcc = "30101810200000000607";
+        String rs = generateRS();
+        return new Object[][]{
+                {
+                        CompanyDocumentsV2Request.CompanyDocument.builder()
+//                                .name(name)
+                                .inn(inn)
+                                .kpp(kpp)
+                                .bik(bik)
+                                .correspondent_account(corAcc)
+                                .operating_account(rs)
+                                .build(),
+                        "Юридическое лицо не может быть пустым"
+                },
+                {
+                        CompanyDocumentsV2Request.CompanyDocument.builder()
+                                .name(name)
+//                                .inn(inn)
+                                .kpp(kpp)
+                                .bik(bik)
+                                .correspondent_account(corAcc)
+                                .operating_account(rs)
+                                .build(),
+                        "ИНН не может быть пустым"
+                },
+                {
+                        CompanyDocumentsV2Request.CompanyDocument.builder()
+                                .name(name)
+                                .inn(inn)
+//                                .kpp(kpp)
+                                .bik(bik)
+                                .correspondent_account(corAcc)
+                                .operating_account(rs)
+                                .build(),
+                        "КПП не является числом"
+                },
+                //TODO: не отрабатывает ошибка
+//                {
+//                        CompanyDocumentsV2Request.CompanyDocument.builder()
+//                                .name(name)
+//                                .inn(inn)
+//                                .kpp(kpp)
+////                                .bik(bik)
+//                                .correspondent_account(corAcc)
+//                                .operating_account(rs)
+//                                .build()
+//                },
+                {
+                        CompanyDocumentsV2Request.CompanyDocument.builder()
+                                .name(name)
+                                .inn(inn)
+                                .kpp(kpp)
+                                .bik(bik)
+//                                .correspondent_account(corAcc)
+                                .operating_account(rs)
+                                .build(),
+                        "Вы не состоите в компании с таким ИНН. Проверьте ИНН или закрепите компанию на сайте СберМаркет во вкладке «Для бизнеса»"
+                },
+                {
+                        CompanyDocumentsV2Request.CompanyDocument.builder()
+                                .name(name)
+                                .inn(inn)
+                                .kpp(kpp)
+                                .bik(bik)
+                                .correspondent_account(corAcc)
+//                                .operating_account(rs)
+                                .build(),
+                        "Вы не состоите в компании с таким ИНН. Проверьте ИНН или закрепите компанию на сайте СберМаркет во вкладке «Для бизнеса»"
                 }
         };
     }
