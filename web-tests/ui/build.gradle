@@ -16,3 +16,9 @@ allure {
     }
     downloadLink = "https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/"+versions.allure+"/allure-commandline-"+versions.allure+".zip"
 }
+
+configurations.all {
+    resolutionStrategy {
+        force 'com.google.guava:guava:23.0'
+    }
+}
