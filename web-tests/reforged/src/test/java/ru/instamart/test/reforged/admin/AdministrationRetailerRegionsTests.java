@@ -1,8 +1,6 @@
 package ru.instamart.test.reforged.admin;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.testdata.UserManager;
@@ -15,6 +13,8 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 @Feature("Управление регионами ретейлера")
 public final class AdministrationRetailerRegionsTests extends BaseTest {
 
+    @Flaky
+    @Issue("ATST-709")
     @CaseId(469)
     @Story("Тест добавления нового региона для магазинов в админке")
     @Test(description = "Тест добавления нового региона для магазинов в админке",
