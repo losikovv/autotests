@@ -22,6 +22,7 @@
       <class name="ru.instamart.test.reforged.stf.Page404Tests"/>
 
       <class name="ru.instamart.test.reforged.stf.checkout.CheckoutAddressStepTests"/>
+      <class name="ru.instamart.test.reforged.user.UserProfileTests"/>
     </classes>
   </test>
 </suite>

@@ -6,7 +6,7 @@ import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Link;
 
-public final class AccountMenu implements AccountMenuElement {
+public final class AccountMenu implements AccountMenuElement, AccountMenuCheck{
 
     @Step("Нажать Профиль в  меню пользователя")
     public void clickToProfile() {
