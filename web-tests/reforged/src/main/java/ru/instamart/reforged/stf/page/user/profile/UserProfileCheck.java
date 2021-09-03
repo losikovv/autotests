@@ -1,11 +1,11 @@
 package ru.instamart.reforged.stf.page.user.profile;
 
 import io.qameta.allure.Step;
+import ru.instamart.reforged.core.Check;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
-import static ru.instamart.reforged.stf.page.user.profile.UserProfileElement.*;
 
-public interface UserProfileCheck {
+public interface UserProfileCheck extends UserProfileElement, Check {
 
     @Step("Проверяем, что у нового пользователя нет заказов")
     default void checkTextOnThePage() {

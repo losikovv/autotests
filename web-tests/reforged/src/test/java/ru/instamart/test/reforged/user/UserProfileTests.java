@@ -19,7 +19,7 @@ public class UserProfileTests extends BaseTest {
 
     @BeforeMethod(alwaysRun = true,
             description = "Проверяем залогинен ли пользователь, если да то завершаем сессию")
-    public void quickLogout() {
+    public void login() {
         home().goToPage();
         home().openLoginModal();
         home().interactAuthModal().fillPhone(Generate.phoneNumber());
