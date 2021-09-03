@@ -14,7 +14,7 @@ stages:
   - custom-run
 
 .template_tests_apishopper:
-  resource_group: apiShopper:$CI_COMMIT_REF_SLUG
+  resource_group: apiShopper:$URL_STF
   stage: tests-api
   image: $CI_REGISTRY_IMAGE
   script:
