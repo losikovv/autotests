@@ -8,12 +8,10 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.Generate;
-import ru.instamart.kraken.testdata.lib.Pages;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.admin.AdminRout.pages;
-import static ru.instamart.reforged.stf.page.StfRouter.home;
-import static ru.instamart.reforged.stf.page.StfRouter.shop;
+import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Профиль пользователя")
@@ -61,84 +59,95 @@ public class UserProfileTests extends BaseTest {
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToProfile();
         pages().checkPageIsAvailable();
-//        kraken.get().page(Config.DEFAULT_RETAILER);
-//        Shop.AccountMenu.open();
-//        baseChecks.checkTransitionValidation(Elements.AccountMenu.profileButton());
     }
 
-//    @CaseId(1527)
-//    @Story("Выпадающее меню")
-//    @Test(
-//            description = "Тест валидации кнопки 'Условия использования' в меню профиля",
-//            groups = {
-//                    "metro-acceptance", "metro-regression", "sbermarket-Ui-smoke"
-//            }
-//    )
-//    public void successValidateTermsButton() {
-//        Shop.AccountMenu.open();
-//        baseChecks.checkTransitionValidation(Elements.AccountMenu.termsButton());
-//    }
-//
-//    @CaseId(1528)
-//    @Story("Выпадающее меню")
-//    @Test(
-//            description = "Тест валидации кнопки 'Доставка' в меню профиля",
-//            groups = {"sbermarket-Ui-smoke"}
-//    )
-//    public void successValidateDeliveryButton() {
-//        Shop.AccountMenu.open();
-//        Shop.AccountMenu.openDelivery();
-//        accountChecks.checkIsDeliveryMenuOpen();
-//        Shop.AccountMenu.closeDelivery();
-//    }
-//
-//    @CaseId(1530)
-//    @Story("Выпадающее меню")
-//    @Test(
-//            description = "Тест валидации кнопки 'FAQ' в меню профиля",
-//            groups = {
-//                    "metro-acceptance", "metro-regression", "sbermarket-Ui-smoke"
-//            }
-//    )
-//    public void successValidateFaqButton() {
-//        Shop.AccountMenu.open();
-//        kraken.perform().click(Elements.AccountMenu.faqButton());
-//        baseChecks.checkPageIsAvailable();
-//    }
-//
-//    @CaseId(1531)
-//    @Story("навигация в меню пользователя")
-//    @Test(
-//            description = "Тест доступности страниц профиля пользователя",
-//            groups = {
-//                    "metro-smoke", "metro-acceptance", "metro-regression", "sbermarket-Ui-smoke"
-//            }
-//    )
-//    public void successCheckProfilePagesAreAvailable() {
-//        kraken.get().page(Config.DEFAULT_RETAILER);
-//        Shop.AccountMenu.open();
-//        baseChecks.checkPageIsAvailable(Pages.UserProfile.edit());
-//        baseChecks.checkPageIsAvailable(Pages.UserProfile.favorites());
-//        baseChecks.checkPageIsAvailable(Pages.UserProfile.shipments());
-//    }
-//
-//    @CaseId(1532)
-//    @Story("Заказы")
-//    @Test(
-//            description = "Тест валидации дефолтных страниц истории заказов",
-//            groups = {
-//                    "metro-acceptance", "metro-regression", "sbermarket-Ui-smoke"
-//            }
-//    )
-//    public void successValidateDefaultOrderHistory() {
-//        kraken.get().userShipmentsPage();
-//        Shop.UserProfile.OrderHistory.applyFilterComplete();
-//        baseChecks.checkIsElementPresent(Elements.UserProfile.OrdersHistoryPage.completeOrdersPlaceholder());
-//        Shop.UserProfile.OrderHistory.applyFilterActive();
-//        baseChecks.checkIsElementPresent(Elements.UserProfile.OrdersHistoryPage.activeOrdersPlaceholder());
-//        Shop.UserProfile.OrderHistory.applyFilterAll();
-//        baseChecks.checkIsElementPresent(Elements.UserProfile.OrdersHistoryPage.allOrdersPlaceholder());
-//        Shop.UserProfile.OrderHistory.goShopping();
-//        baseChecks.checkIsElementNotPresent(Elements.UserProfile.OrdersHistoryPage.completeOrdersPlaceholder());
-//    }
+    @CaseId(1527)
+    @Story("Выпадающее меню")
+    @Test(
+            description = "Тест валидации кнопки 'Условия использования' в меню профиля",
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-Ui-smoke"
+            }
+    )
+    public void successValidateTermsButton() {
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().clickToProfile();
+        shop().interactHeader().interactAccountMenu().clickToTerms();
+        pages().checkPageIsAvailable();
+    }
+
+    @CaseId(1528)
+    @Story("Выпадающее меню")
+    @Test(
+            description = "Тест валидации кнопки 'Доставка' в меню профиля",
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-Ui-smoke"
+            }
+    )
+    public void successValidateDeliveryButton() {
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().clickToProfile();
+        shop().interactHeader().interactAccountMenu().clickToDelivery();
+        pages().checkPageIsAvailable();
+    }
+
+    @CaseId(1530)
+    @Story("Выпадающее меню")
+    @Test(
+            description = "Тест валидации кнопки 'FAQ' в меню профиля",
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-Ui-smoke"
+            }
+    )
+    public void successValidateFaqButton() {
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().clickToProfile();
+        shop().interactHeader().interactAccountMenu().clickToFaq();
+        pages().checkPageIsAvailable();
+    }
+
+    @CaseId(1531)
+    @Story("навигация в меню пользователя")
+    @Test(
+            description = "Тест доступности страниц профиля пользователя",
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-Ui-smoke"
+            }
+    )
+    public void successCheckProfilePagesAreAvailable() {
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().clickToProfile();
+        shop().interactHeader().interactAccountMenu().clickToProfile();
+        pages().checkPageIsAvailable();
+        userEdit().openFavoritePage();
+        pages().checkPageIsAvailable();
+        userEdit().openOrders();
+        pages().checkPageIsAvailable();
+    }
+
+    @CaseId(1532)
+    @Story("Заказы")
+    @Test(
+            description = "Тест валидации дефолтных страниц истории заказов",
+            groups = {
+                    "metro-acceptance", "metro-regression",
+                    "sbermarket-Ui-smoke"
+            }
+    )
+    public void successValidateDefaultOrderHistory() {
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().clickToProfile();
+        shop().interactHeader().interactAccountMenu().clickToProfile();
+        pages().checkPageIsAvailable();
+        userEdit().openOrders();
+        userEdit().checkTextOnThePage();
+        userEdit().checkAllOrdersButton();
+        userEdit().checkActiveOrdersButton();
+        userEdit().checkFinishedOrdersButton();
+        userEdit().checkGoToShoppingButton();
+    }
 }
