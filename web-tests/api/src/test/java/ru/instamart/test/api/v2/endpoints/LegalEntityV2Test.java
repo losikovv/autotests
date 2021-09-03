@@ -156,7 +156,7 @@ public class LegalEntityV2Test extends RestBase {
             dataProviderClass = RestDataProvider.class,
             description = "Создание нового реквизита для юр лица с заполнением обязательных полей")
     @Parameters({"Компания", "Сообщение ошибки"})
-    public void postCompanyDocuments100(CompanyDocumentsV2Request.CompanyDocument company, String errorMessage) {
+    public void postCompanyDocuments422(CompanyDocumentsV2Request.CompanyDocument company, String errorMessage) {
         SessionFactory.makeSession(SessionType.API_V2_FB);
         final Response response = CompanyDocumentsV2Request.POST(company);
         checkStatusCode422(response);
