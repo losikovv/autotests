@@ -2,6 +2,7 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
@@ -61,11 +62,11 @@ public final class ProductsV2Test extends RestBase {
 
     //TODO: Сейчас в ответ прилетает 500
     @CaseId(262)
+    @Issue("STF-9240")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(  description = "Существующий sid",
             groups = {"api-instamart-smoke", "api-instamart-prod"},
-            enabled = false
-    )
+            enabled = false)
     public void getProductsWithValidSid() {
         response = ProductsV2Request.GET(1);
         checkStatusCode200(response);

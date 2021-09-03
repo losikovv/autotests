@@ -35,11 +35,11 @@ public final class BonusCardsV2Test extends RestBase {
         assertTrue(bonusCardsV2Response.getBonusCards().isEmpty());
     }
 
+    @Deprecated
     @CaseId(375)
-    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(  groups = {},
             description = "Одна или несколько бонусных карт",
-            dependsOnMethods = "testAddBonusCard200",
-            enabled = false)
+            dependsOnMethods = "testAddBonusCard200")
     public void testWithBonusCards() {
         SessionFactory.createSessionToken(SessionType.API_V2_FB, UserManager.getDefaultUser());
         final Response response = BonusCardsV2Request.GET();
@@ -69,9 +69,9 @@ public final class BonusCardsV2Test extends RestBase {
         checkStatusCode422(response);
     }
 
+    @Deprecated
     @CaseId(379) //todo ждем фикса 500 ошибки
-    @Test(  enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(  groups = {},
             description = "Добавление бонусной карты несуществующей бонусной программы")
     public void testAddBonusCard422WrongBonusProgramId() {
         SessionFactory.createSessionToken(SessionType.API_V2_FB, UserManager.getDefaultUser());
@@ -79,11 +79,11 @@ public final class BonusCardsV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
+    @Deprecated
     @CaseId(384)
-    @Test(  groups = {"api-instamart-regress"},
+    @Test(  groups = {},
             description = "Удаление бонусной карты",
-            dependsOnMethods = "testWithBonusCards",
-            enabled = false)
+            dependsOnMethods = "testWithBonusCards")
     public void testDeleteBonusCard200() {
         SessionFactory.createSessionToken(SessionType.API_V2_FB, UserManager.getDefaultUser());
         final Response response = BonusCardsV2Request.DELETE(bonusCardId);

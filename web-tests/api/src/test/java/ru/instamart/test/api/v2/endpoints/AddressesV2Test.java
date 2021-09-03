@@ -64,16 +64,15 @@ public final class AddressesV2Test extends RestBase {
         assertEquals(addresses.getBuilding(), addressesResponse.getAddress().getBuilding(), "Названия полей не совпадают");
     }
 
-    //TODO: Валидацию не завезли, отписал апсекам, завели баг
+    @Deprecated
     @CaseIDs({@CaseId(207), @CaseId(208), @CaseId(209), @CaseId(210), @CaseId(211), @CaseId(212), @CaseId(213),
             @CaseId(214), @CaseId(215), @CaseId(216)})
     @Issue("SBUG-35")
     @Story("Создание нового адреса доставки")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(  groups = {},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "getAddresses",
-            description = "Невалидные или пустые поля",
-            enabled = false
+            description = "Невалидные или пустые поля"
     )
     public void testWithInvalidValueInFields(final Addresses addresses) {
         final Response response = AddressesV2Request.POST(addresses);
@@ -104,17 +103,17 @@ public final class AddressesV2Test extends RestBase {
 
     //TODO: Валидацию не завезли, отписал апсекам, завели баг
     //217-230
+    @Deprecated
     @CaseIDs({@CaseId(217), @CaseId(218), @CaseId(219), @CaseId(220), @CaseId(221),
             @CaseId(222), @CaseId(223), @CaseId(224), @CaseId(225), @CaseId(226),
             @CaseId(227), @CaseId(228), @CaseId(229), @CaseId(230)})
     @Issue("SBUG-35")
     @Story("Редактирование адреса доставки")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(  groups = {},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "getAddresses",
             dependsOnMethods = "testWithOutRequiredFields",
-            description = "Невалидное или пустое значение полей",
-            enabled = false
+            description = "Невалидное или пустое значение полей"
     )
     public void testEditWithInvalidData(final Addresses addresses) {
         final Response response = AddressesV2Request.PUT(addressesId, addresses);

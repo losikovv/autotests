@@ -7,7 +7,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @Getter
 @ToString
-public enum CreditCardsV2 {
+public enum CreditCardV2 {
     CARD1("VISA", "4111 1111 1111 1111", "11","24", "123",
             "U6o9eEj/Uh5i2UaAEk01u6gvv3sy6VnOIhJUNsARY2p9JoX47KnpqEwxdIiv+N7LVvyI4niuNigwvSxxgsuKtcZndjUX/QWuBRQVWYelWXOl0p9E4fd0dRPmTXZ7y5FB97/vfvDaNa/khnVKMk3bOnFWKjC/uGXnl3urEuC/2iACT0u2x932XCs0jRFwpiES8fwoFhleE0ATtShIwjXrfMsvmCQiioZ1C0Qsx7zYLmcn6g+iNR9/0T8mcnOnHaSkTSW/ElsB5MiqFhQonloUExvQ6ZqQeutDqaQWQw+hpeL6bXt+Ew6qU7mHpcwdyqYik3ev/yeIYLrVqG1HtqVuyw=="),
     CARD2("MasterCard", "5555 5555 5555 5599", "12","24", "123",

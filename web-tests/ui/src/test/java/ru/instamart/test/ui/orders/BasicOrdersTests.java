@@ -19,7 +19,6 @@ import ru.instamart.kraken.testdata.pagesdata.PaymentTypeData;
 import ru.instamart.test.ui.TestBase;
 import ru.instamart.ui.Elements;
 import ru.instamart.ui.checkpoint.order.OrdersCheckpoints;
-import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.shop.Order;
@@ -159,7 +158,6 @@ public final class BasicOrdersTests extends TestBase {
     @Test(
             description = "Тест заказа с любимыми товарами",
             groups = {"sbermarket-regression","testing", "sbermarket-Ui-smoke"}
-            //enabled = false
     )
     public void successOrderWithFavProducts() {
         Shop.Catalog.Item.addToFavorites();

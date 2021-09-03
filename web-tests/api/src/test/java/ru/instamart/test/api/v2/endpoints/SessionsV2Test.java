@@ -41,9 +41,9 @@ public final class SessionsV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
+    @Deprecated
     @CaseId(182)
-    @Test(  enabled = false, //в параллели тест ломается
-            groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(  groups = {},
             description = "Валидация данных по сессионному токену")
     public void testUserData() {
         final UserData userData = UserManager.getDefaultApiUser();

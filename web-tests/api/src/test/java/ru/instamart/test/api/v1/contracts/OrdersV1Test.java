@@ -29,7 +29,6 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 @Epic("ApiV1")
 @Feature("Эндпоинты, используемые шоппер бэкендом")
 public class OrdersV1Test extends RestBase {
-
     private String shipmentUuid;
     private String orderNumber;
     private String shipmentNumber;
@@ -112,8 +111,7 @@ public class OrdersV1Test extends RestBase {
     @CaseId(119)
     @Test(  description = "Контрактный тест списка предзамен для товара из шипмента",
             groups = "api-instamart-regress",
-            dependsOnMethods = "getLineItems",
-            enabled = false)
+            dependsOnMethods = "getLineItems")
     public void getShipmentProductsPrereplacements() {
         Response response = ShipmentsV1Request.Products.Prereplacements.GET(shipmentNumber, Long.parseLong(productSku));
         checkStatusCode200(response);
