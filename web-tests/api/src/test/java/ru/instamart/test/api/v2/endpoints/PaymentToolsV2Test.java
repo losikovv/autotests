@@ -10,12 +10,12 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.PaymentToolsV2Request;
-import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.PaymentToolTypesV2Response;
 import ru.instamart.api.response.v2.PaymentToolsV2Response;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
 
@@ -68,12 +68,6 @@ public class PaymentToolsV2Test extends RestBase {
     public void getPaymentToolsWithOrder404() {
         response = PaymentToolsV2Request.GET("failedOrderNumber");
         checkStatusCode404(response);
-        ErrorResponse error = response.as(ErrorResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(error.getErrors().getBase(), "Заказ не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Заказ не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Заказ не существует");
-        softAssert.assertAll();
+        errorAssert(response, "Заказ не существует");
     }
 }

@@ -963,78 +963,76 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "postCompanyDocuments")
     public static Object[][] postCompanyDocuments() {
         String name = "ООО \"Ромашка_" + (int) (Math.random() * 9999) + "\"";
-        String inn = generateInnUL();
-        String kpp = generateKpp();
         String bik = "043601607";
         String corAcc = "30101810200000000607";
-        String rs = generateRS();
         return new Object[][]{
                 {
                         CompanyDocumentsV2Request.CompanyDocument.builder()
 //                                .name(name)
-                                .inn(inn)
-                                .kpp(kpp)
+                                .inn(generateInnUL())
+                                .kpp(generateKpp())
                                 .bik(bik)
                                 .correspondent_account(corAcc)
-                                .operating_account(rs)
+                                .operating_account(generateRS())
                                 .build(),
                         "Юридическое лицо не может быть пустым"
                 },
                 {
                         CompanyDocumentsV2Request.CompanyDocument.builder()
                                 .name(name)
-//                                .inn(inn)
-                                .kpp(kpp)
+//                                .inn(generateInnUL())
+                                .kpp(generateKpp())
                                 .bik(bik)
                                 .correspondent_account(corAcc)
-                                .operating_account(rs)
+                                .operating_account(generateRS())
                                 .build(),
                         "ИНН не может быть пустым"
                 },
                 {
                         CompanyDocumentsV2Request.CompanyDocument.builder()
                                 .name(name)
-                                .inn(inn)
-//                                .kpp(kpp)
+                                .inn(generateInnUL())
+//                                .kpp(generateKpp())
                                 .bik(bik)
                                 .correspondent_account(corAcc)
-                                .operating_account(rs)
+                                .operating_account(generateRS())
                                 .build(),
                         "КПП не является числом"
                 },
-                //TODO: не отрабатывает ошибка
+                //TODO: не отрабатывает ошибка создана задача STF-9206
 //                {
 //                        CompanyDocumentsV2Request.CompanyDocument.builder()
 //                                .name(name)
-//                                .inn(inn)
-//                                .kpp(kpp)
+//                                .inn(generateInnUL())
+//                                .kpp(generateKpp())
 ////                                .bik(bik)
 //                                .correspondent_account(corAcc)
-//                                .operating_account(rs)
-//                                .build()
+//                                .operating_account(generateRS())
+//                                .build(),
+//                        "БИК не является числом"
 //                },
-                {
-                        CompanyDocumentsV2Request.CompanyDocument.builder()
-                                .name(name)
-                                .inn(inn)
-                                .kpp(kpp)
-                                .bik(bik)
+//                {
+//                        CompanyDocumentsV2Request.CompanyDocument.builder()
+//                                .name(name)
+//                                .inn(generateInnUL())
+//                                .kpp(generateKpp())
+//                                .bik(bik)
+////                                .correspondent_account(corAcc)
+//                                .operating_account(generateRS())
+//                                .build(),
+//                        "Вы не состоите в компании с таким ИНН. Проверьте ИНН или закрепите компанию на сайте СберМаркет во вкладке «Для бизнеса»"
+//                },
+//                {
+//                        CompanyDocumentsV2Request.CompanyDocument.builder()
+//                                .name(name)
+//                                .inn(generateInnUL())
+//                                .kpp(generateKpp())
+//                                .bik(bik)
 //                                .correspondent_account(corAcc)
-                                .operating_account(rs)
-                                .build(),
-                        "Вы не состоите в компании с таким ИНН. Проверьте ИНН или закрепите компанию на сайте СберМаркет во вкладке «Для бизнеса»"
-                },
-                {
-                        CompanyDocumentsV2Request.CompanyDocument.builder()
-                                .name(name)
-                                .inn(inn)
-                                .kpp(kpp)
-                                .bik(bik)
-                                .correspondent_account(corAcc)
-//                                .operating_account(rs)
-                                .build(),
-                        "Вы не состоите в компании с таким ИНН. Проверьте ИНН или закрепите компанию на сайте СберМаркет во вкладке «Для бизнеса»"
-                }
+////                                .operating_account(generateRS())
+//                                .build(),
+//                        "Вы не состоите в компании с таким ИНН. Проверьте ИНН или закрепите компанию на сайте СберМаркет во вкладке «Для бизнеса»"
+//                }
         };
     }
 }
