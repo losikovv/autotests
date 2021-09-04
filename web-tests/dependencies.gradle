@@ -2,7 +2,7 @@ ext.versions = [
         logback: '1.2.3',
         jsonSimple: '1.1.1',
         selenium: '3.8.1',
-        testng: '6.13.1',
+        testng: '7.4.0',
         restAssured: '4.3.1',
         jetbrainsAnnotations: '19.0.0',
         allure: '2.13.8',
