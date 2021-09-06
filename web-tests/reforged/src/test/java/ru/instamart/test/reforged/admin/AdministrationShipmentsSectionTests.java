@@ -14,6 +14,12 @@ import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.reforged.admin.page.usersEdit.UsersEditPage;
 import ru.instamart.test.reforged.BaseTest;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
@@ -67,15 +73,19 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void validateFilterDateAndTimeAdminShipmentsPage() {
+        final DateTimeFormatter dt = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        final DateTimeFormatter dtd = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        final String deliveryDateFrom = dt.format(LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT));
+        final String deliveryDateTo = dt.format(LocalDateTime.of(LocalDate.now(), LocalTime.MAX));
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
         shipments().goToPage();
         shipments().checkPageTitle();
-        String deliveryDate = shipments().getFirstDeliveryDateFromTable();
-        shipments().setDateAndTimeFilterFromTableDefault(deliveryDate);
+        shipments().setDateAndTimeFilterFromTableDefault(deliveryDateFrom);
+        shipments().setDateAndTimeFilterToTableDefault(deliveryDateTo);
         shipments().search();
-        shipments().checkDateAndTimeShipmentsColumn(deliveryDate);
+        shipments().checkDateAndTimeShipmentsColumn(dtd.format(LocalDateTime.now()));
     }
 
     @CaseId(173)

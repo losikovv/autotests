@@ -9,6 +9,5 @@ public interface AdminPage extends Page {
     default void goToPage() {
         Kraken.open(EnvironmentData.INSTANCE.getAdminUrlWithHttpAuth() + pageUrl());
         Kraken.jsAction().waitForDocumentReady();
-        Kraken.jsAction().jQueryReady();
     }
 }

@@ -9,6 +9,5 @@ public interface OkeyPage extends Page {
     default void goToPage() {
         Kraken.open(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + pageUrl());
         Kraken.jsAction().waitForDocumentReady();
-        Kraken.jsAction().jQueryReady();
     }
 }
