@@ -28,7 +28,6 @@ public class OrderOptionsV3Request extends ApiV3RequestBase {
             itemParams.put("price", 1111);
             itemParams.put("discount", 0);
             return givenWithSpec()
-                    .log().all()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .header("Api-Version","3.0")

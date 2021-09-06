@@ -18,7 +18,6 @@ public class OrderV3Request extends ApiV3RequestBase {
     public static Response GET(String UUID)
     {
         return givenWithSpec()
-                .log().all()
                 .contentType(ContentType.JSON)
                 .header("Api-Version","3.0")
                 .header("Client-Token","14cd5d341d768bd4926fc9f5ce262094")
@@ -67,7 +66,6 @@ public class OrderV3Request extends ApiV3RequestBase {
             requestParams.put("replacement", replacementParams);
             replacementParams.put( "option_id", replacementOptionId);
             return givenWithSpec()
-                    .log().all()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .header("Api-Version","3.0")
@@ -86,7 +84,6 @@ public class OrderV3Request extends ApiV3RequestBase {
             JSONObject requestParams = new JSONObject();
             requestParams.put("status","canceled");
             return givenWithSpec()
-                    .log().all()
                     .contentType(ContentType.JSON)
                     .header("Api-Version","3.0")
                     .header("Client-Token","14cd5d341d768bd4926fc9f5ce262094")
@@ -144,7 +141,6 @@ public class OrderV3Request extends ApiV3RequestBase {
             requestParams.put("replacement", replacementParams);
             replacementParams.put("option_id", replacementOptionId);
             return givenWithSpec()
-                    .log().all()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .header("Api-Version", "3.0")

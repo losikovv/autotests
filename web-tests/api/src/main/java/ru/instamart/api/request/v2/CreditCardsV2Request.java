@@ -16,7 +16,6 @@ public class CreditCardsV2Request extends ApiV2RequestBase {
     @Step("{method} /" + ApiV2EndPoints.CREDIT_CARDS)
     public static Response POST(CreditCard creditCard) {
         return givenWithAuth()
-                .log().all()
                 .formParams(Mapper.INSTANCE.objectToMap(creditCard))
                 .post(ApiV2EndPoints.CREDIT_CARDS);
     }
