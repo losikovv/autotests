@@ -13,8 +13,8 @@ public class ShopAddPage implements AdminPage, ShopAddCheck {
     }
 
     @Step("Выбираем тестовый регион в дропдауне регионов")
-    public void selectTestRegionInRegionsDropdown() {
-        regionsDropdown.selectByText("АвтотестГород");
+    public void selectTestRegionInRegionsDropdown(String cityName) {
+        regionsDropdown.selectByText(cityName);
     }
 
     @Override
