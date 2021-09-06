@@ -48,6 +48,14 @@ task apiInstamartRegress(type: Test) {
             events "PASSED", "FAILED", "SKIPPED"
         }
     }
+    retry {
+        // Максимальное количество повторов
+        maxRetries = 1
+        // Количество тестов при падении которых не запускается ретрай
+        maxFailures = 20
+        // true тест падает с ошибкой при удачном повторе
+        failOnPassedAfterRetry = false
+    }
     systemProperty 'qase.Project', 'INAPI'
     systemProperty 'qase.Title', 'Instamart API Regress'
 }
