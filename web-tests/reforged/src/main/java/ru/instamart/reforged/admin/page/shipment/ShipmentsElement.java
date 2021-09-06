@@ -12,8 +12,8 @@ public interface ShipmentsElement {
     Input juridicalNameContains = new Input(By.id("search_order_company_name"));
     Input shopperLogin = new Input(By.id("search_shopper_login"));
     Input driverLogin = new Input(By.id("search_driver_login"));
-    Input deliveryTimeFrom = new Input(By.id("search_delivery_window_starts_at_st"));
-    Input deliveryTimeTo = new Input(By.id("search_delivery_window_starts_at_end"));
+    Input deliveryTimeFrom = new Input(By.id("search_delivery_window_starts_at_st"), "время доставки от");
+    Input deliveryTimeTo = new Input(By.id("search_delivery_window_starts_at_end"), "время доставки до");
     Input phoneNumberContains = new Input(By.id("search_order_phone"));
     Input email = new Input(By.id("search_email"));
     Input searchNumber = new Input(By.id("search_number"));
@@ -39,7 +39,7 @@ public interface ShipmentsElement {
 
     Table table = new Table();
 
-    Button submit = new Button(By.xpath("//button[@type='submit']"));
+    Button submit = new Button(By.xpath("//button[@type='submit']"), "отправка запроса на фильтрацию");
 
     Element title = new Element(By.xpath("//div[@class='table-cell']"));
 

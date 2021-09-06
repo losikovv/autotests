@@ -1,4 +1,4 @@
-package ru.instamart.test.reforged.user;
+package ru.instamart.test.reforged.stf.user;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;

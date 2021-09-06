@@ -19,8 +19,9 @@ public final class UserManager {
 
     private static final List<UserData> USER_DATA_LIST = new ArrayList<>();
 
-    private static final QaService qaService = new QaService();
-    private static final AbService abService = new AbService();
+    //TODO: Реализовать отложенный вызов
+    private static QaService qaService;
+    private static AbService abService;
     private static final String PASSWD_1 = Crypt.INSTANCE.decrypt("pPOEBSnWKrokeN1dNasL0g==");
     private static final String PASSWD_2 = Crypt.INSTANCE.decrypt("y3Brgz0jBmYYkmXSkdw5Jw==");
     private static final String PASSWD_3 = Crypt.INSTANCE.decrypt("HfaITuMU+0KIfKR2+YYg5A==");
@@ -286,6 +287,7 @@ public final class UserManager {
      * @return - возвращает собранную {@link UserData} из параметров ответа
      */
     public static UserData createUser(final String password) {
+        qaService = new QaService();
         final String role = UserRoles.USER.getRole();
         final String userName = Generate.testUserName(role);
         final QaSessionResponse sessionResponse = qaService.createSession(password);
@@ -316,6 +318,7 @@ public final class UserManager {
      * @return - возвращает собранную {@link UserData} из параметров ответа
      */
     public static UserData createUserWithoutAb(final String password, final String abTestId, final String abTestGroupId) {
+        abService = new AbService();
         final UserData newUser = createUser(password);
 
         final UserGroups userGroups = new UserGroups();

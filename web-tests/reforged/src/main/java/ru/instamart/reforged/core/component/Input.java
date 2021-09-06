@@ -90,7 +90,7 @@ public final class Input extends Component {
     }
 
     public void clear() {
-        log.info("Clear input field");
+        log.info("Clear input {} field", getDescription());
         getComponent().clear();
     }
 
