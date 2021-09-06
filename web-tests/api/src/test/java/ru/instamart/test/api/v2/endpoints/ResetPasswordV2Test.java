@@ -24,9 +24,9 @@ public final class ResetPasswordV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2_FB);
     }
 
-    // not implemented endpoint
+    @Deprecated
     @CaseId(183)
-    @Test(groups = {"api-instamart-regress"}, description = "Подстановка невалидного токена", enabled = false)
+    @Test(groups = {}, description = "Подстановка невалидного токена")
     public void testRestWithInvalidToken() {
         final Response response = ResetPasswordV2Request.POST(
                 "token",
@@ -47,8 +47,9 @@ public final class ResetPasswordV2Test extends RestBase {
     }
 
     // not implemented endpoint
+    @Deprecated
     @CaseId(184)
-    @Test(groups = {"api-instamart-regress"}, description = "Предупреждение при вводе старого пароля", enabled = false)
+    @Test(groups = {}, description = "Предупреждение при вводе старого пароля")
     public void testRestWithInvalidNewPassword() {
         final Response response = ResetPasswordV2Request.POST(
                 "token",
@@ -59,8 +60,9 @@ public final class ResetPasswordV2Test extends RestBase {
     }
 
     // not implemented endpoint
+    @Deprecated
     @CaseId(185)
-    @Test(groups = {"api-instamart-regress"}, description = "Предупреждение при вводе невалидного пароля", enabled = false)
+    @Test(groups = {}, description = "Предупреждение при вводе невалидного пароля")
     public void testRestWithInvalidPassword() {
         final Response response = ResetPasswordV2Request.POST(
                 "token",
@@ -71,8 +73,9 @@ public final class ResetPasswordV2Test extends RestBase {
     }
 
     // not implemented endpoint
+    @Deprecated
     @CaseId(186)
-    @Test(groups = {"api-instamart-regress"}, description = "Предупреждение при вводе невалидного проверочного пароля", enabled = false)
+    @Test(groups = {}, description = "Предупреждение при вводе невалидного проверочного пароля")
     public void testRestWithInvalidConformationPassword() {
         final Response response = ResetPasswordV2Request.POST(
                 "token",

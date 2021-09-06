@@ -68,11 +68,9 @@ public final class UserV2Test extends RestBase {
         Assert.assertTrue(user.getPromoTermsAccepted(), "Некорректное значение promo");
     }
 
-    /**
-     * Нужно разобраться нужен этот тест или нет
-     */
+    @Deprecated
     @CaseId(154)
-    @Test(groups = {"api-instamart-regress"}, enabled = false)
+    @Test(groups = {})
     @Story("Изменение пароля с невалидным новым")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePasswordWithInvalidNew() {
@@ -159,9 +157,10 @@ public final class UserV2Test extends RestBase {
         Assert.assertFalse(user.getPromoTermsAccepted(), "Некорректное значение promo");
     }
 
+    @Deprecated
     @CaseId(157)
     @Issue("STF-7288")
-    @Test(groups = {"api-instamart-regress"}, enabled = false)
+    @Test(groups = {})
     @Story("Попытка изменить данные для несуществующего email")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataWithIncorrectEmail() {

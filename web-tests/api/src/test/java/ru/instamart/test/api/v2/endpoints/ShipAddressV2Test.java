@@ -60,10 +60,10 @@ public final class ShipAddressV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
+    @Deprecated
     @CaseId(237)
     @Story("Получение списка возможных изменений для заказа")
-    @Test(  enabled = false, //todo починить "Отсутствует обязательный параметр 'ship_address'"
-            groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(  groups = {},
             description = "Существующий id для авторизованных")
     public void testGetChangeAddressWithValidIdAndAuth() {
         final Response response = OrdersV2Request.ShipAddressChange.GET(apiV2.getCurrentOrderNumber());

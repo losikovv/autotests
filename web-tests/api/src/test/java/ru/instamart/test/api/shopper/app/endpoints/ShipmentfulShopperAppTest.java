@@ -161,8 +161,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @CaseId(17)
     @Test(  description = "Получаем предзамены для позиций в сборке",
             groups = {"api-shopper-smoke", "api-shopper-prod"},
-            dependsOnMethods = "postAssembly200",
-            enabled = false)
+            dependsOnMethods = "postAssembly200")
     public void getAssemblyItemPrereplacements200() {
         response = AssemblyItemsSHPRequest.Prereplacements.GET(assemblyItemId);
         checkStatusCode200(response);

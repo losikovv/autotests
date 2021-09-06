@@ -25,7 +25,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
 
     private String orderNumber, shipmentNumber;
 
-    @BeforeClass(alwaysRun = true, description = "Авторизация, создание комплексного заказа")
+    @BeforeClass(description = "Авторизация, создание комплексного заказа")
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
 
@@ -39,10 +39,10 @@ public class OrdersComplexCollectV2Test extends RestBase {
         shopperApp.complexCollect(shipmentNumber);
     }
 
+    @Deprecated
     @CaseId(637)
     @Story("Получение списка отмененных позиций по заказу")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(  groups = {},
             description = "Получение списка отмененных позиций по заказу для существующего id")
     public void getLineItemCancellationsWithItem200() {
         response = OrdersV2Request.LineItemCancellations.GET(orderNumber);
@@ -50,10 +50,10 @@ public class OrdersComplexCollectV2Test extends RestBase {
         assertFalse(response.as(LineItemCancellationsV2Response.class).getLineItemCancellations().isEmpty(), "Нет отмененных позиций заказа");
     }
 
+    @Deprecated
     @CaseId(325)
     @Story("Получение списка отмененных позиций по подзаказу")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(  groups = {},
             description = "Получение списка отмененных позиций по подзаказу для существующего id")
     public void getShipmentLineItem200() {
         response = ShipmentsV2Request.LineItemCancellations.GET(orderNumber);
@@ -61,10 +61,10 @@ public class OrdersComplexCollectV2Test extends RestBase {
         assertFalse(response.as(LineItemCancellationsV2Response.class).getLineItemCancellations().isEmpty(), "Нет отмененных позиций для достаки");
     }
 
+    @Deprecated
     @CaseId(327)
     @Story("Получение списка замененных позиций по заказу")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(  groups = {"api-instamart-regress"},
             description = "Получение списка замененных позиций по заказу по существующему id")
     public void getOrdersLineItemReplacements200() {
         response = OrdersV2Request.LineItemReplacements.GET(orderNumber);
@@ -73,10 +73,10 @@ public class OrdersComplexCollectV2Test extends RestBase {
     }
 
 
+    @Deprecated
     @CaseId(329)
     @Story("Получение списка замененных позиций по подзаказуу")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(  groups = {"api-instamart-regress"},
             description = "Получение списка замененных позиций по подзаказу по существующему id")
     public void getShipmentLineItemReplacements200() {
         response = ShipmentsV2Request.LineItemReplacements.GET(orderNumber);
