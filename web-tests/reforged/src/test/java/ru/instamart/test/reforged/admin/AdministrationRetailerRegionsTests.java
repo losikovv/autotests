@@ -18,8 +18,7 @@ public final class AdministrationRetailerRegionsTests extends BaseTest {
     @CaseId(469)
     @Story("Тест добавления нового региона для магазинов в админке")
     @Test(description = "Тест добавления нового региона для магазинов в админке",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"},
-            enabled = false
+            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void successCreateNewRetailerRegion() {
         final String cityName = "TestCity_" + Generate.literalString(6);
