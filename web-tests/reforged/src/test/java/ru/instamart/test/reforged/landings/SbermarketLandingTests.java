@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 
 import org.testng.annotations.Test;
+import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.home;
@@ -20,12 +21,13 @@ public class SbermarketLandingTests extends BaseTest {
     )
     public void successValidateSbermarketLanding() {
         home().goToPage();
+        home().addCookie(CookieFactory.COOKIE_ALERT);
+        home().refresh();
         home().checkHeaderContainerIsVisible();
         home().checkHeaderLogoIsVisible();
         home().checkLoginButtonIsVisible();
 
         home().checkMainBlockContainerIsVisible();
-        home().checkMainBlockIllustrationIsVisible();
         home().checkMainBlockAddressButtonIsVisible();
         home().checkMainBlockTextIsVisible();
 
@@ -50,7 +52,6 @@ public class SbermarketLandingTests extends BaseTest {
         home().checkOrderBlockStepFirstIsVisible();
         home().checkOrderBlockStepSecondIsVisible();
         home().checkOrderBlockStepThirdIsVisible();
-
 
         home().checkAppsBlockContainerIsVisible();
         home().checkAppStoreIsVisible();
