@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.util.Crypt;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -24,7 +25,7 @@ public final class AdministrationRetailerRegionsTests extends BaseTest {
         final String cityName = "TestCity_" + Generate.literalString(6);
 
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().auth(UserManager.getDefaultAdminAllRoles());
 
         cityAdd().goToPage();
         cityAdd().inputCityName(cityName);

@@ -5,6 +5,6 @@ import ru.instamart.reforged.core.component.Element;
 
 public interface AllCitiesElements {
 
-    Element addCityAlert =  new Element(By.xpath("//div[@class='flash success fadeOut']"), "Алерт добавления города");
-    Element deleteCityAlert = new Element(By.xpath("//div[@class='flash success fadeOut']"), "Алерт удаления города");
+    Element addCityAlert =  new Element(By.xpath("//div[@class='flash success']"), "Алерт добавления города");
+    Element deleteCityAlert = new Element(By.xpath("//div[@class='flash success']"), "Алерт удаления города");
 }
