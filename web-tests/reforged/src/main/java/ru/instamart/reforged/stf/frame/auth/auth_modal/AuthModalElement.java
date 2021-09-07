@@ -28,5 +28,6 @@ public interface AuthModalElement {
 
     Element phoneError = new Element(By.xpath("//div[@data-qa='tel_login_form_error']"));
 
+    Button sberBusinessIdButton = new Button(By.xpath("//button[@data-qa='sber_business_id']"));
 
 }

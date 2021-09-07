@@ -27,6 +27,11 @@ public interface HomeCheck extends Check, HomeElement {
         waitAction().shouldBeVisible(mainBlockContainer);
     }
 
+    @Step("Проверяем, что отображается главный блок лендинга Сбермаркета")
+    default void checkMainBlockContainerNotVisible() {
+        waitAction().shouldNotBeVisible(mainBlockContainer);
+    }
+
     @Step("Проверяем, что отображается главная иллюстрация лендинга Сбермаркета")
     default void checkMainBlockIllustrationIsVisible() {
         waitAction().shouldBeVisible(mainBlockIllustration);

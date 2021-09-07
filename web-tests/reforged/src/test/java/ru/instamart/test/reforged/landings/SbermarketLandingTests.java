@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 
 import org.testng.annotations.Test;
+import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
 
@@ -67,11 +68,13 @@ public class SbermarketLandingTests extends BaseTest {
             groups = {"sbermarket-Ui-smoke"}
     )
     public void successGoToCatalogFromSbermarketLanding() {
-//        ShippingAddressModal.selectFirstRetailer();
-//        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
-//        ShippingAddressModal.selectAddressSuggest();
-//        ShippingAddressModal.findShops();
-//        baseChecks.checkIsOnLanding();
+        home().goToPage();
+        home().clickStoreAuchanButton();
+        home().interactAddressModal().fillAddress(Addresses.Moscow.defaultAddress());
+        home().interactAddressModal().selectFirstAddress();
+        home().interactAddressModal().clickOnSave();
+        home().interactAddressModal().interactStoreSelector().clickToStoreCard();
+        home().checkMainBlockContainerNotVisible();
     }
 
     @CaseId(2042)
@@ -79,23 +82,17 @@ public class SbermarketLandingTests extends BaseTest {
             description = "Кнопка СберБизнес ID при выбранном чекбоксе \"Хочу заказывать для бизнеса\"",
             groups = {"sbermarket-Ui-smoke", "testing"}
     )
-    public void EnabledSberBussinesIdButton() {
-//        Shop.AuthModal.open();
-//        step("Выбор чекбокса В2В", () -> kraken.perform().click(Elements.Modals.AuthModal.checkB2B()));
-//        step("Проверка наличия кнопки авторизации через СберБизнес ID", () -> {
-//            kraken.await().fluently(ExpectedConditions
-//                    .visibilityOfElementLocated(Elements.Modals.AuthModal.sberBussinesIdButton().getLocator()));
-//            baseChecks.checkIsElementEnabled(Elements.Modals.AuthModal.sberBussinesIdButton());
-//        });
-//        step("Снятие чекбокса В2В", () -> kraken.perform().click(Elements.Modals.AuthModal.checkB2B()));
-//        kraken.await().fluently(ExpectedConditions
-//                .visibilityOfElementLocated(Elements.Modals.AuthModal.sberButton().getLocator()));
-//        step("Проверка доступности кнопок авторизации провайдера", () -> {
-//            baseChecks.checkIsElementEnabled(Elements.Modals.AuthModal.sberButton());
-//            baseChecks.checkIsElementEnabled(Elements.Modals.AuthModal.vkontakteButton());
-//            baseChecks.checkIsElementEnabled(Elements.Modals.AuthModal.facebookButton());
-//            baseChecks.checkIsElementEnabled(Elements.Modals.AuthModal.mailruButton());
-//        });
-//    }
+    public void enabledSberBussinesIdButton() {
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().checkForBusiness();
+        home().interactAuthModal().checkSberBusinessIdIsVisible();
+        home().interactAuthModal().uncheckForBusiness();
+        home().interactAuthModal().checkSberBusinessIdIsNotVisible();
+        home().interactAuthModal().checkSberIdIsVisible();
+        home().interactAuthModal().checkVkIsVisible();
+        home().interactAuthModal().checkFacebookIsVisible();
+        home().interactAuthModal().checkMailRuIsVisible();
     }
 }
+

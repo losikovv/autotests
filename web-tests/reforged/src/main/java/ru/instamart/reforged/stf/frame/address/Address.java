@@ -4,9 +4,16 @@ import io.qameta.allure.Step;
 import lombok.SneakyThrows;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.stf.drawer.store_selector.StoreSelector;
 import ru.instamart.reforged.stf.frame.Close;
 
+import static ru.instamart.reforged.stf.block.header.HeaderElement.storeSelectorDrawer;
+
 public final class Address implements Close, AddressCheck {
+
+    public StoreSelector interactStoreSelector() {
+        return storeSelectorDrawer;
+    }
 
     @Step("Выбрать доставку")
     public void selectDelivery() {
