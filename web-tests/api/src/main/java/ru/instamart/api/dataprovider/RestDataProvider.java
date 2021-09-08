@@ -857,12 +857,12 @@ public class RestDataProvider extends RestBase {
                 {0, "", "", 0, shipmentId, 0, 0, ""},
                 {0, "", "", 0, 0, deliveryWindow, shipmentMethodId, ""},
 
-                {0, "", "", paymentsId, shipmentId, 0, shipmentMethodId, apiV2.getCurrentOrderNumber()},
-                {1, "", "", paymentsId, shipmentId, 0, shipmentMethodId, apiV2.getCurrentOrderNumber()},
+//                {0, "", "", paymentsId, shipmentId, 0, shipmentMethodId, apiV2.getCurrentOrderNumber()},
+//                {1, "", "", paymentsId, shipmentId, 0, shipmentMethodId, apiV2.getCurrentOrderNumber()},
 
                 {1, "", "", 0, shipmentId, 0, shipmentMethodId, apiV2.getCurrentOrderNumber()},
                 {1, "", "", paymentsId, 0, 0, shipmentMethodId, apiV2.getCurrentOrderNumber()},
-                {1, "", "", paymentsId, shipmentId, 0, 0, apiV2.getCurrentOrderNumber()},
+//                {1, "", "", paymentsId, shipmentId, 0, 0, apiV2.getCurrentOrderNumber()},
                 {1, "+79771234567", "test", paymentsId, shipmentId, 0, shipmentMethodId, ""}
         };
     }
