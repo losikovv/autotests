@@ -15,4 +15,9 @@ public interface PagesCheck extends Check, PagesElement {
     default void checkTableEntry() {
         Kraken.waitAction().shouldBeVisible(tableEntry);
     }
+
+    @Step("Проверяем появление алерта об удалении страницы")
+    default void checkDeleteAlertVisible() {
+        Kraken.waitAction().shouldBeVisible(deleteAlert);
+    }
 }
