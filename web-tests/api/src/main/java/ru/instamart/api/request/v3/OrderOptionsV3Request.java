@@ -6,34 +6,37 @@ import io.restassured.response.Response;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV3Endpoints;
+import ru.instamart.api.model.testdata.ApiV3TestData;
 import ru.instamart.api.request.ApiV3RequestBase;
 
 public class OrderOptionsV3Request extends ApiV3RequestBase {
 
     public static class PickupFromStore {
         /**
-         * Применение опций заказа для замовывоза
+         * Применение опций заказа для самовывоза
          */
         @Step("{method} /" + ApiV3Endpoints.OrderOptions.PICKUP_FROM_STORE)
-        public static Response PUT(String retailerId, String storeId, String itemId,String clientToken) {
+        public static Response PUT (ApiV3TestData testData, String storeId) {
             JSONObject requestParams = new JSONObject();
             JSONArray items = new JSONArray();
             JSONObject itemParams = new JSONObject();
-            requestParams.put("retailer_id", retailerId);
+            requestParams.put("retailer_id", "metro");
             requestParams.put("store_id", storeId);
             requestParams.put("items", items);
             items.add(itemParams);
-            itemParams.put("id", itemId);
-            itemParams.put("quantity", 100);
-            itemParams.put("price", 1111);
-            itemParams.put("discount", 0);
+            itemParams.put("id", testData.getItemId());
+            itemParams.put("quantity", testData.getItemQuantity());
+            itemParams.put("price", testData.getItemPrice());
+            itemParams.put("discount", testData.getItemDiscount());
+            itemParams.put("promo_total", testData.getItemPromoTotal());
             return givenWithSpec()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .header("Api-Version","3.0")
-                    .header("Client-Token",clientToken)
+                    .header("Client-Token",testData.getClientToken())
                     .put(ApiV3Endpoints.OrderOptions.PICKUP_FROM_STORE);
         }
+
     }
 
     public static class Delivery {
@@ -41,7 +44,7 @@ public class OrderOptionsV3Request extends ApiV3RequestBase {
          * Получение списка опций для заказа с доставкой
          */
         @Step("{method} /" + ApiV3Endpoints.OrderOptions.DELIVERY)
-        public static Response PUT () {
+        public static Response PUT (ApiV3TestData testData) {
             JSONObject requestParams = new JSONObject();
             JSONArray items = new JSONArray();
             JSONObject itemParams = new JSONObject();
@@ -50,18 +53,25 @@ public class OrderOptionsV3Request extends ApiV3RequestBase {
             requestParams.put("location", locationParams);
             requestParams.put("items", items);
             items.add(itemParams);
-            locationParams.put("lon", "37.798026");
-            locationParams.put("lat", "55.749309");
-            itemParams.put("id", "23020");
-            itemParams.put("quantity", "5");
-            itemParams.put("price", "300000");
-            itemParams.put("discount", "0");
+            locationParams.put("lon", "37.797110");
+            locationParams.put("lat", "55.747581");
+            itemParams.put("id", testData.getItemId());
+            itemParams.put("quantity", testData.getItemQuantity());
+            itemParams.put("price", testData.getItemPrice());
+            itemParams.put("discount", testData.getItemDiscount());
+            itemParams.put("promo_total", testData.getItemPromoTotal());
             return givenWithSpec()
+                    .log().all()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .header("Api-Version","3.0")
-                    .header("Client-Token","8055cfd11c887f2887dcd109e66dd166")
+                    .header("Client-Token", testData.getClientToken())
                     .put(ApiV3Endpoints.OrderOptions.DELIVERY);
         }
+
+        }
     }
-}
+
+
+
+

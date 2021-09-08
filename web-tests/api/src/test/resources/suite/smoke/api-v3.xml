@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="REST API Suite" parallel="tests" thread-count="4" data-provider-thread-count="20">
+    <listeners>
+        <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
+        <listener class-name="ru.instamart.api.listener.ApiListener"/>
+    </listeners>
+    <!-- api-v3-tests -->
+    <test verbose="1" name="API v3 Tests" parallel="classes" thread-count="5">
+        <classes>
+            <class name="ru.instamart.test.api.v3.endpoints.StoresV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.SetupInfoV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.OrderOptionsV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.OrdersDeliveryV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.GetOrderV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.PutOrdersStatusV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.OrdersPickupFromStoreV3Test"/>
+        </classes>
+    </test>
+</suite>

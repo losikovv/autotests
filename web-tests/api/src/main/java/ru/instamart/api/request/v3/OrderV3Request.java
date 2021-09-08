@@ -6,6 +6,7 @@ import io.restassured.response.Response;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV3Endpoints;
+import ru.instamart.api.model.testdata.ApiV3TestData;
 import ru.instamart.api.request.ApiV3RequestBase;
 
 import java.util.UUID;
@@ -15,13 +16,18 @@ public class OrderV3Request extends ApiV3RequestBase {
      *  Получение ордера по UUID
      */
     @Step("{method} /" + ApiV3Endpoints.Orders.ORDER_BY_UUID)
-    public static Response GET(String UUID)
+    public static Response GET(String UUID, String clientToken)
     {
         return givenWithSpec()
                 .contentType(ContentType.JSON)
                 .header("Api-Version","3.0")
-                .header("Client-Token","14cd5d341d768bd4926fc9f5ce262094")
+                .header("Client-Token", clientToken)
                 .get(ApiV3Endpoints.Orders.ORDER_BY_UUID,UUID);
+    }
+
+    public static Response GET(String UUID)
+    {
+        return GET(UUID, "6fae9cd2b268be84e2ab394b6fd0d599");
     }
 
     public static class PickupFromStore {
@@ -29,27 +35,18 @@ public class OrderV3Request extends ApiV3RequestBase {
          * Создание заказа замовывоз
          */
         @Step("{method} /" + ApiV3Endpoints.Orders.PICKUP_FROM_STORE)
-        public static Response POST(String paymentOptionId,
-                                    String shippingOptionId,
-                                    String replacementOptionId,
-                                    String itemId,
-                                    String clientToken,
-                                    String shipTotal,
-                                    int quantity,
-                                    int price,
-                                    int discount
-        ) {
+        public static Response POST(String paymentOptionId, String shippingMethodOptions, String replacementOptionId, ApiV3TestData testData) {
             JSONObject requestParams = new JSONObject();
             JSONArray items = new JSONArray();
             JSONObject itemParams = new JSONObject();
             requestParams.put("number", UUID.randomUUID());
-            requestParams.put("ship_total", shipTotal);
+            requestParams.put("ship_total", testData.getShipTotal());
             requestParams.put("items", items);
             items.add(itemParams);
-            itemParams.put("id", itemId);
-            itemParams.put("quantity", quantity);
-            itemParams.put("price", price);
-            itemParams.put("discount", discount);
+            itemParams.put("id", testData.getItemId());
+            itemParams.put("quantity", testData.getItemQuantity());
+            itemParams.put("price", testData.getItemDiscount());
+            itemParams.put("discount", testData.getItemDiscount());
             JSONObject contactParams = new JSONObject();
             requestParams.put("contact", contactParams);
             contactParams.put("first_name","Qasper");
@@ -58,7 +55,7 @@ public class OrderV3Request extends ApiV3RequestBase {
             contactParams.put("phone","79268202951");
             JSONObject shippingParams = new JSONObject();
             requestParams.put("shipping", shippingParams);
-            shippingParams.put("option_id", shippingOptionId);
+            shippingParams.put("option_id", shippingMethodOptions);
             JSONObject paymentParams = new JSONObject();
             requestParams.put("payment", paymentParams);
             paymentParams.put( "option_id", paymentOptionId);
@@ -69,7 +66,7 @@ public class OrderV3Request extends ApiV3RequestBase {
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .header("Api-Version","3.0")
-                    .header("Client-Token",clientToken)
+                    .header("Client-Token",testData.getClientToken())
                     .post(ApiV3Endpoints.Orders.PICKUP_FROM_STORE);
         }
     }
@@ -79,16 +76,21 @@ public class OrderV3Request extends ApiV3RequestBase {
          *  Отмена заказа
          */
         @Step("{method} /" + ApiV3Endpoints.Orders.CANCEL)
-        public static Response PUT(String UUID)
+        public static Response PUT(String UUID, String clientToken)
         {
             JSONObject requestParams = new JSONObject();
             requestParams.put("status","canceled");
             return givenWithSpec()
                     .contentType(ContentType.JSON)
                     .header("Api-Version","3.0")
-                    .header("Client-Token","14cd5d341d768bd4926fc9f5ce262094")
+                    .header("Client-Token", clientToken)
                     .body(requestParams)
                     .put(ApiV3Endpoints.Orders.CANCEL,UUID);
+        }
+
+        public static Response PUT(String UUID)
+        {
+            return PUT(UUID, "14cd5d341d768bd4926fc9f5ce262094");
         }
     }
 
@@ -97,19 +99,19 @@ public class OrderV3Request extends ApiV3RequestBase {
          * Создание заказа на доставку
          */
         @Step("{method} /" + ApiV3Endpoints.Orders.DELIVERY)
-        public static Response POST(String paymentOptionId, String shippingOptionId, String replacementOptionId) {
+        public static Response POST(String paymentOptionId, String shippingMethodOptions, String replacementOptionId, ApiV3TestData testData) {
             JSONObject requestParams = new JSONObject();
             JSONArray items = new JSONArray();
             JSONObject itemParams = new JSONObject();
             requestParams.put("number", UUID.randomUUID());
-            //requestParams.put("ship_total", "15000");
+            requestParams.put("ship_total", testData.getShipTotal());
             requestParams.put("items", items);
             items.add(itemParams);
-            itemParams.put("id", "15879");
-            itemParams.put("quantity", 10);
-            itemParams.put("price", 1111);
-            itemParams.put("discount", 0);
-            itemParams.put("promo_total", 10);
+            itemParams.put("id", testData.getItemId());
+            itemParams.put("quantity", testData.getItemQuantity());
+            itemParams.put("price", testData.getItemPrice());
+            itemParams.put("discount", testData.getItemDiscount());
+            itemParams.put("promo_total", testData.getItemPromoTotal());
             JSONObject contactParams = new JSONObject();
             requestParams.put("contact", contactParams);
             contactParams.put("first_name", "Qasper");
@@ -119,7 +121,7 @@ public class OrderV3Request extends ApiV3RequestBase {
             JSONObject shippingParams = new JSONObject();
             JSONObject addressParams = new JSONObject();
             requestParams.put("shipping", shippingParams);
-            shippingParams.put("option_id", shippingOptionId);
+            shippingParams.put("option_id", shippingMethodOptions);
             shippingParams.put("address", addressParams);
             addressParams.put("city", "Moscow");
             addressParams.put("street", "пр. Ленинский");
@@ -129,8 +131,8 @@ public class OrderV3Request extends ApiV3RequestBase {
             addressParams.put("floor", "6");
             addressParams.put("apartment", "39");
             addressParams.put("comments", "Звонить 2 раза");
-            addressParams.put("lat", "55.794816");
-            addressParams.put("lon", "37.796086");
+            addressParams.put("lat", "55.747581");
+            addressParams.put("lon", "37.797110");
             addressParams.put("kind", "home");
             addressParams.put("door_phone", "32");
             addressParams.put("delivery_to_door", "false");
@@ -144,7 +146,7 @@ public class OrderV3Request extends ApiV3RequestBase {
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .header("Api-Version", "3.0")
-                    .header("Client-Token", "14cd5d341d768bd4926fc9f5ce262094")
+                    .header("Client-Token", testData.getClientToken())
                     .post(ApiV3Endpoints.Orders.DELIVERY);
         }
     }
