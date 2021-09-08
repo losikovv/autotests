@@ -7,6 +7,7 @@ import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV3Endpoints;
 import ru.instamart.api.request.ApiV3RequestBase;
 
+@SuppressWarnings("unchecked")
 public class StoresV3Request extends ApiV3RequestBase {
 
     public static class Stores {
