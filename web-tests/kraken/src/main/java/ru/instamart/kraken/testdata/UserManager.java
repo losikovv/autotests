@@ -28,6 +28,7 @@ public final class UserManager {
 
     private static UserData defaultUser;
     private static UserData defaultAdmin;
+    private static UserData defaultAdminAllRoles;
     private static UserData defaultShopper;
     private static UserData defaultGmailUser;
     private static UserData defaultVkUser;
@@ -98,6 +99,19 @@ public final class UserManager {
                     .build();
         }
         return defaultAdmin;
+    }
+
+    public static UserData getDefaultAdminAllRoles() {
+        if (isNull(defaultAdminAllRoles)) {
+            defaultAdminAllRoles = UserData.builder()
+                    .role("superadmin")
+                    .email(Crypt.INSTANCE.decrypt("wTfubFbVMEA2P1HT80pKDXJfzWnJ15xgPBJr240lktU="))
+                    .phone("9999999977")
+                    .password(PASSWD_1)
+                    .name("autotest superadminallroles")
+                    .build();
+        }
+        return defaultAdminAllRoles;
     }
 
     public static UserData getDefaultShopper() {

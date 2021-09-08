@@ -12,9 +12,9 @@ public class ShopAddPage implements AdminPage, ShopAddCheck {
         Kraken.open(EnvironmentData.INSTANCE.getAdminUrlWithHttpAuth() + "retailers/" + shop + "/stores/new");
     }
 
-    @Step("Выбираем тестовый регион в дропдауне регионов")
-    public void selectTestRegionInRegionsDropdown() {
-        regionsDropdown.selectByText("АвтотестГород");
+    @Step("Выбираем тестовый регион: {0} в дропдауне регионов")
+    public void selectTestRegionInRegionsDropdown(String cityName) {
+        regionsDropdown.selectByText(cityName);
     }
 
     @Override
