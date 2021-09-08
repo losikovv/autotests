@@ -80,7 +80,7 @@ public class SbermarketLandingTests extends BaseTest {
     @CaseId(2042)
     @Test(
             description = "Кнопка СберБизнес ID при выбранном чекбоксе \"Хочу заказывать для бизнеса\"",
-            groups = {"sbermarket-Ui-smoke", "testing"}
+            groups = {"sbermarket-Ui-smoke"}
     )
     public void enabledSberBussinesIdButton() {
         home().goToPage();
