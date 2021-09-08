@@ -56,8 +56,6 @@ public final class UserLogoutTests extends BaseTest {
         home().checkLoginButtonIsVisible();
     }
 
-    @Issue("ATST-645")
-    @Flaky
     @CaseId(1475)
     @Story("Позитивный кейс")
     @Test(description = "Тест сброса адреса доставки и корзины после деавторизации",
