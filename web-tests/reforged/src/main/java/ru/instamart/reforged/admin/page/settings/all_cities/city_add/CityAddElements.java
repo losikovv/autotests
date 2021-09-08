@@ -6,6 +6,6 @@ import ru.instamart.reforged.core.component.Input;
 
 public interface CityAddElements {
 
-    Input cityNameInput = new Input(By.id("city_name"));
-    Button createButton = new Button(By.xpath("//button[@type='submit']"));
+    Input cityNameInput = new Input(By.id("city_name"), "Инпут для ввода имени города");
+    Button createButton = new Button(By.xpath("//button[@type='submit']"), "Кнопка подтверждения добавления нового города");
 }

@@ -16,9 +16,9 @@ public interface RegionsCheck extends Check, RegionsElements {
         waitAction().shouldBeVisible(successCreateRegionAlert);
     }
 
-    @Step("Проверяем, что тестовый регион добавился в таблицу")
+    @Step("Проверяем, что тестовый регион: {0} добавился в таблицу")
     default void checkAutotestRegionInTableVisible(String cityName) {
-        assertTrue(Kraken.getWebDriver().findElement(By.xpath("//a[text()='"+cityName+"']")).isDisplayed());
+        assertTrue(Kraken.getWebDriver().findElement(By.xpath("//a[text()='" + cityName + "']")).isDisplayed());
     }
 
     @Step("Проверяем, что количество кнопок удалить совпадает с кол-вом регионов")

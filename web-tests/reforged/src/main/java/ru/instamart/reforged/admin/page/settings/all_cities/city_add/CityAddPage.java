@@ -11,7 +11,7 @@ public class CityAddPage implements AdminPage, CityAddCheck {
         return "cities/new";
     }
 
-    @Step("Ввести имя города")
+    @Step("Ввести имя города: {0}")
     public void inputCityName(String cityName) {
         cityNameInput.fill(cityName);
     }

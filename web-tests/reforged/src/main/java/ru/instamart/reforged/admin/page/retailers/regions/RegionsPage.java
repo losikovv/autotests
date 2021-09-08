@@ -12,10 +12,9 @@ public class RegionsPage implements AdminPage, RegionsCheck {
         addNewRegionButton.hoverAndClick();
     }
 
-    @Step("Нажатие на кнопку удаления у тестового региона")
+    @Step("Нажатие на кнопку удаления у тестового региона: {0}")
     public void deleteTestRegion(String cityName) {
-
-        Kraken.getWebDriver().findElement(By.xpath("//a[text()='"+cityName+"']/ancestor::tr/descendant::a[@data-action='remove']")).click();
+        Kraken.getWebDriver().findElement(By.xpath("//a[text()='" + cityName + "']/ancestor::tr/descendant::a[@data-action='remove']")).click();
     }
 
     @Override

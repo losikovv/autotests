@@ -7,7 +7,7 @@ import ru.instamart.reforged.core.Kraken;
 
 public class AllCitiesPage implements AdminPage, AllCitiesCheck {
 
-    @Step("Удалить тестовый город")
+    @Step("Удалить тестовый город: {0}")
     public void deleteTestCity(String cityName) {
         Kraken.getWebDriver().findElement(By.xpath("//td[text() = '" + cityName + "']/parent::tr/descendant::a[@data-action='remove']")).click();
     }
