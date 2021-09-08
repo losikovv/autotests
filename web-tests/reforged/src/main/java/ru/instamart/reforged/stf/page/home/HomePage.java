@@ -53,6 +53,11 @@ public final class HomePage implements StfPage, Window, HomeCheck {
         showAllRetailers.click();
     }
 
+    @Step("Нажать на ретейлер ашан")
+    public void clickStoreAuchanButton() {
+        storesButtonAuchan.click();
+    }
+
     @Step("Нажать Показать все города")
     public void clickToShowAllCities() {
         showAllCities.click();
