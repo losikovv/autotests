@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.model.v2.RetailerV2;
-import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.testdata.lib.Pages;
 import ru.instamart.test.ui.TestBase;
 import ru.instamart.ui.Elements;
@@ -34,7 +34,7 @@ public final class BasicSbermarketTests extends TestBase {
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successValidateHeaderSbermarket() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         baseChecks.checkPageIsAvailable();
         baseChecks.checkIsElementPresent(Elements.Header.container());
         baseChecks.checkIsElementPresent(Elements.Header.shipAddressPlaceholder());
@@ -62,7 +62,7 @@ public final class BasicSbermarketTests extends TestBase {
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successTransitionHowWeWork(){
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         baseChecks.checkTransitionValidation(Elements.Header.howWeWorkInfoButton());
     }
 
@@ -73,7 +73,7 @@ public final class BasicSbermarketTests extends TestBase {
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successTransitionContactsInfo(){
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         baseChecks.checkTransitionValidation(Elements.Header.contactsInfoButton());
     }
 
@@ -84,7 +84,7 @@ public final class BasicSbermarketTests extends TestBase {
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successTransitionHelpInfo(){
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         baseChecks.checkTransitionValidation(Elements.Header.helpInfoButton());
     }
 
@@ -95,7 +95,7 @@ public final class BasicSbermarketTests extends TestBase {
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successTransitionDeliveryInfo(){
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         baseChecks.checkTransitionValidation(Elements.Header.deliveryInfoButton());
     }
 
@@ -106,7 +106,7 @@ public final class BasicSbermarketTests extends TestBase {
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successTransitionLogo(){
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         baseChecks.checkTransitionValidation(Elements.Header.logo());
     }
 
@@ -121,7 +121,7 @@ public final class BasicSbermarketTests extends TestBase {
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successValidateFooterSbermarket() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         baseChecks.checkPageIsAvailable();
         checkFooterElementsPresence();
         validateFooterLinks();

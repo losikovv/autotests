@@ -1,26 +1,26 @@
 package ru.instamart.test.api.shopper.app.endpoints;
 
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.model.shopper.app.ReasonSHP;
-import ru.instamart.api.request.shopper.app.*;
-import ru.instamart.api.response.shopper.app.*;
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.shopper.app.ReasonSHP;
+import ru.instamart.api.request.shopper.app.*;
+import ru.instamart.api.response.shopper.app.*;
+import ru.instamart.kraken.config.CoreProperties;
+import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.testdata.UserManager;
 
 import java.util.Arrays;
 
-import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
 import static org.testng.Assert.assertNotEquals;
 import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
 
 @Epic("Shopper Mobile API")
 @Feature("Endpoints")
@@ -156,7 +156,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
             groups = {"api-shopper-smoke", "api-shopper-prod"})
     public void getStoreOffers200() {
         response = StoresSHPRequest.Offers.GET(
-                EnvironmentData.INSTANCE.getDefaultShopperSid(),
+                EnvironmentProperties.DEFAULT_SHOPPER_SID,
                 "хлеб");
         checkStatusCode200(response);
         assertNotNull(response.as(OffersSHPResponse.class).getData().get(0).getAttributes().getName(),
@@ -193,7 +193,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Test( description = "Авторизация по номеру телефона и коду из смс",
             groups = {"api-shopper-smoke"})
     public void postOtpsAuthorizations200() {
-        response = OtpsSHPRequest.Authorizations.POST(phone, Config.DEFAULT_SMS);
+        response = OtpsSHPRequest.Authorizations.POST(phone, CoreProperties.DEFAULT_SMS);
 
         checkStatusCode200(response);
         String accessToken = response.as(SessionsSHPResponse.class).getData().getAttributes().getAccessToken();

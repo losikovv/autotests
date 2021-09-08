@@ -7,11 +7,10 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.instamart.kraken.testdata.lib.Addresses;
-import ru.instamart.ui.manager.AppManager;
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.ui.data.ElementData;
 import ru.instamart.ui.Elements;
+import ru.instamart.ui.config.WaitProperties;
+import ru.instamart.ui.data.ElementData;
+import ru.instamart.ui.manager.AppManager;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -152,7 +151,7 @@ public final class WaitingHelper extends HelperBase {
 
     private FluentWait<WebDriver> createWait() {
         return new FluentWait<>(AppManager.getWebDriver())
-                .withTimeout(Config.BASIC_TIMEOUT, TimeUnit.SECONDS)
+                .withTimeout(WaitProperties.BASIC_TIMEOUT, TimeUnit.SECONDS)
                 .pollingEvery(250, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class)
                 .ignoring(NotFoundException.class);
@@ -173,7 +172,7 @@ public final class WaitingHelper extends HelperBase {
 
     public void fluently(Function conditions, String message){
         new FluentWait<>(AppManager.getWebDriver())
-                .withTimeout(Config.WAITING_TIMEOUT, TimeUnit.SECONDS)
+                .withTimeout(WaitProperties.WAITING_TIMEOUT, TimeUnit.SECONDS)
                 .withMessage(message)
                 .pollingEvery(1, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class)

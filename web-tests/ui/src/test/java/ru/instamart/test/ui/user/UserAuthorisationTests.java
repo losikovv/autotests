@@ -7,8 +7,8 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.lib.Addresses;
@@ -43,8 +43,7 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
             }
     )
     public void noAuthWithEmptyRequisites() {
-       // if(config.mobileAuth())skipTest();
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
@@ -69,7 +68,7 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
             }
     )
     public void noAuthWithoutEmail() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
@@ -89,7 +88,7 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
             }
     )
     public void noAuthWithoutPassword() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
@@ -109,7 +108,7 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
             }
     )
     public void noAuthWithNonexistingUser() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
@@ -129,7 +128,7 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
             }
     )
     public void noAuthWithWrongPassword() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
@@ -150,7 +149,7 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
     )
     public void noAuthWithLongFields() {
         final UserData testUser = UserManager.getUser(129);
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
@@ -170,7 +169,7 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
             }
     )
     public void noAuthOnModalClose() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
 
         Shop.AuthModal.open();
         Shop.AuthModal.switchToAuthorisationTab();
@@ -189,7 +188,7 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
             }
     )
     public void successAuthOnMainPage() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
 
         User.Do.loginAs(UserManager.getDefaultAdmin());
 
@@ -204,7 +203,7 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
             }
     )
     public void successAuthFromAddressModal() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
 
         ShippingAddressModal.open();
         kraken.perform().click(Elements.Modals.AddressModal.authButton());
@@ -225,7 +224,7 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
 
         User.Do.registration(testuser);
         User.Logout.quickly();
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         ShippingAddressModal.open();
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
         ShippingAddressModal.submit();
@@ -250,7 +249,7 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
     )
     @Story("Авторизация через Facebook")
     public void successRegWithFacebook() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
         Shop.AuthModal.hitFacebookButton();
         User.Auth.withFacebook(UserManager.getDefaultFbUser());
@@ -264,7 +263,7 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
     )
     @Story("Авторизация через VK")
     public void successRegWithVkontakte() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
         Shop.AuthModal.hitVkontakteButton();
         User.Auth.withVkontakte(UserManager.getDefaultVkUser()); //Создавать второй поток и работать в нем?
@@ -278,7 +277,7 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
     )
     @Story("Авторизация через Mail.ru")
     public void successRegWithMailRu() throws InterruptedException {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
         Shop.AuthModal.hitMailRuButton();
         User.Auth.withMailRu(UserManager.getDefaultMailRuUser());
@@ -293,7 +292,7 @@ public final class UserAuthorisationTests extends TestBase implements UsersAutho
     )
     @Story("Авторизация через SberID")
     public void successRegWithSberID() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
         Shop.AuthModal.hitSberIdButton();
         User.Auth.withSberID(UserManager.getDefaultSberIdUser());

@@ -1,20 +1,20 @@
 package ru.instamart.test.ui.orders;
 
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.testdata.RetailerCards;
+import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.kraken.testdata.lib.Pages;
+import ru.instamart.test.ui.TestBase;
+import ru.instamart.ui.Elements;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.checkout.RetailerCardsActions;
 import ru.instamart.ui.module.shop.Order;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
-import ru.instamart.ui.Elements;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import ru.instamart.test.ui.TestBase;
 
 import static org.testng.Assert.assertTrue;
 
@@ -34,7 +34,7 @@ public class OrdersRetailerCardsTests extends TestBase {
             groups = {"metro-acceptance","metro-regression"}
     )
     public void successOrderWithMetroRetailerCard() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
         kraken.reach().checkout();
         

@@ -6,13 +6,11 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.listener.Skip;
-import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.kraken.testdata.lib.Pages;
 import ru.instamart.test.ui.TestBase;
-import ru.instamart.ui.Elements;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.shoppingcart.ShoppingCartCheckpoints;
 import ru.instamart.ui.checkpoint.users.UsersAuthorizationCheckpoints;
@@ -43,12 +41,12 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
             }
     )
     public void noRegWithEmptyRequisites() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
         User.Do.registration("",true);
         baseChecks.checkIsErrorMessageElementPresentByPhone("Номер должен начинаться с \"+7 (9..\"",
                 "Нет пользовательской ошибки пустого номера телефона");
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         checkIsUserNotAuthorized("Произошла регистрация пользователя с пустыми реквизитами");
     }
 
@@ -62,7 +60,7 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
         kraken.get().baseUrl();
         Shop.AuthModal.openAuthLending();
         User.Do.registration(Generate.phoneNumber(),true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
         checkIsUserAuthorized("Не работает регистрация на лендинге");
     }
 
@@ -76,10 +74,10 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
             }
     )
     public void successRegOnMainPage() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
         User.Do.registration(Generate.phoneNumber(),true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
         checkIsUserAuthorized("Не работает регистрация на витрине магазина");
     }
 
@@ -93,12 +91,12 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
             }
     )
     public void successRegFromAddressModal() throws AssertionError {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         ShippingAddressModal.open();
         ShippingAddressModal.openAuthModal();
 //        baseChecks.checkIsAuthModalOpen("Не работает переход на авторизацию из адресной модалки");
         User.Do.registration(Generate.phoneNumber(),true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
         checkIsUserAuthorized("Не работает регистрация из адресной модалки феникса");
     }
 
@@ -113,7 +111,7 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
             }
     )
     public void successRegFromCart() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         ShippingAddressModal.open();
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
         ShippingAddressModal.selectAddressSuggest();
@@ -125,7 +123,7 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
                 " модалка при переходе неавторизованным из корзины в чекаут");
 
         User.Do.registration(Generate.phoneNumber(),true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
         checkAutoCheckoutRedirect("Нет автоперехода в чекаут после регистрации из корзины");
         kraken.get().baseUrl();
         checkIsUserAuthorized("Не работает регистрация из корзины");
@@ -140,10 +138,10 @@ public final class UserRegistrationTests extends TestBase implements UsersAuthor
             groups = {"sbermarket-Ui-smoke"}
     )
     public void successRegWithoutMailingCheckbox() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
         User.Do.registration(Generate.phoneNumber(),false);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
         checkIsUserAuthorized("Не работает регистрация без согласия на получение почтовой рассылки");
     }
 }

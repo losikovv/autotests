@@ -17,8 +17,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.util.Objects.nonNull;
-import static ru.instamart.kraken.setting.Config.BROWSER_VERSION;
-import static ru.instamart.kraken.setting.Config.DEFAULT_BROWSER;
+import static ru.instamart.ui.config.BrowserProperties.BROWSER_VERSION;
+import static ru.instamart.ui.config.BrowserProperties.BROWSER;
 
 @Slf4j
 public final class WebDriverService {
@@ -40,7 +40,7 @@ public final class WebDriverService {
                 this.makeAutoClosable(
                         Thread.currentThread(),
                         //Create browser. Get browser from suite parameter or from -Pbrowser
-                        BrowserFactory.createBrowserInstance(browser.orElse(DEFAULT_BROWSER), version.orElse(BROWSER_VERSION))
+                        BrowserFactory.createBrowserInstance(browser.orElse(BROWSER), version.orElse(BROWSER_VERSION))
                 )
         );
     }

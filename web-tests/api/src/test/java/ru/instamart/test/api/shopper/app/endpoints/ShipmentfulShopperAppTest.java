@@ -15,9 +15,9 @@ import ru.instamart.api.model.shopper.app.AssemblySHP;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.shopper.app.*;
 import ru.instamart.api.response.shopper.app.*;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkIsDeliveryToday;
@@ -36,7 +36,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     public void preconditions() {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);
-        OrderV2 order = apiV2.order(userData, EnvironmentData.INSTANCE.getDefaultSid());
+        OrderV2 order = apiV2.order(userData, EnvironmentProperties.DEFAULT_SID);
         if (order == null) throw new SkipException("Заказ не удалось оплатить");
         String isDeliveryToday = checkIsDeliveryToday(order);
         shopperApp.authorisation(UserManager.getDefaultShopper());

@@ -8,8 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.instamart.api.model.v2.AddressV2;
-import ru.instamart.kraken.setting.Config;
 import ru.instamart.ui.Elements;
+import ru.instamart.ui.config.WaitProperties;
 import ru.instamart.ui.helper.JsHelper;
 import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Base;
@@ -32,7 +32,7 @@ public final class ShippingAddressModal extends Base {
         kraken.await().fluently(
                 ExpectedConditions.visibilityOfElementLocated(
                         Elements.Modals.AddressModal.popup().getLocator()),
-                "Не открылась модалка ввода адреса доставки\n", Config.BASIC_TIMEOUT);
+                "Не открылась модалка ввода адреса доставки\n", WaitProperties.BASIC_TIMEOUT);
         log.info("> модака открыта");
     }
 
@@ -45,14 +45,14 @@ public final class ShippingAddressModal extends Base {
         kraken.perform().click(Elements.Modals.AddressModal.authButton());
         try {
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Modals.AuthModal.popup().getLocator()),
-                    "форма авторизации не открывается", Config.BASIC_TIMEOUT);
+                    "форма авторизации не открывается", WaitProperties.BASIC_TIMEOUT);
             log.info("> модалка авторизации открыта");
             return;
         }catch (Exception ex){
             kraken.perform().click(Elements.Modals.AddressModal.authButton());
         }
         kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Modals.AuthModal.popup().getLocator()),
-                "форма авторизации не открывается", Config.BASIC_TIMEOUT);
+                "форма авторизации не открывается", WaitProperties.BASIC_TIMEOUT);
         log.info("> модалка авторизации открыта");
     }
 
@@ -108,7 +108,7 @@ public final class ShippingAddressModal extends Base {
         kraken.await().fluently(
                 ExpectedConditions.visibilityOfElementLocated(
                         Elements.Modals.AddressModal.popup().getLocator()),
-                "Не открылась модалка ввода адреса доставки\n",Config.BASIC_TIMEOUT);
+                "Не открылась модалка ввода адреса доставки\n",WaitProperties.BASIC_TIMEOUT);
     }
 
     @Step("Нажимаем кнопку изменить адрес доставки у выбранного ретейлера")
@@ -118,7 +118,7 @@ public final class ShippingAddressModal extends Base {
         kraken.await().fluently(
                 ExpectedConditions.visibilityOfElementLocated(
                         Elements.Modals.AddressModal.popup().getLocator()),
-                "Не открылась модалка ввода адреса доставки\n",Config.BASIC_TIMEOUT);
+                "Не открылась модалка ввода адреса доставки\n",WaitProperties.BASIC_TIMEOUT);
     }
 
     /** Ищем доступные магазины по введенному адресу */
@@ -156,7 +156,7 @@ public final class ShippingAddressModal extends Base {
         kraken.await().fluently(
                 ExpectedConditions.invisibilityOfElementLocated(
                         Elements.Modals.AddressModal.closeButton().getLocator()),
-                "Модалка ввода адреса доставки не закрывается",Config.BASIC_TIMEOUT);
+                "Модалка ввода адреса доставки не закрывается",WaitProperties.BASIC_TIMEOUT);
     }
 
     /** Ищем магазины по установленному адресу */

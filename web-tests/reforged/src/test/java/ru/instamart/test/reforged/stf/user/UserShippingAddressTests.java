@@ -7,13 +7,13 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.test.reforged.BaseTest;
 
+import static ru.instamart.kraken.config.CoreProperties.DEFAULT_RETAILER;
 import static ru.instamart.reforged.stf.page.StfRouter.home;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -36,7 +36,7 @@ public final class UserShippingAddressTests extends BaseTest {
             }
     )
     public void noShippingAddressByDefault() {
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        home().openSitePage(DEFAULT_RETAILER);
         shop().interactHeader().checkIsShippingAddressNotSet();
     }
 
@@ -47,7 +47,7 @@ public final class UserShippingAddressTests extends BaseTest {
             groups = {"sbermarket-Ui-smoke", "ui-smoke-production"}
     )
     public void successOperateDefaultShopList() {
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        home().openSitePage(DEFAULT_RETAILER);
 
         shop().interactHeader().clickToStoreSelector();
         shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsOpen();
@@ -66,7 +66,7 @@ public final class UserShippingAddressTests extends BaseTest {
             }
     )
     public void noShippingAddressSetOnClose() {
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        home().openSitePage(DEFAULT_RETAILER);
 
         shop().interactHeader().clickToSelectAddressFirstTime();
         shop().interactHeader().interactAddress().fillAddress(defaultAddress);
@@ -84,7 +84,7 @@ public final class UserShippingAddressTests extends BaseTest {
             }
     )
     public void noAvailableShopsOutOfDeliveryZone() {
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        home().openSitePage(DEFAULT_RETAILER);
 
         shop().interactHeader().clickToSelectAddressFirstTime();
         shop().interactHeader().interactAddress().fillAddress(outOfZoneAddress);
@@ -108,7 +108,7 @@ public final class UserShippingAddressTests extends BaseTest {
             }
     )
     public void successSetShippingAddressOnRetailerPage() {
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        home().openSitePage(DEFAULT_RETAILER);
 
         shop().interactHeader().clickToSelectAddressFirstTime();
         shop().interactHeader().interactAddress().fillAddress(defaultAddress);
@@ -129,7 +129,7 @@ public final class UserShippingAddressTests extends BaseTest {
             }
     )
     public void noChangeShippingAddressOnCancel() {
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        home().openSitePage(DEFAULT_RETAILER);
 
         shop().interactHeader().clickToSelectAddressFirstTime();
         shop().interactHeader().interactAddress().fillAddress(defaultAddress);
@@ -157,7 +157,7 @@ public final class UserShippingAddressTests extends BaseTest {
             }
     )
     public void successChangeShippingAddress() {
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        home().openSitePage(DEFAULT_RETAILER);
         shop().interactHeader().clickToSelectAddressFirstTime();
         shop().interactHeader().interactAddress().fillAddress(defaultAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
@@ -208,7 +208,7 @@ public final class UserShippingAddressTests extends BaseTest {
             }
     )
     public void successSetNewAddressAfterOutOfZoneAddressChange() {
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        home().openSitePage(DEFAULT_RETAILER);
         shop().interactHeader().clickToSelectAddressFirstTime();
         shop().interactHeader().interactAddress().fillAddress(outOfZoneAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();

@@ -5,12 +5,14 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.test.reforged.BaseTest;
 
+import static ru.instamart.kraken.config.CoreProperties.DEFAULT_RETAILER;
+import static ru.instamart.kraken.config.CoreProperties.DEFAULT_SMS;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -30,7 +32,7 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().fillPhone("79000000000");
         shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(Config.DEFAULT_SMS);
+        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
         shop().interactHeader().checkProfileButtonVisible();
     }
 
@@ -48,7 +50,7 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactAddress().clickToLogin();
         shop().interactAuthModal().fillPhone("79000000001");
         shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(Config.DEFAULT_SMS);
+        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
         shop().interactHeader().checkProfileButtonVisible();
     }
 
@@ -70,13 +72,13 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().plusFirstItemToCart();
 
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        home().openSitePage(DEFAULT_RETAILER);
         shop().interactHeader().clickToCart();
         shop().interactCart().increaseCountToMin();
         shop().interactCart().submitOrder();
         shop().interactAuthModal().fillPhone("79000000002");
         shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(Config.DEFAULT_SMS);
+        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
         checkout().checkCheckoutButtonIsVisible();
     }
 

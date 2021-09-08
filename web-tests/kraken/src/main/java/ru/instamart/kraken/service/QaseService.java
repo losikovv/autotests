@@ -19,14 +19,12 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.ITestResult;
 import org.testng.internal.TestResult;
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
-import ru.instamart.kraken.util.Crypt;
+import ru.instamart.kraken.config.CoreProperties;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.io.File;
 import java.lang.reflect.Method;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -66,7 +64,7 @@ public final class QaseService {
     public QaseService(final String projectCode, final String testRunName) {
         this.projectCode = projectCode;
         this.testRunName = testRunName;
-        this.qaseApi = new QaseApi(Crypt.INSTANCE.decrypt(Config.QASE_API_TOKEN));
+        this.qaseApi = new QaseApi(CoreProperties.QASE_API_TOKEN);
         this.testCasesList = new ArrayList<>();
     }
 
@@ -122,7 +120,7 @@ public final class QaseService {
         try {
             runId = qaseApi.testRuns().create(
                     projectCode,
-                    testRunName + " [" + EnvironmentData.INSTANCE.getName() + "] " + getDateFromMSK(),
+                    testRunName + " [" + EnvironmentProperties.Env.ENV_NAME + "] " + getDateFromMSK(),
                     null,
                     DESCRIPTION_PREFIX + PIPELINE_URL);
             log.info("Create Test run={} for project={}", runId, projectCode);

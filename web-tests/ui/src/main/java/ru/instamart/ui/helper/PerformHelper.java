@@ -5,9 +5,9 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.ui.data.ElementData;
 import ru.instamart.kraken.util.ThreadUtil;
+import ru.instamart.ui.config.WaitProperties;
+import ru.instamart.ui.data.ElementData;
 import ru.instamart.ui.manager.AppManager;
 
 import java.util.List;
@@ -63,7 +63,7 @@ public final class PerformHelper extends HelperBase {
         try {
             log.info("Клик по: {}", element.toString().replaceAll("^[^->]*",""));
             kraken.await().fluently(ExpectedConditions.elementToBeClickable(element),
-                    "элемент не кликабельный", Config.BASIC_TIMEOUT);
+                    "элемент не кликабельный", WaitProperties.BASIC_TIMEOUT);
             element.click();
         }
         catch (NoSuchElementException n) {
@@ -287,7 +287,7 @@ public final class PerformHelper extends HelperBase {
     public void scrollToTheBottom(ElementData element){
         log.info("> фокусируем страницу на элементе");
         kraken.await().fluently(ExpectedConditions.elementToBeClickable(element.getLocator()),
-                "элемент не доступен: "+element.getDescription(), Config.BASIC_TIMEOUT);
+                "элемент не доступен: "+element.getDescription(), WaitProperties.BASIC_TIMEOUT);
         JavascriptExecutor jse = (JavascriptExecutor) AppManager.getWebDriver();
         jse.executeScript("arguments[0].scrollIntoView();", AppManager.getWebDriver().findElement(element.getLocator()));
     }

@@ -7,13 +7,13 @@ import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.util.Config;
 import io.kubernetes.client.util.KubeConfig;
 import lombok.Getter;
-import ru.instamart.kraken.util.Crypt;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
-import static ru.instamart.kraken.setting.Config.BASE64_KUBE_CONFIG;
+import static ru.instamart.kraken.config.CoreProperties.BASE64_KUBE_CONFIG;
 
 public class K8sConfig {
     private static K8sConfig INSTANCE;
@@ -38,8 +38,8 @@ public class K8sConfig {
                     KubeConfig.loadKubeConfig(
                             new StringReader(
                                     new String(Base64.getDecoder().decode(
-                                            Crypt.INSTANCE.decrypt(BASE64_KUBE_CONFIG)
-                                    ), "UTF-8")
+                                            BASE64_KUBE_CONFIG
+                                    ), StandardCharsets.UTF_8)
                             )
                     )
             );

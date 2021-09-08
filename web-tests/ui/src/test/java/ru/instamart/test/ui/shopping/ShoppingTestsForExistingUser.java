@@ -1,19 +1,19 @@
 package ru.instamart.test.ui.shopping;
 
-import ru.instamart.api.common.RestAddresses;
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.kraken.testdata.TestVariables;
-import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.test.ui.TestBase;
-import ru.instamart.ui.checkpoint.BaseUICheckpoints;
-import ru.instamart.kraken.testdata.lib.Addresses;
-import ru.instamart.kraken.testdata.lib.Pages;
-import ru.instamart.kraken.testdata.UserData;
-import ru.instamart.ui.module.Shop;
-import ru.instamart.ui.module.User;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import ru.instamart.api.common.RestAddresses;
+import ru.instamart.kraken.config.CoreProperties;
+import ru.instamart.kraken.testdata.TestVariables;
+import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.testdata.lib.Addresses;
+import ru.instamart.kraken.testdata.lib.Pages;
+import ru.instamart.test.ui.TestBase;
+import ru.instamart.ui.checkpoint.BaseUICheckpoints;
+import ru.instamart.ui.module.Shop;
+import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
 
 import static org.testng.Assert.assertTrue;
@@ -59,7 +59,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
             Shop.Catalog.Item.addToCart();
         }
 
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         assertTrue(
                 !kraken.detect().isCartEmpty() && !kraken.detect().isCheckoutButtonActive(),
                 failMessage("Не выполнены предусловия теста"));
@@ -117,7 +117,7 @@ public class ShoppingTestsForExistingUser extends TestBase {
         Shop.Catalog.Item.addToCart();
         User.Logout.quickly();
 
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         ShippingAddressModal.open();
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
         ShippingAddressModal.submit();

@@ -4,15 +4,14 @@ import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.kraken.testdata.JuridicalData;
-import ru.instamart.kraken.util.ThreadUtil;
-import ru.instamart.ui.manager.AppManager;
-import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.pagesdata.*;
+import ru.instamart.kraken.util.ThreadUtil;
+import ru.instamart.ui.Elements;
+import ru.instamart.ui.config.WaitProperties;
+import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Base;
 import ru.instamart.ui.module.shop.Order;
-import ru.instamart.ui.Elements;
 
-import static io.qameta.allure.Allure.step;
 import static ru.instamart.kraken.testdata.TestVariables.testOrderDetails;
 
 @Slf4j
@@ -94,12 +93,7 @@ public final class Checkout extends Base {
     public static void initCheckout() {
         log.info("> проверяем готовность чекаута перед заполнением");
         kraken.await().fluently(ExpectedConditions.presenceOfElementLocated(Elements.Checkout.header().getLocator()),
-                "Не открывается чекаут",Config.BASIC_TIMEOUT);
-//        new FluentWait<>(AppManager.getWebDriver())
-//                .withTimeout(Config.WAITING_TIMEOUT, TimeUnit.SECONDS)
-//                .withMessage("Не открывается чекаут")
-//                .pollingEvery(Config.BASIC_TIMEOUT, TimeUnit.SECONDS)
-//                .until(ExpectedConditions.presenceOfElementLocated(Elements.Checkout.header().getLocator()));
+                "Не открывается чекаут", WaitProperties.BASIC_TIMEOUT);
         log.info("✓ Чекаут");
     }
 }

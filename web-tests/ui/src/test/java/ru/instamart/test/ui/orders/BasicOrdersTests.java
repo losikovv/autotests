@@ -9,8 +9,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.*;
 import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.kraken.testdata.lib.Pages;
@@ -51,7 +51,7 @@ public final class BasicOrdersTests extends TestBase {
             kraken.get().baseUrl();
             Shop.AuthModal.open();
             User.Do.registration(Generate.phoneNumber(), false);
-            User.Do.sendSms(Config.DEFAULT_SMS);
+            User.Do.sendSms(CoreProperties.DEFAULT_SMS);
         });
         step("Выбор адреса доставки", ()-> {
             ShippingAddressModal.open();

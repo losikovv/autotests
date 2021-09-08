@@ -1,7 +1,6 @@
 package ru.instamart.kraken.listener;
 
 import org.testng.annotations.Test;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -19,14 +18,14 @@ public @interface Skip {
 
     /**
      * Позволяет пропускать тесты на конкретных серверах
-     * сравнивает значение с {@link EnvironmentData#getServer()}
-     * @return
+     * сравнивает значение с {@link ru.instamart.kraken.config.EnvironmentProperties#SERVER}
+     * @return - список исключенных серверов
      */
     String[] onServer() default {};
     /**
      * Позволяет пропускать тесты на конкретных тенантах
-     * сравнивает значение с {@link EnvironmentData#getTenant()} ()}
-     * @return
+     * сравнивает значение с {@link ru.instamart.kraken.config.EnvironmentProperties#TENANT}
+     * @return - список исключенных тенантов
      */
     String[] onTenant() default {};
 }

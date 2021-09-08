@@ -6,12 +6,10 @@ import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import ru.instamart.reforged.core.config.BrowserProperties;
 import ru.instamart.reforged.core.provider.AbstractBrowserProvider;
 
 import java.util.Map;
-
-import static ru.instamart.kraken.setting.Config.VIDEO;
-import static ru.instamart.kraken.setting.Config.VNC;
 
 public final class ChromeProvider extends AbstractBrowserProvider {
 
@@ -43,8 +41,8 @@ public final class ChromeProvider extends AbstractBrowserProvider {
         capabilities.setCapability("sessionTimeout", "5m");
 //        capabilities.setVersion(version);
         capabilities.setCapability("moon:options", Map.<String, Object>of(
-                "enableVNC", VNC,
-                "enableVideo", VIDEO,
+                "enableVNC", BrowserProperties.VNC,
+                "enableVideo", BrowserProperties.VIDEO,
                 "sessionTimeout", "5m",
                 "screenResolution", "1920x1080x24"
         ));

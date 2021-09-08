@@ -17,9 +17,9 @@ import ru.instamart.api.request.delivery_club.StoresDCRequest;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.delivery_club.OrderDCResponse;
 import ru.instamart.api.response.delivery_club.ProductsDCResponse;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.lib.Pages;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +32,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 @Epic("Партнёры")
 @Feature("Delivery Club")
 public class StoresWithAuthDCTest extends RestBase {
-    int sid = EnvironmentData.INSTANCE.getDefaultSid();
+    int sid = EnvironmentProperties.DEFAULT_SID;
     String orderNumber;
     String slotId;
     String productId;

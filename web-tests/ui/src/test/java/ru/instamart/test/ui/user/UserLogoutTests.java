@@ -7,8 +7,8 @@ import io.qase.api.annotation.CaseId;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.test.ui.TestBase;
@@ -43,11 +43,11 @@ public final class UserLogoutTests extends TestBase implements UsersAuthorizatio
             }
     )
     public void successQuickLogout() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         log.info("Browser session id: {}", ((RemoteWebDriver) AppManager.getWebDriver()).getSessionId());
         Shop.AuthModal.openAuthRetailer();
         User.Do.registration(Generate.phoneNumber(),true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
         baseChecks.checkPageIsAvailable();
         checkIsUserAuthorized("Юзер не авторизован на сайте");
         User.Logout.jsLogout();
@@ -62,15 +62,15 @@ public final class UserLogoutTests extends TestBase implements UsersAuthorizatio
             }
     )
     public void successManualLogout() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
         User.Do.registration(Generate.phoneNumber(),true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
         baseChecks.checkPageIsAvailable();
         checkIsUserAuthorized("Юзер не авторизован на сайте");
         User.Do.logoutOnSite();
         baseChecks.checkPageIsAvailable();
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         checkIsUserNotAuthorized("Не работает логаут");
     }
 
@@ -83,10 +83,10 @@ public final class UserLogoutTests extends TestBase implements UsersAuthorizatio
             }
     )
     public void noShipAddressAndEmptyCartAfterLogout() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
         User.Do.registration(Generate.phoneNumber(),true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
         checkIsUserAuthorized("Юзер не авторизован на сайте");
         ShippingAddressModal.open();
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
@@ -96,7 +96,7 @@ public final class UserLogoutTests extends TestBase implements UsersAuthorizatio
         User.Logout.jsLogout();
         checkIsUserNotAuthorized("Не выполнены предусловия - не работает логаут");
         shippingChecks.checkIsShippingAddressNotSet("Логаут");
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         shopChecks.checkIsCartNotEmpty("Логаут");
     }
 }

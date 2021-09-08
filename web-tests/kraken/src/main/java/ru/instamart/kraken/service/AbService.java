@@ -5,9 +5,11 @@ import ru.instamart.ab.model.Setting;
 import ru.instamart.ab.model.request.UserGroups;
 import ru.instamart.ab.model.response.AbTests;
 import ru.instamart.ab.model.response.AuthorsResponse;
-import ru.instamart.kraken.util.Crypt;
+import ru.instamart.utils.Crypt;
 
-public final class AbService {
+public enum AbService {
+
+    INSTANCE;
 
     private static final String BASE_AB_SERVICE_URL = "https://bs-ab-admin.k-stage.sbermarket.tech/api/v1";
     private final String USER = Crypt.INSTANCE.decrypt("xsgWkIGVrwj0lHZaP7QICWE5QMclQo2TQ54YaDTOeCk=");
@@ -15,7 +17,7 @@ public final class AbService {
 
     private final AbApi abApi;
 
-    public AbService() {
+    AbService() {
         this.abApi = new AbApi(new Setting(BASE_AB_SERVICE_URL, USER, PASS));
     }
 

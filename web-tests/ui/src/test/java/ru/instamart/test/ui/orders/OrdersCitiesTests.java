@@ -1,13 +1,13 @@
 package ru.instamart.test.ui.orders;
 
-import ru.instamart.api.common.RestAddresses;
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.ui.module.User;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import ru.instamart.api.common.RestAddresses;
+import ru.instamart.kraken.config.CoreProperties;
+import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.test.ui.TestBase;
+import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.shop.Order;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
 
@@ -22,7 +22,7 @@ public class OrdersCitiesTests extends TestBase {
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void preconditions() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
     }
 
     @AfterMethod(alwaysRun = true,

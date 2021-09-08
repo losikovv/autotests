@@ -4,13 +4,13 @@ import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.helper.KrakenAssert;
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.ui.data.ElementData;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.kraken.testdata.pagesdata.PageData;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.ui.Elements;
+import ru.instamart.ui.config.WaitProperties;
+import ru.instamart.ui.data.ElementData;
 
 import static ru.instamart.ui.module.Base.kraken;
 
@@ -80,7 +80,7 @@ public class BaseUICheckpoints {
 
     /**  Проверяем возможность перехода на страницу */
     public void checkTransition(PageData page) {
-        checkTransition(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page.getPath());
+        checkTransition(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + page.getPath());
     }
 
     /** Проверяем возможность перехода на страницу по указанному url */
@@ -103,7 +103,7 @@ public class BaseUICheckpoints {
         log.info("> валидируем работу элемента: {}", element.getDescription());
         String startPage = kraken.grab().currentURL();
         kraken.await().fluently(ExpectedConditions.elementToBeClickable(element.getLocator()),
-                "элемент не доступен: "+element.getDescription(), Config.BASIC_TIMEOUT);
+                "элемент не доступен: "+element.getDescription(), WaitProperties.BASIC_TIMEOUT);
         kraken.perform().scrollToTheBottom(element);
         ThreadUtil.simplyAwait(0.3);
         kraken.perform().click(element);
@@ -199,18 +199,18 @@ public class BaseUICheckpoints {
 
     /** Проверяем возможность перехода на страницу и ее доступность */
     public void checkPageIsAvailable(PageData page) {
-        checkPageIsAvailable(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page.getPath());
+        checkPageIsAvailable(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + page.getPath());
     }
 
     /** Проверяем доступность ретейлера*/
     @Step("Проверяем доступность ретейлера")
     public void checkRetailerIsAvailable(String retailer) {
-        checkPageIsAvailable(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + retailer);
+        checkPageIsAvailable(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + retailer);
     }
     /** Проверяем не доступность ретейлера*/
     @Step("Проверяем не доступность ретейлера")
     public void checkRetailerIsUnavailable(String retailer) {
-        checkPageIs404(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + retailer);
+        checkPageIs404(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + retailer);
     }
 
     /** Проверяем возможность перехода на страницу по указанному url и ее недоступность с ошибкой 404 */
@@ -229,7 +229,7 @@ public class BaseUICheckpoints {
     /** Проверяем возможность перехода на страницу и ее недоступность с ошибкой 404 */
     @Step("Проверяем возможность перехода на страницу и ее недоступность с ошибкой 404")
     public void checkPageIs404(PageData page)  {
-        checkPageIs404(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page.getPath());
+        checkPageIs404(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + page.getPath());
     }
 
     /** Проверяем возможность перехода в каталог магазина с лендинга Сбермаркета */
@@ -305,7 +305,7 @@ public class BaseUICheckpoints {
 
     /** Проверка недоступности страницы для перехода */
     public void checkPageIsUnavailable(PageData page) {
-        checkPageIsUnavailable(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page.getPath());
+        checkPageIsUnavailable(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + page.getPath());
     }
 
     /** Проверка недоступности страницы для перехода по прямой ссылке */

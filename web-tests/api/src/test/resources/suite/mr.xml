@@ -3,6 +3,11 @@
   <listeners>
     <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
   </listeners>
+  <method-selectors>
+    <method-selector>
+      <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+    </method-selector>
+  </method-selectors>
   <test verbose="1" name="MR API" parallel="classes" thread-count="2">
     <classes>
       <class name="ru.instamart.test.api.v2.endpoints.OrdersV2Test"/>

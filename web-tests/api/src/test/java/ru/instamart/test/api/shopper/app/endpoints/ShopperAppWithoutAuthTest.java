@@ -10,8 +10,8 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.shopper.app.*;
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.CoreProperties;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode401;
 
@@ -223,7 +223,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getStoreOffers401() {
         response = StoresSHPRequest.Offers.GET(
-                EnvironmentData.INSTANCE.getDefaultShopperSid(),
+                EnvironmentProperties.DEFAULT_SHOPPER_SID,
                 "хлеб");
         checkStatusCode401(response);
     }
@@ -251,7 +251,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     @Test( description = "Авторизация по незарегистрированному номеру телефона и коду из смс",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void postOtpsAuthorizations401WrongPhone() {
-        response = OtpsSHPRequest.Authorizations.POST("79991119911", Config.DEFAULT_SMS);
+        response = OtpsSHPRequest.Authorizations.POST("79991119911", CoreProperties.DEFAULT_SMS);
         checkStatusCode401(response);
     }
 }

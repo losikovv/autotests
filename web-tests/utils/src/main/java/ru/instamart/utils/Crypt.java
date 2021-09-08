@@ -1,4 +1,4 @@
-package ru.instamart.kraken.util;
+package ru.instamart.utils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,7 +38,8 @@ public enum Crypt {
             String key = System.getProperty("key", null);
             if (isNull(key)) {
                 //For local run
-                final Optional<File> keyFile = Arrays.stream(FileUtils.foundFile("../data/config/", "key_")).findFirst();
+                final Optional<File> keyFile = Arrays.stream(FileUtils.foundFiles("../data/config", "key_"))
+                        .findFirst();
                 if (keyFile.isPresent()) {
                     key = keyFile.get().getName().replace("key_", "");
                 } else {
@@ -72,6 +73,9 @@ public enum Crypt {
     }
 
     public final String decrypt(final String encryptedText) {
+        if (encryptedText == null || encryptedText.isEmpty()) {
+            return "empty_encrypted_text";
+        }
         try {
             final Base64.Decoder decoder = Base64.getDecoder();
             final byte[] encryptedTextByte = decoder.decode(encryptedText.getBytes(StandardCharsets.UTF_8));

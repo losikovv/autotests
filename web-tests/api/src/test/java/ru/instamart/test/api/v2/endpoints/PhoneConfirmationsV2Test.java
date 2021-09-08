@@ -13,13 +13,14 @@ import ru.instamart.api.model.v2.PhoneTokenV2;
 import ru.instamart.api.request.v2.PhoneConfirmationsV2Request;
 import ru.instamart.api.response.v2.PhoneTokenV2Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
-import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.util.PhoneCrypt;
 
 import static org.junit.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode422;
 
 @Slf4j
 @Epic("ApiV2")
@@ -45,7 +46,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
             groups = {"api-instamart-smoke"},
             dependsOnMethods = "postPhoneConfirmations")
     public void putPhoneConfirmations() {
-        Response response = PhoneConfirmationsV2Request.PUT(phoneNumber, Config.DEFAULT_SMS, true);
+        Response response = PhoneConfirmationsV2Request.PUT(phoneNumber, CoreProperties.DEFAULT_SMS, true);
         checkStatusCode200(response);
         assertNotNull(response.as(SessionsV2Response.class).getSession().getAccessToken());
     }
@@ -90,7 +91,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Подтверждение телефона кодом с валидным номером без запроса")
     public void confirmPhonesWithValidPhone() {
-        Response response = PhoneConfirmationsV2Request.PUT(Generate.phoneNumber(), Config.DEFAULT_SMS, false);
+        Response response = PhoneConfirmationsV2Request.PUT(Generate.phoneNumber(), CoreProperties.DEFAULT_SMS, false);
         checkStatusCode422(response);
         errorAssert(response, "Неверный код");
     }

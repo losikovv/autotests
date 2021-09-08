@@ -41,7 +41,6 @@ public final class Address implements Close, AddressCheck {
         dropDownAddress.selectAny();
     }
 
-    @SneakyThrows
     @Step("Выбрать первый адрес из совпадений")
     public void selectFirstAddress() {
         dropDownAddress.selectFirst();
@@ -89,7 +88,6 @@ public final class Address implements Close, AddressCheck {
         chooseOtherAddress.click();
     }
 
-    @SneakyThrows
     @Step("Клик на первую запись блока Предыдущие адреса")
     public void clickOnFirstPrevAddress() {
         firstPrevAddresses.click();

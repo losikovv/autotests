@@ -5,11 +5,12 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.test.reforged.BaseTest;
 
+import static ru.instamart.kraken.config.CoreProperties.DEFAULT_RETAILER;
+import static ru.instamart.kraken.config.CoreProperties.DEFAULT_SMS;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -43,7 +44,7 @@ public final class UserRegistrationTests extends BaseTest {
         home().openLoginModal();
         home().interactAuthModal().fillPhone(Generate.phoneNumber());
         home().interactAuthModal().sendSms();
-        home().interactAuthModal().fillSMS(Config.DEFAULT_SMS);
+        home().interactAuthModal().fillSMS(DEFAULT_SMS);
         shop().interactHeader().checkProfileButtonVisible();
     }
 
@@ -61,7 +62,7 @@ public final class UserRegistrationTests extends BaseTest {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().fillPhone(Generate.phoneNumber());
         shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(Config.DEFAULT_SMS);
+        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
         shop().interactHeader().checkProfileButtonVisible();
     }
 
@@ -80,7 +81,7 @@ public final class UserRegistrationTests extends BaseTest {
         shop().interactAddress().clickToLogin();
         shop().interactAuthModal().fillPhone(Generate.phoneNumber());
         shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(Config.DEFAULT_SMS);
+        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
         shop().interactHeader().checkProfileButtonVisible();
     }
 
@@ -95,7 +96,7 @@ public final class UserRegistrationTests extends BaseTest {
             }
     )
     public void successRegFromCart() {
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        home().openSitePage(DEFAULT_RETAILER);
         shop().interactHeader().clickToSelectAddressFirstTime();
         shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
@@ -104,13 +105,13 @@ public final class UserRegistrationTests extends BaseTest {
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().plusFirstItemToCart();
 
-        home().openSitePage(Config.DEFAULT_RETAILER);
+        home().openSitePage(DEFAULT_RETAILER);
         shop().interactHeader().clickToCart();
         shop().interactCart().increaseCountToMin();
         shop().interactCart().submitOrder();
         shop().interactAuthModal().fillPhone(Generate.phoneNumber());
         shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(Config.DEFAULT_SMS);
+        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
         checkout().checkCheckoutButtonIsVisible();
     }
 
@@ -126,7 +127,7 @@ public final class UserRegistrationTests extends BaseTest {
         shop().interactAuthModal().uncheckPromoMailing();
         shop().interactAuthModal().fillPhone(Generate.phoneNumber());
         shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(Config.DEFAULT_SMS);
+        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
         shop().interactHeader().checkProfileButtonVisible();
     }
 }

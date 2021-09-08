@@ -8,20 +8,20 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.test.ui.TestBase;
-import ru.instamart.ui.manager.AppManager;
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.testdata.Generate;
+import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.test.ui.TestBase;
+import ru.instamart.ui.Elements;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.admin.AdminPageCheckpoints;
 import ru.instamart.ui.checkpoint.admin.AdminSearchUsersCheckpoints;
-import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Administration;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.shop.Order;
-import ru.instamart.ui.Elements;
 
 @Epic("Админка STF")
 @Feature("Управление юзерами")
@@ -63,7 +63,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         String role= "superadmin";
         Shop.AuthModal.openAuthLending();
         User.Do.registration(phone,true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
         AppManager.closeWebDriver(); //Это нужно удалить, после того как починят багу
         User.Logout.quicklyAdmin();
         User.Auth.withEmail(UserManager.getDefaultAdmin());
@@ -98,7 +98,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         User.Logout.quickly();
         Shop.AuthModal.openAuthLending();
         User.Do.registration(phone,true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
         AppManager.closeWebDriver(); //Это нужно удалить, после того как починят багу
         User.Logout.quicklyAdmin();
         User.Auth.withEmail(UserManager.getDefaultAdmin());
@@ -120,7 +120,7 @@ public class AdministrationUsersSectionTests extends TestBase {
         User.Logout.quickly();
         Shop.AuthModal.openAuthLending();
         User.Do.registration(phone,true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
         AppManager.closeWebDriver(); //Это нужно удалить, после того как починят багу
         User.Logout.quicklyAdmin();
         User.Auth.withEmail(UserManager.getDefaultAdmin());
@@ -140,7 +140,7 @@ public class AdministrationUsersSectionTests extends TestBase {
 //        User.Do.registration(testuser);
         phone = Generate.phoneNumber();
         User.Do.registration(phone,true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
         AppManager.closeWebDriver(); //Это нужно удалить, после того как починят багу
         Administration.Users.editUser(phone);
         Administration.Users.grantB2B();

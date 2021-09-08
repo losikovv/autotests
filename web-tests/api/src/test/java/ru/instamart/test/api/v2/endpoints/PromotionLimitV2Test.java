@@ -13,7 +13,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.PromotionLimitV2Response;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
@@ -39,7 +39,7 @@ public final class PromotionLimitV2Test extends RestBase {
     public void bonusPaymentTermsTest() {
         apiV2.fillCart(
                 SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
-                EnvironmentData.INSTANCE.getDefaultSid()
+                EnvironmentProperties.DEFAULT_SID
         );
         String orderNumber = apiV2.getCurrentOrderNumber();
         final Response response = OrdersV2Request.PromotionLimit.GET(orderNumber);

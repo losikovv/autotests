@@ -6,7 +6,7 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.test.reforged.BaseTest;
 
@@ -24,7 +24,7 @@ public class UserProfileTests extends BaseTest {
         home().openLoginModal();
         home().interactAuthModal().fillPhone(Generate.phoneNumber());
         home().interactAuthModal().sendSms();
-        home().interactAuthModal().fillSMS(Config.DEFAULT_SMS);
+        home().interactAuthModal().fillSMS(CoreProperties.DEFAULT_SMS);
     }
 
     @CaseId(1524)

@@ -13,7 +13,7 @@ import ru.instamart.api.request.v2.StoresV2Request;
 import ru.instamart.api.response.v2.PromotionCardsV2Response;
 import ru.instamart.api.response.v2.StoreV2Response;
 import ru.instamart.api.response.v2.StoresV2Response;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
@@ -63,7 +63,7 @@ public final class StoresV2Test extends RestBase {
     @CaseId(198)
     @Test(groups = {"api-instamart-smoke"}, description = "Статус быстрой доставки с валидным sid")
     public void testGetFastDeliveryStatusWithValidSid() {
-        final Response response = StoresV2Request.GET(EnvironmentData.INSTANCE.getDefaultSid());
+        final Response response = StoresV2Request.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         assertFalse(response.as(StoreV2Response.class).getStore().getExpressDelivery(),
                 "У магазина не должно быть быстрой доставки");
@@ -79,11 +79,11 @@ public final class StoresV2Test extends RestBase {
     @CaseId(196)
     @Test(groups = {"api-instamart-regress"}, description = "Получаем магазин")
     public void testGetStoresWithDefaultSid() {
-        final Response response = StoresV2Request.GET(EnvironmentData.INSTANCE.getDefaultSid());
+        final Response response = StoresV2Request.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         StoreV2Response store = response.as(StoreV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(store.getStore().getId(), EnvironmentData.INSTANCE.getDefaultSid(), "Id магазина не совпадает");
+        softAssert.assertEquals(store.getStore().getId().intValue(), EnvironmentProperties.DEFAULT_SID, "Id магазина не совпадает");
         softAssert.assertEquals(Integer.valueOf(store.getStore().getOperationalTimes().size()), Integer.valueOf(7), "Количество рабочих дней не равно 7");
         softAssert.assertAll();
     }
@@ -114,7 +114,7 @@ public final class StoresV2Test extends RestBase {
         final SoftAssert sa = new SoftAssert();
         sa.assertFalse(storesV2Response.getStores().isEmpty(), "Stores is missed");
         sa.assertTrue(storesV2Response.getStoreLabels().isEmpty(), "Stores Labels not empty");
-        sa.assertEquals(storesV2Response.getStores().get(0).getId(), EnvironmentData.INSTANCE.getDefaultSid(), "Id магазина отличается");
+        sa.assertEquals(storesV2Response.getStores().get(0).getId().intValue(), EnvironmentProperties.DEFAULT_SID, "Id магазина отличается");
         sa.assertEquals(storesV2Response.getStores().get(0).getName(), "METRO, Нижний Новгород Нартова", "Наименование отличается");
         sa.assertEquals(storesV2Response.getStores().get(0).getRetailer().getId(), Integer.valueOf(1), "Ретейлер не соответствует");
         sa.assertAll();

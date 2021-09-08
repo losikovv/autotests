@@ -7,9 +7,9 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.testdata.lib.Pages;
 import ru.instamart.kraken.testdata.pagesdata.CheckoutStepData;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.kraken.testdata.pagesdata.LoyaltiesData;
 import ru.instamart.kraken.testdata.pagesdata.WidgetData;
 import ru.instamart.kraken.util.StringUtil;
@@ -26,23 +26,23 @@ public final class DetectionHelper extends HelperBase {
 
     /** Определить в каком тестовом окружении находимся */
     public boolean environment(String environment) {
-        return EnvironmentData.INSTANCE.getName().equals(environment);
+        return EnvironmentProperties.Env.ENV_NAME.equals(environment);
     }
 
     /** Определить серверное окружение */
     public boolean server(String server) {
-        return EnvironmentData.INSTANCE.getServer().equals(server);
+        return EnvironmentProperties.SERVER.equals(server);
     }
 
     /** Определить тенант */
     public boolean tenant(String tenant) {
-        return EnvironmentData.INSTANCE.getTenant().equals(tenant);
+        return EnvironmentProperties.TENANT.equals(tenant);
     }
 
     /**
      * Определить показан ли алерт на странице
      */
-    protected boolean isAlertPresent() {
+    private boolean isAlertPresent() {
         try {
             AppManager.getWebDriver().switchTo().alert();
             return true;
@@ -161,7 +161,7 @@ public final class DetectionHelper extends HelperBase {
      * Определить находимся в списке любимых товаров или нет
      */
     public boolean isInFavorites() {
-        return kraken.grab().currentURL().equals(EnvironmentData.INSTANCE.getBasicUrl() + Pages.UserProfile.favorites().getPath());
+        return kraken.grab().currentURL().equals(EnvironmentProperties.Env.FULL_SITE_URL + Pages.UserProfile.favorites().getPath());
     }
 
     /**

@@ -6,17 +6,13 @@ import org.openqa.selenium.Cookie;
 import org.openqa.selenium.InvalidCookieDomainException;
 import org.openqa.selenium.WebDriver;
 import ru.instamart.api.helper.InstamartApiHelper;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.ui.helper.*;
 import ru.instamart.ui.module.Administration;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.checkout.Checkout;
 import ru.instamart.ui.service.WebDriverService;
-
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 
 import static java.util.Objects.isNull;
 
@@ -60,7 +56,7 @@ public final class AppManager {
     }
 
     public static void getBasicUrl() {
-        webDriverService.createOrGetDriver().get(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth());
+        webDriverService.createOrGetDriver().get(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH);
     }
 
     public static WebDriver getWebDriver() {

@@ -7,10 +7,10 @@ import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.ui.data.ElementData;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.ui.Elements;
+import ru.instamart.ui.config.WaitProperties;
+import ru.instamart.ui.data.ElementData;
 import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Shop;
 
@@ -157,7 +157,7 @@ public final class GrabHelper extends HelperBase {
             kraken.await().fluently(
                     ExpectedConditions.visibilityOfElementLocated(
                             Elements.ItemCard.quantityByCount(count).getLocator()),
-                    "каунтер товаров не содержит нужное количество товаров: "+count, Config.BASIC_TIMEOUT);
+                    "каунтер товаров не содержит нужное количество товаров: "+count, WaitProperties.BASIC_TIMEOUT);
         }catch (NoSuchElementException ex){
             throw new ElementClickInterceptedException("невозможно нажать на кнопку купить");
         }

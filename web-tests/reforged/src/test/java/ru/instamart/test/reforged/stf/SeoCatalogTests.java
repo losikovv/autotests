@@ -4,10 +4,10 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.config.CoreProperties;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.lib.Addresses;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.test.reforged.BaseTest;
 
@@ -42,7 +42,7 @@ public final class SeoCatalogTests extends BaseTest {
     public void successOpenItemCardOnSeoCatalog() {
         seo().goToPage();
         //TODO: Костыль из-за бейсик авторизации
-        Kraken.open(EnvironmentData.INSTANCE.getBasicUrl() + Config.DEFAULT_RETAILER + seo().pageUrl());
+        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER + seo().pageUrl());
         seo().openFirstProductCard();
         seo().interactProductCard().checkProductCardVisible();
     }
@@ -54,7 +54,7 @@ public final class SeoCatalogTests extends BaseTest {
     public void successSetShippingAddressAfterAddingProductFromItemCardOnSeoCatalog() {
         seo().goToPage();
         //TODO: Костыль из-за бейсик авторизации
-        Kraken.open(EnvironmentData.INSTANCE.getBasicUrl() + Config.DEFAULT_RETAILER + seo().pageUrl());
+        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER + seo().pageUrl());
         seo().openFirstProductCard();
         seo().interactProductCard().clickOnBuy();
 
@@ -71,7 +71,7 @@ public final class SeoCatalogTests extends BaseTest {
     public void successAuthFromItemCardOnSeoCatalog() {
         seo().goToPage();
         //TODO: Костыль из-за бейсик авторизации
-        Kraken.open(EnvironmentData.INSTANCE.getBasicUrl() + Config.DEFAULT_RETAILER + seo().pageUrl());
+        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER + seo().pageUrl());
         seo().openFirstProductCard();
         seo().interactProductCard().clickOnBuy();
 

@@ -5,7 +5,7 @@ import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.test.ui.TestBase;
 import ru.instamart.ui.Elements;
@@ -25,7 +25,7 @@ public final class ShoppingCatalogTests extends TestBase {
     @BeforeClass(alwaysRun = true,
             description = "Подготавливаем тестовое окружение к тестовому прогону")
     public void setup() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         ShippingAddressModal.open();
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
         ShippingAddressModal.selectAddressSuggest();

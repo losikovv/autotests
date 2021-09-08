@@ -16,7 +16,7 @@ import ru.instamart.api.request.v2.FavoritesV2Request;
 import ru.instamart.api.response.v2.FavoritesItemV2Response;
 import ru.instamart.api.response.v2.FavoritesListItemsV2Response;
 import ru.instamart.api.response.v2.ProductSkuV2Response;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
@@ -37,8 +37,8 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Получить список избранных товаров. В избранном есть товары")
     public void getFavoritesItem() {
-        FavoritesItemV2Response product = apiV2.addFavoritesProductBySid(EnvironmentData.INSTANCE.getDefaultSid());
-        final Response response = FavoritesV2Request.GET(EnvironmentData.INSTANCE.getDefaultSid());
+        FavoritesItemV2Response product = apiV2.addFavoritesProductBySid(EnvironmentProperties.DEFAULT_SID);
+        final Response response = FavoritesV2Request.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         FavoritesListItemsV2Response favorites = response.as(FavoritesListItemsV2Response.class);
         assertEquals(favorites.getItems().get(0), product.getItem(), "data mismatch");
@@ -50,8 +50,8 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
             groups = {"api-instamart-regress"},
             description = "Получить список избранных товаров. Отображение более 30 товаров на странице.")
     public void getFavoritesMore30Items() {
-        var products = apiV2.addFavoritesQtyListProductBySid(EnvironmentData.INSTANCE.getDefaultSid(), 32);
-        final Response response = FavoritesV2Request.GET(EnvironmentData.INSTANCE.getDefaultSid());
+        var products = apiV2.addFavoritesQtyListProductBySid(EnvironmentProperties.DEFAULT_SID, 32);
+        final Response response = FavoritesV2Request.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         FavoritesListItemsV2Response favoritesListItemsV2Response = response.as(FavoritesListItemsV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
@@ -75,7 +75,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Получаем пустой список любимых товаров у дефолтного магазина")
     public void emptyFavoritesForDefaultSid() {
-        final Response response = FavoritesV2Request.GET(EnvironmentData.INSTANCE.getDefaultSid());
+        final Response response = FavoritesV2Request.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         FavoritesListItemsV2Response favoritesListItemsV2Response = response.as(FavoritesListItemsV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
@@ -93,7 +93,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Список SKU товаров из избранного. Один товар в избранном")
     public void getFavoritesSku() {
-        var favorites = apiV2.addFavoritesProductBySid(EnvironmentData.INSTANCE.getDefaultSid());
+        var favorites = apiV2.addFavoritesProductBySid(EnvironmentProperties.DEFAULT_SID);
         Response response = FavoritesV2Request.ProductSku.GET();
         checkStatusCode200(response);
         ProductSkuV2Response productSkuV2Response = response.as(ProductSkuV2Response.class);
@@ -105,7 +105,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Список SKU товаров из избранного. 3 товар в избранном")
     public void getFavoritesSku3Items() {
-        apiV2.addFavoritesQtyListProductBySid(EnvironmentData.INSTANCE.getDefaultSid(), 3);
+        apiV2.addFavoritesQtyListProductBySid(EnvironmentProperties.DEFAULT_SID, 3);
         Response response = FavoritesV2Request.ProductSku.GET();
         checkStatusCode200(response);
         ProductSkuV2Response productSkuV2Response = response.as(ProductSkuV2Response.class);
@@ -117,7 +117,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Добавить товар в избранное с существующим id")
     public void addFavoritesList200() {
-        ProductV2 product = apiV2.getProductFromEachDepartmentInStore(EnvironmentData.INSTANCE.getDefaultSid()).get(0);
+        ProductV2 product = apiV2.getProductFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_SID).get(0);
         final Response response = FavoritesV2Request.POST(product.getId());
         checkStatusCode200(response);
         FavoritesItemV2Response favorites = response.as(FavoritesItemV2Response.class);
@@ -136,7 +136,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Удаление товара из избранного с существующим id")
     public void deleteFavoritesList200() {
-        var favorites = apiV2.addFavoritesProductBySid(EnvironmentData.INSTANCE.getDefaultSid());
+        var favorites = apiV2.addFavoritesProductBySid(EnvironmentProperties.DEFAULT_SID);
         final Response response = FavoritesV2Request.DELETE(favorites.getItem().getId());
         checkStatusCode200(response);
         assertTrue(response.getBody().asString().isEmpty(), "Ответ не пустой");

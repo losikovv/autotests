@@ -1,7 +1,7 @@
 package ru.instamart.reforged.admin.page.usersEdit;
 
 import io.qameta.allure.Step;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.stf.page.StfPage;
 
@@ -63,7 +63,7 @@ public final class UsersEditPage implements StfPage, UsersEditEditCheck {
     }
 
     public void goToPage(final int id) {
-        Kraken.open(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + "admin/users/" + id + "/edit");
+        Kraken.open(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH + "users/" + id + "/edit");
     }
 
     @Override

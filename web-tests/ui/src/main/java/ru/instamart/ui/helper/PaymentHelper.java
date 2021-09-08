@@ -3,14 +3,14 @@ package ru.instamart.ui.helper;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.ui.Elements;
-import ru.instamart.ui.data.ElementData;
+import ru.instamart.kraken.testdata.PaymentTypes;
 import ru.instamart.kraken.testdata.pagesdata.PaymentCardData;
 import ru.instamart.kraken.testdata.pagesdata.PaymentDetailsData;
+import ru.instamart.ui.Elements;
+import ru.instamart.ui.config.WaitProperties;
+import ru.instamart.ui.data.ElementData;
 import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Base;
-import ru.instamart.kraken.testdata.PaymentTypes;
 
 import static io.qameta.allure.Allure.step;
 import static ru.instamart.kraken.testdata.TestVariables.testOrderDetails;
@@ -93,12 +93,12 @@ public final class PaymentHelper extends Base {
             kraken.perform().click(Elements.Checkout.addPaymentCardButton());
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
                     Elements.Checkout.PaymentCardModal.cardModal().getLocator()),
-                    "модальное окно добавления карты не появилось", Config.BASIC_TIMEOUT);
+                    "модальное окно добавления карты не появилось", WaitProperties.BASIC_TIMEOUT);
             fillPaymentCardDetails(creditCardData);
             kraken.perform().click(Elements.Checkout.PaymentCardModal.confirmButton());
             kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(
                     Elements.Checkout.PaymentCardModal.cardModal().getLocator()),
-                    "Не исчезло модальное окно добавления карты", Config.BASIC_TIMEOUT);
+                    "Не исчезло модальное окно добавления карты", WaitProperties.BASIC_TIMEOUT);
             kraken.perform().click(Elements.Checkout.paymentCardTitle(creditCardData));
 //            kraken.await().implicitly(1); // Ожидание применения новой карты оплаты
         } else {

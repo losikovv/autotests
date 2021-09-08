@@ -1,5 +1,7 @@
 package ru.instamart.kraken.testdata.pagesdata;
 
+import ru.instamart.kraken.config.EnvironmentProperties;
+
 public final class PageData {
 
     private final String path;
@@ -26,7 +28,7 @@ public final class PageData {
     @Override
     public String toString() {
         if (path.contains("admin")) {
-            return EnvironmentData.INSTANCE.getAdminUrlWithHttpAuth() + path.substring(6);
-        } else return EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + path;
+            return EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH + path.substring(6);
+        } else return EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + path;
     }
 }
