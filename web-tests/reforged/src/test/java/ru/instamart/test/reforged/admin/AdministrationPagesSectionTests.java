@@ -23,7 +23,7 @@ public final class AdministrationPagesSectionTests extends BaseTest {
     )
     public void validatePagesRootPage() {
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().auth(UserManager.getDefaultAdminAllRoles());
         pages().goToPage();
         pages().checkTable();
         pages().checkTableEntry();
@@ -38,7 +38,7 @@ public final class AdministrationPagesSectionTests extends BaseTest {
         final StaticPageData staticPage = StaticPages.newStaticPage();
 
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().auth(UserManager.getDefaultAdminAllRoles());
         pages().goToPage();
         pages().clickToNewPage();
         newPages().fillPageData(staticPage);
@@ -47,6 +47,7 @@ public final class AdministrationPagesSectionTests extends BaseTest {
         pages().checkPageIsAvailable();
         pages().goToPage();
         pages().deleteEntry(staticPage.getPageName());
+        pages().checkDeleteAlertVisible();
     }
 
     @CaseId(14)
@@ -59,7 +60,7 @@ public final class AdministrationPagesSectionTests extends BaseTest {
         final StaticPageData staticPageEdited = StaticPages.editedStaticPage();
 
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().auth(UserManager.getDefaultAdminAllRoles());
         pages().goToPage();
         newPages().goToPage();
         newPages().fillPageData(staticPage);
@@ -71,5 +72,6 @@ public final class AdministrationPagesSectionTests extends BaseTest {
         pages().checkPageIsAvailable();
         pages().goToPage();
         pages().deleteEntry(staticPageEdited.getPageName());
+        pages().checkDeleteAlertVisible();
     }
 }
