@@ -9,6 +9,7 @@ import ru.instamart.api.endpoint.ApiV3Endpoints;
 import ru.instamart.api.model.testdata.ApiV3TestData;
 import ru.instamart.api.request.ApiV3RequestBase;
 
+@SuppressWarnings("unchecked")
 public class OrderOptionsV3Request extends ApiV3RequestBase {
 
     public static class PickupFromStore {
@@ -36,7 +37,6 @@ public class OrderOptionsV3Request extends ApiV3RequestBase {
                     .header("Client-Token",testData.getClientToken())
                     .put(ApiV3Endpoints.OrderOptions.PICKUP_FROM_STORE);
         }
-
     }
 
     public static class Delivery {
@@ -61,16 +61,14 @@ public class OrderOptionsV3Request extends ApiV3RequestBase {
             itemParams.put("discount", testData.getItemDiscount());
             itemParams.put("promo_total", testData.getItemPromoTotal());
             return givenWithSpec()
-                    .log().all()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .header("Api-Version","3.0")
                     .header("Client-Token", testData.getClientToken())
                     .put(ApiV3Endpoints.OrderOptions.DELIVERY);
         }
-
-        }
     }
+}
 
 
 

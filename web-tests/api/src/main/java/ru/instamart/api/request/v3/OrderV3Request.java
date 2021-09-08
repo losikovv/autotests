@@ -11,6 +11,7 @@ import ru.instamart.api.request.ApiV3RequestBase;
 
 import java.util.UUID;
 
+@SuppressWarnings("unchecked")
 public class OrderV3Request extends ApiV3RequestBase {
     /**
      *  Получение ордера по UUID
