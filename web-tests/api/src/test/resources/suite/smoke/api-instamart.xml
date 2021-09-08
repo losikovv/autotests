@@ -49,15 +49,15 @@
         </classes>
     </test>
     <!-- api-v3-tests -->
-    <test verbose="1" name="API v3 Tests" parallel="none" thread-count="5">
+    <test verbose="1" name="API v3 Tests" parallel="classes" thread-count="5">
         <classes>
-            <!--
-            <class name="ru.instamart.test.api.endpoints.StoresV3Test"/>
-            <class name="ru.instamart.test.api.endpoints.SetupInfoV3Test"/>
-            <class name="ru.instamart.test.api.endpoints.OrderOptionsV3Test"/>
-            <class name="ru.instamart.test.api.endpoints.OrdersPickupFromStoreV3Test"/>
-            <class name="ru.instamart.test.api.endpoints.OrdersDeliveryV3Test"/>
-            -->
+            <class name="ru.instamart.test.api.v3.endpoints.StoresV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.SetupInfoV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.OrderOptionsV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.OrdersDeliveryV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.GetOrderV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.PutOrdersStatusV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.OrdersPickupFromStoreV3Test"/>
         </classes>
     </test>
     <test verbose="1" name="API Delivery Club Tests" parallel="none" thread-count="3">

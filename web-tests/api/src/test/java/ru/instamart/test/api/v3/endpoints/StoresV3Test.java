@@ -1,5 +1,8 @@
 package ru.instamart.test.api.v3.endpoints;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qase.api.annotation.CaseId;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.model.v3.StoreV3;
 import ru.instamart.api.request.v3.StoresV3Request;
@@ -11,35 +14,54 @@ import java.util.List;
 
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 
+@Epic("ApiV3")
+@Feature("Доступные магазины клиенту")
+
 public class StoresV3Test extends RestBase {
 
-    @Test(groups = {"api-instamart-smoke"})
+    @CaseId(669)
+    @Test(groups = {"api-instamart-smoke"}, description = "Все доступные магазины ")
     public void getStores() {
-        final Response response = StoresV3Request.Stores.GET();
 
-        response.prettyPeek();
-
+        Response response = StoresV3Request.Stores.GET();
         checkStatusCode200(response);
+
     }
-    @Test(groups = {"api-instamart-smoke"})
+
+    @CaseId(864)
+    @Test(groups = {"api-instamart-smoke"}, description = "Доступные магазины для доставки")
     public void getStoresDelivery() {
-        final Response response = StoresV3Request.Delivery.GET();
 
-        response.prettyPeek();
-
+        Response response = StoresV3Request.Delivery.GET();
         checkStatusCode200(response);
+
         List<StoreV3> stores = Arrays.asList(response.as(StoreV3[].class));
         String shippingMethodTitle = stores.get(0).getShipping_methods().get(0).getTitle();
         Assert.assertNotNull(shippingMethodTitle);
         Assert.assertNotEquals(shippingMethodTitle, "");
     }
-    @Test(groups = {"api-instamart-smoke"})
+
+    @CaseId(865)
+    @Test(groups = {"api-instamart-smoke"}, description = "Доступные магазины для самовывоза")
     public void getStoresPickupFromStore() {
-        final Response response = StoresV3Request.PickupFromStore.GET();
 
-        response.prettyPeek();
-
+        Response response = StoresV3Request.PickupFromStore.GET();
         checkStatusCode200(response);
     }
 
+    @CaseId(866)
+    @Test(groups = {"api-instamart-smoke"}, description = "Доступные магазины с ближайшими опциями")
+    public void getStoresClosestShippingOptions() {
+
+        Response response = StoresV3Request.ClosestShippingOptions.GET();
+        checkStatusCode200(response);
+    }
+
+    @CaseId(867)
+    @Test(groups = {"api-instamart-smoke"}, description = "Доступные магазины по ритейлеру Metro")
+    public void getStoresRetailerId() {
+
+        Response response = StoresV3Request.RetailerId.GET();
+        checkStatusCode200(response);
+    }
 }

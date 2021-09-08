@@ -74,6 +74,21 @@ task apiInstamartSmoke(type: Test) {
     systemProperty 'qase.Title', 'Instamart API Smoke'
 }
 
+task apiv3Smoke(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite/smoke/api-v3.xml'
+        includeGroups 'api-instamart-smoke'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+
+        systemProperty 'qase.Project', 'INAPI'
+        systemProperty 'qase.Title', 'Smoke endpoints Api v3'
+}
+
 task apiRetailerE2E(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
