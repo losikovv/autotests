@@ -3,8 +3,8 @@ package ru.instamart.ui.helper;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.TimeoutException;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.testdata.lib.Pages;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.kraken.testdata.pagesdata.PageData;
 import ru.instamart.ui.manager.AppManager;
 
@@ -14,7 +14,7 @@ public final class BrowseHelper extends HelperBase {
     /** Перейти на указанный URL*/
     @Step("Перейти на указанный URL: {0}")
     public void url(String url) {
-        if (url.equals(EnvironmentData.INSTANCE.getBasicUrl())) {
+        if (url.equals(EnvironmentProperties.Env.FULL_SITE_URL)) {
             log.info("Переходим по базовому URL >>> {}", url);
         }
         try {
@@ -28,17 +28,17 @@ public final class BrowseHelper extends HelperBase {
 
     /** Перейти на базовый URL */
     public void baseUrl() {
-        url(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth());
+        url(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH);
     }
 
     /** Перейти на страницу */
     public void page(String page) {
-        log.info("> переходим на страницу: {}{}", EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth(), page);
-        url(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page);
+        log.info("> переходим на страницу: {}{}", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH, page);
+        url(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + page);
     }
 
     public void page(PageData page) {
-        url(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page.getPath());
+        url(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + page.getPath());
     }
 
     /** Перейти на страницу чекаута */
@@ -48,7 +48,7 @@ public final class BrowseHelper extends HelperBase {
 
     /** Перейти на страницу в админке */
     public void adminPage(String path) {
-        url(EnvironmentData.INSTANCE.getAdminUrlWithHttpAuth() + path);
+        url(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH + path);
     }
 
     /** Перейти на страницу заказа в админке */

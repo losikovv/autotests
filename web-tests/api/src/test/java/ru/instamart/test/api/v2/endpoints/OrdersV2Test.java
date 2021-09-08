@@ -22,7 +22,7 @@ import ru.instamart.api.request.v2.PaymentToolsV2Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.*;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.util.List;
 
@@ -94,7 +94,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-smoke"},
             description = "Существующий id")
     public void orderWithPromoCode() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
         checkStatusCode200(response);
@@ -112,7 +112,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Несуществующий id")
     public void orderWithInvalidPromoCode() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "failCode");
         ErrorResponse errorResponse = response.as(ErrorResponse.class);
@@ -124,7 +124,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Существующий id")
     public void deletePromoCodeForOrder() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
         checkStatusCode200(response);
@@ -143,7 +143,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Несуществующий id заказа")
     public void deletePromoCodeForInvalidOrder() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
         checkStatusCode200(response);
@@ -161,7 +161,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Несуществующий promoCode")
     public void deleteInvalidPromoCode() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
         checkStatusCode200(response);
@@ -179,7 +179,7 @@ public class OrdersV2Test extends RestBase {
     @Test( groups = {"api-instamart-regress"},
             description = "Получение списка позиций по заказу. Существующий id")
     public void getingListOfItemsForOrder() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
         response = OrdersV2Request.LineItems.GET(apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
         LineItemsV2Response lineItemsV2Response = response.as(LineItemsV2Response.class);
@@ -207,7 +207,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Получение line_items для shipments с существующим id")
     public void getShipmentLineItems200() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
         response = ShipmentsV2Request.LineItems.GET(apiV2.getShipmentsNumber());
         assertNotNull(response.as(LineItemsV2Response.class).getLineItems(), "Не вернулись товары заказа");
     }
@@ -227,7 +227,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Получение списка отмененных позиций по заказу с существующим id")
     public void getLineItemCancellations200() {
-        apiV2.order(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        apiV2.order(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
         response = OrdersV2Request.LineItemCancellations.GET(apiV2.getCurrentOrderNumber());
         assertTrue(response.as(LineItemCancellationsV2Response.class).getLineItemCancellations().isEmpty());
 
@@ -278,7 +278,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Добавление позиции к заказу с обязательными полями")
     public void setLineItems200() {
-        List<ProductV2> products = apiV2.getProductFromEachDepartmentInStore(EnvironmentData.INSTANCE.getDefaultSid());
+        List<ProductV2> products = apiV2.getProductFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_SID);
         Long product = products.get(0).getId();
 
         response = LineItemsV2Request.POST(product, 1, apiV2.getCurrentOrderNumber());
@@ -306,7 +306,7 @@ public class OrdersV2Test extends RestBase {
     public void changeLineItems200() {
         List<LineItemV2> cart = apiV2.fillCart(
                 SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
-                EnvironmentData.INSTANCE.getDefaultSid()
+                EnvironmentProperties.DEFAULT_SID
         );
         Integer productId = cart.get(0).getId();
         Integer internalAmount = cart.get(0).getQuantity();
@@ -340,7 +340,7 @@ public class OrdersV2Test extends RestBase {
     public void deleteLineItems200() {
         Integer productId = apiV2.fillCart(
                 SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
-                EnvironmentData.INSTANCE.getDefaultSid()
+                EnvironmentProperties.DEFAULT_SID
         ).get(0).getId();
 
         response = LineItemsV2Request.DELETE(productId);
@@ -363,7 +363,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Заполнение информации о заказе с существующим id")
     public void fillingInOrderInformation200() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
         Integer paymentsId = apiV2.getPaymentTools().get(0).getId();
         Integer shipmentId = apiV2.getShippingWithOrder().getId();
         Integer deliveryWindow = apiV2.getAvailableDeliveryWindow().getId();
@@ -410,7 +410,7 @@ public class OrdersV2Test extends RestBase {
             description = "Отмена заказа с существующим номером заказа")
     public void cancellationsOrders200() {
         OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
-                EnvironmentData.INSTANCE.getDefaultSid());
+                EnvironmentProperties.DEFAULT_SID);
         String orderNumber = order.getNumber();
         response = OrdersV2Request.Cancellations.POST(orderNumber, "test");
         checkStatusCode200(response);
@@ -455,7 +455,7 @@ public class OrdersV2Test extends RestBase {
             description = "Завершение заказа с существующим id")
     public void orderCompletion200() {
         String orderNumber = apiV2.getCurrentOrderNumber();
-        apiV2.fillingCartAndOrderAttributesWithoutCompletition(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        apiV2.fillingCartAndOrderAttributesWithoutCompletition(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         String shipmentNumber = apiV2.getShipmentsNumber();
 
@@ -497,7 +497,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Очистка заказа с существующим id")
     public void clearOrder200() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
         String orderNumber = apiV2.getCurrentOrderNumber();
         response = OrdersV2Request.Shipments.DELETE(orderNumber);
         OrderV2Response orderV2Response = response.as(OrderV2Response.class);
@@ -529,7 +529,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Очистка подзаказа с существующим id")
     public void clearShipments200() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
         String shipmentNumber = apiV2.getShipmentsNumber();
         String orderNumber = apiV2.getCurrentOrderNumber();
         response = ShipmentsV2Request.DELETE(shipmentNumber);

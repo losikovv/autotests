@@ -3,10 +3,9 @@ package ru.instamart.test.reforged.admin;
 import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
-import ru.instamart.kraken.util.Crypt;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -38,7 +37,7 @@ public final class AdministrationRetailerRegionsTests extends BaseTest {
         regionsAdd().fillNewTestRegionName(cityName);
         regionsAdd().clickToCreateNewRegion();
 
-        regions().checkPageUrl(EnvironmentData.INSTANCE.getAdminUrl() + regions().pageUrl());
+        regions().checkPageUrl(EnvironmentProperties.Env.FULL_ADMIN_URL + regions().pageUrl());
         regions().checkSuccessCreateRegionAlertVisible();
         regions().checkAutotestRegionInTableVisible(cityName);
 

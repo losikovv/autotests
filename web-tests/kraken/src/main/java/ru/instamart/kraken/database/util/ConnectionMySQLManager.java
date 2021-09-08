@@ -1,7 +1,7 @@
 package ru.instamart.kraken.database.util;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
@@ -64,9 +64,9 @@ public class ConnectionMySQLManager {
     protected static Connection open() {
         try {
             return DriverManager.getConnection
-                    (EnvironmentData.INSTANCE.getDbUrl() + "?" +
-                            "user=" + EnvironmentData.INSTANCE.getDbUsername() +
-                            "&password=" + EnvironmentData.INSTANCE.getDbPassword());
+                    (EnvironmentProperties.DB_URL + "?" +
+                            "user=" + EnvironmentProperties.DB_USERNAME +
+                            "&password=" + EnvironmentProperties.DB_PASSWORD);
         } catch (SQLException ex) {
             log.error("SQLException: " + ex.getMessage() +
                     "SQLState: " + ex.getSQLState() +

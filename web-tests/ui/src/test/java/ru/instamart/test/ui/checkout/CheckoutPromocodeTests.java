@@ -4,17 +4,16 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
-import ru.instamart.kraken.setting.Config;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.kraken.testdata.lib.Promos;
+import ru.instamart.test.ui.TestBase;
 import ru.instamart.ui.checkpoint.promocode.PromoCodesCheckpoints;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import ru.instamart.test.ui.TestBase;
 import ru.instamart.ui.module.checkout.PromocodeActions;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
 
@@ -26,10 +25,10 @@ public final class CheckoutPromocodeTests extends TestBase {
 
     @BeforeClass(alwaysRun = true)
     public void prepareForCheckout() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         Shop.AuthModal.openAuthRetailer();
         User.Do.registration(Generate.phoneNumber(),true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
         ShippingAddressModal.open();
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
         ShippingAddressModal.selectAddressSuggest();

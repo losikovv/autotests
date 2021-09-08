@@ -3,17 +3,16 @@ package ru.instamart.ui.module;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ru.instamart.kraken.util.ThreadUtil;
-import ru.instamart.ui.manager.AppManager;
-import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.lib.Addresses;
-import ru.instamart.ui.data.ElementData;
 import ru.instamart.kraken.testdata.pagesdata.WidgetData;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.ui.Elements;
+import ru.instamart.ui.config.WaitProperties;
+import ru.instamart.ui.data.ElementData;
+import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
 
 import java.util.List;
@@ -140,7 +139,7 @@ public final class Shop extends Base {
             kraken.perform().click(Elements.Modals.AuthModal.submitButton());
             kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(
                     Elements.Modals.AuthModal.submitButton().getLocator()),
-                    "не закрывается форма регистрации",Config.BASIC_TIMEOUT);
+                    "не закрывается форма регистрации", WaitProperties.BASIC_TIMEOUT);
         }
         @Step("Отправляем форму регистрации")
         public static void submitRegistration() {
@@ -244,7 +243,7 @@ public final class Shop extends Base {
             kraken.perform().click(Elements.Header.storeButton());
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
                     Elements.StoreSelector.drawer().getLocator()),"не открывается шторка выбора магазинов",
-                    Config.BASIC_TIMEOUT);
+                    WaitProperties.BASIC_TIMEOUT);
         }
 
         /** Закрыть шторку выбора магазина */
@@ -254,7 +253,7 @@ public final class Shop extends Base {
             kraken.perform().closeAction();
             kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(
                     Elements.StoreSelector.drawer().getLocator()),"не закрывается выбора магазинов",
-                    Config.BASIC_TIMEOUT);
+                    WaitProperties.BASIC_TIMEOUT);
         }
     }
 
@@ -328,7 +327,7 @@ public final class Shop extends Base {
             log.info("> открываем модалку с зонами доставки из меню профиля");
             kraken.perform().click(Elements.AccountMenu.deliveryButton());
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Modals.DeliveryModal.popup().getLocator()),
-                    "не открывается меню с зонами доставки",Config.BASIC_TIMEOUT);
+                    "не открывается меню с зонами доставки",WaitProperties.BASIC_TIMEOUT);
             log.info("> меню с зонами доставки открыто");
         }
 
@@ -728,7 +727,7 @@ public final class Shop extends Base {
             kraken.perform().click(Elements.ItemCard.closeButton());
             kraken.await().fluently(
                     ExpectedConditions.invisibilityOfElementLocated(Elements.ItemCard.popup().getLocator()),
-                    "не закрыватестя корзина",Config.BASIC_TIMEOUT);
+                    "не закрыватестя корзина",WaitProperties.BASIC_TIMEOUT);
         }
     }
 
@@ -743,7 +742,7 @@ public final class Shop extends Base {
                 kraken.await().fluently(
                         ExpectedConditions.elementToBeClickable(
                                 Elements.Cart.closeButton().getLocator()),
-                        "Не открылась корзина\n\n",Config.BASIC_TIMEOUT);
+                        "Не открылась корзина\n\n",WaitProperties.BASIC_TIMEOUT);
             } else {
                 log.info("> пропускаем открытие корзины, уже открыта");
             }
@@ -850,7 +849,6 @@ public final class Shop extends Base {
                 log.info("> добавляем в корзину {}х{}шт > {}", kraken.grab().itemName(), neededQuantity, kraken.grab().currentURL());
                 addItemByText(neededQuantity);
                 ItemCard.close();
-                //kraken.get().page(Config.DEFAULT_RETAILER);
                 Cart.open();
             } else {
                 log.info("> в корзине достаточно товаров");
@@ -896,7 +894,7 @@ public final class Shop extends Base {
             @Step("Убираем верхний товар из корзины")
             public static void remove() {
                 kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Cart.item.snippet().getLocator()),
-                        "не подгружается снипет товара",Config.BASIC_TIMEOUT);
+                        "не подгружается снипет товара",WaitProperties.BASIC_TIMEOUT);
                 kraken.perform().hoverOn(Elements.Cart.item.snippet()); // небольшой костылек для стобильности
                 kraken.await().fluently(
                         ExpectedConditions.elementToBeClickable(
@@ -909,7 +907,7 @@ public final class Shop extends Base {
             @Step("Увеличиваем количество верхнего товара в корзине")
             public static void increaseQuantity() {
                 kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Cart.item.snippet().getLocator()),
-                        "не подгружается снипет товара",Config.BASIC_TIMEOUT);
+                        "не подгружается снипет товара",WaitProperties.BASIC_TIMEOUT);
                 kraken.perform().hoverOn(Elements.Cart.item.snippet());
                 kraken.perform().click(Elements.Cart.item.increaseButton());
             }
@@ -918,7 +916,7 @@ public final class Shop extends Base {
             @Step("Уменьшаем количество верхнего товара в корзине")
             public static void decreaseQuantity() {
                 kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(Elements.Cart.item.snippet().getLocator()),
-                        "не подгружается снипет товара",Config.BASIC_TIMEOUT);
+                        "не подгружается снипет товара",WaitProperties.BASIC_TIMEOUT);
                 kraken.perform().hoverOn(Elements.Cart.item.snippet());
                 kraken.perform().click(Elements.Cart.item.decreaseButton());
             }

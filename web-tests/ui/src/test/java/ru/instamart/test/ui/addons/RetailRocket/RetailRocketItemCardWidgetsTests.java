@@ -1,15 +1,15 @@
 package ru.instamart.test.ui.addons.RetailRocket;
 
-import ru.instamart.kraken.setting.Config;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.kraken.testdata.lib.Widgets;
 import ru.instamart.test.ui.TestBase;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
 
 public class RetailRocketItemCardWidgetsTests extends TestBase {
@@ -17,7 +17,7 @@ public class RetailRocketItemCardWidgetsTests extends TestBase {
     @BeforeClass(alwaysRun = true)
     public void setup() {
         User.Logout.quickly();
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         ShippingAddressModal.open();
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
         ShippingAddressModal.submit();
@@ -26,7 +26,7 @@ public class RetailRocketItemCardWidgetsTests extends TestBase {
     @BeforeMethod(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
     }
 
 

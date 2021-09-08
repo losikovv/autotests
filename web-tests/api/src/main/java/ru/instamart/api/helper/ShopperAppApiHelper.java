@@ -12,9 +12,9 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.shopper.app.*;
 import ru.instamart.api.request.shopper.app.*;
 import ru.instamart.api.response.shopper.app.*;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.kraken.util.ThreadUtil;
 
 import java.time.LocalDateTime;
@@ -275,7 +275,7 @@ public class ShopperAppApiHelper {
     private List<OfferSHP.Data> getOffers() {
         log.info("Поиск товаров в магазине");
         Response response = StoresSHPRequest.Offers.GET(
-                EnvironmentData.INSTANCE.getDefaultShopperSid(), "хлеб");
+                EnvironmentProperties.DEFAULT_SHOPPER_SID, "хлеб");
         checkStatusCode200(response);
         return response.as(OffersSHPResponse.class).getData();
     }

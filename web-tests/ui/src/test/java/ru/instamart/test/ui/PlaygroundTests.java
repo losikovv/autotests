@@ -2,10 +2,10 @@ package ru.instamart.test.ui;
 
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.config.CoreProperties;
+import ru.instamart.kraken.testdata.PaymentTypes;
 import ru.instamart.kraken.testdata.TestVariables;
 import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.PaymentTypes;
 import ru.instamart.kraken.testdata.lib.Pages;
 import ru.instamart.kraken.testdata.lib.ReplacementPolicies;
 import ru.instamart.kraken.testdata.pagesdata.OrderDetailsData;
@@ -134,7 +134,7 @@ public class PlaygroundTests extends TestBase {
 
     @Test
     public void catalog() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         //kraken.await().simply(5);
         Shop.CatalogDrawer.open();
         //kraken.await().simply(5);

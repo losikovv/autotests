@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import org.openqa.selenium.By;
-import ru.instamart.kraken.setting.Config;
+import ru.instamart.ui.config.WaitProperties;
 
 @AllArgsConstructor
 @Getter
@@ -18,6 +18,6 @@ public final class ElementData {
     private final int timeout;
 
     public ElementData(final By locator, final String description) {
-        this(locator, description, Config.BASIC_TIMEOUT);
+        this(locator, description, WaitProperties.BASIC_TIMEOUT);
     }
 }

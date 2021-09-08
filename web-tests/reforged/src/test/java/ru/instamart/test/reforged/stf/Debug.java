@@ -3,9 +3,12 @@ package ru.instamart.test.reforged.stf;
 import lombok.SneakyThrows;
 import org.testng.annotations.Test;
 import ru.instamart.reforged.stf.page.StfRouter;
-import ru.instamart.test.reforged.BaseTest;
 
-public final class Debug extends BaseTest {
+public final class Debug {
+
+    @Test
+    public void foo() {
+    }
 
     @SneakyThrows
     @Test

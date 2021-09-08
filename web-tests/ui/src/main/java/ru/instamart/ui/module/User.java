@@ -3,12 +3,13 @@ package ru.instamart.ui.module;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.config.CoreProperties;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.ui.Elements;
+import ru.instamart.ui.config.WaitProperties;
 import ru.instamart.ui.helper.JsHelper;
 import ru.instamart.ui.manager.AppManager;
 
@@ -24,7 +25,7 @@ public final class User extends Base {
         @Step("Авторизация юзером")
         public static void loginAs(UserData user) { //TODO использовать только session-юзеров
             String startURL = kraken.grab().currentURL();
-            if (!startURL.equals(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth()) && kraken.detect().isUserAuthorised()) {
+            if (!startURL.equals(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH) && kraken.detect().isUserAuthorised()) {
                 kraken.get().userProfilePage();
                 String currentUserEmail = kraken.grab().text(Elements.UserProfile.AccountPage.email());
                 log.info("> юзер: {}", currentUserEmail);
@@ -34,7 +35,7 @@ public final class User extends Base {
                 kraken.get().url(startURL);
             }
             Auth.withEmail(user);
-            if (/*Config.MULTI_SESSION_MODE */false && kraken.detect().isElementPresent(
+            if (false && kraken.detect().isElementPresent(
                     Elements.Modals.AuthModal.errorMessage("Неверный email или пароль"))) {
                 log.warn(">>> Юзер {}  не найден, регистрируем", user.getEmail());
                 // костыль для stage-окружений
@@ -148,7 +149,7 @@ public final class User extends Base {
             log.info("> регистрируемся (телефон={})", phone);
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
                     Elements.Modals.AuthModal.phoneNumber().getLocator()),
-                    "поле для ввода мобильного телефона не отображается",Config.BASIC_TIMEOUT);
+                    "поле для ввода мобильного телефона не отображается", WaitProperties.BASIC_TIMEOUT);
             if(!messaging) kraken.perform().setCheckbox(Elements.Modals.AuthModal.agreementCheckbox(),false);
             kraken.perform().fillFieldActionPhone(Elements.Modals.AuthModal.phoneNumber(),phone);
             kraken.perform().click(Elements.Modals.AuthModal.continueButton());
@@ -229,7 +230,7 @@ public final class User extends Base {
 
         @Step("Авторизация по номеру телефона {0}")
         public static void withPhone(final UserData user) {
-            withPhone(user.getPhone(), Config.DEFAULT_SMS);
+            withPhone(user.getPhone(), CoreProperties.DEFAULT_SMS);
         }
 
         private static void withPhone(final String phone, final String smsCode) {
@@ -280,7 +281,7 @@ public final class User extends Base {
             kraken.perform().fillField(Elements.Social.MailRu.loginField(),user.getEmail());
             kraken.perform().click(Elements.Social.MailRu.nextButton());
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
-                    Elements.Social.MailRu.passwordFieldUp().getLocator()),"поле ввода пароля не появилось",Config.BASIC_TIMEOUT);
+                    Elements.Social.MailRu.passwordFieldUp().getLocator()),"поле ввода пароля не появилось",WaitProperties.BASIC_TIMEOUT);
             kraken.perform().click(Elements.Social.MailRu.passwordFieldUp());
             kraken.perform().fillField(Elements.Social.MailRu.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.MailRu.submitButton());

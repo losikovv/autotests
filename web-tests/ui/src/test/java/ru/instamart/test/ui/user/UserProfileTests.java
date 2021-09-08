@@ -6,7 +6,7 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.lib.Pages;
 import ru.instamart.test.ui.TestBase;
@@ -34,7 +34,7 @@ public final class UserProfileTests extends TestBase {
         kraken.get().baseUrl();
         Shop.AuthModal.openAuthLending();
         User.Do.registration(Generate.phoneNumber(), true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
     }
 
     @Test(
@@ -98,7 +98,7 @@ public final class UserProfileTests extends TestBase {
             }
     )
     public void successValidateUserProfileButton() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         Shop.AccountMenu.open();
         baseChecks.checkTransitionValidation(Elements.AccountMenu.profileButton());
     }
@@ -152,7 +152,7 @@ public final class UserProfileTests extends TestBase {
             }
     )
     public void successCheckProfilePagesAreAvailable() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         Shop.AccountMenu.open();
         baseChecks.checkPageIsAvailable(Pages.UserProfile.edit());
         baseChecks.checkPageIsAvailable(Pages.UserProfile.favorites());

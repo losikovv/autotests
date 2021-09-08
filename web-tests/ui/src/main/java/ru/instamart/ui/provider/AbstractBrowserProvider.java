@@ -16,15 +16,16 @@ import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
-import ru.instamart.kraken.setting.Config;
+import ru.instamart.ui.config.BrowserProperties;
 
 import java.net.URI;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
-import static ru.instamart.kraken.setting.Config.BASIC_TIMEOUT;
-import static ru.instamart.kraken.setting.Config.FULL_SCREEN_MODE;
+import static ru.instamart.ui.config.BrowserProperties.FULL_SCREEN_MODE;
+import static ru.instamart.ui.config.WaitProperties.BASIC_TIMEOUT;
+
 
 @Slf4j
 public abstract class AbstractBrowserProvider {
@@ -37,7 +38,7 @@ public abstract class AbstractBrowserProvider {
     protected void createRemoteDriver(final DesiredCapabilities capabilities) {
         try {
             this.driver = new RemoteWebDriver(
-                    URI.create(Config.REMOTE_URL).toURL(),
+                    URI.create(BrowserProperties.REMOTE_URL).toURL(),
                     capabilities);
             ((RemoteWebDriver)driver).setFileDetector(new LocalFileDetector());
             applyOptions();

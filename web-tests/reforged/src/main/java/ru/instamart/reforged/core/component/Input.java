@@ -4,8 +4,8 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import ru.instamart.kraken.setting.Config;
 import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.core.config.BrowserProperties;
 
 import java.util.regex.Matcher;
 
@@ -51,7 +51,7 @@ public final class Input extends Component {
     public void fill(final String data) {
         clear();
 
-        if (Config.USE_JS_FILL) {
+        if (BrowserProperties.USE_JS_FILL) {
             jsFill(data);
         } else {
             log.info("Fill {} with locator {} and data {}", getDescription(), getBy(), data);

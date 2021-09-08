@@ -3,7 +3,7 @@ package ru.instamart.ui.helper;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static ru.instamart.ui.manager.AppManager.getWebDriver;
 
@@ -37,7 +37,7 @@ public final class JsHelper {
 
     public static void clearSession() {
         execute("$.ajax({\n" +
-                "     url : '"+ EnvironmentData.INSTANCE.getBasicUrl() + "api/user_sessions',\n" +
+                "     url : '"+ EnvironmentProperties.Env.FULL_SITE_URL + "api/user_sessions',\n" +
                 "     method : 'delete'\n" +
                 "});");
         ajaxReady();

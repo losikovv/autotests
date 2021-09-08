@@ -4,10 +4,10 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -32,7 +32,7 @@ public final class HelpDeskChatTests extends BaseTest {
         final UserData userData = UserManager.getUser();
 
         apiHelper.auth(userData);
-        apiHelper.dropAndFillCart(userData, EnvironmentData.INSTANCE.getDefaultSid());
+        apiHelper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
         home().goToPage();
         home().openLoginModal();

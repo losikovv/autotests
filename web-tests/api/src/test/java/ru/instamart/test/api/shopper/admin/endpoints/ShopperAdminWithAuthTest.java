@@ -12,10 +12,9 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.shopper.admin.*;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.response.shopper.admin.*;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -32,7 +31,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     private Integer tariffId;
     private Integer shiftId;
     private Integer shiftAssignmentId;
-    private final Integer sid = EnvironmentData.INSTANCE.getDefaultShopperSid();
+    private final Integer sid = EnvironmentProperties.DEFAULT_SHOPPER_SID;
     private final Integer shopperId = 1;
     private final Integer driverId = 2;
     private final String routeScheduleStatus = "disabled";

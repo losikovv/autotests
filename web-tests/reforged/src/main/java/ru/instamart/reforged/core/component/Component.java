@@ -5,8 +5,8 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import ru.instamart.kraken.setting.Config;
 import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.core.config.WaitProperties;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,7 +40,7 @@ public abstract class Component {
     }
 
     public Component(final By by) {
-        this(by, Config.BASIC_TIMEOUT, null, null);
+        this(by, WaitProperties.BASIC_TIMEOUT, null, null);
     }
 
     public Component(final By by, final long timeout) {
@@ -48,12 +48,12 @@ public abstract class Component {
     }
 
     public Component(final By by, final boolean isCacheDisable) {
-        this(by, Config.BASIC_TIMEOUT, null, null);
+        this(by, WaitProperties.BASIC_TIMEOUT, null, null);
         this.isCacheDisable = isCacheDisable;
     }
 
     public Component(final By by, final String description) {
-        this(by, Config.BASIC_TIMEOUT, description, null);
+        this(by, WaitProperties.BASIC_TIMEOUT, description, null);
     }
 
     public Component(final By by, final long timeout, final String description) {
@@ -61,7 +61,7 @@ public abstract class Component {
     }
 
     public Component(final By by, final String description, final String errorMsg) {
-        this(by, Config.BASIC_TIMEOUT, description, errorMsg);
+        this(by, WaitProperties.BASIC_TIMEOUT, description, errorMsg);
     }
 
     protected abstract WebElement getComponent();

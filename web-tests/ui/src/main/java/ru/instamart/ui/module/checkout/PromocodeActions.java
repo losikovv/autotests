@@ -4,12 +4,12 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.ui.manager.AppManager;
 import ru.instamart.kraken.testdata.pagesdata.PromoData;
+import ru.instamart.ui.Elements;
+import ru.instamart.ui.config.WaitProperties;
+import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Base;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
-import ru.instamart.ui.Elements;
 
 public final class PromocodeActions extends Base {
     private static final Logger log = LoggerFactory.getLogger(ShippingAddressModal.class);
@@ -35,7 +35,7 @@ public final class PromocodeActions extends Base {
         PromocodeActions.Modal.submit();
         kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
                 Elements.Checkout.Promocode.deleteButton().getLocator()),
-                "Промокод не удаляется",Config.BASIC_TIMEOUT);
+                "Промокод не удаляется", WaitProperties.BASIC_TIMEOUT);
         log.info("> промокод успешно добавлен к заказу", promocode);
     }
 
@@ -46,7 +46,7 @@ public final class PromocodeActions extends Base {
         kraken.perform().click(Elements.Checkout.Promocode.deleteButton());
         kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(
                 Elements.Checkout.Promocode.deleteButton().getLocator()),
-                "Промокод не удаляется",Config.BASIC_TIMEOUT);
+                "Промокод не удаляется",WaitProperties.BASIC_TIMEOUT);
         log.info("> промокод успешно удален");
     }
 
@@ -64,7 +64,7 @@ public final class PromocodeActions extends Base {
             kraken.await().fluently(
                     ExpectedConditions.visibilityOfElementLocated(
                             Elements.Checkout.Promocode.Modal.popup().getLocator()),
-                    "модалка для введедения промокода не появилась", Config.BASIC_TIMEOUT);
+                    "модалка для введедения промокода не появилась", WaitProperties.BASIC_TIMEOUT);
             kraken.perform().fillField(Elements.Checkout.Promocode.Modal.inputField(), promocode);
         }
 
@@ -80,7 +80,7 @@ public final class PromocodeActions extends Base {
             kraken.perform().click(Elements.Checkout.Promocode.Modal.cancelButton());
             kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(
                     Elements.Checkout.Promocode.Modal.cancelButton().getLocator()),
-                    "кнопка Отмена не нажимается",Config.BASIC_TIMEOUT);
+                    "кнопка Отмена не нажимается",WaitProperties.BASIC_TIMEOUT);
             log.info("> Ввод промокода отменен");
         }
 
@@ -89,11 +89,11 @@ public final class PromocodeActions extends Base {
             log.info("> закрываем модалку добавления промокода");
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
                     Elements.Checkout.Promocode.Modal.popup().getLocator()),
-                    "попап с промокодом не открывается",Config.BASIC_TIMEOUT);
+                    "попап с промокодом не открывается",WaitProperties.BASIC_TIMEOUT);
             kraken.perform().click(Elements.Checkout.Promocode.Modal.closeButton());
             kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(
                     Elements.Checkout.Promocode.Modal.popup().getLocator()),
-                    "попап с промокодом не закрывается",Config.BASIC_TIMEOUT);
+                    "попап с промокодом не закрывается",WaitProperties.BASIC_TIMEOUT);
             log.info("> модалку добавления промокода закрыта");
         }
     }

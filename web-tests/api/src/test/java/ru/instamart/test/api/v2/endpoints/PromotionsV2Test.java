@@ -11,8 +11,8 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.v2.PromotionsV2Request;
 import ru.instamart.api.response.v2.ProductsV2Response;
 import ru.instamart.api.response.v2.ReferralProgramV2Response;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.testdata.Tenants;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
@@ -27,7 +27,7 @@ public class PromotionsV2Test extends RestBase {
     @Test(  description = "Получаем инфу о реферальной программе",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getReferralProgram() {
-        if (!EnvironmentData.INSTANCE.getTenant().equals(Tenants.SBERMARKET.getAlias())) {
+        if (!EnvironmentProperties.TENANT.equals(Tenants.SBERMARKET.getAlias())) {
             throw new SkipException("Скип теста не на дефолтном тенанте");
         }
         response = PromotionsV2Request.ReferralProgram.GET();
@@ -40,7 +40,7 @@ public class PromotionsV2Test extends RestBase {
     @Story("Список продуктов для активации промо")
     @Test(groups = {"api-instamart-smoke"}, description = "Существующий productId")
     public void testGetListOfProductWithValidProductId() {
-        final Response response = PromotionsV2Request.PromoProducts.GET(2707, EnvironmentData.INSTANCE.getDefaultSid());
+        final Response response = PromotionsV2Request.PromoProducts.GET(2707, EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
         assertTrue(productsV2Response.getProducts().isEmpty());
@@ -50,7 +50,7 @@ public class PromotionsV2Test extends RestBase {
     @Story("Список продуктов для активации промо")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий productId")
     public void testGetListOfProductWithInvalidProductId() {
-        final Response response = PromotionsV2Request.PromoProducts.GET(1, EnvironmentData.INSTANCE.getDefaultSid());
+        final Response response = PromotionsV2Request.PromoProducts.GET(1, EnvironmentProperties.DEFAULT_SID);
         checkStatusCode404(response);
     }
 

@@ -13,7 +13,7 @@ import ru.instamart.api.model.v2.TaxonV2;
 import ru.instamart.api.request.v2.TaxonsV2Request;
 import ru.instamart.api.response.v2.TaxonV2Response;
 import ru.instamart.api.response.v2.TaxonsV2Response;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.util.List;
 import java.util.Set;
@@ -33,7 +33,7 @@ public final class TaxonsV2Test extends RestBase {
     @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Получаем таксоны (подкатегории)")
     public void getTaxons() {
-        response = TaxonsV2Request.GET(EnvironmentData.INSTANCE.getDefaultSid());
+        response = TaxonsV2Request.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         List<TaxonV2> taxons = response.as(TaxonsV2Response.class).getTaxons();
         assertFalse(taxons.isEmpty(), "Не вернулись таксоны");
@@ -45,7 +45,7 @@ public final class TaxonsV2Test extends RestBase {
             dependsOnMethods = "getTaxons",
             description = "Получаем таксон (подкатегорию)")
     public void getTaxon() {
-        response = TaxonsV2Request.GET(taxonId, EnvironmentData.INSTANCE.getDefaultSid());
+        response = TaxonsV2Request.GET(taxonId, EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         assertNotNull(response.as(TaxonV2Response.class).getTaxon(), "Не вернулся таксон");
     }
@@ -73,7 +73,7 @@ public final class TaxonsV2Test extends RestBase {
     @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Информация о категории с невалидной категорией")
     public void testGetCategoryWithInvalidCategory() {
-        final Response response = TaxonsV2Request.GET(0, EnvironmentData.INSTANCE.getDefaultSid());
+        final Response response = TaxonsV2Request.GET(0, EnvironmentProperties.DEFAULT_SID);
         checkStatusCode404(response);
     }
 

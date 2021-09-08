@@ -14,9 +14,9 @@ import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.response.v2.LineItemCancellationsV2Response;
 import ru.instamart.api.response.v2.LineItemReplacementsV2Response;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertFalse;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
@@ -31,7 +31,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
 
         OrderV2 order = apiV2.order(
                 SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
-                EnvironmentData.INSTANCE.getDefaultSid(),
+                EnvironmentProperties.DEFAULT_SID,
                 4
         );
         orderNumber = order.getNumber();

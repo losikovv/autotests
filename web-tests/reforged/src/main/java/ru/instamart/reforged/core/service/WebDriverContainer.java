@@ -6,6 +6,7 @@ import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.testng.Reporter;
+import ru.instamart.reforged.core.config.BrowserProperties;
 import ru.instamart.reforged.core.page.Router;
 import ru.instamart.reforged.core.provider.BrowserFactory;
 
@@ -17,8 +18,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.util.Objects.nonNull;
-import static ru.instamart.kraken.setting.Config.BROWSER_VERSION;
-import static ru.instamart.kraken.setting.Config.DEFAULT_BROWSER;
 
 @Slf4j
 public final class WebDriverContainer {
@@ -40,7 +39,7 @@ public final class WebDriverContainer {
                 this.makeAutoClosable(
                         Thread.currentThread(),
                         //Create browser. Get browser from suite parameter or from -Pbrowser
-                        BrowserFactory.createBrowserInstance(browser.orElse(DEFAULT_BROWSER), version.orElse(BROWSER_VERSION))
+                        BrowserFactory.createBrowserInstance(browser.orElse(BrowserProperties.BROWSER), version.orElse(BrowserProperties.BROWSER_VERSION))
                 )
         );
     }

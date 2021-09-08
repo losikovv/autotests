@@ -1,11 +1,11 @@
 package ru.instamart.test.ui.addons;
 
 import org.testng.annotations.Test;
-import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.testdata.TestVariables;
 import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.test.ui.TestBase;
 import ru.instamart.kraken.testdata.lib.Pages;
+import ru.instamart.test.ui.TestBase;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 
@@ -39,7 +39,7 @@ public class JivositeTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression",}
     )
     public void successOperateJivositeWidgetOnRetailerPage() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         assertTrue(kraken.detect().isJivositeWidgetAvailable(),
                 "Виджет Jivosite недоступен на витрине ритейлера\n");
 
@@ -91,7 +91,7 @@ public class JivositeTests extends TestBase {
     )
     public void successSendMessageToJivositeFromRetailerPage() {
         String testMessage = "тест";
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
 
         Shop.Jivosite.sendMessage(testMessage);
         assertTrue(kraken.detect().isJivositeMessageSent(testMessage),

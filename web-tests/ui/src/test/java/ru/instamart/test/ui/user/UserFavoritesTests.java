@@ -5,11 +5,10 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Flaky;
 import io.qameta.allure.Issue;
 import io.qase.api.annotation.CaseId;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.lib.Pages;
@@ -57,7 +56,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         kraken.get().baseUrl();
         Shop.AuthModal.openAuthOnLanding();
         User.Do.registration(Generate.phoneNumber(),true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
         Shop.Favorites.open();
         baseChecks.checkPageIsAvailable();
         checkIsFavoriteOpen();
@@ -73,7 +72,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         kraken.get().baseUrl();
         Shop.AuthModal.openAuthOnLanding();
         User.Do.registration(Generate.phoneNumber(),true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
         Shop.Favorites.openFavorites();
         checkFavoriteIsEmpty();
     }
@@ -90,7 +89,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         kraken.get().baseUrl();
         Shop.AuthModal.openAuthOnLanding();
         User.Do.registration(Generate.phoneNumber(),true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
 
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToFavorites();
@@ -112,7 +111,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         kraken.get().baseUrl();
         Shop.AuthModal.openAuthOnLanding();
         User.Do.registration(Generate.phoneNumber(),true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
 
         Shop.Catalog.Item.open();
         Shop.ItemCard.addToFavorites();
@@ -137,7 +136,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         kraken.get().baseUrl();
         Shop.AuthModal.openAuthOnLanding();
         User.Do.registration(Generate.phoneNumber(),true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
 
         Shop.Search.searchItem("молоко");
         Shop.Search.addToFavorites();
@@ -230,7 +229,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         checkAuthFrameOpen();
 
         User.Do.registration(Generate.phoneNumber(),true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
 
         checkIsUserAuthorized();
     }
@@ -250,7 +249,7 @@ public final class UserFavoritesTests extends TestBase implements FavoriteItemsC
         checkAuthFrameOpen();
 
         User.Do.registration("9999999999",true);
-        User.Do.sendSms(Config.DEFAULT_SMS);
+        User.Do.sendSms(CoreProperties.DEFAULT_SMS);
 
         checkIsUserAuthorized();
     }

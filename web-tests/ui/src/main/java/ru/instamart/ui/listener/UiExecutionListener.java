@@ -1,24 +1,18 @@
 package ru.instamart.ui.listener;
 
 import lombok.extern.slf4j.Slf4j;
-import org.testng.IExecutionListener;
 import ru.instamart.api.common.Specification;
-import ru.instamart.kraken.helper.AllureHelper;
 import ru.instamart.kraken.listener.ExecutionListener;
-import ru.instamart.kraken.service.BannerService;
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
-import ru.instamart.kraken.util.Crypt;
-
-import java.util.Map;
+import ru.instamart.ui.config.ConfigManager;
 
 @Slf4j
 public final class UiExecutionListener extends ExecutionListener {
 
     public UiExecutionListener() {
         super();
+        log.info("Load UI config");
+        ConfigManager.getInstance().loadConfig();
     }
 
     @Override

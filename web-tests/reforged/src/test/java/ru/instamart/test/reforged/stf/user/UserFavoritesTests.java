@@ -6,14 +6,13 @@ import io.qameta.allure.Issue;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.kraken.config.CoreProperties;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -184,7 +183,7 @@ public final class UserFavoritesTests extends BaseTest {
     )
     public void successAuthAfterAddFavoriteOnItemCard() {
         shop().goToPage();
-        Kraken.open(EnvironmentData.INSTANCE.getBasicUrl() + Config.DEFAULT_RETAILER);
+        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER);
         shop().openFirstProductCard();
         shop().interactProductCard().addToFavorite();
         shop().interactAuthModal().createAccount();

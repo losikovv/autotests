@@ -12,7 +12,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.PaymentToolsV2Request;
 import ru.instamart.api.response.v2.PaymentToolTypesV2Response;
 import ru.instamart.api.response.v2.PaymentToolsV2Response;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
@@ -42,7 +42,7 @@ public class PaymentToolsV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Возможные типы способов оплаты для заказа с существущим id")
     public void getPaymentToolsWithOrder200() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
         String orderNumber = apiV2.getCurrentOrderNumber();
         response = PaymentToolsV2Request.GET(orderNumber);
         checkStatusCode200(response);

@@ -18,9 +18,9 @@ import ru.instamart.api.request.v2.*;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v1.OffersV1Response;
 import ru.instamart.api.response.v2.*;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.lib.Pages;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.kraken.util.MapUtil;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.ThreadUtil;
@@ -266,7 +266,7 @@ public final class InstamartApiHelper {
         checkStatusCode200(response);
         List<DepartmentV2> departments = response.as(DepartmentsV2Response.class).getDepartments();
 
-        String storeUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + "?sid=" + sid;
+        String storeUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + "?sid=" + sid;
 
         assertFalse(departments.isEmpty(), "Не импортированы товары для магазина\n" + storeUrl);
 

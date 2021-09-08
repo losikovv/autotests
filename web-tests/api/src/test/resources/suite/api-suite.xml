@@ -5,6 +5,11 @@
     <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
     <listener class-name="ru.instamart.api.listener.ApiListener"/>
   </listeners>
+  <method-selectors>
+    <method-selector>
+      <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+    </method-selector>
+  </method-selectors>
   <!-- api-v1-tests -->
   <test verbose="1" name="API v1 Tests" parallel="none" thread-count="5">
     <classes>

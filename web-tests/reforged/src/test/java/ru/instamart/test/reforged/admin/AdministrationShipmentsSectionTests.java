@@ -7,14 +7,13 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.reforged.admin.page.usersEdit.UsersEditPage;
 import ru.instamart.test.reforged.BaseTest;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -213,7 +212,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         final ApiHelper helper = new ApiHelper();
         final UserData userData = UserManager.getUser();
         helper.auth(userData);
-        final OrderV2 orderV2 = helper.makeOrder(userData, EnvironmentData.INSTANCE.getDefaultSid(), 3);
+        final OrderV2 orderV2 = helper.makeOrder(userData, EnvironmentProperties.DEFAULT_SID, 3);
         helper.cancelOrder(userData, orderV2.getNumber());
 
         //TODO: Заказ появляется в админке с задержкой рандомной
@@ -229,7 +228,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         final UserData userData = UserManager.getUser();
         helper.auth(userData);
 
-        final OrderV2 orderV2 = helper.makeOrder(userData, EnvironmentData.INSTANCE.getDefaultSid(), 3);
+        final OrderV2 orderV2 = helper.makeOrder(userData, EnvironmentProperties.DEFAULT_SID, 3);
 
         //TODO: Заказ появляется в админке с задержкой рандомной
     }

@@ -17,7 +17,7 @@ import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.request.v2.StoresV2Request;
 import ru.instamart.api.response.v2.*;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -41,7 +41,7 @@ public class ShipmentsV2Test extends RestBase {
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
     }
 
     @CaseId(339)
@@ -237,7 +237,7 @@ public class ShipmentsV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Получить ближайшие окна доставки с существующим id")
     public void nextDeliver200() {
-        response = StoresV2Request.NextDeliveries.GET(EnvironmentData.INSTANCE.getDefaultSid());
+        response = StoresV2Request.NextDeliveries.GET(EnvironmentProperties.DEFAULT_SID);
         NextDeliveriesV2Response nextDeliveriesV2Response = response.as(NextDeliveriesV2Response.class);
         assertNotEquals(nextDeliveriesV2Response.getNextDeliveries().size(), 0, "next delivery is empty");
     }
@@ -257,7 +257,7 @@ public class ShipmentsV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Получить ближайшие окна доставки со всеми необязательными полями с корректными данными")
     public void nextDeliverWithAllData() {
-        AddressV2 address = apiV2.getAddressBySid(EnvironmentData.INSTANCE.getDefaultSid());
+        AddressV2 address = apiV2.getAddressBySid(EnvironmentProperties.DEFAULT_SID);
 
         Map<String, String> params = new HashMap<>();
         params.put("cargo", "false");
@@ -265,7 +265,7 @@ public class ShipmentsV2Test extends RestBase {
         params.put("lat", address.getLat().toString());
         params.put("lon", address.getLon().toString());
 
-        response = StoresV2Request.NextDeliveries.GET(EnvironmentData.INSTANCE.getDefaultSid(), params);
+        response = StoresV2Request.NextDeliveries.GET(EnvironmentProperties.DEFAULT_SID, params);
         checkStatusCode200(response);
         NextDeliveriesV2Response nextDeliveriesV2Response = response.as(NextDeliveriesV2Response.class);
         assertNotEquals(nextDeliveriesV2Response.getNextDeliveries().size(), 0, "next delivery is empty");
@@ -282,7 +282,7 @@ public class ShipmentsV2Test extends RestBase {
         params.put("lat", "notValidData");
         params.put("lon", "notValidData");
 
-        response = StoresV2Request.NextDeliveries.GET(EnvironmentData.INSTANCE.getDefaultSid(), params);
+        response = StoresV2Request.NextDeliveries.GET(EnvironmentProperties.DEFAULT_SID, params);
         checkStatusCode200(response);
         NextDeliveriesV2Response nextDeliveriesV2Response = response.as(NextDeliveriesV2Response.class);
         assertEquals(nextDeliveriesV2Response.getNextDeliveries().size(), 0, "next delivery is not empty");

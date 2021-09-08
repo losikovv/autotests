@@ -8,7 +8,7 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -33,9 +33,9 @@ public enum Specification {
     @Getter private RequestSpecification surgeRequestSpec;
 
     public void initSpec() {
-        final String apiV1FullUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth();
-        final String apiV2FullUrl = EnvironmentData.INSTANCE.getBasicUrl();
-        final String shopperFullBaseUrl = EnvironmentData.INSTANCE.getShopperUrl();
+        final String apiV1FullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH;
+        final String apiV2FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
+        final String shopperFullBaseUrl = EnvironmentProperties.Env.FULL_SHOPPER_URL;
         port = 443;
         config = config().encoderConfig(encoderConfig().defaultContentCharset("UTF-8"));
         defaultParser = Parser.JSON;

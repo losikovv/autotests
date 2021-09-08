@@ -5,9 +5,8 @@ import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
-import ru.instamart.reforged.core.Kraken;
+import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.reforged.core.config.WaitProperties;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -23,8 +22,8 @@ public final class JsAction {
      * Ожидание инициализации яндекс карт
      */
     public void ymapReady() {
-        final WebDriverWait wait = new WebDriverWait(getWebDriver(), Config.BASIC_TIMEOUT);
-        wait.pollingEvery(Config.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
+        final WebDriverWait wait = new WebDriverWait(getWebDriver(), WaitProperties.BASIC_TIMEOUT);
+        wait.pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
         wait.until((ExpectedCondition<Boolean>) wb -> {
             final Object result = execute("return typeof ymaps");
             if (Objects.isNull(result)) {
@@ -38,8 +37,8 @@ public final class JsAction {
      * Ожидание инициализации реактовского jQuery
      */
     public void jQueryReady() {
-        final WebDriverWait wait = new WebDriverWait(getWebDriver(), Config.BASIC_TIMEOUT);
-        wait.pollingEvery(Config.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
+        final WebDriverWait wait = new WebDriverWait(getWebDriver(), WaitProperties.BASIC_TIMEOUT);
+        wait.pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
         wait.until((ExpectedCondition<Boolean>) wb -> {
             final Object reactState = execute("return ReactRailsUJS.jQuery.active==0");
             if (Objects.isNull(reactState)) {
@@ -53,8 +52,8 @@ public final class JsAction {
      * Ожидание загрузки дома
      */
     public void waitForDocumentReady() {
-        final WebDriverWait wait = new WebDriverWait(getWebDriver(), Config.BASIC_TIMEOUT);
-        wait.pollingEvery(Config.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
+        final WebDriverWait wait = new WebDriverWait(getWebDriver(), WaitProperties.BASIC_TIMEOUT);
+        wait.pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
         wait.until((ExpectedCondition<Boolean>) wb -> {
             final Object state = execute("return document.readyState");
             if (Objects.isNull(state)) {
@@ -151,7 +150,7 @@ public final class JsAction {
      */
     public static void clearSession() {
         execute("$.ajax({\n" +
-                "     url : '"+ EnvironmentData.INSTANCE.getBasicUrl() + "api/user_sessions',\n" +
+                "     url : '"+ EnvironmentProperties.Env.FULL_SITE_URL + "api/user_sessions',\n" +
                 "     method : 'delete'\n" +
                 "});");
         jsAction().jQueryReady();
@@ -166,6 +165,6 @@ public final class JsAction {
     }
 
     public void ajaxRequest(final String endpoint, final String method) {
-        execute(String.format("$.ajax({url : '%s', method : '%s'});", EnvironmentData.INSTANCE.getBasicUrl() + endpoint, method));
+        execute(String.format("$.ajax({url : '%s', method : '%s'});", EnvironmentProperties.Env.FULL_SITE_URL + endpoint, method));
     }
 }

@@ -6,12 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.ElementNotSelectableException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ru.instamart.kraken.util.ThreadUtil;
-import ru.instamart.ui.manager.AppManager;
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.kraken.testdata.pagesdata.StaticPageData;
 import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.kraken.testdata.pagesdata.StaticPageData;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.ui.Elements;
+import ru.instamart.ui.config.WaitProperties;
+import ru.instamart.ui.manager.AppManager;
 
 import static ru.instamart.ui.helper.HelperBase.handleAlert;
 
@@ -34,7 +34,7 @@ public final class Administration extends Base {
         public static void openMenuDropdown(String menuElement){
             log.info("> переходим по разделам меню: {}",menuElement);
             kraken.await().fluently(ExpectedConditions.elementToBeClickable(Elements.Administration.menuTopElement(menuElement).getLocator()),
-                    "элемент не доступен: "+menuElement, Config.BASIC_TIMEOUT);
+                    "элемент не доступен: "+menuElement, WaitProperties.BASIC_TIMEOUT);
             kraken.perform().scrollToTheBottom(Elements.Administration.menuTopElement(menuElement));
             ThreadUtil.simplyAwait(0.5);
             kraken.perform().click(Elements.Administration.menuTopElement(menuElement));
@@ -53,7 +53,7 @@ public final class Administration extends Base {
             kraken.perform().click(Elements.Administration.ShipmentsSection.OrdersSearchPage.Filters.applyFilterButton());
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
                     Elements.Administration.ShipmentsSection.OrdersSearchPage.OrdersTable.orderRow.orderNumber().getLocator()),
-                    "не подгрузились результаты поиска", Config.BASIC_TIMEOUT);
+                    "не подгрузились результаты поиска", WaitProperties.BASIC_TIMEOUT);
         }
 
         /** Найти заказ по номеру заказа или шипмента */

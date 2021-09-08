@@ -5,6 +5,11 @@
         <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
         <listener class-name="ru.instamart.api.listener.ApiListener"/>
     </listeners>
+    <method-selectors>
+        <method-selector>
+            <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+        </method-selector>
+    </method-selectors>
     <!-- api-v1-tests -->
     <test verbose="1" name="API v1 Tests" parallel="none" thread-count="5">
         <classes>
@@ -42,7 +47,7 @@
             <class name="ru.instamart.test.api.v2.endpoints.ShipAddressV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.StoresV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.TaxonsV2Test"/>
-            <class name="ru.instamart.test.api.product.hub.ProductHubTest"/>
+            <!--<class name="ru.instamart.test.api.product.hub.ProductHubTest"/>-->
             <!--class name="ru.instamart.test.api.v2.endpoints.UserV2Test"/-->
 
             <class name="ru.instamart.test.api.v2.e2e.OrderE2ETests"/>

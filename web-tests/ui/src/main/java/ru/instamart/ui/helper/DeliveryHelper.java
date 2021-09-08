@@ -22,9 +22,6 @@ public final class DeliveryHelper extends Base {
         log.info("> переключаемся на {} день", day);
         //тут иногда падает из-за отсутсвия элемента
         kraken.await().implicitly(1); // Ожидание загрузки слотов дня в чекауте
-//        kraken.await().fluently(ExpectedConditions.elementToBeClickable(
-//                Elements.Checkout.deliveryDaySelector(day).getLocator()),
-//                "Селектор дня доставки не появился", Config.BASIC_TIMEOUT);
         kraken.perform().click(Elements.Checkout.deliveryDaySelector(day));
         kraken.await().implicitly(1); // Ожидание загрузки слотов дня в чекауте
         if (kraken.detect().isElementPresent(Elements.Checkout.deliveryWindowsPlaceholder())){
