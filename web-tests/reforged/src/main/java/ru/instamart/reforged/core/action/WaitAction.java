@@ -84,6 +84,7 @@ public final class WaitAction {
                 .withMessage(component.getErrorMsg())
                 .pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class)
+                .ignoring(ElementClickInterceptedException.class)
                 .ignoring(NotFoundException.class);
     }
 

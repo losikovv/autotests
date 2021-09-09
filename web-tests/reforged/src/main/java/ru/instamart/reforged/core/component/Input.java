@@ -71,7 +71,7 @@ public final class Input extends Component {
     /**
      * Устанавливает текст в инпут через js код
      *
-     * @param data
+     * @param data - текст необходимый для вставки
      */
     public void jsFill(final String data) {
         log.info("JS Fill {} with locator {} and data {}", getDescription(), getBy(), data);
@@ -87,6 +87,11 @@ public final class Input extends Component {
             log.info("Clear input field '{}' from js", getDescription());
             Kraken.jsAction().clearField(matcher.group());
         }
+    }
+
+    public void click() {
+        log.info("Click into field {}", getDescription());
+        getComponent().click();
     }
 
     public void clear() {

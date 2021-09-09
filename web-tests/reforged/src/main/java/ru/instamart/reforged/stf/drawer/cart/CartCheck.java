@@ -3,6 +3,7 @@ package ru.instamart.reforged.stf.drawer.cart;
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
 
+import static org.testng.Assert.assertEquals;
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface CartCheck extends Check, CartElement {
@@ -25,5 +26,10 @@ public interface CartCheck extends Check, CartElement {
     @Step("Проверяем, что корзина не пустая")
     default void checkCartNotEmpty() {
         waitAction().shouldNotBeVisible(placeholder);
+    }
+
+    @Step("Сравнить количество товаров в корзине с ожидаемым значением {0}")
+    default void compareItemsInCart(final int expected) {
+        assertEquals(items.elementCount(), expected, "Количество товаров в корзине отличается от ожидаемого");
     }
 }
