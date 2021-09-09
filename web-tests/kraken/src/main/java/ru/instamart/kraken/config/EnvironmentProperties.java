@@ -38,6 +38,10 @@ public final class EnvironmentProperties {
     public static String DB_USERNAME;
     @Config(configName = NAME, fieldName = "dbPassword", defaultValue = "", crypted = true)
     public static String DB_PASSWORD;
+    @Config(configName = NAME, fieldName = "k8sNameSpace", defaultValue = "")
+    public static String K8S_NAME_SPACE;
+    @Config(configName = NAME, fieldName = "k8sLabelSelector", defaultValue = "")
+    public static String K8S_LABEL_SELECTOR;
 
     public static class Env {
 

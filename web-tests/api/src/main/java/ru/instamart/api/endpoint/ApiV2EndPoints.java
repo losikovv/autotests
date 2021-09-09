@@ -26,6 +26,7 @@ public final class ApiV2EndPoints {
     public static final String PRODUCTS = "v2/products";
     public static final String PURCHASED_PRODUCTS = "v2/purchased_products?sid={sid}";
     public static final String RETAILERS = "v2/retailers";
+    public static final String REVIEWABLE_SHIPMENT = "v2/reviewable_shipment";
     public static final String SIMPLE_ADS = "v2/simple-ads";
     public static final String SHIPPING_METHODS = "v2/shipping_methods?sid={sid}";
     public static final String STORES = "v2/stores";
