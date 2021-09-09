@@ -3,12 +3,15 @@ package ru.instamart.reforged.stf.drawer.cart;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
+import ru.instamart.reforged.core.component.ElementCollection;
 import ru.instamart.reforged.core.component.Link;
+import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
 import ru.instamart.reforged.stf.frame.ClearCart;
 
 public interface CartElement {
 
     ClearCart clearCartModal = new ClearCart();
+    RetailRocket retailRocket = new RetailRocket();
 
     Button close = new Button(By.xpath("//button[@data-qa='cart_close-button']"), "кнопка 'Закрыть корзину'");
     Button returnToCatalog = new Button(By.xpath("//button[@data-qa='cart_return_to_catalog_button']"), "кнопка 'Вернуться в каталог'");
@@ -40,4 +43,6 @@ public interface CartElement {
     Button prevRetailSlide = new Button(By.xpath("//button[@aria-label='Previous slide']"), "предыдущий слайд блока Не забудьте купить");
 
     Button submitOrder = new Button(By.xpath("//button[@data-qa='cart_checkout_button']"), "кнопка Сделать заказ");
+
+    ElementCollection items = new ElementCollection(By.xpath("//div[@data-qa='line-item']"), "все товары в корзине");
 }
