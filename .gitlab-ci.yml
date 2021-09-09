@@ -447,3 +447,16 @@ tests:Debug:
       - web-tests/build/allure-results/
       - web-tests/logs/
     expire_in: 1 week
+
+qase:actualize:
+    only:
+      variables:
+        - $TEST_API_INSTAMART == 'false' && $CI_RUN_ALL_JOBS == 'false' && $API_SHOPPER_ALONE == 'false'
+    when: manual
+    image: $CI_REGISTRY_IMAGE
+    stage: tests-api
+    script:
+      - gradle clean build qaseActualize -Pkey=$ATST_APP_SECRET_KEY
+    tags:
+      - k8s-stage
+    allow_failure: true

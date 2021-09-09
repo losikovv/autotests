@@ -6,6 +6,7 @@ import io.qase.api.annotation.CaseIDs;
 import io.qase.api.annotation.CaseId;
 import io.qase.api.enums.Automation;
 import io.qase.api.enums.RunResultStatus;
+import io.qase.api.exceptions.QaseException;
 import io.qase.api.models.v1.attachments.Attachment;
 import io.qase.api.models.v1.defects.Defect;
 import io.qase.api.models.v1.suites.Suite;
@@ -16,6 +17,8 @@ import io.qase.api.models.v1.testruns.TestRun;
 import io.qase.api.services.TestCaseService;
 import io.qase.api.services.TestRunResultService;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.ITestResult;
 import org.testng.internal.TestResult;
@@ -38,6 +41,7 @@ import static io.qase.api.utils.IntegrationUtils.getStacktrace;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 
 @Slf4j
+@Accessors(chain = true)
 public final class QaseService {
 
     private static final String DESCRIPTION_PREFIX = "[Automation] ";
@@ -50,7 +54,8 @@ public final class QaseService {
     @Deprecated
     private final int SUITE_ID = Integer.parseInt(System.getProperty("qase.suite.id", "0"));
     private final String PIPELINE_URL = System.getProperty("pip_url", "https://gitlab.sbermarket.tech/qa/automag/-/pipelines");
-    private final String projectCode;
+    @Setter
+    private String projectCode;
     @Getter
     private final QaseApi qaseApi;
     @Deprecated
@@ -60,6 +65,10 @@ public final class QaseService {
 
     private String testRunName;
     private Long runId;
+
+    public QaseService() {
+        this("", "test");
+    }
 
     public QaseService(final String projectCode, final String testRunName) {
         this.projectCode = projectCode;
@@ -229,7 +238,6 @@ public final class QaseService {
     }
 
     public void deleteOldDefects() {
-        if (!qase) return;
         final List<Defect> defects = qaseApi.defects().getAll(projectCode).getDefectList();
         defects.forEach(defect -> {
             final LocalDateTime dateTime = LocalDateTime.parse(defect.getCreated(), FORMATTER);
@@ -247,57 +255,70 @@ public final class QaseService {
     }
 
     public void actualizeAutomatedTestCases() {
-        if (!qase) return;
         log.info("Актуализация автоматизированных тест кейсов:");
+        try {
+            List<TestCase> allTestCases = new ArrayList<>();
+            int testCasesSize;
+            int offset = 0;
+            do {
+                try {
+                    log.info("Получаем {} страницу тест-кейсов", offset/100+1);
+                    List<TestCase> testCases = qaseApi
+                            .testCases()
+                            .getAll(projectCode, 100, offset)
+                            .getTestCaseList();
+                    allTestCases.addAll(testCases);
+                    testCasesSize = testCases.size();
+                    log.info("Получили {} тест-кейсов", testCasesSize);
+                } catch (QaseException qaseException) {
+                    log.error("Something went wrong: " + qaseException);
+                    testCasesSize = 0;
+                }
+                offset += 100;
+            } while (testCasesSize > 0);
 
-        List<TestCase> allTestCases = new ArrayList<>();
-        int testCasesSize;
-        int offset = 0;
-        do {
-            List<TestCase> testCases = qaseApi
-                    .testCases()
-                    .getAll(projectCode, 100, offset)
-                    .getTestCaseList();
-            allTestCases.addAll(testCases);
+            int automatedNumber = 0;
+            int actualizedNumber = 0;
+            for (TestCase testCase : allTestCases) {
+                try {
+                    TestRunResultService.Filter filter = qaseApi
+                            .testRunResults()
+                            .filter()
+                            .caseId((int) testCase.getId())
+                            .fromEndTime(LocalDateTime.now().minusDays(2));
+                    log.info("Получаем последние результаты прогонов теста " + testCase.getTitle());
+                    List<TestRunResult> testRunResults = qaseApi
+                            .testRunResults()
+                            .getAll(projectCode, 100, 0, filter)
+                            .getTestRunResultList();
 
-            testCasesSize = testCases.size();
-            offset += 100;
-        } while (testCasesSize > 0);
-
-        int automatedNumber = 0;
-        int actualizedNumber = 0;
-        for (TestCase testCase : allTestCases) {
-
-            TestRunResultService.Filter filter = qaseApi
-                    .testRunResults()
-                    .filter()
-                    .caseId((int) testCase.getId())
-                    .fromEndTime(LocalDateTime.now().minusDays(7));
-
-            List<TestRunResult> testRunResults = qaseApi
-                    .testRunResults()
-                    .getAll(projectCode, 100, 0, filter)
-                    .getTestRunResultList();
-
-            boolean automated = false;
-            for (TestRunResult testRunResult : testRunResults) {
-                if (testRunResult.getComment().startsWith(DESCRIPTION_PREFIX.trim())) {
-                    automated = true;
-                    automatedNumber++;
-                    break;
+                    boolean automated = false;
+                    for (TestRunResult testRunResult : testRunResults) {
+                        if (testRunResult.getComment() != null && testRunResult.getComment().startsWith(DESCRIPTION_PREFIX.trim())) {
+                            automated = true;
+                            automatedNumber++;
+                            break;
+                        }
+                    }
+                    if (testCase.getAutomation() == 2 && !automated) {
+                        log.info("Указываем, что тест не автоматизирован");
+                        qaseApi.testCases().update(projectCode, (int) testCase.getId(), Automation.is_not_automated);
+                        actualizedNumber++;
+                    } else if (testCase.getAutomation() != 2 && automated) {
+                        log.info("Указываем, что тест автоматизирован");
+                        qaseApi.testCases().update(projectCode, (int) testCase.getId(), Automation.automated);
+                        actualizedNumber++;
+                    }
+                } catch (QaseException qaseException) {
+                    log.error("Something went wrong: " + qaseException);
                 }
             }
-            if (testCase.getAutomation() == 2 && !automated) {
-                qaseApi.testCases().update(projectCode, (int) testCase.getId(), Automation.is_not_automated);
-                actualizedNumber++;
-            } else if (testCase.getAutomation() != 2 && automated) {
-                qaseApi.testCases().update(projectCode, (int) testCase.getId(), Automation.automated);
-                actualizedNumber++;
-            }
+            log.info("Всего тест кейсов: {}", allTestCases.size());
+            log.info("Всего автоматизировано: {}", automatedNumber);
+            log.info("Сейчас актуализировано: {}", actualizedNumber);
+        } catch (Exception e) {
+            log.error("FATAL: something went wrong when try to actualize test cases", e);
         }
-        log.info("Всего тест кейсов: {}", allTestCases.size());
-        log.info("Всего автоматизировано: {}", automatedNumber);
-        log.info("Сейчас актуализировано: {}", actualizedNumber);
     }
 
     @Deprecated
