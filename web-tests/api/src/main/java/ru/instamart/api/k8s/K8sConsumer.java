@@ -7,9 +7,11 @@ import io.kubernetes.client.PortForward;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.models.V1Pod;
 import io.kubernetes.client.openapi.models.V1PodList;
+import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.SkipException;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -17,6 +19,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -89,15 +92,93 @@ public class K8sConsumer {
             Exec exec = new Exec();
             boolean tty = console() != null;
             return exec.exec(namespace, podName, commands, true, tty);
-
         } catch (IOException e) {
-            log.error("Error port forwarding: " + e.getMessage());
-            fail("Error port forwarding: " + e.getMessage());
+            log.error("Error: " + e.getMessage());
+            fail("Error: " + e.getMessage());
         } catch (ApiException ex) {
             log.error("Error k8s api: " + ex.getMessage());
             fail("Error k8s api: " + ex.getMessage());
         }
         return null;
+    }
+
+
+    public static List<String> execRailsCommandWithPod(String[] commands) {
+        List<String> result = new CopyOnWriteArrayList<>();
+
+        String nameSpace = EnvironmentProperties.K8S_NAME_SPACE;
+        String labelSelector = EnvironmentProperties.K8S_LABEL_SELECTOR;
+
+        final V1Pod pod = getPod(nameSpace, labelSelector);
+        try {
+            execRailsCommandWithPod(pod, commands, result::add, true).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * Выполнение команды в контейнере
+     *
+     * @param commands
+     * @return
+     */
+    private static Closeable execRailsCommandWithPod(V1Pod pod, String[] commands, Consumer<String> outputFun, boolean waiting) {
+        try {
+            AtomicBoolean closed = new AtomicBoolean(false);
+            CountDownLatch cdl = new CountDownLatch(1);
+
+            String[] rails = {"rails", "c"};
+            String[] commandExec = ArrayUtils.addAll(rails, commands);
+
+            boolean tty = console() != null;
+            final Process proc = new Exec().exec(pod, commandExec, true, tty);
+
+            executorService.execute(() -> {
+                try {
+                    ByteStreams.copy(System.in, proc.getOutputStream());
+                } catch (IOException e) {
+                    if (!closed.get()) {
+                        log.error("Exec error", e);
+                    }
+                }
+            });
+
+            executorService.execute(() -> {
+                try {
+                    BufferedReader outputReader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+                    String outputLine;
+                    while ((outputLine = outputReader.readLine()) != null) {
+                        outputFun.accept(outputLine);
+                    }
+                } catch (IOException e) {
+                    if (!closed.get()) {
+                        log.error("Exec error", e);
+                    }
+                } finally {
+                    cdl.countDown();
+                }
+            });
+            if (waiting) {
+                cdl.await();
+            }
+            return () -> {
+                closed.set(true);
+                proc.destroy();
+            };
+        } catch (IOException e) {
+            log.error("Error: " + e.getMessage());
+            fail("Error: " + e.getMessage());
+        } catch (ApiException ex) {
+            log.error("Error k8s api: " + ex.getMessage());
+            fail("Error k8s api: " + ex.getMessage());
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            log.error("Exec error", e);
+        }
+        return () -> {
+        };
     }
 
     /**

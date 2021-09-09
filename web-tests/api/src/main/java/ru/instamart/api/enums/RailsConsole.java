@@ -16,12 +16,13 @@ public interface RailsConsole {
         STOP_COLLECTING("Spree::Shipment.find_by_number('%s').stop_collecting!"),
         FINISH_COLLECTING("Spree::Shipment.find_by_number('%s').finish_collecting!"),
         STOP_SHIPPING("Spree::Shipment.find_by_number('%s').stop_shipping!"),
-        FIND_BY_NUMBER("Spree::Shipment.find_by_number('%s')");
+        FIND_BY_NUMBER("Spree::Shipment.find_by_number('%s')"),
+        ASSEMBLY_ITEMS_ORDER("Spree::Shipment.find_by_number('%s').line_items[%s].update_attributes(assembly_issue: 'Собрано', assembled: true)");
 
         private String command;
 
-        public String get(String value) {
-            return format(command, value);
+        public String get(String... values) {
+            return format(command, values);
         }
     }
 
