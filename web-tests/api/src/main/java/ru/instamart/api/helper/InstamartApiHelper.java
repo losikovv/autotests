@@ -297,6 +297,16 @@ public final class InstamartApiHelper {
         return products;
     }
 
+    public ProductV2 getProductByPriceType(Integer sid, String priceType) {
+        List<ProductV2> products = getProductsFromEachDepartmentInStore(sid);
+        for (ProductV2 product : products) {
+            if (product.getPriceType().equals(priceType)) {
+                return product;
+            }
+        }
+        throw new SkipException("Нет продукта с price_type: " + priceType);
+    }
+
     /**
      * Добавляем список товаров в корзину
      */
