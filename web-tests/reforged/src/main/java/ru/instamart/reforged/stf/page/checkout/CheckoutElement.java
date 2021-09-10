@@ -6,6 +6,7 @@ import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
 import ru.instamart.reforged.stf.frame.checkout.subsections.*;
+import ru.instamart.reforged.stf.frame.checkout.subsections.promocode_modal.EditPromoСode;
 import ru.instamart.reforged.stf.page.checkout.fifthStep.SlotStep;
 import ru.instamart.reforged.stf.page.checkout.fourthStep.PaymentStep;
 import ru.instamart.reforged.stf.page.checkout.secondStep.ContactsStep;
@@ -18,6 +19,7 @@ public interface CheckoutElement {
     AddCompany addCompanyModal = new AddCompany();
     ContactsStep contactsStep = new ContactsStep();
     EditPhoneNumber editPhoneNumberModal = new EditPhoneNumber();
+    EditPromoСode editPromoCode = new EditPromoСode();
     ReplacementPolicyStep replacementPolicy = new ReplacementPolicyStep();
     SlotStep slot = new SlotStep();
     PaymentStep payment = new PaymentStep();

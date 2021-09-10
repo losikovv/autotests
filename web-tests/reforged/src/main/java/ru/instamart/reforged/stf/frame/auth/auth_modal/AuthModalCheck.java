@@ -22,6 +22,11 @@ public interface AuthModalCheck extends Check, AuthModalElement {
         waitAction().shouldNotBeVisible(modal);
     }
 
+    @Step("Проверяем, что модальное окно скрыто")
+    default void checkPhoneInputIsClickable() {
+        waitAction().shouldBeClickable(phoneField);
+    }
+
     @Step("Проверяем, что кнопка входа по SberID для бизнеса показана")
     default void checkSberBusinessIdIsVisible() {
         waitAction().shouldBeVisible(sberBusinessIdButton);
