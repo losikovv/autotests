@@ -14,13 +14,14 @@ import ru.instamart.reforged.core.service.Curl;
 import ru.instamart.test.reforged.BaseTest;
 
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.reforged.metro.page.MetroRouter.metro;
 import static ru.instamart.reforged.selgros.page.SelgrosRouter.selgros;
 
 @Epic("SELGROS UI")
 @Feature("Базовые тесты тенанта селгрос")
 public final class BasicSelgrosTests extends BaseTest {
 
-    @CaseId(2777)
+    @CaseId(2781)
     @Story("Валидация элементов")
     @Test(
             description = "Тест валидности элементов и ссылок в шапке Selgros",
@@ -31,6 +32,8 @@ public final class BasicSelgrosTests extends BaseTest {
         selgros().checkPageIsAvailable();
 
         selgros().interactHeader().checkHeaderVisible();
+        selgros().interactHeader().checkDeliveryButtonVisible();
+        selgros().interactHeader().checkPickupButtonVisible();
         selgros().interactHeader().checkSelectAddressButtonVisible();
         selgros().interactHeader().checkSelectAddressTextButtonVisible();
         selgros().interactHeader().checkHotlineWorkHoursVisible();
@@ -46,7 +49,7 @@ public final class BasicSelgrosTests extends BaseTest {
         selgros().interactHeader().checkNearestDeliveryLabelVisible();
     }
 
-    @CaseId(2778)
+    @CaseId(2782)
     @Story("Валидация элементов")
     @Test(
             description = "Тест валидности элементов и ссылок в подвале Selgros",
@@ -84,7 +87,7 @@ public final class BasicSelgrosTests extends BaseTest {
     }
 
     @DoNotOpenBrowser
-    @CaseId(2779)
+    @CaseId(2783)
     @Story("Витрины ретейлеров")
     @Test(  dataProviderClass = StaticPage.class,
             dataProvider = "filteredUnavailableRetailersSpree",
@@ -97,10 +100,10 @@ public final class BasicSelgrosTests extends BaseTest {
     }
 
     @DoNotOpenBrowser
-    @CaseId(2779)
+    @CaseId(2783)
     @Story("Витрины ретейлеров")
     @Test(  dataProviderClass = StaticPage.class,
-            dataProvider = "okeyAvailableRetailerPage",
+            dataProvider = "selgrosAvailableRetailerPage",
             description = "Тест доступности витрин ретейлеров Selgros",
             groups = {"selgros-smoke", "selgros-acceptance", "selgros-regression"}
     )
@@ -109,11 +112,11 @@ public final class BasicSelgrosTests extends BaseTest {
     }
 
     @DoNotOpenBrowser
-    @CaseId(2780)
+    @CaseId(2784)
     @Story("Статические страницы")
     @Test(
             dataProviderClass = StaticPage.class,
-            dataProvider = "okeyFaqPage",
+            dataProvider = "selgrosFaqPage",
             description = "Тест доступности статических страниц на Selgros",
             groups = {"selgros-smoke", "selgros-acceptance", "selgros-regression"}
     )

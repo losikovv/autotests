@@ -13,8 +13,9 @@ public final class Environments {
     public static final String OKEY_PRODUCTION = "okey-production";
     public static final String OKEY_STAGING = "okey-staging";
 
-    public static final String SELGROS_PRODUCTION = "metro-production";
-    public static final String SELGROS_STAGING = "metro-staging";
+    public static final String SELGROS_PRODUCTION = "selgros-production";
+    public static final String SELGROS_STAGING = "selgros-staging";
+    public static final String SELGROS_PREPROD = "selgros-preprod";
 
     private Environments() {}
 }

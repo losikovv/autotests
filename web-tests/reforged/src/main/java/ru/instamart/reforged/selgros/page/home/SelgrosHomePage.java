@@ -8,7 +8,7 @@ public final class SelgrosHomePage implements SelgrosPage, SelgrosHomeCheck {
 
     @Override
     public String pageUrl() {
-        return "okey";
+        return "selgros";
     }
 
     public Header interactHeader() {

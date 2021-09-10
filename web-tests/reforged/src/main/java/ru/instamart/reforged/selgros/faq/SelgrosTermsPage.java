@@ -6,6 +6,6 @@ public final class SelgrosTermsPage implements SelgrosPage {
 
     @Override
     public String pageUrl() {
-        return "terms-okey";
+        return "terms-selgros";
     }
 }

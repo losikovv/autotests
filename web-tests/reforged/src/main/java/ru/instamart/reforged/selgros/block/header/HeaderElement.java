@@ -10,6 +10,8 @@ import ru.instamart.reforged.core.component.Link;
 public interface HeaderElement {
     Element header = new Element(By.xpath("//header"), "Контейнер для хедера");
 
+    Button delivery = new Button(By.xpath("//button[@data-qa='ship_selector_type_delivery']"), "Кнопка переключения способа заказа - 'Доставка'");
+    Button pickup = new Button(By.xpath("//button[@data-qa='ship_selector_type_pickup']"), "Кнопка переключения способа заказа - 'Самовывоз'");
     Button selectAddressText = new Button(By.xpath("//button[@data-qa='shipping_method_button']"), "Кнопка выбора адреса с текстом 'Выберите адрес доставки'");
     Button selectAddress = new Button(By.xpath("//button[@data-qa='select-button']"), "Кнопка выбора адреса доставки");
     Element hotlineWorkHoursText = new Element(By.xpath("//header//span[text()='" + TestVariables.CompanyParams.companyHotlineWorkhoursShort + "']"), "Текст со временем работы горячей линии");

@@ -15,7 +15,7 @@ public interface FooterElement {
 
     Element copyrightText = new Element(By.xpath("//footer//p[@class='tenant-footer__copyright-text']"),
             "текст о партнерстве в футере");
-    Element partnershipLogo = new Element(By.xpath("//footer//*[local-name()='svg'][@class='logo-partner-okey']"),
+    Element partnershipLogo = new Element(By.xpath("//footer//*[local-name()='svg'][@class='logo-partner-selgros']"),
             "лого компании-партнера в футере");
     Element copyrightShopName = new Element(By.xpath("//footer//p[@class='tenant-footer__copyright']"),
             "полное название компании-партнера в футере");
@@ -30,20 +30,20 @@ public interface FooterElement {
     Element disclaimer = new Element(By.xpath("//footer//div[@class='tenant-footer__disclaimer']"),
             "дисклеймер об оказании услуг в футере");
 
-    Link customerHelp = new Link(By.xpath("//footer//a[contains(@href, '/faq-okey')]"),
+    Link customerHelp = new Link(By.xpath("//footer//a[contains(@href, '/faq-selgros')]"),
             "раздел 'Помощь покупателю' в футере");
-    Link returnsPolicyLink = new Link(By.xpath("//footer//a[contains(@href, '/rules-okey')]"),
+    Link returnsPolicyLink = new Link(By.xpath("//footer//a[contains(@href, '/rules-selgros')]"),
             "раздел 'Политика возвратов' в футере");
-    Link publicOfferLink = new Link(By.xpath("//footer//a[contains(@href, '/terms-okey')]"),
+    Link publicOfferLink = new Link(By.xpath("//footer//a[contains(@href, '/terms-selgros')]"),
             "раздел 'Официальное уведомление' в футере");
     Link personalDataPolicyLink = new Link(By.xpath("//footer//a[contains(@href, '/docs/personal_data_processing_policy.pdf')]"),
             "раздел 'Политика обработки данных' в футере");
 
-    Link aboutCompany = new Link(By.xpath("//footer//a[contains(@href, '/about-okey')]"),
+    Link aboutCompany = new Link(By.xpath("//footer//a[contains(@href, '/about-selgros')]"),
             "раздел 'О компании' в футере");
-    Button deliveryZone = new Button(By.xpath("//footer//button[contains(@data-url,'/stores/128/shipping_methods')]"),
+    Button deliveryZone = new Button(By.xpath("//footer//button[contains(@data-url,'/stores/129/shipping_methods')]"),
             "раздел 'Зоны доставки' в футере");
-    Link deliveryAndPayment = new Link(By.xpath("//footer//a[contains(@href, '/delivery-okey')]"),
+    Link deliveryAndPayment = new Link(By.xpath("//footer//a[contains(@href, '/delivery-selgros')]"),
             "раздел 'Доставка и оплата' в футере'");
     Button paymentInfo = new Button(By.xpath("//footer//button[contains(@data-url, '/payment_methods')]"),
             "раздел 'Оплата' в футере");

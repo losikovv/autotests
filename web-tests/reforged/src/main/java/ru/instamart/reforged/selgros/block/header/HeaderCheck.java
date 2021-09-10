@@ -12,6 +12,16 @@ public interface HeaderCheck extends HeaderElement, Check {
         waitAction().shouldBeVisible(header);
     }
 
+    @Step("Проверяем что есть кнопка выбора варианта заказа 'Доставка'")
+    default void checkDeliveryButtonVisible() {
+        waitAction().shouldBeVisible(delivery);
+    }
+
+    @Step("Проверяем что есть кнопка выбора варианта заказа 'Самовывоз'")
+    default void checkPickupButtonVisible() {
+        waitAction().shouldBeVisible(pickup);
+    }
+
     @Step("Проверяем наличие лого магазина с редиректом на главную")
     default void checkShopLogoButtonVisible() {
         waitAction().shouldBeVisible(logo);
