@@ -86,21 +86,21 @@ public final class StaticPage {
         };
     }
 
-    @DataProvider(name = "metroAvailableRetailerPage", parallel = true)
+    @DataProvider(name = "metroAvailableRetailerPage")
     public static Object[][] getMetroAvailableRetailerPage() {
         return new Object[][] {
                 {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + metro().pageUrl()},
         };
     }
 
-    @DataProvider(name = "okeyAvailableRetailerPage", parallel = true)
+    @DataProvider(name = "okeyAvailableRetailerPage")
     public static Object[][] getOkeyAvailableRetailerPage() {
         return new Object[][] {
                 {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + okey().pageUrl()},
         };
     }
 
-    @DataProvider(name = "selgrosAvailableRetailerPage", parallel = true)
+    @DataProvider(name = "selgrosAvailableRetailerPage")
     public static Object[][] getSelgrosAvailableRetailerPage() {
         return new Object[][] {
                 {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgros().pageUrl()},
