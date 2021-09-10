@@ -10,6 +10,7 @@ import java.util.List;
 
 import static ru.instamart.reforged.metro.page.MetroRouter.*;
 import static ru.instamart.reforged.okey.page.OkeyRouter.*;
+import static ru.instamart.reforged.selgros.page.SelgrosRouter.*;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 public final class StaticPage {
@@ -55,6 +56,19 @@ public final class StaticPage {
         };
     }
 
+    @DataProvider(name = "selgrosFaqPage", parallel = true)
+    public static Object[][] getSelgrosFaqPage() {
+        return new Object[][] {
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosAbout().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosDelivery().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosRules().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosReturnPolicy().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosFaq().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosTerms().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosContacts().pageUrl()}
+        };
+    }
+
     @DataProvider(name = "servicePage", parallel = true)
     public static Object[][] getServicePage() {
         return new Object[][] {
@@ -72,17 +86,24 @@ public final class StaticPage {
         };
     }
 
-    @DataProvider(name = "metroAvailableRetailerPage", parallel = true)
+    @DataProvider(name = "metroAvailableRetailerPage")
     public static Object[][] getMetroAvailableRetailerPage() {
         return new Object[][] {
                 {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + metro().pageUrl()},
         };
     }
 
-    @DataProvider(name = "okeyAvailableRetailerPage", parallel = true)
+    @DataProvider(name = "okeyAvailableRetailerPage")
     public static Object[][] getOkeyAvailableRetailerPage() {
         return new Object[][] {
                 {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + okey().pageUrl()},
+        };
+    }
+
+    @DataProvider(name = "selgrosAvailableRetailerPage")
+    public static Object[][] getSelgrosAvailableRetailerPage() {
+        return new Object[][] {
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgros().pageUrl()},
         };
     }
 
