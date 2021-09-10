@@ -31,7 +31,7 @@ public final class ConfigEngine {
     public void loadConfig(final Class<?> configClass, String configName, String configDir) {
         var env = configClass.getAnnotation(Env.class);
         if (nonNull(env)) {
-            var envProperty = System.getProperty("env", "sbermarket-preprod");
+            var envProperty = System.getProperty("env", configName);
             var path = envProperty.split("-");
             if (path.length == 2) {
                 configDir += "/" + path[0];
