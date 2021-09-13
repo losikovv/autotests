@@ -77,4 +77,14 @@ public interface CheckoutCheck extends Check, CheckoutElement {
     default void checkPromoCodeApplied() {
         waitAction().shouldBeVisible(deletePromoCode);
     }
+
+    @Step("Проверяем, что промокод не применен")
+    default void checkPromoCodeNotApplied() {
+        waitAction().shouldNotBeVisible(deletePromoCode);
+    }
+
+    @Step("Проверяем, что промокод не применен")
+    default void checkAddPromoCodeVisible() {
+        waitAction().shouldBeVisible(addPromoCode);
+    }
 }

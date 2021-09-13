@@ -3,7 +3,7 @@ package ru.instamart.reforged.stf.page.checkout;
 import io.qameta.allure.Step;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
 import ru.instamart.reforged.stf.frame.checkout.subsections.*;
-import ru.instamart.reforged.stf.frame.checkout.subsections.promocode_modal.EditPromoСode;
+import ru.instamart.reforged.stf.frame.checkout.subsections.promocode_modal.EditPromoCode;
 import ru.instamart.reforged.stf.page.StfPage;
 import ru.instamart.reforged.stf.page.checkout.fifthStep.SlotStep;
 import ru.instamart.reforged.stf.page.checkout.fourthStep.PaymentStep;
@@ -41,7 +41,7 @@ public final class CheckoutPage implements StfPage, CheckoutCheck {
         return editPhoneNumberModal;
     }
 
-    public EditPromoСode interactEditPromoCodeModal() {
+    public EditPromoCode interactEditPromoCodeModal() {
         return editPromoCode;
     }
 
@@ -69,6 +69,11 @@ public final class CheckoutPage implements StfPage, CheckoutCheck {
     @Step("Нажать Применить промокод")
     public void clickToAddPromoCode() {
         addPromoCode.click();
+    }
+
+    @Step("Нажать Удалить промокод")
+    public void clickToDeletePromoCode() {
+        deletePromoCode.click();
     }
 
     @Step("Нажать Добавить карту лояльности {0}")
