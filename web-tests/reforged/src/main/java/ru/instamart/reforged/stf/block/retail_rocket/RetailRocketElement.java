@@ -8,7 +8,7 @@ public interface RetailRocketElement {
 
     Element carouselPopular = new Element(By.id("Carousel0"), "карусель на главной");
     ElementCollection itemsPopular = new ElementCollection(By.xpath("//div[@id='Carousel0']//a"), "все элементы в карусели 'Популярные товары'");
-    ElementCollection addItemButtonsPopular = new ElementCollection(By.xpath("//div[@id='Carousel1']//button[@title='Добавить в корзину']"),
+    ElementCollection addItemButtonsPopular = new ElementCollection(By.xpath("//div[@id='Carousel0']//button[@title='Добавить в корзину']"),
             "все кнопки 'Добавить в корзину' в карусели 'Популярные товары'");
 
     Element carousel = new Element(By.id("Carousel1"),"карусель виджета в корзине");
