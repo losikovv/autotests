@@ -4,7 +4,6 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.testdata.UserData;
@@ -20,6 +19,7 @@ public class CheckoutPromocodeTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
     private final UserData checkoutUser = UserManager.checkoutUser();
+    private final String promoCode = Promos.freeOrderDelivery().getCode();
 
     @CaseId(1727)
     @Story("Добавление промокода к заказу")
@@ -37,7 +37,7 @@ public class CheckoutPromocodeTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
         checkout().goToPage();
         checkout().clickToAddPromoCode();
-        checkout().interactEditPromoCodeModal().enterPromoCode(Promos.freeOrderDelivery().getCode());
+        checkout().interactEditPromoCodeModal().enterPromoCode(promoCode);
         checkout().interactEditPromoCodeModal().applyPromoCode();
         checkout().checkPromoCodeApplied();
     }
@@ -58,7 +58,7 @@ public class CheckoutPromocodeTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
         checkout().goToPage();
         checkout().clickToAddPromoCode();
-        checkout().interactEditPromoCodeModal().enterPromoCode(Promos.freeOrderDelivery().getCode());
+        checkout().interactEditPromoCodeModal().enterPromoCode(promoCode);
         checkout().interactEditPromoCodeModal().applyPromoCode();
         checkout().checkPromoCodeApplied();
         checkout().clickToDeletePromoCode();
@@ -82,7 +82,7 @@ public class CheckoutPromocodeTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
         checkout().goToPage();
         checkout().clickToAddPromoCode();
-        checkout().interactEditPromoCodeModal().enterPromoCode(Promos.freeOrderDelivery().getCode());
+        checkout().interactEditPromoCodeModal().enterPromoCode(promoCode);
         checkout().interactEditPromoCodeModal().cancelPromoCode();
         checkout().checkPromoCodeNotApplied();
         checkout().checkAddPromoCodeVisible();
@@ -104,7 +104,7 @@ public class CheckoutPromocodeTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
         checkout().goToPage();
         checkout().clickToAddPromoCode();
-        checkout().interactEditPromoCodeModal().enterPromoCode(Promos.freeOrderDelivery().getCode());
+        checkout().interactEditPromoCodeModal().enterPromoCode(promoCode);
         checkout().interactEditPromoCodeModal().close();
         checkout().checkPromoCodeNotApplied();
         checkout().checkAddPromoCodeVisible();
