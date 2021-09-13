@@ -4,9 +4,14 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
+import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
 import ru.instamart.reforged.stf.frame.Close;
 
 public final class ProductCard implements ProductCardCheck, Close {
+
+    public RetailRocket interactRetailRocket() {
+        return  retailRocket;
+    }
 
     @Step("Нажать купить")
     public void clickOnBuy() {
