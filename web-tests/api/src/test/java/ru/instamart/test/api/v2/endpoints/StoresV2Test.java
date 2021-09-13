@@ -15,6 +15,7 @@ import ru.instamart.api.response.v2.StoreV2Response;
 import ru.instamart.api.response.v2.StoresV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
@@ -81,11 +82,9 @@ public final class StoresV2Test extends RestBase {
     public void testGetStoresWithDefaultSid() {
         final Response response = StoresV2Request.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
-        StoreV2Response store = response.as(StoreV2Response.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(store.getStore().getId().intValue(), EnvironmentProperties.DEFAULT_SID, "Id магазина не совпадает");
-        softAssert.assertEquals(Integer.valueOf(store.getStore().getOperationalTimes().size()), Integer.valueOf(7), "Количество рабочих дней не равно 7");
-        softAssert.assertAll();
+        response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/api_v2/Store.json"));
+        assertEquals(response.as(StoreV2Response.class).getStore().getId().intValue(), EnvironmentProperties.DEFAULT_SID, "Id магазина не совпадает");
+
     }
 
     @CaseId(188)
