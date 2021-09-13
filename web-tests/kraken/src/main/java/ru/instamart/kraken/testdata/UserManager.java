@@ -256,12 +256,12 @@ public final class UserManager {
             testUser.setName(prefix + "-" + testUser.getName());
         }
 
-        log.info("Сгенерированы тестовые реквизиты для роли {}", role);
-        log.info("Телефон: {}", testUser.getPhone());
-        log.info("Email: {}", testUser.getEmail());
-        log.info("Пароль: {}", testUser.getPassword());
-        log.info("Имя: {}", testUser.getFirstName());
-        log.info("Фамилия: {}", testUser.getLastName());
+        log.debug("Сгенерированы тестовые реквизиты для роли {}", role);
+        log.debug("Телефон: {}", testUser.getPhone());
+        log.debug("Email: {}", testUser.getEmail());
+        log.debug("Пароль: {}", testUser.getPassword());
+        log.debug("Имя: {}", testUser.getFirstName());
+        log.debug("Фамилия: {}", testUser.getLastName());
 
         return testUser;
     }
@@ -300,13 +300,13 @@ public final class UserManager {
         final String userName = Generate.testUserName(role);
         final QaSessionResponse sessionResponse = QaService.INSTANCE.createSession(password);
 
-        log.info("Сгенерированы тестовые реквизиты для роли {}", role);
-        log.info("Телефон: {}", sessionResponse.getUser().getPhone());
-        log.info("Email: {}", sessionResponse.getUser().getEmail());
-        log.info("Anonymous id: {}", sessionResponse.getAnonymous().getValue());
-        log.info("Пароль: {}", password);
-        log.info("Сессия: {}", sessionResponse.getSession().getAccessToken());
-        log.info("ФИО: {}", userName);
+        log.debug("Сгенерированы тестовые реквизиты для роли {}", role);
+        log.debug("Телефон: {}", sessionResponse.getUser().getPhone());
+        log.debug("Email: {}", sessionResponse.getUser().getEmail());
+        log.debug("Anonymous id: {}", sessionResponse.getAnonymous().getValue());
+        log.debug("Пароль: {}", password);
+        log.debug("Сессия: {}", sessionResponse.getSession().getAccessToken());
+        log.debug("ФИО: {}", userName);
 
         return UserData.builder()
                 .role(role)
@@ -334,10 +334,10 @@ public final class UserManager {
         userGroups.setIdentityId(newUser.getAnonymousId());
         AbService.INSTANCE.changeUserGroup(userGroups);
 
-        log.info("================================");
-        log.info("Измененный Ab Test {}", abTestId);
-        log.info("Группа для Ab теста {}", abTestGroupId);
-        log.info("================================");
+        log.debug("================================");
+        log.debug("Измененный Ab Test {}", abTestId);
+        log.debug("Группа для Ab теста {}", abTestGroupId);
+        log.debug("================================");
 
         return newUser;
     }

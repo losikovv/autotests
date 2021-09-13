@@ -17,7 +17,7 @@ public class HelperBase {
             if (acceptNextAlert) {
                 alert.accept();
             } else alert.dismiss();
-            log.info("> handling alert [{}]", alertText);
+            log.debug("> handling alert [{}]", alertText);
         } finally {
             acceptNextAlert = true;
         }

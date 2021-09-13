@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
@@ -16,6 +17,7 @@ import ru.instamart.api.response.v2.PromotionLimitV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static org.testng.Assert.assertEquals;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
 
@@ -45,13 +47,15 @@ public final class PromotionLimitV2Test extends RestBase {
         final Response response = OrdersV2Request.PromotionLimit.GET(orderNumber);
         checkStatusCode200(response);
         final PromotionLimitV2Response promotionLimitV2Response = response.as(PromotionLimitV2Response.class);
-        assertEquals(promotionLimitV2Response.getPromotionLimits().get(0).getType(), "instacoins_value");
-        assertEquals(promotionLimitV2Response.getPromotionLimits().get(0).getMaxValue(), 0);
-        assertEquals(promotionLimitV2Response.getPromotionLimits().get(0).getStep(), 50);
-        assertEquals(promotionLimitV2Response.getPromotionLimits().get(0).getMaxPaymentPercentage(), 50.0D);
-        assertEquals(promotionLimitV2Response.getPromotionLimits().get(0).getMaxPaymentAmount(), 5000.0D);
-        assertEquals(promotionLimitV2Response.getPromotionLimits().get(0).getDescriptionHtml(), "<center><b>Оплата бонусами</b> не может превышать 50% от общей суммы заказа, и не более 5000&nbsp;₽</center>");
-        assertEquals(promotionLimitV2Response.getPromotionLimits().get(0).getAccountAmount(), 0.0D);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(promotionLimitV2Response.getPromotionLimits().get(0).getType(), "instacoins_value");
+        softAssert.assertEquals(promotionLimitV2Response.getPromotionLimits().get(0).getMaxValue(), 0);
+        softAssert.assertEquals(promotionLimitV2Response.getPromotionLimits().get(0).getStep(), 50);
+        softAssert.assertEquals(promotionLimitV2Response.getPromotionLimits().get(0).getMaxPaymentPercentage(), 50.0D);
+        softAssert.assertEquals(promotionLimitV2Response.getPromotionLimits().get(0).getMaxPaymentAmount(), 5000.0D);
+        softAssert.assertEquals(promotionLimitV2Response.getPromotionLimits().get(0).getDescriptionHtml(), "<center><b>Оплата бонусами</b> не может превышать 50% от общей суммы заказа, и не более 5000&nbsp;₽</center>");
+        softAssert.assertEquals(promotionLimitV2Response.getPromotionLimits().get(0).getAccountAmount(), 0.0D);
+        softAssert.assertAll();
     }
 
     @CaseId(310)
@@ -61,10 +65,6 @@ public final class PromotionLimitV2Test extends RestBase {
         String orderNumber = "test";
         final Response response = OrdersV2Request.PromotionLimit.GET(orderNumber);
         checkStatusCode404(response);
-        final ErrorResponse errorResponse = response.as(ErrorResponse.class);
-        assertEquals(errorResponse.getErrors().getBase(), "Заказ не существует");
-        assertEquals(errorResponse.getErrorMessages().get(0).getField(), "base");
-        assertEquals(errorResponse.getErrorMessages().get(0).getMessage(), "Заказ не существует");
-        assertEquals(errorResponse.getErrorMessages().get(0).getHumanMessage(), "Заказ не существует");
+        errorAssert(response,"Заказ не существует");
     }
 }

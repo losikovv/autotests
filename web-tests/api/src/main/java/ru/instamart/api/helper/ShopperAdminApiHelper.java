@@ -16,7 +16,7 @@ public class ShopperAdminApiHelper {
     public void deleteRouteScheduleIfExists(Integer sid, String date) {
         List<RouteScheduleV1> routeSchedules = getRouteSchedules(sid, date);
         if (!routeSchedules.isEmpty()) {
-            log.info("Удаляем расписание магазина на день");
+            log.debug("Удаляем расписание магазина на день");
             final int routeScheduleId = routeSchedules.get(0).getId();
             Response response = ShopperAdminRequest.RouteSchedules.DELETE(routeScheduleId);
             checkStatusCode200(response);
@@ -24,7 +24,7 @@ public class ShopperAdminApiHelper {
     }
 
     public List<RouteScheduleV1> getRouteSchedules(Integer sid, String date) {
-        log.info("Получаем расписание магазина на день");
+        log.debug("Получаем расписание магазина на день");
         Response response = ShopperAdminRequest.RouteSchedules.GET(sid, date);
         checkStatusCode200(response);
         return response.as(RouteSchedulesSHPResponse.class).getRouteSchedules();

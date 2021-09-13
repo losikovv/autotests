@@ -107,7 +107,7 @@ public interface HeaderCheck extends Check, HeaderElement {
     default void checkIsSetAddressEqualToInput(String defaultAddress, String currentAddress) {
 
         final String[] defaultAddressList = defaultAddress.split(", ");
-        log.info("> проверяем, что установленный адрес: '{}' совпадает с адресом на странице: '{}'",
+        log.debug("> проверяем, что установленный адрес: '{}' совпадает с адресом на странице: '{}'",
                 defaultAddress,
                 currentAddress);
         boolean checkState = false;
@@ -115,7 +115,7 @@ public interface HeaderCheck extends Check, HeaderElement {
             if (currentAddress.contains(check)) {
                 checkState = true;
             } else {
-                log.info("> в введенном адресе отсутсвует: {}", check);
+                log.debug("> в введенном адресе отсутсвует: {}", check);
                 checkState = false;
             }
             krakenAssert.assertEquals(
@@ -125,18 +125,18 @@ public interface HeaderCheck extends Check, HeaderElement {
                             + "\n> Ожидаемый элемент: " + check
             );
         }
-        log.info("✓ Успешно");
+        log.debug("✓ Успешно");
     }
 
     @Step("Проверяем, что установленный адрес:\"{0}\" не изменился")
     default void checkIsSetAddressNotEqualToInput(String defaultAddress, String currentAddress){
         final String[] defaultAddressList = defaultAddress.split(", ");
-        log.info("> проверяем, что адрес доставки не изменился: {}", defaultAddress);
+        log.debug("> проверяем, что адрес доставки не изменился: {}", defaultAddress);
         String checkState;
         for(final String check: defaultAddressList){
             if (currentAddress.contains(check)) checkState = "contains";
             else {
-                log.info("> в введенном адресе отсутсвует: {}", check);
+                log.debug("> в введенном адресе отсутсвует: {}", check);
                 checkState ="doesn't";
             }
             krakenAssert.assertNotEquals(
@@ -146,7 +146,7 @@ public interface HeaderCheck extends Check, HeaderElement {
                             +"\n> Ожидаемый элемент: " + check
             );
         }
-        log.info("✓ Успешно");
+        log.debug("✓ Успешно");
     }
 
     default void checkLoginIsVisible() {

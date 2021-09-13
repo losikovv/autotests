@@ -17,7 +17,7 @@ public final class ApiExecutionListener extends ExecutionListener {
     @Override
     public void onExecutionStart() {
         super.onExecutionStart();
-        log.info("Init rest specification");
+        log.debug("Init rest specification");
         Specification.INSTANCE.initSpec();
     }
 
@@ -25,7 +25,7 @@ public final class ApiExecutionListener extends ExecutionListener {
     public void onExecutionFinish() {
         super.onExecutionFinish();
         // Тут может быть код для очистки окружения после прогона тестов
-        log.info("We create {} new users", UserManager.getUserDataList().size());
-        log.info("We have {} open sessions", SessionFactory.getSessionMap().size());
+        log.debug("We create {} new users", UserManager.getUserDataList().size());
+        log.debug("We have {} open sessions", SessionFactory.getSessionMap().size());
     }
 }

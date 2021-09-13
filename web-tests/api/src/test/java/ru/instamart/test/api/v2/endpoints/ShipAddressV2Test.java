@@ -7,6 +7,7 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
@@ -69,7 +70,7 @@ public final class ShipAddressV2Test extends RestBase {
         final Response response = OrdersV2Request.ShipAddressChange.GET(apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
         final ShipAddressChangeV2 shipAddressChange = response.as(ShipAddressChangeV2.class);
-        assertNotNull(shipAddressChange);
+        assertNotNull(shipAddressChange, "Ответ вернулся пустым");
     }
 
     @CaseId(238)
@@ -107,9 +108,11 @@ public final class ShipAddressV2Test extends RestBase {
         final Response response = OrdersV2Request.ShipAddressChange.PUT(address, apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
         final ShipAddressChangeV2Response shipAddressChange = response.as(ShipAddressChangeV2Response.class);
-        assertNotNull(shipAddressChange);
-        assertEquals(address.getCity(), shipAddressChange.getShipAddressChange().getOrder().getAddress().getCity());
-        assertEquals(address.getStreet(), shipAddressChange.getShipAddressChange().getOrder().getAddress().getStreet());
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertNotNull(shipAddressChange, "Ответ вернулся пустым");
+        softAssert.assertEquals(address.getCity(), shipAddressChange.getShipAddressChange().getOrder().getAddress().getCity(), "city не рано задааному");
+        softAssert.assertEquals(address.getStreet(), shipAddressChange.getShipAddressChange().getOrder().getAddress().getStreet(), "street не равно задачному ");
+        softAssert.assertAll();
     }
 
     @CaseId(242)
@@ -162,15 +165,16 @@ public final class ShipAddressV2Test extends RestBase {
         checkStatusCode200(response);
 
         ShipAddressChangeV2Response shipAddressChange = response.as(ShipAddressChangeV2Response.class);
-        assertNotNull(shipAddressChange);
+        assertNotNull(shipAddressChange, "Ответ вернулся пустым");
 
         address.setId(shipAddressChange.getShipAddressChange().getOrder().getAddress().getId());
         address.setCity("Удмуртия");
         response = OrdersV2Request.ShipAddressChange.PUT(address, orderNumber);
         checkStatusCode200(response);
         shipAddressChange = response.as(ShipAddressChangeV2Response.class);
-        assertNotNull(shipAddressChange);
-
-        assertEquals(address.getCity(), shipAddressChange.getShipAddressChange().getOrder().getAddress().getCity());
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertNotNull(shipAddressChange, "Ответ вернулся пустым");
+        softAssert.assertEquals(address.getCity(), shipAddressChange.getShipAddressChange().getOrder().getAddress().getCity(), "city не равен заданному");
+        softAssert.assertAll();
     }
 }

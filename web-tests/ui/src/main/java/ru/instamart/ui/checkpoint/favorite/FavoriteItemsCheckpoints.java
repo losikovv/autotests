@@ -13,29 +13,29 @@ public interface FavoriteItemsCheckpoints extends Checkpoint {
 
     @Step("Проверяем переход в категорию любимых товаров")
     default void checkIsFavoriteOpen(){
-        log.info("> проверяем, что категория любимых товаров открыта");
+        log.debug("> проверяем, что категория любимых товаров открыта");
         assertTrue(
                 kraken.detect().isInFavorites(),
                 "Не работает переход в любимые товары по кнопке в шапке\n");
-        log.info("✓ Успешно");
+        log.debug("✓ Успешно");
     }
 
     @Step("Проверка что список избранного пуст")
     default void checkFavoriteIsEmpty(){
-        log.info("> проверяем, что категория любимых товаров пуста");
+        log.debug("> проверяем, что категория любимых товаров пуста");
         assertTrue(
                 kraken.detect().isFavoritesEmpty(),
                 "Дефолтный список любимых товаров у нового пользователя не пуст\n");
-        log.info("✓ Успешно");
+        log.debug("✓ Успешно");
     }
 
     @Step("Проверка что список избранного пуст")
     default void checkFavoriteIsNotEmpty(){
-        log.info("> проверяем, что категория любимых товаров не пуста");
+        log.debug("> проверяем, что категория любимых товаров не пуста");
         assertFalse(
                 kraken.detect().isFavoritesEmpty(),
                 "Не работает добавление любимого товара из карточки товара\n");
-        log.info("✓ Успешно");
+        log.debug("✓ Успешно");
     }
 
     @Step("Проверка фильтра {0} {1}")

@@ -43,9 +43,11 @@ public class PhonesV2Test extends RestBase {
         response = PhonesV2Request.GET();
         checkStatusCode200(response);
         PhonesV2Response phonesV2Response = response.as(PhonesV2Response.class);
-        assertFalse(phonesV2Response.getPhones().get(0).getCode().isEmpty(), "phone code is empty");
-        assertFalse(phonesV2Response.getPhones().get(0).getNumber().isEmpty(), "phone number is empty");
-        assertFalse(phonesV2Response.getPhones().get(0).getHumanNumber().isEmpty(), "phone human_number is empty");
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(phonesV2Response.getPhones().get(0).getCode().isEmpty(), "phone code is empty");
+        softAssert.assertFalse(phonesV2Response.getPhones().get(0).getNumber().isEmpty(), "phone number is empty");
+        softAssert.assertFalse(phonesV2Response.getPhones().get(0).getHumanNumber().isEmpty(), "phone human_number is empty");
+        softAssert.assertAll();
     }
 
     @CaseId(436)

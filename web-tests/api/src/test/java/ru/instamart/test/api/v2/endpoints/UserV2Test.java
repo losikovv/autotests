@@ -9,14 +9,16 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.api.factory.SessionFactory;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.UserV2;
 import ru.instamart.api.request.v2.UsersV2Request;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.UserDataV2Response;
 
+import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
@@ -42,10 +44,12 @@ public final class UserV2Test extends RestBase {
         );
         checkStatusCode200(response);
         final UserV2 user = response.as(UserDataV2Response.class).getUser();
-        Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
-        Assert.assertEquals(user.getFirstName(), "FirstName", "Некорректное имя");
-        Assert.assertEquals(user.getLastName(), "LastName", "Некорректная фамилия");
-        Assert.assertTrue(user.getPromoTermsAccepted(), "Некорректное значение promo");
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
+        softAssert.assertEquals(user.getFirstName(), "FirstName", "Некорректное имя");
+        softAssert.assertEquals(user.getLastName(), "LastName", "Некорректная фамилия");
+        softAssert.assertTrue(user.getPromoTermsAccepted(), "Некорректное значение promo");
+        softAssert.assertAll();
     }
 
     @CaseId(151)
@@ -62,10 +66,12 @@ public final class UserV2Test extends RestBase {
         );
         checkStatusCode200(response);
         final UserV2 user = response.as(UserDataV2Response.class).getUser();
-        Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
-        Assert.assertEquals(user.getFirstName(), "FirstName", "Некорректное имя");
-        Assert.assertEquals(user.getLastName(), "LastName", "Некорректная фамилия");
-        Assert.assertTrue(user.getPromoTermsAccepted(), "Некорректное значение promo");
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
+        softAssert.assertEquals(user.getFirstName(), "FirstName", "Некорректное имя");
+        softAssert.assertEquals(user.getLastName(), "LastName", "Некорректная фамилия");
+        softAssert.assertTrue(user.getPromoTermsAccepted(), "Некорректное значение promo");
+        softAssert.assertAll();
     }
 
     @Deprecated
@@ -85,9 +91,11 @@ public final class UserV2Test extends RestBase {
 
         checkStatusCode422(response);
         final ErrorResponse errorResponse = response.as(ErrorResponse.class);
-        Assert.assertEquals(errorResponse.getErrorMessages().get(0).getField(), "password", "Неверная ошибка");
-        Assert.assertEquals(errorResponse.getErrorMessages().get(0).getMessage(), "Пароль не должен совпадать с вашим старым паролем", "Неверный текст ошибки");
-        Assert.assertEquals(errorResponse.getErrorMessages().get(0).getHumanMessage(), "Пароль не должен совпадать с вашим старым паролем", "Неверный текст ошибки");
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(errorResponse.getErrorMessages().get(0).getField(), "password", "Неверная ошибка");
+        softAssert.assertEquals(errorResponse.getErrorMessages().get(0).getMessage(), "Пароль не должен совпадать с вашим старым паролем", "Неверный текст ошибки");
+        softAssert.assertEquals(errorResponse.getErrorMessages().get(0).getHumanMessage(), "Пароль не должен совпадать с вашим старым паролем", "Неверный текст ошибки");
+        softAssert.assertAll();
     }
 
     @CaseId(153)
@@ -123,7 +131,7 @@ public final class UserV2Test extends RestBase {
     }
 
     @CaseId(152)
-    @Test(groups ={"api-instamart-regress", "api-instamart-prod"})
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
     @Story("Изменение пароля")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePassword() {
@@ -136,7 +144,7 @@ public final class UserV2Test extends RestBase {
         );
         checkStatusCode200(response);
         final UserV2 user = response.as(UserDataV2Response.class).getUser();
-        Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
+        assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
     }
 
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
@@ -152,9 +160,11 @@ public final class UserV2Test extends RestBase {
         );
         checkStatusCode200(response);
         final UserV2 user = response.as(UserDataV2Response.class).getUser();
-        Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
-        Assert.assertEquals(user.getFirstName(), "FirstName", "Некорректное имя");
-        Assert.assertFalse(user.getPromoTermsAccepted(), "Некорректное значение promo");
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
+        softAssert.assertEquals(user.getFirstName(), "FirstName", "Некорректное имя");
+        softAssert.assertFalse(user.getPromoTermsAccepted(), "Некорректное значение promo");
+        softAssert.assertAll();
     }
 
     @Deprecated
@@ -201,8 +211,10 @@ public final class UserV2Test extends RestBase {
         );
         checkStatusCode200(response);
         final UserV2 user = response.as(UserDataV2Response.class).getUser();
-        Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
-        Assert.assertEquals(user.getFirstName(), "autotest-user", "Некорректное имя");
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
+        softAssert.assertEquals(user.getFirstName(), "autotest-user", "Некорректное имя");
+        softAssert.assertAll();
     }
 
     @CaseId(558)

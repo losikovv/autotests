@@ -39,13 +39,13 @@ public final class DropDown extends CollectionComponent {
     }
 
     public void selectFirst() {
-        log.info("Select first {} with locator {}", getDescription(), getBy());
+        log.debug("Select first {} with locator {}", getDescription(), getBy());
         final WebElement webElement = getComponents().stream().findFirst().orElseThrow();
         webElement.click();
     }
 
     public void selectAny() {
-        log.info("Select any {} with locator {}", getDescription(), getBy());
+        log.debug("Select any {} with locator {}", getDescription(), getBy());
         final WebElement webElement = getComponents().stream().findAny().orElseThrow();
         webElement.click();
     }
@@ -54,7 +54,7 @@ public final class DropDown extends CollectionComponent {
         for (final WebElement wb : getComponents()) {
             if (wb.getText().equals(text)) {
                 wb.click();
-                log.info("Select {} with locator {} and text {}", getDescription(), getBy(), text);
+                log.debug("Select {} with locator {} and text {}", getDescription(), getBy(), text);
                 break;
             }
         }
@@ -63,7 +63,7 @@ public final class DropDown extends CollectionComponent {
     public void containsText(final String text) {
         for (final WebElement wb : getComponents()) {
             if (wb.getText().contains(text)) {
-                log.info("Select {} with locator {} and contain text {}", getDescription(), getBy(), text);
+                log.debug("Select {} with locator {} and contain text {}", getDescription(), getBy(), text);
                 wb.click();
                 break;
             }
@@ -71,7 +71,7 @@ public final class DropDown extends CollectionComponent {
     }
 
     public void click() {
-        log.info("Click {} with locator {}", getDescription(), getBy());
+        log.debug("Click {} with locator {}", getDescription(), getBy());
         getComponent().click();
     }
 

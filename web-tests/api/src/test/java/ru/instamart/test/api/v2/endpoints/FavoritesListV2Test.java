@@ -49,7 +49,7 @@ public class FavoritesListV2Test extends RestBase {
         final Response response = FavoritesV2Request.POST(PRODUCT_ID);
         checkStatusCode200(response);
         final ItemV2 item = response.as(FavoritesItemV2Response.class).getItem();
-        assertNotNull(item);
+        assertNotNull(item, "Избранное вернуло пустое значение");
     }
 
     @CaseId(129)
@@ -65,7 +65,7 @@ public class FavoritesListV2Test extends RestBase {
         Response response = FavoritesV2Request.POST(PRODUCT_ID_2);
         checkStatusCode200(response);
         final ItemV2 item = response.as(FavoritesItemV2Response.class).getItem();
-        assertNotNull(item);
+        assertNotNull(item, "Избранное вернуло пустое значение" );
         response = FavoritesV2Request.DELETE(item.getId());
         checkStatusCode200(response);
     }

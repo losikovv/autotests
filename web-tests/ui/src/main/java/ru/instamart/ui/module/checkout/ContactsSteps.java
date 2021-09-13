@@ -21,7 +21,7 @@ public final class ContactsSteps extends Base {
 
     @Step("Шаг заполнения контактов")
     public static void fill(ContactsDetailsData contactsDetails) {
-        log.info("> заполняем поля с контактной информацией");
+        log.debug("> заполняем поля с контактной информацией");
         if (kraken.detect().isFieldEmpty(Elements.Checkout.ContactsStep.firstNameInputField())) {
             fillFirstName(contactsDetails.getFirstName());
         }
@@ -45,7 +45,7 @@ public final class ContactsSteps extends Base {
 
     @Step("Очищаем все поля контактов")
     public static void clear() {
-        log.info("Очищаем все доступные поля контактов, возвращаем настройки в дефолтное состояние и удаляем все добавленные телефоны");
+        log.debug("Очищаем все доступные поля контактов, возвращаем настройки в дефолтное состояние и удаляем все добавленные телефоны");
         fillFirstName("");
         fillLastName("");
         fillEmail("");
@@ -67,7 +67,7 @@ public final class ContactsSteps extends Base {
 
     @Step("Заполнение имени: {0}")
     public static void fillFirstName(String firstName) {
-        log.info("> имя: {}", firstName);
+        log.debug("> имя: {}", firstName);
         step("Заполнение имени: " +firstName, ()->
                 kraken.await().fluently(ExpectedConditions
                                 .elementToBeClickable(Elements.Checkout.ContactsStep.firstNameInputField().getLocator()),
@@ -77,26 +77,26 @@ public final class ContactsSteps extends Base {
 
     @Step("Заполнение фамилии: {0}")
     public static void fillLastName(String lastName) {
-        log.info("> фамилия: {}", lastName);
+        log.debug("> фамилия: {}", lastName);
         kraken.perform().fillFieldAction(Elements.Checkout.ContactsStep.lastNameInputField(), lastName);
     }
 
     @Step("Заполнение email'a: {0}")
     public static void fillEmail(String email) {
-        log.info("> email: {}", email);
+        log.debug("> email: {}", email);
         kraken.perform().fillFieldAction(Elements.Checkout.ContactsStep.emailInputField(), email);
     }
 
     @Step("Заполнение номера телефона: {0}")
     public static void fillPhone(String number) {
-        log.info("> телефон: {}", number);
+        log.debug("> телефон: {}", number);
         kraken.perform().fillField(Elements.Checkout.ContactsStep.phoneInputField(), number);
     }
 
     @Step("Заполнение чекбокса отправлять письма: {0}")
     public static void setSendEmails(boolean value) {
-        if(value) log.info("> отправлять письма с апдейтами по заказу: да");
-        else log.info("> отправлять письма с апдейтами по заказу: нет");
+        if(value) log.debug("> отправлять письма с апдейтами по заказу: да");
+        else log.debug("> отправлять письма с апдейтами по заказу: нет");
         kraken.perform().setCheckbox(Elements.Checkout.ContactsStep.sendEmailsCheckbox(), value);
     }
 }

@@ -47,24 +47,24 @@ public final class Checkbox extends Component {
 
     public void check() {
         if (getComponent().isSelected()) {
-            log.info("Checkbox {} with locator {} is checked before!", getDescription(), getBy());
+            log.debug("Checkbox {} with locator {} is checked before!", getDescription(), getBy());
         } else {
-            log.info("Check {} with locator {}", getDescription(), getBy());
+            log.debug("Check {} with locator {}", getDescription(), getBy());
             getComponent().click();
         }
     }
 
     public void uncheck() {
         if (!getComponent().isSelected()) {
-            log.info("Checkbox {} with locator {} is unchecked before!", getDescription(), getBy());
+            log.debug("Checkbox {} with locator {} is unchecked before!", getDescription(), getBy());
         } else {
-            log.info("Uncheck {} with locator {}", getDescription(), getBy());
+            log.debug("Uncheck {} with locator {}", getDescription(), getBy());
             getComponent().click();
         }
     }
 
     public Boolean checkboxState() {
-        log.info("Get {} state", getDescription());
+        log.debug("Get {} state", getDescription());
         return getComponent().isSelected();
     }
 }

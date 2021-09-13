@@ -25,7 +25,7 @@ public final class PerformHelper extends HelperBase {
 
     /** Кликнуть элемент предпочтительно использование именно этого метода*/
     public void click(ElementData element) {
-        log.info("Клик по: {}", element.getDescription());
+        log.debug("Клик по: {}", element.getDescription());
         try {
             kraken.await().shouldBeClickable(element).click();
         }
@@ -61,7 +61,7 @@ public final class PerformHelper extends HelperBase {
     /** Клик по элементу*/
     public void click(WebElement element){
         try {
-            log.info("Клик по: {}", element.toString().replaceAll("^[^->]*",""));
+            log.debug("Клик по: {}", element.toString().replaceAll("^[^->]*",""));
             kraken.await().fluently(ExpectedConditions.elementToBeClickable(element),
                     "элемент не кликабельный", WaitProperties.BASIC_TIMEOUT);
             element.click();
@@ -79,7 +79,7 @@ public final class PerformHelper extends HelperBase {
 
     /** Навестисть на элемент */
     public void hoverOn(ElementData element) {
-        log.info("Наводим курсор на элемент");
+        log.debug("Наводим курсор на элемент");
         try {
             new Actions(AppManager.getWebDriver()).moveToElement(AppManager.getWebDriver().findElement(element.getLocator())).perform();
 //            WaitingHelper.simply(1); // Ожидание для стабильности
@@ -94,7 +94,7 @@ public final class PerformHelper extends HelperBase {
     public void hoverAndClick(final ElementData element) {
         final Matcher matcher = LOCATOR.matcher(element.getLocator().toString());
         while (matcher.find()) {
-            log.info("Hover and click to element {}", element.getLocator());
+            log.debug("Hover and click to element {}", element.getLocator());
             JsHelper.hoverAndClick(matcher.group());
         }
     }
@@ -102,14 +102,14 @@ public final class PerformHelper extends HelperBase {
     public void scrollTo(final ElementData element) {
         final Matcher matcher = LOCATOR.matcher(element.getLocator().toString());
         while (matcher.find()) {
-            log.info("Scroll to element {}", element.getLocator());
+            log.debug("Scroll to element {}", element.getLocator());
             JsHelper.scrollToElement(matcher.group());
         }
     }
 
     /** Заполнить поле указанным текстом */
     public void fillField(final ElementData element, final String text) {
-        log.info("Заполняем поле: {}", element.getDescription());
+        log.debug("Заполняем поле: {}", element.getDescription());
         if (text == null) {
             log.error("> пустое значение для элемента: {}", element);
             Assert.assertNotNull("Пустое значение для заполнения поля", text);
@@ -254,7 +254,7 @@ public final class PerformHelper extends HelperBase {
         List<WebElement> elements = parent.findElements(tag);
         for(WebElement element:elements){
             if(element.getText().equals(text)){
-                log.info("> Элемент найден по тегу <{}> и тексту: {}", tag, text);
+                log.debug("> Элемент найден по тегу <{}> и тексту: {}", tag, text);
                 return element;
             }
         }
@@ -279,13 +279,13 @@ public final class PerformHelper extends HelperBase {
     }
 
     public void scrollToTheBottom(){
-        log.info("> прокручиваем страницу в самый низ");
+        log.debug("> прокручиваем страницу в самый низ");
         JavascriptExecutor jse = (JavascriptExecutor) AppManager.getWebDriver();
         jse.executeScript("scroll(0, 500)");
     }
 
     public void scrollToTheBottom(ElementData element){
-        log.info("> фокусируем страницу на элементе");
+        log.debug("> фокусируем страницу на элементе");
         kraken.await().fluently(ExpectedConditions.elementToBeClickable(element.getLocator()),
                 "элемент не доступен: "+element.getDescription(), WaitProperties.BASIC_TIMEOUT);
         JavascriptExecutor jse = (JavascriptExecutor) AppManager.getWebDriver();

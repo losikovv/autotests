@@ -44,7 +44,7 @@ public final class UserLogoutTests extends TestBase implements UsersAuthorizatio
     )
     public void successQuickLogout() {
         kraken.get().page(CoreProperties.DEFAULT_RETAILER);
-        log.info("Browser session id: {}", ((RemoteWebDriver) AppManager.getWebDriver()).getSessionId());
+        log.debug("Browser session id: {}", ((RemoteWebDriver) AppManager.getWebDriver()).getSessionId());
         Shop.AuthModal.openAuthRetailer();
         User.Do.registration(Generate.phoneNumber(),true);
         User.Do.sendSms(CoreProperties.DEFAULT_SMS);

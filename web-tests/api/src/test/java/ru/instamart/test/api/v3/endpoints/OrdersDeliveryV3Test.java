@@ -19,6 +19,8 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 public class OrdersDeliveryV3Test extends RestBase {
 
     OrderV3 orderGoods;
+    OrderV3 orderMetroMarketplace;
+
 
     @CaseId(858)
     @Story("Доставка")
@@ -57,7 +59,6 @@ public class OrdersDeliveryV3Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    OrderV3 orderMetroMarketplace;
 
     @CaseId(859)
     @Story("Доставка")

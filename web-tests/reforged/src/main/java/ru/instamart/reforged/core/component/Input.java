@@ -54,7 +54,7 @@ public final class Input extends Component {
         if (BrowserProperties.USE_JS_FILL) {
             jsFill(data);
         } else {
-            log.info("Fill {} with locator {} and data {}", getDescription(), getBy(), data);
+            log.debug("Fill {} with locator {} and data {}", getDescription(), getBy(), data);
             getComponent().sendKeys(data);
         }
     }
@@ -64,7 +64,7 @@ public final class Input extends Component {
      * @param data - текст который необходимо ввести
      */
     public void fillField(final String data) {
-        log.info("Fill with wait and check {} with locator {} and data {}", getDescription(), getBy(), data);
+        log.debug("Fill with wait and check {} with locator {} and data {}", getDescription(), getBy(), data);
         Kraken.waitAction().fillField(getComponent(), data);
     }
 
@@ -74,7 +74,7 @@ public final class Input extends Component {
      * @param data - текст необходимый для вставки
      */
     public void jsFill(final String data) {
-        log.info("JS Fill {} with locator {} and data {}", getDescription(), getBy(), data);
+        log.debug("JS Fill {} with locator {} and data {}", getDescription(), getBy(), data);
         Kraken.jsAction().setValue(getComponent(), data);
     }
 
@@ -84,23 +84,23 @@ public final class Input extends Component {
     public void jsClear() {
         final Matcher matcher = LOCATOR.matcher(getBy().toString());
         while (matcher.find()) {
-            log.info("Clear input field '{}' from js", getDescription());
+            log.debug("Clear input field '{}' from js", getDescription());
             Kraken.jsAction().clearField(matcher.group());
         }
     }
 
     public void click() {
-        log.info("Click into field {}", getDescription());
+        log.debug("Click into field {}", getDescription());
         getComponent().click();
     }
 
     public void clear() {
-        log.info("Clear input {} field", getDescription());
+        log.debug("Clear input {} field", getDescription());
         getComponent().clear();
     }
 
     public String getValue() {
-        log.info("Get value");
+        log.debug("Get value");
         return getComponent().getAttribute("value");
     }
 }

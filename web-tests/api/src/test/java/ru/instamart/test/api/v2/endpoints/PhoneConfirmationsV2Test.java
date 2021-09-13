@@ -17,7 +17,7 @@ import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.util.PhoneCrypt;
 
-import static org.junit.Assert.assertNotNull;
+import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode422;
@@ -48,7 +48,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
     public void putPhoneConfirmations() {
         Response response = PhoneConfirmationsV2Request.PUT(phoneNumber, CoreProperties.DEFAULT_SMS, true);
         checkStatusCode200(response);
-        assertNotNull(response.as(SessionsV2Response.class).getSession().getAccessToken());
+        assertNotNull(response.as(SessionsV2Response.class).getSession().getAccessToken(), "Токен пустой");
     }
 
     @CaseId(452)
@@ -67,7 +67,6 @@ public class PhoneConfirmationsV2Test extends RestBase {
             description = "Инициировать отправку кода подтверждения. Пользователь существует с указанным phone")
     public void postPhoneConfirmationsPhoneNotExist200() {
         Response response = PhoneConfirmationsV2Request.POST(PhoneCrypt.INSTANCE.encryptPhone(Generate.phoneNumber()));
-        response.prettyPeek();
         checkStatusCode200(response);
         PhoneTokenV2Response phoneToken = response.as(PhoneTokenV2Response.class);
         final SoftAssert softAssert = new SoftAssert();

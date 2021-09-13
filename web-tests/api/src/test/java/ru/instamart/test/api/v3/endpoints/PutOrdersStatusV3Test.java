@@ -59,7 +59,6 @@ public class PutOrdersStatusV3Test extends RestBase {
     public void cancelOrderPickupFromStore(ApiV3TestData testData) {
         order = apiV3.createOrderPickupFromStore(testData);
         Response response = OrderV3Request.Cancel.PUT(order.getId(),testData.getClientToken());
-        response.prettyPeek();
         checkStatusCode200(response);
     }
 }

@@ -48,7 +48,7 @@ public class ReviewableShipmentV2Test extends RestBase {
                 EnvironmentProperties.DEFAULT_SID);
 
         String shipmentNumber = order.getShipments().get(0).getNumber();
-        log.info("Доставка: " + shipmentNumber);
+        log.debug("Доставка: " + shipmentNumber);
         String[] command = {
                 START_COLLECTING.get(shipmentNumber),
                 ASSEMBLY_ITEMS_ORDER.get(shipmentNumber, "0"),

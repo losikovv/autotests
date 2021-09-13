@@ -18,7 +18,7 @@ import java.util.Map;
 @Slf4j
 public class AllureHelper {
 
-    public static void allureEnvironmentWriter(Map<String, String> environmentValuesSet)  {
+    public static void allureEnvironmentWriter(Map<String, String> environmentValuesSet) {
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -40,14 +40,14 @@ public class AllureHelper {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            File allureResultsDir = new File( System.getProperty("user.dir")
+            File allureResultsDir = new File(System.getProperty("user.dir")
                     + "/target/allure-results");
             if (!allureResultsDir.exists()) allureResultsDir.mkdirs();
             StreamResult result = new StreamResult(
-                    new File( System.getProperty("user.dir")
+                    new File(System.getProperty("user.dir")
                             + "/target/allure-results/environment.xml"));
             transformer.transform(source, result);
-            log.info("Allure environment data saved.");
+            log.debug("Allure environment data saved.");
         } catch (ParserConfigurationException pce) {
             log.error("[allureEnvironmentWriter] error while parsing={}", environmentValuesSet, pce);
         } catch (TransformerException tfe) {
@@ -56,7 +56,7 @@ public class AllureHelper {
     }
 
     public static void allureEnvironmentWriter(Map<String, String> environmentValuesSet,
-                                               String customResultsPath)  {
+                                               String customResultsPath) {
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -81,9 +81,9 @@ public class AllureHelper {
             File allureResultsDir = new File(customResultsPath);
             if (!allureResultsDir.exists()) allureResultsDir.mkdirs();
             StreamResult result = new StreamResult(
-                    new File( customResultsPath + "environment.xml"));
+                    new File(customResultsPath + "environment.xml"));
             transformer.transform(source, result);
-            log.info("Allure environment data saved.");
+            log.debug("Allure environment data saved.");
         } catch (ParserConfigurationException pce) {
             log.error("[allureEnvironmentWriter] error while parsing={}", environmentValuesSet, pce);
         } catch (TransformerException tfe) {

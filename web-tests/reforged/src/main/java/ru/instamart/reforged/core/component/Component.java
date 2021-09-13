@@ -67,7 +67,7 @@ public abstract class Component {
     protected abstract WebElement getComponent();
 
     public void mouseOver() {
-        log.info("Element {} '{}' hover", description, by);
+        log.debug("Element {} '{}' hover", description, by);
         actions.mouseOver();
     }
 
@@ -77,13 +77,13 @@ public abstract class Component {
     public void hoverAndClick() {
         final Matcher matcher = LOCATOR.matcher(by.toString());
         while (matcher.find()) {
-            log.info("Hover and click to element {} '{}'", description, by);
+            log.debug("Hover and click to element {} '{}'", description, by);
             Kraken.jsAction().hoverAndClick(matcher.group());
         }
     }
 
     public void jsClick() {
-        log.info("JS Click on {} with locator {} '{}'", getClass().getSimpleName(), description, by);
+        log.debug("JS Click on {} with locator {} '{}'", getClass().getSimpleName(), description, by);
         Kraken.jsAction().click(component);
     }
 
@@ -93,7 +93,7 @@ public abstract class Component {
     public void scrollTo() {
         final Matcher matcher = LOCATOR.matcher(by.toString());
         while (matcher.find()) {
-            log.info("Scroll to element {} '{}'", description, by);
+            log.debug("Scroll to element {} '{}'", description, by);
             Kraken.jsAction().scrollToElement(matcher.group());
         }
     }

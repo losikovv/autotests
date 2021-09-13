@@ -30,7 +30,7 @@ public final class Order extends Base {
     /** Оформить тестовый заказ */
     @Step("Оформляем тестовы заказ")
     public static void order() {
-        log.info("> оформляем тестовы заказ");
+        log.debug("> оформляем тестовы заказ");
         if (!kraken.detect().isShippingAddressSet()) {
             ShippingAddressModal.open();
             ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
@@ -43,7 +43,7 @@ public final class Order extends Base {
 
     @Step("Заполнение чекаута")
     public static void makeOrder(OrderDetailsData orderDetails) {
-        log.info("Заполнение чекаута");
+        log.debug("Заполнение чекаута");
         fillOrderDetails(orderDetails);
         if(orderDetails.getPromocode() != null) {
             PromocodeActions.add(orderDetails.getPromocode());}
@@ -61,7 +61,7 @@ public final class Order extends Base {
 
     @Step("Заполнение чекаута c оплатой картой")
     public static void makeOrderWithCreditCard(OrderDetailsData orderDetails, boolean reorder) {
-        log.info("Заполнение чекаута");
+        log.debug("Заполнение чекаута");
         fillOrderDetails(orderDetails);
         if(orderDetails.getPromocode() != null) {
             PromocodeActions.add(orderDetails.getPromocode());}
@@ -85,14 +85,14 @@ public final class Order extends Base {
     public static void fillOrderDetails(OrderDetailsData orderDetails) {
         Checkout.initCheckout();
         for (int position = 1; position <= 5; position++) {
-            log.info("Заполнение шага номер {}", position);
+            log.debug("Заполнение шага номер {}", position);
             AddressSteps.fillStep(position,orderDetails);
         }
     }
 
     @Step("Нажатие кнопки Оформление заказа в сайдбаре")
     public static void sendOrderFromSidebar() {
-        log.info("Отправляем заказ...");
+        log.debug("Отправляем заказ...");
         kraken.await().fluently(
                 ExpectedConditions.elementToBeClickable(
                         Elements.Checkout.SideBar.sendOrderButton().getLocator()),
@@ -102,13 +102,13 @@ public final class Order extends Base {
                 ExpectedConditions.invisibilityOfElementLocated(
                         Elements.Checkout.header().getLocator()),
                 "Превышено время ожидания отправки заказа\n");
-        log.info("✓ Заказ оформлен");
+        log.debug("✓ Заказ оформлен");
     }
 
     /** Повторить крайний заказ с экрана истории заказов */
     @Step("Повторяем крайний заказ с экрана истории заказов")
     public static void repeatLastOrder() {
-        log.info("Повторяем крайний заказ");
+        log.debug("Повторяем крайний заказ");
         kraken.get().page(Pages.UserProfile.shipments());
         if (kraken.detect().isOrdersHistoryEmpty()) {
             throw new AssertionError("Невозможно повторить заказ, у пользователя нет заказов в истории\n");
@@ -123,7 +123,7 @@ public final class Order extends Base {
     /** Повторить заказ с экрана деталей заказа */
     @Step("Повторяем заказ с экрана деталей заказа")
     public static void repeatOrder() {
-        log.info("Повторяем заказ");
+        log.debug("Повторяем заказ");
         kraken.perform().click(Elements.UserProfile.OrderDetailsPage.OrderSummary.repeatOrderButton());
         kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
                 Elements.UserProfile.OrderDetailsPage.RepeatOrderModal.yesButton().getLocator()));
@@ -136,7 +136,7 @@ public final class Order extends Base {
     /** Отменить крайний активный заказ */
     @Step("Отменяем крайний активный заказ")
     public static void cancelLastActiveOrder() {
-        log.info("> отменяем крайний активный заказ");
+        log.debug("> отменяем крайний активный заказ");
         if(kraken.detect().isElementPresent(Elements.UserProfile.OrderDetailsPage.OrderSummary.cancelOrderButton())){
             cancelOrder();
         }else{
@@ -153,7 +153,7 @@ public final class Order extends Base {
     /** Отменить заказ на странице деталей заказа */
     @Step("Отменяем заказ на странице деталей заказа")
     public static void cancelOrder() {
-        log.info("> отменяем заказ на странице деталей заказа");
+        log.debug("> отменяем заказ на странице деталей заказа");
         kraken.perform().click(Elements.UserProfile.OrderDetailsPage.OrderSummary.cancelOrderButton());
         ThreadUtil.simplyAwait(1); // Ожидание анимации открытия модалки отмены заказа
         kraken.perform().click(Elements.UserProfile.OrderDetailsPage.CancelOrderModal.yesButton());
@@ -161,6 +161,6 @@ public final class Order extends Base {
                 ExpectedConditions.presenceOfElementLocated(Elements.UserProfile.OrderDetailsPage.CancelOrderModal.popup().getLocator()),
                 "Не отменился заказ за допустимое время ожидания\n"
         );
-        log.info("✓ Заказ отменен");
+        log.debug("✓ Заказ отменен");
     }
 }

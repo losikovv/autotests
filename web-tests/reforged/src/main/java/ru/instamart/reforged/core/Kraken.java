@@ -18,7 +18,7 @@ public final class Kraken extends KrakenDriver {
     private static final WaitAction wait = new WaitAction();
 
     public static void open(final String url) {
-        log.info("Переход на страницу {}", url);
+        log.debug("Переход на страницу {}", url);
         getWebDriver().get(url);
     }
 

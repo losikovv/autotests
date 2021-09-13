@@ -229,7 +229,8 @@ public class OrdersV2Test extends RestBase {
     public void getLineItemCancellations200() {
         apiV2.order(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
         response = OrdersV2Request.LineItemCancellations.GET(apiV2.getCurrentOrderNumber());
-        assertTrue(response.as(LineItemCancellationsV2Response.class).getLineItemCancellations().isEmpty());
+        checkStatusCode200(response);
+        assertTrue(response.as(LineItemCancellationsV2Response.class).getLineItemCancellations().isEmpty(), "Невалидная ошибка");
 
     }
 
@@ -317,8 +318,6 @@ public class OrdersV2Test extends RestBase {
         softAssert.assertNotEquals(response.as(LineItemV2Response.class).getLineItem().getQuantity(), internalAmount, "Начальное количество не отличается от измененного");
         softAssert.assertEquals(response.as(LineItemV2Response.class).getLineItem().getQuantity().toString(), "100", "Начальное количество не отличается от измененного");
         softAssert.assertAll();
-
-
     }
 
     @CaseId(334)
@@ -443,10 +442,11 @@ public class OrdersV2Test extends RestBase {
         PaymentToolsV2Response paymentToolsV2Response = response.as(PaymentToolsV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
         paymentToolsV2Response.getPaymentTools().stream()
-                .forEach(value -> softAssert.assertNotNull(PaymentToolsV2.getIfKeyIsPresent(value.getType())));
+                .forEach(value -> softAssert.assertNotNull(PaymentToolsV2.getIfKeyIsPresent(value.getType()), "Способ оплаты пустой"));
         paymentToolsV2Response.getPaymentTools().stream()
-                .forEach(value -> softAssert.assertNotNull(PaymentToolsV2.getIfNameIsPresent(value.getName())));
+                .forEach(value -> softAssert.assertNotNull(PaymentToolsV2.getIfNameIsPresent(value.getName()), "Способ оплаты пустой"));
         softAssert.assertAll();
+
     }
 
     @CaseId(343)

@@ -7,6 +7,7 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
@@ -41,8 +42,8 @@ public class UserCompaniesV1Tests extends RestBase {
     public void getUserCompanies() {
         Response response = UserCompaniesV1Request.GET();
         checkStatusCode200(response);
-        assertFalse(response.as(CompaniesV1Response.class).getCompanies().isEmpty());
-        assertTrue(response.as(CompaniesV1Response.class).getCompanies().contains(company));
+        assertFalse(response.as(CompaniesV1Response.class).getCompanies().isEmpty(), "Список компаний пользователя пустой");
+        assertTrue(response.as(CompaniesV1Response.class).getCompanies().contains(company), "Наименование компании отличается от заданной");
     }
 
     @Story("Web")
@@ -62,7 +63,7 @@ public class UserCompaniesV1Tests extends RestBase {
     public void getCompanyWithoutManager(){
         Response response = UserCompaniesV1Request.Manager.GET(company.getId().toString());
         checkStatusCode200(response);
-        assertNull(response.as(CompanyManagerV1Response.class).getManager());
+        assertNull(response.as(CompanyManagerV1Response.class).getManager(), "manager вернулся не пустой");
     }
 
     @Story("Web")
@@ -72,7 +73,7 @@ public class UserCompaniesV1Tests extends RestBase {
     public void getCompanyEmployees() {
         Response response = UserCompaniesV1Request.Employees.GET(company.getId().toString());
         checkStatusCode200(response);
-        assertFalse(response.as(EmployeesV1Response.class).getEmployees().isEmpty());
+        assertFalse(response.as(EmployeesV1Response.class).getEmployees().isEmpty(), "Спаисок сотрудников компании вернулся пустым");
     }
 
     @Story("Web")
@@ -82,7 +83,7 @@ public class UserCompaniesV1Tests extends RestBase {
     public void getPaymentAccount() {
         Response response = UserCompaniesV1Request.PaymentAccount.GET(company.getId().toString());
         checkStatusCode200(response);
-        assertNull(response.as(PaymentAccountV1Response.class).getPaymentAccount());
+        assertNull(response.as(PaymentAccountV1Response.class).getPaymentAccount(), "payment_account not null");
     }
 
     @Story("Web")
@@ -92,7 +93,7 @@ public class UserCompaniesV1Tests extends RestBase {
     public void postRefreshPaymentAccountError() {
         Response response = UserCompaniesV1Request.PaymentAccount.POST(company.getId().toString());
         checkStatusCode422(response);
-        assertFalse(response.as(PaymentAccountV1Response.class).getPaymentAccount().getErrors().getExternalPaymentAccount().isEmpty());
+        assertFalse(response.as(PaymentAccountV1Response.class).getPaymentAccount().getErrors().getExternalPaymentAccount().isEmpty(), "Ошибка добавления баланса пустая");
     }
 
     @Story("Web")
@@ -102,7 +103,7 @@ public class UserCompaniesV1Tests extends RestBase {
     public void postCompanyRegistrationError(){
         Response response = UserCompaniesV1Request.POST(companyData);
         checkStatusCode422(response);
-        assertFalse(response.as(CompanyV1Response.class).getCompany().getErrors().getInn().isEmpty());
+        assertFalse(response.as(CompanyV1Response.class).getCompany().getErrors().getInn().isEmpty(), "Пустое сообщение при ошибке регистрации компании");
     }
 
     @Story("Web")
@@ -112,7 +113,9 @@ public class UserCompaniesV1Tests extends RestBase {
     public void getCompanyPresence() {
         Response response = CompanyPresenceV1Request.GET(company.getInn());
         checkStatusCode200(response);
-        assertEquals(response.as(CompanyV1Response.class).getCompany().getInn(), company.getInn());
-        assertEquals(response.as(CompanyV1Response.class).getCompany().getName(), company.getName());
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(response.as(CompanyV1Response.class).getCompany().getInn(), company.getInn(), "ИНН  регистрации компании отличается от заданного");
+        softAssert.assertEquals(response.as(CompanyV1Response.class).getCompany().getName(), company.getName(), "Наименование компании отличается от заданного");
+        softAssert.assertAll();
     }
 }

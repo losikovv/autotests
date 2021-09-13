@@ -6,9 +6,9 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.Test;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.BonusCardsV2Request;
 import ru.instamart.api.response.v2.BonusCardV2Response;
 import ru.instamart.api.response.v2.BonusCardsV2Response;
@@ -24,7 +24,7 @@ public final class BonusCardsV2Test extends RestBase {
     private int bonusCardId;
 
     @CaseId(374)
-    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Нет бонусных карт")
     public void testNoBonusCards() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
@@ -32,12 +32,12 @@ public final class BonusCardsV2Test extends RestBase {
         final Response response = BonusCardsV2Request.GET();
         checkStatusCode200(response);
         final BonusCardsV2Response bonusCardsV2Response = response.as(BonusCardsV2Response.class);
-        assertTrue(bonusCardsV2Response.getBonusCards().isEmpty());
+        assertTrue(bonusCardsV2Response.getBonusCards().isEmpty(), "bonus_cards вернулся не пустым");
     }
 
     @Deprecated
     @CaseId(375)
-    @Test(  groups = {},
+    @Test(groups = {},
             description = "Одна или несколько бонусных карт",
             dependsOnMethods = "testAddBonusCard200")
     public void testWithBonusCards() {
@@ -45,23 +45,23 @@ public final class BonusCardsV2Test extends RestBase {
         final Response response = BonusCardsV2Request.GET();
         checkStatusCode200(response);
         final BonusCardsV2Response bonusCardsV2Response = response.as(BonusCardsV2Response.class);
-        assertFalse(bonusCardsV2Response.getBonusCards().isEmpty());
+        assertFalse(bonusCardsV2Response.getBonusCards().isEmpty(), "bonus_cards вернулся пустой");
     }
 
     @CaseId(377)
-    @Test(  groups = {"api-instamart-smoke"},
+    @Test(groups = {"api-instamart-smoke"},
             description = "Добавление бонусной карты")
     public void testAddBonusCard200() {
         SessionFactory.createSessionToken(SessionType.API_V2_FB, UserManager.getDefaultUser());
         final Response response = BonusCardsV2Request.POST(3, bonusCardNumber);
         checkStatusCode200(response);
         final BonusCardV2Response bonusCardV2Response = response.as(BonusCardV2Response.class);
-        assertEquals(bonusCardV2Response.getBonusCard().getNumber(), bonusCardNumber);
+        assertEquals(bonusCardV2Response.getBonusCard().getNumber(), bonusCardNumber, "bonus_cards.number не равен введенному");
         bonusCardId = bonusCardV2Response.getBonusCard().getId();
     }
 
     @CaseId(378)
-    @Test(  groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Добавление некорректной бонусной карты")
     public void testAddBonusCard422WrongBonusCardNumber() {
         SessionFactory.createSessionToken(SessionType.API_V2_FB, UserManager.getDefaultUser());
@@ -71,7 +71,7 @@ public final class BonusCardsV2Test extends RestBase {
 
     @Deprecated
     @CaseId(379) //todo ждем фикса 500 ошибки
-    @Test(  groups = {},
+    @Test(groups = {},
             description = "Добавление бонусной карты несуществующей бонусной программы")
     public void testAddBonusCard422WrongBonusProgramId() {
         SessionFactory.createSessionToken(SessionType.API_V2_FB, UserManager.getDefaultUser());
@@ -81,7 +81,7 @@ public final class BonusCardsV2Test extends RestBase {
 
     @Deprecated
     @CaseId(384)
-    @Test(  groups = {},
+    @Test(groups = {},
             description = "Удаление бонусной карты",
             dependsOnMethods = "testWithBonusCards")
     public void testDeleteBonusCard200() {
@@ -89,11 +89,11 @@ public final class BonusCardsV2Test extends RestBase {
         final Response response = BonusCardsV2Request.DELETE(bonusCardId);
         checkStatusCode200(response);
         final BonusCardV2Response bonusCardV2Response = response.as(BonusCardV2Response.class);
-        assertEquals(bonusCardV2Response.getBonusCard().getNumber(), bonusCardNumber);
+        assertEquals(bonusCardV2Response.getBonusCard().getNumber(), bonusCardNumber, "bonus_cards.number не равен введенному");
     }
 
     @CaseId(385)
-    @Test(  groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Удаление несуществующей бонусной карты")
     public void testDeleteBonusCard404() {
         SessionFactory.createSessionToken(SessionType.API_V2_FB, UserManager.getDefaultUser());

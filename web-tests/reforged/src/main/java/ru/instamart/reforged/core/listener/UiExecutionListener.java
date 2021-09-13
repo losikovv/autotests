@@ -11,14 +11,14 @@ public final class UiExecutionListener extends ExecutionListener {
 
     public UiExecutionListener() {
         super();
-        log.info("Load UI config");
+        log.debug("Load UI config");
         ConfigManager.getInstance().loadConfig();
     }
 
     @Override
     public void onExecutionStart() {
         super.onExecutionStart();
-        log.info("Init rest specification");
+        log.debug("Init rest specification");
         Specification.INSTANCE.initSpec();
     }
 
@@ -26,6 +26,6 @@ public final class UiExecutionListener extends ExecutionListener {
     public void onExecutionFinish() {
         super.onExecutionFinish();
         // Тут может быть код для очистки окружения после прогона тестов
-        log.info("We create {} new users", UserManager.getUserDataList().size());
+        log.debug("We create {} new users", UserManager.getUserDataList().size());
     }
 }

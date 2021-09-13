@@ -43,7 +43,7 @@ public class PromotionsV2Test extends RestBase {
         final Response response = PromotionsV2Request.PromoProducts.GET(2707, EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
-        assertTrue(productsV2Response.getProducts().isEmpty());
+        assertTrue(productsV2Response.getProducts().isEmpty(), "Список продуктов вернулся не пустой");
     }
 
     @CaseId(293)

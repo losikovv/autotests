@@ -50,14 +50,14 @@ public final class Element extends Component {
         if (BrowserProperties.USE_JS_CLICK) {
             jsClick();
         } else {
-            log.info("Click {} with locator {}", getDescription(), getBy());
+            log.debug("Click {} with locator {}", getDescription(), getBy());
             getComponent().click();
         }
     }
 
     public String getText() {
         final String text = getComponent().getText();
-        log.info("Get text '{}' for {} with locator {}", text, getDescription(), getBy());
+        log.debug("Get text '{}' for {} with locator {}", text, getDescription(), getBy());
         return text;
     }
 }

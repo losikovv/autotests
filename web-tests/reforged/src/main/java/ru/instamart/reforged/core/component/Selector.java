@@ -49,17 +49,17 @@ public final class Selector extends Component {
     }
 
     public void selectByText(final String text) {
-        log.info("Select {} with locator {} and text {}", getDescription(), getBy(), text);
+        log.debug("Select {} with locator {} and text {}", getDescription(), getBy(), text);
         getSelect().selectByVisibleText(text);
     }
 
     public void selectByIndex(final int index) {
-        log.info("Select {} with locator {} and index {}", getDescription(), getBy(), index);
+        log.debug("Select {} with locator {} and index {}", getDescription(), getBy(), index);
         getSelect().selectByIndex(index);
     }
 
     private Select getSelect() {
-        log.info("Create Select with locator {}", getBy());
+        log.debug("Create Select with locator {}", getBy());
         if (isNull(component)) {
             select = new Select(getComponent());
         }

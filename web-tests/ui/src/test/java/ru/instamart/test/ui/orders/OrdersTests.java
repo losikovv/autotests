@@ -34,7 +34,7 @@ public class OrdersTests extends TestBase {
             description = "Тест заказа в METRO"
     )
     public void successOrderInCities(int param) {
-        log.info(">>> ТЕСТ С ПАРАМЕТРОМ {}", param);
+        log.debug(">>> ТЕСТ С ПАРАМЕТРОМ {}", param);
         kraken.apiV2().fillCart(UserManager.getDefaultAdmin(), RestAddresses.Moscow.defaultAddress());
 
         kraken.reach().checkout();

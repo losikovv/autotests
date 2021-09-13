@@ -12,7 +12,7 @@ abstract public class GrpcBase {
 
     @AfterClass(alwaysRun = true)
     public void channelShutdown() {
-        log.info("Shutdown channel: " + channel);
+        log.debug("Shutdown channel: " + channel);
         channel.shutdown();
     }
 }
