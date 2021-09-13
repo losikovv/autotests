@@ -16,7 +16,7 @@ public class EditPromoCode implements EditPromoCodeCheck {
 
     @Step("Нажать кнопку отмены промокода")
     public void cancelPromoCode() {
-        promoCodeApplyButton.click();
+        promoCodeCancelButton.click();
     }
 
     @Step("Нажать кнопку закрытия модального окна ввода промокода")
