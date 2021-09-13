@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.testdata.UserData;
@@ -21,6 +22,11 @@ public class CheckoutPromocodeTests extends BaseTest {
     private final UserData checkoutUser = UserManager.checkoutUser();
     private final String promoCode = Promos.freeOrderDelivery().getCode();
 
+    @BeforeClass(alwaysRun = true)
+    public void prepareForCheckout() {
+        helper.dropAndFillCart(checkoutUser, 1);
+    }
+
     @CaseId(1727)
     @Story("Добавление промокода к заказу")
     @Test(
@@ -28,11 +34,9 @@ public class CheckoutPromocodeTests extends BaseTest {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "sbermarket-Ui-smoke"}
     )
     public void successAddPromocode() {
-        helper.dropAndFillCart(checkoutUser, 1);
 
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().checkPhoneInputIsClickable();
         home().interactAuthModal().authViaPhone(checkoutUser);
         shop().interactHeader().checkProfileButtonVisible();
         checkout().goToPage();
@@ -40,6 +44,7 @@ public class CheckoutPromocodeTests extends BaseTest {
         checkout().interactEditPromoCodeModal().enterPromoCode(promoCode);
         checkout().interactEditPromoCodeModal().applyPromoCode();
         checkout().checkPromoCodeApplied();
+        checkout().clickToDeletePromoCode();
     }
 
     @CaseId(1208)
@@ -49,11 +54,9 @@ public class CheckoutPromocodeTests extends BaseTest {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "sbermarket-Ui-smoke"}
     )
     public void successDeletePromocode() {
-        helper.dropAndFillCart(checkoutUser, 1);
 
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().checkPhoneInputIsClickable();
         home().interactAuthModal().authViaPhone(checkoutUser);
         shop().interactHeader().checkProfileButtonVisible();
         checkout().goToPage();
@@ -73,11 +76,9 @@ public class CheckoutPromocodeTests extends BaseTest {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "sbermarket-Ui-smoke"}
     )
     public void noPromocodeAddedOnCancel() {
-        helper.dropAndFillCart(checkoutUser, 1);
 
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().checkPhoneInputIsClickable();
         home().interactAuthModal().authViaPhone(checkoutUser);
         shop().interactHeader().checkProfileButtonVisible();
         checkout().goToPage();
@@ -95,11 +96,9 @@ public class CheckoutPromocodeTests extends BaseTest {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "sbermarket-Ui-smoke"}
     )
     public void noPromocodeAddedOnModalClose() {
-        helper.dropAndFillCart(checkoutUser, 1);
 
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().checkPhoneInputIsClickable();
         home().interactAuthModal().authViaPhone(checkoutUser);
         shop().interactHeader().checkProfileButtonVisible();
         checkout().goToPage();
