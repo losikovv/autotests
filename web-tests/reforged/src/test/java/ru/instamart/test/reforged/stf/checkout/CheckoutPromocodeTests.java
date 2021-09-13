@@ -21,11 +21,6 @@ public class CheckoutPromocodeTests extends BaseTest {
     private final ApiHelper helper = new ApiHelper();
     private final UserData checkoutUser = UserManager.checkoutUser();
 
-    @BeforeClass(alwaysRun = true)
-    public void prepareForCheckout() {
-
-    }
-
     @CaseId(1727)
     @Story("Добавление промокода к заказу")
     @Test(
@@ -54,12 +49,21 @@ public class CheckoutPromocodeTests extends BaseTest {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "sbermarket-Ui-smoke"}
     )
     public void successDeletePromocode() {
-//        kraken.reach().checkout();
-//        if (!kraken.detect().isPromocodeApplied()) {
-//            PromocodeActions.add(Promos.freeOrderDelivery());
-//        }
-//        PromocodeActions.delete();
-//        promoChecks.checkIsPromoCodeNotApplied();
+        helper.dropAndFillCart(checkoutUser, 1);
+
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().checkPhoneInputIsClickable();
+        home().interactAuthModal().authViaPhone(checkoutUser);
+        shop().interactHeader().checkProfileButtonVisible();
+        checkout().goToPage();
+        checkout().clickToAddPromoCode();
+        checkout().interactEditPromoCodeModal().enterPromoCode(Promos.freeOrderDelivery().getCode());
+        checkout().interactEditPromoCodeModal().applyPromoCode();
+        checkout().checkPromoCodeApplied();
+        checkout().clickToDeletePromoCode();
+        checkout().checkPromoCodeNotApplied();
+        checkout().checkAddPromoCodeVisible();
     }
 
     @CaseId(1729)
@@ -69,16 +73,19 @@ public class CheckoutPromocodeTests extends BaseTest {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "sbermarket-Ui-smoke"}
     )
     public void noPromocodeAddedOnCancel() {
-//        kraken.reach().checkout();
-//
-//        if (kraken.detect().isPromocodeApplied()) {
-//            PromocodeActions.delete();
-//        }
-//
-//        PromocodeActions.Modal.open();
-//        PromocodeActions.Modal.fill(Promos.freeOrderDelivery().getCode());
-//        PromocodeActions.Modal.cancel();
-//        promoChecks.checkIsPromoCodeNotApplied();
+        helper.dropAndFillCart(checkoutUser, 1);
+
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().checkPhoneInputIsClickable();
+        home().interactAuthModal().authViaPhone(checkoutUser);
+        shop().interactHeader().checkProfileButtonVisible();
+        checkout().goToPage();
+        checkout().clickToAddPromoCode();
+        checkout().interactEditPromoCodeModal().enterPromoCode(Promos.freeOrderDelivery().getCode());
+        checkout().interactEditPromoCodeModal().cancelPromoCode();
+        checkout().checkPromoCodeNotApplied();
+        checkout().checkAddPromoCodeVisible();
     }
 
     @CaseId(1730)
@@ -88,14 +95,19 @@ public class CheckoutPromocodeTests extends BaseTest {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "sbermarket-Ui-smoke"}
     )
     public void noPromocodeAddedOnModalClose() {
-//        kraken.reach().checkout();
-//        if (kraken.detect().isPromocodeApplied()) {
-//            PromocodeActions.delete();
-//        }
-//        PromocodeActions.Modal.open();
-//        PromocodeActions.Modal.fill(Promos.freeOrderDelivery().getCode());
-//        PromocodeActions.Modal.close();
-//        promoChecks.checkIsPromoCodeNotApplied();
+        helper.dropAndFillCart(checkoutUser, 1);
+
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().checkPhoneInputIsClickable();
+        home().interactAuthModal().authViaPhone(checkoutUser);
+        shop().interactHeader().checkProfileButtonVisible();
+        checkout().goToPage();
+        checkout().clickToAddPromoCode();
+        checkout().interactEditPromoCodeModal().enterPromoCode(Promos.freeOrderDelivery().getCode());
+        checkout().interactEditPromoCodeModal().close();
+        checkout().checkPromoCodeNotApplied();
+        checkout().checkAddPromoCodeVisible();
     }
 }
 
