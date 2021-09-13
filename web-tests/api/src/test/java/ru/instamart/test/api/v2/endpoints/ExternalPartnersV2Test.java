@@ -31,7 +31,7 @@ public class ExternalPartnersV2Test extends RestBase {
         final Response response = ExternalPartnersV2Request.Banners.SberPrime.GET("");
         checkStatusCode400(response);
         final ErrorResponse errorResponse = response.as(ErrorResponse.class);
-        assertEquals(errorResponse.getErrors().getBase(), "Отсутствует обязательный параметр 'store_id'");
+        assertEquals(errorResponse.getErrors().getBase(), "Отсутствует обязательный параметр 'store_id'", "Невалидная ошибка");
     }
 
     @CaseId(269)

@@ -14,10 +14,10 @@ public final class ReachHelper extends HelperBase {
     private final AppManager kraken;
 
     public void checkout() {
-        log.info("Переход на страницу чекаута по ссылке");
+        log.debug("Переход на страницу чекаута по ссылке");
         kraken.get().checkoutPage();
         if(!kraken.detect().isOnCheckout()){
-            log.info("> не выполнился переход на страницу чекаута, недостаточная сумма заказа. Собираем корзину до минимальной суммы");
+            log.debug("> не выполнился переход на страницу чекаута, недостаточная сумма заказа. Собираем корзину до минимальной суммы");
             kraken.perform().refresh(); // Скипаем возможный алерт о минимальном заказе
             Shop.Cart.collectFirstTime();
             //Shop.Cart.collect();
@@ -25,7 +25,7 @@ public final class ReachHelper extends HelperBase {
         }
     }
     private void adminPageOpen(String path){
-        log.info("> пытаемся попасть на страницу {} админки...", path);
+        log.debug("> пытаемся попасть на страницу {} админки...", path);
         kraken.get().adminPage(path);
     }
 
@@ -39,7 +39,7 @@ public final class ReachHelper extends HelperBase {
 
     public void admin(String path) {
         adminPageOpen(path);
-        log.info("✓ Готово");
+        log.debug("✓ Готово");
     }
 
     public void admin(String email,String password,String role){

@@ -20,7 +20,7 @@ public final class RetailerCardsActions extends Base {
         if (kraken.detect().isRetailerCardAdded()) {
             deleteCard();
         }
-        log.info("> добавляем карту ритейлера \"{}\"", card.getName());
+        log.debug("> добавляем карту ритейлера \"{}\"", card.getName());
         kraken.perform().click(Elements.Checkout.RetailerCard.input());
         kraken.perform().fillField(Elements.Checkout.RetailerCard.Modal.inputField(),card.getCardNumber() + "\uE007");
         kraken.perform().click(Elements.Checkout.RetailerCard.Modal.saveButton());
@@ -29,7 +29,7 @@ public final class RetailerCardsActions extends Base {
 
     @Step("Удаляем карту ритейлера")
     public static void deleteCard() {
-        log.info("> удаляем карту ритейлера");
+        log.debug("> удаляем карту ритейлера");
         kraken.perform().click(Elements.Checkout.RetailerCard.input());
         kraken.perform().click(Elements.Checkout.RetailerCard.Modal.deleteButton());
 //        kraken.await().implicitly(1); // Ожидание удаления карты ритейлера в чекауте

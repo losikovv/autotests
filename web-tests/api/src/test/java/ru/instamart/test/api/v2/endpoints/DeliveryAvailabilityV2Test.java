@@ -37,7 +37,7 @@ public class DeliveryAvailabilityV2Test extends RestBase {
         final Response response = DeliveryAvailabilityV2Request.GET(lat, lon);
         checkStatusCode200(response);
         final DeliveryAvailabilityV2Response deliveryAvailabilityV2Response = response.as(DeliveryAvailabilityV2Response.class);
-        assertFalse(deliveryAvailabilityV2Response.getDeliveryAvailability().isAvailable());
+        assertFalse(deliveryAvailabilityV2Response.getDeliveryAvailability().isAvailable(), "Статус доставки вне зоны доставки available равна true");
     }
 
     @CaseId(202)
@@ -46,7 +46,7 @@ public class DeliveryAvailabilityV2Test extends RestBase {
         final Response response = DeliveryAvailabilityV2Request.GET("55.658228", "37.748818"); //55.658228, 37.748818
         checkStatusCode200(response);
         final DeliveryAvailabilityV2Response deliveryAvailabilityV2Response = response.as(DeliveryAvailabilityV2Response.class);
-        assertTrue(deliveryAvailabilityV2Response.getDeliveryAvailability().isAvailable());
+        assertTrue(deliveryAvailabilityV2Response.getDeliveryAvailability().isAvailable(), "Статус доставки в зоны доставки available равна false");
     }
 
 

@@ -87,7 +87,7 @@ public final class ConfigEngine {
                                 field.set(null, isCrypted ? Crypt.INSTANCE.decrypt(value) : value);
                                 break;
                             default:
-                                log.info("Unknown field type: " + field.getType().getSimpleName() + " field name: " + field.getName() + " config: " + configName + ".properties");
+                                log.debug("Unknown field type: " + field.getType().getSimpleName() + " field name: " + field.getName() + " config: " + configName + ".properties");
                                 break;
                         }
                     } catch (NumberFormatException e) {

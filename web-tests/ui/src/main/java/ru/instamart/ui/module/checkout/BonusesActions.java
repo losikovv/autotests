@@ -22,7 +22,7 @@ public final class BonusesActions extends Base {
      */
     @Step("Добавление бонусной программы")
     public static void add(LoyaltiesData bonus) {
-        log.info("> добавляем бонусную программу {}", bonus.getName());
+        log.debug("> добавляем бонусную программу {}", bonus.getName());
         kraken.perform().click(Elements.Checkout.Bonuses.Program.addButton(bonus.getName()));
         kraken.perform().fillField(Elements.Checkout.Bonuses.Modal.inputField(), bonus.getCardNumber());
         kraken.perform().click(Elements.Checkout.Bonuses.Modal.saveButton());
@@ -33,7 +33,7 @@ public final class BonusesActions extends Base {
     @Step("Редактируем бонусную программу")
     public static void edit(LoyaltiesData bonus) throws AssertionError {
         if (kraken.detect().isBonusAdded(bonus)) {
-            log.info("> редактируем бонусную программу {}", bonus.getName());
+            log.debug("> редактируем бонусную программу {}", bonus.getName());
             kraken.perform().click(Elements.Checkout.Bonuses.Program.addButton(bonus.getName()));
             kraken.perform().fillField(Elements.Checkout.Bonuses.Modal.inputField(), bonus.getCardNumber());
             kraken.perform().click(Elements.Checkout.Bonuses.Modal.saveButton());
@@ -46,7 +46,7 @@ public final class BonusesActions extends Base {
     @Step("Выбираем бонусную программу в списке добавленных: {0}")
     public static void select(LoyaltiesData bonus) throws AssertionError {
         if (kraken.detect().isBonusAdded(bonus)) {
-            log.info("> выбираем бонусную программу {}", bonus.getName());
+            log.debug("> выбираем бонусную программу {}", bonus.getName());
             kraken.perform().click(Elements.Checkout.Bonuses.Program.snippet(bonus.getName()));
 //            WaitingHelper.simply(1); // Ожидание вы б] о ра бонусной программы в чекауте
         } else {
@@ -57,7 +57,7 @@ public final class BonusesActions extends Base {
     @Step("Удаляем бонусную программу: {0}")
     public static void delete(LoyaltiesData bonus) throws AssertionError {
         if (kraken.detect().isBonusAdded(bonus)) {
-            log.info("> удаляем бонусную программу {}", bonus.getName());
+            log.debug("> удаляем бонусную программу {}", bonus.getName());
             kraken.perform().click(Elements.Checkout.Bonuses.Program.editButton(bonus.getName()));
             kraken.perform().click(Elements.Checkout.Bonuses.Modal.deleteButton());
 //            kraken.await().implicitly(1); // Ожидание удаления программы лояльности в чекауте
@@ -69,7 +69,7 @@ public final class BonusesActions extends Base {
 
     @Step("Удаляем все бонусные программы")
     public static void deleteAll() {
-        log.info("> удаляем все бонусные программы в чекауте");
+        log.debug("> удаляем все бонусные программы в чекауте");
         if (kraken.detect().isBonusAdded(BonusPrograms.mnogoru())) {
             delete(BonusPrograms.mnogoru());
         }
@@ -99,7 +99,7 @@ public final class BonusesActions extends Base {
             if (kraken.detect().isElementPresent(Elements.Checkout.Bonuses.Modal.popup())) {
                 kraken.perform().click(Elements.Checkout.Bonuses.Modal.closeButton());
             } else {
-                log.info("> пропускаем закрытие бонусной модалки, так как она не открыта");
+                log.debug("> пропускаем закрытие бонусной модалки, так как она не открыта");
             }
         }
     }

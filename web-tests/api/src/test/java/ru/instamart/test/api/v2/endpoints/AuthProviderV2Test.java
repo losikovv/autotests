@@ -32,7 +32,7 @@ public final class AuthProviderV2Test extends RestBase {
     public void postAuthProvidersSessions200(final AuthProviderV2 authProvider) {
         final Response response = AuthProvidersV2Request.Sessions.POST(authProvider);
         checkStatusCode200(response);
-        assertNotNull(response.as(SessionsV2Response.class).getSession());
+        assertNotNull(response.as(SessionsV2Response.class).getSession(), "session is NULL");
     }
 
     @CaseId(14)
@@ -41,7 +41,7 @@ public final class AuthProviderV2Test extends RestBase {
     public void postAuthProviderSessions200() {
         final Response response = AuthProvidersV2Request.Sessions.POST(AuthProviderV2.FACEBOOK);
         checkStatusCode200(response);
-        assertNotNull(response.as(SessionsV2Response.class).getSession());
+        assertNotNull(response.as(SessionsV2Response.class).getSession(), "session is NULL");
     }
 
     @CaseId(168)

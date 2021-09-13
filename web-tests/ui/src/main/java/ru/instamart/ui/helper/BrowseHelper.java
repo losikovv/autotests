@@ -15,14 +15,14 @@ public final class BrowseHelper extends HelperBase {
     @Step("Перейти на указанный URL: {0}")
     public void url(String url) {
         if (url.equals(EnvironmentProperties.Env.FULL_SITE_URL)) {
-            log.info("Переходим по базовому URL >>> {}", url);
+            log.debug("Переходим по базовому URL >>> {}", url);
         }
         try {
             AppManager.getWebDriver().get(url);
             AppManager.setCookie();
             AppManager.getWebDriver().navigate().refresh();
         } catch (TimeoutException t) {
-            log.info("Истекло время перехода по URL {}", url);
+            log.debug("Истекло время перехода по URL {}", url);
         }
     }
 
@@ -33,7 +33,7 @@ public final class BrowseHelper extends HelperBase {
 
     /** Перейти на страницу */
     public void page(String page) {
-        log.info("> переходим на страницу: {}{}", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH, page);
+        log.debug("> переходим на страницу: {}{}", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH, page);
         url(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + page);
     }
 

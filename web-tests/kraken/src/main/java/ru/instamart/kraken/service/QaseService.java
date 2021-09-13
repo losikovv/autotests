@@ -132,7 +132,7 @@ public final class QaseService {
                     testRunName + " [" + EnvironmentProperties.Env.ENV_NAME + "] " + getDateFromMSK(),
                     null,
                     DESCRIPTION_PREFIX + PIPELINE_URL);
-            log.info("Create Test run={} for project={}", runId, projectCode);
+            log.debug("Create Test run={} for project={}", runId, projectCode);
         } catch (Exception e) {
             log.error("FATAL: Create Test run failed with error ", e);
         }
@@ -229,7 +229,7 @@ public final class QaseService {
                 }));
                 try {
                     qaseApi.testRuns().delete(projectCode, testRun.getId());
-                    log.info("Delete old test run={} for project={}", testRun.getId(), testRun.getTitle());
+                    log.debug("Delete old test run={} for project={}", testRun.getId(), testRun.getTitle());
                 } catch (Exception e) {
                     log.warn("Delete old test failed run={} for project={}", testRun.getId(), testRun.getTitle());
                 }
@@ -250,26 +250,26 @@ public final class QaseService {
 
     public void completeTestRun() {
         if (!qase) return;
-        log.info("Complete test run={} for project={}", runId, projectCode);
+        log.debug("Complete test run={} for project={}", runId, projectCode);
         qaseApi.testRuns().completeTestRun(projectCode, runId);
     }
 
     public void actualizeAutomatedTestCases() {
-        log.info("Актуализация автоматизированных тест кейсов:");
+        log.debug("Актуализация автоматизированных тест кейсов:");
         try {
             List<TestCase> allTestCases = new ArrayList<>();
             int testCasesSize;
             int offset = 0;
             do {
                 try {
-                    log.info("Получаем {} страницу тест-кейсов", offset/100+1);
+                    log.debug("Получаем {} страницу тест-кейсов", offset/100+1);
                     List<TestCase> testCases = qaseApi
                             .testCases()
                             .getAll(projectCode, 100, offset)
                             .getTestCaseList();
                     allTestCases.addAll(testCases);
                     testCasesSize = testCases.size();
-                    log.info("Получили {} тест-кейсов", testCasesSize);
+                    log.debug("Получили {} тест-кейсов", testCasesSize);
                 } catch (QaseException qaseException) {
                     log.error("Something went wrong: " + qaseException);
                     testCasesSize = 0;
@@ -286,7 +286,7 @@ public final class QaseService {
                             .filter()
                             .caseId((int) testCase.getId())
                             .fromEndTime(LocalDateTime.now().minusDays(2));
-                    log.info("Получаем последние результаты прогонов теста " + testCase.getTitle());
+                    log.debug("Получаем последние результаты прогонов теста " + testCase.getTitle());
                     List<TestRunResult> testRunResults = qaseApi
                             .testRunResults()
                             .getAll(projectCode, 100, 0, filter)
@@ -301,11 +301,11 @@ public final class QaseService {
                         }
                     }
                     if (testCase.getAutomation() == 2 && !automated) {
-                        log.info("Указываем, что тест не автоматизирован");
+                        log.debug("Указываем, что тест не автоматизирован");
                         qaseApi.testCases().update(projectCode, (int) testCase.getId(), Automation.is_not_automated);
                         actualizedNumber++;
                     } else if (testCase.getAutomation() != 2 && automated) {
-                        log.info("Указываем, что тест автоматизирован");
+                        log.debug("Указываем, что тест автоматизирован");
                         qaseApi.testCases().update(projectCode, (int) testCase.getId(), Automation.automated);
                         actualizedNumber++;
                     }
@@ -313,9 +313,9 @@ public final class QaseService {
                     log.error("Something went wrong: " + qaseException);
                 }
             }
-            log.info("Всего тест кейсов: {}", allTestCases.size());
-            log.info("Всего автоматизировано: {}", automatedNumber);
-            log.info("Сейчас актуализировано: {}", actualizedNumber);
+            log.debug("Всего тест кейсов: {}", allTestCases.size());
+            log.debug("Всего автоматизировано: {}", automatedNumber);
+            log.debug("Сейчас актуализировано: {}", actualizedNumber);
         } catch (Exception e) {
             log.error("FATAL: something went wrong when try to actualize test cases", e);
         }

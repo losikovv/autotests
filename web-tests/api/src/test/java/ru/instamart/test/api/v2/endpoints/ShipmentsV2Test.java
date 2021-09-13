@@ -214,7 +214,7 @@ public class ShipmentsV2Test extends RestBase {
         });
         List<String> availableDays = shippingRatesV2Response.getMeta().getAvailableDays();
         IntStream.range(0, availableDays.size())
-                .forEach(index -> softAssert.assertEquals(availableDays.get(index), getDateFromMSK().plusDays(index).toString()));
+                .forEach(index -> softAssert.assertEquals(availableDays.get(index), getDateFromMSK().plusDays(index).toString(), "Невалидное значение"));
         softAssert.assertAll();
     }
 

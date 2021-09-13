@@ -47,7 +47,6 @@ public class GetOrderV3Test extends RestBase {
     public void getOrder(ApiV3TestData testData) {
         order = apiV3.createOrderDelivery(testData);
         Response response = OrderV3Request.GET(order.getId(), testData.getClientToken());
-        response.prettyPeek();
         checkStatusCode200(response);
     }
 
@@ -61,7 +60,6 @@ public class GetOrderV3Test extends RestBase {
     public void getOrderq(ApiV3TestData testData) {
         order = apiV3.createOrderPickupFromStore(testData);
         Response response = OrderV3Request.GET(order.getId(), testData.getClientToken());
-        response.prettyPeek();
         checkStatusCode200(response);
     }
 }

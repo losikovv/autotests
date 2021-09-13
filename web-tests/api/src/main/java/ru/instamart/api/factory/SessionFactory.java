@@ -64,7 +64,7 @@ public final class SessionFactory {
             final SessionId sessionId = session.getKey();
             return sessionId.getThreadId() == Thread.currentThread().getId() && sessionId.getType() == type;
         });
-        log.info("Current {} session is cleared", type);
+        log.debug("Current {} session is cleared", type);
     }
 
     public static SessionInfo getSession(final SessionType type) {
@@ -123,8 +123,8 @@ public final class SessionFactory {
     private static SessionInfo createApiV1Session(final UserData userData) {
         final Response response = UserSessionsV1Request.POST(userData.getEmail(), userData.getPassword());
         checkStatusCode200(response);
-        log.info("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
-        log.info("cookies: {}", response.getCookies());
+        log.debug("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
+        log.debug("cookies: {}", response.getCookies());
         return new SessionInfo(userData, response.getCookies());
     }
 
@@ -135,8 +135,8 @@ public final class SessionFactory {
         final Response response = PhoneConfirmationsV2Request.PUT(userData.getPhone());
         checkStatusCode200(response);
         final SessionsV2Response sessionResponse = response.as(SessionsV2Response.class);
-        log.info("Авторизуемся: {}", userData.getPhone());
-        log.info("access_token: {}", sessionResponse.getSession().getAccessToken());
+        log.debug("Авторизуемся: {}", userData.getPhone());
+        log.debug("access_token: {}", sessionResponse.getSession().getAccessToken());
         return new SessionInfo(userData, sessionResponse.getSession().getAccessToken());
     }
 
@@ -145,8 +145,8 @@ public final class SessionFactory {
         checkStatusCode200(response);
         ThreadUtil.simplyAwait(1);
         final SessionsV2Response sessionResponse = response.as(SessionsV2Response.class);
-        log.info("Авторизуемся: {}", userData.getEmail());
-        log.info("access_token: {}", sessionResponse.getSession().getAccessToken());
+        log.debug("Авторизуемся: {}", userData.getEmail());
+        log.debug("access_token: {}", sessionResponse.getSession().getAccessToken());
         return new SessionInfo(userData, sessionResponse.getSession().getAccessToken());
     }
 
@@ -155,9 +155,9 @@ public final class SessionFactory {
         ShopperApiCheckpoints.checkStatusCode200(response);
         final SessionsSHPResponse sessionsResponse = response.as(SessionsSHPResponse.class);
         final SessionSHP.Data.Attributes sessionAttributes = sessionsResponse.getData().getAttributes();
-        log.info("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
-        log.info("access_token: {}", sessionAttributes.getAccessToken());
-        log.info("refresh_token: {}", sessionAttributes.getRefreshToken());
+        log.debug("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
+        log.debug("access_token: {}", sessionAttributes.getAccessToken());
+        log.debug("refresh_token: {}", sessionAttributes.getRefreshToken());
         return new SessionInfo(userData, sessionAttributes.getAccessToken(), sessionAttributes.getRefreshToken());
     }
 
@@ -167,8 +167,8 @@ public final class SessionFactory {
         checkStatusCode200(response);
         final ShoppersBackendV1 shoppersBackend = response.as(TokensV1Response.class).getShoppersBackend();
         final String token = "token=" + shoppersBackend.getClientJwt() + ", id=" + shoppersBackend.getClientId();
-        log.info("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
-        log.info("token: {}", token);
+        log.debug("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
+        log.debug("token: {}", token);
         return new SessionInfo(userData, token);
     }
 
@@ -176,8 +176,8 @@ public final class SessionFactory {
         final Response response = AuthenticationDCRequest.Token.POST(userData);
         checkStatusCode200(response);
         final TokenDCResponse sessionResponse = response.as(TokenDCResponse.class);
-        log.info("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
-        log.info("token: {}", sessionResponse.getToken());
+        log.debug("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
+        log.debug("token: {}", sessionResponse.getToken());
         return new SessionInfo(userData, sessionResponse.getToken());
     }
 

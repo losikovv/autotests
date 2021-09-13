@@ -57,7 +57,7 @@ public final class TaxonsV2Test extends RestBase {
             description = "Получаем каждый таксон (подкатегорию) у каждого магазина")
     public void getTaxonsFromEachStore(StoreV2 store) {
         Set<Integer> taxonIds = apiV2.getTaxonIds(store.getId());
-        log.info("Taxon size {}", taxonIds.size());
+        log.debug("Taxon size {}", taxonIds.size());
         taxonIds.parallelStream().forEach(taxonId -> apiV2.getTaxon(taxonId, store.getId()));
     }
 

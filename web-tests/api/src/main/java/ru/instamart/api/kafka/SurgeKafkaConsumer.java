@@ -47,7 +47,7 @@ public class SurgeKafkaConsumer {
                 else continue;
             }
 
-            consumerRecords.forEach(record -> log.info("Consumer Record:({}, {}, {}, {})\n",
+            consumerRecords.forEach(record -> log.debug("Consumer Record:({}, {}, {}, {})\n",
                             record.key(),
                             record.value(),
                             record.partition(),
@@ -56,6 +56,6 @@ public class SurgeKafkaConsumer {
             consumer.commitAsync();
         }
         consumer.close();
-        log.info("DONE");
+        log.debug("DONE");
     }
 }

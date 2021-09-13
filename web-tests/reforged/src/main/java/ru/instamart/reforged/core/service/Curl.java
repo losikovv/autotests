@@ -19,13 +19,13 @@ public final class Curl {
 
     public static boolean pageAvailable(final String url) {
         final int code = getResponseCode(url);
-        log.info("Страница '{}' вернула код '{}'", url, code);
+        log.debug("Страница '{}' вернула код '{}'", url, code);
         return code == 200;
     }
 
     public static boolean pageUnavailable(final String url) {
         final int code = getResponseCode(url);
-        log.info("Страница '{}' вернула код '{}'", url, code);
+        log.debug("Страница '{}' вернула код '{}'", url, code);
         return code == 404;
     }
 

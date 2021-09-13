@@ -310,7 +310,7 @@ public class SelfCheckTests extends TestBase {
         // корзина пустая
         Assert.assertFalse(kraken.detect().isCartTotalDisplayed());
         Assert.assertNull(kraken.grab().cartTotal());
-        log.info("Сумма корзины = {}", kraken.grab().cartTotal());
+        log.debug("Сумма корзины = {}", kraken.grab().cartTotal());
 
         // корзина не пустая, но меньше суммы мин заказа
         Shop.Cart.close();
@@ -318,12 +318,12 @@ public class SelfCheckTests extends TestBase {
         Shop.Cart.collect(1);
         Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
         Assert.assertNotNull(kraken.grab().cartTotal());
-        log.info("Сумма корзины = {}", kraken.grab().cartTotal());
+        log.debug("Сумма корзины = {}", kraken.grab().cartTotal());
 
         // корзина не пустая, больше суммы мин заказа
         Shop.Cart.collectFirstTime();
         Assert.assertTrue(kraken.detect().isCartTotalDisplayed());
-        log.info("Сумма корзины = {}", kraken.grab().cartTotal());
+        log.debug("Сумма корзины = {}", kraken.grab().cartTotal());
     }
 
     @Test(description = "Тест корректности определения заглушки адреса вне зоны доставки",

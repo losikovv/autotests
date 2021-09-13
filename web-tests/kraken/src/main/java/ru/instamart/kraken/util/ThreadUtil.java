@@ -11,7 +11,7 @@ public class ThreadUtil {
 
     /** Просто задержка на указанное время */
     public static void simplyAwait(final double seconds) {
-        log.info("Задержка на {} сек.", seconds);
+        log.debug("Задержка на {} сек.", seconds);
         try {
             ALL_WAIT_TIME.add(seconds);
             Thread.sleep((long) (seconds * 1000));

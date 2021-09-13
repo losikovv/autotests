@@ -18,18 +18,14 @@ public class SetupInfoV3Test extends RestBase {
     @CaseId(670)
     @Test(groups = {"api-instamart-smoke"}, description = "Справка об интеграции")
     public void getSetupInfo() {
-
         Response response = SetupInfoV3Request.GET();
-        response.prettyPeek();
         checkStatusCode200(response);
     }
+
     @CaseId(671)
     @Test(groups = {"api-instamart-smoke"}, description = "Доступный магазины")
     public void getSetupInfoStores() {
-
         Response response = SetupInfoV3Request.Stores.GET();
-        response.prettyPeek();
         checkStatusCode200(response);
-
     }
 }

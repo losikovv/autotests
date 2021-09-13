@@ -3,8 +3,8 @@ package ru.instamart.ui.module;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.data.ElementData;
+import ru.instamart.ui.manager.AppManager;
 
 @Slf4j
 public class Base {
@@ -15,24 +15,26 @@ public class Base {
         Base.kraken = kraken;
     }
 
-    /** Обработать алерт в зависимости от настройки acceptNextAlert */
+    /**
+     * Обработать алерт в зависимости от настройки acceptNextAlert
+     */
     public static void handleAlertAcceptByDefault() {
         try {
-            log.info("> вызываем алерт");
+            log.debug("> вызываем алерт");
             AppManager.getWebDriver().switchTo().alert().accept();
-        }catch (Exception exception){
-            log.info("> аллерт убран");
+        } catch (Exception exception) {
+            log.debug("> аллерт убран");
         }
     }
 
     @Step("проверяем наличие рекламных банеров на странице")
-    public static void catchAndCloseAd(ElementData data, int timer){
+    public static void catchAndCloseAd(ElementData data, int timer) {
         if (kraken.await().fluentlyPossibleAppearance(
                 ExpectedConditions.elementToBeClickable(
                         data.getLocator()),
                 "\n> поп-ап с рекламой не появился",
                 timer)) {
-            log.info("> на странице обнаружен рекламный баннер");
+            log.debug("> на странице обнаружен рекламный баннер");
 //            JavascriptExecutor js;
 
 //            js = (JavascriptExecutor) kraken.getWebDriver();
@@ -45,6 +47,6 @@ public class Base {
                 }
             } while (kraken.detect().isPromoModalOpen(data));
         }
-        log.info("> все хорошо, на странице нет рекламных баннеров");
+        log.debug("> все хорошо, на странице нет рекламных баннеров");
     }
 }

@@ -19,12 +19,12 @@ public final class LoggingInterceptor implements Interceptor {
     public Response intercept(@NotNull Chain chain) throws IOException {
         final Request request = chain.request();
         final long t1 = System.nanoTime();
-        log.info(String.format("Sending request %s on %n%s%n%s",
+        log.debug(String.format("Sending request %s on %n%s%n%s",
                 request.url(), bodyToString(Objects.requireNonNull(request.body())), request.headers()));
 
         final Response response = chain.proceed(request);
         final long t2 = System.nanoTime();
-        log.info(String.format("Received response for %s in %.1fms%n%s",
+        log.debug(String.format("Received response for %s in %.1fms%n%s",
                 response.request().url(), (t2 - t1) / 1e6d, response.headers()));
 
         return response;

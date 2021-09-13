@@ -29,7 +29,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
     }
 
     @CaseId(74)
-    @Test(  description = "Список сотрудников без авторизации",
+    @Test(description = "Список сотрудников без авторизации",
             groups = {"api-shopper-regress"})
     public void getShoppers401() {
         Response response = ShopperAdminRequest.Shoppers.GET();
@@ -37,7 +37,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
     }
 
     @CaseId(75)
-    @Test(  description = "Список магазинов без авторизации",
+    @Test(description = "Список магазинов без авторизации",
             groups = {"api-shopper-regress"})
     public void getStores401() {
         Response response = ShopperAdminRequest.Stores.GET();
@@ -45,7 +45,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
     }
 
     @CaseId(76)
-    @Test(  description = "Список маршрутов без авторизации",
+    @Test(description = "Список маршрутов без авторизации",
             groups = {"api-shopper-regress"})
     public void getRouteSchedules401() {
         Response response = ShopperAdminRequest.RouteSchedules.GET();
@@ -53,7 +53,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
     }
 
     @CaseId(77)
-    @Test(  description = "Список операционных зон без авторизации",
+    @Test(description = "Список операционных зон без авторизации",
             groups = {"api-shopper-regress"})
     public void getOperationalZones401() {
         Response response = ShopperAdminRequest.OperationalZones.GET();
@@ -61,7 +61,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
     }
 
     @CaseId(78)
-    @Test(  description = "Список ретейлеров без авторизации",
+    @Test(description = "Список ретейлеров без авторизации",
             groups = {"api-shopper-regress"})
     public void getRetailers401() {
         Response response = ShopperAdminRequest.Retailers.GET();
@@ -69,7 +69,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
     }
 
     @CaseId(79)
-    @Test(  description = "Список доставок без авторизации",
+    @Test(description = "Список доставок без авторизации",
             groups = {"api-shopper-regress"})
     public void getShipments401() {
         Response response = ShopperAdminRequest.Shipments.GET(sid, yesterday);
@@ -77,7 +77,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
     }
 
     @CaseId(80)
-    @Test(  description = "Список смен без авторизации",
+    @Test(description = "Список смен без авторизации",
             groups = {"api-shopper-regress"})
     public void getShifts401() {
         Response response = ShopperAdminRequest.Shifts.GET();
@@ -85,7 +85,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
     }
 
     @CaseId(82)
-    @Test(  description = "Список тарифов без авторизации",
+    @Test(description = "Список тарифов без авторизации",
             groups = {"api-shopper-regress"})
     public void getTariffs401() {
         Response response = ShopperAdminRequest.Tariffs.GET();
@@ -93,7 +93,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
     }
 
     @CaseId(81)
-    @Test(  description = "Маршрут без авторизации",
+    @Test(description = "Маршрут без авторизации",
             groups = {"api-shopper-regress"})
     public void getRoute401() {
         Response response = ShopperAdminRequest.Routes.GET(routeId);
@@ -101,7 +101,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
     }
 
     @CaseId(83)
-    @Test(  description = "Изменение расписания без авторизации",
+    @Test(description = "Изменение расписания без авторизации",
             groups = {"api-shopper-regress"})
     public void patchRouteSchedule401() {
         Response response = ShopperAdminRequest.RouteSchedules.PATCH(routeScheduleId, "enabled");

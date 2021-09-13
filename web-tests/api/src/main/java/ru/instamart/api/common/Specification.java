@@ -42,7 +42,7 @@ public enum Specification {
 
         final boolean sslValidation = Boolean.parseBoolean(System.getProperty("ssl", "true"));
         if (!sslValidation) {
-            log.info("Enable SSL ignore");
+            log.debug("Enable SSL ignore");
             useRelaxedHTTPSValidation();
         }
 
@@ -51,7 +51,7 @@ public enum Specification {
         final int proxyTimeout = Integer.parseInt(System.getProperty("proxy_timeout", "5000"));
 
         if (nonNull(proxyIp) && addressReachable(proxyIp, proxyPort, proxyTimeout)) {
-            log.info("Setup proxy with url {}:{}", proxyIp, proxyPort);
+            log.debug("Setup proxy with url {}:{}", proxyIp, proxyPort);
             proxy = host(proxyIp).withPort(proxyPort);
         }
 

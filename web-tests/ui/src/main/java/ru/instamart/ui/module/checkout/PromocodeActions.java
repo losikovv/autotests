@@ -19,48 +19,48 @@ public final class PromocodeActions extends Base {
 
     @Step("Применяем промокод по акции")
     public static void add(PromoData promo) {
-        log.info("> акция {}", promo.getDescription());
+        log.debug("> акция {}", promo.getDescription());
         add(promo.getCode());
     }
 
     @Step("Применить промокод: {0}")
     public static void add(String promocode) {
 //        if (kraken.detect().isPromocodeApplied()) {
-//            log.info("> уже есть применённый промокод, поэтому сначала удаляем его... ");
+//            log.debug("> уже есть применённый промокод, поэтому сначала удаляем его... ");
 //            delete();
 //        }
-        log.info("> применяем промокод '{}'...", promocode);
+        log.debug("> применяем промокод '{}'...", promocode);
         PromocodeActions.Modal.open();
         PromocodeActions.Modal.fill(promocode);
         PromocodeActions.Modal.submit();
         kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
                 Elements.Checkout.Promocode.deleteButton().getLocator()),
                 "Промокод не удаляется", WaitProperties.BASIC_TIMEOUT);
-        log.info("> промокод успешно добавлен к заказу", promocode);
+        log.debug("> промокод успешно добавлен к заказу", promocode);
     }
 
     /** Удалить промокод */
     @Step("Удаляем промокод")
     public static void delete() throws AssertionError {
-        log.info("> удаляем промокод...");
+        log.debug("> удаляем промокод...");
         kraken.perform().click(Elements.Checkout.Promocode.deleteButton());
         kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(
                 Elements.Checkout.Promocode.deleteButton().getLocator()),
                 "Промокод не удаляется",WaitProperties.BASIC_TIMEOUT);
-        log.info("> промокод успешно удален");
+        log.debug("> промокод успешно удален");
     }
 
     public static class Modal {
 
         @Step("Открываем модалку с промокадами")
         public static void open() {
-            log.info("> открываем модалку с промокодами");
+            log.debug("> открываем модалку с промокодами");
             kraken.perform().click(Elements.Checkout.Promocode.addButton());
         }
 
         @Step("Заполняем модалку с промокадами")
         public static void fill(String promocode) {
-            log.info("> заполняем модалку с промокодами");
+            log.debug("> заполняем модалку с промокодами");
             kraken.await().fluently(
                     ExpectedConditions.visibilityOfElementLocated(
                             Elements.Checkout.Promocode.Modal.popup().getLocator()),
@@ -70,23 +70,23 @@ public final class PromocodeActions extends Base {
 
         @Step("Нажимаем добавить промокод")
         public static void submit() {
-            log.info("> нажимаем добавить промокод");
+            log.debug("> нажимаем добавить промокод");
             kraken.perform().click(Elements.Checkout.Promocode.Modal.submitButton());
         }
 
         @Step("Нажимаем кнопку Отмена")
         public static void cancel() {
-            log.info("> отменяем добавление промокода");
+            log.debug("> отменяем добавление промокода");
             kraken.perform().click(Elements.Checkout.Promocode.Modal.cancelButton());
             kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(
                     Elements.Checkout.Promocode.Modal.cancelButton().getLocator()),
                     "кнопка Отмена не нажимается",WaitProperties.BASIC_TIMEOUT);
-            log.info("> Ввод промокода отменен");
+            log.debug("> Ввод промокода отменен");
         }
 
         @Step("Закрываем модалку добавления промокода")
         public static void close() {
-            log.info("> закрываем модалку добавления промокода");
+            log.debug("> закрываем модалку добавления промокода");
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
                     Elements.Checkout.Promocode.Modal.popup().getLocator()),
                     "попап с промокодом не открывается",WaitProperties.BASIC_TIMEOUT);
@@ -94,7 +94,7 @@ public final class PromocodeActions extends Base {
             kraken.await().fluently(ExpectedConditions.invisibilityOfElementLocated(
                     Elements.Checkout.Promocode.Modal.popup().getLocator()),
                     "попап с промокодом не закрывается",WaitProperties.BASIC_TIMEOUT);
-            log.info("> модалку добавления промокода закрыта");
+            log.debug("> модалку добавления промокода закрыта");
         }
     }
 }

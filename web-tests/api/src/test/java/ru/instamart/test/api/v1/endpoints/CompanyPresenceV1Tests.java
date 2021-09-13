@@ -34,7 +34,7 @@ public class CompanyPresenceV1Tests extends RestBase {
 
         Response response = CompanyPresenceV1Request.GET("123456789");
         checkStatusCode404(response);
-        assertEquals("Объект не найден", response.as(ErrorResponse.class).getError());
+        assertEquals("Объект не найден", response.as(ErrorResponse.class).getError(), "Невалидная ошибка");
     }
 }
 

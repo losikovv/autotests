@@ -34,7 +34,7 @@ public class ZoneE2ETests extends RestBase {
     public void firstOrderByZone(StoreV2 store, String zoneName, ZoneV2 coordinates) {
         apiV2.skipTestIfOnlyPickupIsAvailable(store, zoneName);
 
-        log.info("Оформляем заказ в {} zone={} coordinates={}", store, zoneName, coordinates);
+        log.debug("Оформляем заказ в {} zone={} coordinates={}", store, zoneName, coordinates);
 
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);
@@ -46,7 +46,7 @@ public class ZoneE2ETests extends RestBase {
     @AfterMethod(description = "Отмена активных заказов",
                  alwaysRun = true)
     public void cancelActiveOrders() {
-        log.info("Отменяем активные заказы");
+        log.debug("Отменяем активные заказы");
         apiV2.cancelActiveOrders();
     }
 }

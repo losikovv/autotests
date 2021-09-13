@@ -18,10 +18,10 @@ public class OrdersCheckpoints extends BaseUICheckpoints {
     /** Проверка скачивания документации на странице деталей заказа */
     @Step("Проверка скачивания документации на странице деталей заказа")
     public void checkOrderDocumentsAreDownloadable() {
-        log.info("> проверка скачивания документации на странице деталей заказа");
+        log.debug("> проверка скачивания документации на странице деталей заказа");
         String paymentType = kraken.grab().shipmentPayment();
         orderDocuments(paymentType);
-        log.info("✓ Успешно");
+        log.debug("✓ Успешно");
     }
 
     private void orderDocuments(String paymentType) {
@@ -45,7 +45,7 @@ public class OrdersCheckpoints extends BaseUICheckpoints {
     @Step("Проверяем, что документ с заказом может быть загружен")
     public void checkOrderDocumentIsDownloadable(String docname) {
         ElementData docLink = Elements.UserProfile.OrderDetailsPage.document(docname);
-        log.info("> скачиваем: {}", docname);
+        log.debug("> скачиваем: {}", docname);
         if (kraken.detect().isElementPresent(docLink)) {
             kraken.perform().click(docLink);
         } else
@@ -55,14 +55,14 @@ public class OrdersCheckpoints extends BaseUICheckpoints {
 
     @Step("Проверка успешного создания заказа")
     public void checkOrderSuccessCreation(){
-        log.info("> проверка успешного создания заказа");
+        log.debug("> проверка успешного создания заказа");
         Assert.assertTrue(kraken.detect().isOrderPlaced(),
                 "Не удалось оформить заказ\n");
     }
 
     @Step("Проверка метода оплаты")
     public void checkPaymentMethod(PaymentTypeData PaymentType){
-        log.info("> проверка корректного метода оплаты");
+        log.debug("> проверка корректного метода оплаты");
         Assert.assertEquals(
                 kraken.grab().shipmentPayment(),
                 PaymentType.getDescription(),

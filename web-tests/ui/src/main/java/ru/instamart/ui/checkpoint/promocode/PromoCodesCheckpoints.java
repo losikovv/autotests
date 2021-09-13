@@ -13,20 +13,20 @@ public class PromoCodesCheckpoints implements Checkpoint {
 
     @Step("Проверяем, что промокод применился")
     public void checkIsPromoCodeApplied(){
-        log.info("> проверяем, что промокод применился в чекауте");
+        log.debug("> проверяем, что промокод применился в чекауте");
         assertTrue(
                 kraken.detect().isPromocodeApplied(),
                 failMessage("Не применяется промокод в чекауте\n"));
-        log.info("✓ Успешно");
+        log.debug("✓ Успешно");
     }
 
     @Step("Проверяем, что промокод удалился")
     public void checkIsPromoCodeNotApplied(){
-        log.info("> проверяем, что промокод удалился");
+        log.debug("> проверяем, что промокод удалился");
         assertFalse(
                 kraken.detect().isPromocodeApplied(),
                 failMessage("Промокод присутствует в заказе, но должен быть удален\n"));
-        log.info("✓ Успешно");
+        log.debug("✓ Успешно");
     }
 
 }

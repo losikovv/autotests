@@ -126,7 +126,7 @@ public final class RegistrationV2Test extends RestBase {
 
         checkStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getErrorMessages().get(0).getHumanMessage(),
-                "Неверный формат email");
+                "Неверный формат email", "Невалидная ошибка");
     }
 
     @CaseId(143)
@@ -140,7 +140,7 @@ public final class RegistrationV2Test extends RestBase {
 
         checkStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getErrorMessages().get(0).getHumanMessage(),
-                "Не может быть короче 6 символов");
+                "Не может быть короче 6 символов", "Невалидная ошибка");
     }
 
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Пустой email")
@@ -153,7 +153,7 @@ public final class RegistrationV2Test extends RestBase {
 
         checkStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getErrorMessages().get(0).getHumanMessage(),
-                "не может быть пустым");
+                "не может быть пустым", "Невалидная ошибка");
     }
 
     @CaseId(145)
@@ -169,7 +169,7 @@ public final class RegistrationV2Test extends RestBase {
 
         checkStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getErrorMessages().get(0).getHumanMessage(),
-                "не может быть пустым");
+                "не может быть пустым", "Невалидная ошибка");
     }
 
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Пустые имя и фамилия")
@@ -184,7 +184,7 @@ public final class RegistrationV2Test extends RestBase {
 
         checkStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getErrorMessages().get(0).getHumanMessage(),
-                "не может быть пустым");
+                "не может быть пустым", "Невалидная ошибка");
     }
 
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Пустой пароль")
@@ -199,7 +199,7 @@ public final class RegistrationV2Test extends RestBase {
 
         checkStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getErrorMessages().get(0).getHumanMessage(),
-                "не может быть пустым");
+                "не может быть пустым", "Невалидная ошибка");
     }
 
     @CaseId(146)

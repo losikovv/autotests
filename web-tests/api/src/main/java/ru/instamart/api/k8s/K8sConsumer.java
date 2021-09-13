@@ -7,6 +7,7 @@ import io.kubernetes.client.PortForward;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.models.V1Pod;
 import io.kubernetes.client.openapi.models.V1PodList;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -303,7 +304,7 @@ public class K8sConsumer {
                 }
             }
         });
-        log.info("Connect address: <Current Host> <" + localPort + ">");
+        log.debug("Connect address: <Current Host> <" + localPort + ">");
         return result;
     }
 }

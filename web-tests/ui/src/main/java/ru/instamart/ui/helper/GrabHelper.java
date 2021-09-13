@@ -113,7 +113,7 @@ public final class GrabHelper extends HelperBase {
 
     /** Взять строку со стоимостью товара в карточке */
     public String itemPrice() {
-        log.info("Получение цены из карточки товара");
+        log.debug("Получение цены из карточки товара");
         String itemPrice;
         itemPrice = AppManager.getWebDriver().findElement(Elements.ItemCard.priceFromAttribute().getLocator())
                 .getAttribute("content");
@@ -175,7 +175,7 @@ public final class GrabHelper extends HelperBase {
         if (cartTotal == null) {
             log.warn("> в корзине пусто");
         } else {
-            log.info("> сумма корзины {}", cartTotal);
+            log.debug("> сумма корзины {}", cartTotal);
         }
         return cartTotal;
     }
@@ -183,14 +183,14 @@ public final class GrabHelper extends HelperBase {
     /** Взять номер доставки на странице заказа */
     public String shipmentNumber() {
         String number = kraken.grab().text(Elements.UserProfile.OrderDetailsPage.OrderSummary.shipmentNumber());
-        log.info("Номер доставки: {}", number);
+        log.debug("Номер доставки: {}", number);
         return number;
     }
 
     /** Взять способ оплаты на странице заказа */
     public String shipmentPayment() {
         String payment = kraken.grab().text(Elements.UserProfile.OrderDetailsPage.OrderSummary.paymentMethod());
-        log.info("Способ оплаты: {}", payment);
+        log.debug("Способ оплаты: {}", payment);
         return payment;
     }
 
@@ -202,7 +202,7 @@ public final class GrabHelper extends HelperBase {
         }
         ThreadUtil.simplyAwait(1); // Ожидание разворота доп.деталей заказа
         String policy = kraken.grab().text(Elements.UserProfile.OrderDetailsPage.OrderSummary.shipmentReplacementPolicy());
-        log.info("Способ оплаты: {}", policy);
+        log.debug("Способ оплаты: {}", policy);
         return policy;
     }
 
@@ -232,7 +232,7 @@ public final class GrabHelper extends HelperBase {
             String text = text(Elements.Cart.alertText());
             int minOrderSum = parseInt(((text).substring((text.length() - 9), (text.length() - 3))).replaceAll(
                     "\\s", ""));
-            log.info("Сумма минимального заказа в алерте корзины: {}р", minOrderSum);
+            log.debug("Сумма минимального заказа в алерте корзины: {}р", minOrderSum);
             return minOrderSum;
         } else return 0;
     }
@@ -255,12 +255,12 @@ public final class GrabHelper extends HelperBase {
         String wisdom = null;
         for (int i = 1; i <= 39; i++) {
             String text = kraken.grab().text(Elements.Page404.quote(i));
-            log.info(">>>>>>>>>>>> {}", text);
+            log.debug(">>>>>>>>>>>> {}", text);
             if (!text.equals("")) {
                 wisdom = text;
             }
         }
-        log.info("\nКотомудрость: {}", wisdom);
+        log.debug("\nКотомудрость: {}", wisdom);
         return wisdom;
     }
 }

@@ -12,7 +12,7 @@ public interface UsersAuthorizationCheckpoints extends Checkpoint {
     /**Проверяем, что пользователь не авторизован на сайте*/
     @Step("Проверяем, что пользователь не авторизован на сайте")
     default void checkIsUserNotAuthorized(String message){
-        log.info("> проверяем, что пользователь не авторизован на сайте");
+        log.debug("> проверяем, что пользователь не авторизован на сайте");
         kraken.get().baseUrl();
         assertFalse(
                 kraken.detect().isUserAuthorisedSTF(),
@@ -23,7 +23,7 @@ public interface UsersAuthorizationCheckpoints extends Checkpoint {
     /**Проверяем, что пользователь авторизован на сайте*/
     @Step("Проверяем, что пользователь авторизован на сайте")
     default void checkIsUserAuthorized(String message){
-        log.info("> проверяем, что пользователь авторизован на сайте");
+        log.debug("> проверяем, что пользователь авторизован на сайте");
         assertTrue(
                 kraken.detect().isUserAuthorisedSTF(),
                 message+"\n");
@@ -36,7 +36,7 @@ public interface UsersAuthorizationCheckpoints extends Checkpoint {
     /**Проверяем, что при авторизации из корзины происходит редирект в чекаут*/
     @Step("Проверяем, что при авторизации из корзины происходит редирект в чекаут")
     default void checkAutoCheckoutRedirect(String message){
-        log.info("> проверяем, что при авторизации из корзины происходит редирект в чекаут");
+        log.debug("> проверяем, что при авторизации из корзины происходит редирект в чекаут");
         krakenAssert.assertTrue(
                 kraken.detect().isOnCheckout(),
                 "\n"+message);
