@@ -21,7 +21,6 @@ import ru.instamart.api.request.v1.ShoppersV1Request;
 import ru.instamart.api.response.v1.LineItemsV1Response;
 import ru.instamart.api.response.v1.ShipmentV1Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.listener.Run;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.testdata.UserManager;
 
@@ -113,7 +112,8 @@ public class OrdersV1Test extends RestBase {
     @CaseId(119)
     @Test(  description = "Контрактный тест списка предзамен для товара из шипмента",
             groups = "api-instamart-regress",
-            dependsOnMethods = "getLineItems")
+            dependsOnMethods = "getLineItems",
+            enabled = false) //todo теперь "Должен быть указан ключ API"
     public void getShipmentProductsPrereplacements() {
         Response response = ShipmentsV1Request.Products.Prereplacements.GET(shipmentNumber, Long.parseLong(productSku));
         checkStatusCode200(response);

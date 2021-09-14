@@ -2,7 +2,7 @@ package ru.instamart.api.helper;
 
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Assert;
+import org.testng.Assert;
 import ru.instamart.api.model.testdata.ApiV3TestData;
 import ru.instamart.api.model.v3.*;
 import ru.instamart.api.request.v3.OrderOptionsV3Request;

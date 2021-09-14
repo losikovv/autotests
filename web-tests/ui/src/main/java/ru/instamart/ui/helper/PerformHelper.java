@@ -1,7 +1,6 @@
 package ru.instamart.ui.helper;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,6 +14,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.testng.Assert.fail;
 import static ru.instamart.ui.manager.AppManager.getWebDriver;
 import static ru.instamart.ui.module.Base.kraken;
 
@@ -112,7 +112,7 @@ public final class PerformHelper extends HelperBase {
         log.debug("Заполняем поле: {}", element.getDescription());
         if (text == null) {
             log.error("> пустое значение для элемента: {}", element);
-            Assert.assertNotNull("Пустое значение для заполнения поля", text);
+            fail("Пустое значение для заполнения поля");
         }
         final WebElement webElement = kraken.await().shouldBeClickable(element);
         webElement.click();

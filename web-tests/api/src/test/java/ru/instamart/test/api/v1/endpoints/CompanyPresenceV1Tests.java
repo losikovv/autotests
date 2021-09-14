@@ -14,8 +14,7 @@ import ru.instamart.api.request.v1.b2b.CompanyPresenceV1Request;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.kraken.testdata.UserManager;
 
-import static org.junit.Assert.assertEquals;
-
+import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
 
 @Epic("ApiV1")
@@ -34,7 +33,8 @@ public class CompanyPresenceV1Tests extends RestBase {
 
         Response response = CompanyPresenceV1Request.GET("123456789");
         checkStatusCode404(response);
-        assertEquals("Объект не найден", response.as(ErrorResponse.class).getError(), "Невалидная ошибка");
+        assertEquals(response.as(ErrorResponse.class).getError(), "Объект не найден",
+                "Невалидная ошибка");
     }
 }
 
