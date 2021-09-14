@@ -72,4 +72,19 @@ public interface CheckoutCheck extends Check, CheckoutElement {
     default void checkCommentsValue(String actual, String expected) {
         krakenAssert.assertEquals(actual, expected, "значение в поле Код домофона неверное");
     }
+
+    @Step("Проверяем, что промокод применился")
+    default void checkPromoCodeApplied() {
+        waitAction().shouldBeVisible(deletePromoCode);
+    }
+
+    @Step("Проверяем, что промокод не применен")
+    default void checkPromoCodeNotApplied() {
+        waitAction().shouldNotBeVisible(deletePromoCode);
+    }
+
+    @Step("Проверяем, что промокод не применен")
+    default void checkAddPromoCodeVisible() {
+        waitAction().shouldBeVisible(addPromoCode);
+    }
 }

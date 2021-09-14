@@ -54,7 +54,7 @@ public final class AuthModal implements Close, AuthModalCheck {
 
     @Step("Заполнить поле с телефоном {phone}")
     public void fillPhone(final String phone) {
-        phoneField.click();
+        phoneField.hoverAndClick();
         phoneField.fill(phone);
     }
 
