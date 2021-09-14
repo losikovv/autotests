@@ -2,7 +2,6 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.Test;
@@ -19,12 +18,13 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Список доступных бонусных карт")
+@Deprecated
 public final class BonusCardsV2Test extends RestBase {
     private final String bonusCardNumber = "1" + RandomStringUtils.randomNumeric(7);
     private int bonusCardId;
 
-    @CaseId(374)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Deprecated
+    @Test(groups = {},
             description = "Нет бонусных карт")
     public void testNoBonusCards() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
@@ -36,7 +36,6 @@ public final class BonusCardsV2Test extends RestBase {
     }
 
     @Deprecated
-    @CaseId(375)
     @Test(groups = {},
             description = "Одна или несколько бонусных карт",
             dependsOnMethods = "testAddBonusCard200")
@@ -48,8 +47,8 @@ public final class BonusCardsV2Test extends RestBase {
         assertFalse(bonusCardsV2Response.getBonusCards().isEmpty(), "bonus_cards вернулся пустой");
     }
 
-    @CaseId(377)
-    @Test(groups = {"api-instamart-smoke"},
+    @Deprecated
+    @Test(groups = {},
             description = "Добавление бонусной карты")
     public void testAddBonusCard200() {
         SessionFactory.createSessionToken(SessionType.API_V2_FB, UserManager.getDefaultUser());
@@ -60,8 +59,8 @@ public final class BonusCardsV2Test extends RestBase {
         bonusCardId = bonusCardV2Response.getBonusCard().getId();
     }
 
-    @CaseId(378)
-    @Test(groups = {"api-instamart-regress"},
+    @Deprecated
+    @Test(groups = {},
             description = "Добавление некорректной бонусной карты")
     public void testAddBonusCard422WrongBonusCardNumber() {
         SessionFactory.createSessionToken(SessionType.API_V2_FB, UserManager.getDefaultUser());
@@ -70,7 +69,6 @@ public final class BonusCardsV2Test extends RestBase {
     }
 
     @Deprecated
-    @CaseId(379) //todo ждем фикса 500 ошибки
     @Test(groups = {},
             description = "Добавление бонусной карты несуществующей бонусной программы")
     public void testAddBonusCard422WrongBonusProgramId() {
@@ -80,7 +78,6 @@ public final class BonusCardsV2Test extends RestBase {
     }
 
     @Deprecated
-    @CaseId(384)
     @Test(groups = {},
             description = "Удаление бонусной карты",
             dependsOnMethods = "testWithBonusCards")
@@ -92,8 +89,8 @@ public final class BonusCardsV2Test extends RestBase {
         assertEquals(bonusCardV2Response.getBonusCard().getNumber(), bonusCardNumber, "bonus_cards.number не равен введенному");
     }
 
-    @CaseId(385)
-    @Test(groups = {"api-instamart-regress"},
+    @Deprecated
+    @Test(groups = {},
             description = "Удаление несуществующей бонусной карты")
     public void testDeleteBonusCard404() {
         SessionFactory.createSessionToken(SessionType.API_V2_FB, UserManager.getDefaultUser());

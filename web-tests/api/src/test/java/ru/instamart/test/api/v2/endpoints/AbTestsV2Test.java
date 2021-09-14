@@ -4,7 +4,6 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
 import io.qameta.allure.Story;
-import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -20,6 +19,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 
 @Epic("ApiV2")
 @Feature("АБ тесты")
+@Deprecated
 public class AbTestsV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true)
@@ -28,9 +28,9 @@ public class AbTestsV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2_FB);
     }
 
-    @CaseId(539)
+    @Deprecated
     @Story("Получить список всех АБ тестов для авторизованного устройства")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {},
             description = "Получить список всех АБ тестов для авторизованного устройства с существующим id")
     public void AbTest200() {
         response = AbTestsV2Request.GET(UUID.randomUUID().toString());
@@ -39,9 +39,9 @@ public class AbTestsV2Test extends RestBase {
         assertNotNull(abTestsV2Response.getAbTests(), "response вернул null");
     }
 
-    @CaseId(540)
+    @Deprecated
     @Story("Получить список всех АБ тестов для авторизованного устройства")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {},
             description = "Получить список всех АБ тестов для авторизованного устройства с несуществующим id")
     public void AbTest404() {
         response = AbTestsV2Request.GET();

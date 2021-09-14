@@ -2,7 +2,6 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -21,6 +20,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 
 @Epic("ApiV2")
 @Feature("Способы оплаты")
+@Deprecated
 public class PaymentToolsV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
@@ -28,9 +28,9 @@ public class PaymentToolsV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2_FB);
     }
 
-    @CaseId(20)
+    @Deprecated
     @Test(description = "Получаем инфу о способах оплаты",
-            groups = {"api-instamart-smoke", "api-instamart-prod"})
+            groups = {})
     public void getPaymentTools() {
         response = PaymentToolsV2Request.GET();
         checkStatusCode200(response);
@@ -38,8 +38,8 @@ public class PaymentToolsV2Test extends RestBase {
                 "Не вернулась инфа о спобах оплаты");
     }
 
-    @CaseId(372)
-    @Test(groups = {"api-instamart-regress"},
+    @Deprecated
+    @Test(groups = {},
             description = "Возможные типы способов оплаты для заказа с существущим id")
     public void getPaymentToolsWithOrder200() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
@@ -62,8 +62,8 @@ public class PaymentToolsV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(373)
-    @Test(groups = {"api-instamart-regress"},
+    @Deprecated
+    @Test(groups = {},
             description = "Возможные типы способов оплаты для заказа с несуществущим id")
     public void getPaymentToolsWithOrder404() {
         response = PaymentToolsV2Request.GET("failedOrderNumber");

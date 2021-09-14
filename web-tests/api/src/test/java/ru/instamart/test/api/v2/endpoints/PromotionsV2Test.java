@@ -23,9 +23,9 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 @Feature("Промо-акции")
 public class PromotionsV2Test extends RestBase {
 
-    @CaseId(17)
+    @Deprecated
     @Test(  description = "Получаем инфу о реферальной программе",
-            groups = {"api-instamart-smoke", "api-instamart-prod"})
+            groups = {})
     public void getReferralProgram() {
         if (!EnvironmentProperties.TENANT.equals(Tenants.SBERMARKET.getAlias())) {
             throw new SkipException("Скип теста не на дефолтном тенанте");

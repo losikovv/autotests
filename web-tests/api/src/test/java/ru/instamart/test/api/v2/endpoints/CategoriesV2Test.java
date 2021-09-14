@@ -3,7 +3,6 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -17,11 +16,12 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 
 @Epic("ApiV2")
 @Feature("Получение категорий")
+@Deprecated
 public final class CategoriesV2Test extends RestBase {
 
-    @CaseId(247)
+    @Deprecated
     @Story("Получить полную иерархию для категории")
-    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(  groups = {},
             description = "Существующий id")
     public void testCategoriesWithId() {
         final Response response = CategoriesV2Request.GET(1);
@@ -29,9 +29,9 @@ public final class CategoriesV2Test extends RestBase {
         assertNotNull(response.as(CategoriesV2Response.class).getCategories(), "Не вернулись категории");
     }
 
-    @CaseId(248)
+    @Deprecated
     @Story("Получить полную иерархию для категории")
-    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(  groups = {},
             description = "Не существующий id")
     public void testCategoriesWithInvalidId() {
         final Response response = CategoriesV2Request.GET(66666);

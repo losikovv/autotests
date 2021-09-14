@@ -2,7 +2,6 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -24,6 +23,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 
 @Epic("ApiV2")
 @Feature("Корзина")
+@Deprecated
 public class LineItemsV2Test extends RestBase {
     private String orderNumber;
     private long productId;
@@ -40,9 +40,9 @@ public class LineItemsV2Test extends RestBase {
         productId = products.get(0).getId();
     }
 
-    @CaseId(8)
+    @Deprecated
     @Test(  description = "Добавляем товар в корзину",
-            groups = {"api-instamart-smoke", "api-instamart-prod"})
+            groups = {})
     public void postLineItems() {
         response = LineItemsV2Request.POST(productId,1, orderNumber);
         checkStatusCode200(response);
@@ -51,9 +51,9 @@ public class LineItemsV2Test extends RestBase {
         lineItemId = lineItem.getId();
     }
 
-    @CaseId(18)
+    @Deprecated
     @Test(  description = "Удаляем товар из корзины",
-            groups = {"api-instamart-smoke", "api-instamart-prod"},
+            groups = {},
             dependsOnMethods = "postLineItems")
     public void deleteLineItems() {
         response = LineItemsV2Request.DELETE(lineItemId);

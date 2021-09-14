@@ -2,7 +2,6 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
@@ -20,6 +19,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 
 @Epic("ApiV2")
 @Feature("Проверка доступности магазина по координатам")
+@Deprecated
 public class DeliveryAvailabilityV2Test extends RestBase {
 
     @BeforeTest
@@ -27,11 +27,11 @@ public class DeliveryAvailabilityV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2_FB);
     }
 
-    @CaseId(200)
+    @Deprecated
     @Parameters({"lat", "lon"})
     @Test(dataProvider = "deliveryAvailabilityV2TestData",
             dataProviderClass = RestDataProvider.class,
-            groups = {"api-instamart-regress"},
+            groups = {},
             description = "Негативный тест без указания lan или lon, или обеих")
     public void testWithoutLatAndLon(String lat, String lon) {
         final Response response = DeliveryAvailabilityV2Request.GET(lat, lon);
@@ -40,8 +40,8 @@ public class DeliveryAvailabilityV2Test extends RestBase {
         assertFalse(deliveryAvailabilityV2Response.getDeliveryAvailability().isAvailable(), "Статус доставки вне зоны доставки available равна true");
     }
 
-    @CaseId(202)
-    @Test(groups = {"api-instamart-regress"}, description = "Указаны координаты")
+    @Deprecated
+    @Test(groups = {}, description = "Указаны координаты")
     public void testWithLatAndLon() {
         final Response response = DeliveryAvailabilityV2Request.GET("55.658228", "37.748818"); //55.658228, 37.748818
         checkStatusCode200(response);

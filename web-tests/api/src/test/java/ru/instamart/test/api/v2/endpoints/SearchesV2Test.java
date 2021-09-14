@@ -16,9 +16,9 @@ import static org.testng.Assert.assertNotNull;
 @Feature("Поиск")
 public class SearchesV2Test extends RestBase {
 
-    @CaseId(3)
+    @CaseId(271)
     @Test(  description = "Получаем поисковые подсказки",
-            groups = {"api-instamart-smoke", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getSearchSuggestions200() {
         response = SearchesV2Request.Suggestions.GET(1);
         InstamartApiCheckpoints.checkStatusCode200(response);
@@ -27,7 +27,7 @@ public class SearchesV2Test extends RestBase {
     }
 
     @CaseId(272)
-    @Test(  description = "Получаем поисковые подсказки",
+    @Test(  description = "Получаем поисковые подсказки в несуществующем магазине",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getSearchSuggestions404() {
         response = SearchesV2Request.Suggestions.GET(0);
