@@ -28,7 +28,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 public class PhoneConfirmationsV2Test extends RestBase {
     String phoneNumber = "9871234123";
 
-    @CaseId(626)
+    @CaseId(451)
     @Story("Авторизация по номеру телефона")
     @Test(description = "Отправляем запрос на получение смс с кодом",
             groups = {"api-instamart-smoke"})
@@ -40,7 +40,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(627)
+    @CaseId(456)
     @Story("Авторизация по номеру телефона")
     @Test(description = "Получение токена авторизации по номеру телефона и коду из смс",
             groups = {"api-instamart-smoke"},

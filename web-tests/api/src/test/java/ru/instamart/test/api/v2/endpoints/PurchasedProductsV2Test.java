@@ -3,7 +3,6 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -21,6 +20,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Купленные продукты")
+@Deprecated
 public final class PurchasedProductsV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true)
@@ -38,10 +38,10 @@ public final class PurchasedProductsV2Test extends RestBase {
         apiV2.cancelCurrentOrder();
     }
 
-    @CaseId(266)
+    @Deprecated
     @Story("Получить список ранее купленных продуктов")
     @Test(  description = "Существующий sid",
-            groups = {"api-instamart-smoke", "api-instamart-prod"})
+            groups = {})
     public void testGetPurchasedProductWithValidSid() {
         final Response response = PurchasedProductsV2Request.GET(
                 SessionFactory.getSession(SessionType.API_V2_FB).getToken(),
@@ -53,10 +53,10 @@ public final class PurchasedProductsV2Test extends RestBase {
         assertFalse(productsV2Response.getProducts().isEmpty(), "Список продуктов вернулся пустой");
     }
 
-    @CaseId(267)
+    @Deprecated
     @Story("Получить список ранее купленных продуктов")
     @Test(  description = "Несуществующий sid",
-            groups = {"api-instamart-smoke", "api-instamart-prod"})
+            groups = {})
     public void testGetPurchasedProductWithInvalidSid() {
         final Response response = PurchasedProductsV2Request.GET(
                 SessionFactory.getSession(SessionType.API_V2_FB).getToken(),
@@ -64,10 +64,10 @@ public final class PurchasedProductsV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(268)
+    @Deprecated
     @Story("Получить список ранее купленных продуктов")
     @Test(  description = "Отправка запроса без авторизации",
-            groups = {"api-instamart-smoke", "api-instamart-prod"})
+            groups = {})
     public void testGetPurchasedProductWithValidSidAndInvalidAuth() {
         final Response response = PurchasedProductsV2Request.GET(
                 "invalid_token",

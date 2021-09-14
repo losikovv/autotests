@@ -24,10 +24,10 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 public final class ProductsV2Test extends RestBase {
     private long productId;
 
-    @CaseId(2)
+    @Deprecated
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(  description = "Получаем продукты",
-            groups = {"api-instamart-smoke", "api-instamart-prod"})
+            groups = {})
     public void getProducts() {
         response = ProductsV2Request.GET(1, "");
         checkStatusCode200(response);
@@ -40,10 +40,10 @@ public final class ProductsV2Test extends RestBase {
         checkSort(ProductSortTypeV2.POPULARITY, productsV2Response.getSort());
     }
 
-    @CaseId(10)
+    @Deprecated
     @Story("Получить данные о продукте")
     @Test(  description = "Получаем данные о продукте",
-            groups = {"api-instamart-smoke", "api-instamart-prod"},
+            groups = {},
             dependsOnMethods = "getProducts")
     public void getProductInfo() {
         response = ProductsV2Request.GET(productId);

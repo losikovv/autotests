@@ -140,9 +140,9 @@ public class ShipmentlessShopperAppTest extends RestBase {
     }
 
     @Story("Получение информации о приложении")
-    @CaseId(20)
+    @Deprecated
     @Test(  description = "Получаем инфу о текущей версии приложения",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {})
     public void getCurrentAppVersion200() {
         response = CurrentAppVersionSHPRequest.GET();
         checkStatusCode200(response);

@@ -29,32 +29,32 @@ public final class ShipAddressV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2_FB);
     }
 
-    @CaseId(233)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"})
+    @Deprecated
+    @Test(groups = {})
     @Story("Существующий id для авторизованных")
     public void testAddressWithAuthAndValidOrderId() {
         final Response response = OrdersV2Request.ShipAddress.GET(apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
     }
 
-    @CaseId(234)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"})
+    @Deprecated
+    @Test(groups = {})
     @Story("Несуществующий id для авторизованных")
     public void testAddressWithAuthAndInvalidOrderId() {
         final Response response = OrdersV2Request.ShipAddress.GET("66666");
         checkStatusCode404(response);
     }
 
-    @CaseId(235)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"})
+    @Deprecated
+    @Test(groups = {})
     @Story("Существующий id для не авторизованных")
     public void testAddressWithoutAuthAndValidOrderId() {
         final Response response = OrdersV2Request.ShipAddress.GET("invalid_token", apiV2.getCurrentOrderNumber());
         checkStatusCode403(response);
     }
 
-    @CaseId(236)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
+    @Deprecated
+    @Test(groups = {})
     @Story("Несуществующий id для не авторизованных")
     public void testAddressWithoutAuthAndInvalidOrderId() {
         final Response response = OrdersV2Request.ShipAddress.GET("invalid_token","66666");
@@ -62,7 +62,6 @@ public final class ShipAddressV2Test extends RestBase {
     }
 
     @Deprecated
-    @CaseId(237)
     @Story("Получение списка возможных изменений для заказа")
     @Test(  groups = {},
             description = "Существующий id для авторизованных")
@@ -73,25 +72,25 @@ public final class ShipAddressV2Test extends RestBase {
         assertNotNull(shipAddressChange, "Ответ вернулся пустым");
     }
 
-    @CaseId(238)
+    @Deprecated
     @Story("Получение списка возможных изменений для заказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий id для авторизованных")
+    @Test(groups = {}, description = "Несуществующий id для авторизованных")
     public void testGetChangeAddressWithInvalidIdAndValidAuth() {
         final Response response = OrdersV2Request.ShipAddressChange.GET("66666");
         checkStatusCode404(response);
     }
 
-    @CaseId(239)
+    @Deprecated
     @Story("Получение списка возможных изменений для заказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Существующий id для не авторизованных")
+    @Test(groups = {}, description = "Существующий id для не авторизованных")
     public void testGetChangeAddressWithValidIdAndInvalidAuth() {
         final Response response = OrdersV2Request.ShipAddressChange.GET("invalid_token", apiV2.getCurrentOrderNumber());
         checkStatusCode403(response);
     }
 
-    @CaseId(240)
+    @Deprecated
     @Story("Получение списка возможных изменений для заказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий id для не авторизованных")
+    @Test(groups = {}, description = "Несуществующий id для не авторизованных")
     public void testGetChangeAddressWithInvalidIdAndInvalidAuth() {
         final Response response = OrdersV2Request.ShipAddressChange.GET("invalid_token", "6666666");
         checkStatusCode404(response);
@@ -127,9 +126,9 @@ public final class ShipAddressV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(243)
+    @Deprecated
     @Story("Изменить адрес доставки для заказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Существующий id для не авторизованных")
+    @Test(groups = {}, description = "Существующий id для не авторизованных")
     public void testChangeAddressWithValidIdAndInvalidAuth() {
         final AddressV2 address = AddressV2.builder()
                 .city("Москва")
@@ -139,9 +138,9 @@ public final class ShipAddressV2Test extends RestBase {
         checkStatusCode403(response);
     }
 
-    @CaseId(244)
+    @Deprecated
     @Story("Изменить адрес доставки для заказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий id для не авторизованных")
+    @Test(groups = {}, description = "Несуществующий id для не авторизованных")
     public void testChangeAddressWithInvalidIdAndInvalidAuth() {
         final AddressV2 address = AddressV2.builder()
                 .city("Москва")
@@ -151,9 +150,9 @@ public final class ShipAddressV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(245)
+    @Deprecated
     @Story("Изменить адрес доставки для заказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Указание существующего ship_address[address_id]")
+    @Test(groups = {}, description = "Указание существующего ship_address[address_id]")
     public void testChangeAddressWithExistShipAddressId() {
         final String orderNumber = apiV2.getCurrentOrderNumber();
         final AddressV2 address = AddressV2.builder()

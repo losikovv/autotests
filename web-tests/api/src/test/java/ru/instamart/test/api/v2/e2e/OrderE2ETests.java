@@ -12,7 +12,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 @Epic("ApiV2")
-@Feature("E2E тесты")
+@Feature("E2E тесты старого приложения")
 public class OrderE2ETests extends RestBase {
 
     @BeforeClass(alwaysRun = true,

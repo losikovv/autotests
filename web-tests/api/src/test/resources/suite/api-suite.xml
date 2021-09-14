@@ -25,30 +25,15 @@
   <!-- api-v2-tests -->
   <test verbose="1" name="API v2 Tests" parallel="none" thread-count="10">
     <classes>
-      <class name="ru.instamart.test.api.v2.endpoints.AddressesV2Test"/>
       <class name="ru.instamart.test.api.v2.endpoints.AuthProviderV2Test"/>
-      <class name="ru.instamart.test.api.v2.endpoints.BonusCardsV2Test"/>
       <class name="ru.instamart.test.api.v2.endpoints.ExternalPartnersV2Test"/>
-      <class name="ru.instamart.test.api.v2.endpoints.DeliveryAvailabilityV2Test"/>
-      <class name="ru.instamart.test.api.v2.endpoints.CategoriesV2Test"/>
-      <class name="ru.instamart.test.api.v2.endpoints.DepartmentsV2Test"/>
       <class name="ru.instamart.test.api.v2.endpoints.FavoritesListV2Test"/>
-      <class name="ru.instamart.test.api.v2.endpoints.LineItemsV2Test"/>
-      <class name="ru.instamart.test.api.v2.endpoints.OnboardingPagesV2Test"/>
       <class name="ru.instamart.test.api.v2.endpoints.OrdersV2Test"/>
-      <class name="ru.instamart.test.api.v2.endpoints.PaymentToolsV2Test"/>
       <class name="ru.instamart.test.api.v2.endpoints.ProductsV2Test"/>
       <class name="ru.instamart.test.api.v2.endpoints.PromotionsV2Test"/>
-      <class name="ru.instamart.test.api.v2.endpoints.PurchasedProductsV2Test"/>
-      <!--class name="ru.instamart.test.api.v2.endpoints.RegistrationV2Test"/-->
-      <class name="ru.instamart.test.api.v2.endpoints.ResetPasswordV2Test"/>
-      <class name="ru.instamart.test.api.v2.endpoints.RetailersV2Test"/>
       <class name="ru.instamart.test.api.v2.endpoints.SearchesV2Test"/>
       <class name="ru.instamart.test.api.v2.endpoints.ShipAddressV2Test"/>
       <class name="ru.instamart.test.api.v2.endpoints.StoresV2Test"/>
-      <class name="ru.instamart.test.api.v2.endpoints.TaxonsV2Test"/>
-      <!--class name="ru.instamart.test.api.v2.endpoints.UserV2Test"/-->
-
       <class name="ru.instamart.test.api.v2.e2e.OrderE2ETests"/>
     </classes>
   </test>

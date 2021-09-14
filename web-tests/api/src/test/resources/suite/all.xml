@@ -11,17 +11,11 @@
     </method-selectors>
     <test verbose="1" name="All In UI-API suite" parallel="classes" thread-count="5">
         <classes>
-            <class name="ru.instamart.test.api.v2.endpoints.TaxonsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.SearchesV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.ProductsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.OrdersV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.StoresV2Test"/>
-            <class name="ru.instamart.test.api.v2.endpoints.LineItemsV2Test"/>
-            <class name="ru.instamart.test.api.v2.endpoints.RegistrationV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.FavoritesListV2Test"/>
-            <class name="ru.instamart.test.api.v2.endpoints.TaxonsV2Test"/>
-            <class name="ru.instamart.test.api.v2.endpoints.OnboardingPagesV2Test"/>
-            <class name="ru.instamart.test.api.v2.endpoints.PaymentToolsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.PromotionsV2Test"/>
             <class name="ru.instamart.test.api.v2.e2e.StoreE2ETests"/>
             <class name="ru.instamart.test.api.v2.e2e.ZoneE2ETests"/>

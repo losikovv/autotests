@@ -24,16 +24,16 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 @Feature("Получение списка магазинов")
 public final class StoresV2Test extends RestBase {
 
-    @CaseId(1)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Получаем магазин")
+    @Deprecated
+    @Test(groups = {}, description = "Получаем магазин")
     public void getStore() {
         final Response response = StoresV2Request.GET(1);
         checkStatusCode200(response);
         assertNotNull(response.as(StoreV2Response.class).getStore(), "Не вернулся магазин");
     }
 
-    @CaseId(12)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Получаем промо-акции в магазине")
+    @Deprecated
+    @Test(groups = {}, description = "Получаем промо-акции в магазине")
     public void getStorePromotionCards() {
         final Response response = StoresV2Request.PromotionCards.GET(1);
         checkStatusCode200(response);
@@ -41,8 +41,8 @@ public final class StoresV2Test extends RestBase {
                 "Не вернулись промо-акции магазина");
     }
 
-    @CaseId(7)
-    @Test(groups = {"api-instamart-smoke"},
+    @Deprecated
+    @Test(groups = {},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "getStores",
             description = "Получаем список всех магазинов по указанным координатам")
@@ -61,8 +61,8 @@ public final class StoresV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(198)
-    @Test(groups = {"api-instamart-smoke"}, description = "Статус быстрой доставки с валидным sid")
+    @Deprecated
+    @Test(groups = {}, description = "Статус быстрой доставки с валидным sid")
     public void testGetFastDeliveryStatusWithValidSid() {
         final Response response = StoresV2Request.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
@@ -70,8 +70,8 @@ public final class StoresV2Test extends RestBase {
                 "У магазина не должно быть быстрой доставки");
     }
 
-    @CaseId(199)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Статус быстрой доставки с невалидным sid")
+    @Deprecated
+    @Test(groups = {}, description = "Статус быстрой доставки с невалидным sid")
     public void testGetFastDeliveryStatusWithInvalidSid() {
         final Response response = StoresV2Request.GET(6666);
         checkStatusCode404(response);
@@ -130,8 +130,8 @@ public final class StoresV2Test extends RestBase {
         assertFalse(response.as(StoresV2Response.class).getStores().isEmpty(), "Stores is missed");
     }
 
-    @CaseId(193)
-    @Test(groups = {"api-instamart-regress"},
+    @Deprecated
+    @Test(groups = {},
             description = "Получение списка магазинов  с невалидным shippingMethod")
     public void getStoresNOtValidShippingMethod() {
         final Response response = StoresV2Request.GET(StoresV2Request.Store.builder()
@@ -144,8 +144,8 @@ public final class StoresV2Test extends RestBase {
         assertFalse(response.as(StoresV2Response.class).getStores().isEmpty(), "Stores is missed");
     }
 
-    @CaseId(195)
-    @Test(groups = {"api-instamart-regress"},
+    @Deprecated
+    @Test(groups = {},
             description = "Получение списка магазинов  с невалидным shippingMethod")
     public void getStoresNOtValidOperationalZoneId() {
         final Response response = StoresV2Request.GET(StoresV2Request.Store.builder()

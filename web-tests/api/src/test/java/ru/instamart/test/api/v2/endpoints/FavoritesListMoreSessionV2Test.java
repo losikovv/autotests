@@ -44,10 +44,9 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
         assertEquals(favorites.getItems().get(0), product.getItem(), "data mismatch");
     }
 
-    @CaseId(521)
+    @Deprecated
     @Story("Получить список избранных товаров")
-    @Test(
-            groups = {"api-instamart-regress"},
+    @Test(  groups = {},
             description = "Получить список избранных товаров. Отображение более 30 товаров на странице.")
     public void getFavoritesMore30Items() {
         var products = apiV2.addFavoritesQtyListProductBySid(EnvironmentProperties.DEFAULT_SID, 32);

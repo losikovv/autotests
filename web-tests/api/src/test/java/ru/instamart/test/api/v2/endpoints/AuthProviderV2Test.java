@@ -24,7 +24,7 @@ public final class AuthProviderV2Test extends RestBase {
     String uid3 = UUID.randomUUID().toString();
     String uid4 = UUID.randomUUID().toString();
 
-    @CaseId(14)
+    @CaseId(168)
     @Test(dataProvider = "authProviders",
             dataProviderClass = RestDataProvider.class,
             groups = {"api-instamart-prod"},
@@ -35,7 +35,7 @@ public final class AuthProviderV2Test extends RestBase {
         assertNotNull(response.as(SessionsV2Response.class).getSession(), "session is NULL");
     }
 
-    @CaseId(14)
+    @CaseId(168)
     @Test(groups = {"api-instamart-regress"},
             description = "Авторизуемся через стороннего провайдера")
     public void postAuthProviderSessions200() {
@@ -44,8 +44,8 @@ public final class AuthProviderV2Test extends RestBase {
         assertNotNull(response.as(SessionsV2Response.class).getSession(), "session is NULL");
     }
 
-    @CaseId(168)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Deprecated
+    @Test(groups = {},
             description = "Авторизуемся через несуществующего стороннего провайдера")
     public void postAuthProviderSessions404WrongProviderId() {
         AuthProviderV2 authProvider = AuthProviderV2.WRONG_ID;
@@ -53,16 +53,16 @@ public final class AuthProviderV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(169)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Deprecated
+    @Test(groups = {},
             description = "Авторизуемся через стороннего провайдера с пустым session uid")
     public void postAuthProviderSessions404EmptySessionId() {
         final Response response = AuthProvidersV2Request.Sessions.POST(AuthProviderV2.FACEBOOK, "");
         checkStatusCode422(response);
     }
 
-    @CaseId(171)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Deprecated
+    @Test(groups = {},
             description = "Авторизуемся через стороннего провайдера с пустым именем, при первом входе")
     public void postAuthProviderSessions200EmptyFirstName1() {
         final Response response = AuthProvidersV2Request.Sessions.POST(AuthProviderV2.FACEBOOK,
@@ -70,8 +70,8 @@ public final class AuthProviderV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(172)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Deprecated
+    @Test(groups = {},
             description = "Авторизуемся через стороннего провайдера с пустым именем, при втором входе",
             dependsOnMethods = "postAuthProviderSessions200EmptyFirstName1")
     public void postAuthProviderSessions200EmptyFirstName2() {
@@ -80,8 +80,8 @@ public final class AuthProviderV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(173)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Deprecated
+    @Test(groups = {},
             description = "Авторизуемся через стороннего провайдера с пустой фамилией, при первом входе")
     public void postAuthProviderSessions200EmptyLastName1() {
         final Response response = AuthProvidersV2Request.Sessions.POST(AuthProviderV2.FACEBOOK,
@@ -89,8 +89,8 @@ public final class AuthProviderV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(174)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Deprecated
+    @Test(groups = {},
             description = "Авторизуемся через стороннего провайдера с пустой фамилией, при втором входе",
             dependsOnMethods = "postAuthProviderSessions200EmptyLastName1")
     public void postAuthProviderSessions200EmptyLastName2() {
@@ -99,8 +99,8 @@ public final class AuthProviderV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(175)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Deprecated
+    @Test(groups = {},
             description = "Авторизуемся через стороннего провайдера с некорректной почтой, при первом входе")
     public void postAuthProviderSessions422WrongEmail1() {
         final Response response = AuthProvidersV2Request.Sessions.POST(AuthProviderV2.FACEBOOK,
@@ -108,8 +108,8 @@ public final class AuthProviderV2Test extends RestBase {
         checkStatusCode422(response);
     }
 
-    @CaseId(176)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Deprecated
+    @Test(groups = {},
             description = "Авторизуемся через стороннего провайдера с некорректной почтой, при втором входе",
             dependsOnMethods = "postAuthProviderSessions422WrongEmail1")
     public void postAuthProviderSessions422WrongEmail2() {
@@ -118,8 +118,8 @@ public final class AuthProviderV2Test extends RestBase {
         checkStatusCode422(response);
     }
 
-    @CaseId(177)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Deprecated
+    @Test(groups = {},
             description = "Авторизуемся через стороннего провайдера с некорректным телефоном, при первом входе")
     public void postAuthProviderSessions422WrongPhone1() {
         final Response response = AuthProvidersV2Request.Sessions.POST(AuthProviderV2.FACEBOOK,
@@ -127,8 +127,8 @@ public final class AuthProviderV2Test extends RestBase {
         checkStatusCode422(response);
     }
 
-    @CaseId(178)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Deprecated
+    @Test(groups = {},
             description = "Авторизуемся через стороннего провайдера с некорректным телефоном, при втором входе",
             dependsOnMethods = "postAuthProviderSessions422WrongPhone1")
     public void postAuthProviderSessions422WrongPhone2() {

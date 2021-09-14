@@ -68,8 +68,8 @@ public class SimpleAdsV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(628)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Deprecated
+    @Test(groups = {},
             description = "Упрощенный запрос нативной рекламы с всеми доступными параметрами")
     public void simpleAdsAllParameterTest() {
         SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters = SimpleAdsV2Request.SimpleAdsV2.builder()
