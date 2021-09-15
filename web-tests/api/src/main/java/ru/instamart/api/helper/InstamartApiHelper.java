@@ -433,7 +433,11 @@ public final class InstamartApiHelper {
      */
     @Step("Получаем первый доступный слот")
     public DeliveryWindowV2 getAvailableDeliveryWindow() {
-        Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), getDateFromMSK().toString());
+        Response responseDeliveryWindow = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), null);
+        checkStatusCode200(responseDeliveryWindow);
+        String availableDays = responseDeliveryWindow.as(ShippingRatesV2Response.class).getMeta().getAvailableDays().get(0);
+
+        Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), availableDays);
         checkStatusCode200(response);
 
         List<ShippingRateV2> shippingRates = response.as(ShippingRatesV2Response.class).getShippingRates();
