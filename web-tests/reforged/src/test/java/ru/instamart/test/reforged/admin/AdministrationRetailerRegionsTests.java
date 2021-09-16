@@ -16,7 +16,7 @@ public final class AdministrationRetailerRegionsTests extends BaseTest {
 
     @CaseId(469)
     @Story("Тест добавления нового региона для магазинов в админке")
-    @Test(description = "Тест добавления нового региона для магазинов в админке",
+    @Test(enabled = false, description = "Тест добавления нового региона для магазинов в админке",
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void successCreateNewRetailerRegion() {
@@ -57,7 +57,7 @@ public final class AdministrationRetailerRegionsTests extends BaseTest {
 
     @CaseId(472)
     @Story("Валидация страницы регионов")
-    @Test(description = "Валидация страницы регионов",
+    @Test(enabled = false, description = "Валидация страницы регионов",
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void storeRegionsPageValidation() {
