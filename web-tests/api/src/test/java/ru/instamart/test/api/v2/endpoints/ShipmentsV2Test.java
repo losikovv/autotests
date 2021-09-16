@@ -308,4 +308,26 @@ public class ShipmentsV2Test extends RestBase {
         checkStatusCode404(response);
         errorAssert(response, "Доставка не существует");
     }
+
+    @CaseId(470)
+    @Story("Получение списка возможных проблем для отзыва о заказе")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получение списка возможных проблем для отзыва о существующем заказе")
+    public void getListIssues200() {
+        String shipmentsNumber = apiV2.getShipmentsNumber();
+        final Response response = ShipmentsV2Request.ReviewIssues.GET(shipmentsNumber);
+        checkStatusCode200(response);
+        ReviewIssuesV2Response reviewIssuesV2Response = response.as(ReviewIssuesV2Response.class);
+        assertFalse(reviewIssuesV2Response.getReviewIssues().isEmpty(), "list issues is empty");
+    }
+
+    @CaseId(471)
+    @Story("Получение списка возможных проблем для отзыва о заказе")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получение списка возможных проблем для отзыва о не существующем заказе")
+    public void getListIssues404() {
+        final Response response = ShipmentsV2Request.ReviewIssues.GET("failedShipmentNumber");
+        checkStatusCode404(response);
+        errorAssert(response, "Доставка не существует");
+    }
 }
