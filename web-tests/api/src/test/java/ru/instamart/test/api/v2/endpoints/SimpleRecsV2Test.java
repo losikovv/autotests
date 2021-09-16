@@ -23,7 +23,8 @@ public class SimpleRecsV2Test extends RestBase {
 
     @Issue("STF-8819")
     @CaseId(287)
-    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(enabled = false,
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Упрощенный запрос блока рекомендаций с обязательными параметрами")
     public void testSimpleRecsTest() {
         SimpleRecsPersonalV2Request.SimpleRecsV2 allRequiredParameters = SimpleRecsPersonalV2Request.SimpleRecsV2.builder()
@@ -56,7 +57,7 @@ public class SimpleRecsV2Test extends RestBase {
     }
 
     @CaseId(288)
-    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Упрощенный запрос блока рекомендаций с отсутствующим обязательным параметром",
             dataProvider = "testNegativeSimpleRecsTest",
             dataProviderClass = RestDataProvider.class
