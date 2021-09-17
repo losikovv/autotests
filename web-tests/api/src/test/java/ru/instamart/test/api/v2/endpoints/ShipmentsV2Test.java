@@ -167,7 +167,7 @@ public class ShipmentsV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Получить окно доставки для подзаказа для указанного дня с существующим id")
     public void shippingRates200() {
-        response = ShipmentsV2Request.ShippingRates.GET(apiV2.getShipmentsNumber(), today);
+        response = ShipmentsV2Request.ShippingRates.GET(apiV2.getShipmentsNumber(), getDateFromMSK().plusDays(1).toString());
         checkStatusCode200(response);
         ShippingRatesV2Response shippingRatesV2Response = response.as(ShippingRatesV2Response.class);
         assertNotEquals(shippingRatesV2Response.getShippingRates().size(), 0, "delivery rates is empty");
