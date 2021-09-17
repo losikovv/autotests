@@ -199,7 +199,6 @@ public final class UserShippingAddressTests extends TestBase {
                 Addresses.Moscow.testAddress());
     }
 
-    @Skip
     @CaseId(1567)
     @Story("Сохранение и изменение адреса доставки")
     @Test(
