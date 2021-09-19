@@ -20,6 +20,12 @@ public class CreditCardsV2Request extends ApiV2RequestBase {
                 .post(ApiV2EndPoints.CREDIT_CARDS);
     }
 
+    @Step("{method} /" + ApiV2EndPoints.CREDIT_CARDS)
+    public static Response GET() {
+        return givenWithAuth()
+                .get(ApiV2EndPoints.CREDIT_CARDS);
+    }
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
     @Getter
