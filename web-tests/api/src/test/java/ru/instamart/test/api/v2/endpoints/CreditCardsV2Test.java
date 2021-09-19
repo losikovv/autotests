@@ -16,6 +16,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.CreditCardsV2Request;
 import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
 import ru.instamart.api.response.v2.CreditCardV2Response;
+import ru.instamart.api.response.v2.CreditCardsV2Response;
 
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 
@@ -107,6 +108,48 @@ public class CreditCardsV2Test extends RestBase {
         final Response responseCard2 = CreditCardsV2Request.POST(creditCard);
         checkStatusCode200(response);
         //TODO Добавить проверки после фикса задачи
+    }
+
+    @CaseId(495)
+    @Story("Получение списка всех банковских карт")
+    @Test ( groups = {"api-instamart-regress"},
+            description = "У пользователя нет добавленных карт")
+    public void testNoCreditCards() {
+        final Response response = CreditCardsV2Request.GET();
+        checkStatusCode200(response);
+        final CreditCardsV2Response creditCardsV2Response = response.as(CreditCardsV2Response.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(creditCardsV2Response.getCreditCards().isEmpty(), "credit_cards вернулся не пустым");
+    }
+
+    @Issue("STF-6633")
+    @CaseId(496)
+    @Story("Получение списка всех банковских карт")
+    @Test ( enabled = false,
+            groups = {"api-instamart-regress"},
+            description = "У пользователя одна добавленная карта",
+            dependsOnMethods = "addANewCardWithRequiredParameters")
+    public void testOneCreditCards() {
+        final Response response = CreditCardsV2Request.GET();
+        checkStatusCode200(response);
+        final CreditCardsV2Response creditCardsV2Response = response.as(CreditCardsV2Response.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(creditCardsV2Response.getCreditCards().size(), 1, "credit_cards вернулся пустым или несколько");
+    }
+
+    @Issue("STF-6633")
+    @CaseId(497)
+    @Story("Получение списка всех банковских карт")
+    @Test ( enabled = false,
+            groups = {"api-instamart-regress"},
+            description = "У пользователя несколько добавленных карт",
+            dependsOnMethods = "addNewCard")
+    public void testSomeCreditCards() {
+        Response response = CreditCardsV2Request.GET();
+        checkStatusCode200(response);
+        final CreditCardsV2Response creditCardsV2Response = response.as(CreditCardsV2Response.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(creditCardsV2Response.getCreditCards().size() > 1,"credit_cards вернулся пустым или один");
     }
 
 }
