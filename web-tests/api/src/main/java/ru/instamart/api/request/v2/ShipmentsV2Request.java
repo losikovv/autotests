@@ -90,4 +90,13 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
                     .get(ApiV2EndPoints.Shipments.STATE, shipmentNumber);
         }
     }
+
+    public static class ReviewIssues{
+
+        @Step("{method} /" + ApiV2EndPoints.Shipments.REVIEW_ISSUES)
+        public static Response GET(String shipmentNumber){
+            return givenWithAuth()
+                    .get(ApiV2EndPoints.Shipments.REVIEW_ISSUES,shipmentNumber);
+        }
+    }
 }
