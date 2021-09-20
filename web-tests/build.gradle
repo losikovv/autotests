@@ -217,6 +217,7 @@ project(":utils") {
         implementation lib.jacksonAnnotations
         implementation lib.jackson
         implementation lib.logback
+        implementation lib.commonLang
 
         annotationProcessor lib.lombok
     }

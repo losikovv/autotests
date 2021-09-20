@@ -19,6 +19,7 @@ ext.versions = [
         gRPC: '1.40.0',
         tomcatAnnotationsApi: '10.0.10',
         protobufProtoc: '3.17.3',
+        commonLang: '3.12.0'
 ]
 
 ext.lib = [
@@ -49,4 +50,5 @@ ext.lib = [
         protocGenGrpcJava: "io.grpc:protoc-gen-grpc-java:$versions.gRPC",
         protobufProtoc: "com.google.protobuf:protoc:$versions.protobufProtoc",
         tomcatAnnotationsApi: "org.apache.tomcat:tomcat-annotations-api:$versions.tomcatAnnotationsApi",
+        commonLang: "org.apache.commons:commons-lang3:$versions.commonLang"
 ]
