@@ -7,6 +7,7 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
@@ -28,69 +29,68 @@ public final class ShipAddressV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2_FB);
     }
 
-    @CaseId(233)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"})
+    @Deprecated
+    @Test(groups = {})
     @Story("Существующий id для авторизованных")
     public void testAddressWithAuthAndValidOrderId() {
         final Response response = OrdersV2Request.ShipAddress.GET(apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
     }
 
-    @CaseId(234)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"})
+    @Deprecated
+    @Test(groups = {})
     @Story("Несуществующий id для авторизованных")
     public void testAddressWithAuthAndInvalidOrderId() {
         final Response response = OrdersV2Request.ShipAddress.GET("66666");
         checkStatusCode404(response);
     }
 
-    @CaseId(235)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"})
+    @Deprecated
+    @Test(groups = {})
     @Story("Существующий id для не авторизованных")
     public void testAddressWithoutAuthAndValidOrderId() {
         final Response response = OrdersV2Request.ShipAddress.GET("invalid_token", apiV2.getCurrentOrderNumber());
         checkStatusCode403(response);
     }
 
-    @CaseId(236)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
+    @Deprecated
+    @Test(groups = {})
     @Story("Несуществующий id для не авторизованных")
     public void testAddressWithoutAuthAndInvalidOrderId() {
         final Response response = OrdersV2Request.ShipAddress.GET("invalid_token","66666");
         checkStatusCode404(response);
     }
 
-    @CaseId(237)
+    @Deprecated
     @Story("Получение списка возможных изменений для заказа")
-    @Test(  enabled = false, //todo починить "Отсутствует обязательный параметр 'ship_address'"
-            groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(  groups = {},
             description = "Существующий id для авторизованных")
     public void testGetChangeAddressWithValidIdAndAuth() {
         final Response response = OrdersV2Request.ShipAddressChange.GET(apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
         final ShipAddressChangeV2 shipAddressChange = response.as(ShipAddressChangeV2.class);
-        assertNotNull(shipAddressChange);
+        assertNotNull(shipAddressChange, "Ответ вернулся пустым");
     }
 
-    @CaseId(238)
+    @Deprecated
     @Story("Получение списка возможных изменений для заказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий id для авторизованных")
+    @Test(groups = {}, description = "Несуществующий id для авторизованных")
     public void testGetChangeAddressWithInvalidIdAndValidAuth() {
         final Response response = OrdersV2Request.ShipAddressChange.GET("66666");
         checkStatusCode404(response);
     }
 
-    @CaseId(239)
+    @Deprecated
     @Story("Получение списка возможных изменений для заказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Существующий id для не авторизованных")
+    @Test(groups = {}, description = "Существующий id для не авторизованных")
     public void testGetChangeAddressWithValidIdAndInvalidAuth() {
         final Response response = OrdersV2Request.ShipAddressChange.GET("invalid_token", apiV2.getCurrentOrderNumber());
         checkStatusCode403(response);
     }
 
-    @CaseId(240)
+    @Deprecated
     @Story("Получение списка возможных изменений для заказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий id для не авторизованных")
+    @Test(groups = {}, description = "Несуществующий id для не авторизованных")
     public void testGetChangeAddressWithInvalidIdAndInvalidAuth() {
         final Response response = OrdersV2Request.ShipAddressChange.GET("invalid_token", "6666666");
         checkStatusCode404(response);
@@ -107,9 +107,11 @@ public final class ShipAddressV2Test extends RestBase {
         final Response response = OrdersV2Request.ShipAddressChange.PUT(address, apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
         final ShipAddressChangeV2Response shipAddressChange = response.as(ShipAddressChangeV2Response.class);
-        assertNotNull(shipAddressChange);
-        assertEquals(address.getCity(), shipAddressChange.getShipAddressChange().getOrder().getAddress().getCity());
-        assertEquals(address.getStreet(), shipAddressChange.getShipAddressChange().getOrder().getAddress().getStreet());
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertNotNull(shipAddressChange, "Ответ вернулся пустым");
+        softAssert.assertEquals(address.getCity(), shipAddressChange.getShipAddressChange().getOrder().getAddress().getCity(), "city не рано задааному");
+        softAssert.assertEquals(address.getStreet(), shipAddressChange.getShipAddressChange().getOrder().getAddress().getStreet(), "street не равно задачному ");
+        softAssert.assertAll();
     }
 
     @CaseId(242)
@@ -124,9 +126,9 @@ public final class ShipAddressV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(243)
+    @Deprecated
     @Story("Изменить адрес доставки для заказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Существующий id для не авторизованных")
+    @Test(groups = {}, description = "Существующий id для не авторизованных")
     public void testChangeAddressWithValidIdAndInvalidAuth() {
         final AddressV2 address = AddressV2.builder()
                 .city("Москва")
@@ -136,9 +138,9 @@ public final class ShipAddressV2Test extends RestBase {
         checkStatusCode403(response);
     }
 
-    @CaseId(244)
+    @Deprecated
     @Story("Изменить адрес доставки для заказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий id для не авторизованных")
+    @Test(groups = {}, description = "Несуществующий id для не авторизованных")
     public void testChangeAddressWithInvalidIdAndInvalidAuth() {
         final AddressV2 address = AddressV2.builder()
                 .city("Москва")
@@ -148,9 +150,9 @@ public final class ShipAddressV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(245)
+    @Deprecated
     @Story("Изменить адрес доставки для заказа")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Указание существующего ship_address[address_id]")
+    @Test(groups = {}, description = "Указание существующего ship_address[address_id]")
     public void testChangeAddressWithExistShipAddressId() {
         final String orderNumber = apiV2.getCurrentOrderNumber();
         final AddressV2 address = AddressV2.builder()
@@ -162,15 +164,16 @@ public final class ShipAddressV2Test extends RestBase {
         checkStatusCode200(response);
 
         ShipAddressChangeV2Response shipAddressChange = response.as(ShipAddressChangeV2Response.class);
-        assertNotNull(shipAddressChange);
+        assertNotNull(shipAddressChange, "Ответ вернулся пустым");
 
         address.setId(shipAddressChange.getShipAddressChange().getOrder().getAddress().getId());
         address.setCity("Удмуртия");
         response = OrdersV2Request.ShipAddressChange.PUT(address, orderNumber);
         checkStatusCode200(response);
         shipAddressChange = response.as(ShipAddressChangeV2Response.class);
-        assertNotNull(shipAddressChange);
-
-        assertEquals(address.getCity(), shipAddressChange.getShipAddressChange().getOrder().getAddress().getCity());
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertNotNull(shipAddressChange, "Ответ вернулся пустым");
+        softAssert.assertEquals(address.getCity(), shipAddressChange.getShipAddressChange().getOrder().getAddress().getCity(), "city не равен заданному");
+        softAssert.assertAll();
     }
 }

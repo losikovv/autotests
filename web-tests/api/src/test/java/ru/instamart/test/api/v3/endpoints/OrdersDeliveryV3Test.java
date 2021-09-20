@@ -1,65 +1,83 @@
 package ru.instamart.test.api.v3.endpoints;
 
-import io.restassured.response.Response;
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.model.v3.*;
+import ru.instamart.api.dataprovider.ApiV3DataProvider;
+import ru.instamart.api.model.testdata.ApiV3TestData;
+import ru.instamart.api.model.v3.OrderV3;
 import ru.instamart.api.request.v3.OrderV3Request;
-import ru.instamart.api.response.v3.OrderOptionsV3Response;
+
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+
+@Epic("ApiV3")
+@Feature("Создание заказа")
 
 public class OrdersDeliveryV3Test extends RestBase {
-    PaymentMethodV3 paymentMethod;
-    ShippingMethodOptionV3 shippingMethod;
-    ReplacementOptionV3 replacementMethod;
-    OrderV3 order;
 
-    @BeforeClass(alwaysRun = true)
-    public void preconditions() {
-        OrderOptionsV3Response orderOptions = apiV3.getOrderOptionsDelivery();
+    OrderV3 orderGoods;
+    OrderV3 orderMetroMarketplace;
 
-        paymentMethod = apiV3.getPaymentMethod(orderOptions.getPayment_methods());
-        shippingMethod = orderOptions.getShipping_methods().get(0).getOptions().get(1);
-        replacementMethod = apiV3.getReplacementMethod("call_or_cancel", orderOptions.getReplacement_options());
+
+    @CaseId(858)
+    @Story("Доставка")
+    @Test(groups = {"api-instamart-regress"},
+            dataProvider = "goods",
+            dataProviderClass = ApiV3DataProvider.class,
+            description = "Создание заказа на доставку Goods")
+    public void postOrderDeliveryGoods(ApiV3TestData testData) {
+
+        orderGoods = apiV3.createOrderDelivery(testData);
+
+        response = OrderV3Request.GET(orderGoods.getId(), testData.getClientToken());
+        checkStatusCode200(response);
+
+        response = OrderV3Request.Cancel.PUT(orderGoods.getId(), testData.getClientToken());
+        checkStatusCode200(response);
     }
 
-    @Test(groups = {"api-instamart-regress"} )
-    public void postOrdersDelivery() {
-        final Response response = OrderV3Request.Delivery.POST(
-                paymentMethod.getOptions().get(0).getId(),
-                shippingMethod.getId(),
-                replacementMethod.getId());
+    OrderV3 orderSberDevices;
 
-        response.prettyPeek();
-        response.then().statusCode(200);
-        order = response.as(OrderV3.class);
+    @CaseId(860)
+    @Story("Доставка")
+    @Test(groups = {"api-instamart-regress"},
+            dataProvider = "sber_devices",
+            dataProviderClass = ApiV3DataProvider.class,
+            description = "Создание на доставку заказа Sber_devices")
+    public void postOrderDeliverySberDevices(ApiV3TestData testData) {
+
+        orderSberDevices = apiV3.createOrderDelivery(testData);
+        checkStatusCode200(response);
+
+        response = OrderV3Request.GET(orderSberDevices.getId(), testData.getClientToken());
+        checkStatusCode200(response);
+
+        response = OrderV3Request.Cancel.PUT(orderSberDevices.getId(), testData.getClientToken());
+        checkStatusCode200(response);
     }
 
-    @Test(groups = {"api-instamart-regress"},dependsOnMethods = "postOrdersDelivery")
-    public void getOrder() {
 
-        final Response response = OrderV3Request.GET(order.getId());
+    @CaseId(859)
+    @Story("Доставка")
+    @Test(groups = {"api-instamart-regress"},
+            dataProvider = "metro_marketplace",
+            dataProviderClass = ApiV3DataProvider.class,
+            description = "Создание заказа на доставку Metro_Marketplace")
 
-        response.prettyPeek();
-        response.then().statusCode(200);
+    public void postOrderDeliveryMetroMarketplace(ApiV3TestData testData) {
 
-        OrderV3 order = response.as(OrderV3.class);
-        int orderTotal = order.getItemTotal();
-        int packagesTotal = apiV3.getPackagesTotal(order);
+        orderMetroMarketplace = apiV3.createOrderDelivery(testData);
+        checkStatusCode200(response);
 
-        Assert.assertEquals(orderTotal, packagesTotal);
-    /* когда нить я поправлю на метод из хелпера но, пока не работает
-     OrderV3 orderV3 =response.as(OrderV3.class);
-        System.out.println(orderV3.getId()); */
-    }
+        response = OrderV3Request.GET(orderMetroMarketplace.getId(), testData.getClientToken());
+        checkStatusCode200(response);
 
-    @Test(groups = {"api-instamart-regress"},dependsOnMethods = "getOrder")
-    public void cancelOrder() {
-
-        final Response response = OrderV3Request.Cancel.PUT(order.getId());
-
-        response.prettyPeek();
-        response.then().statusCode(200);
+        response = OrderV3Request.Cancel.PUT(orderMetroMarketplace.getId(), testData.getClientToken());
+        checkStatusCode200(response);
     }
 }
+
+

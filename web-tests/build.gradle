@@ -41,6 +41,7 @@ project(":reforged") {
         implementation project(":kraken")
         implementation project(":api")
         implementation project(":qase-api")
+        implementation project(":utils")
 
         implementation lib.jackson
         implementation lib.aspectjweaver
@@ -91,6 +92,7 @@ project(":ui") {
         implementation project(":kraken")
         implementation project(":api")
         implementation project(":qase-api")
+        implementation project(":utils")
 
         implementation lib.aspectjweaver
         implementation lib.seleniumJava

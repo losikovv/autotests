@@ -3,12 +3,13 @@ package ru.instamart.ui.module;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.config.CoreProperties;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.ui.Elements;
+import ru.instamart.ui.config.WaitProperties;
 import ru.instamart.ui.helper.JsHelper;
 import ru.instamart.ui.manager.AppManager;
 
@@ -24,17 +25,17 @@ public final class User extends Base {
         @Step("Авторизация юзером")
         public static void loginAs(UserData user) { //TODO использовать только session-юзеров
             String startURL = kraken.grab().currentURL();
-            if (!startURL.equals(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth()) && kraken.detect().isUserAuthorised()) {
+            if (!startURL.equals(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH) && kraken.detect().isUserAuthorised()) {
                 kraken.get().userProfilePage();
                 String currentUserEmail = kraken.grab().text(Elements.UserProfile.AccountPage.email());
-                log.info("> юзер: {}", currentUserEmail);
+                log.debug("> юзер: {}", currentUserEmail);
                 if (currentUserEmail == null || !currentUserEmail.equals(user.getEmail())) {
                     User.Logout.quickly();
                 }
                 kraken.get().url(startURL);
             }
             Auth.withEmail(user);
-            if (/*Config.MULTI_SESSION_MODE */false && kraken.detect().isElementPresent(
+            if (false && kraken.detect().isElementPresent(
                     Elements.Modals.AuthModal.errorMessage("Неверный email или пароль"))) {
                 log.warn(">>> Юзер {}  не найден, регистрируем", user.getEmail());
                 // костыль для stage-окружений
@@ -50,12 +51,12 @@ public final class User extends Base {
                     Auth.withEmail(user);
                 }
             }
-            log.info("> уровень прав: {}", user.getRole());
+            log.debug("> уровень прав: {}", user.getRole());
         }
 
         @Step("Авторизуемся в админке")
         public static void loginOnAdministration(String email, String password,String role) {
-            log.info("> авторизуемся в админке ({}/{})", email, password);
+            log.debug("> авторизуемся в админке ({}/{})", email, password);
             kraken.perform().fillField(Elements.Administration.LoginPage.emailField(), email);
             kraken.perform().fillField(Elements.Administration.LoginPage.passwordField(), password);
             kraken.perform().click(Elements.Administration.LoginPage.submitButton());
@@ -73,7 +74,7 @@ public final class User extends Base {
 
         @Step("Деавторизуемся на сайте")
         public static void logoutOnSite() {
-            log.info("> деавторизуемся на сайте");
+            log.debug("> деавторизуемся на сайте");
             kraken.perform().click(Elements.Header.profileButton());
             kraken.await().shouldBeVisible(Elements.AccountMenu.logoutButton());
             kraken.perform().click(Elements.AccountMenu.logoutButton());
@@ -81,7 +82,7 @@ public final class User extends Base {
 
         @Step("Деавторизуемся в админке")
         public static void logoutOnAdministration() {
-            log.info("> деавторизуемся в админке");
+            log.debug("> деавторизуемся в админке");
             kraken.perform().click(Elements.Administration.Header.logoutDropdown());
             kraken.perform().click(Elements.Administration.Header.logoutButton());
             kraken.await().fluently(
@@ -118,7 +119,7 @@ public final class User extends Base {
         @Step("Регистрируем нового юзера с указанными реквизитами")
         public static void registration(String name, String email, String password,
                                         String passwordConfirmation) {
-            log.info("> регистрируемся ({}/{})", email, password);
+            log.debug("> регистрируемся ({}/{})", email, password);
             Shop.AuthModal.open();
             regSequence(name, email, password, passwordConfirmation);
             Shop.AuthModal.submitRegistration();
@@ -134,9 +135,9 @@ public final class User extends Base {
             Shop.AuthModal.open();
             String modalType = Shop.AuthModal.checkAutorisationModalDialog();
             if (modalType.equals("модалка с телефоном")){
-                log.info("> регистрируемся (телефон={} / смс={})", phone, sms);
+                log.debug("> регистрируемся (телефон={} / смс={})", phone, sms);
             } else {
-                log.info("> регистрируемся ({}/{})", email, password);
+                log.debug("> регистрируемся ({}/{})", email, password);
                 regSequence(name, email, password, passwordConfirmation);
                 Shop.AuthModal.submitRegistration();
             }
@@ -145,10 +146,10 @@ public final class User extends Base {
 
         @Step("Регистрируем нового юзера по номеру телефона: {0}, без согласия на получение выгодных предложений")
         public static void registration(final String phone, final boolean messaging) {
-            log.info("> регистрируемся (телефон={})", phone);
+            log.debug("> регистрируемся (телефон={})", phone);
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
                     Elements.Modals.AuthModal.phoneNumber().getLocator()),
-                    "поле для ввода мобильного телефона не отображается",Config.BASIC_TIMEOUT);
+                    "поле для ввода мобильного телефона не отображается", WaitProperties.BASIC_TIMEOUT);
             if(!messaging) kraken.perform().setCheckbox(Elements.Modals.AuthModal.agreementCheckbox(),false);
             kraken.perform().fillFieldActionPhone(Elements.Modals.AuthModal.phoneNumber(),phone);
             kraken.perform().click(Elements.Modals.AuthModal.continueButton());
@@ -157,19 +158,19 @@ public final class User extends Base {
         @Step("Заполняем форму регистрации без поддтверждения кода из смс: {0}")
         public static void registrationWithoutConfirmation(String phone) {
             Shop.AuthModal.open();
-            log.info("> заполняем поля формы регистрации по телефону");
+            log.debug("> заполняем поля формы регистрации по телефону");
             kraken.perform().fillFieldActionPhone(Elements.Modals.AuthModal.phoneNumber(),phone);
         }
 
         @Step("Отправляем код из смс: {0}")
         public static void sendSms(final String sms){
-            log.info("> Отправляем код из смс: {}",sms);
+            log.debug("> Отправляем код из смс: {}",sms);
             kraken.perform().fillFieldAction(Elements.Modals.AuthModal.smsCode(),sms);
             kraken.await().fluently(
                     ExpectedConditions.invisibilityOfElementLocated(
                             Elements.Modals.AuthModal.smsCode().getLocator()),
                     "Превышено время редиректа с модалки авторизации через мобилку\n",60);
-            log.info("> смс успешно прошла валидацию");
+            log.debug("> смс успешно прошла валидацию");
         }
 
 
@@ -195,10 +196,10 @@ public final class User extends Base {
 
             @Step("Авторизуемся через Gmail")
             public static void auth(String login, String password) {
-                log.info("> переходим в веб-интерфейс Gmail...");
+                log.debug("> переходим в веб-интерфейс Gmail...");
                 kraken.get().url("https://mail.google.com/mail/u/0/h/");
                 if (kraken.detect().isElementPresent(Elements.Social.Gmail.AuthForm.loginField())) {
-                    log.info("> авторизуемся в Gmail...");
+                    log.debug("> авторизуемся в Gmail...");
                     kraken.perform().fillField(Elements.Social.Gmail.AuthForm.loginField(), login);
                     kraken.perform().click(Elements.Social.Gmail.AuthForm.loginNextButton());
                     ThreadUtil.simplyAwait(1); // Ожидание загрузки страницы ввода пароля Gmail
@@ -210,14 +211,14 @@ public final class User extends Base {
 
             @Step("открываем последнее полученное письмо от СберМаркет")
             public static void openLastMail() {
-                log.info("> открываем последнее полученное письмо от СберМаркет");
+                log.debug("> открываем последнее полученное письмо от СберМаркет");
                 kraken.perform().click(Elements.EmailConfirmation.lastEmail());
                 kraken.perform().click(Elements.EmailConfirmation.linkText());
             }
 
             @Step("Нажимаем кнопку сброса пароля в письме")
             public static void proceedToRecovery() {
-                log.info("> нажимаем кнопку сброса пароля в письме");
+                log.debug("> нажимаем кнопку сброса пароля в письме");
                 kraken.perform().click(Elements.EmailConfirmation.passwordRecovery());
                 //TODO Ожидание перехода из письма на сайт Инстамарт
                 kraken.perform().switchToNextWindow();
@@ -229,21 +230,21 @@ public final class User extends Base {
 
         @Step("Авторизация по номеру телефона {0}")
         public static void withPhone(final UserData user) {
-            withPhone(user.getPhone(), Config.DEFAULT_SMS);
+            withPhone(user.getPhone(), CoreProperties.DEFAULT_SMS);
         }
 
         private static void withPhone(final String phone, final String smsCode) {
-            log.info("> Заполняем поле с номером телефона");
+            log.debug("> Заполняем поле с номером телефона");
             kraken.perform().fillFieldActionPhone(Elements.Modals.AuthModal.phoneNumber(),phone);
             kraken.perform().click(Elements.Modals.AuthModal.continueButton());
 
-            log.info("> Отправляем код из смс: {}", smsCode);
+            log.debug("> Отправляем код из смс: {}", smsCode);
             kraken.perform().fillFieldAction(Elements.Modals.AuthModal.smsCode(), smsCode);
             kraken.await().fluently(
                     ExpectedConditions.invisibilityOfElementLocated(
                             Elements.Modals.AuthModal.smsCode().getLocator()),
                     "Превышено время редиректа с модалки авторизации через мобилку\n",60);
-            log.info("> смс успешно прошла валидацию");
+            log.debug("> смс успешно прошла валидацию");
         }
 
         public static void withEmail(UserData user) {
@@ -252,7 +253,7 @@ public final class User extends Base {
 
         @Step("Авторизация через email")
         public static void withEmail(String email, String password, String role) {
-            log.info("> находимся на странице логина, авторизуемся");
+            log.debug("> находимся на странице логина, авторизуемся");
             User.Do.loginOnAdministration(email, password,role);
         }
 
@@ -280,7 +281,7 @@ public final class User extends Base {
             kraken.perform().fillField(Elements.Social.MailRu.loginField(),user.getEmail());
             kraken.perform().click(Elements.Social.MailRu.nextButton());
             kraken.await().fluently(ExpectedConditions.visibilityOfElementLocated(
-                    Elements.Social.MailRu.passwordFieldUp().getLocator()),"поле ввода пароля не появилось",Config.BASIC_TIMEOUT);
+                    Elements.Social.MailRu.passwordFieldUp().getLocator()),"поле ввода пароля не появилось",WaitProperties.BASIC_TIMEOUT);
             kraken.perform().click(Elements.Social.MailRu.passwordFieldUp());
             kraken.perform().fillField(Elements.Social.MailRu.passwordField(),user.getPassword());
             kraken.perform().click(Elements.Social.MailRu.submitButton());
@@ -316,20 +317,20 @@ public final class User extends Base {
         /** Быстрая деавторизация удалением кук */
         @Step("Делаем быструю деавторизацию пользователя с удалением файлов куки")
         public static void quickly() {
-            log.info("> удаляем куки...");
+            log.debug("> удаляем куки...");
             AppManager.closeWebDriver();
             kraken.get().baseUrl();
-            log.info("✓ Готово");
+            log.debug("✓ Готово");
         }
 
         /** Быстрая деавторизация удалением кук в админке*/
         @Step("Делаем быструю деавторизацию из админки с удалением файлов куки")
         public static void quicklyAdmin() {
-            log.info("> удаляем куки...");
+            log.debug("> удаляем куки...");
             AppManager.closeWebDriver();
             kraken.get().adminPage("");
             if (kraken.detect().isInAdmin()) {
-                log.info("✓ Готово");
+                log.debug("✓ Готово");
             }
         }
     }
@@ -345,7 +346,7 @@ public final class User extends Base {
             Shop.AuthModal.open();
             Shop.AuthModal.switchToAuthorisationTab();
             Shop.AuthModal.proceedToPasswordRecovery();
-            log.info("> запрашиваем восстановление пароля для {}", email);
+            log.debug("> запрашиваем восстановление пароля для {}", email);
             Shop.RecoveryModal.fillRequestForm(email);
             Shop.RecoveryModal.submitRequest();
         }
@@ -355,7 +356,7 @@ public final class User extends Base {
             User.Do.Gmail.auth();
             User.Do.Gmail.openLastMail();
             User.Do.Gmail.proceedToRecovery();
-            log.info("> восстановливаем пароль '{}' для {}", recoveredPassword, user.getEmail());
+            log.debug("> восстановливаем пароль '{}' для {}", recoveredPassword, user.getEmail());
             Shop.RecoveryModal.fillRecoveryForm(recoveredPassword, recoveredPassword);
             Shop.RecoveryModal.submitRecovery();
         }

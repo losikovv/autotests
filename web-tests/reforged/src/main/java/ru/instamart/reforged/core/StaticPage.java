@@ -4,13 +4,14 @@ import org.testng.annotations.DataProvider;
 import ru.instamart.api.common.Specification;
 import ru.instamart.api.helper.InstamartApiHelper;
 import ru.instamart.api.model.v2.RetailerV2;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.util.List;
 
-import static ru.instamart.reforged.okey.page.OkeyRouter.*;
-import static ru.instamart.reforged.stf.page.StfRouter.*;
 import static ru.instamart.reforged.metro.page.MetroRouter.*;
+import static ru.instamart.reforged.okey.page.OkeyRouter.*;
+import static ru.instamart.reforged.selgros.page.SelgrosRouter.*;
+import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 public final class StaticPage {
 
@@ -19,70 +20,90 @@ public final class StaticPage {
     @DataProvider(name = "faqPage", parallel = true)
     public static Object[][] getFaqPage() {
         return new Object[][] {
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + about().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + contacts().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + delivery().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + faq().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + howWeWork().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + rules().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + terms().pageUrl()}
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + about().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + contacts().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + delivery().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + faq().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + howWeWork().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + rules().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + terms().pageUrl()}
         };
     }
 
     @DataProvider(name = "metroFaqPage", parallel = true)
     public static Object[][] getMetroFaqPage() {
         return new Object[][] {
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + metroAbout().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + metroDelivery().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + metroRules().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + metroReturnPolicy().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + metroFaq().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + metroTerms().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + metroContacts().pageUrl()}
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + metroAbout().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + metroDelivery().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + metroRules().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + metroReturnPolicy().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + metroFaq().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + metroTerms().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + metroContacts().pageUrl()}
         };
     }
 
     @DataProvider(name = "okeyFaqPage", parallel = true)
     public static Object[][] getOkeyFaqPage() {
         return new Object[][] {
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + okeyAbout().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + okeyDelivery().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + okeyRules().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + okeyReturnPolicy().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + okeyFaq().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + okeyTerms().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + okeyContacts().pageUrl()}
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + okeyAbout().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + okeyDelivery().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + okeyRules().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + okeyReturnPolicy().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + okeyFaq().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + okeyTerms().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + okeyContacts().pageUrl()}
+        };
+    }
+
+    @DataProvider(name = "selgrosFaqPage", parallel = true)
+    public static Object[][] getSelgrosFaqPage() {
+        return new Object[][] {
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosAbout().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosDelivery().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosRules().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosReturnPolicy().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosFaq().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosTerms().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgrosContacts().pageUrl()}
         };
     }
 
     @DataProvider(name = "servicePage", parallel = true)
     public static Object[][] getServicePage() {
         return new Object[][] {
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + certificate().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + job().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + driversHiring().pageUrl()}
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + certificate().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + job().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + driversHiring().pageUrl()}
         };
     }
 
     @DataProvider(name = "landingPage", parallel = true)
     public static Object[][] getLandingPage() {
         return new Object[][] {
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + mnogory().pageUrl()},
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + aeroflot().pageUrl()}
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + mnogory().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + aeroflot().pageUrl()}
         };
     }
 
-    @DataProvider(name = "metroAvailableRetailerPage", parallel = true)
+    @DataProvider(name = "metroAvailableRetailerPage")
     public static Object[][] getMetroAvailableRetailerPage() {
         return new Object[][] {
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + metro().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + metro().pageUrl()},
         };
     }
 
-    @DataProvider(name = "okeyAvailableRetailerPage", parallel = true)
+    @DataProvider(name = "okeyAvailableRetailerPage")
     public static Object[][] getOkeyAvailableRetailerPage() {
         return new Object[][] {
-                {EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + okey().pageUrl()},
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + okey().pageUrl()},
+        };
+    }
+
+    @DataProvider(name = "selgrosAvailableRetailerPage")
+    public static Object[][] getSelgrosAvailableRetailerPage() {
+        return new Object[][] {
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + selgros().pageUrl()},
         };
     }
 

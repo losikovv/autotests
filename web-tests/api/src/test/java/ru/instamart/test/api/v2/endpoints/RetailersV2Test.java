@@ -3,7 +3,6 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -22,6 +21,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 
 @Epic("ApiV2")
 @Feature("Получение данных о ретейлере")
+@Deprecated
 public final class RetailersV2Test extends RestBase {
 
     private List<RetailerV2> retailers;
@@ -35,8 +35,8 @@ public final class RetailersV2Test extends RestBase {
         assertNotEquals(retailers.size(), 0, "Список ретейлеров пустой");
     }
 
-    @CaseId(203)
-    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Deprecated
+    @Test(  groups = {},
             description = "Получение ретейлера по валидному retailer id")
     public void testGetRetailerWithValidRetailerId() {
         final Optional<RetailerV2> retailerOption = retailers.stream().findAny();
@@ -47,8 +47,8 @@ public final class RetailersV2Test extends RestBase {
         assertNotNull(retailer, "Ретейлер не был получен");
     }
 
-    @CaseId(204)
-    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Deprecated
+    @Test(  groups = {},
             description = "Получение ретейлера по невалидному retailer id")
     public void testGetRetailerWithInvalidRetailerId() {
         final Response response = RetailersV2Request.GET(66666);

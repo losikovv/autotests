@@ -39,9 +39,9 @@ public final class RetailerE2ETests extends RestBase {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);
 
-        log.info("Оформляем заказ в {}", store.getName());
+        log.debug("Оформляем заказ в {}", store.getName());
         apiV2.order(userData, store.getId());
-        log.info("Отменяем заказ в {}", store.getName());
+        log.debug("Отменяем заказ в {}", store.getName());
         apiV2.cancelCurrentOrder();
         ThreadUtil.simplyAwait(30);
     }

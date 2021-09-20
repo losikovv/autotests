@@ -20,8 +20,9 @@ import ru.instamart.api.request.v1.ShipmentsV1Request;
 import ru.instamart.api.request.v1.ShoppersV1Request;
 import ru.instamart.api.response.v1.LineItemsV1Response;
 import ru.instamart.api.response.v1.ShipmentV1Response;
+import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
@@ -29,7 +30,6 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 @Epic("ApiV1")
 @Feature("Эндпоинты, используемые шоппер бэкендом")
 public class OrdersV1Test extends RestBase {
-
     private String shipmentUuid;
     private String orderNumber;
     private String shipmentNumber;
@@ -38,7 +38,7 @@ public class OrdersV1Test extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
-        final OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        final OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
         if (order == null) throw new SkipException("Заказ не удалось оплатить");
         orderNumber = order.getNumber();
         shipmentNumber = order.getShipments().get(0).getNumber();
@@ -113,13 +113,15 @@ public class OrdersV1Test extends RestBase {
     @Test(  description = "Контрактный тест списка предзамен для товара из шипмента",
             groups = "api-instamart-regress",
             dependsOnMethods = "getLineItems",
-            enabled = false)
+            enabled = false) //todo теперь "Должен быть указан ключ API"
     public void getShipmentProductsPrereplacements() {
         Response response = ShipmentsV1Request.Products.Prereplacements.GET(shipmentNumber, Long.parseLong(productSku));
         checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Prereplacements.json"));
     }
 
+    //todo убрать скип после выдачи прав SD-13260
+    @Skip(onServer = "production")
     @Issue("INFRADEV-3167")
     @Story("Заказы")
     @CaseId(120)
@@ -127,24 +129,18 @@ public class OrdersV1Test extends RestBase {
             groups = "api-instamart-regress",
             dependsOnMethods = "getShipment")
     public void getShopperMarketingSampleItems() {
-        //todo убрать скип после выдачи прав SD-13260
-        if (EnvironmentData.INSTANCE.getServer().equalsIgnoreCase("production")) {
-            throw new SkipException("Скипаем тесты на проде");
-        }
         Response response = ShoppersV1Request.MarketingSampleItems.GET(shipmentUuid);
         checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/MarketingSampleItems.json"));
     }
 
+    //todo убрать скип после выдачи прав SD-13260
+    @Skip(onServer = "production")
     @Story("Заказы")
     @CaseId(121)
     @Test(  description = "Контрактный тест списка способов оплаты в заказе",
             groups = "api-instamart-regress")
     public void getShopperOrderAvailablePaymentTools() {
-        //todo убрать скип после выдачи прав SD-13260
-        if (EnvironmentData.INSTANCE.getServer().equalsIgnoreCase("production")) {
-            throw new SkipException("Скипаем тесты на проде");
-        }
         Response response = ShoppersV1Request.OrderAvailablePaymentTools.GET(orderNumber);
         checkStatusCode200(response);
         response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/PaymentTools.json"));

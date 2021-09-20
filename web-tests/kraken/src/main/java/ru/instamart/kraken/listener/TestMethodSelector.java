@@ -3,7 +3,7 @@ package ru.instamart.kraken.listener;
 import org.testng.IMethodSelector;
 import org.testng.IMethodSelectorContext;
 import org.testng.ITestNGMethod;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -36,11 +36,11 @@ public final class TestMethodSelector implements IMethodSelector {
                 context.setStopped(true);
                 return false;
             }
-            if (onServer.contains(EnvironmentData.INSTANCE.getServer())) {
+            if (onServer.contains(EnvironmentProperties.SERVER)) {
                 context.setStopped(true);
                 return false;
             }
-            if (onTenant.contains(EnvironmentData.INSTANCE.getTenant())) {
+            if (onTenant.contains(EnvironmentProperties.TENANT)) {
                 context.setStopped(true);
                 return false;
             }
@@ -50,11 +50,11 @@ public final class TestMethodSelector implements IMethodSelector {
             final Set<String> onServer = Set.of(run.onServer());
             final Set<String> onTenant = Set.of(run.onTenant());
 
-            if (onServer.size() > 0 && !onServer.contains(EnvironmentData.INSTANCE.getServer())) {
+            if (onServer.size() > 0 && !onServer.contains(EnvironmentProperties.SERVER)) {
                 context.setStopped(true);
                 return false;
             }
-            if (onTenant.size() > 0 && !onTenant.contains(EnvironmentData.INSTANCE.getTenant())) {
+            if (onTenant.size() > 0 && !onTenant.contains(EnvironmentProperties.TENANT)) {
                 context.setStopped(true);
                 return false;
             }

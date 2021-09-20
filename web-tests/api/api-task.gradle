@@ -1,20 +1,8 @@
-task apiZones(type: Test) {
-    useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
-        suites 'src/test/resources/suite/api-zone.xml'
-        includeGroups 'api-zones'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
-    }
-}
-
 task apiShopperSmoke(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/suite/smoke/api-shopper.xml'
+        suites 'src/test/resources/suite/api-shopper.xml'
         includeGroups 'api-shopper-smoke'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
@@ -28,7 +16,7 @@ task apiShopperRegress(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/suite/regress/api-shopper.xml'
+        suites 'src/test/resources/suite/api-shopper.xml'
         includeGroups 'api-shopper-smoke', 'api-shopper-regress'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
@@ -42,11 +30,19 @@ task apiInstamartRegress(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/suite/regress/api-instamart.xml'
+        suites 'src/test/resources/suite/api-instamart.xml'
         includeGroups 'api-instamart-smoke', 'api-instamart-regress'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }
+    }
+    retry {
+        // Максимальное количество повторов
+        maxRetries = 1
+        // Количество тестов при падении которых не запускается ретрай
+        maxFailures = 20
+        // true тест падает с ошибкой при удачном повторе
+        failOnPassedAfterRetry = false
     }
     systemProperty 'qase.Project', 'INAPI'
     systemProperty 'qase.Title', 'Instamart API Regress'
@@ -56,7 +52,7 @@ task apiInstamartSmoke(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/suite/smoke/api-instamart.xml'
+        suites 'src/test/resources/suite/api-instamart.xml'
         includeGroups 'api-instamart-smoke'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
@@ -64,6 +60,21 @@ task apiInstamartSmoke(type: Test) {
     }
     systemProperty 'qase.Project', 'INAPI'
     systemProperty 'qase.Title', 'Instamart API Smoke'
+}
+
+task apiv3Smoke(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite/api-v3.xml'
+        includeGroups 'api-instamart-smoke'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+
+        systemProperty 'qase.Project', 'INAPI'
+        systemProperty 'qase.Title', 'Smoke endpoints Api v3'
 }
 
 task apiRetailerE2E(type: Test) {
@@ -84,7 +95,7 @@ task apiInstamartProduction(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/suite/regress/api-instamart.xml'
+        suites 'src/test/resources/suite/api-instamart.xml'
         includeGroups 'api-instamart-prod'
         systemProperty 'env',"sbermarket-production"
         testLogging {
@@ -99,7 +110,7 @@ task apiShopperProduction(type: Test) {
     useTestNG() {
         testLogging.showStandardStreams = true
         useDefaultListeners = true
-        suites 'src/test/resources/suite/api-suite.xml'
+        suites 'src/test/resources/suite/api-shopper.xml'
         includeGroups 'api-shopper-prod'
         systemProperty 'env',"sbermarket-production"
         testLogging {
@@ -158,6 +169,18 @@ task localRun(type: Test) {
             listeners.add("ru.instamart.api.listener.ApiExecutionListener")
             listeners.add("ru.instamart.api.listener.ApiListener")
         }
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+}
+
+task qaseActualize(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite/util.xml'
+        includeGroups 'qase-actualize'
         testLogging {
             events "PASSED", "FAILED", "SKIPPED"
         }

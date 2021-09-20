@@ -1,12 +1,14 @@
 package ru.instamart.ui.helper;
 
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static ru.instamart.ui.manager.AppManager.getWebDriver;
 
+@Slf4j
 public final class JsHelper {
 
     public static void ymapReady() {
@@ -37,18 +39,28 @@ public final class JsHelper {
 
     public static void clearSession() {
         execute("$.ajax({\n" +
-                "     url : '"+ EnvironmentData.INSTANCE.getBasicUrl() + "api/user_sessions',\n" +
+                "     url : '"+ EnvironmentProperties.Env.FULL_SITE_URL + "api/user_sessions',\n" +
                 "     method : 'delete'\n" +
                 "});");
         ajaxReady();
     }
 
+    /**
+     * @return - Получение списка данных из localStorage
+     */
     public static String getLocalStorage() {
-        return String.valueOf(execute("return window.localStorage"));
+        final Object o = execute("return window.localStorage");
+        return String.valueOf(o);
     }
 
-    private static Object execute(final String js) {
-        return ((JavascriptExecutor) getWebDriver()).executeScript(js);
+    @SuppressWarnings("unchecked")
+    public static <T> T execute(final String js, final Object... arguments) {
+        try {
+            return (T) ((JavascriptExecutor) getWebDriver()).executeScript(js, arguments);
+        } catch (Exception e) {
+            log.error("Fail when execute js code {}", js);
+        }
+        return null;
     }
 
     private JsHelper() {}

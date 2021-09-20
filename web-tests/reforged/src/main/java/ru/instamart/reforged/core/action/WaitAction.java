@@ -5,8 +5,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
-import ru.instamart.kraken.setting.Config;
 import ru.instamart.reforged.core.component.Component;
+import ru.instamart.reforged.core.config.WaitProperties;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -43,22 +43,22 @@ public final class WaitAction {
     }
 
     public boolean urlEquals(final String url) {
-        return createWait(Config.BASIC_TIMEOUT, "Текущая страница отличается от ожидаемой")
+        return createWait(WaitProperties.BASIC_TIMEOUT, "Текущая страница отличается от ожидаемой")
                 .until(ExpectedConditions.urlToBe(url));
     }
 
     public boolean urlContains(final String url) {
-        return createWait(Config.BASIC_TIMEOUT, "Текущая страница отличается от ожидаемой")
+        return createWait(WaitProperties.BASIC_TIMEOUT, "Текущая страница отличается от ожидаемой")
                 .until(ExpectedConditions.urlContains(url));
     }
 
     public void frameShouldBeVisible(final int frame) {
-        createWait(Config.BASIC_TIMEOUT, "Фрейм не загрузился")
+        createWait(WaitProperties.BASIC_TIMEOUT, "Фрейм не загрузился")
                 .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frame));
     }
 
     public void fillField(final WebElement element, final String data) {
-        createWait(Config.BASIC_TIMEOUT, "Текущее содержимое поля отличается от ожидаемого")
+        createWait(WaitProperties.BASIC_TIMEOUT, "Текущее содержимое поля отличается от ожидаемого")
                 .until(keysSendCondition(element, data));
     }
 
@@ -82,8 +82,9 @@ public final class WaitAction {
         return new FluentWait<>(getWebDriver())
                 .withTimeout(component.getTimeout(), TimeUnit.SECONDS)
                 .withMessage(component.getErrorMsg())
-                .pollingEvery(Config.POLLING_INTERVAL, TimeUnit.MILLISECONDS)
+                .pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class)
+                .ignoring(ElementClickInterceptedException.class)
                 .ignoring(NotFoundException.class);
     }
 
@@ -91,6 +92,6 @@ public final class WaitAction {
         return new FluentWait<>(getWebDriver())
                 .withTimeout(wait, TimeUnit.SECONDS)
                 .withMessage(errorMsg)
-                .pollingEvery(Config.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
+                .pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
     }
 }

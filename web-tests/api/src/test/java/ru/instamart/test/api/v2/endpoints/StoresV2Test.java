@@ -13,8 +13,9 @@ import ru.instamart.api.request.v2.StoresV2Request;
 import ru.instamart.api.response.v2.PromotionCardsV2Response;
 import ru.instamart.api.response.v2.StoreV2Response;
 import ru.instamart.api.response.v2.StoresV2Response;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
@@ -23,16 +24,16 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 @Feature("Получение списка магазинов")
 public final class StoresV2Test extends RestBase {
 
-    @CaseId(1)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Получаем магазин")
+    @Deprecated
+    @Test(groups = {}, description = "Получаем магазин")
     public void getStore() {
         final Response response = StoresV2Request.GET(1);
         checkStatusCode200(response);
         assertNotNull(response.as(StoreV2Response.class).getStore(), "Не вернулся магазин");
     }
 
-    @CaseId(12)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Получаем промо-акции в магазине")
+    @Deprecated
+    @Test(groups = {}, description = "Получаем промо-акции в магазине")
     public void getStorePromotionCards() {
         final Response response = StoresV2Request.PromotionCards.GET(1);
         checkStatusCode200(response);
@@ -40,8 +41,8 @@ public final class StoresV2Test extends RestBase {
                 "Не вернулись промо-акции магазина");
     }
 
-    @CaseId(7)
-    @Test(groups = {"api-instamart-smoke"},
+    @Deprecated
+    @Test(groups = {},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "getStores",
             description = "Получаем список всех магазинов по указанным координатам")
@@ -60,17 +61,17 @@ public final class StoresV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(198)
-    @Test(groups = {"api-instamart-smoke"}, description = "Статус быстрой доставки с валидным sid")
+    @Deprecated
+    @Test(groups = {}, description = "Статус быстрой доставки с валидным sid")
     public void testGetFastDeliveryStatusWithValidSid() {
-        final Response response = StoresV2Request.GET(EnvironmentData.INSTANCE.getDefaultSid());
+        final Response response = StoresV2Request.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         assertFalse(response.as(StoreV2Response.class).getStore().getExpressDelivery(),
                 "У магазина не должно быть быстрой доставки");
     }
 
-    @CaseId(199)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Статус быстрой доставки с невалидным sid")
+    @Deprecated
+    @Test(groups = {}, description = "Статус быстрой доставки с невалидным sid")
     public void testGetFastDeliveryStatusWithInvalidSid() {
         final Response response = StoresV2Request.GET(6666);
         checkStatusCode404(response);
@@ -79,13 +80,11 @@ public final class StoresV2Test extends RestBase {
     @CaseId(196)
     @Test(groups = {"api-instamart-regress"}, description = "Получаем магазин")
     public void testGetStoresWithDefaultSid() {
-        final Response response = StoresV2Request.GET(EnvironmentData.INSTANCE.getDefaultSid());
+        final Response response = StoresV2Request.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
-        StoreV2Response store = response.as(StoreV2Response.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(store.getStore().getId(), EnvironmentData.INSTANCE.getDefaultSid(), "Id магазина не совпадает");
-        softAssert.assertEquals(Integer.valueOf(store.getStore().getOperationalTimes().size()), Integer.valueOf(7), "Количество рабочих дней не равно 7");
-        softAssert.assertAll();
+        response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/api_v2/Store.json"));
+        assertEquals(response.as(StoreV2Response.class).getStore().getId().intValue(), EnvironmentProperties.DEFAULT_SID, "Id магазина не совпадает");
+
     }
 
     @CaseId(188)
@@ -114,7 +113,7 @@ public final class StoresV2Test extends RestBase {
         final SoftAssert sa = new SoftAssert();
         sa.assertFalse(storesV2Response.getStores().isEmpty(), "Stores is missed");
         sa.assertTrue(storesV2Response.getStoreLabels().isEmpty(), "Stores Labels not empty");
-        sa.assertEquals(storesV2Response.getStores().get(0).getId(), EnvironmentData.INSTANCE.getDefaultSid(), "Id магазина отличается");
+        sa.assertEquals(storesV2Response.getStores().get(0).getId().intValue(), EnvironmentProperties.DEFAULT_SID, "Id магазина отличается");
         sa.assertEquals(storesV2Response.getStores().get(0).getName(), "METRO, Нижний Новгород Нартова", "Наименование отличается");
         sa.assertEquals(storesV2Response.getStores().get(0).getRetailer().getId(), Integer.valueOf(1), "Ретейлер не соответствует");
         sa.assertAll();
@@ -131,8 +130,8 @@ public final class StoresV2Test extends RestBase {
         assertFalse(response.as(StoresV2Response.class).getStores().isEmpty(), "Stores is missed");
     }
 
-    @CaseId(193)
-    @Test(groups = {"api-instamart-regress"},
+    @Deprecated
+    @Test(groups = {},
             description = "Получение списка магазинов  с невалидным shippingMethod")
     public void getStoresNOtValidShippingMethod() {
         final Response response = StoresV2Request.GET(StoresV2Request.Store.builder()
@@ -145,8 +144,8 @@ public final class StoresV2Test extends RestBase {
         assertFalse(response.as(StoresV2Response.class).getStores().isEmpty(), "Stores is missed");
     }
 
-    @CaseId(195)
-    @Test(groups = {"api-instamart-regress"},
+    @Deprecated
+    @Test(groups = {},
             description = "Получение списка магазинов  с невалидным shippingMethod")
     public void getStoresNOtValidOperationalZoneId() {
         final Response response = StoresV2Request.GET(StoresV2Request.Store.builder()

@@ -3,7 +3,6 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
@@ -21,18 +20,20 @@ import ru.instamart.kraken.testdata.UserRoles;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode403;
 
 @Epic("ApiV2")
 @Feature("Телефоны пользователей")
+@Deprecated
 public class PhonesSeparateSessionV2Test extends RestBase {
 
-    @CaseId(433)
+    @Deprecated
     @Story("Получить список всех телефонов пользователя")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {},
             description = "Получить список всех телефонов пользователя. У пользователя нет телефонов")
     public void phoneNotFound() {
         final UserData testUser = UserData.builder()
@@ -49,9 +50,9 @@ public class PhonesSeparateSessionV2Test extends RestBase {
         assertEquals(phonesV2Response.getPhones().size(), 0, "phone not empty");
     }
 
-    @CaseId(437)
+    @Deprecated
     @Story("Получить телефонный номер по id")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {},
             description = "Получить телефонный номер по id. Существующий id у пользователя нет телефонов")
     public void getPhone403() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
@@ -71,9 +72,9 @@ public class PhonesSeparateSessionV2Test extends RestBase {
         errorAssert(response, "Пользователь не может выполнить это действие");
     }
 
-    @CaseId(447)
+    @Deprecated
     @Story("Удалить телефон пользователя")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {},
             description = "Удалить телефон пользователя с существующим id")
     public void deletePhones200() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
@@ -84,9 +85,9 @@ public class PhonesSeparateSessionV2Test extends RestBase {
         assertEquals(phoneV2Response.getPhone(), phone, "phone mismatch");
     }
 
-    @CaseId(441)
+    @Deprecated
     @Story("Добавить новый телефон")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {},
             description = "Добавить новый телефон с валидным phone[value]")
     public void addPhones200() {
         SessionFactory.makeSession(SessionType.API_V2_FB);

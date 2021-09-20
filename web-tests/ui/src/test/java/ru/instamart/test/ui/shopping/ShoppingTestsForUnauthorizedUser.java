@@ -1,16 +1,16 @@
 package ru.instamart.test.ui.shopping;
 
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.kraken.testdata.TestVariables;
-import ru.instamart.ui.checkpoint.BaseUICheckpoints;
-import ru.instamart.kraken.testdata.lib.Addresses;
-import ru.instamart.kraken.testdata.lib.Pages;
-import ru.instamart.ui.module.Shop;
-import ru.instamart.ui.module.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.config.CoreProperties;
+import ru.instamart.kraken.testdata.TestVariables;
+import ru.instamart.kraken.testdata.lib.Addresses;
+import ru.instamart.kraken.testdata.lib.Pages;
 import ru.instamart.test.ui.TestBase;
+import ru.instamart.ui.checkpoint.BaseUICheckpoints;
+import ru.instamart.ui.module.Shop;
+import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.shop.ShippingAddressModal;
 
 public class ShoppingTestsForUnauthorizedUser extends TestBase {
@@ -19,7 +19,7 @@ public class ShoppingTestsForUnauthorizedUser extends TestBase {
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
         User.Logout.quickly();
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
     }
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
 

@@ -2,7 +2,6 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -10,25 +9,25 @@ import ru.instamart.api.model.v2.UserV2;
 import ru.instamart.api.request.v2.UsersV2Request;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.UserV2Response;
+import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.Generate;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode422;
 
-//TODO переделать на датапровайдер
 @Epic("ApiV2")
 @Feature("Регистрация")
+@Deprecated
 public final class RegistrationV2Test extends RestBase {
 
     private final String firstName = "autotester";
     private final String lastName = "api";
     private final String minCharPassword = "instam";
 
-    @CaseId(138)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Успешная регистрация")
+    @Deprecated
+    @Test(groups = {}, description = "Успешная регистрация")
     public void testSuccessRegistration() {
         final UserData userData = UserManager.getUser();
 
@@ -49,8 +48,8 @@ public final class RegistrationV2Test extends RestBase {
         assertEquals(userResponse.getEmail(), userData.getEmail(), "Некорректный логин");
     }
 
-    @CaseId(139)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Успешная регистрация без согласия на рассылку")
+    @Deprecated
+    @Test(groups = {}, description = "Успешная регистрация без согласия на рассылку")
     public void testSuccessRegistrationWithoutPromoAccept() {
         final UserData userData = UserManager.getUser();
 
@@ -71,8 +70,8 @@ public final class RegistrationV2Test extends RestBase {
         assertEquals(userResponse.getEmail(), userData.getEmail(), "Некорректный логин");
     }
 
-    @CaseId(140)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Успешная регистрация b2b")
+    @Deprecated
+    @Test(groups = {}, description = "Успешная регистрация b2b")
     public void testSuccessRegistrationB2b() {
         final UserData userData = UserManager.getUser();
 
@@ -93,8 +92,8 @@ public final class RegistrationV2Test extends RestBase {
         assertEquals(userResponse.getEmail(), userData.getEmail(), "Некорректный логин");
     }
 
-    @CaseId(141)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Успешная регистрация b2b без согласия на рассылку")
+    @Deprecated
+    @Test(groups = {}, description = "Успешная регистрация b2b без согласия на рассылку")
     public void testSuccessRegistrationB2bWithoutPromoAccept() {
         final UserData userData = UserManager.getUser();
 
@@ -115,8 +114,8 @@ public final class RegistrationV2Test extends RestBase {
         assertEquals(userResponse.getEmail(), userData.getEmail(), "Некорректный логин");
     }
 
-    @CaseId(142)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Неверный формат email")
+    @Deprecated
+    @Test(groups = {}, description = "Неверный формат email")
     public void wrongEmailFormat() {
         final Response response = UsersV2Request.POST(
                 "example.com",
@@ -126,11 +125,11 @@ public final class RegistrationV2Test extends RestBase {
 
         checkStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getErrorMessages().get(0).getHumanMessage(),
-                "Неверный формат email");
+                "Неверный формат email", "Невалидная ошибка");
     }
 
-    @CaseId(143)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Короткий пароль")
+    @Deprecated
+    @Test(groups = {}, description = "Короткий пароль")
     public void shortPassword() {
         final Response response = UsersV2Request.POST(
                 Generate.email(),
@@ -140,10 +139,11 @@ public final class RegistrationV2Test extends RestBase {
 
         checkStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getErrorMessages().get(0).getHumanMessage(),
-                "Не может быть короче 6 символов");
+                "Не может быть короче 6 символов", "Невалидная ошибка");
     }
 
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Пустой email")
+    @Deprecated
+    @Test(groups = {}, description = "Пустой email")
     public void emptyEmail() {
         final Response response = UsersV2Request.POST(
                 "",
@@ -153,11 +153,11 @@ public final class RegistrationV2Test extends RestBase {
 
         checkStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getErrorMessages().get(0).getHumanMessage(),
-                "не может быть пустым");
+                "не может быть пустым", "Невалидная ошибка");
     }
 
-    @CaseId(145)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Пустое имя")
+    @Deprecated
+    @Test(groups = {}, description = "Пустое имя")
     public void testWithInvalidFirstAndLastName() {
         final String email = Generate.email();
 
@@ -169,10 +169,11 @@ public final class RegistrationV2Test extends RestBase {
 
         checkStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getErrorMessages().get(0).getHumanMessage(),
-                "не может быть пустым");
+                "не может быть пустым", "Невалидная ошибка");
     }
 
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Пустые имя и фамилия")
+    @Deprecated
+    @Test(groups = {}, description = "Пустые имя и фамилия")
     public void emptyFirstAndLastNames() {
         final String email = Generate.email();
 
@@ -184,10 +185,11 @@ public final class RegistrationV2Test extends RestBase {
 
         checkStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getErrorMessages().get(0).getHumanMessage(),
-                "не может быть пустым");
+                "не может быть пустым", "Невалидная ошибка");
     }
 
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Пустой пароль")
+    @Deprecated
+    @Test(groups = {}, description = "Пустой пароль")
     public void emptyPassword() {
         final String email = Generate.email();
 
@@ -199,11 +201,11 @@ public final class RegistrationV2Test extends RestBase {
 
         checkStatusCode422(response);
         assertEquals(response.as(ErrorResponse.class).getErrorMessages().get(0).getHumanMessage(),
-                "не может быть пустым");
+                "не может быть пустым", "Невалидная ошибка");
     }
 
-    @CaseId(146)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Успешная регистрация с указанием location")
+    @Deprecated
+    @Test(groups = {}, description = "Успешная регистрация с указанием location")
     public void testSuccessRegistrationWithLocation() {
         final UserData userData = UserManager.getUser();
 
@@ -224,8 +226,8 @@ public final class RegistrationV2Test extends RestBase {
         assertEquals(userResponse.getEmail(), userData.getEmail(), "Некорректный логин");
     }
 
-    @CaseId(149)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Успешная регистрация с указанием anonymousId")
+    @Deprecated
+    @Test(groups = {}, description = "Успешная регистрация с указанием anonymousId")
     public void testSuccessRegistrationWithAnonymousId() {
         final UserData userData = UserManager.getUser();
 

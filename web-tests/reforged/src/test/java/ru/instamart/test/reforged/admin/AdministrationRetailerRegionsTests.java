@@ -1,12 +1,11 @@
 package ru.instamart.test.reforged.admin;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -17,36 +16,48 @@ public final class AdministrationRetailerRegionsTests extends BaseTest {
 
     @CaseId(469)
     @Story("Тест добавления нового региона для магазинов в админке")
-    @Test(description = "Тест добавления нового региона для магазинов в админке",
+    @Test(enabled = false, description = "Тест добавления нового региона для магазинов в админке",
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void successCreateNewRetailerRegion() {
+        final String cityName = "TestCity_" + Generate.literalString(6);
+
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        cityAdd().goToPage();
+        cityAdd().inputCityName(cityName);
+        cityAdd().createNewCityButton();
+
+        allCities().checkAddCityAlertVisible();
 
         regions().goToPage();
-        regions().checkAutotestRegionInTableNotVisible();
         regions().clickToAddNewRegion();
 
-        regionsAdd().fillNewTestRegionName();
+        regionsAdd().fillNewTestRegionName(cityName);
         regionsAdd().clickToCreateNewRegion();
 
-        regions().checkPageUrl(EnvironmentData.INSTANCE.getAdminUrl() + regions().pageUrl());
+        regions().checkPageUrl(EnvironmentProperties.Env.FULL_ADMIN_URL + regions().pageUrl());
         regions().checkSuccessCreateRegionAlertVisible();
-        regions().checkAutotestRegionInTableVisible();
+        regions().checkAutotestRegionInTableVisible(cityName);
 
         shopAdd().goToPage();
-        shopAdd().selectTestRegionInRegionsDropdown();
+        shopAdd().selectTestRegionInRegionsDropdown(cityName);
+        shopAdd().goToPage();
 
         regions().goToPage();
-        regions().deleteTestRegion();
+        regions().deleteTestRegion(cityName);
         regions().confirmBrowserAlert();
-        regions().checkAutotestRegionInTableNotVisible();
+
+        allCities().goToPage();
+        allCities().deleteTestCity(cityName);
+        allCities().confirmBrowserAlert();
+        allCities().checkDeleteCityAlertVisible();
     }
 
     @CaseId(472)
     @Story("Валидация страницы регионов")
-    @Test(description = "Валидация страницы регионов",
+    @Test(enabled = false, description = "Валидация страницы регионов",
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void storeRegionsPageValidation() {

@@ -8,13 +8,22 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class ApiV3TestData {
-    private String itemId;
-    private  int statusCode;
-    private String itemIdName;
-    private String clientToken;
+    private int statusCode;
     private String clientTokenName;
+    private String clientToken;
     private String shipTotal;
+    private String itemId;
+    private String itemIdName;
     private int itemQuantity;
     private int itemPrice;
     private int itemDiscount;
+    private int itemPromoTotal;
+
+
+
+
+
+
+
+
 }

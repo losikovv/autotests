@@ -2,17 +2,15 @@ package ru.instamart.kraken.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.testng.IExecutionListener;
+import ru.instamart.kraken.config.ConfigManager;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.helper.AllureHelper;
 import ru.instamart.kraken.service.BannerService;
-import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.Generate;
-import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
-import ru.instamart.kraken.util.Crypt;
 import ru.instamart.kraken.util.ThreadUtil;
+import ru.instamart.utils.Crypt;
 
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public abstract class ExecutionListener implements IExecutionListener {
@@ -22,21 +20,18 @@ public abstract class ExecutionListener implements IExecutionListener {
 
     // Нужно инициализировать в конструкторе, что бы гарантировать наличие конфигов до запуска чего либо
     public ExecutionListener() {
-        log.info("Load config");
-        Config.load();
-        log.info("Init Crypt");
+        log.debug("Init Crypt");
         Crypt.INSTANCE.init();
+        log.debug("Load Core config");
+        ConfigManager.getInstance().loadConfig();
     }
 
     @Override
     public void onExecutionStart() {
-        log.info("Load KRAKEN");
+        log.debug("Load KRAKEN");
         BannerService.printBanner();
 
-        log.info("Load environment config");
-        EnvironmentData.INSTANCE.load();
-
-        log.info("Setup Allure report");
+        log.debug("Setup Allure report");
         setupAllureReport();
         revealKraken();
     }
@@ -44,24 +39,26 @@ public abstract class ExecutionListener implements IExecutionListener {
     private void setupAllureReport() {
         AllureHelper.allureEnvironmentWriter(
                 Map.ofEntries(
-                        Map.entry("Tenant", EnvironmentData.INSTANCE.getTenant()),
-                        Map.entry("URL", EnvironmentData.INSTANCE.getBasicUrl()),
-                        Map.entry("Administration", EnvironmentData.INSTANCE.getAdminUrl()),
-                        Map.entry("Shopper", EnvironmentData.INSTANCE.getShopperUrl())),
+                        Map.entry("Tenant", EnvironmentProperties.Env.ENV_NAME),
+                        Map.entry("URL", EnvironmentProperties.Env.FULL_SITE_URL),
+                        Map.entry("Administration", EnvironmentProperties.Env.FULL_ADMIN_URL),
+                        Map.entry("Shopper", EnvironmentProperties.Env.FULL_SHOPPER_URL)),
                 System.getProperty("user.dir") + "/build/allure-results/");
     }
 
     private void revealKraken() {
-        log.info("ENVIRONMENT: {} ({})", EnvironmentData.INSTANCE.getName(), EnvironmentData.INSTANCE.getBasicUrl());
-        log.info("TEST RUN ID: {}", runId);
-        log.info("ADMIN: {} / {}", UserManager.getDefaultAdmin().getEmail(), UserManager.getDefaultAdmin().getPassword());
-        log.info("USER: {} / {}", UserManager.getDefaultUser().getEmail(), UserManager.getDefaultUser().getPassword());
+        log.debug("ENVIRONMENT: {} ({})", EnvironmentProperties.TENANT, EnvironmentProperties.Env.FULL_SITE_URL);
+        log.debug("Tenant {}", EnvironmentProperties.Env.ENV_NAME);
+        log.debug("URL {}", EnvironmentProperties.Env.FULL_SITE_URL);
+        log.debug("Administration {}", EnvironmentProperties.Env.FULL_ADMIN_URL);
+        log.debug("Shopper {}", EnvironmentProperties.Env.FULL_SHOPPER_URL);
+        log.debug("TEST RUN ID: {}", runId);
     }
 
     @Override
     public void onExecutionFinish() {
-        log.info("We wait {} seconds", ThreadUtil.ALL_WAIT_TIME.doubleValue());
-        log.info("All tests finished for {}", getReadableTime(System.nanoTime() - start));
+        log.debug("We wait {} seconds", ThreadUtil.ALL_WAIT_TIME.doubleValue());
+        log.debug("All tests finished for {}", getReadableTime(System.nanoTime() - start));
     }
 
     private String getReadableTime(final Long nanos){

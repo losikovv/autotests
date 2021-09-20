@@ -1,26 +1,27 @@
 package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.*;
-import io.qase.api.annotation.CaseId;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.Response;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.api.factory.SessionFactory;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.UserV2;
 import ru.instamart.api.request.v2.UsersV2Request;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.UserDataV2Response;
 
+import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Данные пользователя")
+@Deprecated
 public final class UserV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true)
@@ -28,8 +29,8 @@ public final class UserV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2_FB);
     }
 
-    @CaseId(150)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
+    @Deprecated
+    @Test(groups = {})
     @Story("Изменение данных пользователя")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataAllField() {
@@ -42,14 +43,16 @@ public final class UserV2Test extends RestBase {
         );
         checkStatusCode200(response);
         final UserV2 user = response.as(UserDataV2Response.class).getUser();
-        Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
-        Assert.assertEquals(user.getFirstName(), "FirstName", "Некорректное имя");
-        Assert.assertEquals(user.getLastName(), "LastName", "Некорректная фамилия");
-        Assert.assertTrue(user.getPromoTermsAccepted(), "Некорректное значение promo");
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
+        softAssert.assertEquals(user.getFirstName(), "FirstName", "Некорректное имя");
+        softAssert.assertEquals(user.getLastName(), "LastName", "Некорректная фамилия");
+        softAssert.assertTrue(user.getPromoTermsAccepted(), "Некорректное значение promo");
+        softAssert.assertAll();
     }
 
-    @CaseId(151)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
+    @Deprecated
+    @Test(groups = {})
     @Story("Изменение данных пользователя на невалидные ФИ")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataWithInvalidFirstAndLastName() {
@@ -62,17 +65,16 @@ public final class UserV2Test extends RestBase {
         );
         checkStatusCode200(response);
         final UserV2 user = response.as(UserDataV2Response.class).getUser();
-        Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
-        Assert.assertEquals(user.getFirstName(), "FirstName", "Некорректное имя");
-        Assert.assertEquals(user.getLastName(), "LastName", "Некорректная фамилия");
-        Assert.assertTrue(user.getPromoTermsAccepted(), "Некорректное значение promo");
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
+        softAssert.assertEquals(user.getFirstName(), "FirstName", "Некорректное имя");
+        softAssert.assertEquals(user.getLastName(), "LastName", "Некорректная фамилия");
+        softAssert.assertTrue(user.getPromoTermsAccepted(), "Некорректное значение promo");
+        softAssert.assertAll();
     }
 
-    /**
-     * Нужно разобраться нужен этот тест или нет
-     */
-    @CaseId(154)
-    @Test(groups = {"api-instamart-regress"}, enabled = false)
+    @Deprecated
+    @Test(groups = {})
     @Story("Изменение пароля с невалидным новым")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePasswordWithInvalidNew() {
@@ -87,13 +89,15 @@ public final class UserV2Test extends RestBase {
 
         checkStatusCode422(response);
         final ErrorResponse errorResponse = response.as(ErrorResponse.class);
-        Assert.assertEquals(errorResponse.getErrorMessages().get(0).getField(), "password", "Неверная ошибка");
-        Assert.assertEquals(errorResponse.getErrorMessages().get(0).getMessage(), "Пароль не должен совпадать с вашим старым паролем", "Неверный текст ошибки");
-        Assert.assertEquals(errorResponse.getErrorMessages().get(0).getHumanMessage(), "Пароль не должен совпадать с вашим старым паролем", "Неверный текст ошибки");
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(errorResponse.getErrorMessages().get(0).getField(), "password", "Неверная ошибка");
+        softAssert.assertEquals(errorResponse.getErrorMessages().get(0).getMessage(), "Пароль не должен совпадать с вашим старым паролем", "Неверный текст ошибки");
+        softAssert.assertEquals(errorResponse.getErrorMessages().get(0).getHumanMessage(), "Пароль не должен совпадать с вашим старым паролем", "Неверный текст ошибки");
+        softAssert.assertAll();
     }
 
-    @CaseId(153)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
+    @Deprecated
+    @Test(groups = {})
     @Story("Изменение пароля с невалидным старым")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePasswordWithInvalidOld() {
@@ -108,8 +112,8 @@ public final class UserV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(155)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
+    @Deprecated
+    @Test(groups = {})
     @Story("Изменение пароля с невалидным проверочным")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePasswordWithInvalidConformation() {
@@ -124,8 +128,8 @@ public final class UserV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(152)
-    @Test(groups ={"api-instamart-regress", "api-instamart-prod"})
+    @Deprecated
+    @Test(groups ={})
     @Story("Изменение пароля")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdatePassword() {
@@ -138,10 +142,11 @@ public final class UserV2Test extends RestBase {
         );
         checkStatusCode200(response);
         final UserV2 user = response.as(UserDataV2Response.class).getUser();
-        Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
+        assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
     }
 
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
+    @Deprecated
+    @Test(groups = {})
     @Story("Изменение одного поля пользователя")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataOneField() {
@@ -154,14 +159,16 @@ public final class UserV2Test extends RestBase {
         );
         checkStatusCode200(response);
         final UserV2 user = response.as(UserDataV2Response.class).getUser();
-        Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
-        Assert.assertEquals(user.getFirstName(), "FirstName", "Некорректное имя");
-        Assert.assertFalse(user.getPromoTermsAccepted(), "Некорректное значение promo");
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
+        softAssert.assertEquals(user.getFirstName(), "FirstName", "Некорректное имя");
+        softAssert.assertFalse(user.getPromoTermsAccepted(), "Некорректное значение promo");
+        softAssert.assertAll();
     }
 
-    @CaseId(157)
+    @Deprecated
     @Issue("STF-7288")
-    @Test(groups = {"api-instamart-regress"}, enabled = false)
+    @Test(groups = {})
     @Story("Попытка изменить данные для несуществующего email")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataWithIncorrectEmail() {
@@ -175,8 +182,8 @@ public final class UserV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(158)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
+    @Deprecated
+    @Test(groups = {})
     @Story("Изменить данные для с подтверждением promo")
     @Severity(SeverityLevel.NORMAL)
     public void testUpdateUserDataWithPromoAccept() {
@@ -190,8 +197,8 @@ public final class UserV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(159)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
+    @Deprecated
+    @Test(groups = {})
     @Story("Получение данных пользователя")
     @Severity(SeverityLevel.NORMAL)
     public void testGetUserData() {
@@ -202,12 +209,14 @@ public final class UserV2Test extends RestBase {
         );
         checkStatusCode200(response);
         final UserV2 user = response.as(UserDataV2Response.class).getUser();
-        Assert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
-        Assert.assertEquals(user.getFirstName(), "autotest-user", "Некорректное имя");
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(user.getEmail(), session.getLogin(), "Некорректная почта");
+        softAssert.assertEquals(user.getFirstName(), "autotest-user", "Некорректное имя");
+        softAssert.assertAll();
     }
 
-    @CaseId(558)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
+    @Deprecated
+    @Test(groups = {})
     @Story("Попытка получить данные для несуществующего email")
     @Severity(SeverityLevel.NORMAL)
     public void testGetUserDataWithIncorrectEmail() {
@@ -218,8 +227,8 @@ public final class UserV2Test extends RestBase {
         checkStatusCode200or404(response);
     }
 
-    @CaseId(160)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
+    @Deprecated
+    @Test(groups = {})
     @Story("Попытка получение расширенных данных пользователя с невалидным token")
     @Severity(SeverityLevel.NORMAL)
     public void testGetUserDataWithInvalidToken() {

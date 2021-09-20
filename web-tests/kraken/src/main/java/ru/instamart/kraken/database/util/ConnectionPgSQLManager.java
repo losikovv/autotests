@@ -1,6 +1,6 @@
 package ru.instamart.kraken.database.util;
 
-import ru.instamart.kraken.util.Crypt;
+import ru.instamart.utils.Crypt;
 
 import java.lang.reflect.Proxy;
 import java.sql.Connection;

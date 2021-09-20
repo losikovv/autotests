@@ -23,12 +23,12 @@ public final class AddressSteps extends Base {
 
     @Step("Заполняем адрес доставки дефолтными тестовыми значениями из конфига")
     public static void fill() {
-        log.info("> заполняем адрес доставки дефолтными тестовыми значениями из конфига");
+        log.debug("> заполняем адрес доставки дефолтными тестовыми значениями из конфига");
         fill(testOrderDetails().getAddressDetails());
     }
 
     public static void fill(AddressDetailsData addressDetails) {
-        log.info("> заполняем адрес доставки");
+        log.debug("> заполняем адрес доставки");
         setType(addressDetails.getType());
         fillApartment(addressDetails.getApartment());
         fillFloor(addressDetails.getFloor());
@@ -40,7 +40,7 @@ public final class AddressSteps extends Base {
 
     @Step("Очищаем все доступные поля адреса доставки и возвращаем настройки в дефолтное состояние")
     public static void clear() {
-        log.info("> очищаем все доступные поля адреса доставки и возвращаем настройки в дефолтное состояние");
+        log.debug("> очищаем все доступные поля адреса доставки и возвращаем настройки в дефолтное состояние");
         setTypeHome();
         fillApartment("");
         fillFloor("");
@@ -66,7 +66,7 @@ public final class AddressSteps extends Base {
 
     @Step("Устанавливаем радиокнопку Тип дефолтным тестовым значением из конфига")
     public static void setType(){
-        log.info("> устанавливаем радиокнопку Тип дефолтным тестовым значением из конфига");
+        log.debug("> устанавливаем радиокнопку Тип дефолтным тестовым значением из конфига");
         setType(testOrderDetails().getAddressDetails().getType());
     }
 
@@ -86,23 +86,23 @@ public final class AddressSteps extends Base {
 
     @Step("Выбор доставки домой")
     public static void setTypeHome(){
-        log.info("> тип: квартира");
+        log.debug("> тип: квартира");
         kraken.perform().click(Elements.Checkout.AddressStep.homeRadioButton());
     }
 
     @Step("Выбор доставки в офис")
     public static void setTypeOffice(){
-        log.info("> тип: офис");
+        log.debug("> тип: офис");
         kraken.perform().click(Elements.Checkout.AddressStep.officeRadioButton());
     }
 
     @Step("Заполняем поле Номер квартиры/офиса: {0}")
     public static void fillApartment(String number){
         if(kraken.detect().isFieldEmpty(Elements.Checkout.AddressStep.apartmentInputField())){
-            log.info("> номер: {}", number);
+            log.debug("> номер: {}", number);
             kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.apartmentInputField(), number);
         }else{
-            log.info("> поле номер квартиры/офиса уже заполнено: {}",
+            log.debug("> поле номер квартиры/офиса уже заполнено: {}",
                     kraken.grab().value(Elements.Checkout.AddressStep.apartmentInputField()));
         }
     }
@@ -110,28 +110,28 @@ public final class AddressSteps extends Base {
     @Step("Заполняем поле Этаж: {0}")
     public static void fillFloor(String number){
         if (kraken.detect().isFieldEmpty(Elements.Checkout.AddressStep.floorInputField())){
-            log.info("> этаж: {}", number);
+            log.debug("> этаж: {}", number);
             kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.floorInputField(), number);
         }else{
-            log.info("> поле этаж уже заполнено: {}",
+            log.debug("> поле этаж уже заполнено: {}",
                     kraken.grab().value(Elements.Checkout.AddressStep.floorInputField()));
         }
     }
 
     @Step("Устанавливаем чекбокс лифт: {0}")
     public static void setElevator(boolean value){
-        if (value) log.info("> лифт: есть");
-        else log.info("> лифт: нет");
+        if (value) log.debug("> лифт: есть");
+        else log.debug("> лифт: нет");
         kraken.perform().setCheckbox(Elements.Checkout.AddressStep.elevatorCheckbox(), value);
     }
 
     @Step("Заполняем поле Подъезд: {0}")
     public static void fillEntrance(String number){
         if (kraken.detect().isFieldEmpty(Elements.Checkout.AddressStep.entranceInputField())) {
-            log.info("> подъезд: {}", number);
+            log.debug("> подъезд: {}", number);
             kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.entranceInputField(), number);
         }else {
-            log.info("> поле этаж уже заполнено: {}",
+            log.debug("> поле этаж уже заполнено: {}",
                     kraken.grab().value(Elements.Checkout.AddressStep.entranceInputField()));
         }
     }
@@ -139,10 +139,10 @@ public final class AddressSteps extends Base {
     @Step("Заполняем поле Домофон: {0}")
     public static void fillDomofon(String number){
         if (kraken.detect().isFieldEmpty(Elements.Checkout.AddressStep.domofonInputField())) {
-            log.info("> домофон: {}", number);
+            log.debug("> домофон: {}", number);
             kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.domofonInputField(), number);
         }else {
-            log.info("> поле домофон уже заполнено: {}",
+            log.debug("> поле домофон уже заполнено: {}",
                     kraken.grab().value(Elements.Checkout.AddressStep.domofonInputField()));
         }
     }
@@ -150,10 +150,10 @@ public final class AddressSteps extends Base {
     @Step("Заполняем поле Комментарии: {0}")
     public static void fillCommentaries(String text){
         if (kraken.detect().isFieldEmpty(Elements.Checkout.AddressStep.commentariesInputField())) {
-            log.info("> комментарии по доставке: {}", text);
+            log.debug("> комментарии по доставке: {}", text);
             kraken.perform().fillFieldAction(Elements.Checkout.AddressStep.commentariesInputField(), text);
         }else {
-            log.info("> поле комментарий уже заполнено: {}",
+            log.debug("> поле комментарий уже заполнено: {}",
                     kraken.grab().value(Elements.Checkout.AddressStep.commentariesInputField()));
         }
     }
@@ -162,7 +162,7 @@ public final class AddressSteps extends Base {
         CheckoutStepData step = CheckoutSteps.getStepDetails(position);
         assert step != null;
         if (initStep(step)) {
-            log.info("> шаг {} - {}", step.getPosition(), step.getName());
+            log.debug("> шаг {} - {}", step.getPosition(), step.getName());
         } else {
             hitChangeButton(step.getPosition());
         }
@@ -207,13 +207,13 @@ public final class AddressSteps extends Base {
                 kraken.perform().click(Elements.Checkout.changeStep5Button());
                 break;
         }
-        log.info("> изменяем шаг {}", step);
+        log.debug("> изменяем шаг {}", step);
         kraken.await().implicitly(1); // Ожидание разворачивания шага в чекауте
     }
 
     @Step("Проверяем готовность шага чекаута перед заполнением")
     private static boolean initStep(CheckoutStepData step) {
-        log.info("> проверка готовности шага чекаута перед заполнением");
+        log.debug("> проверка готовности шага чекаута перед заполнением");
         if (step.getPosition() != 4) { // костыль на случай если слот доставки остался выбраным в предыдущих тестах
             if (kraken.detect().isCheckoutStepActive(step)) {
                 //message("Шаг " + stepNumber + " - " + stepName);
@@ -221,7 +221,7 @@ public final class AddressSteps extends Base {
             } else {
                 kraken.await().implicitly(1); // Задержка для стабильности, если шаг не развернулся из-за тормозов
                 if (!kraken.detect().isCheckoutStepActive(step)) {
-                    log.info("> не открывается {} шаг - {}", step.getPosition(), step.getName());
+                    log.debug("> не открывается {} шаг - {}", step.getPosition(), step.getName());
                     return false;
                 } else return true;
             }
@@ -230,8 +230,8 @@ public final class AddressSteps extends Base {
                 //message("Шаг " + step.getPosition() + " - " + step.getName());
                 return true;
             } else {
-                log.info("> шаг {} - {}", step.getPosition(), step.getName());
-                log.info("> слот доставки уже выбран");
+                log.debug("> шаг {} - {}", step.getPosition(), step.getName());
+                log.debug("> слот доставки уже выбран");
                 return false;
             }
         }

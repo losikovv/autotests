@@ -12,4 +12,6 @@ public interface PagesElement {
 
     Link newPageButton = new Link(By.xpath("//a[@class='button icon-plus']"));
     Table table = new Table();
+
+    Element deleteAlert = new Element(By.xpath("//div[@class='flash success']"));
 }

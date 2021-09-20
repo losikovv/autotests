@@ -2,13 +2,13 @@ package ru.instamart.reforged.core.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import ru.instamart.kraken.setting.Config;
+import ru.instamart.kraken.config.CoreProperties;
 
 @Getter
 @RequiredArgsConstructor
 public enum ShopUrl {
 
-    DEFAULT(Config.DEFAULT_RETAILER),
+    DEFAULT(CoreProperties.DEFAULT_RETAILER),
     METRO("metro"),
     LENTA("lenta"),
     AUCHAN("auchan"),

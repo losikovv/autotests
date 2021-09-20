@@ -1,11 +1,11 @@
 package ru.instamart.test.ui;
 
-import ru.instamart.kraken.service.QaseService;
-import ru.instamart.kraken.setting.Config;
 import io.qase.api.models.v1.testruns.TestRun;
 import io.qase.api.models.v1.testruns.TestRuns;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.service.QaseService;
+import ru.instamart.ui.config.ConfigManager;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class Cleanup {
 
     @BeforeClass
     public void setUp() {
-        Config.load();
+        ConfigManager.getInstance().loadConfig();
     }
 
     @Test(  description = "ЗАПУСК ТЕСТА УДАЛЯЕТ ВСЕ ТЕСТРАНЫ У УКАЗАННОГО ПРОЕКТА",

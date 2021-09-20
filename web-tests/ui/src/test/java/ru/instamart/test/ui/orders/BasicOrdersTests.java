@@ -9,8 +9,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.kraken.setting.Config;
 import ru.instamart.kraken.testdata.*;
 import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.kraken.testdata.lib.Pages;
@@ -19,7 +19,6 @@ import ru.instamart.kraken.testdata.pagesdata.PaymentTypeData;
 import ru.instamart.test.ui.TestBase;
 import ru.instamart.ui.Elements;
 import ru.instamart.ui.checkpoint.order.OrdersCheckpoints;
-import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Shop;
 import ru.instamart.ui.module.User;
 import ru.instamart.ui.module.shop.Order;
@@ -52,7 +51,7 @@ public final class BasicOrdersTests extends TestBase {
             kraken.get().baseUrl();
             Shop.AuthModal.open();
             User.Do.registration(Generate.phoneNumber(), false);
-            User.Do.sendSms(Config.DEFAULT_SMS);
+            User.Do.sendSms(CoreProperties.DEFAULT_SMS);
         });
         step("Выбор адреса доставки", ()-> {
             ShippingAddressModal.open();
@@ -159,7 +158,6 @@ public final class BasicOrdersTests extends TestBase {
     @Test(
             description = "Тест заказа с любимыми товарами",
             groups = {"sbermarket-regression","testing", "sbermarket-Ui-smoke"}
-            //enabled = false
     )
     public void successOrderWithFavProducts() {
         Shop.Catalog.Item.addToFavorites();

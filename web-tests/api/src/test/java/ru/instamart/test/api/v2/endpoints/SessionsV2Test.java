@@ -2,7 +2,6 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -22,8 +21,8 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 @Feature(value = "Авторизация")
 public final class SessionsV2Test extends RestBase {
 
-    @CaseId(180)
-    @Test(  groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Deprecated
+    @Test(  groups = {},
             description = "Валидация сессионного токена")
     public void testSessionToken() {
         final UserData userData = UserManager.getUser();
@@ -33,17 +32,16 @@ public final class SessionsV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(179)
-    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Deprecated
+    @Test(  groups = {},
             description = "Невалидные сессионный токен")
     public void testInvalidToken() {
         final Response response = SessionsV2Request.GET("aaaaaaaaa");
         checkStatusCode404(response);
     }
 
-    @CaseId(182)
-    @Test(  enabled = false, //в параллели тест ломается
-            groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Deprecated
+    @Test(  groups = {},
             description = "Валидация данных по сессионному токену")
     public void testUserData() {
         final UserData userData = UserManager.getDefaultApiUser();
@@ -54,8 +52,8 @@ public final class SessionsV2Test extends RestBase {
         assertEquals(userDataResponse.getUser().getEmail(), userData.getEmail(), "Получены чужие данные");
     }
 
-    @CaseId(181)
-    @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Deprecated
+    @Test(  groups = {},
             description = "Валидация данных по сессионному токену")
     public void testUserDataWithInvalidToken() {
         final UserData userData = UserManager.getUser();

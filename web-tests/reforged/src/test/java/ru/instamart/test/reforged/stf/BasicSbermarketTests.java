@@ -6,13 +6,12 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.model.v2.RetailerV2;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.StaticPage;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.reforged.core.service.Curl;
-import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.test.reforged.BaseTest;
 
 import static org.testng.Assert.assertTrue;
@@ -195,7 +194,7 @@ public final class BasicSbermarketTests extends BaseTest {
             groups = {"sbermarket-Ui-smoke","MRAutoCheck","ui-smoke-production"}
     )
     public void successCheckSbermarketAvailableRetailers(final RetailerV2 retailer) {
-        final String fullUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + retailer.getSlug();
+        final String fullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + retailer.getSlug();
         assertTrue(Curl.pageAvailable(fullUrl), "Страница " + fullUrl + " недоступна");
     }
 
@@ -208,7 +207,7 @@ public final class BasicSbermarketTests extends BaseTest {
             groups = {"sbermarket-Ui-smoke","MRAutoCheck","ui-smoke-production"}
     )
     public void successCheckSbermarketUnavailableRetailers(final RetailerV2 retailer) {
-        final String fullUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + retailer.getSlug();
+        final String fullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + retailer.getSlug();
         assertTrue(Curl.pageUnavailable(fullUrl), "Страница " + fullUrl + " доступна");
     }
 

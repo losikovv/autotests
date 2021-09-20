@@ -18,9 +18,9 @@ import ru.instamart.api.request.v2.*;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v1.OffersV1Response;
 import ru.instamart.api.response.v2.*;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.lib.Pages;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.kraken.util.MapUtil;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.ThreadUtil;
@@ -138,7 +138,7 @@ public final class InstamartApiHelper {
 
     @Step("Отправляем запрос на получение смс с кодом")
     public PhoneTokenV2 sendSMS(String encryptedPhone) {
-        log.info("Отправляем запрос на получение смс с кодом");
+        log.debug("Отправляем запрос на получение смс с кодом");
         Response response = PhoneConfirmationsV2Request.POST(encryptedPhone);
 
         if (response.statusCode() == 422) {
@@ -155,12 +155,12 @@ public final class InstamartApiHelper {
 
     @Step("Подтверждаем номер телефона {phone} кодом {code}")
     public SessionV2 confirmPhone(String phone, String code, boolean promoTermsAccepted) {
-        log.info("Подтверждаем номер телефона {} кодом {}", phone, code);
+        log.debug("Подтверждаем номер телефона {} кодом {}", phone, code);
         Response response = PhoneConfirmationsV2Request.PUT(phone, code, promoTermsAccepted);
 
         checkStatusCode200(response);
         SessionV2 session = response.as(SessionsV2Response.class).getSession();
-        log.info("Получен токен: " + session.getAccessToken());
+        log.debug("Получен токен: " + session.getAccessToken());
         return session;
     }
 
@@ -197,7 +197,7 @@ public final class InstamartApiHelper {
         checkStatusCode200(response);
 
         OrderV2 order = response.as(OrderV2Response.class).getOrder();
-        log.info("Удалены все доставки у заказа: {}", order.getNumber());
+        log.debug("Удалены все доставки у заказа: {}", order.getNumber());
         return order;
     }
 
@@ -226,7 +226,7 @@ public final class InstamartApiHelper {
                 .getAddress();
         currentAddressId.set(addressFromResponse.getId());
 
-        log.info("Применен адрес: {}", addressFromResponse);
+        log.debug("Применен адрес: {}", addressFromResponse);
         return addressFromResponse;
     }
 
@@ -266,7 +266,7 @@ public final class InstamartApiHelper {
         checkStatusCode200(response);
         List<DepartmentV2> departments = response.as(DepartmentsV2Response.class).getDepartments();
 
-        String storeUrl = EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + "?sid=" + sid;
+        String storeUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + "?sid=" + sid;
 
         assertFalse(departments.isEmpty(), "Не импортированы товары для магазина\n" + storeUrl);
 
@@ -297,6 +297,16 @@ public final class InstamartApiHelper {
         return products;
     }
 
+    public ProductV2 getProductByPriceType(Integer sid, String priceType) {
+        List<ProductV2> products = getProductsFromEachDepartmentInStore(sid);
+        for (ProductV2 product : products) {
+            if (product.getPriceType().equals(priceType)) {
+                return product;
+            }
+        }
+        throw new SkipException("Нет продукта с price_type: " + priceType);
+    }
+
     /**
      * Добавляем список товаров в корзину
      */
@@ -317,7 +327,7 @@ public final class InstamartApiHelper {
         checkStatusCode200(response);
         LineItemV2 lineItem = response.as(LineItemV2Response.class).getLineItem();
 
-        log.info(lineItem.toString());
+        log.debug(lineItem.toString());
         return lineItem;
     }
 
@@ -325,7 +335,7 @@ public final class InstamartApiHelper {
     public int getMinOrderAmount(int sid) {
         double minSum = getStore(sid).getMinOrderAmount();
         Allure.step("Минимальная сумма корзины: " + minSum);
-        log.info("Минимальная сумма корзины: {}", minSum);
+        log.debug("Минимальная сумма корзины: {}", minSum);
         this.minSum.set((int) minSum);
         return (int) minSum;
     }
@@ -334,7 +344,7 @@ public final class InstamartApiHelper {
     public int getMinFirstOrderAmount(int sid) {
         double minSum = getStore(sid).getMinFirstOrderAmount();
         Allure.step("Минимальная сумма корзины: " + minSum);
-        log.info("Минимальная сумма корзины: {}", minSum);
+        log.debug("Минимальная сумма корзины: {}", minSum);
         this.minSum.set((int) minSum);
         return (int) minSum;
     }
@@ -355,7 +365,7 @@ public final class InstamartApiHelper {
         if (!shipment.getAlerts().isEmpty()) {
             String alertMessage = shipment.getAlerts().get(0).getMessage().replaceAll("[^0-9]", "");
             minSum.set(Integer.parseInt(alertMessage.substring(0, alertMessage.length() - 2)));
-            log.info("Минимальная сумма корзины: {}", minSum.get());
+            log.debug("Минимальная сумма корзины: {}", minSum.get());
             minSumNotReached.set(true);
         } else {
             log.warn("Минимальная сумма корзины набрана");
@@ -364,7 +374,7 @@ public final class InstamartApiHelper {
         currentShipmentId.set(shipment.getId());
         currentShipmentNumber.set(shipment.getNumber());
         Allure.step("Номер доставки: " + currentShipmentNumber.get());
-        log.info("Номер доставки: {}", currentShipmentNumber.get());
+        log.debug("Номер доставки: {}", currentShipmentNumber.get());
     }
 
     /**
@@ -402,17 +412,17 @@ public final class InstamartApiHelper {
 
         if (humanVolume.contains(" кг") || humanVolume.contains(" л")) {
             Allure.step(product + "Вес продукта: " + productWeight + " кг.");
-            log.info("{} Вес продукта: {} кг.", product, productWeight);
+            log.debug("{} Вес продукта: {} кг.", product, productWeight);
             productWeightNotDefined.set(false);
             return productWeight;
         } else if (humanVolume.contains(" г") || humanVolume.contains(" мл")) {
             Allure.step(product + " Вес продукта: " + productWeight / 1000 + "кг.");
-            log.info("{} Вес продукта: {} кг.", product, productWeight / 1000);
+            log.debug("{} Вес продукта: {} кг.", product, productWeight / 1000);
             productWeightNotDefined.set(false);
             return productWeight / 1000;
         } else {
             Allure.step(product + " Неизвестный тип веса/объема:" + humanVolume);
-            log.info("{} Неизвестный тип веса/объема: {}", product, humanVolume);
+            log.debug("{} Неизвестный тип веса/объема: {}", product, humanVolume);
             productWeightNotDefined.set(true);
             return 0;
         }
@@ -423,7 +433,11 @@ public final class InstamartApiHelper {
      */
     @Step("Получаем первый доступный слот")
     public DeliveryWindowV2 getAvailableDeliveryWindow() {
-        Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), getDateFromMSK().toString());
+        Response responseDeliveryWindow = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), null);
+        checkStatusCode200(responseDeliveryWindow);
+        String availableDays = responseDeliveryWindow.as(ShippingRatesV2Response.class).getMeta().getAvailableDays().get(0);
+
+        Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), availableDays);
         checkStatusCode200(response);
 
         List<ShippingRateV2> shippingRates = response.as(ShippingRatesV2Response.class).getShippingRates();
@@ -435,7 +449,7 @@ public final class InstamartApiHelper {
 
         currentDeliveryWindowId.set(deliveryWindow.getId());
 
-        log.info(deliveryWindow.toString());
+        log.debug(deliveryWindow.toString());
         return deliveryWindow;
     }
 
@@ -454,7 +468,7 @@ public final class InstamartApiHelper {
 
         currentShipmentMethodId.set(shippingMethod.getId());
 
-        log.info(shippingMethod.toString());
+        log.debug(shippingMethod.toString());
         return shippingMethod;
     }
 
@@ -485,7 +499,7 @@ public final class InstamartApiHelper {
         }
         Allure.step("Доступный список оплаты: " + availablePaymentToolsText);
 
-        log.info(availablePaymentToolsText.toString());
+        log.debug(availablePaymentToolsText.toString());
         return selectedPaymentTool;
     }
 
@@ -513,12 +527,12 @@ public final class InstamartApiHelper {
                 "    delivery_ends_at: " + order.getShipments().get(0).getDeliveryWindow().getEndsAt() + "<br>" +
                 "special_instructions: " + order.getSpecialInstructions());
 
-        log.info("Применены атрибуты для заказа: {}", order.getNumber());
-        log.info("        full_address: {}", order.getAddress().getFullAddress());
-        log.info("  replacement_policy: {}", order.getReplacementPolicy().getDescription());
-        log.info("  delivery_starts_at: {}", order.getShipments().get(0).getDeliveryWindow().getStartsAt());
-        log.info("    delivery_ends_at: {}", order.getShipments().get(0).getDeliveryWindow().getEndsAt());
-        log.info("special_instructions: {}", order.getSpecialInstructions());
+        log.debug("Применены атрибуты для заказа: {}", order.getNumber());
+        log.debug("        full_address: {}", order.getAddress().getFullAddress());
+        log.debug("  replacement_policy: {}", order.getReplacementPolicy().getDescription());
+        log.debug("  delivery_starts_at: {}", order.getShipments().get(0).getDeliveryWindow().getStartsAt());
+        log.debug("    delivery_ends_at: {}", order.getShipments().get(0).getDeliveryWindow().getEndsAt());
+        log.debug("special_instructions: {}", order.getSpecialInstructions());
         return order;
     }
 
@@ -541,7 +555,7 @@ public final class InstamartApiHelper {
         List<AlertV2> alerts = order.getShipments().get(0).getAlerts();
         alerts.forEach(alert -> log.error(alert.getFullMessage()));
         Allure.step("Оформлен заказ: " + order.getNumber());
-        log.info("Оформлен заказ: {}", order.getNumber());
+        log.debug("Оформлен заказ: {}", order.getNumber());
         orderCompleted.set(true);
         return order;
     }
@@ -579,7 +593,7 @@ public final class InstamartApiHelper {
         Response response = OrdersV2Request.Cancellations.POST(orderNumber, "test");
         checkStatusCode200(response);
         OrderV2 order = response.as(CancellationsV2Response.class).getCancellation().getOrder();
-        log.info("Отменен заказ: {}", order.getNumber());
+        log.debug("Отменен заказ: {}", order.getNumber());
         return order;
     }
 
@@ -600,7 +614,7 @@ public final class InstamartApiHelper {
 
         currentSid.set(store.getId());
 
-        log.info("Выбран магазин: {}", store);
+        log.debug("Выбран магазин: {}", store);
         return store;
     }
 
@@ -626,7 +640,7 @@ public final class InstamartApiHelper {
 
                 currentSid.set(store.getId());
 
-                log.info("Выбран магазин: {}", store);
+                log.debug("Выбран магазин: {}", store);
                 Allure.step("Выбран магазин: " + store);
                 return store;
             }
@@ -654,13 +668,13 @@ public final class InstamartApiHelper {
         if (store == null) fail(response.body().asString());
 
         AddressV2 address = store.getLocation();
-        log.info("Получен адрес {}", address.getFullAddress());
+        log.debug("Получен адрес {}", address.getFullAddress());
         Allure.step("Получен адрес " + address.getFullAddress());
 
         List<List<ZoneV2>> zones = store.getZones();
         ZoneV2 zone = getInnerPoint(zones.get(zones.size() - 1));
         address.setCoordinates(zone);
-        log.info("Выбраны координаты: {}", zone);
+        log.debug("Выбраны координаты: {}", zone);
         Allure.step("Выбраны координаты: " + zone);
 
         return address;
@@ -686,7 +700,7 @@ public final class InstamartApiHelper {
         if (store == null) fail(response.body().asString());
 
         AddressV2 address = store.getLocation();
-        log.info("Получен адрес {}", address.getFullAddress());
+        log.debug("Получен адрес {}", address.getFullAddress());
         Allure.step("Получен адрес " + address.getFullAddress());
 
         return address;
@@ -708,7 +722,7 @@ public final class InstamartApiHelper {
         for (RetailerV2 retailer : retailers) {
             availableRetailers.add(retailer.toString());
         }
-        log.info(availableRetailers.toString());
+        log.debug(availableRetailers.toString());
         Allure.addAttachment("Активные ритейлеры:", ContentType.TEXT.toString(), availableRetailers.toString());
         return retailers;
     }
@@ -728,7 +742,7 @@ public final class InstamartApiHelper {
                 "\n");
         for (RetailerV2 retailer : retailers)
             if (retailer.getAvailable()) availableRetailers.add(retailer.toString());
-        log.info(availableRetailers.toString());
+        log.debug(availableRetailers.toString());
         Allure.addAttachment("Активные ритейлеры:", ContentType.TEXT.toString(), availableRetailers.toString());
         StringJoiner notAvailableRetailers = new StringJoiner(
                 "\n• ",
@@ -736,7 +750,7 @@ public final class InstamartApiHelper {
                 "\n");
         for (RetailerV2 retailer : retailers)
             if (!retailer.getAvailable()) notAvailableRetailers.add(retailer.toString());
-        log.info(notAvailableRetailers.toString());
+        log.debug(notAvailableRetailers.toString());
         Allure.addAttachment("Неактивные ритейлеры:", ContentType.TEXT.toString(), notAvailableRetailers.toString());
 
         return retailers;
@@ -814,7 +828,7 @@ public final class InstamartApiHelper {
             availableStores.add(store.toString());
         }
         Allure.addAttachment("Список активных магазинов:", ContentType.TEXT.toString(), availableStores.toString());
-        log.info(availableStores.toString());
+        log.debug(availableStores.toString());
     }
 
     /**
@@ -845,7 +859,7 @@ public final class InstamartApiHelper {
                 .getOrder()
                 .getNumber());
         Allure.step("Номер текущего заказа: " + currentOrderNumber.get());
-        log.info("Номер текущего заказа: {}", currentOrderNumber.get());
+        log.debug("Номер текущего заказа: {}", currentOrderNumber.get());
         return currentOrderNumber.get();
     }
 
@@ -861,7 +875,7 @@ public final class InstamartApiHelper {
                 .getShipments().get(0)
                 .getNumber());
         Allure.step("SHIPMENT_NUMBER текущего заказа: " + currentShipmentNumber.get());
-        log.info("SHIPMENT_NUMBER текущего заказа: {}", currentShipmentNumber.get());
+        log.debug("SHIPMENT_NUMBER текущего заказа: {}", currentShipmentNumber.get());
         return currentShipmentNumber.get();
     }
 
@@ -919,10 +933,10 @@ public final class InstamartApiHelper {
                     orders.addAll(OrdersV2Request.GET(OrderStatusV2.ACTIVE, i).as(OrdersV2Response.class).getOrders());
                 }
             }
-            log.info("Список активных заказов:");
-            orders.forEach(order -> log.info(order.getNumber()));
+            log.debug("Список активных заказов:");
+            orders.forEach(order -> log.debug(order.getNumber()));
             for (OrderV2 order : orders) {
-                log.info(order.getNumber());
+                log.debug(order.getNumber());
             }
         }
         return orders;
@@ -970,7 +984,7 @@ public final class InstamartApiHelper {
             if (finalCartWeight > 40) log.error(cartWeightText + anotherProductText);
             else if (productWeightNotDefined.get()) log.error(anotherProductText);
             else {
-                log.info(cartWeightText);
+                log.debug(cartWeightText);
                 if (minSumNotReached.get()) addItemToCart(product.getId(), quantity);
                 break;
             }

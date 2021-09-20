@@ -10,7 +10,7 @@ import ru.instamart.api.request.ApiV3RequestBase;
 public class SetupInfoV3Request extends ApiV3RequestBase {
 
     /**
-     * Cправочная информация об интеграции
+     * Справочная информация об интеграции
      */
     @Step("{method} /" + ApiV3Endpoints.SETUP_INFO)
     public static Response GET() {

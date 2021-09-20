@@ -6,13 +6,13 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 @Epic("ApiV2")
-@Feature("E2E тесты")
+@Feature("E2E тесты старого приложения")
 public class OrderE2ETests extends RestBase {
 
     @BeforeClass(alwaysRun = true,
@@ -30,6 +30,6 @@ public class OrderE2ETests extends RestBase {
     @CaseId(101)
     @Test(description = "Тест оформления заказа", groups = {"api-instamart-regress", "api-instamart-prod"})
     public void order() {
-        apiV2.order(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        apiV2.order(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
     }
 }

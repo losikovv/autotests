@@ -1,8 +1,13 @@
 package ru.instamart.reforged.stf.drawer.cart;
 
 import io.qameta.allure.Step;
+import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
 
 public final class Cart implements CartCheck {
+
+    public RetailRocket interactRetailRocket() {
+        return retailRocket;
+    }
 
     @Step("Закрыть корзину")
     public void closeCart() {

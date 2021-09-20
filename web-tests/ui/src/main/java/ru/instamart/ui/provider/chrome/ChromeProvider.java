@@ -10,8 +10,8 @@ import ru.instamart.ui.provider.AbstractBrowserProvider;
 
 import java.util.Map;
 
-import static ru.instamart.kraken.setting.Config.VIDEO;
-import static ru.instamart.kraken.setting.Config.VNC;
+import static ru.instamart.ui.config.BrowserProperties.VIDEO;
+import static ru.instamart.ui.config.BrowserProperties.VNC;
 
 public final class ChromeProvider extends AbstractBrowserProvider {
 

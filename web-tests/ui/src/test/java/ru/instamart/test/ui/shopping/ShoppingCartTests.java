@@ -1,19 +1,19 @@
 package ru.instamart.test.ui.shopping;
 
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.ui.checkpoint.BaseUICheckpoints;
-import ru.instamart.kraken.testdata.lib.Addresses;
-import ru.instamart.ui.module.Shop;
-import ru.instamart.ui.module.User;
-import ru.instamart.ui.module.shop.Order;
-import ru.instamart.ui.module.shop.ShippingAddressModal;
-import ru.instamart.ui.Elements;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import ru.instamart.kraken.config.CoreProperties;
+import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.test.ui.TestBase;
+import ru.instamart.ui.Elements;
+import ru.instamart.ui.checkpoint.BaseUICheckpoints;
+import ru.instamart.ui.module.Shop;
+import ru.instamart.ui.module.User;
+import ru.instamart.ui.module.shop.Order;
+import ru.instamart.ui.module.shop.ShippingAddressModal;
 
 public class ShoppingCartTests extends TestBase {
     BaseUICheckpoints baseChecks = new BaseUICheckpoints();
@@ -21,7 +21,7 @@ public class ShoppingCartTests extends TestBase {
             description = "Подготавливаем тестовое окружение к тестовому прогону")
     public void setup() {
         User.Logout.quickly();
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         ShippingAddressModal.open();
         ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
         ShippingAddressModal.submit();
@@ -78,7 +78,7 @@ public class ShoppingCartTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAddItemToCartFromItemCard() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         User.Do.loginAs(UserManager.getDefaultUser());
         Shop.Cart.drop();
 
@@ -101,7 +101,7 @@ public class ShoppingCartTests extends TestBase {
     public void successChangeItemQuantityInCart() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         User.Do.loginAs(UserManager.getDefaultUser());
         Shop.Cart.drop();
 
@@ -134,7 +134,7 @@ public class ShoppingCartTests extends TestBase {
     public void successChangeItemQuantityInCartViaItemCard() {
         SoftAssert softAssert = new SoftAssert();
 
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         User.Do.loginAs(UserManager.getDefaultUser());
         Shop.Cart.drop();
 
@@ -169,7 +169,7 @@ public class ShoppingCartTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successRemoveItemsFromCart() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         User.Do.loginAs(UserManager.getDefaultUser());
         Shop.Catalog.Item.addToCart();
         if(kraken.detect().isCartEmpty()){
@@ -188,7 +188,7 @@ public class ShoppingCartTests extends TestBase {
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAddItemToCartFromCatalogSnippet() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
         User.Do.loginAs(UserManager.getDefaultUser());
         Shop.Cart.drop();
 

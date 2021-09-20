@@ -11,14 +11,14 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.delivery_club.StoresDCRequest;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode401;
 
 @Epic("Партнёры")
 @Feature("Delivery Club")
 public class StoresWithoutAuthDCTest extends RestBase {
-    int sid = EnvironmentData.INSTANCE.getDefaultSid();
+    int sid = EnvironmentProperties.DEFAULT_SID;
     String orderNumber = "000";
     String slotId = "000";
     String productId = "000";

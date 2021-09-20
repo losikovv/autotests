@@ -2,33 +2,37 @@ package ru.instamart.api.helper;
 
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Assert;
+import org.testng.Assert;
+import ru.instamart.api.model.testdata.ApiV3TestData;
 import ru.instamart.api.model.v3.*;
 import ru.instamart.api.request.v3.OrderOptionsV3Request;
+import ru.instamart.api.request.v3.OrderV3Request;
 import ru.instamart.api.request.v3.StoresV3Request;
 import ru.instamart.api.response.v3.OrderOptionsV3Response;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+
 @Slf4j
 public final class ApiV3Helper {
 
-  //  PaymentMethodOptionV3 paymentMethod;
-  //  OrderOptionsPickupV3Response orderOptionsPickupV3;
+    //  PaymentMethodOptionV3 paymentMethod;
+    //  OrderOptionsPickupV3Response orderOptionsPickupV3;
 
 
     public List<StoreV3> getPickupStores() {
-        log.info("Получаем список магазинов с самовызом");
+        log.debug("Получаем список магазинов с самовызом");
         return Arrays.asList(StoresV3Request.PickupFromStore.GET().as(StoreV3[].class));
     }
 
     public StoreV3 getStore(String name) {
-        log.info("Ищем магазин по имени: " + name);
+        log.debug("Ищем магазин по имени: " + name);
         List<StoreV3> stores = getPickupStores();
         for (StoreV3 store : stores) {
             if (name.equals(store.getName())) {
-                log.info("Найден магазин: " + store);
+                log.debug("Найден магазин: " + store);
                 return store;
             }
         }
@@ -36,28 +40,28 @@ public final class ApiV3Helper {
         return stores.get(0);
     }
 
-    public OrderOptionsV3Response getOrderOptionsPickup(StoreV3 store) {
-    // StoreV3 store = getStore("METRO, Ленинградское шоссе");
-        log.info("Получаем список опций заказа дла магазинов с самовывозом");
+    public OrderOptionsV3Response getOrderOptionsPickup(StoreV3 store, ApiV3TestData testData) {
+        // StoreV3 store = getStore("METRO, Ленинградское шоссе");
+        log.debug("Получаем список опций заказа дла магазинов с самовывозом");
         return OrderOptionsV3Request.PickupFromStore.PUT(
-                "metro",
-                store.getId(),
-                "15879",
-        "14cd5d341d768bd4926fc9f5ce262094").as(OrderOptionsV3Response.class);
+                testData,
+                store.getId())
+                .as(OrderOptionsV3Response.class);
     }
 
-    public OrderOptionsV3Response getOrderOptionsDelivery() {
-        Response response = OrderOptionsV3Request.Delivery.PUT();
+    public OrderOptionsV3Response getOrderOptionsDelivery(ApiV3TestData testData) {
+        Response response = OrderOptionsV3Request.Delivery.PUT(testData);
         response.then().statusCode(200);
         return response.as(OrderOptionsV3Response.class);
     }
 
-    public PaymentMethodV3 getPaymentMethod(String title, List<PaymentMethodV3> paymentMethods) {
-        log.info("Ищем payment метод: " + title);
+    public PaymentMethodV3 getPaymentMethod(String type, List<PaymentMethodV3> paymentMethods) {
+        log.debug("Ищем payment метод: " + type);
 
         for (PaymentMethodV3 paymentMethod : paymentMethods) {
-            if (title.equals(paymentMethod.getTitle())) {
-                log.info("Метод найден: " + title);
+            log.debug(paymentMethod.getType());
+            if (type.equals(paymentMethod.getType())) {
+                log.debug("Метод найден: " + type);
                 return paymentMethod;
             }
         }
@@ -66,13 +70,13 @@ public final class ApiV3Helper {
     }
 
     public PaymentMethodV3 getPaymentMethod(List<PaymentMethodV3> paymentMethods) {
-        log.info("Ищем payment метод c options");
+        log.debug("Ищем payment метод c options ");
 
         for (PaymentMethodV3 paymentMethod : paymentMethods) {
             if (paymentMethod.getOptions() != null &&
                     !paymentMethod.getOptions().isEmpty() &&
                     paymentMethod.getOptions().get(0).getId() != null) {
-                log.info("Метод найден: " + paymentMethod.getTitle());
+                log.debug("Метод найден: " + paymentMethod.getTitle());
                 return paymentMethod;
             }
         }
@@ -81,11 +85,11 @@ public final class ApiV3Helper {
     }
 
     public ReplacementOptionV3 getReplacementMethod(String id, List<ReplacementOptionV3> replacementMethods) {
-        log.info("Ищем метод замен: " + id);
+        log.debug("Ищем метод замен: " + id);
 
         for (ReplacementOptionV3 replacementMethod : replacementMethods) {
             if (id.equals(replacementMethod.getId())) {
-                log.info("Метод найден: " + id);
+                log.debug("Метод найден: " + id);
                 return replacementMethod;
             }
         }
@@ -94,7 +98,7 @@ public final class ApiV3Helper {
     }
 
 /* public OrderV3 getOrderMethod (OrderV3 orderV3) {
-    log.info("Получаем ордер");
+    log.debug("Получаем ордер");
     return CreateOrderV3Request.PickupFromStore.POST(
             paymentMethod.getOptions().get(0).getId(),
             shippingMethod.getId(),
@@ -107,5 +111,66 @@ public final class ApiV3Helper {
             packagesTotal += packageV3.getItemTotal();
         }
         return packagesTotal;
+    }
+
+    public OrderV3 createDefaultOrder() {
+        ApiV3TestData testData = ApiV3TestData
+                .builder()
+                .shipTotal("15000")
+                .itemId("15879")
+                .itemQuantity(1)
+                .itemPrice(10000)
+                .itemDiscount(1000)
+                .itemPromoTotal(1000)
+                .clientToken("6fae9cd2b268be84e2ab394b6fd0d599")
+                .build();
+
+        return createOrderDelivery(testData);
+    }
+
+    public OrderV3 createOrderDelivery(ApiV3TestData testData) {
+
+        Response response = OrderOptionsV3Request.Delivery.PUT(testData);
+        OrderOptionsV3Response orderOptionsV3Response = response.as(OrderOptionsV3Response.class);
+        checkStatusCode200(response);
+
+        List<PaymentMethodV3> paymentMethods = orderOptionsV3Response.getPayment_methods();
+        String paymentOptionId = getPaymentMethod("external_partner_pay", paymentMethods).getOptions().get(0).getId();
+
+        String shippingMethodOptions = orderOptionsV3Response.getShipping_methods().get(0).getOptions().get(1).getId();
+
+        List<ReplacementOptionV3> replacementOptions = orderOptionsV3Response.getReplacement_options();
+        String replacementOptionId = getReplacementMethod("replace", replacementOptions).getId();
+
+        response = OrderV3Request.Delivery.POST(
+                paymentOptionId,
+                shippingMethodOptions,
+                replacementOptionId,
+                testData);
+        checkStatusCode200(response);
+        return response.as(OrderV3.class);
+    }
+
+    public OrderV3 createOrderPickupFromStore(ApiV3TestData testData) {
+
+        Response response = OrderOptionsV3Request.PickupFromStore.PUT(testData, "d1106342-817f-4c3e-8c18-0005295f641a");
+        OrderOptionsV3Response orderOptionsV3Response = response.as(OrderOptionsV3Response.class);
+        checkStatusCode200(response);
+
+        List<PaymentMethodV3> paymentMethods = orderOptionsV3Response.getPayment_methods();
+        String paymentOptionId = getPaymentMethod("cash_desk", paymentMethods).getOptions().get(0).getId();
+
+        String shippingMethodOptions = orderOptionsV3Response.getShipping_methods().get(0).getOptions().get(1).getId();
+
+        List<ReplacementOptionV3> replacementOptions = orderOptionsV3Response.getReplacement_options();
+        String replacementOptionId = getReplacementMethod("replace", replacementOptions).getId();
+
+        response = OrderV3Request.PickupFromStore.POST(
+                paymentOptionId,
+                shippingMethodOptions,
+                replacementOptionId,
+                testData);
+        checkStatusCode200(response);
+        return response.as(OrderV3.class);
     }
 }

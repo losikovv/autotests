@@ -35,43 +35,43 @@ public class FavoritesListV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2_FB);
     }
 
-    @CaseId(13)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Получаем пустой список любимых товаров")
+    @Deprecated
+    @Test(groups = {}, description = "Получаем пустой список любимых товаров")
     public void testEmptyFavoritesList() {
         final Response response = FavoritesV2Request.GET(1);
         checkStatusCode200(response);
         assertEquals(response.as(FavoritesListItemsV2Response.class).getItems().size(), 0, "Список избранного не пустой");
     }
 
-    @CaseId(128)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Добавление товара в избранное")
+    @Deprecated
+    @Test(groups = {}, description = "Добавление товара в избранное")
     public void testAddItemToFavoritesList() {
         final Response response = FavoritesV2Request.POST(PRODUCT_ID);
         checkStatusCode200(response);
         final ItemV2 item = response.as(FavoritesItemV2Response.class).getItem();
-        assertNotNull(item);
+        assertNotNull(item, "Избранное вернуло пустое значение");
     }
 
-    @CaseId(129)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Добавление товара в избранное с несуществующим id")
+    @Deprecated
+    @Test(groups = {}, description = "Добавление товара в избранное с несуществующим id")
     public void testNegativeAddItemToFavoritesList() {
         final Response response = FavoritesV2Request.POST(1);
         checkStatusCode404(response);
     }
 
-    @CaseId(130)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Удаление товара из избранного")
+    @Deprecated
+    @Test(groups = {}, description = "Удаление товара из избранного")
     public void testDeleteItemToFavoritesList() {
         Response response = FavoritesV2Request.POST(PRODUCT_ID_2);
         checkStatusCode200(response);
         final ItemV2 item = response.as(FavoritesItemV2Response.class).getItem();
-        assertNotNull(item);
+        assertNotNull(item, "Избранное вернуло пустое значение" );
         response = FavoritesV2Request.DELETE(item.getId());
         checkStatusCode200(response);
     }
 
-    @CaseId(131)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Получаем пустой список sku любимых товаров")
+    @Deprecated
+    @Test(groups = {}, description = "Получаем пустой список sku любимых товаров")
     public void testEmptySkuFavoritesList() {
         final Response response = FavoritesV2Request.ProductSku.GET();
         checkStatusCode200(response);
@@ -79,22 +79,22 @@ public class FavoritesListV2Test extends RestBase {
                 .as(FavoritesSkuListItemV2Response.class).getProductsSkuList().size(), 0, "Список sku товаров не пустой");
     }
 
-    @CaseId(132)
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Добавление товара в избранное по его Sku")
+    @Deprecated
+    @Test(groups = {}, description = "Добавление товара в избранное по его Sku")
     public void testAddItemToFavoritesListBySku() {
         final Response response = FavoritesV2Request.ProductSku.POST(PRODUCT_SKU);
         checkStatusCode200(response);
     }
 
-    @CaseId(133)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Добавление товара в избранное с несуществующим Sku")
+    @Deprecated
+    @Test(groups = {}, description = "Добавление товара в избранное с несуществующим Sku")
     public void testNegativeAddItemToFavoritesListBySku() {
         final Response response = FavoritesV2Request.ProductSku.POST(1);
         checkStatusCode422(response);
     }
 
-    @CaseId(134)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Удаление товара из избранного по sku")
+    @Deprecated
+    @Test(groups = {}, description = "Удаление товара из избранного по sku")
     public void testDeleteItemToFavoritesListBySku() {
         Response response = FavoritesV2Request.ProductSku.POST(PRODUCT_SKU);
         checkStatusCode200(response);

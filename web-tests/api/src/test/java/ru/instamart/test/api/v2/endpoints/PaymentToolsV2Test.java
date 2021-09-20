@@ -2,7 +2,6 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -10,17 +9,18 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.PaymentToolsV2Request;
-import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.PaymentToolTypesV2Response;
 import ru.instamart.api.response.v2.PaymentToolsV2Response;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
 @Feature("Способы оплаты")
+@Deprecated
 public class PaymentToolsV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
@@ -28,9 +28,9 @@ public class PaymentToolsV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2_FB);
     }
 
-    @CaseId(20)
+    @Deprecated
     @Test(description = "Получаем инфу о способах оплаты",
-            groups = {"api-instamart-smoke", "api-instamart-prod"})
+            groups = {})
     public void getPaymentTools() {
         response = PaymentToolsV2Request.GET();
         checkStatusCode200(response);
@@ -38,42 +38,36 @@ public class PaymentToolsV2Test extends RestBase {
                 "Не вернулась инфа о спобах оплаты");
     }
 
-    @CaseId(372)
-    @Test(groups = {"api-instamart-regress"},
+    @Deprecated
+    @Test(groups = {},
             description = "Возможные типы способов оплаты для заказа с существущим id")
     public void getPaymentToolsWithOrder200() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
         String orderNumber = apiV2.getCurrentOrderNumber();
         response = PaymentToolsV2Request.GET(orderNumber);
         checkStatusCode200(response);
         PaymentToolTypesV2Response paymentToolsV2Response = response.as(PaymentToolTypesV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(0).getName(), "По счёту для бизнеса");
-        softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(0).getDescription(), "Сборка и доставка заказа осуществляется только после полной предоплаты и поступления\r\n          денежных средств на наш счет");
-        softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(0).getType(), "sber_bank_invoice");
+        softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(0).getName(), "По счёту для бизнеса", "Способ оплаты пустой");
+        softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(0).getDescription(), "Сборка и доставка заказа осуществляется только после полной предоплаты и поступления\r\n          денежных средств на наш счет", "Способ оплаты пустой");
+        softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(0).getType(), "sber_bank_invoice", "Способ оплаты пустой");
 
-        softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(1).getName(), "Картой онлайн");
-        softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(1).getDescription(), "После оформления заказа мы спишем и вернем один рубль для проверки карты. \r\nПолная стоимость будет списана после сборки заказа в магазине.");
-        softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(1).getType(), "cloud_payments_gateway");
+        softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(1).getName(), "Картой онлайн", "Способ оплаты пустой");
+        softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(1).getDescription(), "После оформления заказа мы спишем и вернем один рубль для проверки карты. \r\nПолная стоимость будет списана после сборки заказа в магазине.", "Способ оплаты пустой");
+        softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(1).getType(), "cloud_payments_gateway", "Способ оплаты пустой");
 
-        softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(2).getName(), "Apple Pay");
-        softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(2).getType(), "apple_pay");
+        softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(2).getName(), "Apple Pay", "Способ оплаты пустой");
+        softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(2).getType(), "apple_pay", "Способ оплаты пустой");
 
         softAssert.assertAll();
     }
 
-    @CaseId(373)
-    @Test(groups = {"api-instamart-regress"},
+    @Deprecated
+    @Test(groups = {},
             description = "Возможные типы способов оплаты для заказа с несуществущим id")
     public void getPaymentToolsWithOrder404() {
         response = PaymentToolsV2Request.GET("failedOrderNumber");
         checkStatusCode404(response);
-        ErrorResponse error = response.as(ErrorResponse.class);
-        final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(error.getErrors().getBase(), "Заказ не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "base");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Заказ не существует");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Заказ не существует");
-        softAssert.assertAll();
+        errorAssert(response, "Заказ не существует");
     }
 }

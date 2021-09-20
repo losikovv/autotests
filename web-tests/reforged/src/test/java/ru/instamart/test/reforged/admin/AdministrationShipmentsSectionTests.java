@@ -7,12 +7,17 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 import ru.instamart.reforged.admin.page.usersEdit.UsersEditPage;
 import ru.instamart.test.reforged.BaseTest;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
@@ -67,15 +72,19 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void validateFilterDateAndTimeAdminShipmentsPage() {
+        final DateTimeFormatter dt = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        final DateTimeFormatter dtd = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        final String deliveryDateFrom = dt.format(LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT));
+        final String deliveryDateTo = dt.format(LocalDateTime.of(LocalDate.now(), LocalTime.MAX));
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
         shipments().goToPage();
         shipments().checkPageTitle();
-        String deliveryDate = shipments().getFirstDeliveryDateFromTable();
-        shipments().setDateAndTimeFilterFromTableDefault(deliveryDate);
+        shipments().setDateAndTimeFilterFromTableDefault(deliveryDateFrom);
+        shipments().setDateAndTimeFilterToTableDefault(deliveryDateTo);
         shipments().search();
-        shipments().checkDateAndTimeShipmentsColumn(deliveryDate);
+        shipments().checkDateAndTimeShipmentsColumn(dtd.format(LocalDateTime.now()));
     }
 
     @CaseId(173)
@@ -203,7 +212,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         final ApiHelper helper = new ApiHelper();
         final UserData userData = UserManager.getUser();
         helper.auth(userData);
-        final OrderV2 orderV2 = helper.makeOrder(userData, EnvironmentData.INSTANCE.getDefaultSid(), 3);
+        final OrderV2 orderV2 = helper.makeOrder(userData, EnvironmentProperties.DEFAULT_SID, 3);
         helper.cancelOrder(userData, orderV2.getNumber());
 
         //TODO: Заказ появляется в админке с задержкой рандомной
@@ -219,7 +228,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         final UserData userData = UserManager.getUser();
         helper.auth(userData);
 
-        final OrderV2 orderV2 = helper.makeOrder(userData, EnvironmentData.INSTANCE.getDefaultSid(), 3);
+        final OrderV2 orderV2 = helper.makeOrder(userData, EnvironmentProperties.DEFAULT_SID, 3);
 
         //TODO: Заказ появляется в админке с задержкой рандомной
     }

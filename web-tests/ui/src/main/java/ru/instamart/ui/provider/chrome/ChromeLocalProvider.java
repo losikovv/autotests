@@ -5,8 +5,8 @@ import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
-import ru.instamart.kraken.util.FileUtils;
 import ru.instamart.ui.provider.AbstractBrowserProvider;
+import ru.instamart.utils.FileUtils;
 
 import java.util.Optional;
 

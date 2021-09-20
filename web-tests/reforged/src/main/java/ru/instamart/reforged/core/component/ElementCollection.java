@@ -39,14 +39,14 @@ public final class ElementCollection extends CollectionComponent {
     }
 
     public void clickOnFirst() {
-        log.info("Click first {} with locator {}", getDescription(), getBy());
+        log.debug("Click first {} with locator {}", getDescription(), getBy());
         final WebElement webElement = getComponents().stream().findFirst().orElseThrow();
         webElement.click();
     }
 
     public void clickOnAll() {
         for (final WebElement we : getComponents()) {
-            log.info("Click on element {} with", we);
+            log.debug("Click on element {} with", we);
             we.click();
         }
     }
@@ -55,7 +55,7 @@ public final class ElementCollection extends CollectionComponent {
         for (final WebElement we : getComponents()) {
             final String elementText = we.getText();
             if (elementText.contains(text)) {
-                log.info("Click on element {} with text {}", we, elementText);
+                log.debug("Click on element {} with text {}", we, elementText);
                 we.click();
                 break;
             }
@@ -66,7 +66,7 @@ public final class ElementCollection extends CollectionComponent {
         for (final WebElement we : getComponents()) {
             final String elementText = we.getText();
             if (elementText.contains(text)) {
-                log.info("Hover on element {} with text {}", we, elementText);
+                log.debug("Hover on element {} with text {}", we, elementText);
                 Kraken.action().moveToElement(we).perform();
                 break;
             }

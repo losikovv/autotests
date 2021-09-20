@@ -2,14 +2,12 @@ package ru.instamart.kraken.testdata;
 
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.ab.model.request.UserGroups;
-import ru.instamart.ab.model.response.AbTests;
 import ru.instamart.kraken.service.AbService;
 import ru.instamart.kraken.service.QaService;
-import ru.instamart.kraken.util.Crypt;
+import ru.instamart.utils.Crypt;
 import ru.instamart.qa.model.response.QaSessionResponse;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Objects.isNull;
@@ -19,14 +17,13 @@ public final class UserManager {
 
     private static final List<UserData> USER_DATA_LIST = new ArrayList<>();
 
-    private static final QaService qaService = new QaService();
-    private static final AbService abService = new AbService();
     private static final String PASSWD_1 = Crypt.INSTANCE.decrypt("pPOEBSnWKrokeN1dNasL0g==");
     private static final String PASSWD_2 = Crypt.INSTANCE.decrypt("y3Brgz0jBmYYkmXSkdw5Jw==");
     private static final String PASSWD_3 = Crypt.INSTANCE.decrypt("HfaITuMU+0KIfKR2+YYg5A==");
 
     private static UserData defaultUser;
     private static UserData defaultAdmin;
+    private static UserData defaultAdminAllRoles;
     private static UserData defaultShopper;
     private static UserData defaultGmailUser;
     private static UserData defaultVkUser;
@@ -97,6 +94,19 @@ public final class UserManager {
                     .build();
         }
         return defaultAdmin;
+    }
+
+    public static UserData getDefaultAdminAllRoles() {
+        if (isNull(defaultAdminAllRoles)) {
+            defaultAdminAllRoles = UserData.builder()
+                    .role("superadmin")
+                    .email(Crypt.INSTANCE.decrypt("wTfubFbVMEA2P1HT80pKDXJfzWnJ15xgPBJr240lktU="))
+                    .phone("9999999977")
+                    .password(PASSWD_1)
+                    .name("autotest superadminallroles")
+                    .build();
+        }
+        return defaultAdminAllRoles;
     }
 
     public static UserData getDefaultShopper() {
@@ -246,12 +256,12 @@ public final class UserManager {
             testUser.setName(prefix + "-" + testUser.getName());
         }
 
-        log.info("Сгенерированы тестовые реквизиты для роли {}", role);
-        log.info("Телефон: {}", testUser.getPhone());
-        log.info("Email: {}", testUser.getEmail());
-        log.info("Пароль: {}", testUser.getPassword());
-        log.info("Имя: {}", testUser.getFirstName());
-        log.info("Фамилия: {}", testUser.getLastName());
+        log.debug("Сгенерированы тестовые реквизиты для роли {}", role);
+        log.debug("Телефон: {}", testUser.getPhone());
+        log.debug("Email: {}", testUser.getEmail());
+        log.debug("Пароль: {}", testUser.getPassword());
+        log.debug("Имя: {}", testUser.getFirstName());
+        log.debug("Фамилия: {}", testUser.getLastName());
 
         return testUser;
     }
@@ -288,15 +298,15 @@ public final class UserManager {
     public static UserData createUser(final String password) {
         final String role = UserRoles.USER.getRole();
         final String userName = Generate.testUserName(role);
-        final QaSessionResponse sessionResponse = qaService.createSession(password);
+        final QaSessionResponse sessionResponse = QaService.INSTANCE.createSession(password);
 
-        log.info("Сгенерированы тестовые реквизиты для роли {}", role);
-        log.info("Телефон: {}", sessionResponse.getUser().getPhone());
-        log.info("Email: {}", sessionResponse.getUser().getEmail());
-        log.info("Anonymous id: {}", sessionResponse.getAnonymous().getValue());
-        log.info("Пароль: {}", password);
-        log.info("Сессия: {}", sessionResponse.getSession().getAccessToken());
-        log.info("ФИО: {}", userName);
+        log.debug("Сгенерированы тестовые реквизиты для роли {}", role);
+        log.debug("Телефон: {}", sessionResponse.getUser().getPhone());
+        log.debug("Email: {}", sessionResponse.getUser().getEmail());
+        log.debug("Anonymous id: {}", sessionResponse.getAnonymous().getValue());
+        log.debug("Пароль: {}", password);
+        log.debug("Сессия: {}", sessionResponse.getSession().getAccessToken());
+        log.debug("ФИО: {}", userName);
 
         return UserData.builder()
                 .role(role)
@@ -322,12 +332,12 @@ public final class UserManager {
         userGroups.setAbTestId(abTestId);
         userGroups.setAbGroupId(abTestGroupId);
         userGroups.setIdentityId(newUser.getAnonymousId());
-        abService.changeUserGroup(userGroups);
+        AbService.INSTANCE.changeUserGroup(userGroups);
 
-        log.info("================================");
-        log.info("Измененный Ab Test {}", abTestId);
-        log.info("Группа для Ab теста {}", abTestGroupId);
-        log.info("================================");
+        log.debug("================================");
+        log.debug("Измененный Ab Test {}", abTestId);
+        log.debug("Группа для Ab теста {}", abTestGroupId);
+        log.debug("================================");
 
         return newUser;
     }

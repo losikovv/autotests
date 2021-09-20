@@ -8,15 +8,15 @@ import org.testng.SkipException;
 import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.model.v1.b2b.ManagerV1;
 import ru.instamart.api.request.ApiV1RequestBase;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 @SuppressWarnings("unchecked")
 public class CompanyManagersV1Request extends ApiV1RequestBase {
 
-
     @Step("{method} /" + ApiV1Endpoints.COMPANY_MANAGERS)
     public static Response POST(Integer companyID, ManagerV1 manager) {
-        if (EnvironmentData.INSTANCE.getBasicUrl().equals("https://stf-kraken.k-stage.sbermarket.tech/")) {
+        // Можно использовать аннотацию @Run(onServer = "preprod", onTenant = "sbermarket") вместо if
+        if (EnvironmentProperties.Env.FULL_SITE_URL.equals("https://stf-kraken.k-stage.sbermarket.tech/")) {
             JSONObject body = new JSONObject();
             JSONObject requestParams = new JSONObject();
             requestParams.put("user_id", manager.getUser().getId());

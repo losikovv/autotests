@@ -4,8 +4,8 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import ru.instamart.kraken.setting.Config;
 import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.core.config.BrowserProperties;
 
 import static java.util.Objects.isNull;
 
@@ -47,16 +47,16 @@ public final class Button extends Component {
     }
 
     public void click() {
-        if (Config.USE_JS_CLICK) {
+        if (BrowserProperties.USE_JS_CLICK) {
             jsClick();
         } else {
-            log.info("Click {} with locator {}", getDescription(), getBy());
+            log.debug("Click {} with locator {}", getDescription(), getBy());
             getComponent().click();
         }
     }
 
     public String getText() {
-        log.info("Get text {} with locator {}", getDescription(), getBy());
+        log.debug("Get text {} with locator {}", getDescription(), getBy());
         return getComponent().getText();
     }
 }

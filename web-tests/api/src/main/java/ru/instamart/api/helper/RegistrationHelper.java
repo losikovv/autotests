@@ -33,6 +33,6 @@ public final class RegistrationHelper {
 //                .as(UserV2Response.class)
 //                .getUser()
 //                .getEmail();
-//        log.info("Зарегистрирован: {}", registeredEmail);
+//        log.debug("Зарегистрирован: {}", registeredEmail);
     }
 }

@@ -3,7 +3,6 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -20,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorValueAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
@@ -28,6 +26,7 @@ import static ru.instamart.kraken.helper.PhoneNumberHelper.getHumanPhoneNumber;
 
 @Epic("ApiV2")
 @Feature("Телефоны пользователей")
+@Deprecated
 public class PhonesV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
@@ -35,22 +34,24 @@ public class PhonesV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2_FB);
     }
 
-    @CaseId(435)
+    @Deprecated
     @Story("Получить список всех телефонов пользователя")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {},
             description = "Получить список всех телефонов пользователя. Один номер телефона")
     public void onePhoneFound() {
         response = PhonesV2Request.GET();
         checkStatusCode200(response);
         PhonesV2Response phonesV2Response = response.as(PhonesV2Response.class);
-        assertFalse(phonesV2Response.getPhones().get(0).getCode().isEmpty(), "phone code is empty");
-        assertFalse(phonesV2Response.getPhones().get(0).getNumber().isEmpty(), "phone number is empty");
-        assertFalse(phonesV2Response.getPhones().get(0).getHumanNumber().isEmpty(), "phone human_number is empty");
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertFalse(phonesV2Response.getPhones().get(0).getCode().isEmpty(), "phone code is empty");
+        softAssert.assertFalse(phonesV2Response.getPhones().get(0).getNumber().isEmpty(), "phone number is empty");
+        softAssert.assertFalse(phonesV2Response.getPhones().get(0).getHumanNumber().isEmpty(), "phone human_number is empty");
+        softAssert.assertAll();
     }
 
-    @CaseId(436)
+    @Deprecated
     @Story("Получить телефонный номер по id")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {},
             description = "Получить телефонный номер по id. Существующий id")
     public void getPhone200() {
         PhonesItemV2 phone = apiV2.getPhoneId().getPhones().get(0);
@@ -60,9 +61,9 @@ public class PhonesV2Test extends RestBase {
         assertEquals(phoneV2Response.getPhone(), phone, "Phone data not equals");
     }
 
-    @CaseId(440)
+    @Deprecated
     @Story("Получить телефонный номер по id")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {},
             description = "Получить телефонный номер по несуществующему id")
     public void getPhone404() {
         response = PhonesV2Request.PhonesById.GET("failedPhoneId");
@@ -71,9 +72,9 @@ public class PhonesV2Test extends RestBase {
     }
 
 
-    @CaseId(443)
+    @Deprecated
     @Story("Обновить телефон пользователя")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {},
             description = "Обновить телефон пользователя по существующему id")
     public void updatePhone400() {
         Integer phoneId = apiV2.getPhoneId().getPhones().get(0).getId();
@@ -83,9 +84,9 @@ public class PhonesV2Test extends RestBase {
         errorAssert(response, "Отсутствует обязательный параметр 'phone'");
     }
 
-    @CaseId(444)
+    @Deprecated
     @Story("Обновить телефон пользователя")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {},
             description = "Обновить телефон пользователя по несуществующему id")
     public void updatePhone404() {
         Map<String, String> params = new HashMap<>();
@@ -95,9 +96,9 @@ public class PhonesV2Test extends RestBase {
         errorAssert(response, "translation missing: ru.activerecord.models.spree/phone не существует");
     }
 
-    @CaseId(445)
+    @Deprecated
     @Story("Обновить телефон пользователя")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {},
             description = "Обновить телефон пользователя по существующему id")
     public void updatePhone200() {
         PhonesItemV2 phone = apiV2.getPhoneId().getPhones().get(0);
@@ -115,9 +116,9 @@ public class PhonesV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(446)
+    @Deprecated
     @Story("Обновить телефон пользователя")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {},
             description = "Обновить телефон пользователя по существующему id")
     public void updatePhone20() {
         PhonesItemV2 phone = apiV2.getPhoneId().getPhones().get(0);
@@ -128,9 +129,9 @@ public class PhonesV2Test extends RestBase {
         errorValueAssert(response, "является недействительным номером");
     }
 
-    @CaseId(448)
+    @Deprecated
     @Story("Удалить телефон пользователя")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {},
             description = "Удалить телефон пользователя с несуществующим id")
     public void deletePhones404() {
         response = PhonesV2Request.PhonesById.DELETE("invalidPhoneId");
@@ -138,9 +139,9 @@ public class PhonesV2Test extends RestBase {
         errorAssert(response,  "translation missing: ru.activerecord.models.spree/phone не существует");
     }
 
-    @CaseId(442)
+    @Deprecated
     @Story("Добавить новый телефон")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {},
             description = "Добавить новый телефон с невалидным phone[value]")
     public void addPhones404() {
         Map<String, String> params = new HashMap<>();

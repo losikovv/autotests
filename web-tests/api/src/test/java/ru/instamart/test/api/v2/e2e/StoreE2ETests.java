@@ -39,7 +39,7 @@ public class StoreE2ETests extends RestBase {
             description = "Тест категорий на главных страницах всех магазинов",
             groups = {})
     public void departmentsOnMainPages(StoreV2 store) {
-        log.info(store.toString());
+        log.debug(store.toString());
 
         final SoftAssert softAssert = new SoftAssert();
         apiV2.getProductsFromEachDepartmentInStore(store.getId(), softAssert);
@@ -52,7 +52,7 @@ public class StoreE2ETests extends RestBase {
             description = "Тест продуктов на главных страницах всех магазинов",
             groups = {})
     public void productsOnMainPages(StoreV2 store) {
-        log.info("Магазин {} url={}/api/v2/departments?sid={}", store, RestAssured.baseURI, store.getId());
+        log.debug("Магазин {} url={}/api/v2/departments?sid={}", store, RestAssured.baseURI, store.getId());
 
         final SoftAssert softAssert = new SoftAssert();
         final List<ProductV2> products = apiV2.getProductsFromEachDepartmentInStore(store.getId());
@@ -69,7 +69,7 @@ public class StoreE2ETests extends RestBase {
             description = "Тест количества товаров в таксонах",
             groups = {})
     public void categoriesProductsCount(StoreV2 store) {
-        log.info(store.toString());
+        log.debug(store.toString());
 
         final SoftAssert softAssert = new SoftAssert();
         final List<TaxonV2> taxons = apiV2.getTaxons(store.getId());
@@ -82,7 +82,7 @@ public class StoreE2ETests extends RestBase {
             description = "Тест заказов во всех магазинах",
             groups = {})
     public void orderByStore(StoreV2 store) {
-        log.info("Оформляем заказ в {}", store);
+        log.debug("Оформляем заказ в {}", store);
 
         apiV2.order(UserManager.getDefaultUser(), store.getId());
         apiV2.cancelCurrentOrder();
@@ -94,7 +94,7 @@ public class StoreE2ETests extends RestBase {
             description = "Тест первых заказов во всех магазинах",
             groups = {})
     public void firstOrderByStore(StoreV2 store) {
-        log.info("Оформляем первый заказ в {}", store);
+        log.debug("Оформляем первый заказ в {}", store);
 
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);

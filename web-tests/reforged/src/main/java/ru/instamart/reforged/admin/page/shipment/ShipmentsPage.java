@@ -56,15 +56,20 @@ public final class ShipmentsPage implements AdminPage, ShipmentsCheck {
         firstPage.click();
     }
 
-    @Step("Подставляем в фильтр Дата и Время переданное значение: {0}")
-    public void setDateAndTimeFilterFromTableDefault(String deliveryDate) {
+    @Step("Подставляем в фильтр 'Дата и Время от' переданное значение: {0}")
+    public void setDateAndTimeFilterFromTableDefault(final String deliveryDate) {
         deliveryTimeFrom.fill(deliveryDate);
+    }
+
+    @Step("Подставляем в фильтр 'Дата и Время до' переданное значение: {0}")
+    public void setDateAndTimeFilterToTableDefault(final String deliveryDate) {
+        deliveryTimeTo.fill(deliveryDate);
     }
 
     @Step("Получаем дату доставки из первой стройки таблицы с заказами")
     public String getFirstDeliveryDateFromTable() {
         dateAndTimeFirstCell.mouseOver();
-        String[] dateAndTime = dateAndTimeFirstCell.getText().split(" ");
+        final String[] dateAndTime = dateAndTimeFirstCell.getText().split(" ");
         return dateAndTime[0].replace("с", "");
     }
 

@@ -14,7 +14,7 @@ public class GrpcHelper {
     @Step
     @NonNull
     public ManagedChannel createChannel(final String name, final Integer port) {
-        log.info("Creating channel: " + name);
+        log.debug("Creating channel: " + name);
         return ManagedChannelBuilder.forAddress(name, port).build();
     }
 

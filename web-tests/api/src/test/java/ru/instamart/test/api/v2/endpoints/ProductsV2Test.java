@@ -2,6 +2,7 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
@@ -23,10 +24,10 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 public final class ProductsV2Test extends RestBase {
     private long productId;
 
-    @CaseId(2)
+    @Deprecated
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(  description = "Получаем продукты",
-            groups = {"api-instamart-smoke", "api-instamart-prod"})
+            groups = {})
     public void getProducts() {
         response = ProductsV2Request.GET(1, "");
         checkStatusCode200(response);
@@ -39,10 +40,10 @@ public final class ProductsV2Test extends RestBase {
         checkSort(ProductSortTypeV2.POPULARITY, productsV2Response.getSort());
     }
 
-    @CaseId(10)
+    @Deprecated
     @Story("Получить данные о продукте")
     @Test(  description = "Получаем данные о продукте",
-            groups = {"api-instamart-smoke", "api-instamart-prod"},
+            groups = {},
             dependsOnMethods = "getProducts")
     public void getProductInfo() {
         response = ProductsV2Request.GET(productId);
@@ -61,11 +62,11 @@ public final class ProductsV2Test extends RestBase {
 
     //TODO: Сейчас в ответ прилетает 500
     @CaseId(262)
+    @Issue("STF-9240")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(  description = "Существующий sid",
             groups = {"api-instamart-smoke", "api-instamart-prod"},
-            enabled = false
-    )
+            enabled = false)
     public void getProductsWithValidSid() {
         response = ProductsV2Request.GET(1);
         checkStatusCode200(response);

@@ -2,7 +2,7 @@ package ru.instamart.reforged.core.page;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.Cookie;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.core.Kraken;
 
 import static org.testng.Assert.*;
@@ -14,12 +14,12 @@ public interface Page extends PageCheck {
 
     @Step("Открыть страницу {0} в админке")
     default void openAdminPage(final String page) {
-        Kraken.open(EnvironmentData.INSTANCE.getAdminUrlWithHttpAuth() + page);
+        Kraken.open(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH + page);
     }
 
     @Step("Открыть страницу {0} на сайте")
     default void openSitePage(final String page) {
-        Kraken.open(EnvironmentData.INSTANCE.getBasicUrlWithHttpAuth() + page);
+        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + page);
     }
 
     @Step("Обновить страницу")

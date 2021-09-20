@@ -39,8 +39,8 @@ public interface HeaderElement {
     Button searchButton = new Button(By.xpath("//div[@data-qa='search']/form/button"));
     DropDown searchDropDown = new DropDown(By.xpath("//div[@data-qa='offer']"));
 
-    Button profile = new Button(By.xpath("//button[@data-qa='profile-button_button']"));
-    Button cart = new Button(By.xpath("//button[@data-qa='open-cart-button']"));
+    Button profile = new Button(By.xpath("//button[@data-qa='profile-button_button']"),"кнопка профиль пользователя в хэдере");
+    Button cart = new Button(By.xpath("//button[@data-qa='open-cart-button']"),"кнопка корзины");
     Link favorite = new Link(By.xpath("//a[@data-qa='favorites-link']"));
     Link favoriteWithOutAuth = new Link(By.xpath("//button[@data-qa='favorites-link']"), "кнопка избранного для неавторизованных");
     Link orders = new Link(By.xpath("//a[@data-qa='shipments-link']"));

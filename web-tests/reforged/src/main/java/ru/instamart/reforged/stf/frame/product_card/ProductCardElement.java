@@ -3,8 +3,11 @@ package ru.instamart.reforged.stf.frame.product_card;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
+import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
 
 public interface ProductCardElement {
+
+    RetailRocket retailRocket = new RetailRocket();
 
     Element itemName = new Element(By.xpath("//h1[@itemprop='name']"), "название продукта");
 

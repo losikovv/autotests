@@ -17,7 +17,7 @@ import ru.instamart.api.request.v1.OperationalZonesV1Request;
 import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
 import ru.instamart.api.request.v2.*;
 import ru.instamart.api.response.v1.OperationalZonesV1Response;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -813,7 +813,7 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "ordersLineItems", parallel = true)
     public static Object[][] ordersLineItems() {
-        List<ProductV2> products = apiV2.getProductFromEachDepartmentInStore(EnvironmentData.INSTANCE.getDefaultSid());
+        List<ProductV2> products = apiV2.getProductFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_SID);
         Long product = products.get(0).getId();
         return new Object[][]{
                 {0, 0, "failedOrderNumbers"},
@@ -828,7 +828,7 @@ public class RestDataProvider extends RestBase {
     public static Object[][] changeLineItems() {
         Integer productId = apiV2.fillCart(
                 SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
-                EnvironmentData.INSTANCE.getDefaultSid()
+                EnvironmentProperties.DEFAULT_SID
         ).get(0).getId();
         return new Object[][]{
                 {0, 0},
@@ -842,7 +842,7 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "fillingInOrderInformationDp")
     public static Object[][] fillingInOrderInformationDp() {
 
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentData.INSTANCE.getDefaultSid());
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
         Integer paymentsId = apiV2.getPaymentTools().get(0).getId();
         Integer shipmentId = apiV2.getShippingWithOrder().getId();
         Integer shipmentMethodId = apiV2.getShippingMethods().get(0).getId();
@@ -857,12 +857,12 @@ public class RestDataProvider extends RestBase {
                 {0, "", "", 0, shipmentId, 0, 0, ""},
                 {0, "", "", 0, 0, deliveryWindow, shipmentMethodId, ""},
 
-                {0, "", "", paymentsId, shipmentId, 0, shipmentMethodId, apiV2.getCurrentOrderNumber()},
-                {1, "", "", paymentsId, shipmentId, 0, shipmentMethodId, apiV2.getCurrentOrderNumber()},
+//                {0, "", "", paymentsId, shipmentId, 0, shipmentMethodId, apiV2.getCurrentOrderNumber()},
+//                {1, "", "", paymentsId, shipmentId, 0, shipmentMethodId, apiV2.getCurrentOrderNumber()},
 
                 {1, "", "", 0, shipmentId, 0, shipmentMethodId, apiV2.getCurrentOrderNumber()},
                 {1, "", "", paymentsId, 0, 0, shipmentMethodId, apiV2.getCurrentOrderNumber()},
-                {1, "", "", paymentsId, shipmentId, 0, 0, apiV2.getCurrentOrderNumber()},
+//                {1, "", "", paymentsId, shipmentId, 0, 0, apiV2.getCurrentOrderNumber()},
                 {1, "+79771234567", "test", paymentsId, shipmentId, 0, shipmentMethodId, ""}
         };
     }
@@ -963,78 +963,76 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "postCompanyDocuments")
     public static Object[][] postCompanyDocuments() {
         String name = "ООО \"Ромашка_" + (int) (Math.random() * 9999) + "\"";
-        String inn = generateInnUL();
-        String kpp = generateKpp();
         String bik = "043601607";
         String corAcc = "30101810200000000607";
-        String rs = generateRS();
         return new Object[][]{
                 {
                         CompanyDocumentsV2Request.CompanyDocument.builder()
 //                                .name(name)
-                                .inn(inn)
-                                .kpp(kpp)
+                                .inn(generateInnUL())
+                                .kpp(generateKpp())
                                 .bik(bik)
                                 .correspondent_account(corAcc)
-                                .operating_account(rs)
+                                .operating_account(generateRS())
                                 .build(),
                         "Юридическое лицо не может быть пустым"
                 },
                 {
                         CompanyDocumentsV2Request.CompanyDocument.builder()
                                 .name(name)
-//                                .inn(inn)
-                                .kpp(kpp)
+//                                .inn(generateInnUL())
+                                .kpp(generateKpp())
                                 .bik(bik)
                                 .correspondent_account(corAcc)
-                                .operating_account(rs)
+                                .operating_account(generateRS())
                                 .build(),
                         "ИНН не может быть пустым"
                 },
                 {
                         CompanyDocumentsV2Request.CompanyDocument.builder()
                                 .name(name)
-                                .inn(inn)
-//                                .kpp(kpp)
+                                .inn(generateInnUL())
+//                                .kpp(generateKpp())
                                 .bik(bik)
                                 .correspondent_account(corAcc)
-                                .operating_account(rs)
+                                .operating_account(generateRS())
                                 .build(),
                         "КПП не является числом"
                 },
-                //TODO: не отрабатывает ошибка
+                //TODO: не отрабатывает ошибка создана задача STF-9206
 //                {
 //                        CompanyDocumentsV2Request.CompanyDocument.builder()
 //                                .name(name)
-//                                .inn(inn)
-//                                .kpp(kpp)
+//                                .inn(generateInnUL())
+//                                .kpp(generateKpp())
 ////                                .bik(bik)
 //                                .correspondent_account(corAcc)
-//                                .operating_account(rs)
-//                                .build()
+//                                .operating_account(generateRS())
+//                                .build(),
+//                        "БИК не является числом"
 //                },
-                {
-                        CompanyDocumentsV2Request.CompanyDocument.builder()
-                                .name(name)
-                                .inn(inn)
-                                .kpp(kpp)
-                                .bik(bik)
+//                {
+//                        CompanyDocumentsV2Request.CompanyDocument.builder()
+//                                .name(name)
+//                                .inn(generateInnUL())
+//                                .kpp(generateKpp())
+//                                .bik(bik)
+////                                .correspondent_account(corAcc)
+//                                .operating_account(generateRS())
+//                                .build(),
+//                        "Вы не состоите в компании с таким ИНН. Проверьте ИНН или закрепите компанию на сайте СберМаркет во вкладке «Для бизнеса»"
+//                },
+//                {
+//                        CompanyDocumentsV2Request.CompanyDocument.builder()
+//                                .name(name)
+//                                .inn(generateInnUL())
+//                                .kpp(generateKpp())
+//                                .bik(bik)
 //                                .correspondent_account(corAcc)
-                                .operating_account(rs)
-                                .build(),
-                        "Вы не состоите в компании с таким ИНН. Проверьте ИНН или закрепите компанию на сайте СберМаркет во вкладке «Для бизнеса»"
-                },
-                {
-                        CompanyDocumentsV2Request.CompanyDocument.builder()
-                                .name(name)
-                                .inn(inn)
-                                .kpp(kpp)
-                                .bik(bik)
-                                .correspondent_account(corAcc)
-//                                .operating_account(rs)
-                                .build(),
-                        "Вы не состоите в компании с таким ИНН. Проверьте ИНН или закрепите компанию на сайте СберМаркет во вкладке «Для бизнеса»"
-                }
+////                                .operating_account(generateRS())
+//                                .build(),
+//                        "Вы не состоите в компании с таким ИНН. Проверьте ИНН или закрепите компанию на сайте СберМаркет во вкладке «Для бизнеса»"
+//                }
         };
     }
 }

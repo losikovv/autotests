@@ -5,17 +5,17 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.kraken.setting.Config;
-import ru.instamart.kraken.testdata.TestVariables;
 import ru.instamart.kraken.testdata.Generate;
+import ru.instamart.kraken.testdata.TestVariables;
 import ru.instamart.test.ui.TestBase;
+import ru.instamart.ui.Elements;
 import ru.instamart.ui.checkpoint.BaseUICheckpoints;
 import ru.instamart.ui.checkpoint.search.SearchResultCheckpoints;
 import ru.instamart.ui.manager.AppManager;
 import ru.instamart.ui.module.Shop;
-import ru.instamart.ui.Elements;
-import org.testng.annotations.Test;
 
 @Epic("STF UI")
 @Feature("Поиск товаров")
@@ -27,7 +27,7 @@ public final class ShoppingSearchTests extends TestBase {
     @BeforeClass(alwaysRun = true,
             description ="Выполняем шаги предусловий для теста")
     public void beforeTest() {
-        kraken.get().page(Config.DEFAULT_RETAILER);
+        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
     }
 
     @CaseId(1609)

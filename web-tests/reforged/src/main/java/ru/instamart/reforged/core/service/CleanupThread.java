@@ -38,7 +38,7 @@ public final class CleanupThread extends Thread {
         this.allWebDriverThreads
                 .forEach(thread -> {
                     if (!thread.isAlive()) {
-                        log.info("Thread {} is dead. Clean WebDriver {}", thread.getId(), this.threadWebDriver.get(thread.getId()));
+                        log.debug("Thread {} is dead. Clean WebDriver {}", thread.getId(), this.threadWebDriver.get(thread.getId()));
                         this.closeWebDriver(thread);
                     }
                 });
@@ -48,10 +48,10 @@ public final class CleanupThread extends Thread {
         this.allWebDriverThreads.remove(thread);
         final WebDriver webDriver = this.threadWebDriver.remove(thread.getId());
         if (isNull(webDriver)) {
-            log.info("No WebDriver found for thread : {}  - nothing to close", thread.getId());
+            log.debug("No WebDriver found for thread : {}  - nothing to close", thread.getId());
         } else {
             webDriver.quit();
-            log.info("Close WebDriver for threadId : {}", thread.getId());
+            log.debug("Close WebDriver for threadId : {}", thread.getId());
         }
     }
 
@@ -59,10 +59,10 @@ public final class CleanupThread extends Thread {
         this.allWebDriverThreads.forEach(thread -> {
             final WebDriver webDriver = this.threadWebDriver.remove(thread.getId());
             if (isNull(webDriver)) {
-                log.info("No WebDriver found for thread : {}  - nothing to close", thread.getId());
+                log.debug("No WebDriver found for thread : {}  - nothing to close", thread.getId());
             } else {
                 webDriver.quit();
-                log.info("Close WebDriver for threadId : {}", thread.getId());
+                log.debug("Close WebDriver for threadId : {}", thread.getId());
             }
         });
     }

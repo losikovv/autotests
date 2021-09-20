@@ -7,8 +7,8 @@ import org.json.simple.JSONObject;
 import org.testng.SkipException;
 import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.request.ApiV1RequestBase;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.testdata.JuridicalData;
-import ru.instamart.kraken.testdata.pagesdata.EnvironmentData;
 
 @SuppressWarnings("unchecked")
 public class UserCompaniesV1Request extends ApiV1RequestBase {
@@ -27,7 +27,7 @@ public class UserCompaniesV1Request extends ApiV1RequestBase {
 
     @Step("{method} /" + ApiV1Endpoints.User.COMPANIES)
     public static Response POST(JuridicalData companyData) {
-        if (EnvironmentData.INSTANCE.getServer().equals("production")) {
+        if (EnvironmentProperties.SERVER.equals("production")) {
             throw new SkipException("Не создаём компании на проде");
         } else {
             JSONObject requestParams = new JSONObject();

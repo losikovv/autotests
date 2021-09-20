@@ -16,7 +16,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 public class DeliveryClubHelper {
 
     public SlotDC getAvailableSlot(int sid) {
-        log.info("Получаем первый активный слот в магазине sid: {}", sid);
+        log.debug("Получаем первый активный слот в магазине sid: {}", sid);
         Response response = StoresDCRequest.Slots.Available.GET(sid);
         checkStatusCode200(response);
         List<SlotDC> slots = Arrays.asList(response.as(SlotDC[].class));

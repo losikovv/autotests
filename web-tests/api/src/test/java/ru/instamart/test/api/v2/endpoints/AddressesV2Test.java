@@ -4,8 +4,6 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
-import io.qase.api.annotation.CaseIDs;
-import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -22,6 +20,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Добавление нового адреса")
+@Deprecated
 public final class AddressesV2Test extends RestBase {
 
     private int addressesId;
@@ -32,9 +31,9 @@ public final class AddressesV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2_FB);
     }
 
-    @CaseId(205)
+    @Deprecated
     @Story("Создание нового адреса доставки")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Без обязательных полей")
+    @Test(groups = {}, description = "Без обязательных полей")
     public void testWithOutRequiredFields() {
         final Addresses addresses = Addresses.builder()
                 .firstName("Имя сестра")
@@ -47,9 +46,9 @@ public final class AddressesV2Test extends RestBase {
         System.out.println(addressesId);
     }
 
-    @CaseId(206)
+    @Deprecated
     @Story("Создание нового адреса доставки")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Только с обязательными полями")
+    @Test(groups = {}, description = "Только с обязательными полями")
     public void testWithRequiredFields() {
         final Addresses addresses = Addresses.builder()
                 .city("Москоу")
@@ -64,25 +63,22 @@ public final class AddressesV2Test extends RestBase {
         assertEquals(addresses.getBuilding(), addressesResponse.getAddress().getBuilding(), "Названия полей не совпадают");
     }
 
-    //TODO: Валидацию не завезли, отписал апсекам, завели баг
-    @CaseIDs({@CaseId(207), @CaseId(208), @CaseId(209), @CaseId(210), @CaseId(211), @CaseId(212), @CaseId(213),
-            @CaseId(214), @CaseId(215), @CaseId(216)})
+    @Deprecated
     @Issue("SBUG-35")
     @Story("Создание нового адреса доставки")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(  groups = {},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "getAddresses",
-            description = "Невалидные или пустые поля",
-            enabled = false
+            description = "Невалидные или пустые поля"
     )
     public void testWithInvalidValueInFields(final Addresses addresses) {
         final Response response = AddressesV2Request.POST(addresses);
         checkStatusCode422(response);
     }
 
-    @CaseId(231)
+    @Deprecated
     @Story("Удалить адрес доставки")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Существующий id")
+    @Test(groups = {}, description = "Существующий id")
     public void testDeleteWithValidId() {
         final Addresses addresses = Addresses.builder()
                 .firstName("Имя сестра")
@@ -94,9 +90,9 @@ public final class AddressesV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(232)
+    @Deprecated
     @Story("Удалить адрес доставки")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий id")
+    @Test(groups = {}, description = "Несуществующий id")
     public void testDeleteWithInvalidId() {
         final Response response = AddressesV2Request.DELETE(0);
         checkStatusCode404(response);
@@ -104,17 +100,14 @@ public final class AddressesV2Test extends RestBase {
 
     //TODO: Валидацию не завезли, отписал апсекам, завели баг
     //217-230
-    @CaseIDs({@CaseId(217), @CaseId(218), @CaseId(219), @CaseId(220), @CaseId(221),
-            @CaseId(222), @CaseId(223), @CaseId(224), @CaseId(225), @CaseId(226),
-            @CaseId(227), @CaseId(228), @CaseId(229), @CaseId(230)})
+    @Deprecated
     @Issue("SBUG-35")
     @Story("Редактирование адреса доставки")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(  groups = {},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "getAddresses",
             dependsOnMethods = "testWithOutRequiredFields",
-            description = "Невалидное или пустое значение полей",
-            enabled = false
+            description = "Невалидное или пустое значение полей"
     )
     public void testEditWithInvalidData(final Addresses addresses) {
         final Response response = AddressesV2Request.PUT(addressesId, addresses);
