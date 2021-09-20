@@ -96,16 +96,17 @@ public final class UserRegistrationTests extends BaseTest {
             }
     )
     public void successRegFromCart() {
-        home().openSitePage(DEFAULT_RETAILER);
+        shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();
         shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();
         shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
         shop().plusFirstItemToCart();
 
-        home().openSitePage(DEFAULT_RETAILER);
+        shop().goToPage();
         shop().interactHeader().clickToCart();
         shop().interactCart().increaseCountToMin();
         shop().interactCart().submitOrder();
