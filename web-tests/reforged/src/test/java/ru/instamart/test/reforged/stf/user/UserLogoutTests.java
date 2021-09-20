@@ -33,6 +33,7 @@ public final class UserLogoutTests extends BaseTest {
         shop().interactAuthModal().fillSMS(DEFAULT_SMS);
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clearSessionLogout();
+        shop().interactHeader().checkLoginIsVisible();
         home().goToPage();
         home().checkLoginButtonIsVisible();
     }
