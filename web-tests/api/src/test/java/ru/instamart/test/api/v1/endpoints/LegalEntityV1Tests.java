@@ -29,8 +29,7 @@ public class LegalEntityV1Tests extends RestBase {
     @Story("Web")
     @CaseId(625)
     @Test(description = "Загрузка реквизитов компании из Контур-Фокус",
-            groups = {"api-instamart-regress"},
-            enabled = false)
+            groups = {"api-instamart-regress"})
     public void getWithoutLegalEntity() {
         SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
 

@@ -1,4 +1,4 @@
-package ru.instamart.test.api.v2.endpoints;
+package ru.instamart.test.api.v2.deprecated;
 
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
