@@ -23,7 +23,7 @@ public class SimpleRecsV2Test extends RestBase {
 
     @Issue("STF-8819")
     @CaseId(287)
-    @Test(enabled = false,
+    @Test(//enabled = false,
             groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Упрощенный запрос блока рекомендаций с обязательными параметрами")
     public void testSimpleRecsTest() {

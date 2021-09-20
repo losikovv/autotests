@@ -20,7 +20,6 @@ import static ru.instamart.api.enums.RailsConsole.Order.*;
 import static ru.instamart.api.factory.SessionFactory.createSessionToken;
 import static ru.instamart.api.k8s.K8sConsumer.execRailsCommandWithPod;
 import static ru.instamart.kraken.testdata.UserManager.getDefaultApiUser;
-import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 
 @Epic("ApiV2")
 @Feature("Отзывы о заказе")
@@ -63,8 +62,7 @@ public class ReviewableShipmentV2Test extends RestBase {
 
     @CaseId(467)
     @Story("Получение последнего подзаказа без отзыва о заказе")
-    @Test(enabled = false, //TODO: заказ оформлен 06.09.2021. Включить после 14.09.2021
-            groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Последний подзаказ без оценки но старше 7 дней")
     public void lastSuborderWithoutEvaluationButOlderThan7Days() {
         createSessionToken(SessionType.API_V2_PHONE, getDefaultApiUser());

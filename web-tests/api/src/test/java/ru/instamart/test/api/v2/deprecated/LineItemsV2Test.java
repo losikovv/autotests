@@ -1,4 +1,4 @@
-package ru.instamart.test.api.v2.endpoints;
+package ru.instamart.test.api.v2.deprecated;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
