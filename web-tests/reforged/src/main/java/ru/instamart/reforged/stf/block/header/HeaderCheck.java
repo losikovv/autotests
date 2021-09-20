@@ -100,7 +100,7 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем, что выбран адрес доставки")
     default void checkIsShippingAddressSet() {
-        waitAction().shouldNotBeVisible(enteredAddress);
+        waitAction().shouldBeVisible(enteredAddress);
     }
 
     @Step("Проверяем, что утановленный адрес: \"{0}\" \n совпадает с адресом, отображаемом на странице: \"{1}\"")
