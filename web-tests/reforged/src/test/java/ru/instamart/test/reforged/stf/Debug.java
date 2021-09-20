@@ -1,13 +1,36 @@
 package ru.instamart.test.reforged.stf;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import lombok.SneakyThrows;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.data_provider.DataList;
+import ru.instamart.kraken.data_provider.JsonDataProvider;
+import ru.instamart.kraken.data_provider.JsonProvider;
 import ru.instamart.reforged.stf.page.StfRouter;
+
+import java.util.List;
 
 public final class Debug {
 
-    @Test
-    public void foo() {
+    @JsonDataProvider(path = "data/test.json", type = Root.class)
+    @Test(dataProviderClass = JsonProvider.class, dataProvider = "json")
+    public void foo(final UserData userData) {
+        System.out.println(userData);
+    }
+
+    @Data
+    public static final class UserData {
+        public String name;
+        public int age;
+        public String city;
+        public boolean married;
+    }
+
+    @Data
+    public static final class Root implements DataList<UserData> {
+        @JsonProperty("UserData")
+        public List<UserData> data;
     }
 
     @SneakyThrows

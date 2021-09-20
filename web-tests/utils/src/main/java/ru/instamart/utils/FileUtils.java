@@ -1,12 +1,13 @@
 package ru.instamart.utils;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public final class FileUtils {
 
@@ -23,7 +24,11 @@ public final class FileUtils {
         return dir.listFiles((dir1, name) -> name.startsWith(prefix));
     }
 
-    public static String getJson(final String json) throws IOException {
-        return Files.readString(Path.of(getResourceDir(json)));
+    public static String getJson(final String jsonPath, final Class<?> configClass) {
+        try (var lnr = new BufferedReader(new InputStreamReader(getConfig(jsonPath, configClass), StandardCharsets.UTF_8))) {
+            return lnr.lines().collect(Collectors.joining());
+        } catch (Exception e) {
+            return "json_error";
+        }
     }
 }
