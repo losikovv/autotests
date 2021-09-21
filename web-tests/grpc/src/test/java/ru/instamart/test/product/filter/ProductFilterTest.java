@@ -1,4 +1,4 @@
-package ru.instamart.test.grps.product.filter;
+package ru.instamart.test.product.filter;
 
 import io.qameta.allure.Epic;
 import lombok.extern.slf4j.Slf4j;
@@ -6,7 +6,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import product_filter.ProductFilterGrpc;
 import product_filter.ProductFilterOuterClass;
-import ru.instamart.api.common.GrpcBase;
+import ru.instamart.grpc.common.GrpcBase;
 
 import static org.testng.Assert.assertEquals;
 

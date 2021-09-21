@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'com.google.protobuf' version '0.8.17'
 }
 
 apply from: 'dependencies.gradle'
@@ -109,26 +108,39 @@ project(":ui") {
     }
 }
 
+project(":grpc") {
+    apply plugin: "java-library"
+
+    dependencies {
+        implementation project(":kraken")
+        implementation project(":qase-api")
+        implementation project(":utils")
+
+        implementation lib.aspectjweaver
+        implementation lib.allureRestAssuredReport
+        implementation lib.allureTestng
+        implementation lib.allureJavaCommons
+
+        implementation lib.testng
+
+        implementation lib.grpcNettyShaded
+        implementation lib.grpcProtobuf
+        implementation lib.grpcStub
+
+        implementation lib.javax
+        implementation lib.tomcatAnnotationsApi
+
+        compileOnly lib.lombok
+
+        annotationProcessor lib.lombok
+        testImplementation lib.logback
+        testCompileOnly lib.lombok
+        testAnnotationProcessor lib.lombok
+    }
+}
+
 project(":api") {
     apply plugin: "java-library"
-    apply plugin: 'com.google.protobuf'
-
-    protobuf {
-        generatedFilesBaseDir = "$projectDir/src/generated"
-        protoc {
-            artifact = lib.protobufProtoc
-        }
-        plugins {
-            grpc {
-                artifact = lib.protocGenGrpcJava
-            }
-        }
-        generateProtoTasks {
-            all()*.plugins {
-                grpc {}
-            }
-        }
-    }
 
     dependencies {
         implementation project(":kraken")
@@ -147,13 +159,7 @@ project(":api") {
         implementation lib.pgsqlJDBC
         implementation lib.mysqlJDBC
         implementation lib.kubernetesClient
-
         implementation lib.kafkaClients
-
-        implementation lib.grpcNettyShaded
-        implementation lib.grpcProtobuf
-        implementation lib.grpcStub
-        implementation lib.tomcatAnnotationsApi
 
         compileOnly lib.lombok
 

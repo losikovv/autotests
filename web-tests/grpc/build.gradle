@@ -1,0 +1,36 @@
+plugins {
+    id 'com.google.protobuf' version '0.8.17'
+    id 'io.qameta.allure' version '2.8.1'
+    id 'java'
+}
+
+apply from: 'task.gradle'
+
+allure {
+    version = versions.allure
+    autoconfigure = true
+    aspectjweaver = true
+    allureJavaVersion = versions.allure
+    configuration = "testImplementation"
+    useTestNG(){
+        version = versions.allure
+    }
+    downloadLink = "https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/"+versions.allure+"/allure-commandline-"+versions.allure+".zip"
+}
+
+protobuf {
+    generatedFilesBaseDir = project(":grpc").projectDir.path+"/src/generated"
+    protoc {
+        artifact = lib.protobufProtoc
+    }
+    plugins {
+        grpc {
+            artifact = lib.protocGenGrpcJava
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}

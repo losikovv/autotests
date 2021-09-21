@@ -1,0 +1,13 @@
+task grpcProductHub(type: Test) {
+    useTestNG() {
+        testLogging.showStandardStreams = true
+        useDefaultListeners = true
+        suites 'src/test/resources/suite/grpc.xml'
+        includeGroups 'grpc-product-hub'
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
+    }
+    systemProperty 'qase.Project', 'SURGE'
+    systemProperty 'qase.Title', 'Surge API Regress'
+}
