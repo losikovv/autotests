@@ -1,9 +1,9 @@
-package ru.instamart.api.common;
+package ru.instamart.grpc.common;
 
 import io.grpc.ManagedChannel;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.AfterClass;
-import ru.instamart.api.helper.GrpcHelper;
+import ru.instamart.grpc.helper.GrpcHelper;
 
 @Slf4j
 abstract public class GrpcBase {

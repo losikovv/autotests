@@ -1,4 +1,4 @@
-package ru.instamart.api.helper;
+package ru.instamart.grpc.helper;
 
 import com.google.protobuf.MessageOrBuilder;
 import com.google.protobuf.TextFormat;

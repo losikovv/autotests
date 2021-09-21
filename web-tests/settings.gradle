@@ -1,2 +1,3 @@
 rootProject.name = 'Kraken'
-include 'kraken', 'qase-api', 'ui', 'api', 'reforged', 'ab', 'qa-api', 'utils'
+include 'kraken', 'qase-api', 'ui', 'api', 'reforged', 'grpc', 'ab', 'qa-api', 'utils'
+

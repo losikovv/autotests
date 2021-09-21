@@ -1,4 +1,4 @@
-package ru.instamart.test.grps.product.hub;
+package ru.instamart.test.product.hub;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -7,7 +7,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import product_hub_back.ProductHubBackGrpc;
 import product_hub_back.ProductHubBackOuterClass;
-import ru.instamart.api.common.GrpcBase;
+import ru.instamart.grpc.common.GrpcBase;
 
 import static org.testng.Assert.assertEquals;
 
