@@ -62,7 +62,7 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     @Step("Нажать на плюс у первого товара")
     public void plusFirstItemToCart() {
-        plusFirstItemToCartAddedAddress.hoverAndClick();
+        plusFirstItemToCartAddedAddress.click();
     }
 
     @Step("Нажать на минус у первого товара")

@@ -37,7 +37,7 @@ public interface CartElement {
     Link openItemCard = new Link(By.xpath("//a[@data-qa='open-button']"), "переход к карточке товара");
     Button mobileRemoveItem = new Button(By.xpath("//button[@data-qa='remove-button-mobile']"));
     Button removeItem = new Button(By.xpath("//button[@data-qa='cart_delete_item_button']"), "кнопка Удалить позицию");
-    Element costSpinner = new Element(By.xpath("//div[@data-qa='line-item']//div[contains(@class,'Spinner')]"), "спиннер пересчета цены позиции");
+    Element costSpinner = new Element(By.xpath("//div[@data-qa='line-item']//div[contains(@class,'Loading')]"), "спиннер пересчета цены позиции");
     Element retailRocketBlock = new Element(By.xpath("//div[@data-qa='cart']//div[contains(@class, 'retail-rocket-block')]"), "блок Не забудьте купить");
     Button nextRetailSlide = new Button(By.xpath("//button[@aria-label='Next slide']"), "следующий слайд блока Не забудьте купить");
     Button prevRetailSlide = new Button(By.xpath("//button[@aria-label='Previous slide']"), "предыдущий слайд блока Не забудьте купить");
