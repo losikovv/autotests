@@ -69,13 +69,13 @@ public final class UserLogoutTests extends BaseTest {
         final UserData userData = UserManager.getUser();
 
         shop().goToPage();
+        apiHelper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().fillPhone(userData.getPhone());
         shop().interactAuthModal().sendSms();
         shop().interactAuthModal().fillSMS(DEFAULT_SMS);
         shop().interactHeader().checkProfileButtonVisible();
-
-        apiHelper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
         shop().goToShopPageWithDefaultSid();
         shop().interactHeader().clickToCart();
