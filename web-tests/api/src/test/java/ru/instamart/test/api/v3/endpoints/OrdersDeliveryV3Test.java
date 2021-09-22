@@ -2,6 +2,7 @@ package ru.instamart.test.api.v3.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
@@ -24,7 +25,9 @@ public class OrdersDeliveryV3Test extends RestBase {
 
     @CaseId(858)
     @Story("Доставка")
-    @Test(groups = {"api-instamart-regress"},
+    @Issue("STF-9456")
+    @Test(enabled = false,
+            groups = {"api-instamart-regress"},
             dataProvider = "goods",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Создание заказа на доставку Goods")
@@ -43,7 +46,9 @@ public class OrdersDeliveryV3Test extends RestBase {
 
     @CaseId(860)
     @Story("Доставка")
-    @Test(groups = {"api-instamart-regress"},
+    @Issue("STF-9456")
+    @Test(enabled = false,
+            groups = {"api-instamart-regress"},
             dataProvider = "sber_devices",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Создание на доставку заказа Sber_devices")
@@ -62,7 +67,9 @@ public class OrdersDeliveryV3Test extends RestBase {
 
     @CaseId(859)
     @Story("Доставка")
-    @Test(groups = {"api-instamart-regress"},
+    @Issue("STF-9456")
+    @Test(enabled = false,
+            groups = {"api-instamart-regress"},
             dataProvider = "metro_marketplace",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Создание заказа на доставку Metro_Marketplace")

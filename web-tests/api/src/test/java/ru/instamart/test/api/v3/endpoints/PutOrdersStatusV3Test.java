@@ -39,26 +39,28 @@ public class PutOrdersStatusV3Test extends RestBase {
 
     @CaseId(675)
     @Story("Отмена заказа на доставку")
-    @Test(  groups = {"api-instamart-smoke"},
+    @Test(enabled = false,
+            groups = {"api-instamart-smoke"},
             dataProvider = "goods",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Отмена заказа доставки Goods")
     public void cancelOrderDelivery(ApiV3TestData testData) {
         order = apiV3.createOrderDelivery(testData);
-        Response response = OrderV3Request.Cancel.PUT(order.getId(),testData.getClientToken());
+        Response response = OrderV3Request.Cancel.PUT(order.getId(), testData.getClientToken());
         checkStatusCode200(response);
     }
 
     @CaseId(868)
     @Story("Отмена заказа на самовывоз")
-    @Test(  groups = {"api-instamart-smoke"},
+    @Test(enabled = false,
+            groups = {"api-instamart-smoke"},
             dataProvider = "metro_marketplace",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Отмена заказа самовывоза Metro_Marketplace")
 
     public void cancelOrderPickupFromStore(ApiV3TestData testData) {
         order = apiV3.createOrderPickupFromStore(testData);
-        Response response = OrderV3Request.Cancel.PUT(order.getId(),testData.getClientToken());
+        Response response = OrderV3Request.Cancel.PUT(order.getId(), testData.getClientToken());
         checkStatusCode200(response);
     }
 }
