@@ -67,10 +67,11 @@ public final class WaitAction {
         return driver -> {
             if (element.isDisplayed()) {
                 var value = element.getAttribute("value");
-                if (isPhone) {
-                    value = getPhone(value);
-                }
-                if (value.length() != 0) {
+
+                if (nonNull(value) && value.length() != 0) {
+                    if (isPhone) {
+                        value = getPhone(value);
+                    }
                     element.sendKeys(Keys.COMMAND + "a");
                     element.sendKeys(Keys.CONTROL + "a");
                     element.sendKeys(Keys.DELETE);
@@ -83,7 +84,7 @@ public final class WaitAction {
     }
 
     private String getPhone(final String phone) {
-        return nonNull(phone) && phone.length() != 0 ? phone.replaceAll("[^0-9]", "").substring(1) : "null";
+        return phone.replaceAll("[^0-9]", "").substring(1);
     }
 
     private FluentWait<WebDriver> createWait(final Component component) {
