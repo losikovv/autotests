@@ -59,13 +59,17 @@ public final class Input extends Component {
         }
     }
 
+    public void fillField(final String data, final boolean isPhone) {
+        log.debug("Fill with wait and check {} with locator {} and data {}", getDescription(), getBy(), data);
+        Kraken.waitAction().fillField(getComponent(), data, isPhone);
+    }
+
     /**
      * Заполнение поле с очисткой и ожиданием, что введенный текст точно совпадает с ожидаемым
      * @param data - текст который необходимо ввести
      */
     public void fillField(final String data) {
-        log.debug("Fill with wait and check {} with locator {} and data {}", getDescription(), getBy(), data);
-        Kraken.waitAction().fillField(getComponent(), data);
+        fillField(data, false);
     }
 
     /**

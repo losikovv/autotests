@@ -54,8 +54,7 @@ public final class AuthModal implements Close, AuthModalCheck {
 
     @Step("Заполнить поле с телефоном {phone}")
     public void fillPhone(final String phone) {
-        phoneField.jsClick();
-        phoneField.fill(phone);
+        phoneField.fillField(phone, true);
     }
 
     @Step("Поставить отметку для бизнеса")

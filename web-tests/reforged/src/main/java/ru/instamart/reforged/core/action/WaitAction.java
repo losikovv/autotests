@@ -11,6 +11,7 @@ import ru.instamart.reforged.core.config.WaitProperties;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static java.util.Objects.nonNull;
 import static ru.instamart.reforged.core.Kraken.getWebDriver;
 
 @Slf4j
@@ -57,15 +58,18 @@ public final class WaitAction {
                 .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frame));
     }
 
-    public void fillField(final WebElement element, final String data) {
+    public void fillField(final WebElement element, final String data, final boolean isPhone) {
         createWait(WaitProperties.BASIC_TIMEOUT, "Текущее содержимое поля отличается от ожидаемого")
-                .until(keysSendCondition(element, data));
+                .until(keysSendCondition(element, data, isPhone));
     }
 
-    private static ExpectedCondition<Boolean> keysSendCondition(final WebElement element, final String data) {
+    private ExpectedCondition<Boolean> keysSendCondition(final WebElement element, final String data, final boolean isPhone) {
         return driver -> {
             if (element.isDisplayed()) {
-                final String value = element.getAttribute("value");
+                var value = element.getAttribute("value");
+                if (isPhone) {
+                    value = getPhone(value);
+                }
                 if (value.length() != 0) {
                     element.sendKeys(Keys.COMMAND + "a");
                     element.sendKeys(Keys.CONTROL + "a");
@@ -76,6 +80,10 @@ public final class WaitAction {
             }
             return false;
         };
+    }
+
+    private String getPhone(final String phone) {
+        return nonNull(phone) && phone.length() != 0 ? phone.replaceAll("[^0-9]", "").substring(1) : "null";
     }
 
     private FluentWait<WebDriver> createWait(final Component component) {
