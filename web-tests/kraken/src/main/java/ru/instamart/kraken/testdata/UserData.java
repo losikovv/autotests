@@ -11,6 +11,7 @@ import static java.util.Objects.isNull;
 @Data
 public final class UserData {
 
+    private String id;
     private String role;
     private String email;
     private String phone;
@@ -42,6 +43,7 @@ public final class UserData {
 
     @ToString
     public static final class UserDataBuilder {
+        private String id;
         private String role;
         private String email;
         private String phone;
@@ -52,6 +54,11 @@ public final class UserData {
         private String anonymousId;
 
         UserDataBuilder() {
+        }
+
+        public UserDataBuilder id(final String id) {
+            this.id = id;
+            return this;
         }
 
         public UserDataBuilder role(final String role) {
@@ -90,7 +97,7 @@ public final class UserData {
         }
 
         public UserData build() {
-            return new UserData(role, email, phone, password, name, token, generateEncryptedPhone(), anonymousId);
+            return new UserData(id, role, email, phone, password, name, token, generateEncryptedPhone(), anonymousId);
         }
 
         private String generateEncryptedPhone() {

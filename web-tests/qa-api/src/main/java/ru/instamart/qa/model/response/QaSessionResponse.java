@@ -12,6 +12,7 @@ import java.util.Date;
 @Data
 public final class QaSessionResponse {
 
+    private String id;
     private User user;
     private Session session;
     @JsonProperty(value = "anonymous_id")
