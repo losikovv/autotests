@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="REST API Suite">
+<suite name="REST API Suite" parallel="tests" thread-count="2" data-provider-thread-count="20">
     <listeners>
         <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
         <listener class-name="ru.instamart.api.listener.ApiListener"/>
@@ -10,7 +10,7 @@
             <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
         </method-selector>
     </method-selectors>
-    <test verbose="1" name="API Shopper App Tests">
+    <test verbose="1" name="API Shopper App Tests" parallel="none" thread-count="2">
         <classes>
             <class name="ru.instamart.test.api.shopper.app.e2e.ShopperAppE2ETest"/>
             <class name="ru.instamart.test.api.shopper.app.endpoints.ShipmentfulShopperAppTest"/>
@@ -18,7 +18,7 @@
             <class name="ru.instamart.test.api.shopper.app.endpoints.ShopperAppWithoutAuthTest"/>
         </classes>
     </test>
-    <test verbose="1" name="API Shopper Admin Tests">
+    <test verbose="1" name="API Shopper Admin Tests" parallel="none" thread-count="2">
         <classes>
             <class name="ru.instamart.test.api.shopper.admin.endpoints.ShopperAdminWithAuthTest"/>
             <class name="ru.instamart.test.api.shopper.admin.endpoints.ShopperAdminWithoutAuthTest"/>
