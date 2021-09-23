@@ -6,11 +6,15 @@ import ru.instamart.kraken.config.ConfigManager;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.helper.AllureHelper;
 import ru.instamart.kraken.service.BannerService;
+import ru.instamart.kraken.service.QaService;
 import ru.instamart.kraken.testdata.Generate;
+import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.utils.Crypt;
 
 import java.util.Map;
+
+import static java.util.Objects.nonNull;
 
 @Slf4j
 public abstract class ExecutionListener implements IExecutionListener {
@@ -59,6 +63,14 @@ public abstract class ExecutionListener implements IExecutionListener {
     public void onExecutionFinish() {
         log.debug("We wait {} seconds", ThreadUtil.ALL_WAIT_TIME.doubleValue());
         log.debug("All tests finished for {}", getReadableTime(System.nanoTime() - start));
+        // Тут может быть код для очистки окружения после прогона тестов
+        log.debug("We create {} new users", UserManager.getUserDataList().size());
+        UserManager.getUserDataList().forEach(userData -> {
+            final String userId = userData.getId();
+            if (nonNull(userId) && !userId.isEmpty()) {
+                QaService.INSTANCE.deleteSession(userId);
+            }
+        });
     }
 
     private String getReadableTime(final Long nanos){

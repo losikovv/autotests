@@ -309,6 +309,7 @@ public final class UserManager {
         log.debug("ФИО: {}", userName);
 
         return UserData.builder()
+                .id(sessionResponse.getId())
                 .role(role)
                 .email(sessionResponse.getUser().getEmail())
                 .phone(sessionResponse.getUser().getPhone())

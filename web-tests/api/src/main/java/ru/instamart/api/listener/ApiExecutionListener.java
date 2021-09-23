@@ -24,8 +24,6 @@ public final class ApiExecutionListener extends ExecutionListener {
     @Override
     public void onExecutionFinish() {
         super.onExecutionFinish();
-        // Тут может быть код для очистки окружения после прогона тестов
-        log.debug("We create {} new users", UserManager.getUserDataList().size());
         log.debug("We have {} open sessions", SessionFactory.getSessionMap().size());
     }
 }
