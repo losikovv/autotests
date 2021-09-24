@@ -1,9 +1,6 @@
 package ru.instamart.test.api.v1.contracts;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.SkipException;
@@ -52,7 +49,7 @@ public class OrdersV1Test extends RestBase {
 
     @Story("Заказы")
     @CaseId(114)
-    @Test(  description = "Контрактный тест списка заказов",
+    @Test(description = "Контрактный тест списка заказов",
             groups = "api-instamart-regress")
     public void getOrders() {
         Response response = OrdersV1Request.GET();
@@ -62,7 +59,7 @@ public class OrdersV1Test extends RestBase {
 
     @Story("Заказы")
     @CaseId(115)
-    @Test(  description = "Контрактный тест инфы о заказе",
+    @Test(description = "Контрактный тест инфы о заказе",
             groups = "api-instamart-regress")
     public void getOrder() {
         Response response = OrdersV1Request.GET(orderNumber);
@@ -72,7 +69,7 @@ public class OrdersV1Test extends RestBase {
 
     @Story("Заказы")
     @CaseId(116)
-    @Test(  description = "Контрактный тест инфы о шипменте",
+    @Test(description = "Контрактный тест инфы о шипменте",
             groups = "api-instamart-regress")
     public void getShipment() {
         Response response = ShipmentsV1Request.GET(shipmentNumber);
@@ -84,7 +81,7 @@ public class OrdersV1Test extends RestBase {
 
     @Story("Заказы")
     @CaseId(117)
-    @Test(  description = "Контрактный тест списка офферов в шипменте",
+    @Test(description = "Контрактный тест списка офферов в шипменте",
             groups = "api-instamart-regress")
     public void getShipmentOffers() {
         Response response = ShipmentsV1Request.Offers.GET(shipmentNumber);
@@ -94,7 +91,7 @@ public class OrdersV1Test extends RestBase {
 
     @Story("Заказы")
     @CaseId(118)
-    @Test(  description = "Контрактный тест списка лайн айтемов в шимпенте",
+    @Test(description = "Контрактный тест списка лайн айтемов в шимпенте",
             groups = "api-instamart-regress")
     public void getLineItems() {
         Response response = LineItemsV1Request.GET(shipmentNumber);
@@ -110,7 +107,7 @@ public class OrdersV1Test extends RestBase {
     @Issue("STF-8976")
     @Story("Заказы")
     @CaseId(119)
-    @Test(  description = "Контрактный тест списка предзамен для товара из шипмента",
+    @Test(description = "Контрактный тест списка предзамен для товара из шипмента",
             groups = "api-instamart-regress",
             dependsOnMethods = "getLineItems",
             enabled = false) //todo теперь "Должен быть указан ключ API"
@@ -122,10 +119,11 @@ public class OrdersV1Test extends RestBase {
 
     //todo убрать скип после выдачи прав SD-13260
     @Skip(onServer = "production")
-    @Issue("INFRADEV-3167")
+    @Issues({@Issue("INFRADEV-3167"), @Issue("STF-9483")})
     @Story("Заказы")
     @CaseId(120)
-    @Test(  description = "Контрактный тест списка сэмплов в шипменте",
+    @Test(enabled = false,
+            description = "Контрактный тест списка сэмплов в шипменте",
             groups = "api-instamart-regress",
             dependsOnMethods = "getShipment")
     public void getShopperMarketingSampleItems() {
@@ -138,7 +136,7 @@ public class OrdersV1Test extends RestBase {
     @Skip(onServer = "production")
     @Story("Заказы")
     @CaseId(121)
-    @Test(  description = "Контрактный тест списка способов оплаты в заказе",
+    @Test(description = "Контрактный тест списка способов оплаты в заказе",
             groups = "api-instamart-regress")
     public void getShopperOrderAvailablePaymentTools() {
         Response response = ShoppersV1Request.OrderAvailablePaymentTools.GET(orderNumber);

@@ -38,8 +38,7 @@ public class LegalEntityV2Test extends RestBase {
     public void getINN400(String inn) {
         final Response response = LegalEntityV2Request.ByINN.GET(inn);
         checkStatusCode404(response);
-        ErrorResponse errorResponse = response.as(ErrorResponse.class);
-        assertEquals(errorResponse.getError(), "Объект не найден", "Невалидная ошибка");
+         errorAssert(response, "Информация о компании не существует");
     }
 
     @CaseId(482)
