@@ -67,10 +67,9 @@ public final class UserLogoutTests extends BaseTest {
     public void noShipAddressAndEmptyCartAfterLogout() {
         final ApiHelper apiHelper = new ApiHelper();
         final UserData userData = UserManager.getUser();
+        apiHelper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
         shop().goToPage();
-        apiHelper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
-        
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().fillPhone(userData.getPhone());
         shop().interactAuthModal().sendSms();
