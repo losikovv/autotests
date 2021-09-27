@@ -5,6 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.*;
 import ru.instamart.kraken.service.QaseService;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 @Slf4j
 public final class ApiListener implements ITestListener, ISuiteListener {
 
@@ -18,11 +22,22 @@ public final class ApiListener implements ITestListener, ISuiteListener {
 
     @Override
     public void onStart(ISuite suite) {
+        long count;
+        try {
+            count = Files.walk(Paths.get("build/allure-results"))
+                    .filter(Files::isRegularFile)
+                    .count();
+            if (count <= 1) {
+                log.info("count: {}", count);
+                this.qaseService.createTestRun();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onStart(ITestContext context) {
-        this.qaseService.createTestRun();
     }
 
     @Override
