@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
 import ru.instamart.reforged.stf.frame.checkout.subsections.*;
+import ru.instamart.reforged.stf.frame.checkout.subsections.create_company.AddCompany;
 import ru.instamart.reforged.stf.frame.checkout.subsections.loyaltycard_modal.EditLoyaltyCard;
 import ru.instamart.reforged.stf.frame.checkout.subsections.promocode_modal.EditPromoCode;
 import ru.instamart.reforged.stf.page.StfPage;

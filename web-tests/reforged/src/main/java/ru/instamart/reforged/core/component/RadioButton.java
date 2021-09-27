@@ -50,7 +50,7 @@ public class RadioButton extends Component {
         getComponent().click();
     }
 
-    public Boolean radioButtonState() {
+    public boolean radioButtonState() {
         log.debug("Get {} state", getDescription());
         return getComponent().isSelected();
     }

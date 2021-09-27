@@ -74,8 +74,6 @@ public class OrderDetailsData {
         this.deliveryTime = TestVariables.testOrderDetails().getDeliveryTime();
     }
 
-
-
     public void setAddressDetails(String kind, String apartment, String floor, boolean elevator, String entrance, String domofon, String comments) {
         this.addressDetails = new AddressDetailsData(kind, apartment, floor, elevator, entrance, domofon, comments);
     }
@@ -87,8 +85,6 @@ public class OrderDetailsData {
     public AddressDetailsData getAddressDetails() {
         return addressDetails;
     }
-
-
 
     public void setContactsDetails(String name, String surname, String email, boolean addNewPhone, String phone, boolean sendEmail) {
         this.contactsDetails = new ContactsDetailsData(name, surname, email, addNewPhone, phone, sendEmail);
@@ -102,8 +98,6 @@ public class OrderDetailsData {
         return contactsDetails;
     }
 
-
-
     public void setReplacementPolicy(ReplacementPolicyData replacementPolicy) {
         this.replacementPolicy = replacementPolicy;
     }
@@ -111,8 +105,6 @@ public class OrderDetailsData {
     public ReplacementPolicyData getReplacementPolicy() {
         return replacementPolicy;
     }
-
-
 
     public void setPaymentDetails(PaymentTypeData paymentType, boolean addNewCreditCard, PaymentCardData creditCard, boolean addNewJuridical, JuridicalData juridical) {
         this.paymentDetails = new PaymentDetailsData (paymentType, addNewCreditCard, creditCard, addNewJuridical, juridical);

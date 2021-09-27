@@ -2,7 +2,7 @@ package ru.instamart.reforged.stf.page.checkout.firstStep;
 
 import io.qameta.allure.Step;
 
-public class DeliveryOptionStep implements DeliveryOptionElement, DeliveryOptionCheck {
+public class DeliveryOptionStep implements DeliveryOptionCheck {
 
     @Step("Нажать 'Доставка'")
     public void clickToDelivery() {
