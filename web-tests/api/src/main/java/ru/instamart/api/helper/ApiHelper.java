@@ -49,6 +49,7 @@ public class ApiHelper {
         apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
         apiV2.fillCartOnSid(sid);
     }
+
     /**
      * @param user должен иметь phone и encryptedPhone
      * encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
@@ -93,6 +94,12 @@ public class ApiHelper {
         SessionFactory.createSessionToken(SessionType.API_V2_PHONE, user);
 
         return apiV2.cancelOrder(orderNumber);
+    }
+
+    @Step("Отменяем все заказы с помощью API")
+    public void cancelAllActiveOrders(final UserData userData) {
+        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, userData);
+        apiV2.cancelActiveOrders();
     }
 
     /**
