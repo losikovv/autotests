@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.drawer.cart;
 
 import io.qameta.allure.Step;
+import ru.instamart.kraken.helper.OrderAmountHelper;
 import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
 
 public final class Cart implements CartCheck {
@@ -17,6 +18,11 @@ public final class Cart implements CartCheck {
     @Step("Вернуться в каталог")
     public void returnToCatalog() {
         returnToCatalog.click();
+    }
+
+    @Step("Вернуть значение стоимости товаров в корзине")
+    public double returnOrderAmount() {
+        return OrderAmountHelper.getOrderAmountParsed(orderAmount.getText());
     }
 
     @Step("Очистить корзину")
@@ -42,6 +48,11 @@ public final class Cart implements CartCheck {
     @Step("Увеличить кол-во товара")
     public void increaseCount() {
         increaseCount.hoverAndClick();
+    }
+
+    @Step("Удалить первый товар из корзины")
+    public void deleteFirstItem() {
+        deleteFirstItem.hoverAndClick();
     }
 
     @Step("Увеличить кол-во товара до минимального, доступного к заказу")
