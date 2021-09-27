@@ -28,7 +28,7 @@ public final class ApiListener implements ITestListener, ISuiteListener {
                     .filter(Files::isRegularFile)
                     .count();
             if (count <= 1) {
-                log.info("count: {}", count);
+                log.debug("count: {}", count);
                 this.qaseService.createTestRun();
             }
         } catch (IOException e) {
