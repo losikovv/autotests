@@ -41,8 +41,7 @@ public class GetOrderV3Test extends RestBase {
     @CaseId(862)
     @Story("Заказ на доставку")
     @Issue("STF-9456")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"},
             dataProvider = "goods",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Показать заказ по uuid доставке Goods")
@@ -56,8 +55,7 @@ public class GetOrderV3Test extends RestBase {
     @CaseId(863)
     @Story("Заказ на самовывоз")
     @Issue("STF-9456")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"},
             dataProvider = "metro_marketplace",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Показать заказ по uuid самовывоз Metro_Marketplace")

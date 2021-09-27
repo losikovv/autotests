@@ -26,14 +26,13 @@ public class OrdersPickupFromStoreV3Test extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-       store = apiV3.getStore("METRO, Щелковская");
+        store = apiV3.getStore("METRO, Щелковская");
     }
 
     @CaseId(861)
     @Story("Самовывоз")
     @Issue("STF-9456")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"},
             dataProvider = "metro_marketplace",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Создание заказа на самовывоз Metro_Marketplace")
