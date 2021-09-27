@@ -80,9 +80,9 @@ public final class ShopPage implements StfPage, ShopCheck {
         deleteFirstItemFromFavorite.hoverAndClick();
     }
 
-    @Step("Открыть карточку первого товара")
+    @Step("Открыть карточку первого товара на проде")
     public void openFirstProductCard() {
-        firstProductCard.click();
+        firstProductCardProd.click();
     }
 
     @Override

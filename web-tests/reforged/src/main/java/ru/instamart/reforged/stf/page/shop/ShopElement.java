@@ -26,7 +26,8 @@ public interface ShopElement {
     HelpDesk helpDesk = new HelpDesk();
 
     Button openAddress = new Button(By.xpath("//button[@data-qa='select-button']"));
-    Element firstProductCard = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_0_product_item_0']"));
+    Element firstProductCardProd = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_0_product_item_0']"));
+    Element firstProductCard = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']"));
     Element addFirstItemToFavorite = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_0_product_item_0']/button"));
     Element deleteFirstItemFromFavorite = new Element(By.xpath("//div[contains(@class, 'favorite-button--active')]"));
     Button plusFirstItemToCartAddedAddress = new Button(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_0_product_item_0']//button[@title='Добавить в корзину']"),
@@ -34,4 +35,7 @@ public interface ShopElement {
     Button minusFirstItemFromCartAddedAddress = new Button(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_0_product_item_0']//button[contains(@title, 'Убрать из корзины')]"),
             "Кнопка убрать из корзины у первого элемента");
     Element cartNotification = new Element(By.xpath("//div[@class='notification']"));
+
+    Element spinner = new Element(By.xpath("//div[contains(@class, 'Recommendations')]//div[contains(@class, 'Spinner')]"), "Спиннер блока рекомендаций на главной");
+
 }

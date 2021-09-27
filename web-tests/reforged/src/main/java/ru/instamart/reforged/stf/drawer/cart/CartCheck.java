@@ -28,6 +28,31 @@ public interface CartCheck extends Check, CartElement {
         waitAction().shouldNotBeVisible(placeholder);
     }
 
+    @Step("Проверяем, что корзина открыта")
+    default void checkCartOpen() {
+        waitAction().shouldBeVisible(cartDrawer);
+    }
+
+    @Step("Проверяем, что корзина открыта")
+    default void checkCartClose() {
+        waitAction().shouldNotBeVisible(cartDrawer);
+    }
+
+    @Step("Проверяем, что в шторке корзины есть кнопка закрытия")
+    default void checkCartCloseButtonIsVisible() {
+        waitAction().shouldBeVisible(close);
+    }
+
+    @Step("Проверяем, что в шторке корзины есть кнопка закрытия")
+    default void checkCartPlaceholderIsVisible() {
+        waitAction().shouldBeVisible(placeholder);
+    }
+
+    @Step("Проверяем, что в шторке корзины есть кнопка закрытия")
+    default void checkCartReturnToCatalogButtonIsVisible() {
+        waitAction().shouldBeVisible(returnToCatalog);
+    }
+
     @Step("Сравнить количество товаров в корзине с ожидаемым значением {0}")
     default void compareItemsInCart(final int expected) {
         assertEquals(items.elementCount(), expected, "Количество товаров в корзине отличается от ожидаемого");

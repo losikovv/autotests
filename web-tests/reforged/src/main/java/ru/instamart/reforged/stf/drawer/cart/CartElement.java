@@ -45,4 +45,7 @@ public interface CartElement {
     Button submitOrder = new Button(By.xpath("//button[@data-qa='cart_checkout_button']"), "кнопка Сделать заказ");
 
     ElementCollection items = new ElementCollection(By.xpath("//div[@data-qa='line-item']"), "все товары в корзине");
+
+    Element cartDrawer = new Element(By.xpath("//div[@data-qa='cart']"), "Шторка корзины");
+    Element orderAmount = new Element(By.xpath("//div[@class='cart-checkout-link__well']"), "Лейбл суммы заказа");
 }

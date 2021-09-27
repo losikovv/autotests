@@ -2,7 +2,6 @@ package ru.instamart.reforged.stf.page.shop;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
-import ru.instamart.reforged.core.Kraken;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
@@ -18,18 +17,23 @@ public interface ShopCheck extends Check, ShopElement {
         waitAction().shouldNotBeVisible(cartNotification);
     }
 
-    @Step("Проверяем, что нотификация после добавления товара в корзину скрыта")
+    @Step("Проверяем, что нотификация после добавления товара в корзину показана")
     default void checkCartNotificationIsVisible() {
         waitAction().shouldBeVisible(cartNotification);
     }
 
     @Step("Проверяем, что отображается карточка товара")
-    default void checkFirstProductCard() {
+    default void checkFirstProductCardIsVisible() {
         waitAction().shouldBeVisible(firstProductCard);
+    }
+
+    @Step("Проверяем, что отображается карточка товара")
+    default void checkSpinnerIsNotVisible() {
+        waitAction().shouldNotBeVisible(spinner);
     }
 
     @Step("Проверяем, что отображется сниппет каталога")
     default void checkSnippet() {
-        waitAction().shouldBeVisible(firstProductCard);
+        waitAction().shouldBeVisible(firstProductCardProd);
     }
 }
