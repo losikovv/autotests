@@ -36,7 +36,6 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.fail;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.common.RestStaticTestData.userPhone;
-import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 
 @Slf4j
 public final class InstamartApiHelper {
@@ -295,6 +294,14 @@ public final class InstamartApiHelper {
             log.debug(productsString.toString());
         }
         return products;
+    }
+
+    @Step("Получаем список избранных продуктов: для магазина sid = {sid}")
+    private List<ItemV2> getProductsFromFavorites(final int sid) {
+        var response = FavoritesV2Request.GET(sid);
+        checkStatusCode200(response);
+
+        return response.as(FavoritesListItemsV2Response.class).getItems();
     }
 
     public ProductV2 getProductByPriceType(Integer sid, String priceType) {
@@ -962,25 +969,43 @@ public final class InstamartApiHelper {
     /**
      * Наполняем корзину разными товарами до минимальной суммы заказа в конкретном магазине
      */
-    void fillCartOnSid(int sid, int itemsNumber) {
-        List<ProductV2> products = getProductFromEachDepartmentInStore(sid);
+    void fillCartOnSid(int sid, int itemsNumber, final boolean addFavorites) {
+        List<ProductV2> products;
+
+        if (addFavorites) {
+            products = getProductsFromFavorites(sid)
+                    .stream()
+                    .limit(itemsNumber)
+                    .map(ItemV2::getProduct)
+                    .collect(Collectors.toList());
+        } else {
+            products = getProductFromEachDepartmentInStore(sid)
+                    .stream()
+                    .limit(itemsNumber)
+                    .collect(Collectors.toList());
+        }
+
         double initialCartWeight = 0;
-        for (int i = 0; i < itemsNumber; i++) {
-            ProductV2 product = products.get(i);
+
+        for (final ProductV2 product : products) {
             addItemToCart(product.getId(), 1);
             initialCartWeight += (getProductWeight(product) * product.getItemsPerPack());
         }
-        getMinSumFromAlert();
-        int quantity = 1;
-        for (ProductV2 product : products) {
-            if (minSumNotReached.get())
-                quantity = (int) Math.ceil(minSum.get() / (product.getPrice() * product.getItemsPerPack()));
 
-            double finalCartWeight = roundBigDecimal(
+        getMinSumFromAlert();
+
+        int quantity = 1;
+        for (final ProductV2 product : products) {
+            if (minSumNotReached.get()) {
+                quantity = (int) Math.ceil(minSum.get() / (product.getPrice() * product.getItemsPerPack()));
+            }
+
+            var finalCartWeight = roundBigDecimal(
                     (getProductWeight(product) * quantity) + initialCartWeight, 3);
 
-            String cartWeightText = "Вес корзины: " + finalCartWeight + " кг.\n";
-            String anotherProductText = "Выбираем другой товар\n";
+            var cartWeightText = "Вес корзины: " + finalCartWeight + " кг.\n";
+            var anotherProductText = "Выбираем другой товар\n";
+
             if (finalCartWeight > 40) log.error(cartWeightText + anotherProductText);
             else if (productWeightNotDefined.get()) log.error(anotherProductText);
             else {
@@ -1016,7 +1041,11 @@ public final class InstamartApiHelper {
      * Наполняем корзину до минимальной суммы заказа в конкретном магазине
      */
     public void fillCartOnSid(int sid) {
-        fillCartOnSid(sid, 1);
+        fillCartOnSid(sid, 1, false);
+    }
+
+    public void fillCartOnSid(final int sid, final int itemsNumber) {
+        fillCartOnSid(sid, itemsNumber, false);
     }
 
     /**
@@ -1141,7 +1170,7 @@ public final class InstamartApiHelper {
     @Step("Оформляем заказ у юзера {user.email} в магазине с sid = {sid} c количеством товаров в корзине = {itemsNumber}")
     public OrderV2 order(UserData user, int sid, int itemsNumber) {
         dropCart(user, getAddressBySid(sid));
-        fillCartOnSid(sid, itemsNumber);
+        fillCartOnSid(sid, itemsNumber, false);
         return setDefaultAttributesAndCompleteOrder();
     }
 

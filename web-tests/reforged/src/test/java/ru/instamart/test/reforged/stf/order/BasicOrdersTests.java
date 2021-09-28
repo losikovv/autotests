@@ -1,4 +1,4 @@
-package ru.instamart.test.reforged.stf;
+package ru.instamart.test.reforged.stf.order;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -185,7 +185,6 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().checkPageContains("https://demo.cloudpayments.ru/acs");
     }
 
-    //TODO: Нужно два метода в APIHelper для добавление в избранное и набора корзины с избранными
     @Skip
     @CaseId(1681)
     @Test(
@@ -193,9 +192,8 @@ public final class BasicOrdersTests extends BaseTest {
             groups = {"sbermarket-regression", "sbermarket-Ui-smoke"}
     )
     public void successOrderWithFavProducts() {
-        //helper.addFavorites();
-        //helper.dropAndFillCartWithFavorites()
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        helper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 1);
+        helper.dropAndFillCartFromFavorites(userData, EnvironmentProperties.DEFAULT_SID);
 
         var company = UserManager.juridical();
 

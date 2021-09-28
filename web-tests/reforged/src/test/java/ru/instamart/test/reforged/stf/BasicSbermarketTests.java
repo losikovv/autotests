@@ -9,7 +9,7 @@ import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
-import ru.instamart.reforged.core.StaticPage;
+import ru.instamart.reforged.core.data_provider.StaticPage;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.reforged.core.service.Curl;
 import ru.instamart.test.reforged.BaseTest;

@@ -1,4 +1,4 @@
-package ru.instamart.reforged.core;
+package ru.instamart.reforged.core.data_provider;
 
 import org.testng.annotations.DataProvider;
 import ru.instamart.api.common.Specification;
