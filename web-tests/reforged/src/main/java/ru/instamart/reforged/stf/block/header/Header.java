@@ -44,6 +44,11 @@ public final class Header implements HeaderCheck {
     }
 
     @Step("Выбрать элемент поиска")
+    public void clickSearchButton() {
+        searchButton.click();
+    }
+
+    @Step("Выбрать элемент поиска")
     public void selectSearch() {
         searchDropDown.selectAny();
     }

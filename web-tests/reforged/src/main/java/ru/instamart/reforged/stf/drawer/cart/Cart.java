@@ -25,6 +25,11 @@ public final class Cart implements CartCheck {
         return OrderAmountHelper.getOrderAmountParsed(orderAmount.getText());
     }
 
+    @Step("Вернуть значение мин суммы заказа в корзине")
+    public double returnMinOrderAmount() {
+        return OrderAmountHelper.getOrderAmountParsed(minAmountAlert.getText());
+    }
+
     @Step("Очистить корзину")
     public void clearCart() {
         clearCart.click();
@@ -52,7 +57,7 @@ public final class Cart implements CartCheck {
 
     @Step("Удалить первый товар из корзины")
     public void deleteFirstItem() {
-        deleteFirstItem.hoverAndClick();
+        deleteFirstItemButton.hoverAndClick();
     }
 
     @Step("Увеличить кол-во товара до минимального, доступного к заказу")

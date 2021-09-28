@@ -12,16 +12,6 @@ public interface ShopCheck extends Check, ShopElement {
         waitAction().shouldBeVisible(minusFirstItemFromCartAddedAddress);
     }
 
-    @Step("Проверяем, что нотификация после добавления товара в корзину скрыта")
-    default void checkCartNotificationIsNotVisible() {
-        waitAction().shouldNotBeVisible(cartNotification);
-    }
-
-    @Step("Проверяем, что нотификация после добавления товара в корзину показана")
-    default void checkCartNotificationIsVisible() {
-        waitAction().shouldBeVisible(cartNotification);
-    }
-
     @Step("Проверяем, что отображается карточка товара")
     default void checkFirstProductCardIsVisible() {
         waitAction().shouldBeVisible(firstProductCard);

@@ -11,10 +11,10 @@ import ru.instamart.reforged.stf.page.landings.drivers_hiring.DriversHiringPage;
 import ru.instamart.reforged.stf.page.landings.gift.CertificatePage;
 import ru.instamart.reforged.stf.page.landings.job.JobPage;
 import ru.instamart.reforged.stf.page.notfound.Page404;
+import ru.instamart.reforged.stf.page.search.SearchPage;
 import ru.instamart.reforged.stf.page.seo.SeoCatalogPage;
 import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.reforged.stf.page.user.UserCompanies;
-import ru.instamart.reforged.stf.page.user.UserEdit;
 import ru.instamart.reforged.stf.page.user.favorites.UserFavoritesPage;
 import ru.instamart.reforged.stf.page.user.UserShipments;
 import ru.instamart.reforged.stf.page.user.profile.UserProfilePage;
@@ -43,6 +43,10 @@ public final class StfRouter extends Router {
 
     public static ShopPage shop() {
         return (ShopPage) getPage(ShopPage.class);
+    }
+
+    public static SearchPage search() {
+        return (SearchPage) getPage(SearchPage.class);
     }
 
     public static BusinessPage business() {

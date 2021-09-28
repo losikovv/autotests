@@ -45,4 +45,7 @@ public interface HeaderElement {
     Link favoriteWithOutAuth = new Link(By.xpath("//button[@data-qa='favorites-link']"), "кнопка избранного для неавторизованных");
     Link orders = new Link(By.xpath("//a[@data-qa='shipments-link']"));
     Button login = new Button(By.xpath("//button[@data-qa='login-button_button']")); // кнопка в хедере, но без авторизации
+
+    Element cartNotification = new Element(By.xpath("//div[@class='notification']"));
+
 }
