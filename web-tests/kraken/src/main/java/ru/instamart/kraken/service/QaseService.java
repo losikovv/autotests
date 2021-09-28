@@ -142,13 +142,14 @@ public final class QaseService {
      * Отправляем статус прохождения теста
      */
     public void sendResult(final ITestResult result, final RunResultStatus status) {
+        if(!started) return;
         this.sendResult(result, status, null);
     }
 
     synchronized public void sendResult(final ITestResult result,
                                         final RunResultStatus status,
                                         final List<String> attachmentHash) {
-        if (!qase) return;
+        if (!qase || !started) return;
 
         final Duration timeSpent = Duration
                 .ofMillis(result.getEndMillis() - result.getStartMillis());
@@ -210,6 +211,7 @@ public final class QaseService {
     }
 
     public void deleteOldTestRuns() {
+        if (!qase || !started) return;
         final List<TestRun> testRunList = qaseApi.testRuns()
                 .getAll(projectCode, true)
                 .getTestRunList();
@@ -238,6 +240,7 @@ public final class QaseService {
     }
 
     public void deleteOldDefects() {
+        if (!qase || !started) return;
         final List<Defect> defects = qaseApi.defects().getAll(projectCode).getDefectList();
         defects.forEach(defect -> {
             final LocalDateTime dateTime = LocalDateTime.parse(defect.getCreated(), FORMATTER);
@@ -249,7 +252,7 @@ public final class QaseService {
     }
 
     public void completeTestRun() {
-        if (!qase) return;
+        if (!qase || !started) return;
         log.debug("Complete test run={} for project={}", runId, projectCode);
         qaseApi.testRuns().completeTestRun(projectCode, runId);
     }
