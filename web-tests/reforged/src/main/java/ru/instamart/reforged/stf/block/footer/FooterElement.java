@@ -15,7 +15,7 @@ public interface FooterElement {
             "подзаголовок 'Сбермаркет' в футере");
     Link aboutCompanyLink = new Link(By.xpath("//footer//a[@href='/about']"),
                 "ссылка 'О компании' в футере");
-    Link contactsLink = new Link(By.xpath("//footer//a[@href='/contacts']"),
+    Link contactsLink = new Link(By.xpath("//footer//a[@href='/contacts_2']"),
             "ссылка 'Контакты' в футере");
     Link vacanciesLink = new Link(By.xpath("//footer//a[@href='https://hh.ru/employer/1272486#vacancy-list']"),
             "ссылка 'Вакансии' в футере");
@@ -27,13 +27,13 @@ public interface FooterElement {
 
     Element customerHelpTitle = new Element(By.xpath("//footer//div[@class='footer__title' and contains(text(),'Помощь')]"),
                 "подзаголовок 'Помощь покупателю' в футере");
-    Link howWeWork = new Link(By.xpath("//footer//a[@href='/how-we-work']"),
+    Link howWeWork = new Link(By.xpath("//footer//a[@href='/how-we-work-video']"),
             "ссылка 'Как мы работаем' в футере");
     Link deliveryZone = new Link(By.xpath("//footer//button[@data-url='/stores/1/shipping_methods']"),
             "ссылка 'Зоны доставки' в футере");
-    Link deliveryAndPayment = new Link(By.xpath("//footer//a[@href='/delivery']"),
+    Link deliveryAndPayment = new Link(By.xpath("//footer//a[@href='/delivery2']"),
             "ссылка 'Доставка и оплата' в футере");
-    Link help = new Link(By.xpath("//footer//a[@href='/faq']"),
+    Link help = new Link(By.xpath("//footer//a[@href='/faq-sbermarket']"),
             "ссылка 'Помощь' в футере");
 
 
