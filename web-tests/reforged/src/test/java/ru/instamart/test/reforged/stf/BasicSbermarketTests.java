@@ -28,7 +28,7 @@ public final class BasicSbermarketTests extends BaseTest {
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successValidateHeader() {
-        shop().goToPage(ShopUrl.METRO);
+        shop().goToPage();
         shop().checkPageIsAvailable();
 
         shop().interactHeader().checkHeaderVisible();
@@ -56,7 +56,7 @@ public final class BasicSbermarketTests extends BaseTest {
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successTransitionHowWeWork(){
-        shop().goToPage(ShopUrl.METRO);
+        shop().goToPage();
         shop().interactHeader().clickToHowWeWork();
         howWeWork().checkPageIsAvailable();
     }
@@ -68,7 +68,7 @@ public final class BasicSbermarketTests extends BaseTest {
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successTransitionContactsInfo(){
-        shop().goToPage(ShopUrl.METRO);
+        shop().goToPage();
         shop().interactHeader().clickToContacts();
         contacts().checkPageIsAvailable();
     }
@@ -80,8 +80,8 @@ public final class BasicSbermarketTests extends BaseTest {
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successTransitionHelpInfo(){
-        shop().goToPage(ShopUrl.METRO);
-        shop().interactHeader().clickToContacts();
+        shop().goToPage();
+        shop().interactHeader().clickToHelp();
         faq().checkPageIsAvailable();
     }
 
@@ -92,8 +92,8 @@ public final class BasicSbermarketTests extends BaseTest {
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successTransitionDeliveryInfo(){
-        shop().goToPage(ShopUrl.METRO);
-        shop().interactHeader().clickToContacts();
+        shop().goToPage();
+        shop().interactHeader().clickToDeliveryAndPayment();
         delivery().checkPageIsAvailable();
     }
 
@@ -104,9 +104,9 @@ public final class BasicSbermarketTests extends BaseTest {
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successTransitionLogo(){
-        shop().goToPage(ShopUrl.METRO);
+        shop().goToPage();
         shop().interactHeader().clickToLogo();
-        home().checkPageIsAvailable();
+        shop().checkPageIsAvailable();
     }
 
     @CaseId(1439)
@@ -116,10 +116,10 @@ public final class BasicSbermarketTests extends BaseTest {
             groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
     )
     public void successValidateElementInFooterSbermarket() {
-        shop().goToPage(ShopUrl.METRO);
+        shop().goToPage();
         shop().checkPageIsAvailable();
         shop().addCookie(CookieFactory.COOKIE_ALERT);
-        shop().refresh();
+        shop().goToPage();
         shop().scrollDown();
 
         shop().interactFooter().checkFooterVisible();

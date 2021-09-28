@@ -6,6 +6,6 @@ public final class HowWeWorkPage implements StfPage {
 
     @Override
     public String pageUrl() {
-        return "how-we-work";
+        return "how-we-work-video";
     }
 }
