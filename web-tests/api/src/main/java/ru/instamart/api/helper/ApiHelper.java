@@ -25,6 +25,21 @@ public class ApiHelper {
         SessionFactory.createSessionToken(SessionType.API_V2_PHONE, user);
     }
 
+    @Step("Добавить {count} продукт в список избранного")
+    public void addFavorites(final UserData userData, final int sid, final int count) {
+        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, userData);
+        apiV2.addFavoritesQtyListProductBySid(sid, count);
+    }
+
+    @Step("Наполняем корзину избранным товаром с помощью API")
+    public void dropAndFillCartFromFavorites(final UserData userData, final int sid) {
+        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, userData);
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+        apiV2.setAddressAttributes(userData, apiV2.getAddressBySid(sid));
+        apiV2.fillCartOnSid(sid, 1, true);
+    }
+
     /**
      * @param user должен иметь phone и encryptedPhone
      * encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
@@ -47,6 +62,18 @@ public class ApiHelper {
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
+        apiV2.fillCartOnSid(sid);
+    }
+
+    /**
+     * На стейдже работать не будет для {@link ru.instamart.api.common.RestAddresses}, так как нет большей части магазинов
+     */
+    @Step ("Наполняем корзину с помощью API")
+    public void dropAndFillCart(final UserData user, final Integer sid, final AddressV2 address) {
+        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, user);
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+        apiV2.setAddressAttributes(user, address);
         apiV2.fillCartOnSid(sid);
     }
 
