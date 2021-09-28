@@ -1,5 +1,8 @@
 package ru.instamart.test.reforged.stf.shopping;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qase.api.annotation.CaseId;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
@@ -15,10 +18,13 @@ import ru.instamart.test.reforged.BaseTest;
 import static ru.instamart.kraken.config.CoreProperties.DEFAULT_SMS;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
+@Epic("STF UI")
+@Feature("Основные тесты корзины")
 public class ShoppingCartTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
 
+    @CaseId(1571)
     @Test(
             description = "Тест валидации дефолтной корзины",
             groups = {"sbermarket-acceptance","sbermarket-regression"}
@@ -43,6 +49,7 @@ public class ShoppingCartTests extends BaseTest {
         shop().interactCart().checkCartClose();
     }
 
+    @CaseId(1572)
     @Test(
             description = "Тест успешного добавления товара в корзину неавторизованным юзером",
             groups = {"sbermarket-acceptance","sbermarket-regression"}
@@ -63,6 +70,7 @@ public class ShoppingCartTests extends BaseTest {
         shop().interactCart().checkCartNotEmpty();
     }
 
+    @CaseId(1573)
     @Test(
             description = "Тест успешного добавления товара в корзину из карточки товара",
             groups = {"sbermarket-acceptance","sbermarket-regression"}
@@ -92,6 +100,7 @@ public class ShoppingCartTests extends BaseTest {
         shop().interactCart().checkCartNotEmpty();
     }
 
+    @CaseId(1574)
     @Test(
             description = "Тест на изменение кол-ва товаров в корзине",
             groups = {"sbermarket-regression"}
@@ -105,8 +114,9 @@ public class ShoppingCartTests extends BaseTest {
         shop().interactAddress().clickOnSave();
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
+
         shop().plusFirstItemToCart();
-        shop().checkCartNotificationIsVisible();
+        shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().goToPage();
         shop().interactHeader().clickToCart();
@@ -126,7 +136,7 @@ public class ShoppingCartTests extends BaseTest {
                 "Не работает уменьшение кол-ва товаров в корзине");
     }
 
-    // TODO починить тест
+    @CaseId(1575)
     @Test(
             description = "Тест на изменение кол-ва товаров в корзине через карточку товара",
             groups = {"sbermarket-regression"}
@@ -177,6 +187,7 @@ public class ShoppingCartTests extends BaseTest {
         shop().interactProductCard().decreaseItemCount();
         shop().interactProductCard().close();
         shop().interactProductCard().checkProductCardIsNotVisible();
+
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToCart();
@@ -189,6 +200,7 @@ public class ShoppingCartTests extends BaseTest {
                 "Не работает уменьшение кол-ва товаров в корзине");
     }
 
+    @CaseId(1576)
     @Test(
             description = "Тест на удаление товаров из корзины",
             groups = {"sbermarket-acceptance","sbermarket-regression"}
@@ -209,72 +221,86 @@ public class ShoppingCartTests extends BaseTest {
         shop().plusFirstItemToCart();
         shop().goToPage();
         shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
         shop().interactCart().checkCartNotEmpty();
 
-        shop().interactCart().
+        shop().interactCart().deleteFirstItem();
+        shop().interactCart().checkSpinnerIsNotVisible();
+        shop().interactCart().checkCartEmpty();
     }
 
+    @CaseId(1577)
     @Test(  description = "Тест успешного добавления и удаления товара в корзину из сниппета в каталоге",
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
     public void successAddItemToCartFromCatalogSnippet() {
-        kraken.get().page(CoreProperties.DEFAULT_RETAILER);
-        User.Do.loginAs(UserManager.getDefaultUser());
-        Shop.Cart.drop();
+        final UserData shoppingCartUser = UserManager.getUser();
+        helper.dropCart(shoppingCartUser);
+        helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
 
-        Shop.Catalog.Item.addToCart();
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().fillPhone(shoppingCartUser.getPhone());
+        shop().interactAuthModal().sendSms();
+        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
+        shop().interactAuthModal().checkModalIsNotVisible();
+        shop().interactHeader().checkProfileButtonVisible();
 
-        Assert.assertFalse(
-                kraken.detect().isCartEmpty(),
-                    "Не добавляется товар в корзину из сниппета товара в каталоге\n");
-        /*
-        Shop.Cart.close();
-        Shop.Catalog.Item.removeFromCart();
+        shop().plusFirstItemToCart();
+        shop().interactHeader().checkCartNotificationIsVisible();
 
-        Assert.assertTrue(
-                kraken.detect().isCartEmpty(),
-                    "Не удаляется товар из корзины из сниппета товара в каталоге\n");
-        */
+        shop().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().checkCartNotEmpty();
+
+        shop().interactCart().deleteFirstItem();
+        shop().interactCart().checkSpinnerIsNotVisible();
+        shop().interactCart().checkCartEmpty();
     }
 
-    //TODO successAddItemToCartFromItemCard()
-    //TODO successAddItemToCartFroRRWidgetItem()
-    //TODO successAddItemToCartFromFavorites()
-    //TODO successAddItemToCartFromSearchResults()
-    //TODO successAddItemToCartFromSEOCatalog()
-
+    @CaseId(1578)
     @Test(
             description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером",
             groups = {"sbermarket-regression"}
     )
     public void successChangeMinOrderSum() {
-        SoftAssert softAssert = new SoftAssert();
-        User.Logout.quickly();
+        final UserData shoppingCartUser = UserManager.getUser();
+        helper.dropCart(shoppingCartUser);
+        helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
 
-        User.Do.registration();
-        ShippingAddressModal.open();
-        ShippingAddressModal.fill(Addresses.Moscow.defaultAddress());
-        ShippingAddressModal.submit();
-        Shop.Search.searchItem("молоко");
-        Shop.Catalog.Item.addToCart();
-        int sum1 = kraken.grab().minOrderSum();
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().fillPhone(shoppingCartUser.getPhone());
+        shop().interactAuthModal().sendSms();
+        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
+        shop().interactAuthModal().checkModalIsNotVisible();
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        softAssert.assertNotEquals(sum1, 0, "Не отображается сумма минимального первого заказа\n");
+        shop().plusFirstItemToCart();
+        shop().interactHeader().checkCartNotificationIsVisible();
 
-        Order.order();
-        Shop.Search.searchItem("молоко");
-        Shop.Catalog.Item.addToCart();
-        int sum2 = kraken.grab().minOrderSum();
+        shop().goToPage();
+        shop().interactHeader().clickToCart();
+        final double firstOrderMinAmount = shop().interactCart().returnMinOrderAmount();
 
-        softAssert.assertNotEquals(
-                sum2, 0,
-                    "Не отображается сумма минимального повторного заказа\n");
+        helper.makeOrder(shoppingCartUser, EnvironmentProperties.DEFAULT_SID, 3);
+        helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
 
-        softAssert.assertTrue(
-                sum1 < sum2,
-                    "Сумма минимального заказа не изменилась после первого заказа\n");
+        shop().goToPage();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+        shop().interactHeader().fillSearch("молоко");
+        shop().interactHeader().clickSearchButton();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+        search().checkAddToCartButtonVisible();
+        search().clickAddToCartFirstSearchResult();
+        shop().interactHeader().checkCartNotificationIsVisible();
 
-        Order.cancelLastActiveOrder();
-        softAssert.assertAll();
+        shop().goToPage();
+        shop().interactHeader().clickToCart();
+        final double repeatedOrderMinAmount = shop().interactCart().returnMinOrderAmount();
+
+        Assert.assertTrue(firstOrderMinAmount > repeatedOrderMinAmount);
     }
 }
