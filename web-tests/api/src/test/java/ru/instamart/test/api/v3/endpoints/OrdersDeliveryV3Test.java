@@ -21,13 +21,12 @@ public class OrdersDeliveryV3Test extends RestBase {
 
     OrderV3 orderGoods;
     OrderV3 orderMetroMarketplace;
-
+    OrderV3 orderSberDevices;
 
     @CaseId(858)
     @Story("Доставка")
     @Issue("STF-9456")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"},
             dataProvider = "goods",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Создание заказа на доставку Goods")
@@ -42,13 +41,10 @@ public class OrdersDeliveryV3Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    OrderV3 orderSberDevices;
-
     @CaseId(860)
     @Story("Доставка")
     @Issue("STF-9456")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"},
             dataProvider = "sber_devices",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Создание на доставку заказа Sber_devices")
@@ -68,8 +64,7 @@ public class OrdersDeliveryV3Test extends RestBase {
     @CaseId(859)
     @Story("Доставка")
     @Issue("STF-9456")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"},
             dataProvider = "metro_marketplace",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Создание заказа на доставку Metro_Marketplace")
