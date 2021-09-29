@@ -46,6 +46,6 @@ public interface HeaderElement {
     Link orders = new Link(By.xpath("//a[@data-qa='shipments-link']"));
     Button login = new Button(By.xpath("//button[@data-qa='login-button_button']")); // кнопка в хедере, но без авторизации
 
-    Element cartNotification = new Element(By.xpath("//div[@class='notification']"));
+    Element cartNotification = new Element(By.xpath("//div[@class='notification']"), "Алерт добавления товара в корзину");
 
 }

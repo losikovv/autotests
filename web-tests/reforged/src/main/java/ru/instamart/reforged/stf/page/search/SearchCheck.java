@@ -7,7 +7,7 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface SearchCheck extends Check, SearchElement {
 
-    @Step
+    @Step("Проверяем, что отображается кнопка добавления в корзину у первого товара в поиске")
     default void checkAddToCartButtonVisible() {
         waitAction().shouldBeVisible(firstAddToCartButton);
     }
