@@ -1,14 +1,12 @@
 package ru.instamart.reforged.stf.drawer.cart;
 
 import io.qameta.allure.Step;
-import org.testng.asserts.SoftAssert;
 import ru.instamart.reforged.core.Check;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface CartCheck extends Check, CartElement {
-    SoftAssert softAssert = new SoftAssert();
 
     @Step("Проверяем, что кнопка заказа доступна")
     default boolean checkOrderButtonIsEnabled() {
@@ -27,7 +25,7 @@ public interface CartCheck extends Check, CartElement {
 
     @Step("Проверяем, что минимальная сумма первого заказа {0} больше повторного {1}")
     default void checkFirstMinAmountMoreThanRepeated(double first, double repeated) {
-        softAssert.assertTrue(first > repeated);
+        krakenAssert.assertTrue(first > repeated);
     }
 
     @Step("Проверка что корзина пуста")
@@ -72,6 +70,6 @@ public interface CartCheck extends Check, CartElement {
 
     @Step("Сравнить кол-во штук первого в корзине с ожидаемым значением {0}")
     default void compareFirstItemQuantityInCart(final int expected) {
-        softAssert.assertEquals(firstElementQuantity.getValue(), expected, "Количество товаров в корзине отличается от ожидаемого");
+        krakenAssert.assertEquals(firstElementQuantity.getValue(), expected, "Количество товаров в корзине отличается от ожидаемого");
     }
 }
