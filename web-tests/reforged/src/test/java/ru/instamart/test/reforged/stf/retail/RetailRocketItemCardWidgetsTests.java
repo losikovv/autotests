@@ -37,7 +37,7 @@ public final class RetailRocketItemCardWidgetsTests extends BaseTest {
     )
     public void successCheckWithThisItemBuyWidget() {
         shop().goToPage();
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().interactRetailRocket().checkBlockWithThisProduct();
     }
 
@@ -49,7 +49,7 @@ public final class RetailRocketItemCardWidgetsTests extends BaseTest {
         shop().goToPage();
         shop().addCookie(CookieFactory.COOKIE_ALERT);
         shop().refresh();
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().interactRetailRocket().checkBlockSimilar();
     }
 
@@ -70,7 +70,7 @@ public final class RetailRocketItemCardWidgetsTests extends BaseTest {
     )
     public void successOpenItemFromWithThisItemBuyWidget() {
         shop().goToPage();
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().interactRetailRocket().clickToFirstProductInCarousel();
         shop().interactProductCard().checkProductCardVisible();
     }
@@ -84,7 +84,7 @@ public final class RetailRocketItemCardWidgetsTests extends BaseTest {
         shop().goToPage();
         shop().addCookie(CookieFactory.COOKIE_ALERT);
         shop().refresh();
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().interactRetailRocket().clickToFirstProductInSimilar();
         shop().interactProductCard().checkProductCardVisible();
     }
@@ -111,7 +111,7 @@ public final class RetailRocketItemCardWidgetsTests extends BaseTest {
         home().interactAuthModal().authViaPhone(userData);
 
         shop().interactHeader().checkProfileButtonVisible();
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().interactRetailRocket().addToCartFirstProductInCarousel();
         shop().interactHeader().clickToCart();
         shop().interactCart().compareItemsInCart(1);
@@ -131,7 +131,7 @@ public final class RetailRocketItemCardWidgetsTests extends BaseTest {
         shop().addCookie(CookieFactory.COOKIE_ALERT);
         shop().refresh();
 
-        shop().openFirstProductCard();
+        shop().openFirstProductCardProd();
         shop().interactProductCard().interactRetailRocket().addToCartFirstProductInSimilar();
         shop().interactHeader().clickToCart();
         shop().interactCart().compareItemsInCart(1);

@@ -1,10 +1,7 @@
 package ru.instamart.reforged.stf.drawer.cart;
 
 import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.Button;
-import ru.instamart.reforged.core.component.Element;
-import ru.instamart.reforged.core.component.ElementCollection;
-import ru.instamart.reforged.core.component.Link;
+import ru.instamart.reforged.core.component.*;
 import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
 import ru.instamart.reforged.stf.frame.ClearCart;
 
@@ -50,4 +47,5 @@ public interface CartElement {
     Element orderAmount = new Element(By.xpath("//div[@class='cart-checkout-link__well']"), "Лейбл суммы заказа");
 
     Button deleteFirstItemButton = new Button(By.xpath("//button[@data-qa='cart_delete_item_button']"), "Кнопка удаления у первого товара в корзине");
+    Input firstElementQuantity = new Input(By.xpath("//div[@data-qa='line-item-counter']"), "Кол-во первого товара в корзине");
 }
