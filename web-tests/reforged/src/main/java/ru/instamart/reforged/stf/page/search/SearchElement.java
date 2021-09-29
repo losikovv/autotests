@@ -7,5 +7,5 @@ import ru.instamart.reforged.stf.block.header.Header;
 public interface SearchElement {
     Header header = new Header();
 
-    Button firstAddToCartButton = new Button(By.xpath("//button[@title='Добавить в корзину']"));
+    Button firstAddToCartButton = new Button(By.xpath("//button[@title='Добавить в корзину']"), "Кнопка добавить в корзину у первого элемента на странице поиска");
 }
