@@ -3,7 +3,6 @@ package ru.instamart.test.reforged.stf.shopping;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
@@ -130,10 +129,8 @@ public class ShoppingCartTests extends BaseTest {
         shop().interactCart().checkSpinnerIsNotVisible();
         final double decreasedAmount = shop().interactCart().returnOrderAmount();
 
-        Assert.assertTrue(startAmount < increasedAmount,
-                "Не работает увеличение кол-ва товаров в корзине");
-        Assert.assertTrue(decreasedAmount < increasedAmount,
-                "Не работает уменьшение кол-ва товаров в корзине");
+        shop().interactCart().checkIncreasedAmountMoreThanStart(startAmount, increasedAmount);
+        shop().interactCart().checkIncreasedAmountMoreThanDecreased(increasedAmount, decreasedAmount);
     }
 
     @CaseId(1575)
@@ -194,10 +191,8 @@ public class ShoppingCartTests extends BaseTest {
         final double decreasedAmount = shop().interactCart().returnOrderAmount();
 
         shop().goToPage();
-        Assert.assertTrue(startAmount < increasedAmount,
-                "Не работает увеличение кол-ва товаров в корзине");
-        Assert.assertTrue(decreasedAmount < increasedAmount,
-                "Не работает уменьшение кол-ва товаров в корзине");
+        shop().interactCart().checkIncreasedAmountMoreThanStart(startAmount, increasedAmount);
+        shop().interactCart().checkIncreasedAmountMoreThanDecreased(increasedAmount, decreasedAmount);
     }
 
     @CaseId(1576)
@@ -301,6 +296,6 @@ public class ShoppingCartTests extends BaseTest {
         shop().interactHeader().clickToCart();
         final double repeatedOrderMinAmount = shop().interactCart().returnMinOrderAmount();
 
-        Assert.assertTrue(firstOrderMinAmount > repeatedOrderMinAmount);
+        shop().interactCart().checkFirstMinAmountMoreThanRepeated(firstOrderMinAmount, repeatedOrderMinAmount);
     }
 }

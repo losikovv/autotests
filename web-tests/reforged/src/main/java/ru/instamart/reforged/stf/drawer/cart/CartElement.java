@@ -49,5 +49,5 @@ public interface CartElement {
     Element cartDrawer = new Element(By.xpath("//div[@data-qa='cart']"), "Шторка корзины");
     Element orderAmount = new Element(By.xpath("//div[@class='cart-checkout-link__well']"), "Лейбл суммы заказа");
 
-    Button deleteFirstItemButton = new Button(By.xpath("//button[@data-qa='cart_delete_item_button']"));
+    Button deleteFirstItemButton = new Button(By.xpath("//button[@data-qa='cart_delete_item_button']"), "Кнопка удаления у первого товара в корзине");
 }
