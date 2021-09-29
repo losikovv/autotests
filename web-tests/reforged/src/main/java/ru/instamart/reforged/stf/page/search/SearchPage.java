@@ -10,7 +10,7 @@ public class SearchPage implements StfPage, SearchCheck {
         return header;
     }
 
-    @Step
+    @Step("Нажать кнопку 'Добавить в корзину +' у первого найденного продукта")
     public void clickAddToCartFirstSearchResult() {
         firstAddToCartButton.click();
     }

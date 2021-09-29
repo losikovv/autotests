@@ -20,14 +20,9 @@ public interface CartCheck extends Check, CartElement {
         waitAction().shouldNotBeVisible(costSpinner);
     }
 
-    @Step("Проверяем, что стоимость увеличенного кол-во товаров {1} больше стартового {0}")
-    default void checkIncreasedAmountMoreThanStart(double start, double increased) {
-        softAssert.assertTrue(start < increased);
-    }
-
-    @Step("Проверяем, что стоимость увеличенного кол-во товаров {0} больше уменьшенного {1}")
-    default void checkIncreasedAmountMoreThanDecreased(double increased, double decreased) {
-        softAssert.assertTrue(decreased < increased);
+    @Step("Проверяем, что спиннер пропал")
+    default void checkSpinnerIsVisible() {
+        waitAction().shouldBeVisible(costSpinner);
     }
 
     @Step("Проверяем, что минимальная сумма первого заказа {0} больше повторного {1}")
@@ -70,8 +65,13 @@ public interface CartCheck extends Check, CartElement {
         waitAction().shouldBeVisible(returnToCatalog);
     }
 
-    @Step("Сравнить количество товаров в корзине с ожидаемым значением {0}")
+    @Step("Сравнить количество уникальных товаров в корзине с ожидаемым значением {0}")
     default void compareItemsInCart(final int expected) {
         assertEquals(items.elementCount(), expected, "Количество товаров в корзине отличается от ожидаемого");
+    }
+
+    @Step("Сравнить кол-во штук первого в корзине с ожидаемым значением {0}")
+    default void compareFirstItemQuantityInCart(final int expected) {
+        softAssert.assertEquals(firstElementQuantity.getValue(), expected, "Количество товаров в корзине отличается от ожидаемого");
     }
 }

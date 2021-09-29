@@ -81,8 +81,13 @@ public final class ShopPage implements StfPage, ShopCheck {
     }
 
     @Step("Открыть карточку первого товара на проде")
-    public void openFirstProductCard() {
+    public void openFirstProductCardProd() {
         firstProductCardProd.click();
+    }
+
+    @Step("Открыть карточку первого товара на стейдже")
+    public void openFirstProductCard() {
+        firstProductCard.click();
     }
 
     @Override

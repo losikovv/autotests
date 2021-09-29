@@ -119,18 +119,17 @@ public class ShoppingCartTests extends BaseTest {
 
         shop().goToPage();
         shop().interactHeader().clickToCart();
-        final double startAmount = shop().interactCart().returnOrderAmount();
+        shop().interactCart().compareFirstItemQuantityInCart(1);
 
         shop().interactCart().increaseCount();
+        shop().interactCart().checkSpinnerIsVisible();
         shop().interactCart().checkSpinnerIsNotVisible();
-        final double increasedAmount = shop().interactCart().returnOrderAmount();
+        shop().interactCart().compareFirstItemQuantityInCart(2);
 
         shop().interactCart().decreaseCount();
+        shop().interactCart().checkSpinnerIsVisible();
         shop().interactCart().checkSpinnerIsNotVisible();
-        final double decreasedAmount = shop().interactCart().returnOrderAmount();
-
-        shop().interactCart().checkIncreasedAmountMoreThanStart(startAmount, increasedAmount);
-        shop().interactCart().checkIncreasedAmountMoreThanDecreased(increasedAmount, decreasedAmount);
+        shop().interactCart().compareFirstItemQuantityInCart(1);
     }
 
     @CaseId(1575)
@@ -159,7 +158,7 @@ public class ShoppingCartTests extends BaseTest {
         shop().goToPage();
         shop().interactProductCard().checkProductCardIsNotVisible();
         shop().interactHeader().clickToCart();
-        final double startAmount = shop().interactCart().returnOrderAmount();
+        shop().interactCart().compareFirstItemQuantityInCart(1);
 
         shop().goToPage();
         Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER + shop().pageUrl());
@@ -173,7 +172,7 @@ public class ShoppingCartTests extends BaseTest {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToCart();
-        final double increasedAmount = shop().interactCart().returnOrderAmount();
+        shop().interactCart().compareFirstItemQuantityInCart(2);
 
         shop().goToPage();
         Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER + shop().pageUrl());
@@ -188,11 +187,7 @@ public class ShoppingCartTests extends BaseTest {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToCart();
-        final double decreasedAmount = shop().interactCart().returnOrderAmount();
-
-        shop().goToPage();
-        shop().interactCart().checkIncreasedAmountMoreThanStart(startAmount, increasedAmount);
-        shop().interactCart().checkIncreasedAmountMoreThanDecreased(increasedAmount, decreasedAmount);
+        shop().interactCart().compareFirstItemQuantityInCart(1);
     }
 
     @CaseId(1576)
