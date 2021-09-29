@@ -1,15 +1,18 @@
 package ru.instamart.kraken.config;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.instamart.utils.config.Config;
 import ru.instamart.utils.config.Env;
 
-import java.util.Objects;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import static java.util.Objects.nonNull;
 
 @Env
+@Slf4j
 public final class EnvironmentProperties {
-    
+
     public static final String NAME = "env";
 
     @Config(configName = NAME, fieldName = "tenant", defaultValue = "")
@@ -43,12 +46,14 @@ public final class EnvironmentProperties {
     @Config(configName = NAME, fieldName = "k8sLabelSelector", defaultValue = "")
     public static String K8S_LABEL_SELECTOR;
 
+
+
     public static class Env {
 
-    //TODO: Немножк костылей. Насколько мне известно эти урлы можно без костылей достать из переменных которые в основной пайпе от разработки
+        //TODO: Немножк костылей. Насколько мне известно эти урлы можно без костылей достать из переменных которые в основной пайпе от разработки
         static {
-            var customBasicUrl = System.getProperty("url_stf");
-            var customShopperUrl = System.getProperty("url_shp");
+            var customBasicUrl = getDomainName(System.getProperty("url_stf"));
+            var customShopperUrl = getDomainName(System.getProperty("url_shp"));
 
             if (nonNull(customBasicUrl) && !customBasicUrl.isBlank()) {
                 SERVER = customBasicUrl.split("\\.")[0];
@@ -68,5 +73,15 @@ public final class EnvironmentProperties {
         public static String FULL_ADMIN_URL = FULL_SITE_URL + "admin/";
         public static String FULL_ADMIN_URL_WITH_BASIC_AUTH = FULL_SITE_URL_WITH_BASIC_AUTH + "admin/";
         public static String FULL_SHOPPER_URL = PROTOCOL + "://" + SHOPPER_URL + "/";
+
+        public static String getDomainName(String url) {
+            try {
+                URI uri = new URI(url);
+                return uri.getHost();
+            } catch (URISyntaxException e) {
+                log.debug("Domain parse error: {}", e.getMessage());
+            }
+            return url;
+        }
     }
 }
