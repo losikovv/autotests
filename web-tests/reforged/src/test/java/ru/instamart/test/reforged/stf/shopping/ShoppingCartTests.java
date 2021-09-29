@@ -130,6 +130,7 @@ public class ShoppingCartTests extends BaseTest {
         shop().interactCart().checkSpinnerIsVisible();
         shop().interactCart().checkSpinnerIsNotVisible();
         shop().interactCart().compareFirstItemQuantityInCart(1);
+        shop().assertAll();
     }
 
     @CaseId(1575)
@@ -188,6 +189,7 @@ public class ShoppingCartTests extends BaseTest {
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().compareFirstItemQuantityInCart(1);
+        shop().assertAll();
     }
 
     @CaseId(1576)
@@ -292,5 +294,6 @@ public class ShoppingCartTests extends BaseTest {
         final double repeatedOrderMinAmount = shop().interactCart().returnMinOrderAmount();
 
         shop().interactCart().checkFirstMinAmountMoreThanRepeated(firstOrderMinAmount, repeatedOrderMinAmount);
+        shop().assertAll();
     }
 }
