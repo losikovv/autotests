@@ -1,10 +1,7 @@
 package ru.instamart.reforged.stf.drawer.cart;
 
 import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.Button;
-import ru.instamart.reforged.core.component.Element;
-import ru.instamart.reforged.core.component.ElementCollection;
-import ru.instamart.reforged.core.component.Link;
+import ru.instamart.reforged.core.component.*;
 import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
 import ru.instamart.reforged.stf.frame.ClearCart;
 
@@ -31,7 +28,7 @@ public interface CartElement {
 
     Button clearCart = new Button(By.xpath("//button[@data-qa='cart_remove_shipments_button']"), "кнопка 'Очистить корзину'");
     Element itemCounter = new Element(By.xpath("//div[@data-qa='line-item-counter']"), "кол-во добавленных товаров");
-    Element minSumAlert = new Element(By.xpath("//div[@class='cart-retailer__alert-message-box']"), "сообщение о минимальной сумме корзины");
+    Element minAmountAlert = new Element(By.xpath("//div[@class='cart-retailer__alert-message-box']"), "сообщение о минимальной сумме корзины");
     Button increaseCount = new Button(By.xpath("//button[@data-qa='increase-button']"), "кнопка Увеличить кол-во");
     Button decreaseCount = new Button(By.xpath("//button[@data-qa='decrease-button']"), "кнопка Уменьшить кол-во");
     Link openItemCard = new Link(By.xpath("//a[@data-qa='open-button']"), "переход к карточке товара");
@@ -45,4 +42,10 @@ public interface CartElement {
     Button submitOrder = new Button(By.xpath("//button[@data-qa='cart_checkout_button']"), "кнопка Сделать заказ");
 
     ElementCollection items = new ElementCollection(By.xpath("//div[@data-qa='line-item']"), "все товары в корзине");
+
+    Element cartDrawer = new Element(By.xpath("//div[@data-qa='cart']"), "Шторка корзины");
+    Element orderAmount = new Element(By.xpath("//div[@class='cart-checkout-link__well']"), "Лейбл суммы заказа");
+
+    Button deleteFirstItemButton = new Button(By.xpath("//button[@data-qa='cart_delete_item_button']"), "Кнопка удаления у первого товара в корзине");
+    Input firstElementQuantity = new Input(By.xpath("//div[@data-qa='line-item-counter']"), "Кол-во первого товара в корзине");
 }

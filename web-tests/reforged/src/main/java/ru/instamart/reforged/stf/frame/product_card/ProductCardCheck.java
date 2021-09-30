@@ -11,4 +11,9 @@ public interface ProductCardCheck extends Check, ProductCardElement {
     default void checkProductCardVisible() {
         waitAction().shouldBeVisible(itemName);
     }
+
+    @Step("Продуктовая карта закрыта")
+    default void checkProductCardIsNotVisible() {
+        waitAction().shouldNotBeVisible(itemName);
+    }
 }

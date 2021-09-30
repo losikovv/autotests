@@ -18,6 +18,16 @@ public interface CartCheck extends Check, CartElement {
         waitAction().shouldNotBeVisible(costSpinner);
     }
 
+    @Step("Проверяем, что спиннер пропал")
+    default void checkSpinnerIsVisible() {
+        waitAction().shouldBeVisible(costSpinner);
+    }
+
+    @Step("Проверяем, что минимальная сумма первого заказа {0} больше повторного {1}")
+    default void checkFirstMinAmountMoreThanRepeated(double first, double repeated) {
+        krakenAssert.assertTrue(first > repeated);
+    }
+
     @Step("Проверка что корзина пуста")
     default void checkCartEmpty() {
         waitAction().shouldBeVisible(placeholder);
@@ -28,8 +38,38 @@ public interface CartCheck extends Check, CartElement {
         waitAction().shouldNotBeVisible(placeholder);
     }
 
-    @Step("Сравнить количество товаров в корзине с ожидаемым значением {0}")
+    @Step("Проверяем, что корзина открыта")
+    default void checkCartOpen() {
+        waitAction().shouldBeVisible(cartDrawer);
+    }
+
+    @Step("Проверяем, что корзина открыта")
+    default void checkCartClose() {
+        waitAction().shouldNotBeVisible(cartDrawer);
+    }
+
+    @Step("Проверяем, что в шторке корзины есть кнопка закрытия")
+    default void checkCartCloseButtonIsVisible() {
+        waitAction().shouldBeVisible(close);
+    }
+
+    @Step("Проверяем, что в шторке корзины есть кнопка закрытия")
+    default void checkCartPlaceholderIsVisible() {
+        waitAction().shouldBeVisible(placeholder);
+    }
+
+    @Step("Проверяем, что в шторке корзины есть кнопка закрытия")
+    default void checkCartReturnToCatalogButtonIsVisible() {
+        waitAction().shouldBeVisible(returnToCatalog);
+    }
+
+    @Step("Сравнить количество уникальных товаров в корзине с ожидаемым значением {0}")
     default void compareItemsInCart(final int expected) {
         assertEquals(items.elementCount(), expected, "Количество товаров в корзине отличается от ожидаемого");
+    }
+
+    @Step("Сравнить кол-во штук первого в корзине с ожидаемым значением {0}")
+    default void compareFirstItemQuantityInCart(final int expected) {
+        krakenAssert.assertEquals(firstElementQuantity.getValue(), expected, "Количество товаров в корзине отличается от ожидаемого");
     }
 }
