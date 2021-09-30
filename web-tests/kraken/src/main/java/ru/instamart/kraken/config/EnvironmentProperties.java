@@ -52,15 +52,16 @@ public final class EnvironmentProperties {
 
         //TODO: Немножк костылей. Насколько мне известно эти урлы можно без костылей достать из переменных которые в основной пайпе от разработки
         static {
-            var customBasicUrl = getDomainName(System.getProperty("url_stf"));
-            var customShopperUrl = getDomainName(System.getProperty("url_shp"));
+            var customBasicUrl = System.getProperty("url_stf");
+            var customShopperUrl = System.getProperty("url_shp");
 
             if (nonNull(customBasicUrl) && !customBasicUrl.isBlank()) {
+                customBasicUrl = getDomainName(customBasicUrl);
                 SERVER = customBasicUrl.split("\\.")[0];
                 BASIC_URL = customBasicUrl;
 
                 if (nonNull(customShopperUrl) && !customShopperUrl.isBlank()) {
-                    SHOPPER_URL = customShopperUrl;
+                    SHOPPER_URL = getDomainName(customShopperUrl);
                 } else if (customBasicUrl.startsWith("stf-")) {
                     SHOPPER_URL = "shp" + customBasicUrl.substring(3);
                 } else SHOPPER_URL = "shp-0.k-stage.sbermarket.tech";
