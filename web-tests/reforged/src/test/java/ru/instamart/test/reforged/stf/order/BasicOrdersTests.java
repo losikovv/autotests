@@ -36,6 +36,7 @@ public final class BasicOrdersTests extends BaseTest {
         helper.cancelAllActiveOrders(userData);
     }
 
+    @CaseId(1674)
     @Test(
             description = "Тест заказа с добавлением нового юр. лица",
             groups = {"sbermarket-regression"}
