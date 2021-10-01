@@ -1,0 +1,57 @@
+import java.time.Duration
+import java.time.Instant
+
+allprojects { project ->
+    ext.testsResults = []
+
+    tasks.withType(Test) {
+        testLogging {
+            showStandardStreams true
+            exceptionFormat "FULL"
+            events "PASSED", "SKIPPED", "FAILED"
+        }
+
+        afterSuite() { desc, result ->
+            if (desc.parent) return
+
+            String summary = "${project.name}:${name} results: ${result.resultType} " +
+                    "(" +
+                    "${result.testCount} tests, " +
+                    "${result.successfulTestCount} successes, " +
+                    "${result.failedTestCount} failures, " +
+                    "${result.skippedTestCount} skipped" +
+                    ") " +
+                    "in ${Duration.between(Instant.ofEpochMilli(result.startTime) , Instant.ofEpochMilli(result.endTime)).toString()}" +
+                    "\n" +
+                    "Report file: ${reports.html.entryPoint}"
+
+            if (result.resultType == TestResult.ResultType.SUCCESS) {
+                rootProject.testsResults.add(0, summary)
+            } else {
+                rootProject.testsResults += summary
+            }
+        }
+    }
+}
+
+gradle.buildFinished {
+    def allResults = rootProject.ext.testsResults
+
+    if (!allResults.isEmpty()) {
+        printResults allResults
+    }
+}
+
+private static void printResults(allResults) {
+    def maxLength = allResults*.readLines().flatten().collect { it.length() }.max()
+
+    println "┌${"${"─" * maxLength}"}┐"
+
+    println allResults.collect {
+        it.readLines().collect {
+            "│" + it + " " * (maxLength - it.length()) + "│"
+        }.join("\n")
+    }.join("\n├${"${"─" * maxLength}"}┤\n")
+
+    println "└${"${"─" * maxLength}"}┘"
+}

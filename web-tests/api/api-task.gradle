@@ -1,12 +1,7 @@
 task apiShopperSmoke(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/api-shopper.xml'
         includeGroups 'api-shopper-smoke'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
     systemProperty 'qase.Project', 'SHAPI'
     systemProperty 'qase.Title', 'Shopper API Smoke'
@@ -14,13 +9,8 @@ task apiShopperSmoke(type: Test) {
 
 task apiShopperRegress(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/api-shopper.xml'
         includeGroups 'api-shopper-smoke', 'api-shopper-regress'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
     systemProperty 'qase.Project', 'SHAPI'
     systemProperty 'qase.Title', 'Shopper API Regress'
@@ -28,13 +18,8 @@ task apiShopperRegress(type: Test) {
 
 task apiInstamartRegress(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/api-instamart.xml'
         includeGroups 'api-instamart-smoke', 'api-instamart-regress'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
     boolean isCiServer = System.getenv().containsKey("CI")
     if (isCiServer) {
@@ -53,13 +38,8 @@ task apiInstamartRegress(type: Test) {
 
 task apiInstamartSmoke(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/api-instamart.xml'
         includeGroups 'api-instamart-smoke'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
     systemProperty 'qase.Project', 'INAPI'
     systemProperty 'qase.Title', 'Instamart API Smoke'
@@ -67,43 +47,27 @@ task apiInstamartSmoke(type: Test) {
 
 task apiv3Smoke(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/api-v3.xml'
         includeGroups 'api-instamart-smoke'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
-
-        systemProperty 'qase.Project', 'INAPI'
-        systemProperty 'qase.Title', 'Smoke endpoints Api v3'
+    systemProperty 'qase.Project', 'INAPI'
+    systemProperty 'qase.Title', 'Smoke endpoints Api v3'
 }
 
 task apiRetailerE2E(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/api-retailers.xml'
         includeGroups 'api-retailer'
         systemProperty 'env',"sbermarket-production"
         systemProperty 'qase', "false"
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
 }
 
 task apiInstamartProduction(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/api-instamart.xml'
         includeGroups 'api-instamart-prod'
         systemProperty 'env',"sbermarket-production"
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
     systemProperty 'qase.Project', 'INAPI'
     systemProperty 'qase.Title', 'Instamart API Regress'
@@ -111,14 +75,9 @@ task apiInstamartProduction(type: Test) {
 
 task apiShopperProduction(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/api-shopper.xml'
         includeGroups 'api-shopper-prod'
         systemProperty 'env',"sbermarket-production"
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
     systemProperty 'qase.Project', 'SHAPI'
     systemProperty 'qase.Title', 'Shopper API Regress'
@@ -126,25 +85,15 @@ task apiShopperProduction(type: Test) {
 
 task autoMr(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/mr.xml'
         includeGroups 'MRAutoCheck'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
 }
 
 task apiSurge(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/surge-api.xml'
         includeGroups 'surge-api'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
     systemProperty 'qase.Project', 'SURGE'
     systemProperty 'qase.Title', 'Surge API Regress'
@@ -152,26 +101,16 @@ task apiSurge(type: Test) {
 
 task localRun(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         options {
             listeners.add("ru.instamart.api.listener.ApiExecutionListener")
             listeners.add("ru.instamart.api.listener.ApiListener")
-        }
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
         }
     }
 }
 
 task qaseActualize(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/util.xml'
         includeGroups 'qase-actualize'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
 }

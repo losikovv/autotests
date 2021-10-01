@@ -1,25 +1,13 @@
-task Testing(type: Test) {
-    useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
-        suites 'src/test/resources/suite/all.xml'
-        includeGroups 'testing'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
-    }
-}
-
 task AutoMRCheck(type: Test) {
     dependsOn(':api:autoMr')
-    dependsOn(':ui:autoMr')
+    dependsOn(':reforged:autoMrReforged')
 
     finalizedBy(':allureCopyHistoryDir')
 }
 
 task allureCopyHistoryDir(type: Copy) {
     from project(':api').getBuildDir().path+"/allure-results".toString()
-    from project(':ui').getBuildDir().path+"/allure-results".toString()
+    from project(':reforged').getBuildDir().path+"/allure-results".toString()
     duplicatesStrategy = DuplicatesStrategy.WARN
     into "build/allure-results/"
 }
@@ -27,26 +15,16 @@ task allureCopyHistoryDir(type: Copy) {
 //Task for debugging
 task debug(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/d.xml'
         includeGroups 'debug'
         systemProperty 'env',"sbermarket-preprod"
         systemProperty 'qase', "false"
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
 }
 
 task cleanup(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/setup.xml'
         includeGroups 'cleanup'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
 }
