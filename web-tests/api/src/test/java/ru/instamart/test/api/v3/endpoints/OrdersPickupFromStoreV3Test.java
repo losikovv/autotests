@@ -31,8 +31,9 @@ public class OrdersPickupFromStoreV3Test extends RestBase {
 
     @CaseId(861)
     @Story("Самовывоз")
-    @Issue("STF-9456")
-    @Test(groups = {"api-instamart-regress"},
+    @Issue("DVR-1547")
+    @Test(enabled = false,
+            groups = {"api-instamart-regress"},
             dataProvider = "metro_marketplace",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Создание заказа на самовывоз Metro_Marketplace")
