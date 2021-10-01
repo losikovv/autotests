@@ -24,8 +24,18 @@ public final class SeoCatalogPage implements StfPage, SeoCatalogCheck {
     }
 
     @Step("Открыть карточку товара")
-    public void openFirstProductCard() {
+    public void openFirstProductCardOnTaxon() {
         firstProductCard.click();
+    }
+
+    @Step("Открыть карточку товара")
+    public void openFirstProductCardOnDepartment() {
+        firstProductCardOnDepartment.click();
+    }
+
+    @Step("Выбрать подкатегорию {0} со страницы каталога")
+    public void clickOnSubCategory(String data) {
+        catalogSubCategories.clickOnElementWithText(data);
     }
 
     @Override

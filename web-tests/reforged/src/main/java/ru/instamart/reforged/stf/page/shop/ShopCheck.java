@@ -17,7 +17,7 @@ public interface ShopCheck extends Check, ShopElement {
         waitAction().shouldBeVisible(firstProductCard);
     }
 
-    @Step("Проверяем, что отображается карточка товара")
+    @Step("Проверяем, не отображается спиннер")
     default void checkSpinnerIsNotVisible() {
         waitAction().shouldNotBeVisible(spinner);
     }

@@ -11,4 +11,14 @@ public interface SeoCatalogCheck extends Check, SeoCatalogElement {
     default void checkProductGridVisible() {
         waitAction().shouldBeVisible(productGrid);
     }
+
+    @Step("Отображается загаловок страницы каталога")
+    default void checkCatalogTitleVisible() {
+        waitAction().shouldBeVisible(catalogPageTitle);
+    }
+
+    @Step("Проверяем, не отображается спиннер")
+    default void checkSpinnerIsNotVisible() {
+        waitAction().shouldNotBeVisible(spinner);
+    }
 }
