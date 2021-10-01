@@ -2,6 +2,7 @@ package ru.instamart.test.api.v3.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
@@ -50,8 +51,10 @@ public class PutOrdersStatusV3Test extends RestBase {
     }
 
     @CaseId(868)
+    @Issue("DVR-1547")
     @Story("Отмена заказа на самовывоз")
-    @Test(groups = {"api-instamart-smoke"},
+    @Test(enabled = false,
+            groups = {"api-instamart-smoke"},
             dataProvider = "metro_marketplace",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Отмена заказа самовывоза Metro_Marketplace")
