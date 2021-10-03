@@ -23,7 +23,7 @@ public final class EnvironmentProperties {
     @Config(configName = NAME, fieldName = "basicUrl", defaultValue = "")
     private static String BASIC_URL;
     @Config(configName = NAME, fieldName = "httpAuth", defaultValue = "", crypted = true)
-    private static String HTTP_AUTH;
+    public static String HTTP_AUTH;
 
     @Config(configName = NAME, fieldName = "shopperUrl", defaultValue = "")
     private static String SHOPPER_URL;
@@ -74,7 +74,6 @@ public final class EnvironmentProperties {
         public static String FULL_ADMIN_URL = FULL_SITE_URL + "admin/";
         public static String FULL_ADMIN_URL_WITH_BASIC_AUTH = FULL_SITE_URL_WITH_BASIC_AUTH + "admin/";
         public static String FULL_SHOPPER_URL = PROTOCOL + "://" + SHOPPER_URL + "/";
-        public static String HTTP_AUTH_CRED = HTTP_AUTH;
 
         public static String getDomainName(String url) {
             try {

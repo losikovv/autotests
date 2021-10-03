@@ -31,7 +31,7 @@ public final class StringUtil {
     }
 
     public static String cutBasicAuthFromUrl(String url) {
-        return url.replace( EnvironmentProperties.Env.HTTP_AUTH_CRED, "");
+        return url.replace(EnvironmentProperties.HTTP_AUTH, "");
     }
 
     private StringUtil() {
