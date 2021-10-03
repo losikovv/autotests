@@ -7,7 +7,7 @@ import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.block.header.Header;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
 import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
-import ru.instamart.reforged.stf.drawer.CategoryMenu;
+import ru.instamart.reforged.stf.drawer.category_menu.CategoryMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.product_card.ProductCard;
@@ -34,6 +34,6 @@ public interface ShopElement {
             "Кнопка добавить в корзину у первого элемента");
     Button minusFirstItemFromCartAddedAddress = new Button(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']//button[contains(@title, 'Убрать из корзины')]"),
             "Кнопка убрать из корзины у первого элемента");
-    Element spinner = new Element(By.xpath("//div[contains(@class, 'Recommendations')]//div[contains(@class, 'Spinner')]"), "Спиннер блока рекомендаций на главной");
+    Element spinner = new Element(By.xpath("//div[contains(@class, 'Recommendations')]//div[contains(@class, 'Spinner')]"), "Спиннер блока рекомендаций");
 
 }

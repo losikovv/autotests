@@ -23,7 +23,7 @@ public final class EnvironmentProperties {
     @Config(configName = NAME, fieldName = "basicUrl", defaultValue = "")
     private static String BASIC_URL;
     @Config(configName = NAME, fieldName = "httpAuth", defaultValue = "", crypted = true)
-    private static String HTTP_AUTH;
+    public static String HTTP_AUTH;
 
     @Config(configName = NAME, fieldName = "shopperUrl", defaultValue = "")
     private static String SHOPPER_URL;

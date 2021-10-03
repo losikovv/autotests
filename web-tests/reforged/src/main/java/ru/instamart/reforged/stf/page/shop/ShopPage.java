@@ -9,7 +9,7 @@ import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.block.header.Header;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
 import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
-import ru.instamart.reforged.stf.drawer.CategoryMenu;
+import ru.instamart.reforged.stf.drawer.category_menu.CategoryMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;

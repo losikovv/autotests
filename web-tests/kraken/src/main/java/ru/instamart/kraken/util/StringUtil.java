@@ -1,5 +1,7 @@
 package ru.instamart.kraken.util;
 
+import ru.instamart.kraken.config.EnvironmentProperties;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,6 +28,10 @@ public final class StringUtil {
         }
 
         return Double.parseDouble(sb.toString());
+    }
+
+    public static String cutBasicAuthFromUrl(String url) {
+        return url.replace(EnvironmentProperties.HTTP_AUTH, "");
     }
 
     private StringUtil() {
