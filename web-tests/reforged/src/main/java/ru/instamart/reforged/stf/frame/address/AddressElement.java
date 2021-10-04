@@ -29,4 +29,6 @@ public interface AddressElement {
     Element login = new Element(By.xpath("//span[@data-qa='address-modal-login']"));
 
     Element markerImageOnMapInAdvice = new Element(By.xpath("//div[contains(@class, 'notice')]/descendant::img[contains(@src, '/marker')]"));
+    Element ymapReady = new Element(By.xpath("//div[@data-qa='address-modal']//div[contains(@class, 'YandexMap')]/ymaps"), "Элемент яндекс карт, готовый к работе");
+
 }

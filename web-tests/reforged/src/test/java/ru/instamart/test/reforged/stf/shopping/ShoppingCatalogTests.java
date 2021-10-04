@@ -24,6 +24,7 @@ public final class ShoppingCatalogTests extends BaseTest {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().checkYmapsReady();
         shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
@@ -46,6 +47,7 @@ public final class ShoppingCatalogTests extends BaseTest {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().checkYmapsReady();
         shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
@@ -71,6 +73,7 @@ public final class ShoppingCatalogTests extends BaseTest {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().checkYmapsReady();
         shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
@@ -97,6 +100,7 @@ public final class ShoppingCatalogTests extends BaseTest {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().checkYmapsReady();
         shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
@@ -124,6 +128,7 @@ public final class ShoppingCatalogTests extends BaseTest {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().checkYmapsReady();
         shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
@@ -157,6 +162,7 @@ public final class ShoppingCatalogTests extends BaseTest {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().checkYmapsReady();
         shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
@@ -191,6 +197,7 @@ public final class ShoppingCatalogTests extends BaseTest {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().checkYmapsReady();
         shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();

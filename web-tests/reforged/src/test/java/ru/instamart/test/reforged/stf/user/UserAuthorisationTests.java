@@ -47,6 +47,7 @@ public final class UserAuthorisationTests extends BaseTest {
     public void successAuthFromAddressModal() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().checkYmapsReady();
         shop().interactAddress().clickToLogin();
         shop().interactAuthModal().fillPhone("79000000001");
         shop().interactAuthModal().sendSms();
@@ -65,6 +66,7 @@ public final class UserAuthorisationTests extends BaseTest {
     public void successAuthFromCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().checkYmapsReady();
         shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();

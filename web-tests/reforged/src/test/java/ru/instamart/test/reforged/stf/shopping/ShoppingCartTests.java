@@ -31,6 +31,7 @@ public class ShoppingCartTests extends BaseTest {
     public void successValidateDefaultCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().checkYmapsReady();
         shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
@@ -56,6 +57,7 @@ public class ShoppingCartTests extends BaseTest {
     public void successAddItemToCartUnauthorized() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().checkYmapsReady();
         shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
@@ -107,6 +109,7 @@ public class ShoppingCartTests extends BaseTest {
     public void successChangeItemQuantityInCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().checkYmapsReady();
         shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
@@ -142,6 +145,7 @@ public class ShoppingCartTests extends BaseTest {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().checkYmapsReady();
         shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
