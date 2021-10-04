@@ -1,143 +1,83 @@
 task metroSmokeReforged(type: Test){
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/smoke/metro.xml'
         includeGroups 'metro-smoke'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
 }
 
 task metroAcceptanceReforged(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/smoke/metro.xml'
         includeGroups 'metro-acceptance'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
 }
 
 task metroRegressionReforged(type: Test){
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/regress/metro.xml'
         includeGroups 'metro-regression'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
 }
 
 task lentaSmokeReforged(type: Test){
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/smoke/stf.xml'
         includeGroups 'lenta-smoke'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
 }
 
 task lentaAcceptanceReforged(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/smoke/stf.xml'
         includeGroups 'lenta-acceptance'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
 }
 
 task lentaRegressionReforged(type: Test){
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/regress/stf.xml'
         includeGroups 'lenta-regression'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
 }
 
 task okeySmokeReforged(type: Test){
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/smoke/okey.xml'
         includeGroups 'okey-smoke'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
 }
 
 task okeyAcceptanceReforged(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/smoke/okey.xml'
         includeGroups 'okey-acceptance'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
 }
 
 task okeyRegressionReforged(type: Test){
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/regress/okey.xml'
         includeGroups 'okey-regression'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
 }
 
 task selgrosSmokeReforged(type: Test){
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/smoke/selgros.xml'
         includeGroups 'selgros-smoke'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
 }
 
 task selgrosAcceptanceReforged(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/smoke/selgros.xml'
         includeGroups 'selgros-acceptance'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
 }
 
 task selgrosRegressionReforged(type: Test){
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/regress/selgros.xml'
         includeGroups 'selgros-regression'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
 }

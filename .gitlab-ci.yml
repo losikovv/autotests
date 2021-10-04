@@ -32,6 +32,7 @@ stages:
     paths:
       - web-tests/api/build/allure-results/
       - web-tests/api/logs/
+      - web-tests/api/build/reports/tests/
     expire_in: 1 week
   allow_failure: false
 
@@ -79,6 +80,7 @@ CustomSuiteTestRun:
     paths:
       - web-tests/ui/build/allure-results/
       - web-tests/ui/logs/
+      - web-tests/ui/build/reports/tests/
     expire_in: 1 week
 
 
@@ -108,6 +110,7 @@ tests:ApiInstamart:
     paths:
       - web-tests/api/build/allure-results/
       - web-tests/api/logs/
+      - web-tests/api/build/reports/tests/
     expire_in: 1 week
   allow_failure: false
 
@@ -129,6 +132,7 @@ tests:preprodApiMetro:
     paths:
       - web-tests/api/build/allure-results/
       - web-tests/api/logs/
+      - web-tests/api/build/reports/tests/
     expire_in: 1 week
   allow_failure: false
 
@@ -159,6 +163,7 @@ tests:metroSmokeReforged:
     paths:
       - web-tests/reforged/build/allure-results/
       - web-tests/reforged/logs/
+      - web-tests/reforged/build/reports/tests/
     expire_in: 1 week
   allow_failure: false
 
@@ -189,6 +194,7 @@ tests:okeySmokeReforged:
       paths:
         - web-tests/reforged/build/allure-results/
         - web-tests/reforged/logs/
+        - web-tests/reforged/build/reports/tests/
       expire_in: 1 week
     allow_failure: false
 
@@ -219,6 +225,7 @@ tests:selgrosSmokeReforged:
     paths:
       - web-tests/reforged/build/allure-results/
       - web-tests/reforged/logs/
+      - web-tests/reforged/build/reports/tests/
     expire_in: 1 week
   allow_failure: false
 
@@ -240,6 +247,7 @@ tests:prodApiInstamart:
     paths:
       - web-tests/api/build/allure-results/
       - web-tests/api/logs/
+      - web-tests/api/build/reports/tests/
     expire_in: 1 week
   allow_failure: false
 
@@ -277,6 +285,7 @@ tests:prodApiShopper:
     paths:
       - web-tests/api/build/allure-results/
       - web-tests/api/logs/
+      - web-tests/api/build/reports/tests/
     expire_in: 1 week
   allow_failure: false
 
@@ -297,6 +306,7 @@ tests:prodApiRetailer:
     paths:
       - web-tests/api/build/allure-results/
       - web-tests/api/logs/
+      - web-tests/api/build/reports/tests/
     expire_in: 1 week
   allow_failure: false
 
@@ -319,6 +329,7 @@ tests:surge:
     paths:
       - web-tests/api/build/allure-results/
       - web-tests/api/logs/
+      - web-tests/api/build/reports/tests/
     expire_in: 1 week
   allow_failure: false
 
@@ -349,6 +360,7 @@ tests:UiSmokeReforged:
     paths:
       - web-tests/reforged/build/allure-results/
       - web-tests/reforged/logs/
+      - web-tests/reforged/build/reports/tests/
     expire_in: 1 week
   allow_failure: true
 
@@ -376,6 +388,7 @@ tests:UiRegress:
     paths:
       - web-tests/ui/build/allure-results/
       - web-tests/ui/logs/
+      - web-tests/ui/build/reports/tests/
     expire_in: 1 week
   allow_failure: true
 
@@ -406,6 +419,7 @@ tests:AdminUiSmoke:
     paths:
       - web-tests/reforged/build/allure-results/
       - web-tests/reforged/logs/
+      - web-tests/reforged/build/reports/tests/
     expire_in: 1 week
   allow_failure: true
 
@@ -428,8 +442,9 @@ tests:prodUiSmoke:
   artifacts:
     when: always
     paths:
-      - web-tests/ui/build/allure-results/
-      - web-tests/ui/logs/
+      - web-tests/reforged/build/allure-results/
+      - web-tests/reforged/logs/
+      - web-tests/reforged/build/reports/tests/
     expire_in: 1 week
   allow_failure: true
 
@@ -450,9 +465,11 @@ tests:AutoMRCheck:
     when: always
     paths:
       - web-tests/api/build/allure-results/
-      - web-tests/ui/build/allure-results/
       - web-tests/api/logs/
-      - web-tests/ui/logs/
+      - web-tests/api/build/reports/tests/
+      - web-tests/reforged/build/allure-results/
+      - web-tests/reforged/logs/
+      - web-tests/reforged/build/reports/tests/
     expire_in: 1 week
   allow_failure: true
 

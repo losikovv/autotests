@@ -10,7 +10,10 @@
   </method-selectors>
   <test verbose="1" name="MR UI" parallel="classes" thread-count="4">
     <classes>
-
+      <!--<class name="ru.instamart.test.ui.shopping.ShoppingCatalogTests"/>-->
+      <class name="ru.instamart.test.reforged.stf.BasicSbermarketTests"/>
+      <class name="ru.instamart.test.reforged.stf.user.UserRegistrationTests"/>
+      <class name="ru.instamart.test.reforged.stf.user.UserShippingAddressTests"/>
     </classes>
   </test>
 </suite>

@@ -1,12 +1,7 @@
 task sberUiSmokeReforged(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/smoke/stf.xml'
         includeGroups 'sbermarket-Ui-smoke'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
     systemProperty 'qase.Project', 'STF'
     systemProperty 'qase.Title', 'STF UI Smoke'
@@ -14,14 +9,9 @@ task sberUiSmokeReforged(type: Test) {
 
 task uiSmokeProductionReforged(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/smoke/stf.xml'
         includeGroups 'ui-smoke-production'
         systemProperty 'env',"sbermarket-production"
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
     systemProperty 'qase.Project', 'STF'
     systemProperty 'qase.Title', 'STF UI Smoke'
@@ -29,24 +19,14 @@ task uiSmokeProductionReforged(type: Test) {
 
 task sberAcceptanceReforged(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/smoke/stf.xml'
         includeGroups 'sbermarket-acceptance','sbermarket-Ui-smoke'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
 }
 
 task sberRegressionReforged(type: Test) {
     useTestNG() {
-        testLogging.showStandardStreams = true
-        useDefaultListeners = true
         suites 'src/test/resources/suite/regress/stf.xml'
         includeGroups 'sbermarket-regression','sbermarket-acceptance','sbermarket-Ui-smoke'
-        testLogging {
-            events "PASSED", "FAILED", "SKIPPED"
-        }
     }
 }
