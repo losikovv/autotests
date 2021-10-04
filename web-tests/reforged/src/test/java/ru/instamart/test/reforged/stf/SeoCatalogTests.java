@@ -43,7 +43,7 @@ public final class SeoCatalogTests extends BaseTest {
         seo().goToPage();
         //TODO: Костыль из-за бейсик авторизации
         Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER + seo().pageUrl());
-        seo().openFirstProductCard();
+        seo().openFirstProductCardOnTaxon();
         seo().interactProductCard().checkProductCardVisible();
     }
 
@@ -55,7 +55,7 @@ public final class SeoCatalogTests extends BaseTest {
         seo().goToPage();
         //TODO: Костыль из-за бейсик авторизации
         Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER + seo().pageUrl());
-        seo().openFirstProductCard();
+        seo().openFirstProductCardOnTaxon();
         seo().interactProductCard().clickOnBuy();
 
         seo().interactHeader().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
@@ -72,7 +72,7 @@ public final class SeoCatalogTests extends BaseTest {
         seo().goToPage();
         //TODO: Костыль из-за бейсик авторизации
         Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER + seo().pageUrl());
-        seo().openFirstProductCard();
+        seo().openFirstProductCardOnTaxon();
         seo().interactProductCard().clickOnBuy();
 
         seo().interactHeader().interactAddress().clickToLogin();

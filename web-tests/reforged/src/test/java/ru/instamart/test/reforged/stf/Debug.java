@@ -77,7 +77,7 @@ public final class Debug {
         StfRouter.home().interactAuthModal().sendSms();
         StfRouter.home().interactAuthModal().fillSMS("111111");
         StfRouter.shop().interactHeader().clickToCategoryMenu();
-        StfRouter.shop().interactCategoryMenu().moveOnCategory("Постное меню");
-        StfRouter.shop().interactCategoryMenu().clickToCategoryByName("Растительные масла");
+        StfRouter.shop().interactCategoryMenu().moveOnFirstLevelCategory("Постное меню");
+        StfRouter.shop().interactCategoryMenu().clickToFirstLevelCategoryByName("Растительные масла");
     }
 }
