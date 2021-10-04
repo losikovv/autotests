@@ -1,7 +1,6 @@
 package ru.instamart.reforged.stf.page.home;
 
 import io.qameta.allure.Step;
-import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.page.Window;
 import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
@@ -45,7 +44,6 @@ public final class HomePage implements StfPage, Window, HomeCheck {
     @Step("Открыть модалку ввода адреса доставки")
     public void clickToSetAddress() {
         setAddress.click();
-        Kraken.jsAction().ymapReady();
     }
 
     @Step("Нажать Показать всех ритейлеров")

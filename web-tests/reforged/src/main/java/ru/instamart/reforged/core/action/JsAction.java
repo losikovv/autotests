@@ -19,21 +19,6 @@ import static ru.instamart.reforged.core.Kraken.*;
 public final class JsAction {
 
     /**
-     * Ожидание инициализации яндекс карт
-     */
-    public void ymapReady() {
-        final WebDriverWait wait = new WebDriverWait(getWebDriver(), WaitProperties.BASIC_TIMEOUT);
-        wait.pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
-        wait.until((ExpectedCondition<Boolean>) wb -> {
-            final Object result = execute("return typeof ymaps");
-            if (Objects.isNull(result)) {
-                return false;
-            }
-            return result.equals("object");
-        });
-    }
-
-    /**
      * Ожидание инициализации реактовского jQuery
      */
     public void jQueryReady() {

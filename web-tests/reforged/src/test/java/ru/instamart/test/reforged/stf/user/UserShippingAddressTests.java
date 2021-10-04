@@ -66,6 +66,7 @@ public final class UserShippingAddressTests extends BaseTest {
     public void noShippingAddressSetOnClose() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();
+        shop().interactHeader().interactAddress().checkYmapsReady();
         shop().interactHeader().interactAddress().fillAddress(defaultAddress);
         shop().interactHeader().interactAddress().close();
         shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsNotOpen();
@@ -83,6 +84,7 @@ public final class UserShippingAddressTests extends BaseTest {
     public void noAvailableShopsOutOfDeliveryZone() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();
+        shop().interactHeader().interactAddress().checkYmapsReady();
         shop().interactHeader().interactAddress().fillAddress(outOfZoneAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
@@ -106,6 +108,7 @@ public final class UserShippingAddressTests extends BaseTest {
     public void successSetShippingAddressOnRetailerPage() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();
+        shop().interactHeader().interactAddress().checkYmapsReady();
         shop().interactHeader().interactAddress().fillAddress(defaultAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
@@ -126,12 +129,14 @@ public final class UserShippingAddressTests extends BaseTest {
     public void noChangeShippingAddressOnCancel() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();
+        shop().interactHeader().interactAddress().checkYmapsReady();
         shop().interactHeader().interactAddress().fillAddress(defaultAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
         shop().interactHeader().checkIsShippingAddressSet();
         shop().goToPage(); //обновляется страница, чтобы получить элемент selectAddress
         shop().interactHeader().clickToSelectAddress();
+        shop().interactHeader().interactAddress().checkYmapsReady();
         shop().interactHeader().interactAddress().fillAddress(testAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().close();
@@ -153,12 +158,14 @@ public final class UserShippingAddressTests extends BaseTest {
     public void successChangeShippingAddress() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();
+        shop().interactHeader().interactAddress().checkYmapsReady();
         shop().interactHeader().interactAddress().fillAddress(defaultAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
         shop().interactHeader().checkIsShippingAddressSet();
         shop().goToPage(); //обновляется страница, чтобы получить элемент selectAddress
         shop().interactHeader().clickToSelectAddress();
+        shop().interactHeader().interactAddress().checkYmapsReady();
         shop().interactHeader().interactAddress().fillAddress(testAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
@@ -180,10 +187,12 @@ public final class UserShippingAddressTests extends BaseTest {
     public void successSetNewAddressAfterOutOfRetailerZoneAddressChange() {
         shop().goToPage(ShopUrl.LENTA);
         shop().interactHeader().clickToSelectAddressFirstTime();
+        shop().interactHeader().interactAddress().checkYmapsReady();
         shop().interactHeader().interactAddress().fillAddress(Addresses.Kazan.defaultAddress());
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
         shop().interactHeader().interactStoreSelector().clickToChangeAddress();
+        shop().interactHeader().interactAddress().checkYmapsReady();
         shop().interactHeader().interactAddress().fillAddress(testAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
@@ -204,10 +213,12 @@ public final class UserShippingAddressTests extends BaseTest {
     public void successSetNewAddressAfterOutOfZoneAddressChange() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();
+        shop().interactHeader().interactAddress().checkYmapsReady();
         shop().interactHeader().interactAddress().fillAddress(outOfZoneAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
         shop().interactHeader().interactAddress().clickToChangeAddress();
+        shop().interactHeader().interactAddress().checkYmapsReady();
         shop().interactHeader().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
@@ -238,11 +249,13 @@ public final class UserShippingAddressTests extends BaseTest {
         home().interactAuthModal().sendSms();
         home().interactAuthModal().fillDefaultSMSWithSleep();
         shop().interactHeader().clickToSelectAddress();
+        shop().interactHeader().interactAddress().checkYmapsReady();
         shop().interactHeader().interactAddress().fillAddress(defaultAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
+        shop().interactHeader().interactAddress().checkYmapsReady();
         firstPrevAdr = shop().interactHeader().interactAddress().getFirstPrevAddress();
         shop().interactHeader().interactAddress().clickOnFirstPrevAddress();
         shop().interactHeader().interactAddress().clickOnSave();
@@ -263,6 +276,7 @@ public final class UserShippingAddressTests extends BaseTest {
     public void successSetShippingAddressAfterAddingProductFromCatalog() {
         shop().goToPage();
         shop().plusFirstItemToCart();
+        shop().interactHeader().interactAddress().checkYmapsReady();
         shop().interactHeader().interactAddress().fillAddress(defaultAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
@@ -281,6 +295,7 @@ public final class UserShippingAddressTests extends BaseTest {
     public void successSelectNewStoreAfterShipAddressChange() {
         shop().goToPage(ShopUrl.VKUSVILL);
         shop().interactHeader().clickToSelectAddress();
+        shop().interactHeader().interactAddress().checkYmapsReady();
         shop().interactHeader().interactAddress().fillAddress(Addresses.Kazan.defaultAddress());
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();

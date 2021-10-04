@@ -21,4 +21,9 @@ public interface AddressCheck extends AddressElement {
     default void checkIsAddressOutOfZone() {
         assertEquals(outOfShippingZone.getText(), "Адрес не в зоне доставки");
     }
+
+    @Step("Проверяем, что яндекс карты готовы к работе")
+    default void checkYmapsReady() {
+        waitAction().shouldBeVisible(ymapReady);
+    }
 }

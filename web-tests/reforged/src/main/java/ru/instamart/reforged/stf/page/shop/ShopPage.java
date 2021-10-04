@@ -57,7 +57,6 @@ public final class ShopPage implements StfPage, ShopCheck {
     @Step("Открыть окно ввода адреса доставки")
     public void openAddressFrame() {
         openAddress.click();
-        Kraken.jsAction().ymapReady();
     }
 
     @Step("Нажать на плюс у первого товара")

@@ -91,13 +91,11 @@ public final class Header implements HeaderCheck {
     @Step("Нажать на Выберите адрес доставки(первый выбор адреса)")
     public void clickToSelectAddressFirstTime() {
         firstSelectAddress.click();
-        Kraken.jsAction().ymapReady();
     }
 
     @Step("Нажать на выбор адреса")
     public void clickToSelectAddress() {
         selectAddress.click();
-        Kraken.jsAction().ymapReady();
     }
 
     @Step("Открыть страницу Ваши компании")

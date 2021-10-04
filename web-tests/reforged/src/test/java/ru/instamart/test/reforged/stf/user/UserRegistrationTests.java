@@ -78,6 +78,7 @@ public final class UserRegistrationTests extends BaseTest {
     public void successRegFromAddressModal() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().checkYmapsReady();
         shop().interactAddress().clickToLogin();
         shop().interactAuthModal().fillPhone(Generate.phoneNumber());
         shop().interactAuthModal().sendSms();
@@ -98,6 +99,7 @@ public final class UserRegistrationTests extends BaseTest {
     public void successRegFromCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();
+        shop().interactAddress().checkYmapsReady();
         shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
