@@ -113,6 +113,11 @@ public interface HeaderCheck extends Check, HeaderElement {
         assertEquals(firstSelectAddress.getText(), "Выберите адрес доставки");
     }
 
+    @Step("Проверяем, категорийные подсказки в поиске отображаются")
+    default void checkTaxonCategoriesVisible() {
+        waitAction().shouldBeVisible(taxonCategories);
+    }
+
     @Step("Проверяем, что выбран адрес доставки")
     default void checkIsShippingAddressSet() {
         waitAction().shouldBeVisible(enteredAddress);
