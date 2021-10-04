@@ -3,6 +3,7 @@ package ru.instamart.api.endpoint;
 public final class ShopperAdminEndpoints {
 
     public static final String OPERATIONAL_ZONES = "v1/operational_zones";
+    public static final String ORDER = "v1/order";
     public static final String RETAILERS = "v1/retailers";
     public static final String ROLES = "v1/roles";
     public static final String ROUTE = "v1/routes/{routeId}";

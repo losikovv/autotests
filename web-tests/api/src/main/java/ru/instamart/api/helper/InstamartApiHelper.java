@@ -36,6 +36,7 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.fail;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.common.RestStaticTestData.userPhone;
+import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 
 @Slf4j
 public final class InstamartApiHelper {
@@ -1218,5 +1219,19 @@ public final class InstamartApiHelper {
                 .filter(img -> Objects.nonNull(img.getImage()))
                 .iterator().next()
                 .getImage().getUrl();
+    }
+
+    public void waitingForDeliveryStatus(String orderNumber) {
+        String shipmentState;
+        int i = 0;
+        do {
+            Response response = OrdersV2Request.GET(orderNumber);
+            checkStatusCode200(response);
+            OrderV2Response order = response.as(OrderV2Response.class);
+            shipmentState = order.getOrder().getShipmentState();
+            log.info("shipment state: {}", shipmentState);
+            simplyAwait(1);
+            i += 1;
+        } while (!shipmentState.equals("shipped") && i < 10);
     }
 }

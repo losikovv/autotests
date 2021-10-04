@@ -1,12 +1,21 @@
 package ru.instamart.api.request.shopper.admin;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ShopperAdminEndpoints;
+import ru.instamart.api.endpoint.ShopperAppEndpoints;
 import ru.instamart.api.request.ShopperAdminRequestBase;
+import ru.instamart.api.request.shopper.app.ShopperSHPRequest;
+import ru.instamart.utils.Mapper;
 
 import java.util.UUID;
 
@@ -56,6 +65,15 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
         @Step("{method} /" + ShopperAdminEndpoints.SHOPPERS)
         public static Response GET() {
             return givenWithAuth()
+                    .get(ShopperAdminEndpoints.SHOPPERS);
+        }
+
+
+        @Step("{method} /" + ShopperAdminEndpoints.SHOPPERS)
+        public static Response GET(ShipmentsParams shipments) {
+            //shipments?store_id=16&assembly_state=shipped&includes[assembly]=items
+            return givenWithAuth()
+                    .formParams(Mapper.INSTANCE.objectToMap(shipments))
                     .get(ShopperAdminEndpoints.SHOPPERS);
         }
 
@@ -303,5 +321,21 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
             return givenWithAuth()
                     .get(ShopperAdminEndpoints.ROLES);
         }
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Builder
+    @Getter
+    @EqualsAndHashCode
+    @ToString
+    public static final class ShipmentsParams {
+
+        @JsonProperty("store_id")
+        private final Integer storeId;
+        @JsonProperty("assembly_state")
+        private final String assembly_state;
+        @JsonProperty("includes[assembly]")
+        private final String includesAssembly;
+        private final String number;
     }
 }

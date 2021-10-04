@@ -1,11 +1,18 @@
 package ru.instamart.api.request.shopper.app;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ShopperAppEndpoints;
 import ru.instamart.api.request.ShopperAppRequestBase;
+import ru.instamart.utils.Mapper;
 
 @SuppressWarnings("unchecked")
 public final class ShopperSHPRequest extends ShopperAppRequestBase {
@@ -28,6 +35,15 @@ public final class ShopperSHPRequest extends ShopperAppRequestBase {
             return givenWithAuth()
                     .get(ShopperAppEndpoints.Shopper.SHIPMENTS);
         }
+
+        @Step("{method} /" + ShopperAppEndpoints.Shopper.SHIPMENTS)
+        public static Response GET(ShipmentsParams shipments) {
+            //shipments?store_id=16&assembly_state=shipped&includes[assembly]=items
+            return givenWithAuth()
+                    .formParams(Mapper.INSTANCE.objectToMap(shipments))
+                    .get(ShopperAppEndpoints.Shopper.SHIPMENTS);
+        }
+
     }
     public static class Assemblies {
         /**
@@ -75,5 +91,20 @@ public final class ShopperSHPRequest extends ShopperAppRequestBase {
                     .contentType(ContentType.JSON)
                     .post(ShopperAppEndpoints.Shopper.OPERATION_SHIFTS);
         }
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Builder
+    @Getter
+    @EqualsAndHashCode
+    @ToString
+    public static final class ShipmentsParams {
+
+        @JsonProperty("store_id")
+        private final Integer storeId;
+        @JsonProperty("assembly_state")
+        private final String assembly_state;
+        @JsonProperty("includes[assembly]")
+        private final String includesAssembly;
     }
 }

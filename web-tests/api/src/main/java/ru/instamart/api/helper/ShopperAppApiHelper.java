@@ -5,11 +5,14 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
+import org.testng.SkipException;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.shopper.AssemblyStateSHP;
 import ru.instamart.api.enums.shopper.PackageSetLocationSHP;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.shopper.admin.ShipmentsItemSHP;
 import ru.instamart.api.model.shopper.app.*;
+import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.request.shopper.app.*;
 import ru.instamart.api.response.shopper.app.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -22,8 +25,11 @@ import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
+import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
+import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 
 @Slf4j
 public class ShopperAppApiHelper {
@@ -163,6 +169,27 @@ public class ShopperAppApiHelper {
         shipAssembly();
     }
 
+    @Step("Проверяем обновление информации о заказе")
+    public void shopperReceivedDelivery(String shipmentNumber, Integer retryCount) {
+        SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdmin());
+        List<ShipmentsItemSHP> filterCollect;
+        int i = 0;
+        do {
+            Response response = ShopperAdminRequest.Shipments.GET(EnvironmentProperties.DEFAULT_SHOPPER_SID, getDateFromMSK().toString());
+            checkStatusCode200(response);
+            final List<ShipmentsItemSHP> shipments = response.as(ru.instamart.api.response.shopper.admin.ShipmentsSHPResponse.class).getShipments();
+            filterCollect = shipments.stream()
+                    .filter(e -> e.getNumber().equals(shipmentNumber))
+                    .collect(Collectors.toList());
+            log.info("Попытка: " + (i++) + ". filterCollect size" + filterCollect.size());
+            simplyAwait(10);
+        } while (filterCollect.size() > 0 || i > retryCount);
+        if (filterCollect.size() == 0) {
+            System.out.println("count: "+filterCollect.size());
+            throw new SkipException("Оформленный заказ не пришел на шопер");
+        }
+    }
+
     /**
      * Сложная сборка заказа
      */
@@ -235,23 +262,23 @@ public class ShopperAppApiHelper {
         List<AssemblyItemSHP.Data> items = getItems();
         List<OfferSHP.Data> offers = getOffers();
 
-        Allure.step("Сборка с изначальным количеством: ID = " + items.get(0).getId()+" QTY="+items.get(0).getAttributes().getQty());
+        Allure.step("Сборка с изначальным количеством: ID = " + items.get(0).getId() + " QTY=" + items.get(0).getAttributes().getQty());
         assemblyItem(items.get(0).getId(), items.get(0).getAttributes().getQty());
         clarifyItem(items.get(0).getId());
         approveItem(items.get(0).getId());
 
         if (items.size() > 1) {
-            Allure.step("Сборка с измененным количеством: ID = " + items.get(1).getId()+" QTY="+items.get(1).getAttributes().getQty());
+            Allure.step("Сборка с измененным количеством: ID = " + items.get(1).getId() + " QTY=" + items.get(1).getAttributes().getQty());
             assemblyItem(items.get(1).getId(), items.get(1).getAttributes().getQty() * 50);
             approveItem(items.get(1).getId());
 
             if (items.size() > 2) {
-                Allure.step("Отмена товара: ID = " + items.get(2).getId()+" QTY="+items.get(2).getAttributes().getQty());
+                Allure.step("Отмена товара: ID = " + items.get(2).getId() + " QTY=" + items.get(2).getAttributes().getQty());
                 cancelItem(items.get(2).getId());
                 approveItem(items.get(2).getId());
 
                 if (items.size() > 3) {
-                    Allure.step("Замена товара: ID = " + items.get(3).getId()+" QTY="+items.get(3).getAttributes().getQty());
+                    Allure.step("Замена товара: ID = " + items.get(3).getId() + " QTY=" + items.get(3).getAttributes().getQty());
                     ReplacementSHP.Data replacement = replaceItem(items.get(3).getId(), offers.get(0).getAttributes().getUuid());
                     approveItem(replacement.getAttributes().getToItemId().toString());
 
@@ -259,7 +286,7 @@ public class ShopperAppApiHelper {
                     approveItem(assemblyItem.getId());
 
                     if (items.size() > 4) {
-                        Allure.step("Допзамена для замены: ID = " + items.get(4).getId()+" QTY="+items.get(4).getAttributes().getQty());
+                        Allure.step("Допзамена для замены: ID = " + items.get(4).getId() + " QTY=" + items.get(4).getAttributes().getQty());
                         for (int i = 4; i < items.size(); i++) {
                             assemblyItem(items.get(i).getId(), items.get(i).getAttributes().getQty());
                         }

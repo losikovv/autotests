@@ -22,7 +22,7 @@ public interface RailsConsole {
         private String command;
 
         public String get(String... values) {
-            return format(command, values);
+            return format(command, (Object[]) values);
         }
     }
 
