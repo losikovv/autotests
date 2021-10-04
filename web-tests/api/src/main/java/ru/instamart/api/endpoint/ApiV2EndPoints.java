@@ -154,6 +154,7 @@ public final class ApiV2EndPoints {
         public static final String SHIPPING_RATES = "v2/shipments/{shipmentNumber}/shipping_rates?{date}";
         public static final String STATE = "v2/shipments/{shipmentNumber}/state";
         public static final String REVIEW_ISSUES = "v2/shipments/{shipmentNumber}/review_issues";
+        public static final String REVIEWS = "v2/shipments/{shipmentNumber}/reviews";
     }
 
     public static final class Stores {

@@ -1,9 +1,16 @@
 package ru.instamart.api.request.v2;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
+import ru.instamart.utils.Mapper;
 
 import java.util.Objects;
 
@@ -98,5 +105,37 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
             return givenWithAuth()
                     .get(ApiV2EndPoints.Shipments.REVIEW_ISSUES,shipmentNumber);
         }
+    }
+
+    public static class Reviews{
+
+        @Step("{method} /"+ApiV2EndPoints.Shipments.REVIEWS)
+        public static Response POST(String shipmentNumber, Review review){
+            return givenWithAuth()
+                    .formParams(Mapper.INSTANCE.objectToMap(review))
+                    .post(ApiV2EndPoints.Shipments.REVIEWS, shipmentNumber);
+        }
+    }
+
+    /**
+     * review[rate]	Да	Оценка
+     * review[issue_ids]	-	Список выбранных вариантов ответа
+     * review[images_attributes]	-	Прикрепленные изображения
+     * review[comment]	-	Комментарий
+     */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Builder
+    @Getter
+    @EqualsAndHashCode
+    @ToString
+    public static final class Review{
+        @JsonProperty(value = "review[rate]")
+        private final Integer rate;
+        @JsonProperty(value = "review[issue_ids]")
+        private final Long issueIds;
+        @JsonProperty(value = "review[images_attributes]")
+        private final String imageAttributes;
+        @JsonProperty(value = "review[comment]")
+        private final String comment;
     }
 }

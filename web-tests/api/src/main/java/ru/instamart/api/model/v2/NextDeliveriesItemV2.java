@@ -8,13 +8,18 @@ import ru.instamart.api.model.BaseObject;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class NextDeliveriesItemV2 extends BaseObject {
+    @JsonProperty("store_id")
+    private Object storeId;
     private String summary;
     @JsonProperty("express_delivery")
-    private boolean expressDelivery;
-    @JsonProperty("starts_at")
+    private Boolean expressDelivery;
+    @JsonProperty("start_at")
     private String startsAt;
-    private double price;
-    private int id;
-    @JsonProperty("ends_at")
+    private Double price;
+    private String kind;
+    @JsonProperty("delivery_forecast_text")
+    private Object deliveryForecastText;
+    private Integer id;
+    @JsonProperty("end_at")
     private String endsAt;
 }

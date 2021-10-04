@@ -29,4 +29,6 @@ public class ShopperAdminApiHelper {
         checkStatusCode200(response);
         return response.as(RouteSchedulesSHPResponse.class).getRouteSchedules();
     }
+
+    //
 }

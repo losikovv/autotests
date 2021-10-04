@@ -9,12 +9,19 @@ import ru.instamart.api.model.BaseObject;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class DeliveryWindowsItemV2 extends BaseObject {
-    private String presentation;
-    @JsonProperty("starts_at")
+    @JsonProperty("item_count_balance")
+    private Integer itemsCountBalance;
+    @JsonProperty("start_at")
     private String startsAt;
-    private double price;
-    private boolean active;
-    private int id;
-    @JsonProperty("ends_at")
+    private String kind;
+    @JsonProperty("delivery_forecast_text")
+    private Object deliveryForecastText;
+    private Object lifetime;
+    private Integer id;
+    @JsonProperty("end_at")
     private String endsAt;
+    @JsonProperty("weight_balance")
+    private Integer weightBalance;
+    @JsonProperty("is_express_delivery")
+    private Boolean isExpressDelivery;
 }

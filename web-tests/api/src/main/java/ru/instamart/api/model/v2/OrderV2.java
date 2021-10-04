@@ -25,7 +25,7 @@ public class OrderV2 extends BaseObject {
     @JsonProperty(value = "promo_total")
     private Double promoTotal;
     @JsonProperty(value = "shipment_state")
-    private Object shipmentState;
+    private String shipmentState;
     @JsonProperty(value = "payment_state")
     private Object paymentState;
     @JsonProperty(value = "special_instructions")
