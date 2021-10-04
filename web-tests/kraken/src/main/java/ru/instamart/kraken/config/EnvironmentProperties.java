@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import ru.instamart.utils.config.Config;
 import ru.instamart.utils.config.Env;
 
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -78,7 +79,13 @@ public final class EnvironmentProperties {
         public static String getDomainName(String url) {
             try {
                 URI uri = new URI(url);
-                return uri.getHost();
+                return uri.toURL().getHost();
+            }
+            catch (IllegalArgumentException e) {
+                return url;
+            }
+            catch (MalformedURLException e) {
+                return url;
             } catch (URISyntaxException e) {
                 log.debug("Domain parse error: {}", e.getMessage());
             }
