@@ -77,7 +77,7 @@ public final class EnvironmentProperties {
             } catch (IllegalArgumentException | MalformedURLException | URISyntaxException e) {
                 log.debug("Domain parse error: {}", e.getMessage());
             }
-                return url;
+            return url;
         }
     }
 }
