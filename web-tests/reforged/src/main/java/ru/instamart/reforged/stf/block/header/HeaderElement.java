@@ -35,6 +35,7 @@ public interface HeaderElement {
 
     Button categoryMenu = new Button(By.xpath("//button[@data-qa='catalog-button']"));
     Button storeSelector = new Button(By.xpath("//button[@data-qa='open-store-selector-button']"));
+    Element searchContainer = new Element(By.xpath("//div[@data-qa='search']"));
     Input searchInput = new Input(By.xpath("//div[@data-qa='search']/form/input"));
     Button searchButton = new Button(By.xpath("//div[@data-qa='search']/form/button"));
     DropDown searchDropDown = new DropDown(By.xpath("//div[@data-qa='offer']"));

@@ -73,6 +73,11 @@ public interface HeaderCheck extends Check, HeaderElement {
         waitAction().shouldBeVisible(searchButton);
     }
 
+    @Step("Проверяем наличие контейнера поиска")
+    default void checkSearchContainerVisible() {
+        waitAction().shouldBeVisible(searchContainer);
+    }
+
     @Step("Проверяем, что нотификация после добавления товара в корзину скрыта")
     default void checkCartNotificationIsNotVisible() {
         waitAction().shouldNotBeVisible(cartNotification);
