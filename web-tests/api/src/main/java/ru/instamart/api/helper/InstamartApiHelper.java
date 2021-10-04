@@ -942,9 +942,6 @@ public final class InstamartApiHelper {
             }
             log.debug("Список активных заказов:");
             orders.forEach(order -> log.debug(order.getNumber()));
-            for (OrderV2 order : orders) {
-                log.debug(order.getNumber());
-            }
         }
         return orders;
     }

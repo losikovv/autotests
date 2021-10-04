@@ -25,7 +25,7 @@ public final class OrdersV2Request extends ApiV2RequestBase {
     @Step("{method} /" + ApiV2EndPoints.Orders.STATUS)
     public static Response GET(OrderStatusV2 status, int page) {
         return givenWithAuth()
-                .get(ApiV2EndPoints.Orders.STATUS, status, page);
+                .get(ApiV2EndPoints.Orders.STATUS, status.getStatus(), page);
     }
 
     /**

@@ -6,7 +6,7 @@ import ru.instamart.reforged.stf.frame.checkout.subsections.CommonFrameButtons;
 public class EditLoyaltyCard implements CommonFrameButtons, EditLoyaltyCardCheck {
 
     @Step("Заполнить поле номер бонусной карты {0}")
-    public void fillValue(String data) {
+    public void fillValue(final String data) {
         value.fill(data);
     }
 }

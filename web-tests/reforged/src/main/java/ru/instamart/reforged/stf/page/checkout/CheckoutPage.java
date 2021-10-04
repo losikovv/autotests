@@ -81,7 +81,7 @@ public final class CheckoutPage implements StfPage, CheckoutCheck {
     }
 
     @Step("Нажать добавить карту лояльности {0}")
-    public void clickToAddLoyaltyCard(String data) {
+    public void clickToAddLoyaltyCard(final String data) {
         addLoyaltyCard.clickOnElementWithText(data);
     }
 
