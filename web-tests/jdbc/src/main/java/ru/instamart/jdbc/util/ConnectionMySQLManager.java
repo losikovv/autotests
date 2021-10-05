@@ -1,4 +1,4 @@
-package ru.instamart.kraken.database.util;
+package ru.instamart.jdbc.util;
 
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.kraken.config.EnvironmentProperties;

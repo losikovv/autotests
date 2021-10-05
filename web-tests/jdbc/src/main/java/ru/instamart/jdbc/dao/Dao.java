@@ -1,4 +1,4 @@
-package ru.instamart.kraken.database.dao;
+package ru.instamart.jdbc.dao;
 
 import java.util.List;
 import java.util.Optional;

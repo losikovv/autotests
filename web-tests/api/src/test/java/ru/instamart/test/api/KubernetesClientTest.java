@@ -8,7 +8,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.kraken.database.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionMySQLManager;
 
 import java.io.IOException;
 import java.sql.SQLException;

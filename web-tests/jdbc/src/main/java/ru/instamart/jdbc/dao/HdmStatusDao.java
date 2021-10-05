@@ -1,11 +1,10 @@
-package ru.instamart.api.database.dao;
-
-import ru.instamart.kraken.database.dao.Dao;
+package ru.instamart.jdbc.dao;
 
 import java.util.List;
 import java.util.Optional;
 
-public class GooseDbVersionDao implements Dao {
+public class HdmStatusDao implements Dao {
+
     @Override
     public boolean delete(Object id) {
         return false;

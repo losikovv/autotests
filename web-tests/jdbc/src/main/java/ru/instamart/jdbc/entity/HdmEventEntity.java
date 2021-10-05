@@ -1,4 +1,4 @@
-package ru.instamart.api.database.entity;
+package ru.instamart.jdbc.entity;
 
 import lombok.Data;
 

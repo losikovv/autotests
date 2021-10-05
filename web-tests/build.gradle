@@ -120,6 +120,7 @@ project(":api") {
         implementation project(":kraken")
         implementation project(":qase-api")
         implementation project(":utils")
+        implementation project(":jdbc")
 
         implementation lib.restAssured
         implementation lib.aspectjweaver
@@ -172,6 +173,24 @@ project(":ab") {
         annotationProcessor lib.lombok
     }
 }
+
+project(":jdbc") {
+    apply plugin: "java-library"
+
+    dependencies {
+        implementation project(":kraken")
+        implementation project(":utils")
+
+        implementation lib.lombok
+        implementation lib.jacksonAnnotations
+        implementation lib.jackson
+        implementation lib.logback
+        implementation lib.testng
+
+        annotationProcessor lib.lombok
+    }
+}
+
 
 project(":qa-api") {
     apply plugin: "java-library"
