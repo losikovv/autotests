@@ -1,4 +1,4 @@
-package ru.instamart.test.reforged.landings;
+package ru.instamart.test.reforged.stf.landings;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;

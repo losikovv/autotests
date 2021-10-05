@@ -1,10 +1,8 @@
 package ru.instamart.reforged.stf.page.checkout;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.core.component.Element;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
@@ -91,19 +89,18 @@ public interface CheckoutCheck extends Check, CheckoutElement {
     }
 
     @Step("Проверяем что бонусная карта {0} применилась")
-    default void checkBonusCardApplied(String bonusCard) {
-        Kraken.getWebDriver().findElement(By.xpath("//div[contains(text(), '" + bonusCard + "')]/ancestor::div[@class='loyalty-program__content']/following-sibling::div[@class='loyalty-program__edit']"));
+    default void checkBonusCardApplied(final String bonusCard) {
+        waitAction().shouldBeVisible(editLoyaltyCard, bonusCard);
     }
 
     @Step("Проверяем что бонусная карта {0} активна")
-    default void checkBonusCardActive(String bonusCard) {
-        Kraken.getWebDriver().findElement(By.xpath("//div[@class='loyalty-program__name' and text()='" + bonusCard + "']/ancestor::div[@class='loyalty-program loyalty-program--active']"));
+    default void checkBonusCardActive(final String bonusCard) {
+        waitAction().shouldBeVisible(activeLoyaltyCard, bonusCard);
     }
 
     @Step("Проверяем что бонусная карта {0} не применена")
     default void checkBonusCardNotApplied(String bonusCard) {
-        Element editButton = new Element(By.xpath("//div[contains(text(), '" + bonusCard + "')]/ancestor::div[@class='loyalty-program__content']/following-sibling::div[@class='loyalty-program__edit']"));
-        waitAction().shouldNotBeVisible(editButton);
+        waitAction().shouldNotBeVisible(editLoyaltyCard, bonusCard);
     }
 
     @Step("Проверяем что модальное окно ввода карты лояльности скрылось")

@@ -91,10 +91,8 @@ public final class CheckoutPage implements StfPage, CheckoutCheck {
     }
 
     @Step("Редактировать карту лояльности {0}")
-    public void clickToEditLoyaltyCard(String bonusCard) {
-        Kraken.getWebDriver().findElement(By.xpath("//div[contains(text(), '" + bonusCard +
-               "')]/ancestor::div[@class='loyalty-program__content']/following-sibling::div[@class='loyalty-program__edit']"))
-               .click();
+    public void clickToEditLoyaltyCard(final String bonusCard) {
+        editLoyaltyCard.click(bonusCard);
     }
 
     @Override

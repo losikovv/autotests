@@ -19,9 +19,9 @@ public interface SearchCheck extends Check, SearchElement {
         waitAction().shouldNotBeVisible(searchProductGrid);
     }
 
-    @Step("Проверяем, что произошел переход в корректную категорию")
-    default void checkTaxonTitle(String title) {
-        Kraken.getWebDriver().findElement(By.xpath("//h1[@data-qa='category_header_title' and text()='" + title + "']"));
+    @Step("Проверяем, что произошел переход в категорию {0}")
+    default void checkTaxonTitle(final String title) {
+        waitAction().shouldBeVisible(categoryTitle, title);
     }
 
     @Step("Проверяем, что сетка найденных товаров отображается")

@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.test.reforged.BaseTest;
 
@@ -11,6 +12,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.notfound;
 @Feature("Страница 404")
 public final class Page404Tests extends BaseTest {
 
+    @CaseId(1763)
     @Test(  description = "Тест перехода на главную по одноименной кнопке на странице 404",
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
