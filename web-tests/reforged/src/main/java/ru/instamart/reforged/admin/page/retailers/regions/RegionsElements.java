@@ -1,6 +1,7 @@
 package ru.instamart.reforged.admin.page.retailers.regions;
 
 import org.openqa.selenium.By;
+import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
 import ru.instamart.reforged.core.component.Link;
@@ -17,4 +18,6 @@ public interface RegionsElements {
     ElementCollection tableRowsNumbers = new ElementCollection(By.xpath("//td[@class='align-center' and not (descendant::a)]"), "Номера регионов в таблице");
     Element pageTitle = new Element(By.xpath("//h1[@class='page-title ≈']"), "Заголовок страницы с таблицей регионов 'Список регионов'");
     Element regionsTable = new Element(By.xpath("//table[@class='index']"), "Таблица с доступными регионами");
+    Element removeRegion = new Element(ByKraken.xpath("//a[text()='%s']/ancestor::tr/descendant::a[@data-action='remove']"), "удаление региона");
+    Element city = new Element(ByKraken.xpath("//a[text()='%s']", "город"));
 }

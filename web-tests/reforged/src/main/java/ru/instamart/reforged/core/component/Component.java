@@ -1,10 +1,13 @@
 package ru.instamart.reforged.core.component;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.config.WaitProperties;
 
@@ -20,8 +23,8 @@ public abstract class Component {
     protected WebElement component;
     protected boolean isCacheDisable = true;
 
-    @Getter
-    private final By by;
+    @Setter(AccessLevel.PROTECTED)
+    private By by;
     @Getter
     private final long timeout;
     @Getter
@@ -66,6 +69,18 @@ public abstract class Component {
 
     protected abstract WebElement getComponent();
 
+    public By getBy() {
+        return by;
+    }
+
+    public By getBy(final Object... args) {
+        if (by instanceof ByKraken) {
+            final ByKraken byKraken = (ByKraken) by;
+            return ByKraken.xpath(byKraken.getDefaultXpathExpression(), args);
+        }
+        return by;
+    }
+
     public void mouseOver() {
         log.debug("Element {} '{}' hover", description, by);
         actions.mouseOver();
@@ -95,6 +110,15 @@ public abstract class Component {
         while (matcher.find()) {
             log.debug("Scroll to element {} '{}'", description, by);
             Kraken.jsAction().scrollToElement(matcher.group());
+        }
+    }
+
+    protected String getLocator() {
+        final Matcher matcher = LOCATOR.matcher(by.toString());
+        if (matcher.find()) {
+            return matcher.group();
+        } else {
+            return "locator empty";
         }
     }
 }

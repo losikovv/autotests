@@ -27,9 +27,19 @@ public final class WaitAction {
                 .until(ExpectedConditions.visibilityOfElementLocated(component.getBy()));
     }
 
+    public WebElement shouldBeVisible(final Component component, final Object... args) {
+        return createWait(component)
+                .until(ExpectedConditions.visibilityOfElementLocated(component.getBy(args)));
+    }
+
     public boolean shouldNotBeVisible(final Component component) {
         return createWait(component)
                 .until(ExpectedConditions.invisibilityOfElementLocated(component.getBy()));
+    }
+
+    public boolean shouldNotBeVisible(final Component component, final Object... args) {
+        return createWait(component)
+                .until(ExpectedConditions.invisibilityOfElementLocated(component.getBy(args)));
     }
 
     public List<WebElement> isElementsExist(final Component component) {
