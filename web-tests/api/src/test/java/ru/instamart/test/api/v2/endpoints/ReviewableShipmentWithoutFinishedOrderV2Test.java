@@ -52,7 +52,6 @@ public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
     public void test(){
         ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
                 .rate(5)
-                .comment("Tests")
                 .build();
         final Response response = ShipmentsV2Request.Reviews.POST("failed920934723904", review);
         checkStatusCode404(response);
