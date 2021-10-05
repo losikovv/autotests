@@ -1234,4 +1234,11 @@ public final class InstamartApiHelper {
             i += 1;
         } while (!shipmentState.equals("shipped") && i < 10);
     }
+
+    public List<ReviewIssueV2> getReviewIssues(String shipmentsNumber){
+        final Response response = ShipmentsV2Request.ReviewIssues.GET(shipmentsNumber);
+        checkStatusCode200(response);
+        ReviewIssuesV2Response reviewIssuesV2Response = response.as(ReviewIssuesV2Response.class);
+        return reviewIssuesV2Response.getReviewIssues();
+    }
 }

@@ -15,13 +15,18 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.api.model.v2.ReviewIssueV2;
 import ru.instamart.api.request.v2.ReviewableShipmentV2Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.response.v2.ReviewableShipmentV2Response;
+import ru.instamart.api.response.v2.ShipmentReviewV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.testdata.UserData;
 
+import java.util.List;
+
 import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertNotNull;
 import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
@@ -65,18 +70,55 @@ public class ReviewableShipmentV2Test extends RestBase {
     }
 
 
-    @CaseId(468)
+    @CaseId(472)
     @Issue("STF-8102")
     @Story("Создание отзыва о заказе")
     @Test(enabled = false,
             groups = {"api-instamart-regress"},
             description = "Создание отзыва о заказе с существующим номером")
-    public void test() {
+    public void shipmentsReviews() {
         ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
                 .rate(5)
-                .comment("Tests")
                 .build();
         final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
-        response.prettyPeek();
+        checkStatusCode200(response);
+        ShipmentReviewV2Response shipmentReviewV2Response =  response.as(ShipmentReviewV2Response.class);
+        assertNotNull(shipmentReviewV2Response.getShipmentReview());
+    }
+
+    @CaseId(475)
+    @Issue("STF-8102")
+    @Story("Создание отзыва о заказе")
+    @Test(enabled = false,
+            groups = {"api-instamart-regress"},
+            description = "Создание отзыва о заказе с существующим номером")
+    public void shipmentsReviewsWithComments() {
+        ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
+                .rate(5)
+                .build();
+        final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
+        checkStatusCode200(response);
+        ShipmentReviewV2Response shipmentReviewV2Response =  response.as(ShipmentReviewV2Response.class);
+        assertNotNull(shipmentReviewV2Response.getShipmentReview());
+    }
+
+    @CaseId(476)
+    @Issue("STF-8102")
+    @Story("Создание отзыва о заказе")
+    @Test(enabled = false,
+            groups = {"api-instamart-regress"},
+            description = "Создание отзыва о заказе с несколькими значениями для review[issue_ids]")
+    public void shipmentsReviewsWithIds() {
+        List<ReviewIssueV2> reviewIssues = apiV2.getReviewIssues(shipmentNumber);
+
+        ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
+                .rate(5)
+                .issueIds(reviewIssues.get(0).getId())
+                .issueIds(reviewIssues.get(1).getId())
+                .build();
+        final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
+        checkStatusCode200(response);
+        ShipmentReviewV2Response shipmentReviewV2Response =  response.as(ShipmentReviewV2Response.class);
+        assertNotNull(shipmentReviewV2Response.getShipmentReview());
     }
 }
