@@ -73,6 +73,11 @@ public interface HeaderCheck extends Check, HeaderElement {
         waitAction().shouldBeVisible(searchButton);
     }
 
+    @Step("Проверяем наличие контейнера поиска")
+    default void checkSearchContainerVisible() {
+        waitAction().shouldBeVisible(searchContainer);
+    }
+
     @Step("Проверяем, что нотификация после добавления товара в корзину скрыта")
     default void checkCartNotificationIsNotVisible() {
         waitAction().shouldNotBeVisible(cartNotification);
@@ -106,6 +111,11 @@ public interface HeaderCheck extends Check, HeaderElement {
     @Step("Проверяем, что не выбран адрес доставки")
     default void checkIsShippingAddressNotSet() {
         assertEquals(firstSelectAddress.getText(), "Выберите адрес доставки");
+    }
+
+    @Step("Проверяем, категорийные подсказки в поиске отображаются")
+    default void checkTaxonCategoriesVisible() {
+        waitAction().shouldBeVisible(taxonCategories);
     }
 
     @Step("Проверяем, что выбран адрес доставки")
