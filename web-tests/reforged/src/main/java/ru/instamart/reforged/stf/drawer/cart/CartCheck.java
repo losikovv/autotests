@@ -13,6 +13,11 @@ public interface CartCheck extends Check, CartElement {
         return waitAction().shouldBeVisible(submitOrder).isEnabled();
     }
 
+    @Step("Проверяем, что кнопка заказа недоступна")
+    default void checkOrderButtonIsNotEnabled() {
+        krakenAssert.assertFalse(waitAction().shouldBeVisible(submitOrder).isEnabled());
+    }
+
     @Step("Проверяем, что спиннер пропал")
     default void checkSpinnerIsNotVisible() {
         waitAction().shouldNotBeVisible(costSpinner);

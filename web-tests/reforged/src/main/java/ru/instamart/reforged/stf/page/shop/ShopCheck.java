@@ -1,7 +1,9 @@
 package ru.instamart.reforged.stf.page.shop;
 
 import io.qameta.allure.Step;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.core.Check;
+import ru.instamart.reforged.core.enums.ShopUrl;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
@@ -25,5 +27,10 @@ public interface ShopCheck extends Check, ShopElement {
     @Step("Проверяем, что отображется сниппет каталога")
     default void checkSnippet() {
         waitAction().shouldBeVisible(firstProductCardProd);
+    }
+
+    @Step("Проверяем, что находимся на странице дефолтного магазина")
+    default void checkDefaultShopOpened() {
+        waitAction().urlEquals(EnvironmentProperties.Env.FULL_SITE_URL + ShopUrl.DEFAULT.getUrl());
     }
 }
