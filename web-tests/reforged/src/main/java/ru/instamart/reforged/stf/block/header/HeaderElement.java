@@ -42,6 +42,7 @@ public interface HeaderElement {
     Element taxonCategories = new Element(By.xpath("//div[@class='header-search-list__categories']"), "Список категорий в подсказке поиска");
     Element taxonFirstCategory = new Element(By.xpath("//div[@class='header-search-list-category']"), "Первая категория в подсказке поиска");
     Element minAmountAlert = new Element(By.xpath("//div[@class='alerts']//div[contains(@class, 'alert--error')]"), "Алерт минимальной суммы заказа в шапке");
+    Element authOrRegAlert = new Element(By.xpath("//div[@class='alerts']//span[contains(text(), 'войти или зарегистрироваться')]"), "Алерт регистрации или авторизации в шапке");
 
     Button profile = new Button(By.xpath("//button[@data-qa='profile-button_button']"), "кнопка профиль пользователя в хэдере");
     Button cart = new Button(By.xpath("//button[@data-qa='open-cart-button']"), "кнопка корзины");
