@@ -4,6 +4,7 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.config.BrowserProperties;
 
@@ -46,6 +47,11 @@ public final class Element extends Component {
         return component;
     }
 
+    public void click(final Object... args) {
+        setBy(ByKraken.xpath(((ByKraken)getBy()).getDefaultXpathExpression(), args));
+        click();
+    }
+
     public void click() {
         if (BrowserProperties.USE_JS_CLICK) {
             jsClick();
@@ -53,6 +59,11 @@ public final class Element extends Component {
             log.debug("Click {} with locator {}", getDescription(), getBy());
             getComponent().click();
         }
+    }
+
+    public void getText(final Object... args) {
+        setBy(ByKraken.xpath(getLocator(), args));
+        getText();
     }
 
     public String getText() {

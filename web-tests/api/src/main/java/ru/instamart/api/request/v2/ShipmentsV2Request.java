@@ -132,7 +132,7 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
         @JsonProperty(value = "review[rate]")
         private final Integer rate;
         @JsonProperty(value = "review[issue_ids]")
-        private final Long issueIds;
+        private final Integer issueIds;
         @JsonProperty(value = "review[images_attributes]")
         private final String imageAttributes;
         @JsonProperty(value = "review[comment]")

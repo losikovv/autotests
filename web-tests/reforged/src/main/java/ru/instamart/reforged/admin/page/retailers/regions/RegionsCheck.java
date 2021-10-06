@@ -1,12 +1,9 @@
 package ru.instamart.reforged.admin.page.retailers.regions;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 import ru.instamart.reforged.core.Check;
-import ru.instamart.reforged.core.Kraken;
 
-import static org.testng.Assert.*;
-
+import static org.testng.Assert.assertEquals;
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface RegionsCheck extends Check, RegionsElements {
@@ -17,8 +14,8 @@ public interface RegionsCheck extends Check, RegionsElements {
     }
 
     @Step("Проверяем, что тестовый регион: {0} добавился в таблицу")
-    default void checkAutotestRegionInTableVisible(String cityName) {
-        assertTrue(Kraken.getWebDriver().findElement(By.xpath("//a[text()='" + cityName + "']")).isDisplayed());
+    default void checkAutotestRegionInTableVisible(final String cityName) {
+        waitAction().shouldBeVisible(city, cityName);
     }
 
     @Step("Проверяем, что количество кнопок удалить совпадает с кол-вом регионов")

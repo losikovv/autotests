@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -16,6 +17,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Чат поддержки")
 public final class HelpDeskChatTests extends BaseTest {
 
+    @CaseId(1757)
     @Test(  description = "Тест отсутствия виджета HelpDesk на лендинге",
             groups = {"sbermarket-acceptance","sbermarket-regression",}
     )
@@ -24,6 +26,7 @@ public final class HelpDeskChatTests extends BaseTest {
         home().interactHelpDesk().checkHelpDeskWidgetNotVisible();
     }
 
+    @CaseId(1758)
     @Test(  description = "Тест отсутствия виджета HelpDesk в чекауте",
             groups = {"sbermarket-acceptance","sbermarket-regression",}
     )
@@ -42,6 +45,7 @@ public final class HelpDeskChatTests extends BaseTest {
         checkout().interactHelpDesk().checkHelpDeskWidgetNotVisible();
     }
 
+    @CaseId(1759)
     @Test(  description = "Тест работы с виджетом HelpDesk на витрине ритейлера",
             groups = {"sbermarket-acceptance","sbermarket-regression",}
     )
@@ -53,6 +57,7 @@ public final class HelpDeskChatTests extends BaseTest {
         shop().interactHelpDesk().checkHelpDeskClose();
     }
 
+    @CaseId(1761)
     @Test(  description = "Тест работы с виджетом HelpDesk на странице 404",
             groups = {"sbermarket-acceptance","sbermarket-regression",}
     )
