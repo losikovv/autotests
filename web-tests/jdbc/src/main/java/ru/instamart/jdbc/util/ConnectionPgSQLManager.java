@@ -1,4 +1,4 @@
-package ru.instamart.kraken.database.util;
+package ru.instamart.jdbc.util;
 
 import ru.instamart.utils.Crypt;
 
