@@ -38,12 +38,14 @@ public class PutOrdersStatusV3Test extends RestBase {
         order = apiV3.createOrderDelivery(testData);
     }*/
 
+    @Issue("INFRADEV-7831")
     @CaseId(675)
     @Story("Отмена заказа на доставку")
     @Test(groups = {"api-instamart-smoke"},
             dataProvider = "goods",
             dataProviderClass = ApiV3DataProvider.class,
-            description = "Отмена заказа доставки Goods")
+            description = "Отмена заказа доставки Goods",
+            enabled = false)
     public void cancelOrderDelivery(ApiV3TestData testData) {
         order = apiV3.createOrderDelivery(testData);
         Response response = OrderV3Request.Cancel.PUT(order.getId(), testData.getClientToken());
