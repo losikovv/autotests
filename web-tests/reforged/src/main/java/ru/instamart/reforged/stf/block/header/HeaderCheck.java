@@ -113,6 +113,11 @@ public interface HeaderCheck extends Check, HeaderElement {
         waitAction().shouldBeVisible(minAmountAlert);
     }
 
+    @Step("Проверяем, что алерт авторизации или регистрации отображается")
+    default void checkAuthOrRegAlertVisible() {
+        waitAction().shouldBeVisible(authOrRegAlert);
+    }
+
     @Step("Проверяем, что не выбран адрес доставки")
     default void checkIsShippingAddressNotSet() {
         assertEquals(firstSelectAddress.getText(), "Выберите адрес доставки");
