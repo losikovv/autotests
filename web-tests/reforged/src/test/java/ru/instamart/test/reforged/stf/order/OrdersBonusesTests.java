@@ -13,6 +13,7 @@ import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.pagesdata.LoyaltiesData;
+import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.data_provider.BonusProvider;
 import ru.instamart.test.reforged.BaseTest;
 
@@ -50,6 +51,7 @@ public final class OrdersBonusesTests extends BaseTest {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));

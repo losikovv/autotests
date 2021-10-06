@@ -223,7 +223,7 @@ public final class UserManager {
 
     public static UserData checkoutUser() {
         return UserData.builder()
-                .phone("79998833344")
+                .phone("9998833344")
                 .email("firstStepCheckout@sbermarket.ru")
                 .build();
     }

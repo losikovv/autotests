@@ -37,6 +37,7 @@ public final class ChromeProvider extends AbstractBrowserProvider {
         options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
 
         capabilities.setBrowserName("chrome");
+        capabilities.setCapability("browserVersion", BrowserProperties.BROWSER_VERSION);
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         capabilities.setCapability("sessionTimeout", "5m");
 //        capabilities.setVersion(version);
