@@ -25,22 +25,13 @@ public class ShoppingTestsForUnauthorizedUser extends BaseTest {
     )
     public void noAccessToCheckoutByDefault() {
         shop().goToPage();
-        shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
-        shop().interactHeader().checkEnteredAddressIsVisible();
 
         checkout().goToPage();
-        shop().interactHeader().checkAuthOrRegAlertVisible();
-        shop().checkDefaultShopOpened();
+        home().checkMainBlockTextIsVisible();
     }
 
     @CaseId(1621)
-    @Story("Тест недоступности чекаута по прямой ссылке авторизованному юзеру c выбранным адресом и пустой корзиной")
+    @Story("Тест недоступности чекаута неавторизованному юзеру c выбранным адресом и пустой корзиной")
     @Test(
             description = "Тест недоступности чекаута неавторизованному юзеру c выбранным адресом и пустой корзиной",
             groups = {"sbermarket-acceptance", "sbermarket-regression",
