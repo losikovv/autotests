@@ -29,7 +29,8 @@ public class OrdersDeliveryV3Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             dataProvider = "goods",
             dataProviderClass = ApiV3DataProvider.class,
-            description = "Создание заказа на доставку Goods")
+            description = "Создание заказа на доставку Goods",
+            enabled = false)
     public void postOrderDeliveryGoods(ApiV3TestData testData) {
 
         orderGoods = apiV3.createOrderDelivery(testData);
@@ -67,7 +68,8 @@ public class OrdersDeliveryV3Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             dataProvider = "metro_marketplace",
             dataProviderClass = ApiV3DataProvider.class,
-            description = "Создание заказа на доставку Metro_Marketplace")
+            description = "Создание заказа на доставку Metro_Marketplace",
+            enabled = false)
 
     public void postOrderDeliveryMetroMarketplace(ApiV3TestData testData) {
 
