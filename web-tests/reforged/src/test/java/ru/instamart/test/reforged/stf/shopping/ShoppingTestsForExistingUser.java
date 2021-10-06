@@ -1,5 +1,7 @@
 package ru.instamart.test.reforged.stf.shopping;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
@@ -9,10 +11,11 @@ import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.test.reforged.BaseTest;
 
-import static ru.instamart.kraken.config.CoreProperties.DEFAULT_SMS;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 import static ru.instamart.reforged.stf.page.StfRouter.search;
 
+@Epic("STF UI")
+@Feature("Заказ")
 public class ShoppingTestsForExistingUser extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
@@ -33,9 +36,7 @@ public class ShoppingTestsForExistingUser extends BaseTest {
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().fillPhone(shoppingCartUser.getPhone());
-        shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
+        shop().interactAuthModal().authViaPhone(shoppingCartUser);
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
@@ -61,9 +62,7 @@ public class ShoppingTestsForExistingUser extends BaseTest {
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().fillPhone(shoppingCartUser.getPhone());
-        shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
+        shop().interactAuthModal().authViaPhone(shoppingCartUser);
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
@@ -98,9 +97,7 @@ public class ShoppingTestsForExistingUser extends BaseTest {
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().fillPhone(shoppingCartUser.getPhone());
-        shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
+        shop().interactAuthModal().authViaPhone(shoppingCartUser);
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
@@ -128,9 +125,7 @@ public class ShoppingTestsForExistingUser extends BaseTest {
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().fillPhone(shoppingCartUser.getPhone());
-        shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
+        shop().interactAuthModal().authViaPhone(shoppingCartUser);
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
