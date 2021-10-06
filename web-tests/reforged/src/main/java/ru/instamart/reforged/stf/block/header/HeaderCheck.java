@@ -108,6 +108,11 @@ public interface HeaderCheck extends Check, HeaderElement {
         waitAction().shouldBeVisible(profile);
     }
 
+    @Step("Проверяем, что алерт ошибки минимальной суммы заказа в корзине отображается")
+    default void checkMinAmountAlertVisible() {
+        waitAction().shouldBeVisible(minAmountAlert);
+    }
+
     @Step("Проверяем, что не выбран адрес доставки")
     default void checkIsShippingAddressNotSet() {
         assertEquals(firstSelectAddress.getText(), "Выберите адрес доставки");
