@@ -28,7 +28,7 @@ public class ApiHelper {
     @Step("Добавить {count} продукт в список избранного")
     public void addFavorites(final UserData userData, final int sid, final int count) {
         SessionFactory.createSessionToken(SessionType.API_V2_PHONE, userData);
-        apiV2.addFavoritesQtyListProductBySid(sid, count);
+        apiV2.addFavoritesListProductBySid(sid, count);
     }
 
     @Step("Наполняем корзину избранным товаром с помощью API")

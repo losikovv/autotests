@@ -34,7 +34,6 @@ public class CheckoutPromocodeTests extends BaseTest {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "sbermarket-Ui-smoke"}
     )
     public void successAddPromocode() {
-
         home().goToPage();
         home().openLoginModal();
         home().interactAuthModal().authViaPhone(checkoutUser);
@@ -54,7 +53,6 @@ public class CheckoutPromocodeTests extends BaseTest {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "sbermarket-Ui-smoke"}
     )
     public void successDeletePromocode() {
-
         home().goToPage();
         home().openLoginModal();
         home().interactAuthModal().authViaPhone(checkoutUser);
@@ -76,7 +74,6 @@ public class CheckoutPromocodeTests extends BaseTest {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "sbermarket-Ui-smoke"}
     )
     public void noPromocodeAddedOnCancel() {
-
         home().goToPage();
         home().openLoginModal();
         home().interactAuthModal().authViaPhone(checkoutUser);
@@ -96,7 +93,6 @@ public class CheckoutPromocodeTests extends BaseTest {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "sbermarket-Ui-smoke"}
     )
     public void noPromocodeAddedOnModalClose() {
-
         home().goToPage();
         home().openLoginModal();
         home().interactAuthModal().authViaPhone(checkoutUser);

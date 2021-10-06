@@ -5,10 +5,12 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.listener.Skip;
+import ru.instamart.kraken.testdata.TestVariables;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.reforged.CookieFactory;
@@ -50,7 +52,6 @@ public final class UserFavoritesTests extends BaseTest {
         userFavorites().checkEmptyFavorites();
     }
 
-    @Skip
     @Issue("STF-8253")
     @CaseId(1266)
     @Test(  description = "Добавление любимого товара из карточки товара и проверка списка",
@@ -62,13 +63,13 @@ public final class UserFavoritesTests extends BaseTest {
         home().goToPage();
         home().openLoginModal();
         home().interactAuthModal().createAccount();
+        shop().interactHeader().checkProfileButtonVisible();
         shop().openFirstProductCard();
         shop().interactProductCard().addToFavorite();
         userFavorites().goToPage();
         userFavorites().checkNotEmptyFavorites();
     }
 
-    @Skip
     @Issue("STF-8253")
     @CaseId(1267)
     @Test(  description = "Удаление любимого товара из карточки товара и проверка списка",
@@ -78,19 +79,21 @@ public final class UserFavoritesTests extends BaseTest {
                     "sbermarket-regression"}
     )
     public void successDeleteFavoriteOnItemCard() {
+        final UserData userData = UserManager.getUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 2);
+
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().createAccount();
-
-        //TODO: Нужен апи метод для добавления избранных
-        shop().addFirstItemToFavorite();
+        home().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
         userFavorites().goToPage();
         userFavorites().removeFirstFavoriteItem();
         userFavorites().refresh();
-        userFavorites().checkEmptyFavorites();
+
+        userFavorites().checkCountChange(userFavorites().getFavoritesCount(), 1);
     }
 
-    @Skip
     @Issue("STF-8253")
     @CaseId(1268)
     @Test(  description = "Удаление всех любимых товаров",
@@ -101,14 +104,20 @@ public final class UserFavoritesTests extends BaseTest {
             }
     )
     public void successCleanupFavorites() {
+        final UserData userData = UserManager.getUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 1);
+
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().createAccount();
-
-        //TODO: Нужен апи метод для добавления избранных
+        home().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+        userFavorites().goToPage();
+        userFavorites().removeFirstFavoriteItem();
+        userFavorites().refresh();
+        userFavorites().checkEmptyFavorites();
     }
 
-    @Skip
     @Issue("STF-8253")
     @CaseId(1269)
     @Test(  description = "Проверка работоспособности фильтров Любимых товаров",
@@ -119,11 +128,13 @@ public final class UserFavoritesTests extends BaseTest {
             }
     )
     public void successApplyFilters() {
+        final UserData userData = UserManager.getUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 10);
+
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().fillPhone("79999999999");
-        home().interactAuthModal().sendSms();
-        home().interactAuthModal().fillDefaultSMS();
+        home().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         userFavorites().goToPage();
@@ -135,7 +146,6 @@ public final class UserFavoritesTests extends BaseTest {
         userFavorites().checkOutOfStockActive();
     }
 
-    @Skip
     @Issue("STF-8253")
     @CaseId(1270)
     @Test(  description = "Проверка работоспособности подгрузки страниц в Любимых товарах",
@@ -145,11 +155,13 @@ public final class UserFavoritesTests extends BaseTest {
                     "sbermarket-regression"}
     )
     public void successShowMoreLoad() {
+        final UserData userData = UserManager.getUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 50);
+
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().fillPhone("79999999999");
-        home().interactAuthModal().sendSms();
-        home().interactAuthModal().fillDefaultSMS();
+        home().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         userFavorites().addCookie(CookieFactory.COOKIE_ALERT);
@@ -159,7 +171,7 @@ public final class UserFavoritesTests extends BaseTest {
         final int initCount = userFavorites().getFavoritesCount();
         userFavorites().showMore();
         userFavorites().checkShowMoreNotVisible();
-        userFavorites().checkCountChange(initCount, userFavorites().getFavoritesCount());
+        userFavorites().checkCountLess(initCount, userFavorites().getFavoritesCount());
     }
 
     @CaseId(1271)
@@ -187,10 +199,10 @@ public final class UserFavoritesTests extends BaseTest {
         shop().openFirstProductCard();
         shop().interactProductCard().addToFavorite();
         shop().interactAuthModal().createAccount();
+        shop().goToPage();
         shop().interactHeader().checkProfileButtonVisible();
     }
 
-    @Skip
     @Issue("STF-8253")
     @CaseId(1492)
     @Test(  description = "Тест добавления товаров в корзину из списка любимых товаров",
@@ -201,23 +213,20 @@ public final class UserFavoritesTests extends BaseTest {
     )
     public void successAddFavoriteProductToCart() {
         final UserData userData = UserManager.getUser();
-        userData.setPhone("79999999999");
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 3);
 
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().createAccount(userData);
+        home().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         userFavorites().goToPage();
         userFavorites().addToCartFirstFavoriteItem();
         userFavorites().interactHeader().clickToCart();
         userFavorites().interactHeader().interactCart().checkCartNotEmpty();
-
-        apiHelper.auth(userData);
-        apiHelper.dropCart(userData);
     }
 
-    @Skip
     @Issue("STF-8253")
     @CaseId(1494)
     @Test(  description = "Тест добавления товаров в корзину из карточки товара, открытой из списка любимых товаров",
@@ -227,19 +236,21 @@ public final class UserFavoritesTests extends BaseTest {
     )
     public void successAddFavoriteProductsFromCardToCart() {
         final UserData userData = UserManager.getUser();
-        userData.setPhone("79999999999");
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 3);
 
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().createAccount(userData);
+        home().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         userFavorites().goToPage();
+        userFavorites().refreshWithoutBasicAuth();
         userFavorites().openCartForFirstFavoriteItem();
         userFavorites().interactProductCart().clickOnBuy();
+        userFavorites().interactProductCart().close();
+        userFavorites().interactHeader().clickToCart();
+        userFavorites().interactHeader().interactCart().checkCartOpen();
         userFavorites().interactHeader().interactCart().checkCartNotEmpty();
-
-        apiHelper.auth(userData);
-        apiHelper.dropCart(userData);
     }
 }

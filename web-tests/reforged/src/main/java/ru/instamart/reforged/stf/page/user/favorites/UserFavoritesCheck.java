@@ -2,21 +2,21 @@ package ru.instamart.reforged.stf.page.user.favorites;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
-import ru.instamart.reforged.core.Kraken;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface UserFavoritesCheck extends Check, UseFavoritesElement {
 
     @Step("Проверяем что список избранного пуст")
     default void checkEmptyFavorites() {
-        Kraken.waitAction().shouldBeVisible(emptyFavorites);
+        waitAction().shouldBeVisible(emptyFavorites);
     }
 
     @Step("Проверяем что список избранного не пустой")
     default void checkNotEmptyFavorites() {
-        Kraken.waitAction().shouldNotBeVisible(emptyFavorites);
+        waitAction().shouldNotBeVisible(emptyFavorites);
     }
 
     @Step("Проверяем что активен фильтр Все товары")
@@ -36,11 +36,16 @@ public interface UserFavoritesCheck extends Check, UseFavoritesElement {
 
     @Step("Проверяем что не отображается кнопка Показать еще")
     default void checkShowMoreNotVisible() {
-        Kraken.waitAction().shouldNotBeVisible(showMore);
+        waitAction().shouldNotBeVisible(showMore);
     }
 
     @Step("Проверяем что подгрузились избранные товары")
-    default void checkCountChange(final int initCount, final int finalCount) {
+    default void checkCountLess(final int initCount, final int finalCount) {
         assertTrue(initCount < finalCount, "Товары не подгрузились");
+    }
+
+    @Step("Проверяем что товаров стало {0}")
+    default void checkCountChange(final int initCount, final int finalCount) {
+        assertEquals(finalCount, initCount, "Количество товаров некорректно");
     }
 }

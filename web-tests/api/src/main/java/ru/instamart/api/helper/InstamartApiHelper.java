@@ -1035,6 +1035,16 @@ public final class InstamartApiHelper {
         return productsList;
     }
 
+    public void addFavoritesListProductBySid(final int sid, final int count) {
+        getProductFromEachDepartmentInStore(sid)
+                .stream()
+                .limit(count)
+                .forEach(product -> {
+                    var response = FavoritesV2Request.POST(product.getId());
+                    log.debug("Product '{}' was added with status = {}", product.getName(), response.statusCode());
+                });
+    }
+
     /**
      * Наполняем корзину до минимальной суммы заказа в конкретном магазине
      */

@@ -14,6 +14,7 @@ import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.PaymentCards;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -28,7 +29,6 @@ public final class BasicOrdersTests extends BaseTest {
     @BeforeMethod(description = "Аутентификация и выбор адреса доставки")
     public void preconditions() {
         helper.auth(userData);
-        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
     }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
@@ -50,6 +50,7 @@ public final class BasicOrdersTests extends BaseTest {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForBusiness();
@@ -78,7 +79,6 @@ public final class BasicOrdersTests extends BaseTest {
         userShipments().checkPageContains(userShipments().pageUrl());
     }
 
-    @Skip
     @CaseId(1672)
     @Test(
             description = "Тест заказа с новой картой оплаты c 3ds",
@@ -94,6 +94,7 @@ public final class BasicOrdersTests extends BaseTest {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForBusiness();
@@ -127,12 +128,11 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().interactEditPaymentCardModal().fillHolderName(card.getCardholderName());
         checkout().interactEditPaymentCardModal().clickToSaveModal();
 
-        checkout().setPayment().clickToSubmitFromCheckoutColumn();
+        checkout().clickToSubmitFromSidebar();
 
         checkout().checkPageContains("https://demo.cloudpayments.ru/acs");
     }
 
-    @Skip
     @CaseId(2066)
     @Test(
             description = "Тест заказа с новой картой оплаты без 3ds",
@@ -148,6 +148,7 @@ public final class BasicOrdersTests extends BaseTest {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForBusiness();
@@ -183,10 +184,9 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        checkout().checkPageContains("https://demo.cloudpayments.ru/acs");
+        userShipments().checkPageContains(userShipments().pageUrl());
     }
 
-    @Skip
     @CaseId(1681)
     @Test(
             description = "Тест заказа с любимыми товарами",
@@ -202,6 +202,7 @@ public final class BasicOrdersTests extends BaseTest {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForBusiness();
@@ -244,6 +245,7 @@ public final class BasicOrdersTests extends BaseTest {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForBusiness();
