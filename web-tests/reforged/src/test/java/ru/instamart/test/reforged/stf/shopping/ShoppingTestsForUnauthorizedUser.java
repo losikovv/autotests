@@ -27,7 +27,7 @@ public class ShoppingTestsForUnauthorizedUser extends BaseTest {
         shop().goToPage();
 
         checkout().goToPage();
-        home().checkMainBlockTextIsVisible();
+        home().checkMainBlockContainerIsVisible();
     }
 
     @CaseId(1621)
