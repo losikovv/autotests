@@ -79,7 +79,6 @@ public class ShoppingTestsForExistingUser extends BaseTest {
         shop().goToPage();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkOrderButtonIsNotEnabled();
-        shop().assertAll();
     }
 
     @CaseId(1618)

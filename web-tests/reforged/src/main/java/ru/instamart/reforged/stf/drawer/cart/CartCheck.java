@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.drawer.cart;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static org.testng.Assert.assertEquals;
@@ -15,7 +16,7 @@ public interface CartCheck extends Check, CartElement {
 
     @Step("Проверяем, что кнопка заказа недоступна")
     default void checkOrderButtonIsNotEnabled() {
-        krakenAssert.assertFalse(waitAction().shouldBeVisible(submitOrder).isEnabled());
+        Assert.assertFalse(waitAction().shouldBeVisible(submitOrder).isEnabled());
     }
 
     @Step("Проверяем, что спиннер пропал")
