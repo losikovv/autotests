@@ -19,10 +19,6 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 
 public class OrdersDeliveryV3Test extends RestBase {
 
-    OrderV3 orderGoods;
-    OrderV3 orderMetroMarketplace;
-    OrderV3 orderSberDevices;
-
     @CaseId(858)
     @Story("Доставка")
     @Issue("STF-9456")
@@ -33,7 +29,7 @@ public class OrdersDeliveryV3Test extends RestBase {
             enabled = false)
     public void postOrderDeliveryGoods(ApiV3TestData testData) {
 
-        orderGoods = apiV3.createOrderDelivery(testData);
+        OrderV3 orderGoods = apiV3.createOrderDelivery(testData);
 
         response = OrderV3Request.GET(orderGoods.getId(), testData.getClientToken());
         checkStatusCode200(response);
@@ -51,8 +47,7 @@ public class OrdersDeliveryV3Test extends RestBase {
             description = "Создание на доставку заказа Sber_devices")
     public void postOrderDeliverySberDevices(ApiV3TestData testData) {
 
-        orderSberDevices = apiV3.createOrderDelivery(testData);
-        checkStatusCode200(response);
+        OrderV3 orderSberDevices = apiV3.createOrderDelivery(testData);
 
         response = OrderV3Request.GET(orderSberDevices.getId(), testData.getClientToken());
         checkStatusCode200(response);
@@ -73,8 +68,7 @@ public class OrdersDeliveryV3Test extends RestBase {
 
     public void postOrderDeliveryMetroMarketplace(ApiV3TestData testData) {
 
-        orderMetroMarketplace = apiV3.createOrderDelivery(testData);
-        checkStatusCode200(response);
+        OrderV3 orderMetroMarketplace = apiV3.createOrderDelivery(testData);
 
         response = OrderV3Request.GET(orderMetroMarketplace.getId(), testData.getClientToken());
         checkStatusCode200(response);
