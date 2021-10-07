@@ -11,6 +11,7 @@ import ru.instamart.reforged.stf.frame.checkout.subsections.create_company.AddCo
 import ru.instamart.reforged.stf.frame.checkout.subsections.loyaltycard_modal.EditLoyaltyCard;
 import ru.instamart.reforged.stf.frame.checkout.subsections.promocode_modal.EditPromoCode;
 import ru.instamart.reforged.stf.page.checkout.fifthStep.SlotStep;
+import ru.instamart.reforged.stf.page.checkout.fifthStep.edit_company.EditCompany;
 import ru.instamart.reforged.stf.page.checkout.fourthStep.PaymentStep;
 import ru.instamart.reforged.stf.page.checkout.secondStep.ContactsStep;
 import ru.instamart.reforged.stf.page.checkout.firstStep.DeliveryOptionStep;
@@ -30,6 +31,7 @@ public interface CheckoutElement {
     EditPaymentCard editPaymentCardModal = new EditPaymentCard();
     EditLoyaltyCard EDIT_LOYALTY_CARD_MODAL = new EditLoyaltyCard();
     HelpDesk helpDesk = new HelpDesk();
+    EditCompany editCompany = new EditCompany();
 
     Button submitFromCheckoutSidebar = new Button(By.xpath("//aside[@class='checkout-sidebar']//button[@data-qa='checkout_order_button']"), "Кнопка оформления заказа в сайдбаре корзины");
 

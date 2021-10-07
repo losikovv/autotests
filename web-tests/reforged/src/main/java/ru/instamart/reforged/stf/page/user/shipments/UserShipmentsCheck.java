@@ -11,4 +11,25 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
     default void checkStatusWasCanceled() {
         waitAction().shouldBeVisible(shipmentStatusCancel);
     }
+
+    @Step("Проверка статуса заказа 'Ожидает отправки'")
+    default void checkStatusShipmentReady() {
+        waitAction().shouldBeVisible(shipmentStatusShipmentReady);
+    }
+
+    @Step("Проверка метода оплаты 'Картой онлайн'")
+    default void checkPaymentMethodCardOnline() {
+        waitAction().shouldBeVisible(paymentMethodCardOnline);
+    }
+
+    @Step("Проверка метода оплаты 'Картой курьеру'")
+    default void checkPaymentMethodCardToCourier() {
+        waitAction().shouldBeVisible(paymentMethodCardToCourier);
+    }
+
+    @Step("Проверка метода оплаты 'По счёту для бизнеса'")
+    default void checkPaymentMethodForBusiness() {
+        waitAction().shouldBeVisible(paymentMethodForBusiness);
+    }
+
 }
