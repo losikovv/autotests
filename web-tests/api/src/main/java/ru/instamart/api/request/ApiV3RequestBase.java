@@ -11,6 +11,13 @@ public class ApiV3RequestBase {
                 .spec(Specification.INSTANCE.getApiV2RequestSpec());
     }
 
+    public static RequestSpecification givenMetroMarketPlace() {
+        return given()
+                .header("Client-Token", "8055cfd11c887f2887dcd109e66dd166")
+                .header("Api-Version", "3.0")
+                .spec(Specification.INSTANCE.getApiV2RequestSpec());
+    }
+
     public static RequestSpecification givenWithAuth() {
         //todo реализовать тут апи в3 авторизацию
         return givenWithSpec();
