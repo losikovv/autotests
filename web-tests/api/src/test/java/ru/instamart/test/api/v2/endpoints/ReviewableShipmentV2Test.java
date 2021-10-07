@@ -8,7 +8,7 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.SkipException;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.checkpoint.InstamartApiCheckpoints;
 import ru.instamart.api.common.RestBase;
@@ -36,7 +36,7 @@ public class ReviewableShipmentV2Test extends RestBase {
     private String shipmentNumber;
     private UserData userData;
 
-    @BeforeTest(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void before() {
         var sid = EnvironmentProperties.DEFAULT_SID;
         SessionFactory.makeSession(SessionType.API_V2_PHONE);
