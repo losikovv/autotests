@@ -1,7 +1,6 @@
 package ru.instamart.reforged.stf.page.home;
 
 import io.qameta.allure.Step;
-import org.testng.Assert;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.core.Check;
 
@@ -9,7 +8,7 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface HomeCheck extends Check, HomeElement {
 
-    @Step("Проверяем, что отображается текст лендинга Сбермаркета")
+    @Step("Проверяем, что находимся на странице главного лендинга сбермаркета")
     default void checkHomePageOpen() {
         waitAction().urlEquals(EnvironmentProperties.Env.FULL_SITE_URL);
     }

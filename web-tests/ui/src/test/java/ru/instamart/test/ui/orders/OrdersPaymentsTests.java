@@ -57,7 +57,6 @@ OrdersPaymentsTests extends TestBase {
             description = "Тест заказа с оплатой картой курьеру",
 
             groups = {
-                    "lenta-acceptance", "lenta-regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }
@@ -78,7 +77,6 @@ OrdersPaymentsTests extends TestBase {
             description = "Тест заказа с оплатой банковским переводом",
 
             groups = {
-                    "lenta-acceptance", "lenta-regression",
                     "metro-acceptance", "metro-regression",
                     "sbermarket-acceptance","sbermarket-regression"
             }

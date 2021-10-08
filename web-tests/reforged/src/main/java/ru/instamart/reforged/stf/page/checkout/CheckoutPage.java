@@ -1,8 +1,6 @@
 package ru.instamart.reforged.stf.page.checkout;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
-import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
 import ru.instamart.reforged.stf.frame.checkout.subsections.*;
 import ru.instamart.reforged.stf.frame.checkout.subsections.create_company.AddCompany;
@@ -10,6 +8,7 @@ import ru.instamart.reforged.stf.frame.checkout.subsections.loyaltycard_modal.Ed
 import ru.instamart.reforged.stf.frame.checkout.subsections.promocode_modal.EditPromoCode;
 import ru.instamart.reforged.stf.page.StfPage;
 import ru.instamart.reforged.stf.page.checkout.fifthStep.SlotStep;
+import ru.instamart.reforged.stf.page.checkout.fifthStep.edit_company.EditCompany;
 import ru.instamart.reforged.stf.page.checkout.fourthStep.PaymentStep;
 import ru.instamart.reforged.stf.page.checkout.secondStep.ContactsStep;
 import ru.instamart.reforged.stf.page.checkout.firstStep.DeliveryOptionStep;
@@ -43,6 +42,10 @@ public final class CheckoutPage implements StfPage, CheckoutCheck {
 
     public EditPhoneNumber interactEditPhoneNumberModal() {
         return editPhoneNumberModal;
+    }
+
+    public EditCompany editCompany() {
+        return editCompany;
     }
 
     public EditPromoCode interactEditPromoCodeModal() {
