@@ -1,5 +1,6 @@
 package ru.instamart.reforged.core;
 
+import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.JavascriptExecutor;
@@ -17,6 +18,7 @@ public final class Kraken extends KrakenDriver {
     private static final JsAction jsAction = new JsAction();
     private static final WaitAction wait = new WaitAction();
 
+    @Step("Переход на страницу {0}")
     public static void open(final String url) {
         log.debug("Переход на страницу {}", url);
         getWebDriver().get(url);

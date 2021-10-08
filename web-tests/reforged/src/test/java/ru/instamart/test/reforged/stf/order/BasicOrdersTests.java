@@ -24,12 +24,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 public final class BasicOrdersTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
-    private final UserData userData = UserManager.getUser();
-
-    @BeforeMethod(description = "Аутентификация и выбор адреса доставки")
-    public void preconditions() {
-        helper.auth(userData);
-    }
+    private UserData userData;
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
@@ -42,6 +37,8 @@ public final class BasicOrdersTests extends BaseTest {
             groups = {"sbermarket-regression"}
     )
     public void successCompleteCheckoutWithNewJuridical() {
+        userData = UserManager.getUser();
+        helper.auth(userData);
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
         var company = UserManager.juridical();
@@ -85,6 +82,8 @@ public final class BasicOrdersTests extends BaseTest {
             groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"}
     )
     public void successCompleteCheckoutWithNewPaymentCard() {
+        userData = UserManager.getUser();
+        helper.auth(userData);
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
         var company = UserManager.juridical();
@@ -139,6 +138,8 @@ public final class BasicOrdersTests extends BaseTest {
             groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"}
     )
     public void successCompleteCheckoutWithNewNoSecurePaymentCard() {
+        userData = UserManager.getUser();
+        helper.auth(userData);
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
         var company = UserManager.juridical();
@@ -193,6 +194,8 @@ public final class BasicOrdersTests extends BaseTest {
             groups = {"sbermarket-regression", "sbermarket-Ui-smoke"}
     )
     public void successOrderWithFavProducts() {
+        userData = UserManager.getUser();
+        helper.auth(userData);
         helper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 1);
         helper.dropAndFillCartFromFavorites(userData, EnvironmentProperties.DEFAULT_SID);
 
@@ -237,6 +240,8 @@ public final class BasicOrdersTests extends BaseTest {
             groups = {"sbermarket-regression","testing", "sbermarket-Ui-smoke"}
     )
     public void successOrderWithCardCourier() {
+        userData = UserManager.getUser();
+        helper.auth(userData);
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
         var company = UserManager.juridical();

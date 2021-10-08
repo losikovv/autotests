@@ -38,7 +38,7 @@ public final class Debug {
     public void bar() {
         StfRouter.home().goToPage();
         StfRouter.home().openLoginModal();
-        StfRouter.home().interactAuthModal().fillPhone("79999999999");
+        StfRouter.home().interactAuthModal().fillPhone("9999999999");
         StfRouter.home().interactAuthModal().sendSms();
         StfRouter.home().interactAuthModal().fillSMS("111111");
         StfRouter.shop().interactHeader().clickToProfile();
