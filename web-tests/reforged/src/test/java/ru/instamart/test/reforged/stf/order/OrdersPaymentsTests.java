@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.testdata.*;
@@ -15,10 +16,15 @@ import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
 
 @Epic("STF UI")
 @Feature("Покупка товара")
-public class
-OrdersPaymentsTests extends BaseTest {
+public final class OrdersPaymentsTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
+    private final UserData ordersUser = UserManager.getUser();
+
+    @AfterMethod(alwaysRun = true, description = "Отмена ордера")
+    public void afterTest() {
+        helper.cancelAllActiveOrders(ordersUser);
+    }
 
     @CaseId(1624)
     @Story("Тест заказа с оплатой картой онлайн")
@@ -30,7 +36,6 @@ OrdersPaymentsTests extends BaseTest {
             }
     )
     public void successOrderWithCardOnline() {
-        final UserData ordersUser = UserManager.getUser();
         var company = UserManager.juridical();
         var card = PaymentCards.testCardNo3ds();
 
@@ -79,8 +84,6 @@ OrdersPaymentsTests extends BaseTest {
         userShipments().checkPageContains(userShipments().pageUrl());
         userShipments().checkStatusShipmentReady();
         userShipments().checkPaymentMethodCardOnline();
-
-        helper.cancelAllActiveOrders(ordersUser);
     }
 
     @CaseId(1625)
@@ -133,8 +136,6 @@ OrdersPaymentsTests extends BaseTest {
 
         userShipments().checkStatusShipmentReady();
         userShipments().checkPaymentMethodCardToCourier();
-
-        helper.cancelAllActiveOrders(ordersUser);
     }
 
     @CaseId(1626)
@@ -195,7 +196,5 @@ OrdersPaymentsTests extends BaseTest {
 
         userShipments().checkStatusShipmentReady();
         userShipments().checkPaymentMethodForBusiness();
-
-        helper.cancelAllActiveOrders(ordersUser);
     }
 }
