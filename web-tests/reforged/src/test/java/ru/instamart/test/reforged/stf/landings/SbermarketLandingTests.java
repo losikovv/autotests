@@ -82,7 +82,7 @@ public class SbermarketLandingTests extends BaseTest {
             description = "Кнопка СберБизнес ID при выбранном чекбоксе \"Хочу заказывать для бизнеса\"",
             groups = {"sbermarket-Ui-smoke"}
     )
-    public void enabledSberBussinesIdButton() {
+    public void enabledSberBusinessIdButton() {
         home().goToPage();
         home().openLoginModal();
         home().interactAuthModal().checkForBusiness();
@@ -95,4 +95,3 @@ public class SbermarketLandingTests extends BaseTest {
         home().interactAuthModal().checkMailRuIsVisible();
     }
 }
-

@@ -34,6 +34,10 @@ public final class StringUtil {
         return url.replace(EnvironmentProperties.HTTP_AUTH, "");
     }
 
+    public static String getPhone(final String phone) {
+        return phone.replaceAll("[^0-9]", "").substring(1);
+    }
+
     private StringUtil() {
     }
 }
