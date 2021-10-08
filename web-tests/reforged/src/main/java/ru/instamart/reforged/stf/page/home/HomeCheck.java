@@ -1,7 +1,6 @@
 package ru.instamart.reforged.stf.page.home;
 
 import io.qameta.allure.Step;
-import org.testng.Assert;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.core.Check;
 

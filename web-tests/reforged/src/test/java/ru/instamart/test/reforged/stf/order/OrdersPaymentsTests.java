@@ -2,6 +2,8 @@ package ru.instamart.test.reforged.stf.order;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.testdata.*;
@@ -18,6 +20,8 @@ OrdersPaymentsTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
 
+    @CaseId(1624)
+    @Story("Тест заказа с оплатой картой онлайн")
     @Test(
             description = "Тест заказа с оплатой картой онлайн",
             groups = {
@@ -79,6 +83,8 @@ OrdersPaymentsTests extends BaseTest {
         helper.cancelAllActiveOrders(ordersUser);
     }
 
+    @CaseId(1625)
+    @Story("Тест заказа с оплатой картой курьеру")
     @Test(
             description = "Тест заказа с оплатой картой курьеру",
             groups = {
@@ -131,6 +137,8 @@ OrdersPaymentsTests extends BaseTest {
         helper.cancelAllActiveOrders(ordersUser);
     }
 
+    @CaseId(1626)
+    @Story("Тест заказа с оплатой банковским переводом")
     @Test(
             description = "Тест заказа с оплатой банковским переводом",
             groups = {
