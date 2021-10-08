@@ -9,7 +9,7 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface HomeCheck extends Check, HomeElement {
 
-    @Step("Проверяем, что отображается текст лендинга Сбермаркета")
+    @Step("Проверяем, что находимся на странице главного лендинга сбермаркета")
     default void checkHomePageOpen() {
         waitAction().urlEquals(EnvironmentProperties.Env.FULL_SITE_URL);
     }
