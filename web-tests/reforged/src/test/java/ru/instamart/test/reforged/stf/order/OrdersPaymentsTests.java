@@ -179,7 +179,7 @@ OrdersPaymentsTests extends BaseTest {
         checkout().editCompany().fillName(company.getJuridicalName());
         checkout().editCompany().fillAddress(company.getJuridicalAddress());
         checkout().editCompany().fillKpp(company.getKpp());
-        checkout().editCompany().save();
+        checkout().editCompany().saveCompanyInfo();
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 

@@ -20,7 +20,7 @@ public class EditCompany implements EditCompanyElement{
     }
 
     @Step("Нажать 'сохранить'")
-    public void save() {
+    public void saveCompanyInfo() {
         save.click();
     }
 }
