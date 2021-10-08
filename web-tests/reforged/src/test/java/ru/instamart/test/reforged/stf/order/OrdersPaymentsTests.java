@@ -96,7 +96,6 @@ public final class OrdersPaymentsTests extends BaseTest {
             }
     )
     public void successOrderWithCardCourier() {
-        final UserData ordersUser = UserManager.getUser();
         var company = UserManager.juridical();
 
         helper.dropAndFillCart(ordersUser, 1);
@@ -148,7 +147,6 @@ public final class OrdersPaymentsTests extends BaseTest {
             }
     )
     public void successOrderWithBankTransfer() {
-        final UserData ordersUser = UserManager.getUser();
         var company = UserManager.juridical();
 
         helper.dropAndFillCart(ordersUser, 1);
