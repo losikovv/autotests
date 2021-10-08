@@ -2,7 +2,7 @@ package ru.instamart.reforged.stf.page.checkout.fifthStep;
 
 import io.qameta.allure.Step;
 
-public class SlotStep implements SlotStepElement {
+public class SlotStep implements SlotStepCheck {
 
     @Step("Выбрать первый активный слот")
     public void setFirstActiveSlot() {

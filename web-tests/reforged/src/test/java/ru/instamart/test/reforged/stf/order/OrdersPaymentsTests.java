@@ -19,7 +19,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
 public final class OrdersPaymentsTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
-    private final UserData ordersUser = UserManager.getUser();
+    private UserData ordersUser;
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
@@ -39,6 +39,8 @@ public final class OrdersPaymentsTests extends BaseTest {
         var company = UserManager.juridical();
         var card = PaymentCards.testCardNo3ds();
 
+        ordersUser = UserManager.getUser();
+        helper.auth(ordersUser);
         helper.dropAndFillCart(ordersUser, 1);
 
         shop().goToPage();
@@ -98,6 +100,8 @@ public final class OrdersPaymentsTests extends BaseTest {
     public void successOrderWithCardCourier() {
         var company = UserManager.juridical();
 
+        ordersUser = UserManager.getUser();
+        helper.auth(ordersUser);
         helper.dropAndFillCart(ordersUser, 1);
 
         shop().goToPage();
@@ -149,6 +153,8 @@ public final class OrdersPaymentsTests extends BaseTest {
     public void successOrderWithBankTransfer() {
         var company = UserManager.juridical();
 
+        ordersUser = UserManager.getUser();
+        helper.auth(ordersUser);
         helper.dropAndFillCart(ordersUser, 1);
 
         shop().goToPage();
@@ -181,6 +187,8 @@ public final class OrdersPaymentsTests extends BaseTest {
 
         checkout().setPayment().clickToByBusinessAccount();
         checkout().setSlot().setAnotherSlot();
+        checkout().setSlot().checkSlotsSpinnerIsVisible();
+        checkout().setSlot().checkSlotsSpinnerIsNotVisible();
         checkout().setSlot().setFirstActiveSlot();
 
         checkout().editCompany().fillName(company.getJuridicalName());
