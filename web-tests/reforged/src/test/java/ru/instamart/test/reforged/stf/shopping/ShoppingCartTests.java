@@ -15,18 +15,19 @@ import ru.instamart.reforged.core.Kraken;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.kraken.config.CoreProperties.DEFAULT_SMS;
-import static ru.instamart.reforged.stf.page.StfRouter.*;
+import static ru.instamart.reforged.stf.page.StfRouter.search;
+import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
 @Feature("Основные тесты корзины")
-public class ShoppingCartTests extends BaseTest {
+public final class ShoppingCartTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(1571)
     @Test(
             description = "Тест валидации дефолтной корзины",
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successValidateDefaultCart() {
         shop().goToPage();
@@ -52,7 +53,7 @@ public class ShoppingCartTests extends BaseTest {
     @CaseId(1572)
     @Test(
             description = "Тест успешного добавления товара в корзину неавторизованным юзером",
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successAddItemToCartUnauthorized() {
         shop().goToPage();
@@ -74,7 +75,7 @@ public class ShoppingCartTests extends BaseTest {
     @CaseId(1573)
     @Test(
             description = "Тест успешного добавления товара в корзину из карточки товара",
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successAddItemToCartFromItemCard() {
         final UserData shoppingCartUser = UserManager.getUser();
@@ -199,7 +200,7 @@ public class ShoppingCartTests extends BaseTest {
     @CaseId(1576)
     @Test(
             description = "Тест на удаление товаров из корзины",
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
+            groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successRemoveItemsFromCart() {
         final UserData shoppingCartUser = UserManager.getUser();
@@ -226,8 +227,8 @@ public class ShoppingCartTests extends BaseTest {
     }
 
     @CaseId(1577)
-    @Test(  description = "Тест успешного добавления и удаления товара в корзину из сниппета в каталоге",
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
+    @Test(description = "Тест успешного добавления и удаления товара в корзину из сниппета в каталоге",
+            groups = {"sbermarket-acceptance", "sbermarket-regression"}
     )
     public void successAddItemToCartFromCatalogSnippet() {
         final UserData shoppingCartUser = UserManager.getUser();

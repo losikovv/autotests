@@ -2,6 +2,7 @@ package ru.instamart.reforged.stf.page.search;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.stf.block.header.Header;
+import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.product_card.ProductCard;
 import ru.instamart.reforged.stf.page.StfPage;
 
@@ -9,6 +10,10 @@ public class SearchPage implements StfPage, SearchCheck {
 
     public Header interactHeader() {
         return header;
+    }
+
+    public Cart interactCart() {
+        return cart;
     }
 
     public ProductCard interactProductCard() {

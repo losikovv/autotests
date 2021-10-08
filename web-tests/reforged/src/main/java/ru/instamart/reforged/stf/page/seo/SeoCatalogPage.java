@@ -5,6 +5,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.reforged.stf.block.header.Header;
+import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 import ru.instamart.reforged.stf.frame.product_card.ProductCard;
 import ru.instamart.reforged.stf.page.StfPage;
@@ -17,6 +18,10 @@ public final class SeoCatalogPage implements StfPage, SeoCatalogCheck {
 
     public Header interactHeader() {
         return header;
+    }
+
+    public Cart interactCart() {
+        return cart;
     }
 
     public ProductCard interactProductCard() {
