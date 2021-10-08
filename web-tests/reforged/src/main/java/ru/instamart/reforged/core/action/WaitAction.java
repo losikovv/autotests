@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.reforged.core.component.Component;
+import ru.instamart.reforged.core.condition.KrakenCondition;
 import ru.instamart.reforged.core.config.WaitProperties;
 
 import java.util.List;
@@ -53,6 +54,11 @@ public final class WaitAction {
                 });
     }
 
+    public boolean elementSelectCheckboxState(final Component component, final boolean selected) {
+        return createWait(component)
+                .until(KrakenCondition.elementSelectCheckboxState(component.getBy(), selected));
+    }
+
     public boolean urlEquals(final String url) {
         return createWait(WaitProperties.BASIC_TIMEOUT, "Текущая страница отличается от ожидаемой")
                 .until(ExpectedConditions.urlToBe(url));
@@ -70,31 +76,7 @@ public final class WaitAction {
 
     public void fillField(final WebElement element, final String data, final boolean isPhone) {
         createWait(WaitProperties.BASIC_TIMEOUT, "Текущее содержимое поля отличается от ожидаемого")
-                .until(keysSendCondition(element, data, isPhone));
-    }
-
-    private ExpectedCondition<Boolean> keysSendCondition(final WebElement element, final String data, final boolean isPhone) {
-        return driver -> {
-            if (element.isDisplayed()) {
-                var value = element.getAttribute("value");
-
-                if (nonNull(value) && value.length() != 0) {
-                    if (isPhone) {
-                        value = getPhone(value);
-                    }
-                    element.sendKeys(Keys.COMMAND + "a");
-                    element.sendKeys(Keys.CONTROL + "a");
-                    element.sendKeys(Keys.DELETE);
-                }
-                element.sendKeys(data);
-                return value.equals(data);
-            }
-            return false;
-        };
-    }
-
-    private String getPhone(final String phone) {
-        return phone.replaceAll("[^0-9]", "").substring(1);
+                .until(KrakenCondition.keysSendCondition(element, data, isPhone));
     }
 
     private FluentWait<WebDriver> createWait(final Component component) {

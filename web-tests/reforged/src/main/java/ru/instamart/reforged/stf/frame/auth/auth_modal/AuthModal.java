@@ -119,7 +119,7 @@ public final class AuthModal implements Close, AuthModalCheck {
     }
 
     //TODO ThreadUtil.simplyAwait убрать после отключения проверки таймаута для повторной смс
-    @Step("Авторизоваться пользователем {user.login}")
+    @Step("Авторизоваться пользователем {userData.phone}")
     public void authViaPhone(final UserData userData) {
         fillPhone(userData.getPhone());
         sendSms();

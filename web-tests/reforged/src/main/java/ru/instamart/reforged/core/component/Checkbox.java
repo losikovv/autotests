@@ -38,29 +38,19 @@ public final class Checkbox extends Component {
 
     @Override
     protected WebElement getComponent() {
-        log.debug("Create {} with locator {}", getDescription(), getBy());
         if (isNull(component) || isCacheDisable) {
+            log.debug("Create {} with locator {}", getDescription(), getBy());
             component = Kraken.waitAction().shouldBeClickable(this);
         }
         return component;
     }
 
     public void check() {
-        if (getComponent().isSelected()) {
-            log.debug("Checkbox {} with locator {} is checked before!", getDescription(), getBy());
-        } else {
-            log.debug("Check {} with locator {}", getDescription(), getBy());
-            getComponent().click();
-        }
+        Kraken.waitAction().elementSelectCheckboxState(this, true);
     }
 
     public void uncheck() {
-        if (!getComponent().isSelected()) {
-            log.debug("Checkbox {} with locator {} is unchecked before!", getDescription(), getBy());
-        } else {
-            log.debug("Uncheck {} with locator {}", getDescription(), getBy());
-            getComponent().click();
-        }
+        Kraken.waitAction().elementSelectCheckboxState(this, false);
     }
 
     public Boolean checkboxState() {
