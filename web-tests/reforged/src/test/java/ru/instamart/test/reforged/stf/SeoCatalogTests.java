@@ -4,18 +4,20 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.config.CoreProperties;
-import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.api.common.RestAddresses;
+import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.kraken.listener.Run;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.lib.Addresses;
-import ru.instamart.reforged.core.Kraken;
 import ru.instamart.test.reforged.BaseTest;
 
-import static ru.instamart.reforged.stf.page.StfRouter.seo;
+import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Seo Каталог")
 public final class SeoCatalogTests extends BaseTest {
+
+    private final ApiHelper helper = new ApiHelper();
 
     @CaseId(1802)
     @Test(  description = "Тест доступности страницы SEO-каталога",
@@ -41,8 +43,7 @@ public final class SeoCatalogTests extends BaseTest {
     )
     public void successOpenItemCardOnSeoCatalog() {
         seo().goToPage();
-        //TODO: Костыль из-за бейсик авторизации
-        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER + seo().pageUrl());
+        seo().openFirstProductCardOnTaxon();
         seo().openFirstProductCardOnTaxon();
         seo().interactProductCard().checkProductCardVisible();
     }
@@ -53,8 +54,7 @@ public final class SeoCatalogTests extends BaseTest {
     )
     public void successSetShippingAddressAfterAddingProductFromItemCardOnSeoCatalog() {
         seo().goToPage();
-        //TODO: Костыль из-за бейсик авторизации
-        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER + seo().pageUrl());
+        seo().openFirstProductCardOnTaxon();
         seo().openFirstProductCardOnTaxon();
         seo().interactProductCard().clickOnBuy();
 
@@ -70,13 +70,37 @@ public final class SeoCatalogTests extends BaseTest {
     )
     public void successAuthFromItemCardOnSeoCatalog() {
         seo().goToPage();
-        //TODO: Костыль из-за бейсик авторизации
-        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER + seo().pageUrl());
+        seo().openFirstProductCardOnTaxon();
         seo().openFirstProductCardOnTaxon();
         seo().interactProductCard().clickOnBuy();
 
         seo().interactHeader().interactAddress().clickToLogin();
         seo().interactAuthModal().authViaPhone(UserManager.getUser());
         seo().interactHeader().checkProfileButtonVisible();
+    }
+
+    @Run(onServer = "production")
+    @CaseId(1582)
+    @Test(  description = "Добавление товара в корзину из SEO-каталога",
+            groups = {"sbermarket-regression"}
+    )
+    public void successAddItemToCartFromSEOCatalog() {
+        var userData = UserManager.getUser();
+        helper.auth(userData);
+        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        seo().goToPage();
+        seo().refreshWithoutBasicAuth();
+        seo().openFirstProductCardOnTaxon();
+        seo().interactProductCard().clickOnBuy();
+        seo().interactProductCard().close();
+        seo().interactHeader().clickToCart();
+        seo().interactCart().checkCartOpen();
+        seo().interactCart().checkCartNotEmpty();
     }
 }

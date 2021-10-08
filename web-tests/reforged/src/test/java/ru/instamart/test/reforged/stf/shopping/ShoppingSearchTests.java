@@ -6,6 +6,7 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.testdata.Generate;
+import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.search;
@@ -81,5 +82,31 @@ public final class ShoppingSearchTests extends BaseTest {
         shop().interactHeader().fillSearch(Generate.string(1000));
         shop().interactHeader().clickSearchButton();
         search().checkEmptySearchPlaceholderVisible();
+    }
+
+    @CaseId(1581)
+    @Test(
+            description = "Добавление товара в корзину из поиска товаров",
+            groups = {"sbermarket-regression"}
+    )
+    public void successAddItemToCartFromSearchResults() {
+        shop().goToPage();
+        shop().interactHeader().clickToSelectAddressFirstTime();
+        shop().interactAddress().checkYmapsReady();
+        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().selectFirstAddress();
+        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddress().clickOnSave();
+        shop().interactAddress().checkAddressModalIsNotVisible();
+
+        shop().interactHeader().fillSearch("сыры");
+        shop().interactHeader().checkTaxonCategoriesVisible();
+        shop().interactHeader().clickOnFirstTaxonCategory();
+        search().checkPageIsAvailable();
+        search().checkTaxonTitle("Сыры");
+        search().clickAddToCartFirstSearchResult();
+        search().interactHeader().clickToCart();
+        search().interactCart().checkCartOpen();
+        search().interactCart().checkCartNotEmpty();
     }
 }

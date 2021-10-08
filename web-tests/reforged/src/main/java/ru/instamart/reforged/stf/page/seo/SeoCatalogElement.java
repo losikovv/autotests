@@ -4,12 +4,14 @@ import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
 import ru.instamart.reforged.stf.block.header.Header;
+import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 import ru.instamart.reforged.stf.frame.product_card.ProductCard;
 
 public interface SeoCatalogElement {
 
     Header header = new Header();
+    Cart cart = new Cart();
     AuthModal authModal = new AuthModal();
     ProductCard productCard = new ProductCard();
 

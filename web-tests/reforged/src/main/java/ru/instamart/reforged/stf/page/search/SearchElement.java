@@ -5,11 +5,13 @@ import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.stf.block.header.Header;
+import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.product_card.ProductCard;
 
 public interface SearchElement {
 
     Header header = new Header();
+    Cart cart = new Cart();
     ProductCard productCard = new ProductCard();
 
     Element categoryTitle = new Element(ByKraken.xpath("//h1[@data-qa='category_header_title' and text()='%s']"), "заголовок найденной категории");
