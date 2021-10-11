@@ -1,5 +1,8 @@
 package ru.instamart.kraken.listener;
 
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.enums.Tenant;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -18,11 +21,11 @@ public @interface Run {
      * сравнивает значение с {@link ru.instamart.kraken.config.EnvironmentProperties#SERVER}
      * @return - список доступных серверов
      */
-    String[] onServer() default {};
+    Server[] onServer() default {};
     /**
      * Позволяет запускать тесты на конкретных тенантах
      * сравнивает значение с {@link ru.instamart.kraken.config.EnvironmentProperties#TENANT}
      * @return - список доступных тенантов
      */
-    String[] onTenant() default {};
+    Tenant[] onTenant() default {};
 }

@@ -10,6 +10,7 @@ import ru.instamart.reforged.stf.frame.checkout.subsections.*;
 import ru.instamart.reforged.stf.frame.checkout.subsections.create_company.AddCompany;
 import ru.instamart.reforged.stf.frame.checkout.subsections.loyaltycard_modal.EditLoyaltyCard;
 import ru.instamart.reforged.stf.frame.checkout.subsections.promocode_modal.EditPromoCode;
+import ru.instamart.reforged.stf.frame.checkout.subsections.retailer_card.EditRetailerCard;
 import ru.instamart.reforged.stf.page.checkout.fifthStep.SlotStep;
 import ru.instamart.reforged.stf.page.checkout.fifthStep.edit_company.EditCompany;
 import ru.instamart.reforged.stf.page.checkout.fourthStep.PaymentStep;
@@ -29,17 +30,20 @@ public interface CheckoutElement {
     PaymentStep payment = new PaymentStep();
     EditRequisites requisitesModal = new EditRequisites();
     EditPaymentCard editPaymentCardModal = new EditPaymentCard();
-    EditLoyaltyCard EDIT_LOYALTY_CARD_MODAL = new EditLoyaltyCard();
+    EditLoyaltyCard editLoyaltyCardModal = new EditLoyaltyCard();
+    EditRetailerCard editRetailerCardModal = new EditRetailerCard();
     HelpDesk helpDesk = new HelpDesk();
     EditCompany editCompany = new EditCompany();
 
     Button submitFromCheckoutSidebar = new Button(By.xpath("//aside[@class='checkout-sidebar']//button[@data-qa='checkout_order_button']"), "Кнопка оформления заказа в сайдбаре корзины");
 
+    Button addRetailerCard = new Button(By.xpath("//div[@class='retailer-card__label']"),  "добавить карту ретейлера");
+
     Button addPromoCode = new Button(By.xpath("//button[@data-qa='checkout_apply_coupon_code_button']"), "Кнопка добавления промокода в корзине");
     Button deletePromoCode = new Button(By.xpath("//button[@data-qa='checkout_delete_coupon_code_button']"), "Кнопка удаления промокода из корзины");
     ElementCollection addLoyaltyCard = new ElementCollection(By.xpath("//div[@class='loyalty-program__name']"), "Коллекция элементов кнопок добавления карт лояльности");
     ElementCollection selectLoyaltyCard = new ElementCollection(By.xpath("//div[@class='loyalty-program__name']"), "Коллекция имен карт лояльности");
-    Element editLoyaltyCardModal = new Element(By.id("LoyaltyProgramSelector"), "Модальное окно добавления карт лояльности");
+    Element editLoyaltyCardModalWindow = new Element(By.id("LoyaltyProgramSelector"), "Модальное окно добавления карт лояльности");
 
     Element minimizedDeliveryOptionStep = new Element(By.xpath("//div[@class='panel-header__text' and text() = 'Способ получения']//ancestor::div[@class='checkout-panel']"),
             "панель свернутого шага 'Способ получения'");
