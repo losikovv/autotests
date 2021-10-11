@@ -23,6 +23,8 @@
             <class name="ru.instamart.test.reforged.stf.order.OrderRepeatTests"/>
             <class name="ru.instamart.test.reforged.stf.order.OrdersBonusesTests"/>
             <class name="ru.instamart.test.reforged.stf.order.OrdersCitiesTests"/>
+            <class name="ru.instamart.test.reforged.stf.order.OrdersPaymentsTests"/>
+            <class name="ru.instamart.test.reforged.stf.order.OrdersPromocodesTests"/>
 
             <!-- Ждет включения данной фичи на стейдже или перехода на полноценный препрод -->
             <!--
