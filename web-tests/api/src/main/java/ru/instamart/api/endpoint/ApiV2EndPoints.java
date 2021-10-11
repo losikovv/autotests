@@ -52,6 +52,10 @@ public final class ApiV2EndPoints {
         public static final String BY_ID = "v2/bonus_cards/{bonusCardId}";
     }
 
+    public static final class CreditCards{
+        public static final String BY_ID = "v2/credit_cards/{creditCardId}";
+    }
+
     public static final class Deeplinks {
         public static final String BY_URL = "v2/deeplinks?web_url={webUrl}";
     }
