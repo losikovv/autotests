@@ -4,8 +4,11 @@ import org.testng.IMethodSelector;
 import org.testng.IMethodSelectorContext;
 import org.testng.ITestNGMethod;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.enums.Tenant;
 
 import java.lang.reflect.Method;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
@@ -29,32 +32,32 @@ public final class TestMethodSelector implements IMethodSelector {
 
         if (isTestMethod && testMethod.isAnnotationPresent(Skip.class)) {
             final Skip skip = testMethod.getAnnotation(Skip.class);
-            final Set<String> onServer = Set.of(skip.onServer());
-            final Set<String> onTenant = Set.of(skip.onTenant());
+            final Set<Server> onServer = Set.of(skip.onServer());
+            final Set<Tenant> onTenant = Set.of(skip.onTenant());
 
             if (onServer.size() == 0 && onTenant.size() == 0) {
                 context.setStopped(true);
                 return false;
             }
-            if (onServer.contains(EnvironmentProperties.SERVER)) {
+            if (onServer.contains(Server.valueOf(EnvironmentProperties.SERVER.toUpperCase()))) {
                 context.setStopped(true);
                 return false;
             }
-            if (onTenant.contains(EnvironmentProperties.TENANT)) {
+            if (onTenant.contains(Tenant.valueOf(EnvironmentProperties.TENANT.toUpperCase()))) {
                 context.setStopped(true);
                 return false;
             }
         }
         if (isTestMethod && testMethod.isAnnotationPresent(Run.class)) {
             final Run run = testMethod.getAnnotation(Run.class);
-            final Set<String> onServer = Set.of(run.onServer());
-            final Set<String> onTenant = Set.of(run.onTenant());
+            final Set<Server> onServer = Set.of(run.onServer());
+            final Set<Tenant> onTenant = Set.of(run.onTenant());
 
-            if (onServer.size() > 0 && !onServer.contains(EnvironmentProperties.SERVER)) {
+            if (onServer.size() > 0 && !onServer.contains(Server.valueOf(EnvironmentProperties.SERVER.toUpperCase()))) {
                 context.setStopped(true);
                 return false;
             }
-            if (onTenant.size() > 0 && !onTenant.contains(EnvironmentProperties.TENANT)) {
+            if (onTenant.size() > 0 && !onTenant.contains(Tenant.valueOf(EnvironmentProperties.TENANT.toUpperCase()))) {
                 context.setStopped(true);
                 return false;
             }
