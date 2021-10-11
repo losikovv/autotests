@@ -9,8 +9,10 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.reforged.core.data_provider.StoreProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.test.reforged.BaseTest;
+
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -26,13 +28,16 @@ public class OrdersRetailersTests extends BaseTest {
     }
 
     @CaseId(1627)
-    @Test(  description = "Тестовый заказ в Метро Москва",
-            groups = "")
-    public void successOrderInMetro() {
+    @Test(description = "Тестовый заказ в Метро Москва",
+            groups = "",
+            dataProviderClass = StoreProvider.class,
+            dataProvider = "metro"
+    )
+    public void successOrderInMetro(int storeId, ShopUrl shopUrl) {
         userData = UserManager.getUser();
-        helper.dropAndFillCart(userData, 1);
+        helper.dropAndFillCart(userData, storeId);
 
-        shop().goToPage();
+        shop().goToPage(shopUrl);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -52,13 +57,15 @@ public class OrdersRetailersTests extends BaseTest {
     }
 
     @CaseId(1631)
-    @Test(  description = "Тестовый заказ в Лента Москва",
-            groups = "")
-    public void successOrderInLenta() {
+    @Test(description = "Тестовый заказ в Лента Москва",
+            groups = "",
+            dataProviderClass = StoreProvider.class,
+            dataProvider = "lenta")
+    public void successOrderInLenta(int storeId, ShopUrl shopUrl) {
         userData = UserManager.getUser();
-        helper.dropAndFillCart(userData, 58);
+        helper.dropAndFillCart(userData, storeId);
 
-        shop().goToPage(ShopUrl.LENTA);
+        shop().goToPage(shopUrl);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -78,13 +85,15 @@ public class OrdersRetailersTests extends BaseTest {
     }
 
     @CaseId(1628)
-    @Test(  description = "Тестовый заказ в Ашан Москва",
-            groups = "")
-    public void successOrderInAuchan() {
+    @Test(description = "Тестовый заказ в Ашан Москва",
+            groups = "",
+            dataProviderClass = StoreProvider.class,
+            dataProvider = "auchan")
+    public void successOrderInAuchan(int storeId, ShopUrl shopUrl) {
         userData = UserManager.getUser();
-        helper.dropAndFillCart(userData, 72);
+        helper.dropAndFillCart(userData, storeId);
 
-        shop().goToPage(ShopUrl.AUCHAN);
+        shop().goToPage(shopUrl);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -104,13 +113,15 @@ public class OrdersRetailersTests extends BaseTest {
     }
 
     @CaseId(1629)
-    @Test(  description = "Тестовый заказ в Азбука Вкуса Москва",
-            groups = "")
-    public void successOrderInAzbukaVkusa() {
+    @Test(description = "Тестовый заказ в Азбука Вкуса Москва",
+            groups = "",
+            dataProviderClass = StoreProvider.class,
+            dataProvider = "azbukavkusa")
+    public void successOrderInAzbukaVkusa(int storeId, ShopUrl shopUrl) {
         userData = UserManager.getUser();
-        helper.dropAndFillCart(userData, 99);
+        helper.dropAndFillCart(userData, storeId);
 
-        shop().goToPage(ShopUrl.AZBUKAVKUSA);
+        shop().goToPage(shopUrl);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
@@ -130,13 +141,15 @@ public class OrdersRetailersTests extends BaseTest {
     }
 
     @CaseId(1630)
-    @Test(  description = "Тестовый заказ в Вкусвилл Москва",
-            groups = "")
-    public void successOrderInVkusvill() {
+    @Test(description = "Тестовый заказ в Вкусвилл Москва",
+            groups = "",
+            dataProviderClass = StoreProvider.class,
+            dataProvider = "vkusvill")
+    public void successOrderInVkusvill(int storeId, ShopUrl shopUrl) {
         userData = UserManager.getUser();
-        helper.dropAndFillCart(userData, 23);
+        helper.dropAndFillCart(userData, storeId);
 
-        shop().goToPage(ShopUrl.VKUSVILL);
+        shop().goToPage(shopUrl);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
