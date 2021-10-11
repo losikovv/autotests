@@ -105,7 +105,7 @@ public interface CheckoutCheck extends Check, CheckoutElement {
 
     @Step("Проверяем что модальное окно ввода карты лояльности скрылось")
     default void checkLoyaltyCardModalNotVisible() {
-        waitAction().shouldNotBeVisible(editLoyaltyCardModal);
+        waitAction().shouldNotBeVisible(editLoyaltyCardModalWindow);
     }
 
     @Step("Проверяем что лоадер в блоке карт лояльности скрылся")

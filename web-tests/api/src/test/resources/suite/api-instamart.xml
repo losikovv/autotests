@@ -40,6 +40,7 @@
             <class name="ru.instamart.test.api.v2.endpoints.PromotionLimitV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.PromotionsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.RecsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ReplacementPoliciesV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.ReviewableShipmentV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.ReviewableShipmentWithoutFinishedOrderV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.SearchesV2Test"/>
@@ -61,7 +62,7 @@
             <class name="ru.instamart.test.api.v3.endpoints.GetOrderV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.PutOrdersStatusV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.OrdersPickupFromStoreV3Test"/>
-            <class name="ru.instamart.test.api.v3.endpoints.CategoriesV3Test"></class>
+            <class name="ru.instamart.test.api.v3.endpoints.CategoriesV3Test"/>
         </classes>
     </test>
     <test verbose="1" name="API Delivery Club Tests" parallel="classes" thread-count="3">

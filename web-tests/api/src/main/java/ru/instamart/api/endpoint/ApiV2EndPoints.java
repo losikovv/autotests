@@ -25,6 +25,7 @@ public final class ApiV2EndPoints {
     public static final String PHONE_CONFIRMATIONS = "v2/phone_confirmations";
     public static final String PRODUCTS = "v2/products";
     public static final String PURCHASED_PRODUCTS = "v2/purchased_products?sid={sid}";
+    public static final String REPLACEMENT_POLICIES = "v2/replacement_policies";
     public static final String RETAILERS = "v2/retailers";
     public static final String REVIEWABLE_SHIPMENT = "v2/reviewable_shipment";
     public static final String SIMPLE_ADS = "v2/simple-ads";
@@ -50,6 +51,10 @@ public final class ApiV2EndPoints {
         public static final String WITH_PARAMS =
                 "v2/bonus_cards?bonus_card[bonus_program_id]={bonusProgramId}&bonus_card[number]={bonusCardNumber}";
         public static final String BY_ID = "v2/bonus_cards/{bonusCardId}";
+    }
+
+    public static final class CreditCards{
+        public static final String BY_ID = "v2/credit_cards/{creditCardId}";
     }
 
     public static final class Deeplinks {
