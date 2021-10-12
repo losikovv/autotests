@@ -18,6 +18,7 @@ import ru.instamart.api.request.v1.ShoppersV1Request;
 import ru.instamart.api.response.v1.LineItemsV1Response;
 import ru.instamart.api.response.v1.ShipmentV1Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.testdata.UserManager;
 
@@ -118,7 +119,7 @@ public class OrdersV1Test extends RestBase {
     }
 
     //todo убрать скип после выдачи прав SD-13260
-    @Skip(onServer = "production")
+    @Skip(onServer = Server.PRODUCTION)
     @Issues({@Issue("INFRADEV-3167"), @Issue("STF-9483")})
     @Story("Заказы")
     @CaseId(120)
@@ -133,7 +134,7 @@ public class OrdersV1Test extends RestBase {
     }
 
     //todo убрать скип после выдачи прав SD-13260
-    @Skip(onServer = "production")
+    @Skip(onServer = Server.PRODUCTION)
     @Story("Заказы")
     @CaseId(121)
     @Test(description = "Контрактный тест списка способов оплаты в заказе",
