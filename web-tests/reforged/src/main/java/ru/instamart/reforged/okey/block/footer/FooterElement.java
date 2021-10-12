@@ -45,6 +45,6 @@ public interface FooterElement {
             "раздел 'Зоны доставки' в футере");
     Link deliveryAndPayment = new Link(By.xpath("//footer//a[contains(@href, '/delivery-okey')]"),
             "раздел 'Доставка и оплата' в футере'");
-    Button paymentInfo = new Button(By.xpath("//footer//button[contains(@data-url, '/payment_methods')]"),
+    Button paymentInfo = new Button(By.xpath("//footer//button[contains(text(), 'Оплата')]"),
             "раздел 'Оплата' в футере");
 }
