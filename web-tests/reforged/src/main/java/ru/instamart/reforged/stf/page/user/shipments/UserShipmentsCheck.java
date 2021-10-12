@@ -37,4 +37,23 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
         waitAction().shouldBeVisible(paymentMethodForBusiness);
     }
 
+    @Step("Проверка метода оплаты 'Картой курьеру'")
+    default void checkPaymentMethodCardToCourier() {
+        waitAction().shouldBeVisible(paymentMethodCardToCourier);
+    }
+
+    @Step("Проверка метода оплаты 'Картой курьеру'")
+    default void checkPaymentMethodCardToCourier() {
+        waitAction().shouldBeVisible(paymentMethodCardToCourier);
+    }
+
+    @Step("Проверка метода оплаты 'Картой курьеру'")
+    default void checkPaymentMethodCardToCourier() {
+        waitAction().shouldBeVisible(paymentMethodCardToCourier);
+    }
+
+    @Step("Проверка метода оплаты 'Картой курьеру'")
+    default void checkPaymentMethodCardToCourier() {
+        waitAction().shouldBeVisible(paymentMethodCardToCourier);
+    }
 }
