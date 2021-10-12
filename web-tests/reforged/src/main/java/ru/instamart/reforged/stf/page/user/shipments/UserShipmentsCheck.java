@@ -37,23 +37,23 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
         waitAction().shouldBeVisible(paymentMethodForBusiness);
     }
 
-    @Step("Проверка метода оплаты 'Картой курьеру'")
-    default void checkPaymentMethodCardToCourier() {
-        waitAction().shouldBeVisible(paymentMethodCardToCourier);
+    @Step("Проверка метода политики замен 'Позвонить / заменить'")
+    default void checkReplacementMethodCallAndReplace() {
+        waitAction().shouldBeVisible(replacementMethodCallAndReplace);
     }
 
-    @Step("Проверка метода оплаты 'Картой курьеру'")
-    default void checkPaymentMethodCardToCourier() {
-        waitAction().shouldBeVisible(paymentMethodCardToCourier);
+    @Step("Проверка метода политики замен 'Позвонить / убрать'")
+    default void checkReplacementMethodCallAndRemove() {
+        waitAction().shouldBeVisible(replacementMethodCallAndRemove);
     }
 
-    @Step("Проверка метода оплаты 'Картой курьеру'")
-    default void checkPaymentMethodCardToCourier() {
-        waitAction().shouldBeVisible(paymentMethodCardToCourier);
+    @Step("Проверка метода политики замен 'Не звонить / заменить'")
+    default void checkReplacementMethodNoCallAndReplace() {
+        waitAction().shouldBeVisible(replacementMethodNoCallAndReplace);
     }
 
-    @Step("Проверка метода оплаты 'Картой курьеру'")
-    default void checkPaymentMethodCardToCourier() {
-        waitAction().shouldBeVisible(paymentMethodCardToCourier);
+    @Step("Проверка метода политики замен 'Не звонить / убрать'")
+    default void checkReplacementMethodNoCallAndRemove() {
+        waitAction().shouldBeVisible(replacementMethodNoCallAndRemove);
     }
 }
