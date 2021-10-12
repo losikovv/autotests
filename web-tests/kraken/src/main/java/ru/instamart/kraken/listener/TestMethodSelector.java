@@ -39,11 +39,11 @@ public final class TestMethodSelector implements IMethodSelector {
                 context.setStopped(true);
                 return false;
             }
-            if (onServer.contains(Server.valueOf(EnvironmentProperties.SERVER.toUpperCase()))) {
+            if (onServer.contains(Server.getValue(EnvironmentProperties.SERVER))) {
                 context.setStopped(true);
                 return false;
             }
-            if (onTenant.contains(Tenant.valueOf(EnvironmentProperties.TENANT.toUpperCase()))) {
+            if (onTenant.contains(Tenant.getValue(EnvironmentProperties.TENANT))) {
                 context.setStopped(true);
                 return false;
             }
@@ -53,11 +53,11 @@ public final class TestMethodSelector implements IMethodSelector {
             final Set<Server> onServer = Set.of(run.onServer());
             final Set<Tenant> onTenant = Set.of(run.onTenant());
 
-            if (onServer.size() > 0 && !onServer.contains(Server.valueOf(EnvironmentProperties.SERVER.toUpperCase()))) {
+            if (onServer.size() > 0 && !onServer.contains(Server.getValue(EnvironmentProperties.SERVER))) {
                 context.setStopped(true);
                 return false;
             }
-            if (onTenant.size() > 0 && !onTenant.contains(Tenant.valueOf(EnvironmentProperties.TENANT.toUpperCase()))) {
+            if (onTenant.size() > 0 && !onTenant.contains(Tenant.getValue(EnvironmentProperties.TENANT))) {
                 context.setStopped(true);
                 return false;
             }
