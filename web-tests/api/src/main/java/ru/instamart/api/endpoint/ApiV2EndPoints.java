@@ -6,6 +6,7 @@ public final class ApiV2EndPoints {
     public static final String ADDRESSES = "v2/addresses";
     public static final String ADS = "v2/ads";
     public static final String ADS_IMAGES = "v2/ads-images?image_path={image}";
+    public static final String APP_CONFIGURATION = "v2/app_configuration";
     public static final String BONUS_CARDS = "v2/bonus_cards";
     public static final String BONUS_PROGRAMS = "v2/bonus_programs";
     public static final String CATEGORIES = "v2/categories?sid={sid}";
