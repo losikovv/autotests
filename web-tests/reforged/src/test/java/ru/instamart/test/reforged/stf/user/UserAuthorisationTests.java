@@ -116,6 +116,7 @@ public final class UserAuthorisationTests extends BaseTest {
     public void successRegWithVkontakte() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaVk();
         shop().interactAuthModal().interactAuthVkWindow().switchToNextWindow();
         shop().interactAuthModal().interactAuthVkWindow()
@@ -124,7 +125,7 @@ public final class UserAuthorisationTests extends BaseTest {
                 .setPassword(UserManager.getDefaultVkUser().getPassword());
         shop().interactAuthModal().interactAuthVkWindow()
                 .clickToLogin();
-        shop().interactAuthModal().interactAuthFacebookWindow().switchToFirstWindow();
+        shop().interactAuthModal().interactAuthVkWindow().switchToFirstWindow();
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
     }
@@ -138,6 +139,7 @@ public final class UserAuthorisationTests extends BaseTest {
     public void successRegWithMailRu() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaMail();
         shop().interactAuthModal().interactAuthMailWindow().switchToNextWindow();
         shop().interactAuthModal().interactAuthMailWindow()
@@ -147,7 +149,7 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactAuthModal().interactAuthMailWindow()
                 .fillPassword(UserManager.getDefaultMailRuUser().getPassword());
         shop().interactAuthModal().interactAuthMailWindow().clickToSubmit();
-        shop().interactAuthModal().interactAuthFacebookWindow().switchToFirstWindow();
+        shop().interactAuthModal().interactAuthMailWindow().switchToFirstWindow();
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
     }
