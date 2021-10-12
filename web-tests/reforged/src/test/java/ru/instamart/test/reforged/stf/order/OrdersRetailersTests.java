@@ -1,0 +1,59 @@
+package ru.instamart.test.reforged.stf.order;
+
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qase.api.annotation.CaseIDs;
+import io.qase.api.annotation.CaseId;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Test;
+import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.kraken.testdata.Generate;
+import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.reforged.core.data_provider.StoreProvider;
+import ru.instamart.reforged.core.enums.ShopUrl;
+import ru.instamart.test.reforged.BaseTest;
+
+import static ru.instamart.reforged.stf.page.StfRouter.*;
+
+@Epic("STF UI")
+@Feature("Проверка оформления заказов у разных ретейлеров")
+public class OrdersRetailersTests extends BaseTest {
+
+    private final ApiHelper helper = new ApiHelper();
+    private UserData userData;
+
+    @AfterMethod(alwaysRun = true, description = "Отмена ордера")
+    public void afterTest() {
+        helper.cancelAllActiveOrders(userData);
+    }
+
+    @CaseIDs(value = {@CaseId(1627), @CaseId(1628), @CaseId(1631), @CaseId(1629), @CaseId(1630)})
+    @Test(description = "Тестовые заказы в ритейлерах Москвы",
+            groups = "",
+            dataProviderClass = StoreProvider.class,
+            dataProvider = "storeData"
+    )
+    public void successOrderInDifferentRetailers(int storeId, ShopUrl shopUrl) {
+        userData = UserManager.getUser();
+        helper.dropAndFillCart(userData, storeId);
+
+        shop().goToPage(shopUrl);
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        checkout().goToPage();
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+        checkout().setContacts().fillFirstName(Generate.literalString(8));
+        checkout().setContacts().fillLastName(Generate.literalString(8));
+        checkout().setContacts().fillEmail(Generate.email());
+        checkout().setContacts().clickToSubmit();
+        checkout().setReplacementPolicy().clickToSubmit();
+        checkout().setSlot().setFirstActiveSlot();
+        checkout().setPayment().clickToSubmitFromCheckoutColumn();
+
+        userShipments().checkPageContains(userShipments().pageUrl());
+        userShipments().checkStatusShipmentReady();
+    }
+}
