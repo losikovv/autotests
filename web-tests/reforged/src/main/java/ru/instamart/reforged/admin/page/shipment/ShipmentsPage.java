@@ -97,7 +97,7 @@ public final class ShipmentsPage implements AdminPage, ShipmentsCheck {
 
     @Step("Получаем количество страниц пейджера после применения фильтра")
     public String getNumberOfPagesAfterFiltration(final String numberOfShipments) {
-        return String.valueOf((Integer.valueOf(numberOfShipments) + 50 - 1) / 50);
+        return String.valueOf((Integer.parseInt(numberOfShipments) + 50 - 1) / 50);
     }
 
     @Step("Выбрать фильтр только B2B клиенты")

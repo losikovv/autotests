@@ -72,7 +72,7 @@ public interface ShipmentsCheck extends Check, ShipmentsElement {
     default void checkPhoneShipmentsColumn(final String phone) {
         phoneColumn.getElements().forEach(element -> {
             krakenAssert.assertTrue(element.getText().contains(phone),
-                    String.format("В колонке присутствует телефон отличный от примененного фильтра: {}", element.getText()));
+                    String.format("В колонке присутствует телефон отличный от примененного фильтра: %s", element.getText()));
         });
         krakenAssert.assertAll();
     }

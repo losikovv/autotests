@@ -17,6 +17,11 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
         waitAction().shouldBeVisible(shipmentStatusShipmentReady);
     }
 
+    @Step("Проверка введенного промокода на странице статуса заказа")
+    default void checkUserShipmentPromocodeVisible() {
+        waitAction().shouldBeVisible(userShipmentPromocode);
+    }
+
     @Step("Проверка метода оплаты 'Картой онлайн'")
     default void checkPaymentMethodCardOnline() {
         waitAction().shouldBeVisible(paymentMethodCardOnline);

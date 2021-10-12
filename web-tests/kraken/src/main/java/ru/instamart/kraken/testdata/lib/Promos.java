@@ -51,7 +51,7 @@ public class Promos {
     public static PromoData fixedDiscountOnFirstOrder() {
         return new PromoData(
                 "fixedDiscountOnFirstOrder",
-                "autotest-fixed_discount_100_on_first_order",
+                "bernharda719fd30e16e0a709d271d361e",
                 "Скидка 100р на первый заказ"
         );
     }
@@ -78,7 +78,7 @@ public class Promos {
     public static PromoData fixedDiscountForNewUser() {
         return new PromoData(
                 "fixedDiscountForNewUser",
-                "autotest-fixed_discount_100_for_new_user",
+                "newUserAllProductsapmj43",
                 "Скидка 100р на заказ для нового пользователя"
         );
     }
@@ -146,7 +146,7 @@ public class Promos {
             case "metro" :
                 return new PromoData(
                         "fixedDiscountForRetailerMetro",
-                        "autotest-fixed_discount_100_for_retailer_metro",
+                        "metroDiscount100uyvkinqoj9c0",
                         "Скидка 100р на заказы в Метро"
                 );
             case "auchan" :
@@ -228,7 +228,19 @@ public class Promos {
         return null;
     }
 
-    // TODO public static PromoData fixedDiscountForCertainOrder - ATST-229
+    public static PromoData freeDeliveryOnFirstOrder() {
+        return new PromoData(
+                "freeDeliveryOnFirstOrder",
+                "stehr4af4082b799bb494a4785829ac",
+                "Бесплатная доставка первого заказа"
+        );
+    }
 
-    // TODO public static PromoData fixedDiscountForSerialOrder - ATST-229
+    public static PromoData fixedDiscountForSerialOrder() {
+        return new PromoData(
+                "fixedDiscountForSerialOrder",
+                "pfeffercruickshanke5207ed2395fdb3aaf0efeadf8",
+                "Фиксированная скидка на каждый заказ в серии заказов"
+        );
+    }
 }
