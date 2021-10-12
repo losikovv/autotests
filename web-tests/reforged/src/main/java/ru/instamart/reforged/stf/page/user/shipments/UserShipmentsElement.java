@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.page.user.shipments;
 
 import org.openqa.selenium.By;
+import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
@@ -25,8 +26,5 @@ public interface UserShipmentsElement {
     Element paymentMethodCardToCourier = new Element(By.xpath("//span[@data-qa='user-shipment-payment-method' and text()='Картой при получении']"), "метод оплаты в заказе 'Картой курьеру'");
     Element paymentMethodForBusiness = new Element(By.xpath("//span[@data-qa='user-shipment-payment-method' and text()='По счёту для бизнеса']"), "метод оплаты в заказе 'По счёту для бизнеса'");
 
-    Element replacementMethodCallAndReplace = new Element(By.xpath("//span[@data-qa='user-shipment-replacement-policy' and text()='Позвонить мне. Подобрать замену, если не смогу ответить']"), "Политика замен в заказе 'Звонить / заменить'");
-    Element replacementMethodCallAndRemove = new Element(By.xpath("//span[@data-qa='user-shipment-replacement-policy' and text()='Позвонить мне. Убрать из заказа, если не смогу ответить']"), "Политика замен в заказе 'Звонить / убрать'");
-    Element replacementMethodNoCallAndReplace = new Element(By.xpath("//span[@data-qa='user-shipment-replacement-policy' and text()='Не звонить мне. Подобрать замену']"), "Политика замен в заказе 'Не звонить /заменить'");
-    Element replacementMethodNoCallAndRemove = new Element(By.xpath("//span[@data-qa='user-shipment-replacement-policy' and text()='Не звонить мне. Убрать из заказа']"), "Политика замен в заказе 'Не звонить / убрать'");
+    Element replacementPolicy = new Element(ByKraken.xpath("//span[@data-qa='user-shipment-replacement-policy' and text()='%s']"), "Политика замен в заказе");
 }

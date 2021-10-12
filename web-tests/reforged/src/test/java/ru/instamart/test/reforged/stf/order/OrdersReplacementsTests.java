@@ -38,6 +38,7 @@ public class OrdersReplacementsTests extends BaseTest {
     )
     public void successOrderWithCallAndReplacePolicy() {
         var company = UserManager.juridical();
+        final String replacePolicy = "Позвонить мне. Подобрать замену, если не смогу ответить";
 
         ordersUser = UserManager.getUser();
         helper.dropAndFillCart(ordersUser, 1);
@@ -78,7 +79,7 @@ public class OrdersReplacementsTests extends BaseTest {
 
         userShipments().checkStatusShipmentReady();
         userShipments().clickToDetails();
-        userShipments().checkReplacementMethodCallAndReplace();
+        userShipments().checkReplacementMethod(replacePolicy);
     }
 
     @CaseId(1635)
@@ -91,6 +92,7 @@ public class OrdersReplacementsTests extends BaseTest {
     )
     public void successOrderWithCallAndRemovePolicy() {
         var company = UserManager.juridical();
+        final String replacePolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
 
         ordersUser = UserManager.getUser();
         helper.dropAndFillCart(ordersUser, 1);
@@ -119,7 +121,7 @@ public class OrdersReplacementsTests extends BaseTest {
         checkout().setContacts().fillEmail(Generate.email());
         checkout().setContacts().clickToSubmit();
 
-        checkout().setReplacementPolicy().clickToPolicy("Позвонить мне. Убрать из заказа, если не смогу ответить");
+        checkout().setReplacementPolicy().clickToPolicy(replacePolicy);
         checkout().setReplacementPolicy().clickToSubmit();
 
         checkout().setSlot().setFirstActiveSlot();
@@ -132,10 +134,9 @@ public class OrdersReplacementsTests extends BaseTest {
 
         userShipments().checkStatusShipmentReady();
         userShipments().clickToDetails();
-        userShipments().checkReplacementMethodCallAndRemove();
+        userShipments().checkReplacementMethod(replacePolicy);
     }
 
-    //
     @CaseId(1636)
     @Story("Тест заказа с политикой Не звонить / Заменять")
     @Test(description = "Тест заказа с политикой Не звонить / Заменять",
@@ -146,6 +147,7 @@ public class OrdersReplacementsTests extends BaseTest {
     )
     public void successOrderWithReplacePolicy() {
         var company = UserManager.juridical();
+        final String replacePolicy = "Не звонить мне. Подобрать замену";
 
         ordersUser = UserManager.getUser();
         helper.dropAndFillCart(ordersUser, 1);
@@ -174,7 +176,7 @@ public class OrdersReplacementsTests extends BaseTest {
         checkout().setContacts().fillEmail(Generate.email());
         checkout().setContacts().clickToSubmit();
 
-        checkout().setReplacementPolicy().clickToPolicy("Не звонить мне. Подобрать замену");
+        checkout().setReplacementPolicy().clickToPolicy(replacePolicy);
         checkout().setReplacementPolicy().clickToSubmit();
 
         checkout().setSlot().setFirstActiveSlot();
@@ -187,7 +189,7 @@ public class OrdersReplacementsTests extends BaseTest {
 
         userShipments().checkStatusShipmentReady();
         userShipments().clickToDetails();
-        userShipments().checkReplacementMethodNoCallAndReplace();
+        userShipments().checkReplacementMethod(replacePolicy);
     }
 
     @CaseId(1637)
@@ -200,6 +202,7 @@ public class OrdersReplacementsTests extends BaseTest {
     )
     public void successOrderWithRemovePolicy() {
         var company = UserManager.juridical();
+        final String replacePolicy = "Не звонить мне. Убрать из заказа";
 
         ordersUser = UserManager.getUser();
         helper.dropAndFillCart(ordersUser, 1);
@@ -228,7 +231,7 @@ public class OrdersReplacementsTests extends BaseTest {
         checkout().setContacts().fillEmail(Generate.email());
         checkout().setContacts().clickToSubmit();
 
-        checkout().setReplacementPolicy().clickToPolicy("Не звонить мне. Убрать из заказа");
+        checkout().setReplacementPolicy().clickToPolicy(replacePolicy);
         checkout().setReplacementPolicy().clickToSubmit();
 
         checkout().setSlot().setFirstActiveSlot();
@@ -241,7 +244,7 @@ public class OrdersReplacementsTests extends BaseTest {
 
         userShipments().checkStatusShipmentReady();
         userShipments().clickToDetails();
-        userShipments().checkReplacementMethodNoCallAndRemove();
+        userShipments().checkReplacementMethod(replacePolicy);
     }
 
 }
