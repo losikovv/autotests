@@ -11,13 +11,11 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.util.TimeUtil;
 import ru.instamart.reforged.admin.page.usersEdit.UsersEditPage;
 import ru.instamart.test.reforged.BaseTest;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
@@ -72,19 +70,15 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void validateFilterDateAndTimeAdminShipmentsPage() {
-        final DateTimeFormatter dt = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        final DateTimeFormatter dtd = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        final String deliveryDateFrom = dt.format(LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT));
-        final String deliveryDateTo = dt.format(LocalDateTime.of(LocalDate.now(), LocalTime.MAX));
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
         shipments().goToPage();
         shipments().checkPageTitle();
-        shipments().setDateAndTimeFilterFromTableDefault(deliveryDateFrom);
-        shipments().setDateAndTimeFilterToTableDefault(deliveryDateTo);
+        shipments().setDateAndTimeFilterFromTableDefault(TimeUtil.getDeliveryDateFrom());
+        shipments().setDateAndTimeFilterToTableDefault(TimeUtil.getDeliveryDateTo());
         shipments().search();
-        shipments().checkDateAndTimeShipmentsColumn(dtd.format(LocalDateTime.now()));
+        shipments().checkDateAndTimeShipmentsColumn(TimeUtil.getDateWithoutTime());
     }
 
     @CaseId(173)
@@ -115,11 +109,11 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().goToPage();
         shipments().checkPageTitle();
         String phone = shipments().getFirstPhoneFromTable();
-        String deliveryDate = shipments().getFirstDeliveryDateFromTable();
-        shipments().setPhoneAndDateFilterDefault(phone, deliveryDate);
+        shipments().setPhoneAndDateFilterDefault(phone, TimeUtil.getDeliveryDateFrom());
+        shipments().setDateAndTimeFilterToTableDefault(TimeUtil.getDeliveryDateTo());
         shipments().search();
         shipments().checkPhoneShipmentsColumn(phone);
-        shipments().checkDateAndTimeShipmentsColumn(deliveryDate);
+        shipments().checkDateAndTimeShipmentsColumn(TimeUtil.getDateWithoutTime());
     }
 
     @CaseId(1224)
@@ -154,8 +148,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().goToPage();
         shipments().checkPageTitle();
         String shipmentsBeforeFiltration = shipments().getNumberOfShipments();
-        String phone = shipments().getFirstPhoneFromTable();
-        shipments().setPhoneFilterFromTableDefault(phone);
+        shipments().setPhoneFilterFromTableDefault("79268202951");
         shipments().search();
         String shipmentsAfterFiltration = shipments().getNumberOfShipments();
         String pages = shipments().getNumberOfPagesAfterFiltration(shipmentsAfterFiltration);
@@ -234,8 +227,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     }
 
     @Story("Тест поиска B2B заказа после снятия признака B2B")
-    @Test(description = "Тест поиска B2B заказа после снятия признака B2B",
-            groups = {""}
+    @Test(description = "Тест поиска B2B заказа после снятия признака B2B"
     )
     public void successSearchB2BOrderAfterRevokeB2BRole() {
         final UserData userData = UserManager.forB2BUser();
