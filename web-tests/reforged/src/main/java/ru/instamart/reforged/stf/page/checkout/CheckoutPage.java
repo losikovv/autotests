@@ -6,6 +6,7 @@ import ru.instamart.reforged.stf.frame.checkout.subsections.*;
 import ru.instamart.reforged.stf.frame.checkout.subsections.create_company.AddCompany;
 import ru.instamart.reforged.stf.frame.checkout.subsections.loyaltycard_modal.EditLoyaltyCard;
 import ru.instamart.reforged.stf.frame.checkout.subsections.promocode_modal.EditPromoCode;
+import ru.instamart.reforged.stf.frame.checkout.subsections.retailer_card.EditRetailerCard;
 import ru.instamart.reforged.stf.page.StfPage;
 import ru.instamart.reforged.stf.page.checkout.fifthStep.SlotStep;
 import ru.instamart.reforged.stf.page.checkout.fifthStep.edit_company.EditCompany;
@@ -61,7 +62,11 @@ public final class CheckoutPage implements StfPage, CheckoutCheck {
     }
 
     public EditLoyaltyCard interactEditLoyaltyCardModal() {
-        return EDIT_LOYALTY_CARD_MODAL;
+        return editLoyaltyCardModal;
+    }
+
+    public EditRetailerCard interactEditRetailerCardModal() {
+        return editRetailerCardModal;
     }
 
     public HelpDesk interactHelpDesk() {
@@ -86,6 +91,11 @@ public final class CheckoutPage implements StfPage, CheckoutCheck {
     @Step("Нажать добавить карту лояльности {0}")
     public void clickToAddLoyaltyCard(final String data) {
         addLoyaltyCard.clickOnElementWithText(data);
+    }
+
+    @Step("Нажать добавить карту ретейлера {0}")
+    public void clickToAddRetailerCard() {
+        addRetailerCard.click();
     }
 
     @Step("Нажать выбрать карту лояльности {0}")

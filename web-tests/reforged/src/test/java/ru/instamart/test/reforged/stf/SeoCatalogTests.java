@@ -6,6 +6,7 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.lib.Addresses;
@@ -79,7 +80,7 @@ public final class SeoCatalogTests extends BaseTest {
         seo().interactHeader().checkProfileButtonVisible();
     }
 
-    @Run(onServer = "production")
+    @Run(onServer = Server.PRODUCTION)
     @CaseId(1582)
     @Test(  description = "Добавление товара в корзину из SEO-каталога",
             groups = {"sbermarket-regression"}

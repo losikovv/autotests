@@ -12,6 +12,7 @@ import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.helper.RegistrationHelper;
 import ru.instamart.api.model.v2.StoreV2;
 import ru.instamart.api.model.v2.ZoneV2;
+import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
@@ -42,7 +43,7 @@ public class ZoneE2ETests extends RestBase {
         apiV2.cancelCurrentOrder();
     }
 
-    @Run(onServer = "production")
+    @Run(onServer = Server.PRODUCTION)
     @AfterMethod(description = "Отмена активных заказов",
                  alwaysRun = true)
     public void cancelActiveOrders() {
