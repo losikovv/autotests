@@ -84,6 +84,10 @@ public final class ApiV2EndPoints {
         public static final String BY_ID = "v2/line_items/{productId}";
     }
 
+    public static final class Onboarding{
+        public static final String ONBOARDING_V2_PAGES = "v2/onboarding/v2_pages";
+    }
+
     public static final class Orders {
         public static final String BY_NUMBER = "v2/orders/{orderNumber}";
         public static final String CANCELLATIONS = "v2/orders/{orderNumber}/cancellations?reason={reason}";
