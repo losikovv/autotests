@@ -44,9 +44,7 @@ public class GetOrderV3Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             dataProvider = "goods",
             dataProviderClass = ApiV3DataProvider.class,
-            description = "Показать заказ по uuid доставке Goods",
-            enabled = false)
-
+            description = "Показать заказ по uuid доставке Goods")
     public void getOrder(ApiV3TestData testData) {
         order = apiV3.createOrderDelivery(testData);
         Response response = OrderV3Request.GET(order.getId(), testData.getClientToken());
