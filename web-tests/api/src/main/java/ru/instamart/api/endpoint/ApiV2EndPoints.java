@@ -14,6 +14,7 @@ public final class ApiV2EndPoints {
     public static final String CREDIT_CARDS = "v2/credit_cards";
     public static final String DEEPLINKS = "v2/deeplinks";
     public static final String DEPARTMENTS = "v2/departments?sid={sid}&offers_limit={numberOfProductsFromEachDepartment}";
+    public static final String FEATURE_FLAGS = "v2/feature_flags";
     public static final String LEGAL_ENTITY = "v2/legal_entity";
     public static final String LINE_ITEMS = "v2/line_items";
     public static final String ONBOARDING_PAGES = "v2/onboarding_pages";
