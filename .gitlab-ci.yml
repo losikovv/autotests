@@ -350,7 +350,30 @@ tests:product:hub:
   artifacts:
     when: always
     paths:
-      - web-tests/grp/build/allure-results/
+      - web-tests/grpc/build/allure-results/
+      - web-tests/grpc/logs/
+      - web-tests/grpc/build/reports/tests/
+    expire_in: 1 week
+  allow_failure: false
+
+tests:salut:token:
+  resource_group: testSalutToken
+  only:
+    variables:
+      - $GRPC_SALUT_TOKEN_ALONE == 'true' && $CI_RUN_ALL_JOBS == 'false'
+  stage: tests-api
+  image: $CI_REGISTRY_IMAGE
+  script:
+    - gradle clean build grpcSalutToken -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - cd web-tests
+    - bash ./report.sh grpc grpc-salut-token
+  tags:
+    - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/grpc/build/allure-results/
       - web-tests/grpc/logs/
       - web-tests/grpc/build/reports/tests/
     expire_in: 1 week
