@@ -11,7 +11,4 @@ public interface AddCompanyElement {
     Button submit = new Button(By.xpath("//button[@data-qa='create_company_form_submit_button']"), "кнопка сабмита формы");
     Input name = new Input(By.xpath("//input[@name='name']"), "поле для ввода имени компании");
     Button okButton = new Button(By.xpath("//button[@data-qa='create_company_ok_button']"), "подтверждение имени компании");
-
-    Element addCompanyModal = new Element((By.xpath("//div[@data-qa='address-modal']")), "Модальное окно добавления компании");
-
 }
