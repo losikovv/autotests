@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.page.user.shipments;
 
 import org.openqa.selenium.By;
+import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
@@ -17,6 +18,7 @@ public interface UserShipmentsElement {
     Button cancelOrderFromOrderPage = new Button(By.xpath("//button[@qakey='user-shipment-cancel']"), "кнопка 'Отменить заказ'");
     ElementCollection shipments = new ElementCollection(By.xpath("//a[@data-qa='user-shipment-list-shipment']"), "список заказов");
 
+    Element orderDetailsTrigger = new Element(By.xpath("//div[@data-qa='user-shipment-summary-trigger']"), "Кнопка разворачивания деталей заказа");
     Element shipmentStatusCancel = new Element(By.xpath("//div[@data-qa='user-shipment-status']//div[text()='Ваш заказ отменен']"), "статус заказа 'Ваш заказ отменен'");
     Element shipmentStatusShipmentReady = new Element(By.xpath("//div[@data-qa='user-shipment-status' and @id='shipment-ready']"), "статус заказа 'Готово к отправке'");
     Element userShipmentPromocode = new Element(By.xpath("//div[@data-qa='user-shipment-promocode']"), "промокод на странице статуса заказа");
@@ -24,4 +26,5 @@ public interface UserShipmentsElement {
     Element paymentMethodCardToCourier = new Element(By.xpath("//span[@data-qa='user-shipment-payment-method' and text()='Картой при получении']"), "метод оплаты в заказе 'Картой курьеру'");
     Element paymentMethodForBusiness = new Element(By.xpath("//span[@data-qa='user-shipment-payment-method' and text()='По счёту для бизнеса']"), "метод оплаты в заказе 'По счёту для бизнеса'");
 
+    Element replacementPolicy = new Element(ByKraken.xpath("//span[@data-qa='user-shipment-replacement-policy' and text()='%s']"), "Политика замен в заказе");
 }

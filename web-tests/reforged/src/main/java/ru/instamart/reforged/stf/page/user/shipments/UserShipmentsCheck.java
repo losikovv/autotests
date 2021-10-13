@@ -37,4 +37,8 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
         waitAction().shouldBeVisible(paymentMethodForBusiness);
     }
 
+    @Step("Проверка метода политики замен {0}")
+    default void checkReplacementMethod(final String data) {
+        waitAction().shouldBeVisible(replacementPolicy, data);
+    }
 }

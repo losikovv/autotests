@@ -17,8 +17,6 @@ import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.data_provider.BonusProvider;
 import ru.instamart.test.reforged.BaseTest;
 
-import static ru.instamart.kraken.testdata.BonusPrograms.aeroflot;
-import static ru.instamart.kraken.testdata.BonusPrograms.mnogoru;
 import static ru.instamart.reforged.stf.page.StfRouter.checkout;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
