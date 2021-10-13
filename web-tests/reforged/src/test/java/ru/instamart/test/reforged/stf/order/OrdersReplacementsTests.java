@@ -6,15 +6,14 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseIDs;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.pagesdata.ReplacementPolicyData;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
-import ru.instamart.reforged.core.data_provider.ReplacementPolicyProvider;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
@@ -26,6 +25,16 @@ public class OrdersReplacementsTests extends BaseTest {
     private final ApiHelper helper = new ApiHelper();
     private UserData ordersUser;
 
+    @DataProvider(name = "replacementPolicy")
+    public static Object[][] getReplacementPolicyName() {
+        return new Object[][]{
+                {"Позвонить мне. Подобрать замену, если не смогу ответить"},
+                {"Позвонить мне. Убрать из заказа, если не смогу ответить"},
+                {"Не звонить мне. Подобрать замену"},
+                {"Не звонить мне. Убрать из заказа"}
+        };
+    }
+
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
         helper.cancelAllActiveOrders(ordersUser);
@@ -36,9 +45,9 @@ public class OrdersReplacementsTests extends BaseTest {
     @Test(description = "Тест заказа с политикой Звонить / Заменять",
             groups = {"metro-acceptance", "metro-regression",
                     "sbermarket-acceptance", "sbermarket-regression"},
-                    dataProviderClass = ReplacementPolicyProvider.class, dataProvider = "replacementPolicy"
+                     dataProvider = "replacementPolicy"
     )
-    public void successOrderWithReplacementPolicy(final ReplacementPolicyData replacementPolicyData) {
+    public void successOrderWithReplacementPolicy(final String replacementPolicy) {
         var company = UserManager.juridical();
 
         ordersUser = UserManager.getUser();
@@ -61,7 +70,7 @@ public class OrdersReplacementsTests extends BaseTest {
         checkout().setContacts().fillEmail(Generate.email());
         checkout().setContacts().clickToSubmit();
 
-        checkout().setReplacementPolicy().clickToPolicy(replacementPolicyData.getInstruction());
+        checkout().setReplacementPolicy().clickToPolicy(replacementPolicy);
         checkout().setReplacementPolicy().clickToSubmit();
 
         checkout().setSlot().setFirstActiveSlot();
@@ -74,6 +83,6 @@ public class OrdersReplacementsTests extends BaseTest {
 
         userShipments().checkStatusShipmentReady();
         userShipments().clickToDetails();
-        userShipments().checkReplacementMethod(replacementPolicyData.getInstruction());
+        userShipments().checkReplacementMethod(replacementPolicy);
     }
 }
