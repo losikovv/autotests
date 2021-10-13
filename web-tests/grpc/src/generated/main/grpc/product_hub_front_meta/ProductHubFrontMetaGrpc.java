@@ -6,7 +6,7 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.40.0)",
-    comments = "Source: product-hub-front-meta.proto")
+    comments = "Source: content/product_hub/product-hub-front-meta.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class ProductHubFrontMetaGrpc {
 
@@ -263,6 +263,37 @@ public final class ProductHubFrontMetaGrpc {
     return getGetAllDictionaryValuesMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse> getGetRetailerStoresMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetRetailerStores",
+      requestType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest.class,
+      responseType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse> getGetRetailerStoresMethod() {
+    io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse> getGetRetailerStoresMethod;
+    if ((getGetRetailerStoresMethod = ProductHubFrontMetaGrpc.getGetRetailerStoresMethod) == null) {
+      synchronized (ProductHubFrontMetaGrpc.class) {
+        if ((getGetRetailerStoresMethod = ProductHubFrontMetaGrpc.getGetRetailerStoresMethod) == null) {
+          ProductHubFrontMetaGrpc.getGetRetailerStoresMethod = getGetRetailerStoresMethod =
+              io.grpc.MethodDescriptor.<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetRetailerStores"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubFrontMetaMethodDescriptorSupplier("GetRetailerStores"))
+              .build();
+        }
+      }
+    }
+    return getGetRetailerStoresMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -367,6 +398,13 @@ public final class ProductHubFrontMetaGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetAllDictionaryValuesMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void getRetailerStores(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetRetailerStoresMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -425,6 +463,13 @@ public final class ProductHubFrontMetaGrpc {
                 product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesRequest,
                 product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesResponse>(
                   this, METHODID_GET_ALL_DICTIONARY_VALUES)))
+          .addMethod(
+            getGetRetailerStoresMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest,
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse>(
+                  this, METHODID_GET_RETAILER_STORES)))
           .build();
     }
   }
@@ -506,6 +551,14 @@ public final class ProductHubFrontMetaGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetAllDictionaryValuesMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void getRetailerStores(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetRetailerStoresMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -576,6 +629,13 @@ public final class ProductHubFrontMetaGrpc {
     public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesResponse getAllDictionaryValues(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetAllDictionaryValuesMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse getRetailerStores(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetRetailerStoresMethod(), getCallOptions(), request);
     }
   }
 
@@ -656,6 +716,14 @@ public final class ProductHubFrontMetaGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetAllDictionaryValuesMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse> getRetailerStores(
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetRetailerStoresMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GET_ALL_CATEGORIES = 0;
@@ -666,6 +734,7 @@ public final class ProductHubFrontMetaGrpc {
   private static final int METHODID_GET_ALL_ATTRIBUTES = 5;
   private static final int METHODID_GET_ALL_DICTIONARIES = 6;
   private static final int METHODID_GET_ALL_DICTIONARY_VALUES = 7;
+  private static final int METHODID_GET_RETAILER_STORES = 8;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -715,6 +784,10 @@ public final class ProductHubFrontMetaGrpc {
         case METHODID_GET_ALL_DICTIONARY_VALUES:
           serviceImpl.getAllDictionaryValues((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesRequest) request,
               (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesResponse>) responseObserver);
+          break;
+        case METHODID_GET_RETAILER_STORES:
+          serviceImpl.getRetailerStores((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -785,6 +858,7 @@ public final class ProductHubFrontMetaGrpc {
               .addMethod(getGetAllAttributesMethod())
               .addMethod(getGetAllDictionariesMethod())
               .addMethod(getGetAllDictionaryValuesMethod())
+              .addMethod(getGetRetailerStoresMethod())
               .build();
         }
       }

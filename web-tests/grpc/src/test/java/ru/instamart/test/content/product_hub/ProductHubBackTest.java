@@ -1,4 +1,4 @@
-package ru.instamart.test.product.hub;
+package ru.instamart.test.content.product_hub;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;

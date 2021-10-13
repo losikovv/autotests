@@ -1,4 +1,4 @@
-package ru.instamart.test.product.filter;
+package ru.instamart.test.content.product_filter;
 
 import io.qameta.allure.Epic;
 import lombok.extern.slf4j.Slf4j;

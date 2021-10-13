@@ -13,6 +13,7 @@ service ProductHubBack {
 	rpc SaveAttributes(SaveAttributesRequest) returns (SaveAttributesResponse);
 	rpc SaveDictionaries(SaveDictionariesRequest) returns (SaveDictionariesResponse);
 	rpc SaveCategoryFilters(SaveCategoryFiltersRequest) returns (SaveCategoryFiltersResponse);
+	rpc SaveRetailerStores(SaveRetailerStoresRequest) returns (SaveRetailerStoresResponse);
 }
 
 // SaveProducts
@@ -87,6 +88,14 @@ message SaveCategoryFiltersResponse {
 	int64 save_category_filters_count = 1;
 }
 
+message SaveRetailerStoresResponse {
+	int64 retailer_count = 1;
+	int64 store_count = 2;
+}
+
+message SaveRetailerStoresRequest {
+	repeated RetailerStores retailer_stores = 1;
+}
 
 enum Status {
 	DISABLE = 0;
@@ -201,4 +210,9 @@ message Price {
 message CategoryFilters {
 	string category_id = 1;
 	repeated string attribute_keys = 2;
+}
+
+message RetailerStores {
+	string retailer_id = 1;
+	repeated string store_ids = 2;
 }

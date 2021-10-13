@@ -13,6 +13,7 @@ service ProductHubFrontMeta {
   rpc GetAllAttributes(GetAllAttributesRequest) returns (GetAllAttributesResponse);
   rpc GetAllDictionaries(GetAllDictionariesRequest) returns (GetAllDictionariesResponse);
   rpc GetAllDictionaryValues(GetAllDictionaryValuesRequest) returns (GetAllDictionaryValuesResponse);
+  rpc GetRetailerStores(GetRetailerStoresRequest) returns (GetRetailerStoresResponse);
 }
 
 message GetAllCategoriesRequest{
@@ -83,6 +84,14 @@ message GetAllDictionaryValuesRequest {
 
 message GetAllDictionaryValuesResponse {
   repeated DictionaryValue dictionary_values = 1;
+}
+
+message GetRetailerStoresRequest {
+  repeated string retailer_ids = 1;
+}
+
+message GetRetailerStoresResponse {
+  repeated RetailerStores retailer_stores = 1;
 }
 
 enum ValueType {
@@ -158,13 +167,16 @@ message Dictionary {
 }
 
 message DictionaryValue {
-  message AdditionalDictionaryValue {
-    string dictionary_key = 1;
-    string dictionary_value_id = 2;
-  }
   string id = 1;
   string value = 2;
   repeated Data value_data = 3;
   string updated_at = 4;
   repeated AdditionalDictionaryValue additional_dictionary_values = 5;
+}
+
+message AdditionalDictionaryValue {
+  string id = 1;
+  string dictionary_key = 2;
+  string value = 3;
+  repeated Data value_data = 4;
 }

@@ -11,8 +11,8 @@ public final class GrpcListener implements ITestListener, ISuiteListener {
     private final QaseService qaseService;
 
     public GrpcListener() {
-        String projectId = System.getProperty("qase.Project", "INAPI");
-        String testRunName = System.getProperty("qase.Title", "API Test Run");
+        String projectId = System.getProperty("qase.Project", "PHUB");
+        String testRunName = System.getProperty("qase.Title", "gRPC Test Run");
         this.qaseService = new QaseService(projectId, testRunName);
     }
 
