@@ -51,14 +51,7 @@ public class OrdersReplacementsTests extends BaseTest {
         shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
-        checkout().setDeliveryOptions().clickToForBusiness();
-        checkout().setDeliveryOptions().clickToAddCompany();
-
-        checkout().interactAddCompanyModal().fillInn(company.getInn());
-        checkout().interactAddCompanyModal().clickToSubmit();
-        checkout().interactAddCompanyModal().fillName(company.getJuridicalName());
-        checkout().interactAddCompanyModal().clickToSubmit();
-        checkout().interactAddCompanyModal().clickToOkButton();
+        checkout().setDeliveryOptions().clickToForSelf();
 
         checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
