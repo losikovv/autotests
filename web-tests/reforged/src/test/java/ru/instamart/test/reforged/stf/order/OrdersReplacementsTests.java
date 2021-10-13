@@ -3,6 +3,7 @@ package ru.instamart.test.reforged.stf.order;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qase.api.annotation.CaseIDs;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -10,8 +11,10 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.testdata.Generate;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.testdata.pagesdata.ReplacementPolicyData;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
+import ru.instamart.reforged.core.data_provider.ReplacementPolicyProvider;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
@@ -28,17 +31,15 @@ public class OrdersReplacementsTests extends BaseTest {
         helper.cancelAllActiveOrders(ordersUser);
     }
 
-    @CaseId(1634)
+    @CaseIDs(value = {@CaseId(1634), @CaseId(1635), @CaseId(1636), @CaseId(1637)})
     @Story("Тест заказа с политикой Звонить / Заменять")
     @Test(description = "Тест заказа с политикой Звонить / Заменять",
-            groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance", "sbermarket-regression"
-            }
+            groups = {"metro-acceptance", "metro-regression",
+                    "sbermarket-acceptance", "sbermarket-regression"},
+                    dataProviderClass = ReplacementPolicyProvider.class, dataProvider = "replacementPolicy"
     )
-    public void successOrderWithCallAndReplacePolicy() {
+    public void successOrderWithReplacementPolicy(final ReplacementPolicyData replacementPolicyData) {
         var company = UserManager.juridical();
-        final String replacePolicy = "Позвонить мне. Подобрать замену, если не смогу ответить";
 
         ordersUser = UserManager.getUser();
         helper.dropAndFillCart(ordersUser, 1);
@@ -67,6 +68,7 @@ public class OrdersReplacementsTests extends BaseTest {
         checkout().setContacts().fillEmail(Generate.email());
         checkout().setContacts().clickToSubmit();
 
+        checkout().setReplacementPolicy().clickToPolicy(replacementPolicyData.getInstruction());
         checkout().setReplacementPolicy().clickToSubmit();
 
         checkout().setSlot().setFirstActiveSlot();
@@ -79,172 +81,6 @@ public class OrdersReplacementsTests extends BaseTest {
 
         userShipments().checkStatusShipmentReady();
         userShipments().clickToDetails();
-        userShipments().checkReplacementMethod(replacePolicy);
+        userShipments().checkReplacementMethod(replacementPolicyData.getInstruction());
     }
-
-    @CaseId(1635)
-    @Story("Тест заказа с политикой Звонить / Убирать")
-    @Test(description = "Тест заказа с политикой Звонить / Убирать",
-            groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance", "sbermarket-regression"
-            }
-    )
-    public void successOrderWithCallAndRemovePolicy() {
-        var company = UserManager.juridical();
-        final String replacePolicy = "Позвонить мне. Убрать из заказа, если не смогу ответить";
-
-        ordersUser = UserManager.getUser();
-        helper.dropAndFillCart(ordersUser, 1);
-
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser);
-        shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
-
-        checkout().goToPage();
-        checkout().setDeliveryOptions().clickToForBusiness();
-        checkout().setDeliveryOptions().clickToAddCompany();
-
-        checkout().interactAddCompanyModal().fillInn(company.getInn());
-        checkout().interactAddCompanyModal().clickToSubmit();
-        checkout().interactAddCompanyModal().fillName(company.getJuridicalName());
-        checkout().interactAddCompanyModal().clickToSubmit();
-        checkout().interactAddCompanyModal().clickToOkButton();
-
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
-        checkout().setDeliveryOptions().clickToSubmitForDelivery();
-
-        checkout().setContacts().fillFirstName(Generate.literalString(8));
-        checkout().setContacts().fillLastName(Generate.literalString(8));
-        checkout().setContacts().fillEmail(Generate.email());
-        checkout().setContacts().clickToSubmit();
-
-        checkout().setReplacementPolicy().clickToPolicy(replacePolicy);
-        checkout().setReplacementPolicy().clickToSubmit();
-
-        checkout().setSlot().setFirstActiveSlot();
-
-        checkout().setPayment().clickToByCardToCourier();
-
-        checkout().setPayment().clickToSubmitFromCheckoutColumn();
-
-        userShipments().checkPageContains(userShipments().pageUrl());
-
-        userShipments().checkStatusShipmentReady();
-        userShipments().clickToDetails();
-        userShipments().checkReplacementMethod(replacePolicy);
-    }
-
-    @CaseId(1636)
-    @Story("Тест заказа с политикой Не звонить / Заменять")
-    @Test(description = "Тест заказа с политикой Не звонить / Заменять",
-            groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance", "sbermarket-regression"
-            }
-    )
-    public void successOrderWithReplacePolicy() {
-        var company = UserManager.juridical();
-        final String replacePolicy = "Не звонить мне. Подобрать замену";
-
-        ordersUser = UserManager.getUser();
-        helper.dropAndFillCart(ordersUser, 1);
-
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser);
-        shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
-
-        checkout().goToPage();
-        checkout().setDeliveryOptions().clickToForBusiness();
-        checkout().setDeliveryOptions().clickToAddCompany();
-
-        checkout().interactAddCompanyModal().fillInn(company.getInn());
-        checkout().interactAddCompanyModal().clickToSubmit();
-        checkout().interactAddCompanyModal().fillName(company.getJuridicalName());
-        checkout().interactAddCompanyModal().clickToSubmit();
-        checkout().interactAddCompanyModal().clickToOkButton();
-
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
-        checkout().setDeliveryOptions().clickToSubmitForDelivery();
-
-        checkout().setContacts().fillFirstName(Generate.literalString(8));
-        checkout().setContacts().fillLastName(Generate.literalString(8));
-        checkout().setContacts().fillEmail(Generate.email());
-        checkout().setContacts().clickToSubmit();
-
-        checkout().setReplacementPolicy().clickToPolicy(replacePolicy);
-        checkout().setReplacementPolicy().clickToSubmit();
-
-        checkout().setSlot().setFirstActiveSlot();
-
-        checkout().setPayment().clickToByCardToCourier();
-
-        checkout().setPayment().clickToSubmitFromCheckoutColumn();
-
-        userShipments().checkPageContains(userShipments().pageUrl());
-
-        userShipments().checkStatusShipmentReady();
-        userShipments().clickToDetails();
-        userShipments().checkReplacementMethod(replacePolicy);
-    }
-
-    @CaseId(1637)
-    @Story("Тест заказа с политикой Не звонить / Убирать")
-    @Test(description = "Тест заказа с политикой Не звонить / Убирать",
-            groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance", "sbermarket-regression"
-            }
-    )
-    public void successOrderWithRemovePolicy() {
-        var company = UserManager.juridical();
-        final String replacePolicy = "Не звонить мне. Убрать из заказа";
-
-        ordersUser = UserManager.getUser();
-        helper.dropAndFillCart(ordersUser, 1);
-
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(ordersUser);
-        shop().interactHeader().checkProfileButtonVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
-
-        checkout().goToPage();
-        checkout().setDeliveryOptions().clickToForBusiness();
-        checkout().setDeliveryOptions().clickToAddCompany();
-
-        checkout().interactAddCompanyModal().fillInn(company.getInn());
-        checkout().interactAddCompanyModal().clickToSubmit();
-        checkout().interactAddCompanyModal().fillName(company.getJuridicalName());
-        checkout().interactAddCompanyModal().clickToSubmit();
-        checkout().interactAddCompanyModal().clickToOkButton();
-
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
-        checkout().setDeliveryOptions().clickToSubmitForDelivery();
-
-        checkout().setContacts().fillFirstName(Generate.literalString(8));
-        checkout().setContacts().fillLastName(Generate.literalString(8));
-        checkout().setContacts().fillEmail(Generate.email());
-        checkout().setContacts().clickToSubmit();
-
-        checkout().setReplacementPolicy().clickToPolicy(replacePolicy);
-        checkout().setReplacementPolicy().clickToSubmit();
-
-        checkout().setSlot().setFirstActiveSlot();
-
-        checkout().setPayment().clickToByCardToCourier();
-
-        checkout().setPayment().clickToSubmitFromCheckoutColumn();
-
-        userShipments().checkPageContains(userShipments().pageUrl());
-
-        userShipments().checkStatusShipmentReady();
-        userShipments().clickToDetails();
-        userShipments().checkReplacementMethod(replacePolicy);
-    }
-
 }
