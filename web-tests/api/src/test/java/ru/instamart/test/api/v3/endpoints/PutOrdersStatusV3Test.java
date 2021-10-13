@@ -44,8 +44,7 @@ public class PutOrdersStatusV3Test extends RestBase {
     @Test(groups = {"api-instamart-smoke"},
             dataProvider = "goods",
             dataProviderClass = ApiV3DataProvider.class,
-            description = "Отмена заказа доставки Goods",
-            enabled = false)
+            description = "Отмена заказа доставки Goods")
     public void cancelOrderDelivery(ApiV3TestData testData) {
         order = apiV3.createOrderDelivery(testData);
         Response response = OrderV3Request.Cancel.PUT(order.getId(), testData.getClientToken());
@@ -59,7 +58,6 @@ public class PutOrdersStatusV3Test extends RestBase {
             dataProvider = "metro_marketplace",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Отмена заказа самовывоза Metro_Marketplace")
-
     public void cancelOrderPickupFromStore(ApiV3TestData testData) {
         order = apiV3.createOrderPickupFromStore(testData);
         Response response = OrderV3Request.Cancel.PUT(order.getId(), testData.getClientToken());
