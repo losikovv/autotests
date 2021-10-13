@@ -344,15 +344,15 @@ tests:product:hub:
     - gradle clean build grpcProductHub -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - cd web-tests
-    - bash ./report.sh api grpc-product-hub
+    - bash ./report.sh grpc grpc-product-hub
   tags:
     - k8s-stage
   artifacts:
     when: always
     paths:
-      - web-tests/api/build/allure-results/
-      - web-tests/api/logs/
-      - web-tests/api/build/reports/tests/
+      - web-tests/grp/build/allure-results/
+      - web-tests/grpc/logs/
+      - web-tests/grpc/build/reports/tests/
     expire_in: 1 week
   allow_failure: false
 
