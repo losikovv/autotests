@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package navigation;
+
+option go_package = "gitlab.sbermarket.tech/paas/content/catalog/pkg/server/grpc/navigation";
+
+service NavigationService {
+	rpc GetMenuTree(GetMenuTreeRequest) returns (GetMenuTreeResponse);
+	rpc GetCategoryTrees(GetCategoryTreesRequest) returns (GetCategoryTreesResponse);
+	rpc GetBreadcrumbsByCategoryID(GetBreadcrumbsByCategoryIDRequest) returns(GetBreadcrumbsByCategoryIDResponse);
+	rpc FlushCategoryFacetsCache(Empty) returns (Empty);
+	rpc UpdateCategories(Empty) returns (Empty);
+}
+
+// GetBreadcrumbsByCategoryID
+message GetBreadcrumbsByCategoryIDRequest {
+	string category_id = 1;
+}
+
+message GetBreadcrumbsByCategoryIDResponse {
+	repeated BreadCrumb breadcrumbs = 1;
+}
+
+message BreadCrumb {
+	string id = 1;
+	string name = 2;
+	string permalink = 3;
+}
+
+// GetMenuTree
+message GetMenuTreeRequest {
+	string store_id = 1;
+	string tenant_id = 2;
+	int64 tree_depth = 3;
+	repeated string category_data_keys = 4;
+}
+
+message GetMenuTreeResponse{
+	repeated MenuCategory categories = 1;
+}
+
+message MenuCategory{
+	string id = 1;
+	string name = 2;
+	int64 product_count = 3;
+	repeated Data category_data = 4;
+	repeated MenuCategory children = 5;
+}
+
+// GetCategoryTrees
+message GetCategoryTreesRequest{
+	string category_id = 1;
+}
+
+message GetCategoryTreesResponse{
+	repeated Category categories = 1;
+}
+
+message Category{
+	string id = 1;
+	string name = 2;
+	string discount_copy_root_id = 3;
+	Status status = 4;
+	repeated Category children = 5;
+}
+
+enum Status {
+	DISABLE = 0;
+	ENABLE = 1;
+}
+
+enum ValueType {
+	STRING = 0;
+	INTEGER = 1;
+	DOUBLE = 2;
+	BOOL = 3;
+	DATETIME = 4;
+	IMAGE = 5;
+}
+
+message Data {
+	string key = 1;
+	ValueType type = 2;
+	bool is_multi_value = 3;
+	repeated string values = 4;
+}
+
+message Empty{}

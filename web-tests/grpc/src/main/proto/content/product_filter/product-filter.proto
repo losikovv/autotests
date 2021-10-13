@@ -70,6 +70,7 @@ enum Sort {
   POPULARITY = 0;
   PRICE_ASC = 1;
   PRICE_DESC = 2;
+  WEIGHT_PRICE = 3;
 }
 
 message SKUWithPosition {

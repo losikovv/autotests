@@ -6,7 +6,7 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.40.0)",
-    comments = "Source: product-hub-front-data.proto")
+    comments = "Source: content/product_hub/product-hub-front-data.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class ProductHubFrontDataGrpc {
 
@@ -77,6 +77,37 @@ public final class ProductHubFrontDataGrpc {
     return getGetProductsWithOfferBySKUMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsRequest,
+      product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsResponse> getGetProductsWithOfferByOfferIDsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetProductsWithOfferByOfferIDs",
+      requestType = product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsRequest.class,
+      responseType = product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsRequest,
+      product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsResponse> getGetProductsWithOfferByOfferIDsMethod() {
+    io.grpc.MethodDescriptor<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsRequest, product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsResponse> getGetProductsWithOfferByOfferIDsMethod;
+    if ((getGetProductsWithOfferByOfferIDsMethod = ProductHubFrontDataGrpc.getGetProductsWithOfferByOfferIDsMethod) == null) {
+      synchronized (ProductHubFrontDataGrpc.class) {
+        if ((getGetProductsWithOfferByOfferIDsMethod = ProductHubFrontDataGrpc.getGetProductsWithOfferByOfferIDsMethod) == null) {
+          ProductHubFrontDataGrpc.getGetProductsWithOfferByOfferIDsMethod = getGetProductsWithOfferByOfferIDsMethod =
+              io.grpc.MethodDescriptor.<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsRequest, product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetProductsWithOfferByOfferIDs"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubFrontDataMethodDescriptorSupplier("GetProductsWithOfferByOfferIDs"))
+              .build();
+        }
+      }
+    }
+    return getGetProductsWithOfferByOfferIDsMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANRequest,
       product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANResponse> getGetProductsByEANMethod;
 
@@ -137,6 +168,99 @@ public final class ProductHubFrontDataGrpc {
       }
     }
     return getGetProductsWithOfferByEANMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkRequest,
+      product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkResponse> getGetProductsByPermalinkMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetProductsByPermalink",
+      requestType = product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkRequest.class,
+      responseType = product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkRequest,
+      product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkResponse> getGetProductsByPermalinkMethod() {
+    io.grpc.MethodDescriptor<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkRequest, product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkResponse> getGetProductsByPermalinkMethod;
+    if ((getGetProductsByPermalinkMethod = ProductHubFrontDataGrpc.getGetProductsByPermalinkMethod) == null) {
+      synchronized (ProductHubFrontDataGrpc.class) {
+        if ((getGetProductsByPermalinkMethod = ProductHubFrontDataGrpc.getGetProductsByPermalinkMethod) == null) {
+          ProductHubFrontDataGrpc.getGetProductsByPermalinkMethod = getGetProductsByPermalinkMethod =
+              io.grpc.MethodDescriptor.<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkRequest, product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetProductsByPermalink"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubFrontDataMethodDescriptorSupplier("GetProductsByPermalink"))
+              .build();
+        }
+      }
+    }
+    return getGetProductsByPermalinkMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkRequest,
+      product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkResponse> getGetProductsWithOfferByPermalinkMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetProductsWithOfferByPermalink",
+      requestType = product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkRequest.class,
+      responseType = product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkRequest,
+      product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkResponse> getGetProductsWithOfferByPermalinkMethod() {
+    io.grpc.MethodDescriptor<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkRequest, product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkResponse> getGetProductsWithOfferByPermalinkMethod;
+    if ((getGetProductsWithOfferByPermalinkMethod = ProductHubFrontDataGrpc.getGetProductsWithOfferByPermalinkMethod) == null) {
+      synchronized (ProductHubFrontDataGrpc.class) {
+        if ((getGetProductsWithOfferByPermalinkMethod = ProductHubFrontDataGrpc.getGetProductsWithOfferByPermalinkMethod) == null) {
+          ProductHubFrontDataGrpc.getGetProductsWithOfferByPermalinkMethod = getGetProductsWithOfferByPermalinkMethod =
+              io.grpc.MethodDescriptor.<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkRequest, product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetProductsWithOfferByPermalink"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubFrontDataMethodDescriptorSupplier("GetProductsWithOfferByPermalink"))
+              .build();
+        }
+      }
+    }
+    return getGetProductsWithOfferByPermalinkMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDRequest,
+      product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDResponse> getGetOffersBySKUANDStoreIDMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetOffersBySKUANDStoreID",
+      requestType = product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDRequest.class,
+      responseType = product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDRequest,
+      product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDResponse> getGetOffersBySKUANDStoreIDMethod() {
+    io.grpc.MethodDescriptor<product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDRequest, product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDResponse> getGetOffersBySKUANDStoreIDMethod;
+    if ((getGetOffersBySKUANDStoreIDMethod = ProductHubFrontDataGrpc.getGetOffersBySKUANDStoreIDMethod) == null) {
+      synchronized (ProductHubFrontDataGrpc.class) {
+        if ((getGetOffersBySKUANDStoreIDMethod = ProductHubFrontDataGrpc.getGetOffersBySKUANDStoreIDMethod) == null) {
+          ProductHubFrontDataGrpc.getGetOffersBySKUANDStoreIDMethod = getGetOffersBySKUANDStoreIDMethod =
+              io.grpc.MethodDescriptor.<product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDRequest, product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetOffersBySKUANDStoreID"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubFrontDataMethodDescriptorSupplier("GetOffersBySKUANDStoreID"))
+              .build();
+        }
+      }
+    }
+    return getGetOffersBySKUANDStoreIDMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<product_hub_front_data.ProductHubFrontDataOuterClass.GetStocksRequest,
@@ -296,6 +420,13 @@ public final class ProductHubFrontDataGrpc {
 
     /**
      */
+    public void getProductsWithOfferByOfferIDs(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetProductsWithOfferByOfferIDsMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void getProductsByEAN(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetProductsByEANMethod(), responseObserver);
@@ -306,6 +437,27 @@ public final class ProductHubFrontDataGrpc {
     public void getProductsWithOfferByEAN(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByEANRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByEANResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetProductsWithOfferByEANMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getProductsByPermalink(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetProductsByPermalinkMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getProductsWithOfferByPermalink(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetProductsWithOfferByPermalinkMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getOffersBySKUANDStoreID(product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetOffersBySKUANDStoreIDMethod(), responseObserver);
     }
 
     /**
@@ -346,6 +498,13 @@ public final class ProductHubFrontDataGrpc {
                 product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferBySKUResponse>(
                   this, METHODID_GET_PRODUCTS_WITH_OFFER_BY_SKU)))
           .addMethod(
+            getGetProductsWithOfferByOfferIDsMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsRequest,
+                product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsResponse>(
+                  this, METHODID_GET_PRODUCTS_WITH_OFFER_BY_OFFER_IDS)))
+          .addMethod(
             getGetProductsByEANMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
@@ -359,6 +518,27 @@ public final class ProductHubFrontDataGrpc {
                 product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByEANRequest,
                 product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByEANResponse>(
                   this, METHODID_GET_PRODUCTS_WITH_OFFER_BY_EAN)))
+          .addMethod(
+            getGetProductsByPermalinkMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkRequest,
+                product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkResponse>(
+                  this, METHODID_GET_PRODUCTS_BY_PERMALINK)))
+          .addMethod(
+            getGetProductsWithOfferByPermalinkMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkRequest,
+                product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkResponse>(
+                  this, METHODID_GET_PRODUCTS_WITH_OFFER_BY_PERMALINK)))
+          .addMethod(
+            getGetOffersBySKUANDStoreIDMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDRequest,
+                product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDResponse>(
+                  this, METHODID_GET_OFFERS_BY_SKUANDSTORE_ID)))
           .addMethod(
             getGetStocksMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -416,6 +596,14 @@ public final class ProductHubFrontDataGrpc {
 
     /**
      */
+    public void getProductsWithOfferByOfferIDs(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetProductsWithOfferByOfferIDsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void getProductsByEAN(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
@@ -428,6 +616,30 @@ public final class ProductHubFrontDataGrpc {
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByEANResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetProductsWithOfferByEANMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getProductsByPermalink(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetProductsByPermalinkMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getProductsWithOfferByPermalink(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetProductsWithOfferByPermalinkMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getOffersBySKUANDStoreID(product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetOffersBySKUANDStoreIDMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -485,6 +697,13 @@ public final class ProductHubFrontDataGrpc {
 
     /**
      */
+    public product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsResponse getProductsWithOfferByOfferIDs(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetProductsWithOfferByOfferIDsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
     public product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANResponse getProductsByEAN(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetProductsByEANMethod(), getCallOptions(), request);
@@ -495,6 +714,27 @@ public final class ProductHubFrontDataGrpc {
     public product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByEANResponse getProductsWithOfferByEAN(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByEANRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetProductsWithOfferByEANMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkResponse getProductsByPermalink(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetProductsByPermalinkMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkResponse getProductsWithOfferByPermalink(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetProductsWithOfferByPermalinkMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDResponse getOffersBySKUANDStoreID(product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetOffersBySKUANDStoreIDMethod(), getCallOptions(), request);
     }
 
     /**
@@ -551,6 +791,14 @@ public final class ProductHubFrontDataGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsResponse> getProductsWithOfferByOfferIDs(
+        product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetProductsWithOfferByOfferIDsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANResponse> getProductsByEAN(
         product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
@@ -563,6 +811,30 @@ public final class ProductHubFrontDataGrpc {
         product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByEANRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetProductsWithOfferByEANMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkResponse> getProductsByPermalink(
+        product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetProductsByPermalinkMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkResponse> getProductsWithOfferByPermalink(
+        product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetProductsWithOfferByPermalinkMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDResponse> getOffersBySKUANDStoreID(
+        product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetOffersBySKUANDStoreIDMethod(), getCallOptions()), request);
     }
 
     /**
@@ -592,11 +864,15 @@ public final class ProductHubFrontDataGrpc {
 
   private static final int METHODID_GET_PRODUCTS_BY_SKU = 0;
   private static final int METHODID_GET_PRODUCTS_WITH_OFFER_BY_SKU = 1;
-  private static final int METHODID_GET_PRODUCTS_BY_EAN = 2;
-  private static final int METHODID_GET_PRODUCTS_WITH_OFFER_BY_EAN = 3;
-  private static final int METHODID_GET_STOCKS = 4;
-  private static final int METHODID_GET_OFFERS = 5;
-  private static final int METHODID_GET_PRICES = 6;
+  private static final int METHODID_GET_PRODUCTS_WITH_OFFER_BY_OFFER_IDS = 2;
+  private static final int METHODID_GET_PRODUCTS_BY_EAN = 3;
+  private static final int METHODID_GET_PRODUCTS_WITH_OFFER_BY_EAN = 4;
+  private static final int METHODID_GET_PRODUCTS_BY_PERMALINK = 5;
+  private static final int METHODID_GET_PRODUCTS_WITH_OFFER_BY_PERMALINK = 6;
+  private static final int METHODID_GET_OFFERS_BY_SKUANDSTORE_ID = 7;
+  private static final int METHODID_GET_STOCKS = 8;
+  private static final int METHODID_GET_OFFERS = 9;
+  private static final int METHODID_GET_PRICES = 10;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -623,6 +899,10 @@ public final class ProductHubFrontDataGrpc {
           serviceImpl.getProductsWithOfferBySKU((product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferBySKURequest) request,
               (io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferBySKUResponse>) responseObserver);
           break;
+        case METHODID_GET_PRODUCTS_WITH_OFFER_BY_OFFER_IDS:
+          serviceImpl.getProductsWithOfferByOfferIDs((product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsResponse>) responseObserver);
+          break;
         case METHODID_GET_PRODUCTS_BY_EAN:
           serviceImpl.getProductsByEAN((product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANRequest) request,
               (io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANResponse>) responseObserver);
@@ -630,6 +910,18 @@ public final class ProductHubFrontDataGrpc {
         case METHODID_GET_PRODUCTS_WITH_OFFER_BY_EAN:
           serviceImpl.getProductsWithOfferByEAN((product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByEANRequest) request,
               (io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByEANResponse>) responseObserver);
+          break;
+        case METHODID_GET_PRODUCTS_BY_PERMALINK:
+          serviceImpl.getProductsByPermalink((product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkResponse>) responseObserver);
+          break;
+        case METHODID_GET_PRODUCTS_WITH_OFFER_BY_PERMALINK:
+          serviceImpl.getProductsWithOfferByPermalink((product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkResponse>) responseObserver);
+          break;
+        case METHODID_GET_OFFERS_BY_SKUANDSTORE_ID:
+          serviceImpl.getOffersBySKUANDStoreID((product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDResponse>) responseObserver);
           break;
         case METHODID_GET_STOCKS:
           serviceImpl.getStocks((product_hub_front_data.ProductHubFrontDataOuterClass.GetStocksRequest) request,
@@ -706,8 +998,12 @@ public final class ProductHubFrontDataGrpc {
               .setSchemaDescriptor(new ProductHubFrontDataFileDescriptorSupplier())
               .addMethod(getGetProductsBySKUMethod())
               .addMethod(getGetProductsWithOfferBySKUMethod())
+              .addMethod(getGetProductsWithOfferByOfferIDsMethod())
               .addMethod(getGetProductsByEANMethod())
               .addMethod(getGetProductsWithOfferByEANMethod())
+              .addMethod(getGetProductsByPermalinkMethod())
+              .addMethod(getGetProductsWithOfferByPermalinkMethod())
+              .addMethod(getGetOffersBySKUANDStoreIDMethod())
               .addMethod(getGetStocksMethod())
               .addMethod(getGetOffersMethod())
               .addMethod(getGetPricesMethod())

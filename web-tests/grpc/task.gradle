@@ -1,6 +1,6 @@
 task grpcProductHub(type: Test) {
     useTestNG() {
-        suites 'src/test/resources/suite/grpc.xml'
+        suites 'src/test/resources/suite/grpc-content.xml'
         includeGroups 'grpc-product-hub'
     }
     systemProperty 'qase.Project', 'SURGE'

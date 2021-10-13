@@ -19,7 +19,7 @@ public class GrpcHelper {
     }
 
     @NonNull
-    private String getStringWithCyrillic(final MessageOrBuilder message) {
+    public String getStringWithCyrillic(final MessageOrBuilder message) {
         return TextFormat.printer().escapingNonAscii(false).printToString(message);
     }
 

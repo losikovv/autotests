@@ -6,7 +6,7 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.40.0)",
-    comments = "Source: product-hub-back.proto")
+    comments = "Source: content/product_hub/product-hub-back.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class ProductHubBackGrpc {
 
@@ -263,6 +263,37 @@ public final class ProductHubBackGrpc {
     return getSaveCategoryFiltersMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresRequest,
+      product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresResponse> getSaveRetailerStoresMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SaveRetailerStores",
+      requestType = product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresRequest.class,
+      responseType = product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresRequest,
+      product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresResponse> getSaveRetailerStoresMethod() {
+    io.grpc.MethodDescriptor<product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresRequest, product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresResponse> getSaveRetailerStoresMethod;
+    if ((getSaveRetailerStoresMethod = ProductHubBackGrpc.getSaveRetailerStoresMethod) == null) {
+      synchronized (ProductHubBackGrpc.class) {
+        if ((getSaveRetailerStoresMethod = ProductHubBackGrpc.getSaveRetailerStoresMethod) == null) {
+          ProductHubBackGrpc.getSaveRetailerStoresMethod = getSaveRetailerStoresMethod =
+              io.grpc.MethodDescriptor.<product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresRequest, product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SaveRetailerStores"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubBackMethodDescriptorSupplier("SaveRetailerStores"))
+              .build();
+        }
+      }
+    }
+    return getSaveRetailerStoresMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -367,6 +398,13 @@ public final class ProductHubBackGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSaveCategoryFiltersMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void saveRetailerStores(product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresRequest request,
+        io.grpc.stub.StreamObserver<product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSaveRetailerStoresMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -425,6 +463,13 @@ public final class ProductHubBackGrpc {
                 product_hub_back.ProductHubBackOuterClass.SaveCategoryFiltersRequest,
                 product_hub_back.ProductHubBackOuterClass.SaveCategoryFiltersResponse>(
                   this, METHODID_SAVE_CATEGORY_FILTERS)))
+          .addMethod(
+            getSaveRetailerStoresMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresRequest,
+                product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresResponse>(
+                  this, METHODID_SAVE_RETAILER_STORES)))
           .build();
     }
   }
@@ -506,6 +551,14 @@ public final class ProductHubBackGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getSaveCategoryFiltersMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void saveRetailerStores(product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresRequest request,
+        io.grpc.stub.StreamObserver<product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getSaveRetailerStoresMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -576,6 +629,13 @@ public final class ProductHubBackGrpc {
     public product_hub_back.ProductHubBackOuterClass.SaveCategoryFiltersResponse saveCategoryFilters(product_hub_back.ProductHubBackOuterClass.SaveCategoryFiltersRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getSaveCategoryFiltersMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresResponse saveRetailerStores(product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSaveRetailerStoresMethod(), getCallOptions(), request);
     }
   }
 
@@ -656,6 +716,14 @@ public final class ProductHubBackGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getSaveCategoryFiltersMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresResponse> saveRetailerStores(
+        product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getSaveRetailerStoresMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_SAVE_PRODUCTS = 0;
@@ -666,6 +734,7 @@ public final class ProductHubBackGrpc {
   private static final int METHODID_SAVE_ATTRIBUTES = 5;
   private static final int METHODID_SAVE_DICTIONARIES = 6;
   private static final int METHODID_SAVE_CATEGORY_FILTERS = 7;
+  private static final int METHODID_SAVE_RETAILER_STORES = 8;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -715,6 +784,10 @@ public final class ProductHubBackGrpc {
         case METHODID_SAVE_CATEGORY_FILTERS:
           serviceImpl.saveCategoryFilters((product_hub_back.ProductHubBackOuterClass.SaveCategoryFiltersRequest) request,
               (io.grpc.stub.StreamObserver<product_hub_back.ProductHubBackOuterClass.SaveCategoryFiltersResponse>) responseObserver);
+          break;
+        case METHODID_SAVE_RETAILER_STORES:
+          serviceImpl.saveRetailerStores((product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_back.ProductHubBackOuterClass.SaveRetailerStoresResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -785,6 +858,7 @@ public final class ProductHubBackGrpc {
               .addMethod(getSaveAttributesMethod())
               .addMethod(getSaveDictionariesMethod())
               .addMethod(getSaveCategoryFiltersMethod())
+              .addMethod(getSaveRetailerStoresMethod())
               .build();
         }
       }
