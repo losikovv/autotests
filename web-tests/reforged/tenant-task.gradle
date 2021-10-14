@@ -1,81 +1,60 @@
-task metroSmokeReforged(type: Test){
+task metroSmoke(type: Test){
     useTestNG() {
         suites 'src/test/resources/suite/smoke/metro.xml'
         includeGroups 'metro-smoke'
     }
 }
 
-task metroAcceptanceReforged(type: Test) {
+task metroAcceptance(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/smoke/metro.xml'
         includeGroups 'metro-acceptance'
     }
 }
 
-task metroRegressionReforged(type: Test){
+task metroRegression(type: Test){
     useTestNG() {
         suites 'src/test/resources/suite/regress/metro.xml'
         includeGroups 'metro-regression'
     }
 }
 
-task lentaSmokeReforged(type: Test){
-    useTestNG() {
-        suites 'src/test/resources/suite/smoke/stf.xml'
-        includeGroups 'lenta-smoke'
-    }
-}
-
-task lentaAcceptanceReforged(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/smoke/stf.xml'
-        includeGroups 'lenta-acceptance'
-    }
-}
-
-task lentaRegressionReforged(type: Test){
-    useTestNG() {
-        suites 'src/test/resources/suite/regress/stf.xml'
-        includeGroups 'lenta-regression'
-    }
-}
-
-task okeySmokeReforged(type: Test){
+task okeySmoke(type: Test){
     useTestNG() {
         suites 'src/test/resources/suite/smoke/okey.xml'
         includeGroups 'okey-smoke'
     }
 }
 
-task okeyAcceptanceReforged(type: Test) {
+task okeyAcceptance(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/smoke/okey.xml'
         includeGroups 'okey-acceptance'
     }
 }
 
-task okeyRegressionReforged(type: Test){
+task okeyRegression(type: Test){
     useTestNG() {
         suites 'src/test/resources/suite/regress/okey.xml'
         includeGroups 'okey-regression'
     }
 }
 
-task selgrosSmokeReforged(type: Test){
+task selgrosSmoke(type: Test){
     useTestNG() {
         suites 'src/test/resources/suite/smoke/selgros.xml'
         includeGroups 'selgros-smoke'
     }
 }
 
-task selgrosAcceptanceReforged(type: Test) {
+task selgrosAcceptance(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/smoke/selgros.xml'
         includeGroups 'selgros-acceptance'
     }
 }
 
-task selgrosRegressionReforged(type: Test){
+task selgrosRegression(type: Test){
     useTestNG() {
         suites 'src/test/resources/suite/regress/selgros.xml'
         includeGroups 'selgros-regression'

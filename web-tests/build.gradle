@@ -58,30 +58,6 @@ project(":kraken") {
     }
 }
 
-project(":ui") {
-    apply plugin: "java-library"
-
-    dependencies {
-        implementation project(":kraken")
-        implementation project(":api")
-        implementation project(":qase-api")
-        implementation project(":utils")
-
-        implementation lib.aspectjweaver
-        implementation lib.seleniumJava
-        implementation lib.allureTestng
-        implementation lib.allureJavaCommons
-        implementation lib.jsonSimple
-        implementation lib.testng
-
-        compileOnly lib.lombok
-        annotationProcessor lib.lombok
-        testImplementation lib.logback
-        testCompileOnly lib.lombok
-        testAnnotationProcessor lib.lombok
-    }
-}
-
 project(":grpc") {
     apply plugin: "java-library"
 
