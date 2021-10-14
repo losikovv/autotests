@@ -7,6 +7,7 @@ import io.grpc.ManagedChannelBuilder;
 import io.qameta.allure.Step;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import navigation.Navigation;
 
 @Slf4j
 public class GrpcHelper {
@@ -33,5 +34,17 @@ public class GrpcHelper {
 
     public void showResponseInAllure(final MessageOrBuilder response) {
         responseStep(getStringWithCyrillic(response));
+    }
+
+    /**
+     * Ищем категорию по id в списке категорий в микросервисе Navigation
+     */
+    public boolean findCategoryById(java.util.List<Navigation.MenuCategory> categories, String id) {
+        for (var category : categories) {
+            if (category.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
