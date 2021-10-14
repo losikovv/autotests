@@ -62,6 +62,8 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
+        checkout().checkCheckoutLoaderNotVisible();
+
         checkout().setContacts().fillFirstName(Generate.literalString(8));
         checkout().setContacts().fillLastName(Generate.literalString(8));
         checkout().setContacts().fillEmail(Generate.email());
@@ -107,6 +109,8 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
+
+        checkout().checkCheckoutLoaderNotVisible();
 
         checkout().setContacts().fillFirstName(Generate.literalString(8));
         checkout().setContacts().fillLastName(Generate.literalString(8));
@@ -164,6 +168,8 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
+        checkout().checkCheckoutLoaderNotVisible();
+
         checkout().setContacts().fillFirstName(Generate.literalString(8));
         checkout().setContacts().fillLastName(Generate.literalString(8));
         checkout().setContacts().fillEmail(Generate.email());
@@ -220,6 +226,8 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
+        checkout().checkCheckoutLoaderNotVisible();
+
         checkout().setContacts().fillFirstName(Generate.literalString(8));
         checkout().setContacts().fillLastName(Generate.literalString(8));
         checkout().setContacts().fillEmail(Generate.email());
@@ -264,6 +272,8 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
+
+        checkout().checkCheckoutLoaderNotVisible();
 
         checkout().setContacts().fillFirstName(Generate.literalString(8));
         checkout().setContacts().fillLastName(Generate.literalString(8));

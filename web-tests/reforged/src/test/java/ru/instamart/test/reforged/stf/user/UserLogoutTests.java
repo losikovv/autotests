@@ -80,7 +80,9 @@ public final class UserLogoutTests extends BaseTest {
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartNotEmpty();
         shop().interactCart().closeCart();
+        shop().interactCart().checkCartClose();
         shop().interactHeader().clickToProfile();
+        shop().interactHeader().interactAccountMenu().checkAccountMenuVisible();
         shop().interactHeader().interactAccountMenu().clickToLogout();
         home().checkLoginButtonIsVisible();
         shop().goToPage();
