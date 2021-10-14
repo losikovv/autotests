@@ -7,6 +7,7 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.listener.Skip;
+import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.test.reforged.BaseTest;
@@ -28,9 +29,11 @@ public final class UserAuthorisationTests extends BaseTest {
             }
     )
     public void successAuthOnMainPage() {
+        final UserData authUser = UserManager.getUser();
+
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().fillPhone("79000000000");
+        shop().interactAuthModal().fillPhone(authUser.getPhone());
         shop().interactAuthModal().sendSms();
         shop().interactAuthModal().fillSMS(DEFAULT_SMS);
         shop().interactHeader().checkProfileButtonVisible();
@@ -45,11 +48,13 @@ public final class UserAuthorisationTests extends BaseTest {
             }
     )
     public void successAuthFromAddressModal() {
+        final UserData authUser = UserManager.getUser();
+
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
         shop().interactAddress().clickToLogin();
-        shop().interactAuthModal().fillPhone("79000000001");
+        shop().interactAuthModal().fillPhone(authUser.getPhone());
         shop().interactAuthModal().sendSms();
         shop().interactAuthModal().fillSMS(DEFAULT_SMS);
         shop().interactHeader().checkProfileButtonVisible();
@@ -64,6 +69,8 @@ public final class UserAuthorisationTests extends BaseTest {
             }
     )
     public void successAuthFromCart() {
+        final UserData authUser = UserManager.getUser();
+
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
@@ -72,13 +79,16 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();
         shop().interactAddress().checkAddressModalIsNotVisible();
-        shop().plusFirstItemToCart();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
-        home().openSitePage(DEFAULT_RETAILER);
+        shop().plusFirstItemToCart();
+        shop().interactHeader().checkCartNotificationIsVisible();
+
+        shop().goToPage();
         shop().interactHeader().clickToCart();
         shop().interactCart().increaseCountToMin();
         shop().interactCart().submitOrder();
-        shop().interactAuthModal().fillPhone("79000000002");
+        shop().interactAuthModal().fillPhone(authUser.getPhone());
         shop().interactAuthModal().sendSms();
         shop().interactAuthModal().fillSMS(DEFAULT_SMS);
         checkout().checkCheckoutButtonIsVisible();
