@@ -53,4 +53,7 @@ public interface CheckoutElement {
             "редактирование карты лояльности");
     Element activeLoyaltyCard = new Element(ByKraken.xpath("//div[@class='loyalty-program__name' and text()='%s']/ancestor::div[@class='loyalty-program loyalty-program--active']"),
             "карта лояльности активна");
+
+    Element checkoutLoader = new Element(By.xpath("//div[contains(@class, 'Loading')]"), "Лоадер чекаута");
+
 }

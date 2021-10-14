@@ -112,4 +112,9 @@ public interface CheckoutCheck extends Check, CheckoutElement {
     default void checkLoyaltyCardLoaderNotVisible() {
         waitAction().shouldNotBeVisible(loyaltyCardLoader);
     }
+
+    @Step("Проверяем что лоадер чекаута скрылся")
+    default void checkCheckoutLoaderNotVisible() {
+        waitAction().shouldNotBeVisible(checkoutLoader);
+    }
 }

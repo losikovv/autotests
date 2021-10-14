@@ -31,6 +31,11 @@ public interface AccountMenuCheck extends Check, AccountMenuElement {
         waitAction().shouldBeVisible(logout);
     }
 
+    @Step("Проверяем, что меню пользователя открыто")
+    default void checkAccountMenuVisible() {
+        waitAction().shouldBeVisible(accountMenu);
+    }
+
     @Step("Проверяем, что в меню пользователя присутствует ссылка на условия доставки")
     default void checkDeliveryLinkExists() {
         waitAction().shouldBeVisible(delivery);

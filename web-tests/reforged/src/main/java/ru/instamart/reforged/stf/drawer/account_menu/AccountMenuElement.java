@@ -14,4 +14,7 @@ public interface AccountMenuElement {
     Button logout = new Button(By.xpath("//button[@data-qa='account-menu-logout']"),"кнопка выхода из аккаунта");
     Button delivery = new Button(By.xpath("//button[@data-qa='account-menu-delivery']"),"сылка доставка");
     Link faq = new Link(By.xpath("//a[@data-qa='account-menu-faq']"),"ссылка FAQ");
+
+    Element accountMenu = new Element(By.xpath("//div[@data-qa='account-menu']"),"Меню пользователя");
+
 }
