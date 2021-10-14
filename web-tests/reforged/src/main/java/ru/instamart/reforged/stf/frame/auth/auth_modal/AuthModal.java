@@ -100,22 +100,22 @@ public final class AuthModal implements Close, AuthModalCheck {
 
     @Step("Войти через mail.ru")
     public void authViaMail() {
-        mailRu.jsClick();
+        mailRu.hoverAndClick();
     }
 
     @Step("Войти через Вконтакте")
     public void authViaVk() {
-        vkontakte.jsClick();
+        vkontakte.hoverAndClick();
     }
 
     @Step("Войти через facebook")
     public void authViaFacebook() {
-        facebook.jsClick();
+        facebook.hoverAndClick();
     }
 
     @Step("Войти через sberId")
     public void authViaSberId() {
-        sberId.jsClick();
+        sberId.hoverAndClick();
     }
 
     //TODO ThreadUtil.simplyAwait убрать после отключения проверки таймаута для повторной смс
