@@ -29,4 +29,9 @@
       <class name="ru.instamart.test.content.catalog.ShelfTest"/>
     </classes>
   </test>
+  <test verbose="1" name="SALUT TOKEN">
+    <classes>
+      <class name="ru.instamart.test.content.salut_token.SalutTokenTest"/>
+    </classes>
+  </test>
 </suite>

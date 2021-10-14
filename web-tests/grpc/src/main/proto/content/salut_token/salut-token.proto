@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package salut_token;
+
+option go_package = "gitlab.sbermarket.tech/paas/content/salut-token/pkg/server/grpc/salut-token";
+
+message TokenRequest {
+	string installation_id = 1;
+}
+
+message TokenResponse {
+	string token = 1;
+}
+
+service TokenGenerator {
+	rpc GetToken (TokenRequest) returns (TokenResponse) {}
+}

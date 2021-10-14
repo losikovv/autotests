@@ -3,6 +3,15 @@ task grpcProductHub(type: Test) {
         suites 'src/test/resources/suite/grpc-content.xml'
         includeGroups 'grpc-product-hub'
     }
-    systemProperty 'qase.Project', 'SURGE'
-    systemProperty 'qase.Title', 'Surge API Regress'
+    systemProperty 'qase.Project', 'PHUB'
+    systemProperty 'qase.Title', 'gRPC Product Hub Regress'
+}
+
+task grpcSalutToken(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/grpc-content.xml'
+        includeGroups 'grpc-salut-token'
+    }
+    systemProperty 'qase.Project', 'STS'
+    systemProperty 'qase.Title', 'gRPC Salut Token Regress'
 }
