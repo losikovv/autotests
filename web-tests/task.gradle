@@ -1,6 +1,6 @@
 task AutoMRCheck(type: Test) {
     dependsOn(':api:autoMr')
-    dependsOn(':reforged:autoMrReforged')
+    dependsOn(':reforged:autoMr')
 
     finalizedBy(':allureCopyHistoryDir')
 }
@@ -10,21 +10,4 @@ task allureCopyHistoryDir(type: Copy) {
     from project(':reforged').getBuildDir().path+"/allure-results".toString()
     duplicatesStrategy = DuplicatesStrategy.WARN
     into "build/allure-results/"
-}
-
-//Task for debugging
-task debug(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/d.xml'
-        includeGroups 'debug'
-        systemProperty 'env',"sbermarket-preprod"
-        systemProperty 'qase', "false"
-    }
-}
-
-task cleanup(type: Test) {
-    useTestNG() {
-        suites 'src/test/resources/suite/setup.xml'
-        includeGroups 'cleanup'
-    }
 }

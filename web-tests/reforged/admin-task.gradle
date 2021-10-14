@@ -1,4 +1,4 @@
-task adminUiSmokeReforged(type: Test) {
+task adminUiSmoke(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/smoke/admin.xml'
         includeGroups 'admin-ui-smoke'

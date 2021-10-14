@@ -87,11 +87,11 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void validateFilterPhoneShipmentsPage() {
+        var phone = "79268202951";
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
         shipments().goToPage();
         shipments().checkPageTitle();
-        String phone = shipments().getFirstPhoneFromTable();
         shipments().setPhoneFilterFromTableDefault(phone);
         shipments().search();
         shipments().checkPhoneShipmentsColumn(phone);
@@ -103,12 +103,12 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
             groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
     )
     public void validateMultiFiltersShipmentsPage() {
+        var phone = "79268202951";
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
         shipments().goToPage();
         shipments().checkPageTitle();
-        String phone = shipments().getFirstPhoneFromTable();
         shipments().setPhoneAndDateFilterDefault(phone, TimeUtil.getDeliveryDateFrom());
         shipments().setDateAndTimeFilterToTableDefault(TimeUtil.getDeliveryDateTo());
         shipments().search();

@@ -1,4 +1,4 @@
-task autoMrReforged(type: Test) {
+task autoMr(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/mr.xml'
         includeGroups 'MRAutoCheck'
