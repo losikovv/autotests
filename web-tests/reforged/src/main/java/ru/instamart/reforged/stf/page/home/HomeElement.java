@@ -35,10 +35,10 @@ public interface HomeElement {
     Element mainBlockAddressButton = new Element(By.xpath("//div[@data-qa='home_landing']//span[contains(text(),'Указать адрес доставки')]"), "кнопка с указанием адреса доставки на лендинге");
     Element mainBlockText = new Element(By.xpath("//div[@data-qa='home_landing_description']"), "текст лендинга Сбермаркета");
     Element storesList = new Element(By.xpath("//div[@data-qa='home_landing_stores']//h2[contains(text(),'Наши партнёры')]"), "блок со списком магазинов на лендинге Сбермаркета");
-    Element storesButton = new Element(By.xpath("//button//div[@data-qa='home_landing_store_image_121']"), "кнопка первого магазина на лендинге Сбермаркета");
-    Element storesButtonAuchan = new Element(By.xpath("//div[@data-qa='home_landing_store_image_72']"), "кнопка выбора магазина Ашан");
-    Element storesButtonMetro = new Element(By.xpath("//div[@data-qa='home_landing_store_image_82']"), "кнопка выбора магазина Метро");
-    Element storesButtonLenta = new Element(By.xpath("//div[@data-qa='home_landing_store_image_7']"), "кнопка выбора магазина Лента");
+    Element storesButton = new Element(By.xpath("//div[@data-qa='home_landing_stores']//div[contains(@class, 'store')]/button"), "кнопка первого магазина на лендинге Сбермаркета");
+    Element storesButtonAuchan = new Element(By.xpath("//div[text()='Ашан']/ancestor::button"), "кнопка выбора магазина Ашан");
+    Element storesButtonMetro = new Element(By.xpath("//div[text()='METRO']/ancestor::button"), "кнопка выбора магазина Метро");
+    Element storesButtonLenta = new Element(By.xpath("//div[text()='Лента']/ancestor::button"), "кнопка выбора магазина Лента");
     Element advantagesBlockContainer = new Element(By.xpath("//div[@data-qa='home_landing_advantages']"), "блок преимуществ на лендинге Сбермаркета");
     Element deliveryAdv = new Element(By.xpath("//div[@data-qa='home_landing_advantage_delivery']"), "преимущества быстрой доставки");
     Element heavyToDoorAdv = new Element(By.xpath("//div[@data-qa='home_landing_advantage_door']"), "преимущества доставки тяжелых товаров до двери");
