@@ -78,4 +78,35 @@ public final class KrakenCondition {
             throw e;
         }
     }
+
+    public static ExpectedCondition<Boolean> steadinessOfElementLocated(final By by) {
+        return new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver driver) {
+                try {
+                    var element = findElement(by);
+                    var pointX1 = element.getLocation().x;
+                    var pointY1 = element.getLocation().y;
+
+                    var pointX2 = element.getLocation().x;
+                    var pointY2 = element.getLocation().y;
+
+                    if (pointX1!=pointX2&&pointY1!=pointY2) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } catch (StaleElementReferenceException e) {
+                    log.error("Can't get element steadiness '{}'", by);
+                }
+
+                return false;
+            }
+
+            @Override
+            public String toString() {
+                return String.format("element found by %s not stop animating", by);
+            }
+        };
+    }
 }
