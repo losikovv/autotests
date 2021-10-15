@@ -12,9 +12,10 @@ public interface AuthModalCheck extends Check, AuthModalElement {
         waitAction().shouldBeVisible(phoneError);
     }
 
-    @Step("Проверяем, что модальное окно видимо")
+    @Step("Проверяем, что модальное окно видимо и готово к работе")
     default void checkModalIsVisible() {
         waitAction().shouldBeVisible(modal);
+        waitAction().shouldNotBeAnimated(modal);
     }
 
     @Step("Проверяем, что модальное окно скрыто")

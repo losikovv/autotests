@@ -33,6 +33,12 @@ public final class WaitAction {
                 .until(ExpectedConditions.visibilityOfElementLocated(component.getBy(args)));
     }
 
+    public boolean shouldNotBeAnimated(final Component component) {
+        return createWait(component)
+                .until(KrakenCondition.steadinessOfElementLocated(component.getBy()));
+    }
+
+
     public boolean shouldNotBeVisible(final Component component) {
         return createWait(component)
                 .until(ExpectedConditions.invisibilityOfElementLocated(component.getBy()));
