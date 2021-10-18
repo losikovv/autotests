@@ -26,6 +26,7 @@ public final class ApiV2EndPoints {
     public static final String PHONES = "v2/phones";
     public static final String PHONE_CONFIRMATIONS = "v2/phone_confirmations";
     public static final String PRODUCTS = "v2/products";
+    public static final String PROFILE = "v2/profile";
     public static final String PURCHASED_PRODUCTS = "v2/purchased_products?sid={sid}";
     public static final String REPLACEMENT_POLICIES = "v2/replacement_policies";
     public static final String RETAILERS = "v2/retailers";
@@ -117,7 +118,10 @@ public final class ApiV2EndPoints {
 
     public static final class PhoneConfirmations {
         public static final String PHONE_NUMBER =
-                "v2/phone_confirmations/{phoneNumber}?" +
+                "v2/phone_confirmations/{phoneNumber}";
+
+        public static final String PHONE_NUMBER_WITH_PARAM =
+                "v2/phone_confirmations/{phoneNumber}" +
                         "phone_confirmation_code={phoneConfirmationCode}&" +
                         "promo_terms_accepted={promoTermsAccepted}";
     }

@@ -126,7 +126,7 @@ public class PhonesV2Test extends RestBase {
         params.put("phone[value]", "invalidPhoneNumber");
         response = PhonesV2Request.PhonesById.PUT(phone.getId().toString(), params);
         checkStatusCode422(response);
-        errorValueAssert(response, "является недействительным номером");
+        errorValueAssert(response, "является недействительным номером", "value");
     }
 
     @Deprecated
@@ -148,6 +148,6 @@ public class PhonesV2Test extends RestBase {
         params.put("phone[value]", "invalidPhoneNumber");
         response = PhonesV2Request.POST(params);
         checkStatusCode422(response);
-        errorValueAssert(response, "является недействительным номером");
+        errorValueAssert(response, "является недействительным номером", "value");
     }
 }
