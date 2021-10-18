@@ -7,16 +7,20 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.v2.ProductFilterTypeV2;
 import ru.instamart.api.enums.v2.ProductSortTypeV2;
+import ru.instamart.api.model.v2.FacetV2;
+import ru.instamart.api.model.v2.OptionV2;
 import ru.instamart.api.model.v2.ProductV2;
 import ru.instamart.api.request.v2.ProductsV2Request;
 import ru.instamart.api.response.v2.ProductV2Response;
 import ru.instamart.api.response.v2.ProductsV2Response;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertNotNull;
+import static io.qameta.allure.Allure.step;
+import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
@@ -26,7 +30,7 @@ public final class ProductsV2Test extends RestBase {
 
     @Deprecated
     @Story("Получить список доступных продуктов (Поиск)")
-    @Test(  description = "Получаем продукты",
+    @Test(description = "Получаем продукты",
             groups = {})
     public void getProducts() {
         response = ProductsV2Request.GET(1, "");
@@ -42,7 +46,7 @@ public final class ProductsV2Test extends RestBase {
 
     @Deprecated
     @Story("Получить данные о продукте")
-    @Test(  description = "Получаем данные о продукте",
+    @Test(description = "Получаем данные о продукте",
             groups = {},
             dependsOnMethods = "getProducts")
     public void getProductInfo() {
@@ -53,7 +57,7 @@ public final class ProductsV2Test extends RestBase {
 
     @CaseId(560)
     @Story("Получить данные о продукте")
-    @Test(  description = "Получаем данные о продукте c невалидным id",
+    @Test(description = "Получаем данные о продукте c невалидным id",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getProductInfoWithInvalidId() {
         response = ProductsV2Request.GET(6666666L);
@@ -64,7 +68,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(262)
     @Issue("STF-9240")
     @Story("Получить список доступных продуктов (Поиск)")
-    @Test(  description = "Существующий sid",
+    @Test(description = "Существующий sid",
             groups = {"api-instamart-smoke", "api-instamart-prod"},
             enabled = false)
     public void getProductsWithValidSid() {
@@ -74,7 +78,7 @@ public final class ProductsV2Test extends RestBase {
 
     @CaseId(263)
     @Story("Получить список доступных продуктов (Поиск)")
-    @Test(  description = "Несуществующий sid",
+    @Test(description = "Несуществующий sid",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getProductsWithInvalidSid() {
         response = ProductsV2Request.GET(6666666);
@@ -99,7 +103,7 @@ public final class ProductsV2Test extends RestBase {
 
     @CaseId(638)
     @Story("Получить список доступных продуктов (Поиск)")
-    @Test(  description = "Получаем отсортированные продукты по популярности",
+    @Test(description = "Получаем отсортированные продукты по популярности",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductsSortedByPopularity() {
         response = ProductsV2Request.GET(1, "хлеб", ProductSortTypeV2.POPULARITY);
@@ -113,7 +117,7 @@ public final class ProductsV2Test extends RestBase {
 
     @CaseId(639)
     @Story("Получить список доступных продуктов (Поиск)")
-    @Test(  description = "Получаем отсортированные продукты по возрастанию цены",
+    @Test(description = "Получаем отсортированные продукты по возрастанию цены",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductsSortedByPriceAsc() {
         response = ProductsV2Request.GET(1, "хлеб", ProductSortTypeV2.PRICE_ASC);
@@ -127,7 +131,7 @@ public final class ProductsV2Test extends RestBase {
 
     @CaseId(640)
     @Story("Получить список доступных продуктов (Поиск)")
-    @Test(  description = "Получаем отсортированные продукты по убыванию цены",
+    @Test(description = "Получаем отсортированные продукты по убыванию цены",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductsSortedByPriceDesc() {
         response = ProductsV2Request.GET(1, "хлеб", ProductSortTypeV2.PRICE_DESC);
@@ -137,5 +141,76 @@ public final class ProductsV2Test extends RestBase {
 
         assertFalse(productsV2Response.getProducts().isEmpty(), "Не вернулись продукты");
         checkSort(ProductSortTypeV2.PRICE_DESC, productsV2Response.getSort());
+    }
+
+    @CaseId(806)
+    @Story("Получить список доступных продуктов (Поиск)")
+    @Test(description = "Получаем отфильтрованные по наличию скидки продукты",
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
+    public void getProductsFilteredByDiscount() {
+        response = ProductsV2Request.GET(1, "сыр", 1, ProductFilterTypeV2.DISCOUNTED, 1);
+        checkStatusCode200(response);
+
+        final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
+
+        step("Проверка содержимого ответа", () -> {
+            assertNotNull(productsV2Response, "Не вернулся ответ");
+            final List<ProductV2> products = productsV2Response.getProducts();
+            assertFalse(products.isEmpty(), "Не вернулись продукты");
+            products.forEach(product -> assertTrue(product.getDiscount() > 0.0));
+        });
+    }
+
+    @CaseId(807)
+    @Story("Получить список доступных продуктов (Поиск)")
+    @Test(description = "Получаем отфильтрованные по бренду продукты",
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
+    public void getProductsFilteredByBrand() {
+        response = ProductsV2Request.GET(1, "сыр", 1, ProductFilterTypeV2.BRAND, 3661);
+        checkStatusCode200(response);
+
+        final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
+
+        step("Проверка содержимого ответа", () -> {
+            assertNotNull(productsV2Response, "Не вернулся ответ");
+            final List<ProductV2> products = productsV2Response.getProducts();
+            assertFalse(products.isEmpty(), "Не вернулись продукты");
+            products.forEach(product -> assertTrue(product.getName().contains("Heidi")));
+        });
+    }
+
+    @CaseId(808)
+    @Story("Получить список доступных продуктов (Поиск)")
+    @Test(description = "Получаем отфильтрованные по стране изготовителя продукты",
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
+    public void getProductsFilteredByCountry() {
+        response = ProductsV2Request.GET(1, "сыр", 1, ProductFilterTypeV2.COUNTRY, 36);
+        checkStatusCode200(response);
+
+        final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
+
+        step("Проверка содержимого ответа", () -> {
+            assertNotNull(productsV2Response, "Не вернулся ответ");
+            final List<ProductV2> products = productsV2Response.getProducts();
+            assertFalse(products.isEmpty(), "Не вернулись продукты");
+            products.forEach(product -> assertTrue(product.getName().contains("La Paulina")));
+            final List<FacetV2> facets = productsV2Response.getFacets().stream().filter(facet -> facet.getKey().equals(ProductFilterTypeV2.COUNTRY.getValue())).collect(Collectors.toList());
+            final List<OptionV2> countries = facets.get(0).getOptions();
+            countries.stream().filter(country -> country.getValue() == 36).forEach(country -> assertTrue(country.getActive()));
+        });
+    }
+
+    @CaseId(809)
+    @Story("Получить список доступных продуктов (Поиск)")
+    @Test(description = "Получаем отсортированные по выгодному весу",
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
+    public void getProductsSortedByWeightPrice() {
+        response = ProductsV2Request.GET(1, 13610, ProductSortTypeV2.UNIT_PRICE_ASC);
+        checkStatusCode200(response);
+
+        final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
+
+        assertFalse(productsV2Response.getProducts().isEmpty(), "Не вернулись продукты");
+        checkSort(ProductSortTypeV2.UNIT_PRICE_ASC, productsV2Response.getSort());
     }
 }
