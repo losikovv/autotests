@@ -1,9 +1,6 @@
 package ru.instamart.reforged.stf.page.checkout.thirdStep;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.Button;
-import ru.instamart.reforged.core.component.ElementCollection;
 
 public class ReplacementPolicyStep implements ReplacementPolicyElement {
 
@@ -14,6 +11,6 @@ public class ReplacementPolicyStep implements ReplacementPolicyElement {
 
     @Step("Нажать на Продолжить")
     public void clickToSubmit() {
-        submit.click();
+        submit.hoverAndClick();
     }
 }
