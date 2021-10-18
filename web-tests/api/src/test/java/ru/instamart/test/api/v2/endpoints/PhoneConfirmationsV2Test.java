@@ -1,5 +1,6 @@
 package ru.instamart.test.api.v2.endpoints;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -15,6 +16,7 @@ import ru.instamart.api.response.v2.PhoneTokenV2Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.testdata.Generate;
+import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.util.PhoneCrypt;
 
 import static org.testng.Assert.assertNotNull;
@@ -26,7 +28,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 @Epic("ApiV2")
 @Feature("Авторизация")
 public class PhoneConfirmationsV2Test extends RestBase {
-    String phoneNumber = "9871234123";
+    private static final String phoneNumber = Generate.phoneNumber();
 
     @CaseId(451)
     @Story("Авторизация по номеру телефона")
