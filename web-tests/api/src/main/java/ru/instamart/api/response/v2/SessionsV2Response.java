@@ -14,4 +14,6 @@ public class SessionsV2Response extends BaseResponseObject {
     private String needConfirmPhone;
     @JsonProperty(value = "need_confirm_phone_source")
     private String needConfirmPhoneSource;
+    @JsonProperty(value = "is_registration")
+    private Boolean isRegistration;
 }

@@ -40,18 +40,18 @@ public final class SessionFactory {
     private static final Map<SessionId, SessionInfo> sessionMap = new ConcurrentHashMap<>();
 
     public static void makeSession(final SessionType type) {
+        final UserData userData = UserManager.getUser();
         switch (type) {
             case API_V1:
             case SHOPPER_APP:
             case SHOPPER_ADMIN:
             case DELIVERY_CLUB:
-            case API_V2_PHONE:
                 log.warn("Not implemented yet!");
                 break;
             case API_V2_FB:
-                    final UserData userData = UserManager.getUser();
-                    RegistrationHelper.registration(userData);
-                    createSessionToken(type, userData);
+                RegistrationHelper.registration(userData);
+            case API_V2_PHONE:
+                createSessionToken(type, userData);
                 break;
             default:
                 log.error("Pls select session type");
@@ -72,8 +72,7 @@ public final class SessionFactory {
             final SessionId sessionId = entry.getKey();
             if (sessionId.getThreadId() == Thread.currentThread().getId() && sessionId.getType() == type) {
                 log.debug("Get Session {} for {}", entry.getValue(), type);
-                Assert.assertNotNull(entry.getValue(),"Вы не авторизовались");
-
+                Assert.assertNotNull(entry.getValue(), "Вы не авторизовались");
                 return entry.getValue();
             }
         }

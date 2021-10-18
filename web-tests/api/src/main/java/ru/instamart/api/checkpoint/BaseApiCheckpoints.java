@@ -24,12 +24,12 @@ public class BaseApiCheckpoints {
 
 
     @Step("Проверка правильного error сообщения. Type = value")
-    public static void errorValueAssert(Response response, String textError) {
+    public static void errorValueAssert(Response response, String textError, String value) {
         final SoftAssert softAssert = new SoftAssert();
         log.debug("Check error message: {} with response", textError);
         ErrorResponse error = response.as(ErrorResponse.class);
         softAssert.assertEquals(error.getErrors().getValue(), textError, "Невалидная ошибка");
-        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "value", "Невалидный тип ошибки");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), value, "Невалидный тип ошибки");
         softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), textError, "Невалидная ошибка");
         softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), textError, "Невалидная ошибка");
         softAssert.assertAll();
