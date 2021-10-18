@@ -1,18 +1,14 @@
 tests:metroSmoke:
-  rules:
-    - if: '$CI_COMMIT_BRANCH != "master"'
-      when: manual
-      allow_failure: true
-  #only:
-  #  variables:
-  #    - $TEST_UI_METRO_SMOKE == 'true' && $CI_RUN_ALL_JOBS == 'false'
-  #    - $CI_RUN_ALL_JOBS == 'true'
+  only:
+    variables:
+      - $TEST_UI_METRO_SMOKE == 'true' && $CI_RUN_ALL_JOBS == 'false'
+      - $CI_RUN_ALL_JOBS == 'true'
   extends:
     - ".template_ui_tests"
-    #- ".template_run_all_jobs_at_a_time_on_master"
-  #needs:
-  #  - "tests:ApiInstamart"
-  #  - "tests:ApiShopper"
+    - ".template_run_all_jobs_at_a_time_on_master"
+  needs:
+    - "tests:ApiInstamart"
+    - "tests:ApiShopper"
   script:
     - gradle clean build metroSmok -Penv=metro-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
