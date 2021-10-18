@@ -13,8 +13,14 @@ import static java.util.Objects.nonNull;
 @Slf4j
 public final class KrakenCondition {
 
+    /**
+     * Проверяет состояние при котором значение инпута не начнет совпадать с ожидаемым текстом
+     * @param element - элемент для поиска
+     * @param data - текст для ввода
+     * @param isPhone - если в true то форматирует введенный текст под номер телефона
+     */
     public static ExpectedCondition<Boolean> keysSendCondition(final WebElement element, final String data, final boolean isPhone) {
-        return new ExpectedCondition<Boolean>() {
+        return new ExpectedCondition<>() {
             @Override
             public Boolean apply(@Nullable WebDriver driver) {
                 if (element.isDisplayed()) {
@@ -41,8 +47,13 @@ public final class KrakenCondition {
         };
     }
 
+    /**
+     * Проверяет состояние до тех пор, пока значение чекбокса не будет соответствовать ожиданию
+     * @param by - локатор для поиска
+     * @param selected - ожидаемое значение
+     */
     public static ExpectedCondition<Boolean> elementSelectCheckboxState(final By by, final boolean selected) {
-        return new ExpectedCondition<Boolean>() {
+        return new ExpectedCondition<>() {
             @Override
             public Boolean apply(WebDriver driver) {
                 try {
@@ -67,20 +78,12 @@ public final class KrakenCondition {
         };
     }
 
-    private static WebElement findElement(final By by) {
-        try {
-            return Kraken.getWebDriver().findElements(by).stream().findFirst().orElseThrow(
-                    () -> new NoSuchElementException("Cannot locate an element using " + by));
-        } catch (NoSuchElementException e) {
-            throw e;
-        } catch (WebDriverException e) {
-            log.warn(String.format("WebDriverException thrown by findElement(%s)", by), e);
-            throw e;
-        }
-    }
-
+    /**
+     * Проверяет позицию элемента, до тех пор, пока он не прекратит изменяться
+     * @param by - локатор для поиска
+     */
     public static ExpectedCondition<Boolean> steadinessOfElementLocated(final By by) {
-        return new ExpectedCondition<Boolean>() {
+        return new ExpectedCondition<>() {
             @Override
             public Boolean apply(WebDriver driver) {
                 try {
@@ -91,11 +94,7 @@ public final class KrakenCondition {
                     var pointX2 = element.getLocation().x;
                     var pointY2 = element.getLocation().y;
 
-                    if (pointX1!=pointX2&&pointY1!=pointY2) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                    return pointX1 == pointX2 || pointY1 == pointY2;
                 } catch (StaleElementReferenceException e) {
                     log.error("Can't get element steadiness '{}'", by);
                 }
@@ -108,5 +107,17 @@ public final class KrakenCondition {
                 return String.format("element found by %s not stop animating", by);
             }
         };
+    }
+
+    private static WebElement findElement(final By by) {
+        try {
+            return Kraken.getWebDriver().findElements(by).stream().findFirst().orElseThrow(
+                    () -> new NoSuchElementException("Cannot locate an element using " + by));
+        } catch (NoSuchElementException e) {
+            throw e;
+        } catch (WebDriverException e) {
+            log.warn(String.format("WebDriverException thrown by findElement(%s)", by), e);
+            throw e;
+        }
     }
 }

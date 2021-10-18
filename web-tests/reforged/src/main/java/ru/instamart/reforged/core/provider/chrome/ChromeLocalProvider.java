@@ -33,7 +33,6 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
         options.addArguments("--disable-extensions");
         options.addArguments("--disable-geolocation");
         options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--window-size=1920,1080");
         options.addArguments("--disable-notifications");
 
