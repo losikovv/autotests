@@ -1,0 +1,92 @@
+tests:metroSmoke:
+  only:
+    variables:
+      - $TEST_UI_METRO_SMOKE == 'true' && $CI_RUN_ALL_JOBS == 'false'
+      - $CI_RUN_ALL_JOBS == 'true'
+  extends: ".template_run_all_jobs_at_a_time_on_master"
+  resource_group: metroSmoke:$URL_STF
+  stage: tests-ui
+  needs:
+    - "tests:ApiInstamart"
+    - "tests:ApiShopper"
+  image: $CI_REGISTRY_IMAGE
+  script:
+    - echo $P_ENV
+    - echo $URL_STF
+    - echo $URL_SHP
+    - gradle clean build metroSmok -Penv=metro-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - cd web-tests
+    - bash ./report.sh reforged ui-metro-preprod
+  tags:
+    - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/reforged/build/allure-results/
+      - web-tests/reforged/logs/
+      - web-tests/reforged/build/reports/tests/
+    expire_in: 1 week
+  allow_failure: false
+
+tests:okeySmoke:
+  only:
+    variables:
+      - $TEST_UI_OKEY_SMOKE == 'true' && $CI_RUN_ALL_JOBS == 'false'
+      - $CI_RUN_ALL_JOBS == 'true'
+  extends: ".template_run_all_jobs_at_a_time_on_master"
+  resource_group: okeySmoke:$URL_STF
+  stage: tests-ui
+  needs:
+    - "tests:ApiInstamart"
+    - "tests:ApiShopper"
+  image: $CI_REGISTRY_IMAGE
+  script:
+    - echo $P_ENV
+    - echo $URL_STF
+    - echo $URL_SHP
+    - gradle clean build okeySmoke -Penv=okey-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - cd web-tests
+    - bash ./report.sh reforged ui-okey-preprod
+  tags:
+    - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/reforged/build/allure-results/
+      - web-tests/reforged/logs/
+      - web-tests/reforged/build/reports/tests/
+    expire_in: 1 week
+  allow_failure: false
+
+tests:selgrosSmoke:
+  only:
+    variables:
+      - $TEST_UI_OKEY_SMOKE == 'true' && $CI_RUN_ALL_JOBS == 'false'
+      - $CI_RUN_ALL_JOBS == 'true'
+  extends: ".template_run_all_jobs_at_a_time_on_master"
+  resource_group: selgrosSmoke:$URL_STF
+  stage: tests-ui
+  needs:
+    - "tests:ApiInstamart"
+    - "tests:ApiShopper"
+  image: $CI_REGISTRY_IMAGE
+  script:
+    - echo $P_ENV
+    - echo $URL_STF
+    - echo $URL_SHP
+    - gradle clean build selgrosSmoke -Penv=selgros-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - cd web-tests
+    - bash ./report.sh reforged ui-selgros-preprod
+  tags:
+    - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/reforged/build/allure-results/
+      - web-tests/reforged/logs/
+      - web-tests/reforged/build/reports/tests/
+    expire_in: 1 week
+  allow_failure: false
