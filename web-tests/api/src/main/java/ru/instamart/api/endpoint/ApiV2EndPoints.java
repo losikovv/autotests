@@ -192,4 +192,8 @@ public final class ApiV2EndPoints {
             public static final String SBER_PRIME = "v2/external_partners/banners/sberprime?store_id={sid}";
         }
     }
+
+    public static final class ExternalAnalytics {
+            public static final String DEVICE_IDENTIFICATION = "/v2/external_analytics/device_identification";
+    }
 }
