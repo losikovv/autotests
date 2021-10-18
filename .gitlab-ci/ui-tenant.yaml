@@ -1,11 +1,15 @@
 tests:metroSmoke:
-  only:
-    variables:
-      - $TEST_UI_METRO_SMOKE == 'true' && $CI_RUN_ALL_JOBS == 'false'
-      - $CI_RUN_ALL_JOBS == 'true'
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "master"'
+      when: manual
+      allow_failure: true
+  #only:
+  #  variables:
+  #    - $TEST_UI_METRO_SMOKE == 'true' && $CI_RUN_ALL_JOBS == 'false'
+  #    - $CI_RUN_ALL_JOBS == 'true'
   extends:
     - ".template_ui_tests"
-    - ".template_run_all_jobs_at_a_time_on_master"
+    #- ".template_run_all_jobs_at_a_time_on_master"
   #needs:
   #  - "tests:ApiInstamart"
   #  - "tests:ApiShopper"
