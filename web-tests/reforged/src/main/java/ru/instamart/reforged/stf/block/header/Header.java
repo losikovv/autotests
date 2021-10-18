@@ -148,6 +148,7 @@ public final class Header implements HeaderCheck {
     @Step("js логаут с очисткой сессии")
     public void clearSessionLogout() {
         JsAction.clearSession();
+        Kraken.clearAllCooke();
         Kraken.refresh();
     }
 }

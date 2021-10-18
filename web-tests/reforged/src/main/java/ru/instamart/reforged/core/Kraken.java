@@ -84,8 +84,16 @@ public final class Kraken extends KrakenDriver {
         return getAllLogs().get(logType);
     }
 
+    public static Set<Cookie> getCookie() {
+        return getWebDriver().manage().getCookies();
+    }
+
     public static void addCookie(final Cookie cookie) {
         getWebDriver().manage().addCookie(cookie);
+    }
+
+    public static void clearAllCooke() {
+        getWebDriver().manage().deleteAllCookies();
     }
 
     @SuppressWarnings("unchecked")
@@ -96,9 +104,5 @@ public final class Kraken extends KrakenDriver {
             log.error("Fail when execute js code {}", js);
         }
         return null;
-    }
-
-    public static Set<Cookie> getCookie() {
-        return getWebDriver().manage().getCookies();
     }
 }

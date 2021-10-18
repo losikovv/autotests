@@ -1,6 +1,8 @@
 package ru.instamart.test.reforged.stf.user;
 
-import io.qameta.allure.*;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
@@ -28,9 +30,7 @@ public final class UserLogoutTests extends BaseTest {
     public void successQuickLogout() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().fillPhone(Generate.phoneNumber());
-        shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
+        shop().interactAuthModal().authViaPhone(UserManager.getUser());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clearSessionLogout();
         shop().interactHeader().checkLoginIsVisible();
@@ -71,12 +71,10 @@ public final class UserLogoutTests extends BaseTest {
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().fillPhone(userData.getPhone());
-        shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().goToShopPageWithDefaultSid();
+        shop().goToPage();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartNotEmpty();
         shop().interactCart().closeCart();
@@ -84,7 +82,9 @@ public final class UserLogoutTests extends BaseTest {
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().checkAccountMenuVisible();
         shop().interactHeader().interactAccountMenu().clickToLogout();
+
         home().checkLoginButtonIsVisible();
+
         shop().goToPage();
         shop().interactHeader().checkEnteredAddressNotVisible();
         shop().interactHeader().clickToCart();

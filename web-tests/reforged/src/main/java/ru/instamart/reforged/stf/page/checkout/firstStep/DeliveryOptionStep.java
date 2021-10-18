@@ -76,7 +76,7 @@ public class DeliveryOptionStep implements DeliveryOptionCheck {
 
     @Step("Нажать 'Продолжить'(для доставки)")
     public void clickToSubmitForDelivery() {
-        submitStepWithDelivery.click();
+        submitStepWithDelivery.hoverAndClick();
     }
 
     @Step("Нажать 'Продолжить'(для самовывоза)")

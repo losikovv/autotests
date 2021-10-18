@@ -3,7 +3,6 @@ package ru.instamart.test.reforged.stf.landings;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
-
 import org.testng.annotations.Test;
 import ru.instamart.kraken.testdata.lib.Addresses;
 import ru.instamart.reforged.CookieFactory;
@@ -85,6 +84,7 @@ public class SbermarketLandingTests extends BaseTest {
     public void enabledSberBusinessIdButton() {
         home().goToPage();
         home().openLoginModal();
+        home().interactAuthModal().checkModalIsVisible();
         home().interactAuthModal().checkForBusiness();
         home().interactAuthModal().checkSberBusinessIdIsVisible();
         home().interactAuthModal().uncheckForBusiness();

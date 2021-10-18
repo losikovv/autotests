@@ -1,8 +1,6 @@
 package ru.instamart.reforged.stf.page.checkout.fourthStep;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.*;
 
 public class PaymentStep implements PaymentStepElement {
 
@@ -64,7 +62,7 @@ public class PaymentStep implements PaymentStepElement {
 
     @Step("Нажать Оформить заказ в блоке заполнения чекаута")
     public void clickToSubmitFromCheckoutColumn() {
-        submitFromCheckoutColumn.click();
+        submitFromCheckoutColumn.hoverAndClick();
     }
 
     @Step("Выбрать карту {0}")
