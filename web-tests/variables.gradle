@@ -5,6 +5,9 @@ tasks.withType(Test) {
     if (project.hasProperty('browser')) {
         systemProperty 'browser',"${browser}"
     }
+    if (project.hasProperty('version')) {
+        systemProperty 'version',"${version}"
+    }
     if (project.hasProperty('env')) {
         systemProperty 'env',"${env}"
     }

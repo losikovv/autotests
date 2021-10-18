@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.testng.Reporter;
 import ru.instamart.reforged.core.config.BrowserProperties;
+import ru.instamart.reforged.core.enums.Browser;
 import ru.instamart.reforged.core.page.Router;
 import ru.instamart.reforged.core.provider.BrowserFactory;
 
@@ -27,19 +28,19 @@ public final class WebDriverContainer {
     private final AtomicBoolean isCleanStart = new AtomicBoolean(false);
 
     public WebDriver createOrGetDriver() {
-        //Get browser from suite parameter
-        final Optional<String> browser = Optional.ofNullable(
+        //Get browser from suite parameter or from -Pbrowser
+        final String browser = Optional.ofNullable(
                 Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("browser")
-        );
-        //Get version from suite parameter
-        final Optional<String> version = Optional.ofNullable(
+        ).orElse(BrowserProperties.BROWSER);
+        //Get version from suite parameter or from -Pversion
+        final String version = Optional.ofNullable(
                 Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("version")
-        );
+        ).orElse(BrowserProperties.BROWSER_VERSION);
+
         return this.webDriverMap.computeIfAbsent(Thread.currentThread().getId(), threadId ->
                 this.makeAutoClosable(
                         Thread.currentThread(),
-                        //Create browser. Get browser from suite parameter or from -Pbrowser
-                        BrowserFactory.createBrowserInstance(browser.orElse(BrowserProperties.BROWSER), version.orElse(BrowserProperties.BROWSER_VERSION))
+                        BrowserFactory.createBrowserInstance(Browser.getValue(browser), version)
                 )
         );
     }

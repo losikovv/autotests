@@ -30,3 +30,10 @@ task sberRegression(type: Test) {
         includeGroups 'sbermarket-regression','sbermarket-acceptance','sbermarket-Ui-smoke'
     }
 }
+
+task sberRegressionMulti(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/all_multi.xml'
+        includeGroups 'sbermarket-regression','sbermarket-acceptance','sbermarket-Ui-smoke'
+    }
+}

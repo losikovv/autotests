@@ -27,7 +27,6 @@ public final class ChromeProvider extends AbstractBrowserProvider {
         options.addArguments("--disable-extensions");
         options.addArguments("--disable-geolocation");
         options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-notifications");
 
         options.setExperimentalOption("prefs", jsonObject);
@@ -37,7 +36,7 @@ public final class ChromeProvider extends AbstractBrowserProvider {
         options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
 
         capabilities.setBrowserName("chrome");
-        capabilities.setCapability("browserVersion", BrowserProperties.BROWSER_VERSION);
+        capabilities.setCapability("browserVersion", version);
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         capabilities.setCapability("sessionTimeout", "5m");
 //        capabilities.setVersion(version);
