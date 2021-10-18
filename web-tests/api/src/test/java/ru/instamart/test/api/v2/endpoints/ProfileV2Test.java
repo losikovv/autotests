@@ -4,19 +4,20 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.ProfileV2Request;
+import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.ProfileV2Response;
 import ru.instamart.kraken.testdata.Generate;
 
 import java.util.UUID;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorValueAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 import static ru.instamart.kraken.helper.PhoneNumberHelper.getHumanPhoneNumber;
 import static ru.instamart.kraken.helper.UUIDHelper.isValidUUID;
@@ -24,6 +25,12 @@ import static ru.instamart.kraken.helper.UUIDHelper.isValidUUID;
 @Epic("ApiV2")
 @Feature("Profile")
 public class ProfileV2Test extends RestBase {
+
+    @AfterMethod(alwaysRun = true)
+    public void after(){
+        SessionFactory.clearSession(SessionType.API_V2_FB);
+        SessionFactory.clearSession(SessionType.API_V2_PHONE);
+    }
 
     @CaseId(159)
     @Test(description = "Получение данных профиля пользователя. Запрос с токеном",
@@ -60,7 +67,6 @@ public class ProfileV2Test extends RestBase {
         softAssert.assertTrue(profile.getUser().getConfig().getSendPush(), "send push is not TRUE");
 
         softAssert.assertAll();
-
     }
 
     @CaseId(160)
@@ -114,6 +120,12 @@ public class ProfileV2Test extends RestBase {
         final Response response = ProfileV2Request.PUT(buildProfile);
         response.prettyPeek();
         checkStatusCode422(response);
-        errorValueAssert(response, "Неверный формат email", "email");
+        final SoftAssert softAssert = new SoftAssert();
+        ErrorResponse error = response.as(ErrorResponse.class);
+        softAssert.assertEquals(error.getErrors().getEmail(), "Неверный формат email", "Невалидная ошибка");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "email", "Невалидный тип ошибки");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Неверный формат email", "Невалидная ошибка");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Неверный формат email", "Невалидная ошибка");
+        softAssert.assertAll();
     }
 }
