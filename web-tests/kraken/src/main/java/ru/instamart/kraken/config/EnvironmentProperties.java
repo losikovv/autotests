@@ -1,6 +1,7 @@
 package ru.instamart.kraken.config;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.instamart.kraken.enums.Server;
 import ru.instamart.utils.config.Config;
 import ru.instamart.utils.config.Env;
 
@@ -58,7 +59,7 @@ public final class EnvironmentProperties {
 
             if (nonNull(customBasicUrl) && !customBasicUrl.isBlank()) {
                 customBasicUrl = getDomainName(customBasicUrl);
-                SERVER = customBasicUrl.split("\\.")[0];
+                SERVER = customBasicUrl.contains("kraken") ? Server.PREPROD.name() : customBasicUrl.contains("k-stage") ? Server.STAGING.name() : Server.PRODUCTION.name();
                 BASIC_URL = customBasicUrl;
 
                 if (nonNull(customShopperUrl) && !customShopperUrl.isBlank()) {
