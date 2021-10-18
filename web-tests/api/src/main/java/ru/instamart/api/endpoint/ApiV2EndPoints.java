@@ -121,7 +121,7 @@ public final class ApiV2EndPoints {
                 "v2/phone_confirmations/{phoneNumber}";
 
         public static final String PHONE_NUMBER_WITH_PARAM =
-                "v2/phone_confirmations/{phoneNumber}" +
+                "v2/phone_confirmations/{phoneNumber}?" +
                         "phone_confirmation_code={phoneConfirmationCode}&" +
                         "promo_terms_accepted={promoTermsAccepted}";
     }
