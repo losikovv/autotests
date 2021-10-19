@@ -41,19 +41,31 @@ public class RestDataProvider extends RestBase {
         return authProviderArray;
     }
 
-    @DataProvider(name = "query", parallel = true)
-    public static Object[][] getQuery() {
-        Object[][] queryArray = new Object[7][3];
-        queryArray[0] = new Object[]{1, "хлеб", 200};
-        queryArray[1] = new Object[]{0, "хлеб", 404};
-        queryArray[2] = new Object[]{1, "", 200};
-        queryArray[3] = new Object[]{1, "хлеб; DROP TABLE Offers", 200};
-        queryArray[4] = new Object[]{1, "!@#$%^&*()", 200};
-        queryArray[5] = new Object[]{1, "а", 200};
-        queryArray[6] = new Object[]{1, RandomStringUtils.randomAlphabetic(8140), 200};
+    @DataProvider(name = "positiveQuery", parallel = true)
+    public static Object[][] getPositiveQuery() {
+        Object[][] queryArray = new Object[2][2];
+        queryArray[0] = new Object[]{1, "хлеб",};
+        queryArray[1] = new Object[]{1, "а"};
+        return queryArray;
+    }
+
+    @DataProvider(name = "negativeQuery", parallel = true)
+    public static Object[][] getNegativeQuery() {
+        Object[][] queryArray = new Object[3][2];
+        queryArray[0] = new Object[]{1, "SELECT * FROM spree_products"};
+        queryArray[1] = new Object[]{1, "!@#$%^&*()"};
+        queryArray[2] = new Object[]{1, RandomStringUtils.randomAlphabetic(8140)};
         //queryArray[7] = new Object[]{1, RandomStringUtils.randomAlphabetic(8141), 414};
         //пока не можем проверить, так как в теле ответа текст вместо json
         return queryArray;
+    }
+
+    @DataProvider(name = "emptyQueries", parallel = true)
+    public static Object[][] getEmptyQuery() {
+        return new Object[][]{
+                {"",},
+                {" "}
+        };
     }
 
     @Test()
