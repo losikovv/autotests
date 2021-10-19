@@ -9,7 +9,7 @@ tests:metroSmoke:
   #    - $CI_RUN_ALL_JOBS == 'true'
   extends:
     - ".template_ui_tests"
-    - ".template_run_all_jobs_at_a_time_on_master"
+  #  - ".template_run_all_jobs_at_a_time_on_master"
   #needs:
   #  - "tests:ApiInstamart"
   #  - "tests:ApiShopper"
