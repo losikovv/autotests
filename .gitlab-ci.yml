@@ -28,7 +28,6 @@ stages:
     - echo $P_ENV
     - gradle clean build apiShopperRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
-    - cd web-tests
     - if [ $URL_STF == "stf-kraken.k-stage.sbermarket.tech" ]; then ALLURE_POSTFIX="preprod"; else ALLURE_POSTFIX="staging"; fi
     - echo $ALLURE_POSTFIX
     - bash ./report.sh api api-shopper-$ALLURE_POSTFIX
@@ -62,12 +61,6 @@ stages:
   resource_group: ui:$CI_COMMIT_REF_SLUG
   stage: tests-ui
   image: $CI_REGISTRY_IMAGE
-  script:
-    - echo $P_ENV
-    - echo $URL_STF
-    - echo $URL_SHP
-  after_script:
-    - cd web-tests
   tags:
     - k8s-stage
   artifacts:
@@ -99,7 +92,6 @@ CustomSuiteTestRun:
     - echo $URL_SHP
     - gradle clean build $TEST_SET -Penv=$P_ENV -Pbrowser=$BROWSER -Pqase=$QASE -Purl_stf=$URL_STF -Purl_shp=$URL_SHP -Pkey=$ATST_APP_SECRET_KEY
   after_script:
-    - cd web-tests
     - bash ./report.sh reforged default
   tags:
     - k8s-stage
@@ -120,7 +112,6 @@ tests:AutoMRCheck:
     - echo $P_ENV
     - gradle clean build AutoMRCheck -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - cd web-tests
     - bash ./report.sh . default
   tags:
     - k8s-stage
@@ -147,7 +138,6 @@ tests:Debug:
     - echo $P_ENV
     - gradle clean build debug -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - cd web-tests
     - bash ./report.sh debug
   tags:
     - k8s-stage

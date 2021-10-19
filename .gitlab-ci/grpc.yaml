@@ -8,7 +8,6 @@ tests:product:hub:
   script:
     - gradle clean build grpcProductHub -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - cd web-tests
     - bash ./report.sh grpc grpc-product-hub
   tags:
     - k8s-stage
@@ -31,7 +30,6 @@ tests:salut:token:
   script:
     - gradle clean build grpcSalutToken -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - cd web-tests
     - bash ./report.sh grpc grpc-salut-token
   tags:
     - k8s-stage
