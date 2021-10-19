@@ -104,12 +104,8 @@ CustomSuiteTestRun:
     expire_in: 1 week
 
 tests:AutoMRCheck:
-  rules:
-    - if: '$CI_COMMIT_BRANCH != "master"'
-      when: manual
-      allow_failure: true
-  #only:
-  #  - merge_requests
+  only:
+    - merge_requests
   stage: tests-api
   image: $CI_REGISTRY_IMAGE
   script:
