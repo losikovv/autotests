@@ -9,6 +9,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.api.enums.v2.ProductSortTypeV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.SortV2;
+import ru.instamart.api.model.v2.SuggestionV2;
 import ru.instamart.api.model.v2.TaxonV2;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ import static java.util.Objects.isNull;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNull;
 
 @Slf4j
 public class InstamartApiCheckpoints {
@@ -129,5 +131,13 @@ public class InstamartApiCheckpoints {
                         ", id: " + taxon.getId() +
                         ", children_sum: " + sum +
                         ", product_count: " + taxon.getProductsCount());
+    }
+
+    @Step("Проверяем, что при неверных запросах не возвращаются поисковые подсказки")
+    public static void checkSearchSuggestionsNegative(SuggestionV2 suggestion) {
+        assertNull(suggestion.getProducts(), "Вернулись продукты в поисковых подсказках");
+        assertNull(suggestion.getSearches(), "Вернулся поисковый запрос в поисковых подсказках");
+        assertNull(suggestion.getSearchPhrases(), "Вернулся поисковый запрос в поисковых подсказках");
+        assertNull(suggestion.getTaxons(), "Вернулись группы в поисковых подсказках");
     }
 }

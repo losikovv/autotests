@@ -2,45 +2,84 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qase.api.annotation.CaseIDs;
 import io.qase.api.annotation.CaseId;
+import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.checkpoint.InstamartApiCheckpoints;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.model.v2.SuggestionV2;
 import ru.instamart.api.request.v2.SearchesV2Request;
 import ru.instamart.api.response.v2.SearchSuggestionsV2Response;
 import ru.instamart.api.dataprovider.RestDataProvider;
 
 import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Поиск")
 public class SearchesV2Test extends RestBase {
 
     @CaseId(271)
-    @Test(  description = "Получаем поисковые подсказки",
+    @Test(description = "Получаем поисковые подсказки",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getSearchSuggestions200() {
         response = SearchesV2Request.Suggestions.GET(1);
-        InstamartApiCheckpoints.checkStatusCode200(response);
+        checkStatusCode200(response);
         assertNotNull(response.as(SearchSuggestionsV2Response.class).getSuggestion(),
                 "Не отображаются поисковые подсказки");
     }
 
     @CaseId(272)
-    @Test(  description = "Получаем поисковые подсказки в несуществующем магазине",
+    @Test(description = "Получаем поисковые подсказки в несуществующем магазине",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getSearchSuggestions404() {
         response = SearchesV2Request.Suggestions.GET(0);
-        InstamartApiCheckpoints.checkStatusCode404(response);
+        checkStatusCode404(response);
     }
 
-    @CaseId(273)
-    @Test(  description = "Получаем поисковые подсказки по слову",
-            groups = {"api-instamart-regress"},
-            dataProvider = "query",
+    @CaseIDs(value = {@CaseId(273), @CaseId(278)})
+    @Test(description = "Получаем поисковые подсказки по слову - позитивные сценарии",
+            groups = {"api-instamart-regress", "api-instamart-prod"},
+            dataProvider = "positiveQuery",
             dataProviderClass = RestDataProvider.class)
-    public void getSearchSuggestionsWithQuery(int sid, String query, int statusCode) {
-        response = SearchesV2Request.Suggestions.GET(sid, query);
-        response.then().statusCode(statusCode);
+    public void getSearchSuggestionsWithQuery(int sid, String query) {
+        Response response = SearchesV2Request.Suggestions.GET(sid, query);
+        checkStatusCode200(response);
+        assertNotNull(response.as(SearchSuggestionsV2Response.class).getSuggestion().getProducts(), "По запросу не вернулись поисковые подсказки с продуктами");
+    }
+
+    @CaseIDs(value = {@CaseId(276), @CaseId(277), @CaseId(279)})
+    @Test(description = "Получаем поисковые подсказки по слову - негативные сценарии",
+            groups = {"api-instamart-regress"},
+            dataProvider = "negativeQuery",
+            dataProviderClass = RestDataProvider.class)
+    public void getSearchSuggestionsWithSqlQuery(int sid, String query) {
+        Response response = SearchesV2Request.Suggestions.GET(sid, query);
+        checkStatusCode200(response);
+        SuggestionV2 suggestion = response.as(SearchSuggestionsV2Response.class).getSuggestion();
+        checkSearchSuggestionsNegative(suggestion);
+    }
+
+    @CaseId(274)
+    @Test(description = "Получаем поисковые подсказки по слову для несуществующего магазина",
+            groups = {"api-instamart-regress"})
+    public void getSearchSuggestionsWithQueryAndNonExistentShop() {
+        Response response = SearchesV2Request.Suggestions.GET(0, "сыр");
+        checkStatusCode404(response);
+        errorAssert(response, "Магазин не существует");
+    }
+
+    @CaseId(275)
+    @Test(description = "Получаем поисковые подсказки c пустым запросом",
+            groups = {"api-instamart-regress"},
+            dataProvider = "emptyQueries",
+            dataProviderClass = RestDataProvider.class)
+    public void getSearchSuggestionsWithEmptyQuery(String query) {
+        Response response = SearchesV2Request.Suggestions.GET(1, query);
+        checkStatusCode200(response);
+        assertNull(response.as(SearchSuggestionsV2Response.class).getSuggestion().getProducts(), "Вернулись продукты в поисковых подсказках");
     }
 }
