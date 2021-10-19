@@ -13,7 +13,6 @@ tests:ApiInstamart:
     - echo $URL_SHP
     - gradle clean build apiInstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
-    - cd web-tests
     - if [ $URL_STF == "stf-kraken.k-stage.sbermarket.tech" ]; then ALLURE_POSTFIX="preprod"; else ALLURE_POSTFIX="staging"; fi
     - echo $ALLURE_POSTFIX
     - bash ./report.sh api api-instamart-$ALLURE_POSTFIX
@@ -37,7 +36,6 @@ tests:preprodApiMetro:
   script:
     - gradle clean build apiInstamartRegress -Penv=metro-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - cd web-tests
     - bash ./report.sh api api-metro-preprod
   tags:
     - k8s-stage
@@ -59,7 +57,6 @@ tests:prodApiInstamart:
   script:
     - gradle clean build apiInstamartProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - cd web-tests
     - bash ./report.sh api api-instamart-production
   tags:
     - k8s-stage
@@ -80,7 +77,6 @@ tests:prodApiRetailer:
   script:
     - gradle clean build apiRetailerE2E -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - cd web-tests
     - bash ./report.sh api api-retailer-e2e-production
   tags:
     - k8s-stage
@@ -103,7 +99,6 @@ tests:surge:
   script:
     - gradle clean build apiSurge -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
-    - cd web-tests
     - bash ./report.sh api api-surge
   tags:
     - k8s-stage
