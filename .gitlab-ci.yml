@@ -12,6 +12,9 @@ variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   CI_RUN_ALL_JOBS: "true"
 
+before_script:
+  - cd web-tests
+
 stages:
   - tests-api
   - tests-ui
