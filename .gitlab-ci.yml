@@ -70,7 +70,7 @@ stages:
       - web-tests/reforged/logs/
       - web-tests/reforged/build/reports/tests/
     expire_in: 1 week
-  allow_failure: false
+  allow_failure: true
 
 CustomSuiteTestRun:
   only:
