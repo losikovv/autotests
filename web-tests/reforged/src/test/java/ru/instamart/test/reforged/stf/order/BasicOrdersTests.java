@@ -131,7 +131,7 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().interactEditPaymentCardModal().fillHolderName(card.getCardholderName());
         checkout().interactEditPaymentCardModal().clickToSaveModal();
 
-        checkout().clickToSubmitFromSidebar();
+        checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
         checkout().checkPageContains("https://demo.cloudpayments.ru/acs");
     }
