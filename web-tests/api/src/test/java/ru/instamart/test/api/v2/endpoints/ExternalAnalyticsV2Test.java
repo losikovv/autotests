@@ -6,6 +6,7 @@ import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.ExternalAnalyticsV2Request;
@@ -16,7 +17,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 
 @Epic("ApiV2")
 @Feature("Получение идентификатора устройства для аналитики")
-public class ExternalAnalyticsV2Test {
+public class ExternalAnalyticsV2Test extends RestBase {
 
     @BeforeMethod
     public void testUp() {
