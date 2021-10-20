@@ -117,6 +117,15 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
         }
     }
 
+    public static class Clones{
+
+        @Step("{method} /"+ApiV2EndPoints.Shipments.CLONES)
+        public static Response POST(String shipmentNumber){
+            return givenWithAuth()
+                    .post(ApiV2EndPoints.Shipments.CLONES, shipmentNumber);
+        }
+    }
+
     /**
      * review[rate]	Да	Оценка
      * review[issue_ids]	-	Список выбранных вариантов ответа

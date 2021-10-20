@@ -8,12 +8,16 @@ import ru.instamart.api.model.BaseObject;
 import java.util.List;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper=false, onlyExplicitlyIncluded = true)
 public class OrderV2 extends BaseObject {
+    @EqualsAndHashCode.Include
     private String number;
+    @EqualsAndHashCode.Include
     private Double total;
+    @EqualsAndHashCode.Include
     @JsonProperty(value = "item_count")
     private Integer itemCount;
+    @EqualsAndHashCode.Include
     @JsonProperty(value = "item_total")
     private Double itemTotal;
     @JsonProperty(value = "item_discount_total")
@@ -45,8 +49,10 @@ public class OrderV2 extends BaseObject {
     private List<ShipmentV2> shipments = null;
     @JsonProperty(value = "promotion_codes")
     private List<PromotionCodeV2> promotionCodes = null;
+    @EqualsAndHashCode.Include
     @JsonProperty(value = "shipping_method_kind")
     private String shippingMethodKind;
+    @EqualsAndHashCode.Include
     @JsonProperty(value = "total_weight")
     private Double totalWeight;
     private List<Object> discounts = null;
