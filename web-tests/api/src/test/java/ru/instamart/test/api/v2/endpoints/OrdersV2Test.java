@@ -558,4 +558,21 @@ public class OrdersV2Test extends RestBase {
         checkStatusCode404(response);
         errorAssert(response, "Доставка не существует");
     }
+
+    @CaseId(812)
+    @Story("Создание нового заказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Создание нового заказа")
+    public void createNewOrder() {
+        SessionFactory.clearSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2_FB);
+        Response response = OrdersV2Request.POST();
+        checkStatusCode200(response);
+        OrderV2Response order = response.as(OrderV2Response.class);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertNotNull(order.getOrder().getNumber());
+        softAssert.assertNotNull(order.getOrder().getUuid());
+        softAssert.assertEquals(order.getOrder().getTotal(), 0.0);
+        softAssert.assertAll();
+    }
 }
