@@ -38,7 +38,7 @@ public final class ApiV2EndPoints {
     public static final String USERS = "v2/users";
     public static final String DELIVERY_AVAILABILITY = "v2/delivery_availability?lat={lat}&lon={lon}";
 
-    public static final class AbTests{
+    public static final class AbTests {
         public static final String DEVICE_ID = "v2/ab_tests?device_id={deviceId}";
     }
 
@@ -56,7 +56,7 @@ public final class ApiV2EndPoints {
         public static final String BY_ID = "v2/bonus_cards/{bonusCardId}";
     }
 
-    public static final class CreditCards{
+    public static final class CreditCards {
         public static final String BY_ID = "v2/credit_cards/{creditCardId}";
     }
 
@@ -78,7 +78,7 @@ public final class ApiV2EndPoints {
         }
     }
 
-    public static final class LegalEntity{
+    public static final class LegalEntity {
         public static final String BY_INN = "v2/legal_entity?inn={inn}";
     }
 
@@ -86,7 +86,7 @@ public final class ApiV2EndPoints {
         public static final String BY_ID = "v2/line_items/{productId}";
     }
 
-    public static final class Onboarding{
+    public static final class Onboarding {
         public static final String ONBOARDING_V2_PAGES = "v2/onboarding/v2_pages";
     }
 
@@ -112,7 +112,7 @@ public final class ApiV2EndPoints {
         public static final String RESET = "v2/passwords/reset";
     }
 
-    public static final class Phones{
+    public static final class Phones {
         public static final String BY_ID = "v2/phones/{phoneId}";
     }
 
@@ -139,10 +139,11 @@ public final class ApiV2EndPoints {
         public static final String BY_ID = "v2/retailers/{id}";
     }
 
-    public static final class Recs{
+    public static final class Recs {
         public static final String PERSONAL = "v2/recs/personal";
     }
-    public static final class SimpleRecs{
+
+    public static final class SimpleRecs {
         public static final String PERSONAL = "v2/simple-recs/personal";
     }
 
@@ -160,7 +161,7 @@ public final class ApiV2EndPoints {
     }
 
     public static final class Shipments {
-        public static final String SHIPMENTS= "v2/shipments/{shipmentNumber}";
+        public static final String SHIPMENTS = "v2/shipments/{shipmentNumber}";
         public static final String DELIVERY_WINDOWS = "v2/shipments/{shipmentId}/delivery_windows/?{date}";
         public static final String LINE_ITEMS = "v2/shipments/{shipmentNumber}/line_items";
         public static final String LINE_ITEM_CANCELLATIONS = "v2/shipments/{shipmentNumber}/line_item_cancellations";
@@ -170,6 +171,7 @@ public final class ApiV2EndPoints {
         public static final String STATE = "v2/shipments/{shipmentNumber}/state";
         public static final String REVIEW_ISSUES = "v2/shipments/{shipmentNumber}/review_issues";
         public static final String REVIEWS = "v2/shipments/{shipmentNumber}/reviews";
+        public static final String CLONES = "v2/shipments/{shipmentNumber}/clones";
     }
 
     public static final class Stores {
@@ -194,6 +196,6 @@ public final class ApiV2EndPoints {
     }
 
     public static final class ExternalAnalytics {
-            public static final String DEVICE_IDENTIFICATION = "/v2/external_analytics/device_identification";
+        public static final String DEVICE_IDENTIFICATION = "/v2/external_analytics/device_identification";
     }
 }

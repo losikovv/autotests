@@ -14,6 +14,8 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.AddressV2;
+import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.api.model.v2.ShipmentV2;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.request.v2.StoresV2Request;
 import ru.instamart.api.response.v2.*;
@@ -327,6 +329,34 @@ public class ShipmentsV2Test extends RestBase {
             description = "Получение списка возможных проблем для отзыва о не существующем заказе")
     public void getListIssues404() {
         final Response response = ShipmentsV2Request.ReviewIssues.GET("failedShipmentNumber");
+        checkStatusCode404(response);
+        errorAssert(response, "Доставка не существует");
+    }
+
+    @CaseId(298)
+    @Story("Повтор подзаказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Повтор существующего подзаказа")
+    public void repeatExistingShipment() {
+        OrderV2 order = apiV2.getOpenOrder();
+        ShipmentV2 shipment = apiV2.getShippingWithOrder();
+        final Response response = ShipmentsV2Request.Clones.POST(shipment.getNumber());
+        checkStatusCode200(response);
+        OrderV2Response orderV2Response = response.as(OrderV2Response.class);
+        OrderV2 orderFromResponse = orderV2Response.getOrder();
+        ShipmentV2 clonedShipment = orderV2Response.getOrder().getShipments().get(0);
+        SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(orderFromResponse, order, softAssert);
+        compareTwoObjects(clonedShipment, shipment, softAssert);
+        softAssert.assertAll();
+    }
+
+    @CaseId(299)
+    @Story("Повтор подзаказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Повтор несуществующего подзаказа")
+    public void repeatNonExistingShipment() {
+        final Response response = ShipmentsV2Request.Clones.POST("failedShipmentNumber");
         checkStatusCode404(response);
         errorAssert(response, "Доставка не существует");
     }
