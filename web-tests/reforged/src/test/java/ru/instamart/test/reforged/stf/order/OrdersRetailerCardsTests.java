@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.stf.order;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qase.api.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -40,6 +41,7 @@ public final class OrdersRetailerCardsTests extends BaseTest {
     }
 
     @Run(onTenant = Tenant.METRO)
+    @CaseId(1632)
     @Test(  description = "Тест заказа с картой Метро (только METRO WL)",
             groups = {"metro-acceptance","metro-regression"}
     )
@@ -76,6 +78,7 @@ public final class OrdersRetailerCardsTests extends BaseTest {
     }
 
     @Run(onTenant = Tenant.SBERMARKET, onServer = Server.PRODUCTION)
+    @CaseId(1633)
     @Test(  description = "Тест заказа с картой Вкусвилл (только Sbermarket)",
             groups = {"sbermarket-acceptance","sbermarket-regression"}
     )
