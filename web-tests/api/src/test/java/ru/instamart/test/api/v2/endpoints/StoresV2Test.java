@@ -10,6 +10,7 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.request.v2.StoresV2Request;
+import ru.instamart.api.response.v2.DeliveryWindowsV2Response;
 import ru.instamart.api.response.v2.PromotionCardsV2Response;
 import ru.instamart.api.response.v2.StoreV2Response;
 import ru.instamart.api.response.v2.StoresV2Response;
@@ -17,6 +18,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.testng.Assert.*;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
@@ -127,7 +129,7 @@ public final class StoresV2Test extends RestBase {
     public void getStores(StoresV2Request.Store store) {
         final Response response = StoresV2Request.GET(store);
         checkStatusCode200(response);
-        assertFalse(response.as(StoresV2Response.class).getStores().isEmpty(), "Stores is missed");
+        checkFieldIsNotEmpty(response.as(StoresV2Response.class).getStores(), "магазины");
     }
 
     @Deprecated

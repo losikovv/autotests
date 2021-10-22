@@ -8,12 +8,14 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.model.v3.StoreV3;
 import ru.instamart.api.request.v3.StoresV3Request;
+import ru.instamart.api.response.v2.StoresV2Response;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.testng.Assert.assertNotEquals;
 import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 
 @Epic("ApiV3")
@@ -35,8 +37,7 @@ public class StoresV3Test extends RestBase {
 
         List<StoreV3> stores = Arrays.asList(response.as(StoreV3[].class));
         String shippingMethodTitle = stores.get(0).getShipping_methods().get(0).getTitle();
-        assertNotNull(shippingMethodTitle, "title вернулся пустой");
-        assertNotEquals(shippingMethodTitle, "", "title вернулся пустой");
+        checkFieldIsNotEmpty(shippingMethodTitle, "title");
     }
 
     @CaseId(865)

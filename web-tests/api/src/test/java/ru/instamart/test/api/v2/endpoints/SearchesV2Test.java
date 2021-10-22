@@ -6,15 +6,15 @@ import io.qase.api.annotation.CaseIDs;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
-import ru.instamart.api.checkpoint.InstamartApiCheckpoints;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.model.v2.SuggestionV2;
 import ru.instamart.api.request.v2.SearchesV2Request;
 import ru.instamart.api.response.v2.SearchSuggestionsV2Response;
-import ru.instamart.api.dataprovider.RestDataProvider;
 
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
@@ -28,8 +28,7 @@ public class SearchesV2Test extends RestBase {
     public void getSearchSuggestions200() {
         response = SearchesV2Request.Suggestions.GET(1);
         checkStatusCode200(response);
-        assertNotNull(response.as(SearchSuggestionsV2Response.class).getSuggestion(),
-                "Не отображаются поисковые подсказки");
+        checkFieldIsNotEmpty(response.as(SearchSuggestionsV2Response.class).getSuggestion(), "поисковые подсказки");
     }
 
     @CaseId(272)
@@ -48,7 +47,7 @@ public class SearchesV2Test extends RestBase {
     public void getSearchSuggestionsWithQuery(int sid, String query) {
         Response response = SearchesV2Request.Suggestions.GET(sid, query);
         checkStatusCode200(response);
-        assertNotNull(response.as(SearchSuggestionsV2Response.class).getSuggestion().getProducts(), "По запросу не вернулись поисковые подсказки с продуктами");
+        checkFieldIsNotEmpty(response.as(SearchSuggestionsV2Response.class).getSuggestion().getProducts(), "поисковые подсказки с продуктами");
     }
 
     @CaseIDs(value = {@CaseId(276), @CaseId(277), @CaseId(279)})

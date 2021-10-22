@@ -1,24 +1,24 @@
 package ru.instamart.test.api.delivery_club.endpoints;
 
-import io.qameta.allure.Issue;
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.request.delivery_club.AuthenticationDCRequest;
-import ru.instamart.api.response.delivery_club.TokenDCResponse;
-import ru.instamart.kraken.testdata.UserManager;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.request.delivery_club.AuthenticationDCRequest;
+import ru.instamart.api.response.delivery_club.TokenDCResponse;
+import ru.instamart.kraken.testdata.UserManager;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+import static org.testng.Assert.assertTrue;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode401;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertTrue;
 
 @Epic("Партнёры")
 @Feature("Delivery Club")
@@ -33,7 +33,7 @@ public class AuthenticationDCTest extends RestBase {
         checkStatusCode200(response);
 
         final TokenDCResponse tokenResponse = response.as(TokenDCResponse.class);
-        assertNotNull(tokenResponse.getToken(), "Вернулся пустой токен");
+        checkFieldIsNotEmpty(tokenResponse.getToken(), "токен");
 
         final LocalDateTime localDateTimeFromResponse = LocalDateTime.parse(tokenResponse.getExpiresAt().substring(0, 19));
         final LocalDateTime dateNow = LocalDateTime.now(ZoneOffset.of(tokenResponse.getExpiresAt().substring(19, 25)));

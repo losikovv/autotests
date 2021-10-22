@@ -21,6 +21,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static org.testng.Assert.*;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 
@@ -50,7 +51,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     public void getShoppers200() {
         Response response = ShopperAdminRequest.Shoppers.GET();
         checkStatusCode200(response);
-        assertFalse(response.as(ShoppersSHPResponse.class).getShoppers().isEmpty(), "Список сотрудников пустой");
+        checkFieldIsNotEmpty(response.as(ShoppersSHPResponse.class).getShoppers(), "список сотрудников");
     }
 
     @CaseId(24)
@@ -59,7 +60,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     public void getStores200() {
         Response response = ShopperAdminRequest.Stores.GET();
         checkStatusCode200(response);
-        assertFalse(response.as(StoresSHPResponse.class).getStores().isEmpty(), "Список магазинов пустой");
+        checkFieldIsNotEmpty(response.as(StoresSHPResponse.class).getStores(), "список магазинов");
     }
 
     @CaseId(25)
@@ -69,7 +70,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         Response response = ShopperAdminRequest.RouteSchedules.GET();
         checkStatusCode200(response);
         List<RouteScheduleV1> routeSchedules = response.as(RouteSchedulesSHPResponse.class).getRouteSchedules();
-        assertFalse(routeSchedules.isEmpty(), "Список расписаний пустой");
+        checkFieldIsNotEmpty(routeSchedules, "список расписаний");
     }
 
     @CaseId(26)
@@ -78,7 +79,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     public void getOperationalZones200() {
         Response response = ShopperAdminRequest.OperationalZones.GET();
         checkStatusCode200(response);
-        assertFalse(response.as(OperationalZonesSHPResponse.class).getOperationalZones().isEmpty(), "Список операционных зон пустой");
+        checkFieldIsNotEmpty(response.as(OperationalZonesSHPResponse.class).getOperationalZones(), "список операционных зон");
     }
 
     @CaseId(27)
@@ -87,7 +88,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     public void getRetailers200() {
         Response response = ShopperAdminRequest.Retailers.GET();
         checkStatusCode200(response);
-        assertFalse(response.as(RetailersSHPResponse.class).getRetailers().isEmpty(), "Список ритейлеров пустой");
+        checkFieldIsNotEmpty(response.as(RetailersSHPResponse.class).getRetailers(), "список ритейлеров");
     }
 
     @CaseId(28)
@@ -104,7 +105,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     public void getShifts200() {
         Response response = ShopperAdminRequest.Shifts.GET();
         checkStatusCode200(response);
-        assertFalse(response.as(ShiftsSHPResponse.class).getShifts().isEmpty());
+        checkFieldIsNotEmpty(response.as(ShiftsSHPResponse.class).getShifts(), "список смен");
     }
 
     @CaseId(31)
@@ -113,7 +114,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     public void getTariffs200() {
         Response response = ShopperAdminRequest.Tariffs.GET();
         checkStatusCode200(response);
-        assertFalse(response.as(TariffsSHPResponse.class).getTariffs().isEmpty());
+        checkFieldIsNotEmpty(response.as(TariffsSHPResponse.class).getTariffs(), "список тарифов");
     }
 
     @CaseId(84)
@@ -185,7 +186,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     public void getRoles200() {
         Response response = ShopperAdminRequest.Roles.GET();
         checkStatusCode200(response);
-        assertFalse(response.as(RolesSHPResponse.class).getRoles().isEmpty(), "Список ролей пуст");
+        checkFieldIsNotEmpty(response.as(RolesSHPResponse.class).getRoles(), "список ролей");
     }
 
     @CaseId(86)

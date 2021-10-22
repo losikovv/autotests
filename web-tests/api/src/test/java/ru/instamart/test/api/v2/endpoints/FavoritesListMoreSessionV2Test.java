@@ -16,9 +16,11 @@ import ru.instamart.api.request.v2.FavoritesV2Request;
 import ru.instamart.api.response.v2.FavoritesItemV2Response;
 import ru.instamart.api.response.v2.FavoritesListItemsV2Response;
 import ru.instamart.api.response.v2.ProductSkuV2Response;
+import ru.instamart.api.response.v2.SessionsV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static org.testng.Assert.*;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 
 @Epic(value = "ApiV2")
@@ -108,7 +110,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
         Response response = FavoritesV2Request.ProductSku.GET();
         checkStatusCode200(response);
         ProductSkuV2Response productSkuV2Response = response.as(ProductSkuV2Response.class);
-        assertFalse(productSkuV2Response.getProductsSku().isEmpty(), "Избранное пустое");
+        checkFieldIsNotEmpty(productSkuV2Response.getProductsSku(), "SKU товаров из избранного");
     }
 
     @CaseId(525)
@@ -121,7 +123,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
         checkStatusCode200(response);
         FavoritesItemV2Response favorites = response.as(FavoritesItemV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertNotNull(favorites.getItem().getId(), "Id товара не совпадает");
+        checkFieldIsNotEmpty(favorites.getItem().getId(), "Id товара");
         softAssert.assertEquals(favorites.getItem().getProduct().getId(), product.getId(), "Id товара не совпадает");
         softAssert.assertEquals(favorites.getItem().getSku(), product.getSku(), "sku товара не совпадает");
         softAssert.assertEquals(favorites.getItem().getName(), product.getName(), "name товара не совпадает");

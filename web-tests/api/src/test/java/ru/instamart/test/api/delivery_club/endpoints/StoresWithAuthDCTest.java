@@ -26,6 +26,7 @@ import java.util.List;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.testng.Assert.assertFalse;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Slf4j
@@ -59,7 +60,7 @@ public class StoresWithAuthDCTest extends RestBase {
         final Response response = StoresDCRequest.Slots.Available.GET(sid);
         checkStatusCode200(response);
         List<SlotDC> slots = Arrays.asList(response.as(SlotDC[].class));
-        assertFalse(slots.isEmpty(), "Нет слотов в магазине " + Pages.Admin.stores(sid));
+        checkFieldIsNotEmpty(slots,"слоты в магазине");
         slotId = slots.get(0).getId();
         response.then().body(matchesJsonSchemaInClasspath("schemas/delivery_club/StoresSlotsAvailable.json"));
     }

@@ -14,6 +14,7 @@ import ru.instamart.api.response.v2.RecsV2Response;
 import java.util.UUID;
 
 import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode400;
 
@@ -60,8 +61,7 @@ public class RecsV2Test extends RestBase {
         final Response response = PersonalV2Request.POST(recsV2);
         checkStatusCode200(response);
         final RecsV2Response recsV2Response = response.as(RecsV2Response.class);
-        assertNotNull(recsV2Response.getRecs(), "Рекомендации вернулись пустые");
-
+        assertNotNull(recsV2Response.getRecs(), "Рекомендации вернулись пустые"); //ATST-805
     }
 
     @CaseId(288)

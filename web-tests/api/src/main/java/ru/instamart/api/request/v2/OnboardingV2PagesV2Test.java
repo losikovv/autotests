@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.response.v2.OnboardingPagesV2Response;
 
-import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 
 public class OnboardingV2PagesV2Test extends RestBase {
@@ -14,7 +14,6 @@ public class OnboardingV2PagesV2Test extends RestBase {
     public void getOnboardingPages() {
         response = OnboardingV2PagesV2Request.GET();
         checkStatusCode200(response);
-        assertNotNull(response.as(OnboardingPagesV2Response.class).getOnboardingPages(),
-                "Не вернулись экраны онборлдинга");
+        checkFieldIsNotEmpty(response.as(OnboardingPagesV2Response.class).getOnboardingPages(), "экраны онбординга'");
     }
 }

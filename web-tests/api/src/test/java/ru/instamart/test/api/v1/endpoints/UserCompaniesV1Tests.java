@@ -18,6 +18,7 @@ import ru.instamart.kraken.testdata.JuridicalData;
 import ru.instamart.kraken.testdata.UserManager;
 
 import static org.testng.Assert.*;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode422;
 
@@ -42,7 +43,7 @@ public class UserCompaniesV1Tests extends RestBase {
     public void getUserCompanies() {
         Response response = UserCompaniesV1Request.GET();
         checkStatusCode200(response);
-        assertFalse(response.as(CompaniesV1Response.class).getCompanies().isEmpty(), "Список компаний пользователя пустой");
+        checkFieldIsNotEmpty(response.as(CompaniesV1Response.class).getCompanies(), "список компаний");
         assertTrue(response.as(CompaniesV1Response.class).getCompanies().contains(company), "Наименование компании отличается от заданной");
     }
 
@@ -73,7 +74,7 @@ public class UserCompaniesV1Tests extends RestBase {
     public void getCompanyEmployees() {
         Response response = UserCompaniesV1Request.Employees.GET(company.getId().toString());
         checkStatusCode200(response);
-        assertFalse(response.as(EmployeesV1Response.class).getEmployees().isEmpty(), "Спаисок сотрудников компании вернулся пустым");
+        checkFieldIsNotEmpty(response.as(EmployeesV1Response.class).getEmployees(), "список сотрудников компании");
     }
 
     @Story("Web")
@@ -93,7 +94,8 @@ public class UserCompaniesV1Tests extends RestBase {
     public void postRefreshPaymentAccountError() {
         Response response = UserCompaniesV1Request.PaymentAccount.POST(company.getId().toString());
         checkStatusCode422(response);
-        assertFalse(response.as(PaymentAccountV1Response.class).getPaymentAccount().getErrors().getExternalPaymentAccount().isEmpty(), "Ошибка добавления баланса пустая");
+        checkFieldIsNotEmpty(response.as(PaymentAccountV1Response.class).getPaymentAccount().getErrors().getExternalPaymentAccount(),
+                "ошибка добавления баланса");
     }
 
     @Story("Web")
@@ -103,7 +105,8 @@ public class UserCompaniesV1Tests extends RestBase {
     public void postCompanyRegistrationError(){
         Response response = UserCompaniesV1Request.POST(companyData);
         checkStatusCode422(response);
-        assertFalse(response.as(CompanyV1Response.class).getCompany().getErrors().getInn().isEmpty(), "Пустое сообщение при ошибке регистрации компании");
+        checkFieldIsNotEmpty(response.as(CompanyV1Response.class).getCompany().getErrors().getInn(),
+                "ошибка регистрации компании");
     }
 
     @Story("Web")

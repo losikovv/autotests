@@ -12,7 +12,9 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.ExternalAnalyticsV2Request;
 import ru.instamart.api.response.v2.ExternalAnalyticsV2Response;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
@@ -29,7 +31,7 @@ public class ExternalAnalyticsV2Test extends RestBase {
     public void testGetDeviceIdWithToken() {
         final Response response = ExternalAnalyticsV2Request.POST();
         checkStatusCode200(response);
-        assertNotNull(response.as(ExternalAnalyticsV2Response.class).getAnonymousDevice().getUuid(), "Отсутствует обязательный параметр 'uuid'");
+        checkFieldIsNotEmpty(response.as(ExternalAnalyticsV2Response.class).getAnonymousDevice().getUuid(), "uuid");
     }
 
     @CaseId(946)
@@ -38,6 +40,6 @@ public class ExternalAnalyticsV2Test extends RestBase {
         SessionFactory.clearSession(SessionType.API_V2_FB);
         final Response response = ExternalAnalyticsV2Request.POST();
         checkStatusCode200(response);
-        assertNotNull(response.as(ExternalAnalyticsV2Response.class).getAnonymousDevice().getUuid(), "Отсутствует обязательный параметр 'uuid'");
+        checkFieldIsNotEmpty(response.as(ExternalAnalyticsV2Response.class).getAnonymousDevice().getUuid(), "uuid");
     }
 }

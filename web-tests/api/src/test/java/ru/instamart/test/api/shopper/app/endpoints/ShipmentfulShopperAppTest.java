@@ -14,12 +14,14 @@ import ru.instamart.api.helper.RegistrationHelper;
 import ru.instamart.api.model.shopper.app.AssemblySHP;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.shopper.app.*;
+import ru.instamart.api.response.shopper.admin.RolesSHPResponse;
 import ru.instamart.api.response.shopper.app.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.testdata.UserData;
 import ru.instamart.kraken.testdata.UserManager;
 
 import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkIsDeliveryToday;
 import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
 
@@ -57,7 +59,8 @@ public class ShipmentfulShopperAppTest extends RestBase {
             groups = {"api-shopper-smoke", "api-shopper-prod"})
     public void createOrderImport() {
         //todo проверять сам вебхук
-        assertNotNull(shipmentId, "shipmentId вернулся пустым");
+
+        checkFieldIsNotEmpty(shipmentId, "shipmentId");
     }
 
     @Story("Начало сборки")
@@ -68,7 +71,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
         response = AssembliesSHPRequest.POST(shipmentId);
         checkStatusCode200(response);
         AssemblySHP.Data assembly = response.as(AssemblySHPResponse.class).getData();
-        assertNotNull(assembly.getId(), "Не вернулась сборка");
+        checkFieldIsNotEmpty(assembly.getId(), "сборка");
         assemblyId = assembly.getId();
         assemblyItemId = assembly.getRelationships()
                 .getItems()
@@ -85,12 +88,12 @@ public class ShipmentfulShopperAppTest extends RestBase {
     public void getAssembly200() {
         response = AssembliesSHPRequest.GET(assemblyId);
         checkStatusCode200(response);
-        assertNotNull(itemQty = response.as(AssemblySHPResponse.class)
-                        .getIncluded()
-                        .get(0)
-                        .getAttributes()
-                        .getQty(),
-                "Не вернулась сборка");
+        itemQty = response.as(AssemblySHPResponse.class)
+                .getIncluded()
+                .get(0)
+                .getAttributes()
+                .getQty();
+        checkFieldIsNotEmpty(itemQty, "сборка");
     }
 
     @Story("Получение информации о заказах")
@@ -100,8 +103,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     public void getShopperShipments200() {
         response = ShopperSHPRequest.Shipments.GET();
         checkStatusCode200(response);
-        assertNotNull(response.as(ShipmentsSHPResponse.class).getData(),
-                "Не вернулись заказы сборщика");
+        checkFieldIsNotEmpty(response.as(ShipmentsSHPResponse.class).getData(), "заказы сборщика");
     }
 
     @Story("Получение информации о сборках")
@@ -112,11 +114,10 @@ public class ShipmentfulShopperAppTest extends RestBase {
     public void getShopperAssemblies200() {
         response = ShopperSHPRequest.Assemblies.GET();
         checkStatusCode200(response);
-        assertNotNull(response.as(AssembliesSHPResponse.class)
-                        .getData()
-                        .get(0)
-                        .getId(),
-                "Не вернулись сборки сборщика");
+        checkFieldIsNotEmpty(response.as(AssembliesSHPResponse.class)
+                .getData()
+                .get(0)
+                .getId(), "сборки сборщика");
     }
 
     @Story("Процесс сборки")
@@ -127,7 +128,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     public void patchAssemblyItem200() {
         response = AssemblyItemsSHPRequest.PATCH(assemblyId, assemblyItemId, itemQty);
         checkStatusCode200(response);
-        assertNotNull(response.as(AssemblyItemSHPResponse.class).getData(), "Сборка вернулась пустой");
+        checkFieldIsNotEmpty(response.as(AssemblyItemSHPResponse.class).getData(), "сборка");
     }
 
     @Story("Хелпдеск")
@@ -137,7 +138,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     public void getHelpdeskTickets200() {
         response = HelpdeskSHPRequest.Tickets.GET(shipmentId);
         checkStatusCode200(response);
-        assertNotNull(response.as(TicketsSHPResponse.class).getData(), "Не вернулись тикеты хелпдеска");
+        assertNotNull(response.as(TicketsSHPResponse.class).getData(), "Не вернулись тикеты хелпдеска"); //ATST-803
     }
 
     @Story("Получение информации о заказах")
@@ -147,12 +148,12 @@ public class ShipmentfulShopperAppTest extends RestBase {
     public void getShipment200() {
         response = ShipmentsSHPRequest.GET(shipmentId);
         checkStatusCode200(response);
-        assertNotNull(response.as(ShipmentSHPResponse.class)
+        checkFieldIsNotEmpty(response.as(ShipmentSHPResponse.class)
                         .getData()
                         .getAttributes()
                         .getAddress()
                         .getAddress1(),
-                "Не вернулся заказ");
+                "адрес заказа");
     }
 
     @Issue("STF-8976")
@@ -164,8 +165,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     public void getAssemblyItemPrereplacements200() {
         response = AssemblyItemsSHPRequest.Prereplacements.GET(assemblyItemId);
         checkStatusCode200(response);
-        assertNotNull(response.as(PrereplacementsSHPResponse.class).getPrereplacement(),
-                "Не вернулись предзамены");
+        checkFieldIsNotEmpty(response.as(PrereplacementsSHPResponse.class).getPrereplacement(), "предзамены");
     }
 
     @Story("Получение информации о заказах")
@@ -175,8 +175,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     public void getShipmentStock200() {
         response = ShipmentsSHPRequest.Stocks.GET(shipmentId);
         checkStatusCode200(response);
-        assertNotNull(response.as(ShipmentStocksSHPResponse.class).getOffers().get(0).getStock(),
-                "Не вернулась инфа о стоках товаров в заказе");
+        checkFieldIsNotEmpty(response.as(ShipmentStocksSHPResponse.class).getOffers().get(0).getStock(), "сток товаров в заказе");
     }
 
     @Story("Оплата")
@@ -198,6 +197,6 @@ public class ShipmentfulShopperAppTest extends RestBase {
         response = ShipmentsSHPRequest.MarketingSampleItems.GET(shipmentId);
         checkStatusCode200(response);
         assertNotNull(response.as(MarketingSampleItemsSHPResponse.class).getMarketingSampleItems(),
-                "Не вернулся массив маркетинговых пробников");
+                "Не вернулся массив маркетинговых пробников"); //ATST-804
     }
 }

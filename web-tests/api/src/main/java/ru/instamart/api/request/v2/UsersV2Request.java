@@ -2,12 +2,13 @@ package ru.instamart.api.request.v2;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
-import org.testng.Assert;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 
 public final class UsersV2Request extends ApiV2RequestBase {
 
@@ -48,8 +49,7 @@ public final class UsersV2Request extends ApiV2RequestBase {
                                final String firstName,
                                final String lastName,
                                final boolean promo) {
-        Assert.assertNotNull(email , "Email is NULL");
-        Assert.assertNotEquals(email , "", "Email is empty");
+        checkFieldIsNotEmpty(email, "email");
 
         final Map<String, Object> data = new HashMap<>();
         if (firstName != null && !firstName.isEmpty()) data.put("user[first_name]", firstName);
@@ -65,8 +65,7 @@ public final class UsersV2Request extends ApiV2RequestBase {
                                final String currentPassword,
                                final String password,
                                final String passwordConfirmation) {
-        Assert.assertNotNull(email , "Email is NULL");
-        Assert.assertNotEquals(email , "", "Email is empty");
+        checkFieldIsNotEmpty(email, "email");
 
         final Map<String, Object> data = new HashMap<>();
         data.put("user[current_password]", currentPassword);
