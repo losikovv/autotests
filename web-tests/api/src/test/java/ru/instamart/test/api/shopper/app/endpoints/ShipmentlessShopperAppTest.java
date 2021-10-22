@@ -11,7 +11,9 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.shopper.app.Attributes;
 import ru.instamart.api.model.shopper.app.ReasonSHP;
+import ru.instamart.api.model.shopper.app.SessionSHP;
 import ru.instamart.api.request.shopper.app.*;
 import ru.instamart.api.response.shopper.app.*;
 import ru.instamart.kraken.config.CoreProperties;
@@ -22,6 +24,7 @@ import java.util.Arrays;
 
 import static org.testng.Assert.assertNotEquals;
 import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
 
 @Epic("Shopper Mobile API")
@@ -46,11 +49,10 @@ public class ShipmentlessShopperAppTest extends RestBase {
     public void getShopper200() {
         response = ShopperSHPRequest.GET();
         checkStatusCode200(response);
-        assertNotNull(response.as(ShopperSHPResponse.class)
-                        .getData()
-                        .getAttributes()
-                        .getName(),
-                "Не вернулась инфа о сборщике");
+        checkFieldIsNotEmpty(response.as(ShopperSHPResponse.class)
+                .getData()
+                .getAttributes()
+                .getName(), "информация о сборщике");
     }
 
     @Story("Получение информации о маршрутах")
@@ -87,8 +89,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     public void getCancelReasons200() {
         response = CancelReasonsSHPRequest.GET();
         checkStatusCode200(response);
-        assertNotNull(Arrays.asList(response.as(ReasonSHP[].class)).get(0).getName(),
-                "Не вернулись причины отмен");
+        checkFieldIsNotEmpty(Arrays.asList(response.as(ReasonSHP[].class)).get(0).getName(), "причины отмен");
     }
 
     @Story("Получение информации о причинах")
@@ -98,8 +99,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     public void getClarifyReasons200() {
         response = ClarifyReasonsSHPRequest.GET();
         checkStatusCode200(response);
-        assertNotNull(Arrays.asList(response.as(ReasonSHP[].class)).get(0).getName(),
-                "Не вернулись причины уточнения");
+        checkFieldIsNotEmpty(Arrays.asList(response.as(ReasonSHP[].class)).get(0).getName(), "причины уточнения");
     }
 
     @Story("Получение информации о причинах")
@@ -109,8 +109,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     public void getReturnReasons200() {
         response = ReturnReasonsSHPRequest.GET();
         checkStatusCode200(response);
-        assertNotNull(Arrays.asList(response.as(ReasonSHP[].class)).get(0).getName(),
-                "Не вернулись причины возврата");
+        checkFieldIsNotEmpty(Arrays.asList(response.as(ReasonSHP[].class)).get(0).getName(), "причины возврата");
     }
 
     @Story("Получение марс токена (стоки метро)")
@@ -120,8 +119,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     public void getMarsToken200() {
         response = MarsTokenSHPRequest.GET();
         checkStatusCode200(response);
-        assertNotNull(response.as(MarsTokenSHPResponse.class).getAccess_token(),
-                "Не вернулся марс токен");
+        checkFieldIsNotEmpty(response.as(MarsTokenSHPResponse.class).getAccess_token(), "марс токен");
     }
 
     @Story("Получение информации о заказах")
@@ -133,6 +131,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
         checkStatusCode200(response);
         assertNotNull(response.as(ShipmentsSHPResponse.class).getData(),
                 "Не вернулись заказы для упаковщика");
+
     }
 
     @Story("Получение информации о сборках")
@@ -142,8 +141,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     public void getPackerAssemblies200() {
         response = PackerSHPRequest.Assemblies.GET();
         checkStatusCode200(response);
-        assertNotNull(response.as(AssembliesSHPResponse.class).getData(),
-                "Не вернулись сборки упаковщика");
+        checkFieldIsNotEmpty(response.as(AssembliesSHPResponse.class).getData(), "сборки упаковщика");
     }
 
     @Story("Получение информации о приложении")
@@ -153,8 +151,8 @@ public class ShipmentlessShopperAppTest extends RestBase {
     public void getCurrentAppVersion200() {
         response = CurrentAppVersionSHPRequest.GET();
         checkStatusCode200(response);
-        assertNotNull(response.as(AppVersionSHPResponse.class).getData().getAttributes().getMajor(),
-                "Не вернулась инфа о текущей версии приложения");
+        checkFieldIsNotEmpty(response.as(AppVersionSHPResponse.class).getData().getAttributes().getMajor(),
+                "информация о текущей версии приложения");
     }
 
     @Story("Поиск")
@@ -166,8 +164,8 @@ public class ShipmentlessShopperAppTest extends RestBase {
                 EnvironmentProperties.DEFAULT_SHOPPER_SID,
                 "хлеб");
         checkStatusCode200(response);
-        assertNotNull(response.as(OffersSHPResponse.class).getData().get(0).getAttributes().getName(),
-                "Не работает поиск товаров");
+        checkFieldIsNotEmpty(response.as(OffersSHPResponse.class).getData().get(0).getAttributes().getName(),
+                "имя товара в поиске");
     }
 
     @Story("Авторизация")
@@ -178,12 +176,11 @@ public class ShipmentlessShopperAppTest extends RestBase {
         response = AuthSHPRequest.Refresh.POST();
         checkStatusCode200(response);
         final SessionsSHPResponse sessionsResponse = response.as(SessionsSHPResponse.class);
-        assertNotNull(sessionsResponse.getData().getAttributes().getAccessToken(),
-                "Не вернулся access_token");
-        assertNotNull(sessionsResponse.getData().getAttributes().getRefreshToken(),
-                "Не вернулся refresh_token");
-        SessionFactory.getSession(SessionType.SHOPPER_APP).setToken(sessionsResponse.getData().getAttributes().getAccessToken());
-        SessionFactory.getSession(SessionType.SHOPPER_APP).setRefreshToken(sessionsResponse.getData().getAttributes().getRefreshToken());
+        SessionSHP.Data.Attributes attributes = sessionsResponse.getData().getAttributes();
+        checkFieldIsNotEmpty(attributes.getAccessToken(), "access_token");
+        checkFieldIsNotEmpty(attributes.getRefreshToken(), "refresh_token");
+        SessionFactory.getSession(SessionType.SHOPPER_APP).setToken(attributes.getAccessToken());
+        SessionFactory.getSession(SessionType.SHOPPER_APP).setRefreshToken(attributes.getRefreshToken());
     }
 
     @Story("Авторизация")
@@ -204,12 +201,10 @@ public class ShipmentlessShopperAppTest extends RestBase {
 
         checkStatusCode200(response);
         String accessToken = response.as(SessionsSHPResponse.class).getData().getAttributes().getAccessToken();
-        assertNotNull(accessToken, "Не вернулся access_token");
-        assertNotEquals(accessToken, "", "Вернулся пустой access_token");
+        checkFieldIsNotEmpty(accessToken, "access_token");
 
         String refreshToken = response.as(SessionsSHPResponse.class).getData().getAttributes().getRefreshToken();
-        assertNotNull(refreshToken, "Не вернулся refresh_token");
-        assertNotEquals(refreshToken, "", "Вернулся пустой refresh_token");
+        checkFieldIsNotEmpty(refreshToken, "refresh_token");
         SessionFactory.getSession(SessionType.SHOPPER_APP).setToken(accessToken);
         SessionFactory.getSession(SessionType.SHOPPER_APP).setRefreshToken(refreshToken);
     }

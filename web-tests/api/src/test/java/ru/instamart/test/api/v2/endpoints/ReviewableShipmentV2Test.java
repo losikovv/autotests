@@ -27,6 +27,7 @@ import java.util.List;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotNull;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
@@ -83,7 +84,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
         checkStatusCode200(response);
         ShipmentReviewV2Response shipmentReviewV2Response =  response.as(ShipmentReviewV2Response.class);
-        assertNotNull(shipmentReviewV2Response.getShipmentReview());
+        checkFieldIsNotEmpty(shipmentReviewV2Response.getShipmentReview(), "отзыв о заказе");
     }
 
     @CaseId(475)
@@ -99,7 +100,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
         checkStatusCode200(response);
         ShipmentReviewV2Response shipmentReviewV2Response =  response.as(ShipmentReviewV2Response.class);
-        assertNotNull(shipmentReviewV2Response.getShipmentReview());
+        checkFieldIsNotEmpty(shipmentReviewV2Response.getShipmentReview(), "отзыв о заказе");
     }
 
     @CaseId(476)
@@ -119,6 +120,6 @@ public class ReviewableShipmentV2Test extends RestBase {
         final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
         checkStatusCode200(response);
         ShipmentReviewV2Response shipmentReviewV2Response =  response.as(ShipmentReviewV2Response.class);
-        assertNotNull(shipmentReviewV2Response.getShipmentReview());
+        checkFieldIsNotEmpty(shipmentReviewV2Response.getShipmentReview(), "отзыв о заказе");
     }
 }

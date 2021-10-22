@@ -28,8 +28,7 @@ import java.util.List;
 
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorTextIsNotEmpty;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 import static ru.instamart.api.common.RestStaticTestData.*;
 
@@ -99,7 +98,7 @@ public class OrdersV2Test extends RestBase {
         response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
         checkStatusCode200(response);
         OrderV2 order = response.as(OrderV2Response.class).getOrder();
-        assertNotNull(order.getPromotionCodes(), "Промокод не применился");
+        checkFieldIsNotEmpty(order.getPromotionCodes(), "промокоды");
 
 //        response = OrdersV2Request.Promotions.DELETE(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
 //        checkStatusCode200(response);
@@ -115,8 +114,7 @@ public class OrdersV2Test extends RestBase {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "failCode");
-        ErrorResponse errorResponse = response.as(ErrorResponse.class);
-        assertNotNull(errorResponse, "Не вернулась ошибки");
+        errorAssert(response, "Промокод не существует");
     }
 
     @CaseId(315)
@@ -129,7 +127,7 @@ public class OrdersV2Test extends RestBase {
         response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
         checkStatusCode200(response);
         OrderV2 order = response.as(OrderV2Response.class).getOrder();
-        assertNotNull(order.getPromotionCodes(), "Промокод не применился");
+        checkFieldIsNotEmpty(order.getPromotionCodes(), "промокоды");
 
         response = OrdersV2Request.Promotions.DELETE(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
         checkStatusCode200(response);
@@ -152,8 +150,7 @@ public class OrdersV2Test extends RestBase {
 
         response = OrdersV2Request.Promotions.DELETE("failOrder", "auto300lomxs4");
         checkStatusCode404(response);
-        ErrorResponse errorResponse = response.as(ErrorResponse.class);
-        assertNotNull(errorResponse, "Промокод удалился");
+        errorAssert(response, "Заказ не существует");
     }
 
     @CaseId(318)
@@ -170,8 +167,7 @@ public class OrdersV2Test extends RestBase {
 
         response = OrdersV2Request.Promotions.DELETE(apiV2.getCurrentOrderNumber(), "failCode");
         checkStatusCode404(response);
-        ErrorResponse errorResponse = response.as(ErrorResponse.class);
-        assertNotNull(errorResponse, "Промокод удалился");
+        errorAssert(response, "Промокод не существует");
     }
 
     @Deprecated
@@ -344,7 +340,7 @@ public class OrdersV2Test extends RestBase {
 
         response = LineItemsV2Request.DELETE(productId);
         checkStatusCode200(response);
-        assertNotNull(response.as(LineItemV2Response.class).getLineItem(), "Не вернулись товары");
+        checkFieldIsNotEmpty(response.as(LineItemV2Response.class).getLineItem(), "товары");
     }
 
     @CaseId(336)
@@ -446,7 +442,6 @@ public class OrdersV2Test extends RestBase {
         paymentToolsV2Response.getPaymentTools().stream()
                 .forEach(value -> softAssert.assertNotNull(PaymentToolsV2.getIfNameIsPresent(value.getName()), "Способ оплаты пустой"));
         softAssert.assertAll();
-
     }
 
     @CaseId(343)
@@ -569,10 +564,10 @@ public class OrdersV2Test extends RestBase {
         Response response = OrdersV2Request.POST();
         checkStatusCode200(response);
         OrderV2Response order = response.as(OrderV2Response.class);
+        checkFieldIsNotEmpty(order.getOrder().getNumber(), "номер заказа");
+        checkFieldIsNotEmpty(order.getOrder().getUuid(), "uuid заказа");
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertNotNull(order.getOrder().getNumber());
-        softAssert.assertNotNull(order.getOrder().getUuid());
-        softAssert.assertEquals(order.getOrder().getTotal(), 0.0);
+        compareTwoObjects(order.getOrder().getTotal(), 0.0, softAssert);
         softAssert.assertAll();
     }
 }

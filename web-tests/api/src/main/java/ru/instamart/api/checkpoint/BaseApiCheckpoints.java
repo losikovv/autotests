@@ -6,6 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.response.ErrorResponse;
 
+import java.util.Collection;
+
+import static org.testng.Assert.*;
+
 @Slf4j
 public class BaseApiCheckpoints {
 
@@ -46,5 +50,24 @@ public class BaseApiCheckpoints {
         softAssert.assertFalse(error.getErrorMessages().get(0).getMessage().isEmpty(), "Невалидная ошибка");
         softAssert.assertFalse(error.getErrorMessages().get(0).getHumanMessage().isEmpty(), "Невалидная ошибка");
         softAssert.assertAll();
+    }
+
+    /**
+     * Проверяет любые объекты на null, также реалзиована дополнительная проверка на наличие содержимого для String и List
+     */
+    @Step("Проверяем, что поле {fieldName} не пустое")
+    public static <T> void checkFieldIsNotEmpty(T field, String fieldName) {
+        assertNotNull(field, String.format("Поле %s равно null", fieldName));
+        if (field instanceof String) {
+            assertFalse(field.toString().isBlank(), String.format("Поле %s пришло пустым", fieldName));
+        } else if (field instanceof Collection) {
+            Collection<?> collection = (Collection<?>) field;
+            assertFalse(collection.isEmpty(), String.format("Коллекция %s пришла пустой", fieldName));
+        }
+    }
+
+    @Step("Проверяем, что два объекта совпадают")
+    public static <T> void compareTwoObjects(T firstObject, T secondObject, SoftAssert softAssert) {
+        softAssert.assertEquals(firstObject, secondObject, "Объекты не совпадают");
     }
 }

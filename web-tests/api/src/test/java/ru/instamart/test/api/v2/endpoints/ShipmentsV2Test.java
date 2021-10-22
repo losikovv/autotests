@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.stream.IntStream;
 
 import static org.testng.Assert.*;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 
@@ -54,7 +54,7 @@ public class ShipmentsV2Test extends RestBase {
         Integer shipmentId = apiV2.getShippingWithOrder().getId();
         Response response = ShipmentsV2Request.DeliveryWindows.GET(shipmentId.toString(), today);
         checkStatusCode200(response);
-        assertNotNull(response.as(DeliveryWindowsV2Response.class).getDeliveryWindows(), "Нет окон доставки");
+        checkFieldIsNotEmpty(response.as(DeliveryWindowsV2Response.class).getDeliveryWindows(), "окна доставки");
     }
 
     @CaseId(340)
@@ -320,7 +320,7 @@ public class ShipmentsV2Test extends RestBase {
         final Response response = ShipmentsV2Request.ReviewIssues.GET(shipmentsNumber);
         checkStatusCode200(response);
         ReviewIssuesV2Response reviewIssuesV2Response = response.as(ReviewIssuesV2Response.class);
-        assertFalse(reviewIssuesV2Response.getReviewIssues().isEmpty(), "list issues is empty");
+        checkFieldIsNotEmpty(reviewIssuesV2Response.getReviewIssues(), "возможные проблемы для отзыва о заказе");
     }
 
     @CaseId(471)

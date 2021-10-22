@@ -20,6 +20,7 @@ import ru.instamart.kraken.testdata.UserManager;
 import ru.instamart.kraken.util.PhoneCrypt;
 
 import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode422;
@@ -50,7 +51,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
     public void putPhoneConfirmations() {
         Response response = PhoneConfirmationsV2Request.PUT(phoneNumber, CoreProperties.DEFAULT_SMS, true);
         checkStatusCode200(response);
-        assertNotNull(response.as(SessionsV2Response.class).getSession().getAccessToken(), "Токен пустой");
+        checkFieldIsNotEmpty(response.as(SessionsV2Response.class).getSession().getAccessToken(), "токен");
     }
 
     @CaseId(452)

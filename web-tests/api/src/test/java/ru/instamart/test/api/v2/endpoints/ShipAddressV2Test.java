@@ -14,10 +14,12 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.ShipAddressChangeV2;
 import ru.instamart.api.request.v2.OrdersV2Request;
+import ru.instamart.api.response.v2.SearchSuggestionsV2Response;
 import ru.instamart.api.response.v2.ShipAddressChangeV2Response;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
@@ -107,8 +109,8 @@ public final class ShipAddressV2Test extends RestBase {
         final Response response = OrdersV2Request.ShipAddressChange.PUT(address, apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
         final ShipAddressChangeV2Response shipAddressChange = response.as(ShipAddressChangeV2Response.class);
+        checkFieldIsNotEmpty(shipAddressChange, "ответ");
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertNotNull(shipAddressChange, "Ответ вернулся пустым");
         softAssert.assertEquals(address.getCity(), shipAddressChange.getShipAddressChange().getOrder().getAddress().getCity(), "city не рано задааному");
         softAssert.assertEquals(address.getStreet(), shipAddressChange.getShipAddressChange().getOrder().getAddress().getStreet(), "street не равно задачному ");
         softAssert.assertAll();

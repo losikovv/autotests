@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
@@ -446,7 +447,7 @@ public class ShopperAppApiHelper {
         AssemblySHP.Data.Attributes attributes = response.as(AssemblySHPResponse.class).getData().getAttributes();
         Assert.assertEquals(attributes.getState(),
                 AssemblyStateSHP.ASSEMBLED.getState());
-        Assert.assertNotNull(attributes.getPackerId());
+        checkFieldIsNotEmpty(attributes.getPackerId(), "packerId");
     }
 
     @Step("Оплата на кассе")

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.k8s.K8sConsumer.*;
 
 
@@ -52,7 +52,7 @@ public class KubernetesClientTest extends RestBase {
     public void kubePortForward() throws IOException, ApiException, SQLException {
         V1PodList list = getPodList(namespace, labelSelector);
         PortForward.PortForwardResult test = getK8sPortForward(namespace, list.getItems().get(0).getMetadata().getName(), 3306, 3306);
-        assertNotNull(test, "Not Connected");
+        checkFieldIsNotEmpty(test, "соединение");
 
         String tenant = "metro";
         List<String> result = new ArrayList<>();

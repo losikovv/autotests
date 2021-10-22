@@ -34,6 +34,7 @@ import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.fail;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.common.RestStaticTestData.userPhone;
 import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
@@ -268,7 +269,7 @@ public final class InstamartApiHelper {
 
         String storeUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + "?sid=" + sid;
 
-        assertFalse(departments.isEmpty(), "Не импортированы товары для магазина\n" + storeUrl);
+        checkFieldIsNotEmpty(departments,"товары для магазина\n" + storeUrl);
 
         List<ProductV2> products = new ArrayList<>();
 

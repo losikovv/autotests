@@ -15,12 +15,14 @@ import ru.instamart.api.model.v2.ProductV2;
 import ru.instamart.api.request.v2.ProductsV2Request;
 import ru.instamart.api.response.v2.ProductV2Response;
 import ru.instamart.api.response.v2.ProductsV2Response;
+import ru.instamart.api.response.v2.SessionsV2Response;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static io.qameta.allure.Allure.step;
 import static org.testng.Assert.*;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 
 @Epic("ApiV2")
@@ -92,9 +94,9 @@ public final class ProductsV2Test extends RestBase {
         response = ProductsV2Request.GET(1, "хлеб");
         checkStatusCode200(response);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
-        assertNotNull(productsV2Response, "Не вернулся ответ");
+        checkFieldIsNotEmpty(productsV2Response, "все продукты");
         final List<ProductV2> products = productsV2Response.getProducts();
-        assertFalse(products.isEmpty(), "Не вернулись продукты");
+
         products.forEach(product -> assertFalse(
                 product.getName().matches("/хлеб/"),
                 "Продукт не хлеб " + "[" + product.getName() + "]"
@@ -110,8 +112,7 @@ public final class ProductsV2Test extends RestBase {
         checkStatusCode200(response);
 
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
-
-        assertFalse(productsV2Response.getProducts().isEmpty(), "Не вернулись продукты");
+        checkFieldIsNotEmpty(productsV2Response.getProducts(), "продукты");
         checkSort(ProductSortTypeV2.POPULARITY, productsV2Response.getSort());
     }
 
@@ -125,7 +126,7 @@ public final class ProductsV2Test extends RestBase {
 
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
 
-        assertFalse(productsV2Response.getProducts().isEmpty(), "Не вернулись продукты");
+        checkFieldIsNotEmpty(productsV2Response.getProducts(), "продукты");
         checkSort(ProductSortTypeV2.PRICE_ASC, productsV2Response.getSort());
     }
 
@@ -138,8 +139,7 @@ public final class ProductsV2Test extends RestBase {
         checkStatusCode200(response);
 
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
-
-        assertFalse(productsV2Response.getProducts().isEmpty(), "Не вернулись продукты");
+        checkFieldIsNotEmpty(productsV2Response.getProducts(), "продукты");
         checkSort(ProductSortTypeV2.PRICE_DESC, productsV2Response.getSort());
     }
 
@@ -152,11 +152,10 @@ public final class ProductsV2Test extends RestBase {
         checkStatusCode200(response);
 
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
-
         step("Проверка содержимого ответа", () -> {
-            assertNotNull(productsV2Response, "Не вернулся ответ");
+            checkFieldIsNotEmpty(productsV2Response, "ответ");
             final List<ProductV2> products = productsV2Response.getProducts();
-            assertFalse(products.isEmpty(), "Не вернулись продукты");
+            checkFieldIsNotEmpty(products, "продукты");
             products.forEach(product -> assertTrue(product.getDiscount() > 0.0));
         });
     }
@@ -170,11 +169,10 @@ public final class ProductsV2Test extends RestBase {
         checkStatusCode200(response);
 
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
-
         step("Проверка содержимого ответа", () -> {
-            assertNotNull(productsV2Response, "Не вернулся ответ");
+            checkFieldIsNotEmpty(productsV2Response, "ответ");
             final List<ProductV2> products = productsV2Response.getProducts();
-            assertFalse(products.isEmpty(), "Не вернулись продукты");
+            checkFieldIsNotEmpty(products, "продукты");
             products.forEach(product -> assertTrue(product.getName().contains("Heidi")));
         });
     }
@@ -190,9 +188,9 @@ public final class ProductsV2Test extends RestBase {
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
 
         step("Проверка содержимого ответа", () -> {
-            assertNotNull(productsV2Response, "Не вернулся ответ");
+            checkFieldIsNotEmpty(productsV2Response, "ответ");
             final List<ProductV2> products = productsV2Response.getProducts();
-            assertFalse(products.isEmpty(), "Не вернулись продукты");
+            checkFieldIsNotEmpty(products, "продукты");
             products.forEach(product -> assertTrue(product.getName().contains("La Paulina")));
             final List<FacetV2> facets = productsV2Response.getFacets().stream().filter(facet -> facet.getKey().equals(ProductFilterTypeV2.COUNTRY.getValue())).collect(Collectors.toList());
             final List<OptionV2> countries = facets.get(0).getOptions();
@@ -209,8 +207,7 @@ public final class ProductsV2Test extends RestBase {
         checkStatusCode200(response);
 
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
-
-        assertFalse(productsV2Response.getProducts().isEmpty(), "Не вернулись продукты");
+        checkFieldIsNotEmpty(productsV2Response.getProducts(), "продукты");
         checkSort(ProductSortTypeV2.UNIT_PRICE_ASC, productsV2Response.getSort());
     }
 }

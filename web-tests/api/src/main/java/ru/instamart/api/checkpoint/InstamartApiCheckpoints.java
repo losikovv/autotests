@@ -133,11 +133,6 @@ public class InstamartApiCheckpoints {
                         ", product_count: " + taxon.getProductsCount());
     }
 
-    @Step("Проверяем, что два объекта совпадают")
-    public static <T> void compareTwoObjects(T firstObject, T secondObject, SoftAssert softAssert) {
-        softAssert.assertEquals(firstObject, secondObject, "Объекты не совпадают");
-    }
-
     @Step("Проверяем, что при неверных запросах не возвращаются поисковые подсказки")
     public static void checkSearchSuggestionsNegative(SuggestionV2 suggestion) {
         assertNull(suggestion.getProducts(), "Вернулись продукты в поисковых подсказках");
