@@ -4,7 +4,9 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
@@ -27,9 +29,14 @@ import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode2
 public class ShipmentlessShopperAppTest extends RestBase {
     private final String phone = "79588128783";
 
-    @BeforeClass(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void preconditions() {
         shopperApp.authorisation(UserManager.getDefaultShopper());
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void after(){
+        SessionFactory.clearSession(SessionType.SHOPPER_APP);
     }
 
     @Story("Получение информации о сотруднике")
