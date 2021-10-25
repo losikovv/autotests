@@ -4,14 +4,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
 import ru.instamart.utils.Mapper;
 
+import java.util.List;
 import java.util.Objects;
 
 public final class ShipmentsV2Request extends ApiV2RequestBase {
@@ -159,6 +157,10 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
     public static final class Review{
         @JsonProperty(value = "review[rate]")
         private final Integer rate;
+// TODO: ATST-782
+//        @Singular
+//        @JsonProperty(value = "review[issue_ids]")
+//        private final List<Integer> issueIds;
         @JsonProperty(value = "review[issue_ids]")
         private final Integer issueIds;
         @JsonProperty(value = "review[images_attributes]")

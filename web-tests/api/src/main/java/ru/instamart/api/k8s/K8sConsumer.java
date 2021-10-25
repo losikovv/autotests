@@ -7,7 +7,8 @@ import io.kubernetes.client.PortForward;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.models.V1Pod;
 import io.kubernetes.client.openapi.models.V1PodList;
-import lombok.extern.slf4j.Slf4j;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,7 @@ import java.util.function.Consumer;
 
 import static java.lang.System.console;
 import static org.testng.Assert.fail;
+import static ru.instamart.api.enums.RailsConsole.Order.SHIP;
 
 public class K8sConsumer {
 
@@ -42,7 +44,7 @@ public class K8sConsumer {
      * @param labelSelector example: app=app-sbermarket
      * @return
      */
-    public static String getPodName(String namespace, String labelSelector) {
+    private static String getPodName(String namespace, String labelSelector) {
         try {
             V1PodList list = K8sConfig.getInstance().getCoreV1Api().listNamespacedPod(namespace, null, null, null,
                     null, labelSelector, null, null, null, null, null);
@@ -59,7 +61,7 @@ public class K8sConsumer {
      * @param labelSelector example: app=app-sbermarket
      * @return
      */
-    public static V1Pod getPod(String namespace, String labelSelector) {
+    private static V1Pod getPod(String namespace, String labelSelector) {
         try {
             V1PodList list = K8sConfig.getInstance().getCoreV1Api().listNamespacedPod(namespace, null, null, null,
                     null, labelSelector, null, null, null, null, null);
@@ -86,7 +88,7 @@ public class K8sConsumer {
      * @param commands
      * @return
      */
-    public static Process execCommandWithPod(String namespace, String podName, String[] commands) {
+    private static Process execCommandWithPod(String namespace, String podName, String[] commands) {
         try {
             K8sConfig.getInstance().getCoreV1Api();
 
@@ -103,8 +105,7 @@ public class K8sConsumer {
         return null;
     }
 
-
-    public static List<String> execRailsCommandWithPod(String[] commands) {
+    private static List<String> execRailsCommandWithPod(String commands) {
         List<String> result = new CopyOnWriteArrayList<>();
 
         String nameSpace = EnvironmentProperties.K8S_NAME_SPACE;
@@ -114,6 +115,7 @@ public class K8sConsumer {
         try {
             execRailsCommandWithPod(pod, commands, result::add, true).close();
         } catch (IOException e) {
+            log.info("Error: {}", e.getMessage());
             e.printStackTrace();
         }
         return result;
@@ -125,13 +127,14 @@ public class K8sConsumer {
      * @param commands
      * @return
      */
-    private static Closeable execRailsCommandWithPod(V1Pod pod, String[] commands, Consumer<String> outputFun, boolean waiting) {
+    @Step("Выполнение команды: {commands} в pod: {pod.spec.nodeName} ")
+    private static Closeable execRailsCommandWithPod(V1Pod pod, String commands, Consumer<String> outputFun, boolean waiting) {
         try {
             AtomicBoolean closed = new AtomicBoolean(false);
             CountDownLatch cdl = new CountDownLatch(1);
 
-            String[] rails = {"rails", "c"};
-            String[] commandExec = ArrayUtils.addAll(rails, commands);
+            String[] rails = new String[]{"sh", "-c"};
+            String[] commandExec = ArrayUtils.addAll(rails, "rails runner \"" + commands + "\"");
 
             boolean tty = console() != null;
             final Process proc = new Exec().exec(pod, commandExec, true, tty);
@@ -306,5 +309,11 @@ public class K8sConsumer {
         });
         log.debug("Connect address: <Current Host> <" + localPort + ">");
         return result;
+    }
+
+    @Step("Перевод через консоль заказ {shipmentNumber} в статус \"Доставлено\"")
+    public static void changeToShip(String shipmentNumber) {
+        List<String> strings = execRailsCommandWithPod(SHIP.get(shipmentNumber));
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
     }
 }
