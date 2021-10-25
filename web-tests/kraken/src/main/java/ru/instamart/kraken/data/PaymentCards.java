@@ -1,6 +1,4 @@
-package ru.instamart.kraken.testdata;
-
-import ru.instamart.kraken.testdata.pagesdata.PaymentCardData;
+package ru.instamart.kraken.data;
 
 public class PaymentCards {
 

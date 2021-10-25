@@ -1,6 +1,5 @@
 package ru.instamart.test.api.v2.endpoints;
 
-import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -15,8 +14,7 @@ import ru.instamart.api.request.v2.PhoneConfirmationsV2Request;
 import ru.instamart.api.response.v2.PhoneTokenV2Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
 import ru.instamart.kraken.config.CoreProperties;
-import ru.instamart.kraken.testdata.Generate;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.util.PhoneCrypt;
 
 import static org.testng.Assert.assertNotNull;

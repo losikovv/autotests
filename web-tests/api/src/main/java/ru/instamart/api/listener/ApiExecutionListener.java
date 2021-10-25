@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import ru.instamart.api.common.Specification;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.kraken.listener.ExecutionListener;
-import ru.instamart.kraken.testdata.UserManager;
 
 @Slf4j
 public final class ApiExecutionListener extends ExecutionListener {

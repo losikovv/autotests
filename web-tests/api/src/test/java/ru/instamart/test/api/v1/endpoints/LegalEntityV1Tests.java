@@ -13,7 +13,7 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v1.b2b.LegalEntityV1Request;
 import ru.instamart.api.response.v1.b2b.LegalEntityV1Response;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.user.UserManager;
 
 import static org.testng.Assert.assertNull;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;

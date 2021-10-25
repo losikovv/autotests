@@ -22,9 +22,9 @@ import ru.instamart.api.response.v1.b2b.CompaniesV1Response;
 import ru.instamart.api.response.v1.b2b.CompanyManagerV1Response;
 import ru.instamart.api.response.v1.b2b.CompanySalesContractV1Response;
 import ru.instamart.api.response.v1.b2b.CompanyV1Response;
-import ru.instamart.kraken.testdata.Generate;
-import ru.instamart.kraken.testdata.JuridicalData;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.data.JuridicalData;
+import ru.instamart.kraken.data.user.UserManager;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;

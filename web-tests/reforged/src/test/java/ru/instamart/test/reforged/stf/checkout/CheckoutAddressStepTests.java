@@ -6,10 +6,10 @@ import io.qase.api.annotation.CaseIDs;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.testdata.TestVariables;
-import ru.instamart.kraken.testdata.UserData;
-import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.pagesdata.AddressDetailsData;
+import ru.instamart.kraken.data.TestVariables;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.data.AddressDetailsData;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -44,7 +44,7 @@ public final class CheckoutAddressStepTests extends BaseTest {
         checkout().setDeliveryOptions().fillEntrance(data.getEntrance());
         checkout().setDeliveryOptions().fillDoorPhone(data.getDomofon());
         checkout().setDeliveryOptions().checkContactlessDelivery();
-        checkout().setDeliveryOptions().fillComments(data.getCommentaries());
+        checkout().setDeliveryOptions().fillComments(data.getComments());
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
         checkout().checkDeliveryOptionMinimized();
@@ -56,7 +56,7 @@ public final class CheckoutAddressStepTests extends BaseTest {
         checkout().setDeliveryOptions().checkEntranceValue(checkout().setDeliveryOptions().getEntranceValue(), data.getEntrance());
         checkout().setDeliveryOptions().checkDoorPhoneValue(checkout().setDeliveryOptions().getDoorPhoneValue(), data.getDomofon());
         checkout().setDeliveryOptions().checkContactlessDeliveryIsSelected(checkout().setDeliveryOptions().getContactlessDeliveryState());
-        checkout().setDeliveryOptions().checkCommentsValue(checkout().setDeliveryOptions().getCommentsValue(), data.getCommentaries());
+        checkout().setDeliveryOptions().checkCommentsValue(checkout().setDeliveryOptions().getCommentsValue(), data.getComments());
         checkout().assertAll();
 
         checkout().setDeliveryOptions().clearApartment();
@@ -83,7 +83,7 @@ public final class CheckoutAddressStepTests extends BaseTest {
         checkout().setDeliveryOptions().fillEntrance(changeData.getEntrance());
         checkout().setDeliveryOptions().fillDoorPhone(changeData.getDomofon());
         checkout().setDeliveryOptions().checkContactlessDelivery();
-        checkout().setDeliveryOptions().fillComments(changeData.getCommentaries());
+        checkout().setDeliveryOptions().fillComments(changeData.getComments());
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
         shop().refresh();
         checkout().checkApartmentValue(checkout().setDeliveryOptions().getApartmentValue(), changeData.getApartment());
@@ -92,7 +92,7 @@ public final class CheckoutAddressStepTests extends BaseTest {
         checkout().checkEntranceValue(checkout().setDeliveryOptions().getEntranceValue(), changeData.getEntrance());
         checkout().checkDoorPhoneValue(checkout().setDeliveryOptions().getDoorPhoneValue(), changeData.getDomofon());
         checkout().checkContactlessDeliveryIsSelected(checkout().setDeliveryOptions().getContactlessDeliveryState());
-        checkout().checkCommentsValue(checkout().setDeliveryOptions().getCommentsValue(), changeData.getCommentaries());
+        checkout().checkCommentsValue(checkout().setDeliveryOptions().getCommentsValue(), changeData.getComments());
         checkout().assertAll();
     }
 }

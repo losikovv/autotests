@@ -11,7 +11,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.BonusCardsV2Request;
 import ru.instamart.api.response.v2.BonusCardV2Response;
 import ru.instamart.api.response.v2.BonusCardsV2Response;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.user.UserManager;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;

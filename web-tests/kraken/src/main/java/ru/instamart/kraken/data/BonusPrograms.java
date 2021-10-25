@@ -1,8 +1,6 @@
-package ru.instamart.kraken.testdata;
+package ru.instamart.kraken.data;
 
-import ru.instamart.kraken.testdata.pagesdata.LoyaltiesData;
-
-public class BonusPrograms {
+public final class BonusPrograms {
 
     public static LoyaltiesData mnogoru() {
         return new LoyaltiesData(

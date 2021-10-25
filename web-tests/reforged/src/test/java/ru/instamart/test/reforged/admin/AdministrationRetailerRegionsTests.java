@@ -4,8 +4,8 @@ import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.testdata.Generate;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.admin.AdminRout.*;

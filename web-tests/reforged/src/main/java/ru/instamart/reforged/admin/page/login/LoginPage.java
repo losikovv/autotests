@@ -1,7 +1,7 @@
 package ru.instamart.reforged.admin.page.login;
 
 import io.qameta.allure.Step;
-import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.reforged.admin.AdminPage;
 
 import static ru.instamart.reforged.admin.AdminRout.main;

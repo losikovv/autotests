@@ -1,6 +1,4 @@
-package ru.instamart.kraken.testdata;
-
-import ru.instamart.kraken.testdata.pagesdata.LoyaltiesData;
+package ru.instamart.kraken.data;
 
 public class RetailerCards {
 

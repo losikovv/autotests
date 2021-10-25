@@ -10,8 +10,8 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.helper.RegistrationHelper;
 import ru.instamart.api.request.v2.SessionsV2Request;
 import ru.instamart.api.response.v2.UserDataV2Response;
-import ru.instamart.kraken.testdata.UserData;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;

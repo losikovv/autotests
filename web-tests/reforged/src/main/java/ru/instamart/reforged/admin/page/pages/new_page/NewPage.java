@@ -1,7 +1,7 @@
 package ru.instamart.reforged.admin.page.pages.new_page;
 
 import io.qameta.allure.Step;
-import ru.instamart.kraken.testdata.pagesdata.StaticPageData;
+import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.reforged.admin.AdminPage;
 import ru.instamart.reforged.core.Kraken;
 

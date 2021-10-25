@@ -7,8 +7,8 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.helper.AllureHelper;
 import ru.instamart.kraken.service.BannerService;
 import ru.instamart.kraken.service.QaService;
-import ru.instamart.kraken.testdata.Generate;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.utils.Crypt;
 

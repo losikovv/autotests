@@ -1,4 +1,4 @@
-package ru.instamart.kraken.testdata;
+package ru.instamart.kraken.data;
 
 import ru.instamart.kraken.listener.ExecutionListener;
 

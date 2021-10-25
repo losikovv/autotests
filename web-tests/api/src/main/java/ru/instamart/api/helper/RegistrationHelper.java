@@ -5,7 +5,7 @@ import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.api.enums.v2.AuthProviderV2;
 import ru.instamart.api.request.v2.AuthProvidersV2Request;
-import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.kraken.data.user.UserData;
 
 import java.util.UUID;
 

@@ -9,13 +9,11 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.kraken.testdata.UserData;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.TimeUtil;
 import ru.instamart.reforged.admin.page.usersEdit.UsersEditPage;
 import ru.instamart.test.reforged.BaseTest;
-
-import java.time.LocalDateTime;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 

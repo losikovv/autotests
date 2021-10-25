@@ -6,7 +6,7 @@ import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.request.ApiV1RequestBase;
-import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.kraken.data.user.UserData;
 
 @SuppressWarnings("unchecked")
 public class UserSessionsV1Request extends ApiV1RequestBase {

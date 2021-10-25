@@ -5,14 +5,14 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
-import org.testng.SkipException;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.v2.PromotionsV2Request;
 import ru.instamart.api.response.v2.ProductsV2Response;
 import ru.instamart.api.response.v2.ReferralProgramV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.testdata.Tenants;
+import ru.instamart.kraken.enums.Tenant;
+import ru.instamart.kraken.listener.Run;
 
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
@@ -23,13 +23,11 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 @Feature("Промо-акции")
 public class PromotionsV2Test extends RestBase {
 
+    @Run(onTenant = Tenant.SBERMARKET)
     @Deprecated
     @Test(  description = "Получаем инфу о реферальной программе",
             groups = {})
     public void getReferralProgram() {
-        if (!EnvironmentProperties.TENANT.equals(Tenants.SBERMARKET.getAlias())) {
-            throw new SkipException("Скип теста не на дефолтном тенанте");
-        }
         response = PromotionsV2Request.ReferralProgram.GET();
         checkStatusCode200(response);
         assertNotNull(response.as(ReferralProgramV2Response.class).getReferralProgram(),

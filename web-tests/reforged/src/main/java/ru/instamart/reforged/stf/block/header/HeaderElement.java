@@ -1,7 +1,7 @@
 package ru.instamart.reforged.stf.block.header;
 
 import org.openqa.selenium.By;
-import ru.instamart.kraken.testdata.TestVariables;
+import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.reforged.core.component.*;
 import ru.instamart.reforged.stf.drawer.account_menu.AccountMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;

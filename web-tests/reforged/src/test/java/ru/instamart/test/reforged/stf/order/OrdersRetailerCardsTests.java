@@ -11,10 +11,10 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.enums.Tenant;
 import ru.instamart.kraken.listener.Run;
-import ru.instamart.kraken.testdata.Generate;
-import ru.instamart.kraken.testdata.RetailerCards;
-import ru.instamart.kraken.testdata.UserData;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.data.RetailerCards;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
 

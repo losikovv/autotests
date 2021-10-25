@@ -1,4 +1,4 @@
-package ru.instamart.kraken.testdata.pagesdata;
+package ru.instamart.kraken.data;
 
 import lombok.Data;
 

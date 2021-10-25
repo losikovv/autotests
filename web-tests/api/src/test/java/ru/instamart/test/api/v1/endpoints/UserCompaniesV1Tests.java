@@ -14,8 +14,8 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.b2b.CompanyV1;
 import ru.instamart.api.request.v1.b2b.*;
 import ru.instamart.api.response.v1.b2b.*;
-import ru.instamart.kraken.testdata.JuridicalData;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.JuridicalData;
+import ru.instamart.kraken.data.user.UserManager;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;

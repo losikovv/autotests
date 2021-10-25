@@ -12,8 +12,8 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.helper.RegistrationHelper;
 import ru.instamart.api.model.v2.StoreV2;
 import ru.instamart.api.dataprovider.RestDataProvider;
-import ru.instamart.kraken.testdata.UserData;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
 
 @Epic("ApiV2")

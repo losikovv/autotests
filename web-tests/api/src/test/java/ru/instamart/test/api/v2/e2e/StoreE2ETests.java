@@ -16,8 +16,8 @@ import ru.instamart.api.model.v2.ProductV2;
 import ru.instamart.api.model.v2.StoreV2;
 import ru.instamart.api.model.v2.TaxonV2;
 import ru.instamart.api.request.v2.ProductsV2Request;
-import ru.instamart.kraken.testdata.UserData;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.api.dataprovider.RestDataProvider;
 
 import java.util.List;

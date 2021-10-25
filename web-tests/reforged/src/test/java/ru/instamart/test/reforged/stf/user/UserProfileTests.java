@@ -7,7 +7,7 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.config.CoreProperties;
-import ru.instamart.kraken.testdata.Generate;
+import ru.instamart.kraken.data.Generate;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.admin.AdminRout.pages;

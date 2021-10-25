@@ -2,8 +2,8 @@ package ru.instamart.reforged.stf.frame.auth.auth_modal;
 
 import io.qameta.allure.Step;
 import ru.instamart.kraken.config.CoreProperties;
-import ru.instamart.kraken.testdata.Generate;
-import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.stf.frame.Close;
 import ru.instamart.reforged.stf.frame.auth.AuthFacebook;

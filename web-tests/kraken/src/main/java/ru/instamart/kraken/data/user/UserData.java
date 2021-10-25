@@ -1,4 +1,4 @@
-package ru.instamart.kraken.testdata;
+package ru.instamart.kraken.data.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
