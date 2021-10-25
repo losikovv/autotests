@@ -56,4 +56,5 @@ public class ShipmentV2 extends BaseObject {
     private Boolean canCancel;
     private List<Object> discounts = null;
     private PaymentV2 payment;
+    private StoreV2 store;
 }

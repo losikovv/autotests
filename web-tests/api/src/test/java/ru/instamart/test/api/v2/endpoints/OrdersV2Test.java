@@ -31,10 +31,13 @@ import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 import static ru.instamart.api.common.RestStaticTestData.*;
+import static ru.instamart.api.helper.PromotionCode.getPromotionCode;
 
 @Epic("ApiV2")
 @Feature("Заказы")
 public class OrdersV2Test extends RestBase {
+
+    private String promoCode = getPromotionCode();
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
@@ -95,12 +98,12 @@ public class OrdersV2Test extends RestBase {
     public void orderWithPromoCode() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
-        response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
+        response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), promoCode);
         checkStatusCode200(response);
         OrderV2 order = response.as(OrderV2Response.class).getOrder();
         checkFieldIsNotEmpty(order.getPromotionCodes(), "промокоды");
 
-//        response = OrdersV2Request.Promotions.DELETE(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
+//        response = OrdersV2Request.Promotions.DELETE(apiV2.getCurrentOrderNumber(), promoCode);
 //        checkStatusCode200(response);
 //        order = response.as(OrderV2Response.class).getOrder();
 //        assertTrue(order.getPromotionCodes().isEmpty(), "Промокод не удалился");
@@ -124,12 +127,12 @@ public class OrdersV2Test extends RestBase {
     public void deletePromoCodeForOrder() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
-        response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
+        response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), promoCode);
         checkStatusCode200(response);
         OrderV2 order = response.as(OrderV2Response.class).getOrder();
         checkFieldIsNotEmpty(order.getPromotionCodes(), "промокоды");
 
-        response = OrdersV2Request.Promotions.DELETE(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
+        response = OrdersV2Request.Promotions.DELETE(apiV2.getCurrentOrderNumber(), promoCode);
         checkStatusCode200(response);
         order = response.as(OrderV2Response.class).getOrder();
         assertTrue(order.getPromotionCodes().isEmpty(), "Промокод не удалился");
@@ -143,12 +146,12 @@ public class OrdersV2Test extends RestBase {
     public void deletePromoCodeForInvalidOrder() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
-        response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
+        response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), promoCode);
         checkStatusCode200(response);
         OrderV2 order = response.as(OrderV2Response.class).getOrder();
         assertNotNull(order.getPromotionCodes(), "Промокод не применился");
 
-        response = OrdersV2Request.Promotions.DELETE("failOrder", "auto300lomxs4");
+        response = OrdersV2Request.Promotions.DELETE("failOrder", promoCode);
         checkStatusCode404(response);
         errorAssert(response, "Заказ не существует");
     }
@@ -160,7 +163,7 @@ public class OrdersV2Test extends RestBase {
     public void deleteInvalidPromoCode() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
-        response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "auto300lomxs4");
+        response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), promoCode);
         checkStatusCode200(response);
         OrderV2 order = response.as(OrderV2Response.class).getOrder();
         assertNotNull(order.getPromotionCodes(), "Промокод не применился");
@@ -172,7 +175,7 @@ public class OrdersV2Test extends RestBase {
 
     @Deprecated
     @Story("Получение списка позиций по заказу")
-    @Test( groups = {},
+    @Test(groups = {},
             description = "Получение списка позиций по заказу. Существующий id")
     public void getingListOfItemsForOrder() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
