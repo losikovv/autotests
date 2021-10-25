@@ -29,10 +29,7 @@ public final class BasicOrdersTests extends BaseTest {
     }
 
     @CaseId(1674)
-    @Test(
-            description = "Тест заказа с добавлением нового юр. лица",
-            groups = {"sbermarket-regression"}
-    )
+    @Test(description = "Тест заказа с добавлением нового юр. лица", groups = {"smoke", "regression"})
     public void successCompleteCheckoutWithNewJuridical() {
         userData = UserManager.getUser();
         helper.auth(userData);
@@ -50,10 +47,7 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().setDeliveryOptions().clickToForBusiness();
         checkout().setDeliveryOptions().clickToAddCompany();
 
-        checkout().interactAddCompanyModal().fillInn(company.getInn());
-        checkout().interactAddCompanyModal().clickToSubmit();
-        checkout().interactAddCompanyModal().fillName(company.getJuridicalName());
-        checkout().interactAddCompanyModal().clickToSubmit();
+        checkout().interactAddCompanyModal().fillCompany(company);
         checkout().interactAddCompanyModal().clickToOkButton();
 
         checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
@@ -61,9 +55,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().checkCheckoutLoaderNotVisible();
 
-        checkout().setContacts().fillFirstName(Generate.literalString(8));
-        checkout().setContacts().fillLastName(Generate.literalString(8));
-        checkout().setContacts().fillEmail(Generate.email());
+        checkout().setContacts().fillContactInfo();
         checkout().setContacts().clickToSubmit();
 
         checkout().setReplacementPolicy().clickToSubmit();
@@ -76,10 +68,7 @@ public final class BasicOrdersTests extends BaseTest {
     }
 
     @CaseId(1672)
-    @Test(
-            description = "Тест заказа с новой картой оплаты c 3ds",
-            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"}
-    )
+    @Test(description = "Тест заказа с новой картой оплаты c 3ds", groups = {"regression", "smoke"})
     public void successCompleteCheckoutWithNewPaymentCard() {
         userData = UserManager.getUser();
         helper.auth(userData);
@@ -98,10 +87,7 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().setDeliveryOptions().clickToForBusiness();
         checkout().setDeliveryOptions().clickToAddCompany();
 
-        checkout().interactAddCompanyModal().fillInn(company.getInn());
-        checkout().interactAddCompanyModal().clickToSubmit();
-        checkout().interactAddCompanyModal().fillName(company.getJuridicalName());
-        checkout().interactAddCompanyModal().clickToSubmit();
+        checkout().interactAddCompanyModal().fillCompany(company);
         checkout().interactAddCompanyModal().clickToOkButton();
 
         checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
@@ -109,9 +95,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().checkCheckoutLoaderNotVisible();
 
-        checkout().setContacts().fillFirstName(Generate.literalString(8));
-        checkout().setContacts().fillLastName(Generate.literalString(8));
-        checkout().setContacts().fillEmail(Generate.email());
+        checkout().setContacts().fillContactInfo();
         checkout().setContacts().clickToSubmit();
 
         checkout().setReplacementPolicy().clickToSubmit();
@@ -121,11 +105,7 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().setPayment().clickToByCardOnline();
         checkout().setPayment().clickToAddNewPaymentCard();
 
-        checkout().interactEditPaymentCardModal().fillCardNumber(card.getCardNumber());
-        checkout().interactEditPaymentCardModal().fillExpMonth(card.getExpiryMonth());
-        checkout().interactEditPaymentCardModal().fillExpYear(card.getExpiryYear());
-        checkout().interactEditPaymentCardModal().fillCvv(card.getCvvNumber());
-        checkout().interactEditPaymentCardModal().fillHolderName(card.getCardholderName());
+        checkout().interactEditPaymentCardModal().fillCardData(card);
         checkout().interactEditPaymentCardModal().clickToSaveModal();
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
@@ -134,10 +114,7 @@ public final class BasicOrdersTests extends BaseTest {
     }
 
     @CaseId(2066)
-    @Test(
-            description = "Тест заказа с новой картой оплаты без 3ds",
-            groups = {"sbermarket-regression", "testing", "sbermarket-Ui-smoke"}
-    )
+    @Test(description = "Тест заказа с новой картой оплаты без 3ds", groups = "regression")
     public void successCompleteCheckoutWithNewNoSecurePaymentCard() {
         userData = UserManager.getUser();
         helper.auth(userData);
@@ -156,10 +133,7 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().setDeliveryOptions().clickToForBusiness();
         checkout().setDeliveryOptions().clickToAddCompany();
 
-        checkout().interactAddCompanyModal().fillInn(company.getInn());
-        checkout().interactAddCompanyModal().clickToSubmit();
-        checkout().interactAddCompanyModal().fillName(company.getJuridicalName());
-        checkout().interactAddCompanyModal().clickToSubmit();
+        checkout().interactAddCompanyModal().fillCompany(company);
         checkout().interactAddCompanyModal().clickToOkButton();
 
         checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
@@ -167,9 +141,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().checkCheckoutLoaderNotVisible();
 
-        checkout().setContacts().fillFirstName(Generate.literalString(8));
-        checkout().setContacts().fillLastName(Generate.literalString(8));
-        checkout().setContacts().fillEmail(Generate.email());
+        checkout().setContacts().fillContactInfo();
         checkout().setContacts().clickToSubmit();
 
         checkout().setReplacementPolicy().clickToSubmit();
@@ -179,11 +151,7 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().setPayment().clickToByCardOnline();
         checkout().setPayment().clickToAddNewPaymentCard();
 
-        checkout().interactEditPaymentCardModal().fillCardNumber(card.getCardNumber());
-        checkout().interactEditPaymentCardModal().fillExpMonth(card.getExpiryMonth());
-        checkout().interactEditPaymentCardModal().fillExpYear(card.getExpiryYear());
-        checkout().interactEditPaymentCardModal().fillCvv(card.getCvvNumber());
-        checkout().interactEditPaymentCardModal().fillHolderName(card.getCardholderName());
+        checkout().interactEditPaymentCardModal().fillCardData(card);
         checkout().interactEditPaymentCardModal().clickToSaveModal();
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
@@ -192,10 +160,7 @@ public final class BasicOrdersTests extends BaseTest {
     }
 
     @CaseId(1681)
-    @Test(
-            description = "Тест заказа с любимыми товарами",
-            groups = {"sbermarket-regression", "sbermarket-Ui-smoke"}
-    )
+    @Test(description = "Тест заказа с любимыми товарами", groups = "regression")
     public void successOrderWithFavProducts() {
         userData = UserManager.getUser();
         helper.auth(userData);
@@ -214,10 +179,7 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().setDeliveryOptions().clickToForBusiness();
         checkout().setDeliveryOptions().clickToAddCompany();
 
-        checkout().interactAddCompanyModal().fillInn(company.getInn());
-        checkout().interactAddCompanyModal().clickToSubmit();
-        checkout().interactAddCompanyModal().fillName(company.getJuridicalName());
-        checkout().interactAddCompanyModal().clickToSubmit();
+        checkout().interactAddCompanyModal().fillCompany(company);
         checkout().interactAddCompanyModal().clickToOkButton();
 
         checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
@@ -225,9 +187,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().checkCheckoutLoaderNotVisible();
 
-        checkout().setContacts().fillFirstName(Generate.literalString(8));
-        checkout().setContacts().fillLastName(Generate.literalString(8));
-        checkout().setContacts().fillEmail(Generate.email());
+        checkout().setContacts().fillContactInfo();
         checkout().setContacts().clickToSubmit();
 
         checkout().setReplacementPolicy().clickToSubmit();
@@ -240,10 +200,7 @@ public final class BasicOrdersTests extends BaseTest {
     }
 
     @CaseId(1673)
-    @Test(
-            description = "Тест успешного заказа с оплатой картой курьеру",
-            groups = {"sbermarket-regression","testing", "sbermarket-Ui-smoke"}
-    )
+    @Test(description = "Тест успешного заказа с оплатой картой курьеру", groups = {"smoke", "regression"})
     public void successOrderWithCardCourier() {
         userData = UserManager.getUser();
         helper.auth(userData);
@@ -261,10 +218,7 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().setDeliveryOptions().clickToForBusiness();
         checkout().setDeliveryOptions().clickToAddCompany();
 
-        checkout().interactAddCompanyModal().fillInn(company.getInn());
-        checkout().interactAddCompanyModal().clickToSubmit();
-        checkout().interactAddCompanyModal().fillName(company.getJuridicalName());
-        checkout().interactAddCompanyModal().clickToSubmit();
+        checkout().interactAddCompanyModal().fillCompany(company);
         checkout().interactAddCompanyModal().clickToOkButton();
 
         checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
@@ -272,9 +226,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().checkCheckoutLoaderNotVisible();
 
-        checkout().setContacts().fillFirstName(Generate.literalString(8));
-        checkout().setContacts().fillLastName(Generate.literalString(8));
-        checkout().setContacts().fillEmail(Generate.email());
+        checkout().setContacts().fillContactInfo();
         checkout().setContacts().clickToSubmit();
 
         checkout().setReplacementPolicy().clickToSubmit();

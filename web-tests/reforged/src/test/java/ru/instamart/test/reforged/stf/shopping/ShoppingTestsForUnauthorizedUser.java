@@ -17,12 +17,7 @@ public class ShoppingTestsForUnauthorizedUser extends BaseTest {
 
     @CaseId(1620)
     @Story("Тест недоступности чекаута неавторизованному юзеру")
-    @Test(
-            description = "Тест недоступности чекаута неавторизованному юзеру",
-            groups = {"sbermarket-acceptance", "sbermarket-regression",
-                    "metro-acceptance", "metro-regression"
-            }
-    )
+    @Test(description = "Тест недоступности чекаута неавторизованному юзеру", groups = {"acceptance", "regression"})
     public void noAccessToCheckoutByDefault() {
         shop().goToPage();
 
@@ -32,12 +27,8 @@ public class ShoppingTestsForUnauthorizedUser extends BaseTest {
 
     @CaseId(1621)
     @Story("Тест недоступности чекаута неавторизованному юзеру c выбранным адресом и пустой корзиной")
-    @Test(
-            description = "Тест недоступности чекаута неавторизованному юзеру c выбранным адресом и пустой корзиной",
-            groups = {"sbermarket-acceptance", "sbermarket-regression",
-                    "metro-acceptance", "metro-regression"
-            }
-    )
+    @Test(description = "Тест недоступности чекаута неавторизованному юзеру c выбранным адресом и пустой корзиной",
+            groups = {"acceptance", "regression"})
     public void noAccessToCheckoutForUnauthorizedUserWithShipAddressAndEmptyCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -56,12 +47,8 @@ public class ShoppingTestsForUnauthorizedUser extends BaseTest {
 
     @CaseId(1622)
     @Story("Тест недоступности чекаута при сумме корзины меньше минимального заказа")
-    @Test(
-            description = "Тест недоступности чекаута при сумме корзины меньше минимального заказа",
-            groups = {"sbermarket-acceptance", "sbermarket-regression",
-                    "metro-acceptance", "metro-regression"
-            }
-    )
+    @Test(description = "Тест недоступности чекаута при сумме корзины меньше минимального заказа",
+            groups = {"acceptance", "regression"})
     public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -89,12 +76,7 @@ public class ShoppingTestsForUnauthorizedUser extends BaseTest {
 
     @CaseId(1623)
     @Story("Тест набора корзины до суммы, достаточной для заказа")
-    @Test(
-            description = "Тест набора корзины до суммы, достаточной для заказа",
-            groups = {"sbermarket-acceptance", "sbermarket-regression",
-                    "metro-acceptance", "metro-regression"
-            }
-    )
+    @Test(description = "Тест набора корзины до суммы, достаточной для заказа", groups = {"acceptance", "regression"})
     public void successCollectItemsForOrder() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();

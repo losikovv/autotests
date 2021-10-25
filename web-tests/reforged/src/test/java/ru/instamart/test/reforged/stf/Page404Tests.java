@@ -13,9 +13,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.notfound;
 public final class Page404Tests extends BaseTest {
 
     @CaseId(1763)
-    @Test(  description = "Тест перехода на главную по одноименной кнопке на странице 404",
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
-    )
+    @Test(description = "Тест перехода на главную по одноименной кнопке на странице 404", groups = {"acceptance", "regression"})
     public void successGoToHomepage() {
         notfound().goToPage();
         notfound().clickToGoToMainPage();

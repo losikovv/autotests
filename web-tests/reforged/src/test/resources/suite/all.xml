@@ -24,7 +24,7 @@
             <class name="ru.instamart.test.reforged.stf.order.OrdersBonusesTests"/>
             <class name="ru.instamart.test.reforged.stf.order.OrdersCitiesTests"/>
             <class name="ru.instamart.test.reforged.stf.order.OrdersPaymentsTests"/>
-            <class name="ru.instamart.test.reforged.stf.order.OrdersPromocodesTests"/>
+            <class name="ru.instamart.test.reforged.stf.order.OrdersPromoCodesTests"/>
             <class name="ru.instamart.test.reforged.stf.order.OrdersRetailerCardsTests"/>
             <class name="ru.instamart.test.reforged.stf.order.OrdersReplacementsTests"/>
 

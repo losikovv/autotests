@@ -28,11 +28,10 @@ public final class OrdersCitiesTests extends BaseTest {
     @CaseIDs(value = {@CaseId(1650), @CaseId(1651), @CaseId(1652), @CaseId(1653), @CaseId(1654),@CaseId(1655),
             @CaseId(1656), @CaseId(1657), @CaseId(1658), @CaseId(1659), @CaseId(1660), @CaseId(1661),
             @CaseId(1662), @CaseId(1663), @CaseId(1664), @CaseId(1665)})
-    @Test(description = "Тест заказа в METRO",
-            groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance", "sbermarket-regression"
-            }, dataProviderClass = CityProvider.class, dataProvider = "city")
+    @Test(  description = "Тест заказа в METRO",
+            groups = {"regression", "acceptance"},
+            dataProviderClass = CityProvider.class,
+            dataProvider = "city")
     public void successOrderFromCity(final AddressV2 address) {
         helper.auth(userData);
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID, address);
@@ -47,9 +46,7 @@ public final class OrdersCitiesTests extends BaseTest {
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
-        checkout().setContacts().fillFirstName(Generate.literalString(8));
-        checkout().setContacts().fillLastName(Generate.literalString(8));
-        checkout().setContacts().fillEmail(Generate.email());
+        checkout().setContacts().fillContactInfo();
         checkout().setContacts().clickToSubmit();
 
         checkout().setReplacementPolicy().clickToSubmit();

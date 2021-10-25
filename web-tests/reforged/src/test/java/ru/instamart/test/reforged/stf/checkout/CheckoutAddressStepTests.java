@@ -6,6 +6,7 @@ import io.qase.api.annotation.CaseIDs;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -23,13 +24,11 @@ public final class CheckoutAddressStepTests extends BaseTest {
     private final UserData checkoutUser = UserManager.checkoutUser();
 
     @CaseIDs({@CaseId(1698), @CaseId(1699), @CaseId(1700), @CaseId(1701)})
-    @Test(description = "Тесты заполнения, изменения и очистки всех полей",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"}
-    )
+    @Test(description = "Тесты заполнения, изменения и очистки всех полей", groups = {"acceptance", "regression"})
     public void successFillAllFieldsAndProceedNext() {
         final AddressDetailsData changeData = TestVariables.testChangeAddressData();
 
-        helper.dropAndFillCart(checkoutUser, 1);
+        helper.dropAndFillCart(checkoutUser, EnvironmentProperties.DEFAULT_SID);
 
         home().goToPage();
         home().openLoginModal();

@@ -26,9 +26,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     @Skip
     @CaseId(175)
     @Story("Тест на корректное отображение элементов страницы со списком заказов в админке")
-    @Test(description = "Тест на корректное отображение элементов страницы со списком заказов в админке",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(description = "Тест на корректное отображение элементов страницы со списком заказов в админке", groups = {"acceptance", "regression"})
     public void validateDefaultAdminShipmentsPage() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -43,9 +41,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
     @CaseId(176)
     @Story("Тест на работоспособность пагинации списка заказов")
-    @Test(description = "Тест на работоспособность пагинации списка заказов",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(description = "Тест на работоспособность пагинации списка заказов", groups = {"acceptance", "regression", "smoke"})
     public void validatePagerOnAdminShipmentsPage() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -64,9 +60,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
     @CaseId(172)
     @Story("Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ")
-    @Test(description = "Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(description = "Тест на работоспособность фильтра ДАТА И ВРЕМЯ ДОСТАВКИ", groups = {"acceptance", "regression", "smoke"})
     public void validateFilterDateAndTimeAdminShipmentsPage() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -81,9 +75,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
     @CaseId(173)
     @Story("Тест на работоспособность фильтра ТЕЛЕФОН СОДЕРЖИТ")
-    @Test(description = "Тест на работоспособность фильтра ТЕЛЕФОН СОДЕРЖИТ",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(description = "Тест на работоспособность фильтра ТЕЛЕФОН СОДЕРЖИТ", groups = {"acceptance", "regression", "smoke"})
     public void validateFilterPhoneShipmentsPage() {
         var phone = "79268202951";
         login().goToPage();
@@ -97,9 +89,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
     @CaseId(174)
     @Story("Тест на работоспособность мультифильтра")
-    @Test(description = "Тест на работоспособность мультифильтра",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(description = "Тест на работоспособность мультифильтра", groups = {"acceptance", "regression", "smoke"})
     public void validateMultiFiltersShipmentsPage() {
         var phone = "79268202951";
         login().goToPage();
@@ -116,9 +106,8 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
     @CaseId(1224)
     @Story("Тест на проверку изменения количества заказов после применения фильтра, без пейджера")
-    @Test(description = "Тест на проверку изменения количества заказов после применения фильтра, без пейджера",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(  description = "Тест на проверку изменения количества заказов после применения фильтра, без пейджера",
+            groups = {"acceptance", "regression", "smoke"})
     public void validateShipmentsAfterFiltrationWOTPager() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -136,9 +125,8 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
     @CaseId(1225)
     @Story("Тест на проверку изменения количества заказов после применения фильтра, с пейджером")
-    @Test(description = "Тест на проверку изменения количества заказов после применения фильтра, с пейджером",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(  description = "Тест на проверку изменения количества заказов после применения фильтра, с пейджером",
+            groups = {"acceptance", "regression", "smoke"})
     public void validateShipmentsAfterFiltrationWithPager() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -161,9 +149,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
     @CaseId(182)
     @Story("Тест поиска заказа по номеру заказа в админке")
-    @Test(description = "Тест поиска заказа по номеру заказа в админке",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(description = "Тест поиска заказа по номеру заказа в админке", groups = {"acceptance", "regression", "smoke"})
     public void successSearchOrderByOrderNumber() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -178,9 +164,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
     @CaseId(445)
     @Story("Тест поиска заказа по номеру шипмента в админке")
-    @Test(description = "Тест поиска заказа по номеру шипмента в админке",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(description = "Тест поиска заказа по номеру шипмента в админке", groups = {"acceptance", "regression", "smoke"})
     public void successSearchOrderByShipmentNumber() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -196,9 +180,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     // TODO тест можно ускорить - использовать тестовый заказ из конфига
     // TODO поправить тест после того как починб тест заказа
     @Story("Тест возобновления и отмены заказа через админку")
-    @Test(description = "Тест возобновления и отмены заказа через админку",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"}
-    )
+    @Test(description = "Тест возобновления и отмены заказа через админку", groups = {"acceptance", "regression"})
     public void successResumeAndCancelOrder() {
         final ApiHelper helper = new ApiHelper();
         final UserData userData = UserManager.getUser();
@@ -210,10 +192,10 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     }
 
     // Нужен юзер
+    @CaseId(183)
+    @Skip
     @Story("Тест поиска B2B заказа в админке")
-    @Test(description = "Тест поиска B2B заказа в админке",
-            groups = {"sbermarket-regression"}
-    )
+    @Test(description = "Тест поиска B2B заказа в админке", groups = {"acceptance", "regression"})
     public void successSearchB2BOrder() {
         final ApiHelper helper = new ApiHelper();
         final UserData userData = UserManager.getUser();
@@ -225,8 +207,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     }
 
     @Story("Тест поиска B2B заказа после снятия признака B2B")
-    @Test(description = "Тест поиска B2B заказа после снятия признака B2B"
-    )
+    @Test(description = "Тест поиска B2B заказа после снятия признака B2B", groups = {"acceptance", "regression"})
     public void successSearchB2BOrderAfterRevokeB2BRole() {
         final UserData userData = UserManager.forB2BUser();
         final UsersEditPage usersEdit = new UsersEditPage();

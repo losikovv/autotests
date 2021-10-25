@@ -22,10 +22,7 @@ public final class BasicSelgrosTests extends BaseTest {
 
     @CaseId(2781)
     @Story("Валидация элементов")
-    @Test(
-            description = "Тест валидности элементов и ссылок в шапке Selgros",
-            groups = {"selgros-smoke", "selgros-acceptance", "selgros-regression"}
-    )
+    @Test(description = "Тест валидности элементов и ссылок в шапке Selgros", groups = {"acceptance", "regression"})
     public void successValidateSelgrosTenantHeader() {
         selgros().goToPage();
         selgros().checkPageIsAvailable();
@@ -50,10 +47,7 @@ public final class BasicSelgrosTests extends BaseTest {
 
     @CaseId(2782)
     @Story("Валидация элементов")
-    @Test(
-            description = "Тест валидности элементов и ссылок в подвале Selgros",
-            groups = {"selgros-smoke", "selgros-acceptance", "selgros-regression"}
-    )
+    @Test(description = "Тест валидности элементов и ссылок в подвале Selgros", groups = {"acceptance", "regression"})
     public void successValidateSelgrosTenantFooter() {
         selgros().goToPage();
         selgros().checkPageIsAvailable();
@@ -91,8 +85,7 @@ public final class BasicSelgrosTests extends BaseTest {
     @Test(  dataProviderClass = StaticPage.class,
             dataProvider = "filteredUnavailableRetailersSpree",
             description = "Тест недоступности витрин ретейлеров Selgros",
-            groups = {"selgros-smoke", "selgros-acceptance", "selgros-regression"}
-    )
+            groups = {"acceptance", "regression"})
     public void successCheckSelgrosUnavailableRetailers(final RetailerV2 retailer) {
         final String fullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + retailer.getSlug();
         assertTrue(Curl.pageUnavailable(fullUrl), "Страница " + fullUrl + " доступна");
@@ -104,8 +97,7 @@ public final class BasicSelgrosTests extends BaseTest {
     @Test(  dataProviderClass = StaticPage.class,
             dataProvider = "selgrosAvailableRetailerPage",
             description = "Тест доступности витрин ретейлеров Selgros",
-            groups = {"selgros-smoke", "selgros-acceptance", "selgros-regression"}
-    )
+            groups = {"acceptance", "regression"})
     public void successCheckSelgrosAvailableRetailers(final String url) {
         assertTrue(Curl.pageAvailable(url), "Страница " + url + " доступна");
     }
@@ -117,8 +109,7 @@ public final class BasicSelgrosTests extends BaseTest {
             dataProviderClass = StaticPage.class,
             dataProvider = "selgrosFaqPage",
             description = "Тест доступности статических страниц на Selgros",
-            groups = {"selgros-smoke", "selgros-acceptance", "selgros-regression"}
-    )
+            groups = {"acceptance", "regression"})
     public void successCheckSelgrosStaticPagesAreAvailable(final String url) {
         assertTrue(Curl.pageAvailable(url), "Страница " + url + " недоступна");
     }

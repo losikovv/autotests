@@ -17,9 +17,7 @@ public final class BasicAdministrationTests extends BaseTest {
 
     @CaseId(419)
     @Story("Тест доступности корневых разделов админки")
-    @Test(description = "Тест доступности корневых разделов админки",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(description = "Тест доступности корневых разделов админки", groups = {"acceptance", "regression", "smoke"})
     public void successCheckAdminSectionsAvailability() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -46,9 +44,7 @@ public final class BasicAdministrationTests extends BaseTest {
 
     @CaseId(420)
     @Story("Тест доступности вьюхи oktell")
-    @Test(description = "Тест доступности вьюхи oktell",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(description = "Тест доступности вьюхи oktell", groups = {"acceptance", "regression"})
     public void successCheckOktellViewAvailability() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -59,9 +55,7 @@ public final class BasicAdministrationTests extends BaseTest {
 
     @CaseId(416)
     @Story("Проверка наличия элементов в шапке админки")
-    @Test(description = "Проверка наличия элементов в шапке админки",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(description = "Проверка наличия элементов в шапке админки", groups = {"acceptance", "regression"})
     public void successValidateHeader() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -75,9 +69,7 @@ public final class BasicAdministrationTests extends BaseTest {
     @Flaky
     @CaseId(4)
     @Story("Тест валидности ссылок навигационного меню в шапке админки")
-    @Test(description = "Тест валидности ссылок навигационного меню в шапке админки",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(description = "Тест валидности ссылок навигационного меню в шапке админки", groups = {"acceptance", "regression", "smoke"})
     public void successValidateNavigationMenu() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());

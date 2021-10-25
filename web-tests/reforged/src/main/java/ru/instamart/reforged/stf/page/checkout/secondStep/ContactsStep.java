@@ -1,8 +1,16 @@
 package ru.instamart.reforged.stf.page.checkout.secondStep;
 
 import io.qameta.allure.Step;
+import ru.instamart.kraken.data.Generate;
 
 public class ContactsStep implements ContactsStepElement {
+
+    @Step("Заполнить контактные данные рандомными значениями")
+    public void fillContactInfo() {
+        fillFirstName(Generate.literalString(8));
+        fillLastName(Generate.literalString(8));
+        fillEmail(Generate.email());
+    }
 
     @Step("Заполнить имя")
     public void fillFirstName(String data) {

@@ -22,13 +22,8 @@ public class ShoppingTestsForExistingUser extends BaseTest {
 
     @CaseId(1616)
     @Story("Тест недоступности чекаута по прямой ссылке авторизованному юзеру c выбранным адресом и пустой корзиной")
-    @Test(
-            description = "Тест недоступности чекаута по прямой ссылке авторизованному юзеру c выбранным адресом и пустой корзиной",
-            groups = {
-                    "sbermarket-acceptance", "sbermarket-regression",
-                    "metro-acceptance", "metro-regression"
-            }
-    )
+    @Test(description = "Тест недоступности чекаута по прямой ссылке авторизованному юзеру c выбранным адресом и пустой корзиной",
+            groups = {"acceptance", "regression"})
     public void noAccessToCheckoutForAuthorizedUserWithShipAddressAndEmptyCart() {
         final UserData shoppingCartUser = UserManager.getUser();
         helper.dropCart(shoppingCartUser);
@@ -48,13 +43,8 @@ public class ShoppingTestsForExistingUser extends BaseTest {
 
     @CaseId(1617)
     @Story("Тест недоступности чекаута при сумме корзины меньше минимального заказа")
-    @Test(
-            description = "Тест недоступности чекаута при сумме корзины меньше минимального заказа",
-            groups = {
-                    "sbermarket-acceptance", "sbermarket-regression",
-                    "metro-acceptance", "metro-regression"
-            }
-    )
+    @Test(description = "Тест недоступности чекаута при сумме корзины меньше минимального заказа",
+            groups = {"acceptance", "regression"})
     public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
         final UserData shoppingCartUser = UserManager.getUser();
         helper.dropCart(shoppingCartUser);
@@ -83,13 +73,8 @@ public class ShoppingTestsForExistingUser extends BaseTest {
 
     @CaseId(1618)
     @Story("Тест набора корзины до суммы, достаточной для оформления заказа")
-    @Test(
-            description = "Тест набора корзины до суммы, достаточной для оформления заказа",
-            groups = {
-                    "sbermarket-acceptance", "sbermarket-regression",
-                    "metro-acceptance", "metro-regression"
-            }
-    )
+    @Test(description = "Тест набора корзины до суммы, достаточной для оформления заказа",
+            groups = {"acceptance", "regression"})
     public void successCollectItemsForMinOrder() {
         final UserData shoppingCartUser = UserManager.getUser();
         helper.dropAndFillCart(shoppingCartUser, 1);
@@ -111,13 +96,7 @@ public class ShoppingTestsForExistingUser extends BaseTest {
 
     @CaseId(1619)
     @Story("Тест на подтягивание адреса и мердж корзины из профиля при авторизации")
-    @Test(
-            description = "Тест на подтягивание адреса и мердж корзины из профиля при авторизации",
-            groups = {
-                    "sbermarket-acceptance", "sbermarket-regression",
-                    "metro-acceptance", "metro-regression"
-            }
-    )
+    @Test(description = "Тест на подтягивание адреса и мердж корзины из профиля при авторизации", groups = {"acceptance", "regression"})
     public void successMergeShipAddressAndCartAfterAuthorisation() {
         final UserData shoppingCartUser = UserManager.getUser();
         helper.dropAndFillCart(shoppingCartUser, 1);

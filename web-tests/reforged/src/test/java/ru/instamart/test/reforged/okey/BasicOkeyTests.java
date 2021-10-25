@@ -22,10 +22,7 @@ public final class BasicOkeyTests extends BaseTest {
 
     @CaseId(2777)
     @Story("Валидация элементов")
-    @Test(
-            description = "Тест валидности элементов и ссылок в шапке Okey",
-            groups = {"okey-smoke", "okey-acceptance", "okey-regression"}
-    )
+    @Test(description = "Тест валидности элементов и ссылок в шапке Okey", groups = {"acceptance", "regression"})
     public void successValidateOkeyTenantHeader() {
         okey().goToPage();
         okey().checkPageIsAvailable();
@@ -48,10 +45,7 @@ public final class BasicOkeyTests extends BaseTest {
 
     @CaseId(2778)
     @Story("Валидация элементов")
-    @Test(
-            description = "Тест валидности элементов и ссылок в подвале Okey",
-            groups = {"okey-smoke", "okey-acceptance", "okey-regression"}
-    )
+    @Test(description = "Тест валидности элементов и ссылок в подвале Okey", groups = {"acceptance", "regression"})
     public void successValidateOkeyTenantFooter() {
         okey().goToPage();
         okey().checkPageIsAvailable();
@@ -89,8 +83,7 @@ public final class BasicOkeyTests extends BaseTest {
     @Test(  dataProviderClass = StaticPage.class,
             dataProvider = "filteredUnavailableRetailersSpree",
             description = "Тест недоступности витрин ретейлеров Okey",
-            groups = {"okey-smoke", "okey-acceptance", "okey-regression"}
-    )
+            groups = {"acceptance", "regression"})
     public void successCheckOkeyUnavailableRetailers(final RetailerV2 retailer) {
         final String fullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + retailer.getSlug();
         assertTrue(Curl.pageUnavailable(fullUrl), "Страница " + fullUrl + " доступна");
@@ -102,8 +95,7 @@ public final class BasicOkeyTests extends BaseTest {
     @Test(  dataProviderClass = StaticPage.class,
             dataProvider = "okeyAvailableRetailerPage",
             description = "Тест доступности витрин ретейлеров Okey",
-            groups = {"okey-smoke", "okey-acceptance", "okey-regression"}
-    )
+            groups = {"acceptance", "regression"})
     public void successCheckOkeyAvailableRetailers(final String url) {
         assertTrue(Curl.pageAvailable(url), "Страница " + url + " доступна");
     }
@@ -115,8 +107,7 @@ public final class BasicOkeyTests extends BaseTest {
             dataProviderClass = StaticPage.class,
             dataProvider = "okeyFaqPage",
             description = "Тест доступности статических страниц на Okey",
-            groups = {"okey-smoke", "okey-acceptance", "okey-regression"}
-    )
+            groups = {"acceptance", "regression"})
     public void successCheckOkeyStaticPagesAreAvailable(final String url) {
         assertTrue(Curl.pageAvailable(url), "Страница " + url + " недоступна");
     }

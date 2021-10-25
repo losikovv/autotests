@@ -18,9 +18,7 @@ public final class AdministrationPagesSectionTests extends BaseTest {
 
     @CaseId(507)
     @Story("Тест на проверку элементов на вкладке статических страниц")
-    @Test(description = "Тест на проверку элементов на вкладке статических страниц",
-            groups = {"admin-ui-smoke"}
-    )
+    @Test(description = "Тест на проверку элементов на вкладке статических страниц", groups = {"acceptance", "regression"})
     public void validatePagesRootPage() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -31,9 +29,7 @@ public final class AdministrationPagesSectionTests extends BaseTest {
 
     @CaseId(13)
     @Story("Тест создания и удаления статической страницы")
-    @Test(description = "Тест создания и удаления статической страницы",
-            groups = {"admin-ui-smoke"}
-    )
+    @Test(description = "Тест создания и удаления статической страницы", groups = {"acceptance", "regression", "smoke"})
     public void createDeletePage() {
         final StaticPageData staticPage = StaticPages.newStaticPage();
 
@@ -52,9 +48,7 @@ public final class AdministrationPagesSectionTests extends BaseTest {
 
     @CaseId(14)
     @Story("Тест редактирования статической страницы")
-    @Test(description = "Тест редактирования статической страницы",
-            groups = {"admin-ui-smoke"}
-    )
+    @Test(description = "Тест редактирования статической страницы", groups = {"acceptance", "regression", "smoke"})
     public void createAndEditStaticPage() {
         final StaticPageData staticPage = StaticPages.newStaticPage();
         final StaticPageData staticPageEdited = StaticPages.editedStaticPage();

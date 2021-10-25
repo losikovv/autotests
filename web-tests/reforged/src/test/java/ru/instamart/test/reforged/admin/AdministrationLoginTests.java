@@ -17,9 +17,7 @@ public final class AdministrationLoginTests extends BaseTest {
 
     @CaseId(440)
     @Story("Тест неуспешной авторизации с пустыми полями")
-    @Test(description = "Тест неуспешной авторизации с пустыми полями",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(description = "Тест неуспешной авторизации с пустыми полями", groups = {"acceptance", "regression"})
     public void noAuthWithEmptyFields() {
         login().goToPage();
         login().setUsername("");
@@ -31,9 +29,7 @@ public final class AdministrationLoginTests extends BaseTest {
 
     @CaseId(441)
     @Story("Тест неуспешной авторизации с некорректным логином")
-    @Test(description = "Тест неуспешной авторизации с некорректным логином",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(description = "Тест неуспешной авторизации с некорректным логином", groups = {"acceptance", "regression"})
     public void noAuthWithIncorrectUsername() {
         login().goToPage();
         login().setUsername("wrongUsername");
@@ -44,10 +40,8 @@ public final class AdministrationLoginTests extends BaseTest {
 
     @CaseId(442)
     @Story("Тест неуспешной авторизации с несуществующим логином")
-    @Test(description = "Тест неуспешной авторизации с несуществующим логином",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
-    public void noAuthWithNonexistingUser() {
+    @Test(description = "Тест неуспешной авторизации с несуществующим логином", groups = {"acceptance", "regression"})
+    public void noAuthWithNonExistingUser() {
         login().goToPage();
         login().setUsername("nonexistinguser@instamart.ru");
         login().setPassword("123456");
@@ -57,9 +51,7 @@ public final class AdministrationLoginTests extends BaseTest {
 
     @CaseId(443)
     @Story("Тест неуспешной авторизации с коротким паролем")
-    @Test(description = "Тест неуспешной авторизации с коротким паролем",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(description = "Тест неуспешной авторизации с коротким паролем", groups = {"acceptance", "regression"})
     public void noAuthWithShortPassword() {
         login().goToPage();
         login().setUsername(UserManager.getDefaultUser().getEmail());
@@ -70,9 +62,7 @@ public final class AdministrationLoginTests extends BaseTest {
 
     @CaseId(444)
     @Story("Тест неуспешной авторизации с неверным паролем")
-    @Test(description = "Тест неуспешной авторизации с неверным паролем",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(description = "Тест неуспешной авторизации с неверным паролем", groups = {"acceptance", "regression"})
     public void noAuthWithWrongPassword() {
         login().goToPage();
         login().setUsername(UserManager.getDefaultUser().getEmail());
@@ -83,9 +73,7 @@ public final class AdministrationLoginTests extends BaseTest {
 
     @CaseId(415)
     @Story("Тест успешной авторизации")
-    @Test(description = "Тест успешной авторизации",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(description = "Тест успешной авторизации", groups = {"acceptance", "regression", "smoke"})
     public void successAuthOnAdminLoginPage() {
         login().goToPage();
         login().setUsername(UserManager.getDefaultAdmin().getEmail());
@@ -97,8 +85,7 @@ public final class AdministrationLoginTests extends BaseTest {
 
     @CaseId(2)
     @Story("Тест логаута из админки")
-    @Test(description = "Тест логаута из админки",
-            groups = {"admin-ui-smoke"})
+    @Test(description = "Тест логаута из админки", groups = {"acceptance", "regression", "smoke"})
     public void successLogoutFromAdminPage() {
         login().goToPage();
         login().setUsername(UserManager.getDefaultAdmin().getEmail());
@@ -113,8 +100,7 @@ public final class AdministrationLoginTests extends BaseTest {
 
     @CaseId(417)
     @Story("Тест недоступности админки пользователю без админ. прав")
-    @Test(description = "Тест недоступности админки пользователю без админ. прав",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"})
+    @Test(description = "Тест недоступности админки пользователю без админ. прав", groups = {"acceptance", "regression", "smoke"})
     public void loginWithoutAdminPermission() {
         login().goToPage();
         login().setUsername(UserManager.userWithoutAdminPermission().getEmail());

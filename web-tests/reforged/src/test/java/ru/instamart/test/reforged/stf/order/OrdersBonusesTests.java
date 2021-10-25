@@ -39,11 +39,9 @@ public final class OrdersBonusesTests extends BaseTest {
     }
 
     @CaseIDs(value = {@CaseId(1666), @CaseId(1667)})
-    @Test(
-            description = "Тест заказа с добавлением бонусов",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"},
-            dataProviderClass = BonusProvider.class, dataProvider = "bonus"
-    )
+    @Test(  description = "Тест заказа с добавлением бонусов",
+            groups = {"smoke","acceptance", "regression"},
+            dataProviderClass = BonusProvider.class, dataProvider = "bonus" )
     public void successOrderWithBonus(final LoyaltiesData loyaltiesData) {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -55,9 +53,7 @@ public final class OrdersBonusesTests extends BaseTest {
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
-        checkout().setContacts().fillFirstName(Generate.literalString(8));
-        checkout().setContacts().fillLastName(Generate.literalString(8));
-        checkout().setContacts().fillEmail(Generate.email());
+        checkout().setContacts().fillContactInfo();
         checkout().setContacts().clickToSubmit();
 
         checkout().setReplacementPolicy().clickToSubmit();

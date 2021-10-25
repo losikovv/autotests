@@ -21,9 +21,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
 
     @CaseId(31)
     @Story("Тест поиска пользователя в админке")
-    @Test(description = "Тест поиска пользователя в админке",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"}
-    )
+    @Test(description = "Тест поиска пользователя в админке", groups = {"acceptance", "regression"})
     public void successSearchUser() {
         final String email = UserManager.getDefaultAdmin().getEmail();
 
@@ -38,9 +36,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
 
     @CaseId(32)
     @Story("Тест предоставления и отзыва админских прав пользователю")
-    @Test(description = "Тест предоставления и отзыва админских прав пользователю",
-            groups = {}
-    )
+    @Test(description = "Тест предоставления и отзыва админских прав пользователю", groups = {"acceptance", "regression"})
     public void successGrantAndRevokeAdmin() {
         final UserData userData = UserManager.getUser();
         final String email = Generate.emailAdmin();
@@ -94,9 +90,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
 
     @CaseId(33)
     @Story("Тест смены email пользователя")
-    @Test(description = "Тест смены email пользователя",
-            groups = {"sbermarket-regression"}
-    )
+    @Test(description = "Тест смены email пользователя", groups = {"acceptance", "regression"})
     public void successChangeEmail() {
         final UserData userData = UserManager.getUser();
         final String email = Generate.email();
@@ -119,9 +113,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
 
     @CaseId(34)
     @Story("Тест проставления пользователю флага B2B")
-    @Test(description = "Тест проставления пользователю флага B2B",
-            groups = {"sbermarket-regression"}
-    )
+    @Test(description = "Тест проставления пользователю флага B2B", groups = {"acceptance", "regression"})
     //TODO в основном тесте есть еще проверка невозможности поиска заказа b2b. Лучше вынести в отдельный тест в shipments
     public void successGrantAndRevokeB2BStatus() {
         final UserData userData = UserManager.getUser();

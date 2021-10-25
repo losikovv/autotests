@@ -18,18 +18,14 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 public final class HelpDeskChatTests extends BaseTest {
 
     @CaseId(1757)
-    @Test(  description = "Тест отсутствия виджета HelpDesk на лендинге",
-            groups = {"sbermarket-acceptance","sbermarket-regression",}
-    )
+    @Test(description = "Тест отсутствия виджета HelpDesk на лендинге", groups = {"acceptance","regression",})
     public void noHelpDeskWidgetOnLanding() {
         home().goToPage();
         home().interactHelpDesk().checkHelpDeskWidgetNotVisible();
     }
 
     @CaseId(1758)
-    @Test(  description = "Тест отсутствия виджета HelpDesk в чекауте",
-            groups = {"sbermarket-acceptance","sbermarket-regression",}
-    )
+    @Test(description = "Тест отсутствия виджета HelpDesk в чекауте", groups = {"acceptance","regression",})
     public void noHelpDeskWidgetOnCheckout() {
         final ApiHelper apiHelper = new ApiHelper();
         final UserData userData = UserManager.getUser();
@@ -46,9 +42,7 @@ public final class HelpDeskChatTests extends BaseTest {
     }
 
     @CaseId(1759)
-    @Test(  description = "Тест работы с виджетом HelpDesk на витрине ритейлера",
-            groups = {"sbermarket-acceptance","sbermarket-regression",}
-    )
+    @Test(description = "Тест работы с виджетом HelpDesk на витрине ритейлера", groups = {"acceptance","regression",})
     public void successOperateHelpDeskWidgetOnRetailerPage() {
         shop().goToPage();
         shop().interactHelpDesk().openChat();
@@ -58,22 +52,12 @@ public final class HelpDeskChatTests extends BaseTest {
     }
 
     @CaseId(1761)
-    @Test(  description = "Тест работы с виджетом HelpDesk на странице 404",
-            groups = {"sbermarket-acceptance","sbermarket-regression",}
-    )
+    @Test(description = "Тест работы с виджетом HelpDesk на странице 404", groups = {"acceptance","regression",})
     public void successOperateHelpDeskWidgetOnPage404() {
         notfound().goToPage();
         notfound().interactHelpDesk().openChat();
         notfound().interactHelpDesk().checkHelpDeskOpen();
         notfound().interactHelpDesk().closeChat();
         notfound().interactHelpDesk().checkHelpDeskClose();
-    }
-
-    //TODO: Нельзя, стучится в продовский чат
-    @Skip
-    @Test(  description = "Тест успешной отправки сообщения в HelpDesk",
-            groups = {"sbermarket-regression",}
-    )
-    public void successSendMessageToHelpDeskFromRetailerPage() {
     }
 }

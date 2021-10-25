@@ -14,7 +14,6 @@ import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
-import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
 
 @Epic("STF UI")
 @Feature("Покупка товара")
@@ -30,13 +29,8 @@ public final class OrdersPaymentsTests extends BaseTest {
 
     @CaseId(1624)
     @Story("Тест заказа с оплатой картой онлайн")
-    @Test(
-            description = "Тест заказа с оплатой картой онлайн",
-            groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance", "sbermarket-regression"
-            }
-    )
+    @Test(  description = "Тест заказа с оплатой картой онлайн",
+            groups = {"smoke","regression", "acceptance"})
     public void successOrderWithCardOnline() {
         var company = UserManager.juridical();
         var card = PaymentCards.testCardNo3ds();
@@ -55,18 +49,13 @@ public final class OrdersPaymentsTests extends BaseTest {
         checkout().setDeliveryOptions().clickToForBusiness();
         checkout().setDeliveryOptions().clickToAddCompany();
 
-        checkout().interactAddCompanyModal().fillInn(company.getInn());
-        checkout().interactAddCompanyModal().clickToSubmit();
-        checkout().interactAddCompanyModal().fillName(company.getJuridicalName());
-        checkout().interactAddCompanyModal().clickToSubmit();
+        checkout().interactAddCompanyModal().fillCompany(company);
         checkout().interactAddCompanyModal().clickToOkButton();
 
         checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
-        checkout().setContacts().fillFirstName(Generate.literalString(8));
-        checkout().setContacts().fillLastName(Generate.literalString(8));
-        checkout().setContacts().fillEmail(Generate.email());
+        checkout().setContacts().fillContactInfo();
         checkout().setContacts().clickToSubmit();
 
         checkout().setReplacementPolicy().clickToSubmit();
@@ -76,11 +65,7 @@ public final class OrdersPaymentsTests extends BaseTest {
         checkout().setPayment().clickToByCardOnline();
         checkout().setPayment().clickToAddNewPaymentCard();
 
-        checkout().interactEditPaymentCardModal().fillCardNumber(card.getCardNumber());
-        checkout().interactEditPaymentCardModal().fillExpMonth(card.getExpiryMonth());
-        checkout().interactEditPaymentCardModal().fillExpYear(card.getExpiryYear());
-        checkout().interactEditPaymentCardModal().fillCvv(card.getCvvNumber());
-        checkout().interactEditPaymentCardModal().fillHolderName(card.getCardholderName());
+        checkout().interactEditPaymentCardModal().fillCardData(card);
         checkout().interactEditPaymentCardModal().clickToSaveModal();
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
@@ -92,13 +77,8 @@ public final class OrdersPaymentsTests extends BaseTest {
 
     @CaseId(1625)
     @Story("Тест заказа с оплатой картой курьеру")
-    @Test(
-            description = "Тест заказа с оплатой картой курьеру",
-            groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance", "sbermarket-regression"
-            }
-    )
+    @Test(  description = "Тест заказа с оплатой картой курьеру",
+            groups = {"smoke","regression", "acceptance"})
     public void successOrderWithCardCourier() {
         var company = UserManager.juridical();
 
@@ -116,18 +96,13 @@ public final class OrdersPaymentsTests extends BaseTest {
         checkout().setDeliveryOptions().clickToForBusiness();
         checkout().setDeliveryOptions().clickToAddCompany();
 
-        checkout().interactAddCompanyModal().fillInn(company.getInn());
-        checkout().interactAddCompanyModal().clickToSubmit();
-        checkout().interactAddCompanyModal().fillName(company.getJuridicalName());
-        checkout().interactAddCompanyModal().clickToSubmit();
+        checkout().interactAddCompanyModal().fillCompany(company);
         checkout().interactAddCompanyModal().clickToOkButton();
 
         checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
-        checkout().setContacts().fillFirstName(Generate.literalString(8));
-        checkout().setContacts().fillLastName(Generate.literalString(8));
-        checkout().setContacts().fillEmail(Generate.email());
+        checkout().setContacts().fillContactInfo();
         checkout().setContacts().clickToSubmit();
 
         checkout().setReplacementPolicy().clickToSubmit();
@@ -145,13 +120,7 @@ public final class OrdersPaymentsTests extends BaseTest {
 
     @CaseId(1626)
     @Story("Тест заказа с оплатой банковским переводом")
-    @Test(
-            description = "Тест заказа с оплатой банковским переводом",
-            groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-acceptance", "sbermarket-regression"
-            }
-    )
+    @Test(description = "Тест заказа с оплатой банковским переводом", groups = {"regression", "acceptance"})
     public void successOrderWithBankTransfer() {
         var company = UserManager.juridical();
 
@@ -169,18 +138,13 @@ public final class OrdersPaymentsTests extends BaseTest {
         checkout().setDeliveryOptions().clickToForBusiness();
         checkout().setDeliveryOptions().clickToAddCompany();
 
-        checkout().interactAddCompanyModal().fillInn(company.getInn());
-        checkout().interactAddCompanyModal().clickToSubmit();
-        checkout().interactAddCompanyModal().fillName(company.getJuridicalName());
-        checkout().interactAddCompanyModal().clickToSubmit();
+        checkout().interactAddCompanyModal().fillCompany(company);
         checkout().interactAddCompanyModal().clickToOkButton();
 
         checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
-        checkout().setContacts().fillFirstName(Generate.literalString(8));
-        checkout().setContacts().fillLastName(Generate.literalString(8));
-        checkout().setContacts().fillEmail(Generate.email());
+        checkout().setContacts().fillContactInfo();
         checkout().setContacts().clickToSubmit();
 
         checkout().setReplacementPolicy().clickToSubmit();

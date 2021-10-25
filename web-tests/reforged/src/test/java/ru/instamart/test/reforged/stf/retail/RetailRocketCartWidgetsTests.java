@@ -29,9 +29,7 @@ public final class RetailRocketCartWidgetsTests extends BaseTest {
     }
 
     @CaseId(1767)
-    @Test(  description = "Тест наличия виджета 'Не забудьте купить' в корзине",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"}
-    )
+    @Test(description = "Тест наличия виджета 'Не забудьте купить' в корзине", groups = {"acceptance", "regression"})
     public void successCheckDontForgetToBuyWidget() {
         home().goToPage();
         home().openLoginModal();
@@ -45,9 +43,8 @@ public final class RetailRocketCartWidgetsTests extends BaseTest {
     }
 
     @CaseId(1768)
-    @Test(  description = "Тест успешного открытия карточки из виджета 'Не забудьте купить' в корзине",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"}
-    )
+    @Test(description = "Тест успешного открытия карточки из виджета 'Не забудьте купить' в корзине",
+            groups = {"acceptance", "regression"})
     public void successOpenItemCardFromDontForgetToBuyWidget() {
         home().goToPage();
         home().openLoginModal();
@@ -62,9 +59,8 @@ public final class RetailRocketCartWidgetsTests extends BaseTest {
     }
 
     @CaseId(1769)
-    @Test(  description = "Тест успешного добавления товара в корзину из виджета ' Не забудьте купить' в корзине",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"}
-    )
+    @Test(description = "Тест успешного добавления товара в корзину из виджета ' Не забудьте купить' в корзине",
+            groups = {"acceptance", "regression"})
     public void successAddItemFromDontForgetToBuyWidget() {
         home().goToPage();
         home().openLoginModal();

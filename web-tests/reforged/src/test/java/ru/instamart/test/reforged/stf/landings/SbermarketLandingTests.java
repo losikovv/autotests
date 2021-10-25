@@ -15,10 +15,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.home;
 public class SbermarketLandingTests extends BaseTest {
 
     @CaseId(1687)
-    @Test(
-            description = "Тест валидности и наличия элементов лендинга Сбермаркета",
-            groups = {"sbermarket-Ui-smoke"}
-    )
+    @Test(description = "Тест валидности и наличия элементов лендинга Сбермаркета", groups = "regression")
     public void successValidateSbermarketLanding() {
         home().goToPage();
         home().addCookie(CookieFactory.COOKIE_ALERT);
@@ -62,10 +59,7 @@ public class SbermarketLandingTests extends BaseTest {
     }
 
     @CaseId(1683)
-    @Test(
-            description = "Тест перехода в каталог магазина с лендинга Сбермаркета",
-            groups = {"sbermarket-Ui-smoke"}
-    )
+    @Test(description = "Тест перехода в каталог магазина с лендинга Сбермаркета", groups = "regression")
     public void successGoToCatalogFromSbermarketLanding() {
         home().goToPage();
         home().clickStoreAuchanButton();
@@ -77,10 +71,7 @@ public class SbermarketLandingTests extends BaseTest {
     }
 
     @CaseId(2042)
-    @Test(
-            description = "Кнопка СберБизнес ID при выбранном чекбоксе \"Хочу заказывать для бизнеса\"",
-            groups = {"sbermarket-Ui-smoke"}
-    )
+    @Test(description = "Кнопка СберБизнес ID при выбранном чекбоксе 'Хочу заказывать для бизнеса'", groups = "regression")
     public void enabledSberBusinessIdButton() {
         home().goToPage();
         home().openLoginModal();

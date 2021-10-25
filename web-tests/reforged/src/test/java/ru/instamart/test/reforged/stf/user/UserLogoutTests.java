@@ -22,11 +22,7 @@ public final class UserLogoutTests extends BaseTest {
 
     @CaseId(1473)
     @Story("Позитивный кейс")
-    @Test(description = "Тест успешной быстрой деавторизации",
-            groups = {
-                    "metro-acceptance", "metro-regression", "sbermarket-Ui-smoke"
-            }
-    )
+    @Test(description = "Тест успешной быстрой деавторизации", groups = {"acceptance", "regression"})
     public void successQuickLogout() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -40,17 +36,11 @@ public final class UserLogoutTests extends BaseTest {
 
     @CaseId(1474)
     @Story("Позитивный кейс")
-    @Test(description = "Тест успешной деавторизации",
-            groups = {
-                    "metro-acceptance", "metro-regression", "sbermarket-Ui-smoke"
-            }
-    )
+    @Test(description = "Тест успешной деавторизации", groups = {"acceptance", "regression", "smoke"})
     public void successManualLogout() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().fillPhone(Generate.phoneNumber());
-        shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
+        shop().interactAuthModal().authViaPhone(UserManager.getUser());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToLogout();
@@ -59,11 +49,7 @@ public final class UserLogoutTests extends BaseTest {
 
     @CaseId(1475)
     @Story("Позитивный кейс")
-    @Test(description = "Тест сброса адреса доставки и корзины после деавторизации",
-            groups = {
-                    "metro-acceptance", "metro-regression", "sbermarket-Ui-smoke"
-            }
-    )
+    @Test(description = "Тест сброса адреса доставки и корзины после деавторизации", groups = {"acceptance", "regression"})
     public void noShipAddressAndEmptyCartAfterLogout() {
         final ApiHelper apiHelper = new ApiHelper();
         final UserData userData = UserManager.getUser();

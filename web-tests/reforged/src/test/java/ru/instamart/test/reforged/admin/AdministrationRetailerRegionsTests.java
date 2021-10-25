@@ -16,9 +16,7 @@ public final class AdministrationRetailerRegionsTests extends BaseTest {
 
     @CaseId(469)
     @Story("Тест добавления нового региона для магазинов в админке")
-    @Test(enabled = false, description = "Тест добавления нового региона для магазинов в админке",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(enabled = false, description = "Тест добавления нового региона для магазинов в админке", groups = {"acceptance", "regression", "smoke"})
     public void successCreateNewRetailerRegion() {
         final String cityName = "TestCity_" + Generate.literalString(6);
 
@@ -57,9 +55,7 @@ public final class AdministrationRetailerRegionsTests extends BaseTest {
 
     @CaseId(472)
     @Story("Валидация страницы регионов")
-    @Test(enabled = false, description = "Валидация страницы регионов",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "admin-ui-smoke"}
-    )
+    @Test(enabled = false, description = "Валидация страницы регионов", groups = {"acceptance", "regression"})
     public void storeRegionsPageValidation() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());

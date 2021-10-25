@@ -18,10 +18,7 @@ public final class ShoppingSearchTests extends BaseTest {
 
     @CaseId(1609)
     @Story("Проверка наличия элементов")
-    @Test(
-            description = "Тест валидации элементов поиска",
-            groups = {"sbermarket-Ui-smoke", "ui-smoke-production"}
-    )
+    @Test(description = "Тест валидации элементов поиска", groups = "regression")
     public void successValidateSearch() {
         shop().goToPage();
         shop().interactHeader().checkSearchContainerVisible();
@@ -31,11 +28,8 @@ public final class ShoppingSearchTests extends BaseTest {
 
     @CaseId(1177)
     @Story("Негативные сценарии")
-    @Test(
-            description = "Тест поиска по запросу, не возвращающему результатов",
-            groups = {"sbermarket-Ui-smoke", "ui-smoke-production"}
-    )
-    public void successSearchForNonexistingItem() {
+    @Test(description = "Тест поиска по запросу, не возвращающему результатов", groups = "regression")
+    public void successSearchForNonExistingItem() {
         shop().goToPage();
         shop().interactHeader().fillSearch("смысл жизни");
         shop().interactHeader().clickSearchButton();
@@ -44,10 +38,7 @@ public final class ShoppingSearchTests extends BaseTest {
 
     @CaseId(1178)
     @Story("Позитивные сценарии")
-    @Test(
-            description = "Тест успешного поиска товаров",
-            groups = {"sbermarket-Ui-smoke", "ui-smoke-production"}
-    )
+    @Test(description = "Тест успешного поиска товаров", groups = "regression")
     public void successSearchItem() {
         shop().goToPage();
         shop().interactHeader().fillSearch("молоко");
@@ -58,10 +49,7 @@ public final class ShoppingSearchTests extends BaseTest {
 
     @CaseId(1179)
     @Story("Позитивные сценарии")
-    @Test(
-            description = "Тест успешного поиска товаров c использованием категорийных саджестов",
-            groups = {"sbermarket-Ui-smoke", "ui-smoke-production"}
-    )
+    @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {"smoke", "regression"})
     public void successSearchItemUsingCategorySuggests() {
         shop().goToPage();
         shop().interactHeader().fillSearch("сыры");
@@ -73,10 +61,7 @@ public final class ShoppingSearchTests extends BaseTest {
 
     @CaseId(1615)
     @Story("Негативные сценарии")
-    @Test(
-            description = "Тест поиска по очень длинному запросу, не возвращающему результатов",
-            groups = {"sbermarket-Ui-smoke", "ui-smoke-production"}
-    )
+    @Test(description = "Тест поиска по очень длинному запросу, не возвращающему результатов", groups = "regression")
     public void successSearchItemWithLongQuery() {
         shop().goToPage();
         shop().interactHeader().fillSearch(Generate.string(1000));
@@ -85,10 +70,7 @@ public final class ShoppingSearchTests extends BaseTest {
     }
 
     @CaseId(1581)
-    @Test(
-            description = "Добавление товара в корзину из поиска товаров",
-            groups = {"sbermarket-regression"}
-    )
+    @Test(description = "Добавление товара в корзину из поиска товаров", groups = "regression")
     public void successAddItemToCartFromSearchResults() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();
