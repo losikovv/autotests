@@ -8,8 +8,8 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
-import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.lib.Addresses;
+import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.data.Addresses;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;

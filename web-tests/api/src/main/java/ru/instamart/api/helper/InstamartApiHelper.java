@@ -19,8 +19,7 @@ import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v1.OffersV1Response;
 import ru.instamart.api.response.v2.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.testdata.UserData;
-import ru.instamart.kraken.testdata.lib.Pages;
+import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.util.MapUtil;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.ThreadUtil;
@@ -452,7 +451,7 @@ public final class InstamartApiHelper {
         List<ShippingRateV2> shippingRates = response.as(ShippingRatesV2Response.class).getShippingRates();
 
         assertFalse(shippingRates.isEmpty(),
-                "Нет слотов в магазине " + Pages.Admin.stores(currentSid.get()));
+                "Нет слотов в магазине admin/stores/" + currentSid.get());
 
         DeliveryWindowV2 deliveryWindow = shippingRates.get(0).getDeliveryWindow();
 
@@ -471,7 +470,7 @@ public final class InstamartApiHelper {
         checkStatusCode200(response);
         List<ShippingMethodV2> shippingMethods = response.as(ShippingMethodsV2Response.class).getShippingMethods();
 
-        assertFalse(shippingMethods.isEmpty(), "Нет способов доставки в магазине\n" + Pages.Admin.stores(currentSid.get()));
+        assertFalse(shippingMethods.isEmpty(), "Нет способов доставки в магазине admin/stores/" + currentSid.get());
 
         ShippingMethodV2 shippingMethod = shippingMethods.get(0);
 
@@ -670,7 +669,7 @@ public final class InstamartApiHelper {
                     .getErrors()
                     .getBase()
                     .contains("По указанному адресу"))
-                fail("Магазин отключен " + Pages.Admin.stores(currentSid.get()));
+                fail("Магазин отключен admin/stores/" + currentSid.get());
         }
         checkStatusCode200(response);
         StoreV2 store = response.as(StoreV2Response.class).getStore();
@@ -702,7 +701,7 @@ public final class InstamartApiHelper {
                     .getErrors()
                     .getBase()
                     .contains("По указанному адресу"))
-                fail("Магазин отключен " + Pages.Admin.stores(currentSid.get()));
+                fail("Магазин отключен admin/stores/" + currentSid.get());
         }
         checkStatusCode200(response);
         StoreV2 store = response.as(StoreV2Response.class).getStore();

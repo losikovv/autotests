@@ -1,6 +1,4 @@
-package ru.instamart.kraken.testdata;
-
-import ru.instamart.kraken.testdata.pagesdata.StaticPageData;
+package ru.instamart.kraken.data;
 
 public final class StaticPages {
 

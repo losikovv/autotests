@@ -13,7 +13,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.ProfileV2Request;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.ProfileV2Response;
-import ru.instamart.kraken.testdata.Generate;
+import ru.instamart.kraken.data.Generate;
 
 import java.util.UUID;
 

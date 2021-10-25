@@ -14,7 +14,7 @@ import ru.instamart.api.model.shopper.admin.*;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.response.shopper.admin.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.user.UserManager;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;

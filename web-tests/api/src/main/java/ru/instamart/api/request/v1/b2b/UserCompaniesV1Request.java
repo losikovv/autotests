@@ -8,7 +8,7 @@ import org.testng.SkipException;
 import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.request.ApiV1RequestBase;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.testdata.JuridicalData;
+import ru.instamart.kraken.data.JuridicalData;
 
 @SuppressWarnings("unchecked")
 public class UserCompaniesV1Request extends ApiV1RequestBase {

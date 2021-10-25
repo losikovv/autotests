@@ -14,11 +14,10 @@ import ru.instamart.api.helper.RegistrationHelper;
 import ru.instamart.api.model.shopper.app.AssemblySHP;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.shopper.app.*;
-import ru.instamart.api.response.shopper.admin.RolesSHPResponse;
 import ru.instamart.api.response.shopper.app.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.testdata.UserData;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
 
 import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;

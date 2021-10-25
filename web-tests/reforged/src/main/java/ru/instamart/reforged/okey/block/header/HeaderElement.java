@@ -1,7 +1,7 @@
 package ru.instamart.reforged.okey.block.header;
 
 import org.openqa.selenium.By;
-import ru.instamart.kraken.testdata.TestVariables;
+import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Input;

@@ -1,10 +1,8 @@
-package ru.instamart.kraken.testdata.lib;
+package ru.instamart.kraken.data;
 
-import ru.instamart.kraken.testdata.pagesdata.PromoData;
-import ru.instamart.kraken.testdata.pagesdata.RegionData;
-import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.kraken.data.user.UserData;
 
-public class Promos {
+public final class Promos {
 
     public static PromoData freeOrderDelivery() {
         return new PromoData(
@@ -154,36 +152,6 @@ public class Promos {
                         "fixedDiscountForRetailerAuchan",
                         "autotest-fixed_discount_100_for_retailer_auchan",
                         "Скидка 100р на заказы в Ашан"
-                );
-            default:
-                return new PromoData(
-                        "",
-                        "",
-                        ""
-                );
-        }
-    }
-
-    // TODO - ATST-229
-    public static PromoData fixedDiscountForRegion(RegionData region) {
-        switch(region.getAlias()) {
-            case "msk" :
-                return new PromoData(
-                        "fixedDiscountForMoscow",
-                        "autotest-fixed_discount_100_for_moscow",
-                        "Скидка 100р на заказы из Москвы"
-                );
-            case "spb" :
-                return new PromoData(
-                        "fixedDiscountForSaintPetersburg",
-                        "autotest-fixed_discount_100_for_saint_petersburg",
-                        "Скидка 100р на заказы из Питера"
-                );
-            case "kzn" :
-                return new PromoData(
-                        "fixedDiscountForKazan",
-                        "autotest-fixed_discount_100_for_kazan",
-                        "Скидка 100р на заказы из Казани"
                 );
             default:
                 return new PromoData(

@@ -4,7 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.testdata.lib.Addresses;
+import ru.instamart.kraken.data.Addresses;
 
 import ru.instamart.test.reforged.BaseTest;
 

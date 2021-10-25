@@ -1,7 +1,10 @@
-package ru.instamart.kraken.testdata;
+package ru.instamart.kraken.data.user;
 
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.ab.model.request.UserGroups;
+import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.data.JuridicalData;
+import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.service.AbService;
 import ru.instamart.kraken.service.QaService;
 import ru.instamart.utils.Crypt;

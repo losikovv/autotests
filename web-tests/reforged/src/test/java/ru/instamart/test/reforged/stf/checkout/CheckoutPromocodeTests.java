@@ -7,9 +7,9 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.testdata.UserData;
-import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.lib.Promos;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.data.Promos;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;

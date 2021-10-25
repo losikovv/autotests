@@ -3,7 +3,7 @@ package ru.instamart.reforged.core.listener;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.api.common.Specification;
 import ru.instamart.kraken.listener.ExecutionListener;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.core.config.ConfigManager;
 
 @Slf4j

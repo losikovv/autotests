@@ -20,7 +20,7 @@ import ru.instamart.api.response.v1.ShipmentV1Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.user.UserManager;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;

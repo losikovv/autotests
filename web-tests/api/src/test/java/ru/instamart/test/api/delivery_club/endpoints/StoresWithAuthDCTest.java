@@ -18,14 +18,12 @@ import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.delivery_club.OrderDCResponse;
 import ru.instamart.api.response.delivery_club.ProductsDCResponse;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.lib.Pages;
+import ru.instamart.kraken.data.user.UserManager;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-import static org.testng.Assert.assertFalse;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 

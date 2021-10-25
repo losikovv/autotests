@@ -20,8 +20,8 @@ import ru.instamart.api.response.delivery_club.TokenDCResponse;
 import ru.instamart.api.response.shopper.app.SessionsSHPResponse;
 import ru.instamart.api.response.v1.TokensV1Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
-import ru.instamart.kraken.testdata.UserData;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
 
 import java.util.HashMap;

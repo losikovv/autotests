@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.delivery_club.AuthenticationDCRequest;
 import ru.instamart.api.response.delivery_club.TokenDCResponse;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.user.UserManager;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;

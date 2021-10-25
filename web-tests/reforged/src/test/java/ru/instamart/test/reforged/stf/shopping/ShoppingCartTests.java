@@ -8,9 +8,9 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.testdata.UserData;
-import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.lib.Addresses;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.data.Addresses;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.test.reforged.BaseTest;
 

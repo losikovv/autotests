@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.request.ApiV1RequestBase;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.user.UserManager;
 
 public class ShoppersV1Request extends ApiV1RequestBase {
     public static class MarketingSampleItems {

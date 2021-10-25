@@ -8,7 +8,7 @@ import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.enums.v2.AuthProviderV2;
 import ru.instamart.api.request.ApiV2RequestBase;
-import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.kraken.data.user.UserData;
 
 @SuppressWarnings("unchecked")
 public final class AuthProvidersV2Request extends ApiV2RequestBase {

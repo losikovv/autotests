@@ -21,7 +21,7 @@ import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.response.v2.ReviewableShipmentV2Response;
 import ru.instamart.api.response.v2.ShipmentReviewV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.kraken.data.user.UserData;
 
 import java.util.List;
 

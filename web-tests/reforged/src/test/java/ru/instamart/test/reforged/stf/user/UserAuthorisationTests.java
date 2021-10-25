@@ -5,14 +5,12 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.kraken.testdata.UserData;
-import ru.instamart.kraken.testdata.UserManager;
-import ru.instamart.kraken.testdata.lib.Addresses;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.data.Addresses;
 import ru.instamart.test.reforged.BaseTest;
 
-import static ru.instamart.kraken.config.CoreProperties.DEFAULT_RETAILER;
 import static ru.instamart.kraken.config.CoreProperties.DEFAULT_SMS;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 

@@ -14,8 +14,8 @@ import ru.instamart.api.model.v2.StoreV2;
 import ru.instamart.api.model.v2.ZoneV2;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
-import ru.instamart.kraken.testdata.UserData;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
 
 @Epic("ApiV2")
 @Feature("E2E тесты")

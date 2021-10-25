@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import ru.instamart.api.endpoint.DeliveryClubEndpoints;
 import ru.instamart.api.request.DeliveryClubRequestBase;
-import ru.instamart.kraken.testdata.UserData;
+import ru.instamart.kraken.data.user.UserData;
 
 public class AuthenticationDCRequest extends DeliveryClubRequestBase {
 

@@ -13,7 +13,7 @@ import ru.instamart.api.model.v2.PhonesItemV2;
 import ru.instamart.api.request.v2.PhonesV2Request;
 import ru.instamart.api.response.v2.PhoneV2Response;
 import ru.instamart.api.response.v2.PhonesV2Response;
-import ru.instamart.kraken.testdata.Generate;
+import ru.instamart.kraken.data.Generate;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -13,8 +13,8 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.helper.RegistrationHelper;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.testdata.UserData;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
 
 @Epic("Shopper Mobile API")
 @Feature("E2E тесты")

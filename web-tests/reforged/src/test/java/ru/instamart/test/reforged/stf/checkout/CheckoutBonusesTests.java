@@ -4,12 +4,12 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.testdata.UserData;
-import ru.instamart.kraken.testdata.UserManager;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.test.reforged.BaseTest;
 
-import static ru.instamart.kraken.testdata.BonusPrograms.aeroflot;
-import static ru.instamart.kraken.testdata.BonusPrograms.mnogoru;
+import static ru.instamart.kraken.data.BonusPrograms.aeroflot;
+import static ru.instamart.kraken.data.BonusPrograms.mnogoru;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
