@@ -22,6 +22,7 @@ import ru.instamart.api.request.v2.PaymentToolsV2Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.response.v2.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.user.UserData;
 
 import java.util.List;
 
@@ -568,5 +569,30 @@ public class OrdersV2Test extends RestBase {
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(order.getOrder().getTotal(), 0.0, softAssert);
         softAssert.assertAll();
+    }
+
+    @CaseId(300)
+    @Story("Получение данных о заказе")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получение данных о заказе по номеру")
+    public void getOrderByNumber() {
+        UserData userData = SessionFactory.getSession(SessionType.API_V2_FB).getUserData();
+        OrderV2 order = apiV2.order(userData, EnvironmentProperties.DEFAULT_SID);
+        Response response = OrdersV2Request.GET(order.getNumber());
+        checkStatusCode200(response);
+        OrderV2 orderFromResponse = response.as(OrderV2Response.class).getOrder();
+        SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(order, orderFromResponse, softAssert);
+        softAssert.assertAll();
+    }
+
+    @CaseId(301)
+    @Story("Получение данных о заказе")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получение данных о заказе по несуществующему номеру")
+    public void getOrderByNonExistingNumber() {
+        Response response = OrdersV2Request.GET("failedNumber");
+        checkStatusCode404(response);
+        errorAssert(response, "Заказ не существует");
     }
 }
