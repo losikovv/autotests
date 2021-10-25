@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.checkpoint.InstamartApiCheckpoints;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.helper.RegistrationHelper;
 import ru.instamart.api.model.v2.ProductV2;
 import ru.instamart.api.model.v2.StoreV2;

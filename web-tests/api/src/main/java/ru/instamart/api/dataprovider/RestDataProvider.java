@@ -8,6 +8,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.common.Specification;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.AuthProviderV2;
+import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.enums.v2.SippingMethodsV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OfferV1;
@@ -969,6 +970,14 @@ public class RestDataProvider extends RestBase {
                 {"failedInnNumbers"},
                 {"461312796100"}, //ФЛ
                 {"2690798098"} //ЮЛ
+        };
+    }
+
+    @DataProvider(name = "priceTypes", parallel = true)
+    public static Object[][] getPriceType() {
+        return new Object[][]{
+                {ProductPriceTypeV2.PER_ITEM},
+                {ProductPriceTypeV2.PER_PACK}
         };
     }
 

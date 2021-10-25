@@ -9,6 +9,7 @@ import org.testng.SkipException;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.OrderStatusV2;
+import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OfferV1;
 import ru.instamart.api.model.v2.*;
@@ -967,7 +968,7 @@ public final class InstamartApiHelper {
     /**
      * Наполняем корзину разными товарами до минимальной суммы заказа в конкретном магазине
      */
-    void fillCartOnSid(int sid, int itemsNumber, final boolean addFavorites) {
+    void fillCartOnSid(int sid, int itemsNumber, final boolean addFavorites, ProductPriceTypeV2 priceType) {
         List<ProductV2> products;
 
         if (addFavorites) {
@@ -979,6 +980,7 @@ public final class InstamartApiHelper {
         } else {
             products = getProductFromEachDepartmentInStore(sid)
                     .stream()
+                    .filter(product -> product.getPriceType().equals(priceType.getValue()))
                     .limit(itemsNumber)
                     .collect(Collectors.toList());
         }
@@ -1049,11 +1051,18 @@ public final class InstamartApiHelper {
      * Наполняем корзину до минимальной суммы заказа в конкретном магазине
      */
     public void fillCartOnSid(int sid) {
-        fillCartOnSid(sid, 1, false);
+        fillCartOnSid(sid, 1, false, ProductPriceTypeV2.PER_ITEM);
+    }
+
+    /**
+     * Наполняем корзину до минимальной суммы заказа в конкретном магазине c выбором типа цены
+     */
+    public void fillCartOnSid(int sid, ProductPriceTypeV2 priceType) {
+        fillCartOnSid(sid, 1, false, priceType);
     }
 
     public void fillCartOnSid(final int sid, final int itemsNumber) {
-        fillCartOnSid(sid, itemsNumber, false);
+        fillCartOnSid(sid, itemsNumber, false, ProductPriceTypeV2.PER_ITEM);
     }
 
     /**
@@ -1104,6 +1113,18 @@ public final class InstamartApiHelper {
     public List<LineItemV2> fillCart(UserData user, int sid) {
         dropCart(user, getAddressBySid(sid));
         fillCartOnSid(sid);
+        Response response = OrdersV2Request.LineItems.GET(getCurrentOrderNumber());
+        checkStatusCode200(response);
+        return response.as(LineItemsV2Response.class).getLineItems();
+    }
+
+    /**
+     * Наполнить корзину товарами с определенным типом цены и выбрать адрес у юзера в определенном магазине
+     */
+    @Step("Наполнение корзины для пользователя {user.email} в магазине с sid={sid} товарами с типом цены {priceType}")
+    public List<LineItemV2> fillCart(UserData user, int sid, ProductPriceTypeV2 priceType) {
+        dropCart(user, getAddressBySid(sid));
+        fillCartOnSid(sid, priceType);
         Response response = OrdersV2Request.LineItems.GET(getCurrentOrderNumber());
         checkStatusCode200(response);
         return response.as(LineItemsV2Response.class).getLineItems();
@@ -1173,12 +1194,21 @@ public final class InstamartApiHelper {
     }
 
     /**
+     * Оформить тестовый заказ у юзера в определенном магазине с выбранным типом оплаты
+     */
+    @Step("Оформляем заказ у юзера {user.email} в магазине с sid = {sid} с типом оплаты {priceType}")
+    public OrderV2 order(UserData user, int sid, ProductPriceTypeV2 priceType) {
+        fillCart(user, sid, priceType);
+        return setDefaultAttributesAndCompleteOrder();
+    }
+
+    /**
      * Оформить тестовый заказ у юзера в определенном магазине
      */
     @Step("Оформляем заказ у юзера {user.email} в магазине с sid = {sid} c количеством товаров в корзине = {itemsNumber}")
     public OrderV2 order(UserData user, int sid, int itemsNumber) {
         dropCart(user, getAddressBySid(sid));
-        fillCartOnSid(sid, itemsNumber, false);
+        fillCartOnSid(sid, itemsNumber, false, ProductPriceTypeV2.PER_ITEM);
         return setDefaultAttributesAndCompleteOrder();
     }
 

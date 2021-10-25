@@ -12,11 +12,9 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.OrdersV2Request;
-import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.PromotionLimitV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
-import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;

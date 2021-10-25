@@ -7,11 +7,10 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @ToString
 @Getter
-public enum StateV2 {
-    PENDING("pending"),
-    ASSEMBLED("assembled"),
-    CANCELED("canceled"),
-    REPLACED("replaced");
+public enum ProductPriceTypeV2 {
+
+    PER_ITEM("per_item"),
+    PER_PACK("per_pack");
 
     private final String value;
 }

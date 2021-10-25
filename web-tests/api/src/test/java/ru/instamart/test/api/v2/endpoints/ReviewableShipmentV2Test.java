@@ -26,7 +26,6 @@ import ru.instamart.kraken.data.user.UserData;
 import java.util.List;
 
 import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertNotNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
 
