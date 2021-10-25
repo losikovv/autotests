@@ -2,6 +2,7 @@ package ru.instamart.api.helper;
 
 import io.qameta.allure.Step;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.OrderV2;
@@ -37,7 +38,7 @@ public class ApiHelper {
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(userData, apiV2.getAddressBySid(sid));
-        apiV2.fillCartOnSid(sid, 1, true);
+        apiV2.fillCartOnSid(sid, 1, true, ProductPriceTypeV2.PER_ITEM);
     }
 
     /**

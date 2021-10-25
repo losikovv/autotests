@@ -233,7 +233,7 @@ public class ShopperAppApiHelper {
      * Берем заказ в сборку
      */
     @Step("Берем заказ в сбоку: shipmentId = {shipmentId}")
-    private AssemblySHP.Data startAssembly(String shipmentId) {
+    public AssemblySHP.Data startAssembly(String shipmentId) {
         log.debug("Берем заказ в сборку");
         Response response = AssembliesSHPRequest.POST(shipmentId);
         checkStatusCode200(response);
@@ -311,7 +311,7 @@ public class ShopperAppApiHelper {
     /**
      * Получаем инфу о позициях в текущей сборке
      */
-    private List<AssemblyItemSHP.Data> getItems() {
+    public List<AssemblyItemSHP.Data> getItems() {
         log.debug("Получаем инфу о позициях в сборке");
         Response response = AssembliesSHPRequest.GET(currentAssemblyId);
         checkStatusCode200(response);
@@ -340,7 +340,7 @@ public class ShopperAppApiHelper {
         return response.as(AssemblyItemSHPResponse.class).getData();
     }
 
-    private void cancelItem(String assemblyItemId) {
+    public void cancelItem(String assemblyItemId) {
         int reasonId = getCancelReasons().get(0).getId();
         log.debug("Отменяем товар");
         Response response = AssemblyItemsSHPRequest.Cancellations.POST(assemblyItemId, reasonId);

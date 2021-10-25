@@ -224,6 +224,10 @@ public final class AssembliesSHPRequest extends ShopperAppRequestBase {
         //todo
     }
     public static class ApproveNeedReviewItems {
-        //todo
+        @Step("{method} /" + ShopperAppEndpoints.Assemblies.APPROVE_NEED_REVIEW_ITEMS)
+        public static Response PUT(String assemblyId) {
+            return givenWithAuth()
+                    .put(ShopperAppEndpoints.Assemblies.APPROVE_NEED_REVIEW_ITEMS, assemblyId);
+        }
     }
 }

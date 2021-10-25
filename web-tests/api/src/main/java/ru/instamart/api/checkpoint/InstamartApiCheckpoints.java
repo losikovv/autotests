@@ -7,10 +7,8 @@ import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.enums.v2.ProductSortTypeV2;
-import ru.instamart.api.model.v2.OrderV2;
-import ru.instamart.api.model.v2.SortV2;
-import ru.instamart.api.model.v2.SuggestionV2;
-import ru.instamart.api.model.v2.TaxonV2;
+import ru.instamart.api.enums.v2.StateV2;
+import ru.instamart.api.model.v2.*;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -21,6 +19,7 @@ import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 
 @Slf4j
 public class InstamartApiCheckpoints {
@@ -139,5 +138,19 @@ public class InstamartApiCheckpoints {
         assertNull(suggestion.getSearches(), "Вернулся поисковый запрос в поисковых подсказках");
         assertNull(suggestion.getSearchPhrases(), "Вернулся поисковый запрос в поисковых подсказках");
         assertNull(suggestion.getTaxons(), "Вернулись группы в поисковых подсказках");
+    }
+
+    @Step("Сравниваем информацию о товарах в подзаказе с информацией, пришедшей в ответе")
+    public static void checkAssemblyItem(ShipmentV2 shipment, AssemblyItemV2 assemblyItem, StateV2 state) {
+        SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(assemblyItem.getTotal(), shipment.getItemTotal(), softAssert);
+        compareTwoObjects(assemblyItem.getPcs(), shipment.getItemCount(), softAssert);
+        compareTwoObjects(assemblyItem.getPriceType(), shipment.getLineItems().get(0).getProduct().getPriceType(), softAssert);
+        compareTwoObjects(assemblyItem.getProductId(), shipment.getLineItems().get(0).getProduct().getId(), softAssert);
+        compareTwoObjects(assemblyItem.getState(), state.getValue(), softAssert);
+        softAssert.assertNull(assemblyItem.getReplacement(), "В подзаказе есть замена");
+        softAssert.assertNull(assemblyItem.getFoundQuantity(), "Количество не пустое");
+        softAssert.assertNull(assemblyItem.getQuantity(), "Количество не пустое");
+        softAssert.assertAll();
     }
 }

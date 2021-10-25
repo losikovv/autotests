@@ -126,6 +126,25 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
         }
     }
 
+    public static class AssemblyItems{
+
+        @Step("{method} /" + ApiV2EndPoints.Shipments.ASSEMBLY_ITEMS)
+        public static Response GET(String shipmentNumber){
+            return givenWithAuth()
+                    .get(ApiV2EndPoints.Shipments.ASSEMBLY_ITEMS,shipmentNumber);
+        }
+    }
+
+    public static class Cancellations {
+
+        @Step("{method} /" + ApiV2EndPoints.Shipments.CANCELLATIONS)
+        public static Response POST(String shipmentNumber, String reason) {
+            return givenWithAuth()
+                    .queryParam("reason", reason)
+                    .post(ApiV2EndPoints.Shipments.CANCELLATIONS, shipmentNumber);
+        }
+    }
+
     /**
      * review[rate]	Да	Оценка
      * review[issue_ids]	-	Список выбранных вариантов ответа
