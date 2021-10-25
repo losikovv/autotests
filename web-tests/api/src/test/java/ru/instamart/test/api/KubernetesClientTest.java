@@ -47,7 +47,8 @@ public class KubernetesClientTest extends RestBase {
     }
 
     @Story("Port Forward")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(enabled = false,
+            groups = {"api-instamart-regress"},
             description = "Переброс порта с пода на localhost")
     public void kubePortForward() throws IOException, ApiException, SQLException {
         V1PodList list = getPodList(namespace, labelSelector);
