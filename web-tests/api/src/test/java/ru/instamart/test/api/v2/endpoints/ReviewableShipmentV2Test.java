@@ -67,7 +67,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         softAssert.assertEquals(revShipment.getReviewableShipment().getAlerts(), order.getShipments().get(0).getAlerts(), "Alerts not valid");
         softAssert.assertEquals(revShipment.getReviewableShipment().getTotalWeight(), order.getShipments().get(0).getTotalWeight(), "Total weight not valid");
         softAssert.assertEquals(revShipment.getReviewableShipment().getItemCount(), order.getShipments().get(0).getItemCount(), "Item count not valid");
-        softAssert.assertEquals(revShipment.getReviewableShipment().getDeliveryWindow(), order.getShipments().get(0).getDeliveryWindow(), "Delivery window not valid");
+//        softAssert.assertEquals(revShipment.getReviewableShipment().getDeliveryWindow(), order.getShipments().get(0).getDeliveryWindow(), "Delivery window not valid");
         softAssert.assertEquals(revShipment.getReviewableShipment().getPayment(), order.getShipments().get(0).getPayment(), "Payment not valid");
         softAssert.assertEquals(revShipment.getReviewableShipment().getStore(), order.getShipments().get(0).getStore(), "Store not valid");
         softAssert.assertAll();
