@@ -16,10 +16,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.search;
 public final class ShoppingCatalogTests extends BaseTest {
 
     @CaseId(1595)
-    @Test(
-            description = "Тест работы cо шторкой каталога",
-            groups = {"sbermarket-Ui-smoke", "ui-smoke-production"}
-    )
+    @Test(description = "Тест работы cо шторкой каталога", groups = "regression")
     public void successValidateCatalogDrawer() {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
@@ -39,10 +36,7 @@ public final class ShoppingCatalogTests extends BaseTest {
     }
 
     @CaseId(1596)
-    @Test(
-            description = "Тест открытия категории 1 уровня из шторки каталога",
-            groups = {"sbermarket-Ui-smoke", "MRAutoCheck", "ui-smoke-production"}
-    )
+    @Test(description = "Тест открытия категории 1 уровня из шторки каталога", groups = {"MRAutoCheck", "regression"})
     public void successGoToDepartmentFromCatalogDrawer() {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
@@ -65,10 +59,7 @@ public final class ShoppingCatalogTests extends BaseTest {
     }
 
     @CaseId(1597)
-    @Test(
-            description = "Тест открытия категории 2 уровня из шторки каталога",
-            groups = {"sbermarket-Ui-smoke", "ui-smoke-production"}
-    )
+    @Test(description = "Тест открытия категории 2 уровня из шторки каталога", groups = "regression")
     public void successGoToTaxonFromCatalogDrawer() {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
@@ -92,10 +83,7 @@ public final class ShoppingCatalogTests extends BaseTest {
     }
 
     @CaseId(1598)
-    @Test(
-            description = "Тест открывания/закрывания карточки продукта на главной",
-            groups = {"sbermarket-Ui-smoke", "ui-smoke-production"}
-    )
+    @Test(description = "Тест открывания/закрывания карточки продукта на главной", groups = "regression")
     public void successOperateItemCardOnRetailerPage() {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
@@ -120,10 +108,7 @@ public final class ShoppingCatalogTests extends BaseTest {
     }
 
     @CaseId(1599)
-    @Test(
-            description = "Тест открывания/закрывания карточки продукта в department-категории",
-            groups = {"sbermarket-Ui-smoke", "ui-smoke-production"}
-    )
+    @Test(description = "Тест открывания/закрывания карточки продукта в department-категории", groups = "regression")
     public void successOperateItemCardOnDepartmentPage() {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
@@ -154,10 +139,7 @@ public final class ShoppingCatalogTests extends BaseTest {
     }
 
     @CaseId(1600)
-    @Test(
-            description = "Тест открывания/закрывания карточки продукта в taxon-категории",
-            groups = {"sbermarket-Ui-smoke", "ui-smoke-production"}
-    )
+    @Test(description = "Тест открывания/закрывания карточки продукта в taxon-категории", groups = "regression")
     public void successOperateItemCardOnTaxonPage() {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
@@ -189,10 +171,7 @@ public final class ShoppingCatalogTests extends BaseTest {
     }
 
     @CaseId(1601)
-    @Test(
-            description = "Тест открывания/закрывания карточки продукта в выдаче поиска",
-            groups = {"sbermarket-Ui-smoke", "ui-smoke-production"}
-    )
+    @Test(description = "Тест открывания/закрывания карточки продукта в выдаче поиска", groups = "regression")
     public void successOperateItemCardOnSearchPage() {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
@@ -217,6 +196,5 @@ public final class ShoppingCatalogTests extends BaseTest {
         search().interactProductCard().checkProductCardVisible();
         search().interactProductCard().close();
         search().interactProductCard().checkProductCardIsNotVisible();
-
     }
 }

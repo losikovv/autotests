@@ -19,7 +19,6 @@ import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
-import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
 
 @Epic("STF UI")
 @Feature("Покупка товара со скидочной картой")
@@ -42,9 +41,7 @@ public final class OrdersRetailerCardsTests extends BaseTest {
 
     @Run(onTenant = Tenant.METRO)
     @CaseId(1632)
-    @Test(  description = "Тест заказа с картой Метро (только METRO WL)",
-            groups = {"metro-acceptance","metro-regression"}
-    )
+    @Test(description = "Тест заказа с картой Метро (только METRO WL)", groups = {"acceptance","regression"})
     public void successOrderWithMetroRetailerCard() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -56,9 +53,7 @@ public final class OrdersRetailerCardsTests extends BaseTest {
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
-        checkout().setContacts().fillFirstName(Generate.literalString(8));
-        checkout().setContacts().fillLastName(Generate.literalString(8));
-        checkout().setContacts().fillEmail(Generate.email());
+        checkout().setContacts().fillContactInfo();
         checkout().setContacts().clickToSubmit();
 
         checkout().setReplacementPolicy().clickToSubmit();
@@ -79,9 +74,7 @@ public final class OrdersRetailerCardsTests extends BaseTest {
 
     @Run(onTenant = Tenant.SBERMARKET, onServer = Server.PRODUCTION)
     @CaseId(1633)
-    @Test(  description = "Тест заказа с картой Вкусвилл (только Sbermarket)",
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
-    )
+    @Test(description = "Тест заказа с картой Вкусвилл (только Sbermarket)", groups = {"acceptance", "regression"})
     public void successOrderWithVkusvillRetailerCard() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -93,9 +86,7 @@ public final class OrdersRetailerCardsTests extends BaseTest {
         checkout().setDeliveryOptions().fillApartment(Generate.digitalString(3));
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
-        checkout().setContacts().fillFirstName(Generate.literalString(8));
-        checkout().setContacts().fillLastName(Generate.literalString(8));
-        checkout().setContacts().fillEmail(Generate.email());
+        checkout().setContacts().fillContactInfo();
         checkout().setContacts().clickToSubmit();
 
         checkout().setReplacementPolicy().clickToSubmit();

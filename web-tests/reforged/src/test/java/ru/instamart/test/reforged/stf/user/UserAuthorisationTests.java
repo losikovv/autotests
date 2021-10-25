@@ -19,56 +19,28 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 public final class UserAuthorisationTests extends BaseTest {
 
     @CaseId(1455)
-    @Test(
-            description = "Тест успешной авторизации на витрине",
-            groups = {
-                    "metro-acceptance", "metro-regression",
-                    "testing", "sbermarket-acceptance", "sbermarket-regression"
-            }
-    )
+    @Test(description = "Тест успешной авторизации на витрине", groups = {"acceptance", "regression", "smoke"})
     public void successAuthOnMainPage() {
-        final UserData authUser = UserManager.getUser();
-
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().fillPhone(authUser.getPhone());
-        shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
+        shop().interactAuthModal().authViaPhone(UserManager.getUser());
         shop().interactHeader().checkProfileButtonVisible();
     }
 
     @CaseId(1456)
-    @Test(
-            description = "Тест авторизации из адресной модалки феникса",
-            groups = {
-                    "metro-regression",
-                    "sbermarket-regression"
-            }
-    )
+    @Test(description = "Тест авторизации из адресной модалки феникса", groups = "regression")
     public void successAuthFromAddressModal() {
-        final UserData authUser = UserManager.getUser();
-
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
         shop().interactAddress().clickToLogin();
-        shop().interactAuthModal().fillPhone(authUser.getPhone());
-        shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
+        shop().interactAuthModal().authViaPhone(UserManager.getUser());
         shop().interactHeader().checkProfileButtonVisible();
     }
 
     @CaseId(1457)
-    @Test(
-            description = "Тест успешной авторизации из корзины",
-            groups = {
-                    "metro-regression",
-                    "sbermarket-regression"
-            }
-    )
+    @Test(description = "Тест успешной авторизации из корзины", groups = "regression")
     public void successAuthFromCart() {
-        final UserData authUser = UserManager.getUser();
-
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
@@ -86,17 +58,12 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactHeader().clickToCart();
         shop().interactCart().increaseCountToMin();
         shop().interactCart().submitOrder();
-        shop().interactAuthModal().fillPhone(authUser.getPhone());
-        shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
+        shop().interactAuthModal().authViaPhone(UserManager.getUser());
         checkout().checkCheckoutButtonIsVisible();
     }
 
     @CaseId(1459)
-    @Test(
-            description = "Тест успешной авторизация через Facebook",
-            groups = {"sbermarket-Ui-smoke", "ui-smoke-production"}
-    )
+    @Test(description = "Тест успешной авторизация через Facebook", groups = {"smoke", "regression"})
     @Story("Авторизация через Facebook")
     public void successRegWithFacebook() {
         shop().goToPage();
@@ -116,10 +83,7 @@ public final class UserAuthorisationTests extends BaseTest {
     }
 
     @CaseId(2735)
-    @Test(
-            description = "Тест успешной авторизация через ВКонтакте",
-            groups = {"sbermarket-Ui-smoke", "ui-smoke-production"}
-    )
+    @Test(description = "Тест успешной авторизация через ВКонтакте", groups = {"smoke", "regression"})
     @Story("Авторизация через VK")
     public void successRegWithVkontakte() {
         shop().goToPage();
@@ -140,9 +104,7 @@ public final class UserAuthorisationTests extends BaseTest {
 
     @CaseId(1460)
     @Story("Регистрация через партнеров")
-    @Test(description = "Тест успешной авторизация через MailRu",
-            groups = {"sbermarket-Ui-smoke", "ui-smoke-production"}
-    )
+    @Test(description = "Тест успешной авторизация через MailRu", groups = {"smoke", "regression"})
     @Story("Авторизация через Mail.ru")
     public void successRegWithMailRu() {
         shop().goToPage();
@@ -164,10 +126,7 @@ public final class UserAuthorisationTests extends BaseTest {
 
     @Skip
     @CaseId(1461)
-    @Test(
-            description = "Тест успешной авторизация через Sber ID",
-            groups = {"sbermarket-Ui-smoke", "ui-smoke-production"}
-    )
+    @Test(description = "Тест успешной авторизация через Sber ID", groups = {"smoke", "regression"})
     @Story("Авторизация через SberID")
     public void successRegWithSberID() {
         shop().goToPage();

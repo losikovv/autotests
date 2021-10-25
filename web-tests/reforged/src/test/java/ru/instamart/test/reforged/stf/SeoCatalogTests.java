@@ -21,27 +21,21 @@ public final class SeoCatalogTests extends BaseTest {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(1802)
-    @Test(  description = "Тест доступности страницы SEO-каталога",
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
-    )
+    @Test(description = "Тест доступности страницы SEO-каталога", groups = {"acceptance", "regression"})
     public void successCheckSeoPage() {
         seo().goToPage();
         seo().checkPageIsAvailable();
     }
 
     @CaseId(1803)
-    @Test(  description = "Тест доступности товаров на странице SEO-каталога",
-            groups = {"sbermarket-regression"}
-    )
+    @Test(description = "Тест доступности товаров на странице SEO-каталога", groups = "regression")
     public void successCheckProductsOnSeoCatalog() {
         seo().goToPage();
         seo().checkProductGridVisible();
     }
 
     @CaseId(1804)
-    @Test(  description = "Тест открытия карточки товара на странице SEO-каталога",
-            groups = {"sbermarket-regression"}
-    )
+    @Test(description = "Тест открытия карточки товара на странице SEO-каталога", groups = "regression")
     public void successOpenItemCardOnSeoCatalog() {
         seo().goToPage();
         seo().openFirstProductCardOnTaxon();
@@ -50,9 +44,7 @@ public final class SeoCatalogTests extends BaseTest {
     }
 
     @CaseId(1805)
-    @Test(  description = "Тест на ввод адреса в модалке после добавления товара из карточки на странице SEO-каталога",
-            groups = {"sbermarket-regression"}
-    )
+    @Test(description = "Тест на ввод адреса в модалке после добавления товара из карточки на странице SEO-каталога", groups = "regression" )
     public void successSetShippingAddressAfterAddingProductFromItemCardOnSeoCatalog() {
         seo().goToPage();
         seo().openFirstProductCardOnTaxon();
@@ -66,9 +58,7 @@ public final class SeoCatalogTests extends BaseTest {
     }
 
     @CaseId(1806)
-    @Test(  description = "Тест авторизации при попытке добавления товара в корзину на странице SEO-каталога",
-            groups = {"sbermarket-regression"}
-    )
+    @Test(description = "Тест авторизации при попытке добавления товара в корзину на странице SEO-каталога", groups = "regression" )
     public void successAuthFromItemCardOnSeoCatalog() {
         seo().goToPage();
         seo().openFirstProductCardOnTaxon();
@@ -82,9 +72,7 @@ public final class SeoCatalogTests extends BaseTest {
 
     @Run(onServer = Server.PRODUCTION)
     @CaseId(1582)
-    @Test(  description = "Добавление товара в корзину из SEO-каталога",
-            groups = {"sbermarket-regression"}
-    )
+    @Test(description = "Добавление товара в корзину из SEO-каталога", groups = "regression")
     public void successAddItemToCartFromSEOCatalog() {
         var userData = UserManager.getUser();
         helper.auth(userData);

@@ -24,23 +24,15 @@ public final class UserFavoritesTests extends BaseTest {
     private final ApiHelper apiHelper = new ApiHelper();
 
     @CaseId(1263)
-    @Test(  description = "Тест недоступности страницы любимых товаров неавторизованному юзеру",
-            groups = {
-                    "sbermarket-Ui-smoke",
-                    "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"}
-    )
+    @Test(description = "Тест недоступности страницы любимых товаров неавторизованному юзеру",
+            groups = {"smoke", "acceptance","regression"})
     public void noAccessToFavoritesForUnauthorizedUser() {
         userFavorites().goToPage();
         userFavorites().checkForbiddenPageUrl(userFavorites().pageUrl());
     }
 
     @CaseId(1265)
-    @Test(  description = "Проверка пустого списка любимых товаров для нового пользователя",
-            groups = {
-                    "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"}
-    )
+    @Test(description = "Проверка пустого списка любимых товаров для нового пользователя", groups = {"acceptance","regression"})
     public void noFavoriteItemsByDefault() {
         home().goToPage();
         home().openLoginModal();
@@ -52,11 +44,7 @@ public final class UserFavoritesTests extends BaseTest {
 
     @Issue("STF-8253")
     @CaseId(1266)
-    @Test(  description = "Добавление любимого товара из карточки товара и проверка списка",
-            groups = {
-                    "metro-regression",
-                    "sbermarket-regression"}
-    )
+    @Test(description = "Добавление любимого товара из карточки товара и проверка списка", groups = {"smoke", "regression"})
     public void successAddFavoriteOnItemCard() {
         home().goToPage();
         home().openLoginModal();
@@ -70,12 +58,7 @@ public final class UserFavoritesTests extends BaseTest {
 
     @Issue("STF-8253")
     @CaseId(1267)
-    @Test(  description = "Удаление любимого товара из карточки товара и проверка списка",
-            groups = {
-                    "sbermarket-Ui-smoke",
-                    "metro-regression",
-                    "sbermarket-regression"}
-    )
+    @Test(description = "Удаление любимого товара из карточки товара и проверка списка", groups = "regression")
     public void successDeleteFavoriteOnItemCard() {
         final UserData userData = UserManager.getUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -94,13 +77,7 @@ public final class UserFavoritesTests extends BaseTest {
 
     @Issue("STF-8253")
     @CaseId(1268)
-    @Test(  description = "Удаление всех любимых товаров",
-            groups = {
-                    "sbermarket-Ui-smoke",
-                    "metro-regression",
-                    "sbermarket-regression"
-            }
-    )
+    @Test(description = "Удаление всех любимых товаров", groups = "regression")
     public void successCleanupFavorites() {
         final UserData userData = UserManager.getUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -118,13 +95,7 @@ public final class UserFavoritesTests extends BaseTest {
 
     @Issue("STF-8253")
     @CaseId(1269)
-    @Test(  description = "Проверка работоспособности фильтров Любимых товаров",
-            groups = {
-                    "sbermarket-Ui-smoke",
-                    "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"
-            }
-    )
+    @Test(description = "Проверка работоспособности фильтров Любимых товаров", groups = {"acceptance", "regression"})
     public void successApplyFilters() {
         final UserData userData = UserManager.getUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -146,12 +117,7 @@ public final class UserFavoritesTests extends BaseTest {
 
     @Issue("STF-8253")
     @CaseId(1270)
-    @Test(  description = "Проверка работоспособности подгрузки страниц в Любимых товарах",
-            groups = {
-                    "sbermarket-Ui-smoke",
-                    "metro-regression",
-                    "sbermarket-regression"}
-    )
+    @Test(description = "Проверка работоспособности подгрузки страниц в Любимых товарах", groups = "regression")
     public void successShowMoreLoad() {
         final UserData userData = UserManager.getUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -173,11 +139,7 @@ public final class UserFavoritesTests extends BaseTest {
     }
 
     @CaseId(1271)
-    @Test(  description = "Регистрация, при попытке добавить товар из каталога в любимые товары неавторизованным",
-            groups = {
-                    "metro-regression",
-                    "sbermarket-regression"}
-    )
+    @Test(description = "Регистрация, при попытке добавить товар из каталога в любимые товары неавторизованным", groups = "regression")
     public void successRegAfterAddFavoriteOnCatalog() {
         shop().goToPage();
         shop().addFirstItemToFavorite();
@@ -186,11 +148,7 @@ public final class UserFavoritesTests extends BaseTest {
     }
 
     @CaseId(1272)
-    @Test(  description = "Авторизация, при попытке добавить товар из карточки товара в избранное неавторизованным",
-            groups = {
-                    "metro-regression",
-                    "sbermarket-regression"}
-    )
+    @Test(description = "Авторизация, при попытке добавить товар из карточки товара в избранное неавторизованным", groups = {"smoke", "regression"})
     public void successAuthAfterAddFavoriteOnItemCard() {
         shop().goToPage();
         Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER);
@@ -203,12 +161,7 @@ public final class UserFavoritesTests extends BaseTest {
 
     @Issue("STF-8253")
     @CaseId(1492)
-    @Test(  description = "Тест добавления товаров в корзину из списка любимых товаров",
-            groups = {
-                    "sbermarket-Ui-smoke",
-                    "metro-regression",
-                    "sbermarket-regression"}
-    )
+    @Test(description = "Тест добавления товаров в корзину из списка любимых товаров", groups = {"smoke", "regression"})
     public void successAddFavoriteProductToCart() {
         final UserData userData = UserManager.getUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
@@ -227,11 +180,7 @@ public final class UserFavoritesTests extends BaseTest {
 
     @Issue("STF-8253")
     @CaseId(1494)
-    @Test(  description = "Тест добавления товаров в корзину из карточки товара, открытой из списка любимых товаров",
-            groups = {
-                    "metro-acceptance","metro-regression",
-                    "sbermarket-acceptance","sbermarket-regression"}
-    )
+    @Test(description = "Тест добавления товаров в корзину из карточки товара, открытой из списка любимых товаров", groups = {"acceptance", "regression"})
     public void successAddFavoriteProductsFromCardToCart() {
         final UserData userData = UserManager.getUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());

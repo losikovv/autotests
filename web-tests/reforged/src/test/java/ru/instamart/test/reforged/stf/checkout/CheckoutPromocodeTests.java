@@ -7,6 +7,7 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.data.Promos;
@@ -16,7 +17,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Промокоды")
-public class CheckoutPromocodeTests extends BaseTest {
+public final class CheckoutPromocodeTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
     private final UserData checkoutUser = UserManager.checkoutUser();
@@ -24,15 +25,12 @@ public class CheckoutPromocodeTests extends BaseTest {
 
     @BeforeClass(alwaysRun = true)
     public void prepareForCheckout() {
-        helper.dropAndFillCart(checkoutUser, 1);
+        helper.dropAndFillCart(checkoutUser, EnvironmentProperties.DEFAULT_SID);
     }
 
     @CaseId(1727)
     @Story("Добавление промокода к заказу")
-    @Test(
-            description = "Тест успешного применения промокода в чекауте",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "sbermarket-Ui-smoke"}
-    )
+    @Test(description = "Тест успешного применения промокода в чекауте", groups = {"acceptance", "regression", "smoke"})
     public void successAddPromocode() {
         home().goToPage();
         home().openLoginModal();
@@ -48,10 +46,7 @@ public class CheckoutPromocodeTests extends BaseTest {
 
     @CaseId(1208)
     @Story("Удаление промокода из заказа")
-    @Test(
-            description = "Тест удаления промокода в чекауте",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "sbermarket-Ui-smoke"}
-    )
+    @Test(description = "Тест удаления промокода в чекауте", groups = {"acceptance", "regression"})
     public void successDeletePromocode() {
         home().goToPage();
         home().openLoginModal();
@@ -69,10 +64,7 @@ public class CheckoutPromocodeTests extends BaseTest {
 
     @CaseId(1729)
     @Story("Добавление промокода к заказу")
-    @Test(
-            description = "Тест недобавления промокода при нажатии кнопки Отмена",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "sbermarket-Ui-smoke"}
-    )
+    @Test(description = "Тест недобавления промокода при нажатии кнопки Отмена", groups = {"acceptance", "regression"})
     public void noPromocodeAddedOnCancel() {
         home().goToPage();
         home().openLoginModal();
@@ -88,10 +80,7 @@ public class CheckoutPromocodeTests extends BaseTest {
 
     @CaseId(1730)
     @Story("Добавление промокода к заказу")
-    @Test(
-            description = "Тест не добавления промокода при закрытии модалки промокода",
-            groups = {"sbermarket-acceptance", "sbermarket-regression", "sbermarket-Ui-smoke"}
-    )
+    @Test(description = "Тест не добавления промокода при закрытии модалки промокода", groups = {"acceptance", "regression"})
     public void noPromocodeAddedOnModalClose() {
         home().goToPage();
         home().openLoginModal();

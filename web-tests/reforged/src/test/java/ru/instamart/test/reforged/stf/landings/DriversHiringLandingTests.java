@@ -13,10 +13,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 public final class DriversHiringLandingTests extends BaseTest {
 
     @CaseId(1686)
-    @Test(
-            description = "Тест лендинга найма водителей Сбермаркета",
-            groups = {"testing", "sbermarket-Ui-smoke"}
-    )
+    @Test(description = "Тест лендинга найма водителей Сбермаркета", groups = "regression")
     public void successValidateSbermarketDriversHiringLanding() {
         driversHiring().goToPage();
         driversHiring().checkPageIsAvailable();

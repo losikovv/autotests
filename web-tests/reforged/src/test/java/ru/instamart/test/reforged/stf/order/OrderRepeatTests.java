@@ -29,11 +29,7 @@ public final class OrderRepeatTests extends BaseTest {
     }
 
     @CaseId(1668)
-    @Test(description = "Повтор крайнего заказа из истории заказов",
-            groups = {
-                    "sbermarket-regression", "sbermarket-acceptance",
-                    "metro-regression", "metro-acceptance"}
-    )
+    @Test(description = "Повтор крайнего заказа из истории заказов", groups = {"smoke","regression", "acceptance"})
     public void successRepeatLastOrderFromOrderHistory() {
         helper.makeAndCancelOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
 
@@ -52,11 +48,7 @@ public final class OrderRepeatTests extends BaseTest {
     }
 
     @CaseId(1669)
-    @Test(description = "Повтор крайнего заказа со страницы заказа",
-            groups = {
-                    "sbermarket-regression", "sbermarket-acceptance",
-                    "metro-regression", "metro-acceptance"}
-    )
+    @Test(description = "Повтор крайнего заказа со страницы заказа", groups = {"regression", "acceptance"})
     public void successRepeatOrderFromOrderDetails() {
         helper.makeAndCancelOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
 
@@ -76,11 +68,7 @@ public final class OrderRepeatTests extends BaseTest {
     }
 
     @CaseId(1670)
-    @Test(description = "Отмена повтора заказа со страницы заказа",
-            groups = {
-                    "sbermarket-regression", "sbermarket-acceptance",
-                    "metro-regression", "metro-acceptance"}
-    )
+    @Test(description = "Отмена повтора заказа со страницы заказа", groups = {"regression", "acceptance"})
     public void noRepeatOrderAfterCancel() {
         helper.makeOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
 

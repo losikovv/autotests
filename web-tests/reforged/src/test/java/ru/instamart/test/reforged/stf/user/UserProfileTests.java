@@ -6,8 +6,7 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.config.CoreProperties;
-import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.admin.AdminRout.pages;
@@ -22,19 +21,14 @@ public class UserProfileTests extends BaseTest {
     public void login() {
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().fillPhone(Generate.phoneNumber());
-        home().interactAuthModal().sendSms();
-        home().interactAuthModal().fillSMS(CoreProperties.DEFAULT_SMS);
+        home().interactAuthModal().authViaPhone(UserManager.getUser());
+        shop().interactHeader().checkProfileButtonVisible();
     }
 
     @CaseId(1524)
     @Story("Выпадающее меню")
-    @Test(
-            description = "Тест валидации меню профиля Sbermarket",
-            groups = {"sbermarket-Ui-smoke"}
-    )
+    @Test(description = "Тест валидации меню профиля Sbermarket", groups = "regression")
     public void successValidateSbermarketTenantProfileMenu() {
-        shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().checkProfileNameExists();
         shop().interactHeader().interactAccountMenu().checkProfileButtonExists();
@@ -47,15 +41,8 @@ public class UserProfileTests extends BaseTest {
 
     @CaseId(1525)
     @Story("Выпадающее меню")
-    @Test(
-            description = "Тест валидации кнопки 'Профиль' в меню профиля",
-            groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-Ui-smoke"
-            }
-    )
+    @Test(description = "Тест валидации кнопки 'Профиль' в меню профиля", groups = "regression")
     public void successValidateUserProfileButton() {
-        shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToProfile();
         pages().checkPageIsAvailable();
@@ -63,15 +50,8 @@ public class UserProfileTests extends BaseTest {
 
     @CaseId(1527)
     @Story("Выпадающее меню")
-    @Test(
-            description = "Тест валидации кнопки 'Условия использования' в меню профиля",
-            groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-Ui-smoke"
-            }
-    )
+    @Test(description = "Тест валидации кнопки 'Условия использования' в меню профиля", groups = "regression" )
     public void successValidateTermsButton() {
-        shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToTerms();
         pages().checkPageIsAvailable();
@@ -79,15 +59,8 @@ public class UserProfileTests extends BaseTest {
 
     @CaseId(1528)
     @Story("Выпадающее меню")
-    @Test(
-            description = "Тест валидации кнопки 'Доставка' в меню профиля",
-            groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-Ui-smoke"
-            }
-    )
+    @Test(description = "Тест валидации кнопки 'Доставка' в меню профиля", groups = {"acceptance", "regression"})
     public void successValidateDeliveryButton() {
-        shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToDelivery();
         pages().checkPageIsAvailable();
@@ -95,15 +68,8 @@ public class UserProfileTests extends BaseTest {
 
     @CaseId(1530)
     @Story("Выпадающее меню")
-    @Test(
-            description = "Тест валидации кнопки 'FAQ' в меню профиля",
-            groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-Ui-smoke"
-            }
-    )
+    @Test(description = "Тест валидации кнопки 'FAQ' в меню профиля", groups = {"acceptance", "regression"})
     public void successValidateFaqButton() {
-        shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToFaq();
         pages().checkPageIsAvailable();
@@ -111,15 +77,8 @@ public class UserProfileTests extends BaseTest {
 
     @CaseId(1531)
     @Story("навигация в меню пользователя")
-    @Test(
-            description = "Тест доступности страниц профиля пользователя",
-            groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-Ui-smoke"
-            }
-    )
+    @Test(description = "Тест доступности страниц профиля пользователя", groups = {"acceptance", "regression"})
     public void successCheckProfilePagesAreAvailable() {
-        shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToProfile();
         pages().checkPageIsAvailable();
@@ -131,15 +90,8 @@ public class UserProfileTests extends BaseTest {
 
     @CaseId(1532)
     @Story("Заказы")
-    @Test(
-            description = "Тест валидации дефолтных страниц истории заказов",
-            groups = {
-                    "metro-acceptance", "metro-regression",
-                    "sbermarket-Ui-smoke"
-            }
-    )
+    @Test(description = "Тест валидации дефолтных страниц истории заказов", groups = {"acceptance", "regression"})
     public void successValidateDefaultOrderHistory() {
-        shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToProfile();
         pages().checkPageIsAvailable();

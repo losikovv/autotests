@@ -4,6 +4,7 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.test.reforged.BaseTest;
@@ -19,12 +20,10 @@ public class CheckoutBonusesTests extends BaseTest {
 
     @CaseId(1702)
     @Story("Тест успешного добавления всех доступных бонусных программ в чекауте")
-    @Test(  description = "Тест успешного добавления всех доступных бонусных программ в чекауте",
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
-    )
+    @Test(description = "Тест успешного добавления всех доступных бонусных программ в чекауте", groups = {"acceptance", "regression"})
     public void successAddBonusPrograms() {
         final UserData checkoutBonusesUser = UserManager.getUser();
-        helper.dropAndFillCart(checkoutBonusesUser, 1);
+        helper.dropAndFillCart(checkoutBonusesUser, EnvironmentProperties.DEFAULT_SID);
 
         home().goToPage();
         home().openLoginModal();
@@ -52,12 +51,10 @@ public class CheckoutBonusesTests extends BaseTest {
 
     @CaseId(1703)
     @Story("Тест выбора добавленных бонусных программ в чекауте")
-    @Test(  description = "Тест выбора добавленных бонусных программ в чекауте",
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
-    )
+    @Test(description = "Тест выбора добавленных бонусных программ в чекауте", groups = {"acceptance", "regression"})
     public void successSelectBonusPrograms() {
         final UserData checkoutBonusesUser = UserManager.getUser();
-        helper.dropAndFillCart(checkoutBonusesUser, 1);
+        helper.dropAndFillCart(checkoutBonusesUser, EnvironmentProperties.DEFAULT_SID);
 
         home().goToPage();
         home().openLoginModal();
@@ -94,12 +91,10 @@ public class CheckoutBonusesTests extends BaseTest {
 
     @CaseId(1704)
     @Story("Тест удаления всех бонусных программ в чекауте")
-    @Test(  description = "Тест удаления всех бонусных программ в чекауте",
-            groups = {"sbermarket-acceptance","sbermarket-regression"}
-    )
+    @Test(description = "Тест удаления всех бонусных программ в чекауте", groups = {"acceptance", "regression"})
     public void successDeleteBonusPrograms() {
         final UserData checkoutBonusesUser = UserManager.getUser();
-        helper.dropAndFillCart(checkoutBonusesUser, 1);
+        helper.dropAndFillCart(checkoutBonusesUser, EnvironmentProperties.DEFAULT_SID);
 
         home().goToPage();
         home().openLoginModal();

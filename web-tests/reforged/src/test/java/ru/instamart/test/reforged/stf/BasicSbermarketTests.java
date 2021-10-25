@@ -23,10 +23,7 @@ public final class BasicSbermarketTests extends BaseTest {
 
     @CaseId(1438)
     @Story("Валидация элементов")
-    @Test(
-            description = "Тест валидности элементов и ссылок в шапке Сбермаркета",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
-    )
+    @Test(description = "Тест валидности элементов и ссылок в шапке Сбермаркета", groups = "regression")
     public void successValidateHeader() {
         shop().goToPage();
         shop().checkPageIsAvailable();
@@ -51,10 +48,7 @@ public final class BasicSbermarketTests extends BaseTest {
 
     @CaseId(733)
     @Story("Навигация")
-    @Test(
-            description = "Тест перехода из Сбермаркета на как мы работаем",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
-    )
+    @Test(description = "Тест перехода из Сбермаркета на как мы работаем", groups = "regression")
     public void successTransitionHowWeWork(){
         shop().goToPage();
         shop().interactHeader().clickToHowWeWork();
@@ -63,10 +57,7 @@ public final class BasicSbermarketTests extends BaseTest {
 
     @CaseId(1810)
     @Story("Навигация")
-    @Test(
-            description = "Тест перехода из Сбермаркета на информацию о контактах",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
-    )
+    @Test(description = "Тест перехода из Сбермаркета на информацию о контактах", groups = "regression")
     public void successTransitionContactsInfo(){
         shop().goToPage();
         shop().interactHeader().clickToContacts();
@@ -75,10 +66,7 @@ public final class BasicSbermarketTests extends BaseTest {
 
     @CaseId(1811)
     @Story("Навигация")
-    @Test(
-            description = "Тест перехода из Сбермаркета на страничку с помощью для клиента",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
-    )
+    @Test(description = "Тест перехода из Сбермаркета на страничку с помощью для клиента", groups = "regression")
     public void successTransitionHelpInfo(){
         shop().goToPage();
         shop().interactHeader().clickToHelp();
@@ -87,10 +75,7 @@ public final class BasicSbermarketTests extends BaseTest {
 
     @CaseId(1812)
     @Story("Навигация")
-    @Test(
-            description = "Тест перехода из Сбермаркета на страничку с информацией о доставке",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
-    )
+    @Test(description = "Тест перехода из Сбермаркета на страничку с информацией о доставке", groups = "regression")
     public void successTransitionDeliveryInfo(){
         shop().goToPage();
         shop().interactHeader().clickToDeliveryAndPayment();
@@ -99,10 +84,7 @@ public final class BasicSbermarketTests extends BaseTest {
 
     @CaseId(1813)
     @Story("Навигация")
-    @Test(
-            description = "Тест перехода из Сбермаркета на страничку с Logo",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
-    )
+    @Test(description = "Тест перехода из Сбермаркета на страничку с Logo", groups = "regression")
     public void successTransitionLogo(){
         shop().goToPage();
         shop().interactHeader().clickToLogo();
@@ -111,10 +93,7 @@ public final class BasicSbermarketTests extends BaseTest {
 
     @CaseId(1439)
     @Story("Валидация элементов")
-    @Test(
-            description = "Тест валидности элементов в футере Сбермаркета",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
-    )
+    @Test(description = "Тест валидности элементов в футере Сбермаркета", groups = "regression")
     public void successValidateElementInFooterSbermarket() {
         shop().goToPage();
         shop().checkPageIsAvailable();
@@ -156,10 +135,7 @@ public final class BasicSbermarketTests extends BaseTest {
 
     @CaseId(1439)
     @Story("Валидация элементов")
-    @Test(
-            description = "Тест валидности переходов по ссылка в футере Сбермаркета",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
-    )
+    @Test(description = "Тест валидности переходов по ссылка в футере Сбермаркета", groups = "regression")
     public void testFooterLink() {
         home().goToPage();
         home().addCookie(CookieFactory.COOKIE_ALERT);
@@ -191,8 +167,7 @@ public final class BasicSbermarketTests extends BaseTest {
     @Test(  dataProviderClass = StaticPage.class,
             dataProvider = "filteredAvailableRetailersSpree",
             description = "Тест доступности витрин ритейлеров Сбермаркета ",
-            groups = {"sbermarket-Ui-smoke","MRAutoCheck","ui-smoke-production"}
-    )
+            groups = {"regression", "MRAutoCheck"})
     public void successCheckSbermarketAvailableRetailers(final RetailerV2 retailer) {
         final String fullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + retailer.getSlug();
         assertTrue(Curl.pageAvailable(fullUrl), "Страница " + fullUrl + " недоступна");
@@ -204,8 +179,7 @@ public final class BasicSbermarketTests extends BaseTest {
     @Test(  dataProviderClass = StaticPage.class,
             dataProvider = "filteredUnavailableRetailersSpree",
             description = "Тест недоступности витрин ритейлеров Сбермаркета ",
-            groups = {"sbermarket-Ui-smoke","MRAutoCheck","ui-smoke-production"}
-    )
+            groups = {"regression", "MRAutoCheck"})
     public void successCheckSbermarketUnavailableRetailers(final RetailerV2 retailer) {
         final String fullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + retailer.getSlug();
         assertTrue(Curl.pageUnavailable(fullUrl), "Страница " + fullUrl + " доступна");
@@ -218,8 +192,7 @@ public final class BasicSbermarketTests extends BaseTest {
             dataProviderClass = StaticPage.class,
             dataProvider = "landingPage",
             description = "Тест доступности партнерских лендингов",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
-    )
+            groups = "regression")
     public void successCheckPartnerLandingsAreAvailable(final String url) {
         assertTrue(Curl.pageAvailable(url), "Страница " + url + " недоступна");
     }
@@ -231,9 +204,7 @@ public final class BasicSbermarketTests extends BaseTest {
             dataProviderClass = StaticPage.class,
             dataProvider = "servicePage",
             description = "Тест доступности сервисных страниц",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
-    )
-
+            groups = "regression")
     public void successServicePagesAreAvailable(final String url) {
         assertTrue(Curl.pageAvailable(url), "Страница " + url + " недоступна");
     }
@@ -245,8 +216,7 @@ public final class BasicSbermarketTests extends BaseTest {
             dataProviderClass = StaticPage.class,
             dataProvider = "faqPage",
             description = "Тест доступности статических страниц",
-            groups = {"sbermarket-Ui-smoke","ui-smoke-production"}
-    )
+            groups = "regression")
     public void successCheckStaticPagesAreAvailable(final String url) {
         assertTrue(Curl.pageAvailable(url), "Страница " + url + " недоступна");
     }

@@ -25,10 +25,7 @@ public final class ShoppingCartTests extends BaseTest {
     private final ApiHelper helper = new ApiHelper();
 
     @CaseId(1571)
-    @Test(
-            description = "Тест валидации дефолтной корзины",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"}
-    )
+    @Test(description = "Тест валидации дефолтной корзины", groups = {"acceptance", "regression"})
     public void successValidateDefaultCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -51,10 +48,7 @@ public final class ShoppingCartTests extends BaseTest {
     }
 
     @CaseId(1572)
-    @Test(
-            description = "Тест успешного добавления товара в корзину неавторизованным юзером",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"}
-    )
+    @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = {"acceptance", "regression"})
     public void successAddItemToCartUnauthorized() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -73,10 +67,7 @@ public final class ShoppingCartTests extends BaseTest {
     }
 
     @CaseId(1573)
-    @Test(
-            description = "Тест успешного добавления товара в корзину из карточки товара",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"}
-    )
+    @Test(description = "Тест успешного добавления товара в корзину из карточки товара", groups = {"acceptance", "regression"})
     public void successAddItemToCartFromItemCard() {
         final UserData shoppingCartUser = UserManager.getUser();
         helper.dropCart(shoppingCartUser);
@@ -84,14 +75,12 @@ public final class ShoppingCartTests extends BaseTest {
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().fillPhone(shoppingCartUser.getPhone());
-        shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
+        shop().interactAuthModal().authViaPhone(shoppingCartUser);
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
 
         //TODO: Костыль из-за бейсик авторизации
-        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER + shop().pageUrl());
+        shop().refreshWithoutBasicAuth();
 
         shop().checkFirstProductCardIsVisible();
         shop().openFirstProductCard();
@@ -103,10 +92,7 @@ public final class ShoppingCartTests extends BaseTest {
     }
 
     @CaseId(1574)
-    @Test(
-            description = "Тест на изменение кол-ва товаров в корзине",
-            groups = {"sbermarket-regression"}
-    )
+    @Test(description = "Тест на изменение кол-ва товаров в корзине", groups = "regression" )
     public void successChangeItemQuantityInCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -138,10 +124,7 @@ public final class ShoppingCartTests extends BaseTest {
     }
 
     @CaseId(1575)
-    @Test(
-            description = "Тест на изменение кол-ва товаров в корзине через карточку товара",
-            groups = {"sbermarket-regression"}
-    )
+    @Test(description = "Тест на изменение кол-ва товаров в корзине через карточку товара", groups = {"regression"})
     public void successChangeItemQuantityInCartViaItemCard() {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
@@ -155,7 +138,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().goToPage();
-        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER + shop().pageUrl());
+        shop().refreshWithoutBasicAuth();
 
         shop().checkSpinnerIsNotVisible();
         shop().checkFirstProductCardIsVisible();
@@ -167,7 +150,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactCart().compareFirstItemQuantityInCart(1);
 
         shop().goToPage();
-        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER + shop().pageUrl());
+        shop().refresh();
 
         shop().checkSpinnerIsNotVisible();
         shop().checkFirstProductCardIsVisible();
@@ -181,7 +164,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactCart().compareFirstItemQuantityInCart(2);
 
         shop().goToPage();
-        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER + shop().pageUrl());
+        shop().refreshWithoutBasicAuth();
 
         shop().checkSpinnerIsNotVisible();
         shop().checkFirstProductCardIsVisible();
@@ -198,10 +181,7 @@ public final class ShoppingCartTests extends BaseTest {
     }
 
     @CaseId(1576)
-    @Test(
-            description = "Тест на удаление товаров из корзины",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"}
-    )
+    @Test(description = "Тест на удаление товаров из корзины", groups = {"acceptance", "regression"})
     public void successRemoveItemsFromCart() {
         final UserData shoppingCartUser = UserManager.getUser();
         helper.dropCart(shoppingCartUser);
@@ -209,9 +189,7 @@ public final class ShoppingCartTests extends BaseTest {
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().fillPhone(shoppingCartUser.getPhone());
-        shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
+        shop().interactAuthModal().authViaPhone(shoppingCartUser);
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
 
@@ -227,9 +205,7 @@ public final class ShoppingCartTests extends BaseTest {
     }
 
     @CaseId(1577)
-    @Test(description = "Тест успешного добавления и удаления товара в корзину из сниппета в каталоге",
-            groups = {"sbermarket-acceptance", "sbermarket-regression"}
-    )
+    @Test(description = "Тест успешного добавления и удаления товара в корзину из сниппета в каталоге", groups = {"acceptance", "regression"})
     public void successAddItemToCartFromCatalogSnippet() {
         final UserData shoppingCartUser = UserManager.getUser();
         helper.dropCart(shoppingCartUser);
@@ -237,9 +213,7 @@ public final class ShoppingCartTests extends BaseTest {
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().fillPhone(shoppingCartUser.getPhone());
-        shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
+        shop().interactAuthModal().authViaPhone(shoppingCartUser);
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
 
@@ -257,10 +231,7 @@ public final class ShoppingCartTests extends BaseTest {
     }
 
     @CaseId(1578)
-    @Test(
-            description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером",
-            groups = {"sbermarket-regression"}
-    )
+    @Test(description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером", groups = "regression" )
     public void successChangeMinOrderSum() {
         final UserData shoppingCartUser = UserManager.getUser();
         helper.dropCart(shoppingCartUser);
@@ -268,9 +239,7 @@ public final class ShoppingCartTests extends BaseTest {
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().fillPhone(shoppingCartUser.getPhone());
-        shop().interactAuthModal().sendSms();
-        shop().interactAuthModal().fillSMS(DEFAULT_SMS);
+        shop().interactAuthModal().authViaPhone(shoppingCartUser);
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();

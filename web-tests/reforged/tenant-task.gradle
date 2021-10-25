@@ -1,62 +1,62 @@
 task metroSmoke(type: Test){
     useTestNG() {
         suites 'src/test/resources/suite/smoke/metro.xml'
-        includeGroups 'metro-smoke'
+        includeGroups 'smoke'
     }
 }
 
 task metroAcceptance(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/smoke/metro.xml'
-        includeGroups 'metro-acceptance'
+        includeGroups 'acceptance'
     }
 }
 
 task metroRegression(type: Test){
     useTestNG() {
         suites 'src/test/resources/suite/regress/metro.xml'
-        includeGroups 'metro-regression'
+        includeGroups 'regression'
     }
 }
 
 task okeySmoke(type: Test){
     useTestNG() {
         suites 'src/test/resources/suite/smoke/okey.xml'
-        includeGroups 'okey-smoke'
+        includeGroups 'smoke'
     }
 }
 
 task okeyAcceptance(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/smoke/okey.xml'
-        includeGroups 'okey-acceptance'
+        includeGroups 'acceptance'
     }
 }
 
 task okeyRegression(type: Test){
     useTestNG() {
         suites 'src/test/resources/suite/regress/okey.xml'
-        includeGroups 'okey-regression'
+        includeGroups 'regression'
     }
 }
 
 task selgrosSmoke(type: Test){
     useTestNG() {
         suites 'src/test/resources/suite/smoke/selgros.xml'
-        includeGroups 'selgros-smoke'
+        includeGroups 'smoke'
     }
 }
 
 task selgrosAcceptance(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/smoke/selgros.xml'
-        includeGroups 'selgros-acceptance'
+        includeGroups 'acceptance'
     }
 }
 
 task selgrosRegression(type: Test){
     useTestNG() {
         suites 'src/test/resources/suite/regress/selgros.xml'
-        includeGroups 'selgros-regression'
+        includeGroups 'regression'
     }
 }

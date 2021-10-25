@@ -29,11 +29,10 @@ public class OrdersRetailersTests extends BaseTest {
     }
 
     @CaseIDs(value = {@CaseId(1627), @CaseId(1628), @CaseId(1631), @CaseId(1629), @CaseId(1630)})
-    @Test(description = "Тестовые заказы в ритейлерах Москвы",
-            groups = "",
+    @Test(  description = "Тестовые заказы в ритейлерах Москвы",
+            groups = "regression",
             dataProviderClass = StoreProvider.class,
-            dataProvider = "storeData"
-    )
+            dataProvider = "storeData" )
     public void successOrderInDifferentRetailers(int storeId, ShopUrl shopUrl) {
         userData = UserManager.getUser();
         helper.dropAndFillCart(userData, storeId);
@@ -45,12 +44,14 @@ public class OrdersRetailersTests extends BaseTest {
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
-        checkout().setContacts().fillFirstName(Generate.literalString(8));
-        checkout().setContacts().fillLastName(Generate.literalString(8));
-        checkout().setContacts().fillEmail(Generate.email());
+
+        checkout().setContacts().fillContactInfo();
         checkout().setContacts().clickToSubmit();
+
         checkout().setReplacementPolicy().clickToSubmit();
+
         checkout().setSlot().setFirstActiveSlot();
+
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
         userShipments().checkPageContains(userShipments().pageUrl());

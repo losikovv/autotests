@@ -9,19 +9,17 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.data.PromoData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
-import ru.instamart.reforged.core.data_provider.ReplacePolicyProvider;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
-import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
 
 @Epic("STF UI")
 @Feature("Покупка товара")
-public class OrdersReplacementsTests extends BaseTest {
+public final class OrdersPromoCodesTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
     private UserData ordersUser;
@@ -31,13 +29,10 @@ public class OrdersReplacementsTests extends BaseTest {
         helper.cancelAllActiveOrders(ordersUser);
     }
 
-    @CaseIDs(value = {@CaseId(1634), @CaseId(1635), @CaseId(1636), @CaseId(1637)})
-    @Story("Тест заказа с политикой Звонить / Заменять")
-    @Test(  description = "Тест заказа с политикой Звонить / Заменять",
-            groups = {"acceptance", "regression"},
-            dataProviderClass = ReplacePolicyProvider.class,
-            dataProvider = "replacementPolicy" )
-    public void successOrderWithReplacementPolicy(final String replacementPolicy) {
+    @CaseIDs(value = {@CaseId(1645), @CaseId(1646), @CaseId(1647), @CaseId(1648), @CaseId(1649)})
+    @Story("Тест применения промокода со скидкой на первый заказ")
+    @Test(description = "Тест применения промокода со скидкой", groups = "regression")
+    public void successOrderWithPromoCode(final PromoData data) {
         var company = UserManager.juridical();
 
         ordersUser = UserManager.getUser();
@@ -50,7 +45,11 @@ public class OrdersReplacementsTests extends BaseTest {
         shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
-        checkout().setDeliveryOptions().clickToForSelf();
+        checkout().setDeliveryOptions().clickToForBusiness();
+        checkout().setDeliveryOptions().clickToAddCompany();
+
+        checkout().interactAddCompanyModal().fillCompany(company);
+        checkout().interactAddCompanyModal().clickToOkButton();
 
         checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
@@ -58,19 +57,26 @@ public class OrdersReplacementsTests extends BaseTest {
         checkout().setContacts().fillContactInfo();
         checkout().setContacts().clickToSubmit();
 
-        checkout().setReplacementPolicy().clickToPolicy(replacementPolicy);
         checkout().setReplacementPolicy().clickToSubmit();
 
         checkout().setSlot().setFirstActiveSlot();
 
         checkout().setPayment().clickToByCardToCourier();
 
+        checkout().clickToAddPromoCode();
+        checkout().interactEditPromoCodeModal().enterPromoCode(data.getCode());
+        checkout().interactEditPromoCodeModal().applyPromoCode();
+        checkout().checkPromoCodeApplied();
+
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
         userShipments().checkPageContains(userShipments().pageUrl());
 
         userShipments().checkStatusShipmentReady();
-        userShipments().clickToDetails();
-        userShipments().checkReplacementMethod(replacementPolicy);
+        userShipments().checkUserShipmentPromocodeVisible();
     }
 }
+
+
+
+
