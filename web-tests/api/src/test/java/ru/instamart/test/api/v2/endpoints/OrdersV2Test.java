@@ -54,15 +54,6 @@ public class OrdersV2Test extends RestBase {
         assertNotNull(response.as(OrdersV2Response.class).getOrders(), "Не вернулись заказы");
     }
 
-    @Deprecated
-    @Test(description = "Получаем текущий заказ",
-            groups = {})
-    public void getCurrentOrder() {
-        response = OrdersV2Request.Current.GET();
-        checkStatusCode200(response);
-        OrderV2 order = response.as(OrderV2Response.class).getOrder();
-        assertNotNull(order, "Не вернулся текущий заказ");
-    }
 
     @Deprecated
     @Test(description = "Получаем заказ",
@@ -597,5 +588,29 @@ public class OrdersV2Test extends RestBase {
         Response response = OrdersV2Request.GET("failedNumber");
         checkStatusCode404(response);
         errorAssert(response, "Заказ не существует");
+    }
+
+    @CaseId(303)
+    @Story("Получение текущего заказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получение текущего заказа пользователем, у которого есть заказ")
+    public void getCurrentOrder() {
+        Response response = OrdersV2Request.Current.GET();
+        checkStatusCode200(response);
+        OrderV2Response orderFromResponse = response.as(OrderV2Response.class);
+        checkFieldIsNotEmpty(orderFromResponse.getOrder(), "заказ");
+        checkFieldIsNotEmpty(orderFromResponse.getOrder().getNumber(), "номер заказа");
+    }
+
+    @CaseId(302)
+    @Story("Получение текущего заказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получение текущего заказа пользователем, у которого нет заказа")
+    public void getNonExistingCurrentOrder() {
+        SessionFactory.clearSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2_FB);
+        Response response = OrdersV2Request.Current.GET();
+        checkStatusCode404(response);
+        errorAssert(response, "У пользователя нет текущего заказа");
     }
 }
