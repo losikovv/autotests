@@ -16,6 +16,7 @@ import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.request.shopper.app.*;
 import ru.instamart.api.response.shopper.app.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
@@ -146,9 +147,17 @@ public class ShopperAppApiHelper {
     }
 
     /**
+     * Простая сборка заказа с генерацией фискального номера чека
+     */
+    public void simpleCollect(String shipmentNumber){
+        simpleCollect(shipmentNumber, Generate.digitalString(10));
+    }
+
+    /**
      * Простая сборка заказа
      */
-    public void simpleCollect(String shipmentNumber) {
+    @Step("Простая сборка заказа {shipmentNumber} с номером чека {fiscalDocumentNumber}")
+    public void simpleCollect(String shipmentNumber, String fiscalDocumentNumber) {
         authorisation(UserManager.getDefaultShopper());
         deleteCurrentAssembly();
         String shipmentId = getShipmentId(shipmentNumber);
@@ -161,13 +170,30 @@ public class ShopperAppApiHelper {
 
         packer();
         startPurchasing();
-        createReceipts();
+        createReceipts(fiscalDocumentNumber);
         startPackaging();
         getPackageSets();
         packerCreatesPackageSets();
         finishPurchasing();
 
         shipAssembly();
+    }
+
+    @Step("Простая сборка заказа {shipmentNumber} до регистрации чека")
+    public String simpleAssemblyPriorToReceiptCreation(String shipmentNumber){
+        authorisation(UserManager.getDefaultShopper());
+        deleteCurrentAssembly();
+        String shipmentId = getShipmentId(shipmentNumber);
+
+        currentAssemblyId = startAssembly(shipmentId).getId();
+        assemblyItemsWithOriginalQty();
+        startPaymentVerification();
+        shopperCreatesPackageSets();
+        finishAssembling();
+
+        packer();
+        startPurchasing();
+        return currentAssemblyId;
     }
 
     @Step("Проверяем обновление информации о заказе")
@@ -459,13 +485,17 @@ public class ShopperAppApiHelper {
                 AssemblyStateSHP.ON_CASH_DESK.getState());
     }
 
-    @Step("Регистрация чека")
-    private void createReceipts() {
+    private void createReceipts(){
+        createReceipts(Generate.digitalString(10));
+    }
+
+
+    @Step("Регистрация чека: {fiscalDocumentNumber}")
+    private void createReceipts(String fiscalDocumentNumber) {
         log.debug("Отправляем инфу о чеке");
         String
                 total = "1.0",
                 fiscalSecret = "1",
-                fiscalDocumentNumber = "1",
                 fiscalChecksum = "1",
                 transactionDetails = "1";
         Response response = AssembliesSHPRequest.Receipts.POST(
