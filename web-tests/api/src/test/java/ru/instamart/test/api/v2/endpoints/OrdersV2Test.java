@@ -560,9 +560,7 @@ public class OrdersV2Test extends RestBase {
         OrderV2Response order = response.as(OrderV2Response.class);
         checkFieldIsNotEmpty(order.getOrder().getNumber(), "номер заказа");
         checkFieldIsNotEmpty(order.getOrder().getUuid(), "uuid заказа");
-        final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(order.getOrder().getTotal(), 0.0, softAssert);
-        softAssert.assertAll();
+        compareTwoObjects(order.getOrder().getTotal(), 0.0);
     }
 
     @CaseId(300)
@@ -575,9 +573,7 @@ public class OrdersV2Test extends RestBase {
         Response response = OrdersV2Request.GET(order.getNumber());
         checkStatusCode200(response);
         OrderV2 orderFromResponse = response.as(OrderV2Response.class).getOrder();
-        SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(order, orderFromResponse, softAssert);
-        softAssert.assertAll();
+        compareTwoObjects(order, orderFromResponse);
     }
 
     @CaseId(301)
@@ -612,5 +608,32 @@ public class OrdersV2Test extends RestBase {
         Response response = OrdersV2Request.Current.GET();
         checkStatusCode404(response);
         errorAssert(response, "У пользователя нет текущего заказа");
+    }
+
+    @CaseId(304)
+    @Story("Мердж заказа без авторизации с текущим заказом пользователя")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Мердж существующего заказа без авторизации с текущим заказом пользователя")
+    public void mergeCurrentOrderWithUnauthorizedOrder() {
+        SessionFactory.clearSession(SessionType.API_V2_FB);
+        Response responseForUnauthorizedOrder = OrdersV2Request.POST();
+        checkStatusCode200(responseForUnauthorizedOrder);
+        OrderV2 unauthorizedOrder = responseForUnauthorizedOrder.as(OrderV2Response.class).getOrder();
+        SessionFactory.makeSession(SessionType.API_V2_FB);
+
+        Response responseForCurrentOrder = OrdersV2Request.Current.PUT(unauthorizedOrder.getUuid());
+        OrderV2Response orderFromResponse = responseForCurrentOrder.as(OrderV2Response.class);
+        checkFieldIsNotEmpty(orderFromResponse.getOrder(), "заказ");
+        compareTwoObjects(unauthorizedOrder, orderFromResponse.getOrder());
+    }
+
+    @CaseId(305)
+    @Story("Мердж заказа без авторизации с текущим заказом пользователя")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Мердж несуществующего заказа без авторизации с текущим заказом пользователя")
+    public void mergeCurrentOrderWithNonExistingOrder() {
+        Response response = OrdersV2Request.Current.PUT("failedUuid");
+        checkStatusCode404(response);
+        errorAssert(response, "Заказ не существует");
     }
 }

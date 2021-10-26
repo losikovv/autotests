@@ -15,20 +15,17 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.model.shopper.app.AssemblyItemSHP;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.AssemblyItemV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.ShipmentV2;
 import ru.instamart.api.request.shopper.app.AssembliesSHPRequest;
-import ru.instamart.api.request.shopper.app.AssemblyItemsSHPRequest;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.request.v2.StoresV2Request;
 import ru.instamart.api.response.v2.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -42,6 +39,8 @@ import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.k8s.K8sConsumer.changeToAssembled;
+import static ru.instamart.api.k8s.K8sConsumer.changeToCancel;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 
 @Epic("ApiV2")
@@ -396,43 +395,40 @@ public class ShipmentsV2Test extends RestBase {
     @CaseId(822)
     @Story("Детали по сборке подзаказа")
     @Test(groups = {"api-instamart-regress"},
-            description = "Детали по сборке cобранного подзаказа",
-            enabled = false)
+            description = "Детали по сборке cобранного подзаказа")
     public void getAssemblyItemsOfShipmentAfterAssembling() {
         SessionFactory.makeSession(SessionType.API_V2_PHONE);
         UserData userData = SessionFactory.getSession(SessionType.API_V2_PHONE).getUserData();
         OrderV2 order = apiV2.order(userData, EnvironmentProperties.DEFAULT_SID);
         ShipmentV2 shipment = order.getShipments().get(0);
 
-        shopperApp.simpleCollect(shipment.getNumber());
+        changeToAssembled(shipment.getNumber(), "0");
 
         final Response response = ShipmentsV2Request.AssemblyItems.GET(shipment.getNumber());
         checkStatusCode200(response);
         AssemblyItemV2 assemblyItem = response.as(ShipmentAssemblyItemsV2Response.class).getAssemblyItems().get(0);
         checkAssemblyItem(shipment, assemblyItem, StateV2.ASSEMBLED);
+        SessionFactory.clearSession(SessionType.API_V2_PHONE);
     }
 
     @CaseId(531)
     @Story("Детали по сборке подзаказа")
     @Test(groups = {"api-instamart-regress"},
-            description = "Детали по сборке отмененного подзаказа",
-            enabled = false)
+            description = "Детали по сборке отмененного подзаказа")
     public void getCancelledAssemblyItemsOfShipment() {
         SessionFactory.makeSession(SessionType.API_V2_PHONE);
         UserData userData = SessionFactory.getSession(SessionType.API_V2_PHONE).getUserData();
         OrderV2 order = apiV2.order(userData, EnvironmentProperties.DEFAULT_SID);
         ShipmentV2 shipment = order.getShipments().get(0);
 
-        shopperApp.authorisation(UserManager.getDefaultShopper());
-        String currentAssemblyId = shopperApp.startAssembly(shopperApp.getShipmentId(shipment.getNumber())).getId();
-        shopperApp.cancelItem(shopperApp.getItems().get(0).getId());
-        Response responseForApprove = AssembliesSHPRequest.ApproveNeedReviewItems.PUT(currentAssemblyId);
-        checkStatusCode200(responseForApprove);
+        changeToCancel(shipment.getNumber(), "0");
 
         final Response responseWithAssemblyItems = ShipmentsV2Request.AssemblyItems.GET(shipment.getNumber());
         checkStatusCode200(responseWithAssemblyItems);
         AssemblyItemV2 assemblyItem = responseWithAssemblyItems.as(ShipmentAssemblyItemsV2Response.class).getAssemblyItems().get(0);
         checkAssemblyItem(shipment, assemblyItem, StateV2.CANCELED);
+        SessionFactory.clearSession(SessionType.API_V2_PHONE);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID); // заполнение корзины заново для последующих тестов
     }
 
     @CaseIDs(value = {@CaseId(534), @CaseId(535)})
