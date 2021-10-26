@@ -1,4 +1,7 @@
 tests:metroSmoke:
+  only:
+    variables:
+      - $TEST_API_INSTAMART == 'false' && $CI_RUN_ALL_JOBS == 'false' && $API_SHOPPER_ALONE == 'false'
   when: manual
   extends: ".template_ui_tests"
   script:
@@ -7,6 +10,9 @@ tests:metroSmoke:
     - bash ./report.sh reforged ui-metro-preprod
 
 tests:okeySmoke:
+  only:
+    variables:
+      - $TEST_API_INSTAMART == 'false' && $CI_RUN_ALL_JOBS == 'false' && $API_SHOPPER_ALONE == 'false'
   when: manual
   extends: ".template_ui_tests"
   script:
@@ -15,6 +21,9 @@ tests:okeySmoke:
     - bash ./report.sh reforged ui-okey-preprod
 
 tests:selgrosSmoke:
+  only:
+    variables:
+      - $TEST_API_INSTAMART == 'false' && $CI_RUN_ALL_JOBS == 'false' && $API_SHOPPER_ALONE == 'false'
   when: manual
   extends: ".template_ui_tests"
   script:
