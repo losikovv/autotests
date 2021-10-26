@@ -30,7 +30,7 @@ import java.util.function.Consumer;
 
 import static java.lang.System.console;
 import static org.testng.Assert.fail;
-import static ru.instamart.api.enums.RailsConsole.Order.SHIP;
+import static ru.instamart.api.enums.RailsConsole.Order.*;
 
 public class K8sConsumer {
 
@@ -314,6 +314,18 @@ public class K8sConsumer {
     @Step("Перевод через консоль заказ {shipmentNumber} в статус \"Доставлено\"")
     public static void changeToShip(String shipmentNumber) {
         List<String> strings = execRailsCommandWithPod(SHIP.get(shipmentNumber));
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
+
+    @Step("Перевод через консоль позиции заказа в статус \"Собрано\"")
+    public static void changeToAssembled(String shipmentNumber, String itemNumber) {
+        List<String> strings = execRailsCommandWithPod(ASSEMBLY_ITEMS_ORDER.get(shipmentNumber, itemNumber));
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
+
+    @Step("Перевод через консоль позиции заказа в статус \"Отменено\"")
+    public static void changeToCancel(String shipmentNumber, String itemNumber) {
+        List<String> strings = execRailsCommandWithPod(CANCEL_ITEMS_ORDER.get(shipmentNumber, shipmentNumber, itemNumber));
         Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
     }
 }

@@ -17,7 +17,8 @@ public interface RailsConsole {
         FINISH_COLLECTING("Spree::Shipment.find_by_number('%s').finish_collecting!"),
         STOP_SHIPPING("Spree::Shipment.find_by_number('%s').stop_shipping!"),
         FIND_BY_NUMBER("Spree::Shipment.find_by_number('%s')"),
-        ASSEMBLY_ITEMS_ORDER("Spree::Shipment.find_by_number('%s').line_items[%s].update_attributes(assembly_issue: 'Собрано', assembled: true)");
+        ASSEMBLY_ITEMS_ORDER("Spree::Shipment.find_by_number('%s').line_items[%s].update_attributes(assembly_issue: 'Собрано', assembled: true)"),
+        CANCEL_ITEMS_ORDER("ShopperCart.new(Spree::Shipment.find_by_number('%s')).cancel_item(Spree::Shipment.find_by_number('%s').line_items[%s], reason: 'Нет в наличии')");
 
         private String command;
 

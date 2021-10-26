@@ -66,8 +66,19 @@ public class BaseApiCheckpoints {
         }
     }
 
+    /**
+     * Проверяет, что два объекта совпадают, используя soft assertion
+     */
     @Step("Проверяем, что два объекта совпадают")
     public static <T> void compareTwoObjects(T firstObject, T secondObject, SoftAssert softAssert) {
         softAssert.assertEquals(firstObject, secondObject, "Объекты не совпадают");
+    }
+
+    /**
+     * Проверяет, что два объекта совпадают, используя hard assertion
+     */
+    @Step("Проверяем, что два объекта совпадают")
+    public static <T> void compareTwoObjects(T firstObject, T secondObject) {
+        assertEquals(firstObject, secondObject, "Объекты не совпадают");
     }
 }

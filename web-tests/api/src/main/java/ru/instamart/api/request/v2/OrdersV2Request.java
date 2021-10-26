@@ -194,6 +194,16 @@ public final class OrdersV2Request extends ApiV2RequestBase {
             return givenWithAuth()
                     .get(ApiV2EndPoints.Orders.CURRENT);
         }
+
+        /**
+         * Заменить текущий заказ на другой
+         */
+        @Step("{method} /" + ApiV2EndPoints.Orders.CURRENT)
+        public static Response PUT(String uuid) {
+            return givenWithAuth()
+                    .queryParam("order_uuid", uuid)
+                    .put(ApiV2EndPoints.Orders.CURRENT);
+        }
     }
 
     public static class Completion {

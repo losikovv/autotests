@@ -17,7 +17,6 @@ import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.util.PhoneCrypt;
 
-import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
