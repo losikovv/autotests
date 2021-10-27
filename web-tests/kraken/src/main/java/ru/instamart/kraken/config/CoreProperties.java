@@ -18,4 +18,7 @@ public final class CoreProperties {
 
     @Config(configName = NAME, fieldName = "base64KubeConfig", defaultValue = "", crypted = true)
     public static String BASE64_KUBE_CONFIG;
+
+    @Config(configName = NAME, fieldName = "grpcPort", defaultValue = "443")
+    public static int GRPC_PORT;
 }

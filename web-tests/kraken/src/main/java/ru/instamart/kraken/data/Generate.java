@@ -36,6 +36,11 @@ public final class Generate {
         return Integer.parseInt(digitalString(length));
     }
 
+    /** Сгенерировать long c рандомным числом указанной длины */
+    public static long longInt(int length) {
+        return Long.parseLong(digitalString(length));
+    }
+
     public static String testUserPhone(String userId) {
         return "9" + userId;
     }
