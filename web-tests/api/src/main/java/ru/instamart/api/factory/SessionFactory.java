@@ -51,7 +51,6 @@ public final class SessionFactory {
                 break;
             case API_V2_FB:
                 RegistrationHelper.registration(userData);
-                break;
             case API_V2_PHONE:
                 createSessionToken(type, userData);
                 break;
