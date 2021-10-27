@@ -34,7 +34,7 @@ public final class UserRegistrationTests extends BaseTest {
     public void successRegOnLanding() {
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().authViaPhone(UserManager.getUser());
+        home().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
     }
 
@@ -44,7 +44,7 @@ public final class UserRegistrationTests extends BaseTest {
     public void successRegOnMainPage() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(UserManager.getUser());
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
     }
 
@@ -56,7 +56,7 @@ public final class UserRegistrationTests extends BaseTest {
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
         shop().interactAddress().clickToLogin();
-        shop().interactAuthModal().authViaPhone(UserManager.getUser());
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
     }
 
@@ -79,7 +79,7 @@ public final class UserRegistrationTests extends BaseTest {
         shop().interactHeader().clickToCart();
         shop().interactCart().increaseCountToMin();
         shop().interactCart().submitOrder();
-        shop().interactAuthModal().authViaPhone(UserManager.getUser());
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         checkout().checkCheckoutButtonIsVisible();
     }
 
@@ -90,7 +90,7 @@ public final class UserRegistrationTests extends BaseTest {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().uncheckPromoMailing();
-        shop().interactAuthModal().authViaPhone(UserManager.getUser());
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
     }
 }

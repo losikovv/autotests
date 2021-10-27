@@ -183,7 +183,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     @Test(description = "Тест возобновления и отмены заказа через админку", groups = {"acceptance", "regression"})
     public void successResumeAndCancelOrder() {
         final ApiHelper helper = new ApiHelper();
-        final UserData userData = UserManager.getUser();
+        final UserData userData = UserManager.getQaUser();
         helper.auth(userData);
         final OrderV2 orderV2 = helper.makeOrder(userData, EnvironmentProperties.DEFAULT_SID, 3);
         helper.cancelOrder(userData, orderV2.getNumber());
@@ -198,7 +198,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     @Test(description = "Тест поиска B2B заказа в админке", groups = {"acceptance", "regression"})
     public void successSearchB2BOrder() {
         final ApiHelper helper = new ApiHelper();
-        final UserData userData = UserManager.getUser();
+        final UserData userData = UserManager.getQaUser();
         helper.auth(userData);
 
         final OrderV2 orderV2 = helper.makeOrder(userData, EnvironmentProperties.DEFAULT_SID, 3);

@@ -86,6 +86,7 @@ public final class ApiClient {
     public String delete(final String endpoint) throws IOException {
         final Request request = new Request.Builder()
                 .url(setting.getBasicUrl() + endpoint)
+                .delete()
                 .build();
         try (final Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful()) {

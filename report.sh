@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Дирректория где хранятся результаты алюра
-ALLURE_RESULTS_DIRECTORY="/web-tests/"$1"/build/allure-results"
+ALLURE_RESULTS_DIRECTORY="web-tests/"$1"/build/allure-results"
 # Проект в который будет записываться отчет
 PROJECT_ID=$2
 

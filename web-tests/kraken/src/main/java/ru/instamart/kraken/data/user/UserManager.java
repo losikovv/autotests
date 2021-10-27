@@ -1,19 +1,20 @@
 package ru.instamart.kraken.data.user;
 
 import lombok.extern.slf4j.Slf4j;
+import org.testng.Assert;
 import ru.instamart.ab.model.request.UserGroups;
 import ru.instamart.kraken.data.Generate;
-import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.service.AbService;
 import ru.instamart.kraken.service.QaService;
-import ru.instamart.utils.Crypt;
 import ru.instamart.qa.model.response.QaSessionResponse;
+import ru.instamart.utils.Crypt;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 @Slf4j
 public final class UserManager {
@@ -38,39 +39,6 @@ public final class UserManager {
     private static UserData defaultUserWithoutPermission;
     private static UserData forB2BUser;
     private static UserData addressUser;
-
-    public static UserData getNullUser() {
-        return generateData("empty", 0);
-    }
-
-    public static UserData getUser() {
-        return generateData(UserRoles.USER.getRole(), 0);
-    }
-
-    public static UserData getUser(final int prefix) {
-        return generateData(UserRoles.USER.getRole(), prefix);
-    }
-
-    public static UserData getAdmin() {
-        return generateData(UserRoles.ADMIN.getRole(), 0);
-    }
-
-    public static UserData getAdmin(final int prefix) {
-        return generateData(UserRoles.ADMIN.getRole(), prefix);
-    }
-
-    public static JuridicalData juridical() {
-        return new JuridicalData(
-                "ЗАО \"Лидер-" + Generate.digitalString(4) + "\"",
-                Generate.string(8),
-                Generate.generateINN(10),
-                Generate.digitalString(9),
-                Generate.digitalString(20),
-                Generate.digitalString(9),
-                Generate.string(8),
-                Generate.digitalString(20)
-        );
-    }
 
     public static UserData getDefaultUser() {
         if (isNull(defaultUser)) {
@@ -231,8 +199,24 @@ public final class UserManager {
                 .build();
     }
 
-    public static List<UserData> getUserDataList() {
-        return USER_DATA_LIST;
+    public static UserData getNullUser() {
+        return generateData("empty", 0);
+    }
+
+    public static UserData getUser() {
+        return generateData(UserRoles.USER.getRole(), 0);
+    }
+
+    public static UserData getUser(final int prefix) {
+        return generateData(UserRoles.USER.getRole(), prefix);
+    }
+
+    public static UserData getAdmin() {
+        return generateData(UserRoles.ADMIN.getRole(), 0);
+    }
+
+    public static UserData getAdmin(final int prefix) {
+        return generateData(UserRoles.ADMIN.getRole(), prefix);
     }
 
     private static UserData generateData(final String role, final int prefix) {
@@ -274,7 +258,7 @@ public final class UserManager {
      * для того что бы по завершению прогона можно было получить всех пользователей участвовавших в прогоне и удалить их
      * @return - {@link UserData}
      */
-    private static UserData generateNewUser() {
+    public static UserData getQaUser() {
         final UserData userData = createUser(TestVariables.CompanyParams.companyName);
         USER_DATA_LIST.add(userData);
 
@@ -286,7 +270,7 @@ public final class UserManager {
      * для того что бы по завершению прогона можно было получить всех пользователей участвовавших в прогоне и удалить их
      * @return - {@link UserData}
      */
-    private static UserData generateNewUserWithoutAb(final String abTestId, final String abTestGroupId) {
+    public static UserData getQaUserWithoutAb(final String abTestId, final String abTestGroupId) {
         final UserData userData = createUserWithoutAb(TestVariables.CompanyParams.companyName, abTestId, abTestGroupId);
         USER_DATA_LIST.add(userData);
 
@@ -303,6 +287,8 @@ public final class UserManager {
         final String userName = Generate.testUserName(role);
         final QaSessionResponse sessionResponse = QaService.INSTANCE.createSession(password);
 
+        Assert.assertNotNull(sessionResponse, "Ответ от QA сервиса не вернулся");
+
         log.debug("Сгенерированы тестовые реквизиты для роли {}", role);
         log.debug("Телефон: {}", sessionResponse.getUser().getPhone());
         log.debug("Email: {}", sessionResponse.getUser().getEmail());
@@ -315,7 +301,7 @@ public final class UserManager {
                 .id(sessionResponse.getId())
                 .role(role)
                 .email(sessionResponse.getUser().getEmail())
-                .phone(sessionResponse.getUser().getPhone())
+                .phone(sessionResponse.getUser().getPhone().substring(1))
                 .password(password)
                 .name(userName)
                 .anonymousId(sessionResponse.getAnonymous().getValue())
@@ -344,5 +330,19 @@ public final class UserManager {
         log.debug("================================");
 
         return newUser;
+    }
+
+    public static List<UserData> getUserDataList() {
+        return USER_DATA_LIST;
+    }
+
+    public static void cleanupUsers() {
+        USER_DATA_LIST.forEach(userData -> {
+            final String userId = userData.getId();
+            if (nonNull(userId) && !userId.isEmpty()) {
+                QaService.INSTANCE.deleteSession(userId);
+                log.debug("Remove user {}", userData.getPhone());
+            }
+        });
     }
 }

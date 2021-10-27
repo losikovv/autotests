@@ -23,7 +23,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 public final class OrdersCitiesTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
-    private final UserData userData = UserManager.getUser();
+    private final UserData userData = UserManager.getQaUser();
 
     @CaseIDs(value = {@CaseId(1650), @CaseId(1651), @CaseId(1652), @CaseId(1653), @CaseId(1654),@CaseId(1655),
             @CaseId(1656), @CaseId(1657), @CaseId(1658), @CaseId(1659), @CaseId(1660), @CaseId(1661),
@@ -33,7 +33,6 @@ public final class OrdersCitiesTests extends BaseTest {
             dataProviderClass = CityProvider.class,
             dataProvider = "city")
     public void successOrderFromCity(final AddressV2 address) {
-        helper.auth(userData);
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID, address);
 
         shop().goToPage();

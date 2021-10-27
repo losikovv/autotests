@@ -29,8 +29,7 @@ public final class OrdersRetailerCardsTests extends BaseTest {
 
     @BeforeMethod(alwaysRun = true, description = "Наполнение корзины")
     public void beforeTest() {
-        userData = UserManager.getUser();
-        helper.auth(userData);
+        userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
     }
 

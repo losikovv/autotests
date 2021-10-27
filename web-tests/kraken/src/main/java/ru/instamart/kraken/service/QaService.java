@@ -1,6 +1,7 @@
 package ru.instamart.kraken.service;
 
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.qa.Api;
 import ru.instamart.qa.model.Setting;
 import ru.instamart.qa.model.response.QaSessionResponse;
@@ -24,8 +25,11 @@ public enum QaService {
         return api.getSessionService().getSession(password);
     }
 
-    //TODO: Not implemented
-    public void deleteSession(final String sessionId) {
-        api.getSessionService().deleteSession(sessionId);
+    /**
+     * Удаляет пользователя
+     * @param userId - {@link UserData#getId()}
+     */
+    public void deleteSession(final String userId) {
+        api.getSessionService().deleteSession(userId);
     }
 }

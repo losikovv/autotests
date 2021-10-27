@@ -1,16 +1,17 @@
 package ru.instamart.kraken.data;
 
-import lombok.Data;
-
-@Data
 public final class JuridicalData {
 
-    private final String juridicalName;
-    private final String juridicalAddress;
-    private final String inn;
-    private final String kpp;
-    private final String accountNumber;
-    private final String bik;
-    private final String bankName;
-    private final String correspondentAccountNumber;
+    public static Juridical juridical() {
+        return new Juridical(
+                "ЗАО \"Лидер-" + Generate.digitalString(4) + "\"",
+                Generate.string(8),
+                Generate.generateINN(10),
+                Generate.digitalString(9),
+                Generate.digitalString(20),
+                Generate.digitalString(9),
+                Generate.string(8),
+                Generate.digitalString(20)
+        );
+    }
 }

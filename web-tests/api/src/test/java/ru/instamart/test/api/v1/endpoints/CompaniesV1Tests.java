@@ -23,6 +23,7 @@ import ru.instamart.api.response.v1.b2b.CompanyManagerV1Response;
 import ru.instamart.api.response.v1.b2b.CompanySalesContractV1Response;
 import ru.instamart.api.response.v1.b2b.CompanyV1Response;
 import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
 
@@ -37,7 +38,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 @Epic("ApiV1")
 @Feature("B2B endpoints")
 public class CompaniesV1Tests extends RestBase {
-    private final JuridicalData companyData = UserManager.juridical();
+    private final Juridical companyData = JuridicalData.juridical();
     private CompanyV1 company;
     private final ManagerV1 manager = new ManagerV1();
     private final SalesContractV1 salesContract = new SalesContractV1();
@@ -75,7 +76,7 @@ public class CompaniesV1Tests extends RestBase {
     @Test(description = "Смена наименования компании",
             groups = {"api-instamart-regress"})
     public void putCompanyName() {
-        CompanyV1 companyName = new CompanyV1().setName(UserManager.juridical().getJuridicalName());
+        CompanyV1 companyName = new CompanyV1().setName(JuridicalData.juridical().getJuridicalName());
 
         Response response = CompaniesV1Request.PUT(company.getId(), companyName);
         checkStatusCode200(response);

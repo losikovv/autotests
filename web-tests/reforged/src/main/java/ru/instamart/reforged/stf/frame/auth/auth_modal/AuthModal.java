@@ -2,8 +2,8 @@ package ru.instamart.reforged.stf.frame.auth.auth_modal;
 
 import io.qameta.allure.Step;
 import ru.instamart.kraken.config.CoreProperties;
-import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.stf.frame.Close;
 import ru.instamart.reforged.stf.frame.auth.AuthFacebook;
@@ -36,20 +36,6 @@ public final class AuthModal implements Close, AuthModalCheck {
 
     public AuthSberId interactAuthSberIdPage() {
         return authSberIdPage;
-    }
-
-    @Step("Зарегистрировать пользователя по телефону")
-    public void createAccount() {
-        fillPhone(Generate.phoneNumber());
-        sendSms();
-        fillDefaultSMS();
-    }
-
-    @Step("Зарегистрировать пользователя {0} по телефону")
-    public void createAccount(final UserData userData) {
-        fillPhone(userData.getPhone());
-        sendSms();
-        fillDefaultSMS();
     }
 
     @Step("Заполнить поле с телефоном {phone}")
@@ -124,6 +110,6 @@ public final class AuthModal implements Close, AuthModalCheck {
         fillPhone(userData.getPhone());
         sendSms();
         ThreadUtil.simplyAwait(1);
-        fillDefaultSMS();
+        fillSMS(userData.getSmsCode());
     }
 }

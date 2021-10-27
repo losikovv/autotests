@@ -69,7 +69,7 @@ public final class ShoppingCartTests extends BaseTest {
     @CaseId(1573)
     @Test(description = "Тест успешного добавления товара в корзину из карточки товара", groups = {"acceptance", "regression"})
     public void successAddItemToCartFromItemCard() {
-        final UserData shoppingCartUser = UserManager.getUser();
+        final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
 
@@ -183,7 +183,7 @@ public final class ShoppingCartTests extends BaseTest {
     @CaseId(1576)
     @Test(description = "Тест на удаление товаров из корзины", groups = {"acceptance", "regression"})
     public void successRemoveItemsFromCart() {
-        final UserData shoppingCartUser = UserManager.getUser();
+        final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
 
@@ -207,7 +207,7 @@ public final class ShoppingCartTests extends BaseTest {
     @CaseId(1577)
     @Test(description = "Тест успешного добавления и удаления товара в корзину из сниппета в каталоге", groups = {"acceptance", "regression"})
     public void successAddItemToCartFromCatalogSnippet() {
-        final UserData shoppingCartUser = UserManager.getUser();
+        final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
 
@@ -233,7 +233,7 @@ public final class ShoppingCartTests extends BaseTest {
     @CaseId(1578)
     @Test(description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером", groups = "regression" )
     public void successChangeMinOrderSum() {
-        final UserData shoppingCartUser = UserManager.getUser();
+        final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
 

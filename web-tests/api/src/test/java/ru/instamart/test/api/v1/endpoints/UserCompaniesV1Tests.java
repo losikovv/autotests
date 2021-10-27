@@ -12,8 +12,10 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.b2b.CompanyV1;
-import ru.instamart.api.request.v1.b2b.*;
+import ru.instamart.api.request.v1.b2b.CompanyPresenceV1Request;
+import ru.instamart.api.request.v1.b2b.UserCompaniesV1Request;
 import ru.instamart.api.response.v1.b2b.*;
+import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
 
@@ -25,7 +27,8 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 @Epic("ApiV1")
 @Feature("B2B endpoints")
 public class UserCompaniesV1Tests extends RestBase {
-    private final JuridicalData companyData = UserManager.juridical();
+
+    private final Juridical companyData = JuridicalData.juridical();
     private CompanyV1 company;
 
     @BeforeClass(alwaysRun = true)

@@ -49,7 +49,7 @@ public enum PhoneCrypt {
                 outputStream.write(cipher.doFinal());
                 result = encoder.encodeToString(outputStream.toByteArray());
             } catch (Exception e) {
-                log.error("FATA: Can't concatenate byte");
+                log.error("FATAL: Can't concatenate byte");
             }
 
             return result;

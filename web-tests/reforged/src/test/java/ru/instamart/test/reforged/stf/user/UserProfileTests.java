@@ -21,7 +21,7 @@ public class UserProfileTests extends BaseTest {
     public void login() {
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().authViaPhone(UserManager.getUser());
+        home().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
     }
 
