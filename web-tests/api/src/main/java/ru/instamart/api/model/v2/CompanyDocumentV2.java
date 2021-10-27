@@ -19,4 +19,6 @@ public class CompanyDocumentV2 extends BaseObject {
     @JsonProperty(value = "operating_account")
     private String operatingAccount;
     private String address;
+    @JsonProperty("payment_tool")
+    private PaymentToolTypesV2 paymentTool;
 }

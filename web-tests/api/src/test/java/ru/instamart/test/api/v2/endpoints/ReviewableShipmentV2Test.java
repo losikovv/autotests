@@ -14,8 +14,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.model.v2.OrderV2;
-import ru.instamart.api.model.v2.ReviewIssueV2;
+import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.v2.ReviewableShipmentV2Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.response.v2.ReviewableShipmentV2Response;
@@ -26,7 +25,7 @@ import ru.instamart.kraken.data.user.UserData;
 import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.k8s.K8sConsumer.changeToShip;
 
 @Epic("ApiV2")
@@ -57,19 +56,20 @@ public class ReviewableShipmentV2Test extends RestBase {
         SessionFactory.createSessionToken(SessionType.API_V2_FB, userData);
         final Response response = ReviewableShipmentV2Request.GET();
         checkStatusCode200(response);
-        ReviewableShipmentV2Response revShipment = response.as(ReviewableShipmentV2Response.class);
+        ReviewableShipmentV2 revShipment = response.as(ReviewableShipmentV2Response.class).getReviewableShipment();
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(revShipment.getReviewableShipment().getNumber(), order.getShipments().get(0).getNumber(), "Number not valid");
-        softAssert.assertEquals(revShipment.getReviewableShipment().getCost(), order.getShipments().get(0).getCost(), "Cost not valid");
-        softAssert.assertEquals(revShipment.getReviewableShipment().getItemTotal(), order.getShipments().get(0).getItemTotal(), "Item total not valid");
-        softAssert.assertEquals(revShipment.getReviewableShipment().getItemDiscountTotal(), order.getShipments().get(0).getItemDiscountTotal(), "item discount total not valid");
-        softAssert.assertEquals(revShipment.getReviewableShipment().getTotal(), order.getShipments().get(0).getTotal(), "Shipments not valid");
-        softAssert.assertEquals(revShipment.getReviewableShipment().getAlerts(), order.getShipments().get(0).getAlerts(), "Alerts not valid");
-        softAssert.assertEquals(revShipment.getReviewableShipment().getTotalWeight(), order.getShipments().get(0).getTotalWeight(), "Total weight not valid");
-        softAssert.assertEquals(revShipment.getReviewableShipment().getItemCount(), order.getShipments().get(0).getItemCount(), "Item count not valid");
-//        softAssert.assertEquals(revShipment.getReviewableShipment().getDeliveryWindow(), order.getShipments().get(0).getDeliveryWindow(), "Delivery window not valid");
-        softAssert.assertEquals(revShipment.getReviewableShipment().getPayment(), order.getShipments().get(0).getPayment(), "Payment not valid");
-        softAssert.assertEquals(revShipment.getReviewableShipment().getStore(), order.getShipments().get(0).getStore(), "Store not valid");
+        final ShipmentV2 shipment = order.getShipments().get(0);
+        softAssert.assertEquals(revShipment.getNumber(), shipment.getNumber(), "Number not valid");
+        softAssert.assertEquals(revShipment.getCost(), shipment.getCost(), "Cost not valid");
+        softAssert.assertEquals(revShipment.getItemTotal(), shipment.getItemTotal(), "Item total not valid");
+        softAssert.assertEquals(revShipment.getItemDiscountTotal(), shipment.getItemDiscountTotal(), "item discount total not valid");
+        softAssert.assertEquals(revShipment.getTotal(), shipment.getTotal(), "Shipments not valid");
+        softAssert.assertEquals(revShipment.getAlerts(), shipment.getAlerts(), "Alerts not valid");
+        softAssert.assertEquals(revShipment.getTotalWeight(), shipment.getTotalWeight(), "Total weight not valid");
+        softAssert.assertEquals(revShipment.getItemCount(), shipment.getItemCount(), "Item count not valid");
+//        softAssert.assertEquals(revShipment.getDeliveryWindow(), shipment.getDeliveryWindow(), "Delivery window not valid");
+        softAssert.assertEquals(revShipment.getPayment(), shipment.getPayment(), "Payment not valid");
+        softAssert.assertEquals(revShipment.getStore(), shipment.getStore(), "Store not valid");
         softAssert.assertAll();
     }
 
@@ -85,10 +85,10 @@ public class ReviewableShipmentV2Test extends RestBase {
                 .build();
         final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
         checkStatusCode200(response);
-        ShipmentReviewV2Response shipmentReviewV2Response = response.as(ShipmentReviewV2Response.class);
+        ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(shipmentReviewV2Response.getShipmentReview().getRate(), Integer.valueOf(5), "Rate not valid");
-        softAssert.assertNull(shipmentReviewV2Response.getShipmentReview().getComment(), "Comment not null");
+        softAssert.assertEquals(shipmentReview.getRate(), Integer.valueOf(5), "Rate not valid");
+        softAssert.assertNull(shipmentReview.getComment(), "Comment not null");
         softAssert.assertAll();
 
     }
@@ -105,10 +105,10 @@ public class ReviewableShipmentV2Test extends RestBase {
                 .build();
         final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
         checkStatusCode200(response);
-        ShipmentReviewV2Response shipmentReviewV2Response = response.as(ShipmentReviewV2Response.class);
+        ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(shipmentReviewV2Response.getShipmentReview().getRate(), Integer.valueOf(5), "Rate not valid");
-        softAssert.assertEquals(shipmentReviewV2Response.getShipmentReview().getComment(), "Тестовый комментарий", "Comment not null");
+        softAssert.assertEquals(shipmentReview.getRate(), Integer.valueOf(5), "Rate not valid");
+        softAssert.assertEquals(shipmentReview.getComment(), "Тестовый комментарий", "Comment not null");
         softAssert.assertAll();
     }
 
