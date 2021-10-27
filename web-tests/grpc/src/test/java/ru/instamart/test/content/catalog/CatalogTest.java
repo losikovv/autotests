@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.grpc.common.GrpcBase;
+import ru.instamart.grpc.common.GrpcHosts;
 
 @Epic("Catalog Microservice")
 @Feature("Catalog")
@@ -17,14 +18,13 @@ public class CatalogTest extends GrpcBase {
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
-        channel = grpcStep.createChannel("paas-content-catalog.k-stage.sbmt.io", 443);
+        channel = grpc.createChannel(GrpcHosts.PAAS_CONTENT_PRODUCT_CATALOG);
         client = CatalogServiceGrpc.newBlockingStub(channel);
     }
 
     @Test(  description = "Get products",
             groups = "grpc-product-hub")
     public void getProducts() {
-
         var request = Catalog
                 .GetProductsRequest
                 .newBuilder()
@@ -36,11 +36,9 @@ public class CatalogTest extends GrpcBase {
                 .setAvailable(true)
                 .setSort(Catalog.Sort.POPULARITY)
                 .build();
-
-        grpcStep.showRequestInAllure(request);
+        allure.showRequest(request);
 
         var response = client.getProducts(request);
-
-        grpcStep.showResponseInAllure(response);
+        allure.showResponse(response);
     }
 }

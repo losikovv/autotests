@@ -6,10 +6,12 @@ import io.qase.api.annotation.CaseId;
 import lombok.extern.slf4j.Slf4j;
 import navigation.Navigation;
 import navigation.NavigationServiceGrpc;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.grpc.common.GrpcBase;
+import ru.instamart.grpc.common.GrpcHosts;
+
+import static org.testng.Assert.assertTrue;
 
 @Epic("Catalog Microservice")
 @Feature("Navigation")
@@ -19,7 +21,7 @@ public class NavigationTest extends GrpcBase {
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
-        channel = grpcStep.createChannel("paas-content-catalog-navigation.k-stage.sbmt.io", 443);
+        channel = grpc.createChannel(GrpcHosts.PAAS_CONTENT_PRODUCT_NAVIGATION);
         client = NavigationServiceGrpc.newBlockingStub(channel);
     }
 
@@ -27,26 +29,20 @@ public class NavigationTest extends GrpcBase {
     @Test(  groups = {"grpc-product-hub"},
             description = "Проверка построения дерева продуктов")
     public void getMenuTree() {
-
         var request = Navigation.GetMenuTreeRequest
                 .newBuilder()
                 .setStoreId("1")
                 .setTenantId("sbermarket")
                 .setTreeDepth(5)
                 .build();
-
-        grpcStep.showRequestInAllure(request);
+        allure.showRequest(request);
 
         var response = client.getMenuTree(request);
+        allure.showResponse(response);
 
-        grpcStep.showResponseInAllure(response);
-
-        Assert.assertTrue(response.getCategoriesCount() > 0,
-                "Вернулся пустой массив категорий");
+        assertTrue(response.getCategoriesCount() > 0, "Вернулся пустой массив категорий");
 
         var categories = response.getCategoriesList();
-
-        Assert.assertTrue(grpcStep.findCategoryById(categories, "900000"),
-                "Не вернулась 900000 категория");
+        assertTrue(grpc.findCategoryById(categories, "900000"), "Не вернулась 900000 категория");
     }
 }

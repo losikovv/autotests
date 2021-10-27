@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.grpc.common.GrpcBase;
+import ru.instamart.grpc.common.GrpcHosts;
 import salut_token.SalutToken;
 import salut_token.TokenGeneratorGrpc;
 
@@ -19,7 +20,7 @@ public class SalutTokenTest extends GrpcBase {
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
-        channel = grpcStep.createChannel("paas-content-salut-token.k-stage.sbmt.io", 443);
+        channel = grpc.createChannel(GrpcHosts.PAAS_CONTENT_SALUT_TOKEN);
         client = TokenGeneratorGrpc.newBlockingStub(channel);
     }
 
@@ -29,12 +30,10 @@ public class SalutTokenTest extends GrpcBase {
     public void getToken() {
         var request = SalutToken.TokenRequest.newBuilder()
                 .setInstallationId("258b347d-b978-4a75-8f02-407d43a932af").build();
-
-        grpcStep.showRequestInAllure(request);
+        allure.showRequest(request);
 
         var response = client.getToken(request);
-
-        grpcStep.showResponseInAllure(response);
+        allure.showResponse(response);
 
         assertNotNull(response.getToken(), "Не вернулся токен");
         assertFalse(response.getToken().isEmpty(), "Вернулся пустой токен");

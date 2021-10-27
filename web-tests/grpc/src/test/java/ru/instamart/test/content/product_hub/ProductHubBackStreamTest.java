@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import product_hub_back_stream.ProductHubBackStreamGrpc;
 import product_hub_back_stream.ProductHubBackStreamOuterClass;
 import ru.instamart.grpc.common.GrpcBase;
+import ru.instamart.grpc.common.GrpcHosts;
 
 import static org.testng.Assert.assertEquals;
 
@@ -19,14 +20,13 @@ public class ProductHubBackStreamTest extends GrpcBase {
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
-        channel = grpcStep.createChannel("paas-content-product-hub-back.k-stage.sbmt.io", 443);
+        channel = grpc.createChannel(GrpcHosts.PAAS_CONTENT_PRODUCT_HUB_BACK);
         client = ProductHubBackStreamGrpc.newBlockingStub(channel);
     }
 
     @Test(  description = "Get products",
             groups = "grpc-product-hub")
     public void getProducts() {
-
         var request = ProductHubBackStreamOuterClass
                 .GetProductsRequest.newBuilder()
                 .setCursorId(1)
@@ -35,12 +35,10 @@ public class ProductHubBackStreamTest extends GrpcBase {
                                 .addKeys("brand")
                                 .build()
                 ).build();
-
-        grpcStep.showRequestInAllure(request);
+        allure.showRequest(request);
 
         var responses = client.getProducts(request);
-
-        grpcStep.showResponseInAllure(responses.next());
+        allure.showResponse(responses.next());
 
         assertEquals(responses.next().getCursorId(), 1,
                 "Вернулся другой cursor ID");

@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import product_hub_front_meta.ProductHubFrontMetaGrpc;
 import product_hub_front_meta.ProductHubFrontMetaOuterClass;
 import ru.instamart.grpc.common.GrpcBase;
+import ru.instamart.grpc.common.GrpcHosts;
 
 import static org.testng.Assert.assertTrue;
 
@@ -19,25 +20,22 @@ public class ProductHubFrontMetaTest extends GrpcBase {
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
-        channel = grpcStep.createChannel("paas-content-product-hub.k-stage.sbmt.io", 443);
+        channel = grpc.createChannel(GrpcHosts.PAAS_CONTENT_PRODUCT_HUB_FRONT);
         client = ProductHubFrontMetaGrpc.newBlockingStub(channel);
     }
 
     @Test(  description = "Get all categories",
             groups = "grpc-product-hub")
     public void getAllCategories() {
-
         var request = ProductHubFrontMetaOuterClass
                 .GetAllCategoriesRequest.newBuilder()
                 .setLimit(100)
                 .setOffset(20)
                 .build();
-
-        grpcStep.showRequestInAllure(request);
+        allure.showRequest(request);
 
         var response = client.getAllCategories(request);
-
-        grpcStep.showResponseInAllure(response);
+        allure.showResponse(response);
 
         assertTrue(response.getCategoriesList().size() <= 100,
                 "Количество категорий вернулось больше лимита");

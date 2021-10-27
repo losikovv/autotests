@@ -15,8 +15,6 @@
       <class name="ru.instamart.test.content.product_hub.ProductHubBackStreamTest"/>
       <class name="ru.instamart.test.content.product_hub.ProductHubFrontDataTest"/>
       <class name="ru.instamart.test.content.product_hub.ProductHubFrontMetaTest"/>
-      <class name="ru.instamart.test.content.product_hub.CreateProductPHUBTest"/>
-      <class name="ru.instamart.test.content.product_hub.CreateProductPHUBTest2"/>
     </classes>
   </test>
   <test verbose="1" name="PRODUCT FILTER">

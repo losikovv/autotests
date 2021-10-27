@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.grpc.common.GrpcBase;
+import ru.instamart.grpc.common.GrpcHosts;
 import shelf.ShelfOuterClass;
 import shelf.ShelfServiceGrpc;
 
@@ -17,14 +18,13 @@ public class ShelfTest extends GrpcBase {
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
-        channel = grpcStep.createChannel("paas-content-catalog-shelf.k-stage.sbmt.io", 443);
+        channel = grpc.createChannel(GrpcHosts.PAAS_CONTENT_PRODUCT_SHELF);
         client = ShelfServiceGrpc.newBlockingStub(channel);
     }
 
     @Test(  description = "Get shelf by category id",
             groups = "grpc-product-hub")
     public void getShelfByCategoryId() {
-
         var request = ShelfOuterClass.GetShelfByCategoryIDRequest
                 .newBuilder()
                 .setCategoryId("116")
@@ -32,11 +32,9 @@ public class ShelfTest extends GrpcBase {
                 .setStoreId("11")
                 .setTenantId("sbermarket")
                 .build();
-
-        grpcStep.showRequestInAllure(request);
+        allure.showRequest(request);
 
         var response = client.getShelfByCategoryID(request);
-
-        grpcStep.showResponseInAllure(response);
+        allure.showResponse(response);
     }
 }
