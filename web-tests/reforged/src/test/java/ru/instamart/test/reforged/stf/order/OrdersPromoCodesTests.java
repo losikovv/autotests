@@ -9,6 +9,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.PromoData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -33,9 +34,9 @@ public final class OrdersPromoCodesTests extends BaseTest {
     @Story("Тест применения промокода со скидкой на первый заказ")
     @Test(description = "Тест применения промокода со скидкой", groups = "regression")
     public void successOrderWithPromoCode(final PromoData data) {
-        var company = UserManager.juridical();
+        var company = JuridicalData.juridical();
 
-        ordersUser = UserManager.getUser();
+        ordersUser = UserManager.getQaUser();
         helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_SID);
 
         shop().goToPage();

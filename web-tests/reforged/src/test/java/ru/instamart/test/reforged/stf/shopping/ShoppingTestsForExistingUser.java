@@ -25,7 +25,7 @@ public class ShoppingTestsForExistingUser extends BaseTest {
     @Test(description = "Тест недоступности чекаута по прямой ссылке авторизованному юзеру c выбранным адресом и пустой корзиной",
             groups = {"acceptance", "regression"})
     public void noAccessToCheckoutForAuthorizedUserWithShipAddressAndEmptyCart() {
-        final UserData shoppingCartUser = UserManager.getUser();
+        final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
 
@@ -46,7 +46,7 @@ public class ShoppingTestsForExistingUser extends BaseTest {
     @Test(description = "Тест недоступности чекаута при сумме корзины меньше минимального заказа",
             groups = {"acceptance", "regression"})
     public void noAccessToCheckoutWithCartBelowMinimalOrderSum() {
-        final UserData shoppingCartUser = UserManager.getUser();
+        final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
 
@@ -76,7 +76,7 @@ public class ShoppingTestsForExistingUser extends BaseTest {
     @Test(description = "Тест набора корзины до суммы, достаточной для оформления заказа",
             groups = {"acceptance", "regression"})
     public void successCollectItemsForMinOrder() {
-        final UserData shoppingCartUser = UserManager.getUser();
+        final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropAndFillCart(shoppingCartUser, 1);
 
         shop().goToPage();
@@ -98,7 +98,7 @@ public class ShoppingTestsForExistingUser extends BaseTest {
     @Story("Тест на подтягивание адреса и мердж корзины из профиля при авторизации")
     @Test(description = "Тест на подтягивание адреса и мердж корзины из профиля при авторизации", groups = {"acceptance", "regression"})
     public void successMergeShipAddressAndCartAfterAuthorisation() {
-        final UserData shoppingCartUser = UserManager.getUser();
+        final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropAndFillCart(shoppingCartUser, 1);
 
         shop().goToPage();

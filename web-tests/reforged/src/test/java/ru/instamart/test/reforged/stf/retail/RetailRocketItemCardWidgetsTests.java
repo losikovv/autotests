@@ -22,11 +22,10 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 public final class RetailRocketItemCardWidgetsTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
-    private final UserData userData = UserManager.getUser();
+    private final UserData userData = UserManager.getQaUser();
 
     @BeforeClass
     public void precondition() {
-        helper.auth(userData);
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
     }
 

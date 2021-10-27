@@ -65,12 +65,7 @@ public abstract class ExecutionListener implements IExecutionListener {
         log.debug("All tests finished for {}", getReadableTime(System.nanoTime() - start));
         // Тут может быть код для очистки окружения после прогона тестов
         log.debug("We create {} new users", UserManager.getUserDataList().size());
-        UserManager.getUserDataList().forEach(userData -> {
-            final String userId = userData.getId();
-            if (nonNull(userId) && !userId.isEmpty()) {
-                QaService.INSTANCE.deleteSession(userId);
-            }
-        });
+        UserManager.cleanupUsers();
     }
 
     private String getReadableTime(final Long nanos){

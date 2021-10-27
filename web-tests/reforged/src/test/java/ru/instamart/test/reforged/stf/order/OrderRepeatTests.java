@@ -20,11 +20,10 @@ import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
 public final class OrderRepeatTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
-    private final UserData userData = UserManager.getUser();
+    private final UserData userData = UserManager.getQaUser();
 
     @BeforeMethod(description = "Аутентификация и выбор адреса доставки")
     public void preconditions() {
-        helper.auth(userData);
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
     }
 

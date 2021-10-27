@@ -26,7 +26,7 @@ public final class UserLogoutTests extends BaseTest {
     public void successQuickLogout() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(UserManager.getUser());
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clearSessionLogout();
         shop().interactHeader().checkLoginIsVisible();
@@ -40,7 +40,7 @@ public final class UserLogoutTests extends BaseTest {
     public void successManualLogout() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(UserManager.getUser());
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToLogout();
@@ -52,7 +52,7 @@ public final class UserLogoutTests extends BaseTest {
     @Test(description = "Тест сброса адреса доставки и корзины после деавторизации", groups = {"acceptance", "regression"})
     public void noShipAddressAndEmptyCartAfterLogout() {
         final ApiHelper apiHelper = new ApiHelper();
-        final UserData userData = UserManager.getUser();
+        final UserData userData = UserManager.getQaUser();
         apiHelper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
         shop().goToPage();

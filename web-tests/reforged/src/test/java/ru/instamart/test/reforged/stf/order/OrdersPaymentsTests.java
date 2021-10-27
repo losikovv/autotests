@@ -7,7 +7,8 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.data.*;
+import ru.instamart.kraken.data.JuridicalData;
+import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
@@ -32,11 +33,10 @@ public final class OrdersPaymentsTests extends BaseTest {
     @Test(  description = "Тест заказа с оплатой картой онлайн",
             groups = {"smoke","regression", "acceptance"})
     public void successOrderWithCardOnline() {
-        var company = UserManager.juridical();
+        var company = JuridicalData.juridical();
         var card = PaymentCards.testCardNo3ds();
 
-        ordersUser = UserManager.getUser();
-        helper.auth(ordersUser);
+        ordersUser = UserManager.getQaUser();
         helper.dropAndFillCart(ordersUser, 1);
 
         shop().goToPage();
@@ -80,10 +80,9 @@ public final class OrdersPaymentsTests extends BaseTest {
     @Test(  description = "Тест заказа с оплатой картой курьеру",
             groups = {"smoke","regression", "acceptance"})
     public void successOrderWithCardCourier() {
-        var company = UserManager.juridical();
+        var company = JuridicalData.juridical();
 
-        ordersUser = UserManager.getUser();
-        helper.auth(ordersUser);
+        ordersUser = UserManager.getQaUser();
         helper.dropAndFillCart(ordersUser, 1);
 
         shop().goToPage();
@@ -122,10 +121,9 @@ public final class OrdersPaymentsTests extends BaseTest {
     @Story("Тест заказа с оплатой банковским переводом")
     @Test(description = "Тест заказа с оплатой банковским переводом", groups = {"regression", "acceptance"})
     public void successOrderWithBankTransfer() {
-        var company = UserManager.juridical();
+        var company = JuridicalData.juridical();
 
-        ordersUser = UserManager.getUser();
-        helper.auth(ordersUser);
+        ordersUser = UserManager.getQaUser();
         helper.dropAndFillCart(ordersUser, 1);
 
         shop().goToPage();

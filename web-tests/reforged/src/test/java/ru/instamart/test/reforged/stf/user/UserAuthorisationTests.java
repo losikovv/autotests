@@ -21,26 +21,32 @@ public final class UserAuthorisationTests extends BaseTest {
     @CaseId(1455)
     @Test(description = "Тест успешной авторизации на витрине", groups = {"acceptance", "regression", "smoke"})
     public void successAuthOnMainPage() {
+        final UserData authUser = UserManager.getQaUser();
+
         shop().goToPage();
         shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(UserManager.getUser());
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
     }
 
     @CaseId(1456)
     @Test(description = "Тест авторизации из адресной модалки феникса", groups = "regression")
     public void successAuthFromAddressModal() {
+        final UserData authUser = UserManager.getQaUser();
+
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
         shop().interactAddress().clickToLogin();
-        shop().interactAuthModal().authViaPhone(UserManager.getUser());
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
     }
 
     @CaseId(1457)
     @Test(description = "Тест успешной авторизации из корзины", groups = "regression")
     public void successAuthFromCart() {
+        final UserData authUser = UserManager.getQaUser();
+
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
@@ -58,7 +64,7 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactHeader().clickToCart();
         shop().interactCart().increaseCountToMin();
         shop().interactCart().submitOrder();
-        shop().interactAuthModal().authViaPhone(UserManager.getUser());
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         checkout().checkCheckoutButtonIsVisible();
     }
 

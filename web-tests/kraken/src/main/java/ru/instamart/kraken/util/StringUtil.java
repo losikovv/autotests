@@ -38,6 +38,10 @@ public final class StringUtil {
         return phone.replaceAll("[^0-9]", "").substring(1);
     }
 
+    public static String getSMSCode(final String phone) {
+        return phone.substring(phone.length() - 6);
+    }
+
     private StringUtil() {
     }
 }

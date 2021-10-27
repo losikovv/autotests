@@ -25,7 +25,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 public final class OrdersBonusesTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
-    private final UserData userData = UserManager.getUser();
+    private final UserData userData = UserManager.getQaUser();
 
     @BeforeMethod(description = "Наполняем корзину")
     public void preconditions() {

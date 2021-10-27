@@ -17,11 +17,15 @@ public final class QaSessionResponse {
     private Session session;
     @JsonProperty(value = "anonymous_id")
     private Anonymous anonymous;
+    @JsonProperty(value = "api_session")
+    private ApiSession apiSession;
 
     @Data
     public static final class User {
         private String email;
         private String phone;
+        @JsonProperty(value = "spree_api_key")
+        private String spreeApiKey;
     }
 
     @Data
@@ -36,5 +40,12 @@ public final class QaSessionResponse {
     public static final class Anonymous {
         private Date expires;
         private String value;
+    }
+
+    @Data
+    public static final class ApiSession {
+        private String value;
+        @JsonProperty(value = "expires_at")
+        private Date expireAt;
     }
 }

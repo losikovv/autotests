@@ -22,7 +22,7 @@ public class CheckoutBonusesTests extends BaseTest {
     @Story("Тест успешного добавления всех доступных бонусных программ в чекауте")
     @Test(description = "Тест успешного добавления всех доступных бонусных программ в чекауте", groups = {"acceptance", "regression"})
     public void successAddBonusPrograms() {
-        final UserData checkoutBonusesUser = UserManager.getUser();
+        final UserData checkoutBonusesUser = UserManager.getQaUser();
         helper.dropAndFillCart(checkoutBonusesUser, EnvironmentProperties.DEFAULT_SID);
 
         home().goToPage();
@@ -53,7 +53,7 @@ public class CheckoutBonusesTests extends BaseTest {
     @Story("Тест выбора добавленных бонусных программ в чекауте")
     @Test(description = "Тест выбора добавленных бонусных программ в чекауте", groups = {"acceptance", "regression"})
     public void successSelectBonusPrograms() {
-        final UserData checkoutBonusesUser = UserManager.getUser();
+        final UserData checkoutBonusesUser = UserManager.getQaUser();
         helper.dropAndFillCart(checkoutBonusesUser, EnvironmentProperties.DEFAULT_SID);
 
         home().goToPage();
@@ -93,7 +93,7 @@ public class CheckoutBonusesTests extends BaseTest {
     @Story("Тест удаления всех бонусных программ в чекауте")
     @Test(description = "Тест удаления всех бонусных программ в чекауте", groups = {"acceptance", "regression"})
     public void successDeleteBonusPrograms() {
-        final UserData checkoutBonusesUser = UserManager.getUser();
+        final UserData checkoutBonusesUser = UserManager.getQaUser();
         helper.dropAndFillCart(checkoutBonusesUser, EnvironmentProperties.DEFAULT_SID);
 
         home().goToPage();

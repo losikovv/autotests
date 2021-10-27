@@ -34,7 +34,7 @@ public class OrdersRetailersTests extends BaseTest {
             dataProviderClass = StoreProvider.class,
             dataProvider = "storeData" )
     public void successOrderInDifferentRetailers(int storeId, ShopUrl shopUrl) {
-        userData = UserManager.getUser();
+        userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, storeId);
 
         shop().goToPage(shopUrl);

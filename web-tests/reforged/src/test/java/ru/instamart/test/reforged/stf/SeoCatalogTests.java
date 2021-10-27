@@ -38,7 +38,7 @@ public final class SeoCatalogTests extends BaseTest {
     @Test(description = "Тест открытия карточки товара на странице SEO-каталога", groups = "regression")
     public void successOpenItemCardOnSeoCatalog() {
         seo().goToPage();
-        seo().openFirstProductCardOnTaxon();
+        seo().refreshWithoutBasicAuth();
         seo().openFirstProductCardOnTaxon();
         seo().interactProductCard().checkProductCardVisible();
     }
@@ -47,7 +47,7 @@ public final class SeoCatalogTests extends BaseTest {
     @Test(description = "Тест на ввод адреса в модалке после добавления товара из карточки на странице SEO-каталога", groups = "regression" )
     public void successSetShippingAddressAfterAddingProductFromItemCardOnSeoCatalog() {
         seo().goToPage();
-        seo().openFirstProductCardOnTaxon();
+        seo().refreshWithoutBasicAuth();
         seo().openFirstProductCardOnTaxon();
         seo().interactProductCard().clickOnBuy();
 
@@ -61,12 +61,12 @@ public final class SeoCatalogTests extends BaseTest {
     @Test(description = "Тест авторизации при попытке добавления товара в корзину на странице SEO-каталога", groups = "regression" )
     public void successAuthFromItemCardOnSeoCatalog() {
         seo().goToPage();
-        seo().openFirstProductCardOnTaxon();
+        seo().refreshWithoutBasicAuth();
         seo().openFirstProductCardOnTaxon();
         seo().interactProductCard().clickOnBuy();
 
         seo().interactHeader().interactAddress().clickToLogin();
-        seo().interactAuthModal().authViaPhone(UserManager.getUser());
+        seo().interactAuthModal().authViaPhone(UserManager.getQaUser());
         seo().interactHeader().checkProfileButtonVisible();
     }
 
@@ -74,8 +74,7 @@ public final class SeoCatalogTests extends BaseTest {
     @CaseId(1582)
     @Test(description = "Добавление товара в корзину из SEO-каталога", groups = "regression")
     public void successAddItemToCartFromSEOCatalog() {
-        var userData = UserManager.getUser();
-        helper.auth(userData);
+        var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         home().goToPage();

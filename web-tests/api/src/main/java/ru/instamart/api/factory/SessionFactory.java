@@ -50,6 +50,7 @@ public final class SessionFactory {
                 break;
             case API_V2_FB:
                 RegistrationHelper.registration(userData);
+                break;
             case API_V2_PHONE:
                 createSessionToken(type, userData);
                 break;
@@ -93,26 +94,19 @@ public final class SessionFactory {
     }
 
     private static SessionInfo createSession(final SessionType type, final UserData userData) {
-        SessionInfo sessionInfo;
         switch (type) {
             case API_V1:
-                sessionInfo = createApiV1Session(userData);
-                return sessionInfo;
+                return createApiV1Session(userData);
             case API_V2_FB:
-                sessionInfo = createApiV2FacebookSession(userData);
-                return sessionInfo;
+                return createApiV2FacebookSession(userData);
             case API_V2_PHONE:
-                sessionInfo = createApiV2PhoneSession(userData);
-                return sessionInfo;
+                return createApiV2PhoneSession(userData);
             case SHOPPER_APP:
-                sessionInfo = createShopperAppSession(userData);
-                return sessionInfo;
+                return createShopperAppSession(userData);
             case SHOPPER_ADMIN:
-                sessionInfo = createShopperAdminSession(userData);
-                return sessionInfo;
+                return createShopperAdminSession(userData);
             case DELIVERY_CLUB:
-                sessionInfo = createDeliveryClubSession(userData);
-                return sessionInfo;
+                return createDeliveryClubSession(userData);
             default:
                 log.error("Session type not selected");
                 return new SessionInfo();
@@ -131,7 +125,13 @@ public final class SessionFactory {
         final Response postResponse = PhoneConfirmationsV2Request.POST(userData.getEncryptedPhone());
         checkStatusCode200(postResponse);
         ThreadUtil.simplyAwait(1);
-        final Response response = PhoneConfirmationsV2Request.PUT(userData.getPhone());
+        Response response;
+        //TODO: Когда api перейдет на qa ручку, нужно будет удалить условие
+        if (userData.getId() != null) {
+            response = PhoneConfirmationsV2Request.PUT(userData.getPhone(), userData.getPhone().substring(userData.getPhone().length() - 6), true);
+        } else {
+            response = PhoneConfirmationsV2Request.PUT(userData.getPhone());
+        }
         checkStatusCode200(response);
         final SessionsV2Response sessionResponse = response.as(SessionsV2Response.class);
         log.debug("Авторизуемся: {}", userData.getPhone());

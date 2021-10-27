@@ -36,7 +36,7 @@ public final class UserFavoritesTests extends BaseTest {
     public void noFavoriteItemsByDefault() {
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().createAccount();
+        home().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
         userFavorites().goToPage();
         userFavorites().checkEmptyFavorites();
@@ -48,7 +48,7 @@ public final class UserFavoritesTests extends BaseTest {
     public void successAddFavoriteOnItemCard() {
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().createAccount();
+        home().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
         shop().openFirstProductCard();
         shop().interactProductCard().addToFavorite();
@@ -60,7 +60,7 @@ public final class UserFavoritesTests extends BaseTest {
     @CaseId(1267)
     @Test(description = "Удаление любимого товара из карточки товара и проверка списка", groups = "regression")
     public void successDeleteFavoriteOnItemCard() {
-        final UserData userData = UserManager.getUser();
+        final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
         apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 2);
 
@@ -79,7 +79,7 @@ public final class UserFavoritesTests extends BaseTest {
     @CaseId(1268)
     @Test(description = "Удаление всех любимых товаров", groups = "regression")
     public void successCleanupFavorites() {
-        final UserData userData = UserManager.getUser();
+        final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
         apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 1);
 
@@ -97,7 +97,7 @@ public final class UserFavoritesTests extends BaseTest {
     @CaseId(1269)
     @Test(description = "Проверка работоспособности фильтров Любимых товаров", groups = {"acceptance", "regression"})
     public void successApplyFilters() {
-        final UserData userData = UserManager.getUser();
+        final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
         apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 10);
 
@@ -119,7 +119,7 @@ public final class UserFavoritesTests extends BaseTest {
     @CaseId(1270)
     @Test(description = "Проверка работоспособности подгрузки страниц в Любимых товарах", groups = "regression")
     public void successShowMoreLoad() {
-        final UserData userData = UserManager.getUser();
+        final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
         apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 50);
 
@@ -143,7 +143,7 @@ public final class UserFavoritesTests extends BaseTest {
     public void successRegAfterAddFavoriteOnCatalog() {
         shop().goToPage();
         shop().addFirstItemToFavorite();
-        shop().interactAuthModal().createAccount();
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
     }
 
@@ -154,7 +154,7 @@ public final class UserFavoritesTests extends BaseTest {
         Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER);
         shop().openFirstProductCard();
         shop().interactProductCard().addToFavorite();
-        shop().interactAuthModal().createAccount();
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().goToPage();
         shop().interactHeader().checkProfileButtonVisible();
     }
@@ -163,7 +163,7 @@ public final class UserFavoritesTests extends BaseTest {
     @CaseId(1492)
     @Test(description = "Тест добавления товаров в корзину из списка любимых товаров", groups = {"smoke", "regression"})
     public void successAddFavoriteProductToCart() {
-        final UserData userData = UserManager.getUser();
+        final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
         apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 3);
 
@@ -182,7 +182,7 @@ public final class UserFavoritesTests extends BaseTest {
     @CaseId(1494)
     @Test(description = "Тест добавления товаров в корзину из карточки товара, открытой из списка любимых товаров", groups = {"acceptance", "regression"})
     public void successAddFavoriteProductsFromCardToCart() {
-        final UserData userData = UserManager.getUser();
+        final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
         apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 3);
 

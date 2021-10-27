@@ -6,7 +6,6 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.test.reforged.BaseTest;
@@ -28,7 +27,7 @@ public final class HelpDeskChatTests extends BaseTest {
     @Test(description = "Тест отсутствия виджета HelpDesk в чекауте", groups = {"acceptance","regression",})
     public void noHelpDeskWidgetOnCheckout() {
         final ApiHelper apiHelper = new ApiHelper();
-        final UserData userData = UserManager.getUser();
+        final UserData userData = UserManager.getQaUser();
 
         apiHelper.auth(userData);
         apiHelper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);

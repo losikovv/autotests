@@ -3,7 +3,9 @@ package ru.instamart.kraken.data.user;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.util.PhoneCrypt;
+import ru.instamart.kraken.util.StringUtil;
 
 import static java.util.Objects.isNull;
 
@@ -15,6 +17,7 @@ public final class UserData {
     private String role;
     private String email;
     private String phone;
+    private String smsCode;
     private String password;
     private String name;
     private String token;
@@ -26,7 +29,7 @@ public final class UserData {
     }
 
     public String getFirstName() {
-        if (name == null) return "FirstName";
+        if (isNull(name)) return "FirstName";
 
         final String[] fullName = name.split(" ",2);
 
@@ -34,7 +37,7 @@ public final class UserData {
     }
 
     public String getLastName() {
-        if (name == null) return "LastName";
+        if (isNull(name)) return "LastName";
 
         final String[] fullName = name.split(" ",2);
 
@@ -50,7 +53,6 @@ public final class UserData {
         private String password;
         private String name;
         private String token;
-        private String encryptedPhone;
         private String anonymousId;
 
         UserDataBuilder() {
@@ -97,7 +99,20 @@ public final class UserData {
         }
 
         public UserData build() {
-            return new UserData(id, role, email, phone, password, name, token, generateEncryptedPhone(), anonymousId);
+            return new UserData(id, role, email, phone, getSmsCode(), password, name, token, generateEncryptedPhone(), anonymousId);
+        }
+
+        /**
+         * @return - id не null, только когда пользователь создается через qa ручку.
+         * Такие пользователи требуют что бы sms code состоял из последних 6 цифр номера телефона,
+         * во всех остальных случаях нужна {@link CoreProperties#DEFAULT_SMS}
+         */
+        private String getSmsCode() {
+            if (isNull(id)) {
+                return CoreProperties.DEFAULT_SMS;
+            } else {
+                return StringUtil.getSMSCode(phone);
+            }
         }
 
         private String generateEncryptedPhone() {
