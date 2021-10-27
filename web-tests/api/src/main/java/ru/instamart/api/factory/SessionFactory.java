@@ -20,6 +20,7 @@ import ru.instamart.api.response.delivery_club.TokenDCResponse;
 import ru.instamart.api.response.shopper.app.SessionsSHPResponse;
 import ru.instamart.api.response.v1.TokensV1Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
+import ru.instamart.api.response.v2.UserV2Response;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
@@ -107,6 +108,8 @@ public final class SessionFactory {
                 return createShopperAdminSession(userData);
             case DELIVERY_CLUB:
                 return createDeliveryClubSession(userData);
+            case ADMIN:
+                return createAdminSession(userData);
             default:
                 log.error("Session type not selected");
                 return new SessionInfo();
@@ -180,6 +183,14 @@ public final class SessionFactory {
         return new SessionInfo(userData, sessionResponse.getToken());
     }
 
+    private static SessionInfo createAdminSession(final UserData userData) {
+        final Response response = UserSessionsV1Request.POST(userData.getEmail(), userData.getPassword());
+        checkStatusCode200(response);
+        log.debug("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
+        log.debug("cookies: {}", response.getCookies());
+        return new SessionInfo(userData, response.as(UserV2Response.class).getCsrfToken(), response.getCookies());
+    }
+
     @RequiredArgsConstructor
     @Getter
     @EqualsAndHashCode
@@ -210,6 +221,10 @@ public final class SessionFactory {
 
         public SessionInfo(final UserData userData, final Map<String, String> cookies) {
             this(userData, "empty", "empty", cookies);
+        }
+
+        public SessionInfo(final UserData userData, final String token, final Map<String, String> cookies) {
+            this(userData, token, "empty", cookies);
         }
 
         public SessionInfo(final UserData userData, final String token, final String refreshToken) {
