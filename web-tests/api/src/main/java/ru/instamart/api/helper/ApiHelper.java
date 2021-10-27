@@ -8,9 +8,11 @@ import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.SessionV2;
 import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
 
 public class ApiHelper {
     private final InstamartApiHelper apiV2 = new InstamartApiHelper();
+    private final AdminHelper admin = new AdminHelper();
 
     @Step ("Подтверждение кода с помощью API")
     public SessionV2 confirmPhone(final String phone, final String code, final boolean promoTermsAccepted) {
@@ -151,5 +153,17 @@ public class ApiHelper {
         apiV2.setDefaultOrderAttributes();
         OrderV2 orderInfo = apiV2.completeOrder();
         apiV2.cancelOrder(orderInfo.getNumber());
+    }
+
+    @Step("Добавляем новый город {cityName} в админке")
+    public void createCityInAdmin(String cityName) {
+        SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
+        admin.createCity(cityName);
+    }
+
+    @Step("Удаляем город {cityName} в админке")
+    public void deleteCityInAdmin(String cityName) {
+        SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
+        admin.deleteCity(cityName);
     }
 }

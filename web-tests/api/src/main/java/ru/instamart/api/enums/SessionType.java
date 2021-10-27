@@ -6,5 +6,6 @@ public enum SessionType {
     API_V2_PHONE,
     SHOPPER_APP,
     SHOPPER_ADMIN,
-    DELIVERY_CLUB
+    DELIVERY_CLUB,
+    ADMIN
 }

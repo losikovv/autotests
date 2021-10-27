@@ -2,6 +2,8 @@ package ru.instamart.api.common;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.config.RedirectConfig;
+import io.restassured.config.RestAssuredConfig;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import io.restassured.specification.RequestSpecification;
@@ -29,11 +31,13 @@ public enum Specification {
     private static ResponseSpecification responseSpecDataProvider;
     @Getter private RequestSpecification apiV2RequestSpec;
     @Getter private RequestSpecification apiV1RequestSpec;
+    @Getter private RequestSpecification apiAdminRequestSpec;
     @Getter private RequestSpecification shopperRequestSpec;
     @Getter private RequestSpecification surgeRequestSpec;
 
     public void initSpec() {
         final String apiV1FullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH;
+        final String adminFullUrl = EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH;
         final String apiV2FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
         final String shopperFullBaseUrl = EnvironmentProperties.Env.FULL_SHOPPER_URL;
         port = 443;
@@ -80,6 +84,12 @@ public enum Specification {
                 .setBaseUri(apiV1FullUrl)
                 .setBasePath("api/")
                 .setAccept(ContentType.JSON)
+                .addFilter(new AllureRestAssuredCustom())
+                .build();
+
+        apiAdminRequestSpec = new RequestSpecBuilder()
+                .setBaseUri(adminFullUrl)
+                .setConfig(RestAssuredConfig.newConfig().redirect(RedirectConfig.redirectConfig().followRedirects(true)))
                 .addFilter(new AllureRestAssuredCustom())
                 .build();
 
