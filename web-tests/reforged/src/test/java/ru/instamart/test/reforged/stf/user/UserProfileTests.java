@@ -6,7 +6,15 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.AddressDetailsData;
+import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.data.TestVariables;
+import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.util.StringUtil;
+import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.admin.AdminRout.pages;
@@ -16,12 +24,16 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Профиль пользователя")
 public class UserProfileTests extends BaseTest {
 
+    private UserData userData;
+    private final ApiHelper helper = new ApiHelper();
+
     @BeforeMethod(alwaysRun = true,
             description = "Проверяем залогинен ли пользователь, если да то завершаем сессию")
     public void login() {
+        userData = UserManager.getQaUser();
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        home().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
     }
 
@@ -95,11 +107,99 @@ public class UserProfileTests extends BaseTest {
         shop().interactHeader().clickToProfile();
         shop().interactHeader().interactAccountMenu().clickToProfile();
         pages().checkPageIsAvailable();
-        userEdit().openOrders();
-        userEdit().checkTextOnThePage();
-        userEdit().checkAllOrdersButton();
-        userEdit().checkActiveOrdersButton();
-        userEdit().checkFinishedOrdersButton();
-        userEdit().checkGoToShoppingButton();
+        userShipments().goToPage();
+        userShipments().checkTextOnThePage();
+        userShipments().checkAllOrdersButton();
+        userShipments().checkActiveOrdersButton();
+        userShipments().checkFinishedOrdersButton();
+        userShipments().checkGoToShoppingButton();
+    }
+
+    @CaseId(2559)
+    @Story("Данные профиля пользователя")
+    @Test(description = "Добавление имени и фамилии для новых пользователей", groups = {"acceptance", "regression"})
+    public void addFullName() {
+        userEdit().goToPage();
+        userEdit().clickToChangeName();
+        userEdit().interactFullNameForm().fillFirstName(userData.getFirstName());
+        userEdit().interactFullNameForm().fillLastName(userData.getLastName());
+        userEdit().interactFullNameForm().submit();
+        userEdit().checkSaveAlert();
+        userEdit().checkFullName(userData.getName(), userEdit().getName());
+    }
+
+    @CaseId(2560)
+    @Story("Данные профиля пользователя")
+    @Test(description = "Добавление E-mail для новых пользователей", groups = {"acceptance", "regression"})
+    public void addEmail() {
+        userEdit().goToPage();
+        userEdit().clickToChangeEmail();
+        userEdit().interactEmailFrame().fillEmail(userData.getEmail());
+        userEdit().interactEmailFrame().submit();
+        userEdit().interactEmailFrame().clickToOk();
+        //TODO: Переход из почты по ссылке, для подтверждения и смены ящика
+    }
+
+    @CaseId(2561)
+    @Story("Данные профиля пользователя")
+    @Test(description = "Изменение имени и фамилии для существующих пользователей", groups = {"acceptance", "regression"})
+    public void changeFullName() {
+        userEdit().goToPage();
+        userEdit().clickToChangeName();
+        userEdit().interactFullNameForm().fillFirstName(userData.getFirstName());
+        userEdit().interactFullNameForm().fillLastName(userData.getLastName());
+        userEdit().interactFullNameForm().submit();
+        userEdit().checkSaveAlert();
+        userEdit().checkFullName(userData.getName(), userEdit().getName());
+
+        userEdit().checkSaveAlertHide();
+
+        final String firstName = "test";
+        final String lastName = "tset";
+        final String fullName = firstName + " " + lastName;
+        userEdit().clickToChangeName();
+        userEdit().interactFullNameForm().fillFirstName(firstName);
+        userEdit().interactFullNameForm().fillLastName(lastName);
+        userEdit().interactFullNameForm().submit();
+        userEdit().checkSaveAlert();
+        userEdit().checkFullName(fullName, userEdit().getName());
+    }
+
+    @CaseId(2562)
+    @Story("Данные профиля пользователя")
+    @Test(description = "Изменение E-mail для существующих пользователей", groups = {"acceptance", "regression"})
+    public void changeEmail() {
+        userEdit().goToPage();
+        userEdit().clickToChangeEmail();
+        userEdit().interactEmailFrame().fillEmail(userData.getEmail());
+        userEdit().interactEmailFrame().submit();
+        userEdit().interactEmailFrame().clickToOk();
+        //TODO: Переход из почты по ссылке, для подтверждения и смены ящика
+    }
+
+    @CaseId(2563)
+    @Story("Данные профиля пользователя")
+    @Test(description = "Изменение телефона для существующих пользователей", groups = {"acceptance", "regression"})
+    public void changePhone() {
+        final String phone = Generate.phoneNumber();
+        userEdit().goToPage();
+        userEdit().clickToChangePhone();
+        userEdit().interactAuthModal().fillPhone(phone);
+        userEdit().interactAuthModal().sendSms();
+        userEdit().interactAuthModal().fillDefaultSMS();
+        userEdit().checkSaveAlert();
+        userEdit().checkPhone(phone, StringUtil.getPhone(userEdit().getPhone()));
+    }
+
+    @CaseId(2564)
+    @Story("Данные профиля пользователя")
+    @Test(description = "Изменение E-mail на тот, который уже есть в системе", groups = {"acceptance", "regression"})
+    public void changeToExistingEmail() {
+        userEdit().goToPage();
+        userEdit().clickToChangeEmail();
+        userEdit().interactEmailFrame().fillEmail(UserManager.getDefaultAdmin().getEmail());
+        userEdit().interactEmailFrame().submit();
+        userEdit().interactEmailFrame().clickToOk();
+        //TODO: Проверка почты, что нет письма
     }
 }

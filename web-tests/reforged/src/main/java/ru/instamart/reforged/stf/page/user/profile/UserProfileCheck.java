@@ -3,32 +3,33 @@ package ru.instamart.reforged.stf.page.user.profile;
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
 
+import static org.testng.Assert.assertEquals;
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface UserProfileCheck extends UserProfileElement, Check {
 
-    @Step("Проверяем, что у нового пользователя нет заказов")
-    default void checkTextOnThePage() {
-        waitAction().shouldBeVisible(textNoOrders);
+    @Step("Проверить что ФИО {0} соответствует ожидаемому значению {1}")
+    default void checkFullName(final String expected, final String actual) {
+        assertEquals(actual, expected, "ФИО не соответствует");
     }
 
-    @Step("Проверяем, что в разделе заказов отображается кнопка Все заказы")
-    default void checkAllOrdersButton() {
-        waitAction().shouldBeVisible(allOrders);
+    @Step("Проверить что Email {0} соответствует ожидаемому значению {1}")
+    default void checkEmail(final String expected, final String actual) {
+        assertEquals(actual, expected, "Email не соответствует");
     }
 
-    @Step("Проверяем, что в разделе заказов отображается кнопка Активные заказы")
-    default void checkActiveOrdersButton() {
-        waitAction().shouldBeVisible(activeOrders);
+    @Step("Проверить что Телефон {0} соответствует ожидаемому значению {1}")
+    default void checkPhone(final String expected, final String actual) {
+        assertEquals(actual, expected, "Телефон не соответствует");
     }
 
-    @Step("Проверяем, что в разделе заказов отображается кнопка Завершенные заказы")
-    default void checkFinishedOrdersButton() {
-        waitAction().shouldBeVisible(finishedOrders);
+    @Step("Алерт 'Данные успешно сохранены' отобразился")
+    default void checkSaveAlert() {
+        waitAction().shouldBeVisible(alert);
     }
 
-    @Step("Проверяем, что в разделе заказов отображается кнопка Перейти к покупкам")
-    default void checkGoToShoppingButton() {
-        waitAction().shouldBeVisible(goToShopping);
+    @Step("Алерт 'Данные успешно сохранены' скрылись")
+    default void checkSaveAlertHide() {
+        waitAction().shouldNotBeVisible(alert);
     }
 }

@@ -27,4 +27,10 @@ public interface UserShipmentsElement {
     Element paymentMethodForBusiness = new Element(By.xpath("//span[@data-qa='user-shipment-payment-method' and text()='По счёту для бизнеса']"), "метод оплаты в заказе 'По счёту для бизнеса'");
 
     Element replacementPolicy = new Element(ByKraken.xpath("//span[@data-qa='user-shipment-replacement-policy' and text()='%s']"), "Политика замен в заказе");
+
+    Element textNoOrders = new Element(By.xpath("//h3[text()='У вас нет завершенных заказов']"), "текст сообщающий, что у нового пользователя нет заказов");
+    Button activeOrders = new Button(By.xpath("//button[@data-qa='user-shipment-list-selector-active']"), "кнопка активные заказы");
+    Button finishedOrders = new Button(By.xpath("//button[@data-qa='user-shipment-list-selector-inactive']"), "кнопка завершенные заказы");
+    Button allOrders = new Button(By.xpath("//button[@data-qa='user-shipment-list-selector-all']"), "кнопка все заказы");
+    Button goToShopping = new Button(By.xpath("//a[@data-qa='user-shipment-list-buy-more']"), "кнопка перейти к покупкам");
 }

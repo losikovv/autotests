@@ -154,6 +154,7 @@ public final class UserFavoritesTests extends BaseTest {
         Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER);
         shop().openFirstProductCard();
         shop().interactProductCard().addToFavorite();
+        shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().goToPage();
         shop().interactHeader().checkProfileButtonVisible();

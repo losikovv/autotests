@@ -23,6 +23,7 @@ import ru.instamart.api.response.v2.SessionsV2Response;
 import ru.instamart.api.response.v2.UserV2Response;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.ThreadUtil;
 
 import java.util.HashMap;
@@ -129,8 +130,8 @@ public final class SessionFactory {
         ThreadUtil.simplyAwait(1);
         Response response;
         //TODO: Когда api перейдет на qa ручку, нужно будет удалить условие
-        if (userData.getId() != null) {
-            response = PhoneConfirmationsV2Request.PUT(userData.getPhone(), userData.getPhone().substring(userData.getPhone().length() - 6), true);
+        if (nonNull(userData.getId())) {
+            response = PhoneConfirmationsV2Request.PUT(userData.getPhone(), StringUtil.getSMSCode(userData.getPhone()), true);
         } else {
             response = PhoneConfirmationsV2Request.PUT(userData.getPhone());
         }

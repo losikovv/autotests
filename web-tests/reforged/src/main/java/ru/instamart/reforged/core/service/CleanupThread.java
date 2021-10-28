@@ -70,7 +70,7 @@ public final class CleanupThread extends Thread {
     private class FinalClean extends Thread {
         @Override
         public void run() {
-            log.error("Cleanup all browsers");
+            log.debug("Cleanup all browsers");
             closeAllDriver();
         }
     }
