@@ -46,6 +46,11 @@ public final class HomePage implements StfPage, Window, HomeCheck {
         setAddress.click();
     }
 
+    @Step("Выбрать первый магазин в списке")
+    public void clickToStoreCard() {
+        storeCard.click();
+    }
+
     @Step("Нажать Показать всех ритейлеров")
     public void clickToShowAllRetailers() {
         showAllRetailers.click();

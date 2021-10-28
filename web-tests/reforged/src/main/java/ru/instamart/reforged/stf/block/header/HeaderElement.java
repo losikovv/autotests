@@ -41,6 +41,7 @@ public interface HeaderElement {
     DropDown searchDropDown = new DropDown(By.xpath("//div[@data-qa='offer']"));
     Element taxonCategories = new Element(By.xpath("//div[@class='header-search-list__categories']"), "Список категорий в подсказке поиска");
     Element taxonFirstCategory = new Element(By.xpath("//div[@class='header-search-list-category']"), "Первая категория в подсказке поиска");
+    ElementCollection searchSuggests = new ElementCollection(By.xpath("//div[@data-qa='offer']"), "Товарные подсказки поиска");
     Element minAmountAlert = new Element(By.xpath("//div[@class='alerts']//div[contains(@class, 'alert--error')]"), "Алерт минимальной суммы заказа в шапке");
     Element authOrRegAlert = new Element(By.xpath("//div[@class='alerts']//span[contains(text(), 'войти или зарегистрироваться')]"), "Алерт регистрации или авторизации в шапке");
 

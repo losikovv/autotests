@@ -13,6 +13,8 @@ public interface AddressElement {
     Input address = new Input(By.xpath("//input[@data-qa='address-modal-input']"), "поле ввода адреса");
     Element firstPrevAddresses = new Element(By.xpath("//div[@data-qa='address-modal-addresses']//div[@class='address-modal__address']"), "первый адрес из блока Предыдущие адреса");
 
+    Input addressNew = new Input(By.xpath("//div[contains(@class,'AddressModal')]//input"), "поле ввода адреса");
+
     DropDown dropDownAddress = new DropDown(By.xpath("//div[contains(@class,'dropdown')]/div/*[text()]"));
     Button save = new Button(By.xpath("//button[@data-qa='address-modal-submit']"), "кнопка Сохранить");
     Element outOfShippingZone = new Element(By.xpath("//div[text()='Адрес не в зоне доставки']"), "лейбл Адрес не в зоне доставки");

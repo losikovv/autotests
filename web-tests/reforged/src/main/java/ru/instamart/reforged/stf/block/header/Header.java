@@ -48,6 +48,11 @@ public final class Header implements HeaderCheck {
         taxonFirstCategory.click();
     }
 
+    @Step("Выбрать первую товарную подсказку в поиске")
+    public void clickOnFirstSearchSuggest() {
+        searchSuggests.getElements().get(0).click();
+    }
+
     @Step("Выбрать элемент поиска")
     public void clickSearchButton() {
         searchButton.click();

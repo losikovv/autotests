@@ -17,11 +17,11 @@ public final class StringUtil {
         return Integer.parseInt(text.replaceAll("\\D+",""));
     }
 
-    public static double orderAmountParse(String nonParsedAmount) {
-        nonParsedAmount = nonParsedAmount.replace(",",".").replace(" ", "");
+    public static double stringToDoubleParse(String stringToParse) {
+        stringToParse = stringToParse.replace(",",".").replace(" ", "");
 
-        var matcher = pattern.matcher(nonParsedAmount);
-        var sb = new StringBuilder();
+        Matcher matcher = pattern.matcher(stringToParse);
+        StringBuilder sb = new StringBuilder();
         while (matcher.find()) {
             sb.append(matcher.group());
         }

@@ -22,12 +22,12 @@ public final class Cart implements CartCheck {
 
     @Step("Вернуть значение стоимости товаров в корзине")
     public double returnOrderAmount() {
-        return StringUtil.orderAmountParse(orderAmount.getText());
+        return StringUtil.stringToDoubleParse(orderAmount.getText());
     }
 
     @Step("Вернуть значение мин суммы заказа в корзине")
     public double returnMinOrderAmount() {
-        return StringUtil.orderAmountParse(minAmountAlert.getText());
+        return StringUtil.stringToDoubleParse(minAmountAlert.getText());
     }
 
     @Step("Очистить корзину")

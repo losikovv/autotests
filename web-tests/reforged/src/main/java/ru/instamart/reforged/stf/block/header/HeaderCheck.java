@@ -128,6 +128,11 @@ public interface HeaderCheck extends Check, HeaderElement {
         waitAction().shouldBeVisible(taxonCategories);
     }
 
+    @Step("Проверяем, товарные подсказки в поиске отображаются")
+    default void checkSearchSuggestsVisible() {
+        waitAction().shouldBeVisible(searchSuggests);
+    }
+
     @Step("Проверяем, что выбран адрес доставки")
     default void checkIsShippingAddressSet() {
         waitAction().shouldBeVisible(enteredAddress);
