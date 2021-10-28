@@ -3,10 +3,10 @@ tests:ApiInstamart:
     variables:
       - $TEST_API_INSTAMART == 'true' && $CI_RUN_ALL_JOBS == 'false'
       - $CI_RUN_ALL_JOBS == 'true'
-  extends: ".template_run_all_jobs_at_a_time_on_master"
+  extends:
+      - ".template_run_all_jobs_at_a_time_on_master"
+      - ".template_api_tests"
   resource_group: apiInstamart:$URL_STF
-  stage: tests-api
-  image: $CI_REGISTRY_IMAGE
   script:
     - echo $P_ENV
     - echo $URL_STF
@@ -16,97 +16,47 @@ tests:ApiInstamart:
     - if [ $URL_STF == "stf-kraken.k-stage.sbermarket.tech" ]; then ALLURE_POSTFIX="preprod"; else ALLURE_POSTFIX="staging"; fi
     - echo $ALLURE_POSTFIX
     - bash ./report.sh api api-instamart-$ALLURE_POSTFIX
-  tags:
-    - k8s-stage
-  artifacts:
-    when: always
-    paths:
-      - web-tests/api/build/allure-results/
-      - web-tests/api/logs/
-      - web-tests/api/build/reports/tests/
-    expire_in: 1 week
-  allow_failure: false
 
 tests:preprodApiMetro:
-  extends: ".template_run_all_jobs_at_a_time_on_master"
+  extends:
+    - ".template_run_all_jobs_at_a_time_on_master"
+    - ".template_api_tests"
   resource_group: apiInstamart:$URL_STF
   when: manual
-  stage: tests-api
-  image: $CI_REGISTRY_IMAGE
   script:
     - gradle clean build apiInstamartRegress -Penv=metro-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - bash ./report.sh api api-metro-preprod
-  tags:
-    - k8s-stage
-  artifacts:
-    when: always
-    paths:
-      - web-tests/api/build/allure-results/
-      - web-tests/api/logs/
-      - web-tests/api/build/reports/tests/
-    expire_in: 1 week
-  allow_failure: false
 
 tests:prodApiInstamart:
-  extends: ".template_run_all_jobs_at_a_time_on_master"
+  extends:
+    - ".template_run_all_jobs_at_a_time_on_master"
+    - ".template_api_tests"
   resource_group: apiInstamartProd
   when: manual
-  stage: tests-api
-  image: $CI_REGISTRY_IMAGE
   script:
     - gradle clean build apiInstamartProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - bash ./report.sh api api-instamart-production
-  tags:
-    - k8s-stage
-  artifacts:
-    when: always
-    paths:
-      - web-tests/api/build/allure-results/
-      - web-tests/api/logs/
-      - web-tests/api/build/reports/tests/
-    expire_in: 1 week
-  allow_failure: false
 
 tests:prodApiRetailer:
-  extends: ".template_run_all_jobs_at_a_time_on_master"
+  extends:
+    - ".template_run_all_jobs_at_a_time_on_master"
+    - ".template_api_tests"
   when: manual
-  stage: tests-api
-  image: $CI_REGISTRY_IMAGE
   script:
     - gradle clean build apiRetailerE2E -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - bash ./report.sh api api-retailer-e2e-production
-  tags:
-    - k8s-stage
-  artifacts:
-    when: always
-    paths:
-      - web-tests/api/build/allure-results/
-      - web-tests/api/logs/
-      - web-tests/api/build/reports/tests/
-    expire_in: 1 week
-  allow_failure: false
 
 tests:surge:
   resource_group: testSurge
   only:
     variables:
       - $API_SURGE_ALONE == 'true' && $CI_RUN_ALL_JOBS == 'false'
-  stage: tests-api
-  image: $CI_REGISTRY_IMAGE
+  extends:
+    - ".template_api_tests"
   script:
     - gradle clean build apiSurge -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - bash ./report.sh api api-surge
-  tags:
-    - k8s-stage
-  artifacts:
-    when: always
-    paths:
-      - web-tests/api/build/allure-results/
-      - web-tests/api/logs/
-      - web-tests/api/build/reports/tests/
-    expire_in: 1 week
-  allow_failure: false
