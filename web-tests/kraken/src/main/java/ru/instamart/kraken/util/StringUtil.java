@@ -20,17 +20,16 @@ public final class StringUtil {
     public static double orderAmountParse(String nonParsedAmount) {
         nonParsedAmount = nonParsedAmount.replace(",",".").replace(" ", "");
 
-        Matcher matcher = pattern.matcher(nonParsedAmount);
-        StringBuilder sb = new StringBuilder();
-        while (matcher.find())
-        {
+        var matcher = pattern.matcher(nonParsedAmount);
+        var sb = new StringBuilder();
+        while (matcher.find()) {
             sb.append(matcher.group());
         }
 
         return Double.parseDouble(sb.toString());
     }
 
-    public static String cutBasicAuthFromUrl(String url) {
+    public static String cutBasicAuthFromUrl(final String url) {
         return url.replace(EnvironmentProperties.HTTP_AUTH, "");
     }
 

@@ -2,16 +2,20 @@ package ru.instamart.test.reforged.stf.order;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.AddressDetailsData;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.PaymentCards;
+import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.stf.page.StfRouter;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -232,5 +236,45 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
         userShipments().checkPageContains(userShipments().pageUrl());
+    }
+
+    @CaseId(2558)
+    @Story("Данные профиля пользователя")
+    @Test(description = "Автоматическая подстановка данных в аккаунт после прохождения чекаута", groups = {"acceptance", "regression"})
+    public void updateUserDataAfterCheckout() {
+        final AddressDetailsData data = TestVariables.testAddressData();
+        userData = UserManager.getUser();
+        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
+
+        checkout().goToPage();
+        checkout().setDeliveryOptions().clickToForSelf();
+        checkout().setDeliveryOptions().fillApartment(data.getApartment());
+        checkout().setDeliveryOptions().fillFloor(data.getFloor());
+        checkout().setDeliveryOptions().checkElevator();
+        checkout().setDeliveryOptions().fillEntrance(data.getEntrance());
+        checkout().setDeliveryOptions().fillDoorPhone(data.getDomofon());
+        checkout().setDeliveryOptions().fillComments(data.getComments());
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+
+        checkout().setContacts().fillContactInfo(userData);
+        checkout().setContacts().clickToSubmit();
+
+        checkout().setReplacementPolicy().clickToSubmit();
+
+        checkout().setSlot().setFirstActiveSlot();
+
+        checkout().setPayment().clickToSubmitFromCheckoutColumn();
+
+        userShipments().checkPageContains(userShipments().pageUrl());
+
+        userEdit().goToPage();
+
+        userEdit().checkFullName(userEdit().getName(), userData.getName());
     }
 }

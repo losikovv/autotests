@@ -2,6 +2,7 @@ package ru.instamart.reforged.stf.page.checkout.secondStep;
 
 import io.qameta.allure.Step;
 import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.data.user.UserData;
 
 public class ContactsStep implements ContactsStepElement {
 
@@ -10,6 +11,13 @@ public class ContactsStep implements ContactsStepElement {
         fillFirstName(Generate.literalString(8));
         fillLastName(Generate.literalString(8));
         fillEmail(Generate.email());
+    }
+
+    @Step("Заполнить контактные данные значениями из userData {0}")
+    public void fillContactInfo(final UserData userData) {
+        fillFirstName(userData.getFirstName());
+        fillLastName(userData.getLastName());
+        fillEmail(userData.getEmail());
     }
 
     @Step("Заполнить имя")
