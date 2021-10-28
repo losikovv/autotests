@@ -1,14 +1,10 @@
 package ru.instamart.reforged.stf.page.user.profile;
 
 import io.qameta.allure.Step;
-import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.stf.frame.EmailFrame;
-import ru.instamart.reforged.stf.frame.EmailSuccessFrame;
 import ru.instamart.reforged.stf.frame.FullName;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 import ru.instamart.reforged.stf.page.StfPage;
-
-import static ru.instamart.reforged.stf.page.user.profile.UserProfileElement.*;
 
 public final class UserProfilePage implements StfPage, UserProfileCheck {
 

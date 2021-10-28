@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.stf.frame.EmailFrame;
-import ru.instamart.reforged.stf.frame.EmailSuccessFrame;
 import ru.instamart.reforged.stf.frame.FullName;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 
