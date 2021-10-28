@@ -66,16 +66,16 @@ public final class ProductsV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    //TODO: Сейчас в ответ прилетает 500
     @CaseId(262)
     @Issue("STF-9240")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Существующий sid",
-            groups = {"api-instamart-smoke", "api-instamart-prod"},
-            enabled = false)
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductsWithValidSid() {
-        response = ProductsV2Request.GET(1);
+        response = ProductsV2Request.GET(1, 13610);
         checkStatusCode200(response);
+        final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
+        checkFieldIsNotEmpty(productsV2Response.getProducts(), "продукты");
     }
 
     @CaseId(263)

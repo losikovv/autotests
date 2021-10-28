@@ -17,9 +17,7 @@ import ru.instamart.api.request.v2.CreditCardsV2Request;
 import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
 import ru.instamart.api.response.v2.CreditCardV2Response;
 import ru.instamart.api.response.v2.CreditCardsV2Response;
-import ru.instamart.api.response.v2.SessionsV2Response;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
@@ -69,7 +67,7 @@ public class CreditCardsV2Test extends RestBase {
     @Test(enabled = false,
             groups = {"api-instamart-regress"},
             description = "Добавить новую карту с дополнительным полем title")
-    public void AddANewCardWithAnAdditionalTitleField() {
+    public void addANewCardWithAnAdditionalTitleField() {
         String card = CreditCardV2.CARD1.getNumber();
         String lastDigits = card.substring(card.lastIndexOf(" ") + 1);
         final CreditCard creditCard = CreditCard.builder()

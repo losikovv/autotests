@@ -14,7 +14,7 @@ public final class ProductsV2Request extends ApiV2RequestBase {
      * Получить продукты
      */
     public static Response GET(Integer sid) {
-        return GET(sid, null);
+        return GET(sid, (String) null);
     }
 
     /**
@@ -22,6 +22,13 @@ public final class ProductsV2Request extends ApiV2RequestBase {
      */
     public static Response GET(Integer sid, String query) {
         return GET(sid, query, null);
+    }
+
+    /**
+     * Получить продукты
+     */
+    public static Response GET(Integer sid, Integer tid) {
+        return GET(sid, tid,null);
     }
 
     /**

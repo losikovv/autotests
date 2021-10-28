@@ -110,8 +110,7 @@ public class OrdersV1Test extends RestBase {
     @CaseId(119)
     @Test(description = "Контрактный тест списка предзамен для товара из шипмента",
             groups = "api-instamart-regress",
-            dependsOnMethods = "getLineItems",
-            enabled = false) //todo теперь "Должен быть указан ключ API"
+            dependsOnMethods = "getLineItems")
     public void getShipmentProductsPrereplacements() {
         Response response = ShipmentsV1Request.Products.Prereplacements.GET(shipmentNumber, Long.parseLong(productSku));
         checkStatusCode200(response);
@@ -123,8 +122,7 @@ public class OrdersV1Test extends RestBase {
     @Issues({@Issue("INFRADEV-3167"), @Issue("STF-9483")})
     @Story("Заказы")
     @CaseId(120)
-    @Test(enabled = false,
-            description = "Контрактный тест списка сэмплов в шипменте",
+    @Test(description = "Контрактный тест списка сэмплов в шипменте",
             groups = "api-instamart-regress",
             dependsOnMethods = "getShipment")
     public void getShopperMarketingSampleItems() {
