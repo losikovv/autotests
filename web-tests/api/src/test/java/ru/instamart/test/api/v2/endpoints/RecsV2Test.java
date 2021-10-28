@@ -23,7 +23,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 @Feature("Запрос рекомендаций")
 public class RecsV2Test extends RestBase {
 
-    @CaseId(287)
+    @CaseId(974)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Запрос рекомендаций с обязательными параметрами")
     public void testRecsTest() {
@@ -52,7 +52,9 @@ public class RecsV2Test extends RestBase {
                                                 .build()
                                 )
                                 .user(PersonalV2Request.User.builder()
-                                        .id(UUID.randomUUID().toString())
+                                        .ext(PersonalV2Request.UserExt.builder()
+                                                .anonymousId(UUID.randomUUID().toString())
+                                                .build())
                                         .build())
                                 .build()
                 )
@@ -61,10 +63,10 @@ public class RecsV2Test extends RestBase {
         final Response response = PersonalV2Request.POST(recsV2);
         checkStatusCode200(response);
         final RecsV2Response recsV2Response = response.as(RecsV2Response.class);
-        assertNotNull(recsV2Response.getRecs(), "Рекомендации вернулись пустые"); //ATST-805
+        checkFieldIsNotEmpty(recsV2Response.getRecs(), "рекомендации");
     }
 
-    @CaseId(288)
+    @CaseId(975)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Запрос рекомендаций с отсутствующим обязательным параметром",
             dataProvider = "testNegativeRecsTest",

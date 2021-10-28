@@ -126,8 +126,18 @@ public class PersonalV2Request extends ApiV2RequestBase {
     @Data
     public static class User{
         private Geo geo;
-        private SiteAndAppExt ext;
+        private UserExt ext;
         private String data;
         private String id;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Builder
+    @Data
+    public static class UserExt{
+        @JsonProperty("anonymous_id")
+        private String anonymousId;
+        @JsonProperty("appsflyer_id")
+        private String appsflyerId;
     }
 }

@@ -10,10 +10,12 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.request.v2.SimpleRecsPersonalV2Request;
+import ru.instamart.api.response.v2.RecsV2Response;
 import ru.instamart.api.response.v2.SimpleRecsV2Response;
 
 import java.util.UUID;
 
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode400;
 
@@ -36,6 +38,7 @@ public class SimpleRecsV2Test extends RestBase {
                                 .domain("ru.sbermarket.new-app")
                                 .build())
                         .user(SimpleRecsPersonalV2Request.User.builder()
+                                .id(UUID.randomUUID().toString())
                                 .geo(SimpleRecsPersonalV2Request.Geo.builder()
                                         .lat(55.790447999999998D)
                                         .lon(37.680517000000002D)
@@ -52,7 +55,8 @@ public class SimpleRecsV2Test extends RestBase {
                 .build();
         final Response response = SimpleRecsPersonalV2Request.POST(allRequiredParameters);
         checkStatusCode200(response);
-        response.as(SimpleRecsV2Response.class);
+        final SimpleRecsV2Response recsV2Response = response.as(SimpleRecsV2Response.class);
+        checkFieldIsNotEmpty(recsV2Response.getMedia(), "рекомендации");
     }
 
     @CaseId(288)

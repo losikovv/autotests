@@ -78,6 +78,7 @@ public class SimpleRecsPersonalV2Request extends ApiV2RequestBase {
     @Builder
     @Data
     public static class User {
+        private String id;
         private Geo geo;
         private UserExt ext;
     }
