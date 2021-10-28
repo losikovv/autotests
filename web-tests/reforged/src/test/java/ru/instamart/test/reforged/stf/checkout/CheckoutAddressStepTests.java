@@ -51,7 +51,7 @@ public final class CheckoutAddressStepTests extends BaseTest {
 
         checkout().checkDeliveryOptionMinimized();
         checkout().refresh();
-        checkout().setDeliveryOptions().checkForSelfIsSelected(false);
+        checkout().setDeliveryOptions().checkForSelfIsSelected(checkout().setDeliveryOptions().getForSelfState());
         checkout().setDeliveryOptions().checkApartmentValue(checkout().setDeliveryOptions().getApartmentValue(), data.getApartment());
         checkout().setDeliveryOptions().checkFloorValue(checkout().setDeliveryOptions().getFloorValue(), data.getFloor());
         checkout().setDeliveryOptions().checkElevatorIsSelected(checkout().setDeliveryOptions().getElevatorState());
