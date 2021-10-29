@@ -100,7 +100,9 @@ public final class ApiV2EndPoints {
         public static final String SHIP_ADDRESS = "v2/orders/{orderNumber}/ship_address";
         public static final String SHIP_ADDRESS_CHANGE = "v2/orders/{orderNumber}/ship_address_change";
         public static final String STATUS = "v2/orders?status={status}&page={page}";
+        public static final String PAGE = "v2/orders?page={page}";
         public static final String UNRATED = "v2/orders/unrated";
+        public static final String PREVIOUS = "v2/orders/previous";
         public static final String PROMOTIONS = "v2/orders/{orderNumber}/promotions";
         public static final String PROMOTION_CODE = "v2/orders/{orderNumber}/promotions/{promoCode}";
         public static final String PROMOTION_LIMITS = "v2/orders/{orderNumber}/promotion_limits";

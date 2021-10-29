@@ -3,7 +3,7 @@ package ru.instamart.test.api.v2.deprecated;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -22,7 +22,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCod
 @Deprecated
 public class DeliveryAvailabilityV2Test extends RestBase {
 
-    @BeforeTest
+    @BeforeMethod
     public void testUp() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
     }

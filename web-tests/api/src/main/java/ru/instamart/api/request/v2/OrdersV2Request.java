@@ -28,6 +28,12 @@ public final class OrdersV2Request extends ApiV2RequestBase {
                 .get(ApiV2EndPoints.Orders.STATUS, status.getStatus(), page);
     }
 
+    @Step("{method} /" + ApiV2EndPoints.Orders.PAGE)
+    public static Response GET(int page) {
+        return givenWithAuth()
+                .get(ApiV2EndPoints.Orders.PAGE, page);
+    }
+
     /**
      * Получение заказов
      */
@@ -236,6 +242,15 @@ public final class OrdersV2Request extends ApiV2RequestBase {
         public static Response GET() {
             return givenWithAuth()
                     .get(ApiV2EndPoints.Orders.UNRATED);
+        }
+    }
+
+    public static class Previous {
+
+        @Step("{method} /" + ApiV2EndPoints.Orders.PREVIOUS)
+        public static Response GET(){
+            return givenWithAuth()
+                    .get(ApiV2EndPoints.Orders.PREVIOUS);
         }
     }
 
