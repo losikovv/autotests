@@ -21,7 +21,9 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
 
 import static org.testng.Assert.assertFalse;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
 @Feature("Заказы")
@@ -61,6 +63,17 @@ public class OrdersComplexCollectV2Test extends RestBase {
         softAssert.assertEquals(ordersV2Response.getMeta().getPerPage(), Integer.valueOf(10), "Per page not valid");
         softAssert.assertNotNull(ordersV2Response.getMeta().getTotalCount(), "Total count not valid");
         softAssert.assertAll();
+    }
+
+    @CaseId(307)
+    @Story("Получение информации о предыдущем заказе")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получение информации о предыдущем заказе. Нет предыдущих заказов")
+    public void getPreviousOrder() {
+        SessionFactory.makeSession(SessionType.API_V2_FB);
+        final Response response = OrdersV2Request.Previous.GET();
+        checkStatusCode404(response);
+        errorAssert(response, "У пользователя нет прошлых заказов");
     }
 
     @Deprecated

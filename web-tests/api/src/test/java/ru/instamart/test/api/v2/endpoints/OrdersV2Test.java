@@ -636,14 +636,4 @@ public class OrdersV2Test extends RestBase {
         checkStatusCode404(response);
         errorAssert(response, "Заказ не существует");
     }
-
-    @CaseId(307)
-    @Story("Получение информации о предыдущем заказе")
-    @Test(groups = {"api-instamart-regress"},
-            description = "Получение информации о предыдущем заказе. Нет предыдущих заказов")
-    public void getPreviousOrder() {
-        final Response response = OrdersV2Request.Previous.GET();
-        checkStatusCode404(response);
-        errorAssert(response, "У пользователя нет прошлых заказов");
-    }
 }
