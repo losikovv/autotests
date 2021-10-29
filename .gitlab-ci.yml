@@ -148,9 +148,10 @@ tests:Debug:
 
 qase:actualize:
   only:
+    refs:
+      - schedules
     variables:
-      - $TEST_API_INSTAMART == 'false' && $CI_RUN_ALL_JOBS == 'false' && $API_SHOPPER_ALONE == 'false'
-  when: manual
+      - $ACTUALIZATION == 'true'
   image: $CI_REGISTRY_IMAGE
   stage: tests-api
   script:
