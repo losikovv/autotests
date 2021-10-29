@@ -1,26 +1,32 @@
-tests:metroRegression:
-  extends:
-    - ".template_ui_tests"
-    - ".template_run_schedule"
+tests:metroSmoke:
+  only:
+    variables:
+      - $TEST_API_INSTAMART == 'false' && $CI_RUN_ALL_JOBS == 'false' && $API_SHOPPER_ALONE == 'false'
+  when: manual
+  extends: ".template_ui_tests"
   script:
-    - gradle clean build metroRegression -Penv=metro-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build metroSmok -Penv=metro-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - bash ./report.sh reforged ui-metro-preprod
 
-tests:okeyRegression:
-  extends:
-    - ".template_ui_tests"
-    - ".template_run_schedule"
+tests:okeySmoke:
+  only:
+    variables:
+      - $TEST_API_INSTAMART == 'false' && $CI_RUN_ALL_JOBS == 'false' && $API_SHOPPER_ALONE == 'false'
+  when: manual
+  extends: ".template_ui_tests"
   script:
-    - gradle clean build okeyRegression -Penv=okey-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build okeySmoke -Penv=okey-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - bash ./report.sh reforged ui-okey-preprod
 
-tests:selgrosRegression:
-  extends:
-    - ".template_ui_tests"
-    - ".template_run_schedule"
+tests:selgrosSmoke:
+  only:
+    variables:
+      - $TEST_API_INSTAMART == 'false' && $CI_RUN_ALL_JOBS == 'false' && $API_SHOPPER_ALONE == 'false'
+  when: manual
+  extends: ".template_ui_tests"
   script:
-    - gradle clean build selgrosRegression -Penv=selgros-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle clean build selgrosSmoke -Penv=selgros-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - bash ./report.sh reforged ui-selgros-preprod

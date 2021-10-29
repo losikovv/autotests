@@ -1,8 +1,10 @@
 tests:product:hub:
   resource_group: testProductHub
+  only:
+    variables:
+      - $GRPC_PRODUCT_HUB_ALONE == 'true' && $CI_RUN_ALL_JOBS == 'false'
   extends:
     - ".template_grpc_tests"
-    - ".template_run_schedule"
   script:
     - gradle clean build grpcProductHub -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
