@@ -16,13 +16,6 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Чат поддержки")
 public final class HelpDeskChatTests extends BaseTest {
 
-    @CaseId(1757)
-    @Test(description = "Тест отсутствия виджета HelpDesk на лендинге", groups = {"acceptance","regression",})
-    public void noHelpDeskWidgetOnLanding() {
-        home().goToPage();
-        home().interactHelpDesk().checkHelpDeskWidgetNotVisible();
-    }
-
     @CaseId(1758)
     @Test(description = "Тест отсутствия виджета HelpDesk в чекауте", groups = {"acceptance","regression",})
     public void noHelpDeskWidgetOnCheckout() {

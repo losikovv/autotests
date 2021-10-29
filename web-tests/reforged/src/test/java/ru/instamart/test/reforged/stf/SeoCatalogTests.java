@@ -66,6 +66,7 @@ public final class SeoCatalogTests extends BaseTest {
         seo().interactProductCard().clickOnBuy();
 
         seo().interactHeader().interactAddress().clickToLogin();
+        seo().interactAuthModal().checkModalIsVisible();
         seo().interactAuthModal().authViaPhone(UserManager.getQaUser());
         seo().interactHeader().checkProfileButtonVisible();
     }

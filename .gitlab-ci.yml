@@ -20,12 +20,41 @@ stages:
   - tests-ui
   - custom-run
 
-.template_run_all_jobs_at_a_time_on_master:
-  only:
-    refs:
-      - master
-    variables:
-      - $CI_RUN_ALL_JOBS == 'true'
+.template_actualization:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $ACTUALIZATION == "true"'
+      when: always
+    - when: never
+
+.template_run_debug:
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "master" && $CI_PIPELINE_SOURCE != "schedule" && $CI_PIPELINE_SOURCE != "merge_request_event"'
+      when: manual
+    - when: never
+
+.template_run_schedule:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $REGRESSION == "true"'
+      when: always
+    - when: never
+
+.template_run_jobs_at_a_time_on_master:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master" && $GRPC_PRODUCT_HUB_ALONE == "true" && $CI_RUN_ALL_JOBS == "false"'
+      when: always
+    - if: '$CI_COMMIT_BRANCH == "master" && $CI_RUN_ALL_JOBS == "true"'
+      when: always
+    - if: '$CI_COMMIT_BRANCH == "master" && $TEST_API_SHOPPER == "true" && $CI_RUN_ALL_JOBS == "false"'
+      when: always
+    - if: '$CI_COMMIT_BRANCH == "master" && $API_SHOPPER_ALONE == "true" && $CI_RUN_ALL_JOBS == "false"'
+      when: always
+    - if: '$CI_COMMIT_BRANCH == "master" && $TEST_API_INSTAMART == "true" && $CI_RUN_ALL_JOBS == "false"'
+      when: always
+    - if: '$CI_COMMIT_BRANCH == "master" && $TEST_UI_SMOKE == "true" && $CI_RUN_ALL_JOBS == "false"'
+      when: always
+    - if: '$CI_COMMIT_BRANCH == "master" && $TEST_ADMIN_UI_SMOKE == "true" && $CI_RUN_ALL_JOBS == "false"'
+      when: always
+    - when: never
 
 .template_api_tests:
   stage: tests-api
@@ -126,10 +155,7 @@ tests:AutoMRCheck:
   allow_failure: true
 
 tests:Debug:
-  rules:
-    - if: '$CI_COMMIT_BRANCH != "master"'
-      when: manual
-      allow_failure: true
+  extends: ".template_run_debug"
   stage: tests-api
   image: $CI_REGISTRY_IMAGE
   script:
@@ -147,10 +173,8 @@ tests:Debug:
     expire_in: 1 week
 
 qase:actualize:
-  only:
-    variables:
-      - $TEST_API_INSTAMART == 'false' && $CI_RUN_ALL_JOBS == 'false' && $API_SHOPPER_ALONE == 'false'
-  when: manual
+  extends:
+    - ".template_actualization"
   image: $CI_REGISTRY_IMAGE
   stage: tests-api
   script:
