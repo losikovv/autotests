@@ -71,7 +71,7 @@
 <#if data.curl??>
 <h4>Curl</h4>
 <div>
-    <pre><code>${data.curl}</code></pre
+    <pre><code>${data.curl}</code></pre>
 </div>
 </#if>
 </body>
