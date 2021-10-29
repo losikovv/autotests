@@ -34,7 +34,7 @@ stages:
 
 .template_run_schedule:
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $REGRESSION == "true"'
+    - if: '$CI_PIPELINE_SOURCE != "schedule"'
       when: always
     - when: never
 
