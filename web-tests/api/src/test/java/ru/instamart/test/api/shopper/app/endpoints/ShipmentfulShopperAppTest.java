@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
+import io.restassured.response.Response;
 import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -21,6 +22,7 @@ import ru.instamart.kraken.data.user.UserManager;
 
 import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkIsDeliveryToday;
 import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
 
@@ -31,6 +33,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     String assemblyId;
     String assemblyItemId;
     Integer itemQty;
+    String shipmentNumber;
 
     @BeforeClass(alwaysRun = true,
             description = "Оформляем заказ")
@@ -38,11 +41,12 @@ public class ShipmentfulShopperAppTest extends RestBase {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);
         OrderV2 order = apiV2.order(userData, EnvironmentProperties.DEFAULT_SID);
+        shipmentNumber = order.getShipments().get(0).getNumber();
         if (order == null) throw new SkipException("Заказ не удалось оплатить");
         String isDeliveryToday = checkIsDeliveryToday(order);
         shopperApp.authorisation(UserManager.getDefaultShopper());
         shopperApp.deleteCurrentAssembly();
-        shipmentId = shopperApp.getShipmentId(order.getShipments().get(0).getNumber(), isDeliveryToday);
+        shipmentId = shopperApp.getShipmentId(shipmentNumber, isDeliveryToday);
     }
 
     @AfterClass(alwaysRun = true,
@@ -131,13 +135,27 @@ public class ShipmentfulShopperAppTest extends RestBase {
     }
 
     @Story("Хелпдеск")
+    @CaseId(102)
+    @Test(description = "Создаем новый тикет в хелпдеске",
+            groups = {"api-shopper-smoke", "api-shopper-prod"})
+    public void createHelpdeskTicket() {
+        Response response = HelpdeskSHPRequest.Tickets.POST(shipmentId);
+        checkStatusCode200(response);
+        TicketSHPResponse ticketFromResponse = response.as(TicketSHPResponse.class);
+        compareTwoObjects(ticketFromResponse.getData().getAttributes().getTitle(), shipmentNumber + " АПИ-АВТОТЕСТ");
+    }
+
+    @Story("Хелпдеск")
     @CaseId(8)
     @Test(description = "Получаем тикеты хелпдеска",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {"api-shopper-smoke", "api-shopper-prod"},
+            dependsOnMethods = {"createHelpdeskTicket"})
     public void getHelpdeskTickets200() {
-        response = HelpdeskSHPRequest.Tickets.GET(shipmentId);
+        Response response = HelpdeskSHPRequest.Tickets.GET(shipmentId);
         checkStatusCode200(response);
-        assertNotNull(response.as(TicketsSHPResponse.class).getData(), "Не вернулись тикеты хелпдеска"); //ATST-803
+        TicketsSHPResponse ticketsFromResponse = response.as(TicketsSHPResponse.class);
+        checkFieldIsNotEmpty(ticketsFromResponse.getData(), "тикеты хелпдеска");
+        compareTwoObjects(ticketsFromResponse.getData().get(0).getAttributes().getTitle(), shipmentNumber + " АПИ-АВТОТЕСТ");
     }
 
     @Story("Получение информации о заказах")

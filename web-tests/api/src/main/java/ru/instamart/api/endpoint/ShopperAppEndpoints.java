@@ -76,7 +76,7 @@ public final class ShopperAppEndpoints {
     }
 
     public static class Helpdesk {
-        public static final String TICKETS = "helpdesk/tickets?shipment_id={shipmentId}";
+        public static final String TICKETS = "helpdesk/tickets";
     }
 
     public static class Auth {
