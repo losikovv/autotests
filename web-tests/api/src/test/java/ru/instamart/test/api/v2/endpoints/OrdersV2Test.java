@@ -555,7 +555,7 @@ public class OrdersV2Test extends RestBase {
     public void createNewOrder() {
         SessionFactory.clearSession(SessionType.API_V2_FB);
         SessionFactory.makeSession(SessionType.API_V2_FB);
-        Response response = OrdersV2Request.POST();
+        final Response response = OrdersV2Request.POST();
         checkStatusCode200(response);
         OrderV2Response order = response.as(OrderV2Response.class);
         checkFieldIsNotEmpty(order.getOrder().getNumber(), "номер заказа");
@@ -570,7 +570,7 @@ public class OrdersV2Test extends RestBase {
     public void getOrderByNumber() {
         UserData userData = SessionFactory.getSession(SessionType.API_V2_FB).getUserData();
         OrderV2 order = apiV2.order(userData, EnvironmentProperties.DEFAULT_SID);
-        Response response = OrdersV2Request.GET(order.getNumber());
+        final Response response = OrdersV2Request.GET(order.getNumber());
         checkStatusCode200(response);
         OrderV2 orderFromResponse = response.as(OrderV2Response.class).getOrder();
         compareTwoObjects(order, orderFromResponse);
@@ -581,7 +581,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Получение данных о заказе по несуществующему номеру")
     public void getOrderByNonExistingNumber() {
-        Response response = OrdersV2Request.GET("failedNumber");
+        final Response response = OrdersV2Request.GET("failedNumber");
         checkStatusCode404(response);
         errorAssert(response, "Заказ не существует");
     }
@@ -591,7 +591,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Получение текущего заказа пользователем, у которого есть заказ")
     public void getCurrentOrder() {
-        Response response = OrdersV2Request.Current.GET();
+        final Response response = OrdersV2Request.Current.GET();
         checkStatusCode200(response);
         OrderV2Response orderFromResponse = response.as(OrderV2Response.class);
         checkFieldIsNotEmpty(orderFromResponse.getOrder(), "заказ");
@@ -605,7 +605,7 @@ public class OrdersV2Test extends RestBase {
     public void getNonExistingCurrentOrder() {
         SessionFactory.clearSession(SessionType.API_V2_FB);
         SessionFactory.makeSession(SessionType.API_V2_FB);
-        Response response = OrdersV2Request.Current.GET();
+        final Response response = OrdersV2Request.Current.GET();
         checkStatusCode404(response);
         errorAssert(response, "У пользователя нет текущего заказа");
     }
@@ -616,12 +616,12 @@ public class OrdersV2Test extends RestBase {
             description = "Мердж существующего заказа без авторизации с текущим заказом пользователя")
     public void mergeCurrentOrderWithUnauthorizedOrder() {
         SessionFactory.clearSession(SessionType.API_V2_FB);
-        Response responseForUnauthorizedOrder = OrdersV2Request.POST();
+        final Response responseForUnauthorizedOrder = OrdersV2Request.POST();
         checkStatusCode200(responseForUnauthorizedOrder);
         OrderV2 unauthorizedOrder = responseForUnauthorizedOrder.as(OrderV2Response.class).getOrder();
         SessionFactory.makeSession(SessionType.API_V2_FB);
 
-        Response responseForCurrentOrder = OrdersV2Request.Current.PUT(unauthorizedOrder.getUuid());
+        final Response responseForCurrentOrder = OrdersV2Request.Current.PUT(unauthorizedOrder.getUuid());
         OrderV2Response orderFromResponse = responseForCurrentOrder.as(OrderV2Response.class);
         checkFieldIsNotEmpty(orderFromResponse.getOrder(), "заказ");
         compareTwoObjects(unauthorizedOrder, orderFromResponse.getOrder());
@@ -632,8 +632,18 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Мердж несуществующего заказа без авторизации с текущим заказом пользователя")
     public void mergeCurrentOrderWithNonExistingOrder() {
-        Response response = OrdersV2Request.Current.PUT("failedUuid");
+        final Response response = OrdersV2Request.Current.PUT("failedUuid");
         checkStatusCode404(response);
         errorAssert(response, "Заказ не существует");
+    }
+
+    @CaseId(307)
+    @Story("Получение информации о предыдущем заказе")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получение информации о предыдущем заказе. Нет предыдущих заказов")
+    public void getPreviousOrder() {
+        final Response response = OrdersV2Request.Previous.GET();
+        checkStatusCode404(response);
+        errorAssert(response, "У пользователя нет прошлых заказов");
     }
 }
