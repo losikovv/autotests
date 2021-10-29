@@ -33,6 +33,7 @@ stages:
       - schedules
     variables:
       - $REGRESSION == 'true'
+    when: always
 
 .template_run_all_jobs_at_a_time_on_master:
   only:
