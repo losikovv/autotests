@@ -128,9 +128,21 @@ public interface HeaderCheck extends Check, HeaderElement {
         waitAction().shouldBeVisible(taxonCategories);
     }
 
+    @Step("Проверяем, что категорийные подсказки при поиске алко имеют картинки 18+")
+    default void checkAlcoStubInCategories() {
+        krakenAssert.assertTrue(taxonCategoriesCollection.getElements().size() ==
+                               taxonCategoriesCollectionImagesAlco.getElements().size());
+    }
+
+    @Step("Проверяем, что товарные подсказки при поиске алко имеют картинки 18+")
+    default void checkAlcoStubInSuggest() {
+        krakenAssert.assertTrue(searchSuggestsCollection.getElements().size() ==
+                searchSuggestsCollectionImagesAlco.getElements().size());
+    }
+
     @Step("Проверяем, товарные подсказки в поиске отображаются")
     default void checkSearchSuggestsVisible() {
-        waitAction().shouldBeVisible(searchSuggests);
+        waitAction().shouldBeVisible(searchSuggestsCollection);
     }
 
     @Step("Проверяем, что выбран адрес доставки")

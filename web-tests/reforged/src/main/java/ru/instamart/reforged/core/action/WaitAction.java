@@ -65,6 +65,11 @@ public final class WaitAction {
                 .until(KrakenCondition.elementSelectCheckboxState(component.getBy(), selected));
     }
 
+    public boolean elementSelectCheckboxState(final Component component, final boolean selected, final Object... args) {
+        return createWait(component)
+                .until(KrakenCondition.elementSelectCheckboxState(component.getBy(args), selected));
+    }
+
     public boolean urlEquals(final String url) {
         return createWait(WaitProperties.BASIC_TIMEOUT, "Текущая страница отличается от ожидаемой")
                 .until(ExpectedConditions.urlToBe(url));

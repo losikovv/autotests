@@ -45,11 +45,13 @@ public interface Page extends PageCheck {
 
     @Step("Скроллим страницу вверх")
     default void scrollUp() {
+        Kraken.jsAction().jQueryReady();
         Kraken.jsAction().scrollToTheTop();
     }
 
     @Step("Скроллим страницу вниз")
     default void scrollDown() {
+        Kraken.jsAction().jQueryReady();
         Kraken.jsAction().scrollToTheBottom();
     }
 

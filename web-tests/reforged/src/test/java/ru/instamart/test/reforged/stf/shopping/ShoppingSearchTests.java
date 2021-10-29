@@ -135,10 +135,11 @@ public final class ShoppingSearchTests extends BaseTest {
         search().checkSearchProductsSkeletonVisible();
         search().checkSearchProductsSkeletonNotVisible();
 
-        final double firstPrice = search().returnFirstProductPrice();
-        final double secondPrice = search().returnSecondProductPrice();
+        final double firstPrice = search().returnProductPrice(0);
+        final double secondPrice = search().returnProductPrice(1);
 
         search().checkPriceAscSortCorrect(firstPrice, secondPrice);
+        search().assertAll();
     }
 
     @CaseId(2590)
@@ -147,9 +148,29 @@ public final class ShoppingSearchTests extends BaseTest {
             groups = {"regression"}
     )
     public void successApplyFilters() {
-        shop().openSitePage(ShopUrl.DEFAULT + "c/new-molochnyie-produkty/moloko/korovie");
-        search().clickToDiscountFilter();
+        shop().openSitePage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
 
+        search().checkSearchProductsSpinnerVisible();
+        search().checkSearchProductsSpinnerNotVisible();
+
+        final double startProductsQuantity = search().returnSearchProductsQuantity();
+
+        search().clickToDiscountFilter();
+        search().checkSearchProductsSkeletonVisible();
+        search().checkSearchProductsSkeletonNotVisible();
+
+        final double discountFilterProductsQuantity = search().returnSearchProductsQuantity();
+
+        search().checkQuantitiesNotEquals(startProductsQuantity, discountFilterProductsQuantity);
+        search().clickOnFilter("Ультрапастеризованное");
+
+        search().checkSearchProductsSkeletonVisible();
+        search().checkSearchProductsSkeletonNotVisible();
+
+        final double someFilterProductsQuantity = search().returnSearchProductsQuantity();
+        search().checkQuantitiesNotEquals(discountFilterProductsQuantity, someFilterProductsQuantity);
+
+        search().assertAll();
     }
 
     @CaseId(2591)
@@ -158,7 +179,63 @@ public final class ShoppingSearchTests extends BaseTest {
             groups = {"regression"}
     )
     public void successApplyFiltersAndSort() {
+        double ascFirstPrice, ascSecondPrice,
+               descFirstPrice, descSecondPrice;
+        shop().goToPage();
+        shop().interactHeader().fillSearch("кофе");
+        shop().interactHeader().clickSearchButton();
 
+        search().checkSearchProductsSpinnerVisible();
+        search().checkSearchProductsSpinnerNotVisible();
+
+        search().selectSort("Сначала дешевые");
+
+        ascFirstPrice = search().returnProductPrice(0);
+        ascSecondPrice = search().returnProductPrice(1);
+
+        search().checkPriceAscSortCorrect(ascFirstPrice, ascSecondPrice);
+
+        search().scrollDown();
+
+        search().checkPageIsAvailable();
+
+        search().scrollUp();
+
+        search().selectSort("По популярности");
+
+        search().scrollDown();
+        search().checkPageIsAvailable();
+
+        search().scrollUp();
+
+        search().selectSort("Сначала дорогие");
+
+        descFirstPrice = search().returnProductPrice(0);
+        descSecondPrice = search().returnProductPrice(1);
+
+        search().checkPriceDescSortCorrect(descFirstPrice, descSecondPrice);
+
+        search().scrollDown();
+        search().checkPageIsAvailable();
+
+        search().scrollUp();
+
+        search().clickToDiscountFilter();
+
+        descFirstPrice = search().returnProductPrice(0);
+        descSecondPrice = search().returnProductPrice(1);
+
+        search().checkPriceDescSortCorrect(descFirstPrice, descSecondPrice);
+
+        search().clickOnFilter("Jacobs");
+        search().checkSearchProductsSkeletonVisible();
+        search().checkSearchProductsSkeletonNotVisible();
+
+        search().selectSort("По популярности");
+
+
+        search().scrollDown();
+        search().checkPageIsAvailable();
     }
 
     @CaseId(2592)
@@ -167,7 +244,16 @@ public final class ShoppingSearchTests extends BaseTest {
             groups = {"regression"}
     )
     public void successApplyOtherFilters() {
+        shop().openSitePage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
 
+        search().checkSearchProductsSpinnerVisible();
+        search().checkSearchProductsSpinnerNotVisible();
+
+        search().clickToDiscountFilter();
+        search().checkSearchProductsSkeletonVisible();
+        search().checkSearchProductsSkeletonNotVisible();
+
+        search().checkFilterDisabled("Стерилизованное");
     }
 
     @CaseId(2737)
@@ -176,6 +262,45 @@ public final class ShoppingSearchTests extends BaseTest {
             groups = {"regression"}
     )
     public void alcoholSearchModalClose() {
+        shop().goToPage();
+        shop().checkSpinnerIsNotVisible();
+        shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().checkYmapsReady();
+        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().selectFirstAddress();
+        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddress().clickOnSave();
+        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
+        shop().goToPage();
+        shop().interactHeader().fillSearch("вино");
+        shop().interactHeader().checkTaxonCategoriesVisible();
+        search().interactHeader().checkAlcoStubInSuggest();
+        search().interactHeader().checkAlcoStubInCategories();
+        search().interactHeader().clickSearchButton();
+
+        search().checkSearchProductGridVisible();
+        search().checkSearchProductsSkeletonNotVisible();
+        search().checkSearchProductsSpinnerNotVisible();
+
+        search().checkAlcoStubInProductsSearch();
+        search().clickAddToCartFirstSearchResult();
+        search().interactProductCard().checkProductCardVisible();
+
+        search().interactProductCard().checkAlcoAlertVisible();
+        search().interactProductCard().checkReserveButtonVisible();
+        search().interactProductCard().clickOnReserve();
+
+        search().interactDisclaimerModal().checkApproveButtonVisible();
+        search().interactProductCard().addToFavoriteToCloseDisclaimer();
+
+        search().interactProductCard().checkAlcoStubVisible();
+        search().interactProductCard().close();
+
+        search().checkAlcoStubInProductsSearch();
+        search().clickAddToCartFirstSearchResult();
+        search().interactProductCard().checkProductCardVisible();
+        search().interactProductCard().checkAlcoStubVisible();
     }
 }
