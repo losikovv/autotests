@@ -20,12 +20,30 @@ stages:
   - tests-ui
   - custom-run
 
+.template_prod:
+  only:
+    refs:
+      - master
+    variables:
+      - $PRODACTION == 'true'
+
+.template_schedule:
+  only:
+    refs:
+      - schedules
+    variables:
+      - $REGRESSION == 'true'
+  when: always
+
 .template_run_all_jobs_at_a_time_on_master:
   only:
     refs:
       - master
     variables:
       - $CI_RUN_ALL_JOBS == 'true'
+  except:
+    refs:
+      - schedules
 
 .template_api_tests:
   stage: tests-api
@@ -127,7 +145,7 @@ tests:AutoMRCheck:
 
 tests:Debug:
   rules:
-    - if: '$CI_COMMIT_BRANCH != "master"'
+    - if: '$CI_COMMIT_BRANCH != "master" && $CI_PIPELINE_SOURCE != "schedule"'
       when: manual
       allow_failure: true
   stage: tests-api

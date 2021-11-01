@@ -6,3 +6,12 @@ task adminUiSmoke(type: Test) {
     systemProperty 'qase.Project', 'SA'
     systemProperty 'qase.Title', 'Admin UI Smoke'
 }
+
+task adminUiRegress(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/regress/admin.xml'
+        includeGroups 'regression'
+    }
+    systemProperty 'qase.Project', 'SA'
+    systemProperty 'qase.Title', 'Admin UI Smoke'
+}

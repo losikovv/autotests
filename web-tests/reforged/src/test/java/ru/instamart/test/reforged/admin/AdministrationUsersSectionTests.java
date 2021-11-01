@@ -39,21 +39,19 @@ public class AdministrationUsersSectionTests extends BaseTest {
     @Test(description = "Тест предоставления и отзыва админских прав пользователю", groups = {"acceptance", "regression"})
     public void successGrantAndRevokeAdmin() {
         final UserData userData = UserManager.getQaUser();
-        final String email = Generate.emailAdmin();
-        final String password = userData.getPassword();
-        final String phoneNumber = userData.getPhone();
+        final String password = Generate.literalString(8);
         helper.auth(userData);
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
         users().goToPage();
-        users().fillSearchByPhoneNumber(phoneNumber);
+        users().fillSearchByPhoneNumber(userData.getPhone());
         users().clickToSearch();
         users().clickToEditUser();
 
         usersEdit().clearUserEmail();
-        usersEdit().fillUserEmail(email);
+        usersEdit().fillUserEmail(userData.getEmail());
         usersEdit().fillPassword(password);
         usersEdit().fillPasswordConfirmation(password);
         usersEdit().checkAdminRole();
@@ -61,7 +59,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         main().doLogout();
 
         login().goToPage();
-        login().setUsername(email);
+        login().setUsername(userData.getEmail());
         login().setPassword(password);
         login().submit();
 
@@ -72,7 +70,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         login().auth(UserManager.getDefaultAdmin());
 
         users().goToPage();
-        users().fillSearchByPhoneNumber(phoneNumber);
+        users().fillSearchByPhoneNumber(userData.getPhone());
         users().clickToSearch();
         users().clickToEditUser();
 
@@ -81,7 +79,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         main().doLogout();
 
         login().goToPage();
-        login().setUsername(email);
+        login().setUsername(userData.getEmail());
         login().setPassword(password);
         login().submit();
 
