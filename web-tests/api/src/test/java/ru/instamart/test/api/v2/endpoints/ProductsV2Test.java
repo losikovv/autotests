@@ -15,7 +15,7 @@ import ru.instamart.api.model.v2.ProductV2;
 import ru.instamart.api.request.v2.ProductsV2Request;
 import ru.instamart.api.response.v2.ProductV2Response;
 import ru.instamart.api.response.v2.ProductsV2Response;
-import ru.instamart.api.response.v2.SessionsV2Response;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -148,7 +148,7 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем отфильтрованные по наличию скидки продукты",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductsFilteredByDiscount() {
-        response = ProductsV2Request.GET(1, "сыр", 1, ProductFilterTypeV2.DISCOUNTED, 1);
+        response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "сыр", 1, ProductFilterTypeV2.DISCOUNTED, 1);
         checkStatusCode200(response);
 
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
