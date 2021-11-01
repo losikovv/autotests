@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.v2.AppConfigurationV2Request;
 
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
 public class AppConfigurationV2Test extends RestBase {

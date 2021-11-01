@@ -16,7 +16,7 @@ import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
 import ru.instamart.api.response.v2.AddressV2Response;
 
 import static org.testng.Assert.assertEquals;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Добавление нового адреса")

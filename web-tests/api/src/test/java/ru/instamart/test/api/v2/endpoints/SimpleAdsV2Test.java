@@ -19,7 +19,7 @@ import ru.instamart.api.request.v2.SimpleAdsV2Request;
 import java.util.List;
 import java.util.UUID;
 
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Упрощенный запрос нативной рекламы.")

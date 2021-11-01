@@ -19,8 +19,8 @@ import java.util.Set;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
 @Slf4j
 @Epic("ApiV2")

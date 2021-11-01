@@ -18,7 +18,7 @@ import ru.instamart.api.request.v2.LegalEntityV2Request;
 import ru.instamart.api.response.v2.CompanyDocumentV2Response;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.kraken.helper.LegalEntityHelper.*;
 
 @Epic(value = "ApiV2")

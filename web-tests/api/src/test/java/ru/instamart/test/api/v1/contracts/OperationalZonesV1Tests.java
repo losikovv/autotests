@@ -12,7 +12,7 @@ import ru.instamart.api.request.v1.OperationalZonesV1Request;
 import ru.instamart.api.dataprovider.RestDataProvider;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV1")
 @Feature("Эндпоинты, используемые шоппер бэкендом")

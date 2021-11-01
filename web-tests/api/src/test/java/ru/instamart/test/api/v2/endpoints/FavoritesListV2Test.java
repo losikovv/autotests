@@ -18,9 +18,8 @@ import ru.instamart.api.response.v2.FavoritesSkuListItemV2Response;
 import ru.instamart.api.response.v2.ProductSkuV2Response;
 
 import static org.testng.Assert.*;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic(value = "ApiV2")
 @Feature(value = "Избранные товары")

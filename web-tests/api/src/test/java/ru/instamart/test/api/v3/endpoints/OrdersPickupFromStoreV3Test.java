@@ -14,7 +14,7 @@ import ru.instamart.api.model.v3.OrderV3;
 import ru.instamart.api.model.v3.StoreV3;
 import ru.instamart.api.request.v3.OrderV3Request;
 
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV3")
 @Feature("Создание заказа")

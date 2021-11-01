@@ -1,9 +1,6 @@
 package ru.instamart.api.checkpoint;
 
-import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.enums.v2.ProductSortTypeV2;
@@ -20,8 +17,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.isNull;
-import static org.hamcrest.Matchers.anyOf;
-import static org.hamcrest.Matchers.is;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
@@ -30,56 +25,6 @@ import static ru.instamart.kraken.util.TimeUtil.getFutureDateWithoutTime;
 
 @Slf4j
 public class InstamartApiCheckpoints {
-
-    public static void checkStatusCode(Response response, int statusCode) {
-        Allure.step("Проверка statusCode = "+statusCode+" для response");
-        assertEquals(
-                response.statusCode(),
-                statusCode,
-                "\n" + response.statusLine() + "\n" + response.body().asString());
-        if (statusCode == 200) response.then().contentType(ContentType.JSON);
-    }
-
-    public static void checkStatusCode200(Response response) {
-        checkStatusCode(response, 200);
-    }
-
-    public static void checkStatusCode400(final Response response) {
-        checkStatusCode(response, 400);
-    }
-
-    public static void checkStatusCode401(final Response response) {
-        checkStatusCode(response, 401);
-    }
-
-    public static void checkStatusCode403(final Response response) {
-        checkStatusCode(response, 403);
-    }
-
-    public static void checkStatusCode404(final Response response) {
-        checkStatusCode(response, 404);
-    }
-
-    public static void checkStatusCode500(final Response response) {
-        checkStatusCode(response, 500);
-    }
-
-    public static void checkStatusGroup400(final Response response){
-        Allure.step("Проверка statusCode в группе клиентских ошибок (400-499) для response");
-        assertEquals(
-                Math.abs(response.statusCode()/100),
-                4,
-                "\n" + response.statusLine() + "\n" + response.body().asString());
-    }
-
-    public static void checkStatusCode200or404(final Response response) {
-        Allure.step("Проверка statusCode 200 или 404 для response");
-        response.then().statusCode(anyOf(is(200), is(404)));
-    }
-
-    public static void checkStatusCode422(final Response response) {
-        checkStatusCode(response, 422);
-    }
 
     @Step("Продукты отсортированы {sortTypeV2.name}")
     public static void checkSort(final ProductSortTypeV2 sortTypeV2, final List<SortV2> sorts) {

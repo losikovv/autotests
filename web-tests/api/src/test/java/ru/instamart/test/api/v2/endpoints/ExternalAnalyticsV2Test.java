@@ -13,7 +13,7 @@ import ru.instamart.api.request.v2.ExternalAnalyticsV2Request;
 import ru.instamart.api.response.v2.ExternalAnalyticsV2Response;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
 @Feature("Получение идентификатора устройства для аналитики")

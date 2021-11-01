@@ -14,13 +14,11 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.ShipAddressChangeV2;
 import ru.instamart.api.request.v2.OrdersV2Request;
-import ru.instamart.api.response.v2.SearchSuggestionsV2Response;
 import ru.instamart.api.response.v2.ShipAddressChangeV2Response;
 
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Получение адреса доставки заказа")

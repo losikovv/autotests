@@ -23,7 +23,9 @@ import java.util.stream.Collectors;
 import static io.qameta.allure.Allure.step;
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkSort;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
 @Feature("Продукты")

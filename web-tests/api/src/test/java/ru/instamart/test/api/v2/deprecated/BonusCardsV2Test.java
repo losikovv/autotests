@@ -14,7 +14,7 @@ import ru.instamart.api.response.v2.BonusCardsV2Response;
 import ru.instamart.kraken.data.user.UserManager;
 
 import static org.testng.Assert.*;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Список доступных бонусных карт")

@@ -32,8 +32,8 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
 import static org.testng.Assert.*;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode422;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 
 @Epic("ApiV1")
 @Feature("B2B endpoints")

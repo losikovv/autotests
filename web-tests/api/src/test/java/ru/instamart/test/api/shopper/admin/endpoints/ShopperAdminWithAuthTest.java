@@ -22,7 +22,7 @@ import java.util.List;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 
 @Epic("Shopper Admin Panel API")

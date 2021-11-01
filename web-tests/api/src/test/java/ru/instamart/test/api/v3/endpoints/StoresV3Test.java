@@ -8,7 +8,6 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.model.v3.StoreV3;
 import ru.instamart.api.request.v3.StoresV3Request;
-import ru.instamart.api.response.v2.StoresV2Response;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.List;
 import static org.testng.Assert.assertNotEquals;
 import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV3")
 @Feature("Доступные магазины клиенту")

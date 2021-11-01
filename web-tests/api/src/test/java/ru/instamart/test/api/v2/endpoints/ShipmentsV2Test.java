@@ -35,7 +35,8 @@ import java.util.stream.IntStream;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkAssemblyItem;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.k8s.K8sConsumer.changeToAssembled;
 import static ru.instamart.api.k8s.K8sConsumer.changeToCancel;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;

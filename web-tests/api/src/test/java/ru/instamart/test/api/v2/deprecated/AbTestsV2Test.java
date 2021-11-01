@@ -15,7 +15,7 @@ import ru.instamart.api.response.v2.AbTestsV2Response;
 import java.util.UUID;
 
 import static org.testng.Assert.assertNotNull;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
 @Feature("АБ тесты")

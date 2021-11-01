@@ -8,7 +8,7 @@ import ru.instamart.api.response.shopper.admin.RouteSchedulesSHPResponse;
 
 import java.util.List;
 
-import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Slf4j
 public class ShopperAdminApiHelper {

@@ -10,7 +10,6 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.request.v2.StoresV2Request;
-import ru.instamart.api.response.v2.DeliveryWindowsV2Response;
 import ru.instamart.api.response.v2.PromotionCardsV2Response;
 import ru.instamart.api.response.v2.StoreV2Response;
 import ru.instamart.api.response.v2.StoresV2Response;
@@ -20,7 +19,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Получение списка магазинов")

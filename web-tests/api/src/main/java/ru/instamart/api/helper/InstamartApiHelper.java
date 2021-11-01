@@ -35,7 +35,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.fail;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.common.RestStaticTestData.userPhone;
 import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 

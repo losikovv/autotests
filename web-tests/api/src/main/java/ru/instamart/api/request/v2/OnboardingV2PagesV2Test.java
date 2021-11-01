@@ -5,7 +5,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.response.v2.OnboardingPagesV2Response;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 public class OnboardingV2PagesV2Test extends RestBase {
 

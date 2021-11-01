@@ -25,7 +25,7 @@ import ru.instamart.kraken.data.user.UserData;
 import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.k8s.K8sConsumer.changeToShip;
 
 @Epic("ApiV2")

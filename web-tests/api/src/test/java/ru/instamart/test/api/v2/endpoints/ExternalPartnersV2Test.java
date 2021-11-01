@@ -13,8 +13,8 @@ import ru.instamart.api.request.v2.ExternalPartnersV2Request;
 import ru.instamart.api.response.ErrorResponse;
 
 import static org.testng.Assert.assertEquals;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode400;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode400;
 
 @Epic("ApiV2")
 @Feature("Получение списка банеров для SberPrime")
