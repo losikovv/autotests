@@ -35,6 +35,4 @@ public interface ProductCardElement {
 
     Button reserveButton = new Button(By.xpath("//button[contains(text(), 'Зарезервировать') and @data-qa='addToCart_buy_button']"),
                                      "Кнопка 'Зарезервировать' на карточке товара алко");
-
-
 }
