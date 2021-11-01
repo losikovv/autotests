@@ -19,10 +19,6 @@ tests:ApiShopper:
     - ".template_shopper_regress"
 
 tests:ApiShopperRegress:
-  only:
-    variables:
-      - $TEST_API_SHOPPER == 'true' && $CI_RUN_ALL_JOBS == 'false'
-      - $CI_RUN_ALL_JOBS == 'true'
   extends:
     - ".template_api_tests"
     - ".template_shopper_regress"
