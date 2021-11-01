@@ -122,7 +122,8 @@ public class OrdersV1Test extends RestBase {
     @Issues({@Issue("INFRADEV-3167"), @Issue("STF-9483")})
     @Story("Заказы")
     @CaseId(120)
-    @Test(description = "Контрактный тест списка сэмплов в шипменте",
+    @Test(enabled = false,
+            description = "Контрактный тест списка сэмплов в шипменте",
             groups = "api-instamart-regress",
             dependsOnMethods = "getShipment")
     public void getShopperMarketingSampleItems() {
