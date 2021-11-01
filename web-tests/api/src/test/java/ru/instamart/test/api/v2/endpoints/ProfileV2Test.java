@@ -38,9 +38,7 @@ public class ProfileV2Test extends RestBase {
     public void getProfile200() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2_FB);
-        final Response response = ProfileV2Request.GET();
-        checkStatusCode200(response);
-        ProfileV2Response profile = response.as(ProfileV2Response.class);
+        ProfileV2Response profile = apiV2.getProfile();
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(profile.getUser().getLastName(), session.getUserData().getLastName(),
                 "Last name не совпадает с введенным");

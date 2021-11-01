@@ -1,9 +1,6 @@
 package ru.instamart.utils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.Objects;
@@ -29,6 +26,14 @@ public final class FileUtils {
             return lnr.lines().collect(Collectors.joining());
         } catch (Exception e) {
             return "json_error";
+        }
+    }
+
+    public static void writeStringToFile(String string, String filePath) {
+        try(FileWriter writer = new FileWriter(filePath)) {
+            writer.write(string);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

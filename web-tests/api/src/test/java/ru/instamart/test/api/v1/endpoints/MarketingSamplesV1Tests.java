@@ -1,0 +1,137 @@
+package ru.instamart.test.api.v1.endpoints;
+
+import io.qameta.allure.Story;
+import io.qase.api.annotation.CaseId;
+import io.restassured.response.Response;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.v1.MarketingSampleV1;
+import ru.instamart.api.request.v1.MarketingSamplesV1Request;
+import ru.instamart.api.response.v1.MarketingSampleV1Response;
+import ru.instamart.api.response.v1.MarketingSamplesV1Response;
+import ru.instamart.api.response.v2.ProfileV2Response;
+import ru.instamart.jdbc.dao.MarketingSamplesDao;
+import ru.instamart.jdbc.entity.MarketingSamplesEntity;
+import ru.instamart.kraken.data.user.UserManager;
+
+import java.util.List;
+import java.util.Optional;
+
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.utils.FileUtils.writeStringToFile;
+
+public class MarketingSamplesV1Tests extends RestBase {
+
+    private Long sampleId;
+    private ProfileV2Response profile;
+
+    @BeforeClass(alwaysRun = true)
+    public void preconditions() {
+        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdminAllRoles());
+    }
+
+    @Story("Маркетинговые сэмплы")
+    @CaseId(978)
+    @Test(description = "Получение списка всех маркетинговых сэмплов",
+            groups = {"api-instamart-regress"})
+    public void getMarketingSamples() {
+        Response response = MarketingSamplesV1Request.GET();
+        checkStatusCode200(response);
+        List<MarketingSampleV1> marketingSamplesFromResponse = response.as(MarketingSamplesV1Response.class).getMarketingSamples();
+        int marketingSamplesCountFromDb = MarketingSamplesDao.INSTANCE.getCount();
+        compareTwoObjects(marketingSamplesFromResponse.size(), marketingSamplesCountFromDb);
+    }
+
+    @Story("Маркетинговые сэмплы")
+    @CaseId(977)
+    @Test(description = "Создание нового маркетингового сэмпла",
+            groups = {"api-instamart-regress"})
+    public void createMarketingSample() {
+        SessionFactory.makeSession(SessionType.API_V2_FB);
+        profile = apiV2.getProfile();
+        writeStringToFile(profile.getUser().getId(), "src/test/resources/data/users.csv");
+        SessionFactory.clearSession(SessionType.API_V2_FB);
+
+        Response response = MarketingSamplesV1Request.POST();
+        checkStatusCode200(response);
+        MarketingSampleV1 marketingSampleFromResponse = response.as(MarketingSampleV1Response.class).getMarketingSample();
+        sampleId = marketingSampleFromResponse.getId();
+        Optional<MarketingSamplesEntity> marketingSamplesEntity = MarketingSamplesDao.INSTANCE.findById(sampleId);
+        compareMarketingSamples(profile.getUser().getEmail(), marketingSampleFromResponse, marketingSamplesEntity, "Test marketing sample");
+    }
+
+    @Story("Маркетинговые сэмплы")
+    @CaseId(983)
+    @Test(description = "Получение маркетингового сэмпла",
+            groups = {"api-instamart-regress"},
+            dependsOnMethods = "createMarketingSample")
+    public void getMarketingSample() {
+        Response response = MarketingSamplesV1Request.GET(sampleId);
+        checkStatusCode200(response);
+        MarketingSampleV1 marketingSampleFromResponse = response.as(MarketingSampleV1Response.class).getMarketingSample();
+        Optional<MarketingSamplesEntity> marketingSamplesEntity = MarketingSamplesDao.INSTANCE.findById(sampleId);
+        compareMarketingSamples(profile.getUser().getEmail(), marketingSampleFromResponse, marketingSamplesEntity, "Test marketing sample");
+    }
+
+    @Story("Маркетинговые сэмплы")
+    @CaseId(979)
+    @Test(description = "Изменение маркетингового сэмпла",
+            groups = {"api-instamart-regress"},
+            dependsOnMethods = {"createMarketingSample", "getMarketingSample"})
+    public void editMarketingSample() {
+        SessionFactory.makeSession(SessionType.API_V2_FB);
+        ProfileV2Response profile = apiV2.getProfile();
+        writeStringToFile(profile.getUser().getId(), "src/test/resources/data/users.csv");
+        SessionFactory.clearSession(SessionType.API_V2_FB);
+
+        Response response = MarketingSamplesV1Request.PUT(sampleId);
+        checkStatusCode200(response);
+        MarketingSampleV1 marketingSampleFromResponse = response.as(MarketingSampleV1Response.class).getMarketingSample();
+        Optional<MarketingSamplesEntity> marketingSamplesEntity = MarketingSamplesDao.INSTANCE.findById(sampleId);
+        compareMarketingSamples(profile.getUser().getEmail(), marketingSampleFromResponse, marketingSamplesEntity, "Updated Test marketing sample");
+    }
+
+    @Story("Маркетинговые сэмплы")
+    @CaseId(980)
+    @Test(description = "Изменение маркетингового сэмпла",
+            groups = {"api-instamart-regress"},
+            dependsOnMethods = {"createMarketingSample", "getMarketingSample", "editMarketingSample"})
+    public void deleteMarketingSample() {
+        Response response = MarketingSamplesV1Request.DELETE(sampleId);
+        checkStatusCode200(response);
+        Optional<MarketingSamplesEntity> marketingSamplesEntity = MarketingSamplesDao.INSTANCE.findById(sampleId);
+        checkFieldIsNotEmpty(marketingSamplesEntity.get().getDeletedAt(), "дата удаления");
+    }
+
+    @Story("Маркетинговые сэмплы")
+    @CaseId(981)
+    @Test(description = "Изменение несуществующего маркетингового сэмпла",
+            groups = {"api-instamart-regress"})
+    public void editNonExistingMarketingSample() {
+        Response response = MarketingSamplesV1Request.PUT(0L);
+        checkStatusCode404(response);
+    }
+
+    @Story("Маркетинговые сэмплы")
+    @CaseId(982)
+    @Test(description = "Удаление несуществующего маркетингового сэмпла",
+            groups = {"api-instamart-regress"})
+    public void deleteNonExistingMarketingSample() {
+        Response response = MarketingSamplesV1Request.DELETE(0L);
+        checkStatusCode404(response);
+    }
+
+    @Story("Маркетинговые сэмплы")
+    @CaseId(984)
+    @Test(description = "Получение несуществующего маркетингового сэмпла",
+            groups = {"api-instamart-regress"})
+    public void getNonExistingMarketingSample() {
+        Response response = MarketingSamplesV1Request.GET(0L);
+        checkStatusCode404(response);
+    }
+}

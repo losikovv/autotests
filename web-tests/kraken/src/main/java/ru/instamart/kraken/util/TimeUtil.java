@@ -22,5 +22,9 @@ public final class TimeUtil {
         return dtd.format(LocalDateTime.now());
     }
 
+    public static String getFutureDateWithoutTime(Long days) {
+        return dtd.format(LocalDateTime.now().plusDays(days));
+    }
+
     private TimeUtil() {}
 }

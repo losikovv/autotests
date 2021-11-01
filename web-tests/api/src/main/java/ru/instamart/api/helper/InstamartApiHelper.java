@@ -1281,4 +1281,10 @@ public final class InstamartApiHelper {
         ReviewIssuesV2Response reviewIssuesV2Response = response.as(ReviewIssuesV2Response.class);
         return reviewIssuesV2Response.getReviewIssues();
     }
+
+    public ProfileV2Response getProfile() {
+        final Response response = ProfileV2Request.GET();
+        checkStatusCode200(response);
+        return response.as(ProfileV2Response.class);
+    }
 }
