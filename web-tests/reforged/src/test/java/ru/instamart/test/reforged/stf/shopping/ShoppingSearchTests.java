@@ -5,8 +5,8 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.testdata.Generate;
-import ru.instamart.kraken.testdata.lib.Addresses;
+import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.data.Addresses;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.test.reforged.BaseTest;
 
