@@ -72,7 +72,7 @@ public final class ElementCollection extends CollectionComponent {
         }
     }
 
-        public void moveOnElementWithText(final String text) {
+    public void moveOnElementWithText(final String text) {
         for (final WebElement we : getComponents()) {
             final String elementText = we.getText();
             if (elementText.contains(text)) {

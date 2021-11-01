@@ -49,14 +49,14 @@ public interface SearchCheck extends Check, SearchElement {
         waitAction().shouldNotBeVisible(searchProductsSkeleton);
     }
 
-    @Step("Проверяем, что сортировка 'Сначала дешевые' работает корректно, цена первого {0} != цене второго {1}")
+    @Step("Проверяем, что сортировка 'Сначала дешевые' работает корректно, цена первого {0} < цены второго {1}")
     default void checkPriceAscSortCorrect(double firstPrice, double secondPrice) {
-        krakenAssert.assertTrue(firstPrice < secondPrice, "Цена первого товара равна второму, ошибка сортировки 'Сначала дешевые'");
+        krakenAssert.assertTrue(firstPrice < secondPrice, "Цена первого товара больше или равна цене второго, ошибка сортировки 'Сначала дешевые'");
     }
 
-    @Step("Проверяем, что сортировка 'Сначала дорогие' работает корректно, цена первого {0} != цене второго {1}")
+    @Step("Проверяем, что сортировка 'Сначала дорогие' работает корректно, цена первого {0} > цены второго {1}")
     default void checkPriceDescSortCorrect(double firstPrice, double secondPrice) {
-        krakenAssert.assertTrue(firstPrice > secondPrice, "Цена первого товара равна второму, ошибка сортировки 'Сначала дорогие'");
+        krakenAssert.assertTrue(firstPrice > secondPrice, "Цена первого товара меньше или равна цене второго, ошибка сортировки 'Сначала дорогие'");
     }
 
     @Step("Проверить, что фильтр '{0}' задизейблен")

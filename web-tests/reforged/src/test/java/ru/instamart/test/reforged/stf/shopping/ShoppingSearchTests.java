@@ -235,6 +235,8 @@ public final class ShoppingSearchTests extends BaseTest {
 
         search().scrollDown();
         search().checkPageIsAvailable();
+
+        search().assertAll();
     }
 
     @CaseId(2592)
@@ -276,7 +278,6 @@ public final class ShoppingSearchTests extends BaseTest {
         shop().interactHeader().fillSearch("вино");
         shop().interactHeader().checkTaxonCategoriesVisible();
         search().interactHeader().checkAlcoStubInSuggest();
-        search().interactHeader().checkAlcoStubInCategories();
         search().interactHeader().clickSearchButton();
 
         search().checkSearchProductGridVisible();
