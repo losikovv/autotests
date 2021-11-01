@@ -3,6 +3,8 @@ package ru.instamart.reforged.stf.page.search;
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface SearchCheck extends Check, SearchElement {
@@ -37,9 +39,9 @@ public interface SearchCheck extends Check, SearchElement {
         waitAction().shouldNotBeVisible(infiniteSearchSpinner);
     }
 
-    @Step("Проверяем, что кол-ва не равны")
+    @Step("Проверяем, что кол-во товаров: {0} не равно кол-ву после применения фильтра: {1}")
     default void checkQuantitiesNotEquals(double firstQuantity, double secondQuantity) {
-        krakenAssert.assertNotEquals(firstQuantity, secondQuantity);
+        krakenAssert.assertNotEquals(firstQuantity, secondQuantity, "Фильтр не применился, кол-во товаров не изменилось");
     }
 
     @Step("Проверяем, что не отображается заглушка товаров в поиске")
@@ -47,14 +49,14 @@ public interface SearchCheck extends Check, SearchElement {
         waitAction().shouldNotBeVisible(searchProductsSkeleton);
     }
 
-    @Step("Проверяем, что сортировка 'Сначала дешевые' работает корректно")
+    @Step("Проверяем, что сортировка 'Сначала дешевые' работает корректно, цена первого {0} != цене второго {1}")
     default void checkPriceAscSortCorrect(double firstPrice, double secondPrice) {
-        krakenAssert.assertTrue(firstPrice < secondPrice);
+        krakenAssert.assertTrue(firstPrice < secondPrice, "Цена первого товара равна второму, ошибка сортировки 'Сначала дешевые'");
     }
 
-    @Step("Проверяем, что сортировка 'Сначала дорогие' работает корректно")
+    @Step("Проверяем, что сортировка 'Сначала дорогие' работает корректно, цена первого {0} != цене второго {1}")
     default void checkPriceDescSortCorrect(double firstPrice, double secondPrice) {
-        krakenAssert.assertTrue(firstPrice > secondPrice);
+        krakenAssert.assertTrue(firstPrice > secondPrice, "Цена первого товара равна второму, ошибка сортировки 'Сначала дорогие'");
     }
 
     @Step("Проверить, что фильтр '{0}' задизейблен")
@@ -74,8 +76,7 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверяем, что товарные подсказки при поиске алко имеют картинки 18+")
     default void checkAlcoStubInProductsSearch() {
-        krakenAssert.assertTrue(searchProductsCollection.getElements().size() ==
-                searchProductsCollectionImagesAlco.getElements().size());
+        assertEquals(searchProductsCollectionImagesAlco.getElements().size(), searchProductsCollection.getElements().size(), "Не все картинки товаров имеют картинки-заглушки 18+");
     }
 
     @Step("Проверяем, что сетка найденных товаров отображается")

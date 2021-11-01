@@ -131,13 +131,13 @@ public interface HeaderCheck extends Check, HeaderElement {
     @Step("Проверяем, что категорийные подсказки при поиске алко имеют картинки 18+")
     default void checkAlcoStubInCategories() {
         krakenAssert.assertTrue(taxonCategoriesCollection.getElements().size() ==
-                               taxonCategoriesCollectionImagesAlco.getElements().size());
+                               taxonCategoriesCollectionImagesAlco.getElements().size(), "Не все категорийные подсказки имеют картинки-заглушки 18+");
     }
 
     @Step("Проверяем, что товарные подсказки при поиске алко имеют картинки 18+")
     default void checkAlcoStubInSuggest() {
         krakenAssert.assertTrue(searchSuggestsCollection.getElements().size() ==
-                searchSuggestsCollectionImagesAlco.getElements().size());
+                searchSuggestsCollectionImagesAlco.getElements().size(), "Не все товарные подсказки имеют картинки-заглушки 18+");
     }
 
     @Step("Проверяем, товарные подсказки в поиске отображаются")

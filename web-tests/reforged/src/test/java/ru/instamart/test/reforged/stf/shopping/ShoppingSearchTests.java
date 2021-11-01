@@ -64,7 +64,7 @@ public final class ShoppingSearchTests extends BaseTest {
     @Story("Позитивные сценарии")
     @Test(
             description = "Тест успешного поиска товаров c использованием товарных саджестов",
-            groups = {"sbermarket-Ui-smoke", "ui-smoke-production"}
+            groups = {"regression"}
     )
     public void successSearchItemUsingSuggests() {
         shop().goToPage();
@@ -301,5 +301,7 @@ public final class ShoppingSearchTests extends BaseTest {
         search().clickAddToCartFirstSearchResult();
         search().interactProductCard().checkProductCardVisible();
         search().interactProductCard().checkAlcoStubVisible();
+
+        search().assertAll();
     }
 }

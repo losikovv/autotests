@@ -50,7 +50,7 @@ public final class Header implements HeaderCheck {
 
     @Step("Выбрать первую товарную подсказку в поиске")
     public void clickOnFirstSearchSuggest() {
-        searchSuggestsCollection.getElements().get(0).click();
+        searchSuggestsCollection.clickOnFirst();
     }
 
     @Step("Выбрать элемент поиска")
