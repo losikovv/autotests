@@ -12,8 +12,8 @@ import ru.instamart.api.response.v2.DeeplinkV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static org.testng.Assert.assertEquals;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
 @Feature("Deeplinks")

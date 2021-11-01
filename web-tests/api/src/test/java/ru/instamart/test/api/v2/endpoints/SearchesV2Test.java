@@ -12,11 +12,12 @@ import ru.instamart.api.model.v2.SuggestionV2;
 import ru.instamart.api.request.v2.SearchesV2Request;
 import ru.instamart.api.response.v2.SearchSuggestionsV2Response;
 
-import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkSearchSuggestionsNegative;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
 @Feature("Поиск")

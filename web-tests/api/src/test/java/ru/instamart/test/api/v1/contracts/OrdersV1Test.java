@@ -23,7 +23,7 @@ import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.data.user.UserManager;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV1")
 @Feature("Эндпоинты, используемые шоппер бэкендом")

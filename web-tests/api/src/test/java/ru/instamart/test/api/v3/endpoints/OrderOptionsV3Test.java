@@ -13,7 +13,7 @@ import ru.instamart.api.model.testdata.ApiV3TestData;
 import ru.instamart.api.model.v3.StoreV3;
 import ru.instamart.api.request.v3.OrderOptionsV3Request;
 
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV3")
 @Feature("Показать опции заказа")

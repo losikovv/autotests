@@ -17,7 +17,7 @@ import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.UserDataV2Response;
 
 import static org.testng.Assert.assertEquals;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Данные пользователя")

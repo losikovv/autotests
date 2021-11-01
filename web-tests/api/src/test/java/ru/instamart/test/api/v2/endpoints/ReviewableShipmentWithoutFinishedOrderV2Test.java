@@ -14,7 +14,7 @@ import ru.instamart.api.request.v2.ReviewableShipmentV2Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 import static ru.instamart.api.factory.SessionFactory.createSessionToken;
 import static ru.instamart.kraken.data.user.UserManager.getDefaultApiUser;
 

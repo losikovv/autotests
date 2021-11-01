@@ -20,7 +20,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode422;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 
 @Epic("Shopper Mobile API")

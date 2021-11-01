@@ -16,12 +16,11 @@ import ru.instamart.api.request.v2.FavoritesV2Request;
 import ru.instamart.api.response.v2.FavoritesItemV2Response;
 import ru.instamart.api.response.v2.FavoritesListItemsV2Response;
 import ru.instamart.api.response.v2.ProductSkuV2Response;
-import ru.instamart.api.response.v2.SessionsV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic(value = "ApiV2")
 @Feature(value = "Избранные товары")

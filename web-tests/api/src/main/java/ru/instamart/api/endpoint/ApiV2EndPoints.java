@@ -200,6 +200,6 @@ public final class ApiV2EndPoints {
     }
 
     public static final class ExternalAnalytics {
-        public static final String DEVICE_IDENTIFICATION = "/v2/external_analytics/device_identification";
+        public static final String DEVICE_IDENTIFICATION = "v2/external_analytics/device_identification";
     }
 }

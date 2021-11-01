@@ -29,7 +29,7 @@ import java.util.List;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.common.RestStaticTestData.*;
 import static ru.instamart.api.helper.PromotionCode.getPromotionCode;
 

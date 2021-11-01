@@ -15,8 +15,8 @@ import java.util.UUID;
 
 import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode400;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode400;
 
 
 @Epic("ApiV2")

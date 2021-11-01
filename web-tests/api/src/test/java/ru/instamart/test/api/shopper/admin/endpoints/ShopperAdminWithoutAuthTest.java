@@ -12,7 +12,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
-import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode401;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode401;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 
 @Epic("Shopper Admin Panel API")

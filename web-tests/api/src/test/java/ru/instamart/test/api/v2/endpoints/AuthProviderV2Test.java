@@ -9,14 +9,12 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.v2.AuthProviderV2;
 import ru.instamart.api.request.v2.AuthProvidersV2Request;
-import ru.instamart.api.response.v1.b2b.CompanyV1Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
 
 import java.util.UUID;
 
-import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic(value = "ApiV2")
 @Feature(value = "Авторизация")

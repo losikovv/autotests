@@ -16,7 +16,7 @@ import ru.instamart.api.response.v1.b2b.LegalEntityV1Response;
 import ru.instamart.kraken.data.user.UserManager;
 
 import static org.testng.Assert.assertNull;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV1")
 @Feature("B2B endpoints")

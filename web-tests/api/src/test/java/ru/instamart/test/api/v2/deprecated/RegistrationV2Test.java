@@ -14,8 +14,8 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 
 import static org.testng.Assert.assertEquals;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode422;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 
 @Epic("ApiV2")
 @Feature("Регистрация")

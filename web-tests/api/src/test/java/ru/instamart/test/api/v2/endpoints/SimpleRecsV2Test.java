@@ -10,14 +10,13 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.request.v2.SimpleRecsPersonalV2Request;
-import ru.instamart.api.response.v2.RecsV2Response;
 import ru.instamart.api.response.v2.SimpleRecsV2Response;
 
 import java.util.UUID;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode400;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode400;
 
 @Epic("ApiV2")
 @Feature("Упрощенный запрос блока рекомендаций.")

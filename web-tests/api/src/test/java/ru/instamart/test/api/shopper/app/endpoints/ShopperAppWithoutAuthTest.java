@@ -13,7 +13,7 @@ import ru.instamart.api.request.shopper.app.*;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
-import static ru.instamart.api.checkpoint.ShopperApiCheckpoints.checkStatusCode401;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode401;
 
 @Epic("Shopper Mobile API")
 @Feature("Endpoints")

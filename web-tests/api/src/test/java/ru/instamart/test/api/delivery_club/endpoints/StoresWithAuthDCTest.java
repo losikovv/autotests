@@ -25,7 +25,7 @@ import java.util.List;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Slf4j
 @Epic("Партнёры")

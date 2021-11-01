@@ -16,8 +16,8 @@ import ru.instamart.kraken.listener.Run;
 
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
 @Feature("Промо-акции")

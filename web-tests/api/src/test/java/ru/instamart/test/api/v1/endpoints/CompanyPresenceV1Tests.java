@@ -15,7 +15,7 @@ import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.kraken.data.user.UserManager;
 
 import static org.testng.Assert.assertEquals;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
 @Epic("ApiV1")
 @Feature("B2B endpoints")
