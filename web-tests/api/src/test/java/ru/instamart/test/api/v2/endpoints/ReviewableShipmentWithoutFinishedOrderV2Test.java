@@ -38,7 +38,7 @@ public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Последний подзаказ без оценки но старше 7 дней")
     public void lastSuborderWithoutEvaluationButOlderThan7Days() {
-        createSessionToken(SessionType.API_V2_PHONE, getDefaultApiUser());
+        createSessionToken(SessionType.API_V2_FB, getDefaultApiUser());
         final Response response = ReviewableShipmentV2Request.GET();
         checkStatusCode404(response);
         errorAssert(response, "ActiveRecord::RecordNotFound");
