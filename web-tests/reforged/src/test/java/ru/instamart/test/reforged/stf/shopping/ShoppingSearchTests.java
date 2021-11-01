@@ -233,7 +233,6 @@ public final class ShoppingSearchTests extends BaseTest {
 
         search().selectSort("По популярности");
 
-
         search().scrollDown();
         search().checkPageIsAvailable();
     }

@@ -1,12 +1,7 @@
 package ru.instamart.reforged.stf.page.search;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
-import org.testng.Assert;
-import ru.instamart.kraken.helper.KrakenAssert;
-import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
-import ru.instamart.reforged.core.Kraken;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
 

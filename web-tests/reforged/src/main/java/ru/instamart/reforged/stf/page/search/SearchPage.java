@@ -8,8 +8,6 @@ import ru.instamart.reforged.stf.frame.disclaimer.Disclaimer;
 import ru.instamart.reforged.stf.frame.product_card.ProductCard;
 import ru.instamart.reforged.stf.page.StfPage;
 
-import static ru.instamart.reforged.core.Kraken.waitAction;
-
 public class SearchPage implements StfPage, SearchCheck {
 
     public Header interactHeader() {

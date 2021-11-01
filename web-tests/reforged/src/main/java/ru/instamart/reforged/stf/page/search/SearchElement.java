@@ -24,11 +24,11 @@ public interface SearchElement {
     Button firstAddToCartButton = new Button(By.xpath("//button[@title='Добавить в корзину']"), "Кнопка добавить в корзину у первого элемента на странице поиска");
     Element firstProductCard = new Element(By.xpath("//div[@data-qa='search_result_products_products_grid_item_0']"), "Карточка первого товара на странице поиска");
 
-    ElementCollection searchProductsCollection = new ElementCollection(By.xpath("//div[contains(@data-qa, 'search_result_products_products_grid_item')]"), "Коллекция продуктов в поиске")
+    ElementCollection searchProductsCollection = new ElementCollection(By.xpath("//div[contains(@data-qa, '')]"), "Коллекция продуктов в поиске"); //TODO: Написать уточненный локатор
     Element searchSpinner = new Element(By.xpath("//div[contains(@class, 'Spinner')]"), "Спиннер в поиске");
     Element infiniteSearchSpinner = new Element(By.xpath("//div[contains(@class, 'InfiniteScroll')]"), "Спиннер в бесконечном поиске");
 
-    ElementCollection searchProductsCollectionImagesAlco = new ElementCollection(By.xpath("//div[contains(@data-qa, 'search_result_products_products_grid_item')]"), "Коллекция продуктов в поиске")
+    ElementCollection searchProductsCollectionImagesAlco = new ElementCollection(By.xpath("//div[contains(@data-qa, '')]"), "Коллекция продуктов в поиске"); //TODO: Написать уточненный локатор
 
     Selector selectSort = new Selector(By.xpath("//select[contains(@class, 'ProductsFilterSort')]"), "Селектор сортировки продуктов");
     Element searchProductGrid = new Element(By.xpath("//div[@data-qa='search_result_products_products_grid']"), "Сетка продуктов в результатах поиска");
