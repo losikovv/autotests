@@ -35,10 +35,8 @@ public class NavigationTest extends GrpcBase {
                 .setTenantId("sbermarket")
                 .setTreeDepth(5)
                 .build();
-        allure.showRequest(request);
 
         var response = client.getMenuTree(request);
-        allure.showResponse(response);
 
         assertTrue(response.getCategoriesCount() > 0, "Вернулся пустой массив категорий");
 

@@ -36,9 +36,7 @@ public class CatalogTest extends GrpcBase {
                 .setAvailable(true)
                 .setSort(Catalog.Sort.POPULARITY)
                 .build();
-        allure.showRequest(request);
 
         var response = client.getProducts(request);
-        allure.showResponse(response);
     }
 }
