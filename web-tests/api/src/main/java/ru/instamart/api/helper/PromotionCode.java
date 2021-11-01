@@ -9,7 +9,6 @@ import java.util.List;
 
 public class PromotionCode {
     public static String getPromotionCode() {
-        K8sPortForward.getInstance().portForwardMySQL();
         PromotionCodesFilters filters = PromotionCodesFilters.builder()
                 .value("auto%")
                 .limit(1)
