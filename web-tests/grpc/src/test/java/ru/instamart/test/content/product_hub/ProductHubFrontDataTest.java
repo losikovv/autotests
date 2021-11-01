@@ -31,10 +31,8 @@ public class ProductHubFrontDataTest extends GrpcBase {
                 .GetProductsBySKURequest.newBuilder()
                 .addSku(36250)
                 .build();
-        allure.showRequest(request);
 
         var response = client.getProductsBySKU(request);
-        allure.showResponse(response);
 
         response.getProductsList().forEach(product ->
                 assertEquals(product.getSku(), 36250, "Вернулся продукт с другим SKU"));

@@ -33,10 +33,8 @@ public class ProductFilterTest extends GrpcBase {
                 .addCategoryIds("175")
                 .setAvailable(true)
                 .build();
-        allure.showRequest(request);
 
         var response = client.getCategoryFacetsByCategoryIDs(request);
-        allure.showResponse(response);
 
         response.getFacetsList().forEach(facet ->
                 assertEquals(facet.getCategoryId(), "175", "Вернулась категория с другим ID"));

@@ -1,7 +1,6 @@
 package ru.instamart.test.content.product_hub;
 
 import io.grpc.StatusRuntimeException;
-import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -18,9 +17,9 @@ import ru.instamart.kraken.data.Generate;
 import java.time.LocalDateTime;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNull;
 import static product_hub_back.ProductHubBackOuterClass.*;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 @Epic("Product Hub Microservice")
 @Feature("Product Hub Back")
 public class ProductHubBackTest extends GrpcBase {
@@ -35,7 +34,7 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Категории")
-    @CaseId(7)
+    @CaseId(43)
     @Test(  description = "Создание категории для продукта",
             groups = "grpc-product-hub")
     public void saveCategories() {
@@ -110,19 +109,19 @@ public class ProductHubBackTest extends GrpcBase {
                         .setStatus(Status.ENABLE)
                         .build())
                 .build();
-        allure.showRequest(request);
 
         SaveCategoriesResponse response = client.saveCategories(request);
-        allure.showResponse(response);
 
         assertEquals(response.getSaveCategoriesCount(), 1,
                 "Вернулось другое количество созданных категорий");
     }
 
     @Story("Категории")
-    @CaseId(8)
+    @CaseId(44)
     @Test(  description = "Создание категории для продукта без обязательного поля \"id\"",
-            groups = "grpc-product-hub")
+            groups = "grpc-product-hub",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: category number=0 has empty id")
     public void saveCategoriesWithoutId() {
         SaveCategoriesRequest request = SaveCategoriesRequest.newBuilder()
                 .addCategories(Category.newBuilder()
@@ -133,21 +132,12 @@ public class ProductHubBackTest extends GrpcBase {
                         .setStatus(Status.ENABLE)
                         .build())
                 .build();
-        allure.showRequest(request);
 
-        SaveCategoriesResponse response = null;
-        try {
-            response = client.saveCategories(request);
-        } catch (StatusRuntimeException e) {
-            assertEquals(e.getMessage(), "INVALID_ARGUMENT: category number=0 has empty id",
-                    "Некорректное сообщение об ошибке");
-            Allure.step(e.getMessage());
-        }
-        assertNull(response, "Не вернулась ошибка");
+        client.saveCategories(request);
     }
 
     @Story("Словари")
-    @CaseId(9)
+    @CaseId(45)
     @Test(  description = "Создание словарей для нового продукта",
             groups = "grpc-product-hub")
     public void saveDictionaries() {
@@ -172,19 +162,19 @@ public class ProductHubBackTest extends GrpcBase {
                                 .build())
                         .build())
                 .build();
-        allure.showRequest(request);
 
         SaveDictionariesResponse response = client.saveDictionaries(request);
-        allure.showResponse(response);
 
         assertEquals(response.getSaveDictionariesCount(), 1,
                 "Вернулось другое количество созданных словарей");
     }
 
     @Story("Словари")
-    @CaseId(10)
+    @CaseId(46)
     @Test(  description = "Создание словарей для нового продукта без обязательного поля \"key\"",
-            groups = "grpc-product-hub")
+            groups = "grpc-product-hub",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: dictionary number=0 has empty key")
     public void saveDictionariesWithoutKey() {
         SaveDictionariesRequest request = SaveDictionariesRequest.newBuilder()
                 .addDictionaries(Dictionary.newBuilder()
@@ -192,21 +182,12 @@ public class ProductHubBackTest extends GrpcBase {
                         .setType(ValueType.STRING)
                         .build())
                 .build();
-        allure.showRequest(request);
 
-        SaveDictionariesResponse response = null;
-        try {
-            response = client.saveDictionaries(request);
-        } catch (StatusRuntimeException e) {
-            assertEquals(e.getMessage(), "INVALID_ARGUMENT: dictionary number=0 has empty key",
-                    "Некорректное сообщение об ошибке");
-            Allure.step(e.getMessage());
-        }
-        assertNull(response, "Не вернулась ошибка");
+        client.saveDictionaries(request);
     }
 
     @Story("Атрибуты")
-    @CaseId(11)
+    @CaseId(47)
     @Test(  description = "Создание аттрибутов для нового продукта",
             groups = "grpc-product-hub")
     public void saveAttributes() {
@@ -226,19 +207,19 @@ public class ProductHubBackTest extends GrpcBase {
                                 .build())
                         .build())
                 .build();
-        allure.showRequest(request);
 
         SaveAttributesResponse response = client.saveAttributes(request);
-        allure.showResponse(response);
 
         assertEquals(response.getSaveAttributesCount(), 1,
                 "Вернулось другое количество созданных атрибутов");
     }
 
     @Story("Атрибуты")
-    @CaseId(12)
+    @CaseId(48)
     @Test(  description = "Создание аттрибутов для нового продукта без обязательного поля \"key\"",
-            groups = "grpc-product-hub")
+            groups = "grpc-product-hub",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: attribute number=0 has empty key")
     public void saveAttributesWithoutKey() {
         SaveAttributesRequest request = SaveAttributesRequest.newBuilder()
                 .addAttributes(Attribute.newBuilder()
@@ -249,22 +230,13 @@ public class ProductHubBackTest extends GrpcBase {
                         .putFlags("show_as_characteristic", true)
                         .build())
                 .build();
-        allure.showRequest(request);
 
-        SaveAttributesResponse response = null;
-        try {
-            response = client.saveAttributes(request);
-        } catch (StatusRuntimeException e) {
-            assertEquals(e.getMessage(), "INVALID_ARGUMENT: attribute number=0 has empty key",
-                    "Некорректное сообщение об ошибке");
-            Allure.step(e.getMessage());
-        }
-        assertNull(response, "Не вернулась ошибка");
+        client.saveAttributes(request);
     }
 
     @Story("Продукты")
-    @CaseId(13)
-    @Test(description = "Создание продукта",
+    @CaseId(49)
+    @Test(  description = "Создание продукта",
             groups = {"grpc-product-hub"})
     public void saveProducts() {
         SaveProductsRequest request = SaveProductsRequest.newBuilder()
@@ -292,19 +264,19 @@ public class ProductHubBackTest extends GrpcBase {
                         .setStatus(Status.ENABLE)
                         .build())
                 .build();
-        allure.showRequest(request);
 
         SaveProductsResponse response = client.saveProducts(request);
-        allure.showResponse(response);
 
         assertEquals(response.getSaveProductsCount(), 1,
                 "Вернулось другое количество созданных продуктов");
     }
 
     @Story("Продукты")
-    @CaseId(14)
-    @Test(description = "Создание нового продукта в системе без обязательного поля \"sku\"",
-            groups = {"grpc-product-hub"})
+    @CaseId(50)
+    @Test(  description = "Создание нового продукта в системе без обязательного поля \"sku\"",
+            groups = {"grpc-product-hub"},
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: product number=0 has empty sku")
     public void saveProductsWithoutSKU() {
         SaveProductsRequest request = SaveProductsRequest.newBuilder()
                 .addProducts(Product
@@ -314,22 +286,13 @@ public class ProductHubBackTest extends GrpcBase {
                         .setStatus(Status.ENABLE)
                         .build())
                 .build();
-        allure.showRequest(request);
 
-        SaveProductsResponse response = null;
-        try {
-            response = client.saveProducts(request);
-        } catch (StatusRuntimeException e) {
-            assertEquals(e.getMessage(), "INVALID_ARGUMENT: product number=0 has empty sku",
-                    "Некорректное сообщение об ошибке");
-            Allure.step(e.getMessage());
-        }
-        assertNull(response, "Не вернулась ошибка");
+        client.saveProducts(request);
     }
 
     @Story("Стоки")
-    @CaseId(15)
-    @Test(description = "Добавление стоков к созданному новому продукту",
+    @CaseId(51)
+    @Test(  description = "Добавление стоков к созданному новому продукту",
             groups = {"grpc-product-hub"},
             dependsOnMethods = "saveProducts")
     public void saveStocks() {
@@ -349,19 +312,19 @@ public class ProductHubBackTest extends GrpcBase {
                         .setStatus(Status.ENABLE)
                         .build())
                 .build();
-        allure.showRequest(request);
 
         SaveStocksResponse response = client.saveStocks(request);
-        allure.showResponse(response);
 
         assertEquals(response.getSaveStocksCount(), 1,
                 "Вернулось другое количество созданных стоков");
     }
 
     @Story("Стоки")
-    @CaseId(16)
-    @Test(description = "Добавление стоков к созданному новому продукту без поля \"sku\"",
-            groups = {"grpc-product-hub"})
+    @CaseId(52)
+    @Test(  description = "Добавление стоков к созданному новому продукту без поля \"sku\"",
+            groups = {"grpc-product-hub"},
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: stock number=0 has empty sku")
     public void saveStocksWithoutSKU() {
         SaveStocksRequest request = SaveStocksRequest.newBuilder()
                 .addStocks(Stock.newBuilder()
@@ -372,22 +335,13 @@ public class ProductHubBackTest extends GrpcBase {
                         .setStatus(Status.ENABLE)
                         .build())
                 .build();
-        allure.showRequest(request);
 
-        SaveStocksResponse response = null;
-        try {
-            response = client.saveStocks(request);
-        } catch (StatusRuntimeException e) {
-            assertEquals(e.getMessage(), "INVALID_ARGUMENT: stock number=0 has empty sku",
-                    "Некорректное сообщение об ошибке");
-            Allure.step(e.getMessage());
-        }
-        assertNull(response, "Не вернулась ошибка");
+        client.saveStocks(request);
     }
 
     @Story("Цены")
-    @CaseId(17)
-    @Test(description = "Добавление стоимости продукту",
+    @CaseId(53)
+    @Test(  description = "Добавление стоимости продукту",
             groups = {"grpc-product-hub"},
             dependsOnMethods = "saveProducts")
     public void savePrices() {
@@ -437,19 +391,19 @@ public class ProductHubBackTest extends GrpcBase {
                         .setStatus(Status.ENABLE)
                         .build())
                 .build();
-        allure.showRequest(request);
 
         SavePricesResponse response = client.savePrices(request);
-        allure.showResponse(response);
 
         assertEquals(response.getSavePricesCount(), 1,
                 "Вернулось другое количество созданных цен");
     }
 
     @Story("Цены")
-    @CaseId(18)
-    @Test(description = "Добавление стоимости продукту",
-            groups = {"grpc-product-hub"})
+    @CaseId(54)
+    @Test(  description = "Добавление стоимости продукту без поля \"sku\"",
+            groups = {"grpc-product-hub"},
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: price number=0 has empty sku")
     public void savePricesWithoutSKU() {
         SavePricesRequest request = SavePricesRequest.newBuilder()
                 .addPrices(Price.newBuilder()
@@ -461,22 +415,13 @@ public class ProductHubBackTest extends GrpcBase {
                         .setStatus(Status.ENABLE)
                         .build())
                 .build();
-        allure.showRequest(request);
 
-        SavePricesResponse response = null;
-        try {
-            response = client.savePrices(request);
-        } catch (StatusRuntimeException e) {
-            assertEquals(e.getMessage(), "INVALID_ARGUMENT: price number=0 has empty sku",
-                    "Некорректное сообщение об ошибке");
-            Allure.step(e.getMessage());
-        }
-        assertNull(response, "Не вернулась ошибка");
+        client.savePrices(request);
     }
 
     @Story("Товарные предложения")
-    @CaseId(19)
-    @Test(description = "Добавление предложений к продукту",
+    @CaseId(55)
+    @Test(  description = "Добавление предложений к продукту",
             groups = {"grpc-product-hub"},
             dependsOnMethods = "saveProducts")
     public void saveOffers() {
@@ -508,20 +453,20 @@ public class ProductHubBackTest extends GrpcBase {
                         .setStatus(Status.ENABLE)
                         .build())
                 .build();
-        allure.showRequest(request);
 
         SaveOffersResponse response = client.saveOffers(request);
-        allure.showResponse(response);
 
         assertEquals(response.getSaveOffersCount(), 1,
                 "Вернулось другое количество созданных предложений");
     }
 
     @Story("Товарные предложения")
-    @CaseId(20)
-    @Test(description = "Добавление предложений к продукту без поля \"retailer_id\"",
+    @CaseId(56)
+    @Test(  description = "Добавление предложений к продукту без поля \"retailer_id\"",
             groups = {"grpc-product-hub"},
-            dependsOnMethods = "saveProducts")
+            dependsOnMethods = "saveProducts",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: offer number=0 has empty retailer_id")
     public void saveOffersWithoutRetailerId() {
         SaveOffersRequest request = SaveOffersRequest.newBuilder()
                 .addOffers(Offer.newBuilder()
@@ -531,22 +476,13 @@ public class ProductHubBackTest extends GrpcBase {
                         .setStatus(Status.ENABLE)
                         .build())
                 .build();
-        allure.showRequest(request);
 
-        SaveOffersResponse response = null;
-        try {
-            response = client.saveOffers(request);
-        } catch (StatusRuntimeException e) {
-            assertEquals(e.getMessage(), "INVALID_ARGUMENT: offer number=0 has empty retailer_id",
-                    "Некорректное сообщение об ошибке");
-            Allure.step(e.getMessage());
-        }
-        assertNull(response, "Не вернулась ошибка");
+        client.saveOffers(request);
     }
 
     @Story("Продукты")
-    @CaseId(114)
-    @Test(description = "Получение продукта по SKU",
+    @CaseId(149)
+    @Test(  description = "Получение продукта по SKU",
             groups = {"grpc-product-hub"},
             dependsOnMethods = "saveProducts")
     public void getProductsBySKU() {
@@ -558,10 +494,8 @@ public class ProductHubBackTest extends GrpcBase {
                 .newBuilder()
                 .addSku(productSku)
                 .build();
-        allure.showRequest(request);
 
         var response = frontClient.getProductsBySKU(request);
-        allure.showResponse(response);
 
         frontChannel.shutdown();
     }

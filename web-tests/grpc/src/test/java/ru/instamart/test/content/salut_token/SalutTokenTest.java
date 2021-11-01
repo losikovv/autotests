@@ -30,10 +30,8 @@ public class SalutTokenTest extends GrpcBase {
     public void getToken() {
         var request = SalutToken.TokenRequest.newBuilder()
                 .setInstallationId("258b347d-b978-4a75-8f02-407d43a932af").build();
-        allure.showRequest(request);
 
         var response = client.getToken(request);
-        allure.showResponse(response);
 
         assertNotNull(response.getToken(), "Не вернулся токен");
         assertFalse(response.getToken().isEmpty(), "Вернулся пустой токен");

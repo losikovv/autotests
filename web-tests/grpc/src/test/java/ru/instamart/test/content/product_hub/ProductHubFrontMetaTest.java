@@ -32,10 +32,8 @@ public class ProductHubFrontMetaTest extends GrpcBase {
                 .setLimit(100)
                 .setOffset(20)
                 .build();
-        allure.showRequest(request);
 
         var response = client.getAllCategories(request);
-        allure.showResponse(response);
 
         assertTrue(response.getCategoriesList().size() <= 100,
                 "Количество категорий вернулось больше лимита");

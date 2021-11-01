@@ -32,9 +32,7 @@ public class ShelfTest extends GrpcBase {
                 .setStoreId("11")
                 .setTenantId("sbermarket")
                 .build();
-        allure.showRequest(request);
 
         var response = client.getShelfByCategoryID(request);
-        allure.showResponse(response);
     }
 }

@@ -6,6 +6,7 @@ import io.qameta.allure.Step;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import navigation.Navigation;
+import ru.instamart.grpc.interceptor.GrpcInterceptor;
 import ru.instamart.kraken.config.CoreProperties;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class GrpcHelper {
     @NonNull
     public ManagedChannel createChannel(final String name, final Integer port) {
         log.debug("Creating channel: " + name);
-        return ManagedChannelBuilder.forAddress(name, port).build();
+        return ManagedChannelBuilder.forAddress(name, port).intercept(new GrpcInterceptor()).build();
     }
 
     /**

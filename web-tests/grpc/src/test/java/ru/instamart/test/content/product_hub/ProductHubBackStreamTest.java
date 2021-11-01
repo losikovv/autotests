@@ -35,10 +35,8 @@ public class ProductHubBackStreamTest extends GrpcBase {
                                 .addKeys("brand")
                                 .build()
                 ).build();
-        allure.showRequest(request);
 
         var responses = client.getProducts(request);
-        allure.showResponse(responses.next());
 
         assertEquals(responses.next().getCursorId(), 1,
                 "Вернулся другой cursor ID");

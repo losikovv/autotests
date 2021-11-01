@@ -3,8 +3,8 @@ task grpcProductHub(type: Test) {
         suites 'src/test/resources/suite/grpc-content.xml'
         includeGroups 'grpc-product-hub'
     }
-    systemProperty 'qase.Project', 'PHUB'
-    systemProperty 'qase.Title', 'gRPC Product Hub Regress'
+    systemProperty 'qase.Project', 'PB'
+    systemProperty 'qase.Title', 'gRPC Platform Backend Regress'
 }
 
 task grpcSalutToken(type: Test) {
