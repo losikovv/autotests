@@ -1,31 +1,29 @@
 package ru.instamart.api.dataprovider;
 
-import lombok.Data;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.common.Specification;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.AuthProviderV2;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
+import ru.instamart.api.enums.v2.SippingMethodsV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OfferV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
-import ru.instamart.api.model.v2.ProductV2;
-import ru.instamart.api.model.v2.RetailerV2;
-import ru.instamart.api.model.v2.StoreV2;
-import ru.instamart.api.model.v2.ZoneV2;
+import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.v1.OperationalZonesV1Request;
 import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
 import ru.instamart.api.request.v2.*;
 import ru.instamart.api.response.v1.OperationalZonesV1Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.data_provider.DataList;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static ru.instamart.api.common.RestAddresses.Moscow;
@@ -33,44 +31,6 @@ import static ru.instamart.api.common.RestAddresses.getDefaultAllAddress;
 import static ru.instamart.kraken.helper.LegalEntityHelper.*;
 
 public class RestDataProvider extends RestBase {
-
-    @Data
-    public static class SimpleRecsV2TestData {
-        private SimpleRecsPersonalV2Request.SimpleRecsV2 simpleRec;
-        private String description;
-    }
-
-    @Data
-    public static class SimpleRecsV2TestDataRoot implements DataList<SimpleRecsV2TestData> {
-        private List<SimpleRecsV2TestData> data;
-    }
-
-    @Data
-    public static class RecsV2TestData {
-        private PersonalV2Request.RecsV2 rec;
-        private String description;
-    }
-
-    @Data
-    public static class RecsV2TestDataRoot implements DataList<RecsV2TestData> {
-        private List<RecsV2TestData> data;
-    }
-
-    @Data
-    public static class SimpleAdsV2TestData {
-        private SimpleAdsV2Request.SimpleAdsV2 simpleAds;
-        private String description;
-    }
-
-    @Data
-    public static class SimpleAdsV2TestDataRoot implements DataList<SimpleAdsV2TestData> {
-        private List<SimpleAdsV2TestData> data;
-    }
-
-    @Data
-    public static class StoreDataRoot implements DataList<StoresV2Request.Store> {
-        private List<StoresV2Request.Store> data;
-    }
 
     @DataProvider(name = "authProviders")
     public static Object[][] getAuthProviders() {
@@ -272,7 +232,6 @@ public class RestDataProvider extends RestBase {
                 .toArray(Object[][]::new);
     }
 
-    @Deprecated
     @DataProvider(name = "getStores")
     public static Object[][] getStores() {
         return new Object[][]{
@@ -330,7 +289,6 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-    @Deprecated
     @DataProvider(name = "getAddresses")
     public static Object[][] getAddresses() {
         return new Object[][]{
@@ -393,7 +351,6 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-    @Deprecated
     @DataProvider(name = "deliveryAvailabilityV2TestData", parallel = true)
     public static Object[][] deliveryAvailabilityV2TestData() {
         return new Object[][]{
@@ -403,6 +360,145 @@ public class RestDataProvider extends RestBase {
         };
     }
 
+    @DataProvider(name = "testNegativeSimpleRecsTest", parallel = true)
+    public static Object[][] testNegativeSimpleRecsTest() {
+        return new Object[][]{
+                {
+                        SimpleRecsPersonalV2Request.SimpleRecsV2.builder()
+                                .context(SimpleRecsPersonalV2Request.Context.builder()
+                                        .app(SimpleRecsPersonalV2Request.App.builder()
+                                                .ext(SimpleRecsPersonalV2Request.AppExt.builder()
+                                                        .tenantId(0)
+                                                        .build())
+                                                .domain("ru.sbermarket.new-app")
+                                                .build())
+                                        .user(SimpleRecsPersonalV2Request.User.builder()
+                                                .geo(SimpleRecsPersonalV2Request.Geo.builder()
+                                                        .lat(55.790447999999998D)
+                                                        .lon(37.680517000000002D)
+                                                        .build())
+                                                .ext(SimpleRecsPersonalV2Request.UserExt.builder()
+                                                        .anonymousId(UUID.randomUUID().toString())
+                                                        .build())
+                                                .build())
+                                        .build())
+                                .ext(
+                                        SimpleRecsPersonalV2Request.Ext.builder()
+                                                .place("main").build()
+                                )
+                                .build(),
+                        "Отсутствует context.app.ext.store_id"
+                },
+                {
+                        SimpleRecsPersonalV2Request.SimpleRecsV2.builder()
+                                .context(SimpleRecsPersonalV2Request.Context.builder()
+                                        .app(SimpleRecsPersonalV2Request.App.builder()
+                                                .ext(SimpleRecsPersonalV2Request.AppExt.builder()
+                                                        .storeId(1)
+                                                        .tenantId(0)
+                                                        .build())
+                                                .build())
+                                        .user(SimpleRecsPersonalV2Request.User.builder()
+                                                .geo(SimpleRecsPersonalV2Request.Geo.builder()
+                                                        .lat(55.790447999999998D)
+                                                        .lon(37.680517000000002D)
+                                                        .build())
+                                                .ext(SimpleRecsPersonalV2Request.UserExt.builder()
+                                                        .anonymousId(UUID.randomUUID().toString())
+                                                        .build())
+                                                .build())
+                                        .build())
+                                .ext(
+                                        SimpleRecsPersonalV2Request.Ext.builder()
+                                                .place("main").build()
+                                )
+                                .build(),
+                        "Отсутствует context.app.domain"
+                },
+                {
+                        SimpleRecsPersonalV2Request.SimpleRecsV2.builder()
+                                .context(SimpleRecsPersonalV2Request.Context.builder()
+                                        .app(SimpleRecsPersonalV2Request.App.builder()
+                                                .ext(SimpleRecsPersonalV2Request.AppExt.builder()
+                                                        .storeId(1)
+                                                        .tenantId(0)
+                                                        .build())
+                                                .domain("ru.sbermarket.new-app")
+                                                .build())
+                                        .user(SimpleRecsPersonalV2Request.User.builder()
+                                                .geo(SimpleRecsPersonalV2Request.Geo.builder()
+                                                        .lat(55.790447999999998D)
+                                                        .lon(37.680517000000002D)
+                                                        .build())
+                                                .build())
+                                        .build())
+                                .ext(
+                                        SimpleRecsPersonalV2Request.Ext.builder()
+                                                .place("main").build()
+                                )
+                                .build(),
+                        "Отсутствует context.user.ext"
+                },
+                {
+                        SimpleRecsPersonalV2Request.SimpleRecsV2.builder()
+                                .context(SimpleRecsPersonalV2Request.Context.builder()
+                                        .app(SimpleRecsPersonalV2Request.App.builder()
+                                                .ext(SimpleRecsPersonalV2Request.AppExt.builder()
+                                                        .storeId(1)
+                                                        .tenantId(0)
+                                                        .build())
+                                                .domain("ru.sbermarket.new-app")
+                                                .build())
+                                        .user(SimpleRecsPersonalV2Request.User.builder()
+                                                .geo(SimpleRecsPersonalV2Request.Geo.builder()
+                                                        .lat(55.790447999999998D)
+                                                        .lon(37.680517000000002D)
+                                                        .build())
+                                                .ext(SimpleRecsPersonalV2Request.UserExt.builder()
+                                                        .anonymousId(UUID.randomUUID().toString())
+                                                        .build())
+                                                .build())
+                                        .build())
+                                .build(),
+                        "Отсутствует ext"
+                }
+        };
+    }
+
+    @DataProvider(name = "testNegativeRecsTest", parallel = true)
+    public static Object[][] testNegativeRecsTest() {
+        return new Object[][]{
+                {PersonalV2Request.RecsV2.builder()
+                        .reqId(UUID.randomUUID().toString())
+                        .placement(
+                                PersonalV2Request.PlacementsItem.builder()
+                                        .placementId(UUID.randomUUID().toString())
+                                        .ext(PersonalV2Request.PlacementsExt.builder()
+                                                .componentId(2)
+                                                .order(1)
+                                                .build())
+                                        .build()
+                        )
+                        .context(
+                                PersonalV2Request.Context.builder()
+                                        .app(
+                                                PersonalV2Request.App.builder()
+                                                        .domain("ru.sbermarket.new-app")
+                                                        .ver("1.0.0.1")
+                                                        .ext(PersonalV2Request.SiteAndAppExt.builder()
+                                                                .categoryId(1)
+                                                                .storeId("1")
+                                                                .build())
+                                                        .build()
+                                        )
+                                        .user(PersonalV2Request.User.builder()
+                                                .id(UUID.randomUUID().toString())
+                                                .build())
+                                        .build()
+                        )
+                        .build(),
+                        "Отсутствует tmax"
+                },
 //               TODO:  task STF-8880
 //                {
 //                        PersonalV2Request.RecsV2.builder()
@@ -428,6 +524,305 @@ public class RestDataProvider extends RestBase {
 //                                .build(),
 //                        "Отсутствует placements"
 //                },
+                {
+                        PersonalV2Request.RecsV2.builder()
+                                .reqId(UUID.randomUUID().toString())
+                                .tmax(5000)
+                                .placement(
+                                        PersonalV2Request.PlacementsItem.builder()
+                                                .ext(PersonalV2Request.PlacementsExt.builder()
+                                                        .componentId(2)
+                                                        .order(1)
+                                                        .build())
+                                                .build()
+                                )
+                                .context(
+                                        PersonalV2Request.Context.builder()
+                                                .app(
+                                                        PersonalV2Request.App.builder()
+                                                                .domain("ru.sbermarket.new-app")
+                                                                .ver("1.0.0.1")
+                                                                .ext(PersonalV2Request.SiteAndAppExt.builder()
+                                                                        .categoryId(1)
+                                                                        .storeId("1")
+                                                                        .build())
+                                                                .build()
+                                                )
+                                                .user(PersonalV2Request.User.builder()
+                                                        .id(UUID.randomUUID().toString())
+                                                        .build())
+                                                .build()
+                                )
+                                .build(),
+                        "Отсутствует placements.placement_id"
+                },
+                {
+                        PersonalV2Request.RecsV2.builder()
+                                .reqId(UUID.randomUUID().toString())
+                                .tmax(5000)
+                                .placement(
+                                        PersonalV2Request.PlacementsItem.builder()
+                                                .placementId(UUID.randomUUID().toString())
+                                                .ext(PersonalV2Request.PlacementsExt.builder()
+                                                        .order(1)
+                                                        .build())
+                                                .build()
+                                )
+                                .context(
+                                        PersonalV2Request.Context.builder()
+                                                .app(
+                                                        PersonalV2Request.App.builder()
+                                                                .domain("ru.sbermarket.new-app")
+                                                                .ver("1.0.0.1")
+                                                                .ext(PersonalV2Request.SiteAndAppExt.builder()
+                                                                        .categoryId(1)
+                                                                        .storeId("1")
+                                                                        .build())
+                                                                .build()
+                                                )
+                                                .user(PersonalV2Request.User.builder()
+                                                        .id(UUID.randomUUID().toString())
+                                                        .build())
+                                                .build()
+                                )
+                                .build(),
+                        "Отсутствует placements.ext.component_id"
+                },
+                {
+                        PersonalV2Request.RecsV2.builder()
+                                .reqId(UUID.randomUUID().toString())
+                                .tmax(5000)
+                                .placement(
+                                        PersonalV2Request.PlacementsItem.builder()
+                                                .placementId(UUID.randomUUID().toString())
+                                                .ext(PersonalV2Request.PlacementsExt.builder()
+                                                        .componentId(2)
+                                                        .order(1)
+                                                        .build())
+                                                .build()
+                                )
+                                .context(
+                                        PersonalV2Request.Context.builder()
+                                                .user(PersonalV2Request.User.builder()
+                                                        .id(UUID.randomUUID().toString())
+                                                        .build())
+                                                .build()
+                                )
+                                .build(),
+                        "Отсутствует context.app"
+                },
+                {
+                        PersonalV2Request.RecsV2.builder()
+                                .reqId(UUID.randomUUID().toString())
+                                .tmax(5000)
+                                .placement(
+                                        PersonalV2Request.PlacementsItem.builder()
+                                                .placementId(UUID.randomUUID().toString())
+                                                .ext(PersonalV2Request.PlacementsExt.builder()
+                                                        .componentId(2)
+                                                        .order(1)
+                                                        .build())
+                                                .build()
+                                )
+                                .context(
+                                        PersonalV2Request.Context.builder()
+                                                .app(
+                                                        PersonalV2Request.App.builder()
+                                                                .ver("1.0.0.1")
+                                                                .ext(PersonalV2Request.SiteAndAppExt.builder()
+                                                                        .categoryId(1)
+                                                                        .storeId("1")
+                                                                        .build())
+                                                                .build()
+                                                )
+                                                .user(PersonalV2Request.User.builder()
+                                                        .id(UUID.randomUUID().toString())
+                                                        .build())
+                                                .build()
+                                )
+                                .build(),
+                        "Отсутствует context.app.domain"
+                },
+                {
+                        PersonalV2Request.RecsV2.builder()
+                                .reqId(UUID.randomUUID().toString())
+                                .tmax(5000)
+                                .placement(
+                                        PersonalV2Request.PlacementsItem.builder()
+                                                .placementId(UUID.randomUUID().toString())
+                                                .ext(PersonalV2Request.PlacementsExt.builder()
+                                                        .componentId(2)
+                                                        .order(1)
+                                                        .build())
+                                                .build()
+                                )
+                                .context(
+                                        PersonalV2Request.Context.builder()
+                                                .app(
+                                                        PersonalV2Request.App.builder()
+                                                                .domain("ru.sbermarket.new-app")
+                                                                .ver("1.0.0.1")
+                                                                .build()
+                                                )
+                                                .user(PersonalV2Request.User.builder()
+                                                        .id(UUID.randomUUID().toString())
+                                                        .build())
+                                                .build()
+                                )
+                                .build(),
+                        "Отсутствует context.app.ext"
+                },
+                {
+                        PersonalV2Request.RecsV2.builder()
+                                .reqId(UUID.randomUUID().toString())
+                                .tmax(5000)
+                                .placement(
+                                        PersonalV2Request.PlacementsItem.builder()
+                                                .placementId(UUID.randomUUID().toString())
+                                                .ext(PersonalV2Request.PlacementsExt.builder()
+                                                        .componentId(2)
+                                                        .order(1)
+                                                        .build())
+                                                .build()
+                                )
+                                .context(
+                                        PersonalV2Request.Context.builder()
+                                                .app(
+                                                        PersonalV2Request.App.builder()
+                                                                .domain("ru.sbermarket.new-app")
+                                                                .ver("1.0.0.1")
+                                                                .ext(PersonalV2Request.SiteAndAppExt.builder()
+                                                                        .categoryId(1)
+                                                                        .storeId("1")
+                                                                        .build())
+                                                                .build()
+                                                )
+                                                .build()
+                                )
+                                .build(),
+                        "Отсутствует context.user"
+                }
+        };
+    }
+
+    @DataProvider(name = "negativeSimpleAdsData", parallel = true)
+    public static Object[][] negativeSimpleAdsData() {
+        return new Object[][]{
+                {
+                        SimpleAdsV2Request.SimpleAdsV2.builder()
+                                .context(SimpleAdsV2Request.Context.builder()
+                                        .user(SimpleAdsV2Request.User.builder()
+                                                .geo(SimpleAdsV2Request.Geo.builder()
+                                                        .lat(55.790447999999998D)
+                                                        .lon(37.680517000000002D)
+                                                        .build()
+                                                )
+                                                .ext(SimpleAdsV2Request.UserExt.builder()
+                                                        .anonymousId(UUID.randomUUID().toString())
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
+                                        .app(SimpleAdsV2Request.App.builder()
+                                                .ext(SimpleAdsV2Request.AppExt.builder()
+                                                        .tenantId(0)
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
+                                        .build()
+                                )
+                                .ext(SimpleAdsV2Request.Ext.builder()
+                                        .nativeAdTypeId("2")
+                                        .build()
+                                ).build(),
+                        "Отсутствует context.app.store_id"
+                },
+                {
+                        SimpleAdsV2Request.SimpleAdsV2.builder()
+                                .context(SimpleAdsV2Request.Context.builder()
+                                        .user(SimpleAdsV2Request.User.builder()
+                                                .geo(SimpleAdsV2Request.Geo.builder()
+                                                        .lat(55.790447999999998D)
+                                                        .lon(37.680517000000002D)
+                                                        .build()
+                                                )
+                                                .ext(SimpleAdsV2Request.UserExt.builder()
+                                                        .anonymousId(UUID.randomUUID().toString())
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
+                                        .app(SimpleAdsV2Request.App.builder()
+                                                .build()
+                                        )
+                                        .build()
+                                )
+                                .ext(SimpleAdsV2Request.Ext.builder()
+                                        .nativeAdTypeId("2")
+                                        .build()
+                                ).build(),
+                        "Отсутствует context.app.tanant_id"
+                },
+                {
+                        SimpleAdsV2Request.SimpleAdsV2.builder()
+                                .context(SimpleAdsV2Request.Context.builder()
+                                        .user(SimpleAdsV2Request.User.builder()
+                                                .geo(SimpleAdsV2Request.Geo.builder()
+                                                        .lat(55.790447999999998D)
+                                                        .lon(37.680517000000002D)
+                                                        .build()
+                                                )
+                                                .ext(SimpleAdsV2Request.UserExt.builder()
+                                                        .anonymousId(UUID.randomUUID().toString())
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
+                                        .app(SimpleAdsV2Request.App.builder()
+                                                .ext(SimpleAdsV2Request.AppExt.builder()
+                                                        .storeId(1)
+                                                        .tenantId(0)
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
+                                        .build()
+                                )
+                                .ext(SimpleAdsV2Request.Ext.builder()
+                                        .build()
+                                ).build(),
+                        "Отсутствует ext.native_ad_type_id"
+                },
+                {
+                        SimpleAdsV2Request.SimpleAdsV2.builder()
+                                .context(SimpleAdsV2Request.Context.builder()
+                                        .user(SimpleAdsV2Request.User.builder()
+                                                .geo(SimpleAdsV2Request.Geo.builder()
+                                                        .lat(55.790447999999998D)
+                                                        .lon(37.680517000000002D)
+                                                        .build()
+                                                )
+                                                .ext(SimpleAdsV2Request.UserExt.builder()
+                                                        .anonymousId(UUID.randomUUID().toString())
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
+                                        .app(SimpleAdsV2Request.App.builder()
+                                                .ext(SimpleAdsV2Request.AppExt.builder()
+                                                        .storeId(1)
+                                                        .tenantId(0)
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
+                                        .build()
+                                ).build(),
+                        "Отсутствует ext"
+                }
+        };
+    }
 
     @DataProvider(name = "ordersLineItems", parallel = true)
     public static Object[][] ordersLineItems() {
@@ -485,7 +880,6 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-    @Deprecated
     @DataProvider(name = "defaultAddressDelivery")
     public static Object[][] defaultAddressDelivery() {
         return getDefaultAllAddress().stream()
@@ -493,7 +887,6 @@ public class RestDataProvider extends RestBase {
                 .toArray(Object[][]::new);
     }
 
-    @Deprecated
     @DataProvider(name = "shipmentsServiceRateData")
     public static Object[][] shipmentsServiceRateData() {
         return new Object[][]{
@@ -517,6 +910,57 @@ public class RestDataProvider extends RestBase {
 //                {DateTimeFormatter.ISO_WEEK_DATE},
                 {DateTimeFormatter.ISO_INSTANT},
                 {DateTimeFormatter.RFC_1123_DATE_TIME}
+        };
+    }
+
+    @DataProvider(name = "storeData", parallel = true)
+    public static Object[][] storeData() {
+        return new Object[][]{
+                {StoresV2Request.Store.builder()
+                        .lat(RestAddresses.Moscow.defaultAddress().getLat())
+                        .build()
+                },
+                {StoresV2Request.Store.builder()
+                        .lon(RestAddresses.Moscow.defaultAddress().getLon())
+                        .build()
+                },
+                {StoresV2Request.Store.builder()
+                        .shippingMethod(SippingMethodsV2.BY_COURIER.getMethod())
+                        .build()
+                },
+                {StoresV2Request.Store.builder()
+                        .shippingMethod(SippingMethodsV2.PICKUP.getMethod())
+                        .build()
+                },
+                {StoresV2Request.Store.builder()
+                        .operationalZoneId(1)
+                        .build()
+                }
+        };
+    }
+
+    @DataProvider(name = "storeDataWithLatAndLon", parallel = true)
+    public static Object[][] storeDataWithLatAndLon() {
+        AddressV2 address = Moscow.defaultAddress();
+        return new Object[][]{
+                {StoresV2Request.Store.builder()
+                        .lat(address.getLat())
+                        .lon(address.getLon())
+                        .shippingMethod(SippingMethodsV2.BY_COURIER.getMethod())
+                        .build()
+                },
+                {StoresV2Request.Store.builder()
+                        .lat(address.getLat())
+                        .lon(address.getLon())
+                        .shippingMethod(SippingMethodsV2.PICKUP.getMethod())
+                        .build()
+                },
+                {StoresV2Request.Store.builder()
+                        .lat(address.getLat())
+                        .lon(address.getLon())
+                        .operationalZoneId(1)
+                        .build()
+                }
         };
     }
 

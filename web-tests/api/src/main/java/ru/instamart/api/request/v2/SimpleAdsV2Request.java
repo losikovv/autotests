@@ -7,10 +7,8 @@ import io.restassured.http.ContentType;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
 import ru.instamart.utils.Mapper;
@@ -46,8 +44,6 @@ public class SimpleAdsV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
     @Data
     public static class SimpleAdsV2 {
         private Ext ext;
@@ -56,8 +52,6 @@ public class SimpleAdsV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
     @Data
     public static class App {
         private AppExt ext;
@@ -65,8 +59,6 @@ public class SimpleAdsV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
     @Data
     public static class Context {
         private App app;
@@ -75,8 +67,6 @@ public class SimpleAdsV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
     @Data
     public static class Ext {
         @JsonProperty("native_ad_type_id")
@@ -85,8 +75,6 @@ public class SimpleAdsV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
     @Data
     public static class AppExt {
         @JsonProperty("store_id")
@@ -99,8 +87,6 @@ public class SimpleAdsV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
     @Data
     public static class UserExt {
         @JsonProperty("anonymous_id")
@@ -109,8 +95,6 @@ public class SimpleAdsV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
     @Data
     public static class Geo {
         private double lon;
@@ -119,8 +103,6 @@ public class SimpleAdsV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
     @Data
     public static class User {
         private Geo geo;
