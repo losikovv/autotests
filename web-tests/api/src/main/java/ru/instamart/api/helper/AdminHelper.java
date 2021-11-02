@@ -3,7 +3,7 @@ package ru.instamart.api.helper;
 import io.restassured.response.Response;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
 
-import static ru.instamart.api.checkpoint.AdminApiCheckpoints.checkStatusCode302;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
 
 
 public class AdminHelper {

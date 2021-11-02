@@ -1,19 +1,16 @@
 package ru.instamart.api.checkpoint;
 
-import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 
-import static org.hamcrest.Matchers.anyOf;
-import static org.hamcrest.Matchers.is;
-import static org.testng.Assert.assertEquals;
+import static org.hamcrest.Matchers.*;
 
 @Slf4j
 public class StatusCodeCheckpoints {
 
-    @Step("Проверка {statusCode} статус кода ответа")
+    @Step("Проверка на {statusCode} статус код ответа")
     public static void checkStatusCode(Response response, int statusCode) {
         response.then().statusCode(statusCode);
         if (statusCode == 200) response.then().contentType(ContentType.JSON);
@@ -21,6 +18,10 @@ public class StatusCodeCheckpoints {
 
     public static void checkStatusCode200(Response response) {
         checkStatusCode(response, 200);
+    }
+
+    public static void checkStatusCode302(Response response) {
+        checkStatusCode(response, 302);
     }
 
     public static void checkStatusCode400(final Response response) {
@@ -43,17 +44,15 @@ public class StatusCodeCheckpoints {
         checkStatusCode(response, 500);
     }
 
+    @Step("Проверка на статус код клиентской ошибки (400-499)")
     public static void checkStatusGroup400(final Response response){
-        Allure.step("Проверка statusCode в группе клиентских ошибок (400-499) для response");
-        assertEquals(
-                Math.abs(response.statusCode()/100),
-                4,
-                "\n" + response.statusLine() + "\n" + response.body().asString());
+        response.then().statusCode(both(greaterThan(399)).and(lessThan(500)));
     }
 
+    @Step("Проверка на 200 или 404 статус код ответа")
     public static void checkStatusCode200or404(final Response response) {
-        Allure.step("Проверка statusCode 200 или 404 для response");
         response.then().statusCode(anyOf(is(200), is(404)));
+        if (response.statusCode() == 200) response.then().contentType(ContentType.JSON);
     }
 
     public static void checkStatusCode422(final Response response) {
