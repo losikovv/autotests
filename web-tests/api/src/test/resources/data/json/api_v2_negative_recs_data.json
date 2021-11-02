@@ -1,0 +1,195 @@
+{
+  "data": [
+    {
+      "rec": {
+        "reqId": "3bea257a-42a8-4b43-b280-bd2b22de8188",
+        "tmax": 0,
+        "context": {
+          "app": {
+            "ext": {
+              "category_id": 1,
+              "store_id": "1",
+              "tenant_id": 0
+            },
+            "ver": "1.0.0.1",
+            "domain": "ru.sbermarket.new-app"
+          },
+          "user": {
+            "id": "421e2aaf-ce55-4d7c-a2e0-582dbf0ad0ab"
+          }
+        },
+        "placements": [
+          {
+            "ext": {
+              "componentId": 2,
+              "order": 1
+            },
+            "placementId": "bd30d25a-7984-42cf-ba00-7afcba954adf"
+          }
+        ]
+      },
+      "description": "Отсутствует tmax"
+    },
+    {
+      "rec": {
+        "reqId": "082b6dd0-c693-475f-8dc3-929c2faed0ca",
+        "tmax": 5000,
+        "context": {
+          "app": {
+            "ext": {
+              "category_id": 1,
+              "store_id": "1",
+              "tenant_id": 0
+            },
+            "ver": "1.0.0.1",
+            "domain": "ru.sbermarket.new-app"
+          },
+          "user": {
+            "id": "899d4f57-41e0-4c92-8a15-571cf922e66c"
+          }
+        },
+        "placements": [
+          {
+            "ext": {
+              "componentId": 2,
+              "order": 1
+            }
+          }
+        ]
+      },
+      "description": "Отсутствует placements.placement_id"
+    },
+    {
+      "rec": {
+        "reqId": "4b364129-de93-416f-89ca-0bdc297b5cbf",
+        "tmax": 5000,
+        "context": {
+          "app": {
+            "ext": {
+              "category_id": 1,
+              "store_id": "1",
+              "tenant_id": 0
+            },
+            "ver": "1.0.0.1",
+            "domain": "ru.sbermarket.new-app"
+          },
+          "user": {
+            "id": "f3292611-40dd-43bb-818e-e178a456f7ab"
+          }
+        },
+        "placements": [
+          {
+            "ext": {
+              "componentId": 0,
+              "order": 1
+            },
+            "placementId": "6fedda10-fc87-47d5-a49d-2510f7a9ac00"
+          }
+        ]
+      },
+      "description": "Отсутствует placements.ext.component_id"
+    },
+    {
+      "rec": {
+        "reqId": "13ae98b2-58fc-438f-b60b-876e2db83d4a",
+        "tmax": 5000,
+        "context": {
+          "user": {
+            "id": "62310a66-d83f-405f-aa0b-01bff8888e3c"
+          }
+        },
+        "placements": [
+          {
+            "ext": {
+              "componentId": 2,
+              "order": 1
+            },
+            "placementId": "778f0141-179e-4fa8-8147-5b2d2684c0ab"
+          }
+        ]
+      },
+      "description": "Отсутствует context.app"
+    },
+    {
+      "rec": {
+        "reqId": "e6e685b9-f8b5-4cba-9bc7-802b8d1ea657",
+        "tmax": 5000,
+        "context": {
+          "app": {
+            "ext": {
+              "category_id": 1,
+              "store_id": "1",
+              "tenant_id": 0
+            },
+            "ver": "1.0.0.1"
+          },
+          "user": {
+            "id": "07bb6a1d-98ed-4f55-b17b-3e2e3ada50ca"
+          }
+        },
+        "placements": [
+          {
+            "ext": {
+              "componentId": 2,
+              "order": 1
+            },
+            "placementId": "a9977881-72a3-4ad1-a18f-98f32d485606"
+          }
+        ]
+      },
+      "description": "Отсутствует context.app.domain"
+    },
+    {
+      "rec": {
+        "reqId": "8b58db84-d213-4352-8c77-0c0cb6935e3b",
+        "tmax": 5000,
+        "context": {
+          "app": {
+            "ver": "1.0.0.1",
+            "domain": "ru.sbermarket.new-app"
+          },
+          "user": {
+            "id": "e3508e6b-9625-4aa2-8c6b-6a015964b121"
+          }
+        },
+        "placements": [
+          {
+            "ext": {
+              "componentId": 2,
+              "order": 1
+            },
+            "placementId": "ddd1d99c-47b1-482c-9d47-62c106e06afe"
+          }
+        ]
+      },
+      "description": "Отсутствует context.app.ext"
+    },
+    {
+      "rec": {
+        "reqId": "92974390-24f3-4e77-99a9-b3b6ea4d5492",
+        "tmax": 5000,
+        "context": {
+          "app": {
+            "ext": {
+              "category_id": 1,
+              "store_id": "1",
+              "tenant_id": 0
+            },
+            "ver": "1.0.0.1",
+            "domain": "ru.sbermarket.new-app"
+          }
+        },
+        "placements": [
+          {
+            "ext": {
+              "componentId": 2,
+              "order": 1
+            },
+            "placementId": "8691b4f6-e734-4a88-8960-7c1d88ea4e51"
+          }
+        ]
+      },
+      "description": "Отсутствует context.user"
+    }
+  ]
+}

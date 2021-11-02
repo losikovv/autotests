@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
 import ru.instamart.utils.Mapper;
@@ -23,6 +25,8 @@ public class SimpleRecsPersonalV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
     public static class App {
         private AppExt ext;
@@ -32,6 +36,8 @@ public class SimpleRecsPersonalV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
      public static class AppExt {
         @JsonProperty("category_id")
@@ -44,6 +50,8 @@ public class SimpleRecsPersonalV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
     public static class Context {
         private App app;
@@ -52,6 +60,8 @@ public class SimpleRecsPersonalV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
     public static class Ext {
         @JsonProperty("place")
@@ -60,6 +70,8 @@ public class SimpleRecsPersonalV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
     public static class Geo {
         private Double lon;
@@ -68,6 +80,8 @@ public class SimpleRecsPersonalV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
     public static class SimpleRecsV2 {
         private Ext ext;
@@ -76,6 +90,8 @@ public class SimpleRecsPersonalV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
     public static class User {
         private String id;
@@ -85,6 +101,8 @@ public class SimpleRecsPersonalV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
     public static class UserExt {
         @JsonProperty("anonymous_id")
