@@ -1,5 +1,6 @@
 package ru.instamart.test.api.v2.endpoints;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
@@ -11,6 +12,8 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.request.v2.SimpleRecsPersonalV2Request;
 import ru.instamart.api.response.v2.SimpleRecsV2Response;
+import ru.instamart.kraken.data_provider.JsonDataProvider;
+import ru.instamart.kraken.data_provider.JsonProvider;
 
 import java.util.UUID;
 
@@ -20,7 +23,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 
 @Epic("ApiV2")
 @Feature("Упрощенный запрос блока рекомендаций.")
-public class SimpleRecsV2Test extends RestBase {
+public final class SimpleRecsV2Test extends RestBase {
 
     @Issue("STF-8819")
     @CaseId(287)
@@ -59,13 +62,16 @@ public class SimpleRecsV2Test extends RestBase {
     }
 
     @CaseId(288)
+    @JsonDataProvider(path = "data/json/api_v2_negative_simple_recs_data.json", type = RestDataProvider.SimpleRecsV2TestDataRoot.class)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Упрощенный запрос блока рекомендаций с отсутствующим обязательным параметром",
-            dataProvider = "testNegativeSimpleRecsTest",
-            dataProviderClass = RestDataProvider.class
+            dataProvider = "json",
+            dataProviderClass = JsonProvider.class
     )
     @Parameters({"RequestJson", "Description"})
-    public void testNegativeSimpleRecsTest(SimpleRecsPersonalV2Request.SimpleRecsV2 simpleRecsV2, String desc) {
+    public void testNegativeSimpleRecsTest(RestDataProvider.SimpleRecsV2TestData testData) {
+        Allure.step(testData.getDescription());
+        SimpleRecsPersonalV2Request.SimpleRecsV2 simpleRecsV2 = testData.getSimpleRec();
         final Response response = SimpleRecsPersonalV2Request.POST(simpleRecsV2);
         checkStatusCode400(response);
     }
