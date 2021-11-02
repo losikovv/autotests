@@ -3,6 +3,7 @@ package ru.instamart.api.common;
 import io.qameta.allure.attachment.AttachmentData;
 import lombok.Data;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -137,7 +138,14 @@ public class HttpRequestAttachmentCustom implements AttachmentData {
             }
 
             if (Objects.nonNull(formParam)) {
-                formParam.forEach((key, value) -> appendFormParam(builder, key, value));
+                formParam.forEach((key, value) -> {
+                    if(value instanceof Collection){
+                        ((Collection<?>) value).stream()
+                                .forEach(val ->appendFormParam(builder, key, val));
+                    }else {
+                        appendFormParam(builder, key, value);
+                    }
+                });
             }
             return builder.toString();
         }

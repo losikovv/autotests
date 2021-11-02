@@ -1,5 +1,5 @@
 <html>
-<#-- @ftlvariable name="data" type="io.qameta.allure.attachment.http.HttpRequestAttachment" -->
+<#-- @ftlvariable name="data" type="<html>ru.instamart.api.common.HttpRequestAttachmentCustom" -->
 <head>
     <meta http-equiv="content-type" content="text/html; charset = UTF-8">
     <script src="https://yastatic.net/jquery/2.2.3/jquery.min.js" crossorigin="anonymous"></script>
@@ -62,7 +62,15 @@
 <div>
     <#list data.formParam as name, value>
         <div>
-            <pre><code><b>${name}</b>: ${value}</code></pre>
+        <#if value??>
+            <#if value?is_collection>
+                <#list value as x>
+                    <pre><code><b>${name}</b>: ${x}</code></pre>
+                </#list>
+            <#else>
+                <pre><code><b>${name}</b>: ${value}</code></pre>
+            </#if>
+        </#if>
         </div>
     </#list>
 </div>

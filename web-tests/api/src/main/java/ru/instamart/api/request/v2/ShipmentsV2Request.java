@@ -10,7 +10,10 @@ import ru.instamart.api.request.ApiV2RequestBase;
 import ru.instamart.utils.Mapper;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+
+import static org.codehaus.groovy.runtime.InvokerHelper.asList;
 
 public final class ShipmentsV2Request extends ApiV2RequestBase {
 
@@ -157,13 +160,10 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
     public static final class Review{
         @JsonProperty(value = "review[rate]")
         private final Integer rate;
-// TODO: ATST-782
-//        @Singular
-//        @JsonProperty(value = "review[issue_ids]")
-//        private final List<Integer> issueIds;
-        @JsonProperty(value = "review[issue_ids]")
-        private final Integer issueIds;
-        @JsonProperty(value = "review[images_attributes]")
+        @Singular
+        @JsonProperty(value = "review[issue_ids][]")
+        private final List<Integer> issueIds;
+        @JsonProperty(value = "review[images_attributes][]")
         private final String imageAttributes;
         @JsonProperty(value = "review[comment]")
         private final String comment;
