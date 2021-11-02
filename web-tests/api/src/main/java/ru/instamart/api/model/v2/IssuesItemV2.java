@@ -10,14 +10,14 @@ import ru.instamart.api.model.BaseObject;
 public class IssuesItemV2 extends BaseObject {
 
 	@JsonProperty("comment_needed")
-	private boolean commentNeeded;
+	private Boolean commentNeeded;
 
 	@JsonProperty("description")
 	private String description;
 
 	@JsonProperty("id")
-	private int id;
+	private Integer id;
 
 	@JsonProperty("position")
-	private int position;
+	private Integer position;
 }

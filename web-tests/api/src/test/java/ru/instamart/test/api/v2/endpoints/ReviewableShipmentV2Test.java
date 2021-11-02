@@ -122,12 +122,27 @@ public class ReviewableShipmentV2Test extends RestBase {
 
         ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
                 .rate(5)
-                .issueIds(reviewIssues.get(1).getId())
-//                .issueId(reviewIssues.get(2).getId()) //TODO: ATST-782
+                .issueId(reviewIssues.get(1).getId())
+                .issueId(reviewIssues.get(2).getId())
                 .build();
         final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
         checkStatusCode200(response);
         ShipmentReviewV2Response shipmentReviewV2Response = response.as(ShipmentReviewV2Response.class);
         checkFieldIsNotEmpty(shipmentReviewV2Response.getShipmentReview(), "отзыв о заказе");
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(shipmentReviewV2Response.getShipmentReview().getRate(), review.getRate(), "Rate не совпадает с введенным");
+        softAssert.assertEquals(shipmentReviewV2Response.getShipmentReview().getComment(), review.getComment(), "Comment не совпадает с введенным");
+
+        softAssert.assertEquals(shipmentReviewV2Response.getShipmentReview().getIssues().get(0).getId(), reviewIssues.get(1).getId(), "issues id не совпадает с введенным");
+        softAssert.assertEquals(shipmentReviewV2Response.getShipmentReview().getIssues().get(0).getPosition(), reviewIssues.get(1).getPosition(), "issues position не совпадает с введенным");
+        softAssert.assertEquals(shipmentReviewV2Response.getShipmentReview().getIssues().get(0).getDescription(), reviewIssues.get(1).getDescription(), "issues description не совпадает с введенным");
+        softAssert.assertEquals(shipmentReviewV2Response.getShipmentReview().getIssues().get(0).getCommentNeeded(), reviewIssues.get(1).getCommentNeeded(), "issues comment needed не совпадает с введенным");
+
+        softAssert.assertEquals(shipmentReviewV2Response.getShipmentReview().getIssues().get(1).getId(), reviewIssues.get(2).getId(), "issues id не совпадает с введенным");
+        softAssert.assertEquals(shipmentReviewV2Response.getShipmentReview().getIssues().get(1).getPosition(), reviewIssues.get(2).getPosition(), "issues position не совпадает с введенным");
+        softAssert.assertEquals(shipmentReviewV2Response.getShipmentReview().getIssues().get(1).getDescription(), reviewIssues.get(2).getDescription(), "issues description не совпадает с введенным");
+        softAssert.assertEquals(shipmentReviewV2Response.getShipmentReview().getIssues().get(1).getCommentNeeded(), reviewIssues.get(2).getCommentNeeded(), "issues comment needed не совпадает с введенным");
+
+        softAssert.assertAll();
     }
 }
