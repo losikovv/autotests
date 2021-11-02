@@ -316,9 +316,9 @@ public final class QaseService {
                     log.error("Something went wrong: " + qaseException);
                 }
             }
-            log.debug("Всего тест кейсов: {}", allTestCases.size());
-            log.debug("Всего автоматизировано: {}", automatedNumber);
-            log.debug("Сейчас актуализировано: {}", actualizedNumber);
+            log.info("Всего тест кейсов: {}", allTestCases.size());
+            log.info("Всего автоматизировано: {}", automatedNumber);
+            log.info("Сейчас актуализировано: {}", actualizedNumber);
         } catch (Exception e) {
             log.error("FATAL: something went wrong when try to actualize test cases", e);
         }
