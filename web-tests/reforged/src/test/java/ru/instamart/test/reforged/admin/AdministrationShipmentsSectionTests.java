@@ -221,16 +221,6 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         //вместо создания заказа получаю первый любой b2b заказ
         String shipmentNumber = shipments().getShipmentNumber();
 
-        users().goToPage();
-        users().fillSearchByPhoneNumber(userData.getPhone());
-        users().clickToSearch();
-        users().clickToEditUser();
-
-        usersEdit.setB2BUser();
-        usersEdit.clickToSave();
-
-        usersEdit.unsetB2BUser();
-        usersEdit.clickToSave();
         main().doLogout();
 
         login().goToPage();

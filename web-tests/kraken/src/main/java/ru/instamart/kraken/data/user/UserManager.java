@@ -180,7 +180,7 @@ public final class UserManager {
                     .password(PASSWD_1)
                     .build();
         }
-        return defaultUserWithoutPermission;
+        return forB2BUser;
     }
 
     public static UserData addressUser() {
