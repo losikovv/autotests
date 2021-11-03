@@ -1,0 +1,76 @@
+{
+  "data": [
+    {
+      "statusCode": 200,
+      "clientTokenName": "metro_marketplace",
+      "clientToken": "8055cfd11c887f2887dcd109e66dd166",
+      "itemId": "23020",
+      "itemIdName": "sku продукта Шоколадные конфеты Merci ассорти 400 г PerItem - поштучный",
+      "itemQuantity": 1,
+      "itemPrice": 10000,
+      "itemDiscount": 1000,
+      "itemPromoTotal": 1000,
+      "shipTotal": "15000"
+    },
+    {
+      "statusCode": 200,
+      "clientTokenName": "metro_marketplace",
+      "clientToken": "8055cfd11c887f2887dcd109e66dd166",
+      "itemId": "110581",
+      "itemIdName": "sku продукта Уксус Kuhne яблочный 5% PerItem - поштучный",
+      "itemQuantity": 1,
+      "itemPrice": 10000,
+      "itemDiscount": 1000,
+      "itemPromoTotal": 1000,
+      "shipTotal": "15000"
+    },
+    {
+      "statusCode": 200,
+      "clientTokenName": "metro_marketplace",
+      "clientToken": "8055cfd11c887f2887dcd109e66dd166",
+      "itemId": "557198",
+      "itemIdName": "sku продукта Бананы PerKilo - весовой",
+      "itemQuantity": 1,
+      "itemPrice": 10000,
+      "itemDiscount": 1000,
+      "itemPromoTotal": 1000,
+      "shipTotal": "15000"
+    },
+    {
+      "statusCode": 200,
+      "clientTokenName": "metro_marketplace",
+      "clientToken": "8055cfd11c887f2887dcd109e66dd166",
+      "itemId": "567196",
+      "itemIdName": "sku продукта Абрикосы Россия ~1 кг PerPackage - весовой упакованный",
+      "itemQuantity": 1,
+      "itemPrice": 10000,
+      "itemDiscount": 1000,
+      "itemPromoTotal": 1000,
+      "shipTotal": "15000"
+    },
+    {
+      "statusCode": 200,
+      "clientTokenName": "metro_marketplace",
+      "clientToken": "8055cfd11c887f2887dcd109e66dd166",
+      "itemId": "588842",
+      "itemIdName": "sku продукта Тушка Qegg цыпленка корнишон замороженная ~700 г PerPackage - весовой упакованный",
+      "itemQuantity": 1,
+      "itemPrice": 10000,
+      "itemDiscount": 1000,
+      "itemPromoTotal": 1000,
+      "shipTotal": "15000"
+    },
+    {
+      "statusCode": 200,
+      "clientTokenName": "metro_marketplace",
+      "clientToken": "8055cfd11c887f2887dcd109e66dd166",
+      "itemId": "51505",
+      "itemIdName": "sku продукта Газированный напиток Fanta апельсин 0,33 PerPack - упаковочный (ящик, коробка)",
+      "itemQuantity": 1,
+      "itemPrice": 10000,
+      "itemDiscount": 1000,
+      "itemPromoTotal": 1000,
+      "shipTotal": "15000"
+    }
+  ]
+}

@@ -14,6 +14,8 @@ import ru.instamart.api.response.v2.PromotionCardsV2Response;
 import ru.instamart.api.response.v2.StoreV2Response;
 import ru.instamart.api.response.v2.StoresV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data_provider.JsonDataProvider;
+import ru.instamart.kraken.data_provider.JsonProvider;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.testng.Assert.*;
@@ -89,9 +91,10 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(188)
+    @JsonDataProvider(path = "data/json_v2/api_v2_negative_store_data.json", type = RestDataProvider.StoreDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
-            dataProvider = "storeData",
-            dataProviderClass = RestDataProvider.class,
+            dataProvider = "json",
+            dataProviderClass = JsonProvider.class,
             description = "Получить список магазинов с указанием lon или lon")
     public void getStoresData(StoresV2Request.Store store) {
         final Response response = StoresV2Request.GET(store);
@@ -121,9 +124,10 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(190)
+    @JsonDataProvider(path = "data/json_v2/api_v2_positive_store_data.json", type = RestDataProvider.StoreDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
-            dataProvider = "storeDataWithLatAndLon",
-            dataProviderClass = RestDataProvider.class,
+            dataProvider = "json",
+            dataProviderClass = JsonProvider.class,
             description = "Получение списка магазинов  с валидными значениями")
     public void getStores(StoresV2Request.Store store) {
         final Response response = StoresV2Request.GET(store);
