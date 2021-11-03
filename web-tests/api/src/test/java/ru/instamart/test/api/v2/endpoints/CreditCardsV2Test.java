@@ -15,6 +15,7 @@ import ru.instamart.api.enums.v2.CreditCardV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.CreditCardsV2Request;
 import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
+import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.response.v2.CreditCardV2Response;
 import ru.instamart.api.response.v2.CreditCardsV2Response;
 
@@ -149,7 +150,7 @@ public class CreditCardsV2Test extends RestBase {
             description = "У пользователя несколько добавленных карт",
             dependsOnMethods = "addNewCard")
     public void testSomeCreditCards() {
-        Response response = CreditCardsV2Request.GET();
+        final Response response = CreditCardsV2Request.GET();
         checkStatusCode200(response);
         final CreditCardsV2Response creditCardsV2Response = response.as(CreditCardsV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
@@ -162,7 +163,7 @@ public class CreditCardsV2Test extends RestBase {
             description = "Удаление карты по не существующим ID"
     )
     public void failedTestDeleteCreditCards() {
-        Response response = CreditCardsV2Request.DELETE("failedId");
+        final Response response = CreditCardsV2Request.DELETE("failedId");
         checkStatusCode404(response);
         errorAssert(response, "Кредитная карта не существует");
     }
@@ -175,8 +176,7 @@ public class CreditCardsV2Test extends RestBase {
             description = "Удаление карты по существующему ID",
             dependsOnMethods = "addNewCard")
     public void testDeleteCreditCards() {
-        Response response = CreditCardsV2Request.DELETE(creditCardId.toString());
+        final Response response = CreditCardsV2Request.DELETE(creditCardId.toString());
         checkStatusCode200(response);
     }
-
 }

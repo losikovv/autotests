@@ -31,10 +31,11 @@ public class MarketingSamplesDao implements Dao<Long, MarketingSamplesEntity> {
 
     @Override
     public Optional<MarketingSamplesEntity> findById(Long id) {
-       MarketingSamplesEntity marketingSamplesEntity = new MarketingSamplesEntity();
+        MarketingSamplesEntity marketingSamplesEntity = new MarketingSamplesEntity();
+        var sql = String.format(SELECT_SQL, "*") + " s JOIN marketing_samples_users u ON s.id = u.marketing_sample_id WHERE id = ?";
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
-                     " s JOIN marketing_samples_users u ON s.id = u.marketing_sample_id WHERE id = " + id)) {
+             PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
+            preparedStatement.setObject(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 marketingSamplesEntity.setName(resultSet.getString("name"));
@@ -58,9 +59,9 @@ public class MarketingSamplesDao implements Dao<Long, MarketingSamplesEntity> {
         int resultCount = 0;
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*)") + " WHERE deleted_at IS NULL")) {
-             ResultSet resultSet = preparedStatement.executeQuery();
-             resultSet.next();
-             resultCount = resultSet.getInt("count(*)");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            resultCount = resultSet.getInt("count(*)");
         } catch (SQLException e) {
             e.printStackTrace();
         }

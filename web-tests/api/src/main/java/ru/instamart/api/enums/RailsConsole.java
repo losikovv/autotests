@@ -104,4 +104,15 @@ public interface RailsConsole {
             return format(command, value);
         }
     }
+
+    @AllArgsConstructor
+    enum User implements RailsConsole{
+        FIND_BY_PHONE("Spree::User.find_by_sql('SELECT * FROM spree_users INNER JOIN phone_tokens ON spree_users.id = phone_tokens.user_id WHERE phone_tokens.value=%s').last().id");
+
+        private String command;
+
+        public String get(String... values) {
+            return format(command, (Object[]) values);
+        }
+    }
 }
