@@ -19,7 +19,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 
@@ -82,7 +82,7 @@ public class ShopperAppE2ETest extends RestBase {
                 getDateFromMSK().toString(),
                 "1");
         checkStatusCode422(response);
-        errorAssert(response, "Этот чек уже прикреплён к другому заказу");
+        checkError(response, "Этот чек уже прикреплён к другому заказу");
 
     }
 }

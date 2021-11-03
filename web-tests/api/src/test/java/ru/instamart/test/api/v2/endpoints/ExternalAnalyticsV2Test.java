@@ -25,7 +25,7 @@ public class ExternalAnalyticsV2Test extends RestBase {
     }
 
     @CaseId(791)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Получение идентификатора устройства для аналитики с токеном")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Получение идентификатора устройства для аналитики с токеном")
     public void testGetDeviceIdWithToken() {
         final Response response = ExternalAnalyticsV2Request.POST();
         checkStatusCode200(response);

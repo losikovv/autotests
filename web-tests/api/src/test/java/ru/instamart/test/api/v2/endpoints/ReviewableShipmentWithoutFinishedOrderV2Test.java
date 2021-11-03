@@ -13,7 +13,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.ReviewableShipmentV2Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 import static ru.instamart.api.factory.SessionFactory.createSessionToken;
 import static ru.instamart.kraken.data.user.UserManager.getDefaultApiUser;
@@ -24,13 +24,13 @@ import static ru.instamart.kraken.data.user.UserManager.getDefaultApiUser;
 public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
     @CaseId(466)
     @Story("Получение последнего подзаказа без отзыва о заказе")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-smoke"},
             description = "Автоматическое получение последнего шипмента без оценки при старте приложения. Заказа на аккаунте не было.")
     public void automaticReceiptLastMessage404() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
         final Response response = ReviewableShipmentV2Request.GET();
         checkStatusCode404(response);
-        errorAssert(response, "ActiveRecord::RecordNotFound");
+        checkError(response, "ActiveRecord::RecordNotFound");
     }
 
     @CaseId(467)
@@ -41,7 +41,7 @@ public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
         createSessionToken(SessionType.API_V2_FB, getDefaultApiUser());
         final Response response = ReviewableShipmentV2Request.GET();
         checkStatusCode404(response);
-        errorAssert(response, "ActiveRecord::RecordNotFound");
+        checkError(response, "ActiveRecord::RecordNotFound");
     }
 
 
@@ -55,6 +55,6 @@ public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
                 .build();
         final Response response = ShipmentsV2Request.Reviews.POST("failed920934723904", review);
         checkStatusCode404(response);
-        errorAssert(response, "Доставка не существует");
+        checkError(response, "Доставка не существует");
     }
 }

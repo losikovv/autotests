@@ -13,6 +13,7 @@ import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.PaymentToolsV2;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.LineItemV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.ProductV2;
@@ -110,7 +111,7 @@ public class OrdersV2Test extends RestBase {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "failCode");
-        errorAssert(response, "Промокод не существует");
+        checkError(response, "Промокод не существует");
     }
 
     @CaseId(315)
@@ -146,7 +147,7 @@ public class OrdersV2Test extends RestBase {
 
         response = OrdersV2Request.Promotions.DELETE("failOrder", promoCode);
         checkStatusCode404(response);
-        errorAssert(response, "Заказ не существует");
+        checkError(response, "Заказ не существует");
     }
 
     @CaseId(318)
@@ -163,7 +164,7 @@ public class OrdersV2Test extends RestBase {
 
         response = OrdersV2Request.Promotions.DELETE(apiV2.getCurrentOrderNumber(), "failCode");
         checkStatusCode404(response);
-        errorAssert(response, "Промокод не существует");
+        checkError(response, "Промокод не существует");
     }
 
     @Deprecated
@@ -191,7 +192,7 @@ public class OrdersV2Test extends RestBase {
     public void retrievingListOfItemsForOrderForNonExistentId() {
         response = OrdersV2Request.LineItems.GET("failedOrderNumber");
         checkStatusCode404(response);
-        errorAssert(response, "Заказ не существует");
+        checkError(response, "Заказ не существует");
     }
 
     @Deprecated
@@ -211,7 +212,7 @@ public class OrdersV2Test extends RestBase {
     public void getShipmentLineItems404() {
         response = ShipmentsV2Request.LineItems.GET("failedOrderNumber");
         checkStatusCode404(response);
-        errorAssert(response, "Доставка не существует");
+        checkError(response, "Доставка не существует");
     }
 
     @Deprecated
@@ -233,7 +234,7 @@ public class OrdersV2Test extends RestBase {
     public void getLineItemCancellations404() {
         response = OrdersV2Request.LineItemCancellations.GET("failedOrderNumber");
         checkStatusCode404(response);
-        errorAssert(response, "Заказ не существует");
+        checkError(response, "Заказ не существует");
     }
 
     @Deprecated
@@ -243,7 +244,7 @@ public class OrdersV2Test extends RestBase {
     public void getShipmentLineItem404() {
         response = ShipmentsV2Request.LineItemCancellations.GET("failedOrderNumber");
         checkStatusCode404(response);
-        errorAssert(response, "Доставка не существует");
+        checkError(response, "Доставка не существует");
     }
 
     @Deprecated
@@ -253,7 +254,7 @@ public class OrdersV2Test extends RestBase {
     public void getOrdersLineItemReplacements404() {
         response = OrdersV2Request.LineItemReplacements.GET("failedOrderNumber");
         checkStatusCode404(response);
-        errorAssert(response, "Заказ не существует");
+        checkError(response, "Заказ не существует");
     }
 
     @Deprecated
@@ -263,12 +264,12 @@ public class OrdersV2Test extends RestBase {
     public void getShipmentLineItemReplacements404() {
         response = ShipmentsV2Request.LineItemReplacements.GET("failedOrderNumber");
         checkStatusCode404(response);
-        errorAssert(response, "Доставка не существует");
+        checkError(response, "Доставка не существует");
     }
 
     @CaseId(331)
     @Story("Добавление позиции к заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-smoke"},
             description = "Добавление позиции к заказу с обязательными полями")
     public void setLineItems200() {
         List<ProductV2> products = apiV2.getProductFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_SID);
@@ -289,12 +290,12 @@ public class OrdersV2Test extends RestBase {
     public void setLineItems404(long productId, int quantity, String orderNumber) {
         response = LineItemsV2Request.POST(productId, quantity, orderNumber);
         checkStatusGroup400(response);
-        errorTextIsNotEmpty(response);
+        checkErrorTextIsNotEmpty(response);
     }
 
     @CaseId(333)
     @Story("Редактирование позиции заказа")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-smoke"},
             description = "Редактирование позиции заказа с существующим id")
     public void changeLineItems200() {
         List<LineItemV2> cart = apiV2.fillCart(
@@ -321,13 +322,13 @@ public class OrdersV2Test extends RestBase {
     public void changeLineItems404(long productId, int qty) {
         response = LineItemsV2Request.PUT(productId, qty);
         checkStatusGroup400(response);
-        errorTextIsNotEmpty(response);
+        checkErrorTextIsNotEmpty(response);
     }
 
     @CaseId(335)
     @Story("Удаление позиции заказа")
-    @Test(groups = {"api-instamart-regress"},
-            description = "")
+    @Test(groups = {"api-instamart-smoke"},
+            description = "Успешное удаление позиции заказа")
     public void deleteLineItems200() {
         Integer productId = apiV2.fillCart(
                 SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
@@ -342,16 +343,16 @@ public class OrdersV2Test extends RestBase {
     @CaseId(336)
     @Story("Удаление позиции заказа")
     @Test(groups = {"api-instamart-regress"},
-            description = "")
+            description = "Удаление несуществующей позиции заказа")
     public void deleteLineItems404() {
         response = LineItemsV2Request.DELETE(0);
         checkStatusGroup400(response);
-        errorAssert(response, "Позиция не существует");
+        checkError(response, "Позиция не существует");
     }
 
     @CaseId(337)
     @Story("Заполнение информации о заказе")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-smoke"},
             description = "Заполнение информации о заказе с существующим id")
     public void fillingInOrderInformation200() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
@@ -363,13 +364,13 @@ public class OrdersV2Test extends RestBase {
         Response response = OrdersV2Request.PUT(1, "", "", paymentsId, shipmentId, deliveryWindow, 0, orderNumber);
         checkStatusCode200(response);
 
-        OrderV2Response order = response.as(OrderV2Response.class);
+        OrderV2 order = response.as(OrderV2Response.class).getOrder();
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(order.getOrder().getReplacementPolicy().getId().toString(), "1", "Код замены неверен");
-        softAssert.assertEquals(order.getOrder().getReplacementPolicy().getDescription(), "Позвонить мне. Подобрать замену, если не смогу ответить", "Описание замены неверно указанному");
-        softAssert.assertEquals(order.getOrder().getShipments().get(0).getId(), shipmentId, "Id достаки неверный");
-        softAssert.assertEquals(order.getOrder().getShipments().get(0).getDeliveryWindow().getId(), deliveryWindow, "Id окна достаки неверен");
-        softAssert.assertEquals(order.getOrder().getNumber(), orderNumber, "orderNumber неверен");
+        softAssert.assertEquals(order.getReplacementPolicy().getId().toString(), "1", "Код замены неверен");
+        softAssert.assertEquals(order.getReplacementPolicy().getDescription(), "Позвонить мне. Подобрать замену, если не смогу ответить", "Описание замены неверно указанному");
+        softAssert.assertEquals(order.getShipments().get(0).getId(), shipmentId, "Id достаки неверный");
+        softAssert.assertEquals(order.getShipments().get(0).getDeliveryWindow().getId(), deliveryWindow, "Id окна достаки неверен");
+        softAssert.assertEquals(order.getNumber(), orderNumber, "orderNumber неверен");
         softAssert.assertAll();
     }
 
@@ -421,12 +422,12 @@ public class OrdersV2Test extends RestBase {
     public void cancellationsOrders404() {
         response = OrdersV2Request.Cancellations.POST("failedOrderNumber", "test");
         checkStatusCode404(response);
-        errorAssert(response, "Заказ не существует");
+        checkError(response, "Заказ не существует");
     }
 
     @CaseId(682)
     @Story("Получить способы оплаты")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-smoke"},
             description = "Получить способы оплаты")
     public void getPaymentMethods() {
         response = PaymentToolsV2Request.GET();
@@ -442,7 +443,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(343)
     @Story("Завершение заказа")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-smoke"},
             description = "Завершение заказа с существующим id")
     public void orderCompletion200() {
         String orderNumber = apiV2.getCurrentOrderNumber();
@@ -452,24 +453,25 @@ public class OrdersV2Test extends RestBase {
 
         response = OrdersV2Request.Completion.POST(apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
-        OrderV2Response order = response.as(OrderV2Response.class);
+        OrderV2 order = response.as(OrderV2Response.class).getOrder();
         final SoftAssert softAssert = new SoftAssert();
 
-        softAssert.assertEquals(order.getOrder().getNumber(), orderNumber, "Error order number");
-        softAssert.assertEquals(order.getOrder().getShipments().get(0).getNumber(), shipmentNumber, "Error shipments number");
+        softAssert.assertEquals(order.getNumber(), orderNumber, "Error order number");
+        softAssert.assertEquals(order.getShipments().get(0).getNumber(), shipmentNumber, "Error shipments number");
 
-        softAssert.assertEquals(order.getOrder().getAddress().getFullAddress(), userFullAddress, "Адрес отличается от заполненного");
-        softAssert.assertEquals(order.getOrder().getAddress().getCity(), userCity, "Город отличается от заполненного");
-        softAssert.assertEquals(order.getOrder().getAddress().getPhone(), userPhone, "Номер телефона отличается от заполненного");
-        softAssert.assertEquals(order.getOrder().getAddress().getStreet(), userStreet, "Улица отличается от заполненного");
-        softAssert.assertEquals(order.getOrder().getAddress().getBuilding(), userBuilding, "Дом отличается от заполненного");
-        softAssert.assertEquals(order.getOrder().getAddress().getLat().toString(), userLat, "Координаты отличаются");
-        softAssert.assertEquals(order.getOrder().getAddress().getLon().toString(), userLon, "Координаты отличаются");
-        softAssert.assertFalse(order.getOrder().getAddress().getDeliveryToDoor(), "delivery_to_door is true");
+        AddressV2 address = order.getAddress();
+        softAssert.assertEquals(address.getFullAddress(), userFullAddress, "Адрес отличается от заполненного");
+        softAssert.assertEquals(address.getCity(), userCity, "Город отличается от заполненного");
+        softAssert.assertEquals(address.getPhone(), userPhone, "Номер телефона отличается от заполненного");
+        softAssert.assertEquals(address.getStreet(), userStreet, "Улица отличается от заполненного");
+        softAssert.assertEquals(address.getBuilding(), userBuilding, "Дом отличается от заполненного");
+        softAssert.assertEquals(address.getLat().toString(), userLat, "Координаты отличаются");
+        softAssert.assertEquals(address.getLon().toString(), userLon, "Координаты отличаются");
+        softAssert.assertFalse(address.getDeliveryToDoor(), "delivery_to_door is true");
 
-        softAssert.assertEquals(order.getOrder().getPayment().getState(), "checkout", "Оплата отличается от выбранного");
-        softAssert.assertEquals(order.getOrder().getReplacementPolicy().getId().toString(), "1", "Код замены товара отличается");
-        softAssert.assertEquals(order.getOrder().getReplacementPolicy().getDescription(), "Позвонить мне. Подобрать замену, если не смогу ответить", "Описание замены товара отличается");
+        softAssert.assertEquals(order.getPayment().getState(), "checkout", "Оплата отличается от выбранного");
+        softAssert.assertEquals(order.getReplacementPolicy().getId().toString(), "1", "Код замены товара отличается");
+        softAssert.assertEquals(order.getReplacementPolicy().getDescription(), "Позвонить мне. Подобрать замену, если не смогу ответить", "Описание замены товара отличается");
         softAssert.assertAll();
     }
 
@@ -480,7 +482,7 @@ public class OrdersV2Test extends RestBase {
     public void orderCompletion404() {
         response = OrdersV2Request.Completion.POST("failedOrderNumber");
         checkStatusCode404(response);
-        errorAssert(response, "Заказ не существует");
+        checkError(response, "Заказ не существует");
     }
 
     @Deprecated
@@ -491,17 +493,17 @@ public class OrdersV2Test extends RestBase {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
         String orderNumber = apiV2.getCurrentOrderNumber();
         response = OrdersV2Request.Shipments.DELETE(orderNumber);
-        OrderV2Response orderV2Response = response.as(OrderV2Response.class);
+        OrderV2 order = response.as(OrderV2Response.class).getOrder();
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(orderV2Response.getOrder().getNumber(), orderNumber, "Номер заказа отдичается");
-        softAssert.assertEquals(orderV2Response.getOrder().getTotal().toString(), "0.0", "total не равен 0");
-        softAssert.assertEquals(orderV2Response.getOrder().getItemCount().toString(), "0", "item_count не равен 0");
-        softAssert.assertEquals(orderV2Response.getOrder().getItemTotal().toString(), "0.0", "item_total не равен 0");
-        softAssert.assertEquals(orderV2Response.getOrder().getItemDiscountTotal().toString(), "0.0", "item_discount_total не равен 0");
-        softAssert.assertEquals(orderV2Response.getOrder().getShipTotal().toString(), "0.0", "ship_total не равен 0");
-        softAssert.assertEquals(orderV2Response.getOrder().getAdjustmentTotal().toString(), "0.0", "adjustment_total не равен 0");
-        softAssert.assertEquals(orderV2Response.getOrder().getPromoTotal().toString(), "0.0", "promo_total не равен 0");
-        softAssert.assertTrue(orderV2Response.getOrder().getShipments().isEmpty(), "Доставка не удалилась");
+        softAssert.assertEquals(order.getNumber(), orderNumber, "Номер заказа отдичается");
+        softAssert.assertEquals(order.getTotal().toString(), "0.0", "total не равен 0");
+        softAssert.assertEquals(order.getItemCount().toString(), "0", "item_count не равен 0");
+        softAssert.assertEquals(order.getItemTotal().toString(), "0.0", "item_total не равен 0");
+        softAssert.assertEquals(order.getItemDiscountTotal().toString(), "0.0", "item_discount_total не равен 0");
+        softAssert.assertEquals(order.getShipTotal().toString(), "0.0", "ship_total не равен 0");
+        softAssert.assertEquals(order.getAdjustmentTotal().toString(), "0.0", "adjustment_total не равен 0");
+        softAssert.assertEquals(order.getPromoTotal().toString(), "0.0", "promo_total не равен 0");
+        softAssert.assertTrue(order.getShipments().isEmpty(), "Доставка не удалилась");
         softAssert.assertAll();
     }
 
@@ -512,7 +514,7 @@ public class OrdersV2Test extends RestBase {
     public void clearOrder404() {
         response = OrdersV2Request.Shipments.DELETE("failedOrderNumber");
         checkStatusCode404(response);
-        errorAssert(response, "Заказ не существует");
+        checkError(response, "Заказ не существует");
     }
 
     @CaseId(347)
@@ -526,17 +528,17 @@ public class OrdersV2Test extends RestBase {
         response = ShipmentsV2Request.DELETE(shipmentNumber);
 
         checkStatusCode200(response);
-        OrderV2Response orderV2Response = response.as(OrderV2Response.class);
+        OrderV2 order = response.as(OrderV2Response.class).getOrder();
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(orderV2Response.getOrder().getNumber(), orderNumber, "Номер заказа отдичается");
-        softAssert.assertEquals(orderV2Response.getOrder().getTotal().toString(), "0.0", "total не равен 0");
-        softAssert.assertEquals(orderV2Response.getOrder().getItemCount().toString(), "0", "item_count не равен 0");
-        softAssert.assertEquals(orderV2Response.getOrder().getItemTotal().toString(), "0.0", "item_total не равен 0");
-        softAssert.assertEquals(orderV2Response.getOrder().getItemDiscountTotal().toString(), "0.0", "item_discount_total не равен 0");
-        softAssert.assertEquals(orderV2Response.getOrder().getShipTotal().toString(), "0.0", "ship_total не равен 0");
-        softAssert.assertEquals(orderV2Response.getOrder().getAdjustmentTotal().toString(), "0.0", "adjustment_total не равен 0");
-        softAssert.assertEquals(orderV2Response.getOrder().getPromoTotal().toString(), "0.0", "promo_total не равен 0");
-        softAssert.assertTrue(orderV2Response.getOrder().getShipments().isEmpty(), "Доставка не удалилась");
+        softAssert.assertEquals(order.getNumber(), orderNumber, "Номер заказа отдичается");
+        softAssert.assertEquals(order.getTotal().toString(), "0.0", "total не равен 0");
+        softAssert.assertEquals(order.getItemCount().toString(), "0", "item_count не равен 0");
+        softAssert.assertEquals(order.getItemTotal().toString(), "0.0", "item_total не равен 0");
+        softAssert.assertEquals(order.getItemDiscountTotal().toString(), "0.0", "item_discount_total не равен 0");
+        softAssert.assertEquals(order.getShipTotal().toString(), "0.0", "ship_total не равен 0");
+        softAssert.assertEquals(order.getAdjustmentTotal().toString(), "0.0", "adjustment_total не равен 0");
+        softAssert.assertEquals(order.getPromoTotal().toString(), "0.0", "promo_total не равен 0");
+        softAssert.assertTrue(order.getShipments().isEmpty(), "Доставка не удалилась");
         softAssert.assertAll();
     }
 
@@ -547,12 +549,12 @@ public class OrdersV2Test extends RestBase {
     public void clearShipments404() {
         response = ShipmentsV2Request.DELETE("failedNumber");
         checkStatusCode404(response);
-        errorAssert(response, "Доставка не существует");
+        checkError(response, "Доставка не существует");
     }
 
     @CaseId(812)
     @Story("Создание нового заказа")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-smoke"},
             description = "Создание нового заказа")
     public void createNewOrder() {
         SessionFactory.clearSession(SessionType.API_V2_FB);
@@ -567,7 +569,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(300)
     @Story("Получение данных о заказе")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-smoke"},
             description = "Получение данных о заказе по номеру")
     public void getOrderByNumber() {
         UserData userData = SessionFactory.getSession(SessionType.API_V2_FB).getUserData();
@@ -585,12 +587,12 @@ public class OrdersV2Test extends RestBase {
     public void getOrderByNonExistingNumber() {
         final Response response = OrdersV2Request.GET("failedNumber");
         checkStatusCode404(response);
-        errorAssert(response, "Заказ не существует");
+        checkError(response, "Заказ не существует");
     }
 
     @CaseId(303)
     @Story("Получение текущего заказа")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-smoke"},
             description = "Получение текущего заказа пользователем, у которого есть заказ")
     public void getCurrentOrder() {
         final Response response = OrdersV2Request.Current.GET();
@@ -609,7 +611,7 @@ public class OrdersV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2_FB);
         final Response response = OrdersV2Request.Current.GET();
         checkStatusCode404(response);
-        errorAssert(response, "У пользователя нет текущего заказа");
+        checkError(response, "У пользователя нет текущего заказа");
     }
 
     @CaseId(304)
@@ -636,7 +638,7 @@ public class OrdersV2Test extends RestBase {
     public void mergeCurrentOrderWithNonExistingOrder() {
         final Response response = OrdersV2Request.Current.PUT("failedUuid");
         checkStatusCode404(response);
-        errorAssert(response, "Заказ не существует");
+        checkError(response, "Заказ не существует");
     }
 
     @CaseId(816)
@@ -654,6 +656,6 @@ public class OrdersV2Test extends RestBase {
         final Response response = OrdersV2Request.Instacoins.POST(apiV2.getCurrentOrderNumber(), "100");
         response.prettyPeek();
         checkStatusCode422(response);
-        errorAssert(response, "Этот заказ можно оплатить бонусами до 0 ₽");
+        checkError(response, "Этот заказ можно оплатить бонусами до 0 ₽");
     }
 }

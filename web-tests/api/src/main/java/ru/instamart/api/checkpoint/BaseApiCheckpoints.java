@@ -14,7 +14,7 @@ import static org.testng.Assert.*;
 public class BaseApiCheckpoints {
 
     @Step("Проверка правильного error сообщения. Type = base")
-    public static void errorAssert(Response response, String textError) {
+    public static void checkError(Response response, String textError) {
         final SoftAssert softAssert = new SoftAssert();
         log.debug("Check error message: {} with response", textError);
         ErrorResponse error = response.as(ErrorResponse.class);
@@ -28,7 +28,7 @@ public class BaseApiCheckpoints {
 
 
     @Step("Проверка правильного error сообщения. Type = value")
-    public static void errorValueAssert(Response response, String textError, String value) {
+    public static void checkErrorValue(Response response, String textError, String value) {
         final SoftAssert softAssert = new SoftAssert();
         log.debug("Check error message: {} with response", textError);
         ErrorResponse error = response.as(ErrorResponse.class);
@@ -42,7 +42,7 @@ public class BaseApiCheckpoints {
 
 
     @Step("Проверка на существования сообщения об ошибке")
-    public static void errorTextIsNotEmpty(Response response) {
+    public static void checkErrorTextIsNotEmpty(Response response) {
         ErrorResponse error = response.as(ErrorResponse.class);
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertFalse(error.getErrors().getBase().isEmpty(), "Невалидная ошибка");

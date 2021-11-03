@@ -17,7 +17,7 @@ import ru.instamart.api.request.v2.CompanyDocumentsV2Request;
 import ru.instamart.api.request.v2.LegalEntityV2Request;
 import ru.instamart.api.response.v2.CompanyDocumentV2Response;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.kraken.helper.LegalEntityHelper.*;
 
@@ -35,7 +35,7 @@ public class LegalEntityV2Test extends RestBase {
     public void getINN400(String inn) {
         final Response response = LegalEntityV2Request.ByINN.GET(inn);
         checkStatusCode404(response);
-         errorAssert(response, "Информация о компании не существует");
+         checkError(response, "Информация о компании не существует");
     }
 
     @CaseId(482)
@@ -99,7 +99,7 @@ public class LegalEntityV2Test extends RestBase {
                 .build();
         final Response response = CompanyDocumentsV2Request.POST(company);
         checkStatusCode422(response);
-        errorAssert(response, "Вы не состоите в компании с таким ИНН. Проверьте ИНН или закрепите компанию на сайте СберМаркет во вкладке «Для бизнеса»");
+        checkError(response, "Вы не состоите в компании с таким ИНН. Проверьте ИНН или закрепите компанию на сайте СберМаркет во вкладке «Для бизнеса»");
     }
 
     @CaseId(484)
@@ -156,7 +156,7 @@ public class LegalEntityV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2_FB);
         final Response response = CompanyDocumentsV2Request.POST(company);
         checkStatusCode422(response);
-        errorAssert(response, errorMessage);
+        checkError(response, errorMessage);
     }
 
 }

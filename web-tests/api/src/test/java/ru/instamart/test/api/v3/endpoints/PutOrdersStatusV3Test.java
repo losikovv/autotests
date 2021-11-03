@@ -24,27 +24,11 @@ public class PutOrdersStatusV3Test extends RestBase {
 
     OrderV3 order;
 
-   /*@BeforeMethod(alwaysRun = true)
-    public void createOrder() {
-        ApiV3TestData testData = ApiV3TestData
-                .builder()
-                .shipTotal("15000")
-                .itemId("15879")
-                .itemQuantity(1)
-                .itemPrice(10000)
-                .itemDiscount(1000)
-                .itemPromoTotal(1000)
-                .clientToken("6fae9cd2b268be84e2ab394b6fd0d599")
-                .build();
-
-        order = apiV3.createOrderDelivery(testData);
-    }*/
-
     @Issue("INFRADEV-7831")
     @CaseId(675)
     @Story("Отмена заказа на доставку")
     @JsonDataProvider(path = "data/json_v3/api_v3_test_data_goods.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
-    @Test(groups = {"api-instamart-smoke"},
+    @Test(  groups = {"api-instamart-regress"},
             dataProvider = "jsonWithoutParallel",
             dataProviderClass = JsonProvider.class,
             description = "Отмена заказа доставки Goods")
@@ -58,7 +42,7 @@ public class PutOrdersStatusV3Test extends RestBase {
     @Issue("DVR-1547")
     @Story("Отмена заказа на самовывоз")
     @JsonDataProvider(path = "data/json_v3/api_v3_test_data_metro_marketplace.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
-    @Test(groups = {"api-instamart-smoke"},
+    @Test(  groups = {"api-instamart-regress"},
             dataProvider = "jsonWithoutParallel",
             dataProviderClass = JsonProvider.class,
             description = "Отмена заказа самовывоза Metro_Marketplace")

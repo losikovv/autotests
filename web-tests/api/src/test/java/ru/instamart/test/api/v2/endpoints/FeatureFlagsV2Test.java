@@ -15,7 +15,7 @@ public class FeatureFlagsV2Test extends RestBase {
 
     @CaseId(792)
     @Test(description = "Получение списка всех фича-флагов",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-smoke"})
     public void getFeatureFlags200() {
         Response response = FeatureFlagsV2Request.GET();
         checkStatusCode200(response);

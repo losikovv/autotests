@@ -20,7 +20,7 @@ import ru.instamart.kraken.data_provider.JsonProvider;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
@@ -99,7 +99,7 @@ public final class StoresV2Test extends RestBase {
     public void getStoresData(StoresV2Request.Store store) {
         final Response response = StoresV2Request.GET(store);
         checkStatusCode422(response);
-        errorAssert(response, "lat and lon params are both required");
+        checkError(response, "lat and lon params are both required");
     }
 
     @CaseId(189)
@@ -125,7 +125,7 @@ public final class StoresV2Test extends RestBase {
 
     @CaseId(190)
     @JsonDataProvider(path = "data/json_v2/api_v2_positive_store_data.json", type = RestDataProvider.StoreDataRoot.class)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-smoke"},
             dataProvider = "json",
             dataProviderClass = JsonProvider.class,
             description = "Получение списка магазинов  с валидными значениями")

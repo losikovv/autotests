@@ -55,7 +55,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @CaseId(339)
     @Story("Получить время доставки")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Получить время доставки с существующим id")
     public void getDeliveryWindows200() {
         Integer shipmentId = apiV2.getShippingWithOrder().getId();
@@ -71,7 +71,7 @@ public class ShipmentsV2Test extends RestBase {
     public void getDeliveryWindows404() {
         Response response = ShipmentsV2Request.DeliveryWindows.GET("failedShipmentId", today);
         checkStatusCode404(response);
-        errorAssert(response, "Доставка не существует");
+        checkError(response, "Доставка не существует");
     }
 
     @Deprecated
@@ -92,7 +92,7 @@ public class ShipmentsV2Test extends RestBase {
     public void serviceRate404() {
         response = ShipmentsV2Request.ServiceRate.GET(apiV2.getShipmentsNumber(), null);
         checkStatusCode400(response);
-        errorAssert(response, "Отсутствует обязательный параметр 'delivery_window_id'");
+        checkError(response, "Отсутствует обязательный параметр 'delivery_window_id'");
     }
 
     @Deprecated
@@ -173,7 +173,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @CaseId(363)
     @Story("Получить окно доставки для подзаказа для указанного дня")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-smoke"},
             description = "Получить окно доставки для подзаказа для указанного дня с существующим id")
     public void shippingRates200() {
         response = ShipmentsV2Request.ShippingRates.GET(apiV2.getShipmentsNumber(), getDateFromMSK().plusDays(1).toString());
@@ -189,7 +189,7 @@ public class ShipmentsV2Test extends RestBase {
     public void shippingRates404() {
         response = ShipmentsV2Request.ShippingRates.GET("failedShippingNumber", today);
         checkStatusCode404(response);
-        errorAssert(response, "Доставка не существует");
+        checkError(response, "Доставка не существует");
     }
 
     @Deprecated
@@ -243,7 +243,7 @@ public class ShipmentsV2Test extends RestBase {
 
     @CaseId(368)
     @Story("Получить ближайшие окна доставки")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-smoke"},
             description = "Получить ближайшие окна доставки с существующим id")
     public void nextDeliver200() {
         response = StoresV2Request.NextDeliveries.GET(EnvironmentProperties.DEFAULT_SID);
@@ -258,7 +258,7 @@ public class ShipmentsV2Test extends RestBase {
     public void nextDeliver404() {
         response = StoresV2Request.NextDeliveries.GET(0);
         checkStatusCode404(response);
-        errorAssert(response, "Магазин не существует");
+        checkError(response, "Магазин не существует");
     }
 
     @CaseId(370)
@@ -315,7 +315,7 @@ public class ShipmentsV2Test extends RestBase {
     public void getShipmentState404() {
         final Response response = ShipmentsV2Request.State.GET("failedShipmentNumber");
         checkStatusCode404(response);
-        errorAssert(response, "Доставка не существует");
+        checkError(response, "Доставка не существует");
     }
 
     @CaseId(470)
@@ -337,7 +337,7 @@ public class ShipmentsV2Test extends RestBase {
     public void getListIssues404() {
         final Response response = ShipmentsV2Request.ReviewIssues.GET("failedShipmentNumber");
         checkStatusCode404(response);
-        errorAssert(response, "Доставка не существует");
+        checkError(response, "Доставка не существует");
     }
 
     @CaseId(298)
@@ -365,12 +365,12 @@ public class ShipmentsV2Test extends RestBase {
     public void repeatNonExistingShipment() {
         final Response response = ShipmentsV2Request.Clones.POST("failedShipmentNumber");
         checkStatusCode404(response);
-        errorAssert(response, "Доставка не существует");
+        checkError(response, "Доставка не существует");
     }
 
     @CaseIDs(value = {@CaseId(529), @CaseId(530)})
     @Story("Детали по сборке подзаказа")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-smoke"},
             description = "Детали по сборке существующего подзаказа")
     public void getAssemblyItemsOfExistingShipment() {
         ShipmentV2 shipment = apiV2.getShippingWithOrder();
@@ -387,7 +387,7 @@ public class ShipmentsV2Test extends RestBase {
     public void getAssemblyItemsOfNonExistingShipment() {
         final Response response = ShipmentsV2Request.AssemblyItems.GET("failedShipmentNumber");
         checkStatusCode404(response);
-        errorAssert(response, "Доставка не существует");
+        checkError(response, "Доставка не существует");
     }
 
     @CaseId(822)
