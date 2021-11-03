@@ -1,7 +1,8 @@
-package ru.instamart.test.api.v2.deprecated;
+package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
@@ -25,12 +26,11 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 @Slf4j
 @Epic("ApiV2")
 @Feature("Получение таксонов")
-@Deprecated
 public final class TaxonsV2Test extends RestBase {
     private int taxonId;
 
-    @Deprecated
-    @Test(  groups = {},
+    @CaseId(249)
+    @Test(  groups = {"api-instamart-regress"},
             description = "Получаем таксоны (подкатегории)")
     public void getTaxons() {
         response = TaxonsV2Request.GET(EnvironmentProperties.DEFAULT_SID);
@@ -40,8 +40,8 @@ public final class TaxonsV2Test extends RestBase {
         taxonId = taxons.get(0).getId();
     }
 
-    @Deprecated
-    @Test(  groups = {},
+    @CaseId(249)
+    @Test(  groups = {"api-instamart-regress"},
             dependsOnMethods = "getTaxons",
             description = "Получаем таксон (подкатегорию)")
     public void getTaxon() {
@@ -50,8 +50,8 @@ public final class TaxonsV2Test extends RestBase {
         assertNotNull(response.as(TaxonV2Response.class).getTaxon(), "Не вернулся таксон");
     }
 
-    @Deprecated
-    @Test(  groups = {},
+    @CaseId(249)
+    @Test(  groups = {"api-instamart-regress"},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "stores-parallel",
             description = "Получаем каждый таксон (подкатегорию) у каждого магазина")
