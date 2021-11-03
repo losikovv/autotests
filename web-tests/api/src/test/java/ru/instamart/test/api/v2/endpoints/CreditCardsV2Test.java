@@ -15,11 +15,10 @@ import ru.instamart.api.enums.v2.CreditCardV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.CreditCardsV2Request;
 import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
-import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.response.v2.CreditCardV2Response;
 import ru.instamart.api.response.v2.CreditCardsV2Response;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
@@ -165,7 +164,7 @@ public class CreditCardsV2Test extends RestBase {
     public void failedTestDeleteCreditCards() {
         final Response response = CreditCardsV2Request.DELETE("failedId");
         checkStatusCode404(response);
-        errorAssert(response, "Кредитная карта не существует");
+        checkError(response, "Кредитная карта не существует");
     }
 
     @Issue("STF-6633")

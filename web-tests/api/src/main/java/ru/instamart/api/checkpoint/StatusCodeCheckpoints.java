@@ -10,17 +10,27 @@ import static org.hamcrest.Matchers.*;
 @Slf4j
 public class StatusCodeCheckpoints {
 
-    @Step("Проверка на {statusCode} статус код ответа")
-    public static void checkStatusCode(Response response, int statusCode) {
+    @Step("Проверка на {statusCode} статус код и {contentType} тип контента ответа")
+    public static void checkStatusCode(final Response response, final int statusCode, final ContentType contentType) {
         response.then().statusCode(statusCode);
-        if (statusCode == 200) response.then().contentType(ContentType.JSON);
+        if (statusCode == 200) response.then().contentType(contentType);
     }
 
-    public static void checkStatusCode200(Response response) {
+    @Step("Проверка на {statusCode} статус код и {contentType} тип контента ответа")
+    public static void checkStatusCode(final Response response, final int statusCode, final String contentType) {
+        response.then().statusCode(statusCode);
+        if (statusCode == 200) response.then().contentType(contentType);
+    }
+
+    public static void checkStatusCode(final Response response, final int statusCode) {
+        checkStatusCode(response, statusCode, ContentType.JSON);
+    }
+
+    public static void checkStatusCode200(final Response response) {
         checkStatusCode(response, 200);
     }
 
-    public static void checkStatusCode302(Response response) {
+    public static void checkStatusCode302(final Response response) {
         checkStatusCode(response, 302);
     }
 
@@ -57,5 +67,9 @@ public class StatusCodeCheckpoints {
 
     public static void checkStatusCode422(final Response response) {
         checkStatusCode(response, 422);
+    }
+
+    public static void checkContentTypeImage(final Response response) {
+        checkStatusCode(response, 200, "image/");
     }
 }

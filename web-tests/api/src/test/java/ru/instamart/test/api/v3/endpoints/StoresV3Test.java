@@ -12,8 +12,6 @@ import ru.instamart.api.request.v3.StoresV3Request;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.testng.Assert.assertNotEquals;
-import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
@@ -29,7 +27,7 @@ public class StoresV3Test extends RestBase {
     }
 
     @CaseId(864)
-    @Test(groups = {"api-instamart-smoke"}, description = "Доступные магазины для доставки")
+    @Test(groups = {"api-instamart-regress"}, description = "Доступные магазины для доставки")
     public void getStoresDelivery() {
         Response response = StoresV3Request.Delivery.GET();
         checkStatusCode200(response);
@@ -40,21 +38,21 @@ public class StoresV3Test extends RestBase {
     }
 
     @CaseId(865)
-    @Test(groups = {"api-instamart-smoke"}, description = "Доступные магазины для самовывоза")
+    @Test(groups = {"api-instamart-regress"}, description = "Доступные магазины для самовывоза")
     public void getStoresPickupFromStore() {
         Response response = StoresV3Request.PickupFromStore.GET();
         checkStatusCode200(response);
     }
 
     @CaseId(866)
-    @Test(groups = {"api-instamart-smoke"}, description = "Доступные магазины с ближайшими опциями")
+    @Test(groups = {"api-instamart-regress"}, description = "Доступные магазины с ближайшими опциями")
     public void getStoresClosestShippingOptions() {
         Response response = StoresV3Request.ClosestShippingOptions.GET();
         checkStatusCode200(response);
     }
 
     @CaseId(867)
-    @Test(groups = {"api-instamart-smoke"}, description = "Доступные магазины по ритейлеру Metro")
+    @Test(groups = {"api-instamart-regress"}, description = "Доступные магазины по ритейлеру Metro")
     public void getStoresRetailerId() {
         Response response = StoresV3Request.RetailerId.GET();
         checkStatusCode200(response);

@@ -135,7 +135,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(640)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем отсортированные продукты по убыванию цены",
-            groups = {"api-instamart-smoke", "api-instamart-prod"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getProductsSortedByPriceDesc() {
         response = ProductsV2Request.GET(1, "хлеб", ProductSortTypeV2.PRICE_DESC);
         checkStatusCode200(response);

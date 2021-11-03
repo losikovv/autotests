@@ -17,7 +17,7 @@ import ru.instamart.kraken.data.Generate;
 
 import java.util.UUID;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.kraken.helper.PhoneNumberHelper.getHumanPhoneNumber;
 import static ru.instamart.kraken.helper.UUIDHelper.isValidUUID;
@@ -34,7 +34,7 @@ public class ProfileV2Test extends RestBase {
 
     @CaseId(159)
     @Test(description = "Получение данных профиля пользователя. Запрос с токеном",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-smoke"})
     public void getProfile200() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2_FB);
@@ -73,7 +73,7 @@ public class ProfileV2Test extends RestBase {
     public void getProfile401() {
         final Response response = ProfileV2Request.GET();
         checkStatusCode401(response);
-        errorAssert(response, "Ключ доступа невалиден или отсутствует");
+        checkError(response, "Ключ доступа невалиден или отсутствует");
     }
 
     @CaseId(150)

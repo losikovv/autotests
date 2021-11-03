@@ -33,7 +33,7 @@ public final class SimpleAdsV2Test extends RestBase {
     }
 
     @CaseId(282)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Упрощенный запрос нативной рекламы с обязательными параметрами")
     public void simpleAdsTest() {
         SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters = SimpleAdsV2Request.SimpleAdsV2.builder()
@@ -129,7 +129,7 @@ public final class SimpleAdsV2Test extends RestBase {
     }
 
     @CaseId(285)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Запрос проверки существующего изображения")
     public void simpleAdsGetExistingImageTest() {
         SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters = SimpleAdsV2Request.SimpleAdsV2.builder()
@@ -165,9 +165,7 @@ public final class SimpleAdsV2Test extends RestBase {
         String imagePath = apiV2.getSimpleAdsFirstImage(allRequiredParameters);
 
         final Response responseImage = AdsImagesV2Request.GET(imagePath);
-        responseImage.then()
-                .statusCode(200)
-                .contentType("image/");
+        checkContentTypeImage(responseImage);
     }
 
 
