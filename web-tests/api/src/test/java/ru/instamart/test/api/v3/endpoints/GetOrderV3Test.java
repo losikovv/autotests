@@ -12,6 +12,8 @@ import ru.instamart.api.dataprovider.ApiV3DataProvider;
 import ru.instamart.api.model.testdata.ApiV3TestData;
 import ru.instamart.api.model.v3.OrderV3;
 import ru.instamart.api.request.v3.OrderV3Request;
+import ru.instamart.kraken.data_provider.JsonDataProvider;
+import ru.instamart.kraken.data_provider.JsonProvider;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
@@ -41,9 +43,10 @@ public class GetOrderV3Test extends RestBase {
     @CaseId(862)
     @Story("Заказ на доставку")
     @Issue("STF-9456")
+    @JsonDataProvider(path = "data/json_v3/api_v3_test_data_goods.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
-            dataProvider = "goods",
-            dataProviderClass = ApiV3DataProvider.class,
+            dataProvider = "json",
+            dataProviderClass = JsonProvider.class,
             description = "Показать заказ по uuid доставке Goods")
     public void getOrder(ApiV3TestData testData) {
         order = apiV3.createOrderDelivery(testData);
@@ -54,9 +57,10 @@ public class GetOrderV3Test extends RestBase {
     @CaseId(863)
     @Story("Заказ на самовывоз")
     @Issue("DVR-1547")
+    @JsonDataProvider(path = "data/json_v3/api_v3_test_data_metro_marketplace.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
-            dataProvider = "metro_marketplace",
-            dataProviderClass = ApiV3DataProvider.class,
+            dataProvider = "json",
+            dataProviderClass = JsonProvider.class,
             description = "Показать заказ по uuid самовывоз Metro_Marketplace")
 
     public void getOrderq(ApiV3TestData testData) {

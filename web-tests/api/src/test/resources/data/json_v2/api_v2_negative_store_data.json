@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "lat": 55.844041
+    },
+    {
+      "lon": 37.66265
+    },
+    {
+      "shipping_method": "by_courier"
+    },
+    {
+      "shipping_method": "pickup"
+    },
+    {
+      "operational_zone_id": 1
+    }
+  ]
+}

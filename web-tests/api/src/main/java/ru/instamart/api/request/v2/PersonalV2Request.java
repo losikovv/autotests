@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Singular;
+import lombok.*;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
 import ru.instamart.utils.Mapper;
@@ -29,6 +27,8 @@ public class PersonalV2Request extends ApiV2RequestBase {
      */
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
     public static class RecsV2 {
         private String reqId;
@@ -41,6 +41,8 @@ public class PersonalV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
     public static class App{
         private SiteAndAppExt ext;
@@ -50,6 +52,8 @@ public class PersonalV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
     public static class Context{
         private App app;
@@ -60,6 +64,8 @@ public class PersonalV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
     public static class Device{
         private Geo geo;
@@ -76,6 +82,8 @@ public class PersonalV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
     public static class PlacementsExt{
         private int componentId;
@@ -86,6 +94,8 @@ public class PersonalV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
     public static class SiteAndAppExt{
         @JsonProperty("category_id")
@@ -98,6 +108,8 @@ public class PersonalV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
     public static class Geo{
         private int lon;
@@ -106,6 +118,8 @@ public class PersonalV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
     public static class PlacementsItem{
         private PlacementsExt ext;
@@ -114,6 +128,8 @@ public class PersonalV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
     public static class Site{
         private SiteAndAppExt ext;
@@ -123,6 +139,8 @@ public class PersonalV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
     public static class User{
         private Geo geo;
@@ -133,6 +151,8 @@ public class PersonalV2Request extends ApiV2RequestBase {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Data
     public static class UserExt{
         @JsonProperty("anonymous_id")

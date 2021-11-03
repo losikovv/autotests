@@ -1,19 +1,20 @@
 package ru.instamart.test.api.v2.endpoints;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.request.v2.PersonalV2Request;
 import ru.instamart.api.response.v2.RecsV2Response;
+import ru.instamart.kraken.data_provider.JsonDataProvider;
+import ru.instamart.kraken.data_provider.JsonProvider;
 
 import java.util.UUID;
 
-import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode400;
@@ -21,7 +22,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 
 @Epic("ApiV2")
 @Feature("Запрос рекомендаций")
-public class RecsV2Test extends RestBase {
+public final class RecsV2Test extends RestBase {
 
     @CaseId(974)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
@@ -67,14 +68,17 @@ public class RecsV2Test extends RestBase {
     }
 
     @CaseId(975)
+    @JsonDataProvider(path = "data/json_v2/api_v2_negative_recs_data.json", type = RestDataProvider.RecsV2TestDataRoot.class)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Запрос рекомендаций с отсутствующим обязательным параметром",
-            dataProvider = "testNegativeRecsTest",
-            dataProviderClass = RestDataProvider.class
+            dataProvider = "json",
+            dataProviderClass = JsonProvider.class
     )
-    @Parameters({"RequestJson", "Description"})
-    public void testNegativeRecsTest(PersonalV2Request.RecsV2 simpleRecsV2, String desc) {
-        final Response response = PersonalV2Request.POST(simpleRecsV2);
+    public void testNegativeRecsTest(RestDataProvider.RecsV2TestData testData) {
+        Allure.step(testData.getDescription());
+        PersonalV2Request.RecsV2 recsV2 = testData.getRec();
+        recsV2.setReqId(UUID.randomUUID().toString());
+        final Response response = PersonalV2Request.POST(recsV2);
         checkStatusCode400(response);
     }
 }
