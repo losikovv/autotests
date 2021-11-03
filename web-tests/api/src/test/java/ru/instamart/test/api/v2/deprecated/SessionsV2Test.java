@@ -1,4 +1,4 @@
-package ru.instamart.test.api.v2.endpoints;
+package ru.instamart.test.api.v2.deprecated;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -19,6 +19,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 
 @Epic(value = "ApiV2")
 @Feature(value = "Авторизация")
+@Deprecated
 public final class SessionsV2Test extends RestBase {
 
     @Deprecated
