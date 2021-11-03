@@ -21,6 +21,7 @@ import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.request.v2.PaymentToolsV2Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.response.v2.*;
+import ru.instamart.jdbc.dao.UserIdDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 
@@ -32,6 +33,7 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.common.RestStaticTestData.*;
 import static ru.instamart.api.helper.PromotionCode.getPromotionCode;
+import static ru.instamart.api.k8s.K8sConsumer.execRakeTaskAddBonus;
 
 @Epic("ApiV2")
 @Feature("Заказы")
@@ -635,5 +637,23 @@ public class OrdersV2Test extends RestBase {
         final Response response = OrdersV2Request.Current.PUT("failedUuid");
         checkStatusCode404(response);
         errorAssert(response, "Заказ не существует");
+    }
+
+    @CaseId(816)
+    @Story("Применение бонуса")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Использование бонусов для оплаты. Заказ нельзя оплатить бонусами")
+    public void checkOrderPayInstacoin() {
+        final UserData userData = SessionFactory.getSession(SessionType.API_V2_FB).getUserData();
+        SessionFactory.clearSession(SessionType.API_V2_FB);
+        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, userData);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        String userId = UserIdDao.INSTANCE.findUserId(userData.getPhone()).get(0);
+
+        execRakeTaskAddBonus(userData.getEmail(), "100",userId);
+        final Response response = OrdersV2Request.Instacoins.POST(apiV2.getCurrentOrderNumber(), "100");
+        response.prettyPeek();
+        checkStatusCode422(response);
+        errorAssert(response, "Этот заказ можно оплатить бонусами до 0 ₽");
     }
 }

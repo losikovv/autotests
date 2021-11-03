@@ -4,12 +4,12 @@ import com.google.common.io.ByteStreams;
 import io.kubernetes.client.Exec;
 import io.kubernetes.client.PodLogs;
 import io.kubernetes.client.PortForward;
+import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.models.V1Pod;
 import io.kubernetes.client.openapi.models.V1PodList;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
-import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.SkipException;
@@ -30,12 +30,14 @@ import java.util.function.Consumer;
 
 import static java.lang.System.console;
 import static org.testng.Assert.fail;
+import static ru.instamart.api.enums.BashCommands.Instacoins.ADD_USER_INSATCOIN;
 import static ru.instamart.api.enums.RailsConsole.Order.*;
 
 public class K8sConsumer {
 
     private static final Logger log = LoggerFactory.getLogger(K8sConsumer.class);
     private static final ExecutorService executorService = Executors.newCachedThreadPool();
+    private static ApiClient apiClient;
 
     /**
      * получение имени пода
@@ -115,10 +117,37 @@ public class K8sConsumer {
         try {
             execRailsCommandWithPod(pod, commands, result::add, true).close();
         } catch (IOException e) {
-            log.info("Error: {}", e.getMessage());
+            log.error("Error: {}", e.getMessage());
             e.printStackTrace();
         }
         return result;
+    }
+
+    private static List<String> execBashCommandWithPod(String commands) {
+        List<String> result = new CopyOnWriteArrayList<>();
+
+        String nameSpace = EnvironmentProperties.K8S_NAME_SPACE;
+        String labelSelector = EnvironmentProperties.K8S_LABEL_SELECTOR;
+
+        final V1Pod pod = getPod(nameSpace, labelSelector);
+        try {
+            execBashCommandWithPod(pod, commands, result::add, true).close();
+        } catch (IOException e) {
+            log.error("Error: {}", e.getMessage());
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+    private static Closeable execRailsCommandWithPod(V1Pod pod, String commands, Consumer<String> outputFun, boolean waiting) {
+        String[] commandExec = new String[]{"/bin/bash", "-c", "RAILS_ENV=staging bundle exec rails runner \"puts " + commands + "\""};
+        return execCommandWithPod(pod, commandExec, outputFun, waiting);
+    }
+
+    private static Closeable execBashCommandWithPod(V1Pod pod, String commands, Consumer<String> outputFun, boolean waiting) {
+        String[] commandExec = new String[]{"/bin/bash", "-c", commands};
+        return execCommandWithPod(pod, commandExec, outputFun, waiting);
     }
 
     /**
@@ -128,16 +157,14 @@ public class K8sConsumer {
      * @return
      */
     @Step("Выполнение команды: {commands} в pod: {pod.spec.nodeName} ")
-    private static Closeable execRailsCommandWithPod(V1Pod pod, String commands, Consumer<String> outputFun, boolean waiting) {
+    private static Closeable execCommandWithPod(V1Pod pod, String[] commands, Consumer<String> outputFun, boolean waiting) {
         try {
             AtomicBoolean closed = new AtomicBoolean(false);
             CountDownLatch cdl = new CountDownLatch(1);
 
-            String[] rails = new String[]{"sh", "-c"};
-            String[] commandExec = ArrayUtils.addAll(rails, "rails runner \"" + commands + "\"");
-
             boolean tty = console() != null;
-            final Process proc = new Exec().exec(pod, commandExec, true, tty);
+            ApiClient apiClient = K8sConfig.getInstance().getApiClient();
+            final Process proc = new Exec(apiClient).exec(pod, commands, true, tty);
 
             executorService.execute(() -> {
                 try {
@@ -327,5 +354,12 @@ public class K8sConsumer {
     public static void changeToCancel(String shipmentNumber, String itemNumber) {
         List<String> strings = execRailsCommandWithPod(CANCEL_ITEMS_ORDER.get(shipmentNumber, shipmentNumber, itemNumber));
         Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
+
+    @Step("Добавление инстакоинов {instacoin} для пользователя email: {email} userId: {userId}")
+    public static List<String> execRakeTaskAddBonus(String email, String instacoin, String userId) {
+        List<String> consoleLog = execBashCommandWithPod(ADD_USER_INSATCOIN.get(email, instacoin, userId));
+        Allure.addAttachment("Логи консоли", String.join("\n", consoleLog));
+        return consoleLog;
     }
 }

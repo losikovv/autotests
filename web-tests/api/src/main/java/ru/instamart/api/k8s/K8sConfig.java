@@ -17,7 +17,8 @@ import static ru.instamart.kraken.config.CoreProperties.BASE64_KUBE_CONFIG;
 
 public class K8sConfig {
     private static K8sConfig INSTANCE;
-    private static ApiClient apiClient;
+    @Getter
+    private ApiClient apiClient;
     private static CoreV1Api coreV1Api;
     @Getter
     private PodLogs podLogs;
