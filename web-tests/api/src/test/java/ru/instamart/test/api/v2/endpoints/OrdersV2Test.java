@@ -220,7 +220,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {},
             description = "Получение списка отмененных позиций по заказу с существующим id")
     public void getLineItemCancellations200() {
-        apiV2.order(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
         response = OrdersV2Request.LineItemCancellations.GET(apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
         assertTrue(response.as(LineItemCancellationsV2Response.class).getLineItemCancellations().isEmpty(), "Невалидная ошибка");
@@ -572,8 +572,9 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-smoke"},
             description = "Получение данных о заказе по номеру")
     public void getOrderByNumber() {
-        UserData userData = SessionFactory.getSession(SessionType.API_V2_FB).getUserData();
-        OrderV2 order = apiV2.order(userData, EnvironmentProperties.DEFAULT_SID);
+        SessionFactory.clearSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2_FB);
+        OrderV2 order = OrdersV2Request.POST().as(OrderV2Response.class).getOrder();
         final Response response = OrdersV2Request.GET(order.getNumber());
         checkStatusCode200(response);
         OrderV2 orderFromResponse = response.as(OrderV2Response.class).getOrder();
@@ -652,7 +653,7 @@ public class OrdersV2Test extends RestBase {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
         String userId = UserIdDao.INSTANCE.findUserId(userData.getPhone()).get(0);
 
-        execRakeTaskAddBonus(userData.getEmail(), "100",userId);
+        execRakeTaskAddBonus(userData.getEmail(), "100", userId);
         final Response response = OrdersV2Request.Instacoins.POST(apiV2.getCurrentOrderNumber(), "100");
         response.prettyPeek();
         checkStatusCode422(response);

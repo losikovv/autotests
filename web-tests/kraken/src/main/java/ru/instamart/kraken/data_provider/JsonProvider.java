@@ -26,12 +26,6 @@ public final class JsonProvider {
 
     @DataProvider(name = "jsonWithoutParallel")
     public static Object[][] parseJsonWithoutParallel(final Method method) {
-        var dataProvider = method.getAnnotation(JsonDataProvider.class);
-        if (isNull(dataProvider)) {
-            throw new RuntimeException("Missing JsonDataProvider annotation");
-        }
-
-        var dataList= Mapper.INSTANCE.jsonToObject(FileUtils.getJson(dataProvider.path(), method.getDeclaringClass()), dataProvider.type());
-        return nonNull(dataList) ? dataList.getData().stream().map(data -> new Object[]{data}).toArray(Object[][]::new) : new Object[0][];
+        return parseJson(method);
     }
 }
