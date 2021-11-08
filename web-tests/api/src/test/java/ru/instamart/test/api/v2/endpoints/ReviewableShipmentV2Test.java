@@ -41,7 +41,8 @@ public class ReviewableShipmentV2Test extends RestBase {
         var sid = EnvironmentProperties.DEFAULT_SID;
         SessionFactory.makeSession(SessionType.API_V2_PHONE);
         userData = SessionFactory.getSession(SessionType.API_V2_PHONE).getUserData();
-        order = apiV2.order(userData, sid);
+        apiV2.fillCart(userData, sid);
+        order = apiV2.getOpenOrder();
         if (order == null) throw new SkipException("Заказ не удалось оплатить");
         shipmentNumber = order.getShipments().get(0).getNumber();
         changeToShip(shipmentNumber);
@@ -53,7 +54,7 @@ public class ReviewableShipmentV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Автоматическое получение последнего шипмента без оценки при старте приложения. Заказ на аккаунте совершен.")
     public void automaticReceiptLastMessage200() {
-        SessionFactory.createSessionToken(SessionType.API_V2_FB, userData);
+        OrderV2 order = apiV2.setDefaultAttributesAndCompleteOrder();
         final Response response = ReviewableShipmentV2Request.GET();
         checkStatusCode200(response);
         ReviewableShipmentV2 revShipment = response.as(ReviewableShipmentV2Response.class).getReviewableShipment();

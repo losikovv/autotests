@@ -269,7 +269,7 @@ public final class InstamartApiHelper {
 
         String storeUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + "?sid=" + sid;
 
-        checkFieldIsNotEmpty(departments,"товары для магазина\n" + storeUrl);
+        checkFieldIsNotEmpty(departments, "товары для магазина\n" + storeUrl);
 
         List<ProductV2> products = new ArrayList<>();
 
@@ -1029,10 +1029,10 @@ public final class InstamartApiHelper {
         products.stream()
                 .limit(qty + 1)
                 .forEach(item -> {
-                    FavoritesV2Request.POST(item.getId()).then()
-                        .statusCode(anyOf(is(200), is(422)));
-                    productsList.add(item);
-                }
+                            FavoritesV2Request.POST(item.getId()).then()
+                                    .statusCode(anyOf(is(200), is(422)));
+                            productsList.add(item);
+                        }
                 );
         return productsList;
     }
@@ -1068,7 +1068,7 @@ public final class InstamartApiHelper {
     /**
      * Применяем атрибуты заказа (способ оплаты и слот) и завершаем его
      */
-    private OrderV2 setDefaultAttributesAndCompleteOrder() {
+    public OrderV2 setDefaultAttributesAndCompleteOrder() {
         getAvailablePaymentTool();
         getAvailableShippingMethod();
         getAvailableDeliveryWindow();
@@ -1253,7 +1253,7 @@ public final class InstamartApiHelper {
             throw new SkipException("Рекомендаций нет");
         }
 
-       return  simpleAdsV2Response.getMedia().stream()
+        return simpleAdsV2Response.getMedia().stream()
                 .iterator().next()
                 .getAssets().stream()
                 .filter(img -> Objects.nonNull(img.getImage()))
@@ -1275,7 +1275,7 @@ public final class InstamartApiHelper {
         } while (!shipmentState.equals("shipped") && i < 10);
     }
 
-    public List<ReviewIssueV2> getReviewIssues(String shipmentsNumber){
+    public List<ReviewIssueV2> getReviewIssues(String shipmentsNumber) {
         final Response response = ShipmentsV2Request.ReviewIssues.GET(shipmentsNumber);
         checkStatusCode200(response);
         ReviewIssuesV2Response reviewIssuesV2Response = response.as(ReviewIssuesV2Response.class);
