@@ -76,6 +76,17 @@
 </div>
 </#if>
 
+<#if (data.multiPartParam)?has_content>
+<h4>Multi part</h4>
+<div>
+    <#list data.multiPartParam as values>
+        <div>
+            <pre><code>${values}</code></pre>
+        </div>
+    </#list>
+</div>
+</#if>
+
 <#if data.curl??>
 <h4>Curl</h4>
 <div>

@@ -8,6 +8,7 @@ import ru.instamart.api.request.ApiV1RequestBase;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public class MarketingSamplesV1Request extends ApiV1RequestBase {
     }
 
     @Step("{method} /" + ApiV1Endpoints.MARKETING_SAMPLES)
-    public static Response POST() {
+    public static Response POST(String fileData) {
         Map<String, String> params = new HashMap<>();
         params.put("marketing_sample[description]", "Test description" + RandomUtils.nextInt(1, 100));
         params.put("marketing_sample[comment]", "Test comment" + RandomUtils.nextInt(1, 100));
@@ -34,13 +35,13 @@ public class MarketingSamplesV1Request extends ApiV1RequestBase {
         params.put("marketing_sample[name]", "Test marketing sample" + RandomUtils.nextInt(1, 100));
         return givenWithAuth()
                 .formParams(params)
-                .multiPart("marketing_sample[uuids]", new File("src/test/resources/data/users.csv"), "text/csv")
+                .multiPart("marketing_sample[uuids]", "users.csv", fileData.getBytes(StandardCharsets.UTF_8), "text/csv")
                 .multiPart("marketing_sample[image_attributes][attachment]", new File("src/test/resources/data/sample.jpg"), "image/jpeg")
                 .post(ApiV1Endpoints.MARKETING_SAMPLES);
     }
 
     @Step("{method} /" + ApiV1Endpoints.MARKETING_SAMPLE)
-    public static Response PUT(Long sampleId) {
+    public static Response PUT(Long sampleId, String fileData) {
         Map<String, String> params = new HashMap<>();
         params.put("marketing_sample[description]", "Test description" + RandomUtils.nextInt(1, 100));
         params.put("marketing_sample[comment]", "Test comment" + RandomUtils.nextInt(1, 100));
@@ -51,7 +52,7 @@ public class MarketingSamplesV1Request extends ApiV1RequestBase {
         params.put("marketing_sample[name]", "Updated Test marketing sample" + RandomUtils.nextInt(1, 100));
         return givenWithAuth()
                 .formParams(params)
-                .multiPart("marketing_sample[uuids]", new File("src/test/resources/data/users.csv"), "text/csv")
+                .multiPart("marketing_sample[uuids]","users.csv", fileData.getBytes(StandardCharsets.UTF_8), "text/csv")
                 .multiPart("marketing_sample[image_attributes][attachment]", new File("src/test/resources/data/sample.jpg"), "image/jpeg")
                 .put(ApiV1Endpoints.MARKETING_SAMPLE, sampleId);
     }

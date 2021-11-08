@@ -1,14 +1,14 @@
 package ru.instamart.api.common;
 
 import io.qameta.allure.attachment.AttachmentData;
+import io.restassured.specification.MultiPartSpecification;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Data
+@AllArgsConstructor
 public class HttpRequestAttachmentCustom implements AttachmentData {
 
     private final String name;
@@ -23,31 +23,18 @@ public class HttpRequestAttachmentCustom implements AttachmentData {
 
     private final Map<String, Object> formParam;
 
+    private final List<MultiPartSpecification> multiPartParam;
+
     private final Map<String, String> headers;
 
     private final Map<String, String> cookies;
-
-
-    public HttpRequestAttachmentCustom(final String name, final String url, final String method,
-                                       final String body, final String curl, final Map<String, String> headers,
-                                       final Map<String, String> cookies, final Map<String, Object> formParam) {
-        this.name = name;
-        this.url = url;
-        this.method = method;
-        this.body = body;
-        this.curl = curl;
-        this.formParam = formParam;
-        this.headers = headers;
-        this.cookies = cookies;
-
-    }
 
     @Override
     public String getName() {
         return name;
     }
 
-    public static final class Builder{
+    public static final class Builder {
 
         private final String name;
 
@@ -55,6 +42,7 @@ public class HttpRequestAttachmentCustom implements AttachmentData {
         private final Map<String, Object> formParam = new HashMap<>();
         private final Map<String, String> headers = new HashMap<>();
         private final Map<String, String> cookies = new HashMap<>();
+        private final List<MultiPartSpecification> multiPartParam = new Stack<>();
         private String method;
         private String body;
 
@@ -67,6 +55,30 @@ public class HttpRequestAttachmentCustom implements AttachmentData {
 
         public static Builder create(final String attachmentName, final String url) {
             return new Builder(attachmentName, url);
+        }
+
+        private static void appendHeader(final StringBuilder builder, final String key, final String value) {
+            builder.append(" -H '")
+                    .append(key)
+                    .append(": ")
+                    .append(value)
+                    .append('\'');
+        }
+
+        private static void appendCookie(final StringBuilder builder, final String key, final String value) {
+            builder.append(" -b '")
+                    .append(key)
+                    .append('=')
+                    .append(value)
+                    .append('\'');
+        }
+
+        private static void appendFormParam(final StringBuilder builder, final String key, final Object value) {
+            builder.append(" -F '")
+                    .append(key)
+                    .append('=')
+                    .append(value.toString())
+                    .append('\'');
         }
 
         public Builder setMethod(final String method) {
@@ -114,14 +126,20 @@ public class HttpRequestAttachmentCustom implements AttachmentData {
             return this;
         }
 
-        public Builder setFormParams(final Map<String, String>formParam){
+        public Builder setFormParams(final Map<String, String> formParam) {
             Objects.requireNonNull(formParam, "Body should not be null value");
             this.formParam.putAll(formParam);
             return this;
         }
 
+        public Builder setMultiPartParams(final List<MultiPartSpecification> multiPart) {
+            Objects.requireNonNull(multiPart, "Body should not be null value");
+            this.multiPartParam.addAll(multiPart);
+            return this;
+        }
+
         public HttpRequestAttachmentCustom build() {
-            return new HttpRequestAttachmentCustom(name, url, method, body, getCurl(), headers, cookies, formParam);
+            return new HttpRequestAttachmentCustom(name, url, method, body, getCurl(), formParam, multiPartParam, headers, cookies);
         }
 
         private String getCurl() {
@@ -139,39 +157,15 @@ public class HttpRequestAttachmentCustom implements AttachmentData {
 
             if (Objects.nonNull(formParam)) {
                 formParam.forEach((key, value) -> {
-                    if(value instanceof Collection){
+                    if (value instanceof Collection) {
                         ((Collection<?>) value).stream()
-                                .forEach(val ->appendFormParam(builder, key, val));
-                    }else {
+                                .forEach(val -> appendFormParam(builder, key, val));
+                    } else {
                         appendFormParam(builder, key, value);
                     }
                 });
             }
             return builder.toString();
-        }
-
-        private static void appendHeader(final StringBuilder builder, final String key, final String value) {
-            builder.append(" -H '")
-                    .append(key)
-                    .append(": ")
-                    .append(value)
-                    .append('\'');
-        }
-
-        private static void appendCookie(final StringBuilder builder, final String key, final String value) {
-            builder.append(" -b '")
-                    .append(key)
-                    .append('=')
-                    .append(value)
-                    .append('\'');
-        }
-
-        private static void appendFormParam(final StringBuilder builder, final String key, final Object value) {
-            builder.append(" -F '")
-                    .append(key)
-                    .append('=')
-                    .append(value.toString())
-                    .append('\'');
         }
 
     }

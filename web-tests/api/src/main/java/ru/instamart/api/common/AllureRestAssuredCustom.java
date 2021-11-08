@@ -52,6 +52,9 @@ public class AllureRestAssuredCustom implements OrderedFilter {
         if (Objects.nonNull(requestSpec.getQueryParams())) {
             requestAttachmentBuilder.setFormParams(requestSpec.getQueryParams());
         }
+        if (Objects.nonNull(requestSpec.getMultiPartParams())) {
+            requestAttachmentBuilder.setMultiPartParams(requestSpec.getMultiPartParams());
+        }
 
 
         final HttpRequestAttachmentCustom requestAttachment = requestAttachmentBuilder.build();

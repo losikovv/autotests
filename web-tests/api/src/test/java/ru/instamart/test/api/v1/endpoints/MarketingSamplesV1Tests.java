@@ -22,10 +22,9 @@ import java.util.Optional;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.compareMarketingSamples;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
-import static ru.instamart.utils.FileUtils.writeStringToFile;
 
 public class MarketingSamplesV1Tests extends RestBase {
 
@@ -56,10 +55,8 @@ public class MarketingSamplesV1Tests extends RestBase {
     public void createMarketingSample() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
         profile = apiV2.getProfile();
-        writeStringToFile(profile.getUser().getId(), "src/test/resources/data/users.csv");
         SessionFactory.clearSession(SessionType.API_V2_FB);
-
-        Response response = MarketingSamplesV1Request.POST();
+        Response response = MarketingSamplesV1Request.POST(profile.getUser().getId());
         checkStatusCode200(response);
         MarketingSampleV1 marketingSampleFromResponse = response.as(MarketingSampleV1Response.class).getMarketingSample();
         sampleId = marketingSampleFromResponse.getId();
@@ -88,10 +85,9 @@ public class MarketingSamplesV1Tests extends RestBase {
     public void editMarketingSample() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
         ProfileV2Response profile = apiV2.getProfile();
-        writeStringToFile(profile.getUser().getId(), "src/test/resources/data/users.csv");
         SessionFactory.clearSession(SessionType.API_V2_FB);
 
-        Response response = MarketingSamplesV1Request.PUT(sampleId);
+        Response response = MarketingSamplesV1Request.PUT(sampleId, profile.getUser().getId());
         checkStatusCode200(response);
         MarketingSampleV1 marketingSampleFromResponse = response.as(MarketingSampleV1Response.class).getMarketingSample();
         Optional<MarketingSamplesEntity> marketingSamplesEntity = MarketingSamplesDao.INSTANCE.findById(sampleId);
@@ -115,7 +111,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     @Test(description = "Изменение несуществующего маркетингового сэмпла",
             groups = {"api-instamart-regress"})
     public void editNonExistingMarketingSample() {
-        Response response = MarketingSamplesV1Request.PUT(0L);
+        Response response = MarketingSamplesV1Request.PUT(0L, profile.getUser().getId());
         checkStatusCode404(response);
     }
 
