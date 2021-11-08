@@ -5,9 +5,16 @@ include:
   - local: '/.gitlab-ci/ui.yaml'
   - local: '/.gitlab-ci/ui-tenant.yaml'
 
-image: gradle:jre11
+image: ${JDK11_GRADLE_IMAGE}
 
 variables:
+  JDK_GRADLE: 'gradle:7-jdk11'
+  JDK11_GRADLE_VERSION: 'latest'
+  JDK11_GRADLE_IMAGE: "${CI_REGISTRY}/qa/automag/java:${JDK11_GRADLE_VERSION}"
+  RUNNER_IMAGE_REPO: "dreg.sbmt.io/library"
+  RUNNER_IMAGE_NAME: "ci-tools"
+  RUNNER_IMAGE_TAG: "v1.4.5"
+  RUNNER_IMAGE_URL: "${RUNNER_IMAGE_REPO}/${RUNNER_IMAGE_NAME}:${RUNNER_IMAGE_TAG}"
   GIT_SUBMODULE_STRATEGY: normal
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   CI_RUN_ALL_JOBS: "true"
@@ -16,9 +23,18 @@ before_script:
   - cd web-tests
 
 stages:
+  - build
   - tests-api
   - tests-ui
   - custom-run
+.template_only_branches:
+  only:
+    refs:
+      - branches
+  except:
+    refs:
+      - schedules
+  when: manual
 
 .template_prod:
   only:
@@ -47,7 +63,6 @@ stages:
 
 .template_api_tests:
   stage: tests-api
-  image: $CI_REGISTRY_IMAGE
   tags:
     - k8s-stage
   artifacts:
@@ -61,7 +76,6 @@ stages:
 
 .template_grpc_tests:
   stage: tests-api
-  image: $CI_REGISTRY_IMAGE
   tags:
     - k8s-stage
   artifacts:
@@ -76,7 +90,6 @@ stages:
 .template_ui_tests:
   resource_group: ui:$CI_COMMIT_REF_SLUG
   stage: tests-ui
-  image: $CI_REGISTRY_IMAGE
   tags:
     - k8s-stage
   artifacts:
@@ -88,6 +101,19 @@ stages:
     expire_in: 1 week
   allow_failure: true
 
+java_gradle:build:
+  extends: ".template_only_branches"
+  stage: build
+  image: ${RUNNER_IMAGE_URL}
+  tags:
+    - stage-static
+  before_script:
+    - docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}
+  script:
+    - docker pull ${JDK_GRADLE}
+    - docker tag ${JDK_GRADLE} ${JDK11_GRADLE_IMAGE}
+    - docker push ${JDK11_GRADLE_IMAGE}
+
 CustomSuiteTestRun:
   only:
     variables:
@@ -95,7 +121,6 @@ CustomSuiteTestRun:
   allow_failure: true
   when: manual
   stage: custom-run
-  image: $CI_REGISTRY_IMAGE
   script:
     - echo $P_ENV
     - echo $TEST_SET
@@ -123,7 +148,6 @@ tests:AutoMRCheck:
   only:
     - merge_requests
   stage: tests-api
-  image: $CI_REGISTRY_IMAGE
   script:
     - echo $P_ENV
     - gradle clean build AutoMRCheck -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
@@ -144,12 +168,8 @@ tests:AutoMRCheck:
   allow_failure: true
 
 tests:Debug:
-  rules:
-    - if: '$CI_COMMIT_BRANCH != "master" && $CI_PIPELINE_SOURCE != "schedule"'
-      when: manual
-      allow_failure: true
+  extends: ".template_only_branches"
   stage: tests-api
-  image: $CI_REGISTRY_IMAGE
   script:
     - echo $P_ENV
     - gradle clean build debug -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
@@ -170,7 +190,6 @@ qase:actualize:
       - schedules
     variables:
       - $ACTUALIZATION == 'true'
-  image: $CI_REGISTRY_IMAGE
   stage: tests-api
   script:
     - gradle clean build qaseActualize -Pkey=$ATST_APP_SECRET_KEY
