@@ -24,7 +24,7 @@ spec:
         image: {{ .Values.allure.image }}
         resources:
           requests:
-            memory: "1Gi"
+            memory: "2Gi"
         volumeMounts:
         - mountPath: /app/projects
           name: data
@@ -44,7 +44,7 @@ spec:
       - ReadWriteOnce
       resources:
         requests:
-          storage: 10Gi
+          storage: 25Gi
       storageClassName: yc-network-ssd
       volumeMode: Filesystem
   updateStrategy:
