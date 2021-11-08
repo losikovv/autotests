@@ -151,7 +151,6 @@ public final class UserFavoritesTests extends BaseTest {
     @Test(description = "Авторизация, при попытке добавить товар из карточки товара в избранное неавторизованным", groups = {"smoke", "regression"})
     public void successAuthAfterAddFavoriteOnItemCard() {
         shop().goToPage();
-        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL + CoreProperties.DEFAULT_RETAILER);
         shop().openFirstProductCard();
         shop().interactProductCard().addToFavorite();
         shop().interactAuthModal().checkModalIsVisible();
