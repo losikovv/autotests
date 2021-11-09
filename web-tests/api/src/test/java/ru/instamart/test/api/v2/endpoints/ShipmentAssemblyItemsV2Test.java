@@ -45,10 +45,10 @@ public class ShipmentAssemblyItemsV2Test extends RestBase {
     }
 
 
-    @CaseIDs(value = {@CaseId(529), @CaseId(530)})
+    @CaseId(529)
     @Story("Детали по сборке подзаказа")
     @Test(groups = {"api-instamart-smoke"},
-            description = "Детали по сборке существующего подзаказа")
+            description = "Детали по существующему подзаказу до сборки")
     public void getAssemblyItemsOfExistingShipment() {
         final Response response = ShipmentsV2Request.AssemblyItems.GET(shipment.getNumber());
         checkStatusCode200(response);
