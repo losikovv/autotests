@@ -7,6 +7,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.SessionV2;
+import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 
@@ -165,5 +166,17 @@ public class ApiHelper {
     public void deleteCityInAdmin(String cityName) {
         SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
         admin.deleteCity(cityName);
+    }
+
+    @Step("Добавляем новую статичную страницу {data} в админке")
+    public void createStaticPageInAdmin(StaticPageData data) {
+        SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
+        admin.createStaticPage(data);
+    }
+
+    @Step("Удаляем статичную страницу {pageId} в админке")
+    public void deleteStaticPageInAdmin(Integer pageId) {
+        SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
+        admin.deleteStaticPage(pageId);
     }
 }
