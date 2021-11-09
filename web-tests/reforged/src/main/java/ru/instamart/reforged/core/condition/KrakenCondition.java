@@ -49,15 +49,14 @@ public final class KrakenCondition {
 
     /**
      * Проверяет состояние до тех пор, пока значение чекбокса не будет соответствовать ожиданию
-     * @param by - локатор для поиска
+     * @param element - элемент для поиска
      * @param selected - ожидаемое значение
      */
-    public static ExpectedCondition<Boolean> elementSelectCheckboxState(final By by, final boolean selected) {
+    public static ExpectedCondition<Boolean> elementSelectCheckboxState(final WebElement element, final boolean selected) {
         return new ExpectedCondition<>() {
             @Override
             public Boolean apply(WebDriver driver) {
                 try {
-                    var element = findElement(by);
                     if (element.isSelected() != selected) {
                         element.click();
                         return false;
@@ -65,7 +64,7 @@ public final class KrakenCondition {
                         return true;
                     }
                 } catch (StaleElementReferenceException e) {
-                    log.error("Can't set state for checkbox '{}'", by);
+                    log.error("Can't set state for checkbox '{}'", element);
                 }
 
                 return false;
@@ -73,7 +72,7 @@ public final class KrakenCondition {
 
             @Override
             public String toString() {
-                return String.format("element found by %s to %sbe selected", by, (selected ? "" : "not "));
+                return String.format("element found by %s to %sbe selected", element, (selected ? "" : "not "));
             }
         };
     }
