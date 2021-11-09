@@ -60,9 +60,9 @@ public final class WaitAction {
                 });
     }
 
-    public boolean elementSelectCheckboxState(final Component component, final boolean selected) {
-        return createWait(component)
-                .until(KrakenCondition.elementSelectCheckboxState(component.getBy(), selected));
+    public boolean elementSelectCheckboxState(final WebElement element, final boolean selected) {
+        return createWait(WaitProperties.BASIC_TIMEOUT, "Состояние чекбокса, отличается от ожидаемого")
+                .until(KrakenCondition.elementSelectCheckboxState(element, selected));
     }
 
     public boolean elementSelectCheckboxState(final Component component, final boolean selected, final Object... args) {

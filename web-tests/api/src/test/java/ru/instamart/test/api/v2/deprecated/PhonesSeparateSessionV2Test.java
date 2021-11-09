@@ -22,9 +22,9 @@ import java.util.Map;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode403;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode403;
 
 @Epic("ApiV2")
 @Feature("Телефоны пользователей")
@@ -69,7 +69,7 @@ public class PhonesSeparateSessionV2Test extends RestBase {
         SessionFactory.createSessionToken(SessionType.API_V2_FB, testUser);
         response = PhonesV2Request.PhonesById.GET(Integer.toString(phone.getId()));
         checkStatusCode403(response);
-        errorAssert(response, "Пользователь не может выполнить это действие");
+        checkError(response, "Пользователь не может выполнить это действие");
     }
 
     @Deprecated

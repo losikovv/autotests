@@ -9,7 +9,7 @@ import ru.instamart.kraken.data.user.UserData;
 
 import java.util.UUID;
 
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Slf4j
 public final class RegistrationHelper {

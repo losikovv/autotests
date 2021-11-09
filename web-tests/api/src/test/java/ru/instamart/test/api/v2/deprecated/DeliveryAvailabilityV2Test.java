@@ -15,7 +15,7 @@ import ru.instamart.api.response.v2.DeliveryAvailabilityV2Response;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
 @Feature("Проверка доступности магазина по координатам")

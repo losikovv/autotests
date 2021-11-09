@@ -12,11 +12,12 @@ import ru.instamart.api.model.v2.SuggestionV2;
 import ru.instamart.api.request.v2.SearchesV2Request;
 import ru.instamart.api.response.v2.SearchSuggestionsV2Response;
 
-import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkSearchSuggestionsNegative;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
 @Feature("Поиск")
@@ -24,7 +25,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(271)
     @Test(description = "Получаем поисковые подсказки",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getSearchSuggestions200() {
         response = SearchesV2Request.Suggestions.GET(1);
         checkStatusCode200(response);
@@ -41,7 +42,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(273), @CaseId(278)})
     @Test(description = "Получаем поисковые подсказки по слову - позитивные сценарии",
-            groups = {"api-instamart-regress", "api-instamart-prod"},
+            groups = {"api-instamart-smoke", "api-instamart-prod"},
             dataProvider = "positiveQuery",
             dataProviderClass = RestDataProvider.class)
     public void getSearchSuggestionsWithQuery(int sid, String query) {
@@ -68,7 +69,7 @@ public class SearchesV2Test extends RestBase {
     public void getSearchSuggestionsWithQueryAndNonExistentShop() {
         Response response = SearchesV2Request.Suggestions.GET(0, "сыр");
         checkStatusCode404(response);
-        errorAssert(response, "Магазин не существует");
+        checkError(response, "Магазин не существует");
     }
 
     @CaseId(275)

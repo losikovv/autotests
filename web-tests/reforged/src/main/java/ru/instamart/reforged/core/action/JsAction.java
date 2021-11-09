@@ -2,8 +2,10 @@ package ru.instamart.reforged.core.action;
 
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.InvalidElementStateException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.core.Kraken;
@@ -23,9 +25,7 @@ public final class JsAction {
      * Ожидание инициализации реактовского jQuery
      */
     public void jQueryReady() {
-        final WebDriverWait wait = new WebDriverWait(getWebDriver(), WaitProperties.BASIC_TIMEOUT);
-        wait.pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
-        wait.until((ExpectedCondition<Boolean>) wb -> {
+        createWait().until((ExpectedCondition<Boolean>) wb -> {
             final Object reactState = execute("return ReactRailsUJS.jQuery.active==0");
             if (Objects.isNull(reactState)) {
                 return false;
@@ -38,9 +38,7 @@ public final class JsAction {
      * Ожидание загрузки дома
      */
     public void waitForDocumentReady() {
-        final WebDriverWait wait = new WebDriverWait(getWebDriver(), WaitProperties.BASIC_TIMEOUT);
-        wait.pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
-        wait.until((ExpectedCondition<Boolean>) wb -> {
+        createWait().until((ExpectedCondition<Boolean>) wb -> {
             final Object state = execute("return document.readyState");
             if (Objects.isNull(state)) {
                 return false;
@@ -168,5 +166,56 @@ public final class JsAction {
 
     public void ajaxRequest(final String endpoint, final String method) {
         execute(String.format("$.ajax({url : '%s', method : '%s'});", EnvironmentProperties.Env.FULL_SITE_URL + endpoint, method));
+    }
+
+    public void checkPendingRequests() {
+        var wait = createWait();
+        wait.until((ExpectedCondition<Boolean>) wb -> {
+            final Object pendingRequest = execute("return window.pendingRequest");
+            if (pendingRequest instanceof Long) {
+                final Long countRequest = (Long) pendingRequest;
+                final  Object urls = execute("return window.urls");
+                if (Objects.nonNull(urls)) {
+                    wait.withMessage("Wait pending urls: " + urls);
+                }
+                return countRequest == 0L;
+            } else {
+                patchForPendingRequest();
+                return false;
+            }
+        });
+    }
+
+    /**
+     * Создаем патч на странице для прослушивания реквестов и сохранения их урлов и статуса.
+     * Если реквест выполняется листнер удаляет урл и декриментит счетчик
+     */
+    private void patchForPendingRequest() {
+        final String script =
+                "(function() {" +
+                    "var oldOpen = XMLHttpRequest.prototype.open;" +
+                    "window.urls = [];" +
+                    "window.pendingRequest = 0;" +
+                    "XMLHttpRequest.prototype.open = function(method, url, async, user, pass) {" +
+                        "window.pendingRequest++;" +
+                        "window.urls.push(url);" +
+                        "this.addEventListener('readystatechange', function() {" +
+                            "if(this.readyState == 4) {" +
+                                "window.pendingRequest--;" +
+                                "const index = window.urls.indexOf(url);\n" +
+                                "if (index > -1) {\n" +
+                                    "  window.urls.splice(index, 1);\n" +
+                                "}" +
+                            "}" +
+                        "}, false);" +
+                        "oldOpen.call(this, method, url, async, user, pass);" +
+                    "}" +
+                "})();";
+        execute(script);
+    }
+
+    private FluentWait<WebDriver> createWait() {
+        return new WebDriverWait(getWebDriver(), WaitProperties.BASIC_TIMEOUT)
+                .pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
     }
 }

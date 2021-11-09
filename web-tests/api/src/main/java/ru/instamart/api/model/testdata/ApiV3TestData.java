@@ -3,27 +3,21 @@ package ru.instamart.api.model.testdata;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class ApiV3TestData {
-    private int statusCode;
+    private Integer statusCode;
     private String clientTokenName;
     private String clientToken;
     private String shipTotal;
     private String itemId;
     private String itemIdName;
-    private int itemQuantity;
-    private int itemPrice;
-    private int itemDiscount;
-    private int itemPromoTotal;
-
-
-
-
-
-
-
-
+    private Integer itemQuantity;
+    private Integer itemPrice;
+    private Integer itemDiscount;
+    private Integer itemPromoTotal;
 }

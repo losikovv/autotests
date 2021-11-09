@@ -22,6 +22,7 @@
             <class name="ru.instamart.test.api.v1.endpoints.CompanyPresenceV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.LegalEntityV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.CompaniesV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.MarketingSamplesV1Tests"/>
         </classes>
     </test>
     <!-- api-v2-tests -->
@@ -52,6 +53,7 @@
             <class name="ru.instamart.test.api.v2.endpoints.SimpleAdsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.SimpleRecsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.StoresV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.TaxonsV2Test"/>
             <class name="ru.instamart.test.api.v2.e2e.OrderE2ETests"/>
             <class name="ru.instamart.test.api.v2.endpoints.ExternalAnalyticsV2Test"/>
         </classes>

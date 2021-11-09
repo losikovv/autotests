@@ -6,7 +6,7 @@ import ru.instamart.api.request.v2.OnboardingPagesV2Request;
 import ru.instamart.api.response.v2.OnboardingPagesV2Response;
 
 import static org.testng.Assert.assertNotNull;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Deprecated
 public class OnboardingPagesV2Test extends RestBase {

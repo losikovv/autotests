@@ -19,9 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.testng.Assert.assertEquals;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorValueAssert;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkErrorValue;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.kraken.helper.PhoneNumberHelper.getHumanPhoneNumber;
 
 @Epic("ApiV2")
@@ -68,7 +68,7 @@ public class PhonesV2Test extends RestBase {
     public void getPhone404() {
         response = PhonesV2Request.PhonesById.GET("failedPhoneId");
         checkStatusCode404(response);
-        errorAssert(response, "translation missing: ru.activerecord.models.spree/phone не существует");
+        checkError(response, "translation missing: ru.activerecord.models.spree/phone не существует");
     }
 
 
@@ -81,7 +81,7 @@ public class PhonesV2Test extends RestBase {
         Map<String, String> params = new HashMap<>();
         response = PhonesV2Request.PhonesById.PUT(phoneId.toString(), params);
         checkStatusCode400(response);
-        errorAssert(response, "Отсутствует обязательный параметр 'phone'");
+        checkError(response, "Отсутствует обязательный параметр 'phone'");
     }
 
     @Deprecated
@@ -93,7 +93,7 @@ public class PhonesV2Test extends RestBase {
         params.put("phone[value]", "failedPhone");
         response = PhonesV2Request.PhonesById.PUT("failedPhoneId", params);
         checkStatusCode404(response);
-        errorAssert(response, "translation missing: ru.activerecord.models.spree/phone не существует");
+        checkError(response, "translation missing: ru.activerecord.models.spree/phone не существует");
     }
 
     @Deprecated
@@ -126,7 +126,7 @@ public class PhonesV2Test extends RestBase {
         params.put("phone[value]", "invalidPhoneNumber");
         response = PhonesV2Request.PhonesById.PUT(phone.getId().toString(), params);
         checkStatusCode422(response);
-        errorValueAssert(response, "является недействительным номером", "value");
+        checkErrorValue(response, "является недействительным номером", "value");
     }
 
     @Deprecated
@@ -136,7 +136,7 @@ public class PhonesV2Test extends RestBase {
     public void deletePhones404() {
         response = PhonesV2Request.PhonesById.DELETE("invalidPhoneId");
         checkStatusCode404(response);
-        errorAssert(response,  "translation missing: ru.activerecord.models.spree/phone не существует");
+        checkError(response,  "translation missing: ru.activerecord.models.spree/phone не существует");
     }
 
     @Deprecated
@@ -148,6 +148,6 @@ public class PhonesV2Test extends RestBase {
         params.put("phone[value]", "invalidPhoneNumber");
         response = PhonesV2Request.POST(params);
         checkStatusCode422(response);
-        errorValueAssert(response, "является недействительным номером", "value");
+        checkErrorValue(response, "является недействительным номером", "value");
     }
 }

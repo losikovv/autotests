@@ -25,7 +25,7 @@ public class K8sPortForward {
     }
 
     @Step("Переброс порта для mysql")
-    public void portForwardMySQL() {
+    public PortForward.PortForwardResult portForwardMySQL() {
         final String namespace = EnvironmentProperties.K8S_NAME_SPACE;
         final String labelSelector = EnvironmentProperties.K8S_LABEL_SELECTOR;
         V1PodList list = getPodList(namespace, labelSelector);
@@ -36,5 +36,6 @@ public class K8sPortForward {
             e.printStackTrace();
         }
         assertNotNull(connected, "Not Connected");
+        return connected;
     }
 }

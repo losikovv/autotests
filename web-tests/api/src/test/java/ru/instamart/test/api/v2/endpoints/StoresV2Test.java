@@ -10,17 +10,18 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.request.v2.StoresV2Request;
-import ru.instamart.api.response.v2.DeliveryWindowsV2Response;
 import ru.instamart.api.response.v2.PromotionCardsV2Response;
 import ru.instamart.api.response.v2.StoreV2Response;
 import ru.instamart.api.response.v2.StoresV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data_provider.JsonDataProvider;
+import ru.instamart.kraken.data_provider.JsonProvider;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Получение списка магазинов")
@@ -90,14 +91,15 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(188)
+    @JsonDataProvider(path = "data/json_v2/api_v2_negative_store_data.json", type = RestDataProvider.StoreDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
-            dataProvider = "storeData",
-            dataProviderClass = RestDataProvider.class,
+            dataProvider = "json",
+            dataProviderClass = JsonProvider.class,
             description = "Получить список магазинов с указанием lon или lon")
     public void getStoresData(StoresV2Request.Store store) {
         final Response response = StoresV2Request.GET(store);
         checkStatusCode422(response);
-        errorAssert(response, "lat and lon params are both required");
+        checkError(response, "lat and lon params are both required");
     }
 
     @CaseId(189)
@@ -122,9 +124,10 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(190)
-    @Test(groups = {"api-instamart-regress"},
-            dataProvider = "storeDataWithLatAndLon",
-            dataProviderClass = RestDataProvider.class,
+    @JsonDataProvider(path = "data/json_v2/api_v2_positive_store_data.json", type = RestDataProvider.StoreDataRoot.class)
+    @Test(groups = {"api-instamart-smoke"},
+            dataProvider = "json",
+            dataProviderClass = JsonProvider.class,
             description = "Получение списка магазинов  с валидными значениями")
     public void getStores(StoresV2Request.Store store) {
         final Response response = StoresV2Request.GET(store);

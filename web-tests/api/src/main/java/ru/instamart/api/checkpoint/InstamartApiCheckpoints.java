@@ -1,78 +1,30 @@
 package ru.instamart.api.checkpoint;
 
-import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.enums.v2.ProductSortTypeV2;
 import ru.instamart.api.enums.v2.StateV2;
+import ru.instamart.api.model.v1.MarketingSampleV1;
 import ru.instamart.api.model.v2.*;
+import ru.instamart.jdbc.dao.SpreeUsersDao;
+import ru.instamart.jdbc.entity.MarketingSamplesEntity;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Objects.isNull;
-import static org.hamcrest.Matchers.anyOf;
-import static org.hamcrest.Matchers.is;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static ru.instamart.kraken.util.TimeUtil.getDateWithoutTime;
+import static ru.instamart.kraken.util.TimeUtil.getFutureDateWithoutTime;
 
 @Slf4j
 public class InstamartApiCheckpoints {
-
-    public static void checkStatusCode(Response response, int statusCode) {
-        Allure.step("Проверка statusCode = "+statusCode+" для response");
-        assertEquals(
-                response.statusCode(),
-                statusCode,
-                "\n" + response.statusLine() + "\n" + response.body().asString());
-        if (statusCode == 200) response.then().contentType(ContentType.JSON);
-    }
-
-    public static void checkStatusCode200(Response response) {
-        checkStatusCode(response, 200);
-    }
-
-    public static void checkStatusCode400(final Response response) {
-        checkStatusCode(response, 400);
-    }
-
-    public static void checkStatusCode401(final Response response) {
-        checkStatusCode(response, 401);
-    }
-
-    public static void checkStatusCode403(final Response response) {
-        checkStatusCode(response, 403);
-    }
-
-    public static void checkStatusCode404(final Response response) {
-        checkStatusCode(response, 404);
-    }
-
-    public static void checkStatusCode500(final Response response) {
-        checkStatusCode(response, 500);
-    }
-
-    public static void checkStatusGroup400(final Response response){
-        Allure.step("Проверка statusCode в группе клиентских ошибок (400-499) для response");
-        assertEquals(
-                Math.abs(response.statusCode()/100),
-                4,
-                "\n" + response.statusLine() + "\n" + response.body().asString());
-    }
-
-    public static void checkStatusCode200or404(final Response response) {
-        Allure.step("Проверка statusCode 200 или 404 для response");
-        response.then().statusCode(anyOf(is(200), is(404)));
-    }
-
-    public static void checkStatusCode422(final Response response) {
-        checkStatusCode(response, 422);
-    }
 
     @Step("Продукты отсортированы {sortTypeV2.name}")
     public static void checkSort(final ProductSortTypeV2 sortTypeV2, final List<SortV2> sorts) {
@@ -151,6 +103,21 @@ public class InstamartApiCheckpoints {
         softAssert.assertNull(assemblyItem.getReplacement(), "В подзаказе есть замена");
         softAssert.assertNull(assemblyItem.getFoundQuantity(), "Количество не пустое");
         softAssert.assertNull(assemblyItem.getQuantity(), "Количество не пустое");
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем маркетинговые сэмплы из ответа и сравниваем с БД")
+    public static void compareMarketingSamples(String email, MarketingSampleV1 marketingSampleFromResponse, Optional<MarketingSamplesEntity> marketingSamplesEntity, String name) {
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(marketingSampleFromResponse.getName().contains(name));
+        compareTwoObjects(marketingSampleFromResponse.getName(), marketingSamplesEntity.get().getName(), softAssert);
+        compareTwoObjects(marketingSampleFromResponse.getDescription(), marketingSamplesEntity.get().getDescription(), softAssert);
+        compareTwoObjects(marketingSampleFromResponse.getComment(), marketingSamplesEntity.get().getComment(), softAssert);
+        compareTwoObjects(marketingSampleFromResponse.getExpiresAt().substring(0, 10), getFutureDateWithoutTime(5L), softAssert);
+        compareTwoObjects(marketingSampleFromResponse.getStartsAt().substring(0, 10), getDateWithoutTime(), softAssert);
+        compareTwoObjects(marketingSampleFromResponse.getStores().get(0).getId(), EnvironmentProperties.DEFAULT_SID, softAssert);
+        compareTwoObjects(marketingSampleFromResponse.getStores().get(0).getRetailer().getName(), "METRO", softAssert);
+        compareTwoObjects(marketingSamplesEntity.get().getUserId(), SpreeUsersDao.INSTANCE.getIdByEmail(email), softAssert);
         softAssert.assertAll();
     }
 }

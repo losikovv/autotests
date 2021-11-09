@@ -21,9 +21,9 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
 
 import static org.testng.Assert.assertFalse;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
 @Feature("Заказы")
@@ -73,7 +73,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2_FB);
         final Response response = OrdersV2Request.Previous.GET();
         checkStatusCode404(response);
-        errorAssert(response, "У пользователя нет прошлых заказов");
+        checkError(response, "У пользователя нет прошлых заказов");
     }
 
     @Deprecated

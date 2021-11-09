@@ -16,8 +16,8 @@ import ru.instamart.kraken.listener.Run;
 
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
 @Feature("Промо-акции")
@@ -36,7 +36,7 @@ public class PromotionsV2Test extends RestBase {
 
     @CaseId(292)
     @Story("Список продуктов для активации промо")
-    @Test(groups = {"api-instamart-smoke"}, description = "Существующий productId")
+    @Test(groups = {"api-instamart-smoke"}, description = "Существующий productId и существующий id магазина")
     public void testGetListOfProductWithValidProductId() {
         final Response response = PromotionsV2Request.PromoProducts.GET(2707, EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
@@ -52,7 +52,7 @@ public class PromotionsV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseId(294)
+    @CaseId(295)
     @Story("Список продуктов для активации промо")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий sid")
     public void testGetListOfProductWithInvalidSid() {

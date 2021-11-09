@@ -5,14 +5,14 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.listener.Skip;
-import ru.instamart.kraken.data.user.UserData;
-import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.data.Addresses;
+import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
+import ru.instamart.reforged.core.Kraken;
 import ru.instamart.test.reforged.BaseTest;
 
-import static ru.instamart.kraken.config.CoreProperties.DEFAULT_SMS;
-import static ru.instamart.reforged.stf.page.StfRouter.*;
+import static ru.instamart.reforged.stf.page.StfRouter.checkout;
+import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
 @Feature("Авторизация")
@@ -21,8 +21,6 @@ public final class UserAuthorisationTests extends BaseTest {
     @CaseId(1455)
     @Test(description = "Тест успешной авторизации на витрине", groups = {"acceptance", "regression", "smoke"})
     public void successAuthOnMainPage() {
-        final UserData authUser = UserManager.getQaUser();
-
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
@@ -32,8 +30,6 @@ public final class UserAuthorisationTests extends BaseTest {
     @CaseId(1456)
     @Test(description = "Тест авторизации из адресной модалки феникса", groups = "regression")
     public void successAuthFromAddressModal() {
-        final UserData authUser = UserManager.getQaUser();
-
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
@@ -45,8 +41,6 @@ public final class UserAuthorisationTests extends BaseTest {
     @CaseId(1457)
     @Test(description = "Тест успешной авторизации из корзины", groups = "regression")
     public void successAuthFromCart() {
-        final UserData authUser = UserManager.getQaUser();
-
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
@@ -69,8 +63,8 @@ public final class UserAuthorisationTests extends BaseTest {
     }
 
     @CaseId(1459)
-    @Test(description = "Тест успешной авторизация через Facebook", groups = {"smoke", "regression"})
     @Story("Авторизация через Facebook")
+    @Test(description = "Тест успешной авторизация через Facebook", groups = {"smoke", "regression"})
     public void successRegWithFacebook() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -89,8 +83,8 @@ public final class UserAuthorisationTests extends BaseTest {
     }
 
     @CaseId(2735)
-    @Test(description = "Тест успешной авторизация через ВКонтакте", groups = {"smoke", "regression"})
     @Story("Авторизация через VK")
+    @Test(description = "Тест успешной авторизация через ВКонтакте", groups = {"smoke", "regression"})
     public void successRegWithVkontakte() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -109,9 +103,8 @@ public final class UserAuthorisationTests extends BaseTest {
     }
 
     @CaseId(1460)
-    @Story("Регистрация через партнеров")
-    @Test(description = "Тест успешной авторизация через MailRu", groups = {"smoke", "regression"})
     @Story("Авторизация через Mail.ru")
+    @Test(description = "Тест успешной авторизация через MailRu", groups = {"smoke", "regression"})
     public void successRegWithMailRu() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -126,14 +119,16 @@ public final class UserAuthorisationTests extends BaseTest {
                 .fillPassword(UserManager.getDefaultMailRuUser().getPassword());
         shop().interactAuthModal().interactAuthMailWindow().clickToSubmit();
         shop().interactAuthModal().interactAuthMailWindow().switchToFirstWindow();
+        //TODO: Костыль, что бы узнать на каком из запросов тупит
+        Kraken.jsAction().checkPendingRequests();
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
     }
 
     @Skip
     @CaseId(1461)
-    @Test(description = "Тест успешной авторизация через Sber ID", groups = {"smoke", "regression"})
     @Story("Авторизация через SberID")
+    @Test(description = "Тест успешной авторизация через Sber ID", groups = {"smoke", "regression"})
     public void successRegWithSberID() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

@@ -18,9 +18,8 @@ import ru.instamart.api.response.v2.FavoritesSkuListItemV2Response;
 import ru.instamart.api.response.v2.ProductSkuV2Response;
 
 import static org.testng.Assert.*;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic(value = "ApiV2")
 @Feature(value = "Избранные товары")
@@ -108,7 +107,7 @@ public class FavoritesListV2Test extends RestBase {
     public void testEmptyFavoritesList400() {
         final Response response = FavoritesV2Request.GET();
         checkStatusCode400(response);
-        errorAssert(response, "Отсутствует обязательный параметр 'sid'");
+        checkError(response, "Отсутствует обязательный параметр 'sid'");
     }
 
     @CaseId(788)
@@ -117,7 +116,7 @@ public class FavoritesListV2Test extends RestBase {
     public void testEmptyFavoritesListWithSidParams400() {
         final Response response = FavoritesV2Request.GET("");
         checkStatusCode400(response);
-        errorAssert(response, "Отсутствует обязательный параметр 'sid'");
+        checkError(response, "Отсутствует обязательный параметр 'sid'");
     }
 
     @CaseId(524)
@@ -138,7 +137,7 @@ public class FavoritesListV2Test extends RestBase {
     public void addFavoritesList404() {
         final Response response = FavoritesV2Request.POST("invalidNumber_0120102012");
         checkStatusCode404(response);
-        errorAssert(response, "Продукт не существует");
+        checkError(response, "Продукт не существует");
     }
 
     @CaseId(528)
@@ -148,6 +147,6 @@ public class FavoritesListV2Test extends RestBase {
     public void deleteFavoritesList404() {
         final Response response = FavoritesV2Request.DELETE("invalidNumber_0120102012");
         checkStatusCode404(response);
-        errorAssert(response, "Элемент списка не существует");
+        checkError(response, "Элемент списка не существует");
     }
 }

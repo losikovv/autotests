@@ -1,6 +1,5 @@
 package ru.instamart.api.helper;
 
-import ru.instamart.api.k8s.K8sPortForward;
 import ru.instamart.jdbc.dao.PromotionCodesDao;
 import ru.instamart.jdbc.dto.PromotionCodesFilters;
 
@@ -9,7 +8,6 @@ import java.util.List;
 
 public class PromotionCode {
     public static String getPromotionCode() {
-        K8sPortForward.getInstance().portForwardMySQL();
         PromotionCodesFilters filters = PromotionCodesFilters.builder()
                 .value("auto%")
                 .limit(1)

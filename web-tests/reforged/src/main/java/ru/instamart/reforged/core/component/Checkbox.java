@@ -46,11 +46,11 @@ public final class Checkbox extends Component {
     }
 
     public void check() {
-        Kraken.waitAction().elementSelectCheckboxState(this, true);
+        Kraken.waitAction().elementSelectCheckboxState(getComponent(), true);
     }
 
     public void uncheck() {
-        Kraken.waitAction().elementSelectCheckboxState(this, false);
+        Kraken.waitAction().elementSelectCheckboxState(getComponent(), false);
     }
 
     public Boolean checkboxState() {

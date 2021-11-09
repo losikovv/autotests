@@ -17,8 +17,8 @@ import ru.instamart.kraken.data.Generate;
 
 import java.util.UUID;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.kraken.helper.PhoneNumberHelper.getHumanPhoneNumber;
 import static ru.instamart.kraken.helper.UUIDHelper.isValidUUID;
 
@@ -34,13 +34,11 @@ public class ProfileV2Test extends RestBase {
 
     @CaseId(159)
     @Test(description = "Получение данных профиля пользователя. Запрос с токеном",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-smoke"})
     public void getProfile200() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2_FB);
-        final Response response = ProfileV2Request.GET();
-        checkStatusCode200(response);
-        ProfileV2Response profile = response.as(ProfileV2Response.class);
+        ProfileV2Response profile = apiV2.getProfile();
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(profile.getUser().getLastName(), session.getUserData().getLastName(),
                 "Last name не совпадает с введенным");
@@ -75,7 +73,7 @@ public class ProfileV2Test extends RestBase {
     public void getProfile401() {
         final Response response = ProfileV2Request.GET();
         checkStatusCode401(response);
-        errorAssert(response, "Ключ доступа невалиден или отсутствует");
+        checkError(response, "Ключ доступа невалиден или отсутствует");
     }
 
     @CaseId(150)
@@ -118,7 +116,6 @@ public class ProfileV2Test extends RestBase {
                 .lastName(newLastName)
                 .build();
         final Response response = ProfileV2Request.PUT(buildProfile);
-        response.prettyPeek();
         checkStatusCode422(response);
         final SoftAssert softAssert = new SoftAssert();
         ErrorResponse error = response.as(ErrorResponse.class);

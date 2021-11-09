@@ -8,14 +8,14 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.v2.FeatureFlagsV2Request;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
 public class FeatureFlagsV2Test extends RestBase {
 
     @CaseId(792)
     @Test(description = "Получение списка всех фича-флагов",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-smoke"})
     public void getFeatureFlags200() {
         Response response = FeatureFlagsV2Request.GET();
         checkStatusCode200(response);

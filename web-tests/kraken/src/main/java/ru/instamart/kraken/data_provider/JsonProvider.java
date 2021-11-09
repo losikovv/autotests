@@ -23,4 +23,9 @@ public final class JsonProvider {
         var dataList= Mapper.INSTANCE.jsonToObject(FileUtils.getJson(dataProvider.path(), method.getDeclaringClass()), dataProvider.type());
         return nonNull(dataList) ? dataList.getData().stream().map(data -> new Object[]{data}).toArray(Object[][]::new) : new Object[0][];
     }
+
+    @DataProvider(name = "jsonWithoutParallel")
+    public static Object[][] parseJsonWithoutParallel(final Method method) {
+        return parseJson(method);
+    }
 }

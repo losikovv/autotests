@@ -11,8 +11,8 @@ import ru.instamart.api.response.v2.CategoriesV2Response;
 
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
 @Feature("Получение категорий")

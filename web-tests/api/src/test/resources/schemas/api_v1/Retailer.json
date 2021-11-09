@@ -12,11 +12,7 @@
         "name",
         "slug",
         "available",
-        "key",
-        "color",
-        "logo",
-        "logo_background_color",
-        "icon"
+        "key"
       ],
       "properties": {
         "id": {

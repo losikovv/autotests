@@ -13,7 +13,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.delivery_club.StoresDCRequest;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode401;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode401;
 
 @Epic("Партнёры")
 @Feature("Delivery Club")

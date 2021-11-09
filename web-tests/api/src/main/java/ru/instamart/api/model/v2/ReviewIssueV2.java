@@ -9,7 +9,7 @@ import ru.instamart.api.model.BaseObject;
 @Data
 public final class ReviewIssueV2 extends BaseObject {
     private Integer id;
-    private String position;
+    private Integer position;
     private String description;
     @JsonProperty(value = "comment_needed")
     private Boolean commentNeeded;

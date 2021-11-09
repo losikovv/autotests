@@ -15,9 +15,9 @@ import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.response.v2.PromotionLimitV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
 @Feature("Условия оплаты бонусами.")
@@ -63,6 +63,6 @@ public final class PromotionLimitV2Test extends RestBase {
         String orderNumber = "test";
         final Response response = OrdersV2Request.PromotionLimit.GET(orderNumber);
         checkStatusCode404(response);
-        errorAssert(response,"Заказ не существует");
+        checkError(response,"Заказ не существует");
     }
 }

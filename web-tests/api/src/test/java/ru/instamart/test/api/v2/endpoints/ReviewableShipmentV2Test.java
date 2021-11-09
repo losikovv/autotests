@@ -25,7 +25,7 @@ import ru.instamart.kraken.data.user.UserData;
 import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.k8s.K8sConsumer.changeToShip;
 
 @Epic("ApiV2")
@@ -41,7 +41,8 @@ public class ReviewableShipmentV2Test extends RestBase {
         var sid = EnvironmentProperties.DEFAULT_SID;
         SessionFactory.makeSession(SessionType.API_V2_PHONE);
         userData = SessionFactory.getSession(SessionType.API_V2_PHONE).getUserData();
-        order = apiV2.order(userData, sid);
+        apiV2.fillCart(userData, sid);
+        order = apiV2.getOpenOrder();
         if (order == null) throw new SkipException("Заказ не удалось оплатить");
         shipmentNumber = order.getShipments().get(0).getNumber();
         changeToShip(shipmentNumber);
@@ -53,7 +54,7 @@ public class ReviewableShipmentV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Автоматическое получение последнего шипмента без оценки при старте приложения. Заказ на аккаунте совершен.")
     public void automaticReceiptLastMessage200() {
-        SessionFactory.createSessionToken(SessionType.API_V2_FB, userData);
+        OrderV2 order = apiV2.setDefaultAttributesAndCompleteOrder();
         final Response response = ReviewableShipmentV2Request.GET();
         checkStatusCode200(response);
         ReviewableShipmentV2 revShipment = response.as(ReviewableShipmentV2Response.class).getReviewableShipment();
@@ -122,12 +123,27 @@ public class ReviewableShipmentV2Test extends RestBase {
 
         ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
                 .rate(5)
-                .issueIds(reviewIssues.get(1).getId())
-//                .issueId(reviewIssues.get(2).getId()) //TODO: ATST-782
+                .issueId(reviewIssues.get(1).getId())
+                .issueId(reviewIssues.get(2).getId())
                 .build();
         final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
         checkStatusCode200(response);
-        ShipmentReviewV2Response shipmentReviewV2Response = response.as(ShipmentReviewV2Response.class);
-        checkFieldIsNotEmpty(shipmentReviewV2Response.getShipmentReview(), "отзыв о заказе");
+        ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
+        checkFieldIsNotEmpty(shipmentReview, "отзыв о заказе");
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(shipmentReview.getRate(), review.getRate(), "Rate не совпадает с введенным");
+        softAssert.assertEquals(shipmentReview.getComment(), review.getComment(), "Comment не совпадает с введенным");
+
+        softAssert.assertEquals(shipmentReview.getIssues().get(0).getId(), reviewIssues.get(1).getId(), "issues id не совпадает с введенным");
+        softAssert.assertEquals(shipmentReview.getIssues().get(0).getPosition(), reviewIssues.get(1).getPosition(), "issues position не совпадает с введенным");
+        softAssert.assertEquals(shipmentReview.getIssues().get(0).getDescription(), reviewIssues.get(1).getDescription(), "issues description не совпадает с введенным");
+        softAssert.assertEquals(shipmentReview.getIssues().get(0).getCommentNeeded(), reviewIssues.get(1).getCommentNeeded(), "issues comment needed не совпадает с введенным");
+
+        softAssert.assertEquals(shipmentReview.getIssues().get(1).getId(), reviewIssues.get(2).getId(), "issues id не совпадает с введенным");
+        softAssert.assertEquals(shipmentReview.getIssues().get(1).getPosition(), reviewIssues.get(2).getPosition(), "issues position не совпадает с введенным");
+        softAssert.assertEquals(shipmentReview.getIssues().get(1).getDescription(), reviewIssues.get(2).getDescription(), "issues description не совпадает с введенным");
+        softAssert.assertEquals(shipmentReview.getIssues().get(1).getCommentNeeded(), reviewIssues.get(2).getCommentNeeded(), "issues comment needed не совпадает с введенным");
+
+        softAssert.assertAll();
     }
 }

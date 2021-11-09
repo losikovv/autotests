@@ -18,9 +18,9 @@ import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.util.PhoneCrypt;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.errorAssert;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode422;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 
 @Slf4j
 @Epic("ApiV2")
@@ -58,12 +58,12 @@ public class PhoneConfirmationsV2Test extends RestBase {
     public void postPhoneConfirmations404() {
         Response response = PhoneConfirmationsV2Request.POST(PhoneCrypt.INSTANCE.encryptPhone("invalidPhoneNumber"));
         checkStatusCode422(response);
-        errorAssert(response, "PhoneToken: Value не может быть пустым");
+        checkError(response, "PhoneToken: Value не может быть пустым");
     }
 
     @CaseId(453)
     @Story("Инициировать отправку кода подтверждения")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-smoke"},
             description = "Инициировать отправку кода подтверждения. Пользователь существует с указанным phone")
     public void postPhoneConfirmationsPhoneNotExist200() {
         Response response = PhoneConfirmationsV2Request.POST(PhoneCrypt.INSTANCE.encryptPhone(Generate.phoneNumber()));
@@ -82,7 +82,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
     public void confirmPhonesWithInvalidNumber() {
         Response response = PhoneConfirmationsV2Request.PUT("invalidPhoneNumber");
         checkStatusCode422(response);
-        errorAssert(response, "PhoneToken: Value не может быть пустым");
+        checkError(response, "PhoneToken: Value не может быть пустым");
     }
 
     @CaseId(459)
@@ -92,6 +92,6 @@ public class PhoneConfirmationsV2Test extends RestBase {
     public void confirmPhonesWithValidPhone() {
         Response response = PhoneConfirmationsV2Request.PUT(Generate.phoneNumber(), CoreProperties.DEFAULT_SMS, false);
         checkStatusCode422(response);
-        errorAssert(response, "Неверный код");
+        checkError(response, "Неверный код");
     }
 }

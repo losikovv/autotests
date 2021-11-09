@@ -4,7 +4,6 @@ import io.restassured.response.Response;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
-import ru.instamart.api.checkpoint.ShopperApiCheckpoints;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.AuthProviderV2;
 import ru.instamart.api.helper.RegistrationHelper;
@@ -33,7 +32,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Slf4j
 public final class SessionFactory {
@@ -154,7 +153,7 @@ public final class SessionFactory {
 
     private static SessionInfo createShopperAppSession(final UserData userData) {
         final Response response = SessionsSHPRequest.POST(userData.getEmail(), userData.getPassword());
-        ShopperApiCheckpoints.checkStatusCode200(response);
+        checkStatusCode200(response);
         final SessionsSHPResponse sessionsResponse = response.as(SessionsSHPResponse.class);
         final SessionSHP.Data.Attributes sessionAttributes = sessionsResponse.getData().getAttributes();
         log.debug("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());

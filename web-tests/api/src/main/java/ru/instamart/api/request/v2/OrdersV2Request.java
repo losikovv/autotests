@@ -270,6 +270,16 @@ public final class OrdersV2Request extends ApiV2RequestBase {
         }
     }
 
+    public static class Instacoins{
+
+        @Step("{method} /" + ApiV2EndPoints.Orders.PROMOTIONS)
+        public static Response POST(final String orderNumber, final String instacoinsValue){
+            return givenWithAuth()
+                    .formParam("instacoins_value", instacoinsValue)
+                    .post(ApiV2EndPoints.Orders.PROMOTIONS, orderNumber);
+        }
+    }
+
     public static class PromotionLimit {
         @Step("{method} /" + ApiV2EndPoints.Orders.PROMOTION_LIMITS)
         public static Response GET(String orderNumber) {

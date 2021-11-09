@@ -1,5 +1,6 @@
 package ru.instamart.test.api.v2.endpoints;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
@@ -7,7 +8,6 @@ import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
@@ -15,15 +15,17 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.AdsImagesV2Request;
 import ru.instamart.api.request.v2.SimpleAdsV2Request;
+import ru.instamart.kraken.data_provider.JsonDataProvider;
+import ru.instamart.kraken.data_provider.JsonProvider;
 
 import java.util.List;
 import java.util.UUID;
 
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Упрощенный запрос нативной рекламы.")
-public class SimpleAdsV2Test extends RestBase {
+public final class SimpleAdsV2Test extends RestBase {
 
     @BeforeMethod
     public void testUp() {
@@ -31,7 +33,7 @@ public class SimpleAdsV2Test extends RestBase {
     }
 
     @CaseId(282)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Упрощенный запрос нативной рекламы с обязательными параметрами")
     public void simpleAdsTest() {
         SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters = SimpleAdsV2Request.SimpleAdsV2.builder()
@@ -115,18 +117,19 @@ public class SimpleAdsV2Test extends RestBase {
     }
 
     @CaseId(284)
+    @JsonDataProvider(path = "data/json_v2/api_v2_negative_simple_ads_data.json", type = RestDataProvider.SimpleAdsV2TestDataRoot.class)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
-            dataProvider = "negativeSimpleAdsData",
-            dataProviderClass = RestDataProvider.class,
+            dataProvider = "json",
+            dataProviderClass = JsonProvider.class,
             description = "Упрощенный запрос нативной рекламы с негативными параметрами")
-    @Parameters({"RequestJson", "Description"})
-    public void simpleAdsNegativeParameterTest(SimpleAdsV2Request.SimpleAdsV2 simpleAdsV2, String desc) {
-        final Response response = SimpleAdsV2Request.POST(simpleAdsV2);
+    public void simpleAdsNegativeParameterTest(RestDataProvider.SimpleAdsV2TestData testData) {
+        Allure.step(testData.getDescription());
+        final Response response = SimpleAdsV2Request.POST(testData.getSimpleAds());
         checkStatusCode400(response);
     }
 
     @CaseId(285)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Запрос проверки существующего изображения")
     public void simpleAdsGetExistingImageTest() {
         SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters = SimpleAdsV2Request.SimpleAdsV2.builder()
@@ -162,9 +165,7 @@ public class SimpleAdsV2Test extends RestBase {
         String imagePath = apiV2.getSimpleAdsFirstImage(allRequiredParameters);
 
         final Response responseImage = AdsImagesV2Request.GET(imagePath);
-        responseImage.then()
-                .statusCode(200)
-                .contentType("image/");
+        checkContentTypeImage(responseImage);
     }
 
 

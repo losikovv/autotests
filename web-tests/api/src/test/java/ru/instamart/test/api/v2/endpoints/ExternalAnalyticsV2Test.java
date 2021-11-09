@@ -13,7 +13,7 @@ import ru.instamart.api.request.v2.ExternalAnalyticsV2Request;
 import ru.instamart.api.response.v2.ExternalAnalyticsV2Response;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
 @Feature("Получение идентификатора устройства для аналитики")
@@ -25,7 +25,7 @@ public class ExternalAnalyticsV2Test extends RestBase {
     }
 
     @CaseId(791)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Получение идентификатора устройства для аналитики с токеном")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Получение идентификатора устройства для аналитики с токеном")
     public void testGetDeviceIdWithToken() {
         final Response response = ExternalAnalyticsV2Request.POST();
         checkStatusCode200(response);

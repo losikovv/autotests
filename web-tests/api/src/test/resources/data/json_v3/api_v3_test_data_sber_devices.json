@@ -1,0 +1,76 @@
+{
+  "data": [
+    {
+      "statusCode": 200,
+      "clientTokenName": "sber_devices",
+      "clientToken": "14cd5d341d768bd4926fc9f5ce262094",
+      "itemId": "15879",
+      "itemIdName": "sku продукта Шоколадные конфеты Merci ассорти 400 г PerItem - поштучный",
+      "itemQuantity": 1,
+      "itemPrice": 10000,
+      "itemDiscount": 1000,
+      "itemPromoTotal": 1000,
+      "shipTotal": "15000"
+    },
+    {
+      "statusCode": 200,
+      "clientTokenName": "sber_devices",
+      "clientToken": "14cd5d341d768bd4926fc9f5ce262094",
+      "itemId": "30952",
+      "itemIdName": "sku продукта Уксус Kuhne яблочный 5% PerItem - поштучный",
+      "itemQuantity": 1,
+      "itemPrice": 10000,
+      "itemDiscount": 1000,
+      "itemPromoTotal": 1000,
+      "shipTotal": "15000"
+    },
+    {
+      "statusCode": 200,
+      "clientTokenName": "sber_devices",
+      "clientToken": "14cd5d341d768bd4926fc9f5ce262094",
+      "itemId": "10712",
+      "itemIdName": "sku продукта Бананы PerKilo - весовой",
+      "itemQuantity": 1,
+      "itemPrice": 10000,
+      "itemDiscount": 1000,
+      "itemPromoTotal": 1000,
+      "shipTotal": "15000"
+    },
+    {
+      "statusCode": 200,
+      "clientTokenName": "sber_devices",
+      "clientToken": "14cd5d341d768bd4926fc9f5ce262094",
+      "itemId": "45576",
+      "itemIdName": "sku продукта Абрикосы Россия ~1 кг PerPackage - весовой упакованный",
+      "itemQuantity": 1,
+      "itemPrice": 10000,
+      "itemDiscount": 1000,
+      "itemPromoTotal": 1000,
+      "shipTotal": "15000"
+    },
+    {
+      "statusCode": 200,
+      "clientTokenName": "sber_devices",
+      "clientToken": "14cd5d341d768bd4926fc9f5ce262094",
+      "itemId": "128861",
+      "itemIdName": "sku продукта Тушка Qegg цыпленка корнишон замороженная ~700 г PerPackage - весовой упакованный",
+      "itemQuantity": 1,
+      "itemPrice": 10000,
+      "itemDiscount": 1000,
+      "itemPromoTotal": 1000,
+      "shipTotal": "15000"
+    },
+    {
+      "statusCode": 200,
+      "clientTokenName": "sber_devices",
+      "clientToken": "14cd5d341d768bd4926fc9f5ce262094",
+      "itemId": "12156",
+      "itemIdName": "sku продукта Газированный напиток Fanta апельсин 0,33 PerPack - упаковочный (ящик, коробка)",
+      "itemQuantity": 1,
+      "itemPrice": 10000,
+      "itemDiscount": 1000,
+      "itemPromoTotal": 1000,
+      "shipTotal": "15000"
+    }
+  ]
+}

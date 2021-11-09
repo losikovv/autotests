@@ -1,4 +1,4 @@
-package ru.instamart.test.api.v2.endpoints;
+package ru.instamart.test.api.v2.deprecated;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -14,11 +14,12 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 
 import static org.testng.Assert.assertEquals;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStatusCode404;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
 @Epic(value = "ApiV2")
 @Feature(value = "Авторизация")
+@Deprecated
 public final class SessionsV2Test extends RestBase {
 
     @Deprecated

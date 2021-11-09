@@ -98,6 +98,7 @@ public final class Kraken extends KrakenDriver {
 
     @SuppressWarnings("unchecked")
     public static <T> T execute(final String js, final Object... arguments) {
+        log.debug("Execute script {}", js);
         try {
             return (T) ((JavascriptExecutor) getWebDriver()).executeScript(js, arguments);
         } catch (Exception e) {
