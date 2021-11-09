@@ -1,18 +1,19 @@
 package ru.instamart.reforged.core.action;
 
+import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import ru.instamart.reforged.core.component.Component;
+import ru.instamart.reforged.core.component.ElementCollection;
 import ru.instamart.reforged.core.condition.KrakenCondition;
 import ru.instamart.reforged.core.config.WaitProperties;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static java.util.Objects.nonNull;
 import static ru.instamart.reforged.core.Kraken.getWebDriver;
 
 @Slf4j
@@ -65,9 +66,9 @@ public final class WaitAction {
                 .until(KrakenCondition.elementSelectCheckboxState(element, selected));
     }
 
-    public boolean elementSelectCheckboxState(final Component component, final boolean selected, final Object... args) {
+    public boolean elementToBeDisabled(final Component component, final Object... args) {
         return createWait(component)
-                .until(KrakenCondition.elementSelectCheckboxState(component.getBy(args), selected));
+                .until(KrakenCondition.elementNotToBeClickable(component.getBy(args)));
     }
 
     public boolean urlEquals(final String url) {
@@ -105,5 +106,11 @@ public final class WaitAction {
                 .withTimeout(wait, TimeUnit.SECONDS)
                 .withMessage(errorMsg)
                 .pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
+    }
+
+    @Step("Проверяем, что количество элементов в коллекции элементов =={0}")
+    public void elementCollectionSizeShouldBeEqual(ElementCollection collection, final int size) {
+        createWait(WaitProperties.BASIC_TIMEOUT, "Фрейм не загрузился")
+                .until((ExpectedCondition<Boolean>) wb -> collection.elementCount() == size);
     }
 }

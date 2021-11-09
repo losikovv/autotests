@@ -2,10 +2,8 @@ package ru.instamart.reforged.stf.page.search;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.config.WaitProperties;
@@ -65,16 +63,11 @@ public interface SearchCheck extends Check, SearchElement {
         waitAction().shouldNotBeVisible(searchProductsSkeleton);
     }
 
-    @Step("Проверяем, что количество цен товаров равно {0}")
-    private Boolean checkQuantityProductsEquals(final int quantity) {
-        var wait = createWait();
-        wait.until((ExpectedCondition<Boolean>) wb -> quantity == searchProductPrices.getElements().size());
-        return true;
-    }
+
 
     @Step("Проверка подскролла страницы поиска к новой выдаче")
     default void checkPageScrolled() {
-        Assert.assertTrue(checkQuantityProductsEquals(40));
+        waitAction().elementCollectionSizeShouldBeEqual(searchProductPrices, 40);
     }
 
     private FluentWait<WebDriver> createWait() {
@@ -88,7 +81,6 @@ public interface SearchCheck extends Check, SearchElement {
         var tmp = new ArrayList<>();
         searchProductPrices.getElements().forEach(element -> {
             tmp.add(StringUtil.stringToDoubleParse(element.getText()));
-            System.out.println("asc " + StringUtil.stringToDoubleParse(element.getText()));
         });
         tmp.stream().sorted().collect(Collectors.toList()).equals(tmp);
     }
@@ -99,20 +91,18 @@ public interface SearchCheck extends Check, SearchElement {
         var tmp = new ArrayList<>();
         searchProductPrices.getElements().forEach(element -> {
             tmp.add(StringUtil.stringToDoubleParse(element.getText()));
-            System.out.println("desc " + StringUtil.stringToDoubleParse(element.getText()));
         });
         tmp.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList()).equals(tmp);
     }
 
     @Step("Проверить, что фильтр '{0}' задизейблен")
     default void checkFilterDisabled(String filterText) {
-        waitAction().elementSelectCheckboxState(filterCheckbox, false, filterText);
+        waitAction().elementToBeDisabled(filterCheckbox, filterText);
     }
 
     @Step("Проверить, что сортировка '{0}' применена")
     default void checkSortEnabled(String sortText) {
         waitAction().shouldBeVisible(selectSortApplied, sortText);
-        jsAction().jQueryReady();
     }
 
     @Step("Проверяем, что сетка найденных товаров не отображается")

@@ -1,9 +1,7 @@
 package ru.instamart.reforged.stf.page.search;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 import ru.instamart.kraken.util.StringUtil;
-import ru.instamart.reforged.core.component.Selector;
 import ru.instamart.reforged.stf.block.header.Header;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.disclaimer.Disclaimer;
@@ -50,8 +48,6 @@ public class SearchPage implements StfPage, SearchCheck {
 
     @Step("Выбрать сортировку {0}")
     public void selectSort(final String text) {
-        Selector selectSort = new Selector(By.xpath("//select[contains(@class, 'ProductsFilterSort')]"),
-                                          "Селектор сортировки продуктов");
         selectSort.selectByText(text);
     }
 
