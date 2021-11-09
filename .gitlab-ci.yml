@@ -27,12 +27,14 @@ stages:
   - tests-api
   - tests-ui
   - custom-run
+
 .template_only_branches:
   only:
     refs:
       - branches
   except:
     refs:
+      - master
       - schedules
   when: manual
 
