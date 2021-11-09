@@ -7,6 +7,7 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.Addresses;
+import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.test.reforged.BaseTest;
 
@@ -95,12 +96,12 @@ public final class ShoppingSearchTests extends BaseTest {
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();
         shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
+        shop().goToPage();
         shop().interactHeader().fillSearch("сыры");
-        shop().interactHeader().checkTaxonCategoriesVisible();
-        shop().interactHeader().clickOnFirstTaxonCategory();
-        search().checkPageIsAvailable();
-        search().checkTaxonTitle("Сыры");
+        shop().interactHeader().clickSearchButton();
+        search().interactHeader().checkEnteredAddressIsVisible();
         search().clickAddToCartFirstSearchResult();
         search().interactHeader().clickToCart();
         search().interactCart().checkCartOpen();
@@ -135,10 +136,7 @@ public final class ShoppingSearchTests extends BaseTest {
         search().checkSearchProductsSkeletonVisible();
         search().checkSearchProductsSkeletonNotVisible();
 
-        final double firstPrice = search().returnProductPrice(0);
-        final double secondPrice = search().returnProductPrice(1);
-
-        search().checkPriceAscSortCorrect(firstPrice, secondPrice);
+        search().checkPriceAscSortCorrect();
         search().assertAll();
     }
 
@@ -175,13 +173,13 @@ public final class ShoppingSearchTests extends BaseTest {
 
     @CaseId(2591)
     @Test(
-            description = "Сортировка + фильтрация товаров",
+            description = "Сортировка + фильтрация товаров: сначала дешевые, по популярности",
             groups = {"regression"}
     )
-    public void successApplyFiltersAndSort() {
-        double ascFirstPrice, ascSecondPrice,
-               descFirstPrice, descSecondPrice;
+    public void successApplyFiltersAndSortCheapAsc() {
         shop().goToPage();
+        shop().checkSpinnerIsNotVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
         shop().interactHeader().fillSearch("кофе");
         shop().interactHeader().clickSearchButton();
 
@@ -189,54 +187,63 @@ public final class ShoppingSearchTests extends BaseTest {
         search().checkSearchProductsSpinnerNotVisible();
 
         search().selectSort("Сначала дешевые");
-
-        ascFirstPrice = search().returnProductPrice(0);
-        ascSecondPrice = search().returnProductPrice(1);
-
-        search().checkPriceAscSortCorrect(ascFirstPrice, ascSecondPrice);
-
+        search().checkSortEnabled("Сначала дешевые");
         search().scrollDown();
+        search().checkPageScrolled();
+        search().checkPriceAscSortCorrect();
 
-        search().checkPageIsAvailable();
+        shop().goToPage();
+        shop().checkSpinnerIsNotVisible();
+        shop().interactHeader().fillSearch("кофе");
+        shop().interactHeader().clickSearchButton();
 
-        search().scrollUp();
+        search().checkSearchProductsSpinnerVisible();
+        search().checkSearchProductsSpinnerNotVisible();
 
-        search().selectSort("По популярности");
-
+        search().checkSortEnabled("По популярности");
         search().scrollDown();
-        search().checkPageIsAvailable();
+        search().checkPageScrolled();
+    }
 
-        search().scrollUp();
+    @CaseId(2591)
+    @Test(
+            description = "Сортировка + фильтрация товаров: сначала дорогие, скидки + убывание, конкретный бренд",
+            groups = {"regression"}
+    )
+    public void successApplyFiltersAndSortExpensiveDesc() {
+        shop().goToPage();
+        shop().checkSpinnerIsNotVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
+        shop().interactHeader().fillSearch("кофе");
+        shop().interactHeader().clickSearchButton();
+
+        search().checkSearchProductsSpinnerVisible();
+        search().checkSearchProductsSpinnerNotVisible();
 
         search().selectSort("Сначала дорогие");
-
-        descFirstPrice = search().returnProductPrice(0);
-        descSecondPrice = search().returnProductPrice(1);
-
-        search().checkPriceDescSortCorrect(descFirstPrice, descSecondPrice);
-
+        search().checkSortEnabled("Сначала дорогие");
         search().scrollDown();
-        search().checkPageIsAvailable();
+        search().checkPageScrolled();
+        search().checkPriceDescSortCorrect();
 
         search().scrollUp();
 
         search().clickToDiscountFilter();
+        search().checkPriceDescSortCorrect();
 
-        descFirstPrice = search().returnProductPrice(0);
-        descSecondPrice = search().returnProductPrice(1);
+        shop().goToPage();
+        shop().checkSpinnerIsNotVisible();
+        shop().interactHeader().fillSearch("кофе");
+        shop().interactHeader().clickSearchButton();
 
-        search().checkPriceDescSortCorrect(descFirstPrice, descSecondPrice);
+        search().checkSearchProductsSpinnerVisible();
+        search().checkSearchProductsSpinnerNotVisible();
 
+        search().checkSortEnabled("По популярности");
         search().clickOnFilter("Jacobs");
+
         search().checkSearchProductsSkeletonVisible();
         search().checkSearchProductsSkeletonNotVisible();
-
-        search().selectSort("По популярности");
-
-        search().scrollDown();
-        search().checkPageIsAvailable();
-
-        search().assertAll();
     }
 
     @CaseId(2592)
@@ -251,8 +258,6 @@ public final class ShoppingSearchTests extends BaseTest {
         search().checkSearchProductsSpinnerNotVisible();
 
         search().clickToDiscountFilter();
-        search().checkSearchProductsSkeletonVisible();
-        search().checkSearchProductsSkeletonNotVisible();
 
         search().checkFilterDisabled("Стерилизованное");
     }

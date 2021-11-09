@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.config.WaitProperties;
 
 import java.util.Objects;
@@ -48,6 +49,21 @@ public final class JsAction {
         });
     }
 
+    /**
+     * Ожидание загрузки картинки
+     */
+    public void waitImgLoad(final String locator) {
+        final WebDriverWait wait = new WebDriverWait(getWebDriver(), WaitProperties.BASIC_TIMEOUT);
+        wait.pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
+        wait.until((ExpectedCondition<Boolean>) wb -> {
+            final Object state = execute("return document.evaluate(\""+ locator +"\", document, null, XPathResult.ANY_TYPE, null).iterateNext().complete");
+            if (Objects.isNull(state)) {
+                return false;
+            }
+            return (Boolean) state;
+        });
+    }
+
     public void scrollToTheTop() {
         execute("scrollTo(0,0)");
     }
@@ -62,6 +78,7 @@ public final class JsAction {
 
     public void scrollToTheBottom() {
         execute("scrollTo(0,document.body.scrollHeight)");
+        Kraken.jsAction().jQueryReady();
     }
 
     public void clearField(final String locator) {

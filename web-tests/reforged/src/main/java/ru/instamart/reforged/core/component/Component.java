@@ -121,4 +121,15 @@ public abstract class Component {
             return "locator empty";
         }
     }
+
+    /**
+     * Ожидание загрузки картинки
+     */
+    public void waitImgLoad() {
+        final Matcher matcher = LOCATOR.matcher(by.toString());
+        while (matcher.find()) {
+            log.debug("Wait img load {} '{}'", description, by);
+            Kraken.jsAction().waitImgLoad(matcher.group());
+        }
+    }
 }
