@@ -110,7 +110,7 @@ public final class WaitAction {
 
     @Step("Проверяем, что количество элементов в коллекции элементов =={0}")
     public void elementCollectionSizeShouldBeEqual(ElementCollection collection, final int size) {
-        createWait(WaitProperties.BASIC_TIMEOUT, "Фрейм не загрузился")
+        createWait(WaitProperties.BASIC_TIMEOUT, "Кол-во элементов в коллекции не совпадает с ожидаемым")
                 .until((ExpectedCondition<Boolean>) wb -> collection.elementCount() == size);
     }
 }
