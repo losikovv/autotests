@@ -12,7 +12,8 @@
         "name",
         "slug",
         "available",
-        "key"
+        "key",
+        "appearance"
       ],
       "properties": {
         "id": {
@@ -30,17 +31,36 @@
         "key": {
           "type": "string"
         },
-        "color": {
-          "type": "string"
-        },
-        "logo": {
-          "type": "string"
-        },
-        "logo_background_color": {
-          "type": "string"
-        },
-        "icon": {
-          "type": "string"
+        "appearance": {
+          "type": "object",
+          "properties": {
+            "background_color": {
+              "type": "string"
+            },
+            "image_color": {
+              "type": "string"
+            },
+            "black_theme": {
+              "type": "boolean"
+            },
+            "logo_image": {
+              "type": "string"
+            },
+            "side_image": {
+              "type": "string"
+            },
+            "mini_logo_image": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "background_color",
+            "image_color",
+            "black_theme",
+            "logo_image",
+            "side_image",
+            "mini_logo_image"
+          ]
         }
       }
     }
