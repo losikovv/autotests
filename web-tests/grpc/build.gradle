@@ -1,9 +1,9 @@
 plugins {
-    id 'com.google.protobuf' version '0.8.17'
     id 'io.qameta.allure' version '2.8.1'
     id 'java'
 }
 
+apply plugin: 'com.google.protobuf'
 apply from: 'task.gradle'
 
 allure {

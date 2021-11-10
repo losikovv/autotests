@@ -7,6 +7,11 @@ include:
 
 image: ${JDK11_GRADLE_IMAGE}
 
+cache:
+  key: ${CI_PROJECT_ID}
+  paths:
+    - web-tests/.gradle
+
 variables:
   JDK_GRADLE: 'gradle:7-jdk11'
   JDK11_GRADLE_VERSION: 'latest'
@@ -20,6 +25,7 @@ variables:
   CI_RUN_ALL_JOBS: "true"
 
 before_script:
+  - export GRADLE_USER_HOME=$(pwd)/web-tests/.gradle
   - cd web-tests
 
 stages:
