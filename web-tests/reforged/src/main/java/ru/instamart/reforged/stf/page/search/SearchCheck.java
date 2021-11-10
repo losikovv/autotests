@@ -1,16 +1,12 @@
 package ru.instamart.reforged.stf.page.search;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
-import ru.instamart.reforged.core.config.WaitProperties;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertEquals;
@@ -66,11 +62,6 @@ public interface SearchCheck extends Check, SearchElement {
     @Step("Проверка подскролла страницы поиска к новой выдаче")
     default void checkPageScrolled() {
         waitAction().elementCollectionSizeShouldBeEqual(searchProductPrices, 40);
-    }
-
-    private FluentWait<WebDriver> createWait() {
-        return new WebDriverWait(getWebDriver(), WaitProperties.BASIC_TIMEOUT)
-                .pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
     }
 
     @Step("Проверяем, что сортировка 'Сначала дешевые' работает корректно")
