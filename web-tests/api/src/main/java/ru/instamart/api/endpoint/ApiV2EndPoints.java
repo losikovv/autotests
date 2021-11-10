@@ -124,8 +124,11 @@ public final class ApiV2EndPoints {
         public static final String RESET = "v2/passwords/reset";
     }
 
-    public static final class Payments {
-        public static final String CREDIT_CARD_AUTHORIZATION = "v2/payments/sber/credit_card_authorizations";
+    public static final class PaymentsSber {
+        public static final String CREDIT_CARD_AUTHORIZATIONS = "v2/payments/sber/credit_card_authorizations";
+        public static final class CreditCardAuthorizations {
+            public static final String FINISH = "v2/payments/sber/credit_card_authorizations/finish";
+        }
     }
 
     public static final class Phones {

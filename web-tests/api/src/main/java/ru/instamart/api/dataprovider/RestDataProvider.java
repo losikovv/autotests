@@ -557,6 +557,19 @@ public class RestDataProvider extends RestBase {
         };
     }
 
+    @DataProvider(name = "invalidTransactionData", parallel = true)
+    public static Object[][] getInvalidTransactionData() {
+        SessionFactory.makeSession(SessionType.API_V2_FB);
+        String orderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
+        String userUuid = apiV2.getProfile().getUser().getId();
+        String transactionNumber = PaymentsV2Request.POST(orderNumber).
+                as(CreditCardAuthorizationV2Response.class).getCreditCardAuthorization().getTransactionNumber();
+        return new Object[][]{
+                {transactionNumber, orderNumber, userUuid, "Кредитная карта не существует"},
+                {transactionNumber, orderNumber, "0", "Пользователь не существует"},
+        };
+    }
+
     @DataProvider(name = "postCompanyDocuments")
     public static Object[][] postCompanyDocuments() {
         String name = "ООО \"Ромашка_" + (int) (Math.random() * 9999) + "\"";

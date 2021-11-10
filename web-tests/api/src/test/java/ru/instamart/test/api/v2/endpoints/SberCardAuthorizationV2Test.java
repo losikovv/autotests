@@ -68,4 +68,16 @@ public class SberCardAuthorizationV2Test extends RestBase {
         checkStatusCode401(response);
         checkError(response, "Ключ доступа невалиден или отсутствует");
     }
+
+    @CaseIDs(value = {@CaseId(515), @CaseId(1041)})
+    @Story("Финальный шаг авторизации карты")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Завершение авторизации карты с невалидными данными",
+            dataProvider = "invalidTransactionData",
+            dataProviderClass = RestDataProvider.class)
+    public void finishCardAuthorizationWithoutCard(String transactionNumber, String orderNumber, String userUuid, String errorMessage) {
+        Response response = PaymentsV2Request.GET(transactionNumber, orderNumber, userUuid);
+        checkStatusCode404(response);
+        checkError(response, errorMessage);
+    }
 }
