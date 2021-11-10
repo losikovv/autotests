@@ -63,8 +63,6 @@ public interface SearchCheck extends Check, SearchElement {
         waitAction().shouldNotBeVisible(searchProductsSkeleton);
     }
 
-
-
     @Step("Проверка подскролла страницы поиска к новой выдаче")
     default void checkPageScrolled() {
         waitAction().elementCollectionSizeShouldBeEqual(searchProductPrices, 40);
@@ -97,7 +95,7 @@ public interface SearchCheck extends Check, SearchElement {
 
     @Step("Проверить, что фильтр '{0}' задизейблен")
     default void checkFilterDisabled(String filterText) {
-        waitAction().elementToBeDisabled(filterCheckbox, filterText);
+        waitAction().shouldNotBeClickable(filterCheckbox, filterText);
     }
 
     @Step("Проверить, что сортировка '{0}' применена")

@@ -66,7 +66,7 @@ public final class WaitAction {
                 .until(KrakenCondition.elementSelectCheckboxState(element, selected));
     }
 
-    public boolean elementToBeDisabled(final Component component, final Object... args) {
+    public boolean shouldNotBeClickable(final Component component, final Object... args) {
         return createWait(component)
                 .until(KrakenCondition.elementNotToBeClickable(component.getBy(args)));
     }
@@ -108,7 +108,6 @@ public final class WaitAction {
                 .pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
     }
 
-    @Step("Проверяем, что количество элементов в коллекции элементов =={0}")
     public void elementCollectionSizeShouldBeEqual(ElementCollection collection, final int size) {
         createWait(WaitProperties.BASIC_TIMEOUT, "Кол-во элементов в коллекции не совпадает с ожидаемым")
                 .until((ExpectedCondition<Boolean>) wb -> collection.elementCount() == size);

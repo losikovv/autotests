@@ -201,7 +201,7 @@ public final class ShoppingCatalogTests extends BaseTest {
     @CaseId(2578)
     @Test(  enabled = false, //выключен пока не отключат старый лендинг, иначе будет падать из за аб
             description = "Переход в витрину магазина с главной страницы сайта",
-            groups = {"sbermarket-regression"}
+            groups = {"regression"}
     )
     public void successShowcaseTransitionFromMainLanding() {
         home().goToPage();
