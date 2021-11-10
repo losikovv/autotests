@@ -44,11 +44,11 @@ public interface HeaderElement {
     Element minAmountAlert = new Element(By.xpath("//div[@class='alerts']//div[contains(@class, 'alert--error')]"), "Алерт минимальной суммы заказа в шапке");
     Element authOrRegAlert = new Element(By.xpath("//div[@class='alerts']//span[contains(text(), 'войти или зарегистрироваться')]"), "Алерт регистрации или авторизации в шапке");
 
-    ElementCollection taxonCategoriesCollection = new ElementCollection(By.xpath("//div[@class='header-search-list__category']"), "Список категорий в подсказке поиска");
-    ElementCollection taxonCategoriesCollectionImagesAlco = new ElementCollection(By.xpath("//div[@class='header-search-list__category_ico']"), "Картинки 18+ списка категорий в подсказке поиска");
+    ElementCollection taxonCategoriesCollection = new ElementCollection(By.xpath("//div[@data-qa='taxon']"), "Список категорий в подсказке поиска");
+    ElementCollection taxonCategoriesCollectionImagesAlco = new ElementCollection(By.cssSelector("svg.header-search-list-category__icon-content"), "Картинки 18+ списка категорий в подсказке поиска");
 
     ElementCollection searchSuggestsCollection = new ElementCollection(By.xpath("//div[@data-qa='offer']"), "Товарные подсказки поиска");
-    ElementCollection searchSuggestsCollectionImagesAlco = new ElementCollection(By.xpath("//div[@data-qa='offer']"), "Товарные подсказки поиска");
+    ElementCollection searchSuggestsCollectionImagesAlco = new ElementCollection(By.cssSelector("svg.header-search-list-product__image-content"), "Картинки 18+ в подсказках поиска");
 
     Button profile = new Button(By.xpath("//button[@data-qa='profile-button_button']"), "кнопка профиль пользователя в хэдере");
     Button cart = new Button(By.xpath("//button[@data-qa='open-cart-button']"), "кнопка корзины");

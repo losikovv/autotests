@@ -30,7 +30,7 @@ public interface SearchElement {
 
     ElementCollection searchProductsImagesCollection = new ElementCollection(By.xpath("//div[contains(@data-qa, 'search_result_products_products_grid_item')]//img"), "Коллекция картинок продуктов в поиске");
 
-    ElementCollection searchProductsCollectionImagesAlco = new ElementCollection(By.xpath("//div[contains(@data-qa, '')]"), "Коллекция продуктов в поиске"); //TODO: Написать уточненный локатор
+    ElementCollection searchProductsCollectionImagesAlco = new ElementCollection(By.xpath("//div[@data-qa='search_result_products_products_grid']//img[contains(@src, 'adult-warning')]"), "Коллекция картинок-заглушек алко в поиске");
 
     Selector selectSort = new Selector(By.xpath("//select[contains(@class, 'ProductsFilterSort')]"), "Селектор сортировки продуктов");
     Selector selectSortApplied = new Selector(ByKraken.xpath("//select[contains(@class, 'ProductsFilterSort')]/option[contains(text(),'%s')]"), "Селектор сортировки продуктов");
