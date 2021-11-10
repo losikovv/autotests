@@ -655,7 +655,6 @@ public class OrdersV2Test extends RestBase {
 
         execRakeTaskAddBonus(userData.getEmail(), "100", userId);
         final Response response = OrdersV2Request.Instacoins.POST(apiV2.getCurrentOrderNumber(), "100");
-        response.prettyPeek();
         checkStatusCode422(response);
         checkError(response, "Этот заказ можно оплатить бонусами до 0 ₽");
     }
