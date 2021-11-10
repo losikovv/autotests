@@ -51,7 +51,7 @@ public final class ApiV3Helper {
 
     public OrderOptionsV3Response getOrderOptionsDelivery(ApiV3TestData testData) {
         Response response = OrderOptionsV3Request.Delivery.PUT(testData);
-        response.then().statusCode(200);
+        checkStatusCode200(response);
         return response.as(OrderOptionsV3Response.class);
     }
 
@@ -131,8 +131,8 @@ public final class ApiV3Helper {
     public OrderV3 createOrderDelivery(ApiV3TestData testData) {
 
         Response response = OrderOptionsV3Request.Delivery.PUT(testData);
-        OrderOptionsV3Response orderOptionsV3Response = response.as(OrderOptionsV3Response.class);
         checkStatusCode200(response);
+        OrderOptionsV3Response orderOptionsV3Response = response.as(OrderOptionsV3Response.class);
 
         List<PaymentMethodV3> paymentMethods = orderOptionsV3Response.getPayment_methods();
         String paymentOptionId = getPaymentMethod("external_partner_pay", paymentMethods).getOptions().get(0).getId();
@@ -154,8 +154,8 @@ public final class ApiV3Helper {
     public OrderV3 createOrderPickupFromStore(ApiV3TestData testData) {
 
         Response response = OrderOptionsV3Request.PickupFromStore.PUT(testData, "d1106342-817f-4c3e-8c18-0005295f641a");
-        OrderOptionsV3Response orderOptionsV3Response = response.as(OrderOptionsV3Response.class);
         checkStatusCode200(response);
+        OrderOptionsV3Response orderOptionsV3Response = response.as(OrderOptionsV3Response.class);
 
         List<PaymentMethodV3> paymentMethods = orderOptionsV3Response.getPayment_methods();
         String paymentOptionId = getPaymentMethod("cash_desk", paymentMethods).getOptions().get(0).getId();
