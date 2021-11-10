@@ -21,6 +21,7 @@ public interface HomeElement {
     Button forYourself = new Button(By.xpath("//button[@aria-controls='b2c-tab']"));
     Button forBusiness = new Button(By.xpath("//button[@aria-controls='b2b-tab']"));
     Button setAddress = new Button(By.xpath("//button[contains(@class, 'description')]"));
+    Button setAddressNew = new Button(By.xpath("//div[contains(@class, 'Address')]/button"), "кнопка 'Выбрать адрес'");
     Button showAllRetailers = new Button(By.xpath("//button[contains(text(), 'Показать всех')]"));
     Button showAllCities = new Button(By.xpath("//button[@data-qa='home_landing_show_button'][contains(text(), 'Показать')]"));
     Button hideCities = new Button(By.xpath("//button[@data-qa='home_landing_show_button'][contains(text(), 'Скрыть')]"));
@@ -52,6 +53,8 @@ public interface HomeElement {
     Element orderBlockStepThird = new Element(By.xpath("//div[@data-qa='home_landing_step_third']"), "третий шаг заказа на лендинге Сбермаркета");
     Element appsBlockContainer = new Element(By.xpath("//div[@data-qa='home_landing_app_stores']"), "блок моб. приложений на лендинге Сбермаркета");
     Element footerContainer = new Element(By.xpath("//footer"), "подвал лендинга Сбермаркета");
+
+    Link storeCard = new Link(By.xpath("//a[@data-qa='store-card']"), "карточка магазина на главной");
 
 }
 

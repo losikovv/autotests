@@ -3,6 +3,7 @@ package ru.instamart.reforged.core.condition;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Kraken;
 
@@ -43,6 +44,31 @@ public final class KrakenCondition {
             @Override
             public String toString() {
                 return String.format("element found by %s", element);
+            }
+        };
+    }
+
+    /**
+     * Проверяет что вы не можете кликнуть на элемент
+     *
+     * @param locator used to find the element
+     * @return true если элемент not clickable (visible and not enabled)
+     */
+    public static ExpectedCondition<Boolean> elementNotToBeClickable(final By locator) {
+        return new ExpectedCondition<>() {
+            @Override
+            public Boolean apply(WebDriver driver) {
+                WebElement element = ExpectedConditions.visibilityOfElementLocated(locator).apply(driver);
+                try {
+                    return element != null && !element.isEnabled();
+                } catch (StaleElementReferenceException e) {
+                    return false;
+                }
+            }
+
+            @Override
+            public String toString() {
+                return "element not to be clickable: " + locator;
             }
         };
     }

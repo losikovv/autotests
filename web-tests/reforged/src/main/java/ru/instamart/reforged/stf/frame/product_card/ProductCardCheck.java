@@ -16,4 +16,19 @@ public interface ProductCardCheck extends Check, ProductCardElement {
     default void checkProductCardIsNotVisible() {
         waitAction().shouldNotBeVisible(itemName);
     }
+
+    @Step("На продуктовой карте есть алерт продажи алкоголя 18+")
+    default void checkAlcoAlertVisible() {
+        waitAction().shouldBeVisible(alcoAlert);
+    }
+
+    @Step("На продуктовой карте есть картинка-заглушка продажи алкоголя 18+")
+    default void checkAlcoStubVisible() {
+        waitAction().shouldBeVisible(alcoStub);
+    }
+
+    @Step("На продуктовой карте алкоголя есть кнопка 'зарезервировать'")
+    default void checkReserveButtonVisible() {
+        waitAction().shouldBeVisible(reserveButton);
+    }
 }

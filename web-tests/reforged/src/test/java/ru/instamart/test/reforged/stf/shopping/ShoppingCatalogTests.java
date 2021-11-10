@@ -197,4 +197,19 @@ public final class ShoppingCatalogTests extends BaseTest {
         search().interactProductCard().close();
         search().interactProductCard().checkProductCardIsNotVisible();
     }
+
+    @CaseId(2578)
+    @Test(  enabled = false, //выключен пока не отключат старый лендинг, иначе будет падать из за аб
+            description = "Переход в витрину магазина с главной страницы сайта",
+            groups = {"regression"}
+    )
+    public void successShowcaseTransitionFromMainLanding() {
+        home().goToPage();
+        home().clickToSetAddress();
+        home().interactAddressModal().setAddress(Addresses.Moscow.defaultAddress());
+        home().interactAddressModal().selectFirstAddress();
+        home().interactAddressModal().clickOnSave();
+        home().clickToStoreCard();
+        shop().interactHeader().checkLoginIsVisible();
+    }
 }

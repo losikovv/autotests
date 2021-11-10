@@ -1,9 +1,7 @@
 package ru.instamart.reforged.stf.frame.product_card;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.Button;
-import ru.instamart.reforged.core.component.Element;
+
 import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
 import ru.instamart.reforged.stf.frame.Close;
 
@@ -33,6 +31,11 @@ public final class ProductCard implements ProductCardCheck, Close {
         favorite.click();
     }
 
+    @Step("Нажать товар в избранное для закрытия дисклеймера")
+    public void addToFavoriteToCloseDisclaimer() {
+        favorite.hoverAndClick();
+    }
+
     @Step("Нажать скрыть подробную информацию")
     public void hideDetailedInfo() {
         hideDetInfo.click();
@@ -56,5 +59,10 @@ public final class ProductCard implements ProductCardCheck, Close {
     @Step("Нажать предыдущий слайд в блоке С этим смотрят")
     public void clickOnPrevSlide() {
         relatedProductsPrev.click();
+    }
+
+    @Step("Нажать зарезервировать")
+    public void clickOnReserve() {
+        reserveButton.click();
     }
 }

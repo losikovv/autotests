@@ -46,6 +46,19 @@ public final class JsAction {
         });
     }
 
+    /**
+     * Ожидание загрузки картинки
+     */
+    public void waitImgLoad(final String locator) {
+        createWait().until((ExpectedCondition<Boolean>) wb -> {
+            final Object state = execute("return document.evaluate(\""+ locator +"\", document, null, XPathResult.ANY_TYPE, null).iterateNext().complete");
+            if (Objects.isNull(state)) {
+                return false;
+            }
+            return (Boolean) state;
+        });
+    }
+
     public void scrollToTheTop() {
         execute("scrollTo(0,0)");
     }

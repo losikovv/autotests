@@ -62,6 +62,16 @@ public final class ElementCollection extends CollectionComponent {
         }
     }
 
+    public String getElementText(final int order) {
+        var elements = getElements();
+        if (elements.size() > order) {
+            return getElements().get(order).getText();
+        } else {
+            log.error("Try to get text from {} element", order);
+            return "element_not_found";
+        }
+    }
+
     public void moveOnElementWithText(final String text) {
         for (final WebElement we : getComponents()) {
             final String elementText = we.getText();
