@@ -69,6 +69,16 @@ public final class ApiV2EndPoints {
         public static final String BY_ID = "v2/departments/{id}?sid={sid}";
     }
 
+    public static final class ExternalAnalytics {
+        public static final String DEVICE_IDENTIFICATION = "v2/external_analytics/device_identification";
+    }
+
+    public static final class ExternalPartners {
+        public static final class Banners {
+            public static final String SBER_PRIME = "v2/external_partners/banners/sberprime?store_id={sid}";
+        }
+    }
+
     public static final class FavoritesList {
         public static final String ITEMS = "v2/favorites_list/items";
         public static final String PRODUCTS_SKU = "v2/favorites_list/products_sku";
@@ -112,6 +122,10 @@ public final class ApiV2EndPoints {
 
     public static final class Passwords {
         public static final String RESET = "v2/passwords/reset";
+    }
+
+    public static final class Payments {
+        public static final String CREDIT_CARD_AUTHORIZATION = "v2/payments/sber/credit_card_authorizations";
     }
 
     public static final class Phones {
@@ -191,15 +205,5 @@ public final class ApiV2EndPoints {
 
     public static final class Users {
         public static final String BY_EMAIL = "v2/users/{email}";
-    }
-
-    public static final class ExternalPartners {
-        public static final class Banners {
-            public static final String SBER_PRIME = "v2/external_partners/banners/sberprime?store_id={sid}";
-        }
-    }
-
-    public static final class ExternalAnalytics {
-        public static final String DEVICE_IDENTIFICATION = "v2/external_analytics/device_identification";
     }
 }

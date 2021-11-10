@@ -12,14 +12,12 @@ import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OfferV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
-import ru.instamart.api.model.v2.ProductV2;
-import ru.instamart.api.model.v2.RetailerV2;
-import ru.instamart.api.model.v2.StoreV2;
-import ru.instamart.api.model.v2.ZoneV2;
+import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.v1.OperationalZonesV1Request;
 import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
 import ru.instamart.api.request.v2.*;
 import ru.instamart.api.response.v1.OperationalZonesV1Response;
+import ru.instamart.api.response.v2.OrderV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data_provider.DataList;
 
@@ -534,6 +532,15 @@ public class RestDataProvider extends RestBase {
         return new Object[][]{
                 {ProductPriceTypeV2.PER_ITEM},
                 {ProductPriceTypeV2.PER_PACK}
+        };
+    }
+
+    @DataProvider(name = "orderNumbers", parallel = true)
+    public static Object[][] getOrderNumber() {
+        OrderV2 order = OrdersV2Request.POST().as(OrderV2Response.class).getOrder();
+        return new Object[][]{
+                {order.getNumber()},
+                {"failedNumber"}
         };
     }
 
