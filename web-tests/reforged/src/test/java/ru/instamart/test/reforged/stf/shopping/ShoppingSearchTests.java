@@ -264,7 +264,6 @@ public final class ShoppingSearchTests extends BaseTest {
 
     @CaseId(2737)
     @Test(
-
             description = "Отображение алкоголя в результатах поиска при неподтверждении возраста: нажатие за пределы модального окна",
             groups = {"regression"}
     )
