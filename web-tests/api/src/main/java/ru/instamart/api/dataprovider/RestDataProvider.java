@@ -17,6 +17,7 @@ import ru.instamart.api.request.v1.OperationalZonesV1Request;
 import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
 import ru.instamart.api.request.v2.*;
 import ru.instamart.api.response.v1.OperationalZonesV1Response;
+import ru.instamart.api.response.v2.CreditCardAuthorizationV2Response;
 import ru.instamart.api.response.v2.OrderV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data_provider.DataList;
@@ -541,6 +542,18 @@ public class RestDataProvider extends RestBase {
         return new Object[][]{
                 {order.getNumber()},
                 {"failedNumber"}
+        };
+    }
+
+    @DataProvider(name = "transactionNumbers", parallel = true)
+    public static Object[][] getTransactionNumber() {
+        SessionFactory.makeSession(SessionType.API_V2_FB);
+        OrderV2 order = OrdersV2Request.POST().as(OrderV2Response.class).getOrder();
+        CreditCardAuthorizationV2 creditCardAuthorization = PaymentsV2Request.POST(order.getNumber()).
+                as(CreditCardAuthorizationV2Response.class).getCreditCardAuthorization();
+        return new Object[][]{
+                {creditCardAuthorization.getTransactionNumber(), 422, "Ошибка добавления карты"},
+                {"0000-0000", 404, "translation missing: ru.activerecord.models.card_authorization_payment не существует"}
         };
     }
 

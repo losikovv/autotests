@@ -20,4 +20,20 @@ public class PaymentsV2Request extends ApiV2RequestBase {
                 .contentType(ContentType.JSON)
                 .post(ApiV2EndPoints.Payments.CREDIT_CARD_AUTHORIZATION);
     }
+
+    @Step("{method} /" + ApiV2EndPoints.Payments.CREDIT_CARD_AUTHORIZATION)
+    public static Response PUT(String transactionNumber) {
+        JSONObject requestParams = new JSONObject();
+        JSONObject creditCardAuthorization = new JSONObject();
+        JSONObject creditCard = new JSONObject();
+        creditCard.put("name", "CARDHOLDER NAME");
+        creditCard.put("cryptogram_packet", "QEbc");
+        creditCardAuthorization.put("credit_card", creditCard);
+        creditCardAuthorization.put("transaction_number", transactionNumber);
+        requestParams.put("credit_card_authorization", creditCardAuthorization);
+        return givenWithAuth()
+                .body(requestParams)
+                .contentType(ContentType.JSON)
+                .put(ApiV2EndPoints.Payments.CREDIT_CARD_AUTHORIZATION);
+    }
 }

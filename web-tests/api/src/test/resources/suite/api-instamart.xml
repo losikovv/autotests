@@ -56,6 +56,7 @@
             <class name="ru.instamart.test.api.v2.endpoints.TaxonsV2Test"/>
             <class name="ru.instamart.test.api.v2.e2e.OrderE2ETests"/>
             <class name="ru.instamart.test.api.v2.endpoints.ExternalAnalyticsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.SberCardAuthorizationV2Test"/>
         </classes>
     </test>
     <!-- api-v3-tests -->
