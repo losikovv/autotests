@@ -168,6 +168,12 @@ public class ApiHelper {
         admin.deleteCity(cityName);
     }
 
+    @Step("Добавить компанию {inn}/{companyName} пользователю {ownerEmail}")
+    public void addCompanyForUser(final String inn, final String companyName, final String ownerEmail) {
+        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
+        admin.addCompany(inn, companyName, ownerEmail);
+    }
+
     @Step("Добавляем новую статичную страницу {data} в админке")
     public void createStaticPageInAdmin(StaticPageData data) {
         SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());

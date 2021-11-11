@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
@@ -84,6 +85,10 @@ public abstract class Component {
     public void mouseOver() {
         log.debug("Element {} '{}' hover", description, by);
         actions.mouseOver();
+    }
+
+    public void sendKey(final Keys keys) {
+        actions.sendKeys(keys);
     }
 
     /**

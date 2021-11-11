@@ -92,11 +92,7 @@ public final class Input extends Component {
      * Очистка инпута через js код
      */
     public void jsClear() {
-        final Matcher matcher = LOCATOR.matcher(getBy().toString());
-        while (matcher.find()) {
-            log.debug("Clear input field '{}' from js", getDescription());
-            Kraken.jsAction().clearField(matcher.group());
-        }
+        Kraken.jsAction().clearField(getLocator());
     }
 
     public void click() {

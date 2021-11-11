@@ -49,6 +49,16 @@ public final class Table extends Component {
         throw new NoSuchElementException("Строка " + name + " не найдена");
     }
 
+    public void clickOnColumnElement(final String name) {
+        for (final WebElement column : lines.getComponents()) {
+            if (column.getText().contains(name)) {
+                column.findElement(By.xpath("//td//a")).click();
+                return;
+            }
+        }
+        throw new NoSuchElementException("Строка " + name + " не найдена");
+    }
+
     @Override
     protected WebElement getComponent() {
         log.debug("Create {} with locator {}", getClass().getSimpleName(), getBy());

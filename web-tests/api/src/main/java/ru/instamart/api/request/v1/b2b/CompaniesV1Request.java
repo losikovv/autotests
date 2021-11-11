@@ -8,6 +8,9 @@ import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.model.v1.b2b.CompanyV1;
 import ru.instamart.api.request.ApiV1RequestBase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @SuppressWarnings("unchecked")
 public class CompaniesV1Request extends ApiV1RequestBase {
     @Step("{method} /" + ApiV1Endpoints.Company.BY_INN)
@@ -22,6 +25,17 @@ public class CompaniesV1Request extends ApiV1RequestBase {
                 .get(ApiV1Endpoints.Company.BY_ID, companyID);
     }
 
+    @Step("{method} /" + ApiV1Endpoints.COMPANIES)
+    public static Response POST(final String inn, final String companyName, final String ownerEmail) {
+        final Map<String, String> params = new HashMap<>();
+        params.put("inn", inn);
+        params.put("name", companyName);
+        params.put("owner_email", ownerEmail);
+        return givenWithAuth()
+                .body(params)
+                .contentType(ContentType.JSON)
+                .post(ApiV1Endpoints.COMPANIES);
+    }
 
     @Step("{method} /" + ApiV1Endpoints.Company.BY_ID)
     public static Response PUT(Integer companyID, CompanyV1 companyV1) {
