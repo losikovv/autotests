@@ -25,6 +25,6 @@ public final class Actions {
     }
 
     public void clickWithOffset(final int xOffset, final int yOffset) {
-        clickWithOffset.accept(component.getComponent(),xOffset, yOffset);
+        clickWithOffset.accept(component.getComponent(), xOffset, yOffset);
     }
 }
