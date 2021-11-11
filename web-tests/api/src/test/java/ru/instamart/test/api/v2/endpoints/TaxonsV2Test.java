@@ -50,8 +50,8 @@ public final class TaxonsV2Test extends RestBase {
         assertNotNull(response.as(TaxonV2Response.class).getTaxon(), "Не вернулся таксон");
     }
 
-    @CaseId(249)
-    @Test(  groups = {"api-instamart-regress"},
+    // пока отключен, так как слишком затратно пробегаться по всем таксонам (10-15 минут)
+    @Test(  groups = {},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "stores-parallel",
             description = "Получаем каждый таксон (подкатегорию) у каждого магазина")
