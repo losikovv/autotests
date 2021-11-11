@@ -19,9 +19,9 @@ public class AdministrationUsersSectionTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(31)
+    @CaseId(19)
     @Story("Тест поиска пользователя в админке")
-    @Test(description = "Тест поиска пользователя в админке", groups = {"acceptance", "regression"})
+    @Test(description = "Работоспособность поиска в списке юзеров", groups = {"acceptance", "regression"})
     public void successSearchUser() {
         final String email = UserManager.getDefaultAdmin().getEmail();
 

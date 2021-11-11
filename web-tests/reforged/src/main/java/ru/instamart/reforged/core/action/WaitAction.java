@@ -91,14 +91,9 @@ public final class WaitAction {
                 .until(KrakenCondition.keysSendCondition(element, data, isPhone));
     }
 
-    private FluentWait<WebDriver> createWait(final Component component) {
-        return new FluentWait<>(getWebDriver())
-                .withTimeout(component.getTimeout(), TimeUnit.SECONDS)
-                .withMessage(component.getErrorMsg())
-                .pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS)
-                .ignoring(NoSuchElementException.class)
-                .ignoring(ElementClickInterceptedException.class)
-                .ignoring(NotFoundException.class);
+    public void elementCollectionSizeShouldBeEqual(ElementCollection collection, final int size) {
+        createWait(WaitProperties.BASIC_TIMEOUT, "Кол-во элементов в коллекции не совпадает с ожидаемым")
+                .until((ExpectedCondition<Boolean>) wb -> collection.elementCount() == size);
     }
 
     private FluentWait<WebDriver> createWait(final int wait, final String errorMsg) {
@@ -108,8 +103,13 @@ public final class WaitAction {
                 .pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
     }
 
-    public void elementCollectionSizeShouldBeEqual(ElementCollection collection, final int size) {
-        createWait(WaitProperties.BASIC_TIMEOUT, "Кол-во элементов в коллекции не совпадает с ожидаемым")
-                .until((ExpectedCondition<Boolean>) wb -> collection.elementCount() == size);
+    private FluentWait<WebDriver> createWait(final Component component) {
+        return new FluentWait<>(getWebDriver())
+                .withTimeout(component.getTimeout(), TimeUnit.SECONDS)
+                .withMessage(component.getErrorMsg())
+                .pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS)
+                .ignoring(NoSuchElementException.class)
+                .ignoring(ElementClickInterceptedException.class)
+                .ignoring(NotFoundException.class);
     }
 }

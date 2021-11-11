@@ -76,7 +76,7 @@ public final class JsAction {
     }
 
     public void clearField(final String locator) {
-        execute("document.evaluate(\"" + locator + "\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).setAttribute('value', '');");
+        execute("document.evaluate(\"" + locator + "\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.value = '';");
     }
 
     public void click(final WebElement element) {
@@ -89,6 +89,10 @@ public final class JsAction {
 
     public void setCookieValue(final String name, final String value) {
         execute("document.cookie=\"" + name + "=" + value + "\"");
+    }
+
+    public void setValueReact(final String locator, final String value) {
+        execute(String.format("document.evaluate(\"%s\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.value = '%s';", locator, value));
     }
 
     public void setValue(final WebElement element, String text) {

@@ -1,5 +1,7 @@
 package ru.instamart.reforged.admin;
 
+import ru.instamart.reforged.admin.page.companies.CompaniesPage;
+import ru.instamart.reforged.admin.page.companies.new_companies.NewCompaniesPage;
 import ru.instamart.reforged.admin.page.main.MainPage;
 import ru.instamart.reforged.admin.page.retailers.RetailersPage;
 import ru.instamart.reforged.admin.page.retailers.add_new_shop.ShopAddPage;
@@ -92,6 +94,14 @@ public final class AdminRout extends Router {
 
     public static UsersEditPage usersEdit() {
         return (UsersEditPage) getPage(UsersEditPage.class);
+    }
+
+    public static CompaniesPage companies() {
+        return (CompaniesPage) getPage(CompaniesPage.class);
+    }
+
+    public static NewCompaniesPage addCompanies() {
+        return (NewCompaniesPage) getPage(NewCompaniesPage.class);
     }
 
     private AdminRout() {
