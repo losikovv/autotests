@@ -33,7 +33,7 @@ public class SearchPage implements StfPage, SearchCheck {
 
     @Step("Открыть на просмотр карточку первого найденного продукта")
     public void clickOnFirstSearchResult() {
-        searchProductsCollection.getElements().get(0).click();
+        searchProductsCollection.clickOnFirst();
     }
 
     @Step("Открыть карточку первого найденного продукта")

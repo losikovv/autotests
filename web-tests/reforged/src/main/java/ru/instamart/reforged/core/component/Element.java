@@ -39,7 +39,7 @@ public final class Element extends Component {
     }
 
     @Override
-    public WebElement getComponent() {
+    protected WebElement getComponent() {
         log.debug("Create {} with locator {}", getDescription(), getBy());
         if (isNull(component) || isCacheDisable) {
             component = Kraken.waitAction().shouldBeVisible(this);
