@@ -31,6 +31,7 @@ import java.util.function.Consumer;
 import static java.lang.System.console;
 import static org.testng.Assert.fail;
 import static ru.instamart.api.enums.BashCommands.Instacoins.ADD_USER_INSATCOIN;
+import static ru.instamart.api.enums.RailsConsole.ExternalPartners.SUBSCRIPTION;
 import static ru.instamart.api.enums.RailsConsole.Order.*;
 
 public class K8sConsumer {
@@ -361,5 +362,11 @@ public class K8sConsumer {
         List<String> consoleLog = execBashCommandWithPod(ADD_USER_INSATCOIN.get(email, instacoin, userId));
         Allure.addAttachment("Логи консоли", String.join("\n", consoleLog));
         return consoleLog;
+    }
+
+    @Step("Добавление подписки СберПрайм")
+    public static void addSberPrime(String email) {
+        List<String> strings = execRailsCommandWithPod(SUBSCRIPTION.get(email));
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
     }
 }

@@ -115,4 +115,15 @@ public interface RailsConsole {
             return format(command, (Object[]) values);
         }
     }
+
+    @AllArgsConstructor
+    enum ExternalPartners implements RailsConsole{
+        SUBSCRIPTION("ExternalPartners::Subscription.create(service_id: 1, user_id: Spree::User.find_by_email('%s').id, expired_date: 10.years.from_now, client_key_type: 'SUB', client_key: '1', begins_date: 1.day.ago, external_id: SecureRandom.uuid, packet_id: '1')");
+
+        private String command;
+
+        public String get(String... values) {
+            return format(command, (Object[]) values);
+        }
+    }
 }

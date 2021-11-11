@@ -16,4 +16,12 @@ public final class ExternalPartnersV2Request extends ApiV2RequestBase {
             }
         }
     }
+
+    public static class Services {
+        @Step("{method} /" + ApiV2EndPoints.ExternalPartners.SERVICES)
+        public static Response GET() {
+            return givenWithAuth()
+                    .get(ApiV2EndPoints.ExternalPartners.SERVICES);
+        }
+    }
 }

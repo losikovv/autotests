@@ -1,12 +1,14 @@
 package ru.instamart.api.checkpoint;
 
 import io.qameta.allure.Step;
+import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.enums.v2.ProductSortTypeV2;
 import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.model.v1.MarketingSampleV1;
 import ru.instamart.api.model.v2.*;
+import ru.instamart.api.response.v2.ExternalPartnersServicesV2Response;
 import ru.instamart.jdbc.dao.SpreeUsersDao;
 import ru.instamart.jdbc.entity.MarketingSamplesEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -19,6 +21,7 @@ import java.util.Optional;
 import static java.util.Objects.isNull;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.kraken.util.TimeUtil.getDateWithoutTime;
 import static ru.instamart.kraken.util.TimeUtil.getFutureDateWithoutTime;
@@ -118,6 +121,18 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(marketingSampleFromResponse.getStores().get(0).getId(), EnvironmentProperties.DEFAULT_SID, softAssert);
         compareTwoObjects(marketingSampleFromResponse.getStores().get(0).getRetailer().getName(), "METRO", softAssert);
         compareTwoObjects(marketingSamplesEntity.get().getUserId(), SpreeUsersDao.INSTANCE.getIdByEmail(email), softAssert);
+        softAssert.assertAll();
+    }
+    @Step("Проверяем информацию о подписке, пришедшую в ответе")
+    public static void checkExternalPartnersServices(Response response, Boolean isActive) {
+        ServicesV2 service = response.as(ExternalPartnersServicesV2Response.class).getServices().get(0);
+        checkFieldIsNotEmpty(service, "сервис");
+        SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(service.getName(), "SberPrime", softAssert);
+        compareTwoObjects(service.getKind(), "sber_prime", softAssert);
+        compareTwoObjects(service.getText(), "Бесплатная доставка", softAssert);
+        compareTwoObjects(service.getDiscountType(), "free_delivery", softAssert);
+        compareTwoObjects(service.getSubscription().getActive(), isActive, softAssert);
         softAssert.assertAll();
     }
 }
