@@ -28,10 +28,13 @@ public class ProductV2 extends BaseObject {
     private String discountEndsAt;
     @JsonProperty(value = "items_per_pack")
     private Integer itemsPerPack;
+    @EqualsAndHashCode.Exclude
     private String description;
     private List<ImageV2> images = null;
     private ImageV2 image;
+    @EqualsAndHashCode.Exclude
     private List<PropertyV2> properties = null;
+    @EqualsAndHashCode.Exclude
     @JsonProperty(value = "related_products")
     private List<ProductV2> relatedProducts = null;
     private List<RequirementV2> requirements = null;
@@ -43,4 +46,8 @@ public class ProductV2 extends BaseObject {
     private Double unitPrice;
     @JsonProperty(value = "original_unit_price")
     private Double originalUnitPrice;
+    private Double score;
+    @EqualsAndHashCode.Exclude
+    @JsonProperty(value = "score_details")
+    private ScoreDetailsV2 scoreDetails;
 }
