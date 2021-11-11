@@ -77,6 +77,8 @@ public final class ApiV2EndPoints {
         public static final class Banners {
             public static final String SBER_PRIME = "v2/external_partners/banners/sberprime?store_id={sid}";
         }
+
+        public static final String SERVICES = "v2/external_partners/services";
     }
 
     public static final class FavoritesList {
@@ -126,6 +128,7 @@ public final class ApiV2EndPoints {
 
     public static final class PaymentsSber {
         public static final String CREDIT_CARD_AUTHORIZATIONS = "v2/payments/sber/credit_card_authorizations";
+
         public static final class CreditCardAuthorizations {
             public static final String FINISH = "v2/payments/sber/credit_card_authorizations/finish";
         }
