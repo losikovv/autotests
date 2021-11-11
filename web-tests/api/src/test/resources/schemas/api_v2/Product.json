@@ -1,0 +1,253 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "product": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "sku": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "retailer_sku": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        },
+        "original_price": {
+          "type": "number"
+        },
+        "discount": {
+          "type": "number"
+        },
+        "human_volume": {
+          "type": "string"
+        },
+        "volume": {
+          "type": "number"
+        },
+        "volume_type": {
+          "type": "string"
+        },
+        "items_per_pack": {
+          "type": "integer"
+        },
+        "discount_ends_at": {
+          "type": ["string","null"]
+        },
+        "price_type": {
+          "type": "string"
+        },
+        "grams_per_unit": {
+          "type": "integer"
+        },
+        "unit_price": {
+          "type": "number"
+        },
+        "original_unit_price": {
+          "type": "number"
+        },
+        "promo_badge_ids": {
+          "type": "array",
+          "items": {}
+        },
+        "score": {
+          "type": ["number","null"]
+        },
+        "labels": {
+          "type": "array",
+          "items": {}
+        },
+        "description": {
+          "type": "string"
+        },
+        "score_details": {
+          "type": "object",
+          "properties": {
+            "feedback_count": {
+              "type": ["integer","null"]
+            },
+            "feedback_source": {
+              "type": ["string","null"]
+            }
+          },
+          "required": [
+            "feedback_count",
+            "feedback_source"
+          ]
+        },
+        "related_products": {
+          "type": "array",
+          "items": {}
+        },
+        "images": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "mini_url": {
+                  "type": "string"
+                },
+                "small_url": {
+                  "type": "string"
+                },
+                "product_url": {
+                  "type": "string"
+                },
+                "preview_url": {
+                  "type": "string"
+                },
+                "original_url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "mini_url",
+                "small_url",
+                "product_url",
+                "preview_url",
+                "original_url"
+              ]
+            }
+          ]
+        },
+        "requirements": {
+          "type": "array",
+          "items": {}
+        },
+        "properties": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "presentation": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "presentation",
+                "value"
+              ]
+            }
+          ]
+        },
+        "main_taxon": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "type": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "products_count": {
+              "type": "integer"
+            },
+            "promo_services": {
+              "type": "array",
+              "items": {}
+            },
+            "position": {
+              "type": "integer"
+            },
+            "depth": {
+              "type": "integer"
+            },
+            "icon": {
+              "type": "object",
+              "properties": {
+                "mini_url": {
+                  "type": "string"
+                },
+                "normal_url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "mini_url",
+                "normal_url"
+              ]
+            },
+            "alt_icon": {
+              "type": ["string","null"]
+            },
+            "requirements": {
+              "type": "array",
+              "items": {}
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "name",
+            "products_count",
+            "promo_services",
+            "position",
+            "depth",
+            "icon",
+            "alt_icon",
+            "requirements"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "sku",
+        "active",
+        "retailer_sku",
+        "name",
+        "price",
+        "original_price",
+        "discount",
+        "human_volume",
+        "volume",
+        "volume_type",
+        "items_per_pack",
+        "discount_ends_at",
+        "price_type",
+        "grams_per_unit",
+        "unit_price",
+        "original_unit_price",
+        "promo_badge_ids",
+        "score",
+        "labels",
+        "description",
+        "score_details",
+        "related_products",
+        "images",
+        "requirements",
+        "properties",
+        "main_taxon"
+      ]
+    },
+    "promo_badges": {
+      "type": "array",
+      "items": {}
+    }
+  },
+  "required": [
+    "product",
+    "promo_badges"
+  ]
+}
