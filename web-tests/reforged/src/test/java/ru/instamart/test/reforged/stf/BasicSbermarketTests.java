@@ -23,7 +23,7 @@ public final class BasicSbermarketTests extends BaseTest {
 
     @CaseId(1438)
     @Story("Валидация элементов")
-    @Test(description = "Тест валидности элементов и ссылок в шапке Сбермаркета", groups = "regression")
+    @Test(description = "Тест валидности элементов и ссылок в шапке Сбермаркета", groups = {"regression", "MRAutoCheck"})
     public void successValidateHeader() {
         shop().goToPage();
         shop().checkPageIsAvailable();
@@ -93,7 +93,7 @@ public final class BasicSbermarketTests extends BaseTest {
 
     @CaseId(1439)
     @Story("Валидация элементов")
-    @Test(description = "Тест валидности элементов в футере Сбермаркета", groups = "regression")
+    @Test(description = "Тест валидности элементов в футере Сбермаркета", groups = {"regression", "MRAutoCheck"})
     public void successValidateElementInFooterSbermarket() {
         shop().goToPage();
         shop().checkPageIsAvailable();
@@ -135,7 +135,7 @@ public final class BasicSbermarketTests extends BaseTest {
 
     @CaseId(1439)
     @Story("Валидация элементов")
-    @Test(description = "Тест валидности переходов по ссылка в футере Сбермаркета", groups = "regression")
+    @Test(description = "Тест валидности переходов по ссылка в футере Сбермаркета", groups = {"regression", "MRAutoCheck"})
     public void testFooterLink() {
         home().goToPage();
         home().addCookie(CookieFactory.COOKIE_ALERT);
@@ -167,7 +167,7 @@ public final class BasicSbermarketTests extends BaseTest {
     @Test(  dataProviderClass = StaticPage.class,
             dataProvider = "filteredAvailableRetailersSpree",
             description = "Тест доступности витрин ритейлеров Сбермаркета ",
-            groups = {"regression", "MRAutoCheck"})
+            groups = "regression")
     public void successCheckSbermarketAvailableRetailers(final RetailerV2 retailer) {
         final String fullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + retailer.getSlug();
         assertTrue(Curl.pageAvailable(fullUrl), "Страница " + fullUrl + " недоступна");
@@ -179,7 +179,7 @@ public final class BasicSbermarketTests extends BaseTest {
     @Test(  dataProviderClass = StaticPage.class,
             dataProvider = "filteredUnavailableRetailersSpree",
             description = "Тест недоступности витрин ритейлеров Сбермаркета ",
-            groups = {"regression", "MRAutoCheck"})
+            groups = "regression")
     public void successCheckSbermarketUnavailableRetailers(final RetailerV2 retailer) {
         final String fullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + retailer.getSlug();
         assertTrue(Curl.pageUnavailable(fullUrl), "Страница " + fullUrl + " доступна");
