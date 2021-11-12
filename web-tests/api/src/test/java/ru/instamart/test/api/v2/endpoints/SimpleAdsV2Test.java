@@ -26,7 +26,7 @@ import java.util.UUID;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
-@Feature("Упрощенный запрос нативной рекламы.")
+@Feature("Нативная реклама")
 public final class SimpleAdsV2Test extends RestBase {
 
     @BeforeMethod

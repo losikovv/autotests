@@ -3,6 +3,7 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
@@ -21,9 +22,10 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 
 
 @Epic("ApiV2")
-@Feature("Запрос рекомендаций")
+@Feature("Рекомендации")
 public final class RecsV2Test extends RestBase {
 
+    @Story("Полные рекомендации (recs)")
     @CaseId(974)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Запрос рекомендаций с обязательными параметрами")
@@ -67,6 +69,7 @@ public final class RecsV2Test extends RestBase {
         checkFieldIsNotEmpty(recsV2Response.getRecs(), "рекомендации");
     }
 
+    @Story("Полные рекомендации (recs)")
     @CaseId(975)
     @JsonDataProvider(path = "data/json_v2/api_v2_negative_recs_data.json", type = RestDataProvider.RecsV2TestDataRoot.class)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},

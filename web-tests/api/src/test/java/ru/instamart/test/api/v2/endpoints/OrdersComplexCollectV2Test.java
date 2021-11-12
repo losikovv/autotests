@@ -26,7 +26,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
-@Feature("Заказы")
+@Feature("Заказы (orders)")
 public class OrdersComplexCollectV2Test extends RestBase {
 
     private String orderNumber, shipmentNumber;
@@ -47,7 +47,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
     }
 
     @CaseId(306)
-    @Story("Получение истории заказов (1-ая страница)")
+    @Story("История заказов")
     @Test(groups = {"api-instamart-regress"},
             description = "Получение истории заказов (1-ая страница)")
     public void getPreviousOrder200() {
@@ -66,7 +66,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
     }
 
     @CaseId(307)
-    @Story("Получение информации о предыдущем заказе")
+    @Story("История заказов")
     @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о предыдущем заказе. Нет предыдущих заказов")
     public void getPreviousOrder() {

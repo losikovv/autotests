@@ -26,23 +26,23 @@ public class KubernetesClientTest extends RestBase {
     private final String labelSelector = "app=app-sbermarket";
 
     @Story("Список подов для namespace")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "MRAutoCheck"},
             description = "Список подов для namespace = s-sb-stfkraken")
     public void kubeTest() {
         V1PodList list = getPodList(namespace, labelSelector);
         AtomicReference<String> attach = new AtomicReference<>();
-        list.getItems().stream().forEach(item -> attach.set(item.getMetadata().getName()));
+        list.getItems().forEach(item -> attach.set(item.getMetadata().getName()));
         Allure.addAttachment("Pods kraken stage", String.valueOf(attach));
     }
 
     @Story("Логи пода")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "MRAutoCheck"},
             description = "Список последних 10 строк лога")
     public void kubeLogs() {
         V1PodList list = getPodList(namespace, labelSelector);
         List<String> logs = getLogs(list.getItems().get(0), 10);
         AtomicReference<String> attach = new AtomicReference<>();
-        logs.stream().forEach(item -> attach.set(attach + "\r\n" + item));
+        logs.forEach(item -> attach.set(attach + "\r\n" + item));
         Allure.addAttachment("namespace: " + namespace + " logs", String.valueOf(attach));
     }
 
@@ -69,7 +69,7 @@ public class KubernetesClientTest extends RestBase {
                         ", hostname: " + resultQuery.getString("hostname"));
             }
         }
-        result.stream().forEach(System.out::println);
+        result.forEach(System.out::println);
 
     }
 }

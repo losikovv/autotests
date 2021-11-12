@@ -19,7 +19,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 import static ru.instamart.api.k8s.K8sConsumer.addSberPrime;
 
 @Epic("ApiV2")
-@Feature("Получение списка банеров для SberPrime")
+@Feature("Список банеров для SberPrime")
 public class ExternalPartnersV2Test extends RestBase {
 
     @BeforeMethod(alwaysRun = true)

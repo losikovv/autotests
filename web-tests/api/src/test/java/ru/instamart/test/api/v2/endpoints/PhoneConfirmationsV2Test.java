@@ -31,7 +31,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
     @CaseId(451)
     @Story("Авторизация по номеру телефона")
     @Test(description = "Отправляем запрос на получение смс с кодом",
-            groups = {"api-instamart-smoke"})
+            groups = {"api-instamart-smoke", "MRAutoCheck"})
     public void postPhoneConfirmations() {
         PhoneTokenV2 phoneToken = apiV2.sendSMS(PhoneCrypt.INSTANCE.encryptPhone(phoneNumber));
         final SoftAssert softAssert = new SoftAssert();
@@ -43,7 +43,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
     @CaseId(456)
     @Story("Авторизация по номеру телефона")
     @Test(description = "Получение токена авторизации по номеру телефона и коду из смс",
-            groups = {"api-instamart-smoke"},
+            groups = {"api-instamart-smoke", "MRAutoCheck"},
             dependsOnMethods = "postPhoneConfirmations")
     public void putPhoneConfirmations() {
         Response response = PhoneConfirmationsV2Request.PUT(phoneNumber, CoreProperties.DEFAULT_SMS, true);

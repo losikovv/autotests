@@ -18,7 +18,7 @@ import ru.instamart.kraken.data_provider.JsonProvider;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV3")
-@Feature("Показать заказ по uuid")
+@Feature("Заказы")
 public class GetOrderV3Test extends RestBase {
 
     OrderV3 order;

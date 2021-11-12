@@ -21,7 +21,7 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpt
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
-@Feature("Получение адреса доставки заказа")
+@Feature("Адрес доставки")
 public final class ShipAddressV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")

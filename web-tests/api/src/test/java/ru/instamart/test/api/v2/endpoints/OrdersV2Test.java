@@ -37,7 +37,7 @@ import static ru.instamart.api.helper.PromotionCode.getPromotionCode;
 import static ru.instamart.api.k8s.K8sConsumer.execRakeTaskAddBonus;
 
 @Epic("ApiV2")
-@Feature("Заказы")
+@Feature("Заказы (orders)")
 public class OrdersV2Test extends RestBase {
 
     private String promoCode = getPromotionCode();

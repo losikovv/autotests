@@ -18,8 +18,7 @@ import ru.instamart.kraken.data_provider.JsonProvider;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV3")
-@Feature("Показать опции заказа")
-
+@Feature("Опции заказа")
 public final class OrderOptionsV3Test extends RestBase {
     StoreV3 store;
 

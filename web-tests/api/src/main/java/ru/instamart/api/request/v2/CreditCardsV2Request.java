@@ -47,8 +47,8 @@ public class CreditCardsV2Request extends ApiV2RequestBase {
         @JsonProperty("credit_card[month]")
         private final String month;
         @JsonProperty("credit_card[last_digits]")
-        private final String last_digits;
+        private final String lastDigits;
         @JsonProperty("credit_card[cryptogram_packet]")
-        private final String cryptogram_packet;
+        private final String cryptogramPacket;
     }
 }
