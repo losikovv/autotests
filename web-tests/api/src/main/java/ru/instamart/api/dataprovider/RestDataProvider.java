@@ -59,6 +59,8 @@ public class RestDataProvider extends RestBase {
     public static class SimpleAdsV2TestData {
         private SimpleAdsV2Request.SimpleAdsV2 simpleAds;
         private String description;
+        private Integer statusCode;
+        private String errorMessage;
     }
 
     @Data

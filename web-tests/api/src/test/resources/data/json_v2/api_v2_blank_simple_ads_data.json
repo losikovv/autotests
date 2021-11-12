@@ -24,7 +24,8 @@
           }
         }
       },
-      "description": "Отсутствует context.app.store_id"
+      "description": "Отсутствует context.app.store_id",
+      "errorMessage": "\"store_id\":\"cannot be blank\""
     },
     {
       "simpleAds": {
@@ -46,7 +47,8 @@
           }
         }
       },
-      "description": "Отсутствует context.app.tenant_id"
+      "description": "Отсутствует context.app.tenant_id",
+      "errorMessage": "\"app\":{\"ext\":\"cannot be blank\""
     },
     {
       "simpleAds": {
@@ -72,7 +74,8 @@
           }
         }
       },
-      "description": "Отсутствует ext.native_ad_type_id"
+      "description": "Отсутствует ext.native_ad_type_id",
+      "errorMessage": "\"native_ad_type_id\":\"cannot be blank\""
     },
     {
       "simpleAds": {
@@ -95,7 +98,8 @@
           }
         }
       },
-      "description": "Отсутствует ext"
+      "description": "Отсутствует ext",
+      "errorMessage": "\"ext\":\"cannot be blank\""
     }
   ]
 }

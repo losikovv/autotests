@@ -3,10 +3,12 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qase.api.annotation.CaseIDs;
 import io.qase.api.annotation.CaseId;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -116,16 +118,30 @@ public final class SimpleAdsV2Test extends RestBase {
         checkStatusCode200(response);
     }
 
-    @CaseId(284)
-    @JsonDataProvider(path = "data/json_v2/api_v2_negative_simple_ads_data.json", type = RestDataProvider.SimpleAdsV2TestDataRoot.class)
+    @CaseIDs(value = {@CaseId(284), @CaseId(1087), @CaseId(1088), @CaseId(1089)})
+    @JsonDataProvider(path = "data/json_v2/api_v2_blank_simple_ads_data.json", type = RestDataProvider.SimpleAdsV2TestDataRoot.class)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProvider = "json",
             dataProviderClass = JsonProvider.class,
-            description = "Упрощенный запрос нативной рекламы с негативными параметрами")
-    public void simpleAdsNegativeParameterTest(RestDataProvider.SimpleAdsV2TestData testData) {
+            description = "Упрощенный запрос нативной рекламы с отсуствующими параметрами")
+    public void simpleAdsBlankParametersTest(RestDataProvider.SimpleAdsV2TestData testData) {
         Allure.step(testData.getDescription());
         final Response response = SimpleAdsV2Request.POST(testData.getSimpleAds());
         checkStatusCode400(response);
+        Assert.assertTrue(response.asString().contains(testData.getErrorMessage()));
+    }
+
+    @CaseIDs(value = {@CaseId(283), @CaseId(1090)})
+    @JsonDataProvider(path = "data/json_v2/api_v2_invalid_simple_ads_data.json", type = RestDataProvider.SimpleAdsV2TestDataRoot.class)
+    @Test(groups = {"api-instamart-regress"},
+            dataProvider = "json",
+            dataProviderClass = JsonProvider.class,
+            description = "Упрощенный запрос нативной рекламы с невалидными параметрами")
+    public void simpleAdsInvalidParametersTest(RestDataProvider.SimpleAdsV2TestData testData) {
+        Allure.step(testData.getDescription());
+        final Response response = SimpleAdsV2Request.POST(testData.getSimpleAds());
+        checkStatusCode(response, testData.getStatusCode());
+        Assert.assertTrue(response.asString().contains(testData.getErrorMessage()));
     }
 
     @CaseId(285)
