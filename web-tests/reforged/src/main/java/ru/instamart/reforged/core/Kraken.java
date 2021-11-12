@@ -106,4 +106,15 @@ public final class Kraken extends KrakenDriver {
         }
         return null;
     }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T executeAsync(final String js, final Object... arguments) {
+        log.debug("Execute async script {}", js);
+        try {
+            return (T) ((JavascriptExecutor) getWebDriver()).executeAsyncScript(js, arguments);
+        } catch (Exception e) {
+            log.error("Fail when execute async js code {}", js);
+        }
+        return null;
+    }
 }

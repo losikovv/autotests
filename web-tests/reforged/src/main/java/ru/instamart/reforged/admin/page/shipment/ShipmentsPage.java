@@ -68,14 +68,14 @@ public final class ShipmentsPage implements AdminPage, ShipmentsCheck {
 
     @Step("Получаем дату доставки из первой стройки таблицы с заказами")
     public String getFirstDeliveryDateFromTable() {
-        dateAndTimeFirstCell.mouseOver();
+        dateAndTimeFirstCell.getActions().mouseOver();
         final String[] dateAndTime = dateAndTimeFirstCell.getText().split(" ");
         return dateAndTime[0].replace("с", "");
     }
 
     @Step("Получаем номер телефона из первой стройки таблицы с заказами")
     public String getFirstPhoneFromTable() {
-        dateAndTimeFirstCell.mouseOver();
+        dateAndTimeFirstCell.getActions().mouseOver();
         return phoneFirstCell.getText();
     }
 

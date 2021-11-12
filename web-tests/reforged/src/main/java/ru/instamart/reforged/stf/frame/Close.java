@@ -2,6 +2,7 @@ package ru.instamart.reforged.stf.frame;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import ru.instamart.reforged.core.component.Button;
 
 public interface Close {
@@ -11,5 +12,10 @@ public interface Close {
     @Step("Закрыть фрейм")
     default void close() {
         closeModal.click();
+    }
+
+    @Step("Закрыть фрейм нажатием клавиши Esc")
+    default void closeByEsc() {
+        closeModal.getActions().sendKeys(Keys.ESCAPE);
     }
 }

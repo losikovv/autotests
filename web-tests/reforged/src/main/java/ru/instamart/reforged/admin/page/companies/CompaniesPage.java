@@ -30,7 +30,7 @@ public final class CompaniesPage implements AdminPage, CompaniesCheck {
     public void changeCompanyName(final String companyName) {
         buttonEditCompanyName.click();
         editCompanyName.fillField(companyName);
-        editCompanyName.sendKey(Keys.ENTER);
+        editCompanyName.getActions().sendKeys(Keys.ENTER);
     }
 
     @Override

@@ -32,7 +32,7 @@ public abstract class Component {
     private final String description;
     @Getter
     private final String errorMsg;
-
+    @Getter
     private final Actions actions;
 
     public Component(final By by, final long timeout, final String description, final String errorMsg) {
@@ -82,24 +82,12 @@ public abstract class Component {
         return by;
     }
 
-    public void mouseOver() {
-        log.debug("Element {} '{}' hover", description, by);
-        actions.mouseOver();
-    }
-
-    public void sendKey(final Keys keys) {
-        actions.sendKeys(keys);
-    }
-
     /**
      * В обход дома делает наведение и клик по элементу через js
      */
     public void hoverAndClick() {
-        final Matcher matcher = LOCATOR.matcher(by.toString());
-        while (matcher.find()) {
-            log.debug("Hover and click to element {} '{}'", description, by);
-            Kraken.jsAction().hoverAndClick(matcher.group());
-        }
+        log.debug("Hover and click to element {} '{}'", description, by);
+        Kraken.jsAction().hoverAndClick(getLocator());
     }
 
     public void jsClick() {
@@ -111,11 +99,8 @@ public abstract class Component {
      * В обход дома через js скролит до элемента
      */
     public void scrollTo() {
-        final Matcher matcher = LOCATOR.matcher(by.toString());
-        while (matcher.find()) {
-            log.debug("Scroll to element {} '{}'", description, by);
-            Kraken.jsAction().scrollToElement(matcher.group());
-        }
+        log.debug("Scroll to element {} '{}'", description, by);
+        Kraken.jsAction().scrollToElement(getLocator());
     }
 
     protected String getLocator() {
@@ -125,9 +110,5 @@ public abstract class Component {
         } else {
             return "locator empty";
         }
-    }
-
-    public void clickWithOffset(final int xOffset, final int yOffset) {
-        actions.clickWithOffset(xOffset, yOffset);
     }
 }
