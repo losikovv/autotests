@@ -31,11 +31,6 @@ public final class ProductCard implements ProductCardCheck, Close {
         favorite.click();
     }
 
-    @Step("Нажать товар в избранное для закрытия дисклеймера")
-    public void addToFavoriteToCloseDisclaimer() {
-        favorite.hoverAndClick();
-    }
-
     @Step("Нажать скрыть подробную информацию")
     public void hideDetailedInfo() {
         hideDetInfo.click();

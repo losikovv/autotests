@@ -264,7 +264,6 @@ public final class ShoppingSearchTests extends BaseTest {
 
     @CaseId(2737)
     @Test(
-            enabled = false,
             description = "Отображение алкоголя в результатах поиска при неподтверждении возраста: нажатие за пределы модального окна",
             groups = {"regression"}
     )
@@ -281,8 +280,9 @@ public final class ShoppingSearchTests extends BaseTest {
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().goToPage();
-        shop().interactHeader().fillSearch("вино");
+        shop().interactHeader().fillSearch("вино красное");
         shop().interactHeader().checkTaxonCategoriesVisible();
+        search().interactHeader().checkAlcoStubInCategories();
         search().interactHeader().checkAlcoStubInSuggest();
         search().interactHeader().clickSearchButton();
 
@@ -291,23 +291,29 @@ public final class ShoppingSearchTests extends BaseTest {
         search().checkSearchProductsSpinnerNotVisible();
 
         search().checkAlcoStubInProductsSearch();
-        search().clickAddToCartFirstSearchResult();
-        search().interactProductCard().checkProductCardVisible();
+        search().clickOnFirstSearchResult();
 
+        search().interactProductCard().checkProductCardVisible();
         search().interactProductCard().checkAlcoAlertVisible();
+        search().interactProductCard().checkAlcoStubVisible();
         search().interactProductCard().checkReserveButtonVisible();
         search().interactProductCard().clickOnReserve();
 
-        search().interactDisclaimerModal().checkApproveButtonVisible();
-        search().interactProductCard().addToFavoriteToCloseDisclaimer();
+        search().interactDisclaimerModal().checkDisclaimerModalNotAnimated();
+        search().interactDisclaimerModal().clickOffTheModalToCloseDisclaimer();
+        search().interactDisclaimerModal().checkDisclaimerModalNotVisible();
 
+        search().interactProductCard().checkAlcoAlertVisible();
         search().interactProductCard().checkAlcoStubVisible();
         search().interactProductCard().close();
 
         search().checkAlcoStubInProductsSearch();
-        search().clickAddToCartFirstSearchResult();
+        search().clickOnFirstSearchResult();
+
         search().interactProductCard().checkProductCardVisible();
+        search().interactProductCard().checkAlcoAlertVisible();
         search().interactProductCard().checkAlcoStubVisible();
+        search().interactProductCard().checkReserveButtonVisible();
 
         search().assertAll();
     }

@@ -126,4 +126,8 @@ public abstract class Component {
             return "locator empty";
         }
     }
+
+    public void clickWithOffset(final int xOffset, final int yOffset) {
+        actions.clickWithOffset(xOffset, yOffset);
+    }
 }
