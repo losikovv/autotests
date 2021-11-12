@@ -1,0 +1,60 @@
+{
+  "data": [
+    {
+      "simpleAds": {
+        "ext": {
+          "native_ad_type_id": "22222222222"
+        },
+        "context": {
+          "app": {
+            "ext": {
+              "store_id": 1,
+              "tenant_id": 0,
+              "category_id": 0
+            }
+          },
+          "user": {
+            "geo": {
+              "lon": 37.680517,
+              "lat": 55.790448
+            },
+            "ext": {
+              "anonymous_id": "c94e20dd-9472-433b-b853-044861ed1ac0"
+            }
+          }
+        }
+      },
+      "description": "Невалидный native_ad_type_id",
+      "statusCode": 400,
+      "errorMessage": "\"item\":{\"0\":{\"spec\":{\"placement\":\"cannot be blank\""
+    },
+    {
+      "simpleAds": {
+        "ext": {
+          "native_ad_type_id": "2"
+        },
+        "context": {
+          "app": {
+            "ext": {
+              "store_id": 11111111,
+              "tenant_id": 0,
+              "category_id": 0
+            }
+          },
+          "user": {
+            "geo": {
+              "lon": 37.680517,
+              "lat": 55.790448
+            },
+            "ext": {
+              "anonymous_id": "c94e20dd-9472-433b-b853-044861ed1ac0"
+            }
+          }
+        }
+      },
+      "description": "Невалидный store_id",
+      "statusCode": 500,
+      "errorMessage": "Unknown store id 11111111"
+    }
+  ]
+}
