@@ -10,7 +10,8 @@
   </method-selectors>
   <test verbose="1" name="MR API" parallel="classes" thread-count="2">
     <classes>
-      <class name="ru.instamart.test.api.v2.endpoints.OrdersV2Test"/>
+      <class name="ru.instamart.test.api.v2.endpoints.PhoneConfirmationsV2Test"/>
+      <class name="ru.instamart.test.api.KubernetesClientTest"/>
       <class name="ru.instamart.test.api.shopper.app.endpoints.ShipmentlessShopperAppTest"/>
     </classes>
   </test>
