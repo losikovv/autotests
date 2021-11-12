@@ -10,10 +10,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.model.v2.ServicesV2;
 import ru.instamart.api.request.v2.ExternalPartnersV2Request;
-import ru.instamart.api.response.ErrorResponse;
-import ru.instamart.api.response.v2.ExternalPartnersServicesV2Response;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkExternalPartnersServices;
@@ -25,7 +22,7 @@ import static ru.instamart.api.k8s.K8sConsumer.addSberPrime;
 @Feature("Получение списка банеров для SberPrime")
 public class ExternalPartnersV2Test extends RestBase {
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void testUp() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
     }
@@ -57,8 +54,7 @@ public class ExternalPartnersV2Test extends RestBase {
     @CaseId(1086)
     @Story("Получение списка подписок для пользователя")
     @Test(groups = {"api-instamart-regress"},
-            description = "Подписка SberPrime активна",
-            dependsOnMethods = "getInactiveSubscription")
+            description = "Подписка SberPrime активна")
     public void getActiveSubscription() {
         addSberPrime(apiV2.getProfile().getUser().getEmail());
         Response response = ExternalPartnersV2Request.Services.GET();
