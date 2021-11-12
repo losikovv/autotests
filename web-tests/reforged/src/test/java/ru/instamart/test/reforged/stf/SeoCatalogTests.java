@@ -57,20 +57,6 @@ public final class SeoCatalogTests extends BaseTest {
         seo().interactProductCard().checkProductCardVisible();
     }
 
-    @CaseId(1806)
-    @Test(description = "Тест авторизации при попытке добавления товара в корзину на странице SEO-каталога", groups = "regression" )
-    public void successAuthFromItemCardOnSeoCatalog() {
-        seo().goToPage();
-        seo().refreshWithoutBasicAuth();
-        seo().openFirstProductCardOnTaxon();
-        seo().interactProductCard().clickOnBuy();
-
-        seo().interactHeader().interactAddress().clickToLogin();
-        seo().interactAuthModal().checkModalIsVisible();
-        seo().interactAuthModal().authViaPhone(UserManager.getQaUser());
-        seo().interactHeader().checkProfileButtonVisible();
-    }
-
     @Run(onServer = Server.PRODUCTION)
     @CaseId(1582)
     @Test(description = "Добавление товара в корзину из SEO-каталога", groups = "regression")
