@@ -19,6 +19,7 @@ import ru.instamart.api.request.v2.*;
 import ru.instamart.api.response.v1.OperationalZonesV1Response;
 import ru.instamart.api.response.v2.CreditCardAuthorizationV2Response;
 import ru.instamart.api.response.v2.OrderV2Response;
+import ru.instamart.jdbc.dao.SpreeProductsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data_provider.DataList;
 
@@ -29,14 +30,17 @@ import java.util.stream.Collectors;
 
 import static ru.instamart.api.common.RestAddresses.Moscow;
 import static ru.instamart.api.common.RestAddresses.getDefaultAllAddress;
+import static ru.instamart.api.enums.v2.RecsPlaceV2.*;
 import static ru.instamart.kraken.helper.LegalEntityHelper.*;
 
 public class RestDataProvider extends RestBase {
 
     @Data
     public static class SimpleRecsV2TestData {
-        private SimpleRecsPersonalV2Request.SimpleRecsV2 simpleRec;
+        private SimpleRecsV2Request.SimpleRecsV2 simpleRec;
         private String description;
+        private Integer statusCode;
+        private String errorMessage;
     }
 
     @Data
@@ -569,6 +573,22 @@ public class RestDataProvider extends RestBase {
         return new Object[][]{
                 {transactionNumber, orderNumber, userUuid, "Кредитная карта не существует"},
                 {transactionNumber, orderNumber, "0", "Пользователь не существует"},
+        };
+    }
+
+    @DataProvider(name = "simpleRecsData")
+    public static Object[][] getSimpleRecsData() {
+        SessionFactory.makeSession(SessionType.API_V2_FB);
+        String orderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
+        Long offerId = SpreeProductsDao.INSTANCE.getOfferIdBySku("26331", EnvironmentProperties.DEFAULT_SID);
+        LineItemsV2Request.POST(offerId, 1, orderNumber);
+        return new Object[][]{
+                {MAIN.name(), null, null},
+                {NOT_FOUND.name(), null, null},
+                {EMPTY_SEARCH.name(), null, null},
+                {CART.name(), orderNumber, null},
+                {CARD_COMPLEMENTARY.name(), null, "26331"},
+                {CARD_SUBSTITUTE.name(), null, "12191"},
         };
     }
 

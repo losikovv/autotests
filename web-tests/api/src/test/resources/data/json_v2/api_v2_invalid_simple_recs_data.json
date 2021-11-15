@@ -1,0 +1,61 @@
+{
+  "data": [
+    {
+      "simpleRec": {
+        "ext": {
+          "place": "non_existent"
+        },
+        "context": {
+          "app": {
+            "ext": {
+              "store_id": 81,
+              "tenant_id": 0
+            },
+            "domain": "ru.sbermarket.new-app"
+          },
+          "user": {
+            "geo": {
+              "lon": 37.680517,
+              "lat": 55.790448
+            },
+            "ext": {
+              "anonymous_id": "2710405f-0311-41b4-9223-06ab98ba5cca"
+            }
+          }
+        }
+      },
+      "description": "Несуществующий place",
+      "statusCode": 400,
+      "errorMessage": "\"place\":\"Undef place non_existent\""
+
+    },
+    {
+      "simpleRec": {
+        "ext": {
+          "place": "main"
+        },
+        "context": {
+          "app": {
+            "ext": {
+              "store_id": 11111111,
+              "tenant_id": 0
+            },
+            "domain": "ru.sbermarket.new-app"
+          },
+          "user": {
+            "geo": {
+              "lon": 37.680517,
+              "lat": 55.790448
+            },
+            "ext": {
+              "anonymous_id": "2710405f-0311-41b4-9223-06ab98ba5cca"
+            }
+          }
+        }
+      },
+      "description": "Невалидный store_id",
+      "statusCode": 500,
+      "errorMessage": "Unknown store id 11111111"
+    }
+  ]
+}

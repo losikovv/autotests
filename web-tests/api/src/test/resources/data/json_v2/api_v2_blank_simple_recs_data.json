@@ -24,7 +24,8 @@
           }
         }
       },
-      "description": "Отсутствует context.app.ext.store_id"
+      "description": "Отсутствует context.app.ext.store_id",
+      "errorMessage": "\"store_id\":\"cannot be blank\""
     },
     {
       "simpleRec": {
@@ -49,7 +50,8 @@
           }
         }
       },
-      "description": "Отсутствует context.app.domain"
+      "description": "Отсутствует context.app.domain",
+      "errorMessage": "\"domain\":\"cannot be blank\""
     },
     {
       "simpleRec": {
@@ -72,7 +74,8 @@
           }
         }
       },
-      "description": "Отсутствует ext"
+      "description": "Отсутствует ext",
+      "errorMessage": "\"ext\":\"cannot be blank\""
     },
     {
       "simpleRec": {
@@ -95,7 +98,8 @@
           }
         }
       },
-      "description": "Отсутствует context.user.ext"
+      "description": "Отсутствует context.user.ext",
+      "errorMessage": "\"user\":\"Need AnonymousId or User.ID\""
     }
   ]
 }
