@@ -9,7 +9,7 @@ import ru.instamart.api.response.BaseResponseObject;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class MediaItemV2 extends BaseResponseObject {
+public class MediaV2 extends BaseResponseObject {
 	@JsonProperty("original_price")
 	private String originalPrice;
 	private List<ImagesItemV2> images;

@@ -10,10 +10,7 @@ import ru.instamart.api.request.ApiV2RequestBase;
 import ru.instamart.utils.Mapper;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-
-import static org.codehaus.groovy.runtime.InvokerHelper.asList;
 
 public final class ShipmentsV2Request extends ApiV2RequestBase {
 

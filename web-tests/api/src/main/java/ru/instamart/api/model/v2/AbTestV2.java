@@ -6,7 +6,7 @@ import ru.instamart.api.model.BaseObject;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class AbTestsItemV2 extends BaseObject {
+public class AbTestV2 extends BaseObject {
     private String name;
     private String group;
 }

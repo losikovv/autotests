@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
-import ru.instamart.api.model.v2.ReplacementPoliciesItemV2;
+import ru.instamart.api.model.v2.ReplacementPolicyV2;
 
 import java.util.List;
 
@@ -13,5 +13,5 @@ import java.util.List;
 public class ReplacementPoliciesV2Response extends BaseObject {
 
     @JsonProperty("replacement_policies")
-    private List<ReplacementPoliciesItemV2> replacementPolicies;
+    private List<ReplacementPolicyV2> replacementPolicies;
 }

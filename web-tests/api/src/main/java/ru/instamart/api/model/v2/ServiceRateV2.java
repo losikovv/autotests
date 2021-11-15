@@ -10,5 +10,5 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 public class ServiceRateV2 extends BaseObject {
     private Double total;
-    private List<RatesItemV2> rates;
+    private List<RateV2> rates;
 }

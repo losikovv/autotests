@@ -8,7 +8,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.helper.RegistrationHelper;
-import ru.instamart.api.model.v2.PhonesItemV2;
+import ru.instamart.api.model.v2.PhoneV2;
 import ru.instamart.api.request.v2.PhonesV2Request;
 import ru.instamart.api.response.v2.PhoneV2Response;
 import ru.instamart.api.response.v2.PhonesV2Response;
@@ -56,7 +56,7 @@ public class PhonesSeparateSessionV2Test extends RestBase {
             description = "Получить телефонный номер по id. Существующий id у пользователя нет телефонов")
     public void getPhone403() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
-        PhonesItemV2 phone = apiV2.getPhoneId().getPhones().get(0);
+        PhoneV2 phone = apiV2.getPhoneId().getPhones().get(0);
         SessionFactory.clearSession(SessionType.API_V2_FB);
         //Перелогин другим пользователем у которого нет телефона
         final UserData testUser = UserData.builder()
@@ -78,7 +78,7 @@ public class PhonesSeparateSessionV2Test extends RestBase {
             description = "Удалить телефон пользователя с существующим id")
     public void deletePhones200() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
-        PhonesItemV2 phone = apiV2.getPhoneId().getPhones().get(0);
+        PhoneV2 phone = apiV2.getPhoneId().getPhones().get(0);
         response = PhonesV2Request.PhonesById.DELETE(phone.getId().toString());
         checkStatusCode200(response);
         PhoneV2Response phoneV2Response = response.as(PhoneV2Response.class);
