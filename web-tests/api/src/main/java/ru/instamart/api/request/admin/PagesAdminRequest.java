@@ -14,7 +14,7 @@ import static ru.instamart.api.request.AdminRequestBase.givenWithAuth;
 
 public class PagesAdminRequest {
 
-    @Step("{method} /" + AdminEndpoints.Pages.PAGES)
+    @Step("{method} /" + AdminEndpoints.PAGES)
     public static Response POST(StaticPageData data) {
         Map<String, String> params = new HashMap<>();
         params.put("utf-8", "✓");
@@ -29,16 +29,16 @@ public class PagesAdminRequest {
         params.put("page[position]", data.getPosition());
         return givenWithAuth()
                 .formParams(params)
-                .post(AdminEndpoints.Pages.PAGES);
+                .post(AdminEndpoints.PAGES);
     }
 
-    @Step("{method} /" + AdminEndpoints.Pages.PAGE_ID)
+    @Step("{method} /" + AdminEndpoints.PAGE)
     public static Response DELETE(Integer pageId) {
         Map<String, String> params = new HashMap<>();
         params.put("authenticity_token", SessionFactory.getSession(SessionType.ADMIN).getToken());
         params.put("_method", "delete");
         return givenWithAuth()
                 .formParams(params)
-                .delete(AdminEndpoints.Pages.PAGE_ID, pageId);
+                .delete(AdminEndpoints.PAGE, pageId);
     }
 }

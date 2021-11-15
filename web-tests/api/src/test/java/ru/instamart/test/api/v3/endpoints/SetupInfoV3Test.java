@@ -3,16 +3,15 @@ package ru.instamart.test.api.v3.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.request.v3.SetupInfoV3Request;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.request.v3.SetupInfoV3Request;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV3")
-@Feature("Доступные магазины ритейлеру")
-
+@Feature("Магазины")
 public class SetupInfoV3Test extends RestBase {
 
     @CaseId(670)

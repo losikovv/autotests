@@ -1,6 +1,7 @@
 package ru.instamart.test.api.v3.endpoints;
 
 import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -11,6 +12,7 @@ import ru.instamart.api.response.v3.CategoriesV3Response;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV3")
+@Feature("Категории (categories)")
 public class CategoriesV3Test extends RestBase {
     private CategoryV3 category;
 

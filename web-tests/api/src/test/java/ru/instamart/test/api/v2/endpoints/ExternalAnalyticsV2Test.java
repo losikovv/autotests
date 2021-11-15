@@ -16,7 +16,7 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpt
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
-@Feature("Получение идентификатора устройства для аналитики")
+@Feature("Идентификатор устройства для аналитики")
 public class ExternalAnalyticsV2Test extends RestBase {
 
     @BeforeMethod

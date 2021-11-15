@@ -1,9 +1,6 @@
 package ru.instamart.test.api.v2.endpoints;
 
-import io.qameta.allure.Allure;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
+import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
@@ -21,9 +18,10 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode400;
 
 @Epic("ApiV2")
-@Feature("Упрощенный запрос блока рекомендаций.")
+@Feature("Рекомендации")
 public final class SimpleRecsV2Test extends RestBase {
 
+    @Story("Упрощенные рекомендации (simple-recs)")
     @Issue("STF-8819")
     @CaseId(287)
     @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
@@ -60,6 +58,7 @@ public final class SimpleRecsV2Test extends RestBase {
         checkFieldIsNotEmpty(recsV2Response.getMedia(), "рекомендации");
     }
 
+    @Story("Упрощенные рекомендации (simple-recs)")
     @CaseId(288)
     @JsonDataProvider(path = "data/json_v2/api_v2_negative_simple_recs_data.json", type = RestDataProvider.SimpleRecsV2TestDataRoot.class)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},

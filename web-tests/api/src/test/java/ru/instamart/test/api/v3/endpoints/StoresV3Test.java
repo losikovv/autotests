@@ -16,7 +16,7 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpt
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV3")
-@Feature("Доступные магазины клиенту")
+@Feature("Магазины")
 public class StoresV3Test extends RestBase {
 
     @CaseId(669)

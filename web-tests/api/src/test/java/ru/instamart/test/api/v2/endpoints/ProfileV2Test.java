@@ -10,6 +10,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.v2.UserV2;
 import ru.instamart.api.request.v2.ProfileV2Request;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.ProfileV2Response;
@@ -23,7 +24,7 @@ import static ru.instamart.kraken.helper.PhoneNumberHelper.getHumanPhoneNumber;
 import static ru.instamart.kraken.helper.UUIDHelper.isValidUUID;
 
 @Epic("ApiV2")
-@Feature("Profile")
+@Feature("Профиль пользователя")
 public class ProfileV2Test extends RestBase {
 
     @AfterMethod(alwaysRun = true)
@@ -38,31 +39,31 @@ public class ProfileV2Test extends RestBase {
     public void getProfile200() {
         SessionFactory.makeSession(SessionType.API_V2_FB);
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2_FB);
-        ProfileV2Response profile = apiV2.getProfile();
+        UserV2 user = apiV2.getProfile().getUser();
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(profile.getUser().getLastName(), session.getUserData().getLastName(),
+        softAssert.assertEquals(user.getLastName(), session.getUserData().getLastName(),
                 "Last name не совпадает с введенным");
-        softAssert.assertEquals(profile.getUser().getFirstName(), session.getUserData().getFirstName(),
+        softAssert.assertEquals(user.getFirstName(), session.getUserData().getFirstName(),
                 "First name не совпадает с введенным");
-        softAssert.assertEquals(profile.getUser().getDisplayEmail(), session.getUserData().getEmail(),
+        softAssert.assertEquals(user.getDisplayEmail(), session.getUserData().getEmail(),
                 "Email не совпадает с введенным");
-        softAssert.assertEquals(profile.getUser().getCurrentPhone(), getHumanPhoneNumber(session.getUserData().getPhone()),
+        softAssert.assertEquals(user.getCurrentPhone(), getHumanPhoneNumber(session.getUserData().getPhone()),
                 "Current phone не совпадает с введенным");
 
-        softAssert.assertTrue(isValidUUID(profile.getUser().getId()), "id is not valid");
-        softAssert.assertFalse(profile.getUser().getHasConfirmedPhone(), "has_confirmed_phone is not FALSE");
-        softAssert.assertTrue(profile.getUser().getPrivacyTerms(), "privacy_terms is not TRUE");
-        softAssert.assertFalse(profile.getUser().getPromoTermsAccepted(), "promo_terms_accepted is not FALSE");
-        softAssert.assertFalse(profile.getUser().getB2b(), "b2b is not FALSE");
+        softAssert.assertTrue(isValidUUID(user.getId()), "id is not valid");
+        softAssert.assertFalse(user.getHasConfirmedPhone(), "has_confirmed_phone is not FALSE");
+        softAssert.assertTrue(user.getPrivacyTerms(), "privacy_terms is not TRUE");
+        softAssert.assertFalse(user.getPromoTermsAccepted(), "promo_terms_accepted is not FALSE");
+        softAssert.assertFalse(user.getB2b(), "b2b is not FALSE");
 
-        softAssert.assertEquals(profile.getUser().getAttachedServices().get(0), "facebook",
+        softAssert.assertEquals(user.getAttachedServices().get(0), "facebook",
                 "attachment service element don't equals \"facebook\"");
-        softAssert.assertEquals(profile.getUser().getAttachedServices().size(), 1,
+        softAssert.assertEquals(user.getAttachedServices().size(), 1,
                 "User attachment service contains more service");
 
-        softAssert.assertTrue(profile.getUser().getConfig().getSendEmails(), "send emails is not TRUE");
-        softAssert.assertTrue(profile.getUser().getConfig().getSendSms(), "send sms is not TRUE");
-        softAssert.assertTrue(profile.getUser().getConfig().getSendPush(), "send push is not TRUE");
+        softAssert.assertTrue(user.getConfig().getSendEmails(), "send emails is not TRUE");
+        softAssert.assertTrue(user.getConfig().getSendSms(), "send sms is not TRUE");
+        softAssert.assertTrue(user.getConfig().getSendPush(), "send push is not TRUE");
 
         softAssert.assertAll();
     }

@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class CitiesAdminRequest extends AdminRequestBase {
 
-    @Step("{method} /" + AdminEndpoints.Cities.CITIES)
+    @Step("{method} /" + AdminEndpoints.CITIES)
     public static Response POST(String cityName) {
         Map<String, String> params = new HashMap<>();
         params.put("utf-8", "✓");
@@ -20,16 +20,16 @@ public class CitiesAdminRequest extends AdminRequestBase {
         params.put("city[name]", cityName);
         return givenWithAuth()
                 .formParams(params)
-                .post(AdminEndpoints.Cities.CITIES);
+                .post(AdminEndpoints.CITIES);
     }
 
-    @Step("{method} /" + AdminEndpoints.Cities.CITY_NAME)
+    @Step("{method} /" + AdminEndpoints.CITY)
     public static Response DELETE(String cityName) {
         Map<String, String> params = new HashMap<>();
         params.put("authenticity_token", SessionFactory.getSession(SessionType.ADMIN).getToken());
         params.put("_method", "delete");
         return givenWithAuth()
                 .formParams(params)
-                .delete(AdminEndpoints.Cities.CITY_NAME, cityName);
+                .delete(AdminEndpoints.CITY, cityName);
     }
 }

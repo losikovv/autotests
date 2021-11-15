@@ -25,7 +25,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 
 @Slf4j
 @Epic("ApiV2")
-@Feature("Получение таксонов")
+@Feature("Категории товаров (taxons)")
 public final class TaxonsV2Test extends RestBase {
     private int taxonId;
 

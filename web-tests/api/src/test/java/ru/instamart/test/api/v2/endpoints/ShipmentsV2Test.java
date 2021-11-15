@@ -3,7 +3,6 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.qase.api.annotation.CaseIDs;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
@@ -12,18 +11,15 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.AddressV2;
-import ru.instamart.api.model.v2.AssemblyItemV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.ShipmentV2;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.request.v2.StoresV2Request;
 import ru.instamart.api.response.v2.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.data.user.UserData;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -35,14 +31,11 @@ import java.util.stream.IntStream;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
-import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkAssemblyItem;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
-import static ru.instamart.api.k8s.K8sConsumer.changeToAssembled;
-import static ru.instamart.api.k8s.K8sConsumer.changeToCancel;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 
 @Epic("ApiV2")
-@Feature("Оформление заказа")
+@Feature("Заказы (shipments)")
 public class ShipmentsV2Test extends RestBase {
 
     private final String today = getDateFromMSK().toString();

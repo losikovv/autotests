@@ -30,7 +30,7 @@ import static ru.instamart.api.k8s.K8sConsumer.changeToAssembled;
 import static ru.instamart.api.k8s.K8sConsumer.changeToCancel;
 
 @Epic("ApiV2")
-@Feature("Оформление заказа")
+@Feature("Заказы (shipments)")
 public class ShipmentAssemblyItemsV2Test extends RestBase {
 
     private ShipmentV2 shipment;

@@ -40,4 +40,11 @@ public class UserV2 extends BaseObject {
     @JsonProperty(value = "has_confirmed_phone")
     private Boolean hasConfirmedPhone;
     private List<RoleV1> roles = null;
+    @JsonProperty("completed_orders_count")
+    private Integer completedOrdersCount;
+    @JsonProperty("current_phone")
+    private String currentPhone;
+    private ProfileConfigV2 config;
+    @JsonProperty("attached_services")
+    private List<String> attachedServices;
 }

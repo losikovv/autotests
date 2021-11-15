@@ -11,8 +11,9 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.enums.v2.CreditCardV2;
+import ru.instamart.api.enums.v2.CreditCardsV2;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.v2.credit_cards.CreditCardV2;
 import ru.instamart.api.request.v2.CreditCardsV2Request;
 import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
 import ru.instamart.api.response.v2.CreditCardV2Response;
@@ -23,7 +24,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
-@Feature("Получение категорий")
+@Feature("Банковские карты")
 public class CreditCardsV2Test extends RestBase {
 
     private Integer creditCardId;
@@ -41,23 +42,23 @@ public class CreditCardsV2Test extends RestBase {
             groups = {"api-instamart-regress"},
             description = "Добавить новую карту с указанием обязательных параметров")
     public void addANewCardWithRequiredParameters() {
-        String card = CreditCardV2.CARD1.getNumber();
+        String card = CreditCardsV2.CARD1.getNumber();
         String lastDigits = card.substring(card.lastIndexOf(" ") + 1);
-        final CreditCard creditCard = CreditCard.builder()
+        final CreditCard expectedCreditCard = CreditCard.builder()
                 .name("TESTOV TEST")
-                .year(CreditCardV2.CARD1.getYear())
-                .month(CreditCardV2.CARD1.getMonth())
-                .last_digits(lastDigits)
-                .cryptogram_packet(CreditCardV2.CARD1.getCryptogramPacket())
+                .year(CreditCardsV2.CARD1.getYear())
+                .month(CreditCardsV2.CARD1.getMonth())
+                .lastDigits(lastDigits)
+                .cryptogramPacket(CreditCardsV2.CARD1.getCryptogramPacket())
                 .build();
-        final Response response = CreditCardsV2Request.POST(creditCard);
+        final Response response = CreditCardsV2Request.POST(expectedCreditCard);
         checkStatusCode200(response);
-        CreditCardV2Response creditCards = response.as(CreditCardV2Response.class);
+        CreditCardV2 creditCardFromResponse = response.as(CreditCardV2Response.class).getCreditCard();
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(creditCards.getCreditCard().getName(), "TESTOV TEST", "Неправильные данные держателя карты");
-        softAssert.assertEquals(creditCards.getCreditCard().getYear(), CreditCardV2.CARD1.getYear(), "Год не совпадает");
-        softAssert.assertEquals(creditCards.getCreditCard().getMonth(), CreditCardV2.CARD1.getMonth(), "Месяц не совпадает");
-        softAssert.assertEquals(creditCards.getCreditCard().getLastDigits(), lastDigits, "Последние цифры карты не совпадают");
+        softAssert.assertEquals(creditCardFromResponse.getName(), expectedCreditCard.getName(), "Неправильные данные держателя карты");
+        softAssert.assertEquals(creditCardFromResponse.getYear(), expectedCreditCard.getYear(), "Год не совпадает");
+        softAssert.assertEquals(creditCardFromResponse.getMonth(), expectedCreditCard.getMonth(), "Месяц не совпадает");
+        softAssert.assertEquals(creditCardFromResponse.getLastDigits(), expectedCreditCard.getLastDigits(), "Последние цифры карты не совпадают");
         softAssert.assertAll();
     }
 
@@ -68,25 +69,25 @@ public class CreditCardsV2Test extends RestBase {
             groups = {"api-instamart-regress"},
             description = "Добавить новую карту с дополнительным полем title")
     public void addANewCardWithAnAdditionalTitleField() {
-        String card = CreditCardV2.CARD1.getNumber();
+        String card = CreditCardsV2.CARD1.getNumber();
         String lastDigits = card.substring(card.lastIndexOf(" ") + 1);
-        final CreditCard creditCard = CreditCard.builder()
+        final CreditCard expectedCreditCard = CreditCard.builder()
                 .title("Новая карта")
                 .name("TESTOV TEST")
-                .year(CreditCardV2.CARD1.getYear())
-                .month(CreditCardV2.CARD1.getMonth())
-                .last_digits(lastDigits)
-                .cryptogram_packet(CreditCardV2.CARD1.getCryptogramPacket())
+                .year(CreditCardsV2.CARD1.getYear())
+                .month(CreditCardsV2.CARD1.getMonth())
+                .lastDigits(lastDigits)
+                .cryptogramPacket(CreditCardsV2.CARD1.getCryptogramPacket())
                 .build();
-        final Response response = CreditCardsV2Request.POST(creditCard);
+        final Response response = CreditCardsV2Request.POST(expectedCreditCard);
         checkStatusCode200(response);
-        CreditCardV2Response creditCards = response.as(CreditCardV2Response.class);
+        CreditCardV2 creditCardFromResponse = response.as(CreditCardV2Response.class).getCreditCard();
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(creditCards.getCreditCard().getTitle(), "Новая карта", "Имя карты не совпадает");
-        softAssert.assertEquals(creditCards.getCreditCard().getName(), "TESTOV TEST", "Неправильные данные держателя карты");
-        softAssert.assertEquals(creditCards.getCreditCard().getYear(), CreditCardV2.CARD1.getYear(), "Год не совпадает");
-        softAssert.assertEquals(creditCards.getCreditCard().getMonth(), CreditCardV2.CARD1.getMonth(), "Месяц не совпадает");
-        softAssert.assertEquals(creditCards.getCreditCard().getLastDigits(), lastDigits, "Последние цифры карты не совпадают");
+        softAssert.assertEquals(creditCardFromResponse.getTitle(), expectedCreditCard.getTitle(), "Имя карты не совпадает");
+        softAssert.assertEquals(creditCardFromResponse.getName(), expectedCreditCard.getName(), "Неправильные данные держателя карты");
+        softAssert.assertEquals(creditCardFromResponse.getYear(), expectedCreditCard.getYear(), "Год не совпадает");
+        softAssert.assertEquals(creditCardFromResponse.getMonth(), expectedCreditCard.getMonth(), "Месяц не совпадает");
+        softAssert.assertEquals(creditCardFromResponse.getLastDigits(), expectedCreditCard.getLastDigits(), "Последние цифры карты не совпадают");
         softAssert.assertAll();
     }
 
@@ -97,15 +98,15 @@ public class CreditCardsV2Test extends RestBase {
             groups = {"api-instamart-regress"},
             description = "Добавить новую карту с дополнительным полем title")
     public void addNewCard() {
-        String card = CreditCardV2.CARD1.getNumber();
+        String card = CreditCardsV2.CARD1.getNumber();
         String lastDigits = card.substring(card.lastIndexOf(" ") + 1);
         final CreditCard creditCard = CreditCard.builder()
                 .title("Новая карта")
                 .name("TESTOV TEST")
-                .year(CreditCardV2.CARD1.getYear())
-                .month(CreditCardV2.CARD1.getMonth())
-                .last_digits(lastDigits)
-                .cryptogram_packet(CreditCardV2.CARD1.getCryptogramPacket())
+                .year(CreditCardsV2.CARD1.getYear())
+                .month(CreditCardsV2.CARD1.getMonth())
+                .lastDigits(lastDigits)
+                .cryptogramPacket(CreditCardsV2.CARD1.getCryptogramPacket())
                 .build();
         final Response response = CreditCardsV2Request.POST(creditCard);
         checkStatusCode200(response);

@@ -7,7 +7,7 @@ import ru.instamart.api.model.BaseObject;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class PromotionLimitsItemV2 extends BaseObject {
+public class PromotionLimitV2 extends BaseObject {
 	@JsonProperty("max_payment_amount")
 	private double maxPaymentAmount;
 	@JsonProperty("account_amount")
