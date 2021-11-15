@@ -176,8 +176,8 @@ public final class ShoppingSearchTests extends BaseTest {
             description = "Сортировка + фильтрация товаров: сначала дешевые, по популярности",
             groups = {"regression"}
     )
-    public void successApplyFiltersAndSortCheapAsc() throws InterruptedException {
-        shop().goToPage();
+    public void successApplyFiltersAndSortCheapAsc() {
+        shop().goToPage(ShopUrl.OKEY);
         shop().checkSpinnerIsNotVisible();
         shop().addCookie(CookieFactory.COOKIE_ALERT);
         shop().interactHeader().fillSearch("кофе");
@@ -215,10 +215,10 @@ public final class ShoppingSearchTests extends BaseTest {
             groups = {"regression"}
     )
     public void successApplyFiltersAndSortExpensiveDesc() {
-        shop().goToPage();
+        shop().goToPage(ShopUrl.OKEY);
         shop().checkSpinnerIsNotVisible();
         shop().addCookie(CookieFactory.COOKIE_ALERT);
-        shop().interactHeader().fillSearch("кофе");
+        shop().interactHeader().fillSearch("чай");
         shop().interactHeader().clickSearchButton();
 
         search().checkSearchProductsSpinnerVisible();
@@ -226,6 +226,9 @@ public final class ShoppingSearchTests extends BaseTest {
 
         search().selectSort("Сначала дорогие");
         search().checkSortEnabled("Сначала дорогие");
+        search().checkProductsStubVisible();
+        search().checkProductsStubNotVisible();
+
         search().checkSearchImgLoaded();
         search().scrollDown();
         search().checkPageScrolled();
