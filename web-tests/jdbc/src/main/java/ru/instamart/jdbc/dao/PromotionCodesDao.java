@@ -4,6 +4,8 @@ package ru.instamart.jdbc.dao;
 import ru.instamart.jdbc.dto.PromotionCodesFilters;
 import ru.instamart.jdbc.util.ConnectionMySQLManager;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,6 @@ public class PromotionCodesDao implements Dao {
     private static final String SQL_SELECT_PROMO_CODE = "SELECT " +
             "id, value, promotion_id, activated_at, created_at, updated_at, usage_limit " +
             "FROM promotion_codes";
-    private List<String> result = new ArrayList<>();
 
     private PromotionCodesDao() {
     }
@@ -92,6 +93,7 @@ public class PromotionCodesDao implements Dao {
                 preparedStatement.setObject(i + 1, parameters.get(i));
             }
             var resultQuery = preparedStatement.executeQuery();
+            List<String> result = new ArrayList<>();
             while (resultQuery.next()) {
                 result.add(resultQuery.getString("value"));
             }
@@ -100,5 +102,14 @@ public class PromotionCodesDao implements Dao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void updateUsageLimit(Integer usageLimit, String promoCode) {
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format("UPDATE promotion_codes SET usage_limit = %s WHERE value = '%s'", usageLimit, promoCode))) {
+             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

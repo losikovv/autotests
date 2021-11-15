@@ -33,6 +33,7 @@ import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.common.RestStaticTestData.*;
+import static ru.instamart.api.helper.PromotionCode.getExpiredPromotionCode;
 import static ru.instamart.api.helper.PromotionCode.getPromotionCode;
 import static ru.instamart.api.k8s.K8sConsumer.execRakeTaskAddBonus;
 
@@ -85,7 +86,7 @@ public class OrdersV2Test extends RestBase {
         assertNotNull(response.as(LineItemsV2Response.class).getLineItems(), "Не вернулись товары заказа");
     }
 
-    @CaseId(313)
+    @CaseId(313) //TODO:добавить caseId 838 после выполнения задачи ATST-847
     @Story("Применение промокода")
     @Test(groups = {"api-instamart-smoke"},
             description = "Существующий id")
@@ -106,12 +107,43 @@ public class OrdersV2Test extends RestBase {
     @CaseId(314)
     @Story("Применение промокода")
     @Test(groups = {"api-instamart-regress"},
-            description = "Несуществующий id")
+            description = "Несуществующий номер заказа")
+    public void orderWithPromoCodeAndInvalidOrderNumber() {
+        Response response = OrdersV2Request.Promotions.POST("failedOrder", promoCode);
+        checkError(response, "Заказ не существует");
+    }
+
+    @CaseId(840)
+    @Story("Применение промокода")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Несуществующий промокод")
     public void orderWithInvalidPromoCode() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "failCode");
         checkError(response, "Промокод не существует");
+    }
+
+    @CaseId(839)
+    @Story("Применение промокода")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Истекший промокод")
+    public void orderWithExpiredPromoCode() {
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), getExpiredPromotionCode());
+        checkError(response, "Данный промокод истек");
+    }
+
+    @CaseId(1111)
+    @Story("Применение промокода")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Заказ с пустой корзиной")
+    public void orderWithPromoCodeAndEmptyCart() {
+        SessionFactory.makeSession(SessionType.API_V2_PHONE);
+        String orderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
+        Response response = OrdersV2Request.Promotions.POST(orderNumber, promoCode);
+        checkError(response, "Промокод неприменим");
+        SessionFactory.clearSession(SessionType.API_V2_PHONE);
     }
 
     @CaseId(315)
