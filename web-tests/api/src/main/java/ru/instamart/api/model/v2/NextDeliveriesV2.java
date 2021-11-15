@@ -7,7 +7,7 @@ import ru.instamart.api.model.BaseObject;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class NextDeliveriesItemV2 extends BaseObject {
+public class NextDeliveriesV2 extends BaseObject {
     @JsonProperty("store_id")
     private Object storeId;
     private String summary;
