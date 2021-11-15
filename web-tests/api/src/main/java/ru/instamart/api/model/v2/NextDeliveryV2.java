@@ -20,4 +20,6 @@ public class NextDeliveryV2 extends BaseObject {
     private String kind;
     @JsonProperty(value = "express_delivery")
     private Boolean expressDelivery;
+    @JsonProperty("delivery_forecast_text")
+    private Object deliveryForecastText;
 }

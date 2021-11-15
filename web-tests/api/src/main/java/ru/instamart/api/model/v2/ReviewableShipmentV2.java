@@ -19,7 +19,7 @@ public class ReviewableShipmentV2 extends BaseObject {
     @JsonProperty("total_weight")
     private Integer totalWeight;
     @JsonProperty("next_deliveries")
-    private List<NextDeliveriesV2> nextDeliveries;
+    private List<NextDeliveryV2> nextDeliveries;
     private String number;
     private Double total;
     private List<Object> discounts;
