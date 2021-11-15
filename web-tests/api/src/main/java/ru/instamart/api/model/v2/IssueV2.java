@@ -7,7 +7,7 @@ import ru.instamart.api.model.BaseObject;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class IssuesItemV2 extends BaseObject {
+public class IssueV2 extends BaseObject {
 
 	@JsonProperty("comment_needed")
 	private Boolean commentNeeded;

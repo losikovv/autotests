@@ -7,7 +7,7 @@ import ru.instamart.api.response.BaseResponseObject;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class DataItemV2 extends BaseResponseObject {
+public class DataV2 extends BaseResponseObject {
     @JsonProperty("native_ad_asset_type_id")
     private String nativeAdAssetTypeId;
     private String value;

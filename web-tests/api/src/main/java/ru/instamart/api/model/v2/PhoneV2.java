@@ -7,7 +7,7 @@ import ru.instamart.api.model.BaseObject;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class PhonesItemV2 extends BaseObject {
+public class PhoneV2 extends BaseObject {
     private String number;
     private String code;
     @JsonProperty("human_number")

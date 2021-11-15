@@ -10,9 +10,9 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class MediaItemV2 extends BaseResponseObject {
+public class MediaV2 extends BaseResponseObject {
     @Singular
-    private List<AssetsItemV2> assets;
+    private List<AssetV2> assets;
     @JsonProperty("native_ad_id")
     private String nativeAdId;
     @JsonProperty("native_ad_type_id")

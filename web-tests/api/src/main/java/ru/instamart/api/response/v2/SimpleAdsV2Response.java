@@ -5,12 +5,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Singular;
 import ru.instamart.api.response.BaseResponseObject;
-import ru.instamart.api.model.v2.simple_ads.MediaItemV2;
+import ru.instamart.api.model.v2.simple_ads.MediaV2;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class SimpleAdsV2Response extends BaseResponseObject {
 	@Singular
-	private List<MediaItemV2> media;
+	private List<MediaV2> media;
 
 }

@@ -9,7 +9,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.model.v2.PhonesItemV2;
+import ru.instamart.api.model.v2.PhoneV2;
 import ru.instamart.api.request.v2.PhonesV2Request;
 import ru.instamart.api.response.v2.PhoneV2Response;
 import ru.instamart.api.response.v2.PhonesV2Response;
@@ -54,7 +54,7 @@ public class PhonesV2Test extends RestBase {
     @Test(groups = {},
             description = "Получить телефонный номер по id. Существующий id")
     public void getPhone200() {
-        PhonesItemV2 phone = apiV2.getPhoneId().getPhones().get(0);
+        PhoneV2 phone = apiV2.getPhoneId().getPhones().get(0);
         response = PhonesV2Request.PhonesById.GET(Integer.toString(phone.getId()));
         checkStatusCode200(response);
         PhoneV2Response phoneV2Response = response.as(PhoneV2Response.class);
@@ -101,7 +101,7 @@ public class PhonesV2Test extends RestBase {
     @Test(groups = {},
             description = "Обновить телефон пользователя по существующему id")
     public void updatePhone200() {
-        PhonesItemV2 phone = apiV2.getPhoneId().getPhones().get(0);
+        PhoneV2 phone = apiV2.getPhoneId().getPhones().get(0);
         Map<String, String> params = new HashMap<>();
         String newPhone = Generate.phoneNumber();
         params.put("phone[value]", newPhone);
@@ -121,7 +121,7 @@ public class PhonesV2Test extends RestBase {
     @Test(groups = {},
             description = "Обновить телефон пользователя по существующему id")
     public void updatePhone20() {
-        PhonesItemV2 phone = apiV2.getPhoneId().getPhones().get(0);
+        PhoneV2 phone = apiV2.getPhoneId().getPhones().get(0);
         Map<String, String> params = new HashMap<>();
         params.put("phone[value]", "invalidPhoneNumber");
         response = PhonesV2Request.PhonesById.PUT(phone.getId().toString(), params);

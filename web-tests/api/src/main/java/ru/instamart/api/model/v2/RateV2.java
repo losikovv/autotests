@@ -3,7 +3,7 @@ package ru.instamart.api.model.v2;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-public @Data class RatesItemV2 {
+public @Data class RateV2 {
 	private Integer price;
 	private String description;
 	private String type;

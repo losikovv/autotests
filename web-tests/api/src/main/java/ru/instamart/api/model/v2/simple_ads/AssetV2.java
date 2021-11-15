@@ -6,9 +6,9 @@ import ru.instamart.api.response.BaseResponseObject;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class AssetsItemV2 extends BaseResponseObject {
+public class AssetV2 extends BaseResponseObject {
 	private ExtV2 ext;
-	private DataItemV2 data;
+	private DataV2 data;
 	private ImageV2 image;
 	private TitleV2 title;
 	private LinkV2 link;

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
-import ru.instamart.api.model.v2.AbTestsItemV2;
+import ru.instamart.api.model.v2.AbTestV2;
 
 import java.util.List;
 
@@ -13,5 +13,5 @@ import java.util.List;
 public class AbTestsV2Response extends BaseObject {
 
     @JsonProperty("ab_tests")
-    private List<AbTestsItemV2> abTests;
+    private List<AbTestV2> abTests;
 }

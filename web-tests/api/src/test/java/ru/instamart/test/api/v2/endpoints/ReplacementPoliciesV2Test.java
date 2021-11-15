@@ -7,7 +7,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.model.v2.ReplacementPoliciesItemV2;
+import ru.instamart.api.model.v2.ReplacementPolicyV2;
 import ru.instamart.api.request.v2.ReplacementPoliciesV2Request;
 import ru.instamart.api.response.v2.ReplacementPoliciesV2Response;
 
@@ -26,7 +26,7 @@ public class ReplacementPoliciesV2Test extends RestBase {
     public void getListReplacementMethods() {
         final Response response = ReplacementPoliciesV2Request.GET();
         checkStatusCode200(response);
-        List<ReplacementPoliciesItemV2> replacementPolicies = response.as(ReplacementPoliciesV2Response.class).getReplacementPolicies();
+        List<ReplacementPolicyV2> replacementPolicies = response.as(ReplacementPoliciesV2Response.class).getReplacementPolicies();
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(replacementPolicies.get(0).getDescription(), REPLACEMENT_1.getDescription());
         softAssert.assertEquals(replacementPolicies.get(1).getDescription(), REPLACEMENT_2.getDescription());

@@ -20,6 +20,9 @@ public class DeliveryWindowV2 extends BaseObject {
     @JsonProperty(value = "items_count_balance")
     private String itemsCountBalance;
     private String kind;
+    @JsonProperty("delivery_forecast_text")
+    private Object deliveryForecastText;
+    private Object lifetime;
 
     @Override
     public String toString() {
