@@ -10,6 +10,7 @@ public class PromotionCode {
     public static String getPromotionCode() {
         PromotionCodesFilters filters = PromotionCodesFilters.builder()
                 .value("auto%")
+                .usageLimit(5000)
                 .limit(1)
                 .build();
         List<String> allPromoCodes = PromotionCodesDao.INSTANCE.findAll(filters);
@@ -17,5 +18,31 @@ public class PromotionCode {
             return allPromoCodes.get(0);
         }
         return "auto300lomxs4"; //default promo code
+    }
+
+
+    public static String getExpiredPromotionCode() {
+        PromotionCodesFilters expiredFilters = PromotionCodesFilters.builder()
+                .value("auto%")
+                .usageLimit(0)
+                .limit(1)
+                .build();
+        List<String> allExpiredPromoCodes = PromotionCodesDao.INSTANCE.findAll(expiredFilters);
+        if(allExpiredPromoCodes.size()!=0) {
+            return allExpiredPromoCodes.get(0);
+        } else {
+            PromotionCodesFilters filters = PromotionCodesFilters.builder()
+                    .value("auto%")
+                    .usageLimit(5000)
+                    .limit(2)
+                    .build();
+            List<String> allPromoCodes = PromotionCodesDao.INSTANCE.findAll(filters);
+            if(allPromoCodes.size() > 0) {
+                String promoCode = allPromoCodes.get(1);
+                PromotionCodesDao.INSTANCE.updateUsageLimit(0, promoCode);
+                return promoCode;
+            }
+            return null;
+        }
     }
 }
