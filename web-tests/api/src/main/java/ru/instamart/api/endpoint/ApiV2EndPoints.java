@@ -167,6 +167,8 @@ public final class ApiV2EndPoints {
 
     public static final class SimpleRecs {
         public static final String PERSONAL = "v2/simple-recs/personal";
+        public static final String COMPLEMENTARY = "v2/simple-recs/complementary";
+        public static final String SUBSTITUTE = "v2/simple-recs/substitute";
     }
 
     public static final class Searches {

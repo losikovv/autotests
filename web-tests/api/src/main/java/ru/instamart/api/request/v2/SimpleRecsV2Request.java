@@ -13,14 +13,36 @@ import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
 import ru.instamart.utils.Mapper;
 
-public class SimpleRecsPersonalV2Request extends ApiV2RequestBase {
+public class SimpleRecsV2Request extends ApiV2RequestBase {
 
-    @Step("{method} /" + ApiV2EndPoints.SimpleRecs.PERSONAL)
-    public static Response POST(SimpleRecsV2 simpleRecs) {
-        return givenWithSpec()
-                .body(Mapper.INSTANCE.objectToMap(simpleRecs))
-                .contentType(ContentType.JSON)
-                .post(ApiV2EndPoints.SimpleRecs.PERSONAL);
+    public static class Personal {
+        @Step("{method} /" + ApiV2EndPoints.SimpleRecs.PERSONAL)
+        public static Response POST(SimpleRecsV2 simpleRecs) {
+            return givenWithSpec()
+                    .body(Mapper.INSTANCE.objectToMap(simpleRecs))
+                    .contentType(ContentType.JSON)
+                    .post(ApiV2EndPoints.SimpleRecs.PERSONAL);
+        }
+    }
+
+    public static class Complementary {
+        @Step("{method} /" + ApiV2EndPoints.SimpleRecs.COMPLEMENTARY)
+        public static Response POST(SimpleRecsV2 simpleRecs) {
+            return givenWithSpec()
+                    .body(Mapper.INSTANCE.objectToMap(simpleRecs))
+                    .contentType(ContentType.JSON)
+                    .post(ApiV2EndPoints.SimpleRecs.COMPLEMENTARY);
+        }
+    }
+
+    public static class Substitute {
+        @Step("{method} /" + ApiV2EndPoints.SimpleRecs.SUBSTITUTE)
+        public static Response POST(SimpleRecsV2 simpleRecs) {
+            return givenWithSpec()
+                    .body(Mapper.INSTANCE.objectToMap(simpleRecs))
+                    .contentType(ContentType.JSON)
+                    .post(ApiV2EndPoints.SimpleRecs.SUBSTITUTE);
+        }
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -43,9 +65,12 @@ public class SimpleRecsPersonalV2Request extends ApiV2RequestBase {
         @JsonProperty("category_id")
         private String categoryId;
         @JsonProperty("store_id")
-        private int storeId;
+        private Integer storeId;
         @JsonProperty("tenant_id")
         private Integer tenantId;
+        private String sku;
+        @JsonProperty("order_number")
+        private String orderNumber;
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)

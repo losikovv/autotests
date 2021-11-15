@@ -128,7 +128,7 @@ public final class SimpleAdsV2Test extends RestBase {
         Allure.step(testData.getDescription());
         final Response response = SimpleAdsV2Request.POST(testData.getSimpleAds());
         checkStatusCode400(response);
-        Assert.assertTrue(response.asString().contains(testData.getErrorMessage()));
+        Assert.assertTrue(response.asString().contains(testData.getErrorMessage()), "Текст ошибки неверный");
     }
 
     @CaseIDs(value = {@CaseId(283), @CaseId(1090)})
@@ -141,7 +141,7 @@ public final class SimpleAdsV2Test extends RestBase {
         Allure.step(testData.getDescription());
         final Response response = SimpleAdsV2Request.POST(testData.getSimpleAds());
         checkStatusCode(response, testData.getStatusCode());
-        Assert.assertTrue(response.asString().contains(testData.getErrorMessage()));
+        Assert.assertTrue(response.asString().contains(testData.getErrorMessage()), "Текст ошибки неверный");
     }
 
     @CaseId(285)

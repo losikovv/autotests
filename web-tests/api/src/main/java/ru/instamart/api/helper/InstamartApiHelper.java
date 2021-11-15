@@ -984,7 +984,6 @@ public final class InstamartApiHelper {
                     .limit(itemsNumber)
                     .collect(Collectors.toList());
         }
-
         double initialCartWeight = 0;
 
         for (final ProductV2 product : products) {
