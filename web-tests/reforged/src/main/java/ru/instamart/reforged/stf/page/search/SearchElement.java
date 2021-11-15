@@ -47,4 +47,9 @@ public interface SearchElement {
 
     ElementCollection filtersCollection = new ElementCollection(By.xpath("//div[contains(@class, 'ProductsFilter')]//label[contains(@class,'FlatSelectSearch')]"), "Коллекция элементов фильтров поиска");
     Selector filterCheckbox = new Selector(ByKraken.xpath("//span[contains(text(), '%s')]/parent::label/input"), "Чекбокс фильтра");
+
+    Element productsStub = new Element(By.xpath("//div[contains(@class, 'AnimatedLinearGradient')]"), "Заглушка загрузки товаров");
+
+    Element productImg = new Element(ByKraken.xpath("//img[contains(@src, '%s')]"), "Конкретное отдельное изображение на странице");
+
 }
