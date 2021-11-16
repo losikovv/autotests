@@ -248,7 +248,7 @@ public final class OrdersV2Request extends ApiV2RequestBase {
     public static class Previous {
 
         @Step("{method} /" + ApiV2EndPoints.Orders.PREVIOUS)
-        public static Response GET(){
+        public static Response GET() {
             return givenWithAuth()
                     .get(ApiV2EndPoints.Orders.PREVIOUS);
         }
@@ -270,10 +270,10 @@ public final class OrdersV2Request extends ApiV2RequestBase {
         }
     }
 
-    public static class Instacoins{
+    public static class Instacoins {
 
         @Step("{method} /" + ApiV2EndPoints.Orders.PROMOTIONS)
-        public static Response POST(final String orderNumber, final String instacoinsValue){
+        public static Response POST(final String orderNumber, final String instacoinsValue) {
             return givenWithAuth()
                     .formParam("instacoins_value", instacoinsValue)
                     .post(ApiV2EndPoints.Orders.PROMOTIONS, orderNumber);
@@ -301,6 +301,14 @@ public final class OrdersV2Request extends ApiV2RequestBase {
         public static Response GET(String orderNumber) {
             return givenWithAuth()
                     .get(ApiV2EndPoints.Orders.LINE_ITEM_REPLACEMENTS, orderNumber);
+        }
+    }
+
+    public static class PaymentToolsWithTypes {
+        @Step("{method} /" + ApiV2EndPoints.Orders.PAYMENT_TOOLS_WITH_TYPES)
+        public static Response GET(String orderNumber) {
+            return givenWithAuth()
+                    .get(ApiV2EndPoints.Orders.PAYMENT_TOOLS_WITH_TYPES, orderNumber);
         }
     }
 }
