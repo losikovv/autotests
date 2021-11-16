@@ -69,6 +69,16 @@ stages:
     refs:
       - schedules
 
+.template_stage:
+  only:
+    refs:
+      - master
+    variables:
+      - $URL_STF != "stf-kraken.k-stage.sbermarket.tech"
+  except:
+    refs:
+      - schedules
+
 .template_api_tests:
   stage: tests-api
   tags:
