@@ -49,7 +49,6 @@ public class ReviewableShipmentV2Test extends RestBase {
     }
 
     @CaseId(468)
-    @Issue("STF-8102")
     @Story("Получение последнего подзаказа без отзыва о заказе")
     @Test(groups = {"api-instamart-regress"},
             description = "Автоматическое получение последнего шипмента без оценки при старте приложения. Заказ на аккаунте совершен.")
@@ -76,7 +75,6 @@ public class ReviewableShipmentV2Test extends RestBase {
 
 
     @CaseId(472)
-    @Issue("STF-8102")
     @Story("Создание отзыва о заказе")
     @Test(groups = {"api-instamart-regress"},
             description = "Создание отзыва о заказе с существующим номером")
@@ -95,7 +93,6 @@ public class ReviewableShipmentV2Test extends RestBase {
     }
 
     @CaseId(475)
-    @Issue("STF-8102")
     @Story("Создание отзыва о заказе")
     @Test(groups = {"api-instamart-regress"},
             description = "Создание отзыва о заказе с существующим номером")
@@ -114,7 +111,6 @@ public class ReviewableShipmentV2Test extends RestBase {
     }
 
     @CaseId(476)
-    @Issue("STF-8102")
     @Story("Создание отзыва о заказе")
     @Test(groups = {"api-instamart-regress"},
             description = "Создание отзыва о заказе с несколькими значениями для review[issue_ids]")

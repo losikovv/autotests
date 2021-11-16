@@ -23,7 +23,6 @@ public class PutOrdersStatusV3Test extends RestBase {
 
     OrderV3 order;
 
-    @Issue("INFRADEV-7831")
     @CaseId(675)
     @Story("Отмена заказа на доставку")
     @JsonDataProvider(path = "data/json_v3/api_v3_test_data_goods.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
@@ -38,7 +37,6 @@ public class PutOrdersStatusV3Test extends RestBase {
     }
 
     @CaseId(868)
-    @Issue("DVR-1547")
     @Story("Отмена заказа на самовывоз")
     @JsonDataProvider(path = "data/json_v3/api_v3_test_data_metro_marketplace.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
     @Test(  groups = {"api-instamart-regress"},

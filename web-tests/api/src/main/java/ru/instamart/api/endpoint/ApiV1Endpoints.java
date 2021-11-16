@@ -53,6 +53,12 @@ public final class ApiV1Endpoints {
     public static final class Stores {
         public static final String OFFERS = "stores/{storeUuid}/offers?q[name]={offerName}&q[retailer_sku]={offerRetailerSku}";
         public static final String UUID = "stores/{storeUuid}";
+
+        public static final class DeliveryWindows {
+            public static final String BY_DATE = "stores/{storeId}/delivery_windows?date={date}";
+            public static final String GENERATE = "stores/{storeId}/delivery_windows/generate";
+        }
+
     }
 
     public static final class User {

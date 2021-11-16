@@ -16,6 +16,7 @@ public class RestBase {
     protected static final ApiV3Helper apiV3 = new ApiV3Helper();
     protected static final DeliveryClubHelper dc = new DeliveryClubHelper();
     protected final ShopperAdminApiHelper shopperAdmin = new ShopperAdminApiHelper();
+    protected static final AdminHelper admin = new AdminHelper();
     protected Response response;
 
     @BeforeMethod(alwaysRun = true, description = "Стартуем запись системного лога")

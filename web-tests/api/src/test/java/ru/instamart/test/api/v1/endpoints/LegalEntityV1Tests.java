@@ -25,7 +25,6 @@ public class LegalEntityV1Tests extends RestBase {
     public void preconditions() {
     }
 
-    @Issue("STF-8755")
     @Story("Web")
     @CaseId(625)
     @Test(description = "Загрузка реквизитов компании из Контур-Фокус",

@@ -105,7 +105,6 @@ public class OrdersV1Test extends RestBase {
                 .getProductSku();
     }
 
-    @Issue("STF-8976")
     @Story("Заказы")
     @CaseId(119)
     @Test(description = "Контрактный тест списка предзамен для товара из шипмента",
