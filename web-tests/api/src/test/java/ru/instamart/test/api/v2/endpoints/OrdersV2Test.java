@@ -457,21 +457,6 @@ public class OrdersV2Test extends RestBase {
         checkError(response, "Заказ не существует");
     }
 
-    @CaseId(682)
-    @Story("Получить способы оплаты")
-    @Test(groups = {"api-instamart-smoke"},
-            description = "Получить способы оплаты")
-    public void getPaymentMethods() {
-        response = PaymentToolsV2Request.GET();
-        checkStatusCode200(response);
-        PaymentToolsV2Response paymentToolsV2Response = response.as(PaymentToolsV2Response.class);
-        final SoftAssert softAssert = new SoftAssert();
-        paymentToolsV2Response.getPaymentTools().stream()
-                .forEach(value -> softAssert.assertNotNull(PaymentToolsV2.getIfKeyIsPresent(value.getType()), "Способ оплаты пустой"));
-        paymentToolsV2Response.getPaymentTools().stream()
-                .forEach(value -> softAssert.assertNotNull(PaymentToolsV2.getIfNameIsPresent(value.getName()), "Способ оплаты пустой"));
-        softAssert.assertAll();
-    }
 
     @CaseId(343)
     @Story("Завершение заказа")
