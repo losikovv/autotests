@@ -142,4 +142,18 @@ public class ReviewableShipmentV2Test extends RestBase {
 
         softAssert.assertAll();
     }
+
+    @CaseId(477)
+    @Story("Создание отзыва о заказе")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Создание отзыва о заказе с [images_attributes]")
+    public void shipmentsReviewsWithImage() {
+        final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber);
+        checkStatusCode200(response);
+        ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(shipmentReview.getRate(), Integer.valueOf(5), "Пришла неверная оценка");
+        softAssert.assertTrue(shipmentReview.getImages().get(0).getOriginalUrl().contains("sample.jpg"), "Изображение не добавлено");
+        softAssert.assertAll();
+    }
 }

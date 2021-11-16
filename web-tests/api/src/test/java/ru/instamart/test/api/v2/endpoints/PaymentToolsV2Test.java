@@ -84,13 +84,14 @@ public class PaymentToolsV2Test extends RestBase {
         checkError(response, "Заказ не существует");
     }
 
-    @Deprecated
-    @Test(groups = {},
-            description = "Возможные типы способов оплаты для заказа с существущим id")
+    @CaseId(1116)
+    @Story("Способы оплаты")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Существующий номер заказа")
     public void getPaymentToolsWithOrder200() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
         String orderNumber = apiV2.getCurrentOrderNumber();
-        response = PaymentToolsV2Request.GET(orderNumber);
+        Response response = PaymentToolsV2Request.GET(orderNumber);
         checkStatusCode200(response);
         PaymentToolTypesV2Response paymentToolsV2Response = response.as(PaymentToolTypesV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
@@ -108,11 +109,12 @@ public class PaymentToolsV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @Deprecated
-    @Test(groups = {},
-            description = "Возможные типы способов оплаты для заказа с несуществущим id")
+    @CaseId(1117)
+    @Story("Способы оплаты")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Несуществующий номер заказа")
     public void getPaymentToolsWithOrder404() {
-        response = PaymentToolsV2Request.GET("failedOrderNumber");
+        Response response = PaymentToolsV2Request.GET("failedOrderNumber");
         checkStatusCode404(response);
         checkError(response, "Заказ не существует");
     }

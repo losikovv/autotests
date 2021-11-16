@@ -9,6 +9,8 @@ import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
 import ru.instamart.utils.Mapper;
 
+import java.io.File;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -111,6 +113,14 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
         public static Response POST(String shipmentNumber, Review review){
             return givenWithAuth()
                     .formParams(Mapper.INSTANCE.objectToMap(review))
+                    .post(ApiV2EndPoints.Shipments.REVIEWS, shipmentNumber);
+        }
+
+        @Step("{method} /"+ApiV2EndPoints.Shipments.REVIEWS)
+        public static Response POST(String shipmentNumber){
+            return givenWithAuth()
+                    .formParam("review[rate]", 5)
+                    .multiPart("review[images_attributes][][attachment]", new File("src/test/resources/data/sample.jpg"), "image/jpeg")
                     .post(ApiV2EndPoints.Shipments.REVIEWS, shipmentNumber);
         }
     }
