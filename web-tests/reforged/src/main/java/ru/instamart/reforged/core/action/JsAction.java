@@ -50,8 +50,7 @@ public final class JsAction {
      * Ожидание загрузки картинки
      */
     public void waitImgLoad(final String xpath) {
-        var wait = createWait();
-        wait.until((ExpectedCondition<Boolean>) wb -> {
+        createWait().until((ExpectedCondition<Boolean>) wb -> {
             final Object loadState = execute("return document.evaluate(\""+ xpath +"\", document, null, XPathResult.ANY_TYPE, null).iterateNext().complete;");
             return (Boolean) loadState;
         });

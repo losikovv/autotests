@@ -81,7 +81,7 @@ public interface SearchCheck extends Check, SearchElement {
         searchProductPrices.getElements().forEach(element -> {
             tmp.add(StringUtil.stringToDoubleParse(element.getText()));
         });
-        assertEquals(tmp, tmp.stream().sorted().collect(Collectors.toList()));
+        assertEquals(tmp, tmp.stream().sorted().collect(Collectors.toList()), "Сортировка 'Сначала дешевые' работает неправильно");
     }
 
     @Step("Проверяем, что сортировка 'Сначала дорогие' работает корректно")
@@ -91,7 +91,7 @@ public interface SearchCheck extends Check, SearchElement {
         searchProductPrices.getElements().forEach(element -> {
             tmp.add(StringUtil.stringToDoubleParse(element.getText()));
         });
-        assertEquals(tmp, tmp.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList()));
+        assertEquals(tmp, tmp.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList()), "Сортировка 'Сначала дорогие' работает неправильно");
     }
 
     @Step("Проверить, что фильтр '{0}' задизейблен")

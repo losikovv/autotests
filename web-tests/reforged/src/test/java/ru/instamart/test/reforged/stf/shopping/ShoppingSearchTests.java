@@ -168,17 +168,12 @@ public final class ShoppingSearchTests extends BaseTest {
             groups = {"regression"}
     )
     public void successApplyFiltersAndSortCheapAsc() {
-        shop().goToPage(ShopUrl.OKEY);
-        shop().checkSpinnerIsNotVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
-        shop().interactHeader().fillSearch("кофе");
-        shop().interactHeader().clickSearchButton();
+        shop().openSitePage("okey/search?keywords=кофе&sid=128");
 
         search().checkSearchProductsSpinnerVisible();
         search().checkSearchProductsSpinnerNotVisible();
 
         search().selectSort("Сначала дешевые");
-        search().checkSortEnabled("Сначала дешевые");
         search().checkProductsStubVisible();
         search().checkProductsStubNotVisible();
 
@@ -187,15 +182,13 @@ public final class ShoppingSearchTests extends BaseTest {
         search().checkPageScrolled();
         search().checkPriceAscSortCorrect();
 
-        shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
-        shop().interactHeader().fillSearch("кофе");
-        shop().interactHeader().clickSearchButton();
+        shop().openSitePage("okey/search?keywords=кофе&sid=128");
 
         search().checkSearchProductsSpinnerVisible();
         search().checkSearchProductsSpinnerNotVisible();
 
         search().checkSortEnabled("По популярности");
+        search().checkSearchImgLoaded();
         search().scrollDown();
         search().checkPageScrolled();
     }
@@ -206,11 +199,7 @@ public final class ShoppingSearchTests extends BaseTest {
             groups = {"regression"}
     )
     public void successApplyFiltersAndSortExpensiveDesc() {
-        shop().goToPage(ShopUrl.OKEY);
-        shop().checkSpinnerIsNotVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
-        shop().interactHeader().fillSearch("чай");
-        shop().interactHeader().clickSearchButton();
+        shop().openSitePage("okey/search?keywords=чай&sid=128");
 
         search().checkSearchProductsSpinnerVisible();
         search().checkSearchProductsSpinnerNotVisible();
@@ -230,10 +219,7 @@ public final class ShoppingSearchTests extends BaseTest {
         search().clickToDiscountFilter();
         search().checkPriceDescSortCorrect();
 
-        shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
-        shop().interactHeader().fillSearch("кофе");
-        shop().interactHeader().clickSearchButton();
+        shop().openSitePage("okey/search?keywords=кофе&sid=128");
 
         search().checkSearchProductsSpinnerVisible();
         search().checkSearchProductsSpinnerNotVisible();
