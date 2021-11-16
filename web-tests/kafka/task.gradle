@@ -1,0 +1,8 @@
+task kafkaDispatch(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/kafka-dispatch.xml'
+        includeGroups 'kafka-instamart-regress'
+    }
+    systemProperty 'qase.Project', 'KAFKA'
+    systemProperty 'qase.Title', 'KAFKA Platform Backend Regress'
+}

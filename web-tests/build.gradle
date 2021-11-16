@@ -98,6 +98,40 @@ project(":grpc") {
     }
 }
 
+
+project(":kafka") {
+    apply plugin: "java-library"
+
+    dependencies {
+        implementation project(":kraken")
+        implementation project(":qase-api")
+        implementation project(":utils")
+
+        implementation lib.aspectjweaver
+        implementation lib.allureRestAssuredReport
+        implementation lib.allureTestng
+        implementation lib.allureJavaCommons
+
+        implementation lib.testng
+
+        implementation lib.grpcNettyShaded
+        implementation lib.grpcProtobuf
+        implementation lib.grpcStub
+
+        implementation lib.javax
+        implementation lib.tomcatAnnotationsApi
+        implementation lib.kafkaClients
+        implementation lib.kafkaProtobuf
+
+        compileOnly lib.lombok
+
+        annotationProcessor lib.lombok
+        testImplementation lib.logback
+        testCompileOnly lib.lombok
+        testAnnotationProcessor lib.lombok
+    }
+}
+
 project(":api") {
     apply plugin: "java-library"
 

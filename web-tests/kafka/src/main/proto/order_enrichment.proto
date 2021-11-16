@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package order_enrichment;
+
+import "enums.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "gitlab.sbermarket.tech/paas/content/operations/order-service/pkg/server/events/order_enrichment";
+
+// EventStatusRequest message for Kafka's topic 'yc.operations-order-service.fct.order-enrichment'.
+message EventOrderEnrichment {
+	string shipment_uuid = 1;
+	string order_uuid = 2;
+	string place_uuid = 3;
+	enums.ShipmentStatus shipment_status = 4;
+	string shipment_type = 5;
+	uint64 weight = 6;
+	enums.Location client_location = 7;
+	enums.Location place_location = 8;
+	uint64 assembly_time_min = 9;
+	repeated string assembly = 10;
+	repeated string delivery = 11;
+	optional DispatchMeta dispatch_meta = 12;
+	optional Settings settings = 13;
+	uint64 number_of_positions_in_order = 14;
+}
+
+message Settings {
+	uint64 max_order_assign_retry_count = 1;
+	uint64 avg_parking_min_vehicle = 2;
+	uint64 max_current_order_assign_queue = 3;
+	fixed64 order_weight_threshold_to_assign_to_vehicle_gramms = 4;
+	uint64 average_speed_for_straight_distance_to_client_min = 5;
+	uint64 additional_factor_for_straight_distance_to_client_min = 6;
+	uint64 order_transfer_time_from_assembly_to_delivery_min = 7;
+	uint64 avg_to_place_min_external = 8;
+	uint64 avg_to_place_min = 9;
+	bool place_location_center = 10;
+	uint64 search_radius_transport_pedestrian = 11;
+	uint64 search_radius_transport_auto = 12;
+	uint64 search_radius_transport_bike = 13;
+	uint64 last_position_expire = 14;
+}
+
+message DispatchMeta {
+	uint64 dispatch_count = 1;
+	google.protobuf.Timestamp dispatch_start = 2;
+	repeated string dispatch_ids = 3;
+	string dispatch_id = 4;
+	optional Tasks decline_task = 5;
+	optional string decline_performer_uuid = 6;
+}
+
+enum Tasks {
+	DELIVERY = 0;
+	ASSEMBLY = 1;
+	ASSEMBLY_AND_DELIVERY = 2;
+}
+
+message Location {
+	double latitude = 1;
+	double longitude = 2;
+}
