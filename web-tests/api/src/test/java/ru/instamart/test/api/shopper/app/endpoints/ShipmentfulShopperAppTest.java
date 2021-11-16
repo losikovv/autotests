@@ -173,7 +173,6 @@ public class ShipmentfulShopperAppTest extends RestBase {
                 "адрес заказа");
     }
 
-    @Issue("STF-8976")
     @Story("Получение информации о сборках")
     @CaseId(17)
     @Test(description = "Получаем предзамены для позиций в сборке",

@@ -42,7 +42,6 @@ public final class UserFavoritesTests extends BaseTest {
         userFavorites().checkEmptyFavorites();
     }
 
-    @Issue("STF-8253")
     @CaseId(1266)
     @Test(description = "Добавление любимого товара из карточки товара и проверка списка", groups = {"smoke", "regression"})
     public void successAddFavoriteOnItemCard() {
@@ -56,7 +55,6 @@ public final class UserFavoritesTests extends BaseTest {
         userFavorites().checkNotEmptyFavorites();
     }
 
-    @Issue("STF-8253")
     @CaseId(1267)
     @Test(description = "Удаление любимого товара из карточки товара и проверка списка", groups = "regression")
     public void successDeleteFavoriteOnItemCard() {
@@ -75,7 +73,6 @@ public final class UserFavoritesTests extends BaseTest {
         userFavorites().checkCountChange(userFavorites().getFavoritesCount(), 1);
     }
 
-    @Issue("STF-8253")
     @CaseId(1268)
     @Test(description = "Удаление всех любимых товаров", groups = "regression")
     public void successCleanupFavorites() {
@@ -93,7 +90,6 @@ public final class UserFavoritesTests extends BaseTest {
         userFavorites().checkEmptyFavorites();
     }
 
-    @Issue("STF-8253")
     @CaseId(1269)
     @Test(description = "Проверка работоспособности фильтров Любимых товаров", groups = {"acceptance", "regression"})
     public void successApplyFilters() {
@@ -115,7 +111,6 @@ public final class UserFavoritesTests extends BaseTest {
         userFavorites().checkOutOfStockActive();
     }
 
-    @Issue("STF-8253")
     @CaseId(1270)
     @Test(description = "Проверка работоспособности подгрузки страниц в Любимых товарах", groups = "regression")
     public void successShowMoreLoad() {
@@ -159,7 +154,6 @@ public final class UserFavoritesTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
-    @Issue("STF-8253")
     @CaseId(1492)
     @Test(description = "Тест добавления товаров в корзину из списка любимых товаров", groups = {"smoke", "regression"})
     public void successAddFavoriteProductToCart() {
@@ -178,7 +172,6 @@ public final class UserFavoritesTests extends BaseTest {
         userFavorites().interactHeader().interactCart().checkCartNotEmpty();
     }
 
-    @Issue("STF-8253")
     @CaseId(1494)
     @Test(description = "Тест добавления товаров в корзину из карточки товара, открытой из списка любимых товаров", groups = {"acceptance", "regression"})
     public void successAddFavoriteProductsFromCardToCart() {

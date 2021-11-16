@@ -41,7 +41,6 @@ public class AuthenticationDCTest extends RestBase {
         assertTrue(localDateTimeFromResponse.isAfter(dateNow.plusMinutes(14).withNano(0)), "Токен истекает позже");
     }
 
-    @Issue("ATST-216")
     @CaseId(573)
     @Story("Авторизация")
     @Test(  groups = {"api-instamart-regress", "api-instamart-prod"},

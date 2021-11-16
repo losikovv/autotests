@@ -16,10 +16,12 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.ShipmentV2;
+import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.request.v2.StoresV2Request;
 import ru.instamart.api.response.v2.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.user.UserManager;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -42,6 +44,8 @@ public class ShipmentsV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
+        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdminAllRoles());
+        admin.checkDeliveryWindows(EnvironmentProperties.DEFAULT_SID);
         SessionFactory.makeSession(SessionType.API_V2_FB);
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
     }
@@ -167,7 +171,6 @@ public class ShipmentsV2Test extends RestBase {
     @CaseId(363)
     @Story("Получить окно доставки для подзаказа для указанного дня")
     @Test(groups = {"api-instamart-smoke"},
-            enabled = false, //todo почему-то стал приходить пустой массив shipping rates, при этом оформление заказов работает
             description = "Получить окно доставки для подзаказа для указанного дня с существующим id")
     public void shippingRates200() {
         response = ShipmentsV2Request.ShippingRates.GET(apiV2.getShipmentsNumber(), getDateFromMSK().plusDays(1).toString());
@@ -224,7 +227,6 @@ public class ShipmentsV2Test extends RestBase {
     @CaseId(367)
     @Story("Получить окно доставки для подзаказа для указанного дня")
     @Test(groups = {"api-instamart-regress"},
-            enabled = false, //todo почему-то стал приходить пустой массив shipping rates, при этом оформление заказов работает
             dataProvider = "dateFormats",
             dataProviderClass = RestDataProvider.class,
             description = "Получить окно доставки для подзаказа для указанного дня с существующим id и без указанием необязательного параметра date")
@@ -279,7 +281,8 @@ public class ShipmentsV2Test extends RestBase {
     @CaseId(371)
     @Story("Получить ближайшие окна доставки")
     @Test(groups = {"api-instamart-regress"},
-            description = "Получить ближайшие окна доставки со всеми необязательными полями с корректными данными")
+            description = "Получить ближайшие окна доставки со всеми необязательными полями с корректными данными",
+            enabled = false) //задизейблен до выяснения актуальности ТК
     public void nextDeliverWithAllIncorrectData() {
         Map<String, String> params = new HashMap<>();
         params.put("cargo", "notValidData");

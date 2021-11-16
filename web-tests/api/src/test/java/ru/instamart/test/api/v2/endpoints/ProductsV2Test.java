@@ -74,7 +74,6 @@ public final class ProductsV2Test extends RestBase {
     }
 
     @CaseId(262)
-    @Issue("STF-9240")
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Существующий sid",
             groups = {"api-instamart-smoke", "api-instamart-prod", "api-instamart-regress"})
