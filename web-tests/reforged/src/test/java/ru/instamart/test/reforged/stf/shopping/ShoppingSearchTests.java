@@ -101,6 +101,7 @@ public final class ShoppingSearchTests extends BaseTest {
         shop().goToPage();
         shop().interactHeader().fillSearch("сыры");
         shop().interactHeader().clickSearchButton();
+        search().checkSearchImgLoaded();
         search().interactHeader().checkEnteredAddressIsVisible();
         search().clickAddToCartFirstSearchResult();
         search().interactHeader().clickToCart();
@@ -115,29 +116,19 @@ public final class ShoppingSearchTests extends BaseTest {
             groups = {"regression"}
     )
     public void successApplySort() {
-        shop().goToPage();
+        shop().goToPage(ShopUrl.OKEY);
         shop().checkSpinnerIsNotVisible();
-        shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
-        shop().interactHeader().checkEnteredAddressIsVisible();
-
-        shop().goToPage();
-        shop().interactHeader().checkEnteredAddressIsVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
         shop().interactHeader().fillSearch("кофе");
         shop().interactHeader().clickSearchButton();
-        shop().interactHeader().checkEnteredAddressIsVisible();
+
+        search().checkSearchProductsSpinnerVisible();
+        search().checkSearchProductsSpinnerNotVisible();
 
         search().selectSort("Сначала дешевые");
-        search().checkSearchProductsSkeletonVisible();
-        search().checkSearchProductsSkeletonNotVisible();
-
+        search().checkSortEnabled("Сначала дешевые");
+        
         search().checkPriceAscSortCorrect();
-        search().assertAll();
     }
 
     @CaseId(2590)
@@ -276,17 +267,6 @@ public final class ShoppingSearchTests extends BaseTest {
             groups = {"regression"}
     )
     public void alcoholSearchModalClose() {
-        shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
-        shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
-        shop().interactHeader().checkEnteredAddressIsVisible();
-
         shop().goToPage();
         shop().interactHeader().fillSearch("вино красное");
         shop().interactHeader().checkTaxonCategoriesVisible();
