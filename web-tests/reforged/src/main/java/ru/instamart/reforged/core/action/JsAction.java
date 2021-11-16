@@ -52,6 +52,9 @@ public final class JsAction {
     public void waitImgLoad(final String xpath) {
         createWait().until((ExpectedCondition<Boolean>) wb -> {
             final Object loadState = execute("return document.evaluate(\""+ xpath +"\", document, null, XPathResult.ANY_TYPE, null).iterateNext().complete;");
+            if (Objects.isNull(loadState)) {
+                return false;
+            }
             return (Boolean) loadState;
         });
     }
