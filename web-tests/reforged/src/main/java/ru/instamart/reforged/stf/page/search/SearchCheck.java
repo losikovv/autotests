@@ -29,6 +29,16 @@ public interface SearchCheck extends Check, SearchElement {
         waitAction().shouldBeVisible(selectSort);
     }
 
+    @Step("Проверяем, что заглушка загрузки видна")
+    default void checkProductsStubVisible() {
+        waitAction().shouldBeVisible(productsStub);
+    }
+
+    @Step("Проверяем, что заглушка загрузки не видна")
+    default void checkProductsStubNotVisible() {
+        waitAction().shouldNotBeVisible(productsStub);
+    }
+
     @Step("Проверяем, что отображается спиннер в поиске")
     default void checkSearchProductsSpinnerVisible() {
         waitAction().shouldBeVisible(searchSpinner);
@@ -71,7 +81,7 @@ public interface SearchCheck extends Check, SearchElement {
         searchProductPrices.getElements().forEach(element -> {
             tmp.add(StringUtil.stringToDoubleParse(element.getText()));
         });
-        tmp.stream().sorted().collect(Collectors.toList()).equals(tmp);
+        assertEquals(tmp, tmp.stream().sorted().collect(Collectors.toList()), "Сортировка 'Сначала дешевые' работает неправильно");
     }
 
     @Step("Проверяем, что сортировка 'Сначала дорогие' работает корректно")
@@ -81,7 +91,7 @@ public interface SearchCheck extends Check, SearchElement {
         searchProductPrices.getElements().forEach(element -> {
             tmp.add(StringUtil.stringToDoubleParse(element.getText()));
         });
-        tmp.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList()).equals(tmp);
+        assertEquals(tmp, tmp.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList()), "Сортировка 'Сначала дорогие' работает неправильно");
     }
 
     @Step("Проверить, что фильтр '{0}' задизейблен")
@@ -92,6 +102,13 @@ public interface SearchCheck extends Check, SearchElement {
     @Step("Проверить, что сортировка '{0}' применена")
     default void checkSortEnabled(String sortText) {
         waitAction().shouldBeVisible(selectSortApplied, sortText);
+    }
+
+    @Step("Проверить, что все картинки загружены")
+    default void checkSearchImgLoaded() {
+        searchProductsImagesCollection.getElements().forEach(element -> {
+            productImg.waitImgLoad(element.getAttribute("src"));
+        });
     }
 
     @Step("Проверяем, что сетка найденных товаров не отображается")

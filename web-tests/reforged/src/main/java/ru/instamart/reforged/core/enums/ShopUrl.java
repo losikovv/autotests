@@ -13,7 +13,9 @@ public enum ShopUrl {
     LENTA("lenta"),
     AUCHAN("auchan"),
     VKUSVILL("vkusvill"),
-    AZBUKAVKUSA("azbukavkusa");
+    AZBUKAVKUSA("azbukavkusa"),
+    OKEY("okey");
+
 
     private final String url;
 }

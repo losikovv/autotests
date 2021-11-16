@@ -101,6 +101,7 @@ public final class ShoppingSearchTests extends BaseTest {
         shop().goToPage();
         shop().interactHeader().fillSearch("сыры");
         shop().interactHeader().clickSearchButton();
+        search().checkSearchImgLoaded();
         search().interactHeader().checkEnteredAddressIsVisible();
         search().clickAddToCartFirstSearchResult();
         search().interactHeader().clickToCart();
@@ -115,29 +116,19 @@ public final class ShoppingSearchTests extends BaseTest {
             groups = {"regression"}
     )
     public void successApplySort() {
-        shop().goToPage();
+        shop().goToPage(ShopUrl.OKEY);
         shop().checkSpinnerIsNotVisible();
-        shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
-        shop().interactHeader().checkEnteredAddressIsVisible();
-
-        shop().goToPage();
-        shop().interactHeader().checkEnteredAddressIsVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
         shop().interactHeader().fillSearch("кофе");
         shop().interactHeader().clickSearchButton();
-        shop().interactHeader().checkEnteredAddressIsVisible();
+
+        search().checkSearchProductsSpinnerVisible();
+        search().checkSearchProductsSpinnerNotVisible();
 
         search().selectSort("Сначала дешевые");
-        search().checkSearchProductsSkeletonVisible();
-        search().checkSearchProductsSkeletonNotVisible();
-
+        search().checkSortEnabled("Сначала дешевые");
+        
         search().checkPriceAscSortCorrect();
-        search().assertAll();
     }
 
     @CaseId(2590)
@@ -177,30 +168,27 @@ public final class ShoppingSearchTests extends BaseTest {
             groups = {"regression"}
     )
     public void successApplyFiltersAndSortCheapAsc() {
-        shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
-        shop().interactHeader().fillSearch("кофе");
-        shop().interactHeader().clickSearchButton();
+        shop().openSitePage("okey/search?keywords=кофе&sid=128");
 
         search().checkSearchProductsSpinnerVisible();
         search().checkSearchProductsSpinnerNotVisible();
 
         search().selectSort("Сначала дешевые");
-        search().checkSortEnabled("Сначала дешевые");
+        search().checkProductsStubVisible();
+        search().checkProductsStubNotVisible();
+
+        search().checkSearchImgLoaded();
         search().scrollDown();
         search().checkPageScrolled();
         search().checkPriceAscSortCorrect();
 
-        shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
-        shop().interactHeader().fillSearch("кофе");
-        shop().interactHeader().clickSearchButton();
+        shop().openSitePage("okey/search?keywords=кофе&sid=128");
 
         search().checkSearchProductsSpinnerVisible();
         search().checkSearchProductsSpinnerNotVisible();
 
         search().checkSortEnabled("По популярности");
+        search().checkSearchImgLoaded();
         search().scrollDown();
         search().checkPageScrolled();
     }
@@ -211,17 +199,17 @@ public final class ShoppingSearchTests extends BaseTest {
             groups = {"regression"}
     )
     public void successApplyFiltersAndSortExpensiveDesc() {
-        shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
-        shop().interactHeader().fillSearch("кофе");
-        shop().interactHeader().clickSearchButton();
+        shop().openSitePage("okey/search?keywords=чай&sid=128");
 
         search().checkSearchProductsSpinnerVisible();
         search().checkSearchProductsSpinnerNotVisible();
 
         search().selectSort("Сначала дорогие");
         search().checkSortEnabled("Сначала дорогие");
+        search().checkProductsStubVisible();
+        search().checkProductsStubNotVisible();
+
+        search().checkSearchImgLoaded();
         search().scrollDown();
         search().checkPageScrolled();
         search().checkPriceDescSortCorrect();
@@ -231,10 +219,7 @@ public final class ShoppingSearchTests extends BaseTest {
         search().clickToDiscountFilter();
         search().checkPriceDescSortCorrect();
 
-        shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
-        shop().interactHeader().fillSearch("кофе");
-        shop().interactHeader().clickSearchButton();
+        shop().openSitePage("okey/search?keywords=кофе&sid=128");
 
         search().checkSearchProductsSpinnerVisible();
         search().checkSearchProductsSpinnerNotVisible();
@@ -268,17 +253,6 @@ public final class ShoppingSearchTests extends BaseTest {
             groups = {"regression"}
     )
     public void alcoholSearchModalClose() {
-        shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
-        shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
-        shop().interactHeader().checkEnteredAddressIsVisible();
-
         shop().goToPage();
         shop().interactHeader().fillSearch("вино красное");
         shop().interactHeader().checkTaxonCategoriesVisible();

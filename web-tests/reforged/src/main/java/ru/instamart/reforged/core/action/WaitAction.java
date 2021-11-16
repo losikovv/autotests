@@ -1,6 +1,5 @@
 package ru.instamart.reforged.core.action;
 
-import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -38,7 +37,6 @@ public final class WaitAction {
         return createWait(component)
                 .until(KrakenCondition.steadinessOfElementLocated(component.getBy()));
     }
-
 
     public boolean shouldNotBeVisible(final Component component) {
         return createWait(component)

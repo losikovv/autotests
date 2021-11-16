@@ -49,13 +49,13 @@ public final class JsAction {
     /**
      * Ожидание загрузки картинки
      */
-    public void waitImgLoad(final String locator) {
+    public void waitImgLoad(final String xpath) {
         createWait().until((ExpectedCondition<Boolean>) wb -> {
-            final Object state = execute("return document.evaluate(\""+ locator +"\", document, null, XPathResult.ANY_TYPE, null).iterateNext().complete");
-            if (Objects.isNull(state)) {
+            final Object loadState = execute("return document.evaluate(\""+ xpath +"\", document, null, XPathResult.ANY_TYPE, null).iterateNext().complete;");
+            if (Objects.isNull(loadState)) {
                 return false;
             }
-            return (Boolean) state;
+            return (Boolean) loadState;
         });
     }
 

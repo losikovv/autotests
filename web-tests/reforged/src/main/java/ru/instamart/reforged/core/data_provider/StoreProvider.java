@@ -12,7 +12,8 @@ public class StoreProvider {
                 {72, ShopUrl.AUCHAN},
                 {58, ShopUrl.LENTA},
                 {99, ShopUrl.AZBUKAVKUSA},
-                {23, ShopUrl.VKUSVILL}
+                {23, ShopUrl.VKUSVILL},
+                {128, ShopUrl.OKEY}
         };
     }
 }

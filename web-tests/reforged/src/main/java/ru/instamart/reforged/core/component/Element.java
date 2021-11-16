@@ -48,7 +48,7 @@ public final class Element extends Component {
     }
 
     public void click(final Object... args) {
-        setBy(ByKraken.xpath(((ByKraken)getBy()).getDefaultXpathExpression(), args));
+        setBy(ByKraken.xpath(((ByKraken) getBy()).getDefaultXpathExpression(), args));
         click();
     }
 
@@ -70,5 +70,21 @@ public final class Element extends Component {
         final String text = getComponent().getText();
         log.debug("Get text '{}' for {} with locator {}", text, getDescription(), getBy());
         return text;
+    }
+
+    /**
+     * ожидание загрузки элемента
+     */
+    public void waitImgLoad(final Object... args) {
+        setBy(ByKraken.xpath(((ByKraken) getBy()).getDefaultXpathExpression(), args));
+        waitImgLoad();
+    }
+
+    /**
+     * ожидание загрузки элемента
+     */
+    public void waitImgLoad() {
+        log.debug("Get img '{}' with locator {}", getDescription(), getBy());
+        Kraken.jsAction().waitImgLoad(getLocator());
     }
 }

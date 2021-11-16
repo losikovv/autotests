@@ -26,6 +26,8 @@
       <class name="ru.instamart.test.reforged.stf.checkout.CheckoutAddressStepTests"/>
 
       <class name="ru.instamart.test.reforged.stf.SeoCatalogTests"/>
+
+      <class name="ru.instamart.test.reforged.stf.shopping.ShoppingSearchTests"/>
     </classes>
   </test>
 </suite>
