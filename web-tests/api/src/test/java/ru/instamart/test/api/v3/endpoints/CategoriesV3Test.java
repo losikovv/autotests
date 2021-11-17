@@ -16,12 +16,10 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 public class CategoriesV3Test extends RestBase {
     private CategoryV3 category;
 
-    @Test(groups = {"api-instamart-regress"})
-    public void getCategories() {
+    @Test(groups = {"api-instamart-regress"}, description = "Поиск категорий")
+    public void getCategories()  {
         Response response = CategoriesV3Request.GET(1);
-
         checkStatusCode200(response);
-
         category = response.as(CategoriesV3Response.class).getCategories().get(0);
     }
 }

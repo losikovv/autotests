@@ -11,6 +11,7 @@ public class ApiV3Endpoints {
         public static final String CLOSEST_SHIPPING_OPTIONS = "v3/stores?include=closest_shipping_options";
         public static final String RETAILER_ID = "v3/stores?retailer_id=metro";
         public static final String CATEGORIES = "stores/{sid}/categories";
+        public static final String PRODUCTS =  "stores/{sid}/products?tid={tid}";
     }
 
     public static final class SetupInfo {

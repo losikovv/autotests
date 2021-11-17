@@ -76,4 +76,6 @@ public final class OrderOptionsV3Test extends RestBase {
         Response response = OrderOptionsV3Request.PickupFromStore.PUT(testData, store.getId());
         checkStatusCode200(response);
     }
+
+
 }
