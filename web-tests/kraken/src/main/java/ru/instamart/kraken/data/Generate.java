@@ -26,6 +26,11 @@ public final class Generate {
         return Generate.string("literal", length);
     }
 
+    /** Сгенерировать рандомноую кириллическую буквенную строку указанной длины */
+    public static String literalCyrillicString(int length) {
+        return Generate.string("cyrillic", length);
+    }
+
     /** Сгенерировать рандомноую цифровую строку указанной длины*/
     public static String digitalString(int length) {
         return Generate.string("digital", length);
@@ -87,6 +92,8 @@ public final class Generate {
                 return "1234567890abcdefghijklmnopqrstuvwxyz";
             case "literal":
                 return "abcdefghijklmnopqrstuvwxyz";
+            case "cyrillic":
+                return "абвгдежзийклмнопрстуфхцчшщъыьэюя";
             default:
                 return "";
         }

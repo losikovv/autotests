@@ -1,11 +1,14 @@
 package ru.instamart.reforged.admin.page.retailers.regions;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 import ru.instamart.reforged.admin.AdminPage;
-import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.admin.page.retailers.regions.add_new.RegionsAdd;
 
 public class RegionsPage implements AdminPage, RegionsCheck {
+
+    public RegionsAdd interactRegionsAddModal() {
+        return regionsAdd;
+    }
 
     @Step("Нажатие на кнопку добавления нового региона")
     public void clickToAddNewRegion() {
