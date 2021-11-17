@@ -48,7 +48,7 @@ public final class Button extends Component {
     }
 
     public void click(final Object... args) {
-        setBy(ByKraken.xpath(getLocator(), args));
+        setBy(ByKraken.xpath(((ByKraken)getBy()).getDefaultXpathExpression(), args));
         click();
     }
 
