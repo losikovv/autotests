@@ -13,7 +13,7 @@ ext.versions = [
         webdrivermanager: '4.4.3',
         pgsqlJDBC: '42.1.4',
         kafkaClients: '2.8.1',
-        kubernetesClient: '13.0.0',
+        kubernetesClient: '13.0.1',
         mysqlJDBC: '8.0.26',
         gRPC: '1.40.0',
         tomcatAnnotationsApi: '10.0.10',

@@ -143,6 +143,7 @@ public class K8sConsumer {
 
     private static Closeable execRailsCommandWithPod(V1Pod pod, String commands, Consumer<String> outputFun, boolean waiting) {
         String[] commandExec = new String[]{"/bin/bash", "-c", "RAILS_ENV=staging bundle exec rails runner \"puts " + commands + "\""};
+        log.debug("Exec command: {}", String.join("\n", commandExec));
         return execCommandWithPod(pod, commandExec, outputFun, waiting);
     }
 
@@ -165,7 +166,7 @@ public class K8sConsumer {
 
             boolean tty = console() != null;
             ApiClient apiClient = K8sConfig.getInstance().getApiClient();
-            final Process proc = new Exec(apiClient).exec(pod, commands, true, tty);
+            final Process proc = new Exec(apiClient).exec(pod, commands, "puma",true, tty);
 
             executorService.execute(() -> {
                 try {
