@@ -1,10 +1,13 @@
 package ru.instamart.api.helper;
 
 import io.restassured.response.Response;
+import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
+import ru.instamart.api.request.v1.OperationalZonesV1Request;
 import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
+import ru.instamart.api.response.v1.OperationalZoneV1Response;
 import ru.instamart.api.response.v1.DeliveryWindowsV1Response;
 import ru.instamart.kraken.data.StaticPageData;
 
@@ -47,5 +50,11 @@ public class AdminHelper {
             Response responseForGenerate = StoresV1Request.DeliveryWindows.POST(storeId);
             checkStatusCode200(responseForGenerate);
         }
+    }
+
+    public OperationalZoneV1 addOperationalZones(String zoneName) {
+        Response response = OperationalZonesV1Request.POST(zoneName);
+        checkStatusCode200(response);
+        return response.as(OperationalZoneV1Response.class).getOperationalZone();
     }
 }

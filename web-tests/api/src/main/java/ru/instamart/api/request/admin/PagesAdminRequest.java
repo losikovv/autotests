@@ -5,14 +5,13 @@ import io.restassured.response.Response;
 import ru.instamart.api.endpoint.AdminEndpoints;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.request.AdminRequestBase;
 import ru.instamart.kraken.data.StaticPageData;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static ru.instamart.api.request.AdminRequestBase.givenWithAuth;
-
-public class PagesAdminRequest {
+public class PagesAdminRequest extends AdminRequestBase {
 
     @Step("{method} /" + AdminEndpoints.PAGES)
     public static Response POST(StaticPageData data) {

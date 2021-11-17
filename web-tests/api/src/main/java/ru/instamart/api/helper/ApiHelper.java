@@ -4,9 +4,12 @@ import io.qameta.allure.Step;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.k8s.K8sPortForward;
+import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.SessionV2;
+import ru.instamart.jdbc.dao.OperationalZonesDao;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -184,5 +187,17 @@ public class ApiHelper {
     public void deleteStaticPageInAdmin(Integer pageId) {
         SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
         admin.deleteStaticPage(pageId);
+    }
+
+    @Step("Добавляем новый регион {zoneName} для магазина в админке")
+    public OperationalZoneV1 createOperationalZonesInAdmin(String zoneName) {
+        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdminAllRoles());
+        return admin.addOperationalZones(zoneName);
+    }
+
+    @Step("Удаляем регион {zoneName} для магазина в админке")
+    public void deleteOperationalZonesInAdmin(String zoneName) {
+        K8sPortForward.getInstance().portForwardMySQL();
+        OperationalZonesDao.INSTANCE.deleteZoneByName(zoneName);
     }
 }
