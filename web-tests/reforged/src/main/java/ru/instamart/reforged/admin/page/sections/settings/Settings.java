@@ -1,4 +1,4 @@
-package ru.instamart.reforged.admin.page.sections;
+package ru.instamart.reforged.admin.page.sections.settings;
 
 import ru.instamart.reforged.admin.AdminPage;
 

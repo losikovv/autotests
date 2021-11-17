@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 import static ru.instamart.reforged.core.Kraken.*;
 
 public interface SearchCheck extends Check, SearchElement {
