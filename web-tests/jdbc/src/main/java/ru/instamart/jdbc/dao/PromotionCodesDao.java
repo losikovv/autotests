@@ -2,6 +2,7 @@ package ru.instamart.jdbc.dao;
 
 
 import ru.instamart.jdbc.dto.PromotionCodesFilters;
+import ru.instamart.jdbc.entity.PromotionCodesEntity;
 import ru.instamart.jdbc.util.ConnectionMySQLManager;
 
 import java.sql.Connection;
@@ -48,7 +49,7 @@ public class PromotionCodesDao implements Dao {
         return null;
     }
 
-    public List<String> findAll(PromotionCodesFilters filters) {
+    public List<PromotionCodesEntity> findAll(PromotionCodesFilters filters) {
         List<Object> parameters = new ArrayList<>();
         List<String> whereSql = new ArrayList<>();
 
@@ -93,9 +94,12 @@ public class PromotionCodesDao implements Dao {
                 preparedStatement.setObject(i + 1, parameters.get(i));
             }
             var resultQuery = preparedStatement.executeQuery();
-            List<String> result = new ArrayList<>();
+            List<PromotionCodesEntity> result = new ArrayList<>();
             while (resultQuery.next()) {
-                result.add(resultQuery.getString("value"));
+                PromotionCodesEntity entity = new PromotionCodesEntity();
+                entity.setValue(resultQuery.getString("value"));
+                entity.setId(resultQuery.getLong("id"));
+                result.add(entity);
             }
             return result;
         } catch (SQLException e) {

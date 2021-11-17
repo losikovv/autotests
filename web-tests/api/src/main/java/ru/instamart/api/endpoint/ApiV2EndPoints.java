@@ -214,5 +214,6 @@ public final class ApiV2EndPoints {
 
     public static final class Users {
         public static final String BY_EMAIL = "v2/users/{email}";
+        public static final String REFERRAL_PROGRAM = "v2/users/{email}/referral_program";
     }
 }
