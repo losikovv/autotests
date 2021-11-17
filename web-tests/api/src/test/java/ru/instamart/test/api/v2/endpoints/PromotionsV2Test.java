@@ -11,11 +11,9 @@ import ru.instamart.api.request.v2.PromotionsV2Request;
 import ru.instamart.api.response.v2.ProductsV2Response;
 import ru.instamart.api.response.v2.ReferralProgramV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.enums.Tenant;
-import ru.instamart.kraken.listener.Run;
 
-import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
@@ -23,15 +21,13 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 @Feature("Промо-акции")
 public class PromotionsV2Test extends RestBase {
 
-    @Run(onTenant = Tenant.SBERMARKET)
-    @Deprecated
-    @Test(  description = "Получаем инфу о реферальной программе",
-            groups = {})
+    @CaseId(824)
+    @Story("Реферальная программа")
+    @Test(groups = {"api-instamart-regress"}, description = "Общие сведения о реферальной программе")
     public void getReferralProgram() {
-        response = PromotionsV2Request.ReferralProgram.GET();
+        Response response = PromotionsV2Request.ReferralProgram.GET();
         checkStatusCode200(response);
-        assertNotNull(response.as(ReferralProgramV2Response.class).getReferralProgram(),
-                "Не вернулась инфа о реферальной программе");
+        checkFieldIsNotEmpty(response.as(ReferralProgramV2Response.class).getReferralProgram(), "реферальная программа");
     }
 
     @CaseId(292)
