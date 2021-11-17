@@ -29,6 +29,7 @@ public enum Specification {
 
     private static ResponseSpecification responseSpecDefault;
     private static ResponseSpecification responseSpecDataProvider;
+    @Getter private RequestSpecification apiV3RequestSpec;
     @Getter private RequestSpecification apiV2RequestSpec;
     @Getter private RequestSpecification apiV1RequestSpec;
     @Getter private RequestSpecification apiAdminRequestSpec;
@@ -39,6 +40,7 @@ public enum Specification {
         final String apiV1FullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH;
         final String adminFullUrl = EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH;
         final String apiV2FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
+        final String apiV3FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
         final String shopperFullBaseUrl = EnvironmentProperties.Env.FULL_SHOPPER_URL;
         port = 443;
         config = config().encoderConfig(encoderConfig().defaultContentCharset("UTF-8"));
@@ -97,6 +99,15 @@ public enum Specification {
                 .setBaseUri(apiV2FullUrl)
                 .setBasePath("api/")
                 .setAccept(ContentType.JSON)
+                .addFilter(new AllureRestAssuredCustom())
+                .build();
+
+        apiV3RequestSpec = new RequestSpecBuilder()
+                //todo перевести на спецификацию все тесты по Apiv3
+                .setBaseUri(apiV3FullUrl)
+                .setBasePath("api/")
+                .setAccept(ContentType.JSON)
+                .addHeader("Api-Version", "3.0")
                 .addFilter(new AllureRestAssuredCustom())
                 .build();
 
