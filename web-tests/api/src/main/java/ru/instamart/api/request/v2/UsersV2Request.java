@@ -12,7 +12,8 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpt
 
 public final class UsersV2Request extends ApiV2RequestBase {
 
-    private UsersV2Request() {}
+    private UsersV2Request() {
+    }
 
     @Step("{method} /" + ApiV2EndPoints.Users.BY_EMAIL)
     public static Response GET(final String email, final boolean isAuth) {
@@ -45,10 +46,10 @@ public final class UsersV2Request extends ApiV2RequestBase {
 
     @Step("{method} /" + ApiV2EndPoints.Users.BY_EMAIL)
     public static Response PUT(
-                               final String email,
-                               final String firstName,
-                               final String lastName,
-                               final boolean promo) {
+            final String email,
+            final String firstName,
+            final String lastName,
+            final boolean promo) {
         checkFieldIsNotEmpty(email, "email");
 
         final Map<String, Object> data = new HashMap<>();
@@ -119,5 +120,14 @@ public final class UsersV2Request extends ApiV2RequestBase {
         return givenWithSpec()
                 .formParams(data)
                 .post(ApiV2EndPoints.USERS);
+    }
+
+    public static class ReferralProgram {
+        @Step("{method} /" + ApiV2EndPoints.Users.REFERRAL_PROGRAM)
+        public static Response GET(String email, String token) {
+            return givenCustomToken(token)
+                    .header("Client-Id", "InstamartApp")
+                    .get(ApiV2EndPoints.Users.REFERRAL_PROGRAM, email);
+        }
     }
 }

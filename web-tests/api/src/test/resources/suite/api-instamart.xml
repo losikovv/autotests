@@ -59,6 +59,7 @@
             <class name="ru.instamart.test.api.v2.endpoints.ExternalAnalyticsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.SberCardAuthorizationV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.OnboardingV2PagesV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.UserReferralProgramV2Test"/>
         </classes>
     </test>
     <!-- api-v3-tests -->

@@ -1,5 +1,6 @@
 package ru.instamart.api.dataprovider;
 
+import io.restassured.response.Response;
 import lombok.Data;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.DataProvider;
@@ -19,15 +20,22 @@ import ru.instamart.api.request.v2.*;
 import ru.instamart.api.response.v1.OperationalZonesV1Response;
 import ru.instamart.api.response.v2.CreditCardAuthorizationV2Response;
 import ru.instamart.api.response.v2.OrderV2Response;
+import ru.instamart.jdbc.dao.InstacoinAccountsDao;
+import ru.instamart.jdbc.dao.PromotionCodesDao;
 import ru.instamart.jdbc.dao.SpreeProductsDao;
+import ru.instamart.jdbc.dao.SpreeUsersDao;
+import ru.instamart.jdbc.dto.PromotionCodesFilters;
+import ru.instamart.jdbc.entity.PromotionCodesEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data_provider.DataList;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.common.RestAddresses.Moscow;
 import static ru.instamart.api.common.RestAddresses.getDefaultAllAddress;
 import static ru.instamart.api.enums.v2.RecsPlaceV2.*;
@@ -589,6 +597,37 @@ public class RestDataProvider extends RestBase {
                 {CART.name(), orderNumber, null},
                 {CARD_COMPLEMENTARY.name(), null, "26331"},
                 {CARD_SUBSTITUTE.name(), null, "12191"},
+        };
+    }
+
+    @DataProvider(name = "userDataForReferralProgram", parallel = true)
+    public static Object[][] getUserDataForReferralProgramm() {
+        SessionFactory.makeSession(SessionType.API_V2_FB);
+        String token = SessionFactory.getSession(SessionType.API_V2_FB).getToken();
+        UserV2 user = apiV2.getProfile().getUser();
+        Long userId = SpreeUsersDao.INSTANCE.getIdByEmail(user.getEmail());
+        PromotionCodesFilters filters = PromotionCodesFilters.builder()
+                .value("auto%")
+                .usageLimit(5000)
+                .limit(1)
+                .build();
+        PromotionCodesEntity promotionCodesEntity = PromotionCodesDao.INSTANCE.findAll(filters).get(0);
+        Response response = UsersV2Request.ReferralProgram.GET(user.getEmail(), token);
+        checkStatusCode200(response);
+        InstacoinAccountsDao.INSTANCE.updatePromotionCode(promotionCodesEntity.getId(), userId);
+        return new Object[][]{
+                {user.getEmail(), token, promotionCodesEntity.getValue(), userId},
+                {user.getId(), token, promotionCodesEntity.getValue(), userId},
+        };
+    }
+
+    @DataProvider(name = "invalidUserDataForReferralProgram", parallel = true)
+    public static Object[][] getInvalidUserDataForReferralProgramm() {
+        SessionFactory.makeSession(SessionType.API_V2_FB);
+        String token = SessionFactory.getSession(SessionType.API_V2_FB).getToken();
+        return new Object[][]{
+                {"thisisnonexistingemail@testest.com", token, 404},
+                {UUID.randomUUID().toString(), token, 500},
         };
     }
 
