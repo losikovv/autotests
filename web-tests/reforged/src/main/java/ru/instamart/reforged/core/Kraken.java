@@ -25,14 +25,17 @@ public final class Kraken extends KrakenDriver {
     }
 
     public static void closeWindow() {
+        log.debug("Закрыть окно браузера");
         getWebDriver().close();
     }
 
     public static void closeBrowser() {
+        log.debug("Закрыть браузер");
         closeWebDriver();
     }
 
     public static String currentUrl() {
+        log.debug("Получить текущий url страницы");
         return getWebDriver().getCurrentUrl();
     }
 
@@ -53,18 +56,22 @@ public final class Kraken extends KrakenDriver {
     }
 
     public static void alertConfirm() {
+        log.debug("Подтвердить алерт");
         getWebDriver().switchTo().alert().accept();
     }
 
     public static void alertDismiss() {
+        log.debug("Отклонить алерт");
         getWebDriver().switchTo().alert().dismiss();
     }
 
     public static void switchFrame(final int index) {
+        log.debug("Переключиться на фрейм с индексом {}", index);
         waitAction().frameShouldBeVisible(index);
     }
 
     public static void switchToParentFrame() {
+        log.debug("Переключиться на родительский фрейм");
         getWebDriver().switchTo().parentFrame();
     }
 
@@ -81,6 +88,7 @@ public final class Kraken extends KrakenDriver {
     }
 
     public static LogEntries getLogs(final String logType) {
+        log.debug("Получить лог с типом {}", logType);
         return getAllLogs().get(logType);
     }
 
@@ -89,10 +97,12 @@ public final class Kraken extends KrakenDriver {
     }
 
     public static void addCookie(final Cookie cookie) {
+        log.debug("Добавить куку '{}'", cookie);
         getWebDriver().manage().addCookie(cookie);
     }
 
     public static void clearAllCooke() {
+        log.debug("Очистить все куки");
         getWebDriver().manage().deleteAllCookies();
     }
 
