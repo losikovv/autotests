@@ -76,6 +76,6 @@ public interface CartCheck extends Check, CartElement {
 
     @Step("Сравнить кол-во штук первого в корзине с ожидаемым значением {0}")
     default void compareFirstItemQuantityInCart(final int expected) {
-        krakenAssert.assertEquals(firstElementQuantity.getValue(), expected, "Количество товаров в корзине отличается от ожидаемого");
+        krakenAssert.assertEquals(firstElementQuantity.getNumericValue(), expected, "Количество товаров в корзине отличается от ожидаемого");
     }
 }

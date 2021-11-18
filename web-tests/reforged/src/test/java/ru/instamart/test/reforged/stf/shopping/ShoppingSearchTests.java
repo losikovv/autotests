@@ -7,6 +7,7 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.Addresses;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.test.reforged.BaseTest;
@@ -110,6 +111,8 @@ public final class ShoppingSearchTests extends BaseTest {
     }
 
 
+    //TODO: Переписать и поставить баги ATST-873
+    @Skip
     @CaseId(2589)
     @Test(
             description = "Работоспособность сортировки товаров",
@@ -162,6 +165,8 @@ public final class ShoppingSearchTests extends BaseTest {
         search().assertAll();
     }
 
+    //TODO: Переписать и поставить баги ATST-873
+    @Skip
     @CaseId(2591)
     @Test(
             description = "Сортировка + фильтрация товаров: сначала дешевые, по популярности",
@@ -193,6 +198,8 @@ public final class ShoppingSearchTests extends BaseTest {
         search().checkPageScrolled();
     }
 
+    //TODO: Переписать и поставить баги ATST-873
+    @Skip
     @CaseId(2591)
     @Test(
             description = "Сортировка + фильтрация товаров: сначала дорогие, скидки + убывание, конкретный бренд",

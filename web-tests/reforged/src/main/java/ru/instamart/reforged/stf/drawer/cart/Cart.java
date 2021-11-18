@@ -110,12 +110,12 @@ public final class Cart implements CartCheck {
 
     @Step("Скрыть товары не в наличии")
     public void clickToHideOutOfStock() {
-        hideOutOfStock.click();
+        hideRisePrice.click();
     }
 
     @Step("Показать товары не в наличии")
     public void clickToShowOutOfStock() {
-        showOutOfStock.click();
+        showRisePrice.click();
     }
 
 }
