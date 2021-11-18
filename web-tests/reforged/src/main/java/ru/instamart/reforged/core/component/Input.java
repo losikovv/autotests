@@ -4,6 +4,7 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.config.BrowserProperties;
@@ -108,5 +109,10 @@ public final class Input extends Component {
     public String getValue() {
         log.debug("Get value");
         return getComponent().getAttribute("value");
+    }
+
+    public int getNumericValue() {
+        log.debug("Получить численное значение");
+        return StringUtil.extractNumberFromString(getComponent().getText());
     }
 }

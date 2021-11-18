@@ -25,12 +25,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 public final class OrdersBonusesTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
-    private final UserData userData = UserManager.getQaUser();
-
-    @BeforeMethod(description = "Наполняем корзину")
-    public void preconditions() {
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
-    }
+    private UserData userData;
 
     @AfterMethod(alwaysRun = true,
             description = "Отмена ордера")
@@ -43,6 +38,9 @@ public final class OrdersBonusesTests extends BaseTest {
             groups = {"smoke","acceptance", "regression"},
             dataProviderClass = BonusProvider.class, dataProvider = "bonus" )
     public void successOrderWithBonus(final LoyaltiesData loyaltiesData) {
+        userData = UserManager.getQaUser();
+        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);

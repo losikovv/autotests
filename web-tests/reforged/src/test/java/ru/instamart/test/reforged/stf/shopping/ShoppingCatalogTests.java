@@ -6,6 +6,7 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
 
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -198,11 +199,10 @@ public final class ShoppingCatalogTests extends BaseTest {
         search().interactProductCard().checkProductCardIsNotVisible();
     }
 
+    //АБ по главной отключили, нужно переписать ATST-872
+    @Skip
     @CaseId(2578)
-    @Test(  enabled = false, //выключен пока не отключат старый лендинг, иначе будет падать из за аб
-            description = "Переход в витрину магазина с главной страницы сайта",
-            groups = {"regression"}
-    )
+    @Test(description = "Переход в витрину магазина с главной страницы сайта", groups = "regression")
     public void successShowcaseTransitionFromMainLanding() {
         home().goToPage();
         home().clickToSetAddress();

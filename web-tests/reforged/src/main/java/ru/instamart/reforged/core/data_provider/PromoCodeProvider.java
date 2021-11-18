@@ -6,7 +6,7 @@ import ru.instamart.kraken.data.Promos;
 public final class PromoCodeProvider {
 
     @DataProvider(name = "promo_code")
-    public static Object[][] getBPromoCode() {
+    public static Object[][] getPromoCode() {
         return new Object[][] {
                 {Promos.fixedDiscountOnFirstOrder()},
                 {Promos.fixedDiscountForRetailer("metro")},

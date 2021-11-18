@@ -14,6 +14,7 @@ import ru.instamart.kraken.data.PromoData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.reforged.core.data_provider.PromoCodeProvider;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -32,7 +33,10 @@ public final class OrdersPromoCodesTests extends BaseTest {
 
     @CaseIDs(value = {@CaseId(1645), @CaseId(1646), @CaseId(1647), @CaseId(1648), @CaseId(1649)})
     @Story("Тест применения промокода со скидкой на первый заказ")
-    @Test(description = "Тест применения промокода со скидкой", groups = "regression")
+    @Test(description = "Тест применения промокода со скидкой",
+            dataProviderClass = PromoCodeProvider.class,
+            dataProvider = "promo_code",
+            groups = "regression")
     public void successOrderWithPromoCode(final PromoData data) {
         var company = JuridicalData.juridical();
 

@@ -1,9 +1,9 @@
 package ru.instamart.reforged.stf.frame.auth.auth_modal;
 
+import io.qameta.allure.Issue;
 import io.qameta.allure.Step;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.data.user.UserData;
-import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.stf.frame.Close;
 import ru.instamart.reforged.stf.frame.auth.AuthFacebook;
@@ -105,11 +105,12 @@ public final class AuthModal implements Close, AuthModalCheck {
     }
 
     //TODO ThreadUtil.simplyAwait убрать после отключения проверки таймаута для повторной смс
+    @Issue("B2C-245")
     @Step("Авторизоваться пользователем {userData.phone}")
     public void authViaPhone(final UserData userData) {
+        ThreadUtil.simplyAwait(1);
         fillPhone(userData.getPhone());
         sendSms();
-        ThreadUtil.simplyAwait(1);
         fillSMS(userData.getSmsCode());
     }
 }

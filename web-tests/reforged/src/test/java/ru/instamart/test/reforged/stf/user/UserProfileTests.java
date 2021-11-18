@@ -177,14 +177,12 @@ public class UserProfileTests extends BaseTest {
     @Story("Данные профиля пользователя")
     @Test(description = "Изменение телефона для существующих пользователей", groups = {"acceptance", "regression"})
     public void changePhone() {
-        final String phone = Generate.phoneNumber();
+        var userData = UserManager.getQaUser();
         userEdit().goToPage();
         userEdit().clickToChangePhone();
-        userEdit().interactAuthModal().fillPhone(phone);
-        userEdit().interactAuthModal().sendSms();
-        userEdit().interactAuthModal().fillDefaultSMS();
+        userEdit().interactAuthModal().authViaPhone(userData);
         userEdit().checkSaveAlert();
-        userEdit().checkPhone(phone, StringUtil.getPhone(userEdit().getPhone()));
+        userEdit().checkPhone(userData.getPhone(), StringUtil.getPhone(userEdit().getPhone()));
     }
 
     @CaseId(2564)

@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
 
@@ -14,6 +15,8 @@ import static ru.instamart.reforged.stf.page.StfRouter.home;
 @Feature("Проверка лендингов")
 public class SbermarketLandingTests extends BaseTest {
 
+    //АБ по главной отключили, нужно переписать ATST-872
+    @Skip
     @CaseId(1687)
     @Test(description = "Тест валидности и наличия элементов лендинга Сбермаркета", groups = "regression")
     public void successValidateSbermarketLanding() {
@@ -58,6 +61,8 @@ public class SbermarketLandingTests extends BaseTest {
         home().checkFooterContainerIsVisible();
     }
 
+    //АБ по главной отключили, нужно переписать ATST-872
+    @Skip
     @CaseId(1683)
     @Test(description = "Тест перехода в каталог магазина с лендинга Сбермаркета", groups = "regression")
     public void successGoToCatalogFromSbermarketLanding() {

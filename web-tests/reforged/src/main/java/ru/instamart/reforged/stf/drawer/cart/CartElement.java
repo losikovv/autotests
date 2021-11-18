@@ -19,12 +19,10 @@ public interface CartElement {
     Link lookMergedProductsButton = new Link(By.xpath("//a[@data-qa='merged_products_look_button']"), "кнопка 'посмотреть' в сообщении дозаказа");
     Element orderReminder = new Element(By.xpath("//div[@data-qa='cart']//div[contains(text(), 'Забыли купить нужные товары')]"), "сообщение о возможности дозаказа в пустой корзине");
 
-    Button hideOutOfStock = new Button(By.xpath("//button[@data-qa='cart_price_diff_toggle_button'][contains(text(),'Показать')]"));
-    Button showOutOfStock = new Button(By.xpath("//button[@data-qa='cart_price_diff_toggle_button'][contains(text(),'Скрыть')]"));
     Element outOfStock = new Element(By.xpath("//div[@data-qa='line-item']//div[contains(text(), 'Нет в наличии')]"), "товар не в наличии");
 
     Button showRisePrice = new Button(By.xpath("//button[@data-qa='cart_price_diff_toggle_button'][contains(text(),'Показать')]"), "кнопка 'посмотреть' цену с учетом повышения");
-    Button hideRisePrice = new Button(By.xpath("//button[@data-qa='cart_price_diff_toggle_button'][contains(text(),'Показать')]"), "кнопка 'скрыть' цену с учетом повышения");
+    Button hideRisePrice = new Button(By.xpath("//button[@data-qa='cart_price_diff_toggle_button'][contains(text(),'Скрыть')]"), "кнопка 'скрыть' цену с учетом повышения");
 
     Button clearCart = new Button(By.xpath("//button[@data-qa='cart_remove_shipments_button']"), "кнопка 'Очистить корзину'");
     Element itemCounter = new Element(By.xpath("//div[@data-qa='line-item-counter']"), "кол-во добавленных товаров");
@@ -47,5 +45,5 @@ public interface CartElement {
     Element orderAmount = new Element(By.xpath("//div[@class='cart-checkout-link__well']"), "Лейбл суммы заказа");
 
     Button deleteFirstItemButton = new Button(By.xpath("//button[@data-qa='cart_delete_item_button']"), "Кнопка удаления у первого товара в корзине");
-    Input firstElementQuantity = new Input(By.xpath("//div[@data-qa='line-item-counter']"), "Кол-во первого товара в корзине");
+    Input firstElementQuantity = new Input(By.xpath("//div[@data-qa='line-item-counter']//span"), "Кол-во первого товара в корзине");
 }

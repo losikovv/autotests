@@ -57,5 +57,4 @@ public interface AuthModalCheck extends Check, AuthModalElement {
     default void checkMailRuIsVisible() {
         waitAction().shouldBeVisible(mailRu);
     }
-
 }

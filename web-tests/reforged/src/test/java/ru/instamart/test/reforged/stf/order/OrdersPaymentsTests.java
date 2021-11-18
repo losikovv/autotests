@@ -151,8 +151,6 @@ public final class OrdersPaymentsTests extends BaseTest {
 
         checkout().setPayment().clickToByBusinessAccount();
         checkout().setSlot().setAnotherSlot();
-        checkout().setSlot().checkSlotsSpinnerIsVisible();
-        checkout().setSlot().checkSlotsSpinnerIsNotVisible();
         checkout().setSlot().setFirstActiveSlot();
 
         checkout().editCompany().fillName(company.getJuridicalName());
