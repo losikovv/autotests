@@ -102,4 +102,8 @@ public final class ApiV1Endpoints {
     public static final class CompanyManagers {
         public static final String BY_ID = "company_managers/{managerID}";
     }
+
+    public static final class Admin {
+        public static final String OPERATIONAL_ZONES = "admin/operational_zones";
+    }
 }
