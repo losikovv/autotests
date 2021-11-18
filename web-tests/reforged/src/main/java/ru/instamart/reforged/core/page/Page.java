@@ -43,61 +43,23 @@ public interface Page extends PageCheck {
         Kraken.addCookie(cookie);
     }
 
-    @Step("Скроллим страницу вверх")
+    @Step("Скролл страницы вверх")
     default void scrollUp() {
-        Kraken.jsAction().waitForDocumentReady();
         Kraken.jsAction().scrollToTheTop();
-        Kraken.jsAction().waitForDocumentReady();
     }
 
-    @Step("Скроллим страницу вниз")
+    @Step("Скролл страницы вниз")
     default void scrollDown() {
-        Kraken.jsAction().waitForDocumentReady();
         Kraken.jsAction().scrollToTheBottom();
-        Kraken.jsAction().waitForDocumentReady();
     }
 
-    @Step("Подтверждаем браузерный алерт")
+    @Step("Подтвердить браузерный алерт")
     default void confirmBrowserAlert() {
         Kraken.alertConfirm();
     }
 
-    @Step("Отклоняем браузерный алерт")
+    @Step("Отклонить браузерный алерт")
     default void declineBrowserAlert() {
         Kraken.alertDismiss();
-    }
-
-    @Step("Проверяем доступность текущей страницы")
-    default void checkPageIsAvailable() throws AssertionError {
-        assertFalse(
-                Kraken.is404(),
-                failMessage("Ошибка 404 на странице " + Kraken.currentUrl())
-        );
-        assertFalse(
-                Kraken.is500(),
-                failMessage("Ошибка 500 на странице " + Kraken.currentUrl())
-        );
-        assertFalse(
-                Kraken.is502(),
-                failMessage("Ошибка 502 на странице " + Kraken.currentUrl())
-        );
-    }
-
-    @Step("Проверяем что страница недоступна")
-    default void checkPageIsUnavailable() throws AssertionError {
-        assertTrue(
-                Kraken.is404(),
-                failMessage("Нет ожидаемой ошибки 404 на странице " + Kraken.currentUrl())
-        );
-    }
-
-    @Step("Проверяем что находимся на ожидаемой странице")
-    default void checkPageUrl(final String url) {
-        Kraken.waitAction().urlEquals(url);
-    }
-
-    @Step("Проверяем что страница не открылась")
-    default void checkForbiddenPageUrl(final String url) {
-        assertNotEquals(Kraken.currentUrl(), url, "Текущая страница должна быть недоступна");
     }
 }

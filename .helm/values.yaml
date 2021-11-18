@@ -6,7 +6,6 @@ ingressAnnotations:
   nginx.ingress.kubernetes.io/cors-allow-origin: "https://allure.k-stage.sbermarket.tech"
   nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
   nginx.ingress.kubernetes.io/enable-cors: "true"
-  nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
   nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, DELETE, HEAD, PATCH"
   nginx.ingress.kubernetes.io/auth-secret: basic-auth-secret
   nginx.ingress.kubernetes.io/auth-type: basic
