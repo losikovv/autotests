@@ -154,6 +154,11 @@ project(":api") {
         implementation lib.mysqlJDBC
         implementation lib.kubernetesClient
         implementation lib.kafkaClients
+        implementation lib.javaxValidation
+        implementation lib.imifouJsonSchema
+        implementation lib.victoolsSchemaGenerator
+        implementation lib.victoolsSchemaModuleJackson
+        implementation lib.victoolsSchemaModuleJavaxValidation
 
         compileOnly lib.lombok
 

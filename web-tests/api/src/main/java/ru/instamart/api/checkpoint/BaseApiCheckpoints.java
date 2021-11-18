@@ -8,7 +8,9 @@ import ru.instamart.api.response.ErrorResponse;
 
 import java.util.Collection;
 
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static org.testng.Assert.*;
+import static ru.instamart.api.helper.JsonSchemaHelper.getJsonSchema;
 
 @Slf4j
 public class BaseApiCheckpoints {
@@ -80,5 +82,11 @@ public class BaseApiCheckpoints {
     @Step("Проверяем, что два объекта совпадают")
     public static <T> void compareTwoObjects(T firstObject, T secondObject) {
         assertEquals(firstObject, secondObject, "Объекты не совпадают");
+    }
+
+    @Step("Проверяем json-схему")
+    public static void checkResponseJsonSchema(Response response, Class<?> clazz) {
+        String expectedSchema = getJsonSchema(clazz);
+        response.then().assertThat().body(matchesJsonSchema(expectedSchema));
     }
 }
