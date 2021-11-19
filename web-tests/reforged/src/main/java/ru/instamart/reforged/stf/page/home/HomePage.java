@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import ru.instamart.reforged.core.page.Window;
 import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
+import ru.instamart.reforged.stf.drawer.cookie.CookieDrawer;
 import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 import ru.instamart.reforged.stf.page.StfPage;
@@ -24,6 +25,10 @@ public final class HomePage implements StfPage, Window, HomeCheck {
 
     public Footer interactFooter() {
         return footer;
+    }
+
+    public CookieDrawer interactCookieAlert() {
+        return cookieAlert;
     }
 
     @Step("Открыть модалку авторизации")
@@ -65,7 +70,6 @@ public final class HomePage implements StfPage, Window, HomeCheck {
     public void clickToShowAllCities() {
         showAllCities.click();
     }
-
 
     @Step("Нажать Скрыть все города")
     public void clickToHideCities() {
