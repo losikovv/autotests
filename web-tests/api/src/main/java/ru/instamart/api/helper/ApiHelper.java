@@ -29,12 +29,12 @@ public class ApiHelper {
      *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
     @Step("Регистрация/авторизация по номеру телефона с помощью API")
-    private void auth(final UserData user) {
+    public void auth(final UserData user) {
         SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.PHONE, user);
     }
 
     @Step("Авторизация администратором")
-    private void authAdmin(){
+    public void authAdmin(){
         SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
     }
 
