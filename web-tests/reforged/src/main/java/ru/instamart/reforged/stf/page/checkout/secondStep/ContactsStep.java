@@ -57,6 +57,7 @@ public class ContactsStep implements ContactsStepElement {
 
     @Step("Нажать Продолжить")
     public void clickToSubmit() {
+        submit.scrollTo();
         submit.hoverAndClick();
     }
 

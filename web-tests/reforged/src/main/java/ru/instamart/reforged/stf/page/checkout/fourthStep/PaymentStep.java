@@ -62,6 +62,7 @@ public class PaymentStep implements PaymentStepElement {
 
     @Step("Нажать Оформить заказ в блоке заполнения чекаута")
     public void clickToSubmitFromCheckoutColumn() {
+        submitFromCheckoutColumn.scrollTo();
         submitFromCheckoutColumn.click();
     }
 
