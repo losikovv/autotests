@@ -17,7 +17,6 @@ public class PagesAdminRequest extends AdminRequestBase {
     public static Response POST(StaticPageData data) {
         Map<String, String> params = new HashMap<>();
         params.put("utf-8", "✓");
-        params.put("authenticity_token", SessionFactory.getSession(SessionType.ADMIN).getToken());
         params.put("page[title]", data.getPageName());
         params.put("page[slug]", data.getPageURL());
         params.put("page[body]", data.getDescription());
@@ -34,7 +33,6 @@ public class PagesAdminRequest extends AdminRequestBase {
     @Step("{method} /" + AdminEndpoints.PAGE)
     public static Response DELETE(Integer pageId) {
         Map<String, String> params = new HashMap<>();
-        params.put("authenticity_token", SessionFactory.getSession(SessionType.ADMIN).getToken());
         params.put("_method", "delete");
         return givenWithAuth()
                 .formParams(params)

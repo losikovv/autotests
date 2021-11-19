@@ -30,7 +30,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
     @BeforeMethod(alwaysRun = true)
     @Story("Создание сессии")
     public void preconditions() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
     }
 
     @CaseId(517)

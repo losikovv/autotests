@@ -8,6 +8,7 @@ import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.ReviewableShipmentV2Request;
@@ -27,7 +28,7 @@ public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
     @Test(groups = {"api-instamart-smoke"},
             description = "Автоматическое получение последнего шипмента без оценки при старте приложения. Заказа на аккаунте не было.")
     public void automaticReceiptLastMessage404() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
         final Response response = ReviewableShipmentV2Request.GET();
         checkStatusCode404(response);
         checkError(response, "ActiveRecord::RecordNotFound");
@@ -38,7 +39,7 @@ public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Последний подзаказ без оценки но старше 7 дней")
     public void lastSuborderWithoutEvaluationButOlderThan7Days() {
-        createSessionToken(SessionType.API_V2_FB, getDefaultApiUser());
+        createSessionToken(SessionType.API_V2, SessionProvider.FB, getDefaultApiUser());
         final Response response = ReviewableShipmentV2Request.GET();
         checkStatusCode404(response);
         checkError(response, "ActiveRecord::RecordNotFound");

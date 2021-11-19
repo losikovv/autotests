@@ -26,7 +26,7 @@ public final class PromotionLimitV2Test extends RestBase {
 
     @BeforeMethod
     public void testUp() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
     }
 
     @AfterMethod(alwaysRun = true)
@@ -39,7 +39,7 @@ public final class PromotionLimitV2Test extends RestBase {
             description = "Проверка условий оплаты бонусами")
     public void bonusPaymentTermsTest() {
         apiV2.fillCart(
-                SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
+                SessionFactory.getSession(SessionType.API_V2).getUserData(),
                 EnvironmentProperties.DEFAULT_SID
         );
         String orderNumber = apiV2.getCurrentOrderNumber();

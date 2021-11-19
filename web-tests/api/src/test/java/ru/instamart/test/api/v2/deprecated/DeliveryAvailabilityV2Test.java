@@ -24,7 +24,7 @@ public class DeliveryAvailabilityV2Test extends RestBase {
 
     @BeforeMethod
     public void testUp() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
     }
 
     @Deprecated

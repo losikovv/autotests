@@ -17,7 +17,7 @@ public class ApiV2RequestBase {
         return givenWithSpec()
                 .header(
                 "Authorization",
-                "Token token=" + SessionFactory.getSession(SessionType.API_V2_FB).getToken());
+                "Token token=" + SessionFactory.getSession(SessionType.API_V2).getToken());
     }
 
     /**

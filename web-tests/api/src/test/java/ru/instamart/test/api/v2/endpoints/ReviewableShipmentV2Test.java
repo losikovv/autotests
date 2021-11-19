@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.*;
@@ -39,8 +40,8 @@ public class ReviewableShipmentV2Test extends RestBase {
     @BeforeMethod(alwaysRun = true)
     public void before() {
         var sid = EnvironmentProperties.DEFAULT_SID;
-        SessionFactory.makeSession(SessionType.API_V2_PHONE);
-        userData = SessionFactory.getSession(SessionType.API_V2_PHONE).getUserData();
+        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
+        userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         apiV2.fillCart(userData, sid);
         order = apiV2.getOpenOrder();
         if (order == null) throw new SkipException("Заказ не удалось оплатить");

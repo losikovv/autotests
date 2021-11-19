@@ -21,7 +21,7 @@ public class ExternalAnalyticsV2Test extends RestBase {
 
     @BeforeMethod
     public void testUp() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
     }
 
     @CaseId(791)
@@ -35,7 +35,7 @@ public class ExternalAnalyticsV2Test extends RestBase {
     @CaseId(946)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Получение идентификатора устройства для аналитики без токена")
     public void testGetDeviceIdWithoutToken() {
-        SessionFactory.clearSession(SessionType.API_V2_FB);
+        SessionFactory.clearSession(SessionType.API_V2);
         final Response response = ExternalAnalyticsV2Request.POST();
         checkStatusCode200(response);
         checkFieldIsNotEmpty(response.as(ExternalAnalyticsV2Response.class).getAnonymousDevice().getUuid(), "uuid");

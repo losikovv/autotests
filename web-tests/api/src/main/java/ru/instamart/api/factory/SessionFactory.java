@@ -4,6 +4,7 @@ import io.restassured.response.Response;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.AuthProviderV2;
 import ru.instamart.api.helper.RegistrationHelper;
@@ -37,10 +38,16 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Slf4j
 public final class SessionFactory {
 
+    private static final SessionProvider provider = SessionProvider.PHONE;
+
     @Getter
     private static final Map<SessionId, SessionInfo> sessionMap = new ConcurrentHashMap<>();
 
     public static void makeSession(final SessionType type) {
+        makeSession(type, provider);
+    }
+
+    public static void makeSession(final SessionType type, final SessionProvider provider) {
         final UserData userData = UserManager.getUser();
         switch (type) {
             case API_V1:
@@ -49,9 +56,10 @@ public final class SessionFactory {
             case DELIVERY_CLUB:
                 log.warn("Not implemented yet!");
                 break;
-            case API_V2_FB:
-                RegistrationHelper.registration(userData);
-            case API_V2_PHONE:
+            case API_V2:
+                if (!provider.equals(SessionProvider.PHONE)) {
+                    RegistrationHelper.registration(userData);
+                }
                 createSessionToken(type, userData);
                 break;
             default:
@@ -81,26 +89,42 @@ public final class SessionFactory {
         return new SessionInfo();
     }
 
-    public static void createSessionToken(final SessionType type, final UserData userData) {
-        final SessionId sessionId = new SessionId(Thread.currentThread().getId(),
-                type == SessionType.API_V2_PHONE ? SessionType.API_V2_FB : type);
+    /**
+     * Создание сессии без провайдера для
+     * {@link  ru.instamart.api.enums.SessionType#API_V1 SessionType.API_V1}
+     * {@link  ru.instamart.api.enums.SessionType#SHOPPER_APP SessionType.SHOPPER_APP}
+     * {@link  ru.instamart.api.enums.SessionType#SHOPPER_ADMIN SessionType.SHOPPER_ADMIN}
+     * {@link  ru.instamart.api.enums.SessionType#DELIVERY_CLUB SessionType.DELIVERY_CLUB}
+     * {@link  ru.instamart.api.enums.SessionType#ADMIN SessionType.ADMIN}
+     * @param type see {@link ru.instamart.api.enums.SessionType SessionType}
+     * @param userData get default user {@link ru.instamart.kraken.data.user.UserManager#getDefaultUser UserManager.getDefaultUser}
+     */
+    public static void createSessionToken(final SessionType type, final UserData userData){
+        createSessionToken(type, provider, userData);
+    }
+
+    /**
+     *Создание сессии с провайдером авторизации для {@link  ru.instamart.api.enums.SessionType#API_V2 SessionType.API_V2}
+     * @param type see {@link ru.instamart.api.enums.SessionType SessionType}
+     * @param provider see {@link ru.instamart.api.enums.SessionProvider SessionProvider}
+     * @param userData get default user {@link ru.instamart.kraken.data.user.UserManager#getDefaultUser UserManager.getDefaultUser}
+     */
+    public static void createSessionToken(final SessionType type, final SessionProvider provider, final UserData userData) {
+        final SessionId sessionId = new SessionId(Thread.currentThread().getId(), type);
         final SessionInfo session = sessionMap.get(sessionId);
-        //TODO: В связи с тем, что теперь для логина используется телефон, нужно перейти с email во всех проверках создания сессии
-        if (nonNull(session) && !session.getLogin().equals(userData.getEmail())) {
-            sessionMap.put(sessionId, createSession(type, userData));
+        if (nonNull(session) && (!session.getPhone().equals(userData.getPhone()) || !session.getLogin().equals(userData.getEmail()))) {
+            sessionMap.put(sessionId, createSession(type, provider, userData));
         } else if (isNull(session)) {
-            sessionMap.put(sessionId, createSession(type, userData));
+            sessionMap.put(sessionId, createSession(type, provider, userData));
         }
     }
 
-    private static SessionInfo createSession(final SessionType type, final UserData userData) {
+    private static SessionInfo createSession(final SessionType type, final SessionProvider provider, final UserData userData) {
         switch (type) {
             case API_V1:
                 return createApiV1Session(userData);
-            case API_V2_FB:
-                return createApiV2FacebookSession(userData);
-            case API_V2_PHONE:
-                return createApiV2PhoneSession(userData);
+            case API_V2:
+                return createSession(provider, userData);
             case SHOPPER_APP:
                 return createShopperAppSession(userData);
             case SHOPPER_ADMIN:
@@ -109,6 +133,23 @@ public final class SessionFactory {
                 return createDeliveryClubSession(userData);
             case ADMIN:
                 return createAdminSession(userData);
+            default:
+                log.error("Session type not selected");
+                return new SessionInfo();
+        }
+    }
+
+    private static SessionInfo createSession(final SessionProvider provider, final UserData userData) {
+        switch (provider) {
+            case VK:
+            case MAILRU:
+            case SBER_ID:
+                log.error("Not implemented yet!");
+                return new SessionInfo();
+            case FB:
+                return createApiV2FacebookSession(userData);
+            case PHONE:
+                return createApiV2PhoneSession(userData);
             default:
                 log.error("Session type not selected");
                 return new SessionInfo();
@@ -228,6 +269,10 @@ public final class SessionFactory {
 
         public SessionInfo(final UserData userData, final String token, final String refreshToken) {
             this(userData, token, refreshToken, new HashMap<>());
+        }
+
+        public String getPhone(){
+            return this.userData.getPhone();
         }
 
         public String getLogin() {

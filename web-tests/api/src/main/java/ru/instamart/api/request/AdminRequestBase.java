@@ -19,6 +19,7 @@ public class AdminRequestBase {
      */
     public static RequestSpecification givenWithAuth() {
         return givenWithSpec()
+                .formParam("authenticity_token", SessionFactory.getSession(SessionType.ADMIN).getToken())
                 .cookies(SessionFactory
                         .getSession(SessionType.ADMIN)
                         .getCookies());

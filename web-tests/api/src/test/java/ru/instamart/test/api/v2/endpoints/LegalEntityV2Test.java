@@ -43,7 +43,7 @@ public class LegalEntityV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Создание нового реквизита для юр лица с заполнением обязательных полей")
     public void postCompanyDocuments200() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
         String name = "ООО \"Ромашка_" + (int) (Math.random() * 9999) + "\"";
         String inn = generateInnUL();
         String kpp = generateKpp();
@@ -81,7 +81,7 @@ public class LegalEntityV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Создание нового реквизита для юр лица с не уникальным ИНН")
     public void postCompanyDocuments422() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
         String name = "ООО \"Ромашка_" + (int) (Math.random() * 9999) + "\"";
         String inn = "6828168540";
         String kpp = generateKpp();
@@ -107,7 +107,7 @@ public class LegalEntityV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Создание нового реквизита для юр лица с заполнением всех полей")
     public void postCompanyAllDocuments200() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
         String name = "ООО \"Ромашка_" + (int) (Math.random() * 9999) + "\"";
         String inn = generateInnUL();
         String kpp = generateKpp();
@@ -153,7 +153,7 @@ public class LegalEntityV2Test extends RestBase {
             description = "Создание нового реквизита для юр лица с заполнением обязательных полей")
     @Parameters({"Компания", "Сообщение ошибки"})
     public void postCompanyDocuments422(CompanyDocumentsV2Request.CompanyDocument company, String errorMessage) {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
         final Response response = CompanyDocumentsV2Request.POST(company);
         checkStatusCode422(response);
         checkError(response, errorMessage);
