@@ -19,7 +19,7 @@ public class GrpcInterceptor implements ClientInterceptor {
     public <ReqT, RespT> ClientCall<ReqT, RespT> interceptCall(
             final MethodDescriptor<ReqT, RespT> method, CallOptions callOptions, Channel next) {
         return new BackendForwardingClientCall<ReqT, RespT>(method,
-                next.newCall(method, callOptions.withDeadlineAfter(10000, TimeUnit.MILLISECONDS))) {
+                next.newCall(method, callOptions.withDeadlineAfter(60000, TimeUnit.MILLISECONDS))) {
 
             @Override
             public void sendMessage(ReqT message) {

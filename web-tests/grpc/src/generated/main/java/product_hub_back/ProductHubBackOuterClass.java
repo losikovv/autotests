@@ -18853,6 +18853,30 @@ public final class ProductHubBackOuterClass {
      */
     product_hub_back.ProductHubBackOuterClass.DictionaryValueOrBuilder getValuesOrBuilder(
         int index);
+
+    /**
+     * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+     */
+    java.util.List<product_hub_back.ProductHubBackOuterClass.Data> 
+        getDictionaryDataList();
+    /**
+     * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+     */
+    product_hub_back.ProductHubBackOuterClass.Data getDictionaryData(int index);
+    /**
+     * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+     */
+    int getDictionaryDataCount();
+    /**
+     * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+     */
+    java.util.List<? extends product_hub_back.ProductHubBackOuterClass.DataOrBuilder> 
+        getDictionaryDataOrBuilderList();
+    /**
+     * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+     */
+    product_hub_back.ProductHubBackOuterClass.DataOrBuilder getDictionaryDataOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code product_hub_back.Dictionary}
@@ -18871,6 +18895,7 @@ public final class ProductHubBackOuterClass {
       name_ = "";
       type_ = 0;
       values_ = java.util.Collections.emptyList();
+      dictionaryData_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -18931,6 +18956,15 @@ public final class ProductHubBackOuterClass {
                   input.readMessage(product_hub_back.ProductHubBackOuterClass.DictionaryValue.parser(), extensionRegistry));
               break;
             }
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                dictionaryData_ = new java.util.ArrayList<product_hub_back.ProductHubBackOuterClass.Data>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              dictionaryData_.add(
+                  input.readMessage(product_hub_back.ProductHubBackOuterClass.Data.parser(), extensionRegistry));
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -18948,6 +18982,9 @@ public final class ProductHubBackOuterClass {
       } finally {
         if (((mutable_bitField0_ & 0x00000001) != 0)) {
           values_ = java.util.Collections.unmodifiableList(values_);
+        }
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          dictionaryData_ = java.util.Collections.unmodifiableList(dictionaryData_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -19101,6 +19138,46 @@ public final class ProductHubBackOuterClass {
       return values_.get(index);
     }
 
+    public static final int DICTIONARY_DATA_FIELD_NUMBER = 5;
+    private java.util.List<product_hub_back.ProductHubBackOuterClass.Data> dictionaryData_;
+    /**
+     * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<product_hub_back.ProductHubBackOuterClass.Data> getDictionaryDataList() {
+      return dictionaryData_;
+    }
+    /**
+     * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends product_hub_back.ProductHubBackOuterClass.DataOrBuilder> 
+        getDictionaryDataOrBuilderList() {
+      return dictionaryData_;
+    }
+    /**
+     * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+     */
+    @java.lang.Override
+    public int getDictionaryDataCount() {
+      return dictionaryData_.size();
+    }
+    /**
+     * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+     */
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.Data getDictionaryData(int index) {
+      return dictionaryData_.get(index);
+    }
+    /**
+     * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+     */
+    @java.lang.Override
+    public product_hub_back.ProductHubBackOuterClass.DataOrBuilder getDictionaryDataOrBuilder(
+        int index) {
+      return dictionaryData_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -19127,6 +19204,9 @@ public final class ProductHubBackOuterClass {
       for (int i = 0; i < values_.size(); i++) {
         output.writeMessage(4, values_.get(i));
       }
+      for (int i = 0; i < dictionaryData_.size(); i++) {
+        output.writeMessage(5, dictionaryData_.get(i));
+      }
       unknownFields.writeTo(output);
     }
 
@@ -19150,6 +19230,10 @@ public final class ProductHubBackOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, values_.get(i));
       }
+      for (int i = 0; i < dictionaryData_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, dictionaryData_.get(i));
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -19172,6 +19256,8 @@ public final class ProductHubBackOuterClass {
       if (type_ != other.type_) return false;
       if (!getValuesList()
           .equals(other.getValuesList())) return false;
+      if (!getDictionaryDataList()
+          .equals(other.getDictionaryDataList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -19192,6 +19278,10 @@ public final class ProductHubBackOuterClass {
       if (getValuesCount() > 0) {
         hash = (37 * hash) + VALUES_FIELD_NUMBER;
         hash = (53 * hash) + getValuesList().hashCode();
+      }
+      if (getDictionaryDataCount() > 0) {
+        hash = (37 * hash) + DICTIONARY_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getDictionaryDataList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -19322,6 +19412,7 @@ public final class ProductHubBackOuterClass {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
           getValuesFieldBuilder();
+          getDictionaryDataFieldBuilder();
         }
       }
       @java.lang.Override
@@ -19338,6 +19429,12 @@ public final class ProductHubBackOuterClass {
           bitField0_ = (bitField0_ & ~0x00000001);
         } else {
           valuesBuilder_.clear();
+        }
+        if (dictionaryDataBuilder_ == null) {
+          dictionaryData_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          dictionaryDataBuilder_.clear();
         }
         return this;
       }
@@ -19377,6 +19474,15 @@ public final class ProductHubBackOuterClass {
           result.values_ = values_;
         } else {
           result.values_ = valuesBuilder_.build();
+        }
+        if (dictionaryDataBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            dictionaryData_ = java.util.Collections.unmodifiableList(dictionaryData_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.dictionaryData_ = dictionaryData_;
+        } else {
+          result.dictionaryData_ = dictionaryDataBuilder_.build();
         }
         onBuilt();
         return result;
@@ -19460,6 +19566,32 @@ public final class ProductHubBackOuterClass {
                    getValuesFieldBuilder() : null;
             } else {
               valuesBuilder_.addAllMessages(other.values_);
+            }
+          }
+        }
+        if (dictionaryDataBuilder_ == null) {
+          if (!other.dictionaryData_.isEmpty()) {
+            if (dictionaryData_.isEmpty()) {
+              dictionaryData_ = other.dictionaryData_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureDictionaryDataIsMutable();
+              dictionaryData_.addAll(other.dictionaryData_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.dictionaryData_.isEmpty()) {
+            if (dictionaryDataBuilder_.isEmpty()) {
+              dictionaryDataBuilder_.dispose();
+              dictionaryDataBuilder_ = null;
+              dictionaryData_ = other.dictionaryData_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              dictionaryDataBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getDictionaryDataFieldBuilder() : null;
+            } else {
+              dictionaryDataBuilder_.addAllMessages(other.dictionaryData_);
             }
           }
         }
@@ -19937,6 +20069,246 @@ public final class ProductHubBackOuterClass {
           values_ = null;
         }
         return valuesBuilder_;
+      }
+
+      private java.util.List<product_hub_back.ProductHubBackOuterClass.Data> dictionaryData_ =
+        java.util.Collections.emptyList();
+      private void ensureDictionaryDataIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          dictionaryData_ = new java.util.ArrayList<product_hub_back.ProductHubBackOuterClass.Data>(dictionaryData_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back.ProductHubBackOuterClass.Data, product_hub_back.ProductHubBackOuterClass.Data.Builder, product_hub_back.ProductHubBackOuterClass.DataOrBuilder> dictionaryDataBuilder_;
+
+      /**
+       * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+       */
+      public java.util.List<product_hub_back.ProductHubBackOuterClass.Data> getDictionaryDataList() {
+        if (dictionaryDataBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(dictionaryData_);
+        } else {
+          return dictionaryDataBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+       */
+      public int getDictionaryDataCount() {
+        if (dictionaryDataBuilder_ == null) {
+          return dictionaryData_.size();
+        } else {
+          return dictionaryDataBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.Data getDictionaryData(int index) {
+        if (dictionaryDataBuilder_ == null) {
+          return dictionaryData_.get(index);
+        } else {
+          return dictionaryDataBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+       */
+      public Builder setDictionaryData(
+          int index, product_hub_back.ProductHubBackOuterClass.Data value) {
+        if (dictionaryDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDictionaryDataIsMutable();
+          dictionaryData_.set(index, value);
+          onChanged();
+        } else {
+          dictionaryDataBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+       */
+      public Builder setDictionaryData(
+          int index, product_hub_back.ProductHubBackOuterClass.Data.Builder builderForValue) {
+        if (dictionaryDataBuilder_ == null) {
+          ensureDictionaryDataIsMutable();
+          dictionaryData_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          dictionaryDataBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+       */
+      public Builder addDictionaryData(product_hub_back.ProductHubBackOuterClass.Data value) {
+        if (dictionaryDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDictionaryDataIsMutable();
+          dictionaryData_.add(value);
+          onChanged();
+        } else {
+          dictionaryDataBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+       */
+      public Builder addDictionaryData(
+          int index, product_hub_back.ProductHubBackOuterClass.Data value) {
+        if (dictionaryDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDictionaryDataIsMutable();
+          dictionaryData_.add(index, value);
+          onChanged();
+        } else {
+          dictionaryDataBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+       */
+      public Builder addDictionaryData(
+          product_hub_back.ProductHubBackOuterClass.Data.Builder builderForValue) {
+        if (dictionaryDataBuilder_ == null) {
+          ensureDictionaryDataIsMutable();
+          dictionaryData_.add(builderForValue.build());
+          onChanged();
+        } else {
+          dictionaryDataBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+       */
+      public Builder addDictionaryData(
+          int index, product_hub_back.ProductHubBackOuterClass.Data.Builder builderForValue) {
+        if (dictionaryDataBuilder_ == null) {
+          ensureDictionaryDataIsMutable();
+          dictionaryData_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          dictionaryDataBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+       */
+      public Builder addAllDictionaryData(
+          java.lang.Iterable<? extends product_hub_back.ProductHubBackOuterClass.Data> values) {
+        if (dictionaryDataBuilder_ == null) {
+          ensureDictionaryDataIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, dictionaryData_);
+          onChanged();
+        } else {
+          dictionaryDataBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+       */
+      public Builder clearDictionaryData() {
+        if (dictionaryDataBuilder_ == null) {
+          dictionaryData_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          dictionaryDataBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+       */
+      public Builder removeDictionaryData(int index) {
+        if (dictionaryDataBuilder_ == null) {
+          ensureDictionaryDataIsMutable();
+          dictionaryData_.remove(index);
+          onChanged();
+        } else {
+          dictionaryDataBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.Data.Builder getDictionaryDataBuilder(
+          int index) {
+        return getDictionaryDataFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.DataOrBuilder getDictionaryDataOrBuilder(
+          int index) {
+        if (dictionaryDataBuilder_ == null) {
+          return dictionaryData_.get(index);  } else {
+          return dictionaryDataBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+       */
+      public java.util.List<? extends product_hub_back.ProductHubBackOuterClass.DataOrBuilder> 
+           getDictionaryDataOrBuilderList() {
+        if (dictionaryDataBuilder_ != null) {
+          return dictionaryDataBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(dictionaryData_);
+        }
+      }
+      /**
+       * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.Data.Builder addDictionaryDataBuilder() {
+        return getDictionaryDataFieldBuilder().addBuilder(
+            product_hub_back.ProductHubBackOuterClass.Data.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+       */
+      public product_hub_back.ProductHubBackOuterClass.Data.Builder addDictionaryDataBuilder(
+          int index) {
+        return getDictionaryDataFieldBuilder().addBuilder(
+            index, product_hub_back.ProductHubBackOuterClass.Data.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .product_hub_back.Data dictionary_data = 5;</code>
+       */
+      public java.util.List<product_hub_back.ProductHubBackOuterClass.Data.Builder> 
+           getDictionaryDataBuilderList() {
+        return getDictionaryDataFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          product_hub_back.ProductHubBackOuterClass.Data, product_hub_back.ProductHubBackOuterClass.Data.Builder, product_hub_back.ProductHubBackOuterClass.DataOrBuilder> 
+          getDictionaryDataFieldBuilder() {
+        if (dictionaryDataBuilder_ == null) {
+          dictionaryDataBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              product_hub_back.ProductHubBackOuterClass.Data, product_hub_back.ProductHubBackOuterClass.Data.Builder, product_hub_back.ProductHubBackOuterClass.DataOrBuilder>(
+                  dictionaryData_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          dictionaryData_ = null;
+        }
+        return dictionaryDataBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -28484,65 +28856,66 @@ public final class ProductHubBackOuterClass {
       "\030\006 \003(\0132&.product_hub_back.Attribute.Flag" +
       "sEntry\022.\n\016attribute_data\030\007 \003(\0132\026.product" +
       "_hub_back.Data\032,\n\nFlagsEntry\022\013\n\003key\030\001 \001(" +
-      "\t\022\r\n\005value\030\002 \001(\010:\0028\001\"\205\001\n\nDictionary\022\013\n\003k" +
+      "\t\022\r\n\005value\030\002 \001(\010:\0028\001\"\266\001\n\nDictionary\022\013\n\003k" +
       "ey\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022)\n\004type\030\003 \001(\0162\033.p" +
       "roduct_hub_back.ValueType\0221\n\006values\030\004 \003(" +
-      "\0132!.product_hub_back.DictionaryValue\"\215\002\n" +
-      "\017DictionaryValue\022\n\n\002id\030\001 \001(\t\022\r\n\005value\030\002 " +
-      "\001(\t\022*\n\nvalue_data\030\003 \003(\0132\026.product_hub_ba" +
-      "ck.Data\022a\n\034additional_dictionary_values\030" +
-      "\004 \003(\0132;.product_hub_back.DictionaryValue" +
-      ".AdditionalDictionaryValue\032P\n\031Additional" +
-      "DictionaryValue\022\026\n\016dictionary_key\030\001 \001(\t\022" +
-      "\033\n\023dictionary_value_id\030\002 \001(\t\"\266\001\n\005Stock\022\013" +
-      "\n\003sku\030\001 \001(\003\022\020\n\010store_id\030\002 \001(\t\022\023\n\013retaile" +
-      "r_id\030\003 \001(\t\022\024\n\014retailer_sku\030\004 \001(\t\022\r\n\005stoc" +
-      "k\030\005 \001(\001\022*\n\nstock_data\030\006 \003(\0132\026.product_hu" +
-      "b_back.Data\022(\n\006status\030\007 \001(\0162\030.product_hu" +
-      "b_back.Status\"\277\001\n\005Offer\022\013\n\003sku\030\001 \001(\003\022\023\n\013" +
-      "retailer_id\030\002 \001(\t\022\024\n\014retailer_sku\030\003 \001(\t\022" +
-      "(\n\006pricer\030\004 \001(\0162\030.product_hub_back.Price" +
-      "r\022*\n\noffer_data\030\005 \003(\0132\026.product_hub_back" +
-      ".Data\022(\n\006status\030\006 \001(\0162\030.product_hub_back" +
-      ".Status\"\311\001\n\005Price\022\013\n\003sku\030\001 \001(\003\022\020\n\010store_" +
-      "id\030\002 \001(\t\022\021\n\ttenant_id\030\003 \001(\t\022\023\n\013retailer_" +
-      "id\030\004 \001(\t\022\024\n\014retailer_sku\030\005 \001(\t\022\r\n\005price\030" +
-      "\006 \001(\001\022*\n\nprice_data\030\007 \003(\0132\026.product_hub_" +
-      "back.Data\022(\n\006status\030\010 \001(\0162\030.product_hub_" +
-      "back.Status\">\n\017CategoryFilters\022\023\n\013catego" +
-      "ry_id\030\001 \001(\t\022\026\n\016attribute_keys\030\002 \003(\t\"8\n\016R" +
-      "etailerStores\022\023\n\013retailer_id\030\001 \001(\t\022\021\n\tst" +
-      "ore_ids\030\002 \003(\t*!\n\006Status\022\013\n\007DISABLE\020\000\022\n\n\006" +
-      "ENABLE\020\001*S\n\tValueType\022\n\n\006STRING\020\000\022\013\n\007INT" +
-      "EGER\020\001\022\n\n\006DOUBLE\020\002\022\010\n\004BOOL\020\003\022\014\n\010DATETIME" +
-      "\020\004\022\t\n\005IMAGE\020\005*U\n\006Pricer\022\014\n\010PER_ITEM\020\000\022\025\n" +
-      "\021PER_ITEMS_PACKAGE\020\001\022\026\n\022PER_WEIGHT_PACKA" +
-      "GE\020\002\022\016\n\nPER_WEIGHT\020\0032\224\007\n\016ProductHubBack\022" +
-      "]\n\014SaveProducts\022%.product_hub_back.SaveP" +
-      "roductsRequest\032&.product_hub_back.SavePr" +
-      "oductsResponse\022W\n\nSaveStocks\022#.product_h" +
-      "ub_back.SaveStocksRequest\032$.product_hub_" +
-      "back.SaveStocksResponse\022W\n\nSaveOffers\022#." +
-      "product_hub_back.SaveOffersRequest\032$.pro" +
-      "duct_hub_back.SaveOffersResponse\022W\n\nSave" +
-      "Prices\022#.product_hub_back.SavePricesRequ" +
-      "est\032$.product_hub_back.SavePricesRespons" +
-      "e\022c\n\016SaveCategories\022\'.product_hub_back.S" +
-      "aveCategoriesRequest\032(.product_hub_back." +
-      "SaveCategoriesResponse\022c\n\016SaveAttributes" +
-      "\022\'.product_hub_back.SaveAttributesReques" +
-      "t\032(.product_hub_back.SaveAttributesRespo" +
-      "nse\022i\n\020SaveDictionaries\022).product_hub_ba" +
-      "ck.SaveDictionariesRequest\032*.product_hub" +
-      "_back.SaveDictionariesResponse\022r\n\023SaveCa" +
-      "tegoryFilters\022,.product_hub_back.SaveCat" +
-      "egoryFiltersRequest\032-.product_hub_back.S" +
-      "aveCategoryFiltersResponse\022o\n\022SaveRetail" +
-      "erStores\022+.product_hub_back.SaveRetailer" +
-      "StoresRequest\032,.product_hub_back.SaveRet" +
-      "ailerStoresResponseBRZPgitlab.sbermarket" +
-      ".tech/paas/content/product-hub/pkg/serve" +
-      "r/grpc/product-hub-backb\006proto3"
+      "\0132!.product_hub_back.DictionaryValue\022/\n\017" +
+      "dictionary_data\030\005 \003(\0132\026.product_hub_back" +
+      ".Data\"\215\002\n\017DictionaryValue\022\n\n\002id\030\001 \001(\t\022\r\n" +
+      "\005value\030\002 \001(\t\022*\n\nvalue_data\030\003 \003(\0132\026.produ" +
+      "ct_hub_back.Data\022a\n\034additional_dictionar" +
+      "y_values\030\004 \003(\0132;.product_hub_back.Dictio" +
+      "naryValue.AdditionalDictionaryValue\032P\n\031A" +
+      "dditionalDictionaryValue\022\026\n\016dictionary_k" +
+      "ey\030\001 \001(\t\022\033\n\023dictionary_value_id\030\002 \001(\t\"\266\001" +
+      "\n\005Stock\022\013\n\003sku\030\001 \001(\003\022\020\n\010store_id\030\002 \001(\t\022\023" +
+      "\n\013retailer_id\030\003 \001(\t\022\024\n\014retailer_sku\030\004 \001(" +
+      "\t\022\r\n\005stock\030\005 \001(\001\022*\n\nstock_data\030\006 \003(\0132\026.p" +
+      "roduct_hub_back.Data\022(\n\006status\030\007 \001(\0162\030.p" +
+      "roduct_hub_back.Status\"\277\001\n\005Offer\022\013\n\003sku\030" +
+      "\001 \001(\003\022\023\n\013retailer_id\030\002 \001(\t\022\024\n\014retailer_s" +
+      "ku\030\003 \001(\t\022(\n\006pricer\030\004 \001(\0162\030.product_hub_b" +
+      "ack.Pricer\022*\n\noffer_data\030\005 \003(\0132\026.product" +
+      "_hub_back.Data\022(\n\006status\030\006 \001(\0162\030.product" +
+      "_hub_back.Status\"\311\001\n\005Price\022\013\n\003sku\030\001 \001(\003\022" +
+      "\020\n\010store_id\030\002 \001(\t\022\021\n\ttenant_id\030\003 \001(\t\022\023\n\013" +
+      "retailer_id\030\004 \001(\t\022\024\n\014retailer_sku\030\005 \001(\t\022" +
+      "\r\n\005price\030\006 \001(\001\022*\n\nprice_data\030\007 \003(\0132\026.pro" +
+      "duct_hub_back.Data\022(\n\006status\030\010 \001(\0162\030.pro" +
+      "duct_hub_back.Status\">\n\017CategoryFilters\022" +
+      "\023\n\013category_id\030\001 \001(\t\022\026\n\016attribute_keys\030\002" +
+      " \003(\t\"8\n\016RetailerStores\022\023\n\013retailer_id\030\001 " +
+      "\001(\t\022\021\n\tstore_ids\030\002 \003(\t*!\n\006Status\022\013\n\007DISA" +
+      "BLE\020\000\022\n\n\006ENABLE\020\001*S\n\tValueType\022\n\n\006STRING" +
+      "\020\000\022\013\n\007INTEGER\020\001\022\n\n\006DOUBLE\020\002\022\010\n\004BOOL\020\003\022\014\n" +
+      "\010DATETIME\020\004\022\t\n\005IMAGE\020\005*U\n\006Pricer\022\014\n\010PER_" +
+      "ITEM\020\000\022\025\n\021PER_ITEMS_PACKAGE\020\001\022\026\n\022PER_WEI" +
+      "GHT_PACKAGE\020\002\022\016\n\nPER_WEIGHT\020\0032\224\007\n\016Produc" +
+      "tHubBack\022]\n\014SaveProducts\022%.product_hub_b" +
+      "ack.SaveProductsRequest\032&.product_hub_ba" +
+      "ck.SaveProductsResponse\022W\n\nSaveStocks\022#." +
+      "product_hub_back.SaveStocksRequest\032$.pro" +
+      "duct_hub_back.SaveStocksResponse\022W\n\nSave" +
+      "Offers\022#.product_hub_back.SaveOffersRequ" +
+      "est\032$.product_hub_back.SaveOffersRespons" +
+      "e\022W\n\nSavePrices\022#.product_hub_back.SaveP" +
+      "ricesRequest\032$.product_hub_back.SavePric" +
+      "esResponse\022c\n\016SaveCategories\022\'.product_h" +
+      "ub_back.SaveCategoriesRequest\032(.product_" +
+      "hub_back.SaveCategoriesResponse\022c\n\016SaveA" +
+      "ttributes\022\'.product_hub_back.SaveAttribu" +
+      "tesRequest\032(.product_hub_back.SaveAttrib" +
+      "utesResponse\022i\n\020SaveDictionaries\022).produ" +
+      "ct_hub_back.SaveDictionariesRequest\032*.pr" +
+      "oduct_hub_back.SaveDictionariesResponse\022" +
+      "r\n\023SaveCategoryFilters\022,.product_hub_bac" +
+      "k.SaveCategoryFiltersRequest\032-.product_h" +
+      "ub_back.SaveCategoryFiltersResponse\022o\n\022S" +
+      "aveRetailerStores\022+.product_hub_back.Sav" +
+      "eRetailerStoresRequest\032,.product_hub_bac" +
+      "k.SaveRetailerStoresResponseBRZPgitlab.s" +
+      "bermarket.tech/paas/content/product-hub/" +
+      "pkg/server/grpc/product-hub-backb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -28697,7 +29070,7 @@ public final class ProductHubBackOuterClass {
     internal_static_product_hub_back_Dictionary_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_back_Dictionary_descriptor,
-        new java.lang.String[] { "Key", "Name", "Type", "Values", });
+        new java.lang.String[] { "Key", "Name", "Type", "Values", "DictionaryData", });
     internal_static_product_hub_back_DictionaryValue_descriptor =
       getDescriptor().getMessageTypes().get(24);
     internal_static_product_hub_back_DictionaryValue_fieldAccessorTable = new

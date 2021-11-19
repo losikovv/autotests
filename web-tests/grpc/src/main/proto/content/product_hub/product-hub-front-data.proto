@@ -106,6 +106,7 @@ message OfferWithSKUANDStoreID {
   repeated Data offer_data = 5;
   string updated_at = 6;
   string store_id = 7;
+  Status status = 8;
 }
 
 message GetOffersRequest {
@@ -127,6 +128,7 @@ message OfferWithSKU {
   Pricer pricer = 4;
   repeated Data offer_data = 5;
   string updated_at = 6;
+  Status status = 7;
 }
 
 message GetPricesRequest {
@@ -259,6 +261,7 @@ message Attribute {
 message AttributeValue {
   string value = 1;
   repeated Data value_data = 2;
+  string dictionary_value_id = 3;
 }
 
 message Stock {

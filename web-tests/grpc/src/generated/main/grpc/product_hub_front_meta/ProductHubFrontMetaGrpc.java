@@ -232,6 +232,37 @@ public final class ProductHubFrontMetaGrpc {
     return getGetAllDictionariesMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysResponse> getGetDictionariesByKeysMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetDictionariesByKeys",
+      requestType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysRequest.class,
+      responseType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysResponse> getGetDictionariesByKeysMethod() {
+    io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysResponse> getGetDictionariesByKeysMethod;
+    if ((getGetDictionariesByKeysMethod = ProductHubFrontMetaGrpc.getGetDictionariesByKeysMethod) == null) {
+      synchronized (ProductHubFrontMetaGrpc.class) {
+        if ((getGetDictionariesByKeysMethod = ProductHubFrontMetaGrpc.getGetDictionariesByKeysMethod) == null) {
+          ProductHubFrontMetaGrpc.getGetDictionariesByKeysMethod = getGetDictionariesByKeysMethod =
+              io.grpc.MethodDescriptor.<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetDictionariesByKeys"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubFrontMetaMethodDescriptorSupplier("GetDictionariesByKeys"))
+              .build();
+        }
+      }
+    }
+    return getGetDictionariesByKeysMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesRequest,
       product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesResponse> getGetAllDictionaryValuesMethod;
 
@@ -263,6 +294,37 @@ public final class ProductHubFrontMetaGrpc {
     return getGetAllDictionaryValuesMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesResponse> getGetAllOriginalCategoriesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetAllOriginalCategories",
+      requestType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesRequest.class,
+      responseType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesResponse> getGetAllOriginalCategoriesMethod() {
+    io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesResponse> getGetAllOriginalCategoriesMethod;
+    if ((getGetAllOriginalCategoriesMethod = ProductHubFrontMetaGrpc.getGetAllOriginalCategoriesMethod) == null) {
+      synchronized (ProductHubFrontMetaGrpc.class) {
+        if ((getGetAllOriginalCategoriesMethod = ProductHubFrontMetaGrpc.getGetAllOriginalCategoriesMethod) == null) {
+          ProductHubFrontMetaGrpc.getGetAllOriginalCategoriesMethod = getGetAllOriginalCategoriesMethod =
+              io.grpc.MethodDescriptor.<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetAllOriginalCategories"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubFrontMetaMethodDescriptorSupplier("GetAllOriginalCategories"))
+              .build();
+        }
+      }
+    }
+    return getGetAllOriginalCategoriesMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest,
       product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse> getGetRetailerStoresMethod;
 
@@ -292,6 +354,37 @@ public final class ProductHubFrontMetaGrpc {
       }
     }
     return getGetRetailerStoresMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse> getGetDictionaryAttributesValuesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetDictionaryAttributesValues",
+      requestType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest.class,
+      responseType = product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest,
+      product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse> getGetDictionaryAttributesValuesMethod() {
+    io.grpc.MethodDescriptor<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse> getGetDictionaryAttributesValuesMethod;
+    if ((getGetDictionaryAttributesValuesMethod = ProductHubFrontMetaGrpc.getGetDictionaryAttributesValuesMethod) == null) {
+      synchronized (ProductHubFrontMetaGrpc.class) {
+        if ((getGetDictionaryAttributesValuesMethod = ProductHubFrontMetaGrpc.getGetDictionaryAttributesValuesMethod) == null) {
+          ProductHubFrontMetaGrpc.getGetDictionaryAttributesValuesMethod = getGetDictionaryAttributesValuesMethod =
+              io.grpc.MethodDescriptor.<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest, product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetDictionaryAttributesValues"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ProductHubFrontMetaMethodDescriptorSupplier("GetDictionaryAttributesValues"))
+              .build();
+        }
+      }
+    }
+    return getGetDictionaryAttributesValuesMethod;
   }
 
   /**
@@ -393,6 +486,13 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      */
+    public void getDictionariesByKeys(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetDictionariesByKeysMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void getAllDictionaryValues(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetAllDictionaryValuesMethod(), responseObserver);
@@ -400,9 +500,23 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      */
+    public void getAllOriginalCategories(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetAllOriginalCategoriesMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void getRetailerStores(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetRetailerStoresMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getDictionaryAttributesValues(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetDictionaryAttributesValuesMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -457,6 +571,13 @@ public final class ProductHubFrontMetaGrpc {
                 product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionariesResponse>(
                   this, METHODID_GET_ALL_DICTIONARIES)))
           .addMethod(
+            getGetDictionariesByKeysMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysRequest,
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysResponse>(
+                  this, METHODID_GET_DICTIONARIES_BY_KEYS)))
+          .addMethod(
             getGetAllDictionaryValuesMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
@@ -464,12 +585,26 @@ public final class ProductHubFrontMetaGrpc {
                 product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesResponse>(
                   this, METHODID_GET_ALL_DICTIONARY_VALUES)))
           .addMethod(
+            getGetAllOriginalCategoriesMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesRequest,
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesResponse>(
+                  this, METHODID_GET_ALL_ORIGINAL_CATEGORIES)))
+          .addMethod(
             getGetRetailerStoresMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest,
                 product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse>(
                   this, METHODID_GET_RETAILER_STORES)))
+          .addMethod(
+            getGetDictionaryAttributesValuesMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest,
+                product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse>(
+                  this, METHODID_GET_DICTIONARY_ATTRIBUTES_VALUES)))
           .build();
     }
   }
@@ -546,6 +681,14 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      */
+    public void getDictionariesByKeys(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetDictionariesByKeysMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void getAllDictionaryValues(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
@@ -554,10 +697,26 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      */
+    public void getAllOriginalCategories(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetAllOriginalCategoriesMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void getRetailerStores(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetRetailerStoresMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getDictionaryAttributesValues(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest request,
+        io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetDictionaryAttributesValuesMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -626,6 +785,13 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      */
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysResponse getDictionariesByKeys(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetDictionariesByKeysMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
     public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesResponse getAllDictionaryValues(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetAllDictionaryValuesMethod(), getCallOptions(), request);
@@ -633,9 +799,23 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      */
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesResponse getAllOriginalCategories(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetAllOriginalCategoriesMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
     public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse getRetailerStores(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetRetailerStoresMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse getDictionaryAttributesValues(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetDictionaryAttributesValuesMethod(), getCallOptions(), request);
     }
   }
 
@@ -711,6 +891,14 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysResponse> getDictionariesByKeys(
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetDictionariesByKeysMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesResponse> getAllDictionaryValues(
         product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
@@ -719,10 +907,26 @@ public final class ProductHubFrontMetaGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesResponse> getAllOriginalCategories(
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetAllOriginalCategoriesMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse> getRetailerStores(
         product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetRetailerStoresMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse> getDictionaryAttributesValues(
+        product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetDictionaryAttributesValuesMethod(), getCallOptions()), request);
     }
   }
 
@@ -733,8 +937,11 @@ public final class ProductHubFrontMetaGrpc {
   private static final int METHODID_GET_ATTRIBUTES_BY_KEYS = 4;
   private static final int METHODID_GET_ALL_ATTRIBUTES = 5;
   private static final int METHODID_GET_ALL_DICTIONARIES = 6;
-  private static final int METHODID_GET_ALL_DICTIONARY_VALUES = 7;
-  private static final int METHODID_GET_RETAILER_STORES = 8;
+  private static final int METHODID_GET_DICTIONARIES_BY_KEYS = 7;
+  private static final int METHODID_GET_ALL_DICTIONARY_VALUES = 8;
+  private static final int METHODID_GET_ALL_ORIGINAL_CATEGORIES = 9;
+  private static final int METHODID_GET_RETAILER_STORES = 10;
+  private static final int METHODID_GET_DICTIONARY_ATTRIBUTES_VALUES = 11;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -781,13 +988,25 @@ public final class ProductHubFrontMetaGrpc {
           serviceImpl.getAllDictionaries((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionariesRequest) request,
               (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionariesResponse>) responseObserver);
           break;
+        case METHODID_GET_DICTIONARIES_BY_KEYS:
+          serviceImpl.getDictionariesByKeys((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysResponse>) responseObserver);
+          break;
         case METHODID_GET_ALL_DICTIONARY_VALUES:
           serviceImpl.getAllDictionaryValues((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesRequest) request,
               (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesResponse>) responseObserver);
           break;
+        case METHODID_GET_ALL_ORIGINAL_CATEGORIES:
+          serviceImpl.getAllOriginalCategories((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesResponse>) responseObserver);
+          break;
         case METHODID_GET_RETAILER_STORES:
           serviceImpl.getRetailerStores((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest) request,
               (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse>) responseObserver);
+          break;
+        case METHODID_GET_DICTIONARY_ATTRIBUTES_VALUES:
+          serviceImpl.getDictionaryAttributesValues((product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest) request,
+              (io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -857,8 +1076,11 @@ public final class ProductHubFrontMetaGrpc {
               .addMethod(getGetAttributesByKeysMethod())
               .addMethod(getGetAllAttributesMethod())
               .addMethod(getGetAllDictionariesMethod())
+              .addMethod(getGetDictionariesByKeysMethod())
               .addMethod(getGetAllDictionaryValuesMethod())
+              .addMethod(getGetAllOriginalCategoriesMethod())
               .addMethod(getGetRetailerStoresMethod())
+              .addMethod(getGetDictionaryAttributesValuesMethod())
               .build();
         }
       }

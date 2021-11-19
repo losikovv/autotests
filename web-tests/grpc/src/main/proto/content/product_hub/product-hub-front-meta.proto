@@ -12,8 +12,11 @@ service ProductHubFrontMeta {
   rpc GetAttributesByKeys(GetAttributesByKeysRequest) returns (GetAttributesByKeysResponse);
   rpc GetAllAttributes(GetAllAttributesRequest) returns (GetAllAttributesResponse);
   rpc GetAllDictionaries(GetAllDictionariesRequest) returns (GetAllDictionariesResponse);
+  rpc GetDictionariesByKeys(GetDictionariesByKeysRequest) returns (GetDictionariesByKeysResponse);
   rpc GetAllDictionaryValues(GetAllDictionaryValuesRequest) returns (GetAllDictionaryValuesResponse);
+  rpc GetAllOriginalCategories(GetAllOriginalCategoriesRequest) returns (GetAllOriginalCategoriesResponse);
   rpc GetRetailerStores(GetRetailerStoresRequest) returns (GetRetailerStoresResponse);
+  rpc GetDictionaryAttributesValues(GetDictionaryAttributesValuesRequest) returns (GetDictionaryAttributesValuesResponse);
 }
 
 message GetAllCategoriesRequest{
@@ -76,6 +79,14 @@ message GetAllDictionariesResponse {
   repeated Dictionary dictionaries = 1;
 }
 
+message GetDictionariesByKeysRequest {
+  repeated string dictionary_keys = 1;
+}
+
+message GetDictionariesByKeysResponse {
+  repeated Dictionary dictionaries = 1;
+}
+
 message GetAllDictionaryValuesRequest {
   string dictionary_key = 1;
   int64 limit = 2;
@@ -86,12 +97,29 @@ message GetAllDictionaryValuesResponse {
   repeated DictionaryValue dictionary_values = 1;
 }
 
+message GetAllOriginalCategoriesRequest {
+  int64 limit = 2;
+  int64 offset = 3;
+}
+
+message GetAllOriginalCategoriesResponse {
+  repeated OriginalCategory original_categories = 1;
+}
+
 message GetRetailerStoresRequest {
   repeated string retailer_ids = 1;
 }
 
 message GetRetailerStoresResponse {
   repeated RetailerStores retailer_stores = 1;
+}
+
+message GetDictionaryAttributesValuesRequest {
+  repeated DictionaryAttributeValuesRequest attributes = 1;
+}
+
+message GetDictionaryAttributesValuesResponse {
+  repeated DictionaryAttributesValuesResponse attributes = 1;
 }
 
 enum ValueType {
@@ -164,6 +192,7 @@ message Dictionary {
   string name = 2;
   ValueType type = 3;
   string updated_at = 4;
+  repeated Data dictionary_data = 5;
 }
 
 message DictionaryValue {
@@ -179,4 +208,32 @@ message AdditionalDictionaryValue {
   string dictionary_key = 2;
   string value = 3;
   repeated Data value_data = 4;
+}
+
+message OriginalCategory{
+  int64 id = 1;
+  int64 original_id = 2;
+  int64 instamart_id = 3;
+  string permalink = 4;
+  int64 parent_id = 5;
+  bool published = 6;
+  bool is_promoted = 7;
+}
+
+message DictionaryAttributeValuesRequest {
+  string attribute_key = 1;
+  repeated string dictionary_value_ids = 2;
+}
+
+message DictionaryAttributesValuesResponse {
+  message DictionaryValue{
+    string id = 1;
+    string value = 2;
+    repeated Data value_data = 3;
+  }
+
+  string attribute_key = 1;
+  string attribute_name = 2;
+  string dictionary_key = 3;
+  repeated DictionaryValue dictionary_value  = 4;
 }
