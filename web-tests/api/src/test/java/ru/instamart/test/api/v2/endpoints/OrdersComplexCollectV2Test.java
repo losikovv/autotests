@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
@@ -34,10 +35,10 @@ public class OrdersComplexCollectV2Test extends RestBase {
     @BeforeMethod(enabled = false,
             description = "Авторизация, создание комплексного заказа")
     public void preconditions() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
 
         OrderV2 order = apiV2.order(
-                SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
+                SessionFactory.getSession(SessionType.API_V2).getUserData(),
                 EnvironmentProperties.DEFAULT_SID,
                 4
         );
@@ -51,7 +52,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Получение истории заказов (1-ая страница)")
     public void getPreviousOrder200() {
-        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, UserManager.getDefaultApiUser());
+        SessionFactory.createSessionToken(SessionType.API_V2, UserManager.getDefaultApiUser());
         final Response response = OrdersV2Request.GET(1);
         checkStatusCode200(response);
         OrdersV2Response ordersV2Response = response.as(OrdersV2Response.class);
@@ -70,7 +71,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о предыдущем заказе. Нет предыдущих заказов")
     public void getPreviousOrder() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
         final Response response = OrdersV2Request.Previous.GET();
         checkStatusCode404(response);
         checkError(response, "У пользователя нет прошлых заказов");

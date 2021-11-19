@@ -32,7 +32,7 @@ public class PaymentToolsV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
         orderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
     }
 
@@ -89,7 +89,7 @@ public class PaymentToolsV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Существующий номер заказа")
     public void getPaymentToolsWithOrder200() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         String orderNumber = apiV2.getCurrentOrderNumber();
         Response response = PaymentToolsV2Request.GET(orderNumber);
         checkStatusCode200(response);

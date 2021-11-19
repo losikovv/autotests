@@ -1,6 +1,7 @@
 package ru.instamart.api.helper;
 
 import io.qameta.allure.Step;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.factory.SessionFactory;
@@ -18,29 +19,34 @@ public class ApiHelper {
     private final InstamartApiHelper apiV2 = new InstamartApiHelper();
     private final AdminHelper admin = new AdminHelper();
 
-    @Step ("Подтверждение кода с помощью API")
+    @Step("Подтверждение кода с помощью API")
     public SessionV2 confirmPhone(final String phone, final String code, final boolean promoTermsAccepted) {
         return apiV2.confirmPhone(phone, code, promoTermsAccepted);
     }
 
     /**
      * @param user должен иметь phone и encryptedPhone
-     * encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
-    @Step ("Регистрация/авторизация по номеру телефона с помощью API")
-    public void auth(final UserData user) {
-        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, user);
+    @Step("Регистрация/авторизация по номеру телефона с помощью API")
+    private void auth(final UserData user) {
+        SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.PHONE, user);
+    }
+
+    @Step("Авторизация администратором")
+    private void authAdmin(){
+        SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
     }
 
     @Step("Добавить {count} продукт в список избранного")
     public void addFavorites(final UserData userData, final int sid, final int count) {
-        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, userData);
+        auth(userData);
         apiV2.addFavoritesListProductBySid(sid, count);
     }
 
     @Step("Наполняем корзину избранным товаром с помощью API")
     public void dropAndFillCartFromFavorites(final UserData userData, final int sid) {
-        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, userData);
+        auth(userData);
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(userData, apiV2.getAddressBySid(sid));
@@ -49,23 +55,22 @@ public class ApiHelper {
 
     /**
      * @param user должен иметь phone и encryptedPhone
-     * encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
-    @Step ("Очищаем корзину с помощью API")
+    @Step("Очищаем корзину с помощью API")
     public OrderV2 dropCart(final UserData user) {
-        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, user);
-
+        auth(user);
         apiV2.getCurrentOrderNumber();
         return apiV2.deleteAllShipments();
     }
 
     /**
      * @param user должен иметь phone и encryptedPhone
-     * encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
-    @Step ("Наполняем корзину с помощью API")
+    @Step("Наполняем корзину с помощью API")
     public void dropAndFillCart(final UserData user, final Integer sid) {
-        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, user);
+        auth(user);
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
@@ -75,9 +80,9 @@ public class ApiHelper {
     /**
      * На стейдже работать не будет для {@link ru.instamart.api.common.RestAddresses}, так как нет большей части магазинов
      */
-    @Step ("Наполняем корзину с помощью API")
+    @Step("Наполняем корзину с помощью API")
     public void dropAndFillCart(final UserData user, final Integer sid, final AddressV2 address) {
-        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, user);
+        auth(user);
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, address);
@@ -86,24 +91,22 @@ public class ApiHelper {
 
     /**
      * @param user должен иметь phone и encryptedPhone
-     * encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
-    @Step ("Указываем адрес с помощью API")
+    @Step("Указываем адрес с помощью API")
     public AddressV2 setAddress(final UserData user, AddressV2 address) {
-        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, user);
-
+        auth(user);
         apiV2.getCurrentOrderNumber();
-
         return apiV2.setAddressAttributes(user, address);
     }
 
     /**
      * @param user должен иметь phone и encryptedPhone
-     * encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
-    @Step ("Оформляем заказ с помощью API")
+    @Step("Оформляем заказ с помощью API")
     public OrderV2 makeOrder(final UserData user, final Integer sid, final Integer itemsNumber) {
-        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, user);
+        auth(user);
 
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
@@ -121,28 +124,27 @@ public class ApiHelper {
 
     /**
      * @param user должен иметь phone и encryptedPhone
-     * encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
-    @Step ("Отменяем заказ с помощью API")
+    @Step("Отменяем заказ с помощью API")
     public OrderV2 cancelOrder(final UserData user, final String orderNumber) {
-        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, user);
-
+        auth(user);
         return apiV2.cancelOrder(orderNumber);
     }
 
     @Step("Отменяем все заказы с помощью API")
     public void cancelAllActiveOrders(final UserData userData) {
-        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, userData);
+        auth(userData);
         apiV2.cancelActiveOrders();
     }
 
     /**
      * @param user должен иметь phone и encryptedPhone
-     * encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
-    @Step ("Оформляем и отменяем заказ с помощью API")
+    @Step("Оформляем и отменяем заказ с помощью API")
     public void makeAndCancelOrder(final UserData user, final Integer sid, final Integer itemsNumber) {
-        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, user);
+        auth(user);
 
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
@@ -161,13 +163,13 @@ public class ApiHelper {
 
     @Step("Добавляем новый город {cityName} в админке")
     public void createCityInAdmin(String cityName) {
-        SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
+        authAdmin();
         admin.createCity(cityName);
     }
 
     @Step("Удаляем город {cityName} в админке")
     public void deleteCityInAdmin(String cityName) {
-        SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
+        authAdmin();
         admin.deleteCity(cityName);
     }
 

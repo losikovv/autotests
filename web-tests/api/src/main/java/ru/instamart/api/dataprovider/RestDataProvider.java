@@ -458,7 +458,7 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "changeLineItems")
     public static Object[][] changeLineItems() {
         Integer productId = apiV2.fillCart(
-                SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
+                SessionFactory.getSession(SessionType.API_V2).getUserData(),
                 EnvironmentProperties.DEFAULT_SID
         ).get(0).getId();
         return new Object[][]{
@@ -473,7 +473,7 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "fillingInOrderInformationDp")
     public static Object[][] fillingInOrderInformationDp() {
 
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         Integer paymentsId = apiV2.getPaymentTools().get(0).getId();
         Integer shipmentId = apiV2.getShippingWithOrder().getId();
         Integer shipmentMethodId = apiV2.getShippingMethods().get(0).getId();
@@ -561,7 +561,7 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "transactionNumbers", parallel = true)
     public static Object[][] getTransactionNumber() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
         OrderV2 order = OrdersV2Request.POST().as(OrderV2Response.class).getOrder();
         CreditCardAuthorizationV2 creditCardAuthorization = PaymentsV2Request.POST(order.getNumber()).
                 as(CreditCardAuthorizationV2Response.class).getCreditCardAuthorization();
@@ -573,7 +573,7 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "invalidTransactionData", parallel = true)
     public static Object[][] getInvalidTransactionData() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
         String orderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
         String userUuid = apiV2.getProfile().getUser().getId();
         String transactionNumber = PaymentsV2Request.POST(orderNumber).
@@ -586,7 +586,7 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "simpleRecsData")
     public static Object[][] getSimpleRecsData() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
         String orderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
         Long offerId = SpreeProductsDao.INSTANCE.getOfferIdBySku("26331", EnvironmentProperties.DEFAULT_SID);
         LineItemsV2Request.POST(offerId, 1, orderNumber);
@@ -602,8 +602,8 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "userDataForReferralProgram", parallel = true)
     public static Object[][] getUserDataForReferralProgramm() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
-        String token = SessionFactory.getSession(SessionType.API_V2_FB).getToken();
+        SessionFactory.makeSession(SessionType.API_V2);
+        String token = SessionFactory.getSession(SessionType.API_V2).getToken();
         UserV2 user = apiV2.getProfile().getUser();
         Long userId = SpreeUsersDao.INSTANCE.getIdByEmail(user.getEmail());
         PromotionCodesFilters filters = PromotionCodesFilters.builder()
@@ -623,8 +623,8 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "invalidUserDataForReferralProgram", parallel = true)
     public static Object[][] getInvalidUserDataForReferralProgramm() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
-        String token = SessionFactory.getSession(SessionType.API_V2_FB).getToken();
+        SessionFactory.makeSession(SessionType.API_V2);
+        String token = SessionFactory.getSession(SessionType.API_V2).getToken();
         return new Object[][]{
                 {"thisisnonexistingemail@testest.com", token, 404},
                 {UUID.randomUUID().toString(), token, 500},

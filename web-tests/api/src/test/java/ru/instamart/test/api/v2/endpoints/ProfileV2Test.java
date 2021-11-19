@@ -8,6 +8,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.UserV2;
@@ -29,37 +30,23 @@ public class ProfileV2Test extends RestBase {
 
     @AfterMethod(alwaysRun = true)
     public void after(){
-        SessionFactory.clearSession(SessionType.API_V2_FB);
-        SessionFactory.clearSession(SessionType.API_V2_PHONE);
+        SessionFactory.clearSession(SessionType.API_V2);
     }
 
     @CaseId(159)
     @Test(description = "Получение данных профиля пользователя. Запрос с токеном",
             groups = {"api-instamart-smoke"})
     public void getProfile200() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
-        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
+        final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2);
         UserV2 user = apiV2.getProfile().getUser();
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(user.getLastName(), session.getUserData().getLastName(),
-                "Last name не совпадает с введенным");
-        softAssert.assertEquals(user.getFirstName(), session.getUserData().getFirstName(),
-                "First name не совпадает с введенным");
-        softAssert.assertEquals(user.getDisplayEmail(), session.getUserData().getEmail(),
-                "Email не совпадает с введенным");
         softAssert.assertEquals(user.getCurrentPhone(), getHumanPhoneNumber(session.getUserData().getPhone()),
                 "Current phone не совпадает с введенным");
 
         softAssert.assertTrue(isValidUUID(user.getId()), "id is not valid");
-        softAssert.assertFalse(user.getHasConfirmedPhone(), "has_confirmed_phone is not FALSE");
         softAssert.assertTrue(user.getPrivacyTerms(), "privacy_terms is not TRUE");
-        softAssert.assertFalse(user.getPromoTermsAccepted(), "promo_terms_accepted is not FALSE");
         softAssert.assertFalse(user.getB2b(), "b2b is not FALSE");
-
-        softAssert.assertEquals(user.getAttachedServices().get(0), "facebook",
-                "attachment service element don't equals \"facebook\"");
-        softAssert.assertEquals(user.getAttachedServices().size(), 1,
-                "User attachment service contains more service");
 
         softAssert.assertTrue(user.getConfig().getSendEmails(), "send emails is not TRUE");
         softAssert.assertTrue(user.getConfig().getSendSms(), "send sms is not TRUE");
@@ -81,7 +68,7 @@ public class ProfileV2Test extends RestBase {
     @Test(description = "Обновление профиля пользователя",
             groups = {"api-instamart-regress"})
     public void putProfile200() {
-        SessionFactory.makeSession(SessionType.API_V2_PHONE);
+        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         final String newEmail = UUID.randomUUID() + "@autotestmail.dev";
         final String newFirstName = Generate.literalString(10);
         final String newLastName = Generate.literalString(10);
@@ -106,7 +93,7 @@ public class ProfileV2Test extends RestBase {
     @Test(description = "Обновление профиля пользователя",
             groups = {"api-instamart-regress"})
     public void putProfile422() {
-        SessionFactory.makeSession(SessionType.API_V2_PHONE);
+        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         final String newEmail = "test###autotestmail.dev";
         final String newFirstName = "!@#$%";
         final String newLastName = "9&%^&%#@&^#@*&^*&@";

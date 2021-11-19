@@ -27,7 +27,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
 
     @BeforeMethod(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
     }
 
     @CaseIDs(value = {@CaseId(509), @CaseId(510)})
@@ -63,7 +63,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
             description = "Продолжение авторизации с невалидным токеном авторизации",
             dependsOnMethods = "getTransactionNumber")
     public void authorizeCardWithInvalidToken() {
-        SessionFactory.clearSession(SessionType.API_V2_FB);
+        SessionFactory.clearSession(SessionType.API_V2);
         Response response = PaymentsV2Request.PUT(transactionNumber);
         checkStatusCode401(response);
         checkError(response, "Ключ доступа невалиден или отсутствует");

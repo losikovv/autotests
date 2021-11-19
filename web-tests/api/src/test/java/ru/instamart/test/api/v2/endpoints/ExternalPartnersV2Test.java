@@ -24,7 +24,7 @@ public class ExternalPartnersV2Test extends RestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void testUp() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
     }
 
     @CaseId(270)

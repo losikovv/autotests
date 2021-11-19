@@ -46,8 +46,8 @@ public class ShipmentsV2Test extends RestBase {
     public void preconditions() {
         SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdminAllRoles());
         admin.checkDeliveryWindows(EnvironmentProperties.DEFAULT_SID);
-        SessionFactory.makeSession(SessionType.API_V2_FB);
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        SessionFactory.makeSession(SessionType.API_V2);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
     }
 
     @CaseId(339)

@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.PaymentToolsV2;
 import ru.instamart.api.factory.SessionFactory;
@@ -45,7 +46,7 @@ public class OrdersV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
         OrdersV2Request.POST();
     }
 
@@ -91,7 +92,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-smoke"},
             description = "Существующий id")
     public void orderWithPromoCode() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), promoCode);
         checkStatusCode200(response);
@@ -118,7 +119,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Несуществующий промокод")
     public void orderWithInvalidPromoCode() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "failCode");
         checkError(response, "Промокод не существует");
@@ -129,7 +130,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Истекший промокод")
     public void orderWithExpiredPromoCode() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), getExpiredPromotionCode());
         checkError(response, "Данный промокод истек");
     }
@@ -139,11 +140,11 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Заказ с пустой корзиной")
     public void orderWithPromoCodeAndEmptyCart() {
-        SessionFactory.makeSession(SessionType.API_V2_PHONE);
+        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         String orderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
         Response response = OrdersV2Request.Promotions.POST(orderNumber, promoCode);
         checkError(response, "Промокод неприменим");
-        SessionFactory.clearSession(SessionType.API_V2_PHONE);
+        SessionFactory.clearSession(SessionType.API_V2);
     }
 
     @CaseId(315)
@@ -151,7 +152,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Существующий id")
     public void deletePromoCodeForOrder() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), promoCode);
         checkStatusCode200(response);
@@ -170,7 +171,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Несуществующий id заказа")
     public void deletePromoCodeForInvalidOrder() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), promoCode);
         checkStatusCode200(response);
@@ -187,7 +188,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Несуществующий promoCode")
     public void deleteInvalidPromoCode() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), promoCode);
         checkStatusCode200(response);
@@ -204,7 +205,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {},
             description = "Получение списка позиций по заказу. Существующий id")
     public void getingListOfItemsForOrder() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         response = OrdersV2Request.LineItems.GET(apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
         LineItemsV2Response lineItemsV2Response = response.as(LineItemsV2Response.class);
@@ -232,7 +233,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {},
             description = "Получение line_items для shipments с существующим id")
     public void getShipmentLineItems200() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         response = ShipmentsV2Request.LineItems.GET(apiV2.getShipmentsNumber());
         assertNotNull(response.as(LineItemsV2Response.class).getLineItems(), "Не вернулись товары заказа");
     }
@@ -252,7 +253,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {},
             description = "Получение списка отмененных позиций по заказу с существующим id")
     public void getLineItemCancellations200() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         response = OrdersV2Request.LineItemCancellations.GET(apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
         assertTrue(response.as(LineItemCancellationsV2Response.class).getLineItemCancellations().isEmpty(), "Невалидная ошибка");
@@ -331,7 +332,7 @@ public class OrdersV2Test extends RestBase {
             description = "Редактирование позиции заказа с существующим id")
     public void changeLineItems200() {
         List<LineItemV2> cart = apiV2.fillCart(
-                SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
+                SessionFactory.getSession(SessionType.API_V2).getUserData(),
                 EnvironmentProperties.DEFAULT_SID
         );
         Integer productId = cart.get(0).getId();
@@ -363,7 +364,7 @@ public class OrdersV2Test extends RestBase {
             description = "Успешное удаление позиции заказа")
     public void deleteLineItems200() {
         Integer productId = apiV2.fillCart(
-                SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
+                SessionFactory.getSession(SessionType.API_V2).getUserData(),
                 EnvironmentProperties.DEFAULT_SID
         ).get(0).getId();
 
@@ -387,7 +388,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-smoke"},
             description = "Заполнение информации о заказе с существующим id")
     public void fillingInOrderInformation200() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         Integer paymentsId = apiV2.getPaymentTools().get(0).getId();
         Integer shipmentId = apiV2.getShippingWithOrder().getId();
         Integer deliveryWindow = apiV2.getAvailableDeliveryWindow().getId();
@@ -433,7 +434,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Отмена заказа с существующим номером заказа")
     public void cancellationsOrders200() {
-        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
+        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(),
                 EnvironmentProperties.DEFAULT_SID);
         String orderNumber = order.getNumber();
         response = OrdersV2Request.Cancellations.POST(orderNumber, "test");
@@ -464,7 +465,7 @@ public class OrdersV2Test extends RestBase {
             description = "Завершение заказа с существующим id")
     public void orderCompletion200() {
         String orderNumber = apiV2.getCurrentOrderNumber();
-        apiV2.fillingCartAndOrderAttributesWithoutCompletition(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.fillingCartAndOrderAttributesWithoutCompletition(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         String shipmentNumber = apiV2.getShipmentsNumber();
 
@@ -507,7 +508,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {},
             description = "Очистка заказа с существующим id")
     public void clearOrder200() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         String orderNumber = apiV2.getCurrentOrderNumber();
         response = OrdersV2Request.Shipments.DELETE(orderNumber);
         OrderV2 order = response.as(OrderV2Response.class).getOrder();
@@ -539,7 +540,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Очистка подзаказа с существующим id")
     public void clearShipments200() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         String shipmentNumber = apiV2.getShipmentsNumber();
         String orderNumber = apiV2.getCurrentOrderNumber();
         response = ShipmentsV2Request.DELETE(shipmentNumber);
@@ -574,8 +575,8 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-smoke"},
             description = "Создание нового заказа")
     public void createNewOrder() {
-        SessionFactory.clearSession(SessionType.API_V2_FB);
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.clearSession(SessionType.API_V2);
+        SessionFactory.makeSession(SessionType.API_V2);
         final Response response = OrdersV2Request.POST();
         checkStatusCode200(response);
         OrderV2Response order = response.as(OrderV2Response.class);
@@ -589,8 +590,8 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-smoke"},
             description = "Получение данных о заказе по номеру")
     public void getOrderByNumber() {
-        SessionFactory.clearSession(SessionType.API_V2_FB);
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.clearSession(SessionType.API_V2);
+        SessionFactory.makeSession(SessionType.API_V2);
         OrderV2 order = OrdersV2Request.POST().as(OrderV2Response.class).getOrder();
         final Response response = OrdersV2Request.GET(order.getNumber());
         checkStatusCode200(response);
@@ -625,8 +626,8 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Получение текущего заказа пользователем, у которого нет заказа")
     public void getNonExistingCurrentOrder() {
-        SessionFactory.clearSession(SessionType.API_V2_FB);
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.clearSession(SessionType.API_V2);
+        SessionFactory.makeSession(SessionType.API_V2);
         final Response response = OrdersV2Request.Current.GET();
         checkStatusCode404(response);
         checkError(response, "У пользователя нет текущего заказа");
@@ -637,11 +638,11 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Мердж существующего заказа без авторизации с текущим заказом пользователя")
     public void mergeCurrentOrderWithUnauthorizedOrder() {
-        SessionFactory.clearSession(SessionType.API_V2_FB);
+        SessionFactory.clearSession(SessionType.API_V2);
         final Response responseForUnauthorizedOrder = OrdersV2Request.POST();
         checkStatusCode200(responseForUnauthorizedOrder);
         OrderV2 unauthorizedOrder = responseForUnauthorizedOrder.as(OrderV2Response.class).getOrder();
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
 
         final Response responseForCurrentOrder = OrdersV2Request.Current.PUT(unauthorizedOrder.getUuid());
         OrderV2Response orderFromResponse = responseForCurrentOrder.as(OrderV2Response.class);
@@ -664,10 +665,8 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Использование бонусов для оплаты. Заказ нельзя оплатить бонусами")
     public void checkOrderPayInstacoin() {
-        final UserData userData = SessionFactory.getSession(SessionType.API_V2_FB).getUserData();
-        SessionFactory.clearSession(SessionType.API_V2_FB);
-        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, userData);
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        final UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         String userId = UserIdDao.INSTANCE.findUserId(userData.getPhone()).get(0);
 
         execRakeTaskAddBonus(userData.getEmail(), "100", userId);

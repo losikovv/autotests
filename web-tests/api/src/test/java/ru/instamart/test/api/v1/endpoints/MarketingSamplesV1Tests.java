@@ -53,9 +53,9 @@ public class MarketingSamplesV1Tests extends RestBase {
     @Test(description = "Создание нового маркетингового сэмпла",
             groups = {"api-instamart-regress"})
     public void createMarketingSample() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
         profile = apiV2.getProfile();
-        SessionFactory.clearSession(SessionType.API_V2_FB);
+        SessionFactory.clearSession(SessionType.API_V2);
         Response response = MarketingSamplesV1Request.POST(profile.getUser().getId());
         checkStatusCode200(response);
         MarketingSampleV1 marketingSampleFromResponse = response.as(MarketingSampleV1Response.class).getMarketingSample();
@@ -83,9 +83,9 @@ public class MarketingSamplesV1Tests extends RestBase {
             groups = {"api-instamart-regress"},
             dependsOnMethods = {"createMarketingSample", "getMarketingSample"})
     public void editMarketingSample() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
         ProfileV2Response profile = apiV2.getProfile();
-        SessionFactory.clearSession(SessionType.API_V2_FB);
+        SessionFactory.clearSession(SessionType.API_V2);
 
         Response response = MarketingSamplesV1Request.PUT(sampleId, profile.getUser().getId());
         checkStatusCode200(response);

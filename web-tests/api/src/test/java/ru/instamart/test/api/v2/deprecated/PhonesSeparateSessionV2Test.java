@@ -43,7 +43,7 @@ public class PhonesSeparateSessionV2Test extends RestBase {
                 .name(Generate.testUserName(UserRoles.USER.getRole()))
                 .build();
         RegistrationHelper.registration(testUser);
-        SessionFactory.createSessionToken(SessionType.API_V2_FB, testUser);
+        SessionFactory.createSessionToken(SessionType.API_V2, testUser);
         response = PhonesV2Request.GET();
         checkStatusCode200(response);
         PhonesV2Response phonesV2Response = response.as(PhonesV2Response.class);
@@ -55,9 +55,9 @@ public class PhonesSeparateSessionV2Test extends RestBase {
     @Test(groups = {},
             description = "Получить телефонный номер по id. Существующий id у пользователя нет телефонов")
     public void getPhone403() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
         PhoneV2 phone = apiV2.getPhoneId().getPhones().get(0);
-        SessionFactory.clearSession(SessionType.API_V2_FB);
+        SessionFactory.clearSession(SessionType.API_V2);
         //Перелогин другим пользователем у которого нет телефона
         final UserData testUser = UserData.builder()
                 .role(UserRoles.USER.getRole())
@@ -66,7 +66,7 @@ public class PhonesSeparateSessionV2Test extends RestBase {
                 .name(Generate.testUserName(UserRoles.USER.getRole()))
                 .build();
         RegistrationHelper.registration(testUser);
-        SessionFactory.createSessionToken(SessionType.API_V2_FB, testUser);
+        SessionFactory.createSessionToken(SessionType.API_V2, testUser);
         response = PhonesV2Request.PhonesById.GET(Integer.toString(phone.getId()));
         checkStatusCode403(response);
         checkError(response, "Пользователь не может выполнить это действие");
@@ -77,7 +77,7 @@ public class PhonesSeparateSessionV2Test extends RestBase {
     @Test(groups = {},
             description = "Удалить телефон пользователя с существующим id")
     public void deletePhones200() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
         PhoneV2 phone = apiV2.getPhoneId().getPhones().get(0);
         response = PhonesV2Request.PhonesById.DELETE(phone.getId().toString());
         checkStatusCode200(response);
@@ -90,7 +90,7 @@ public class PhonesSeparateSessionV2Test extends RestBase {
     @Test(groups = {},
             description = "Добавить новый телефон с валидным phone[value]")
     public void addPhones200() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
         Map<String, String> params = new HashMap<>();
         params.put("phone[value]", Generate.phoneNumber());
         response = PhonesV2Request.POST(params);

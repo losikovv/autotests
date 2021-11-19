@@ -26,9 +26,9 @@ public final class PurchasedProductsV2Test extends RestBase {
     @BeforeClass(alwaysRun = true)
     @Story("Создание сессии")
     public void preconditions() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
+        SessionFactory.makeSession(SessionType.API_V2);
         apiV2.order(
-                SessionFactory.getSession(SessionType.API_V2_FB).getUserData(),
+                SessionFactory.getSession(SessionType.API_V2).getUserData(),
                 EnvironmentProperties.DEFAULT_SID);
     }
 
@@ -44,7 +44,7 @@ public final class PurchasedProductsV2Test extends RestBase {
             groups = {})
     public void testGetPurchasedProductWithValidSid() {
         final Response response = PurchasedProductsV2Request.GET(
-                SessionFactory.getSession(SessionType.API_V2_FB).getToken(),
+                SessionFactory.getSession(SessionType.API_V2).getToken(),
                 EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
@@ -59,7 +59,7 @@ public final class PurchasedProductsV2Test extends RestBase {
             groups = {})
     public void testGetPurchasedProductWithInvalidSid() {
         final Response response = PurchasedProductsV2Request.GET(
-                SessionFactory.getSession(SessionType.API_V2_FB).getToken(),
+                SessionFactory.getSession(SessionType.API_V2).getToken(),
                 6666666);
         checkStatusCode404(response);
     }

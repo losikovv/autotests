@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.helper.RegistrationHelper;
@@ -28,8 +29,8 @@ public final class SessionsV2Test extends RestBase {
     public void testSessionToken() {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);
-        SessionFactory.createSessionToken(SessionType.API_V2_FB, userData);
-        final Response response = SessionsV2Request.GET(SessionFactory.getSession(SessionType.API_V2_FB).getToken());
+        SessionFactory.createSessionToken(SessionType.API_V2, userData);
+        final Response response = SessionsV2Request.GET(SessionFactory.getSession(SessionType.API_V2).getToken());
         checkStatusCode200(response);
     }
 
@@ -46,8 +47,8 @@ public final class SessionsV2Test extends RestBase {
             description = "Валидация данных по сессионному токену")
     public void testUserData() {
         final UserData userData = UserManager.getDefaultApiUser();
-        SessionFactory.createSessionToken(SessionType.API_V2_PHONE, userData);
-        final Response response = SessionsV2Request.User.GET(SessionFactory.getSession(SessionType.API_V2_PHONE).getToken());
+        SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.PHONE, userData);
+        final Response response = SessionsV2Request.User.GET(SessionFactory.getSession(SessionType.API_V2).getToken());
         checkStatusCode200(response);
         final UserDataV2Response userDataResponse = response.as(UserDataV2Response.class);
         assertEquals(userDataResponse.getUser().getEmail(), userData.getEmail(), "Получены чужие данные");
@@ -59,7 +60,7 @@ public final class SessionsV2Test extends RestBase {
     public void testUserDataWithInvalidToken() {
         final UserData userData = UserManager.getUser();
         RegistrationHelper.registration(userData);
-        SessionFactory.createSessionToken(SessionType.API_V2_FB, userData);
+        SessionFactory.createSessionToken(SessionType.API_V2, userData);
         final Response response = SessionsV2Request.User.GET("aaaaaaa");
         checkStatusCode404(response);
     }

@@ -35,8 +35,8 @@ public class OrdersV1Test extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        SessionFactory.makeSession(SessionType.API_V2_FB);
-        final OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2_FB).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        SessionFactory.makeSession(SessionType.API_V2);
+        final OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         if (order == null) throw new SkipException("Заказ не удалось оплатить");
         orderNumber = order.getNumber();
         shipmentNumber = order.getShipments().get(0).getNumber();

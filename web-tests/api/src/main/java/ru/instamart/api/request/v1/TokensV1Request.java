@@ -15,11 +15,7 @@ public class TokensV1Request extends ApiV1RequestBase {
      */
     @Step("{method} /" + ApiV1Endpoints.TOKENS)
     public static Response GET() {
-        Response response = givenWithAuth()
+        return givenWithAuth()
                 .get(ApiV1Endpoints.TOKENS);
-        ShoppersBackendV1 shoppersBackend = response.as(TokensV1Response.class).getShoppersBackend();
-        SessionFactory.getSession(SessionType.SHOPPER_APP)
-                .setToken("token=" + shoppersBackend.getClientJwt() + ", id=" + shoppersBackend.getClientId());
-        return response;
     }
 }

@@ -16,7 +16,6 @@ public class CitiesAdminRequest extends AdminRequestBase {
     public static Response POST(String cityName) {
         Map<String, String> params = new HashMap<>();
         params.put("utf-8", "✓");
-        params.put("authenticity_token", SessionFactory.getSession(SessionType.ADMIN).getToken());
         params.put("city[name]", cityName);
         return givenWithAuth()
                 .formParams(params)
@@ -26,7 +25,6 @@ public class CitiesAdminRequest extends AdminRequestBase {
     @Step("{method} /" + AdminEndpoints.CITY)
     public static Response DELETE(String cityName) {
         Map<String, String> params = new HashMap<>();
-        params.put("authenticity_token", SessionFactory.getSession(SessionType.ADMIN).getToken());
         params.put("_method", "delete");
         return givenWithAuth()
                 .formParams(params)

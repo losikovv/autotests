@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.enums.v2.StateV2;
@@ -37,8 +38,8 @@ public class ShipmentAssemblyItemsV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        SessionFactory.makeSession(SessionType.API_V2_PHONE);
-        UserData userData = SessionFactory.getSession(SessionType.API_V2_PHONE).getUserData();
+        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
+        UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         apiV2.fillCart(userData, EnvironmentProperties.DEFAULT_SID);
         OrderV2 order = apiV2.getOpenOrder();
         shipment = order.getShipments().get(0);
@@ -101,7 +102,7 @@ public class ShipmentAssemblyItemsV2Test extends RestBase {
             dataProvider = "priceTypes",
             dataProviderClass = RestDataProvider.class)
     public void getAssemblyItemsWithPriceType(ProductPriceTypeV2 priceType) {
-        UserData userData = SessionFactory.getSession(SessionType.API_V2_FB).getUserData();
+        UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         apiV2.fillCart(userData, EnvironmentProperties.DEFAULT_SID, priceType);
         ShipmentV2 shipment = apiV2.getOpenOrder().getShipments().get(0);
         final Response response = ShipmentsV2Request.AssemblyItems.GET(shipment.getNumber());
