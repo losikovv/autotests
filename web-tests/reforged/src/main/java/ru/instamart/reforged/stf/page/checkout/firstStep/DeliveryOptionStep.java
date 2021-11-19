@@ -69,13 +69,14 @@ public class DeliveryOptionStep implements DeliveryOptionCheck {
         contactlessDelivery.uncheck();
     }
 
-    @Step("Заполнить поле 'Код домофона'")
+    @Step("Заполнить поле 'Комментарий'")
     public void fillComments(String data) {
         comments.fill(data);
     }
 
     @Step("Нажать 'Продолжить'(для доставки)")
     public void clickToSubmitForDelivery() {
+        submitStepWithDelivery.scrollTo();
         submitStepWithDelivery.hoverAndClick();
     }
 

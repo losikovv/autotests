@@ -22,18 +22,17 @@ public final class CheckoutAddressStepTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
     private final AddressDetailsData data = TestVariables.testAddressData();
-    private final UserData checkoutUser = UserManager.checkoutUser();
+    private final AddressDetailsData changeData = TestVariables.testChangeAddressData();
+    private final UserData userData = UserManager.getQaUser();
 
     @CaseIDs({@CaseId(1698), @CaseId(1699), @CaseId(1700), @CaseId(1701)})
     @Test(description = "Тесты заполнения, изменения и очистки всех полей", groups = {"acceptance", "regression"})
     public void successFillAllFieldsAndProceedNext() {
-        final AddressDetailsData changeData = TestVariables.testChangeAddressData();
-
-        helper.dropAndFillCart(checkoutUser, EnvironmentProperties.DEFAULT_SID);
+        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
         home().goToPage();
         home().openLoginModal();
-        home().interactAuthModal().authViaPhone(checkoutUser);
+        home().interactAuthModal().authViaPhone(userData);
 
         shop().interactHeader().checkProfileButtonVisible();
         shop().addCookie(CookieFactory.COOKIE_ALERT);

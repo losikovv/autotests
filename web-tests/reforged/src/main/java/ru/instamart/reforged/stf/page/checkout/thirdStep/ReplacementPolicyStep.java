@@ -11,6 +11,7 @@ public class ReplacementPolicyStep implements ReplacementPolicyElement {
 
     @Step("Нажать на Продолжить")
     public void clickToSubmit() {
+        submit.scrollTo();
         submit.hoverAndClick();
     }
 }

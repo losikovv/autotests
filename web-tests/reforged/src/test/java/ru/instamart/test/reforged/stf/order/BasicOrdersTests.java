@@ -243,6 +243,7 @@ public final class BasicOrdersTests extends BaseTest {
     @Test(description = "Автоматическая подстановка данных в аккаунт после прохождения чекаута", groups = {"acceptance", "regression"})
     public void updateUserDataAfterCheckout() {
         final AddressDetailsData data = TestVariables.testAddressData();
+        //Тут используется не qa ручка, потому что в ней уже задано имя для пользователя
         userData = UserManager.getUser();
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
