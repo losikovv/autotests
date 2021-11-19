@@ -7,6 +7,7 @@ import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Link;
 import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
+import ru.instamart.reforged.stf.drawer.cookie.CookieDrawer;
 import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 
@@ -16,6 +17,7 @@ public interface HomeElement {
     Address addressModal = new Address();
     HelpDesk helpDesk = new HelpDesk();
     Footer footer = new Footer();
+    CookieDrawer cookieAlert = new CookieDrawer();
 
     Button loginButton = new Button(By.xpath("//div/button[contains(text(), 'Войти')]"));
     Button forYourself = new Button(By.xpath("//button[@aria-controls='b2c-tab']"));
