@@ -35,6 +35,10 @@ public class AllureRestAssuredCustom implements OrderedFilter {
                            final FilterContext filterContext) {
         final Prettifier prettifier = new Prettifier();
         final String url = requestSpec.getURI();
+        String req = requestSpec.getMethod() + " : " + requestSpec.getURI();
+        if (!req.equals(" : ")) {
+            requestAttachmentName = requestSpec.getMethod() + " : " + requestSpec.getURI();
+        }
         final HttpRequestAttachmentCustom.Builder requestAttachmentBuilder = create(requestAttachmentName, url)
                 .setMethod(requestSpec.getMethod())
                 .setHeaders(toMapConverter(requestSpec.getHeaders()))
@@ -56,7 +60,6 @@ public class AllureRestAssuredCustom implements OrderedFilter {
             requestAttachmentBuilder.setMultiPartParams(requestSpec.getMultiPartParams());
         }
 
-
         final HttpRequestAttachmentCustom requestAttachment = requestAttachmentBuilder.build();
 
         new DefaultAttachmentProcessor().addAttachment(
@@ -66,8 +69,9 @@ public class AllureRestAssuredCustom implements OrderedFilter {
 
         final Response response = filterContext.next(requestSpec, responseSpec);
         if (Objects.isNull(responseAttachmentName)) {
-            responseAttachmentName = response.getStatusLine();
+            responseAttachmentName = "Response";
         }
+        responseAttachmentName = response.getStatusLine();
         final HttpResponseAttachment responseAttachment = HttpResponseAttachment.Builder.create(responseAttachmentName)
                 .setResponseCode(response.getStatusCode())
                 .setHeaders(toMapConverter(response.getHeaders()))
