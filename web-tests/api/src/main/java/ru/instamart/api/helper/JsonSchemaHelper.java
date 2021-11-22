@@ -12,7 +12,7 @@ public class JsonSchemaHelper {
     public static String getJsonSchema(Class<?> clazz) {
         ObjectMapper objectMapper = new ObjectMapper();
         AddonModule module = new AddonModule();
-        SchemaGeneratorConfigBuilder configBuilder = new SchemaGeneratorConfigBuilder(objectMapper, SchemaVersion.DRAFT_7, OptionPreset.PLAIN_JSON)
+        SchemaGeneratorConfigBuilder configBuilder = new SchemaGeneratorConfigBuilder(objectMapper, SchemaVersion.DRAFT_2019_09, OptionPreset.PLAIN_JSON)
                 .with(module);
         configBuilder
                 .with(new AddonModule())

@@ -20,6 +20,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic(value = "ApiV2")
@@ -41,6 +42,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
         FavoritesItemV2Response product = apiV2.addFavoritesProductBySid(EnvironmentProperties.DEFAULT_SID);
         final Response response = FavoritesV2Request.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
+        checkResponseJsonSchema(response, FavoritesListItemsV2Response.class);
         FavoritesListItemsV2Response favorites = response.as(FavoritesListItemsV2Response.class);
         assertEquals(favorites.getItems().get(0), product.getItem(), "data mismatch");
     }
@@ -77,6 +79,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
     public void emptyFavoritesForDefaultSid() {
         final Response response = FavoritesV2Request.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
+        checkResponseJsonSchema(response, FavoritesListItemsV2Response.class);
         FavoritesListItemsV2Response favoritesListItemsV2Response = response.as(FavoritesListItemsV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(favoritesListItemsV2Response.getItems().size(), 0, "Список избранного не пустой");
@@ -94,7 +97,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
             description = "Список SKU товаров из избранного. Один товар в избранном")
     public void getFavoritesSku() {
         var favorites = apiV2.addFavoritesProductBySid(EnvironmentProperties.DEFAULT_SID);
-        Response response = FavoritesV2Request.ProductSku.GET();
+        final Response response = FavoritesV2Request.ProductSku.GET();
         checkStatusCode200(response);
         ProductSkuV2Response productSkuV2Response = response.as(ProductSkuV2Response.class);
         assertEquals(productSkuV2Response.getProductsSku().get(0), favorites.getItem().getSku(), "product sku mismatch");
@@ -106,7 +109,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
             description = "Список SKU товаров из избранного. 3 товар в избранном")
     public void getFavoritesSku3Items() {
         apiV2.addFavoritesQtyListProductBySid(EnvironmentProperties.DEFAULT_SID, 3);
-        Response response = FavoritesV2Request.ProductSku.GET();
+        final Response response = FavoritesV2Request.ProductSku.GET();
         checkStatusCode200(response);
         ProductSkuV2Response productSkuV2Response = response.as(ProductSkuV2Response.class);
         checkFieldIsNotEmpty(productSkuV2Response.getProductsSku(), "SKU товаров из избранного");
@@ -120,9 +123,9 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
         ProductV2 product = apiV2.getProductFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_SID).get(0);
         final Response response = FavoritesV2Request.POST(product.getId());
         checkStatusCode200(response);
+        checkResponseJsonSchema(response, FavoritesItemV2Response.class);
         FavoritesItemV2Response favorites = response.as(FavoritesItemV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
-        checkFieldIsNotEmpty(favorites.getItem().getId(), "Id товара");
         softAssert.assertEquals(favorites.getItem().getProduct().getId(), product.getId(), "Id товара не совпадает");
         softAssert.assertEquals(favorites.getItem().getSku(), product.getSku(), "sku товара не совпадает");
         softAssert.assertEquals(favorites.getItem().getName(), product.getName(), "name товара не совпадает");

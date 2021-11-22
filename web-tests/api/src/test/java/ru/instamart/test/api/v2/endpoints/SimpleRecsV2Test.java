@@ -18,7 +18,7 @@ import ru.instamart.kraken.data_provider.JsonProvider;
 
 import java.util.UUID;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
@@ -68,8 +68,7 @@ public final class SimpleRecsV2Test extends RestBase {
         allRequiredParameters.getContext().getApp().getExt().setOrderNumber(orderNumber);
         final Response response = SimpleRecsV2Request.Personal.POST(allRequiredParameters);
         checkStatusCode200(response);
-        final SimpleRecsV2Response recsV2Response = response.as(SimpleRecsV2Response.class);
-        checkFieldIsNotEmpty(recsV2Response.getMedia(), "рекомендации");
+        checkResponseJsonSchema(response, SimpleRecsV2Response.class);
     }
 
     @CaseIDs(value = {@CaseId(289), @CaseId(1099), @CaseId(1100), @CaseId(1101)})
@@ -112,8 +111,7 @@ public final class SimpleRecsV2Test extends RestBase {
     public void getComplementarySimpleRecsTest() {
         final Response response = SimpleRecsV2Request.Complementary.POST(allRequiredParameters);
         checkStatusCode200(response);
-        final SimpleRecsV2Response recsV2Response = response.as(SimpleRecsV2Response.class);
-        checkFieldIsNotEmpty(recsV2Response.getMedia(), "рекомендации");
+        checkResponseJsonSchema(response, SimpleRecsV2Response.class);
     }
 
     @CaseId(845)
@@ -123,7 +121,6 @@ public final class SimpleRecsV2Test extends RestBase {
     public void getSubstituteSimpleRecsTest() {
         final Response response = SimpleRecsV2Request.Substitute.POST(allRequiredParameters);
         checkStatusCode200(response);
-        final SimpleRecsV2Response recsV2Response = response.as(SimpleRecsV2Response.class);
-        checkFieldIsNotEmpty(recsV2Response.getMedia(), "рекомендации");
+        checkResponseJsonSchema(response, SimpleRecsV2Response.class);
     }
 }

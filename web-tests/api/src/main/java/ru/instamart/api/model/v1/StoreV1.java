@@ -1,67 +1,148 @@
+
 package ru.instamart.api.model.v1;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
-import ru.instamart.api.model.v2.NextDeliveryV2;
 
-import java.util.StringJoiner;
+import javax.validation.constraints.Null;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class StoreV1 extends BaseObject {
-    private Integer id;
-    private String name;
+
+    @JsonSchema(required = true)
     private Boolean active;
-    @JsonProperty("retailer_slug")
-    private String retailerSlug;
-    @JsonProperty("retailer_color")
-    private String retailerColor;
-    @JsonProperty("time_zone")
-    private String timeZone;
-    private String uuid;
-    @JsonProperty("has_conveyor")
-    private Boolean hasConveyor;
+
+    @Null
+    @JsonSchema(required = true)
+    @JsonProperty("additional_seconds_for_assembly")
+    private Object additionalSecondsForAssembly;
+
+    @JsonSchema(required = true)
     @JsonProperty("auto_routing")
     private Boolean autoRouting;
+
+    @JsonSchema(required = true)
+    @JsonProperty("available_on")
+    private String availableOn;
+
+    @Null
+    @JsonSchema(required = true)
+    @JsonProperty("box_scanning")
+    private Object boxScanning;
+
+    @JsonSchema(required = true)
+    private CityV1 city;
+
+    @JsonSchema(required = true)
+    @JsonProperty("city_id")
+    private Long cityId;
+
+    @JsonSchema(required = true)
+    private ConfigV1 config;
+
+    @Null
+    @JsonSchema(required = true)
+    @JsonProperty("delivery_forecast_text")
+    private Object deliveryForecastText;
+
+    @JsonSchema(required = true)
     @JsonProperty("express_delivery")
     private Boolean expressDelivery;
-    @JsonProperty("box_scanning")
-    private Boolean boxScanning;
-    private Boolean training;
-    @JsonProperty("min_order_amount")
-    private Double minOrderAmount;
-    @JsonProperty("min_first_order_amount")
-    private Double minFirstOrderAmount;
-    @JsonProperty("min_first_order_amount_pickup")
-    private Double minFirstOrderAmountPickup;
-    @JsonProperty("min_order_amount_pickup")
-    private Double minOrderAmountPickup;
-    @JsonProperty("available_for_pickup")
-    private Boolean availableForPickup;
+
+    @Null
+    @JsonSchema(required = true)
     @JsonProperty("external_assembly")
     private Object externalAssembly;
-    @JsonProperty("next_delivery")
-    private NextDeliveryV2 nextDelivery;
+
+    @JsonSchema(required = true)
+    @JsonProperty("external_assembly_kind")
+    private String externalAssemblyKind;
+
+    @JsonSchema(required = true)
+    @JsonProperty("has_conveyor")
+    private Boolean hasConveyor;
+
+    @JsonSchema(required = true)
+    private Long id;
+
+    @JsonSchema(required = true)
+    @JsonProperty("import_key_postfix")
+    private String importKeyPostfix;
+
+    @JsonSchema(required = true)
+    private List<Object> licenses;
+
+    @JsonSchema(required = true)
     private AddressV1 location;
 
-    @Override
-    public String toString() {
-        StringJoiner stringJoiner = new StringJoiner(
-                ", ",
-                "",
-                "");
-        if (getRetailerSlug() == null || getLocation() == null) {
-            stringJoiner.add(getName());
-        } else {
-            stringJoiner.add(getRetailerSlug());
-            stringJoiner
-                    .add(getLocation().getCity())
-                    .add(getLocation().getStreet());
-        }
-        return stringJoiner
-                .add("sid: " + id)
-                .toString();
-    }
+    @JsonSchema(required = true)
+    private String name;
+
+    @JsonSchema(required = true)
+    @JsonProperty("on_demand")
+    private Boolean onDemand;
+
+    @JsonSchema(required = true)
+    @JsonProperty("operational_zone")
+    private OperationalZoneV1 operationalZone;
+
+    @JsonSchema(required = true)
+    @JsonProperty("payment_methods_stores")
+    private List<PaymentMethodsStoreV1> paymentMethodsStores;
+
+    @Null
+    @JsonSchema(required = true)
+    @JsonProperty("pharmacy_legal_info")
+    private Object pharmacyLegalInfo;
+
+    @Null
+    @JsonSchema(required = true)
+    private Object phone;
+
+    @JsonSchema(required = true)
+    @JsonProperty("pickup_instruction")
+    private String pickupInstruction;
+
+    @JsonSchema(required = true)
+    private RetailerV1 retailer;
+
+    @JsonSchema(required = true)
+    @JsonProperty("retailer_store_id")
+    private String retailerStoreId;
+
+    @Null
+    @JsonSchema(required = true)
+    @JsonProperty("seconds_for_assembly_item")
+    private Object secondsForAssemblyItem;
+
+    @JsonSchema(required = true)
+    @JsonProperty("store_schedule")
+    private StoreScheduleV1 storeSchedule;
+
+    @JsonSchema(required = true)
+    @JsonProperty("store_shipping_methods")
+    private List<StoreShippingMethodV1> storeShippingMethods;
+
+    @JsonSchema(required = true)
+    @JsonProperty("store_zones")
+    private List<StoreZoneV1> storeZones;
+
+    @JsonSchema(required = true)
+    private List<StoreTenantV1> tenants;
+
+    @JsonSchema(required = true)
+    @JsonProperty("time_zone")
+    private String timeZone;
+
+    @Null
+    @JsonSchema(required = true)
+    private Object training;
+
+    @JsonSchema(required = true)
+    private String uuid;
 }

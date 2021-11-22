@@ -10,19 +10,20 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.v1.OrderV1;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v1.LineItemsV1Request;
 import ru.instamart.api.request.v1.OrdersV1Request;
 import ru.instamart.api.request.v1.ShipmentsV1Request;
 import ru.instamart.api.request.v1.ShoppersV1Request;
-import ru.instamart.api.response.v1.LineItemsV1Response;
-import ru.instamart.api.response.v1.ShipmentV1Response;
+import ru.instamart.api.response.v1.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.data.user.UserManager;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV1")
@@ -55,7 +56,7 @@ public class OrdersV1Test extends RestBase {
     public void getOrders() {
         Response response = OrdersV1Request.GET();
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Orders.json"));
+        checkResponseJsonSchema(response, OrdersV1Response.class);
     }
 
     @Story("Заказы")
@@ -63,9 +64,9 @@ public class OrdersV1Test extends RestBase {
     @Test(description = "Контрактный тест инфы о заказе",
             groups = "api-instamart-regress")
     public void getOrder() {
-        Response response = OrdersV1Request.GET(orderNumber);
+        final Response response = OrdersV1Request.GET(orderNumber);
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Order.json"));
+        checkResponseJsonSchema(response, OrderV1.class);
     }
 
     @Story("Заказы")
@@ -73,9 +74,9 @@ public class OrdersV1Test extends RestBase {
     @Test(description = "Контрактный тест инфы о шипменте",
             groups = "api-instamart-regress")
     public void getShipment() {
-        Response response = ShipmentsV1Request.GET(shipmentNumber);
+        final Response response = ShipmentsV1Request.GET(shipmentNumber);
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Shipment.json"));
+        checkResponseJsonSchema(response, ShipmentV1Response.class);
 
         shipmentUuid = response.as(ShipmentV1Response.class).getShipment().getUuid();
     }
@@ -85,9 +86,9 @@ public class OrdersV1Test extends RestBase {
     @Test(description = "Контрактный тест списка офферов в шипменте",
             groups = "api-instamart-regress")
     public void getShipmentOffers() {
-        Response response = ShipmentsV1Request.Offers.GET(shipmentNumber);
+        final Response response = ShipmentsV1Request.Offers.GET(shipmentNumber);
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/ShipmentOffers.json"));
+        checkResponseJsonSchema(response, ShipmentOffersV1Response.class);
     }
 
     @Story("Заказы")
@@ -95,9 +96,9 @@ public class OrdersV1Test extends RestBase {
     @Test(description = "Контрактный тест списка лайн айтемов в шимпенте",
             groups = "api-instamart-regress")
     public void getLineItems() {
-        Response response = LineItemsV1Request.GET(shipmentNumber);
+        final Response response = LineItemsV1Request.GET(shipmentNumber);
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/LineItems.json"));
+        checkResponseJsonSchema(response, LineItemsV1Response.class);
         productSku = response.as(LineItemsV1Response.class)
                 .getLineItems()
                 .get(0)
@@ -111,9 +112,9 @@ public class OrdersV1Test extends RestBase {
             groups = "api-instamart-regress",
             dependsOnMethods = "getLineItems")
     public void getShipmentProductsPrereplacements() {
-        Response response = ShipmentsV1Request.Products.Prereplacements.GET(shipmentNumber, Long.parseLong(productSku));
+        final Response response = ShipmentsV1Request.Products.Prereplacements.GET(shipmentNumber, Long.parseLong(productSku));
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Prereplacements.json"));
+        checkResponseJsonSchema(response, PreReplacementV1Response.class);
     }
 
     //todo убрать скип после выдачи прав SD-13260
@@ -121,14 +122,14 @@ public class OrdersV1Test extends RestBase {
     @Issues({@Issue("INFRADEV-3167"), @Issue("STF-9483")})
     @Story("Заказы")
     @CaseId(120)
-    @Test(enabled = false,
+    @Test(enabled = true,
             description = "Контрактный тест списка сэмплов в шипменте",
             groups = "api-instamart-regress",
             dependsOnMethods = "getShipment")
     public void getShopperMarketingSampleItems() {
-        Response response = ShoppersV1Request.MarketingSampleItems.GET(shipmentUuid);
+        final Response response = ShoppersV1Request.MarketingSampleItems.GET(shipmentUuid);
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/MarketingSampleItems.json"));
+        checkResponseJsonSchema(response, MarketingSamplesItemsV1Response.class);
     }
 
     //todo убрать скип после выдачи прав SD-13260
@@ -138,8 +139,8 @@ public class OrdersV1Test extends RestBase {
     @Test(description = "Контрактный тест списка способов оплаты в заказе",
             groups = "api-instamart-regress")
     public void getShopperOrderAvailablePaymentTools() {
-        Response response = ShoppersV1Request.OrderAvailablePaymentTools.GET(orderNumber);
+        final Response response = ShoppersV1Request.OrderAvailablePaymentTools.GET(orderNumber);
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/PaymentTools.json"));
+        checkResponseJsonSchema(response, AvailablePaymentToolsV1Response.class);
     }
 }

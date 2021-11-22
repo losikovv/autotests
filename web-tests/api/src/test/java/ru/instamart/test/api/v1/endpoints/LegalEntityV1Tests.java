@@ -32,7 +32,7 @@ public class LegalEntityV1Tests extends RestBase {
     public void getWithoutLegalEntity() {
         SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
 
-        Response response = LegalEntityV1Request.GET("123456789");
+        final Response response = LegalEntityV1Request.GET("123456789");
         checkStatusCode200(response);
         assertNull(response.as(LegalEntityV1Response.class).getLegalEntity(), "Ответ не пустой");
     }

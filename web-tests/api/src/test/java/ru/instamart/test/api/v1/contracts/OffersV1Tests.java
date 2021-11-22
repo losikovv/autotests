@@ -10,8 +10,9 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.model.v1.OfferV1;
 import ru.instamart.api.request.v1.OffersV1Request;
+import ru.instamart.api.response.v1.OfferV1Response;
 
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV1")
@@ -25,8 +26,8 @@ public class OffersV1Tests extends RestBase {
             dataProviderClass = RestDataProvider.class,
             dataProvider = "offerOfEachRetailer-parallel")
     public void getOffer(OfferV1 offer) {
-        Response response = OffersV1Request.GET(offer.getUuid());
+        final Response response = OffersV1Request.GET(offer.getUuid());
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Offer.json"));
+        checkResponseJsonSchema(response, OfferV1Response.class);
     }
 }

@@ -46,7 +46,7 @@ public class CompaniesV1Tests extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
-        Response response = UserCompaniesV1Request.POST(companyData);
+        final Response response = UserCompaniesV1Request.POST(companyData);
         checkStatusCode200(response);
         company = response.as(CompanyV1Response.class).getCompany();
     }
@@ -56,7 +56,7 @@ public class CompaniesV1Tests extends RestBase {
     @Test(description = "Поиск компании по ИНН",
             groups = {"api-instamart-regress"})
     public void getCompaniesByINN() {
-        Response response = CompaniesV1Request.GET(company.getInn());
+        final Response response = CompaniesV1Request.GET(company.getInn());
         checkStatusCode200(response);
         assertEquals(company.getInn(), response.as(CompaniesV1Response.class).getCompanies().get(0).getInn(), "в ответе ИНН отличается от запрошенного");
     }
@@ -66,7 +66,7 @@ public class CompaniesV1Tests extends RestBase {
     @Test(description = "Переход на страницу компании",
             groups = {"api-instamart-regress"})
     public void getCompaniesByID() {
-        Response response = CompaniesV1Request.GET(company.getId());
+        final Response response = CompaniesV1Request.GET(company.getId());
         checkStatusCode200(response);
         assertEquals(company.getId(), response.as(CompanyV1Response.class).getCompany().getId(), "id компании отличается");
     }
@@ -78,7 +78,7 @@ public class CompaniesV1Tests extends RestBase {
     public void putCompanyName() {
         CompanyV1 companyName = new CompanyV1().setName(JuridicalData.juridical().getJuridicalName());
 
-        Response response = CompaniesV1Request.PUT(company.getId(), companyName);
+        final Response response = CompaniesV1Request.PUT(company.getId(), companyName);
         checkStatusCode200(response);
         assertEquals(companyName.getName(), response.as(CompanyV1Response.class).getCompany().getName(), "Наименование компании отличается");
     }
@@ -90,7 +90,7 @@ public class CompaniesV1Tests extends RestBase {
     public void putManagerComment() {
         CompanyV1 companyComment = new CompanyV1().setManagerComment("Test");
 
-        Response response = CompaniesV1Request.PUT(company.getId(), companyComment);
+        final Response response = CompaniesV1Request.PUT(company.getId(), companyComment);
         checkStatusCode200(response);
         assertEquals(companyComment.getManagerComment(), response.as(CompanyV1Response.class).getCompany().getManagerComment(), "Комментарий менеджера отличается");
     }
@@ -102,7 +102,7 @@ public class CompaniesV1Tests extends RestBase {
     public void putLinkToCrm() {
         CompanyV1 companyLink = new CompanyV1().setLinkToCrm("https://test2.ru");
 
-        Response response = CompaniesV1Request.PUT(company.getId(), companyLink);
+        final Response response = CompaniesV1Request.PUT(company.getId(), companyLink);
         checkStatusCode200(response);
         assertEquals(companyLink.getLinkToCrm(), response.as(CompanyV1Response.class).getCompany().getLinkToCrm(), "Ссылка на crm отличается");
     }
@@ -114,7 +114,7 @@ public class CompaniesV1Tests extends RestBase {
     public void putPostpay() {
         CompanyV1 companyPostpay = new CompanyV1().setPostpay(true);
 
-        Response response = CompaniesV1Request.PUT(company.getId(), companyPostpay);
+        final Response response = CompaniesV1Request.PUT(company.getId(), companyPostpay);
         checkStatusCode200(response);
         assertEquals(companyPostpay.getPostpay(), response.as(CompanyV1Response.class).getCompany().getPostpay(), "postpay отличается от заданного");
     }
@@ -126,7 +126,7 @@ public class CompaniesV1Tests extends RestBase {
     public void putPrepay() {
         CompanyV1 companyPrepay = new CompanyV1().setPrepay(true);
 
-        Response response = CompaniesV1Request.PUT(company.getId(), companyPrepay);
+        final Response response = CompaniesV1Request.PUT(company.getId(), companyPrepay);
         checkStatusCode200(response);
         assertEquals(companyPrepay.getPrepay(), response.as(CompanyV1Response.class).getCompany().getPrepay(), "postpay отличается от заданного");
     }
@@ -138,7 +138,7 @@ public class CompaniesV1Tests extends RestBase {
     public void putDeposit() {
         CompanyV1 companyDeposit = new CompanyV1().setDeposit(true);
 
-        Response response = CompaniesV1Request.PUT(company.getId(), companyDeposit);
+        final Response response = CompaniesV1Request.PUT(company.getId(), companyDeposit);
         checkStatusCode200(response);
         assertEquals(companyDeposit.getDeposit(), response.as(CompanyV1Response.class).getCompany().getDeposit(), "deposit отличается от заданного");
     }
@@ -151,7 +151,7 @@ public class CompaniesV1Tests extends RestBase {
         UserV1 managerAsUser = new UserV1();
         managerAsUser.setId(101779);
         manager.setUser(managerAsUser);
-        Response response = CompanyManagersV1Request.POST(company.getId(), manager);
+        final Response response = CompanyManagersV1Request.POST(company.getId(), manager);
         checkStatusCode200(response);
         ManagerV1 managerFromResponse = response.as(CompanyManagerV1Response.class).getManager();
         assertEquals(manager.getUser().getId(), managerFromResponse.getUser().getId(), "user.id  отличается от заданного");
@@ -165,9 +165,9 @@ public class CompaniesV1Tests extends RestBase {
             groups = {"api-instamart-regress"},
     dependsOnMethods = "postCompanyManager")
     public void deleteCompanyManager() {
-        Response response = CompanyManagersV1Request.DELETE(manager.getId());
+        final Response response = CompanyManagersV1Request.DELETE(manager.getId());
         checkStatusCode200(response);
-        Response responseForCheck = CompaniesV1Request.GET(company.getId());
+        final Response responseForCheck = CompaniesV1Request.GET(company.getId());
         assertNull(responseForCheck.as(CompanyV1Response.class).getCompany().getManager(), "Ответ не пустой");
     }
 
@@ -180,7 +180,7 @@ public class CompaniesV1Tests extends RestBase {
         String number = company.getId().toString() + Generate.digitalString(5); // создаём уникальный номер
         salesContract.setNumber(Integer.valueOf(number));
         salesContract.setSigningDate(new SimpleDateFormat("yyyy-MM-dd").format(Instant.now().toEpochMilli()));
-        Response response = CompanySalesContractV1Request.POST(company.getId(), salesContract.getNumber(), salesContract.getSigningDate());
+        final Response response = CompanySalesContractV1Request.POST(company.getId(), salesContract.getNumber(), salesContract.getSigningDate());
         checkStatusCode200(response);
         SalesContractV1 salesContractResponse = response.as(CompanySalesContractV1Response.class).getSalesContract();
         assertTrue(salesContractResponse.getActive(), "договор купли-продажи не активный");
@@ -193,7 +193,7 @@ public class CompaniesV1Tests extends RestBase {
             groups = {"api-instamart-regress"},
     dependsOnMethods = "postSalesContract")
     public void postSalesContractWhenHasActiveContract() {
-        Response response = CompanySalesContractV1Request.POST(company.getId(), salesContract.getNumber(), salesContract.getSigningDate());
+        final Response response = CompanySalesContractV1Request.POST(company.getId(), salesContract.getNumber(), salesContract.getSigningDate());
         checkStatusCode422(response);
         assertEquals("У компании уже имеется активный договор",
                 response.as(CompanySalesContractV1Response.class).getSalesContract().getErrors().getArchivedAt().get(0), "Ошибка не валидная");
@@ -217,7 +217,7 @@ public class CompaniesV1Tests extends RestBase {
                             .toEpochMilli()));
         }
 
-        Response response = CompanySalesContractV1Request.PUT(company.getId(), salesContract);
+        final Response response = CompanySalesContractV1Request.PUT(company.getId(), salesContract);
         checkStatusCode200(response);
         assertEquals(salesContract.getSigningDate(),
                 response.as(CompanySalesContractV1Response.class).getSalesContract().getSigningDate(), "signing_date не равен созданному договору");
@@ -229,7 +229,7 @@ public class CompaniesV1Tests extends RestBase {
             groups = {"api-instamart-regress"},
             dependsOnMethods = {"postSalesContractWhenHasActiveContract", "putSalesContractDate"})
     public void postArchiveSalesContract() {
-        Response response = CompanySalesContractV1Request.POST(salesContract.getId());
+        final Response response = CompanySalesContractV1Request.POST(salesContract.getId());
         checkStatusCode200(response);
         assertFalse(response.as(CompanySalesContractV1Response.class).getSalesContract().getActive(), "Ошибка архивации договора");
     }
@@ -240,7 +240,7 @@ public class CompaniesV1Tests extends RestBase {
             groups = {"api-instamart-regress"},
             dependsOnMethods = "postArchiveSalesContract")
     public void postSalesContractNumberExisting() {
-        Response response = CompanySalesContractV1Request.POST(company.getId(), salesContract.getNumber());
+        final Response response = CompanySalesContractV1Request.POST(company.getId(), salesContract.getNumber());
         checkStatusCode422(response);
         assertEquals("уже существует",
                 response.as(CompanySalesContractV1Response.class).getSalesContract().getErrors().getNumber().get(0), "Невалидная ошибка при добавлении договора");
