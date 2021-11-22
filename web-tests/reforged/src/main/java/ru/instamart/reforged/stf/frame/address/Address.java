@@ -28,7 +28,7 @@ public final class Address implements Close, AddressCheck {
 
     @Step("Указать адрес доставки")
     public void setAddress(final String text) {
-        address.fill(text);
+        address.fillField(text);
     }
 
     @Step("Очистить поле адреса")

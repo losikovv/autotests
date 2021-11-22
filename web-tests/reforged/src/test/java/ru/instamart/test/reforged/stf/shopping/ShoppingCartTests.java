@@ -11,10 +11,10 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
+import ru.instamart.reforged.stf.page.StfRouter;
 import ru.instamart.test.reforged.BaseTest;
 
-import static ru.instamart.reforged.stf.page.StfRouter.search;
-import static ru.instamart.reforged.stf.page.StfRouter.shop;
+import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Основные тесты корзины")
@@ -271,5 +271,94 @@ public final class ShoppingCartTests extends BaseTest {
 
         shop().interactCart().checkFirstMinAmountMoreThanRepeated(firstOrderMinAmount, repeatedOrderMinAmount);
         shop().assertAll();
+    }
+
+    @CaseId(2616)
+    @Test(description = "Добавление/удаление товара из карточки товара", groups = "regression")
+    public void testAddedAndRemoveProductFromProductCard() {
+        var userData = UserManager.getQaUser();
+        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().checkModalIsNotVisible();
+
+        shop().openFirstProductCard();
+        shop().interactProductCard().checkProductCardVisible();
+        shop().interactProductCard().clickOnBuy();
+        shop().interactProductCard().decreaseItemCount();
+        shop().interactProductCard().checkBuyButton();
+    }
+
+    @CaseId(2618)
+    @Test(description = "Добавление/удаление товара из раздела 'Скидки'", groups = "regression")
+    public void testAddProductFromSale() {
+        var userData = UserManager.getQaUser();
+        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().authViaPhone(userData);
+
+        shop().openSitePage("metro/c/priedlozhieniia/skidki/bakalieia?sid=1&source=category");
+        seo().interactHeader().checkProfileButtonVisible();
+        seo().addFirstProductToCart();
+        seo().removeFirstProductFromCart();
+        seo().interactHeader().clickToCart();
+        seo().interactCart().checkCartEmpty();
+    }
+
+    @CaseId(2619)
+    @Test(description = "Добавление товара после изменения адреса доставки", groups = "regression")
+    public void testAddProductAfterChangeAddress() {
+        var userData = UserManager.getQaUser();
+        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().openFirstProductCard();
+        shop().interactProductCard().increaseItemCount();
+        shop().interactProductCard().close();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().compareFirstItemQuantityInCart(5);
+    }
+
+    @CaseId(2620) //2937, 2938
+    @Test(description = "Многократное добавление и удаление одной позиции", groups = "regression")
+    public void testMultipleAddAndRemoveProduct() {
+        var userData = UserManager.getQaUser();
+        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().openFirstProductCard();
+        shop().interactProductCard().clickOnBuy();
+        shop().interactProductCard().increaseItemCount();
+        shop().interactProductCard().increaseItemCount();
+        shop().interactProductCard().close();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().compareFirstItemQuantityInCart(3);
+        shop().interactCart().closeCart();
+
+        shop().openFirstProductCard();
+        shop().interactProductCard().decreaseItemCount();
+        shop().interactProductCard().decreaseItemCount();
+        shop().interactProductCard().decreaseItemCount();
+        shop().interactProductCard().close();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().checkCartEmpty();
     }
 }

@@ -40,7 +40,6 @@ public class AdministrationUsersSectionTests extends BaseTest {
     public void successGrantAndRevokeAdmin() {
         final UserData userData = UserManager.getQaUser();
         final String password = Generate.literalString(8);
-        helper.auth(userData);
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -92,8 +91,6 @@ public class AdministrationUsersSectionTests extends BaseTest {
     public void successChangeEmail() {
         final UserData userData = UserManager.getQaUser();
         final String email = Generate.email();
-        helper.auth(userData);
-
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
@@ -115,7 +112,6 @@ public class AdministrationUsersSectionTests extends BaseTest {
     //TODO в основном тесте есть еще проверка невозможности поиска заказа b2b. Лучше вынести в отдельный тест в shipments
     public void successGrantAndRevokeB2BStatus() {
         final UserData userData = UserManager.getQaUser();
-        helper.auth(userData);
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());

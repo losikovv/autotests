@@ -15,27 +15,14 @@ import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 
-public class ApiHelper {
+public final class ApiHelper {
+
     private final InstamartApiHelper apiV2 = new InstamartApiHelper();
     private final AdminHelper admin = new AdminHelper();
 
     @Step("Подтверждение кода с помощью API")
     public SessionV2 confirmPhone(final String phone, final String code, final boolean promoTermsAccepted) {
         return apiV2.confirmPhone(phone, code, promoTermsAccepted);
-    }
-
-    /**
-     * @param user должен иметь phone и encryptedPhone
-     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
-     */
-    @Step("Регистрация/авторизация по номеру телефона с помощью API")
-    public void auth(final UserData user) {
-        SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.PHONE, user);
-    }
-
-    @Step("Авторизация администратором")
-    public void authAdmin(){
-        SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
     }
 
     @Step("Добавить {count} продукт в список избранного")
@@ -201,5 +188,19 @@ public class ApiHelper {
     public void deleteOperationalZonesInAdmin(String zoneName) {
         K8sPortForward.getInstance().portForwardMySQL();
         OperationalZonesDao.INSTANCE.deleteZoneByName(zoneName);
+    }
+
+    /**
+     * @param user должен иметь phone и encryptedPhone
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     */
+    @Step("Регистрация/авторизация по номеру телефона с помощью API")
+    private void auth(final UserData user) {
+        SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.PHONE, user);
+    }
+
+    @Step("Авторизация администратором")
+    private void authAdmin() {
+        SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
     }
 }

@@ -22,7 +22,6 @@ public final class HelpDeskChatTests extends BaseTest {
         final ApiHelper apiHelper = new ApiHelper();
         final UserData userData = UserManager.getQaUser();
 
-        apiHelper.auth(userData);
         apiHelper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
         home().goToPage();
