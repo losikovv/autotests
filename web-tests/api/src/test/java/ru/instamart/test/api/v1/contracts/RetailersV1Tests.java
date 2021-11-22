@@ -27,7 +27,7 @@ public class RetailersV1Tests extends RestBase {
     @Test(description = "Контрактный тест списка ретейлеров",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getRetailers() {
-        Response response = RetailersV1Request.GET();
+        final Response response = RetailersV1Request.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, RetailersV2Response.class);
     }
@@ -44,7 +44,7 @@ public class RetailersV1Tests extends RestBase {
             dataProviderClass = RestDataProvider.class,
             dataProvider = "retailersSpree-parallel")
     public void getRetailer(RetailerV2 retailer) {
-        Response response = RetailersV1Request.GET(retailer.getId());
+        final Response response = RetailersV1Request.GET(retailer.getId());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, RetailerV2Response.class);
     }
@@ -56,9 +56,8 @@ public class RetailersV1Tests extends RestBase {
             dataProviderClass = RestDataProvider.class,
             dataProvider = "retailersSpree-parallel")
     public void getRetailerEans(RetailerV2 retailer) {
-        Response response = RetailersV1Request.Eans.GET(retailer.getId());
+        final Response response = RetailersV1Request.Eans.GET(retailer.getId());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, EansV1Response.class);
-        System.out.println(response.asString());
     }
 }

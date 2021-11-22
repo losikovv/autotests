@@ -32,7 +32,7 @@ public final class TaxonsV2Test extends RestBase {
     @Test(  groups = {"api-instamart-regress"},
             description = "Получаем таксоны (подкатегории)")
     public void getTaxons() {
-        Response response = TaxonsV2Request.GET(EnvironmentProperties.DEFAULT_SID);
+        final Response response = TaxonsV2Request.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, TaxonsV2Response.class);
         List<TaxonV2> taxons = response.as(TaxonsV2Response.class).getTaxons();
@@ -44,7 +44,7 @@ public final class TaxonsV2Test extends RestBase {
             dependsOnMethods = "getTaxons",
             description = "Получаем таксон (подкатегорию)")
     public void getTaxon() {
-        Response response = TaxonsV2Request.GET(taxonId, EnvironmentProperties.DEFAULT_SID);
+        final Response response = TaxonsV2Request.GET(taxonId, EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, TaxonV2Response.class);
     }

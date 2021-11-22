@@ -97,7 +97,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
             description = "Список SKU товаров из избранного. Один товар в избранном")
     public void getFavoritesSku() {
         var favorites = apiV2.addFavoritesProductBySid(EnvironmentProperties.DEFAULT_SID);
-        Response response = FavoritesV2Request.ProductSku.GET();
+        final Response response = FavoritesV2Request.ProductSku.GET();
         checkStatusCode200(response);
         ProductSkuV2Response productSkuV2Response = response.as(ProductSkuV2Response.class);
         assertEquals(productSkuV2Response.getProductsSku().get(0), favorites.getItem().getSku(), "product sku mismatch");
@@ -109,7 +109,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
             description = "Список SKU товаров из избранного. 3 товар в избранном")
     public void getFavoritesSku3Items() {
         apiV2.addFavoritesQtyListProductBySid(EnvironmentProperties.DEFAULT_SID, 3);
-        Response response = FavoritesV2Request.ProductSku.GET();
+        final Response response = FavoritesV2Request.ProductSku.GET();
         checkStatusCode200(response);
         ProductSkuV2Response productSkuV2Response = response.as(ProductSkuV2Response.class);
         checkFieldIsNotEmpty(productSkuV2Response.getProductsSku(), "SKU товаров из избранного");

@@ -36,7 +36,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
             dataProvider = "orderNumbers",
             dataProviderClass = RestDataProvider.class)
     public void getTransactionNumber(String orderNumber) {
-        Response response = PaymentsV2Request.POST(orderNumber);
+        final Response response = PaymentsV2Request.POST(orderNumber);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, CreditCardAuthorizationV2Response.class);
         CreditCardAuthorizationV2Response creditCardAuthorizationV2Response = response.as(CreditCardAuthorizationV2Response.class);
@@ -50,7 +50,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
             dataProvider = "transactionNumbers",
             dataProviderClass = RestDataProvider.class)
     public void authorizeCardWithInvalidData(String transactionNumber, int statusCode, String errorMessage) {
-        Response response = PaymentsV2Request.PUT(transactionNumber);
+        final Response response = PaymentsV2Request.PUT(transactionNumber);
         checkStatusCode(response, statusCode);
         checkError(response, errorMessage);
     }
@@ -62,7 +62,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
             dependsOnMethods = "getTransactionNumber")
     public void authorizeCardWithInvalidToken() {
         SessionFactory.clearSession(SessionType.API_V2);
-        Response response = PaymentsV2Request.PUT(transactionNumber);
+        final Response response = PaymentsV2Request.PUT(transactionNumber);
         checkStatusCode401(response);
         checkError(response, "Ключ доступа невалиден или отсутствует");
     }
@@ -74,7 +74,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
             dataProvider = "invalidTransactionData",
             dataProviderClass = RestDataProvider.class)
     public void finishCardAuthorizationWithoutCard(String transactionNumber, String orderNumber, String userUuid, String errorMessage) {
-        Response response = PaymentsV2Request.GET(transactionNumber, orderNumber, userUuid);
+        final Response response = PaymentsV2Request.GET(transactionNumber, orderNumber, userUuid);
         checkStatusCode404(response);
         checkError(response, errorMessage);
     }

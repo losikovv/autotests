@@ -45,7 +45,7 @@ public class SearchesV2Test extends RestBase {
             dataProvider = "positiveQuery",
             dataProviderClass = RestDataProvider.class)
     public void getSearchSuggestionsWithQuery(int sid, String query) {
-        Response response = SearchesV2Request.Suggestions.GET(sid, query);
+        final Response response = SearchesV2Request.Suggestions.GET(sid, query);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, SearchSuggestionsV2Response.class);
     }
@@ -56,7 +56,7 @@ public class SearchesV2Test extends RestBase {
             dataProvider = "negativeQuery",
             dataProviderClass = RestDataProvider.class)
     public void getSearchSuggestionsWithSqlQuery(int sid, String query) {
-        Response response = SearchesV2Request.Suggestions.GET(sid, query);
+        final Response response = SearchesV2Request.Suggestions.GET(sid, query);
         checkStatusCode200(response);
         SuggestionV2 suggestion = response.as(SearchSuggestionsV2Response.class).getSuggestion();
         checkSearchSuggestionsNegative(suggestion);
@@ -66,7 +66,7 @@ public class SearchesV2Test extends RestBase {
     @Test(description = "Получаем поисковые подсказки по слову для несуществующего магазина",
             groups = {"api-instamart-regress"})
     public void getSearchSuggestionsWithQueryAndNonExistentShop() {
-        Response response = SearchesV2Request.Suggestions.GET(0, "сыр");
+        final Response response = SearchesV2Request.Suggestions.GET(0, "сыр");
         checkStatusCode404(response);
         checkError(response, "Магазин не существует");
     }
@@ -77,7 +77,7 @@ public class SearchesV2Test extends RestBase {
             dataProvider = "emptyQueries",
             dataProviderClass = RestDataProvider.class)
     public void getSearchSuggestionsWithEmptyQuery(String query) {
-        Response response = SearchesV2Request.Suggestions.GET(1, query);
+        final Response response = SearchesV2Request.Suggestions.GET(1, query);
         checkStatusCode200(response);
         assertNull(response.as(SearchSuggestionsV2Response.class).getSuggestion().getProducts(), "Вернулись продукты в поисковых подсказках");
     }

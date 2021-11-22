@@ -26,7 +26,7 @@ public class StoresV1Tests extends RestBase {
     @Test(description = "Контрактный тест списка магазинов",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getStores() {
-        Response response = StoresV1Request.GET();
+        final Response response = StoresV1Request.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, StoresV1Response.class);
     }
@@ -38,7 +38,7 @@ public class StoresV1Tests extends RestBase {
             dataProviderClass = RestDataProvider.class,
             dataProvider = "storeOfEachRetailer-parallel")
     public void getStore(StoreV2 store) {
-        Response response = StoresV1Request.GET(store.getUuid());
+        final Response response = StoresV1Request.GET(store.getUuid());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, StoreV1Response.class);
     }
@@ -50,7 +50,7 @@ public class StoresV1Tests extends RestBase {
             dataProviderClass = RestDataProvider.class,
             dataProvider = "storeOfEachRetailer-parallel")
     public void getStoreOffers(StoreV2 store) {
-        Response response = StoresV1Request.Offers.GET(
+        final Response response = StoresV1Request.Offers.GET(
                 store.getUuid(),
                 "вода",
                 "");

@@ -41,7 +41,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     @Test(description = "Получение списка всех маркетинговых сэмплов",
             groups = {"api-instamart-regress"})
     public void getMarketingSamples() {
-        Response response = MarketingSamplesV1Request.GET();
+        final Response response = MarketingSamplesV1Request.GET();
         checkStatusCode200(response);
         List<MarketingSampleV1> marketingSamplesFromResponse = response.as(MarketingSamplesV1Response.class).getMarketingSamples();
         int marketingSamplesCountFromDb = MarketingSamplesDao.INSTANCE.getCount();
@@ -56,7 +56,7 @@ public class MarketingSamplesV1Tests extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2);
         profile = apiV2.getProfile();
         SessionFactory.clearSession(SessionType.API_V2);
-        Response response = MarketingSamplesV1Request.POST(profile.getUser().getId());
+        final Response response = MarketingSamplesV1Request.POST(profile.getUser().getId());
         checkStatusCode200(response);
         MarketingSampleV1 marketingSampleFromResponse = response.as(MarketingSampleV1Response.class).getMarketingSample();
         sampleId = marketingSampleFromResponse.getId();
@@ -70,7 +70,7 @@ public class MarketingSamplesV1Tests extends RestBase {
             groups = {"api-instamart-regress"},
             dependsOnMethods = "createMarketingSample")
     public void getMarketingSample() {
-        Response response = MarketingSamplesV1Request.GET(sampleId);
+        final Response response = MarketingSamplesV1Request.GET(sampleId);
         checkStatusCode200(response);
         MarketingSampleV1 marketingSampleFromResponse = response.as(MarketingSampleV1Response.class).getMarketingSample();
         Optional<MarketingSamplesEntity> marketingSamplesEntity = MarketingSamplesDao.INSTANCE.findById(sampleId);
@@ -87,7 +87,7 @@ public class MarketingSamplesV1Tests extends RestBase {
         ProfileV2Response profile = apiV2.getProfile();
         SessionFactory.clearSession(SessionType.API_V2);
 
-        Response response = MarketingSamplesV1Request.PUT(sampleId, profile.getUser().getId());
+        final Response response = MarketingSamplesV1Request.PUT(sampleId, profile.getUser().getId());
         checkStatusCode200(response);
         MarketingSampleV1 marketingSampleFromResponse = response.as(MarketingSampleV1Response.class).getMarketingSample();
         Optional<MarketingSamplesEntity> marketingSamplesEntity = MarketingSamplesDao.INSTANCE.findById(sampleId);
@@ -100,7 +100,7 @@ public class MarketingSamplesV1Tests extends RestBase {
             groups = {"api-instamart-regress"},
             dependsOnMethods = {"createMarketingSample", "getMarketingSample", "editMarketingSample"})
     public void deleteMarketingSample() {
-        Response response = MarketingSamplesV1Request.DELETE(sampleId);
+        final Response response = MarketingSamplesV1Request.DELETE(sampleId);
         checkStatusCode200(response);
         Optional<MarketingSamplesEntity> marketingSamplesEntity = MarketingSamplesDao.INSTANCE.findById(sampleId);
         checkFieldIsNotEmpty(marketingSamplesEntity.get().getDeletedAt(), "дата удаления");
@@ -111,7 +111,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     @Test(description = "Изменение несуществующего маркетингового сэмпла",
             groups = {"api-instamart-regress"})
     public void editNonExistingMarketingSample() {
-        Response response = MarketingSamplesV1Request.PUT(0L, profile.getUser().getId());
+        final Response response = MarketingSamplesV1Request.PUT(0L, profile.getUser().getId());
         checkStatusCode404(response);
     }
 
@@ -120,7 +120,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     @Test(description = "Удаление несуществующего маркетингового сэмпла",
             groups = {"api-instamart-regress"})
     public void deleteNonExistingMarketingSample() {
-        Response response = MarketingSamplesV1Request.DELETE(0L);
+        final Response response = MarketingSamplesV1Request.DELETE(0L);
         checkStatusCode404(response);
     }
 
@@ -129,7 +129,7 @@ public class MarketingSamplesV1Tests extends RestBase {
     @Test(description = "Получение несуществующего маркетингового сэмпла",
             groups = {"api-instamart-regress"})
     public void getNonExistingMarketingSample() {
-        Response response = MarketingSamplesV1Request.GET(0L);
+        final Response response = MarketingSamplesV1Request.GET(0L);
         checkStatusCode404(response);
     }
 }

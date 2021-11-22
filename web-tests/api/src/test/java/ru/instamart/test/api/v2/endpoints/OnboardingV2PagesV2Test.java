@@ -27,7 +27,7 @@ public class OnboardingV2PagesV2Test extends RestBase {
     @Test(description = "Автоматическое получение экранов онбординга при старте приложения",
             groups = {"api-instamart-regress"})
     public void getOnboardingPages() {
-        Response response = OnboardingV2PagesV2Request.GET();
+        final Response response = OnboardingV2PagesV2Request.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, OnboardingPagesV2Response.class);
         List<OnboardingPageV2> onboardingPages = response.as(OnboardingPagesV2Response.class).getOnboardingPages();

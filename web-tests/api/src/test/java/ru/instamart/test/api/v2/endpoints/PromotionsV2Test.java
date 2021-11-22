@@ -25,7 +25,7 @@ public class PromotionsV2Test extends RestBase {
     @Story("Реферальная программа")
     @Test(groups = {"api-instamart-regress"}, description = "Общие сведения о реферальной программе")
     public void getReferralProgram() {
-        Response response = PromotionsV2Request.ReferralProgram.GET();
+        final Response response = PromotionsV2Request.ReferralProgram.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ReferralProgramV2Response.class);
     }

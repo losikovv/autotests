@@ -119,7 +119,7 @@ public class OrdersV2Test extends RestBase {
     public void orderWithInvalidPromoCode() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
-        Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "failCode");
+        final Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "failCode");
         checkError(response, "Промокод не существует");
     }
 
@@ -129,7 +129,7 @@ public class OrdersV2Test extends RestBase {
             description = "Истекший промокод")
     public void orderWithExpiredPromoCode() {
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
-        Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), getExpiredPromotionCode());
+        final Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), getExpiredPromotionCode());
         checkError(response, "Данный промокод истек");
     }
 
@@ -140,7 +140,7 @@ public class OrdersV2Test extends RestBase {
     public void orderWithPromoCodeAndEmptyCart() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         String orderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
-        Response response = OrdersV2Request.Promotions.POST(orderNumber, promoCode);
+        final Response response = OrdersV2Request.Promotions.POST(orderNumber, promoCode);
         checkError(response, "Промокод неприменим");
         SessionFactory.clearSession(SessionType.API_V2);
     }
@@ -306,7 +306,7 @@ public class OrdersV2Test extends RestBase {
         List<ProductV2> products = apiV2.getProductFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_SID);
         ProductV2 product = products.get(0);
 
-        Response response = LineItemsV2Request.POST(product.getId(), 1, apiV2.getCurrentOrderNumber());
+        final Response response = LineItemsV2Request.POST(product.getId(), 1, apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, LineItemV2Response.class);
         compareTwoObjects(response.as(LineItemV2Response.class).getLineItem().getProduct(), product);
@@ -336,7 +336,7 @@ public class OrdersV2Test extends RestBase {
         );
         Integer productId = cart.get(0).getId();
         Integer internalAmount = cart.get(0).getQuantity();
-        Response response = LineItemsV2Request.PUT(productId, 100);
+        final Response response = LineItemsV2Request.PUT(productId, 100);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, LineItemV2Response.class);
 
@@ -368,7 +368,7 @@ public class OrdersV2Test extends RestBase {
                 EnvironmentProperties.DEFAULT_SID
         ).get(0).getId();
 
-        Response response = LineItemsV2Request.DELETE(productId);
+        final Response response = LineItemsV2Request.DELETE(productId);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, LineItemV2Response.class);
     }
@@ -394,7 +394,7 @@ public class OrdersV2Test extends RestBase {
         Integer deliveryWindow = apiV2.getAvailableDeliveryWindow().getId();
         String orderNumber = apiV2.getCurrentOrderNumber();
 
-        Response response = OrdersV2Request.PUT(1, "", "", paymentsId, shipmentId, deliveryWindow, 0, orderNumber);
+        final Response response = OrdersV2Request.PUT(1, "", "", paymentsId, shipmentId, deliveryWindow, 0, orderNumber);
         checkStatusCode200(response);
 
         OrderV2 order = response.as(OrderV2Response.class).getOrder();

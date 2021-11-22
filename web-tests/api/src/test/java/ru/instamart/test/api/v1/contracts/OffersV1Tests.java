@@ -26,7 +26,7 @@ public class OffersV1Tests extends RestBase {
             dataProviderClass = RestDataProvider.class,
             dataProvider = "offerOfEachRetailer-parallel")
     public void getOffer(OfferV1 offer) {
-        Response response = OffersV1Request.GET(offer.getUuid());
+        final Response response = OffersV1Request.GET(offer.getUuid());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, OfferV1Response.class);
     }

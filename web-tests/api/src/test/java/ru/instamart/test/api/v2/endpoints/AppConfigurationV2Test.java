@@ -16,7 +16,7 @@ public class AppConfigurationV2Test extends RestBase {
     @Test(description = "Получение конфигурации приложения",
             groups = {"api-instamart-smoke"})
     public void getAppConfiguration200() {
-        Response response = AppConfigurationV2Request.GET();
+        final Response response = AppConfigurationV2Request.GET();
 
         checkStatusCode200(response);
     }

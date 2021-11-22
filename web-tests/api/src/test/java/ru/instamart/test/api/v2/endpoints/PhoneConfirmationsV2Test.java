@@ -45,7 +45,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
             groups = {"api-instamart-smoke", "MRAutoCheck"},
             dependsOnMethods = "postPhoneConfirmations")
     public void putPhoneConfirmations() {
-        Response response = PhoneConfirmationsV2Request.PUT(phoneNumber, CoreProperties.DEFAULT_SMS, true);
+        final Response response = PhoneConfirmationsV2Request.PUT(phoneNumber, CoreProperties.DEFAULT_SMS, true);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, SessionsV2Response.class);
     }
@@ -55,7 +55,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Инициировать отправку кода подтверждения  с невалидным значением для phone")
     public void postPhoneConfirmations404() {
-        Response response = PhoneConfirmationsV2Request.POST(PhoneCrypt.INSTANCE.encryptPhone("invalidPhoneNumber"));
+        final Response response = PhoneConfirmationsV2Request.POST(PhoneCrypt.INSTANCE.encryptPhone("invalidPhoneNumber"));
         checkStatusCode422(response);
         checkError(response, "PhoneToken: Value не может быть пустым");
     }
@@ -65,7 +65,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
     @Test(groups = {"api-instamart-smoke"},
             description = "Инициировать отправку кода подтверждения. Пользователь существует с указанным phone")
     public void postPhoneConfirmationsPhoneNotExist200() {
-        Response response = PhoneConfirmationsV2Request.POST(PhoneCrypt.INSTANCE.encryptPhone(Generate.phoneNumber()));
+        final Response response = PhoneConfirmationsV2Request.POST(PhoneCrypt.INSTANCE.encryptPhone(Generate.phoneNumber()));
         checkStatusCode200(response);
         PhoneTokenV2Response phoneToken = response.as(PhoneTokenV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
@@ -79,7 +79,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Подтверждение телефона кодом с невалидным номером")
     public void confirmPhonesWithInvalidNumber() {
-        Response response = PhoneConfirmationsV2Request.PUT("invalidPhoneNumber");
+        final Response response = PhoneConfirmationsV2Request.PUT("invalidPhoneNumber");
         checkStatusCode422(response);
         checkError(response, "PhoneToken: Value не может быть пустым");
     }
@@ -89,7 +89,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Подтверждение телефона кодом с валидным номером без запроса")
     public void confirmPhonesWithValidPhone() {
-        Response response = PhoneConfirmationsV2Request.PUT(Generate.phoneNumber(), CoreProperties.DEFAULT_SMS, false);
+        final Response response = PhoneConfirmationsV2Request.PUT(Generate.phoneNumber(), CoreProperties.DEFAULT_SMS, false);
         checkStatusCode422(response);
         checkError(response, "Неверный код");
     }

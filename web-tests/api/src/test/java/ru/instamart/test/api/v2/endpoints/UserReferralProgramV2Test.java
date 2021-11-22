@@ -32,7 +32,7 @@ public class UserReferralProgramV2Test extends RestBase {
             dataProviderClass = RestDataProvider.class)
     public void getReferralProgram(String id, String token, String promotionCode, Long userId) {
         userDbId = userId;
-        Response response = UsersV2Request.ReferralProgram.GET(id, token);
+        final Response response = UsersV2Request.ReferralProgram.GET(id, token);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, UserReferralProgramV2Response.class);
         UserReferralProgramV2 userReferralProgram = response.as(UserReferralProgramV2Response.class).getUserReferralProgram();
@@ -46,7 +46,7 @@ public class UserReferralProgramV2Test extends RestBase {
             dataProvider = "invalidUserDataForReferralProgram",
             dataProviderClass = RestDataProvider.class)
     public void getReferralProgramForNonExistingUser(String id, String token, Integer statusCode) {
-        Response response = UsersV2Request.ReferralProgram.GET(id, token);
+        final Response response = UsersV2Request.ReferralProgram.GET(id, token);
         checkStatusCode(response, statusCode);
     }
 

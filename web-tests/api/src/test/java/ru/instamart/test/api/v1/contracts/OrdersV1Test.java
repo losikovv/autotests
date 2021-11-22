@@ -64,7 +64,7 @@ public class OrdersV1Test extends RestBase {
     @Test(description = "Контрактный тест инфы о заказе",
             groups = "api-instamart-regress")
     public void getOrder() {
-        Response response = OrdersV1Request.GET(orderNumber);
+        final Response response = OrdersV1Request.GET(orderNumber);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, OrderV1.class);
     }
@@ -74,7 +74,7 @@ public class OrdersV1Test extends RestBase {
     @Test(description = "Контрактный тест инфы о шипменте",
             groups = "api-instamart-regress")
     public void getShipment() {
-        Response response = ShipmentsV1Request.GET(shipmentNumber);
+        final Response response = ShipmentsV1Request.GET(shipmentNumber);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShipmentV1Response.class);
 
@@ -86,7 +86,7 @@ public class OrdersV1Test extends RestBase {
     @Test(description = "Контрактный тест списка офферов в шипменте",
             groups = "api-instamart-regress")
     public void getShipmentOffers() {
-        Response response = ShipmentsV1Request.Offers.GET(shipmentNumber);
+        final Response response = ShipmentsV1Request.Offers.GET(shipmentNumber);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShipmentOffersV1Response.class);
     }
@@ -96,7 +96,7 @@ public class OrdersV1Test extends RestBase {
     @Test(description = "Контрактный тест списка лайн айтемов в шимпенте",
             groups = "api-instamart-regress")
     public void getLineItems() {
-        Response response = LineItemsV1Request.GET(shipmentNumber);
+        final Response response = LineItemsV1Request.GET(shipmentNumber);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, LineItemsV1Response.class);
         productSku = response.as(LineItemsV1Response.class)
@@ -112,7 +112,7 @@ public class OrdersV1Test extends RestBase {
             groups = "api-instamart-regress",
             dependsOnMethods = "getLineItems")
     public void getShipmentProductsPrereplacements() {
-        Response response = ShipmentsV1Request.Products.Prereplacements.GET(shipmentNumber, Long.parseLong(productSku));
+        final Response response = ShipmentsV1Request.Products.Prereplacements.GET(shipmentNumber, Long.parseLong(productSku));
         checkStatusCode200(response);
         checkResponseJsonSchema(response, PreReplacementV1Response.class);
     }
@@ -127,7 +127,7 @@ public class OrdersV1Test extends RestBase {
             groups = "api-instamart-regress",
             dependsOnMethods = "getShipment")
     public void getShopperMarketingSampleItems() {
-        Response response = ShoppersV1Request.MarketingSampleItems.GET(shipmentUuid);
+        final Response response = ShoppersV1Request.MarketingSampleItems.GET(shipmentUuid);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, MarketingSamplesItemsV1Response.class);
     }
@@ -139,7 +139,7 @@ public class OrdersV1Test extends RestBase {
     @Test(description = "Контрактный тест списка способов оплаты в заказе",
             groups = "api-instamart-regress")
     public void getShopperOrderAvailablePaymentTools() {
-        Response response = ShoppersV1Request.OrderAvailablePaymentTools.GET(orderNumber);
+        final Response response = ShoppersV1Request.OrderAvailablePaymentTools.GET(orderNumber);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, AvailablePaymentToolsV1Response.class);
     }
