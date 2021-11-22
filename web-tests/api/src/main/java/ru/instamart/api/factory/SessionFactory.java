@@ -112,7 +112,9 @@ public final class SessionFactory {
     public static void createSessionToken(final SessionType type, final SessionProvider provider, final UserData userData) {
         final SessionId sessionId = new SessionId(Thread.currentThread().getId(), type);
         final SessionInfo session = sessionMap.get(sessionId);
-        if (nonNull(session) && (!session.getPhone().equals(userData.getPhone()) || !session.getLogin().equals(userData.getEmail()))) {
+        if (nonNull(session) && !session.getLogin().equals(userData.getEmail())) {
+        //TODO  исправить проверку номера телефона
+        //if (nonNull(session) && (!session.getLogin().equals(userData.getEmail()) || !session.getPhone().equals(userData.getPhone()))) {
             sessionMap.put(sessionId, createSession(type, provider, userData));
         } else if (isNull(session)) {
             sessionMap.put(sessionId, createSession(type, provider, userData));
