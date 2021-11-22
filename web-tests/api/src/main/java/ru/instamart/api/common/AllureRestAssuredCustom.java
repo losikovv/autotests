@@ -10,6 +10,7 @@ import io.restassured.internal.support.Prettifier;
 import io.restassured.response.Response;
 import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.FilterableResponseSpecification;
+import org.testng.util.Strings;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,10 +36,6 @@ public class AllureRestAssuredCustom implements OrderedFilter {
                            final FilterContext filterContext) {
         final Prettifier prettifier = new Prettifier();
         final String url = requestSpec.getURI();
-        String req = requestSpec.getMethod() + " : " + requestSpec.getURI();
-        if (!req.equals(" : ")) {
-            requestAttachmentName = requestSpec.getMethod() + " : " + requestSpec.getURI();
-        }
         final HttpRequestAttachmentCustom.Builder requestAttachmentBuilder = create(requestAttachmentName, url)
                 .setMethod(requestSpec.getMethod())
                 .setHeaders(toMapConverter(requestSpec.getHeaders()))
@@ -68,10 +65,12 @@ public class AllureRestAssuredCustom implements OrderedFilter {
         );
 
         final Response response = filterContext.next(requestSpec, responseSpec);
+        if (Strings.isNullOrEmpty(response.getStatusLine())) {
+            responseAttachmentName = response.getStatusLine();
+        }
         if (Objects.isNull(responseAttachmentName)) {
             responseAttachmentName = "Response";
         }
-        responseAttachmentName = response.getStatusLine();
         final HttpResponseAttachment responseAttachment = HttpResponseAttachment.Builder.create(responseAttachmentName)
                 .setResponseCode(response.getStatusCode())
                 .setHeaders(toMapConverter(response.getHeaders()))
