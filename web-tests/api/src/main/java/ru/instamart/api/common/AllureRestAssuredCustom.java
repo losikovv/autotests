@@ -10,7 +10,6 @@ import io.restassured.internal.support.Prettifier;
 import io.restassured.response.Response;
 import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.FilterableResponseSpecification;
-import org.testng.util.Strings;
 
 import java.util.HashMap;
 import java.util.Map;
