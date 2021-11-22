@@ -65,7 +65,7 @@ public class AllureRestAssuredCustom implements OrderedFilter {
         );
 
         final Response response = filterContext.next(requestSpec, responseSpec);
-        if (Strings.isNullOrEmpty(response.getStatusLine())) {
+        if (!Strings.isNullOrEmpty(response.getStatusLine())) {
             responseAttachmentName = response.getStatusLine();
         }
         if (Objects.isNull(responseAttachmentName)) {
