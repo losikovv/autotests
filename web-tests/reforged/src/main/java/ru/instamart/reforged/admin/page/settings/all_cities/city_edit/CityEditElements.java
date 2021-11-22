@@ -1,12 +1,11 @@
-package ru.instamart.reforged.admin.page.settings.all_cities.city_add;
+package ru.instamart.reforged.admin.page.settings.all_cities.city_edit;
 
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.*;
 
-public interface CityAddElements {
+public interface CityEditElements {
 
     Element pageTitle = new Element(By.xpath("//h1[contains(@class, 'page-title')]"), "Название страницы");
-
     Link returnButton = new Link(By.xpath("//a[@class='button icon-arrow-left']"), "Кнопка вернуться назад");
 
     Element cityNameInputLabel = new Element(By.xpath("//label[@for='city_name']"), "Лейбл для ввода имени города в имен.падеже");
@@ -24,6 +23,6 @@ public interface CityAddElements {
     Element cityLockedLabel = new Element(By.xpath("//label[@for='city_locked']"), "Лейбл чекбокса блокировки города");
     Checkbox cityLocked = new Checkbox(By.id("city_locked"), "Чекбокс город заблокирован для редактирования");
 
-    Button createButton = new Button(By.xpath("//button[@type='submit']"), "Кнопка подтверждения добавления нового города");
+    Button editButton = new Button(By.xpath("//button[contains(@class,'refresh')]"), "Кнопка подтверждения добавления нового города");
     Link cancelButton = new Link(By.xpath("//a[contains(@class,'remove')]"), "Кнопка отмены добавления нового города");
 }

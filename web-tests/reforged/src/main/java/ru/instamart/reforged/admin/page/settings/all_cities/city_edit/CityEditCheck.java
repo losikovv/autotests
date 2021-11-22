@@ -1,25 +1,25 @@
-package ru.instamart.reforged.admin.page.settings.all_cities.city_add;
+package ru.instamart.reforged.admin.page.settings.all_cities.city_edit;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
-public interface CityAddCheck extends Check, CityAddElements {
+public interface CityEditCheck extends Check, CityEditElements {
 
     @Step("Проверяем, что Название страницы отображается")
     default void checkPageTitleVisible() {
         waitAction().shouldBeVisible(pageTitle);
     }
 
-    @Step("Проверяем, что кнопка отмены добавления нового города отображается")
-    default void checkReturnButtonVisible() {
-        waitAction().shouldBeVisible(returnButton);
-    }
-
     @Step("Проверяем, что лейбл для ввода имени города в имен.падеж отображается")
     default void checkCityNameInputLabelVisible() {
         waitAction().shouldBeVisible(cityNameInputLabel);
+    }
+
+    @Step("Проверяем, что кнопка отмены добавления нового города отображается")
+    default void checkReturnButtonVisible() {
+        waitAction().shouldBeVisible(returnButton);
     }
 
     @Step("Проверяем, что инпут для ввода имени города в имен.падеже отображается")
@@ -67,9 +67,9 @@ public interface CityAddCheck extends Check, CityAddElements {
         waitAction().shouldBeVisible(cityLocked);
     }
 
-    @Step("Проверяем, что кнопка подтверждения добавления нового города отображается")
-    default void checkCreateButtonVisible() {
-        waitAction().shouldBeVisible(createButton);
+    @Step("Проверяем, что кнопка подтверждения изменения города отображается")
+    default void checkEditButtonVisible() {
+        waitAction().shouldBeVisible(editButton);
     }
 
     @Step("Проверяем, что кнопка отмены добавления нового города отображается")

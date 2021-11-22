@@ -7,13 +7,28 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface AllCitiesCheck extends Check, AllCitiesElements {
 
-    @Step
+    @Step("Проверяем, что алерт добавления города отображается")
     default void checkAddCityAlertVisible() {
         waitAction().shouldBeVisible(addCityAlert);
     }
 
-    @Step
+    @Step("Проверяем, что алерт удаления города отображается")
     default void checkDeleteCityAlertVisible() {
         waitAction().shouldBeVisible(deleteCityAlert);
+    }
+
+    @Step("Проверяем, что заголовок страницы отображается")
+    default void checkPageHeaderVisible() {
+        waitAction().shouldBeVisible(pageHeader);
+    }
+
+    @Step("Проверяем, что кнопка добавления города отображается")
+    default void checkAddCityButtonVisible() {
+        waitAction().shouldBeVisible(addCityButton);
+    }
+
+    @Step("Проверяем, что алерт удаления города отображается")
+    default void checkListingCitiesTableVisible() {
+        waitAction().shouldBeVisible(listingCitiesTable);
     }
 }
