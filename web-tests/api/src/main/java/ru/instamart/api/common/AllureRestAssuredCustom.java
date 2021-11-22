@@ -1,5 +1,6 @@
 package ru.instamart.api.common;
 
+import com.google.common.base.Strings;
 import io.qameta.allure.attachment.DefaultAttachmentProcessor;
 import io.qameta.allure.attachment.FreemarkerAttachmentRenderer;
 import io.qameta.allure.attachment.http.HttpResponseAttachment;
