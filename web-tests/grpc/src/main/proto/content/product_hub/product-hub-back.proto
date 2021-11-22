@@ -164,6 +164,7 @@ message Dictionary {
 	string name = 2;
 	ValueType type = 3;
 	repeated DictionaryValue values = 4;
+	repeated Data dictionary_data = 5;
 }
 
 message DictionaryValue {

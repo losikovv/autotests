@@ -14662,6 +14662,17 @@ public final class ProductHubFrontDataOuterClass {
      */
     com.google.protobuf.ByteString
         getStoreIdBytes();
+
+    /**
+     * <code>.product_hub_front_data.Status status = 8;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    int getStatusValue();
+    /**
+     * <code>.product_hub_front_data.Status status = 8;</code>
+     * @return The status.
+     */
+    product_hub_front_data.ProductHubFrontDataOuterClass.Status getStatus();
   }
   /**
    * Protobuf type {@code product_hub_front_data.OfferWithSKUANDStoreID}
@@ -14682,6 +14693,7 @@ public final class ProductHubFrontDataOuterClass {
       offerData_ = java.util.Collections.emptyList();
       updatedAt_ = "";
       storeId_ = "";
+      status_ = 0;
     }
 
     @java.lang.Override
@@ -14757,6 +14769,12 @@ public final class ProductHubFrontDataOuterClass {
               java.lang.String s = input.readStringRequireUtf8();
 
               storeId_ = s;
+              break;
+            }
+            case 64: {
+              int rawValue = input.readEnum();
+
+              status_ = rawValue;
               break;
             }
             default: {
@@ -15016,6 +15034,25 @@ public final class ProductHubFrontDataOuterClass {
       }
     }
 
+    public static final int STATUS_FIELD_NUMBER = 8;
+    private int status_;
+    /**
+     * <code>.product_hub_front_data.Status status = 8;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    @java.lang.Override public int getStatusValue() {
+      return status_;
+    }
+    /**
+     * <code>.product_hub_front_data.Status status = 8;</code>
+     * @return The status.
+     */
+    @java.lang.Override public product_hub_front_data.ProductHubFrontDataOuterClass.Status getStatus() {
+      @SuppressWarnings("deprecation")
+      product_hub_front_data.ProductHubFrontDataOuterClass.Status result = product_hub_front_data.ProductHubFrontDataOuterClass.Status.valueOf(status_);
+      return result == null ? product_hub_front_data.ProductHubFrontDataOuterClass.Status.UNRECOGNIZED : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -15051,6 +15088,9 @@ public final class ProductHubFrontDataOuterClass {
       if (!getStoreIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 7, storeId_);
       }
+      if (status_ != product_hub_front_data.ProductHubFrontDataOuterClass.Status.DISABLE.getNumber()) {
+        output.writeEnum(8, status_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -15084,6 +15124,10 @@ public final class ProductHubFrontDataOuterClass {
       if (!getStoreIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, storeId_);
       }
+      if (status_ != product_hub_front_data.ProductHubFrontDataOuterClass.Status.DISABLE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(8, status_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -15112,6 +15156,7 @@ public final class ProductHubFrontDataOuterClass {
           .equals(other.getUpdatedAt())) return false;
       if (!getStoreId()
           .equals(other.getStoreId())) return false;
+      if (status_ != other.status_) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -15140,6 +15185,8 @@ public final class ProductHubFrontDataOuterClass {
       hash = (53 * hash) + getUpdatedAt().hashCode();
       hash = (37 * hash) + STORE_ID_FIELD_NUMBER;
       hash = (53 * hash) + getStoreId().hashCode();
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + status_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -15292,6 +15339,8 @@ public final class ProductHubFrontDataOuterClass {
 
         storeId_ = "";
 
+        status_ = 0;
+
         return this;
       }
 
@@ -15334,6 +15383,7 @@ public final class ProductHubFrontDataOuterClass {
         }
         result.updatedAt_ = updatedAt_;
         result.storeId_ = storeId_;
+        result.status_ = status_;
         onBuilt();
         return result;
       }
@@ -15429,6 +15479,9 @@ public final class ProductHubFrontDataOuterClass {
         if (!other.getStoreId().isEmpty()) {
           storeId_ = other.storeId_;
           onChanged();
+        }
+        if (other.status_ != 0) {
+          setStatusValue(other.getStatusValue());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -16085,6 +16138,60 @@ public final class ProductHubFrontDataOuterClass {
   checkByteStringIsUtf8(value);
         
         storeId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int status_ = 0;
+      /**
+       * <code>.product_hub_front_data.Status status = 8;</code>
+       * @return The enum numeric value on the wire for status.
+       */
+      @java.lang.Override public int getStatusValue() {
+        return status_;
+      }
+      /**
+       * <code>.product_hub_front_data.Status status = 8;</code>
+       * @param value The enum numeric value on the wire for status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatusValue(int value) {
+        
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.product_hub_front_data.Status status = 8;</code>
+       * @return The status.
+       */
+      @java.lang.Override
+      public product_hub_front_data.ProductHubFrontDataOuterClass.Status getStatus() {
+        @SuppressWarnings("deprecation")
+        product_hub_front_data.ProductHubFrontDataOuterClass.Status result = product_hub_front_data.ProductHubFrontDataOuterClass.Status.valueOf(status_);
+        return result == null ? product_hub_front_data.ProductHubFrontDataOuterClass.Status.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.product_hub_front_data.Status status = 8;</code>
+       * @param value The status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatus(product_hub_front_data.ProductHubFrontDataOuterClass.Status value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        status_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.product_hub_front_data.Status status = 8;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStatus() {
+        
+        status_ = 0;
         onChanged();
         return this;
       }
@@ -18525,6 +18632,17 @@ public final class ProductHubFrontDataOuterClass {
      */
     com.google.protobuf.ByteString
         getUpdatedAtBytes();
+
+    /**
+     * <code>.product_hub_front_data.Status status = 7;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    int getStatusValue();
+    /**
+     * <code>.product_hub_front_data.Status status = 7;</code>
+     * @return The status.
+     */
+    product_hub_front_data.ProductHubFrontDataOuterClass.Status getStatus();
   }
   /**
    * Protobuf type {@code product_hub_front_data.OfferWithSKU}
@@ -18544,6 +18662,7 @@ public final class ProductHubFrontDataOuterClass {
       pricer_ = 0;
       offerData_ = java.util.Collections.emptyList();
       updatedAt_ = "";
+      status_ = 0;
     }
 
     @java.lang.Override
@@ -18613,6 +18732,12 @@ public final class ProductHubFrontDataOuterClass {
               java.lang.String s = input.readStringRequireUtf8();
 
               updatedAt_ = s;
+              break;
+            }
+            case 56: {
+              int rawValue = input.readEnum();
+
+              status_ = rawValue;
               break;
             }
             default: {
@@ -18834,6 +18959,25 @@ public final class ProductHubFrontDataOuterClass {
       }
     }
 
+    public static final int STATUS_FIELD_NUMBER = 7;
+    private int status_;
+    /**
+     * <code>.product_hub_front_data.Status status = 7;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    @java.lang.Override public int getStatusValue() {
+      return status_;
+    }
+    /**
+     * <code>.product_hub_front_data.Status status = 7;</code>
+     * @return The status.
+     */
+    @java.lang.Override public product_hub_front_data.ProductHubFrontDataOuterClass.Status getStatus() {
+      @SuppressWarnings("deprecation")
+      product_hub_front_data.ProductHubFrontDataOuterClass.Status result = product_hub_front_data.ProductHubFrontDataOuterClass.Status.valueOf(status_);
+      return result == null ? product_hub_front_data.ProductHubFrontDataOuterClass.Status.UNRECOGNIZED : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -18866,6 +19010,9 @@ public final class ProductHubFrontDataOuterClass {
       if (!getUpdatedAtBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 6, updatedAt_);
       }
+      if (status_ != product_hub_front_data.ProductHubFrontDataOuterClass.Status.DISABLE.getNumber()) {
+        output.writeEnum(7, status_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -18896,6 +19043,10 @@ public final class ProductHubFrontDataOuterClass {
       if (!getUpdatedAtBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, updatedAt_);
       }
+      if (status_ != product_hub_front_data.ProductHubFrontDataOuterClass.Status.DISABLE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(7, status_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -18922,6 +19073,7 @@ public final class ProductHubFrontDataOuterClass {
           .equals(other.getOfferDataList())) return false;
       if (!getUpdatedAt()
           .equals(other.getUpdatedAt())) return false;
+      if (status_ != other.status_) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -18948,6 +19100,8 @@ public final class ProductHubFrontDataOuterClass {
       }
       hash = (37 * hash) + UPDATED_AT_FIELD_NUMBER;
       hash = (53 * hash) + getUpdatedAt().hashCode();
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + status_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -19098,6 +19252,8 @@ public final class ProductHubFrontDataOuterClass {
         }
         updatedAt_ = "";
 
+        status_ = 0;
+
         return this;
       }
 
@@ -19139,6 +19295,7 @@ public final class ProductHubFrontDataOuterClass {
           result.offerData_ = offerDataBuilder_.build();
         }
         result.updatedAt_ = updatedAt_;
+        result.status_ = status_;
         onBuilt();
         return result;
       }
@@ -19230,6 +19387,9 @@ public final class ProductHubFrontDataOuterClass {
         if (!other.getUpdatedAt().isEmpty()) {
           updatedAt_ = other.updatedAt_;
           onChanged();
+        }
+        if (other.status_ != 0) {
+          setStatusValue(other.getStatusValue());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -19810,6 +19970,60 @@ public final class ProductHubFrontDataOuterClass {
   checkByteStringIsUtf8(value);
         
         updatedAt_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int status_ = 0;
+      /**
+       * <code>.product_hub_front_data.Status status = 7;</code>
+       * @return The enum numeric value on the wire for status.
+       */
+      @java.lang.Override public int getStatusValue() {
+        return status_;
+      }
+      /**
+       * <code>.product_hub_front_data.Status status = 7;</code>
+       * @param value The enum numeric value on the wire for status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatusValue(int value) {
+        
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.product_hub_front_data.Status status = 7;</code>
+       * @return The status.
+       */
+      @java.lang.Override
+      public product_hub_front_data.ProductHubFrontDataOuterClass.Status getStatus() {
+        @SuppressWarnings("deprecation")
+        product_hub_front_data.ProductHubFrontDataOuterClass.Status result = product_hub_front_data.ProductHubFrontDataOuterClass.Status.valueOf(status_);
+        return result == null ? product_hub_front_data.ProductHubFrontDataOuterClass.Status.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.product_hub_front_data.Status status = 7;</code>
+       * @param value The status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatus(product_hub_front_data.ProductHubFrontDataOuterClass.Status value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        status_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.product_hub_front_data.Status status = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStatus() {
+        
+        status_ = 0;
         onChanged();
         return this;
       }
@@ -37247,6 +37461,18 @@ public final class ProductHubFrontDataOuterClass {
      */
     product_hub_front_data.ProductHubFrontDataOuterClass.DataOrBuilder getValueDataOrBuilder(
         int index);
+
+    /**
+     * <code>string dictionary_value_id = 3;</code>
+     * @return The dictionaryValueId.
+     */
+    java.lang.String getDictionaryValueId();
+    /**
+     * <code>string dictionary_value_id = 3;</code>
+     * @return The bytes for dictionaryValueId.
+     */
+    com.google.protobuf.ByteString
+        getDictionaryValueIdBytes();
   }
   /**
    * Protobuf type {@code product_hub_front_data.AttributeValue}
@@ -37263,6 +37489,7 @@ public final class ProductHubFrontDataOuterClass {
     private AttributeValue() {
       value_ = "";
       valueData_ = java.util.Collections.emptyList();
+      dictionaryValueId_ = "";
     }
 
     @java.lang.Override
@@ -37309,6 +37536,12 @@ public final class ProductHubFrontDataOuterClass {
               }
               valueData_.add(
                   input.readMessage(product_hub_front_data.ProductHubFrontDataOuterClass.Data.parser(), extensionRegistry));
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              dictionaryValueId_ = s;
               break;
             }
             default: {
@@ -37424,6 +37657,44 @@ public final class ProductHubFrontDataOuterClass {
       return valueData_.get(index);
     }
 
+    public static final int DICTIONARY_VALUE_ID_FIELD_NUMBER = 3;
+    private volatile java.lang.Object dictionaryValueId_;
+    /**
+     * <code>string dictionary_value_id = 3;</code>
+     * @return The dictionaryValueId.
+     */
+    @java.lang.Override
+    public java.lang.String getDictionaryValueId() {
+      java.lang.Object ref = dictionaryValueId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        dictionaryValueId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string dictionary_value_id = 3;</code>
+     * @return The bytes for dictionaryValueId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getDictionaryValueIdBytes() {
+      java.lang.Object ref = dictionaryValueId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        dictionaryValueId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -37444,6 +37715,9 @@ public final class ProductHubFrontDataOuterClass {
       for (int i = 0; i < valueData_.size(); i++) {
         output.writeMessage(2, valueData_.get(i));
       }
+      if (!getDictionaryValueIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, dictionaryValueId_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -37459,6 +37733,9 @@ public final class ProductHubFrontDataOuterClass {
       for (int i = 0; i < valueData_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, valueData_.get(i));
+      }
+      if (!getDictionaryValueIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, dictionaryValueId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -37479,6 +37756,8 @@ public final class ProductHubFrontDataOuterClass {
           .equals(other.getValue())) return false;
       if (!getValueDataList()
           .equals(other.getValueDataList())) return false;
+      if (!getDictionaryValueId()
+          .equals(other.getDictionaryValueId())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -37496,6 +37775,8 @@ public final class ProductHubFrontDataOuterClass {
         hash = (37 * hash) + VALUE_DATA_FIELD_NUMBER;
         hash = (53 * hash) + getValueDataList().hashCode();
       }
+      hash = (37 * hash) + DICTIONARY_VALUE_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getDictionaryValueId().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -37638,6 +37919,8 @@ public final class ProductHubFrontDataOuterClass {
         } else {
           valueDataBuilder_.clear();
         }
+        dictionaryValueId_ = "";
+
         return this;
       }
 
@@ -37675,6 +37958,7 @@ public final class ProductHubFrontDataOuterClass {
         } else {
           result.valueData_ = valueDataBuilder_.build();
         }
+        result.dictionaryValueId_ = dictionaryValueId_;
         onBuilt();
         return result;
       }
@@ -37752,6 +38036,10 @@ public final class ProductHubFrontDataOuterClass {
               valueDataBuilder_.addAllMessages(other.valueData_);
             }
           }
+        }
+        if (!other.getDictionaryValueId().isEmpty()) {
+          dictionaryValueId_ = other.dictionaryValueId_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -38097,6 +38385,82 @@ public final class ProductHubFrontDataOuterClass {
           valueData_ = null;
         }
         return valueDataBuilder_;
+      }
+
+      private java.lang.Object dictionaryValueId_ = "";
+      /**
+       * <code>string dictionary_value_id = 3;</code>
+       * @return The dictionaryValueId.
+       */
+      public java.lang.String getDictionaryValueId() {
+        java.lang.Object ref = dictionaryValueId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          dictionaryValueId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string dictionary_value_id = 3;</code>
+       * @return The bytes for dictionaryValueId.
+       */
+      public com.google.protobuf.ByteString
+          getDictionaryValueIdBytes() {
+        java.lang.Object ref = dictionaryValueId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          dictionaryValueId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string dictionary_value_id = 3;</code>
+       * @param value The dictionaryValueId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDictionaryValueId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        dictionaryValueId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string dictionary_value_id = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDictionaryValueId() {
+        
+        dictionaryValueId_ = getDefaultInstance().getDictionaryValueId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string dictionary_value_id = 3;</code>
+       * @param value The bytes for dictionaryValueId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDictionaryValueIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        dictionaryValueId_ = value;
+        onChanged();
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -42479,144 +42843,147 @@ public final class ProductHubFrontDataOuterClass {
       "DRequest.Offer\032&\n\005Offer\022\013\n\003sku\030\001 \001(\003\022\020\n\010" +
       "store_id\030\002 \001(\t\"b\n GetOffersBySKUANDStore" +
       "IDResponse\022>\n\006offers\030\001 \003(\0132..product_hub" +
-      "_front_data.OfferWithSKUANDStoreID\"\330\001\n\026O" +
+      "_front_data.OfferWithSKUANDStoreID\"\210\002\n\026O" +
       "fferWithSKUANDStoreID\022\013\n\003sku\030\001 \001(\003\022\023\n\013re" +
       "tailer_id\030\002 \001(\t\022\024\n\014retailer_sku\030\003 \001(\t\022.\n" +
       "\006pricer\030\004 \001(\0162\036.product_hub_front_data.P" +
       "ricer\0220\n\noffer_data\030\005 \003(\0132\034.product_hub_" +
       "front_data.Data\022\022\n\nupdated_at\030\006 \001(\t\022\020\n\010s" +
-      "tore_id\030\007 \001(\t\"\206\001\n\020GetOffersRequest\022>\n\006of" +
-      "fers\030\001 \003(\0132..product_hub_front_data.GetO" +
-      "ffersRequest.Offer\0322\n\005Offer\022\024\n\014retailer_" +
-      "sku\030\001 \001(\t\022\023\n\013retailer_id\030\002 \001(\t\"I\n\021GetOff" +
-      "ersResponse\0224\n\006offers\030\001 \003(\0132$.product_hu" +
-      "b_front_data.OfferWithSKU\"\274\001\n\014OfferWithS" +
-      "KU\022\013\n\003sku\030\001 \001(\003\022\023\n\013retailer_id\030\002 \001(\t\022\024\n\014" +
-      "retailer_sku\030\003 \001(\t\022.\n\006pricer\030\004 \001(\0162\036.pro" +
-      "duct_hub_front_data.Pricer\0220\n\noffer_data" +
-      "\030\005 \003(\0132\034.product_hub_front_data.Data\022\022\n\n" +
-      "updated_at\030\006 \001(\t\"\215\001\n\020GetPricesRequest\022>\n" +
-      "\006prices\030\001 \003(\0132..product_hub_front_data.G" +
-      "etPricesRequest.Price\0329\n\005Price\022\013\n\003sku\030\001 " +
+      "tore_id\030\007 \001(\t\022.\n\006status\030\010 \001(\0162\036.product_" +
+      "hub_front_data.Status\"\206\001\n\020GetOffersReque" +
+      "st\022>\n\006offers\030\001 \003(\0132..product_hub_front_d" +
+      "ata.GetOffersRequest.Offer\0322\n\005Offer\022\024\n\014r" +
+      "etailer_sku\030\001 \001(\t\022\023\n\013retailer_id\030\002 \001(\t\"I" +
+      "\n\021GetOffersResponse\0224\n\006offers\030\001 \003(\0132$.pr" +
+      "oduct_hub_front_data.OfferWithSKU\"\354\001\n\014Of" +
+      "ferWithSKU\022\013\n\003sku\030\001 \001(\003\022\023\n\013retailer_id\030\002" +
+      " \001(\t\022\024\n\014retailer_sku\030\003 \001(\t\022.\n\006pricer\030\004 \001" +
+      "(\0162\036.product_hub_front_data.Pricer\0220\n\nof" +
+      "fer_data\030\005 \003(\0132\034.product_hub_front_data." +
+      "Data\022\022\n\nupdated_at\030\006 \001(\t\022.\n\006status\030\007 \001(\016" +
+      "2\036.product_hub_front_data.Status\"\215\001\n\020Get" +
+      "PricesRequest\022>\n\006prices\030\001 \003(\0132..product_" +
+      "hub_front_data.GetPricesRequest.Price\0329\n" +
+      "\005Price\022\013\n\003sku\030\001 \001(\003\022\020\n\010store_id\030\002 \001(\t\022\021\n" +
+      "\ttenant_id\030\003 \001(\t\"I\n\021GetPricesResponse\0224\n" +
+      "\006prices\030\001 \003(\0132$.product_hub_front_data.P" +
+      "riceWithSKU\"\246\001\n%GetProductsWithOfferByOf" +
+      "ferIDsRequest\022\020\n\010store_id\030\001 \001(\t\022\021\n\ttenan" +
+      "t_id\030\002 \001(\t\022\021\n\toffer_ids\030\003 \003(\t\022E\n\022display" +
+      "_attributes\030\004 \001(\0132).product_hub_front_da" +
+      "ta.DisplayAttributes\"o\n&GetProductsWithO" +
+      "fferByOfferIDsResponse\022E\n\023products_with_" +
+      "offer\030\001 \003(\0132(.product_hub_front_data.Pro" +
+      "ductWithOffer\"\305\001\n\014PriceWithSKU\022\013\n\003sku\030\001 " +
       "\001(\003\022\020\n\010store_id\030\002 \001(\t\022\021\n\ttenant_id\030\003 \001(\t" +
-      "\"I\n\021GetPricesResponse\0224\n\006prices\030\001 \003(\0132$." +
-      "product_hub_front_data.PriceWithSKU\"\246\001\n%" +
-      "GetProductsWithOfferByOfferIDsRequest\022\020\n" +
-      "\010store_id\030\001 \001(\t\022\021\n\ttenant_id\030\002 \001(\t\022\021\n\tof" +
-      "fer_ids\030\003 \003(\t\022E\n\022display_attributes\030\004 \001(" +
-      "\0132).product_hub_front_data.DisplayAttrib" +
-      "utes\"o\n&GetProductsWithOfferByOfferIDsRe" +
-      "sponse\022E\n\023products_with_offer\030\001 \003(\0132(.pr" +
-      "oduct_hub_front_data.ProductWithOffer\"\305\001" +
-      "\n\014PriceWithSKU\022\013\n\003sku\030\001 \001(\003\022\020\n\010store_id\030" +
-      "\002 \001(\t\022\021\n\ttenant_id\030\003 \001(\t\022\r\n\005price\030\004 \001(\001\022" +
-      "0\n\nprice_data\030\005 \003(\0132\034.product_hub_front_" +
-      "data.Data\022.\n\006status\030\006 \001(\0162\036.product_hub_" +
-      "front_data.Status\022\022\n\nupdated_at\030\007 \001(\t\"\341\003" +
-      "\n\020ProductWithOffer\022\013\n\003sku\030\001 \001(\003\022\014\n\004name\030" +
-      "\002 \001(\t\0224\n\ncategories\030\003 \003(\0132 .product_hub_" +
-      "front_data.Category\0225\n\nattributes\030\004 \003(\0132" +
-      "!.product_hub_front_data.Attribute\0221\n\005st" +
-      "ock\030\005 \001(\0132\035.product_hub_front_data.Stock" +
-      "H\000\210\001\001\0221\n\005price\030\006 \001(\0132\035.product_hub_front" +
-      "_data.PriceH\001\210\001\001\0221\n\005offer\030\007 \001(\0132\035.produc" +
-      "t_hub_front_data.OfferH\002\210\001\001\022.\n\006status\030\010 " +
-      "\001(\0162\036.product_hub_front_data.Status\022\022\n\nu" +
-      "pdated_at\030\t \001(\t\022.\n\006active\030\n \001(\0162\036.produc" +
-      "t_hub_front_data.Active\022\032\n\022active_descri" +
-      "ption\030\013 \001(\tB\010\n\006_stockB\010\n\006_priceB\010\n\006_offe" +
-      "r\"\325\001\n\007Product\022\013\n\003sku\030\001 \001(\003\022\014\n\004name\030\002 \001(\t" +
-      "\0224\n\ncategories\030\003 \003(\0132 .product_hub_front" +
-      "_data.Category\0225\n\nattributes\030\004 \003(\0132!.pro" +
-      "duct_hub_front_data.Attribute\022.\n\006status\030" +
-      "\005 \001(\0162\036.product_hub_front_data.Status\022\022\n" +
-      "\nupdated_at\030\006 \001(\t\"y\n\035GetProductsByPermal" +
-      "inkRequest\022\021\n\tpermalink\030\001 \003(\t\022E\n\022display" +
-      "_attributes\030\002 \001(\0132).product_hub_front_da" +
-      "ta.DisplayAttributes\"\247\001\n&GetProductsWith" +
-      "OfferByPermalinkRequest\022\020\n\010store_id\030\001 \001(" +
-      "\t\022\021\n\ttenant_id\030\002 \001(\t\022\021\n\tpermalink\030\003 \003(\t\022" +
-      "E\n\022display_attributes\030\004 \001(\0132).product_hu" +
-      "b_front_data.DisplayAttributes\"p\n\'GetPro" +
-      "ductsWithOfferByPermalinkResponse\022E\n\023pro" +
-      "ducts_with_offer\030\001 \003(\0132(.product_hub_fro" +
-      "nt_data.ProductWithOffer\"S\n\036GetProductsB" +
-      "yPermalinkResponse\0221\n\010products\030\001 \003(\0132\037.p" +
-      "roduct_hub_front_data.Product\"l\n\004Data\022\013\n" +
-      "\003key\030\001 \001(\t\022/\n\004type\030\002 \001(\0162!.product_hub_f" +
-      "ront_data.ValueType\022\026\n\016is_multi_value\030\003 " +
-      "\001(\010\022\016\n\006values\030\004 \003(\t\"$\n\010Category\022\n\n\002id\030\001 " +
-      "\001(\t\022\014\n\004name\030\002 \001(\t\"\340\002\n\tAttribute\022\013\n\003key\030\001" +
-      " \001(\t\022\014\n\004name\030\002 \001(\t\022\026\n\016dictionary_key\030\003 \001" +
-      "(\t\022/\n\004type\030\004 \001(\0162!.product_hub_front_dat" +
-      "a.ValueType\022\026\n\016is_multi_value\030\005 \001(\010\022;\n\005f" +
-      "lags\030\006 \003(\0132,.product_hub_front_data.Attr" +
-      "ibute.FlagsEntry\0224\n\016attribute_data\030\007 \003(\013" +
-      "2\034.product_hub_front_data.Data\0226\n\006values" +
-      "\030\010 \003(\0132&.product_hub_front_data.Attribut" +
-      "eValue\032,\n\nFlagsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005val" +
-      "ue\030\002 \001(\010:\0028\001\"Q\n\016AttributeValue\022\r\n\005value\030" +
-      "\001 \001(\t\0220\n\nvalue_data\030\002 \003(\0132\034.product_hub_" +
-      "front_data.Data\"\267\001\n\005Stock\022\023\n\013retailer_id" +
-      "\030\002 \001(\t\022\024\n\014retailer_sku\030\003 \001(\t\022\r\n\005stock\030\004 " +
-      "\001(\001\0220\n\nstock_data\030\005 \003(\0132\034.product_hub_fr" +
-      "ont_data.Data\022.\n\006status\030\006 \001(\0162\036.product_" +
-      "hub_front_data.Status\022\022\n\nupdated_at\030\007 \001(" +
-      "\t\"\214\001\n\005Price\022\r\n\005price\030\003 \001(\001\0220\n\nprice_data" +
-      "\030\004 \003(\0132\034.product_hub_front_data.Data\022.\n\006" +
-      "status\030\005 \001(\0162\036.product_hub_front_data.St" +
-      "atus\022\022\n\nupdated_at\030\006 \001(\t\"\356\001\n\005Offer\022.\n\006pr" +
-      "icer\030\001 \001(\0162\036.product_hub_front_data.Pric" +
-      "er\0220\n\noffer_data\030\002 \003(\0132\034.product_hub_fro" +
-      "nt_data.Data\022.\n\006status\030\003 \001(\0162\036.product_h" +
-      "ub_front_data.Status\022\024\n\010offer_id\030\004 \001(\003B\002" +
-      "\030\001\022\023\n\013retailer_id\030\005 \001(\t\022\024\n\014retailer_sku\030" +
-      "\006 \001(\t\022\022\n\nupdated_at\030\007 \001(\t*!\n\006Status\022\013\n\007D" +
-      "ISABLE\020\000\022\n\n\006ENABLE\020\001*S\n\tValueType\022\n\n\006STR" +
-      "ING\020\000\022\013\n\007INTEGER\020\001\022\n\n\006DOUBLE\020\002\022\010\n\004BOOL\020\003" +
-      "\022\014\n\010DATETIME\020\004\022\t\n\005IMAGE\020\005*U\n\006Pricer\022\014\n\010P" +
-      "ER_ITEM\020\000\022\025\n\021PER_ITEMS_PACKAGE\020\001\022\026\n\022PER_" +
-      "WEIGHT_PACKAGE\020\002\022\016\n\nPER_WEIGHT\020\003*\"\n\006Acti" +
-      "ve\022\014\n\010INACTIVE\020\000\022\n\n\006ACTIVE\020\0012\260\013\n\023Product" +
-      "HubFrontData\022u\n\020GetProductsBySKU\022/.produ" +
-      "ct_hub_front_data.GetProductsBySKUReques" +
-      "t\0320.product_hub_front_data.GetProductsBy" +
-      "SKUResponse\022\220\001\n\031GetProductsWithOfferBySK" +
-      "U\0228.product_hub_front_data.GetProductsWi" +
-      "thOfferBySKURequest\0329.product_hub_front_" +
-      "data.GetProductsWithOfferBySKUResponse\022\237" +
-      "\001\n\036GetProductsWithOfferByOfferIDs\022=.prod" +
-      "uct_hub_front_data.GetProductsWithOfferB" +
-      "yOfferIDsRequest\032>.product_hub_front_dat" +
-      "a.GetProductsWithOfferByOfferIDsResponse" +
-      "\022u\n\020GetProductsByEAN\022/.product_hub_front" +
-      "_data.GetProductsByEANRequest\0320.product_" +
-      "hub_front_data.GetProductsByEANResponse\022" +
-      "\220\001\n\031GetProductsWithOfferByEAN\0228.product_" +
-      "hub_front_data.GetProductsWithOfferByEAN" +
-      "Request\0329.product_hub_front_data.GetProd" +
-      "uctsWithOfferByEANResponse\022\207\001\n\026GetProduc" +
-      "tsByPermalink\0225.product_hub_front_data.G" +
-      "etProductsByPermalinkRequest\0326.product_h" +
-      "ub_front_data.GetProductsByPermalinkResp" +
-      "onse\022\242\001\n\037GetProductsWithOfferByPermalink" +
-      "\022>.product_hub_front_data.GetProductsWit" +
-      "hOfferByPermalinkRequest\032?.product_hub_f" +
-      "ront_data.GetProductsWithOfferByPermalin" +
-      "kResponse\022\215\001\n\030GetOffersBySKUANDStoreID\0227" +
-      ".product_hub_front_data.GetOffersBySKUAN" +
-      "DStoreIDRequest\0328.product_hub_front_data" +
-      ".GetOffersBySKUANDStoreIDResponse\022`\n\tGet" +
-      "Stocks\022(.product_hub_front_data.GetStock" +
-      "sRequest\032).product_hub_front_data.GetSto" +
-      "cksResponse\022`\n\tGetOffers\022(.product_hub_f" +
-      "ront_data.GetOffersRequest\032).product_hub" +
-      "_front_data.GetOffersResponse\022`\n\tGetPric" +
-      "es\022(.product_hub_front_data.GetPricesReq" +
-      "uest\032).product_hub_front_data.GetPricesR" +
-      "esponseBXZVgitlab.sbermarket.tech/paas/c" +
-      "ontent/product-hub/pkg/server/grpc/produ" +
-      "ct-hub-front-datab\006proto3"
+      "\022\r\n\005price\030\004 \001(\001\0220\n\nprice_data\030\005 \003(\0132\034.pr" +
+      "oduct_hub_front_data.Data\022.\n\006status\030\006 \001(" +
+      "\0162\036.product_hub_front_data.Status\022\022\n\nupd" +
+      "ated_at\030\007 \001(\t\"\341\003\n\020ProductWithOffer\022\013\n\003sk" +
+      "u\030\001 \001(\003\022\014\n\004name\030\002 \001(\t\0224\n\ncategories\030\003 \003(" +
+      "\0132 .product_hub_front_data.Category\0225\n\na" +
+      "ttributes\030\004 \003(\0132!.product_hub_front_data" +
+      ".Attribute\0221\n\005stock\030\005 \001(\0132\035.product_hub_" +
+      "front_data.StockH\000\210\001\001\0221\n\005price\030\006 \001(\0132\035.p" +
+      "roduct_hub_front_data.PriceH\001\210\001\001\0221\n\005offe" +
+      "r\030\007 \001(\0132\035.product_hub_front_data.OfferH\002" +
+      "\210\001\001\022.\n\006status\030\010 \001(\0162\036.product_hub_front_" +
+      "data.Status\022\022\n\nupdated_at\030\t \001(\t\022.\n\006activ" +
+      "e\030\n \001(\0162\036.product_hub_front_data.Active\022" +
+      "\032\n\022active_description\030\013 \001(\tB\010\n\006_stockB\010\n" +
+      "\006_priceB\010\n\006_offer\"\325\001\n\007Product\022\013\n\003sku\030\001 \001" +
+      "(\003\022\014\n\004name\030\002 \001(\t\0224\n\ncategories\030\003 \003(\0132 .p" +
+      "roduct_hub_front_data.Category\0225\n\nattrib" +
+      "utes\030\004 \003(\0132!.product_hub_front_data.Attr" +
+      "ibute\022.\n\006status\030\005 \001(\0162\036.product_hub_fron" +
+      "t_data.Status\022\022\n\nupdated_at\030\006 \001(\t\"y\n\035Get" +
+      "ProductsByPermalinkRequest\022\021\n\tpermalink\030" +
+      "\001 \003(\t\022E\n\022display_attributes\030\002 \001(\0132).prod" +
+      "uct_hub_front_data.DisplayAttributes\"\247\001\n" +
+      "&GetProductsWithOfferByPermalinkRequest\022" +
+      "\020\n\010store_id\030\001 \001(\t\022\021\n\ttenant_id\030\002 \001(\t\022\021\n\t" +
+      "permalink\030\003 \003(\t\022E\n\022display_attributes\030\004 " +
+      "\001(\0132).product_hub_front_data.DisplayAttr" +
+      "ibutes\"p\n\'GetProductsWithOfferByPermalin" +
+      "kResponse\022E\n\023products_with_offer\030\001 \003(\0132(" +
+      ".product_hub_front_data.ProductWithOffer" +
+      "\"S\n\036GetProductsByPermalinkResponse\0221\n\010pr" +
+      "oducts\030\001 \003(\0132\037.product_hub_front_data.Pr" +
+      "oduct\"l\n\004Data\022\013\n\003key\030\001 \001(\t\022/\n\004type\030\002 \001(\016" +
+      "2!.product_hub_front_data.ValueType\022\026\n\016i" +
+      "s_multi_value\030\003 \001(\010\022\016\n\006values\030\004 \003(\t\"$\n\010C" +
+      "ategory\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\"\340\002\n\tAt" +
+      "tribute\022\013\n\003key\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\026\n\016di" +
+      "ctionary_key\030\003 \001(\t\022/\n\004type\030\004 \001(\0162!.produ" +
+      "ct_hub_front_data.ValueType\022\026\n\016is_multi_" +
+      "value\030\005 \001(\010\022;\n\005flags\030\006 \003(\0132,.product_hub" +
+      "_front_data.Attribute.FlagsEntry\0224\n\016attr" +
+      "ibute_data\030\007 \003(\0132\034.product_hub_front_dat" +
+      "a.Data\0226\n\006values\030\010 \003(\0132&.product_hub_fro" +
+      "nt_data.AttributeValue\032,\n\nFlagsEntry\022\013\n\003" +
+      "key\030\001 \001(\t\022\r\n\005value\030\002 \001(\010:\0028\001\"n\n\016Attribut" +
+      "eValue\022\r\n\005value\030\001 \001(\t\0220\n\nvalue_data\030\002 \003(" +
+      "\0132\034.product_hub_front_data.Data\022\033\n\023dicti" +
+      "onary_value_id\030\003 \001(\t\"\267\001\n\005Stock\022\023\n\013retail" +
+      "er_id\030\002 \001(\t\022\024\n\014retailer_sku\030\003 \001(\t\022\r\n\005sto" +
+      "ck\030\004 \001(\001\0220\n\nstock_data\030\005 \003(\0132\034.product_h" +
+      "ub_front_data.Data\022.\n\006status\030\006 \001(\0162\036.pro" +
+      "duct_hub_front_data.Status\022\022\n\nupdated_at" +
+      "\030\007 \001(\t\"\214\001\n\005Price\022\r\n\005price\030\003 \001(\001\0220\n\nprice" +
+      "_data\030\004 \003(\0132\034.product_hub_front_data.Dat" +
+      "a\022.\n\006status\030\005 \001(\0162\036.product_hub_front_da" +
+      "ta.Status\022\022\n\nupdated_at\030\006 \001(\t\"\356\001\n\005Offer\022" +
+      ".\n\006pricer\030\001 \001(\0162\036.product_hub_front_data" +
+      ".Pricer\0220\n\noffer_data\030\002 \003(\0132\034.product_hu" +
+      "b_front_data.Data\022.\n\006status\030\003 \001(\0162\036.prod" +
+      "uct_hub_front_data.Status\022\024\n\010offer_id\030\004 " +
+      "\001(\003B\002\030\001\022\023\n\013retailer_id\030\005 \001(\t\022\024\n\014retailer" +
+      "_sku\030\006 \001(\t\022\022\n\nupdated_at\030\007 \001(\t*!\n\006Status" +
+      "\022\013\n\007DISABLE\020\000\022\n\n\006ENABLE\020\001*S\n\tValueType\022\n" +
+      "\n\006STRING\020\000\022\013\n\007INTEGER\020\001\022\n\n\006DOUBLE\020\002\022\010\n\004B" +
+      "OOL\020\003\022\014\n\010DATETIME\020\004\022\t\n\005IMAGE\020\005*U\n\006Pricer" +
+      "\022\014\n\010PER_ITEM\020\000\022\025\n\021PER_ITEMS_PACKAGE\020\001\022\026\n" +
+      "\022PER_WEIGHT_PACKAGE\020\002\022\016\n\nPER_WEIGHT\020\003*\"\n" +
+      "\006Active\022\014\n\010INACTIVE\020\000\022\n\n\006ACTIVE\020\0012\260\013\n\023Pr" +
+      "oductHubFrontData\022u\n\020GetProductsBySKU\022/." +
+      "product_hub_front_data.GetProductsBySKUR" +
+      "equest\0320.product_hub_front_data.GetProdu" +
+      "ctsBySKUResponse\022\220\001\n\031GetProductsWithOffe" +
+      "rBySKU\0228.product_hub_front_data.GetProdu" +
+      "ctsWithOfferBySKURequest\0329.product_hub_f" +
+      "ront_data.GetProductsWithOfferBySKURespo" +
+      "nse\022\237\001\n\036GetProductsWithOfferByOfferIDs\022=" +
+      ".product_hub_front_data.GetProductsWithO" +
+      "fferByOfferIDsRequest\032>.product_hub_fron" +
+      "t_data.GetProductsWithOfferByOfferIDsRes" +
+      "ponse\022u\n\020GetProductsByEAN\022/.product_hub_" +
+      "front_data.GetProductsByEANRequest\0320.pro" +
+      "duct_hub_front_data.GetProductsByEANResp" +
+      "onse\022\220\001\n\031GetProductsWithOfferByEAN\0228.pro" +
+      "duct_hub_front_data.GetProductsWithOffer" +
+      "ByEANRequest\0329.product_hub_front_data.Ge" +
+      "tProductsWithOfferByEANResponse\022\207\001\n\026GetP" +
+      "roductsByPermalink\0225.product_hub_front_d" +
+      "ata.GetProductsByPermalinkRequest\0326.prod" +
+      "uct_hub_front_data.GetProductsByPermalin" +
+      "kResponse\022\242\001\n\037GetProductsWithOfferByPerm" +
+      "alink\022>.product_hub_front_data.GetProduc" +
+      "tsWithOfferByPermalinkRequest\032?.product_" +
+      "hub_front_data.GetProductsWithOfferByPer" +
+      "malinkResponse\022\215\001\n\030GetOffersBySKUANDStor" +
+      "eID\0227.product_hub_front_data.GetOffersBy" +
+      "SKUANDStoreIDRequest\0328.product_hub_front" +
+      "_data.GetOffersBySKUANDStoreIDResponse\022`" +
+      "\n\tGetStocks\022(.product_hub_front_data.Get" +
+      "StocksRequest\032).product_hub_front_data.G" +
+      "etStocksResponse\022`\n\tGetOffers\022(.product_" +
+      "hub_front_data.GetOffersRequest\032).produc" +
+      "t_hub_front_data.GetOffersResponse\022`\n\tGe" +
+      "tPrices\022(.product_hub_front_data.GetPric" +
+      "esRequest\032).product_hub_front_data.GetPr" +
+      "icesResponseBXZVgitlab.sbermarket.tech/p" +
+      "aas/content/product-hub/pkg/server/grpc/" +
+      "product-hub-front-datab\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -42723,7 +43090,7 @@ public final class ProductHubFrontDataOuterClass {
     internal_static_product_hub_front_data_OfferWithSKUANDStoreID_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_data_OfferWithSKUANDStoreID_descriptor,
-        new java.lang.String[] { "Sku", "RetailerId", "RetailerSku", "Pricer", "OfferData", "UpdatedAt", "StoreId", });
+        new java.lang.String[] { "Sku", "RetailerId", "RetailerSku", "Pricer", "OfferData", "UpdatedAt", "StoreId", "Status", });
     internal_static_product_hub_front_data_GetOffersRequest_descriptor =
       getDescriptor().getMessageTypes().get(15);
     internal_static_product_hub_front_data_GetOffersRequest_fieldAccessorTable = new
@@ -42747,7 +43114,7 @@ public final class ProductHubFrontDataOuterClass {
     internal_static_product_hub_front_data_OfferWithSKU_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_data_OfferWithSKU_descriptor,
-        new java.lang.String[] { "Sku", "RetailerId", "RetailerSku", "Pricer", "OfferData", "UpdatedAt", });
+        new java.lang.String[] { "Sku", "RetailerId", "RetailerSku", "Pricer", "OfferData", "UpdatedAt", "Status", });
     internal_static_product_hub_front_data_GetPricesRequest_descriptor =
       getDescriptor().getMessageTypes().get(18);
     internal_static_product_hub_front_data_GetPricesRequest_fieldAccessorTable = new
@@ -42849,7 +43216,7 @@ public final class ProductHubFrontDataOuterClass {
     internal_static_product_hub_front_data_AttributeValue_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_hub_front_data_AttributeValue_descriptor,
-        new java.lang.String[] { "Value", "ValueData", });
+        new java.lang.String[] { "Value", "ValueData", "DictionaryValueId", });
     internal_static_product_hub_front_data_Stock_descriptor =
       getDescriptor().getMessageTypes().get(33);
     internal_static_product_hub_front_data_Stock_fieldAccessorTable = new
