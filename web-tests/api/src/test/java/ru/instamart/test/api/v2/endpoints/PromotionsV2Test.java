@@ -13,7 +13,7 @@ import ru.instamart.api.response.v2.ReferralProgramV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static org.testng.Assert.assertTrue;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
@@ -27,7 +27,7 @@ public class PromotionsV2Test extends RestBase {
     public void getReferralProgram() {
         Response response = PromotionsV2Request.ReferralProgram.GET();
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(ReferralProgramV2Response.class).getReferralProgram(), "реферальная программа");
+        checkResponseJsonSchema(response, ReferralProgramV2Response.class);
     }
 
     @CaseId(292)

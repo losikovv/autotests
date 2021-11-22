@@ -15,8 +15,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.PaymentsV2Request;
 import ru.instamart.api.response.v2.CreditCardAuthorizationV2Response;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
@@ -39,10 +38,9 @@ public class SberCardAuthorizationV2Test extends RestBase {
     public void getTransactionNumber(String orderNumber) {
         Response response = PaymentsV2Request.POST(orderNumber);
         checkStatusCode200(response);
+        checkResponseJsonSchema(response, CreditCardAuthorizationV2Response.class);
         CreditCardAuthorizationV2Response creditCardAuthorizationV2Response = response.as(CreditCardAuthorizationV2Response.class);
-        checkFieldIsNotEmpty(creditCardAuthorizationV2Response.getCreditCardAuthorization(), "авторизация карты");
         transactionNumber = creditCardAuthorizationV2Response.getCreditCardAuthorization().getTransactionNumber();
-        checkFieldIsNotEmpty(transactionNumber, "номер транзакции");
     }
 
     @CaseIDs(value = {@CaseId(512), @CaseId(1033)})

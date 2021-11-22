@@ -2,6 +2,7 @@
 package ru.instamart.api.response.v1;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.v1.MarketingSampleV1;
@@ -13,6 +14,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper=false)
 public class MarketingSamplesV1Response extends BaseResponseObject {
 
+    @JsonSchema(required = true)
     @JsonProperty("marketing_samples")
     private List<MarketingSampleV1> marketingSamples;
 }

@@ -18,8 +18,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import java.util.List;
 import java.util.Set;
 
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
@@ -33,10 +32,10 @@ public final class TaxonsV2Test extends RestBase {
     @Test(  groups = {"api-instamart-regress"},
             description = "Получаем таксоны (подкатегории)")
     public void getTaxons() {
-        response = TaxonsV2Request.GET(EnvironmentProperties.DEFAULT_SID);
+        Response response = TaxonsV2Request.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
+        checkResponseJsonSchema(response, TaxonsV2Response.class);
         List<TaxonV2> taxons = response.as(TaxonsV2Response.class).getTaxons();
-        assertFalse(taxons.isEmpty(), "Не вернулись таксоны");
         taxonId = taxons.get(0).getId();
     }
 
@@ -45,9 +44,9 @@ public final class TaxonsV2Test extends RestBase {
             dependsOnMethods = "getTaxons",
             description = "Получаем таксон (подкатегорию)")
     public void getTaxon() {
-        response = TaxonsV2Request.GET(taxonId, EnvironmentProperties.DEFAULT_SID);
+        Response response = TaxonsV2Request.GET(taxonId, EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
-        assertNotNull(response.as(TaxonV2Response.class).getTaxon(), "Не вернулся таксон");
+        checkResponseJsonSchema(response, TaxonV2Response.class);
     }
 
     // пока отключен, так как слишком затратно пробегаться по всем таксонам (10-15 минут)

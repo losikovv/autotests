@@ -17,8 +17,7 @@ import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.util.PhoneCrypt;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 
@@ -48,7 +47,7 @@ public class PhoneConfirmationsV2Test extends RestBase {
     public void putPhoneConfirmations() {
         Response response = PhoneConfirmationsV2Request.PUT(phoneNumber, CoreProperties.DEFAULT_SMS, true);
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(SessionsV2Response.class).getSession().getAccessToken(), "токен");
+        checkResponseJsonSchema(response, SessionsV2Response.class);
     }
 
     @CaseId(452)

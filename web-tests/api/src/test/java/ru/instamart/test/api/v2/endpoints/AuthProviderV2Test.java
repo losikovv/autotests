@@ -14,6 +14,7 @@ import ru.instamart.api.response.v2.SessionsV2Response;
 import java.util.UUID;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic(value = "ApiV2")
@@ -41,7 +42,7 @@ public final class AuthProviderV2Test extends RestBase {
     public void postAuthProviderSessions200() {
         final Response response = AuthProvidersV2Request.Sessions.POST(AuthProviderV2.FACEBOOK);
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(SessionsV2Response.class).getSession(), "сессия");
+        checkResponseJsonSchema(response, SessionsV2Response.class);
     }
 
     @Deprecated

@@ -17,6 +17,7 @@ import ru.instamart.kraken.data_provider.JsonProvider;
 import java.util.UUID;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode400;
 
@@ -65,8 +66,7 @@ public final class RecsV2Test extends RestBase {
 
         final Response response = PersonalV2Request.POST(recsV2);
         checkStatusCode200(response);
-        final RecsV2Response recsV2Response = response.as(RecsV2Response.class);
-        checkFieldIsNotEmpty(recsV2Response.getRecs(), "рекомендации");
+        checkResponseJsonSchema(response, RecsV2Response.class);
     }
 
     @Story("Полные рекомендации (recs)")

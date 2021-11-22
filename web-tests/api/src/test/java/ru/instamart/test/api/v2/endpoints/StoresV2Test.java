@@ -19,8 +19,7 @@ import ru.instamart.kraken.data_provider.JsonProvider;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.testng.Assert.*;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
@@ -85,9 +84,8 @@ public final class StoresV2Test extends RestBase {
     public void testGetStoresWithDefaultSid() {
         final Response response = StoresV2Request.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
-        response.then().assertThat().body(matchesJsonSchemaInClasspath("schemas/api_v2/Store.json"));
-        assertEquals(response.as(StoreV2Response.class).getStore().getId().intValue(), EnvironmentProperties.DEFAULT_SID, "Id магазина не совпадает");
-
+        checkResponseJsonSchema(response, StoreV2Response.class);
+        compareTwoObjects(response.as(StoreV2Response.class).getStore().getId(), EnvironmentProperties.DEFAULT_SID);
     }
 
     @CaseId(188)
@@ -113,9 +111,9 @@ public final class StoresV2Test extends RestBase {
                         .build()
         );
         checkStatusCode200(response);
+        checkResponseJsonSchema(response, StoresV2Response.class);
         StoresV2Response storesV2Response = response.as(StoresV2Response.class);
         final SoftAssert sa = new SoftAssert();
-        sa.assertFalse(storesV2Response.getStores().isEmpty(), "Stores is missed");
         sa.assertTrue(storesV2Response.getStoreLabels().isEmpty(), "Stores Labels not empty");
         sa.assertEquals(storesV2Response.getStores().get(0).getId().intValue(), EnvironmentProperties.DEFAULT_SID, "Id магазина отличается");
         sa.assertEquals(storesV2Response.getStores().get(0).getName(), "METRO, Нижний Новгород Нартова", "Наименование отличается");
@@ -132,7 +130,7 @@ public final class StoresV2Test extends RestBase {
     public void getStores(StoresV2Request.Store store) {
         final Response response = StoresV2Request.GET(store);
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(StoresV2Response.class).getStores(), "магазины");
+        checkResponseJsonSchema(response, StoresV2Response.class);
     }
 
     @Deprecated

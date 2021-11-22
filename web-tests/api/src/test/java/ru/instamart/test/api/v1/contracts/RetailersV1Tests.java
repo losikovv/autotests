@@ -10,8 +10,11 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.api.request.v1.RetailersV1Request;
+import ru.instamart.api.response.v1.EansV1Response;
+import ru.instamart.api.response.v2.RetailerV2Response;
+import ru.instamart.api.response.v2.RetailersV2Response;
 
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.dataprovider.RestDataProvider.getAvailableRetailersSpree;
 
@@ -26,7 +29,7 @@ public class RetailersV1Tests extends RestBase {
     public void getRetailers() {
         Response response = RetailersV1Request.GET();
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Retailers.json"));
+        checkResponseJsonSchema(response, RetailersV2Response.class);
     }
 
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
@@ -43,7 +46,7 @@ public class RetailersV1Tests extends RestBase {
     public void getRetailer(RetailerV2 retailer) {
         Response response = RetailersV1Request.GET(retailer.getId());
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Retailer.json"));
+        checkResponseJsonSchema(response, RetailerV2Response.class);
     }
 
     @Story("Ретейлеры")
@@ -55,6 +58,7 @@ public class RetailersV1Tests extends RestBase {
     public void getRetailerEans(RetailerV2 retailer) {
         Response response = RetailersV1Request.Eans.GET(retailer.getId());
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Eans.json"));
+        checkResponseJsonSchema(response, EansV1Response.class);
+        System.out.println(response.asString());
     }
 }

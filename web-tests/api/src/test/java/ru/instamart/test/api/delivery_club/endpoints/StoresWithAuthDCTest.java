@@ -12,19 +12,21 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.delivery_club.AvailableSlotDC;
+import ru.instamart.api.model.delivery_club.NotificationDC;
 import ru.instamart.api.model.delivery_club.SlotDC;
+import ru.instamart.api.model.delivery_club.StoreZoneDC;
 import ru.instamart.api.request.delivery_club.StoresDCRequest;
 import ru.instamart.api.response.ErrorResponse;
-import ru.instamart.api.response.delivery_club.OrderDCResponse;
-import ru.instamart.api.response.delivery_club.ProductsDCResponse;
+import ru.instamart.api.response.delivery_club.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Slf4j
@@ -57,10 +59,10 @@ public class StoresWithAuthDCTest extends RestBase {
     public void getStoresSlotsAvailable200() {
         final Response response = StoresDCRequest.Slots.Available.GET(sid);
         checkStatusCode200(response);
+        checkResponseJsonSchema(response, AvailableSlotDC[].class);
         List<SlotDC> slots = Arrays.asList(response.as(SlotDC[].class));
         checkFieldIsNotEmpty(slots, "слоты в магазине");
         slotId = slots.get(0).getId();
-        response.then().body(matchesJsonSchemaInClasspath("schemas/delivery_club/StoresSlotsAvailable.json"));
     }
 
     @CaseId(574)
@@ -79,7 +81,7 @@ public class StoresWithAuthDCTest extends RestBase {
     public void getStoresSlots200() {
         final Response response = StoresDCRequest.Slots.GET(sid);
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/delivery_club/StoresSlots.json"));
+        checkResponseJsonSchema(response, SlotsDCResponse[].class);
     }
 
     @CaseId(575)
@@ -98,7 +100,7 @@ public class StoresWithAuthDCTest extends RestBase {
     public void getStoresStock200() {
         final Response response = StoresDCRequest.Stock.GET(sid);
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/delivery_club/StoresStock.json"));
+        checkResponseJsonSchema(response, StoresStockDCResponse.class);
     }
 
     @CaseId(576)
@@ -118,7 +120,7 @@ public class StoresWithAuthDCTest extends RestBase {
     public void postStoresNotifications200() {
         final Response response = StoresDCRequest.Notifications.POST(sid, orderNumber, notificationType);
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/delivery_club/StoresNotifications.json"));
+        checkResponseJsonSchema(response, NotificationDC.class);
     }
 
     @CaseId(577)
@@ -158,7 +160,7 @@ public class StoresWithAuthDCTest extends RestBase {
     public void getStoresZones200() {
         final Response response = StoresDCRequest.Zones.GET(sid);
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/delivery_club/StoresZones.json"));
+        checkResponseJsonSchema(response, StoreZoneDC[].class);
     }
 
     @CaseId(579)
@@ -184,8 +186,8 @@ public class StoresWithAuthDCTest extends RestBase {
             response = StoresDCRequest.Orders.POST(sid, slotId, productId);
         }
         checkStatusCode200(response);
+        checkResponseJsonSchema(response, OrderDCResponse.class);
         orderNumber = response.as(OrderDCResponse.class).getId();
-        response.then().body(matchesJsonSchemaInClasspath("schemas/delivery_club/StoresOrdersPOST.json"));
     }
 
     @CaseId(580)
@@ -227,7 +229,7 @@ public class StoresWithAuthDCTest extends RestBase {
     public void getStoresCatalogCategories200() {
         final Response response = StoresDCRequest.Catalog.Categories.GET(sid);
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/delivery_club/StoresCatalogCategories.json"));
+        checkResponseJsonSchema(response, CatalogCategoriesDCResponse.class);
     }
 
     @CaseId(583)
@@ -246,8 +248,8 @@ public class StoresWithAuthDCTest extends RestBase {
     public void getStoresCatalogProducts200() {
         final Response response = StoresDCRequest.Catalog.Products.GET(sid);
         checkStatusCode200(response);
+        checkResponseJsonSchema(response, ProductsDCResponse.class);
         productId = response.as(ProductsDCResponse.class).getData().getProducts().get(0).getId();
-        //todo очень большой ответ на проверке падает response.then().body(matchesJsonSchemaInClasspath("schemas/delivery_club/StoresCatalogProducts.json"));
     }
 
     @CaseId(584)
@@ -267,7 +269,7 @@ public class StoresWithAuthDCTest extends RestBase {
     public void getStoresOrders200() {
         final Response response = StoresDCRequest.Orders.GET(sid, orderNumber);
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/delivery_club/StoresOrdersGET.json"));
+        checkResponseJsonSchema(response, OrderDCResponse.class);
     }
 
     @CaseId(585)
@@ -298,7 +300,7 @@ public class StoresWithAuthDCTest extends RestBase {
     public void putStoresOrdersStatus200() {
         final Response response = StoresDCRequest.Orders.Status.PUT(sid, orderNumber, orderStatus);
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/delivery_club/StoresOrdersPOST.json"));
+        checkResponseJsonSchema(response, OrderDCResponse.class);
     }
 
     @CaseId(587)

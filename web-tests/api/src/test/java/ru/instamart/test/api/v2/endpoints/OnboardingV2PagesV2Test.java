@@ -14,7 +14,7 @@ import ru.instamart.jdbc.dao.OnboardingV2PagesDao;
 
 import java.util.List;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
@@ -29,8 +29,8 @@ public class OnboardingV2PagesV2Test extends RestBase {
     public void getOnboardingPages() {
         Response response = OnboardingV2PagesV2Request.GET();
         checkStatusCode200(response);
+        checkResponseJsonSchema(response, OnboardingPagesV2Response.class);
         List<OnboardingPageV2> onboardingPages = response.as(OnboardingPagesV2Response.class).getOnboardingPages();
-        checkFieldIsNotEmpty(onboardingPages, "экраны онбординга");
         compareTwoObjects(onboardingPages.size(), OnboardingV2PagesDao.INSTANCE.getCount());
     }
 }

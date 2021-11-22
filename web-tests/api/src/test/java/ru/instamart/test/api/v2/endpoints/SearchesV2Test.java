@@ -13,8 +13,7 @@ import ru.instamart.api.request.v2.SearchesV2Request;
 import ru.instamart.api.response.v2.SearchSuggestionsV2Response;
 
 import static org.testng.Assert.assertNull;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkSearchSuggestionsNegative;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
@@ -48,7 +47,7 @@ public class SearchesV2Test extends RestBase {
     public void getSearchSuggestionsWithQuery(int sid, String query) {
         Response response = SearchesV2Request.Suggestions.GET(sid, query);
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(SearchSuggestionsV2Response.class).getSuggestion().getProducts(), "поисковые подсказки с продуктами");
+        checkResponseJsonSchema(response, SearchSuggestionsV2Response.class);
     }
 
     @CaseIDs(value = {@CaseId(276), @CaseId(277), @CaseId(279)})

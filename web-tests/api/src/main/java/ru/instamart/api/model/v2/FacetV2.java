@@ -1,5 +1,6 @@
 package ru.instamart.api.model.v2;
 
+import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;

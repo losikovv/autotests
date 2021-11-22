@@ -12,7 +12,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.ExternalAnalyticsV2Request;
 import ru.instamart.api.response.v2.ExternalAnalyticsV2Response;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
@@ -29,7 +29,7 @@ public class ExternalAnalyticsV2Test extends RestBase {
     public void testGetDeviceIdWithToken() {
         final Response response = ExternalAnalyticsV2Request.POST();
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(ExternalAnalyticsV2Response.class).getAnonymousDevice().getUuid(), "uuid");
+        checkResponseJsonSchema(response, ExternalAnalyticsV2Response.class);
     }
 
     @CaseId(946)
@@ -38,6 +38,6 @@ public class ExternalAnalyticsV2Test extends RestBase {
         SessionFactory.clearSession(SessionType.API_V2);
         final Response response = ExternalAnalyticsV2Request.POST();
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(ExternalAnalyticsV2Response.class).getAnonymousDevice().getUuid(), "uuid");
+        checkResponseJsonSchema(response, ExternalAnalyticsV2Response.class);
     }
 }

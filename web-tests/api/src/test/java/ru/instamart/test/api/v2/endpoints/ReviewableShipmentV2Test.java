@@ -26,6 +26,7 @@ import ru.instamart.kraken.data.user.UserData;
 import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.k8s.K8sConsumer.changeToShip;
 
@@ -85,6 +86,7 @@ public class ReviewableShipmentV2Test extends RestBase {
                 .build();
         final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
         checkStatusCode200(response);
+        checkResponseJsonSchema(response, ShipmentReviewV2Response.class);
         ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(shipmentReview.getRate(), Integer.valueOf(5), "Rate not valid");
@@ -104,6 +106,7 @@ public class ReviewableShipmentV2Test extends RestBase {
                 .build();
         final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
         checkStatusCode200(response);
+        checkResponseJsonSchema(response, ShipmentReviewV2Response.class);
         ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(shipmentReview.getRate(), Integer.valueOf(5), "Rate not valid");
@@ -125,8 +128,8 @@ public class ReviewableShipmentV2Test extends RestBase {
                 .build();
         final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
         checkStatusCode200(response);
+        checkResponseJsonSchema(response, ShipmentReviewV2Response.class);
         ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
-        checkFieldIsNotEmpty(shipmentReview, "отзыв о заказе");
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(shipmentReview.getRate(), review.getRate(), "Rate не совпадает с введенным");
         softAssert.assertEquals(shipmentReview.getComment(), review.getComment(), "Comment не совпадает с введенным");
@@ -151,6 +154,7 @@ public class ReviewableShipmentV2Test extends RestBase {
     public void shipmentsReviewsWithImage() {
         final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber);
         checkStatusCode200(response);
+        checkResponseJsonSchema(response, ShipmentReviewV2Response.class);
         ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(shipmentReview.getRate(), Integer.valueOf(5), "Пришла неверная оценка");
