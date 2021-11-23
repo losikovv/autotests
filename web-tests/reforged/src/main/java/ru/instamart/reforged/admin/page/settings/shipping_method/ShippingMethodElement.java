@@ -1,4 +1,4 @@
-package ru.instamart.reforged.admin.page.sections.settings.shipping_method;
+package ru.instamart.reforged.admin.page.settings.shipping_method;
 
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.ByKraken;

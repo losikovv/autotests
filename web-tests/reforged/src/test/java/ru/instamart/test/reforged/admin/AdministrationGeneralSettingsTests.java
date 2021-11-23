@@ -165,7 +165,6 @@ public final class AdministrationGeneralSettingsTests extends BaseTest {
     @CaseId(367)
     @Test(description = "Корректное отображение страницы настроек методов оплаты", groups = {"acceptance", "regression"})
     public void paymentMethodsSettingsPageValidate() {
-
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
@@ -177,7 +176,6 @@ public final class AdministrationGeneralSettingsTests extends BaseTest {
     @CaseId(393)
     @Test(description = "Корректное отображение страницы настроек компаний", groups = {"acceptance", "regression"})
     public void companySettingsPageValidate() {
-
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
@@ -233,7 +231,6 @@ public final class AdministrationGeneralSettingsTests extends BaseTest {
     @CaseId(394)
     @Test(description = "Корректное отображение страницы настроек смс", groups = {"acceptance", "regression"})
     public void smsSettingsPageValidate() {
-
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
