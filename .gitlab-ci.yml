@@ -74,6 +74,7 @@ stages:
   except:
     refs:
       - schedules
+      - web
 
 .template_stage:
   only:
@@ -84,6 +85,7 @@ stages:
   except:
     refs:
       - schedules
+      - web
 
 .template_api_tests:
   stage: tests-api
