@@ -41,7 +41,7 @@ public interface FooterElement {
 
     Link aboutCompany = new Link(By.xpath("//footer//a[contains(@href, '/about-selgros')]"),
             "раздел 'О компании' в футере");
-    Button deliveryZone = new Button(By.xpath("//footer//button[contains(@data-url,'/stores/129/shipping_methods')]"),
+    Button deliveryZone = new Button(By.xpath("//footer//button[text()='Зоны доставки']"),
             "раздел 'Зоны доставки' в футере");
     Link deliveryAndPayment = new Link(By.xpath("//footer//a[contains(@href, '/delivery-selgros')]"),
             "раздел 'Доставка и оплата' в футере'");
