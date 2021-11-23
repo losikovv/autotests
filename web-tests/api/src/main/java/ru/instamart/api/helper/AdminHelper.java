@@ -17,23 +17,23 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode3
 
 public class AdminHelper {
 
-    public void createCity(String cityName) {
-        Response response = CitiesAdminRequest.POST(cityName);
+    public void createCity(CitiesAdminRequest.City city) {
+        final Response response = CitiesAdminRequest.POST(city);
         checkStatusCode302(response);
     }
 
     public void deleteCity(String cityName) {
-        Response response = CitiesAdminRequest.DELETE(cityName);
+        final Response response = CitiesAdminRequest.DELETE(cityName);
         checkStatusCode302(response);
     }
 
     public void createStaticPage(StaticPageData data) {
-        Response response = PagesAdminRequest.POST(data);
+        final Response response = PagesAdminRequest.POST(data);
         checkStatusCode302(response);
     }
 
     public void deleteStaticPage(Integer pageId) {
-        Response response = PagesAdminRequest.DELETE(pageId);
+        final Response response = PagesAdminRequest.DELETE(pageId);
         checkStatusCode302(response);
     }
 
@@ -43,17 +43,17 @@ public class AdminHelper {
     }
 
     public void checkDeliveryWindows(Integer storeId) {
-        Response responseForGet = StoresV1Request.DeliveryWindows.GET(storeId);
+        final Response responseForGet = StoresV1Request.DeliveryWindows.GET(storeId);
         checkStatusCode200(responseForGet);
         DeliveryWindowsV1Response deliveryWindowsV1Response = responseForGet.as(DeliveryWindowsV1Response.class);
-        if(deliveryWindowsV1Response.getDeliveryWindows().size() == 0) {
-            Response responseForGenerate = StoresV1Request.DeliveryWindows.POST(storeId);
+        if (deliveryWindowsV1Response.getDeliveryWindows().size() == 0) {
+            final Response responseForGenerate = StoresV1Request.DeliveryWindows.POST(storeId);
             checkStatusCode200(responseForGenerate);
         }
     }
 
     public OperationalZoneV1 addOperationalZones(String zoneName) {
-        Response response = OperationalZonesV1Request.POST(zoneName);
+        final Response response = OperationalZonesV1Request.POST(zoneName);
         checkStatusCode200(response);
         return response.as(OperationalZoneV1Response.class).getOperationalZone();
     }

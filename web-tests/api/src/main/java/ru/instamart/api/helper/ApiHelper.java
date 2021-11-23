@@ -10,6 +10,7 @@ import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.SessionV2;
+import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.jdbc.dao.OperationalZonesDao;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.user.UserData;
@@ -164,7 +165,7 @@ public class ApiHelper {
     @Step("Добавляем новый город {cityName} в админке")
     public void createCityInAdmin(String cityName) {
         authAdmin();
-        admin.createCity(cityName);
+        admin.createCity(new CitiesAdminRequest.City(cityName));
     }
 
     @Step("Удаляем город {cityName} в админке")

@@ -108,7 +108,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Несуществующий номер заказа")
     public void orderWithPromoCodeAndInvalidOrderNumber() {
-        Response response = OrdersV2Request.Promotions.POST("failedOrder", promoCode);
+        final Response response = OrdersV2Request.Promotions.POST("failedOrder", promoCode);
         checkError(response, "Заказ не существует");
     }
 
