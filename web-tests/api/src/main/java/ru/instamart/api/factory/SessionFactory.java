@@ -21,6 +21,7 @@ import ru.instamart.api.response.shopper.app.SessionsSHPResponse;
 import ru.instamart.api.response.v1.TokensV1Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
 import ru.instamart.api.response.v2.UserV2Response;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.StringUtil;
@@ -172,7 +173,8 @@ public final class SessionFactory {
         ThreadUtil.simplyAwait(1);
         Response response;
         //TODO: Когда api перейдет на qa ручку, нужно будет удалить условие
-        if (nonNull(userData.getId())) {
+        if (nonNull(userData.getId())
+                && !(EnvironmentProperties.Env.FULL_SITE_URL.contains("preprod") || EnvironmentProperties.Env.FULL_SITE_URL.contains("next"))) {
             response = PhoneConfirmationsV2Request.PUT(userData.getPhone(), StringUtil.getSMSCode(userData.getPhone()), true);
         } else {
             response = PhoneConfirmationsV2Request.PUT(userData.getPhone());
