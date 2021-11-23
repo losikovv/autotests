@@ -223,19 +223,27 @@ public class ShopperAppApiHelper {
     @Step("Сложная сборка заказа для shipmentNumber: {shipmentNumber}")
     public void complexCollect(String shipmentNumber) {
         authorisation(UserManager.getDefaultShopper());
+        //Удаляем текущую сборку
         deleteCurrentAssembly();
         String shipmentId = getShipmentId(shipmentNumber);
 
         AssemblySHP.Data assembly = startAssembly(shipmentId);
         Assert.assertEquals(assembly.getAttributes().getState(), AssemblyStateSHP.COLLECTING.getState(), "Статус сборки не валиден");
 
+        simplyAwait(3); //Пауза перед передачей в сборку. В БД не успевает поменяться статус
+        //Отдаём сборку другому сборщику
         suspendAssembly();
+        simplyAwait(3); //Пауза перед получением в сборку. В БД не успевает поменяться статус
         assembly = startAssembly(shipmentId);
         Assert.assertEquals(assembly.getAttributes().getState(), AssemblyStateSHP.COLLECTING.getState(), "Статус сборки не валиден");
 
+        //Сборка всех позиций заказа
         assemblyItems();
+        simplyAwait(3); //Пауза после сборки заказа
 
+        //Ставим сборку на паузу
         pauseAssembly();
+        simplyAwait(3); //пауза перед сборкой
         assembly = startAssembly(shipmentId);
         Assert.assertEquals(assembly.getAttributes().getState(), AssemblyStateSHP.ON_APPROVAL.getState(), "Статус сборки не валиден");
 
