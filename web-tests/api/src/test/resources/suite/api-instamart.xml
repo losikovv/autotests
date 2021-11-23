@@ -76,11 +76,18 @@
             <class name="ru.instamart.test.api.v3.endpoints.ProductsV3Test"/>
         </classes>
     </test>
+    <!-- api-delivery-club-tests  -->
     <test verbose="1" name="API Delivery Club Tests" parallel="classes" thread-count="3">
         <classes>
             <class name="ru.instamart.test.api.delivery_club.endpoints.AuthenticationDCTest"/>
             <class name="ru.instamart.test.api.delivery_club.endpoints.StoresWithAuthDCTest"/>
             <class name="ru.instamart.test.api.delivery_club.endpoints.StoresWithoutAuthDCTest"/>
+        </classes>
+    </test>
+    <!-- api-admin-tests  -->
+    <test verbose="1" name="API Admin Tests" parallel="classes" thread-count="3">
+        <classes>
+            <class name="ru.instamart.test.api.admin.CitiesAdminTest"/>
         </classes>
     </test>
 
