@@ -55,14 +55,9 @@ stages:
   only:
     refs:
       - schedules
+      - web
     variables:
       - $REGRESSION == 'true'
-  when: always
-
-.template_web:
-  only:
-    refs:
-      - web
   when: always
 
 .template_run_all_jobs_at_a_time_on_master:
