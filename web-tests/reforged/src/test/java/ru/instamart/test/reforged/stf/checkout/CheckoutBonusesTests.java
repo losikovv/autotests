@@ -1,5 +1,7 @@
 package ru.instamart.test.reforged.stf.checkout;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
@@ -14,7 +16,9 @@ import static ru.instamart.kraken.data.BonusPrograms.mnogoru;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
-public class CheckoutBonusesTests extends BaseTest {
+@Epic("STF UI")
+@Feature("Бонусные программы")
+public final class CheckoutBonusesTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
 
@@ -46,7 +50,6 @@ public class CheckoutBonusesTests extends BaseTest {
                   .clickToSaveModal();
         checkout().checkLoyaltyCardModalNotVisible();
         checkout().checkBonusCardApplied(aeroflot().getName());
-        helper.dropCart(checkoutBonusesUser);
     }
 
     @CaseId(1703)
@@ -85,8 +88,6 @@ public class CheckoutBonusesTests extends BaseTest {
         checkout().clickToSelectLoyaltyCard(aeroflot().getName());
         checkout().checkLoyaltyCardLoaderNotVisible();
         checkout().checkBonusCardActive(aeroflot().getName());
-
-        helper.dropCart(checkoutBonusesUser);
     }
 
     @CaseId(1704)
@@ -123,7 +124,5 @@ public class CheckoutBonusesTests extends BaseTest {
         checkout().interactEditLoyaltyCardModal()
                 .clickToDeleteModal();
         checkout().checkBonusCardNotApplied(aeroflot().getName());
-
-        helper.dropCart(checkoutBonusesUser);
     }
 }
