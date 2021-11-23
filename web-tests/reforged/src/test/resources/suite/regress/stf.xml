@@ -51,6 +51,7 @@
       <class name="ru.instamart.test.reforged.stf.Page404Tests"/>
       <class name="ru.instamart.test.reforged.stf.SeoCatalogTests"/>
       <class name="ru.instamart.test.reforged.stf.HelpDeskChatTests"/>
+      <class name="ru.instamart.test.reforged.stf.CookieTests"/>
     </classes>
   </test>
 </suite>
