@@ -28,12 +28,12 @@ public class AdminHelper {
     }
 
     public void createStaticPage(PagesAdminRequest.Page page) {
-        Response response = PagesAdminRequest.POST(page);
+        final Response response = PagesAdminRequest.POST(page);
         checkStatusCode302(response);
     }
 
     public void deleteStaticPage(Long pageId) {
-        Response response = PagesAdminRequest.DELETE(pageId);
+        final Response response = PagesAdminRequest.DELETE(pageId);
         checkStatusCode302(response);
     }
 
