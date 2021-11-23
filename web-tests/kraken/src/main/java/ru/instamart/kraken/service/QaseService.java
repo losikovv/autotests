@@ -30,9 +30,7 @@ import java.lang.reflect.Method;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -177,6 +175,11 @@ public final class QaseService {
             Long caseIdItem = caseIDs[index].value();
             if (caseIdItem != null) {
                 createTestResult(caseIdItem, status, timeSpent, comment, stacktrace, isDefect, attachmentHash);
+            }
+            if (result.getParameters().length == 0) {
+                Arrays.stream(caseIDs)
+                        .filter(item -> Objects.nonNull(item))
+                        .forEach(item -> createTestResult(item.value(), status, timeSpent, comment, stacktrace, isDefect, attachmentHash));
             }
         }
     }
