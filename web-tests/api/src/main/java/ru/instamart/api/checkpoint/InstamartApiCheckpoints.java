@@ -9,10 +9,12 @@ import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.model.v1.MarketingSampleV1;
 import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
+import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.response.v2.ExternalPartnersServicesV2Response;
 import ru.instamart.jdbc.dao.SpreeUsersDao;
 import ru.instamart.jdbc.entity.CitiesEntity;
 import ru.instamart.jdbc.entity.MarketingSamplesEntity;
+import ru.instamart.jdbc.entity.SpreePagesEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.time.LocalDateTime;
@@ -147,6 +149,28 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(city.getNameIn(), cityFromDb.getNameIn(), softAssert);
         compareTwoObjects(city.getSlug(), cityFromDb.getSlug(), softAssert);
         compareTwoObjects(city.getLocked(), cityFromDb.getLocked(), softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем страницу в БД")
+    public static void checkPageInDb(PagesAdminRequest.Page page, SpreePagesEntity pageFromDb, int visible, int position) {
+        checkFieldIsNotEmpty(pageFromDb, "страница в БД");
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(page.getTitle(), pageFromDb.getTitle(), softAssert);
+        softAssert.assertTrue(pageFromDb.getBody().contains(page.getBody()));
+        compareTwoObjects(page.getMetaDescription(), pageFromDb.getMetaDescription(), softAssert);
+        compareTwoObjects(page.getMetaTitle(), pageFromDb.getMetaTitle(), softAssert);
+        compareTwoObjects(page.getMetaKeywords(), pageFromDb.getMetaKeywords(), softAssert);
+        compareTwoObjects(page.getForeignLink(), pageFromDb.getForeignLink(), softAssert);
+        compareTwoObjects(page.getLayout(), pageFromDb.getLayout(), softAssert);
+        compareTwoObjects(visible, pageFromDb.getVisible(), softAssert);
+        compareTwoObjects(position, pageFromDb.getShowInFooter(), softAssert);
+        compareTwoObjects(position, pageFromDb.getShowInHeader(), softAssert);
+        compareTwoObjects(position, pageFromDb.getShowInSidebar(), softAssert);
+        compareTwoObjects(position, pageFromDb.getRenderLayoutAsPartial(), softAssert);
+        if(position == 1) {
+            compareTwoObjects(position, pageFromDb.getPosition(), softAssert);
+        }
         softAssert.assertAll();
     }
 }
