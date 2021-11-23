@@ -71,6 +71,7 @@ public class PagesAdminTest extends RestBase {
             dataProvider = "updatedPageData",
             dataProviderClass = RestDataProvider.class)
     public void editPage(PagesAdminRequest.Page page, int visible, int position) {
+        SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
         String slug = page.getSlug();
         final Response response = PagesAdminRequest.PATCH(page, id);
         checkStatusCode302(response);
