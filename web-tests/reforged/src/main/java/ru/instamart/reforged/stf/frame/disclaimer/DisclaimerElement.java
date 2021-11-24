@@ -7,5 +7,5 @@ import ru.instamart.reforged.core.component.Element;
 public interface DisclaimerElement {
 
     Button approve = new Button(By.xpath("//button[@data-qa='disclaimer_modal_ok_button']"), "Кнопка принятия на модальном окне дисклеймера");
-    Element disclaimerModal = new Element(By.xpath("//div[contains(@class, 'wrapper')]/div[contains(@class, 'disclaimer')]"), "Модальное окно дисклеймера 18+");
+    Element disclaimerModal = new Element(By.xpath("//button[@data-qa='disclaimer_modal_ok_button']/parent::div/parent::div"), "Модальное окно дисклеймера 18+");
 }
