@@ -26,5 +26,5 @@ public interface HeaderElement {
     Button login = new Button(By.xpath("//button[@data-qa='login-button']"), "Кнопка логина");
 
     Element partnershipLabel = new Element(By.xpath("//div[@class='partnership']"), "Лейбл 'О сотрудничестве'");
-    Element nearestDeliveryLabel = new Element(By.xpath("//b[contains(@class, 'ship_address_selector')]"), "Лейбл 'Ближайшая доставка (день) чч:мм-чч:мм'");
+    Element nearestDeliveryLabel = new Element(By.xpath("//span[text()='Ближайшая доставка']"), "Лейбл 'Ближайшая доставка (день) чч:мм-чч:мм'");
 }

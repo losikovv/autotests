@@ -16,7 +16,7 @@ public interface HeaderElement {
     Button selectAddress = new Button(By.xpath("//button[@data-qa='select-button']"), "Кнопка выбора адреса доставки");
     Element hotlineWorkHoursText = new Element(By.xpath("//header//span[text()='" + TestVariables.CompanyParams.companyHotlineWorkhoursShort + "']"), "Текст со временем работы горячей линии");
     Element hotlinePhoneNumber = new Element(By.xpath("//header//span[text()='" + TestVariables.CompanyParams.companyHotlinePhoneNumber + "']"), "Текст с номером телефона горячей линии");
-    Link logo = new Link(By.xpath("//a[@href='/'][contains(@class,'logo')]"), "Лого магазина с редиректом на главную");
+    Link logo = new Link(By.xpath("//header//a[@href='/']"), "Лого магазина с редиректом на главную");
 
     Link help = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Помощь')]"), "Кнопка открытия раздела помощи");
 
@@ -28,5 +28,5 @@ public interface HeaderElement {
     Button login = new Button(By.xpath("//button[@data-qa='login-button']"), "Кнопка логина");
 
     Element partnershipLabel = new Element(By.xpath("//div[@class='partnership']"), "Лейбл 'О сотрудничестве'");
-    Element nearestDeliveryLabel = new Element(By.xpath("//b[contains(@class, 'ship_address_selector')]"), "Лейбл 'Ближайшая доставка (день) чч:мм-чч:мм'");
+    Element nearestDeliveryLabel = new Element(By.xpath("//span[text()='Ближайшая доставка']"), "Лейбл 'Ближайшая доставка (день) чч:мм-чч:мм'");
 }
