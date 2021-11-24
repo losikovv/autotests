@@ -6,7 +6,7 @@ public class PaymentCards {
         return new PaymentCardData(
                 "4242424242424242",
                 "12",
-                "2049",
+                "49",
                 "IVAN IVANOV",
                 "404",
                 true);
@@ -16,7 +16,7 @@ public class PaymentCards {
         return new PaymentCardData(
                 "5200 8282 8282 8210",
                 "12",
-                "2049",
+                "49",
                 "NO SECURE",
                 "404",
                 false);
