@@ -44,13 +44,13 @@ public class DeliveryWindowsDao implements Dao<Long, DeliveryWindowsEntity> {
     public int getCount(Long storeId, String start, String end) {
         int resultCount = 0;
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*)") + " WHERE store_id = ? AND active = 1 AND starts_at BETWEEN ? AND ?")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total") + " WHERE store_id = ? AND active = 1 AND starts_at BETWEEN ? AND ?")) {
             preparedStatement.setLong(1, storeId);
             preparedStatement.setString(2, start);
             preparedStatement.setString(3, end);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            resultCount = resultSet.getInt("count(*)");
+            resultCount = resultSet.getInt("total");
         } catch (SQLException e) {
             e.printStackTrace();
         }

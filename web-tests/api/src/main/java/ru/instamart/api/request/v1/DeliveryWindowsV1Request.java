@@ -10,7 +10,7 @@ import ru.instamart.api.request.ApiV1RequestBase;
 
 public class DeliveryWindowsV1Request extends ApiV1RequestBase {
 
-    @Step("{method} /" + ApiV1Endpoints.DELIVERY_WINDOW)
+    @Step("{method} /" + ApiV1Endpoints.DeliveryWindows.BY_ID)
     public static Response PUT(Long deliveryWindowId, long number) {
         JSONObject body = new JSONObject();
         JSONObject deliveryWindow = new JSONObject();
@@ -23,6 +23,6 @@ public class DeliveryWindowsV1Request extends ApiV1RequestBase {
         return givenWithAuth()
                 .contentType(ContentType.JSON)
                 .body(body)
-                .put(ApiV1Endpoints.DELIVERY_WINDOW, deliveryWindowId);
+                .put(ApiV1Endpoints.DeliveryWindows.BY_ID, deliveryWindowId);
     }
 }
