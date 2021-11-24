@@ -29,9 +29,9 @@ public interface ProductCardElement {
             "листать список влево");
 
     Element recentlyViewed = new Element(By.xpath("//div[@class='widgettitle'][contains(text(),'Вы недавно смотрели')]"), "недавно просмотренные товары");
-    Element alcoAlert = new Element(By.xpath("//div[contains(@class, 'disclaimer')]/div[contains(text(), 'достигшим 18 лет')]"), "алерт алко 18+ на карточке товара");
+    Element alcoAlert = new Element(By.xpath("//div[contains(text(), 'достигшим 18 лет')]"), "алерт алко 18+ на карточке товара");
 
-    Element alcoStub = new Element(By.cssSelector("div[class^=preview_cell] > svg"), "картинка-заглушка алко 18+ на карточке товара");
+    Element alcoStub = new Element(By.cssSelector("div[itemtype*=Product] > div > div > div > div > svg"), "картинка-заглушка алко 18+ на карточке товара");//TODO:исправить на более стабильный локатор
 
     Button reserveButton = new Button(By.xpath("//button[contains(text(), 'Зарезервировать') and @data-qa='addToCart_buy_button']"),
             "Кнопка 'Зарезервировать' на карточке товара алко");
