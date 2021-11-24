@@ -14,6 +14,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OfferV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.model.v2.*;
+import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.v1.OperationalZonesV1Request;
 import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
 import ru.instamart.api.request.v2.*;
@@ -27,6 +28,7 @@ import ru.instamart.jdbc.dao.SpreeUsersDao;
 import ru.instamart.jdbc.dto.PromotionCodesFilters;
 import ru.instamart.jdbc.entity.PromotionCodesEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data_provider.DataList;
 
 import java.time.format.DateTimeFormatter;
@@ -628,6 +630,66 @@ public class RestDataProvider extends RestBase {
         return new Object[][]{
                 {"thisisnonexistingemail@testest.com", token, 404},
                 {UUID.randomUUID().toString(), token, 500},
+        };
+    }
+
+    @DataProvider(name = "pageData")
+    public static Object[][] getPages() {
+
+        return new Object[][]{
+                {PagesAdminRequest.Page.builder()
+                        .title("Autotest-" + Generate.literalString(6))
+                        .slug("Autotest-" + Generate.literalString(6))
+                        .body("Autotest-" + Generate.literalString(6))
+                        .position(1)
+                        .foreignLink("Autotest-" + Generate.literalString(6))
+                        .metaTitle("Autotest-" + Generate.literalString(6))
+                        .metaDescription("Autotest-" + Generate.literalString(6))
+                        .metaKeywords("Autotest-" + Generate.literalString(6))
+                        .layout("Autotest-" + Generate.literalString(6))
+                        .visible(0)
+                        .showInFooter(1)
+                        .showInHeader(1)
+                        .showInSidebar(1)
+                        .renderLayoutAsPartial(1)
+                        .build(),
+                        0, 1},
+                {PagesAdminRequest.Page.builder()
+                        .title("Autotest-" + Generate.literalString(6))
+                        .slug("Autotest-" + Generate.literalString(6))
+                        .body("Autotest-" + Generate.literalString(6))
+                        .build(),
+                        1, 0},
+        };
+    }
+
+    @DataProvider(name = "updatedPageData")
+    public static Object[][] getUpdatedPages() {
+
+        return new Object[][]{
+                {PagesAdminRequest.Page.builder()
+                        .title("Autotest-" + Generate.literalString(6))
+                        .slug("Autotest-" + Generate.literalString(6))
+                        .body("Autotest-" + Generate.literalString(6))
+                        .build(),
+                        1, 0},
+                {PagesAdminRequest.Page.builder()
+                        .title("Autotest-" + Generate.literalString(6))
+                        .slug("Autotest-" + Generate.literalString(6))
+                        .body("Autotest-" + Generate.literalString(6))
+                        .position(1)
+                        .foreignLink("Autotest-" + Generate.literalString(6))
+                        .metaTitle("Autotest-" + Generate.literalString(6))
+                        .metaDescription("Autotest-" + Generate.literalString(6))
+                        .metaKeywords("Autotest-" + Generate.literalString(6))
+                        .layout("Autotest-" + Generate.literalString(6))
+                        .visible(0)
+                        .showInFooter(1)
+                        .showInHeader(1)
+                        .showInSidebar(1)
+                        .renderLayoutAsPartial(1)
+                        .build(),
+                        0, 1}
         };
     }
 
