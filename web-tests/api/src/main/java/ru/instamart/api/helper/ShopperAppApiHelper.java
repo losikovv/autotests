@@ -202,7 +202,7 @@ public class ShopperAppApiHelper {
         List<ShipmentsItemSHP> filterCollect;
         int i = 0;
         do {
-            Response response = ShopperAdminRequest.Shipments.GET(EnvironmentProperties.DEFAULT_SHOPPER_SID, getDateFromMSK().toString());
+            Response response = ShopperAdminRequest.Shipments.GET(EnvironmentProperties.DEFAULT_SHOPPER_SID, getDateFromMSK());
             checkStatusCode200(response);
             final List<ShipmentsItemSHP> shipments = response.as(ru.instamart.api.response.shopper.admin.ShipmentsSHPResponse.class).getShipments();
             filterCollect = shipments.stream()

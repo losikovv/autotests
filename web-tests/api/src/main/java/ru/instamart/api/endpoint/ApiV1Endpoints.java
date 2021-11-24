@@ -17,6 +17,7 @@ public final class ApiV1Endpoints {
     public static final String MARKETING_SAMPLES = "marketing_samples";
     public static final String MARKETING_SAMPLE = "marketing_samples/{sampleId}";
     public static final String COMPANIES = "companies";
+    public static final String DELIVERY_WINDOW = "delivery_windows/{deliveryWindowId}";
 
     public static final class Offers {
         public static final String UUID = "offers/{offerUuid}";

@@ -24,6 +24,7 @@ import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
+import static ru.instamart.kraken.util.TimeUtil.getPastDateWithoutTime;
 
 @Epic("Shopper Admin Panel API")
 @Feature("Endpoints")
@@ -33,7 +34,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     private final Integer driverId = 2;
     private final String routeScheduleStatus = "disabled";
     private final String shopperStatus = "disabled";
-    private final String today = getDateFromMSK().toString();
+    private final String today = getDateFromMSK();
     private Integer routeId;
     private Integer routeScheduleId;
     private Integer tariffId;
@@ -95,7 +96,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     @Test(description = "Список доставок",
             groups = {"api-shopper-regress"})
     public void getShipments200() {
-        Response response = ShopperAdminRequest.Shipments.GET(sid, getDateFromMSK().minusDays(1).toString());
+        Response response = ShopperAdminRequest.Shipments.GET(sid, getPastDateWithoutTime(1L));
         checkStatusCode200(response);
     }
 
