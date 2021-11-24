@@ -44,7 +44,7 @@ public final class TimeUtil {
     }
 
     public static String getDbDeliveryDateTo(Long days) {
-        return dt.format(ZonedDateTime.of(LocalDate.now(), LocalTime.MAX, ZONE_ID).plusDays(days));
+        return dtdb.format(ZonedDateTime.of(LocalDate.now(), LocalTime.MAX, ZONE_ID).plusDays(days));
     }
 
     private TimeUtil() {
