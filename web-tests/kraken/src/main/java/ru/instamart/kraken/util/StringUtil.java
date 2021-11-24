@@ -1,9 +1,12 @@
 package ru.instamart.kraken.util;
 
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static java.util.Objects.isNull;
 
 public final class StringUtil {
 
@@ -38,6 +41,9 @@ public final class StringUtil {
     }
 
     public static String getSMSCode(final String phone) {
+        if (isNull(phone) || phone.isEmpty()) {
+            return CoreProperties.DEFAULT_SMS;
+        }
         return phone.substring(phone.length() - 6);
     }
 
