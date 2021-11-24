@@ -75,10 +75,6 @@ public final class AdminRout extends Router {
         return (ShopAddPage) getPage(ShopAddPage.class);
     }
 
-    public static RegionsAdd regionsAdd() {
-        return (RegionsAdd) getPage(RegionsAdd.class);
-    }
-
     public static GeneralSettingsPage settings() {
         return (GeneralSettingsPage) getPage(GeneralSettingsPage.class);
     }

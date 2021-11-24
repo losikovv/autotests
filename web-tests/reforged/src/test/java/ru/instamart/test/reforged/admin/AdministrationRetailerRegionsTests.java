@@ -40,7 +40,7 @@ public final class AdministrationRetailerRegionsTests extends BaseTest {
         shopAdd().goToPage();
         shopAdd().selectTestRegionInRegionsDropdown(regionName);
 
-        apiHelper.deleteCityInAdmin(regionName); //тут должно быть //apiHelper.deleteRegionInAdmin(regionName);
+        apiHelper.deleteOperationalZonesInAdmin(regionName);
 
         regions().goToPage();
         regions().checkAddNewRegionButtonVisible();

@@ -22,5 +22,5 @@ public interface RegionsElements {
     Element pageTitle = new Element(By.xpath("//h1[@class='page-title ≈']"), "Заголовок страницы с таблицей регионов 'Список регионов'");
     Element regionsTable = new Element(By.xpath("//table[@class='index']"), "Таблица с доступными регионами");
     Element removeRegion = new Element(ByKraken.xpath("//a[text()='%s']/ancestor::tr/descendant::a[@data-action='remove']"), "удаление региона");
-    Element city = new Element(ByKraken.xpath("//p[text()='%s']", "тестовый город в списке городов"));
+    Element city = new Element(ByKraken.xpath("//p[text()='%s']"), "тестовый город в списке городов");
 }
