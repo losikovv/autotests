@@ -15,7 +15,7 @@ public interface AddressElement {
 
     Input addressNew = new Input(By.xpath("//div[contains(@class,'AddressModal')]//input"), "поле ввода адреса");
 
-    DropDown dropDownAddress = new DropDown(By.xpath("//div[contains(@class,'dropdown')]/div/*[text()]"));
+    DropDown dropDownAddress = new DropDown(By.xpath("//input[@data-qa='address-modal-input']/following::div[2]/div/div/div"));
     Button save = new Button(By.xpath("//button[@data-qa='address-modal-submit']"), "кнопка Сохранить");
     Element outOfShippingZone = new Element(By.xpath("//div[text()='Адрес не в зоне доставки']"), "лейбл Адрес не в зоне доставки");
     Button chooseOtherAddress = new Button(By.xpath("//button[@data-qa='address-modal-other-address']"), "кнопка Выбрать другой адрес");
@@ -31,6 +31,6 @@ public interface AddressElement {
     Element login = new Element(By.xpath("//span[@data-qa='address-modal-login']"));
 
     Element markerImageOnMapInAdvice = new Element(By.xpath("//div[contains(@class, 'notice')]/descendant::img[contains(@src, '/marker')]"));
-    Element ymapReady = new Element(By.xpath("//div[@data-qa='address-modal']//div[contains(@class, 'YandexMap')]/ymaps"), "Элемент яндекс карт, готовый к работе");
+    Element ymapReady = new Element(By.xpath("//div[@data-qa='address-modal']//ymaps"), "Элемент яндекс карт, готовый к работе");
 
 }
