@@ -43,8 +43,8 @@ public class SpreeUsersDao implements Dao<Long, SpreeUsersEntity> {
     public Long getIdByEmail(String email) {
         Long id = null;
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") +
-                     String.format(" WHERE email ='%s'", email))) {
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE email = ?")) {
+            preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             id = resultSet.getLong("id");
