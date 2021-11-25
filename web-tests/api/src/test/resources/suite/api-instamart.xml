@@ -23,6 +23,7 @@
             <class name="ru.instamart.test.api.v1.endpoints.LegalEntityV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.CompaniesV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.MarketingSamplesV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.DeliveryWindowsV1Tests"/>
         </classes>
     </test>
     <!-- api-v2-tests -->

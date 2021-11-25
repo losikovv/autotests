@@ -1,5 +1,7 @@
 package ru.instamart.test.api.v1.endpoints;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
@@ -26,6 +28,8 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.compareMarketi
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
+@Epic("ApiV1")
+@Feature("Admin Web")
 public class MarketingSamplesV1Tests extends RestBase {
 
     private Long sampleId;

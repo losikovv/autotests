@@ -13,7 +13,7 @@ import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode401;
-import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
+import static ru.instamart.kraken.util.TimeUtil.getPastDateWithoutTime;
 
 @Epic("Shopper Admin Panel API")
 @Feature("Endpoints")
@@ -21,7 +21,7 @@ public class ShopperAdminWithoutAuthTest extends RestBase {
     private final Integer routeId = 1;
     private final Integer routeScheduleId = 1;
     private final Integer sid = EnvironmentProperties.DEFAULT_SHOPPER_SID;
-    private final String yesterday = getDateFromMSK().minusDays(1).toString();
+    private final String yesterday = getPastDateWithoutTime(1L);
 
     @BeforeMethod(alwaysRun = true)
     public void clearAuth() {

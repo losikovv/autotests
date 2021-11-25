@@ -79,7 +79,7 @@ public class ShopperAppE2ETest extends RestBase {
                 "1",
                 "1", //невалидный номер
                 "1",
-                getDateFromMSK().toString(),
+                getDateFromMSK(),
                 "1");
         checkStatusCode422(response);
         checkError(response, "Этот чек уже прикреплён к другому заказу");
