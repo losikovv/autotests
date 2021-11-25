@@ -297,10 +297,14 @@ public final class ShoppingCartTests extends BaseTest {
         home().openLoginModal();
         home().interactAuthModal().authViaPhone(userData);
 
-        shop().openSitePage("metro/c/priedlozhieniia/skidki/bakalieia?sid=1&source=category");
-        seo().interactHeader().checkProfileButtonVisible();
-        seo().addFirstProductToCart();
-        seo().removeFirstProductFromCart();
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().clickToCategoryMenu();
+        shop().interactCategoryMenu().clickToFirstLevelCategoryByName("Скидки");
+
+        seo().openFirstProductCardOnDepartment();
+        seo().interactProductCard().clickOnBuy();
+        seo().interactProductCard().decreaseItemCount();
+        seo().interactProductCard().closeByEsc();
         seo().interactHeader().clickToCart();
         seo().interactCart().checkCartEmpty();
     }

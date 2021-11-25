@@ -38,16 +38,6 @@ public final class SeoCatalogPage implements StfPage, SeoCatalogCheck {
         firstProductCardOnDepartment.click();
     }
 
-    @Step("Добавить первый товар в корзину")
-    public void addFirstProductToCart() {
-        addToCart.click();
-    }
-
-    @Step("Удалить первый товар из корзины")
-    public void removeFirstProductFromCart() {
-        removeFromCart.click();
-    }
-
     @Step("Выбрать подкатегорию {0} со страницы каталога")
     public void clickOnSubCategory(String data) {
         catalogSubCategories.clickOnElementWithText(data);

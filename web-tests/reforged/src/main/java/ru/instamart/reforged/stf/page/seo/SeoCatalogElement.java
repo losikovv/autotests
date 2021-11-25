@@ -20,8 +20,6 @@ public interface SeoCatalogElement {
     Element productGrid = new Element(By.xpath("//div[@data-qa='category_taxon_products_products_grid']"), "Продукты на странице каталога");
     Element firstProductCard = new Element(By.xpath("//div[@data-qa='category_taxon_products_products_grid_item_0']"), "Карточка первого товара на странице каталога");
     Element firstProductCardOnDepartment = new Element(By.xpath("//div[@data-qa='category_department_taxons_list_taxon_item_0_product_item_0']"), "Карточка первого товара на странице каталога");
-    Button addToCart = new Button(By.xpath("//div[@data-qa='category_taxon_products_products_grid_item_0']//button[@title='Добавить в корзину']"), "плюсик на товаре");
-    Button removeFromCart = new Button(By.xpath("//div[@data-qa='category_taxon_products_products_grid_item_0']//button[@title='Убрать из корзины']"), "минус на товаре");
     Element spinner = new Element(By.xpath("//div[contains(@class, 'Recommendations')]//div[contains(@class, 'Spinner')]"), "Спиннер блока рекомендаций");
     ElementCollection catalogSubCategories = new ElementCollection(By.xpath("//nav[@data-qa='category_header_taxons_nav']/a"), "Подкатегории в каталоге");
 }
