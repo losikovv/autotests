@@ -20,18 +20,17 @@ import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
 public final class OrderRepeatTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
-    private final UserData userData = UserManager.getQaUser();
+    private UserData userData;
 
-    @BeforeMethod(description = "Аутентификация и выбор адреса доставки")
+    @BeforeMethod(alwaysRun = true, description = "Аутентификация и выбор адреса доставки")
     public void preconditions() {
-        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        userData = UserManager.getQaUser();
+        helper.makeOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
     }
 
     @CaseId(1668)
     @Test(description = "Повтор крайнего заказа из истории заказов", groups = {"smoke","regression", "acceptance"})
     public void successRepeatLastOrderFromOrderHistory() {
-        helper.makeAndCancelOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
-
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
@@ -49,8 +48,6 @@ public final class OrderRepeatTests extends BaseTest {
     @CaseId(1669)
     @Test(description = "Повтор крайнего заказа со страницы заказа", groups = {"regression", "acceptance"})
     public void successRepeatOrderFromOrderDetails() {
-        helper.makeAndCancelOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
-
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
@@ -69,8 +66,6 @@ public final class OrderRepeatTests extends BaseTest {
     @CaseId(1670)
     @Test(description = "Отмена повтора заказа со страницы заказа", groups = {"regression", "acceptance"})
     public void noRepeatOrderAfterCancel() {
-        helper.makeOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
-
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
