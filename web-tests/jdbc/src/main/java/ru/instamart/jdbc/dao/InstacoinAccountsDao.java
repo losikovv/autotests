@@ -40,7 +40,9 @@ public class InstacoinAccountsDao implements Dao<Long, InstacoinAccountsEntity>{
 
     public void updatePromotionCode(Long promotionCodeId, Long userId) {
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format("UPDATE instacoin_accounts SET promotion_code_id = %s WHERE user_id = '%s'", promotionCodeId, userId))) {
+             PreparedStatement preparedStatement = connect.prepareStatement("UPDATE instacoin_accounts SET promotion_code_id = ? WHERE user_id = ?")) {
+            preparedStatement.setObject(1, promotionCodeId);
+            preparedStatement.setLong(2, userId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
