@@ -92,7 +92,7 @@ public final class ShoppingSearchTests extends BaseTest {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddressFirstTime();
         shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();

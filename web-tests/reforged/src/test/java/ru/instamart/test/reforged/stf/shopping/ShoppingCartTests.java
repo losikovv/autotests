@@ -28,7 +28,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();
@@ -51,7 +51,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();
@@ -95,7 +95,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();
@@ -124,7 +124,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();

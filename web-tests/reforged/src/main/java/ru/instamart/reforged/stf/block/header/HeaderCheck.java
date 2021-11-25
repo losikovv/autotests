@@ -2,6 +2,7 @@ package ru.instamart.reforged.stf.block.header;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
+import ru.instamart.reforged.core.Kraken;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -150,29 +151,21 @@ public interface HeaderCheck extends Check, HeaderElement {
         waitAction().shouldBeVisible(enteredAddress);
     }
 
-    @Step("Проверяем, что утановленный адрес: \"{0}\" \n совпадает с адресом, отображаемом на странице: \"{1}\"")
-    default void checkIsSetAddressEqualToInput(String defaultAddress, String currentAddress) {
-
-        final String[] defaultAddressList = defaultAddress.split(", ");
+    @Step("Проверяем, что установленный адрес: '{0}' \n совпадает с адресом, отображаемом на странице: '{1}'")
+    default void checkIsSetAddressEqualToInput(final String defaultAddress, final String currentAddress) {
+        final var defaultAddressList = defaultAddress.split(", ");
         log.debug("> проверяем, что установленный адрес: '{}' совпадает с адресом на странице: '{}'",
                 defaultAddress,
                 currentAddress);
-        boolean checkState = false;
-        for (final String check : defaultAddressList) {
-            if (currentAddress.contains(check)) {
-                checkState = true;
-            } else {
-                log.debug("> в введенном адресе отсутсвует: {}", check);
-                checkState = false;
-            }
-            krakenAssert.assertEquals(
-                    checkState,
-                    "\n> В адресе отображаемом на странице отсутсвует элемент: "
+        for (final var check : defaultAddressList) {
+            krakenAssert.assertTrue(
+                    currentAddress.contains(check),
+                    "\n> В адресе отображаемом на странице отсутствует элемент: "
                             + "\n> отображаемый адрес: " + currentAddress
                             + "\n> Ожидаемый элемент: " + check
             );
         }
-        log.debug("✓ Успешно");
+        assertAll();
     }
 
     @Step("Проверяем, что установленный адрес:\"{0}\" не изменился")
