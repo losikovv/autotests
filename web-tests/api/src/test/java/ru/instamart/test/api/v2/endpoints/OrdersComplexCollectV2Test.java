@@ -9,7 +9,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
@@ -25,6 +24,7 @@ import static org.testng.Assert.assertFalse;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
+import static ru.instamart.api.k8s.K8sConsumer.changeToShip;
 
 @Epic("ApiV2")
 @Feature("Заказы (orders)")
@@ -44,7 +44,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
         );
         orderNumber = order.getNumber();
         shipmentNumber = order.getShipments().get(0).getNumber();
-        shopperApp.complexCollect(shipmentNumber);
+        changeToShip(shipmentNumber);
     }
 
     @CaseId(306)

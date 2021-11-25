@@ -17,7 +17,7 @@ public interface HeaderElement {
 
     Element header = new Element(By.xpath("//header"), "контейнер для шапки");
 
-    Link logo = new Link(By.xpath("//header//a[contains(@class,'logo')]"), "лого на сайте");
+    Link logo = new Link(By.xpath("//header//i"), "лого на сайте");
 
     Button delivery = new Button(By.xpath("//button[@data-qa='ship_selector_type_delivery']"));
     Button pickup = new Button(By.xpath("//button[@data-qa='ship_selector_type_pickup']"));

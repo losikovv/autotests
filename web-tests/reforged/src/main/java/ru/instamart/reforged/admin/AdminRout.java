@@ -7,10 +7,14 @@ import ru.instamart.reforged.admin.page.retailers.RetailersPage;
 import ru.instamart.reforged.admin.page.retailers.add_new_shop.ShopAddPage;
 import ru.instamart.reforged.admin.page.retailers.regions.RegionsPage;
 import ru.instamart.reforged.admin.page.retailers.regions.add_new.RegionsAddPage;
-import ru.instamart.reforged.admin.page.sections.settings.Settings;
-import ru.instamart.reforged.admin.page.sections.settings.shipping_method.ShippingMethodPage;
+import ru.instamart.reforged.admin.page.settings.shipping_method.ShippingMethodPage;
 import ru.instamart.reforged.admin.page.settings.all_cities.AllCitiesPage;
 import ru.instamart.reforged.admin.page.settings.all_cities.city_add.CityAddPage;
+import ru.instamart.reforged.admin.page.settings.all_cities.city_edit.CityEditPage;
+import ru.instamart.reforged.admin.page.settings.company_settings.CompanySettingsPage;
+import ru.instamart.reforged.admin.page.settings.general_settings.GeneralSettingsPage;
+import ru.instamart.reforged.admin.page.settings.payments_settings.PaymentsSettingsPage;
+import ru.instamart.reforged.admin.page.settings.sms_settings.SmsSettingsPage;
 import ru.instamart.reforged.admin.page.shipment.ShipmentsPage;
 import ru.instamart.reforged.admin.page.login.LoginPage;
 import ru.instamart.reforged.admin.page.pages.new_page.NewPage;
@@ -62,6 +66,10 @@ public final class AdminRout extends Router {
         return (CityAddPage) getPage(CityAddPage.class);
     }
 
+    public static CityEditPage cityEdit() {
+        return (CityEditPage) getPage(CityEditPage.class);
+    }
+
     public static ShopAddPage shopAdd() {
         return (ShopAddPage) getPage(ShopAddPage.class);
     }
@@ -70,8 +78,12 @@ public final class AdminRout extends Router {
         return (RegionsAddPage) getPage(RegionsAddPage.class);
     }
 
-    public static Settings settings() {
-        return (Settings) getPage(Settings.class);
+    public static GeneralSettingsPage settings() {
+        return (GeneralSettingsPage) getPage(GeneralSettingsPage.class);
+    }
+
+    public static PaymentsSettingsPage payments() {
+        return (PaymentsSettingsPage) getPage(PaymentsSettingsPage.class);
     }
 
     public static Staff staff() {
@@ -108,6 +120,14 @@ public final class AdminRout extends Router {
 
     public static ShippingMethodPage shippingMethod() {
         return (ShippingMethodPage) getPage(ShippingMethodPage.class);
+    }
+
+    public static CompanySettingsPage companySettings() {
+        return (CompanySettingsPage) getPage(CompanySettingsPage.class);
+    }
+
+    public static SmsSettingsPage smsSettings() {
+        return (SmsSettingsPage) getPage(SmsSettingsPage.class);
     }
 
     private AdminRout() {

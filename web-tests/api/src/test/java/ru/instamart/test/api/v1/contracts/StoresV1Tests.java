@@ -10,8 +10,11 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.model.v2.StoreV2;
 import ru.instamart.api.request.v1.StoresV1Request;
+import ru.instamart.api.response.v1.OffersV1Response;
+import ru.instamart.api.response.v1.StoreV1Response;
+import ru.instamart.api.response.v1.StoresV1Response;
 
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV1")
@@ -23,9 +26,9 @@ public class StoresV1Tests extends RestBase {
     @Test(description = "Контрактный тест списка магазинов",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getStores() {
-        Response response = StoresV1Request.GET();
+        final Response response = StoresV1Request.GET();
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Stores.json"));
+        checkResponseJsonSchema(response, StoresV1Response.class);
     }
 
     @Story("Магазины")
@@ -35,9 +38,9 @@ public class StoresV1Tests extends RestBase {
             dataProviderClass = RestDataProvider.class,
             dataProvider = "storeOfEachRetailer-parallel")
     public void getStore(StoreV2 store) {
-        Response response = StoresV1Request.GET(store.getUuid());
+        final Response response = StoresV1Request.GET(store.getUuid());
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Store.json"));
+        checkResponseJsonSchema(response, StoreV1Response.class);
     }
 
     @Story("Магазины")
@@ -47,11 +50,11 @@ public class StoresV1Tests extends RestBase {
             dataProviderClass = RestDataProvider.class,
             dataProvider = "storeOfEachRetailer-parallel")
     public void getStoreOffers(StoreV2 store) {
-        Response response = StoresV1Request.Offers.GET(
+        final Response response = StoresV1Request.Offers.GET(
                 store.getUuid(),
                 "вода",
                 "");
         checkStatusCode200(response);
-        response.then().body(matchesJsonSchemaInClasspath("schemas/api_v1/Offers.json"));
+        checkResponseJsonSchema(response, OffersV1Response.class);
     }
 }

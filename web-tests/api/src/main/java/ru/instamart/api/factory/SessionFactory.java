@@ -23,7 +23,6 @@ import ru.instamart.api.response.v2.SessionsV2Response;
 import ru.instamart.api.response.v2.UserV2Response;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.ThreadUtil;
 
 import java.util.HashMap;
@@ -112,7 +111,9 @@ public final class SessionFactory {
     public static void createSessionToken(final SessionType type, final SessionProvider provider, final UserData userData) {
         final SessionId sessionId = new SessionId(Thread.currentThread().getId(), type);
         final SessionInfo session = sessionMap.get(sessionId);
-        if (nonNull(session) && (!session.getPhone().equals(userData.getPhone()) || !session.getLogin().equals(userData.getEmail()))) {
+        if (nonNull(session) && !session.getLogin().equals(userData.getEmail())) {
+        //TODO  исправить проверку номера телефона
+        //if (nonNull(session) && (!session.getLogin().equals(userData.getEmail()) || !session.getPhone().equals(userData.getPhone()))) {
             sessionMap.put(sessionId, createSession(type, provider, userData));
         } else if (isNull(session)) {
             sessionMap.put(sessionId, createSession(type, provider, userData));
@@ -165,18 +166,12 @@ public final class SessionFactory {
     }
 
     private static SessionInfo createApiV2PhoneSession(final UserData userData) {
-        final Response postResponse = PhoneConfirmationsV2Request.POST(userData.getEncryptedPhone());
+        final var postResponse = PhoneConfirmationsV2Request.POST(userData.getEncryptedPhone());
         checkStatusCode200(postResponse);
         ThreadUtil.simplyAwait(1);
-        Response response;
-        //TODO: Когда api перейдет на qa ручку, нужно будет удалить условие
-        if (nonNull(userData.getId())) {
-            response = PhoneConfirmationsV2Request.PUT(userData.getPhone(), StringUtil.getSMSCode(userData.getPhone()), true);
-        } else {
-            response = PhoneConfirmationsV2Request.PUT(userData.getPhone());
-        }
+        var response = PhoneConfirmationsV2Request.PUT(userData.getPhone(), userData.getSmsCode(), true);
         checkStatusCode200(response);
-        final SessionsV2Response sessionResponse = response.as(SessionsV2Response.class);
+        final var sessionResponse = response.as(SessionsV2Response.class);
         log.debug("Авторизуемся: {}", userData.getPhone());
         log.debug("access_token: {}", sessionResponse.getSession().getAccessToken());
         return new SessionInfo(userData, sessionResponse.getSession().getAccessToken());

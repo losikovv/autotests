@@ -13,8 +13,7 @@ import ru.instamart.api.request.v2.SearchesV2Request;
 import ru.instamart.api.response.v2.SearchSuggestionsV2Response;
 
 import static org.testng.Assert.assertNull;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkSearchSuggestionsNegative;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
@@ -46,9 +45,9 @@ public class SearchesV2Test extends RestBase {
             dataProvider = "positiveQuery",
             dataProviderClass = RestDataProvider.class)
     public void getSearchSuggestionsWithQuery(int sid, String query) {
-        Response response = SearchesV2Request.Suggestions.GET(sid, query);
+        final Response response = SearchesV2Request.Suggestions.GET(sid, query);
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(SearchSuggestionsV2Response.class).getSuggestion().getProducts(), "поисковые подсказки с продуктами");
+        checkResponseJsonSchema(response, SearchSuggestionsV2Response.class);
     }
 
     @CaseIDs(value = {@CaseId(276), @CaseId(277), @CaseId(279)})
@@ -57,7 +56,7 @@ public class SearchesV2Test extends RestBase {
             dataProvider = "negativeQuery",
             dataProviderClass = RestDataProvider.class)
     public void getSearchSuggestionsWithSqlQuery(int sid, String query) {
-        Response response = SearchesV2Request.Suggestions.GET(sid, query);
+        final Response response = SearchesV2Request.Suggestions.GET(sid, query);
         checkStatusCode200(response);
         SuggestionV2 suggestion = response.as(SearchSuggestionsV2Response.class).getSuggestion();
         checkSearchSuggestionsNegative(suggestion);
@@ -67,7 +66,7 @@ public class SearchesV2Test extends RestBase {
     @Test(description = "Получаем поисковые подсказки по слову для несуществующего магазина",
             groups = {"api-instamart-regress"})
     public void getSearchSuggestionsWithQueryAndNonExistentShop() {
-        Response response = SearchesV2Request.Suggestions.GET(0, "сыр");
+        final Response response = SearchesV2Request.Suggestions.GET(0, "сыр");
         checkStatusCode404(response);
         checkError(response, "Магазин не существует");
     }
@@ -78,7 +77,7 @@ public class SearchesV2Test extends RestBase {
             dataProvider = "emptyQueries",
             dataProviderClass = RestDataProvider.class)
     public void getSearchSuggestionsWithEmptyQuery(String query) {
-        Response response = SearchesV2Request.Suggestions.GET(1, query);
+        final Response response = SearchesV2Request.Suggestions.GET(1, query);
         checkStatusCode200(response);
         assertNull(response.as(SearchSuggestionsV2Response.class).getSuggestion().getProducts(), "Вернулись продукты в поисковых подсказках");
     }

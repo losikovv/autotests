@@ -124,7 +124,7 @@ public class FavoritesListV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Список SKU товаров из избранного. В избранном нет товаров")
     public void getFavoritesSku() {
-        Response response = FavoritesV2Request.ProductSku.GET();
+        final Response response = FavoritesV2Request.ProductSku.GET();
         checkStatusCode200(response);
         ProductSkuV2Response productSkuV2Response = response.as(ProductSkuV2Response.class);
         assertTrue(productSkuV2Response.getProductsSku().isEmpty(), "Избранное не пустое");

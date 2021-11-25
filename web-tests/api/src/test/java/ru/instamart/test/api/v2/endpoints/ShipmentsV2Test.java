@@ -16,7 +16,6 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.ShipmentV2;
-import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.request.v2.StoresV2Request;
 import ru.instamart.api.response.v2.*;
@@ -56,9 +55,9 @@ public class ShipmentsV2Test extends RestBase {
             description = "Получить время доставки с существующим id")
     public void getDeliveryWindows200() {
         Integer shipmentId = apiV2.getShippingWithOrder().getId();
-        Response response = ShipmentsV2Request.DeliveryWindows.GET(shipmentId.toString(), today);
+        final Response response = ShipmentsV2Request.DeliveryWindows.GET(shipmentId.toString(), today);
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(DeliveryWindowsV2Response.class).getDeliveryWindows(), "окна доставки");
+        checkResponseJsonSchema(response, DeliveryWindowsV2Response.class);
     }
 
     @CaseId(340)
@@ -66,7 +65,7 @@ public class ShipmentsV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получить время доставки с несуществующим id")
     public void getDeliveryWindows404() {
-        Response response = ShipmentsV2Request.DeliveryWindows.GET("failedShipmentId", today);
+        final Response response = ShipmentsV2Request.DeliveryWindows.GET("failedShipmentId", today);
         checkStatusCode404(response);
         checkError(response, "Доставка не существует");
     }
@@ -173,10 +172,9 @@ public class ShipmentsV2Test extends RestBase {
     @Test(groups = {"api-instamart-smoke"},
             description = "Получить окно доставки для подзаказа для указанного дня с существующим id")
     public void shippingRates200() {
-        response = ShipmentsV2Request.ShippingRates.GET(apiV2.getShipmentsNumber(), getDateFromMSK().plusDays(1).toString());
+        final Response response = ShipmentsV2Request.ShippingRates.GET(apiV2.getShipmentsNumber(), getDateFromMSK().plusDays(1).toString());
         checkStatusCode200(response);
-        ShippingRatesV2Response shippingRatesV2Response = response.as(ShippingRatesV2Response.class);
-        checkFieldIsNotEmpty(shippingRatesV2Response.getShippingRates(), "shipping rates");
+        checkResponseJsonSchema(response, ShippingRatesV2Response.class);
     }
 
     @CaseId(364)
@@ -233,10 +231,9 @@ public class ShipmentsV2Test extends RestBase {
     public void shippingRatesWithOtherDate200(DateTimeFormatter formatter) {
         ZonedDateTime localDate = ZonedDateTime.now().plusDays(1);
         String formattedDate = localDate.format(formatter);
-        response = ShipmentsV2Request.ShippingRates.GET(apiV2.getShipmentsNumber(), formattedDate);
+        final Response response = ShipmentsV2Request.ShippingRates.GET(apiV2.getShipmentsNumber(), formattedDate);
         checkStatusCode200(response);
-        ShippingRatesV2Response shippingRatesV2Response = response.as(ShippingRatesV2Response.class);
-        checkFieldIsNotEmpty(shippingRatesV2Response.getShippingRates(), "shipping rates");
+        checkResponseJsonSchema(response, ShippingRatesV2Response.class);
     }
 
     @CaseId(368)
@@ -244,9 +241,9 @@ public class ShipmentsV2Test extends RestBase {
     @Test(groups = {"api-instamart-smoke"},
             description = "Получить ближайшие окна доставки с существующим id")
     public void nextDeliver200() {
-        response = StoresV2Request.NextDeliveries.GET(EnvironmentProperties.DEFAULT_SID);
-        NextDeliveriesV2Response nextDeliveriesV2Response = response.as(NextDeliveriesV2Response.class);
-        checkFieldIsNotEmpty(nextDeliveriesV2Response.getNextDeliveries(), "next deliveries");
+        final Response response = StoresV2Request.NextDeliveries.GET(EnvironmentProperties.DEFAULT_SID);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, NextDeliveriesV2Response.class);
     }
 
     @CaseId(369)
@@ -272,10 +269,9 @@ public class ShipmentsV2Test extends RestBase {
         params.put("lat", address.getLat().toString());
         params.put("lon", address.getLon().toString());
 
-        response = StoresV2Request.NextDeliveries.GET(EnvironmentProperties.DEFAULT_SID, params);
+        final Response response = StoresV2Request.NextDeliveries.GET(EnvironmentProperties.DEFAULT_SID, params);
         checkStatusCode200(response);
-        NextDeliveriesV2Response nextDeliveriesV2Response = response.as(NextDeliveriesV2Response.class);
-        checkFieldIsNotEmpty(nextDeliveriesV2Response.getNextDeliveries(), "next deliveries");
+        checkResponseJsonSchema(response, NextDeliveriesV2Response.class);
     }
 
     @CaseId(371)
@@ -292,8 +288,7 @@ public class ShipmentsV2Test extends RestBase {
 
         response = StoresV2Request.NextDeliveries.GET(EnvironmentProperties.DEFAULT_SID, params);
         checkStatusCode200(response);
-        NextDeliveriesV2Response nextDeliveriesV2Response = response.as(NextDeliveriesV2Response.class);
-        checkFieldIsNotEmpty(nextDeliveriesV2Response.getNextDeliveries(), "next deliveries");
+        checkResponseJsonSchema(response, NextDeliveriesV2Response.class);
     }
 
     @CaseId(785)
@@ -325,8 +320,7 @@ public class ShipmentsV2Test extends RestBase {
         String shipmentsNumber = apiV2.getShipmentsNumber();
         final Response response = ShipmentsV2Request.ReviewIssues.GET(shipmentsNumber);
         checkStatusCode200(response);
-        ReviewIssuesV2Response reviewIssuesV2Response = response.as(ReviewIssuesV2Response.class);
-        checkFieldIsNotEmpty(reviewIssuesV2Response.getReviewIssues(), "возможные проблемы для отзыва о заказе");
+        checkResponseJsonSchema(response, ReviewIssuesV2Response.class);
     }
 
     @CaseId(471)

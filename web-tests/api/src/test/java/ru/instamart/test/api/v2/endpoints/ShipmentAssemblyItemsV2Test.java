@@ -74,7 +74,7 @@ public class ShipmentAssemblyItemsV2Test extends RestBase {
             dependsOnMethods = "getAssemblyItemsOfExistingShipment")
     public void getAssemblyItemsOfShipmentAfterAssembling() {
         changeToAssembled(shipment.getNumber(), "0");
-
+        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         final Response response = ShipmentsV2Request.AssemblyItems.GET(shipment.getNumber());
         checkStatusCode200(response);
         AssemblyItemV2 assemblyItem = response.as(ShipmentAssemblyItemsV2Response.class).getAssemblyItems().get(0);

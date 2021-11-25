@@ -15,8 +15,7 @@ import ru.instamart.api.request.v2.UsersV2Request;
 import ru.instamart.api.response.v2.UserReferralProgramV2Response;
 import ru.instamart.jdbc.dao.InstacoinAccountsDao;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
@@ -33,10 +32,10 @@ public class UserReferralProgramV2Test extends RestBase {
             dataProviderClass = RestDataProvider.class)
     public void getReferralProgram(String id, String token, String promotionCode, Long userId) {
         userDbId = userId;
-        Response response = UsersV2Request.ReferralProgram.GET(id, token);
+        final Response response = UsersV2Request.ReferralProgram.GET(id, token);
         checkStatusCode200(response);
+        checkResponseJsonSchema(response, UserReferralProgramV2Response.class);
         UserReferralProgramV2 userReferralProgram = response.as(UserReferralProgramV2Response.class).getUserReferralProgram();
-        checkFieldIsNotEmpty(userReferralProgram, "реферальная программа пользователя");
         compareTwoObjects(userReferralProgram.getCode(), promotionCode.toUpperCase());
     }
 
@@ -47,7 +46,7 @@ public class UserReferralProgramV2Test extends RestBase {
             dataProvider = "invalidUserDataForReferralProgram",
             dataProviderClass = RestDataProvider.class)
     public void getReferralProgramForNonExistingUser(String id, String token, Integer statusCode) {
-        Response response = UsersV2Request.ReferralProgram.GET(id, token);
+        final Response response = UsersV2Request.ReferralProgram.GET(id, token);
         checkStatusCode(response, statusCode);
     }
 

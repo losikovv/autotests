@@ -18,7 +18,7 @@ public final class BasicAuth implements Authenticator {
 
     @Override
     public Request authenticate(@Nullable Route route, @NotNull Response response) {
-        if (url.contains("feature")) {
+        if (url.contains("feature") || url.contains("fep") || url.contains("preprod") || url.contains("next")) {
             return response.request().newBuilder().header("Authorization", "Token token=" + FEATURE_STAGE_TOKEN).build();
         } else {
             return response.request().newBuilder().header("Authorization", "Token token=" + NAMED_STAGE_TOKEN).build();

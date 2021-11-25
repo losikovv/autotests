@@ -101,7 +101,7 @@ public final class CheckoutPromocodeTests extends BaseTest {
         checkout().goToPage();
         checkout().clickToAddPromoCode();
         checkout().interactEditPromoCodeModal().enterPromoCode(promoCode);
-        checkout().interactEditPromoCodeModal().close();
+        checkout().interactEditPromoCodeModal().closeByEsc();
         checkout().checkPromoCodeNotApplied();
         checkout().checkAddPromoCodeVisible();
     }

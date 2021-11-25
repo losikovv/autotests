@@ -29,7 +29,7 @@ public interface FooterElement {
                 "подзаголовок 'Помощь покупателю' в футере");
     Link howWeWork = new Link(By.xpath("//footer//a[@href='/how-we-work-video']"),
             "ссылка 'Как мы работаем' в футере");
-    Link deliveryZone = new Link(By.xpath("//footer//button[@data-url='/stores/1/shipping_methods']"),
+    Link deliveryZone = new Link(By.xpath("//footer//button[text()='Зоны доставки']"),
             "ссылка 'Зоны доставки' в футере");
     Link deliveryAndPayment = new Link(By.xpath("//footer//a[@href='/delivery2']"),
             "ссылка 'Доставка и оплата' в футере");

@@ -1,5 +1,6 @@
 package ru.instamart.api.model.v2;
 
+import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,7 +12,9 @@ import ru.instamart.api.model.BaseObject;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ZoneV2 extends BaseObject {
+    @JsonSchema(required = true)
     private Double lon;
+    @JsonSchema(required = true)
     private Double lat;
 
     @Override

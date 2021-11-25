@@ -1,5 +1,6 @@
 package ru.instamart.api.common;
 
+import com.google.common.base.Strings;
 import io.qameta.allure.attachment.DefaultAttachmentProcessor;
 import io.qameta.allure.attachment.FreemarkerAttachmentRenderer;
 import io.qameta.allure.attachment.http.HttpResponseAttachment;
@@ -56,7 +57,6 @@ public class AllureRestAssuredCustom implements OrderedFilter {
             requestAttachmentBuilder.setMultiPartParams(requestSpec.getMultiPartParams());
         }
 
-
         final HttpRequestAttachmentCustom requestAttachment = requestAttachmentBuilder.build();
 
         new DefaultAttachmentProcessor().addAttachment(
@@ -65,8 +65,11 @@ public class AllureRestAssuredCustom implements OrderedFilter {
         );
 
         final Response response = filterContext.next(requestSpec, responseSpec);
-        if (Objects.isNull(responseAttachmentName)) {
+        if (!Strings.isNullOrEmpty(response.getStatusLine())) {
             responseAttachmentName = response.getStatusLine();
+        }
+        if (Objects.isNull(responseAttachmentName)) {
+            responseAttachmentName = "Response";
         }
         final HttpResponseAttachment responseAttachment = HttpResponseAttachment.Builder.create(responseAttachmentName)
                 .setResponseCode(response.getStatusCode())

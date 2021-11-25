@@ -110,13 +110,9 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactCart().compareFirstItemQuantityInCart(1);
 
         shop().interactCart().increaseCount();
-        shop().interactCart().checkSpinnerIsVisible();
-        shop().interactCart().checkSpinnerIsNotVisible();
         shop().interactCart().compareFirstItemQuantityInCart(2);
 
         shop().interactCart().decreaseCount();
-        shop().interactCart().checkSpinnerIsVisible();
-        shop().interactCart().checkSpinnerIsNotVisible();
         shop().interactCart().compareFirstItemQuantityInCart(1);
         shop().assertAll();
     }

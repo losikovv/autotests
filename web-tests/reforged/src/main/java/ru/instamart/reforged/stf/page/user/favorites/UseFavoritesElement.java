@@ -16,7 +16,7 @@ public interface UseFavoritesElement {
     Element emptyFavorites = new Element(By.xpath("//div[@class='empty-favorites']"), "плейсхолдер пустого списка");
     ElementCollection favoriteButton = new ElementCollection(By.xpath("//div[@data-qa='addToCart_favorite']"),
             "список всех кнопок для добавления в избранное");
-    ElementCollection allFavorites = new ElementCollection(By.xpath("//a[contains(@class, 'favorites__')]"), "список всех избранных");
+    ElementCollection allFavorites = new ElementCollection(By.xpath("//div[@class='favorites-list']/a"), "список всех избранных");
     ElementCollection addToCart = new ElementCollection(By.xpath("//div[@class='cart-actions']"),
             "список всех кнопок добавления в корзину");
     Button showMore = new Button(By.className("load-more-products"), "кнопка Показать еще");

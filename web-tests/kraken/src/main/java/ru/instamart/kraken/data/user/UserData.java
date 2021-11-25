@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
 import ru.instamart.kraken.config.CoreProperties;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.util.PhoneCrypt;
 import ru.instamart.kraken.util.StringUtil;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 @AllArgsConstructor
 @Data
@@ -108,10 +110,10 @@ public final class UserData {
          * во всех остальных случаях нужна {@link CoreProperties#DEFAULT_SMS}
          */
         private String getSmsCode() {
-            if (isNull(id)) {
-                return CoreProperties.DEFAULT_SMS;
-            } else {
+            if (nonNull(id) && !(EnvironmentProperties.Env.FULL_SITE_URL.contains("preprod") || EnvironmentProperties.Env.FULL_SITE_URL.contains("next"))) {
                 return StringUtil.getSMSCode(phone);
+            } else {
+                return CoreProperties.DEFAULT_SMS;
             }
         }
 

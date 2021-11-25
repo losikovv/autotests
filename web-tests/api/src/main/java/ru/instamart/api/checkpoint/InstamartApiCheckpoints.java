@@ -8,9 +8,13 @@ import ru.instamart.api.enums.v2.ProductSortTypeV2;
 import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.model.v1.MarketingSampleV1;
 import ru.instamart.api.model.v2.*;
+import ru.instamart.api.request.admin.CitiesAdminRequest;
+import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.response.v2.ExternalPartnersServicesV2Response;
 import ru.instamart.jdbc.dao.SpreeUsersDao;
+import ru.instamart.jdbc.entity.CitiesEntity;
 import ru.instamart.jdbc.entity.MarketingSamplesEntity;
+import ru.instamart.jdbc.entity.SpreePagesEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.time.LocalDateTime;
@@ -97,7 +101,7 @@ public class InstamartApiCheckpoints {
 
     @Step("Сравниваем информацию о товарах в подзаказе с информацией, пришедшей в ответе")
     public static void checkAssemblyItem(ShipmentV2 shipment, AssemblyItemV2 assemblyItem, StateV2 state) {
-        SoftAssert softAssert = new SoftAssert();
+        final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(assemblyItem.getTotal(), shipment.getItemTotal(), softAssert);
         compareTwoObjects(assemblyItem.getPcs(), shipment.getItemCount(), softAssert);
         compareTwoObjects(assemblyItem.getPriceType(), shipment.getLineItems().get(0).getProduct().getPriceType(), softAssert);
@@ -111,7 +115,7 @@ public class InstamartApiCheckpoints {
 
     @Step("Проверяем маркетинговые сэмплы из ответа и сравниваем с БД")
     public static void compareMarketingSamples(String email, MarketingSampleV1 marketingSampleFromResponse, Optional<MarketingSamplesEntity> marketingSamplesEntity, String name) {
-        SoftAssert softAssert = new SoftAssert();
+        final SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(marketingSampleFromResponse.getName().contains(name));
         compareTwoObjects(marketingSampleFromResponse.getName(), marketingSamplesEntity.get().getName(), softAssert);
         compareTwoObjects(marketingSampleFromResponse.getDescription(), marketingSamplesEntity.get().getDescription(), softAssert);
@@ -127,12 +131,46 @@ public class InstamartApiCheckpoints {
     public static void checkExternalPartnersServices(Response response, Boolean isActive) {
         ServicesV2 service = response.as(ExternalPartnersServicesV2Response.class).getServices().get(0);
         checkFieldIsNotEmpty(service, "сервис");
-        SoftAssert softAssert = new SoftAssert();
+        final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(service.getName(), "SberPrime", softAssert);
         compareTwoObjects(service.getKind(), "sber_prime", softAssert);
         compareTwoObjects(service.getText(), "Бесплатная доставка", softAssert);
         compareTwoObjects(service.getDiscountType(), "free_delivery", softAssert);
         compareTwoObjects(service.getSubscription().getActive(), isActive, softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем сохранившуюся информацию о городе в БД")
+    public static void checkCityInDb(CitiesAdminRequest.City city, CitiesEntity cityFromDb) {
+        checkFieldIsNotEmpty(cityFromDb, "город в БД");
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(city.getNameFrom(), cityFromDb.getNameFrom(), softAssert);
+        compareTwoObjects(city.getNameTo(), cityFromDb.getNameTo(), softAssert);
+        compareTwoObjects(city.getNameIn(), cityFromDb.getNameIn(), softAssert);
+        compareTwoObjects(city.getSlug(), cityFromDb.getSlug(), softAssert);
+        compareTwoObjects(city.getLocked(), cityFromDb.getLocked(), softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем страницу в БД")
+    public static void checkPageInDb(PagesAdminRequest.Page page, SpreePagesEntity pageFromDb, int visible, int position) {
+        checkFieldIsNotEmpty(pageFromDb, "страница в БД");
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(page.getTitle(), pageFromDb.getTitle(), softAssert);
+        softAssert.assertTrue(pageFromDb.getBody().contains(page.getBody()));
+        compareTwoObjects(page.getMetaDescription(), pageFromDb.getMetaDescription(), softAssert);
+        compareTwoObjects(page.getMetaTitle(), pageFromDb.getMetaTitle(), softAssert);
+        compareTwoObjects(page.getMetaKeywords(), pageFromDb.getMetaKeywords(), softAssert);
+        compareTwoObjects(page.getForeignLink(), pageFromDb.getForeignLink(), softAssert);
+        compareTwoObjects(page.getLayout(), pageFromDb.getLayout(), softAssert);
+        compareTwoObjects(visible, pageFromDb.getVisible(), softAssert);
+        compareTwoObjects(position, pageFromDb.getShowInFooter(), softAssert);
+        compareTwoObjects(position, pageFromDb.getShowInHeader(), softAssert);
+        compareTwoObjects(position, pageFromDb.getShowInSidebar(), softAssert);
+        compareTwoObjects(position, pageFromDb.getRenderLayoutAsPartial(), softAssert);
+        if(position == 1) {
+            compareTwoObjects(position, pageFromDb.getPosition(), softAssert);
+        }
         softAssert.assertAll();
     }
 }

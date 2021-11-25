@@ -34,7 +34,7 @@ public class UserCompaniesV1Tests extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
-        Response response = UserCompaniesV1Request.POST(companyData);
+        final Response response = UserCompaniesV1Request.POST(companyData);
         checkStatusCode200(response);
         company = response.as(CompanyV1Response.class).getCompany();
     }
@@ -44,7 +44,7 @@ public class UserCompaniesV1Tests extends RestBase {
     @Test(description = "Список компаний пользователя",
             groups = {"api-instamart-regress"})
     public void getUserCompanies() {
-        Response response = UserCompaniesV1Request.GET();
+        final Response response = UserCompaniesV1Request.GET();
         checkStatusCode200(response);
         checkFieldIsNotEmpty(response.as(CompaniesV1Response.class).getCompanies(), "список компаний");
         assertTrue(response.as(CompaniesV1Response.class).getCompanies().contains(company), "Наименование компании отличается от заданной");
@@ -55,7 +55,7 @@ public class UserCompaniesV1Tests extends RestBase {
     @Test(description = "Компания пользователя",
             groups = {"api-instamart-regress"})
     public void getCompanyByID(){
-        Response response = UserCompaniesV1Request.GET(company.getId().toString());
+        final Response response = UserCompaniesV1Request.GET(company.getId().toString());
         checkStatusCode200(response);
         assertEquals(company.getId(), response.as(CompanyV1Response.class).getCompany().getId(), "id компании не совпадает с запрошенным");
     }
@@ -65,7 +65,7 @@ public class UserCompaniesV1Tests extends RestBase {
     @Test(description = "Персональный менеджер компании",
             groups = {"api-instamart-regress"})
     public void getCompanyWithoutManager(){
-        Response response = UserCompaniesV1Request.Manager.GET(company.getId().toString());
+        final Response response = UserCompaniesV1Request.Manager.GET(company.getId().toString());
         checkStatusCode200(response);
         assertNull(response.as(CompanyManagerV1Response.class).getManager(), "manager вернулся не пустой");
     }
@@ -75,7 +75,7 @@ public class UserCompaniesV1Tests extends RestBase {
     @Test(description = "Список сотрудников компании",
             groups = {"api-instamart-regress"})
     public void getCompanyEmployees() {
-        Response response = UserCompaniesV1Request.Employees.GET(company.getId().toString());
+        final Response response = UserCompaniesV1Request.Employees.GET(company.getId().toString());
         checkStatusCode200(response);
         checkFieldIsNotEmpty(response.as(EmployeesV1Response.class).getEmployees(), "список сотрудников компании");
     }
@@ -85,7 +85,7 @@ public class UserCompaniesV1Tests extends RestBase {
     @Test(description = "Баланс  компании",
             groups = {"api-instamart-regress"})
     public void getPaymentAccount() {
-        Response response = UserCompaniesV1Request.PaymentAccount.GET(company.getId().toString());
+        final Response response = UserCompaniesV1Request.PaymentAccount.GET(company.getId().toString());
         checkStatusCode200(response);
         assertNull(response.as(PaymentAccountV1Response.class).getPaymentAccount(), "payment_account not null");
     }
@@ -95,7 +95,7 @@ public class UserCompaniesV1Tests extends RestBase {
     @Test(description = "Обновление баланса  компании",
             groups = {"api-instamart-regress"})
     public void postRefreshPaymentAccountError() {
-        Response response = UserCompaniesV1Request.PaymentAccount.POST(company.getId().toString());
+        final Response response = UserCompaniesV1Request.PaymentAccount.POST(company.getId().toString());
         checkStatusCode422(response);
         checkFieldIsNotEmpty(response.as(PaymentAccountV1Response.class).getPaymentAccount().getErrors().getExternalPaymentAccount(),
                 "ошибка добавления баланса");
@@ -106,7 +106,7 @@ public class UserCompaniesV1Tests extends RestBase {
     @Test(description = "Ошибка при повторной регистрации компании",
             groups = {"api-instamart-regress"})
     public void postCompanyRegistrationError(){
-        Response response = UserCompaniesV1Request.POST(companyData);
+        final Response response = UserCompaniesV1Request.POST(companyData);
         checkStatusCode422(response);
         checkFieldIsNotEmpty(response.as(CompanyV1Response.class).getCompany().getErrors().getInn(),
                 "ошибка регистрации компании");
@@ -117,7 +117,7 @@ public class UserCompaniesV1Tests extends RestBase {
     @Test(description = "Статус регистрации компании (зарегистрирована)",
             groups = {"api-instamart-regress"})
     public void getCompanyPresence() {
-        Response response = CompanyPresenceV1Request.GET(company.getInn());
+        final Response response = CompanyPresenceV1Request.GET(company.getInn());
         checkStatusCode200(response);
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(response.as(CompanyV1Response.class).getCompany().getInn(), company.getInn(), "ИНН  регистрации компании отличается от заданного");

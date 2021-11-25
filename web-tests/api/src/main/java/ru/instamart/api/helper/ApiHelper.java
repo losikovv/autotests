@@ -10,6 +10,8 @@ import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.SessionV2;
+import ru.instamart.api.request.admin.CitiesAdminRequest;
+import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.jdbc.dao.OperationalZonesDao;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.user.UserData;
@@ -151,7 +153,7 @@ public final class ApiHelper {
     @Step("Добавляем новый город {cityName} в админке")
     public void createCityInAdmin(String cityName) {
         authAdmin();
-        admin.createCity(cityName);
+        admin.createCity(new CitiesAdminRequest.City(cityName));
     }
 
     @Step("Удаляем город {cityName} в админке")
@@ -168,12 +170,22 @@ public final class ApiHelper {
 
     @Step("Добавляем новую статичную страницу {data} в админке")
     public void createStaticPageInAdmin(StaticPageData data) {
+        PagesAdminRequest.Page page = PagesAdminRequest.Page.builder()
+                .slug(data.getPageURL())
+                .body(data.getDescription())
+                .title(data.getPageName())
+                .metaDescription(data.getText())
+                .metaKeywords(data.getText())
+                .metaTitle(data.getText())
+                .foreignLink(data.getPageURL())
+                .position(Integer.parseInt(data.getPosition()))
+                .build();
         SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
-        admin.createStaticPage(data);
+        admin.createStaticPage(page);
     }
 
     @Step("Удаляем статичную страницу {pageId} в админке")
-    public void deleteStaticPageInAdmin(Integer pageId) {
+    public void deleteStaticPageInAdmin(Long pageId) {
         SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
         admin.deleteStaticPage(pageId);
     }
