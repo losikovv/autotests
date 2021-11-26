@@ -64,6 +64,7 @@ public final class OrdersBonusesTests extends BaseTest {
         checkout().interactEditLoyaltyCardModal()
                 .clickToSaveModal();
 
+        checkout().setPayment().clickToByCardToCourier();
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
     }
 }
