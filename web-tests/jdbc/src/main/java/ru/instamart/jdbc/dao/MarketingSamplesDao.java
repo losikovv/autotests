@@ -58,10 +58,10 @@ public class MarketingSamplesDao implements Dao<Long, MarketingSamplesEntity> {
     public int getCount() {
         int resultCount = 0;
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*)") + " WHERE deleted_at IS NULL")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total") + " WHERE deleted_at IS NULL")) {
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            resultCount = resultSet.getInt("count(*)");
+            resultCount = resultSet.getInt("total");
         } catch (SQLException e) {
             e.printStackTrace();
         }

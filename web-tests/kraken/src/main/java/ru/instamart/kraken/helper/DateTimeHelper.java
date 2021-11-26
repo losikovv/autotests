@@ -2,19 +2,19 @@ package ru.instamart.kraken.helper;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 @Slf4j
 public class DateTimeHelper {
 
-    public static LocalDate getDateFromMSK() {
-        return OffsetDateTime.now(ZoneId.of("Europe/Moscow")).toLocalDate();
+    private static final DateTimeFormatter dtd = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    public static String getDateFromMSK() {
+        return dtd.format(ZonedDateTime.now(ZoneId.of("Europe/Moscow")));
     }
 
     public static String getDateFromUTC() {
-        return OffsetDateTime.now(ZoneOffset.UTC).toLocalDate().toString();
+        return dtd.format(ZonedDateTime.now(ZoneId.of("UTC")));
     }
 }

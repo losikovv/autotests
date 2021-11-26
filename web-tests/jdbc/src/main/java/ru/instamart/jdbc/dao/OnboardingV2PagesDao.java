@@ -43,10 +43,10 @@ public class OnboardingV2PagesDao implements Dao<Long, OnboardingV2PagesEntity>{
     public int getCount() {
         int resultCount = 0;
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*)") + " WHERE active = 1")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total") + " WHERE active = 1")) {
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            resultCount = resultSet.getInt("count(*)");
+            resultCount = resultSet.getInt("total");
         } catch (SQLException e) {
             e.printStackTrace();
         }

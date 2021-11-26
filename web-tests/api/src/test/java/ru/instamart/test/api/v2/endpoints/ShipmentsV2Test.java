@@ -34,12 +34,13 @@ import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
+import static ru.instamart.kraken.util.TimeUtil.getFutureDateWithoutTime;
 
 @Epic("ApiV2")
 @Feature("Заказы (shipments)")
 public class ShipmentsV2Test extends RestBase {
 
-    private final String today = getDateFromMSK().toString();
+    private final String today = getDateFromMSK();
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
@@ -172,7 +173,7 @@ public class ShipmentsV2Test extends RestBase {
     @Test(groups = {"api-instamart-smoke"},
             description = "Получить окно доставки для подзаказа для указанного дня с существующим id")
     public void shippingRates200() {
-        final Response response = ShipmentsV2Request.ShippingRates.GET(apiV2.getShipmentsNumber(), getDateFromMSK().plusDays(1).toString());
+        final Response response = ShipmentsV2Request.ShippingRates.GET(apiV2.getShipmentsNumber(), getFutureDateWithoutTime(1L));
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShippingRatesV2Response.class);
     }
@@ -218,7 +219,7 @@ public class ShipmentsV2Test extends RestBase {
         });
         List<String> availableDays = shippingRatesV2Response.getMeta().getAvailableDays();
         IntStream.range(0, availableDays.size())
-                .forEach(index -> softAssert.assertEquals(availableDays.get(index), getDateFromMSK().plusDays(index).toString(), "Невалидное значение"));
+                .forEach(index -> softAssert.assertEquals(availableDays.get(index), getFutureDateWithoutTime((long) index), "Невалидное значение"));
         softAssert.assertAll();
     }
 

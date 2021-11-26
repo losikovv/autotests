@@ -40,7 +40,7 @@ public class MarketingSamplesV1Request extends ApiV1RequestBase {
                 .post(ApiV1Endpoints.MARKETING_SAMPLES);
     }
 
-    @Step("{method} /" + ApiV1Endpoints.MARKETING_SAMPLE)
+    @Step("{method} /" + ApiV1Endpoints.MarketingSamples.BY_ID)
     public static Response PUT(Long sampleId, String fileData) {
         Map<String, String> params = new HashMap<>();
         params.put("marketing_sample[description]", "Test description" + RandomUtils.nextInt(1, 100));
@@ -54,18 +54,18 @@ public class MarketingSamplesV1Request extends ApiV1RequestBase {
                 .formParams(params)
                 .multiPart("marketing_sample[uuids]","users.csv", fileData.getBytes(StandardCharsets.UTF_8), "text/csv")
                 .multiPart("marketing_sample[image_attributes][attachment]", new File("src/test/resources/data/sample.jpg"), "image/jpeg")
-                .put(ApiV1Endpoints.MARKETING_SAMPLE, sampleId);
+                .put(ApiV1Endpoints.MarketingSamples.BY_ID, sampleId);
     }
 
-    @Step("{method} /" + ApiV1Endpoints.MARKETING_SAMPLE)
+    @Step("{method} /" + ApiV1Endpoints.MarketingSamples.BY_ID)
     public static Response GET(Long sampleId) {
         return givenWithAuth()
-                .get(ApiV1Endpoints.MARKETING_SAMPLE, sampleId);
+                .get(ApiV1Endpoints.MarketingSamples.BY_ID, sampleId);
     }
 
-    @Step("{method} /" + ApiV1Endpoints.MARKETING_SAMPLE)
+    @Step("{method} /" + ApiV1Endpoints.MarketingSamples.BY_ID)
     public static Response DELETE(Long sampleId) {
         return givenWithAuth()
-                .delete(ApiV1Endpoints.MARKETING_SAMPLE, sampleId);
+                .delete(ApiV1Endpoints.MarketingSamples.BY_ID, sampleId);
     }
 }
