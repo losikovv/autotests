@@ -184,7 +184,6 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     public void successResumeAndCancelOrder() {
         final ApiHelper helper = new ApiHelper();
         final UserData userData = UserManager.getQaUser();
-        helper.auth(userData);
         final OrderV2 orderV2 = helper.makeOrder(userData, EnvironmentProperties.DEFAULT_SID, 3);
         helper.cancelOrder(userData, orderV2.getNumber());
 
@@ -199,8 +198,6 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     public void successSearchB2BOrder() {
         final ApiHelper helper = new ApiHelper();
         final UserData userData = UserManager.getQaUser();
-        helper.auth(userData);
-
         final OrderV2 orderV2 = helper.makeOrder(userData, EnvironmentProperties.DEFAULT_SID, 3);
 
         //TODO: Заказ появляется в админке с задержкой рандомной

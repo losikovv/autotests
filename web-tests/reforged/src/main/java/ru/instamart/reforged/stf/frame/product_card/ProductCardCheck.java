@@ -2,6 +2,7 @@ package ru.instamart.reforged.stf.frame.product_card;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
+import ru.instamart.reforged.core.Kraken;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
@@ -30,5 +31,10 @@ public interface ProductCardCheck extends Check, ProductCardElement {
     @Step("На продуктовой карте алкоголя есть кнопка 'зарезервировать'")
     default void checkReserveButtonVisible() {
         waitAction().shouldBeVisible(reserveButton);
+    }
+
+    @Step("Кнопка 'Купить' отображается")
+    default void checkBuyButton() {
+        Kraken.waitAction().shouldBeVisible(buy);
     }
 }

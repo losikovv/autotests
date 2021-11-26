@@ -150,7 +150,6 @@ public final class UserFavoritesTests extends BaseTest {
         shop().interactProductCard().addToFavorite();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
-        shop().goToPage();
         shop().interactHeader().checkProfileButtonVisible();
     }
 

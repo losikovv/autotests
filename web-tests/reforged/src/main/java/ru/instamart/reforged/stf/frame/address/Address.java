@@ -22,13 +22,7 @@ public final class Address implements Close, AddressCheck {
 
     @Step("Указать адрес доставки")
     public void fillAddress(final String text) {
-        Kraken.waitAction().shouldBeVisible(address);
         address.fillField(text);
-    }
-
-    @Step("Указать адрес доставки")
-    public void setAddress(final String text) {
-        address.fill(text);
     }
 
     @Step("Очистить поле адреса")

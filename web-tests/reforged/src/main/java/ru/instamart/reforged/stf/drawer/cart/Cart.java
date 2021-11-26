@@ -3,6 +3,7 @@ package ru.instamart.reforged.stf.drawer.cart;
 import io.qameta.allure.Step;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
+import ru.instamart.reforged.stf.frame.Close;
 
 public final class Cart implements CartCheck {
 

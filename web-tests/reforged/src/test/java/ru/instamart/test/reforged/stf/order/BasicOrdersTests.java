@@ -65,6 +65,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setSlot().setFirstActiveSlot();
 
+        checkout().setPayment().clickToByCardToCourier();
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
         userShipments().checkPageContains(userShipments().pageUrl());
@@ -194,6 +195,8 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setSlot().setFirstActiveSlot();
 
+        checkout().setPayment().clickToByCardToCourier();
+
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
         userShipments().checkPageContains(userShipments().pageUrl());
@@ -270,6 +273,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setSlot().setFirstActiveSlot();
 
+        checkout().setPayment().clickToByCardToCourier();
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
         userShipments().checkPageContains(userShipments().pageUrl());

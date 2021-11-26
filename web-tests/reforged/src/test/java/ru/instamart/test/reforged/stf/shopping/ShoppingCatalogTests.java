@@ -23,7 +23,7 @@ public final class ShoppingCatalogTests extends BaseTest {
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();
@@ -43,7 +43,7 @@ public final class ShoppingCatalogTests extends BaseTest {
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();
@@ -66,7 +66,7 @@ public final class ShoppingCatalogTests extends BaseTest {
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();
@@ -90,7 +90,7 @@ public final class ShoppingCatalogTests extends BaseTest {
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();
@@ -115,7 +115,7 @@ public final class ShoppingCatalogTests extends BaseTest {
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();
@@ -146,7 +146,7 @@ public final class ShoppingCatalogTests extends BaseTest {
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();
@@ -178,7 +178,7 @@ public final class ShoppingCatalogTests extends BaseTest {
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().setAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();
@@ -206,7 +206,7 @@ public final class ShoppingCatalogTests extends BaseTest {
     public void successShowcaseTransitionFromMainLanding() {
         home().goToPage();
         home().clickToSetAddress();
-        home().interactAddressModal().setAddress(Addresses.Moscow.defaultAddress());
+        home().interactAddressModal().fillAddress(Addresses.Moscow.defaultAddress());
         home().interactAddressModal().selectFirstAddress();
         home().interactAddressModal().clickOnSave();
         home().clickToStoreCard();
