@@ -20,8 +20,10 @@ public class ShopperAppRequestBase {
      * Добавляем хедер авторизации к запросу
      */
     public static RequestSpecification givenWithAuth() {
-        return givenWithSpec().header(
-                "Authorization",
-                "Token " + SessionFactory.getSession(SessionType.SHOPPER_APP).getToken());
+        return givenWithSpec()
+                .header("Authorization",
+                        "Token " + SessionFactory.getSession(SessionType.SHOPPER_APP).getToken())
+                .header("x-testing-otp",true)
+                .header("x-testing-nosms",true);
     }
 }

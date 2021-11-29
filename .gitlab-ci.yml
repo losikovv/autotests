@@ -55,6 +55,13 @@ stages:
   only:
     refs:
       - schedules
+    variables:
+      - $REGRESSION == 'true'
+  when: always
+
+.template_web:
+  only:
+    refs:
       - web
     variables:
       - $REGRESSION == 'true'
