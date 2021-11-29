@@ -54,6 +54,38 @@ public final class Promos {
         );
     }
 
+    public static PromoData freeDeliveryUnicorn() {
+        return new PromoData(
+                "freeDeliveryUnicorn",
+                "unicorn",
+                "Бесплатная доставка"
+        );
+    }
+
+    public static PromoData fixedDiscountForAllOrders() {
+        return new PromoData(
+                "fixedDiscount",
+                "fixeddiscountxa97k1",
+                "Фиксированная скидка"
+        );
+    }
+
+    public static PromoData fixedDiscountForAllOrdersInPercents() {
+        return new PromoData(
+                "fixedDiscountPercents",
+                "fixeddiscountpercentscdx2go",
+                "Фиксированная скидка 10% на любой заказ"
+        );
+    }
+
+    public static PromoData fixedDiscountForAllOrdersInPercentsBorders() {
+        return new PromoData(
+                "fixedDiscountPercentsBorders",
+                "fixeddiscountpercentsbordersdgnxbh",
+                "Фиксированная скидка 10% на любой заказ не больше 300 р"
+        );
+    }
+
     // TODO завести - ATST-229
     public static PromoData fixedDiscountOnOrderAboveSum() {
         return new PromoData(
@@ -201,6 +233,14 @@ public final class Promos {
                 "freeDeliveryOnFirstOrder",
                 "stehr4af4082b799bb494a4785829ac",
                 "Бесплатная доставка первого заказа"
+        );
+    }
+
+    public static PromoData discountOnFirstOrder() {
+        return new PromoData(
+                "discountOnFirstOrder",
+                "firstorderabs461",
+                "Скидка 500 р на первый заказ"
         );
     }
 

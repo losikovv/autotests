@@ -1,6 +1,8 @@
 package ru.instamart.reforged.stf.page.user.shipments;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -20,6 +22,11 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
     @Step("Проверка введенного промокода на странице статуса заказа")
     default void checkUserShipmentPromocodeVisible() {
         waitAction().shouldBeVisible(userShipmentPromocode);
+    }
+
+    @Step("Проверка суммы скидки: {0}")
+    default void checkUserShipmentPromocodeCorrect(double summ) {
+        Assert.assertEquals(summ, StringUtil.stringToDoubleParse(discountSumm.getText()));
     }
 
     @Step("Проверка метода оплаты 'Картой онлайн'")

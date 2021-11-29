@@ -26,6 +26,7 @@ public interface UserShipmentsElement {
     Element paymentMethodCardToCourier = new Element(By.xpath("//span[@data-qa='user-shipment-payment-method' and text()='Картой при получении']"), "метод оплаты в заказе 'Картой курьеру'");
     Element paymentMethodForBusiness = new Element(By.xpath("//span[@data-qa='user-shipment-payment-method' and text()='По счёту для бизнеса']"), "метод оплаты в заказе 'По счёту для бизнеса'");
 
+    Element discountSumm = new Element(By.xpath("//span[@data-qa='user-shipment-product-discount']"), "сумма скидки");
     Element replacementPolicy = new Element(ByKraken.xpath("//span[@data-qa='user-shipment-replacement-policy' and text()='%s']"), "Политика замен в заказе");
 
     Element textNoOrders = new Element(By.xpath("//h3[text()='У вас нет завершенных заказов']"), "текст сообщающий, что у нового пользователя нет заказов");
