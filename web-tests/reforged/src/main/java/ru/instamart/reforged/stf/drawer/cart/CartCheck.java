@@ -47,11 +47,23 @@ public interface CartCheck extends Check, CartElement {
     @Step("Проверяем, что корзина открыта")
     default void checkCartOpen() {
         waitAction().shouldBeVisible(cartDrawer);
+        waitAction().shouldNotBeAnimated(cartDrawer);
+    }
+
+    @Step("Проверяем, что название продукта соответствует ожидаемому")
+    default void compareProductNameInCart(final String productNameExpected) {
+        Assert.assertEquals(productNameExpected, firstProductName.getText());
     }
 
     @Step("Проверяем, что корзина открыта")
     default void checkCartClose() {
         waitAction().shouldNotBeVisible(cartDrawer);
+        waitAction().shouldNotBeAnimated(cartDrawer);
+    }
+
+    @Step("Проверяем, что анимация удаления завершена")
+    default void checkDeleteAnimationOver() {
+        waitAction().shouldNotBeAnimated(items);
     }
 
     @Step("Проверяем, что в шторке корзины есть кнопка закрытия")
@@ -76,6 +88,11 @@ public interface CartCheck extends Check, CartElement {
 
     @Step("Сравнить кол-во штук первого в корзине с ожидаемым значением {0}")
     default void compareFirstItemQuantityInCart(final int expected) {
-        krakenAssert.assertEquals(firstElementQuantity.getNumericValue(), expected, "Количество товаров в корзине отличается от ожидаемого");
+        krakenAssert.assertEquals(firstElementQuantity.getNumericValue(), expected, "Количество штук первого товара в корзине отличается от ожидаемого");
+    }
+
+    @Step("Сравнить неравенство цены в корзине с ожидаемым значением {0}")
+    default void checkAmountNotEquals(final double expected, final double actual) {
+        krakenAssert.assertNotEquals(expected, actual, "Цена товаров в корзине не отличается от первоначальной");
     }
 }

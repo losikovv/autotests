@@ -72,6 +72,12 @@ public final class Element extends Component {
         return text;
     }
 
+    public String getAttribute(final String attr) {
+        final String attributeValue = getComponent().getAttribute(attr);
+        log.debug("Get text '{}' for {} with locator {}", attributeValue, getDescription(), getBy());
+        return attributeValue;
+    }
+
     /**
      * ожидание загрузки элемента
      */

@@ -67,6 +67,19 @@ public final class ApiHelper {
     }
 
     /**
+     * @param user должен иметь phone и encryptedPhone
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     */
+    @Step("Наполняем корзину с помощью API")
+    public void dropAndFillCart(final UserData user, final Integer sid, final Integer itemsNumber) {
+        auth(user);
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+        apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
+        apiV2.fillCartOnSid(sid, itemsNumber);
+    }
+
+    /**
      * На стейдже работать не будет для {@link ru.instamart.api.common.RestAddresses}, так как нет большей части магазинов
      */
     @Step("Наполняем корзину с помощью API")

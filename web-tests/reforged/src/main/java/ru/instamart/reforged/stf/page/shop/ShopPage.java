@@ -63,6 +63,21 @@ public final class ShopPage implements StfPage, ShopCheck {
         plusFirstItemToCartAddedAddress.click();
     }
 
+    @Step("Нажать на плюс у первого товара")
+    public void plusFirstItemToCartNonLogin() {
+        plusFirstItemToCartNonLogin.click();
+    }
+
+    @Step("Вернуть значение имени первого товара")
+    public String returnFirstProductTitle() {
+        return firstProductTitle.getAttribute("title");
+    }
+
+    @Step("Вернуть значение имени первого товара")
+    public String returnFirstProductTitleNonLogin() {
+        return firstProductTitleNonLogin.getAttribute("title");
+    }
+
     @Step("Нажать на минус у первого товара")
     public void minusFirstItemFromCart() {
         minusFirstItemFromCartAddedAddress.hoverAndClick();

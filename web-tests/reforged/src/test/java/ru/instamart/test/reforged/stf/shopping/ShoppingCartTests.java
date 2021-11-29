@@ -11,7 +11,6 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.reforged.stf.page.StfRouter;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -361,4 +360,123 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactCart().checkCartOpen();
         shop().interactCart().checkCartEmpty();
     }
+
+    @CaseId(2605)
+    @Test(description = "Тест успешного добавления товара в пустую корзину", groups = "regression")
+    public void testSuccessAddItemInEmptyCart() {
+        var userData = UserManager.getQaUser();
+        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().plusFirstItemToCart();
+        final var productName = shop().returnFirstProductTitle();
+        shop().interactHeader().checkCartNotificationIsVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().compareProductNameInCart(productName);
+    }
+
+    @CaseId(2607)
+    @Test(description = "Изменение количества единиц товаров в корзине", groups = "regression")
+    public void testAddProductsInCart() {
+        var userData = UserManager.getQaUser();
+        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        helper.dropAndFillCart(userData, 1);
+
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        final var firstItemQuantity = shop().interactCart().returnFirstItemQuantity();
+        final var startOrderAmount = shop().interactCart().returnOrderAmount();
+        shop().interactCart().increaseCount();
+        shop().interactCart().checkSpinnerIsVisible();
+        shop().interactCart().checkSpinnerIsNotVisible();
+        shop().interactCart().closeCart();
+        shop().interactCart().checkCartClose();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().compareFirstItemQuantityInCart(firstItemQuantity+1);
+        final var secondOrderAmount = shop().interactCart().returnOrderAmount();
+        shop().interactCart().checkAmountNotEquals(startOrderAmount, secondOrderAmount);
+        shop().assertAll();
+    }
+
+    @CaseId(2609)
+    @Test(description = "Подтягивание адреса и мердж корзины из профиля при авторизации", groups = "regression")
+    public void testAddressAndCartGetFromProfileAuth() {
+        var userData = UserManager.getQaUser();
+        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        helper.dropAndFillCart(userData, 1);
+
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().checkEnteredAddressIsVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().checkCartNotEmpty();
+    }
+
+    @CaseId(2610)
+    @Test(description = "Удаление позиции товара", groups = "regression")
+    public void testRemoveProduct() {
+        var userData = UserManager.getQaUser();
+        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        helper.dropAndFillCart(userData, 1, 3);
+
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        final var startOrderAmount = shop().interactCart().returnOrderAmount();
+        final var startProductsQuantity = shop().interactCart().returnUniqueItemsQuantity();
+        shop().interactCart().deleteFirstItem();
+        shop().interactCart().checkDeleteAnimationOver();
+        shop().interactCart().closeCart();
+        shop().interactCart().checkCartClose();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        final var secondOrderAmount = shop().interactCart().returnOrderAmount();
+        shop().interactCart().checkAmountNotEquals(startOrderAmount, secondOrderAmount);
+        shop().interactCart().compareItemsInCart(startProductsQuantity-1);
+        shop().assertAll();
+    }
+
+    @CaseId(1572)
+    @Test(description = "Тест успешного добавления товара в корзину неавторизованным юзером", groups = "regression")
+    public void testAddToCartNonAuthUser() {
+        shop().goToPage();
+        shop().openAddressFrame();
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().selectFirstAddress();
+        shop().interactAddress().clickOnSave();
+
+        shop().interactHeader().checkEnteredAddressIsVisible();
+
+        shop().plusFirstItemToCartNonLogin();
+        final var productName = shop().returnFirstProductTitleNonLogin();
+        shop().interactHeader().checkCartNotificationIsVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().compareProductNameInCart(productName);
+    }
+
 }
