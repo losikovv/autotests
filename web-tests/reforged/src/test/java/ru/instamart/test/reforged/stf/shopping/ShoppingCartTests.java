@@ -478,5 +478,4 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactCart().checkCartOpen();
         shop().interactCart().compareProductNameInCart(productName);
     }
-
 }
