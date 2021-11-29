@@ -38,7 +38,6 @@ public final class ShopperSHPRequest extends ShopperAppRequestBase {
 
         @Step("{method} /" + ShopperAppEndpoints.Shopper.SHIPMENTS)
         public static Response GET(ShipmentsParams shipments) {
-            //shipments?store_id=16&assembly_state=shipped&includes[assembly]=items
             return givenWithAuth()
                     .formParams(Mapper.INSTANCE.objectToMap(shipments))
                     .get(ShopperAppEndpoints.Shopper.SHIPMENTS);

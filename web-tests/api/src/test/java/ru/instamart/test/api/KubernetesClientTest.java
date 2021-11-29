@@ -9,6 +9,7 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.utils.Crypt;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -31,7 +32,7 @@ public class KubernetesClientTest extends RestBase {
     public void kubeTest() {
         V1PodList list = getPodList(namespace, labelSelector);
         AtomicReference<String> attach = new AtomicReference<>();
-        list.getItems().stream().forEach(item -> attach.set(item.getMetadata().getName()));
+        list.getItems().forEach(item -> attach.set(item.getMetadata().getName()));
         Allure.addAttachment("Pods kraken stage", String.valueOf(attach));
     }
 
@@ -42,7 +43,7 @@ public class KubernetesClientTest extends RestBase {
         V1PodList list = getPodList(namespace, labelSelector);
         List<String> logs = getLogs(list.getItems().get(0), 10);
         AtomicReference<String> attach = new AtomicReference<>();
-        logs.stream().forEach(item -> attach.set(attach + "\r\n" + item));
+        logs.forEach(item -> attach.set(attach + "\r\n" + item));
         Allure.addAttachment("namespace: " + namespace + " logs", String.valueOf(attach));
     }
 
@@ -69,6 +70,6 @@ public class KubernetesClientTest extends RestBase {
                         ", hostname: " + resultQuery.getString("hostname"));
             }
         }
-        result.stream().forEach(System.out::println);
+        result.forEach(System.out::println);
     }
 }

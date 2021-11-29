@@ -12,12 +12,15 @@ import ru.instamart.utils.Crypt;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 @Slf4j
 public final class UserManager {
+
+    private static final String CI_PIPELINE_SOURCE = Optional.ofNullable(System.getenv("CI_PIPELINE_SOURCE")).orElse("local");
 
     private static final List<UserData> USER_DATA_LIST = new ArrayList<>();
 
@@ -45,7 +48,7 @@ public final class UserManager {
             defaultUser = UserData.builder()
                     .role("superuser")
                     .email(Crypt.INSTANCE.decrypt("aDPCwj7Br+dx8nAMvfc+/zywS4BuPQ25pLnnhiT3WnQ="))
-                    .phone("1488148814")
+                    .phone(Crypt.INSTANCE.decrypt("8pvQF1rKDw0Y+9PskqcKLQ=="))
                     .password(PASSWD_1)
                     .name("autotest superuser")
                     .build();
@@ -58,7 +61,7 @@ public final class UserManager {
             defaultAdmin = UserData.builder()
                     .role("superadmin")
                     .email(Crypt.INSTANCE.decrypt("Gh1MsACysUuEYv98vkOuOOx/HVxUh5J54NKCNSJCPFQ="))
-                    .phone("7777777777")
+                    .phone(Crypt.INSTANCE.decrypt("WnA112EejZXmMlMlnVFwgQ=="))
                     .password(PASSWD_1)
                     .name("autotest superadmin")
                     .token(Crypt.INSTANCE.decrypt("etIbXhyM1zqCCpiTObFcm0Bb5vTw6rAFrB5Ir9/shcQ="))
@@ -72,7 +75,7 @@ public final class UserManager {
             defaultAdminAllRoles = UserData.builder()
                     .role("superadmin")
                     .email(Crypt.INSTANCE.decrypt("wTfubFbVMEA2P1HT80pKDXJfzWnJ15xgPBJr240lktU="))
-                    .phone("9999999977")
+                    .phone(Crypt.INSTANCE.decrypt("z2UvelSsJ4QsKh9rGmQZDw=="))
                     .password(PASSWD_1)
                     .name("autotest superadminallroles")
                     .build();
@@ -81,11 +84,42 @@ public final class UserManager {
     }
 
     public static UserData getDefaultShopper() {
+        log.info("GitLab env CI_PIPELINE_SOURCE: {}", CI_PIPELINE_SOURCE);
         if (isNull(defaultShopper)) {
-            defaultShopper = UserData.builder()
-                    .email(Crypt.INSTANCE.decrypt("/IsVBUY1et+En340g78Rvg=="))
-                    .password(PASSWD_2)
-                    .build();
+            switch (CI_PIPELINE_SOURCE.toLowerCase()) {
+                case "schedule":
+                    log.info("User shopper SCHEDULE login");
+                    defaultShopper = UserData.builder()
+                            .email(Crypt.INSTANCE.decrypt("DNzBqyrPJQuc1LP0FzyiiQ==")) //krakenSchedules
+                            .phone(Crypt.INSTANCE.decrypt("mbL67AMvUKR2bSJ/2k7FTA==")) //79588128786
+                            .password(PASSWD_2)
+                            .build();
+                    break;
+                case "trigger":
+                    log.info("User shopper TRIGGER login");
+                    defaultShopper = UserData.builder()
+                            .email(Crypt.INSTANCE.decrypt("K0wOsUQv9wDe1F4a6TtDKg=="))
+                            .phone(Crypt.INSTANCE.decrypt("yLvA69qlzJsxOIvcma2zXg=="))
+                            .password(PASSWD_2)
+                            .build();
+                    break;
+                case "local":
+                    log.info("User shopper local login");
+                    defaultShopper = UserData.builder()
+                            .email(Crypt.INSTANCE.decrypt("qq6/4elx6MF64Jw9VdI6xg=="))
+                            .phone(Crypt.INSTANCE.decrypt("wOpdY2rf7+p9gnSoSndRWg=="))
+                            .password(PASSWD_2)
+                            .build();
+                    break;
+                default:
+                    log.info("User shopper default login");
+                    defaultShopper = UserData.builder()
+                            .email(Crypt.INSTANCE.decrypt("/IsVBUY1et+En340g78Rvg=="))
+                            .phone(Crypt.INSTANCE.decrypt("8lsSwjJUEjlPTeu4hDGU0w=="))
+                            .password(PASSWD_2)
+                            .build();
+                    break;
+            }
         }
         return defaultShopper;
     }
@@ -144,8 +178,8 @@ public final class UserManager {
         if (isNull(defaultApiUser)) {
             defaultApiUser = UserData.builder()
                     .role("superuser")
-                    .email("cmiqnmwt1lbmrtv0vdln@temp.temp")
-                    .phone("79999999966")
+                    .email(Crypt.INSTANCE.decrypt("vgmGFDo8Onbhu9KH6UJjPtk4Q4LBcZh8xoLhogVWI9k="))
+                    .phone(Crypt.INSTANCE.decrypt("5QQdvXjLBpVEu2dpZCT3iQ=="))
                     .name("autotest superuser")
                     .build();
         }
@@ -155,8 +189,8 @@ public final class UserManager {
     public static UserData getDeliveryClubUser() {
         if (isNull(defaultDcUser)) {
             defaultDcUser = UserData.builder()
-                    .email("dc")
-                    .password("dcsmstage")
+                    .email(Crypt.INSTANCE.decrypt("nmg+iaPlmiNmb2oNDW+wig=="))
+                    .password(Crypt.INSTANCE.decrypt("g/2urIK+Qxny6wkxsjoidw=="))
                     .build();
         }
         return defaultDcUser;
@@ -176,7 +210,7 @@ public final class UserManager {
         if (isNull(forB2BUser)) {
             forB2BUser = UserData.builder()
                     .email(Crypt.INSTANCE.decrypt("4iwwd7hWsW7NN4TyGWohVfIbI/Qx5ujSol6s9rPHw0g="))
-                    .phone("79229995566")
+                    .phone(Crypt.INSTANCE.decrypt("pOR0GW7vjYFSN634MFxxxg=="))
                     .password(PASSWD_1)
                     .build();
         }
@@ -186,7 +220,7 @@ public final class UserManager {
     public static UserData addressUser() {
         if (isNull(addressUser)) {
             addressUser = UserData.builder()
-                    .phone("79990009911")
+                    .phone(Crypt.INSTANCE.decrypt("UFfwiiQLwQCGLRIVnqnyuQ=="))
                     .build();
         }
         return addressUser;
@@ -194,8 +228,8 @@ public final class UserManager {
 
     public static UserData checkoutUser() {
         return UserData.builder()
-                .phone("9998833344")
-                .email("firstStepCheckout@sbermarket.ru")
+                .phone(Crypt.INSTANCE.decrypt("Il5CC+ZHETemFCNdOxuR0w=="))
+                .email(Crypt.INSTANCE.decrypt("OvdigRywldL077CUQY5nV7DaRhGzRl2X0i18kkhZj9w="))
                 .build();
     }
 
