@@ -122,6 +122,10 @@ public final class ApiV2EndPoints {
         public static final String LINE_ITEM_CANCELLATIONS = "v2/orders/{orderNumber}/line_item_cancellations";
         public static final String LINE_ITEM_REPLACEMENTS = "v2/orders/{orderNumber}/line_item_replacements";
         public static final String PAYMENT_TOOLS_WITH_TYPES = "v2/orders/{orderNumber}/payment_tools_with_types";
+
+        public static final class TransferMethod {
+            public static final String ANALYZE = "v2/orders/{orderNumber}/transfer_method/analyze";
+        }
     }
 
     public static final class Passwords {

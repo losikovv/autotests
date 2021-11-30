@@ -1292,4 +1292,10 @@ public final class InstamartApiHelper {
         checkStatusCode200(response);
         return response.as(ProfileV2Response.class);
     }
+
+    @Step("Получаем координаты из зоны доставки магазина")
+    public ZoneV2 getCoordinates(Integer storeId) {
+        List<List<ZoneV2>> zones = storeZones(storeId);
+        return getInnerPoint(zones.get(0));
+    }
 }

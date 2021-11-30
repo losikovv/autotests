@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.common.Specification;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.enums.v2.AnalyzeResultV2;
 import ru.instamart.api.enums.v2.AuthProviderV2;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.factory.SessionFactory;
@@ -700,6 +701,17 @@ public class RestDataProvider extends RestBase {
         return new Object[][]{
                 {productId, "\"store_id\":\"Дозаказать можно только из того же магазина\""},
                 {alcoholProductId, "\"shipping_category_id\":\"Категории доставки не совпадают или в дозаказе участвует алкоголь\""},
+        };
+    }
+
+    @DataProvider(name = "storesDataForTransferMethod")
+    public static Object[][] getStoresForTransferMethodCheck() {
+        return new Object[][]{
+                {EnvironmentProperties.DEFAULT_SID, AnalyzeResultV2.OK},
+                {1, AnalyzeResultV2.OK},
+                {2, AnalyzeResultV2.OK},
+                {22, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
+                {89, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
         };
     }
 
