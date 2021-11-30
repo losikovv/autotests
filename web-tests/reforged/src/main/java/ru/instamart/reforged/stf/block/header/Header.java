@@ -158,4 +158,9 @@ public final class Header implements HeaderCheck {
         Kraken.clearAllCooke();
         Kraken.refresh();
     }
+
+    @Step("Вернуть текущий адрес")
+    public String returnCurrentAddress() {
+        return enteredAddress.getText();
+    }
 }

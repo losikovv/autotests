@@ -3,6 +3,7 @@ package ru.instamart.reforged.stf.page.shop;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
+import ru.instamart.reforged.core.component.Link;
 import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.block.header.Header;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
@@ -35,5 +36,10 @@ public interface ShopElement {
     Button minusFirstItemFromCartAddedAddress = new Button(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']//button[contains(@title, 'Убрать из корзины')]"),
             "Кнопка убрать из корзины у первого элемента");
     Element spinner = new Element(By.xpath("//div[contains(@class, 'Recommendations')]//div[contains(@class, 'Spinner')]"), "Спиннер блока рекомендаций");
+    Element firstProductTitle = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']//h3"), "Имя первого товара в каталоге на стейдже");
+    Element firstProductTitleNonLogin = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_0_product_item_0']//h3"), "Имя первого товара в каталоге на стейдже незалогин");
 
+    Button plusFirstItemToCartNonLogin = new Button(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_0_product_item_0']//button[@title='Добавить в корзину']"), "Кнопка добавить в корзину у первого элемента незалогин");
+
+    Link refreshPrices = new Link(By.xpath("//a[@class='prices-modal__btn']"), "Кнопка обновить цены");
 }
