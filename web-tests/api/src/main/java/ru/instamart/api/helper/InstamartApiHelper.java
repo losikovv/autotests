@@ -894,11 +894,17 @@ public final class InstamartApiHelper {
         return response.as(OrderV2Response.class).getOrder();
     }
 
-    @Step("Получаем список способов оплаыты")
+    @Step("Получаем список способов оплаты")
     public List<PaymentToolV2> getPaymentTools() {
         Response response = PaymentToolsV2Request.GET();
         checkStatusCode200(response);
         return response.as(PaymentToolsV2Response.class).getPaymentTools();
+    }
+
+    @Step("Добавляем кредитную карту {0}")
+    public void addCreditCard(final CreditCardsV2Request.CreditCard creditCard) {
+        final var response = CreditCardsV2Request.POST(creditCard);
+        checkStatusCode200(response);
     }
 
     @Step("Получение списка способв доставки для sid = {sid}")

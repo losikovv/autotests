@@ -52,6 +52,16 @@ public final class UsersEditPage implements StfPage, UsersEditEditCheck {
         b2bUser.uncheck();
     }
 
+    @Step("Нажать на кнопку 'Отвязать'")
+    public void clickToBlockPhone() {
+        blockPhone.click();
+    }
+
+    @Step("Нажать на кнопку 'Заблокировать карты'")
+    public void clickToBlockCard() {
+        blockCard.click();
+    }
+
     @Step("Нажать на Изменить на странице редактирования пользователя")
     public void clickToSave() {
         saveChanges.click();
