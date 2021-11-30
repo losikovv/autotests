@@ -35,11 +35,11 @@ public interface ShopElement {
             "Кнопка добавить в корзину у первого элемента");
     Button minusFirstItemFromCartAddedAddress = new Button(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']//button[contains(@title, 'Убрать из корзины')]"),
             "Кнопка убрать из корзины у первого элемента");
-    Element spinner = new Element(By.xpath("//div[contains(@class, 'Recommendations')]//div[contains(@class, 'Spinner')]"), "Спиннер блока рекомендаций");
+    Element spinner = new Element(By.xpath("//div[@data-qa='catalog_page_popular_products']/div"), "Спиннер блока рекомендаций");
     Element firstProductTitle = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']//h3"), "Имя первого товара в каталоге на стейдже");
     Element firstProductTitleNonLogin = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_0_product_item_0']//h3"), "Имя первого товара в каталоге на стейдже незалогин");
+    Element secondProductTitleNonLogin = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_0_product_item_1']//h3"), "Имя второго товара в каталоге на стейдже незалогин");
 
     Button plusFirstItemToCartNonLogin = new Button(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_0_product_item_0']//button[@title='Добавить в корзину']"), "Кнопка добавить в корзину у первого элемента незалогин");
-
-    Link refreshPrices = new Link(By.xpath("//a[@class='prices-modal__btn']"), "Кнопка обновить цены");
+    Button plusSecondItemToCartNonLogin = new Button(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_0_product_item_1']//button[@title='Добавить в корзину']"), "Кнопка добавить в корзину у второго элемента незалогин");
 }
