@@ -56,4 +56,20 @@ public class DeliveryWindowsDao implements Dao<Long, DeliveryWindowsEntity> {
         }
         return resultCount;
     }
+
+    public void updateDeliveryWindowSettings(Integer id, Integer shipmentsLimit, Integer shipmentsCount, Integer baseItemsCount, Integer totalItemsCount) {
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement("UPDATE delivery_windows SET shipments_limit = ?, shipments_count = ?, " +
+                     "shipment_base_items_count = ?, shipments_total_items_count = ?, " +
+                     "state = 'open' WHERE id = ?")) {
+            preparedStatement.setInt(1, shipmentsLimit);
+            preparedStatement.setInt(2, shipmentsCount);
+            preparedStatement.setInt(3, baseItemsCount);
+            preparedStatement.setInt(4, totalItemsCount);
+            preparedStatement.setLong(5, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
