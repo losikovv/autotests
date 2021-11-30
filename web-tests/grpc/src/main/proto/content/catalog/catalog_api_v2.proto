@@ -38,12 +38,12 @@ message GetProductListResponse{
 	Meta meta = 3;
 	repeated ProductListSort sort = 4;
 	repeated PromoBadge promo_badges = 5 [json_name = "promo_badges"];
+	RootCategories root_categories = 6 [json_name = "root_categories"];
 }
 
 message GetProductRequest {
 	string product_id = 1 [json_name = "product_id"];
-	string store_id = 2 [json_name = "store_id"];
-	string tenant_id = 3 [json_name = "tenant_id"];
+	string tenant_id = 2 [json_name = "tenant_id"];
 }
 
 message GetProductResponse{
@@ -98,9 +98,11 @@ enum FacetType {
 }
 
 message FacetOption {
-	string name = 1;
+	google.protobuf.StringValue name = 1;
 	int64 value = 2;
-	bool active = 3;
+	int64 count = 3;
+	google.protobuf.StringValue permalink = 4;
+	bool active = 5;
 }
 
 message Meta {
@@ -110,6 +112,9 @@ message Meta {
 	int64 total_pages = 4 [json_name = "total_pages"];
 	int64 per_page = 5 [json_name = "per_page"];
 	int64 total_count = 6 [json_name = "total_count"];
+}
+
+message RootCategories {
 }
 
 message ProductListSort {

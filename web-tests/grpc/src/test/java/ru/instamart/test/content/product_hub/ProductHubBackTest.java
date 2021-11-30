@@ -448,7 +448,7 @@ public class ProductHubBackTest extends GrpcBase {
                         .addOfferData(Data.newBuilder()
                                 .setKey("popularity")
                                 .addValues("20")
-                                .setType(ValueType.INTEGER)
+                                .setType(ValueType.DOUBLE)
                                 .build())
                         .setStatus(Status.ENABLE)
                         .build())

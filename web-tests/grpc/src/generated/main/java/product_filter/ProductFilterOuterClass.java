@@ -4708,6 +4708,12 @@ public final class ProductFilterOuterClass {
      */
     com.google.protobuf.ByteString
         getCategoryIdsBytes(int index);
+
+    /**
+     * <code>bool products_has_discount = 2;</code>
+     * @return The productsHasDiscount.
+     */
+    boolean getProductsHasDiscount();
   }
   /**
    * Protobuf type {@code product_filter.CategoryIDsBatch}
@@ -4763,6 +4769,11 @@ public final class ProductFilterOuterClass {
                 mutable_bitField0_ |= 0x00000001;
               }
               categoryIds_.add(s);
+              break;
+            }
+            case 16: {
+
+              productsHasDiscount_ = input.readBool();
               break;
             }
             default: {
@@ -4835,6 +4846,17 @@ public final class ProductFilterOuterClass {
       return categoryIds_.getByteString(index);
     }
 
+    public static final int PRODUCTS_HAS_DISCOUNT_FIELD_NUMBER = 2;
+    private boolean productsHasDiscount_;
+    /**
+     * <code>bool products_has_discount = 2;</code>
+     * @return The productsHasDiscount.
+     */
+    @java.lang.Override
+    public boolean getProductsHasDiscount() {
+      return productsHasDiscount_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -4851,6 +4873,9 @@ public final class ProductFilterOuterClass {
                         throws java.io.IOException {
       for (int i = 0; i < categoryIds_.size(); i++) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, categoryIds_.getRaw(i));
+      }
+      if (productsHasDiscount_ != false) {
+        output.writeBool(2, productsHasDiscount_);
       }
       unknownFields.writeTo(output);
     }
@@ -4869,6 +4894,10 @@ public final class ProductFilterOuterClass {
         size += dataSize;
         size += 1 * getCategoryIdsList().size();
       }
+      if (productsHasDiscount_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(2, productsHasDiscount_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -4886,6 +4915,8 @@ public final class ProductFilterOuterClass {
 
       if (!getCategoryIdsList()
           .equals(other.getCategoryIdsList())) return false;
+      if (getProductsHasDiscount()
+          != other.getProductsHasDiscount()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -4901,6 +4932,9 @@ public final class ProductFilterOuterClass {
         hash = (37 * hash) + CATEGORY_IDS_FIELD_NUMBER;
         hash = (53 * hash) + getCategoryIdsList().hashCode();
       }
+      hash = (37 * hash) + PRODUCTS_HAS_DISCOUNT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getProductsHasDiscount());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -5036,6 +5070,8 @@ public final class ProductFilterOuterClass {
         super.clear();
         categoryIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000001);
+        productsHasDiscount_ = false;
+
         return this;
       }
 
@@ -5068,6 +5104,7 @@ public final class ProductFilterOuterClass {
           bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.categoryIds_ = categoryIds_;
+        result.productsHasDiscount_ = productsHasDiscount_;
         onBuilt();
         return result;
       }
@@ -5125,6 +5162,9 @@ public final class ProductFilterOuterClass {
             categoryIds_.addAll(other.categoryIds_);
           }
           onChanged();
+        }
+        if (other.getProductsHasDiscount() != false) {
+          setProductsHasDiscount(other.getProductsHasDiscount());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -5265,6 +5305,37 @@ public final class ProductFilterOuterClass {
         onChanged();
         return this;
       }
+
+      private boolean productsHasDiscount_ ;
+      /**
+       * <code>bool products_has_discount = 2;</code>
+       * @return The productsHasDiscount.
+       */
+      @java.lang.Override
+      public boolean getProductsHasDiscount() {
+        return productsHasDiscount_;
+      }
+      /**
+       * <code>bool products_has_discount = 2;</code>
+       * @param value The productsHasDiscount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProductsHasDiscount(boolean value) {
+        
+        productsHasDiscount_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool products_has_discount = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearProductsHasDiscount() {
+        
+        productsHasDiscount_ = false;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -5338,6 +5409,12 @@ public final class ProductFilterOuterClass {
      * @return The sku at the given index.
      */
     long getSku(int index);
+
+    /**
+     * <code>int64 total = 2;</code>
+     * @return The total.
+     */
+    long getTotal();
   }
   /**
    * Protobuf type {@code product_filter.ProductsSKUBatch}
@@ -5407,6 +5484,11 @@ public final class ProductFilterOuterClass {
               input.popLimit(limit);
               break;
             }
+            case 16: {
+
+              total_ = input.readInt64();
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -5470,6 +5552,17 @@ public final class ProductFilterOuterClass {
     }
     private int skuMemoizedSerializedSize = -1;
 
+    public static final int TOTAL_FIELD_NUMBER = 2;
+    private long total_;
+    /**
+     * <code>int64 total = 2;</code>
+     * @return The total.
+     */
+    @java.lang.Override
+    public long getTotal() {
+      return total_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -5491,6 +5584,9 @@ public final class ProductFilterOuterClass {
       }
       for (int i = 0; i < sku_.size(); i++) {
         output.writeInt64NoTag(sku_.getLong(i));
+      }
+      if (total_ != 0L) {
+        output.writeInt64(2, total_);
       }
       unknownFields.writeTo(output);
     }
@@ -5515,6 +5611,10 @@ public final class ProductFilterOuterClass {
         }
         skuMemoizedSerializedSize = dataSize;
       }
+      if (total_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, total_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -5532,6 +5632,8 @@ public final class ProductFilterOuterClass {
 
       if (!getSkuList()
           .equals(other.getSkuList())) return false;
+      if (getTotal()
+          != other.getTotal()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -5547,6 +5649,9 @@ public final class ProductFilterOuterClass {
         hash = (37 * hash) + SKU_FIELD_NUMBER;
         hash = (53 * hash) + getSkuList().hashCode();
       }
+      hash = (37 * hash) + TOTAL_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getTotal());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -5682,6 +5787,8 @@ public final class ProductFilterOuterClass {
         super.clear();
         sku_ = emptyLongList();
         bitField0_ = (bitField0_ & ~0x00000001);
+        total_ = 0L;
+
         return this;
       }
 
@@ -5714,6 +5821,7 @@ public final class ProductFilterOuterClass {
           bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.sku_ = sku_;
+        result.total_ = total_;
         onBuilt();
         return result;
       }
@@ -5771,6 +5879,9 @@ public final class ProductFilterOuterClass {
             sku_.addAll(other.sku_);
           }
           onChanged();
+        }
+        if (other.getTotal() != 0L) {
+          setTotal(other.getTotal());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -5877,6 +5988,37 @@ public final class ProductFilterOuterClass {
       public Builder clearSku() {
         sku_ = emptyLongList();
         bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+
+      private long total_ ;
+      /**
+       * <code>int64 total = 2;</code>
+       * @return The total.
+       */
+      @java.lang.Override
+      public long getTotal() {
+        return total_;
+      }
+      /**
+       * <code>int64 total = 2;</code>
+       * @param value The total to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTotal(long value) {
+        
+        total_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 total = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTotal() {
+        
+        total_ = 0L;
         onChanged();
         return this;
       }
@@ -13054,45 +13196,46 @@ public final class ProductFilterOuterClass {
       "\001(\010\"s\n1GetPopularProductsSKUByCategoryID" +
       "sBatchesResponse\022>\n\024products_sku_batches" +
       "\030\001 \003(\0132 .product_filter.ProductsSKUBatch" +
-      "\"(\n\020CategoryIDsBatch\022\024\n\014category_ids\030\001 \003" +
-      "(\t\"\037\n\020ProductsSKUBatch\022\013\n\003sku\030\001 \003(\003\"\277\002\n!" +
-      "GetProductsSKUByAttributesRequest\022\020\n\010sto" +
-      "re_id\030\001 \001(\t\022\021\n\ttenant_id\030\002 \001(\t\022\024\n\014catego" +
-      "ry_ids\030\003 \003(\t\022:\n\021attribute_filters\030\004 \003(\0132" +
-      "\037.product_filter.AttributeFilter\022\r\n\005limi" +
-      "t\030\005 \001(\003\022\016\n\006offset\030\006 \001(\003\022\021\n\tavailable\030\007 \001" +
-      "(\010\022\"\n\004sort\030\010 \001(\0162\024.product_filter.Sort\022." +
-      "\n\013sort_by_sku\030\t \001(\0132\031.product_filter.Sor" +
-      "tBySKU\022\035\n\025except_attribute_keys\030\n \003(\t\"|\n" +
-      "\"GetProductsSKUByAttributesResponse\022\013\n\003s" +
-      "ku\030\001 \003(\003\022\025\n\rproduct_count\030\002 \001(\003\0222\n\rfilte" +
-      "r_facets\030\003 \003(\0132\033.product_filter.FilterFa" +
-      "cet\"0\n\017SKUWithPosition\022\013\n\003sku\030\001 \001(\003\022\020\n\010p" +
-      "osition\030\002 \001(\003\"T\n\tSortBySKU\022\013\n\003sku\030\001 \003(\003\022" +
-      ":\n\021sku_with_position\030\002 \003(\0132\037.product_fil" +
-      "ter.SKUWithPosition\"B\n\017AttributeFilter\022\025" +
-      "\n\rattribute_key\030\001 \001(\t\022\030\n\020attribute_value" +
-      "s\030\002 \003(\t\"j\n\013FilterFacet\022\025\n\rattribute_key\030" +
-      "\001 \001(\t\022D\n\020attribute_values\030\002 \003(\0132*.produc" +
-      "t_filter.FilterFacetAttributeValues\"B\n\032F" +
-      "ilterFacetAttributeValues\022\r\n\005value\030\001 \001(\t" +
-      "\022\025\n\rproduct_count\030\002 \001(\003*G\n\004Sort\022\016\n\nPOPUL" +
-      "ARITY\020\000\022\r\n\tPRICE_ASC\020\001\022\016\n\nPRICE_DESC\020\002\022\020" +
-      "\n\014WEIGHT_PRICE\020\0032\332\003\n\rProductFilter\022\217\001\n\036G" +
-      "etCategoryFacetsByCategoryIDs\0225.product_" +
-      "filter.GetCategoryFacetsByCategoryIDsReq" +
-      "uest\0326.product_filter.GetCategoryFacetsB" +
-      "yCategoryIDsResponse\022\260\001\n)GetPopularProdu" +
-      "ctsSKUByCategoryIDsBatches\022@.product_fil" +
-      "ter.GetPopularProductsSKUByCategoryIDsBa" +
-      "tchesRequest\032A.product_filter.GetPopular" +
-      "ProductsSKUByCategoryIDsBatchesResponse\022" +
-      "\203\001\n\032GetProductsSKUByAttributes\0221.product" +
-      "_filter.GetProductsSKUByAttributesReques" +
-      "t\0322.product_filter.GetProductsSKUByAttri" +
-      "butesResponseBSZQgitlab.sbermarket.tech/" +
-      "paas/content/product-filter/pkg/server/g" +
-      "rpc/product-filterb\006proto3"
+      "\"G\n\020CategoryIDsBatch\022\024\n\014category_ids\030\001 \003" +
+      "(\t\022\035\n\025products_has_discount\030\002 \001(\010\".\n\020Pro" +
+      "ductsSKUBatch\022\013\n\003sku\030\001 \003(\003\022\r\n\005total\030\002 \001(" +
+      "\003\"\277\002\n!GetProductsSKUByAttributesRequest\022" +
+      "\020\n\010store_id\030\001 \001(\t\022\021\n\ttenant_id\030\002 \001(\t\022\024\n\014" +
+      "category_ids\030\003 \003(\t\022:\n\021attribute_filters\030" +
+      "\004 \003(\0132\037.product_filter.AttributeFilter\022\r" +
+      "\n\005limit\030\005 \001(\003\022\016\n\006offset\030\006 \001(\003\022\021\n\tavailab" +
+      "le\030\007 \001(\010\022\"\n\004sort\030\010 \001(\0162\024.product_filter." +
+      "Sort\022.\n\013sort_by_sku\030\t \001(\0132\031.product_filt" +
+      "er.SortBySKU\022\035\n\025except_attribute_keys\030\n " +
+      "\003(\t\"|\n\"GetProductsSKUByAttributesRespons" +
+      "e\022\013\n\003sku\030\001 \003(\003\022\025\n\rproduct_count\030\002 \001(\003\0222\n" +
+      "\rfilter_facets\030\003 \003(\0132\033.product_filter.Fi" +
+      "lterFacet\"0\n\017SKUWithPosition\022\013\n\003sku\030\001 \001(" +
+      "\003\022\020\n\010position\030\002 \001(\003\"T\n\tSortBySKU\022\013\n\003sku\030" +
+      "\001 \003(\003\022:\n\021sku_with_position\030\002 \003(\0132\037.produ" +
+      "ct_filter.SKUWithPosition\"B\n\017AttributeFi" +
+      "lter\022\025\n\rattribute_key\030\001 \001(\t\022\030\n\020attribute" +
+      "_values\030\002 \003(\t\"j\n\013FilterFacet\022\025\n\rattribut" +
+      "e_key\030\001 \001(\t\022D\n\020attribute_values\030\002 \003(\0132*." +
+      "product_filter.FilterFacetAttributeValue" +
+      "s\"B\n\032FilterFacetAttributeValues\022\r\n\005value" +
+      "\030\001 \001(\t\022\025\n\rproduct_count\030\002 \001(\003*G\n\004Sort\022\016\n" +
+      "\nPOPULARITY\020\000\022\r\n\tPRICE_ASC\020\001\022\016\n\nPRICE_DE" +
+      "SC\020\002\022\020\n\014WEIGHT_PRICE\020\0032\332\003\n\rProductFilter" +
+      "\022\217\001\n\036GetCategoryFacetsByCategoryIDs\0225.pr" +
+      "oduct_filter.GetCategoryFacetsByCategory" +
+      "IDsRequest\0326.product_filter.GetCategoryF" +
+      "acetsByCategoryIDsResponse\022\260\001\n)GetPopula" +
+      "rProductsSKUByCategoryIDsBatches\022@.produ" +
+      "ct_filter.GetPopularProductsSKUByCategor" +
+      "yIDsBatchesRequest\032A.product_filter.GetP" +
+      "opularProductsSKUByCategoryIDsBatchesRes" +
+      "ponse\022\203\001\n\032GetProductsSKUByAttributes\0221.p" +
+      "roduct_filter.GetProductsSKUByAttributes" +
+      "Request\0322.product_filter.GetProductsSKUB" +
+      "yAttributesResponseBSZQgitlab.sbermarket" +
+      ".tech/paas/content/product-filter/pkg/se" +
+      "rver/grpc/product-filterb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -13133,13 +13276,13 @@ public final class ProductFilterOuterClass {
     internal_static_product_filter_CategoryIDsBatch_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_filter_CategoryIDsBatch_descriptor,
-        new java.lang.String[] { "CategoryIds", });
+        new java.lang.String[] { "CategoryIds", "ProductsHasDiscount", });
     internal_static_product_filter_ProductsSKUBatch_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_product_filter_ProductsSKUBatch_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_filter_ProductsSKUBatch_descriptor,
-        new java.lang.String[] { "Sku", });
+        new java.lang.String[] { "Sku", "Total", });
     internal_static_product_filter_GetProductsSKUByAttributesRequest_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_product_filter_GetProductsSKUByAttributesRequest_fieldAccessorTable = new

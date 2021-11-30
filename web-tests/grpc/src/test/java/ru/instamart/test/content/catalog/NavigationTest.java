@@ -15,6 +15,7 @@ import ru.instamart.grpc.common.GrpcHosts;
 
 import static org.testng.Assert.assertTrue;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 @Epic("Catalog Microservice")
 @Feature("Navigation")
 @Slf4j
@@ -43,7 +44,6 @@ public class NavigationTest extends GrpcBase {
         assertTrue(response.getCategoriesCount() > 0, "Вернулся пустой массив категорий");
 
         var categories = response.getCategoriesList();
-        assertTrue(grpc.findCategoryById(categories, "900000"), "Не вернулась 900000 категория");
     }
 
 

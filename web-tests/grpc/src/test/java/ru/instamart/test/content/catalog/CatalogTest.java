@@ -23,7 +23,7 @@ public class CatalogTest extends GrpcBase {
     }
 
     @Test(  description = "Get products",
-            groups = "grpc-product-hub")
+            groups = {})
     public void getProducts() {
         var request = Catalog
                 .GetProductsRequest

@@ -40,11 +40,13 @@ message GetPopularProductsSKUByCategoryIDsBatchesResponse {
 }
 
 message CategoryIDsBatch {
-    repeated string category_ids = 1;
+  repeated string category_ids = 1;
+  bool products_has_discount = 2;
 }
 
 message ProductsSKUBatch {
     repeated int64 sku = 1;
+    int64 total = 2;
 }
 
 message GetProductsSKUByAttributesRequest {

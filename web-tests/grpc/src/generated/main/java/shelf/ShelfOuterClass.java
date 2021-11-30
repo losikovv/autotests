@@ -424,21 +424,21 @@ public final class ShelfOuterClass {
     // @@protoc_insertion_point(enum_scope:shelf.Pricer)
   }
 
-  public interface GetShelfByCategoryIDRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:shelf.GetShelfByCategoryIDRequest)
+  public interface GetShelfByCategoryPermalinkRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:shelf.GetShelfByCategoryPermalinkRequest)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string category_id = 1;</code>
-     * @return The categoryId.
+     * <code>string permalink = 1;</code>
+     * @return The permalink.
      */
-    java.lang.String getCategoryId();
+    java.lang.String getPermalink();
     /**
-     * <code>string category_id = 1;</code>
-     * @return The bytes for categoryId.
+     * <code>string permalink = 1;</code>
+     * @return The bytes for permalink.
      */
     com.google.protobuf.ByteString
-        getCategoryIdBytes();
+        getPermalinkBytes();
 
     /**
      * <code>int64 products_limit = 2;</code>
@@ -486,19 +486,19 @@ public final class ShelfOuterClass {
     shelf.ShelfOuterClass.DisplayAttributesOrBuilder getDisplayAttributesOrBuilder();
   }
   /**
-   * Protobuf type {@code shelf.GetShelfByCategoryIDRequest}
+   * Protobuf type {@code shelf.GetShelfByCategoryPermalinkRequest}
    */
-  public static final class GetShelfByCategoryIDRequest extends
+  public static final class GetShelfByCategoryPermalinkRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:shelf.GetShelfByCategoryIDRequest)
-      GetShelfByCategoryIDRequestOrBuilder {
+      // @@protoc_insertion_point(message_implements:shelf.GetShelfByCategoryPermalinkRequest)
+      GetShelfByCategoryPermalinkRequestOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use GetShelfByCategoryIDRequest.newBuilder() to construct.
-    private GetShelfByCategoryIDRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use GetShelfByCategoryPermalinkRequest.newBuilder() to construct.
+    private GetShelfByCategoryPermalinkRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private GetShelfByCategoryIDRequest() {
-      categoryId_ = "";
+    private GetShelfByCategoryPermalinkRequest() {
+      permalink_ = "";
       storeId_ = "";
       tenantId_ = "";
     }
@@ -507,7 +507,7 @@ public final class ShelfOuterClass {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new GetShelfByCategoryIDRequest();
+      return new GetShelfByCategoryPermalinkRequest();
     }
 
     @java.lang.Override
@@ -515,7 +515,7 @@ public final class ShelfOuterClass {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private GetShelfByCategoryIDRequest(
+    private GetShelfByCategoryPermalinkRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -536,7 +536,7 @@ public final class ShelfOuterClass {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              categoryId_ = s;
+              permalink_ = s;
               break;
             }
             case 16: {
@@ -590,49 +590,49 @@ public final class ShelfOuterClass {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryIDRequest_descriptor;
+      return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryPermalinkRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryIDRequest_fieldAccessorTable
+      return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryPermalinkRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              shelf.ShelfOuterClass.GetShelfByCategoryIDRequest.class, shelf.ShelfOuterClass.GetShelfByCategoryIDRequest.Builder.class);
+              shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest.class, shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest.Builder.class);
     }
 
-    public static final int CATEGORY_ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object categoryId_;
+    public static final int PERMALINK_FIELD_NUMBER = 1;
+    private volatile java.lang.Object permalink_;
     /**
-     * <code>string category_id = 1;</code>
-     * @return The categoryId.
+     * <code>string permalink = 1;</code>
+     * @return The permalink.
      */
     @java.lang.Override
-    public java.lang.String getCategoryId() {
-      java.lang.Object ref = categoryId_;
+    public java.lang.String getPermalink() {
+      java.lang.Object ref = permalink_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        categoryId_ = s;
+        permalink_ = s;
         return s;
       }
     }
     /**
-     * <code>string category_id = 1;</code>
-     * @return The bytes for categoryId.
+     * <code>string permalink = 1;</code>
+     * @return The bytes for permalink.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getCategoryIdBytes() {
-      java.lang.Object ref = categoryId_;
+        getPermalinkBytes() {
+      java.lang.Object ref = permalink_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        categoryId_ = b;
+        permalink_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -766,8 +766,8 @@ public final class ShelfOuterClass {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getCategoryIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, categoryId_);
+      if (!getPermalinkBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, permalink_);
       }
       if (productsLimit_ != 0L) {
         output.writeInt64(2, productsLimit_);
@@ -790,8 +790,8 @@ public final class ShelfOuterClass {
       if (size != -1) return size;
 
       size = 0;
-      if (!getCategoryIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, categoryId_);
+      if (!getPermalinkBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, permalink_);
       }
       if (productsLimit_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
@@ -817,13 +817,13 @@ public final class ShelfOuterClass {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof shelf.ShelfOuterClass.GetShelfByCategoryIDRequest)) {
+      if (!(obj instanceof shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest)) {
         return super.equals(obj);
       }
-      shelf.ShelfOuterClass.GetShelfByCategoryIDRequest other = (shelf.ShelfOuterClass.GetShelfByCategoryIDRequest) obj;
+      shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest other = (shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest) obj;
 
-      if (!getCategoryId()
-          .equals(other.getCategoryId())) return false;
+      if (!getPermalink()
+          .equals(other.getPermalink())) return false;
       if (getProductsLimit()
           != other.getProductsLimit()) return false;
       if (!getStoreId()
@@ -846,8 +846,8 @@ public final class ShelfOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + CATEGORY_ID_FIELD_NUMBER;
-      hash = (53 * hash) + getCategoryId().hashCode();
+      hash = (37 * hash) + PERMALINK_FIELD_NUMBER;
+      hash = (53 * hash) + getPermalink().hashCode();
       hash = (37 * hash) + PRODUCTS_LIMIT_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getProductsLimit());
@@ -864,69 +864,69 @@ public final class ShelfOuterClass {
       return hash;
     }
 
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDRequest parseFrom(
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDRequest parseFrom(
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDRequest parseFrom(
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDRequest parseFrom(
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDRequest parseFrom(byte[] data)
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDRequest parseFrom(
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDRequest parseFrom(java.io.InputStream input)
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDRequest parseFrom(
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDRequest parseDelimitedFrom(java.io.InputStream input)
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDRequest parseDelimitedFrom(
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDRequest parseFrom(
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDRequest parseFrom(
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -939,7 +939,7 @@ public final class ShelfOuterClass {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(shelf.ShelfOuterClass.GetShelfByCategoryIDRequest prototype) {
+    public static Builder newBuilder(shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -955,26 +955,26 @@ public final class ShelfOuterClass {
       return builder;
     }
     /**
-     * Protobuf type {@code shelf.GetShelfByCategoryIDRequest}
+     * Protobuf type {@code shelf.GetShelfByCategoryPermalinkRequest}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:shelf.GetShelfByCategoryIDRequest)
-        shelf.ShelfOuterClass.GetShelfByCategoryIDRequestOrBuilder {
+        // @@protoc_insertion_point(builder_implements:shelf.GetShelfByCategoryPermalinkRequest)
+        shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryIDRequest_descriptor;
+        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryPermalinkRequest_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryIDRequest_fieldAccessorTable
+        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryPermalinkRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                shelf.ShelfOuterClass.GetShelfByCategoryIDRequest.class, shelf.ShelfOuterClass.GetShelfByCategoryIDRequest.Builder.class);
+                shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest.class, shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest.Builder.class);
       }
 
-      // Construct using shelf.ShelfOuterClass.GetShelfByCategoryIDRequest.newBuilder()
+      // Construct using shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -992,7 +992,7 @@ public final class ShelfOuterClass {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        categoryId_ = "";
+        permalink_ = "";
 
         productsLimit_ = 0L;
 
@@ -1012,17 +1012,17 @@ public final class ShelfOuterClass {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryIDRequest_descriptor;
+        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryPermalinkRequest_descriptor;
       }
 
       @java.lang.Override
-      public shelf.ShelfOuterClass.GetShelfByCategoryIDRequest getDefaultInstanceForType() {
-        return shelf.ShelfOuterClass.GetShelfByCategoryIDRequest.getDefaultInstance();
+      public shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest getDefaultInstanceForType() {
+        return shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest.getDefaultInstance();
       }
 
       @java.lang.Override
-      public shelf.ShelfOuterClass.GetShelfByCategoryIDRequest build() {
-        shelf.ShelfOuterClass.GetShelfByCategoryIDRequest result = buildPartial();
+      public shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest build() {
+        shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -1030,9 +1030,9 @@ public final class ShelfOuterClass {
       }
 
       @java.lang.Override
-      public shelf.ShelfOuterClass.GetShelfByCategoryIDRequest buildPartial() {
-        shelf.ShelfOuterClass.GetShelfByCategoryIDRequest result = new shelf.ShelfOuterClass.GetShelfByCategoryIDRequest(this);
-        result.categoryId_ = categoryId_;
+      public shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest buildPartial() {
+        shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest result = new shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest(this);
+        result.permalink_ = permalink_;
         result.productsLimit_ = productsLimit_;
         result.storeId_ = storeId_;
         result.tenantId_ = tenantId_;
@@ -1079,18 +1079,18 @@ public final class ShelfOuterClass {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof shelf.ShelfOuterClass.GetShelfByCategoryIDRequest) {
-          return mergeFrom((shelf.ShelfOuterClass.GetShelfByCategoryIDRequest)other);
+        if (other instanceof shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest) {
+          return mergeFrom((shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(shelf.ShelfOuterClass.GetShelfByCategoryIDRequest other) {
-        if (other == shelf.ShelfOuterClass.GetShelfByCategoryIDRequest.getDefaultInstance()) return this;
-        if (!other.getCategoryId().isEmpty()) {
-          categoryId_ = other.categoryId_;
+      public Builder mergeFrom(shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest other) {
+        if (other == shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest.getDefaultInstance()) return this;
+        if (!other.getPermalink().isEmpty()) {
+          permalink_ = other.permalink_;
           onChanged();
         }
         if (other.getProductsLimit() != 0L) {
@@ -1122,11 +1122,11 @@ public final class ShelfOuterClass {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        shelf.ShelfOuterClass.GetShelfByCategoryIDRequest parsedMessage = null;
+        shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (shelf.ShelfOuterClass.GetShelfByCategoryIDRequest) e.getUnfinishedMessage();
+          parsedMessage = (shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1136,78 +1136,78 @@ public final class ShelfOuterClass {
         return this;
       }
 
-      private java.lang.Object categoryId_ = "";
+      private java.lang.Object permalink_ = "";
       /**
-       * <code>string category_id = 1;</code>
-       * @return The categoryId.
+       * <code>string permalink = 1;</code>
+       * @return The permalink.
        */
-      public java.lang.String getCategoryId() {
-        java.lang.Object ref = categoryId_;
+      public java.lang.String getPermalink() {
+        java.lang.Object ref = permalink_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          categoryId_ = s;
+          permalink_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string category_id = 1;</code>
-       * @return The bytes for categoryId.
+       * <code>string permalink = 1;</code>
+       * @return The bytes for permalink.
        */
       public com.google.protobuf.ByteString
-          getCategoryIdBytes() {
-        java.lang.Object ref = categoryId_;
+          getPermalinkBytes() {
+        java.lang.Object ref = permalink_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          categoryId_ = b;
+          permalink_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string category_id = 1;</code>
-       * @param value The categoryId to set.
+       * <code>string permalink = 1;</code>
+       * @param value The permalink to set.
        * @return This builder for chaining.
        */
-      public Builder setCategoryId(
+      public Builder setPermalink(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        categoryId_ = value;
+        permalink_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string category_id = 1;</code>
+       * <code>string permalink = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearCategoryId() {
+      public Builder clearPermalink() {
         
-        categoryId_ = getDefaultInstance().getCategoryId();
+        permalink_ = getDefaultInstance().getPermalink();
         onChanged();
         return this;
       }
       /**
-       * <code>string category_id = 1;</code>
-       * @param value The bytes for categoryId to set.
+       * <code>string permalink = 1;</code>
+       * @param value The bytes for permalink to set.
        * @return This builder for chaining.
        */
-      public Builder setCategoryIdBytes(
+      public Builder setPermalinkBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        categoryId_ = value;
+        permalink_ = value;
         onChanged();
         return this;
       }
@@ -1526,41 +1526,4916 @@ public final class ShelfOuterClass {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:shelf.GetShelfByCategoryIDRequest)
+      // @@protoc_insertion_point(builder_scope:shelf.GetShelfByCategoryPermalinkRequest)
     }
 
-    // @@protoc_insertion_point(class_scope:shelf.GetShelfByCategoryIDRequest)
-    private static final shelf.ShelfOuterClass.GetShelfByCategoryIDRequest DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:shelf.GetShelfByCategoryPermalinkRequest)
+    private static final shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new shelf.ShelfOuterClass.GetShelfByCategoryIDRequest();
+      DEFAULT_INSTANCE = new shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest();
     }
 
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDRequest getDefaultInstance() {
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<GetShelfByCategoryIDRequest>
-        PARSER = new com.google.protobuf.AbstractParser<GetShelfByCategoryIDRequest>() {
+    private static final com.google.protobuf.Parser<GetShelfByCategoryPermalinkRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetShelfByCategoryPermalinkRequest>() {
       @java.lang.Override
-      public GetShelfByCategoryIDRequest parsePartialFrom(
+      public GetShelfByCategoryPermalinkRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new GetShelfByCategoryIDRequest(input, extensionRegistry);
+        return new GetShelfByCategoryPermalinkRequest(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<GetShelfByCategoryIDRequest> parser() {
+    public static com.google.protobuf.Parser<GetShelfByCategoryPermalinkRequest> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<GetShelfByCategoryIDRequest> getParserForType() {
+    public com.google.protobuf.Parser<GetShelfByCategoryPermalinkRequest> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public shelf.ShelfOuterClass.GetShelfByCategoryIDRequest getDefaultInstanceForType() {
+    public shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetShelfByCategoryPermalinkWithPaginationRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:shelf.GetShelfByCategoryPermalinkWithPaginationRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string permalink = 1;</code>
+     * @return The permalink.
+     */
+    java.lang.String getPermalink();
+    /**
+     * <code>string permalink = 1;</code>
+     * @return The bytes for permalink.
+     */
+    com.google.protobuf.ByteString
+        getPermalinkBytes();
+
+    /**
+     * <code>int64 products_limit = 2;</code>
+     * @return The productsLimit.
+     */
+    long getProductsLimit();
+
+    /**
+     * <code>string store_id = 3;</code>
+     * @return The storeId.
+     */
+    java.lang.String getStoreId();
+    /**
+     * <code>string store_id = 3;</code>
+     * @return The bytes for storeId.
+     */
+    com.google.protobuf.ByteString
+        getStoreIdBytes();
+
+    /**
+     * <code>string tenant_id = 4;</code>
+     * @return The tenantId.
+     */
+    java.lang.String getTenantId();
+    /**
+     * <code>string tenant_id = 4;</code>
+     * @return The bytes for tenantId.
+     */
+    com.google.protobuf.ByteString
+        getTenantIdBytes();
+
+    /**
+     * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+     * @return Whether the displayAttributes field is set.
+     */
+    boolean hasDisplayAttributes();
+    /**
+     * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+     * @return The displayAttributes.
+     */
+    shelf.ShelfOuterClass.DisplayAttributes getDisplayAttributes();
+    /**
+     * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+     */
+    shelf.ShelfOuterClass.DisplayAttributesOrBuilder getDisplayAttributesOrBuilder();
+
+    /**
+     * <code>int64 limit = 6;</code>
+     * @return The limit.
+     */
+    long getLimit();
+
+    /**
+     * <code>int64 offset = 7;</code>
+     * @return The offset.
+     */
+    long getOffset();
+  }
+  /**
+   * Protobuf type {@code shelf.GetShelfByCategoryPermalinkWithPaginationRequest}
+   */
+  public static final class GetShelfByCategoryPermalinkWithPaginationRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:shelf.GetShelfByCategoryPermalinkWithPaginationRequest)
+      GetShelfByCategoryPermalinkWithPaginationRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetShelfByCategoryPermalinkWithPaginationRequest.newBuilder() to construct.
+    private GetShelfByCategoryPermalinkWithPaginationRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetShelfByCategoryPermalinkWithPaginationRequest() {
+      permalink_ = "";
+      storeId_ = "";
+      tenantId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetShelfByCategoryPermalinkWithPaginationRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetShelfByCategoryPermalinkWithPaginationRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              permalink_ = s;
+              break;
+            }
+            case 16: {
+
+              productsLimit_ = input.readInt64();
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              storeId_ = s;
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              tenantId_ = s;
+              break;
+            }
+            case 42: {
+              shelf.ShelfOuterClass.DisplayAttributes.Builder subBuilder = null;
+              if (displayAttributes_ != null) {
+                subBuilder = displayAttributes_.toBuilder();
+              }
+              displayAttributes_ = input.readMessage(shelf.ShelfOuterClass.DisplayAttributes.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(displayAttributes_);
+                displayAttributes_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 48: {
+
+              limit_ = input.readInt64();
+              break;
+            }
+            case 56: {
+
+              offset_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryPermalinkWithPaginationRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryPermalinkWithPaginationRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest.class, shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest.Builder.class);
+    }
+
+    public static final int PERMALINK_FIELD_NUMBER = 1;
+    private volatile java.lang.Object permalink_;
+    /**
+     * <code>string permalink = 1;</code>
+     * @return The permalink.
+     */
+    @java.lang.Override
+    public java.lang.String getPermalink() {
+      java.lang.Object ref = permalink_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        permalink_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string permalink = 1;</code>
+     * @return The bytes for permalink.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPermalinkBytes() {
+      java.lang.Object ref = permalink_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        permalink_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PRODUCTS_LIMIT_FIELD_NUMBER = 2;
+    private long productsLimit_;
+    /**
+     * <code>int64 products_limit = 2;</code>
+     * @return The productsLimit.
+     */
+    @java.lang.Override
+    public long getProductsLimit() {
+      return productsLimit_;
+    }
+
+    public static final int STORE_ID_FIELD_NUMBER = 3;
+    private volatile java.lang.Object storeId_;
+    /**
+     * <code>string store_id = 3;</code>
+     * @return The storeId.
+     */
+    @java.lang.Override
+    public java.lang.String getStoreId() {
+      java.lang.Object ref = storeId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        storeId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string store_id = 3;</code>
+     * @return The bytes for storeId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getStoreIdBytes() {
+      java.lang.Object ref = storeId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        storeId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TENANT_ID_FIELD_NUMBER = 4;
+    private volatile java.lang.Object tenantId_;
+    /**
+     * <code>string tenant_id = 4;</code>
+     * @return The tenantId.
+     */
+    @java.lang.Override
+    public java.lang.String getTenantId() {
+      java.lang.Object ref = tenantId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        tenantId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string tenant_id = 4;</code>
+     * @return The bytes for tenantId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTenantIdBytes() {
+      java.lang.Object ref = tenantId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        tenantId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DISPLAY_ATTRIBUTES_FIELD_NUMBER = 5;
+    private shelf.ShelfOuterClass.DisplayAttributes displayAttributes_;
+    /**
+     * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+     * @return Whether the displayAttributes field is set.
+     */
+    @java.lang.Override
+    public boolean hasDisplayAttributes() {
+      return displayAttributes_ != null;
+    }
+    /**
+     * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+     * @return The displayAttributes.
+     */
+    @java.lang.Override
+    public shelf.ShelfOuterClass.DisplayAttributes getDisplayAttributes() {
+      return displayAttributes_ == null ? shelf.ShelfOuterClass.DisplayAttributes.getDefaultInstance() : displayAttributes_;
+    }
+    /**
+     * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+     */
+    @java.lang.Override
+    public shelf.ShelfOuterClass.DisplayAttributesOrBuilder getDisplayAttributesOrBuilder() {
+      return getDisplayAttributes();
+    }
+
+    public static final int LIMIT_FIELD_NUMBER = 6;
+    private long limit_;
+    /**
+     * <code>int64 limit = 6;</code>
+     * @return The limit.
+     */
+    @java.lang.Override
+    public long getLimit() {
+      return limit_;
+    }
+
+    public static final int OFFSET_FIELD_NUMBER = 7;
+    private long offset_;
+    /**
+     * <code>int64 offset = 7;</code>
+     * @return The offset.
+     */
+    @java.lang.Override
+    public long getOffset() {
+      return offset_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getPermalinkBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, permalink_);
+      }
+      if (productsLimit_ != 0L) {
+        output.writeInt64(2, productsLimit_);
+      }
+      if (!getStoreIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, storeId_);
+      }
+      if (!getTenantIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, tenantId_);
+      }
+      if (displayAttributes_ != null) {
+        output.writeMessage(5, getDisplayAttributes());
+      }
+      if (limit_ != 0L) {
+        output.writeInt64(6, limit_);
+      }
+      if (offset_ != 0L) {
+        output.writeInt64(7, offset_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getPermalinkBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, permalink_);
+      }
+      if (productsLimit_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, productsLimit_);
+      }
+      if (!getStoreIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, storeId_);
+      }
+      if (!getTenantIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, tenantId_);
+      }
+      if (displayAttributes_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, getDisplayAttributes());
+      }
+      if (limit_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(6, limit_);
+      }
+      if (offset_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(7, offset_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest)) {
+        return super.equals(obj);
+      }
+      shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest other = (shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest) obj;
+
+      if (!getPermalink()
+          .equals(other.getPermalink())) return false;
+      if (getProductsLimit()
+          != other.getProductsLimit()) return false;
+      if (!getStoreId()
+          .equals(other.getStoreId())) return false;
+      if (!getTenantId()
+          .equals(other.getTenantId())) return false;
+      if (hasDisplayAttributes() != other.hasDisplayAttributes()) return false;
+      if (hasDisplayAttributes()) {
+        if (!getDisplayAttributes()
+            .equals(other.getDisplayAttributes())) return false;
+      }
+      if (getLimit()
+          != other.getLimit()) return false;
+      if (getOffset()
+          != other.getOffset()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + PERMALINK_FIELD_NUMBER;
+      hash = (53 * hash) + getPermalink().hashCode();
+      hash = (37 * hash) + PRODUCTS_LIMIT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getProductsLimit());
+      hash = (37 * hash) + STORE_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getStoreId().hashCode();
+      hash = (37 * hash) + TENANT_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getTenantId().hashCode();
+      if (hasDisplayAttributes()) {
+        hash = (37 * hash) + DISPLAY_ATTRIBUTES_FIELD_NUMBER;
+        hash = (53 * hash) + getDisplayAttributes().hashCode();
+      }
+      hash = (37 * hash) + LIMIT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLimit());
+      hash = (37 * hash) + OFFSET_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getOffset());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code shelf.GetShelfByCategoryPermalinkWithPaginationRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:shelf.GetShelfByCategoryPermalinkWithPaginationRequest)
+        shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryPermalinkWithPaginationRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryPermalinkWithPaginationRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest.class, shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest.Builder.class);
+      }
+
+      // Construct using shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        permalink_ = "";
+
+        productsLimit_ = 0L;
+
+        storeId_ = "";
+
+        tenantId_ = "";
+
+        if (displayAttributesBuilder_ == null) {
+          displayAttributes_ = null;
+        } else {
+          displayAttributes_ = null;
+          displayAttributesBuilder_ = null;
+        }
+        limit_ = 0L;
+
+        offset_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryPermalinkWithPaginationRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest getDefaultInstanceForType() {
+        return shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest build() {
+        shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest buildPartial() {
+        shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest result = new shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest(this);
+        result.permalink_ = permalink_;
+        result.productsLimit_ = productsLimit_;
+        result.storeId_ = storeId_;
+        result.tenantId_ = tenantId_;
+        if (displayAttributesBuilder_ == null) {
+          result.displayAttributes_ = displayAttributes_;
+        } else {
+          result.displayAttributes_ = displayAttributesBuilder_.build();
+        }
+        result.limit_ = limit_;
+        result.offset_ = offset_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest) {
+          return mergeFrom((shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest other) {
+        if (other == shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest.getDefaultInstance()) return this;
+        if (!other.getPermalink().isEmpty()) {
+          permalink_ = other.permalink_;
+          onChanged();
+        }
+        if (other.getProductsLimit() != 0L) {
+          setProductsLimit(other.getProductsLimit());
+        }
+        if (!other.getStoreId().isEmpty()) {
+          storeId_ = other.storeId_;
+          onChanged();
+        }
+        if (!other.getTenantId().isEmpty()) {
+          tenantId_ = other.tenantId_;
+          onChanged();
+        }
+        if (other.hasDisplayAttributes()) {
+          mergeDisplayAttributes(other.getDisplayAttributes());
+        }
+        if (other.getLimit() != 0L) {
+          setLimit(other.getLimit());
+        }
+        if (other.getOffset() != 0L) {
+          setOffset(other.getOffset());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object permalink_ = "";
+      /**
+       * <code>string permalink = 1;</code>
+       * @return The permalink.
+       */
+      public java.lang.String getPermalink() {
+        java.lang.Object ref = permalink_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          permalink_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string permalink = 1;</code>
+       * @return The bytes for permalink.
+       */
+      public com.google.protobuf.ByteString
+          getPermalinkBytes() {
+        java.lang.Object ref = permalink_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          permalink_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string permalink = 1;</code>
+       * @param value The permalink to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPermalink(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        permalink_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string permalink = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPermalink() {
+        
+        permalink_ = getDefaultInstance().getPermalink();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string permalink = 1;</code>
+       * @param value The bytes for permalink to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPermalinkBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        permalink_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long productsLimit_ ;
+      /**
+       * <code>int64 products_limit = 2;</code>
+       * @return The productsLimit.
+       */
+      @java.lang.Override
+      public long getProductsLimit() {
+        return productsLimit_;
+      }
+      /**
+       * <code>int64 products_limit = 2;</code>
+       * @param value The productsLimit to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProductsLimit(long value) {
+        
+        productsLimit_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 products_limit = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearProductsLimit() {
+        
+        productsLimit_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object storeId_ = "";
+      /**
+       * <code>string store_id = 3;</code>
+       * @return The storeId.
+       */
+      public java.lang.String getStoreId() {
+        java.lang.Object ref = storeId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          storeId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string store_id = 3;</code>
+       * @return The bytes for storeId.
+       */
+      public com.google.protobuf.ByteString
+          getStoreIdBytes() {
+        java.lang.Object ref = storeId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          storeId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string store_id = 3;</code>
+       * @param value The storeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        storeId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string store_id = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStoreId() {
+        
+        storeId_ = getDefaultInstance().getStoreId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string store_id = 3;</code>
+       * @param value The bytes for storeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        storeId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object tenantId_ = "";
+      /**
+       * <code>string tenant_id = 4;</code>
+       * @return The tenantId.
+       */
+      public java.lang.String getTenantId() {
+        java.lang.Object ref = tenantId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          tenantId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string tenant_id = 4;</code>
+       * @return The bytes for tenantId.
+       */
+      public com.google.protobuf.ByteString
+          getTenantIdBytes() {
+        java.lang.Object ref = tenantId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          tenantId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string tenant_id = 4;</code>
+       * @param value The tenantId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTenantId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        tenantId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string tenant_id = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTenantId() {
+        
+        tenantId_ = getDefaultInstance().getTenantId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string tenant_id = 4;</code>
+       * @param value The bytes for tenantId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTenantIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        tenantId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private shelf.ShelfOuterClass.DisplayAttributes displayAttributes_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          shelf.ShelfOuterClass.DisplayAttributes, shelf.ShelfOuterClass.DisplayAttributes.Builder, shelf.ShelfOuterClass.DisplayAttributesOrBuilder> displayAttributesBuilder_;
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       * @return Whether the displayAttributes field is set.
+       */
+      public boolean hasDisplayAttributes() {
+        return displayAttributesBuilder_ != null || displayAttributes_ != null;
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       * @return The displayAttributes.
+       */
+      public shelf.ShelfOuterClass.DisplayAttributes getDisplayAttributes() {
+        if (displayAttributesBuilder_ == null) {
+          return displayAttributes_ == null ? shelf.ShelfOuterClass.DisplayAttributes.getDefaultInstance() : displayAttributes_;
+        } else {
+          return displayAttributesBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      public Builder setDisplayAttributes(shelf.ShelfOuterClass.DisplayAttributes value) {
+        if (displayAttributesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          displayAttributes_ = value;
+          onChanged();
+        } else {
+          displayAttributesBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      public Builder setDisplayAttributes(
+          shelf.ShelfOuterClass.DisplayAttributes.Builder builderForValue) {
+        if (displayAttributesBuilder_ == null) {
+          displayAttributes_ = builderForValue.build();
+          onChanged();
+        } else {
+          displayAttributesBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      public Builder mergeDisplayAttributes(shelf.ShelfOuterClass.DisplayAttributes value) {
+        if (displayAttributesBuilder_ == null) {
+          if (displayAttributes_ != null) {
+            displayAttributes_ =
+              shelf.ShelfOuterClass.DisplayAttributes.newBuilder(displayAttributes_).mergeFrom(value).buildPartial();
+          } else {
+            displayAttributes_ = value;
+          }
+          onChanged();
+        } else {
+          displayAttributesBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      public Builder clearDisplayAttributes() {
+        if (displayAttributesBuilder_ == null) {
+          displayAttributes_ = null;
+          onChanged();
+        } else {
+          displayAttributes_ = null;
+          displayAttributesBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      public shelf.ShelfOuterClass.DisplayAttributes.Builder getDisplayAttributesBuilder() {
+        
+        onChanged();
+        return getDisplayAttributesFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      public shelf.ShelfOuterClass.DisplayAttributesOrBuilder getDisplayAttributesOrBuilder() {
+        if (displayAttributesBuilder_ != null) {
+          return displayAttributesBuilder_.getMessageOrBuilder();
+        } else {
+          return displayAttributes_ == null ?
+              shelf.ShelfOuterClass.DisplayAttributes.getDefaultInstance() : displayAttributes_;
+        }
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          shelf.ShelfOuterClass.DisplayAttributes, shelf.ShelfOuterClass.DisplayAttributes.Builder, shelf.ShelfOuterClass.DisplayAttributesOrBuilder> 
+          getDisplayAttributesFieldBuilder() {
+        if (displayAttributesBuilder_ == null) {
+          displayAttributesBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              shelf.ShelfOuterClass.DisplayAttributes, shelf.ShelfOuterClass.DisplayAttributes.Builder, shelf.ShelfOuterClass.DisplayAttributesOrBuilder>(
+                  getDisplayAttributes(),
+                  getParentForChildren(),
+                  isClean());
+          displayAttributes_ = null;
+        }
+        return displayAttributesBuilder_;
+      }
+
+      private long limit_ ;
+      /**
+       * <code>int64 limit = 6;</code>
+       * @return The limit.
+       */
+      @java.lang.Override
+      public long getLimit() {
+        return limit_;
+      }
+      /**
+       * <code>int64 limit = 6;</code>
+       * @param value The limit to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLimit(long value) {
+        
+        limit_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 limit = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLimit() {
+        
+        limit_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long offset_ ;
+      /**
+       * <code>int64 offset = 7;</code>
+       * @return The offset.
+       */
+      @java.lang.Override
+      public long getOffset() {
+        return offset_;
+      }
+      /**
+       * <code>int64 offset = 7;</code>
+       * @param value The offset to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOffset(long value) {
+        
+        offset_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 offset = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOffset() {
+        
+        offset_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:shelf.GetShelfByCategoryPermalinkWithPaginationRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:shelf.GetShelfByCategoryPermalinkWithPaginationRequest)
+    private static final shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest();
+    }
+
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetShelfByCategoryPermalinkWithPaginationRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetShelfByCategoryPermalinkWithPaginationRequest>() {
+      @java.lang.Override
+      public GetShelfByCategoryPermalinkWithPaginationRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetShelfByCategoryPermalinkWithPaginationRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetShelfByCategoryPermalinkWithPaginationRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetShelfByCategoryPermalinkWithPaginationRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetShelfByCategoryPermalinkResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:shelf.GetShelfByCategoryPermalinkResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+     */
+    java.util.List<shelf.ShelfOuterClass.ShelfCategory> 
+        getCategoriesList();
+    /**
+     * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+     */
+    shelf.ShelfOuterClass.ShelfCategory getCategories(int index);
+    /**
+     * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+     */
+    int getCategoriesCount();
+    /**
+     * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+     */
+    java.util.List<? extends shelf.ShelfOuterClass.ShelfCategoryOrBuilder> 
+        getCategoriesOrBuilderList();
+    /**
+     * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+     */
+    shelf.ShelfOuterClass.ShelfCategoryOrBuilder getCategoriesOrBuilder(
+        int index);
+
+    /**
+     * <code>repeated .shelf.Shelf shelves = 2;</code>
+     */
+    java.util.List<shelf.ShelfOuterClass.Shelf> 
+        getShelvesList();
+    /**
+     * <code>repeated .shelf.Shelf shelves = 2;</code>
+     */
+    shelf.ShelfOuterClass.Shelf getShelves(int index);
+    /**
+     * <code>repeated .shelf.Shelf shelves = 2;</code>
+     */
+    int getShelvesCount();
+    /**
+     * <code>repeated .shelf.Shelf shelves = 2;</code>
+     */
+    java.util.List<? extends shelf.ShelfOuterClass.ShelfOrBuilder> 
+        getShelvesOrBuilderList();
+    /**
+     * <code>repeated .shelf.Shelf shelves = 2;</code>
+     */
+    shelf.ShelfOuterClass.ShelfOrBuilder getShelvesOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code shelf.GetShelfByCategoryPermalinkResponse}
+   */
+  public static final class GetShelfByCategoryPermalinkResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:shelf.GetShelfByCategoryPermalinkResponse)
+      GetShelfByCategoryPermalinkResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetShelfByCategoryPermalinkResponse.newBuilder() to construct.
+    private GetShelfByCategoryPermalinkResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetShelfByCategoryPermalinkResponse() {
+      categories_ = java.util.Collections.emptyList();
+      shelves_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetShelfByCategoryPermalinkResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetShelfByCategoryPermalinkResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                categories_ = new java.util.ArrayList<shelf.ShelfOuterClass.ShelfCategory>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              categories_.add(
+                  input.readMessage(shelf.ShelfOuterClass.ShelfCategory.parser(), extensionRegistry));
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                shelves_ = new java.util.ArrayList<shelf.ShelfOuterClass.Shelf>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              shelves_.add(
+                  input.readMessage(shelf.ShelfOuterClass.Shelf.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          categories_ = java.util.Collections.unmodifiableList(categories_);
+        }
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          shelves_ = java.util.Collections.unmodifiableList(shelves_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryPermalinkResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryPermalinkResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse.class, shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse.Builder.class);
+    }
+
+    public static final int CATEGORIES_FIELD_NUMBER = 1;
+    private java.util.List<shelf.ShelfOuterClass.ShelfCategory> categories_;
+    /**
+     * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<shelf.ShelfOuterClass.ShelfCategory> getCategoriesList() {
+      return categories_;
+    }
+    /**
+     * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends shelf.ShelfOuterClass.ShelfCategoryOrBuilder> 
+        getCategoriesOrBuilderList() {
+      return categories_;
+    }
+    /**
+     * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+     */
+    @java.lang.Override
+    public int getCategoriesCount() {
+      return categories_.size();
+    }
+    /**
+     * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+     */
+    @java.lang.Override
+    public shelf.ShelfOuterClass.ShelfCategory getCategories(int index) {
+      return categories_.get(index);
+    }
+    /**
+     * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+     */
+    @java.lang.Override
+    public shelf.ShelfOuterClass.ShelfCategoryOrBuilder getCategoriesOrBuilder(
+        int index) {
+      return categories_.get(index);
+    }
+
+    public static final int SHELVES_FIELD_NUMBER = 2;
+    private java.util.List<shelf.ShelfOuterClass.Shelf> shelves_;
+    /**
+     * <code>repeated .shelf.Shelf shelves = 2;</code>
+     */
+    @java.lang.Override
+    public java.util.List<shelf.ShelfOuterClass.Shelf> getShelvesList() {
+      return shelves_;
+    }
+    /**
+     * <code>repeated .shelf.Shelf shelves = 2;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends shelf.ShelfOuterClass.ShelfOrBuilder> 
+        getShelvesOrBuilderList() {
+      return shelves_;
+    }
+    /**
+     * <code>repeated .shelf.Shelf shelves = 2;</code>
+     */
+    @java.lang.Override
+    public int getShelvesCount() {
+      return shelves_.size();
+    }
+    /**
+     * <code>repeated .shelf.Shelf shelves = 2;</code>
+     */
+    @java.lang.Override
+    public shelf.ShelfOuterClass.Shelf getShelves(int index) {
+      return shelves_.get(index);
+    }
+    /**
+     * <code>repeated .shelf.Shelf shelves = 2;</code>
+     */
+    @java.lang.Override
+    public shelf.ShelfOuterClass.ShelfOrBuilder getShelvesOrBuilder(
+        int index) {
+      return shelves_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < categories_.size(); i++) {
+        output.writeMessage(1, categories_.get(i));
+      }
+      for (int i = 0; i < shelves_.size(); i++) {
+        output.writeMessage(2, shelves_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < categories_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, categories_.get(i));
+      }
+      for (int i = 0; i < shelves_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, shelves_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse)) {
+        return super.equals(obj);
+      }
+      shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse other = (shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse) obj;
+
+      if (!getCategoriesList()
+          .equals(other.getCategoriesList())) return false;
+      if (!getShelvesList()
+          .equals(other.getShelvesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getCategoriesCount() > 0) {
+        hash = (37 * hash) + CATEGORIES_FIELD_NUMBER;
+        hash = (53 * hash) + getCategoriesList().hashCode();
+      }
+      if (getShelvesCount() > 0) {
+        hash = (37 * hash) + SHELVES_FIELD_NUMBER;
+        hash = (53 * hash) + getShelvesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code shelf.GetShelfByCategoryPermalinkResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:shelf.GetShelfByCategoryPermalinkResponse)
+        shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryPermalinkResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryPermalinkResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse.class, shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse.Builder.class);
+      }
+
+      // Construct using shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getCategoriesFieldBuilder();
+          getShelvesFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (categoriesBuilder_ == null) {
+          categories_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          categoriesBuilder_.clear();
+        }
+        if (shelvesBuilder_ == null) {
+          shelves_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          shelvesBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryPermalinkResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse getDefaultInstanceForType() {
+        return shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse build() {
+        shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse buildPartial() {
+        shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse result = new shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (categoriesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            categories_ = java.util.Collections.unmodifiableList(categories_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.categories_ = categories_;
+        } else {
+          result.categories_ = categoriesBuilder_.build();
+        }
+        if (shelvesBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            shelves_ = java.util.Collections.unmodifiableList(shelves_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.shelves_ = shelves_;
+        } else {
+          result.shelves_ = shelvesBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse) {
+          return mergeFrom((shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse other) {
+        if (other == shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse.getDefaultInstance()) return this;
+        if (categoriesBuilder_ == null) {
+          if (!other.categories_.isEmpty()) {
+            if (categories_.isEmpty()) {
+              categories_ = other.categories_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureCategoriesIsMutable();
+              categories_.addAll(other.categories_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.categories_.isEmpty()) {
+            if (categoriesBuilder_.isEmpty()) {
+              categoriesBuilder_.dispose();
+              categoriesBuilder_ = null;
+              categories_ = other.categories_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              categoriesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getCategoriesFieldBuilder() : null;
+            } else {
+              categoriesBuilder_.addAllMessages(other.categories_);
+            }
+          }
+        }
+        if (shelvesBuilder_ == null) {
+          if (!other.shelves_.isEmpty()) {
+            if (shelves_.isEmpty()) {
+              shelves_ = other.shelves_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureShelvesIsMutable();
+              shelves_.addAll(other.shelves_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.shelves_.isEmpty()) {
+            if (shelvesBuilder_.isEmpty()) {
+              shelvesBuilder_.dispose();
+              shelvesBuilder_ = null;
+              shelves_ = other.shelves_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              shelvesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getShelvesFieldBuilder() : null;
+            } else {
+              shelvesBuilder_.addAllMessages(other.shelves_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<shelf.ShelfOuterClass.ShelfCategory> categories_ =
+        java.util.Collections.emptyList();
+      private void ensureCategoriesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          categories_ = new java.util.ArrayList<shelf.ShelfOuterClass.ShelfCategory>(categories_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shelf.ShelfOuterClass.ShelfCategory, shelf.ShelfOuterClass.ShelfCategory.Builder, shelf.ShelfOuterClass.ShelfCategoryOrBuilder> categoriesBuilder_;
+
+      /**
+       * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+       */
+      public java.util.List<shelf.ShelfOuterClass.ShelfCategory> getCategoriesList() {
+        if (categoriesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(categories_);
+        } else {
+          return categoriesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+       */
+      public int getCategoriesCount() {
+        if (categoriesBuilder_ == null) {
+          return categories_.size();
+        } else {
+          return categoriesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+       */
+      public shelf.ShelfOuterClass.ShelfCategory getCategories(int index) {
+        if (categoriesBuilder_ == null) {
+          return categories_.get(index);
+        } else {
+          return categoriesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+       */
+      public Builder setCategories(
+          int index, shelf.ShelfOuterClass.ShelfCategory value) {
+        if (categoriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCategoriesIsMutable();
+          categories_.set(index, value);
+          onChanged();
+        } else {
+          categoriesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+       */
+      public Builder setCategories(
+          int index, shelf.ShelfOuterClass.ShelfCategory.Builder builderForValue) {
+        if (categoriesBuilder_ == null) {
+          ensureCategoriesIsMutable();
+          categories_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          categoriesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+       */
+      public Builder addCategories(shelf.ShelfOuterClass.ShelfCategory value) {
+        if (categoriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCategoriesIsMutable();
+          categories_.add(value);
+          onChanged();
+        } else {
+          categoriesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+       */
+      public Builder addCategories(
+          int index, shelf.ShelfOuterClass.ShelfCategory value) {
+        if (categoriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCategoriesIsMutable();
+          categories_.add(index, value);
+          onChanged();
+        } else {
+          categoriesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+       */
+      public Builder addCategories(
+          shelf.ShelfOuterClass.ShelfCategory.Builder builderForValue) {
+        if (categoriesBuilder_ == null) {
+          ensureCategoriesIsMutable();
+          categories_.add(builderForValue.build());
+          onChanged();
+        } else {
+          categoriesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+       */
+      public Builder addCategories(
+          int index, shelf.ShelfOuterClass.ShelfCategory.Builder builderForValue) {
+        if (categoriesBuilder_ == null) {
+          ensureCategoriesIsMutable();
+          categories_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          categoriesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+       */
+      public Builder addAllCategories(
+          java.lang.Iterable<? extends shelf.ShelfOuterClass.ShelfCategory> values) {
+        if (categoriesBuilder_ == null) {
+          ensureCategoriesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, categories_);
+          onChanged();
+        } else {
+          categoriesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+       */
+      public Builder clearCategories() {
+        if (categoriesBuilder_ == null) {
+          categories_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          categoriesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+       */
+      public Builder removeCategories(int index) {
+        if (categoriesBuilder_ == null) {
+          ensureCategoriesIsMutable();
+          categories_.remove(index);
+          onChanged();
+        } else {
+          categoriesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+       */
+      public shelf.ShelfOuterClass.ShelfCategory.Builder getCategoriesBuilder(
+          int index) {
+        return getCategoriesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+       */
+      public shelf.ShelfOuterClass.ShelfCategoryOrBuilder getCategoriesOrBuilder(
+          int index) {
+        if (categoriesBuilder_ == null) {
+          return categories_.get(index);  } else {
+          return categoriesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+       */
+      public java.util.List<? extends shelf.ShelfOuterClass.ShelfCategoryOrBuilder> 
+           getCategoriesOrBuilderList() {
+        if (categoriesBuilder_ != null) {
+          return categoriesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(categories_);
+        }
+      }
+      /**
+       * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+       */
+      public shelf.ShelfOuterClass.ShelfCategory.Builder addCategoriesBuilder() {
+        return getCategoriesFieldBuilder().addBuilder(
+            shelf.ShelfOuterClass.ShelfCategory.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+       */
+      public shelf.ShelfOuterClass.ShelfCategory.Builder addCategoriesBuilder(
+          int index) {
+        return getCategoriesFieldBuilder().addBuilder(
+            index, shelf.ShelfOuterClass.ShelfCategory.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .shelf.ShelfCategory categories = 1;</code>
+       */
+      public java.util.List<shelf.ShelfOuterClass.ShelfCategory.Builder> 
+           getCategoriesBuilderList() {
+        return getCategoriesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shelf.ShelfOuterClass.ShelfCategory, shelf.ShelfOuterClass.ShelfCategory.Builder, shelf.ShelfOuterClass.ShelfCategoryOrBuilder> 
+          getCategoriesFieldBuilder() {
+        if (categoriesBuilder_ == null) {
+          categoriesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              shelf.ShelfOuterClass.ShelfCategory, shelf.ShelfOuterClass.ShelfCategory.Builder, shelf.ShelfOuterClass.ShelfCategoryOrBuilder>(
+                  categories_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          categories_ = null;
+        }
+        return categoriesBuilder_;
+      }
+
+      private java.util.List<shelf.ShelfOuterClass.Shelf> shelves_ =
+        java.util.Collections.emptyList();
+      private void ensureShelvesIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          shelves_ = new java.util.ArrayList<shelf.ShelfOuterClass.Shelf>(shelves_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shelf.ShelfOuterClass.Shelf, shelf.ShelfOuterClass.Shelf.Builder, shelf.ShelfOuterClass.ShelfOrBuilder> shelvesBuilder_;
+
+      /**
+       * <code>repeated .shelf.Shelf shelves = 2;</code>
+       */
+      public java.util.List<shelf.ShelfOuterClass.Shelf> getShelvesList() {
+        if (shelvesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(shelves_);
+        } else {
+          return shelvesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .shelf.Shelf shelves = 2;</code>
+       */
+      public int getShelvesCount() {
+        if (shelvesBuilder_ == null) {
+          return shelves_.size();
+        } else {
+          return shelvesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .shelf.Shelf shelves = 2;</code>
+       */
+      public shelf.ShelfOuterClass.Shelf getShelves(int index) {
+        if (shelvesBuilder_ == null) {
+          return shelves_.get(index);
+        } else {
+          return shelvesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .shelf.Shelf shelves = 2;</code>
+       */
+      public Builder setShelves(
+          int index, shelf.ShelfOuterClass.Shelf value) {
+        if (shelvesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureShelvesIsMutable();
+          shelves_.set(index, value);
+          onChanged();
+        } else {
+          shelvesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shelf.Shelf shelves = 2;</code>
+       */
+      public Builder setShelves(
+          int index, shelf.ShelfOuterClass.Shelf.Builder builderForValue) {
+        if (shelvesBuilder_ == null) {
+          ensureShelvesIsMutable();
+          shelves_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          shelvesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shelf.Shelf shelves = 2;</code>
+       */
+      public Builder addShelves(shelf.ShelfOuterClass.Shelf value) {
+        if (shelvesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureShelvesIsMutable();
+          shelves_.add(value);
+          onChanged();
+        } else {
+          shelvesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shelf.Shelf shelves = 2;</code>
+       */
+      public Builder addShelves(
+          int index, shelf.ShelfOuterClass.Shelf value) {
+        if (shelvesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureShelvesIsMutable();
+          shelves_.add(index, value);
+          onChanged();
+        } else {
+          shelvesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shelf.Shelf shelves = 2;</code>
+       */
+      public Builder addShelves(
+          shelf.ShelfOuterClass.Shelf.Builder builderForValue) {
+        if (shelvesBuilder_ == null) {
+          ensureShelvesIsMutable();
+          shelves_.add(builderForValue.build());
+          onChanged();
+        } else {
+          shelvesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shelf.Shelf shelves = 2;</code>
+       */
+      public Builder addShelves(
+          int index, shelf.ShelfOuterClass.Shelf.Builder builderForValue) {
+        if (shelvesBuilder_ == null) {
+          ensureShelvesIsMutable();
+          shelves_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          shelvesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shelf.Shelf shelves = 2;</code>
+       */
+      public Builder addAllShelves(
+          java.lang.Iterable<? extends shelf.ShelfOuterClass.Shelf> values) {
+        if (shelvesBuilder_ == null) {
+          ensureShelvesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, shelves_);
+          onChanged();
+        } else {
+          shelvesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shelf.Shelf shelves = 2;</code>
+       */
+      public Builder clearShelves() {
+        if (shelvesBuilder_ == null) {
+          shelves_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          shelvesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shelf.Shelf shelves = 2;</code>
+       */
+      public Builder removeShelves(int index) {
+        if (shelvesBuilder_ == null) {
+          ensureShelvesIsMutable();
+          shelves_.remove(index);
+          onChanged();
+        } else {
+          shelvesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .shelf.Shelf shelves = 2;</code>
+       */
+      public shelf.ShelfOuterClass.Shelf.Builder getShelvesBuilder(
+          int index) {
+        return getShelvesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .shelf.Shelf shelves = 2;</code>
+       */
+      public shelf.ShelfOuterClass.ShelfOrBuilder getShelvesOrBuilder(
+          int index) {
+        if (shelvesBuilder_ == null) {
+          return shelves_.get(index);  } else {
+          return shelvesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .shelf.Shelf shelves = 2;</code>
+       */
+      public java.util.List<? extends shelf.ShelfOuterClass.ShelfOrBuilder> 
+           getShelvesOrBuilderList() {
+        if (shelvesBuilder_ != null) {
+          return shelvesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(shelves_);
+        }
+      }
+      /**
+       * <code>repeated .shelf.Shelf shelves = 2;</code>
+       */
+      public shelf.ShelfOuterClass.Shelf.Builder addShelvesBuilder() {
+        return getShelvesFieldBuilder().addBuilder(
+            shelf.ShelfOuterClass.Shelf.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .shelf.Shelf shelves = 2;</code>
+       */
+      public shelf.ShelfOuterClass.Shelf.Builder addShelvesBuilder(
+          int index) {
+        return getShelvesFieldBuilder().addBuilder(
+            index, shelf.ShelfOuterClass.Shelf.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .shelf.Shelf shelves = 2;</code>
+       */
+      public java.util.List<shelf.ShelfOuterClass.Shelf.Builder> 
+           getShelvesBuilderList() {
+        return getShelvesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          shelf.ShelfOuterClass.Shelf, shelf.ShelfOuterClass.Shelf.Builder, shelf.ShelfOuterClass.ShelfOrBuilder> 
+          getShelvesFieldBuilder() {
+        if (shelvesBuilder_ == null) {
+          shelvesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              shelf.ShelfOuterClass.Shelf, shelf.ShelfOuterClass.Shelf.Builder, shelf.ShelfOuterClass.ShelfOrBuilder>(
+                  shelves_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          shelves_ = null;
+        }
+        return shelvesBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:shelf.GetShelfByCategoryPermalinkResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:shelf.GetShelfByCategoryPermalinkResponse)
+    private static final shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse();
+    }
+
+    public static shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetShelfByCategoryPermalinkResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetShelfByCategoryPermalinkResponse>() {
+      @java.lang.Override
+      public GetShelfByCategoryPermalinkResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetShelfByCategoryPermalinkResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetShelfByCategoryPermalinkResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetShelfByCategoryPermalinkResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetShelfByOriginalCategoryIDRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:shelf.GetShelfByOriginalCategoryIDRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string original_category_id = 1;</code>
+     * @return The originalCategoryId.
+     */
+    java.lang.String getOriginalCategoryId();
+    /**
+     * <code>string original_category_id = 1;</code>
+     * @return The bytes for originalCategoryId.
+     */
+    com.google.protobuf.ByteString
+        getOriginalCategoryIdBytes();
+
+    /**
+     * <code>int64 products_limit = 2;</code>
+     * @return The productsLimit.
+     */
+    long getProductsLimit();
+
+    /**
+     * <code>string store_id = 3;</code>
+     * @return The storeId.
+     */
+    java.lang.String getStoreId();
+    /**
+     * <code>string store_id = 3;</code>
+     * @return The bytes for storeId.
+     */
+    com.google.protobuf.ByteString
+        getStoreIdBytes();
+
+    /**
+     * <code>string tenant_id = 4;</code>
+     * @return The tenantId.
+     */
+    java.lang.String getTenantId();
+    /**
+     * <code>string tenant_id = 4;</code>
+     * @return The bytes for tenantId.
+     */
+    com.google.protobuf.ByteString
+        getTenantIdBytes();
+
+    /**
+     * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+     * @return Whether the displayAttributes field is set.
+     */
+    boolean hasDisplayAttributes();
+    /**
+     * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+     * @return The displayAttributes.
+     */
+    shelf.ShelfOuterClass.DisplayAttributes getDisplayAttributes();
+    /**
+     * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+     */
+    shelf.ShelfOuterClass.DisplayAttributesOrBuilder getDisplayAttributesOrBuilder();
+  }
+  /**
+   * Protobuf type {@code shelf.GetShelfByOriginalCategoryIDRequest}
+   */
+  public static final class GetShelfByOriginalCategoryIDRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:shelf.GetShelfByOriginalCategoryIDRequest)
+      GetShelfByOriginalCategoryIDRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetShelfByOriginalCategoryIDRequest.newBuilder() to construct.
+    private GetShelfByOriginalCategoryIDRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetShelfByOriginalCategoryIDRequest() {
+      originalCategoryId_ = "";
+      storeId_ = "";
+      tenantId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetShelfByOriginalCategoryIDRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetShelfByOriginalCategoryIDRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              originalCategoryId_ = s;
+              break;
+            }
+            case 16: {
+
+              productsLimit_ = input.readInt64();
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              storeId_ = s;
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              tenantId_ = s;
+              break;
+            }
+            case 42: {
+              shelf.ShelfOuterClass.DisplayAttributes.Builder subBuilder = null;
+              if (displayAttributes_ != null) {
+                subBuilder = displayAttributes_.toBuilder();
+              }
+              displayAttributes_ = input.readMessage(shelf.ShelfOuterClass.DisplayAttributes.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(displayAttributes_);
+                displayAttributes_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByOriginalCategoryIDRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByOriginalCategoryIDRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest.class, shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest.Builder.class);
+    }
+
+    public static final int ORIGINAL_CATEGORY_ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object originalCategoryId_;
+    /**
+     * <code>string original_category_id = 1;</code>
+     * @return The originalCategoryId.
+     */
+    @java.lang.Override
+    public java.lang.String getOriginalCategoryId() {
+      java.lang.Object ref = originalCategoryId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        originalCategoryId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string original_category_id = 1;</code>
+     * @return The bytes for originalCategoryId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOriginalCategoryIdBytes() {
+      java.lang.Object ref = originalCategoryId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        originalCategoryId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PRODUCTS_LIMIT_FIELD_NUMBER = 2;
+    private long productsLimit_;
+    /**
+     * <code>int64 products_limit = 2;</code>
+     * @return The productsLimit.
+     */
+    @java.lang.Override
+    public long getProductsLimit() {
+      return productsLimit_;
+    }
+
+    public static final int STORE_ID_FIELD_NUMBER = 3;
+    private volatile java.lang.Object storeId_;
+    /**
+     * <code>string store_id = 3;</code>
+     * @return The storeId.
+     */
+    @java.lang.Override
+    public java.lang.String getStoreId() {
+      java.lang.Object ref = storeId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        storeId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string store_id = 3;</code>
+     * @return The bytes for storeId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getStoreIdBytes() {
+      java.lang.Object ref = storeId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        storeId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TENANT_ID_FIELD_NUMBER = 4;
+    private volatile java.lang.Object tenantId_;
+    /**
+     * <code>string tenant_id = 4;</code>
+     * @return The tenantId.
+     */
+    @java.lang.Override
+    public java.lang.String getTenantId() {
+      java.lang.Object ref = tenantId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        tenantId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string tenant_id = 4;</code>
+     * @return The bytes for tenantId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTenantIdBytes() {
+      java.lang.Object ref = tenantId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        tenantId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DISPLAY_ATTRIBUTES_FIELD_NUMBER = 5;
+    private shelf.ShelfOuterClass.DisplayAttributes displayAttributes_;
+    /**
+     * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+     * @return Whether the displayAttributes field is set.
+     */
+    @java.lang.Override
+    public boolean hasDisplayAttributes() {
+      return displayAttributes_ != null;
+    }
+    /**
+     * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+     * @return The displayAttributes.
+     */
+    @java.lang.Override
+    public shelf.ShelfOuterClass.DisplayAttributes getDisplayAttributes() {
+      return displayAttributes_ == null ? shelf.ShelfOuterClass.DisplayAttributes.getDefaultInstance() : displayAttributes_;
+    }
+    /**
+     * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+     */
+    @java.lang.Override
+    public shelf.ShelfOuterClass.DisplayAttributesOrBuilder getDisplayAttributesOrBuilder() {
+      return getDisplayAttributes();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getOriginalCategoryIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, originalCategoryId_);
+      }
+      if (productsLimit_ != 0L) {
+        output.writeInt64(2, productsLimit_);
+      }
+      if (!getStoreIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, storeId_);
+      }
+      if (!getTenantIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, tenantId_);
+      }
+      if (displayAttributes_ != null) {
+        output.writeMessage(5, getDisplayAttributes());
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getOriginalCategoryIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, originalCategoryId_);
+      }
+      if (productsLimit_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, productsLimit_);
+      }
+      if (!getStoreIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, storeId_);
+      }
+      if (!getTenantIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, tenantId_);
+      }
+      if (displayAttributes_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, getDisplayAttributes());
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest)) {
+        return super.equals(obj);
+      }
+      shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest other = (shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest) obj;
+
+      if (!getOriginalCategoryId()
+          .equals(other.getOriginalCategoryId())) return false;
+      if (getProductsLimit()
+          != other.getProductsLimit()) return false;
+      if (!getStoreId()
+          .equals(other.getStoreId())) return false;
+      if (!getTenantId()
+          .equals(other.getTenantId())) return false;
+      if (hasDisplayAttributes() != other.hasDisplayAttributes()) return false;
+      if (hasDisplayAttributes()) {
+        if (!getDisplayAttributes()
+            .equals(other.getDisplayAttributes())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ORIGINAL_CATEGORY_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getOriginalCategoryId().hashCode();
+      hash = (37 * hash) + PRODUCTS_LIMIT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getProductsLimit());
+      hash = (37 * hash) + STORE_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getStoreId().hashCode();
+      hash = (37 * hash) + TENANT_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getTenantId().hashCode();
+      if (hasDisplayAttributes()) {
+        hash = (37 * hash) + DISPLAY_ATTRIBUTES_FIELD_NUMBER;
+        hash = (53 * hash) + getDisplayAttributes().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code shelf.GetShelfByOriginalCategoryIDRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:shelf.GetShelfByOriginalCategoryIDRequest)
+        shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByOriginalCategoryIDRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByOriginalCategoryIDRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest.class, shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest.Builder.class);
+      }
+
+      // Construct using shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        originalCategoryId_ = "";
+
+        productsLimit_ = 0L;
+
+        storeId_ = "";
+
+        tenantId_ = "";
+
+        if (displayAttributesBuilder_ == null) {
+          displayAttributes_ = null;
+        } else {
+          displayAttributes_ = null;
+          displayAttributesBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByOriginalCategoryIDRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest getDefaultInstanceForType() {
+        return shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest build() {
+        shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest buildPartial() {
+        shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest result = new shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest(this);
+        result.originalCategoryId_ = originalCategoryId_;
+        result.productsLimit_ = productsLimit_;
+        result.storeId_ = storeId_;
+        result.tenantId_ = tenantId_;
+        if (displayAttributesBuilder_ == null) {
+          result.displayAttributes_ = displayAttributes_;
+        } else {
+          result.displayAttributes_ = displayAttributesBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest) {
+          return mergeFrom((shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest other) {
+        if (other == shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest.getDefaultInstance()) return this;
+        if (!other.getOriginalCategoryId().isEmpty()) {
+          originalCategoryId_ = other.originalCategoryId_;
+          onChanged();
+        }
+        if (other.getProductsLimit() != 0L) {
+          setProductsLimit(other.getProductsLimit());
+        }
+        if (!other.getStoreId().isEmpty()) {
+          storeId_ = other.storeId_;
+          onChanged();
+        }
+        if (!other.getTenantId().isEmpty()) {
+          tenantId_ = other.tenantId_;
+          onChanged();
+        }
+        if (other.hasDisplayAttributes()) {
+          mergeDisplayAttributes(other.getDisplayAttributes());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object originalCategoryId_ = "";
+      /**
+       * <code>string original_category_id = 1;</code>
+       * @return The originalCategoryId.
+       */
+      public java.lang.String getOriginalCategoryId() {
+        java.lang.Object ref = originalCategoryId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          originalCategoryId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string original_category_id = 1;</code>
+       * @return The bytes for originalCategoryId.
+       */
+      public com.google.protobuf.ByteString
+          getOriginalCategoryIdBytes() {
+        java.lang.Object ref = originalCategoryId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          originalCategoryId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string original_category_id = 1;</code>
+       * @param value The originalCategoryId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOriginalCategoryId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        originalCategoryId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string original_category_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOriginalCategoryId() {
+        
+        originalCategoryId_ = getDefaultInstance().getOriginalCategoryId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string original_category_id = 1;</code>
+       * @param value The bytes for originalCategoryId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOriginalCategoryIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        originalCategoryId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long productsLimit_ ;
+      /**
+       * <code>int64 products_limit = 2;</code>
+       * @return The productsLimit.
+       */
+      @java.lang.Override
+      public long getProductsLimit() {
+        return productsLimit_;
+      }
+      /**
+       * <code>int64 products_limit = 2;</code>
+       * @param value The productsLimit to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProductsLimit(long value) {
+        
+        productsLimit_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 products_limit = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearProductsLimit() {
+        
+        productsLimit_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object storeId_ = "";
+      /**
+       * <code>string store_id = 3;</code>
+       * @return The storeId.
+       */
+      public java.lang.String getStoreId() {
+        java.lang.Object ref = storeId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          storeId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string store_id = 3;</code>
+       * @return The bytes for storeId.
+       */
+      public com.google.protobuf.ByteString
+          getStoreIdBytes() {
+        java.lang.Object ref = storeId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          storeId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string store_id = 3;</code>
+       * @param value The storeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        storeId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string store_id = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStoreId() {
+        
+        storeId_ = getDefaultInstance().getStoreId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string store_id = 3;</code>
+       * @param value The bytes for storeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        storeId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object tenantId_ = "";
+      /**
+       * <code>string tenant_id = 4;</code>
+       * @return The tenantId.
+       */
+      public java.lang.String getTenantId() {
+        java.lang.Object ref = tenantId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          tenantId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string tenant_id = 4;</code>
+       * @return The bytes for tenantId.
+       */
+      public com.google.protobuf.ByteString
+          getTenantIdBytes() {
+        java.lang.Object ref = tenantId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          tenantId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string tenant_id = 4;</code>
+       * @param value The tenantId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTenantId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        tenantId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string tenant_id = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTenantId() {
+        
+        tenantId_ = getDefaultInstance().getTenantId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string tenant_id = 4;</code>
+       * @param value The bytes for tenantId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTenantIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        tenantId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private shelf.ShelfOuterClass.DisplayAttributes displayAttributes_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          shelf.ShelfOuterClass.DisplayAttributes, shelf.ShelfOuterClass.DisplayAttributes.Builder, shelf.ShelfOuterClass.DisplayAttributesOrBuilder> displayAttributesBuilder_;
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       * @return Whether the displayAttributes field is set.
+       */
+      public boolean hasDisplayAttributes() {
+        return displayAttributesBuilder_ != null || displayAttributes_ != null;
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       * @return The displayAttributes.
+       */
+      public shelf.ShelfOuterClass.DisplayAttributes getDisplayAttributes() {
+        if (displayAttributesBuilder_ == null) {
+          return displayAttributes_ == null ? shelf.ShelfOuterClass.DisplayAttributes.getDefaultInstance() : displayAttributes_;
+        } else {
+          return displayAttributesBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      public Builder setDisplayAttributes(shelf.ShelfOuterClass.DisplayAttributes value) {
+        if (displayAttributesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          displayAttributes_ = value;
+          onChanged();
+        } else {
+          displayAttributesBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      public Builder setDisplayAttributes(
+          shelf.ShelfOuterClass.DisplayAttributes.Builder builderForValue) {
+        if (displayAttributesBuilder_ == null) {
+          displayAttributes_ = builderForValue.build();
+          onChanged();
+        } else {
+          displayAttributesBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      public Builder mergeDisplayAttributes(shelf.ShelfOuterClass.DisplayAttributes value) {
+        if (displayAttributesBuilder_ == null) {
+          if (displayAttributes_ != null) {
+            displayAttributes_ =
+              shelf.ShelfOuterClass.DisplayAttributes.newBuilder(displayAttributes_).mergeFrom(value).buildPartial();
+          } else {
+            displayAttributes_ = value;
+          }
+          onChanged();
+        } else {
+          displayAttributesBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      public Builder clearDisplayAttributes() {
+        if (displayAttributesBuilder_ == null) {
+          displayAttributes_ = null;
+          onChanged();
+        } else {
+          displayAttributes_ = null;
+          displayAttributesBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      public shelf.ShelfOuterClass.DisplayAttributes.Builder getDisplayAttributesBuilder() {
+        
+        onChanged();
+        return getDisplayAttributesFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      public shelf.ShelfOuterClass.DisplayAttributesOrBuilder getDisplayAttributesOrBuilder() {
+        if (displayAttributesBuilder_ != null) {
+          return displayAttributesBuilder_.getMessageOrBuilder();
+        } else {
+          return displayAttributes_ == null ?
+              shelf.ShelfOuterClass.DisplayAttributes.getDefaultInstance() : displayAttributes_;
+        }
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          shelf.ShelfOuterClass.DisplayAttributes, shelf.ShelfOuterClass.DisplayAttributes.Builder, shelf.ShelfOuterClass.DisplayAttributesOrBuilder> 
+          getDisplayAttributesFieldBuilder() {
+        if (displayAttributesBuilder_ == null) {
+          displayAttributesBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              shelf.ShelfOuterClass.DisplayAttributes, shelf.ShelfOuterClass.DisplayAttributes.Builder, shelf.ShelfOuterClass.DisplayAttributesOrBuilder>(
+                  getDisplayAttributes(),
+                  getParentForChildren(),
+                  isClean());
+          displayAttributes_ = null;
+        }
+        return displayAttributesBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:shelf.GetShelfByOriginalCategoryIDRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:shelf.GetShelfByOriginalCategoryIDRequest)
+    private static final shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest();
+    }
+
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetShelfByOriginalCategoryIDRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetShelfByOriginalCategoryIDRequest>() {
+      @java.lang.Override
+      public GetShelfByOriginalCategoryIDRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetShelfByOriginalCategoryIDRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetShelfByOriginalCategoryIDRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetShelfByOriginalCategoryIDRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetShelfByOriginalCategoryIDWithPaginationRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:shelf.GetShelfByOriginalCategoryIDWithPaginationRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string original_category_id = 1;</code>
+     * @return The originalCategoryId.
+     */
+    java.lang.String getOriginalCategoryId();
+    /**
+     * <code>string original_category_id = 1;</code>
+     * @return The bytes for originalCategoryId.
+     */
+    com.google.protobuf.ByteString
+        getOriginalCategoryIdBytes();
+
+    /**
+     * <code>int64 products_limit = 2;</code>
+     * @return The productsLimit.
+     */
+    long getProductsLimit();
+
+    /**
+     * <code>string store_id = 3;</code>
+     * @return The storeId.
+     */
+    java.lang.String getStoreId();
+    /**
+     * <code>string store_id = 3;</code>
+     * @return The bytes for storeId.
+     */
+    com.google.protobuf.ByteString
+        getStoreIdBytes();
+
+    /**
+     * <code>string tenant_id = 4;</code>
+     * @return The tenantId.
+     */
+    java.lang.String getTenantId();
+    /**
+     * <code>string tenant_id = 4;</code>
+     * @return The bytes for tenantId.
+     */
+    com.google.protobuf.ByteString
+        getTenantIdBytes();
+
+    /**
+     * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+     * @return Whether the displayAttributes field is set.
+     */
+    boolean hasDisplayAttributes();
+    /**
+     * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+     * @return The displayAttributes.
+     */
+    shelf.ShelfOuterClass.DisplayAttributes getDisplayAttributes();
+    /**
+     * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+     */
+    shelf.ShelfOuterClass.DisplayAttributesOrBuilder getDisplayAttributesOrBuilder();
+
+    /**
+     * <code>int64 limit = 6;</code>
+     * @return The limit.
+     */
+    long getLimit();
+
+    /**
+     * <code>int64 offset = 7;</code>
+     * @return The offset.
+     */
+    long getOffset();
+  }
+  /**
+   * Protobuf type {@code shelf.GetShelfByOriginalCategoryIDWithPaginationRequest}
+   */
+  public static final class GetShelfByOriginalCategoryIDWithPaginationRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:shelf.GetShelfByOriginalCategoryIDWithPaginationRequest)
+      GetShelfByOriginalCategoryIDWithPaginationRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetShelfByOriginalCategoryIDWithPaginationRequest.newBuilder() to construct.
+    private GetShelfByOriginalCategoryIDWithPaginationRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetShelfByOriginalCategoryIDWithPaginationRequest() {
+      originalCategoryId_ = "";
+      storeId_ = "";
+      tenantId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetShelfByOriginalCategoryIDWithPaginationRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetShelfByOriginalCategoryIDWithPaginationRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              originalCategoryId_ = s;
+              break;
+            }
+            case 16: {
+
+              productsLimit_ = input.readInt64();
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              storeId_ = s;
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              tenantId_ = s;
+              break;
+            }
+            case 42: {
+              shelf.ShelfOuterClass.DisplayAttributes.Builder subBuilder = null;
+              if (displayAttributes_ != null) {
+                subBuilder = displayAttributes_.toBuilder();
+              }
+              displayAttributes_ = input.readMessage(shelf.ShelfOuterClass.DisplayAttributes.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(displayAttributes_);
+                displayAttributes_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 48: {
+
+              limit_ = input.readInt64();
+              break;
+            }
+            case 56: {
+
+              offset_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByOriginalCategoryIDWithPaginationRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByOriginalCategoryIDWithPaginationRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest.class, shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest.Builder.class);
+    }
+
+    public static final int ORIGINAL_CATEGORY_ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object originalCategoryId_;
+    /**
+     * <code>string original_category_id = 1;</code>
+     * @return The originalCategoryId.
+     */
+    @java.lang.Override
+    public java.lang.String getOriginalCategoryId() {
+      java.lang.Object ref = originalCategoryId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        originalCategoryId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string original_category_id = 1;</code>
+     * @return The bytes for originalCategoryId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOriginalCategoryIdBytes() {
+      java.lang.Object ref = originalCategoryId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        originalCategoryId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PRODUCTS_LIMIT_FIELD_NUMBER = 2;
+    private long productsLimit_;
+    /**
+     * <code>int64 products_limit = 2;</code>
+     * @return The productsLimit.
+     */
+    @java.lang.Override
+    public long getProductsLimit() {
+      return productsLimit_;
+    }
+
+    public static final int STORE_ID_FIELD_NUMBER = 3;
+    private volatile java.lang.Object storeId_;
+    /**
+     * <code>string store_id = 3;</code>
+     * @return The storeId.
+     */
+    @java.lang.Override
+    public java.lang.String getStoreId() {
+      java.lang.Object ref = storeId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        storeId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string store_id = 3;</code>
+     * @return The bytes for storeId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getStoreIdBytes() {
+      java.lang.Object ref = storeId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        storeId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TENANT_ID_FIELD_NUMBER = 4;
+    private volatile java.lang.Object tenantId_;
+    /**
+     * <code>string tenant_id = 4;</code>
+     * @return The tenantId.
+     */
+    @java.lang.Override
+    public java.lang.String getTenantId() {
+      java.lang.Object ref = tenantId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        tenantId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string tenant_id = 4;</code>
+     * @return The bytes for tenantId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTenantIdBytes() {
+      java.lang.Object ref = tenantId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        tenantId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DISPLAY_ATTRIBUTES_FIELD_NUMBER = 5;
+    private shelf.ShelfOuterClass.DisplayAttributes displayAttributes_;
+    /**
+     * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+     * @return Whether the displayAttributes field is set.
+     */
+    @java.lang.Override
+    public boolean hasDisplayAttributes() {
+      return displayAttributes_ != null;
+    }
+    /**
+     * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+     * @return The displayAttributes.
+     */
+    @java.lang.Override
+    public shelf.ShelfOuterClass.DisplayAttributes getDisplayAttributes() {
+      return displayAttributes_ == null ? shelf.ShelfOuterClass.DisplayAttributes.getDefaultInstance() : displayAttributes_;
+    }
+    /**
+     * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+     */
+    @java.lang.Override
+    public shelf.ShelfOuterClass.DisplayAttributesOrBuilder getDisplayAttributesOrBuilder() {
+      return getDisplayAttributes();
+    }
+
+    public static final int LIMIT_FIELD_NUMBER = 6;
+    private long limit_;
+    /**
+     * <code>int64 limit = 6;</code>
+     * @return The limit.
+     */
+    @java.lang.Override
+    public long getLimit() {
+      return limit_;
+    }
+
+    public static final int OFFSET_FIELD_NUMBER = 7;
+    private long offset_;
+    /**
+     * <code>int64 offset = 7;</code>
+     * @return The offset.
+     */
+    @java.lang.Override
+    public long getOffset() {
+      return offset_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getOriginalCategoryIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, originalCategoryId_);
+      }
+      if (productsLimit_ != 0L) {
+        output.writeInt64(2, productsLimit_);
+      }
+      if (!getStoreIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, storeId_);
+      }
+      if (!getTenantIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, tenantId_);
+      }
+      if (displayAttributes_ != null) {
+        output.writeMessage(5, getDisplayAttributes());
+      }
+      if (limit_ != 0L) {
+        output.writeInt64(6, limit_);
+      }
+      if (offset_ != 0L) {
+        output.writeInt64(7, offset_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getOriginalCategoryIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, originalCategoryId_);
+      }
+      if (productsLimit_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, productsLimit_);
+      }
+      if (!getStoreIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, storeId_);
+      }
+      if (!getTenantIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, tenantId_);
+      }
+      if (displayAttributes_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, getDisplayAttributes());
+      }
+      if (limit_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(6, limit_);
+      }
+      if (offset_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(7, offset_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest)) {
+        return super.equals(obj);
+      }
+      shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest other = (shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest) obj;
+
+      if (!getOriginalCategoryId()
+          .equals(other.getOriginalCategoryId())) return false;
+      if (getProductsLimit()
+          != other.getProductsLimit()) return false;
+      if (!getStoreId()
+          .equals(other.getStoreId())) return false;
+      if (!getTenantId()
+          .equals(other.getTenantId())) return false;
+      if (hasDisplayAttributes() != other.hasDisplayAttributes()) return false;
+      if (hasDisplayAttributes()) {
+        if (!getDisplayAttributes()
+            .equals(other.getDisplayAttributes())) return false;
+      }
+      if (getLimit()
+          != other.getLimit()) return false;
+      if (getOffset()
+          != other.getOffset()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ORIGINAL_CATEGORY_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getOriginalCategoryId().hashCode();
+      hash = (37 * hash) + PRODUCTS_LIMIT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getProductsLimit());
+      hash = (37 * hash) + STORE_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getStoreId().hashCode();
+      hash = (37 * hash) + TENANT_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getTenantId().hashCode();
+      if (hasDisplayAttributes()) {
+        hash = (37 * hash) + DISPLAY_ATTRIBUTES_FIELD_NUMBER;
+        hash = (53 * hash) + getDisplayAttributes().hashCode();
+      }
+      hash = (37 * hash) + LIMIT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLimit());
+      hash = (37 * hash) + OFFSET_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getOffset());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code shelf.GetShelfByOriginalCategoryIDWithPaginationRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:shelf.GetShelfByOriginalCategoryIDWithPaginationRequest)
+        shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByOriginalCategoryIDWithPaginationRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByOriginalCategoryIDWithPaginationRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest.class, shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest.Builder.class);
+      }
+
+      // Construct using shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        originalCategoryId_ = "";
+
+        productsLimit_ = 0L;
+
+        storeId_ = "";
+
+        tenantId_ = "";
+
+        if (displayAttributesBuilder_ == null) {
+          displayAttributes_ = null;
+        } else {
+          displayAttributes_ = null;
+          displayAttributesBuilder_ = null;
+        }
+        limit_ = 0L;
+
+        offset_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByOriginalCategoryIDWithPaginationRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest getDefaultInstanceForType() {
+        return shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest build() {
+        shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest buildPartial() {
+        shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest result = new shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest(this);
+        result.originalCategoryId_ = originalCategoryId_;
+        result.productsLimit_ = productsLimit_;
+        result.storeId_ = storeId_;
+        result.tenantId_ = tenantId_;
+        if (displayAttributesBuilder_ == null) {
+          result.displayAttributes_ = displayAttributes_;
+        } else {
+          result.displayAttributes_ = displayAttributesBuilder_.build();
+        }
+        result.limit_ = limit_;
+        result.offset_ = offset_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest) {
+          return mergeFrom((shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest other) {
+        if (other == shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest.getDefaultInstance()) return this;
+        if (!other.getOriginalCategoryId().isEmpty()) {
+          originalCategoryId_ = other.originalCategoryId_;
+          onChanged();
+        }
+        if (other.getProductsLimit() != 0L) {
+          setProductsLimit(other.getProductsLimit());
+        }
+        if (!other.getStoreId().isEmpty()) {
+          storeId_ = other.storeId_;
+          onChanged();
+        }
+        if (!other.getTenantId().isEmpty()) {
+          tenantId_ = other.tenantId_;
+          onChanged();
+        }
+        if (other.hasDisplayAttributes()) {
+          mergeDisplayAttributes(other.getDisplayAttributes());
+        }
+        if (other.getLimit() != 0L) {
+          setLimit(other.getLimit());
+        }
+        if (other.getOffset() != 0L) {
+          setOffset(other.getOffset());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object originalCategoryId_ = "";
+      /**
+       * <code>string original_category_id = 1;</code>
+       * @return The originalCategoryId.
+       */
+      public java.lang.String getOriginalCategoryId() {
+        java.lang.Object ref = originalCategoryId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          originalCategoryId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string original_category_id = 1;</code>
+       * @return The bytes for originalCategoryId.
+       */
+      public com.google.protobuf.ByteString
+          getOriginalCategoryIdBytes() {
+        java.lang.Object ref = originalCategoryId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          originalCategoryId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string original_category_id = 1;</code>
+       * @param value The originalCategoryId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOriginalCategoryId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        originalCategoryId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string original_category_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOriginalCategoryId() {
+        
+        originalCategoryId_ = getDefaultInstance().getOriginalCategoryId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string original_category_id = 1;</code>
+       * @param value The bytes for originalCategoryId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOriginalCategoryIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        originalCategoryId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long productsLimit_ ;
+      /**
+       * <code>int64 products_limit = 2;</code>
+       * @return The productsLimit.
+       */
+      @java.lang.Override
+      public long getProductsLimit() {
+        return productsLimit_;
+      }
+      /**
+       * <code>int64 products_limit = 2;</code>
+       * @param value The productsLimit to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProductsLimit(long value) {
+        
+        productsLimit_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 products_limit = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearProductsLimit() {
+        
+        productsLimit_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object storeId_ = "";
+      /**
+       * <code>string store_id = 3;</code>
+       * @return The storeId.
+       */
+      public java.lang.String getStoreId() {
+        java.lang.Object ref = storeId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          storeId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string store_id = 3;</code>
+       * @return The bytes for storeId.
+       */
+      public com.google.protobuf.ByteString
+          getStoreIdBytes() {
+        java.lang.Object ref = storeId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          storeId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string store_id = 3;</code>
+       * @param value The storeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        storeId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string store_id = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStoreId() {
+        
+        storeId_ = getDefaultInstance().getStoreId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string store_id = 3;</code>
+       * @param value The bytes for storeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStoreIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        storeId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object tenantId_ = "";
+      /**
+       * <code>string tenant_id = 4;</code>
+       * @return The tenantId.
+       */
+      public java.lang.String getTenantId() {
+        java.lang.Object ref = tenantId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          tenantId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string tenant_id = 4;</code>
+       * @return The bytes for tenantId.
+       */
+      public com.google.protobuf.ByteString
+          getTenantIdBytes() {
+        java.lang.Object ref = tenantId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          tenantId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string tenant_id = 4;</code>
+       * @param value The tenantId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTenantId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        tenantId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string tenant_id = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTenantId() {
+        
+        tenantId_ = getDefaultInstance().getTenantId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string tenant_id = 4;</code>
+       * @param value The bytes for tenantId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTenantIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        tenantId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private shelf.ShelfOuterClass.DisplayAttributes displayAttributes_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          shelf.ShelfOuterClass.DisplayAttributes, shelf.ShelfOuterClass.DisplayAttributes.Builder, shelf.ShelfOuterClass.DisplayAttributesOrBuilder> displayAttributesBuilder_;
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       * @return Whether the displayAttributes field is set.
+       */
+      public boolean hasDisplayAttributes() {
+        return displayAttributesBuilder_ != null || displayAttributes_ != null;
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       * @return The displayAttributes.
+       */
+      public shelf.ShelfOuterClass.DisplayAttributes getDisplayAttributes() {
+        if (displayAttributesBuilder_ == null) {
+          return displayAttributes_ == null ? shelf.ShelfOuterClass.DisplayAttributes.getDefaultInstance() : displayAttributes_;
+        } else {
+          return displayAttributesBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      public Builder setDisplayAttributes(shelf.ShelfOuterClass.DisplayAttributes value) {
+        if (displayAttributesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          displayAttributes_ = value;
+          onChanged();
+        } else {
+          displayAttributesBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      public Builder setDisplayAttributes(
+          shelf.ShelfOuterClass.DisplayAttributes.Builder builderForValue) {
+        if (displayAttributesBuilder_ == null) {
+          displayAttributes_ = builderForValue.build();
+          onChanged();
+        } else {
+          displayAttributesBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      public Builder mergeDisplayAttributes(shelf.ShelfOuterClass.DisplayAttributes value) {
+        if (displayAttributesBuilder_ == null) {
+          if (displayAttributes_ != null) {
+            displayAttributes_ =
+              shelf.ShelfOuterClass.DisplayAttributes.newBuilder(displayAttributes_).mergeFrom(value).buildPartial();
+          } else {
+            displayAttributes_ = value;
+          }
+          onChanged();
+        } else {
+          displayAttributesBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      public Builder clearDisplayAttributes() {
+        if (displayAttributesBuilder_ == null) {
+          displayAttributes_ = null;
+          onChanged();
+        } else {
+          displayAttributes_ = null;
+          displayAttributesBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      public shelf.ShelfOuterClass.DisplayAttributes.Builder getDisplayAttributesBuilder() {
+        
+        onChanged();
+        return getDisplayAttributesFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      public shelf.ShelfOuterClass.DisplayAttributesOrBuilder getDisplayAttributesOrBuilder() {
+        if (displayAttributesBuilder_ != null) {
+          return displayAttributesBuilder_.getMessageOrBuilder();
+        } else {
+          return displayAttributes_ == null ?
+              shelf.ShelfOuterClass.DisplayAttributes.getDefaultInstance() : displayAttributes_;
+        }
+      }
+      /**
+       * <code>.shelf.DisplayAttributes display_attributes = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          shelf.ShelfOuterClass.DisplayAttributes, shelf.ShelfOuterClass.DisplayAttributes.Builder, shelf.ShelfOuterClass.DisplayAttributesOrBuilder> 
+          getDisplayAttributesFieldBuilder() {
+        if (displayAttributesBuilder_ == null) {
+          displayAttributesBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              shelf.ShelfOuterClass.DisplayAttributes, shelf.ShelfOuterClass.DisplayAttributes.Builder, shelf.ShelfOuterClass.DisplayAttributesOrBuilder>(
+                  getDisplayAttributes(),
+                  getParentForChildren(),
+                  isClean());
+          displayAttributes_ = null;
+        }
+        return displayAttributesBuilder_;
+      }
+
+      private long limit_ ;
+      /**
+       * <code>int64 limit = 6;</code>
+       * @return The limit.
+       */
+      @java.lang.Override
+      public long getLimit() {
+        return limit_;
+      }
+      /**
+       * <code>int64 limit = 6;</code>
+       * @param value The limit to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLimit(long value) {
+        
+        limit_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 limit = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLimit() {
+        
+        limit_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long offset_ ;
+      /**
+       * <code>int64 offset = 7;</code>
+       * @return The offset.
+       */
+      @java.lang.Override
+      public long getOffset() {
+        return offset_;
+      }
+      /**
+       * <code>int64 offset = 7;</code>
+       * @param value The offset to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOffset(long value) {
+        
+        offset_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 offset = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOffset() {
+        
+        offset_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:shelf.GetShelfByOriginalCategoryIDWithPaginationRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:shelf.GetShelfByOriginalCategoryIDWithPaginationRequest)
+    private static final shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest();
+    }
+
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetShelfByOriginalCategoryIDWithPaginationRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetShelfByOriginalCategoryIDWithPaginationRequest>() {
+      @java.lang.Override
+      public GetShelfByOriginalCategoryIDWithPaginationRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetShelfByOriginalCategoryIDWithPaginationRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetShelfByOriginalCategoryIDWithPaginationRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetShelfByOriginalCategoryIDWithPaginationRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2421,8 +7296,8 @@ public final class ShelfOuterClass {
 
   }
 
-  public interface GetShelfByCategoryIDResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:shelf.GetShelfByCategoryIDResponse)
+  public interface GetShelfByOriginalCategoryIDResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:shelf.GetShelfByOriginalCategoryIDResponse)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -2474,18 +7349,18 @@ public final class ShelfOuterClass {
         int index);
   }
   /**
-   * Protobuf type {@code shelf.GetShelfByCategoryIDResponse}
+   * Protobuf type {@code shelf.GetShelfByOriginalCategoryIDResponse}
    */
-  public static final class GetShelfByCategoryIDResponse extends
+  public static final class GetShelfByOriginalCategoryIDResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:shelf.GetShelfByCategoryIDResponse)
-      GetShelfByCategoryIDResponseOrBuilder {
+      // @@protoc_insertion_point(message_implements:shelf.GetShelfByOriginalCategoryIDResponse)
+      GetShelfByOriginalCategoryIDResponseOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use GetShelfByCategoryIDResponse.newBuilder() to construct.
-    private GetShelfByCategoryIDResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use GetShelfByOriginalCategoryIDResponse.newBuilder() to construct.
+    private GetShelfByOriginalCategoryIDResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private GetShelfByCategoryIDResponse() {
+    private GetShelfByOriginalCategoryIDResponse() {
       categories_ = java.util.Collections.emptyList();
       shelves_ = java.util.Collections.emptyList();
     }
@@ -2494,7 +7369,7 @@ public final class ShelfOuterClass {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new GetShelfByCategoryIDResponse();
+      return new GetShelfByOriginalCategoryIDResponse();
     }
 
     @java.lang.Override
@@ -2502,7 +7377,7 @@ public final class ShelfOuterClass {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private GetShelfByCategoryIDResponse(
+    private GetShelfByOriginalCategoryIDResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -2566,15 +7441,15 @@ public final class ShelfOuterClass {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryIDResponse_descriptor;
+      return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByOriginalCategoryIDResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryIDResponse_fieldAccessorTable
+      return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByOriginalCategoryIDResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              shelf.ShelfOuterClass.GetShelfByCategoryIDResponse.class, shelf.ShelfOuterClass.GetShelfByCategoryIDResponse.Builder.class);
+              shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse.class, shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse.Builder.class);
     }
 
     public static final int CATEGORIES_FIELD_NUMBER = 1;
@@ -2704,10 +7579,10 @@ public final class ShelfOuterClass {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof shelf.ShelfOuterClass.GetShelfByCategoryIDResponse)) {
+      if (!(obj instanceof shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse)) {
         return super.equals(obj);
       }
-      shelf.ShelfOuterClass.GetShelfByCategoryIDResponse other = (shelf.ShelfOuterClass.GetShelfByCategoryIDResponse) obj;
+      shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse other = (shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse) obj;
 
       if (!getCategoriesList()
           .equals(other.getCategoriesList())) return false;
@@ -2737,69 +7612,69 @@ public final class ShelfOuterClass {
       return hash;
     }
 
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDResponse parseFrom(
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDResponse parseFrom(
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDResponse parseFrom(
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDResponse parseFrom(
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDResponse parseFrom(byte[] data)
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDResponse parseFrom(
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDResponse parseFrom(java.io.InputStream input)
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDResponse parseFrom(
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDResponse parseDelimitedFrom(java.io.InputStream input)
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDResponse parseDelimitedFrom(
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDResponse parseFrom(
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDResponse parseFrom(
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2812,7 +7687,7 @@ public final class ShelfOuterClass {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(shelf.ShelfOuterClass.GetShelfByCategoryIDResponse prototype) {
+    public static Builder newBuilder(shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -2828,26 +7703,26 @@ public final class ShelfOuterClass {
       return builder;
     }
     /**
-     * Protobuf type {@code shelf.GetShelfByCategoryIDResponse}
+     * Protobuf type {@code shelf.GetShelfByOriginalCategoryIDResponse}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:shelf.GetShelfByCategoryIDResponse)
-        shelf.ShelfOuterClass.GetShelfByCategoryIDResponseOrBuilder {
+        // @@protoc_insertion_point(builder_implements:shelf.GetShelfByOriginalCategoryIDResponse)
+        shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryIDResponse_descriptor;
+        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByOriginalCategoryIDResponse_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryIDResponse_fieldAccessorTable
+        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByOriginalCategoryIDResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                shelf.ShelfOuterClass.GetShelfByCategoryIDResponse.class, shelf.ShelfOuterClass.GetShelfByCategoryIDResponse.Builder.class);
+                shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse.class, shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse.Builder.class);
       }
 
-      // Construct using shelf.ShelfOuterClass.GetShelfByCategoryIDResponse.newBuilder()
+      // Construct using shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2885,17 +7760,17 @@ public final class ShelfOuterClass {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByCategoryIDResponse_descriptor;
+        return shelf.ShelfOuterClass.internal_static_shelf_GetShelfByOriginalCategoryIDResponse_descriptor;
       }
 
       @java.lang.Override
-      public shelf.ShelfOuterClass.GetShelfByCategoryIDResponse getDefaultInstanceForType() {
-        return shelf.ShelfOuterClass.GetShelfByCategoryIDResponse.getDefaultInstance();
+      public shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse getDefaultInstanceForType() {
+        return shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse.getDefaultInstance();
       }
 
       @java.lang.Override
-      public shelf.ShelfOuterClass.GetShelfByCategoryIDResponse build() {
-        shelf.ShelfOuterClass.GetShelfByCategoryIDResponse result = buildPartial();
+      public shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse build() {
+        shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -2903,8 +7778,8 @@ public final class ShelfOuterClass {
       }
 
       @java.lang.Override
-      public shelf.ShelfOuterClass.GetShelfByCategoryIDResponse buildPartial() {
-        shelf.ShelfOuterClass.GetShelfByCategoryIDResponse result = new shelf.ShelfOuterClass.GetShelfByCategoryIDResponse(this);
+      public shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse buildPartial() {
+        shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse result = new shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse(this);
         int from_bitField0_ = bitField0_;
         if (categoriesBuilder_ == null) {
           if (((bitField0_ & 0x00000001) != 0)) {
@@ -2962,16 +7837,16 @@ public final class ShelfOuterClass {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof shelf.ShelfOuterClass.GetShelfByCategoryIDResponse) {
-          return mergeFrom((shelf.ShelfOuterClass.GetShelfByCategoryIDResponse)other);
+        if (other instanceof shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse) {
+          return mergeFrom((shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(shelf.ShelfOuterClass.GetShelfByCategoryIDResponse other) {
-        if (other == shelf.ShelfOuterClass.GetShelfByCategoryIDResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse other) {
+        if (other == shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse.getDefaultInstance()) return this;
         if (categoriesBuilder_ == null) {
           if (!other.categories_.isEmpty()) {
             if (categories_.isEmpty()) {
@@ -3039,11 +7914,11 @@ public final class ShelfOuterClass {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        shelf.ShelfOuterClass.GetShelfByCategoryIDResponse parsedMessage = null;
+        shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (shelf.ShelfOuterClass.GetShelfByCategoryIDResponse) e.getUnfinishedMessage();
+          parsedMessage = (shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -3546,41 +8421,41 @@ public final class ShelfOuterClass {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:shelf.GetShelfByCategoryIDResponse)
+      // @@protoc_insertion_point(builder_scope:shelf.GetShelfByOriginalCategoryIDResponse)
     }
 
-    // @@protoc_insertion_point(class_scope:shelf.GetShelfByCategoryIDResponse)
-    private static final shelf.ShelfOuterClass.GetShelfByCategoryIDResponse DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:shelf.GetShelfByOriginalCategoryIDResponse)
+    private static final shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new shelf.ShelfOuterClass.GetShelfByCategoryIDResponse();
+      DEFAULT_INSTANCE = new shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse();
     }
 
-    public static shelf.ShelfOuterClass.GetShelfByCategoryIDResponse getDefaultInstance() {
+    public static shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<GetShelfByCategoryIDResponse>
-        PARSER = new com.google.protobuf.AbstractParser<GetShelfByCategoryIDResponse>() {
+    private static final com.google.protobuf.Parser<GetShelfByOriginalCategoryIDResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetShelfByOriginalCategoryIDResponse>() {
       @java.lang.Override
-      public GetShelfByCategoryIDResponse parsePartialFrom(
+      public GetShelfByOriginalCategoryIDResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new GetShelfByCategoryIDResponse(input, extensionRegistry);
+        return new GetShelfByOriginalCategoryIDResponse(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<GetShelfByCategoryIDResponse> parser() {
+    public static com.google.protobuf.Parser<GetShelfByOriginalCategoryIDResponse> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<GetShelfByCategoryIDResponse> getParserForType() {
+    public com.google.protobuf.Parser<GetShelfByOriginalCategoryIDResponse> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public shelf.ShelfOuterClass.GetShelfByCategoryIDResponse getDefaultInstanceForType() {
+    public shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -4337,6 +9212,30 @@ public final class ShelfOuterClass {
      * @return The hasChildren.
      */
     boolean getHasChildren();
+
+    /**
+     * <code>string permalink = 4;</code>
+     * @return The permalink.
+     */
+    java.lang.String getPermalink();
+    /**
+     * <code>string permalink = 4;</code>
+     * @return The bytes for permalink.
+     */
+    com.google.protobuf.ByteString
+        getPermalinkBytes();
+
+    /**
+     * <code>string original_category_id = 5;</code>
+     * @return The originalCategoryId.
+     */
+    java.lang.String getOriginalCategoryId();
+    /**
+     * <code>string original_category_id = 5;</code>
+     * @return The bytes for originalCategoryId.
+     */
+    com.google.protobuf.ByteString
+        getOriginalCategoryIdBytes();
   }
   /**
    * Protobuf type {@code shelf.ShelfCategory}
@@ -4353,6 +9252,8 @@ public final class ShelfOuterClass {
     private ShelfCategory() {
       id_ = "";
       name_ = "";
+      permalink_ = "";
+      originalCategoryId_ = "";
     }
 
     @java.lang.Override
@@ -4400,6 +9301,18 @@ public final class ShelfOuterClass {
             case 24: {
 
               hasChildren_ = input.readBool();
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              permalink_ = s;
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              originalCategoryId_ = s;
               break;
             }
             default: {
@@ -4521,6 +9434,82 @@ public final class ShelfOuterClass {
       return hasChildren_;
     }
 
+    public static final int PERMALINK_FIELD_NUMBER = 4;
+    private volatile java.lang.Object permalink_;
+    /**
+     * <code>string permalink = 4;</code>
+     * @return The permalink.
+     */
+    @java.lang.Override
+    public java.lang.String getPermalink() {
+      java.lang.Object ref = permalink_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        permalink_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string permalink = 4;</code>
+     * @return The bytes for permalink.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPermalinkBytes() {
+      java.lang.Object ref = permalink_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        permalink_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ORIGINAL_CATEGORY_ID_FIELD_NUMBER = 5;
+    private volatile java.lang.Object originalCategoryId_;
+    /**
+     * <code>string original_category_id = 5;</code>
+     * @return The originalCategoryId.
+     */
+    @java.lang.Override
+    public java.lang.String getOriginalCategoryId() {
+      java.lang.Object ref = originalCategoryId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        originalCategoryId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string original_category_id = 5;</code>
+     * @return The bytes for originalCategoryId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOriginalCategoryIdBytes() {
+      java.lang.Object ref = originalCategoryId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        originalCategoryId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -4544,6 +9533,12 @@ public final class ShelfOuterClass {
       if (hasChildren_ != false) {
         output.writeBool(3, hasChildren_);
       }
+      if (!getPermalinkBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, permalink_);
+      }
+      if (!getOriginalCategoryIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, originalCategoryId_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -4562,6 +9557,12 @@ public final class ShelfOuterClass {
       if (hasChildren_ != false) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(3, hasChildren_);
+      }
+      if (!getPermalinkBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, permalink_);
+      }
+      if (!getOriginalCategoryIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, originalCategoryId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -4584,6 +9585,10 @@ public final class ShelfOuterClass {
           .equals(other.getName())) return false;
       if (getHasChildren()
           != other.getHasChildren()) return false;
+      if (!getPermalink()
+          .equals(other.getPermalink())) return false;
+      if (!getOriginalCategoryId()
+          .equals(other.getOriginalCategoryId())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -4602,6 +9607,10 @@ public final class ShelfOuterClass {
       hash = (37 * hash) + HAS_CHILDREN_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getHasChildren());
+      hash = (37 * hash) + PERMALINK_FIELD_NUMBER;
+      hash = (53 * hash) + getPermalink().hashCode();
+      hash = (37 * hash) + ORIGINAL_CATEGORY_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getOriginalCategoryId().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -4741,6 +9750,10 @@ public final class ShelfOuterClass {
 
         hasChildren_ = false;
 
+        permalink_ = "";
+
+        originalCategoryId_ = "";
+
         return this;
       }
 
@@ -4770,6 +9783,8 @@ public final class ShelfOuterClass {
         result.id_ = id_;
         result.name_ = name_;
         result.hasChildren_ = hasChildren_;
+        result.permalink_ = permalink_;
+        result.originalCategoryId_ = originalCategoryId_;
         onBuilt();
         return result;
       }
@@ -4828,6 +9843,14 @@ public final class ShelfOuterClass {
         }
         if (other.getHasChildren() != false) {
           setHasChildren(other.getHasChildren());
+        }
+        if (!other.getPermalink().isEmpty()) {
+          permalink_ = other.permalink_;
+          onChanged();
+        }
+        if (!other.getOriginalCategoryId().isEmpty()) {
+          originalCategoryId_ = other.originalCategoryId_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -5037,6 +10060,158 @@ public final class ShelfOuterClass {
       public Builder clearHasChildren() {
         
         hasChildren_ = false;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object permalink_ = "";
+      /**
+       * <code>string permalink = 4;</code>
+       * @return The permalink.
+       */
+      public java.lang.String getPermalink() {
+        java.lang.Object ref = permalink_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          permalink_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string permalink = 4;</code>
+       * @return The bytes for permalink.
+       */
+      public com.google.protobuf.ByteString
+          getPermalinkBytes() {
+        java.lang.Object ref = permalink_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          permalink_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string permalink = 4;</code>
+       * @param value The permalink to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPermalink(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        permalink_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string permalink = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPermalink() {
+        
+        permalink_ = getDefaultInstance().getPermalink();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string permalink = 4;</code>
+       * @param value The bytes for permalink to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPermalinkBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        permalink_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object originalCategoryId_ = "";
+      /**
+       * <code>string original_category_id = 5;</code>
+       * @return The originalCategoryId.
+       */
+      public java.lang.String getOriginalCategoryId() {
+        java.lang.Object ref = originalCategoryId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          originalCategoryId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string original_category_id = 5;</code>
+       * @return The bytes for originalCategoryId.
+       */
+      public com.google.protobuf.ByteString
+          getOriginalCategoryIdBytes() {
+        java.lang.Object ref = originalCategoryId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          originalCategoryId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string original_category_id = 5;</code>
+       * @param value The originalCategoryId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOriginalCategoryId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        originalCategoryId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string original_category_id = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOriginalCategoryId() {
+        
+        originalCategoryId_ = getDefaultInstance().getOriginalCategoryId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string original_category_id = 5;</code>
+       * @param value The bytes for originalCategoryId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOriginalCategoryIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        originalCategoryId_ = value;
         onChanged();
         return this;
       }
@@ -16198,20 +21373,40 @@ public final class ShelfOuterClass {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shelf_GetShelfByCategoryIDRequest_descriptor;
+    internal_static_shelf_GetShelfByCategoryPermalinkRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shelf_GetShelfByCategoryIDRequest_fieldAccessorTable;
+      internal_static_shelf_GetShelfByCategoryPermalinkRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shelf_GetShelfByCategoryPermalinkWithPaginationRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shelf_GetShelfByCategoryPermalinkWithPaginationRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shelf_GetShelfByCategoryPermalinkResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shelf_GetShelfByCategoryPermalinkResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shelf_GetShelfByOriginalCategoryIDRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shelf_GetShelfByOriginalCategoryIDRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_shelf_GetShelfByOriginalCategoryIDWithPaginationRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_shelf_GetShelfByOriginalCategoryIDWithPaginationRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_shelf_DisplayAttributes_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_shelf_DisplayAttributes_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_shelf_GetShelfByCategoryIDResponse_descriptor;
+    internal_static_shelf_GetShelfByOriginalCategoryIDResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_shelf_GetShelfByCategoryIDResponse_fieldAccessorTable;
+      internal_static_shelf_GetShelfByOriginalCategoryIDResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_shelf_Category_descriptor;
   private static final 
@@ -16282,109 +21477,164 @@ public final class ShelfOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\033content/catalog/shelf.proto\022\005shelf\032\037go" +
-      "ogle/protobuf/timestamp.proto\"\245\001\n\033GetShe" +
-      "lfByCategoryIDRequest\022\023\n\013category_id\030\001 \001" +
+      "ogle/protobuf/timestamp.proto\"\252\001\n\"GetShe" +
+      "lfByCategoryPermalinkRequest\022\021\n\tpermalin" +
+      "k\030\001 \001(\t\022\026\n\016products_limit\030\002 \001(\003\022\020\n\010store" +
+      "_id\030\003 \001(\t\022\021\n\ttenant_id\030\004 \001(\t\0224\n\022display_" +
+      "attributes\030\005 \001(\0132\030.shelf.DisplayAttribut" +
+      "es\"\327\001\n0GetShelfByCategoryPermalinkWithPa" +
+      "ginationRequest\022\021\n\tpermalink\030\001 \001(\t\022\026\n\016pr" +
+      "oducts_limit\030\002 \001(\003\022\020\n\010store_id\030\003 \001(\t\022\021\n\t" +
+      "tenant_id\030\004 \001(\t\0224\n\022display_attributes\030\005 " +
+      "\001(\0132\030.shelf.DisplayAttributes\022\r\n\005limit\030\006" +
+      " \001(\003\022\016\n\006offset\030\007 \001(\003\"n\n#GetShelfByCatego" +
+      "ryPermalinkResponse\022(\n\ncategories\030\001 \003(\0132" +
+      "\024.shelf.ShelfCategory\022\035\n\007shelves\030\002 \003(\0132\014" +
+      ".shelf.Shelf\"\266\001\n#GetShelfByOriginalCateg" +
+      "oryIDRequest\022\034\n\024original_category_id\030\001 \001" +
       "(\t\022\026\n\016products_limit\030\002 \001(\003\022\020\n\010store_id\030\003" +
       " \001(\t\022\021\n\ttenant_id\030\004 \001(\t\0224\n\022display_attri" +
-      "butes\030\005 \001(\0132\030.shelf.DisplayAttributes\"0\n" +
-      "\021DisplayAttributes\022\014\n\004keys\030\001 \003(\t\022\r\n\005flag" +
-      "s\030\002 \003(\t\"g\n\034GetShelfByCategoryIDResponse\022" +
-      "(\n\ncategories\030\001 \003(\0132\024.shelf.ShelfCategor" +
-      "y\022\035\n\007shelves\030\002 \003(\0132\014.shelf.Shelf\"$\n\010Cate" +
-      "gory\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\"?\n\rShelfC" +
-      "ategory\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\024\n\014has" +
-      "_children\030\003 \001(\010\"\210\001\n\005Shelf\022\023\n\013category_id" +
-      "\030\001 \001(\t\022\025\n\rcategory_name\030\002 \001(\t\022\032\n\022categor" +
-      "y_permalink\030\003 \001(\t\022\025\n\rproduct_count\030\004 \001(\003" +
-      "\022 \n\010products\030\005 \003(\0132\016.shelf.Product\"[\n\004Da" +
-      "ta\022\013\n\003key\030\001 \001(\t\022\036\n\004type\030\002 \001(\0162\020.shelf.Va" +
-      "lueType\022\026\n\016is_multi_value\030\003 \001(\010\022\016\n\006value" +
-      "s\030\004 \003(\t\"\234\002\n\tAttribute\022\013\n\003key\030\001 \001(\t\022\014\n\004na" +
-      "me\030\002 \001(\t\022\026\n\016dictionary_key\030\003 \001(\t\022\036\n\004type" +
-      "\030\004 \001(\0162\020.shelf.ValueType\022\026\n\016is_multi_val" +
-      "ue\030\005 \001(\010\022*\n\005flags\030\006 \003(\0132\033.shelf.Attribut" +
-      "e.FlagsEntry\022#\n\016attribute_data\030\007 \003(\0132\013.s" +
-      "helf.Data\022%\n\006values\030\010 \003(\0132\025.shelf.Attrib" +
-      "uteValue\032,\n\nFlagsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005v" +
-      "alue\030\002 \001(\010:\0028\001\"@\n\016AttributeValue\022\r\n\005valu" +
-      "e\030\001 \001(\t\022\037\n\nvalue_data\030\002 \003(\0132\013.shelf.Data" +
-      "\"\345\001\n\007Product\022\013\n\003sku\030\001 \001(\003\022\014\n\004name\030\002 \001(\t\022" +
-      "#\n\ncategories\030\003 \003(\0132\017.shelf.Category\022$\n\n" +
-      "attributes\030\004 \003(\0132\020.shelf.Attribute\022\033\n\005st" +
-      "ock\030\005 \001(\0132\014.shelf.Stock\022\033\n\005price\030\006 \001(\0132\014" +
-      ".shelf.Price\022\033\n\005offer\030\007 \001(\0132\014.shelf.Offe" +
-      "r\022\035\n\006status\030\010 \001(\0162\r.shelf.Status\"V\n\005Stoc" +
-      "k\022\r\n\005stock\030\001 \001(\001\022\037\n\nstock_data\030\002 \003(\0132\013.s" +
+      "butes\030\005 \001(\0132\030.shelf.DisplayAttributes\"\343\001" +
+      "\n1GetShelfByOriginalCategoryIDWithPagina" +
+      "tionRequest\022\034\n\024original_category_id\030\001 \001(" +
+      "\t\022\026\n\016products_limit\030\002 \001(\003\022\020\n\010store_id\030\003 " +
+      "\001(\t\022\021\n\ttenant_id\030\004 \001(\t\0224\n\022display_attrib" +
+      "utes\030\005 \001(\0132\030.shelf.DisplayAttributes\022\r\n\005" +
+      "limit\030\006 \001(\003\022\016\n\006offset\030\007 \001(\003\"0\n\021DisplayAt" +
+      "tributes\022\014\n\004keys\030\001 \003(\t\022\r\n\005flags\030\002 \003(\t\"o\n" +
+      "$GetShelfByOriginalCategoryIDResponse\022(\n" +
+      "\ncategories\030\001 \003(\0132\024.shelf.ShelfCategory\022" +
+      "\035\n\007shelves\030\002 \003(\0132\014.shelf.Shelf\"$\n\010Catego" +
+      "ry\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\"p\n\rShelfCat" +
+      "egory\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\024\n\014has_c" +
+      "hildren\030\003 \001(\010\022\021\n\tpermalink\030\004 \001(\t\022\034\n\024orig" +
+      "inal_category_id\030\005 \001(\t\"\210\001\n\005Shelf\022\023\n\013cate" +
+      "gory_id\030\001 \001(\t\022\025\n\rcategory_name\030\002 \001(\t\022\032\n\022" +
+      "category_permalink\030\003 \001(\t\022\025\n\rproduct_coun" +
+      "t\030\004 \001(\003\022 \n\010products\030\005 \003(\0132\016.shelf.Produc" +
+      "t\"[\n\004Data\022\013\n\003key\030\001 \001(\t\022\036\n\004type\030\002 \001(\0162\020.s" +
+      "helf.ValueType\022\026\n\016is_multi_value\030\003 \001(\010\022\016" +
+      "\n\006values\030\004 \003(\t\"\234\002\n\tAttribute\022\013\n\003key\030\001 \001(" +
+      "\t\022\014\n\004name\030\002 \001(\t\022\026\n\016dictionary_key\030\003 \001(\t\022" +
+      "\036\n\004type\030\004 \001(\0162\020.shelf.ValueType\022\026\n\016is_mu" +
+      "lti_value\030\005 \001(\010\022*\n\005flags\030\006 \003(\0132\033.shelf.A" +
+      "ttribute.FlagsEntry\022#\n\016attribute_data\030\007 " +
+      "\003(\0132\013.shelf.Data\022%\n\006values\030\010 \003(\0132\025.shelf" +
+      ".AttributeValue\032,\n\nFlagsEntry\022\013\n\003key\030\001 \001" +
+      "(\t\022\r\n\005value\030\002 \001(\010:\0028\001\"@\n\016AttributeValue\022" +
+      "\r\n\005value\030\001 \001(\t\022\037\n\nvalue_data\030\002 \003(\0132\013.she" +
+      "lf.Data\"\345\001\n\007Product\022\013\n\003sku\030\001 \001(\003\022\014\n\004name" +
+      "\030\002 \001(\t\022#\n\ncategories\030\003 \003(\0132\017.shelf.Categ" +
+      "ory\022$\n\nattributes\030\004 \003(\0132\020.shelf.Attribut" +
+      "e\022\033\n\005stock\030\005 \001(\0132\014.shelf.Stock\022\033\n\005price\030" +
+      "\006 \001(\0132\014.shelf.Price\022\033\n\005offer\030\007 \001(\0132\014.she" +
+      "lf.Offer\022\035\n\006status\030\010 \001(\0162\r.shelf.Status\"" +
+      "V\n\005Stock\022\r\n\005stock\030\001 \001(\001\022\037\n\nstock_data\030\002 " +
+      "\003(\0132\013.shelf.Data\022\035\n\006status\030\003 \001(\0162\r.shelf" +
+      ".Status\"V\n\005Price\022\r\n\005price\030\001 \001(\001\022\037\n\nprice" +
+      "_data\030\002 \003(\0132\013.shelf.Data\022\035\n\006status\030\003 \001(\016" +
+      "2\r.shelf.Status\"\221\001\n\005Offer\022\035\n\006pricer\030\001 \001(" +
+      "\0162\r.shelf.Pricer\022\037\n\noffer_data\030\002 \003(\0132\013.s" +
       "helf.Data\022\035\n\006status\030\003 \001(\0162\r.shelf.Status" +
-      "\"V\n\005Price\022\r\n\005price\030\001 \001(\001\022\037\n\nprice_data\030\002" +
-      " \003(\0132\013.shelf.Data\022\035\n\006status\030\003 \001(\0162\r.shel" +
-      "f.Status\"\221\001\n\005Offer\022\035\n\006pricer\030\001 \001(\0162\r.she" +
-      "lf.Pricer\022\037\n\noffer_data\030\002 \003(\0132\013.shelf.Da" +
-      "ta\022\035\n\006status\030\003 \001(\0162\r.shelf.Status\022\023\n\013ret" +
-      "ailer_id\030\004 \001(\t\022\024\n\014retailer_sku\030\005 \001(\t\"\007\n\005" +
-      "Empty*!\n\006Status\022\013\n\007DISABLE\020\000\022\n\n\006ENABLE\020\001" +
-      "*S\n\tValueType\022\n\n\006STRING\020\000\022\013\n\007INTEGER\020\001\022\n" +
-      "\n\006DOUBLE\020\002\022\010\n\004BOOL\020\003\022\014\n\010DATETIME\020\004\022\t\n\005IM" +
-      "AGE\020\005*U\n\006Pricer\022\014\n\010PER_ITEM\020\000\022\025\n\021PER_ITE" +
-      "MS_PACKAGE\020\001\022\026\n\022PER_WEIGHT_PACKAGE\020\002\022\016\n\n" +
-      "PER_WEIGHT\020\0032\327\001\n\014ShelfService\022_\n\024GetShel" +
-      "fByCategoryID\022\".shelf.GetShelfByCategory" +
-      "IDRequest\032#.shelf.GetShelfByCategoryIDRe" +
-      "sponse\0226\n\030FlushCategoryFacetsCache\022\014.she" +
-      "lf.Empty\032\014.shelf.Empty\022.\n\020UpdateCategori" +
-      "es\022\014.shelf.Empty\032\014.shelf.EmptyBCZAgitlab" +
-      ".sbermarket.tech/paas/content/catalog/pk" +
-      "g/server/grpc/shelfb\006proto3"
+      "\022\023\n\013retailer_id\030\004 \001(\t\022\024\n\014retailer_sku\030\005 " +
+      "\001(\t\"\007\n\005Empty*!\n\006Status\022\013\n\007DISABLE\020\000\022\n\n\006E" +
+      "NABLE\020\001*S\n\tValueType\022\n\n\006STRING\020\000\022\013\n\007INTE" +
+      "GER\020\001\022\n\n\006DOUBLE\020\002\022\010\n\004BOOL\020\003\022\014\n\010DATETIME\020" +
+      "\004\022\t\n\005IMAGE\020\005*U\n\006Pricer\022\014\n\010PER_ITEM\020\000\022\025\n\021" +
+      "PER_ITEMS_PACKAGE\020\001\022\026\n\022PER_WEIGHT_PACKAG" +
+      "E\020\002\022\016\n\nPER_WEIGHT\020\0032\216\005\n\014ShelfService\022w\n\034" +
+      "GetShelfByOriginalCategoryID\022*.shelf.Get" +
+      "ShelfByOriginalCategoryIDRequest\032+.shelf" +
+      ".GetShelfByOriginalCategoryIDResponse\022\223\001" +
+      "\n*GetShelfByOriginalCategoryIDWithPagina" +
+      "tion\0228.shelf.GetShelfByOriginalCategoryI" +
+      "DWithPaginationRequest\032+.shelf.GetShelfB" +
+      "yOriginalCategoryIDResponse\022t\n\033GetShelfB" +
+      "yCategoryPermalink\022).shelf.GetShelfByCat" +
+      "egoryPermalinkRequest\032*.shelf.GetShelfBy" +
+      "CategoryPermalinkResponse\022\220\001\n)GetShelfBy" +
+      "CategoryPermalinkWithPagination\0227.shelf." +
+      "GetShelfByCategoryPermalinkWithPaginatio" +
+      "nRequest\032*.shelf.GetShelfByCategoryPerma" +
+      "linkResponse\0226\n\030FlushCategoryFacetsCache" +
+      "\022\014.shelf.Empty\032\014.shelf.Empty\022.\n\020UpdateCa" +
+      "tegories\022\014.shelf.Empty\032\014.shelf.EmptyBCZA" +
+      "gitlab.sbermarket.tech/paas/content/cata" +
+      "log/pkg/server/grpc/shelfb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.TimestampProto.getDescriptor(),
         });
-    internal_static_shelf_GetShelfByCategoryIDRequest_descriptor =
+    internal_static_shelf_GetShelfByCategoryPermalinkRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_shelf_GetShelfByCategoryIDRequest_fieldAccessorTable = new
+    internal_static_shelf_GetShelfByCategoryPermalinkRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shelf_GetShelfByCategoryIDRequest_descriptor,
-        new java.lang.String[] { "CategoryId", "ProductsLimit", "StoreId", "TenantId", "DisplayAttributes", });
-    internal_static_shelf_DisplayAttributes_descriptor =
+        internal_static_shelf_GetShelfByCategoryPermalinkRequest_descriptor,
+        new java.lang.String[] { "Permalink", "ProductsLimit", "StoreId", "TenantId", "DisplayAttributes", });
+    internal_static_shelf_GetShelfByCategoryPermalinkWithPaginationRequest_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_shelf_GetShelfByCategoryPermalinkWithPaginationRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shelf_GetShelfByCategoryPermalinkWithPaginationRequest_descriptor,
+        new java.lang.String[] { "Permalink", "ProductsLimit", "StoreId", "TenantId", "DisplayAttributes", "Limit", "Offset", });
+    internal_static_shelf_GetShelfByCategoryPermalinkResponse_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_shelf_GetShelfByCategoryPermalinkResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shelf_GetShelfByCategoryPermalinkResponse_descriptor,
+        new java.lang.String[] { "Categories", "Shelves", });
+    internal_static_shelf_GetShelfByOriginalCategoryIDRequest_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_shelf_GetShelfByOriginalCategoryIDRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shelf_GetShelfByOriginalCategoryIDRequest_descriptor,
+        new java.lang.String[] { "OriginalCategoryId", "ProductsLimit", "StoreId", "TenantId", "DisplayAttributes", });
+    internal_static_shelf_GetShelfByOriginalCategoryIDWithPaginationRequest_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_shelf_GetShelfByOriginalCategoryIDWithPaginationRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_shelf_GetShelfByOriginalCategoryIDWithPaginationRequest_descriptor,
+        new java.lang.String[] { "OriginalCategoryId", "ProductsLimit", "StoreId", "TenantId", "DisplayAttributes", "Limit", "Offset", });
+    internal_static_shelf_DisplayAttributes_descriptor =
+      getDescriptor().getMessageTypes().get(5);
     internal_static_shelf_DisplayAttributes_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shelf_DisplayAttributes_descriptor,
         new java.lang.String[] { "Keys", "Flags", });
-    internal_static_shelf_GetShelfByCategoryIDResponse_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_shelf_GetShelfByCategoryIDResponse_fieldAccessorTable = new
+    internal_static_shelf_GetShelfByOriginalCategoryIDResponse_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_shelf_GetShelfByOriginalCategoryIDResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_shelf_GetShelfByCategoryIDResponse_descriptor,
+        internal_static_shelf_GetShelfByOriginalCategoryIDResponse_descriptor,
         new java.lang.String[] { "Categories", "Shelves", });
     internal_static_shelf_Category_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_shelf_Category_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shelf_Category_descriptor,
         new java.lang.String[] { "Id", "Name", });
     internal_static_shelf_ShelfCategory_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_shelf_ShelfCategory_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shelf_ShelfCategory_descriptor,
-        new java.lang.String[] { "Id", "Name", "HasChildren", });
+        new java.lang.String[] { "Id", "Name", "HasChildren", "Permalink", "OriginalCategoryId", });
     internal_static_shelf_Shelf_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_shelf_Shelf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shelf_Shelf_descriptor,
         new java.lang.String[] { "CategoryId", "CategoryName", "CategoryPermalink", "ProductCount", "Products", });
     internal_static_shelf_Data_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_shelf_Data_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shelf_Data_descriptor,
         new java.lang.String[] { "Key", "Type", "IsMultiValue", "Values", });
     internal_static_shelf_Attribute_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_shelf_Attribute_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shelf_Attribute_descriptor,
@@ -16396,37 +21646,37 @@ public final class ShelfOuterClass {
         internal_static_shelf_Attribute_FlagsEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_shelf_AttributeValue_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_shelf_AttributeValue_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shelf_AttributeValue_descriptor,
         new java.lang.String[] { "Value", "ValueData", });
     internal_static_shelf_Product_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_shelf_Product_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shelf_Product_descriptor,
         new java.lang.String[] { "Sku", "Name", "Categories", "Attributes", "Stock", "Price", "Offer", "Status", });
     internal_static_shelf_Stock_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_shelf_Stock_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shelf_Stock_descriptor,
         new java.lang.String[] { "Stock", "StockData", "Status", });
     internal_static_shelf_Price_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_shelf_Price_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shelf_Price_descriptor,
         new java.lang.String[] { "Price", "PriceData", "Status", });
     internal_static_shelf_Offer_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_shelf_Offer_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shelf_Offer_descriptor,
         new java.lang.String[] { "Pricer", "OfferData", "Status", "RetailerId", "RetailerSku", });
     internal_static_shelf_Empty_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_shelf_Empty_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_shelf_Empty_descriptor,

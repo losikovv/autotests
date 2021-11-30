@@ -21,6 +21,7 @@ message DisplayAttributes {
 enum Status {
   DISABLE = 0;
   ENABLE = 1;
+  DELETED = 2;
 }
 
 enum ValueType {
