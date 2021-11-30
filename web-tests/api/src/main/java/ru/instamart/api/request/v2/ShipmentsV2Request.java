@@ -3,8 +3,10 @@ package ru.instamart.api.request.v2;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.qameta.allure.Step;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.*;
+import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
 import ru.instamart.utils.Mapper;
@@ -41,6 +43,20 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
         public static Response GET(String shipmentNumber) {
             return givenWithAuth()
                     .get(ApiV2EndPoints.Shipments.LINE_ITEMS, shipmentNumber);
+        }
+
+        @Step("{method} /" + ApiV2EndPoints.Shipments.LineItems.MERGE)
+        public static Response POST(String shipmentNumber, Long productId, Integer quantity) {
+            JSONObject body = new JSONObject();
+            JSONObject lineItem = new JSONObject();
+            lineItem.put("product_id", productId);
+            lineItem.put("quantity", quantity);
+            lineItem.put("customer_comment", "test");
+            body.put("line_item", lineItem);
+            return givenWithAuth()
+                    .contentType(ContentType.JSON)
+                    .body(body)
+                    .post(ApiV2EndPoints.Shipments.LineItems.MERGE, shipmentNumber);
         }
     }
 
@@ -150,6 +166,17 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
             return givenWithAuth()
                     .queryParam("reason", reason)
                     .post(ApiV2EndPoints.Shipments.CANCELLATIONS, shipmentNumber);
+        }
+    }
+
+    public static class Merge {
+
+        @Step("{method} /" + ApiV2EndPoints.Shipments.MERGE)
+        public static Response POST(String shipmentNumber, String targetShipmentNumber) {
+            return givenWithAuth()
+                    .contentType(ContentType.JSON)
+                    .body(Collections.singletonMap("target_shipment_number", targetShipmentNumber))
+                    .post(ApiV2EndPoints.Shipments.MERGE, shipmentNumber);
         }
     }
 

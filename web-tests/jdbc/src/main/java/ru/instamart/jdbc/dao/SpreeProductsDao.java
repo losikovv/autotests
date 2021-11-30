@@ -44,7 +44,24 @@ public class SpreeProductsDao implements Dao<Long, SpreeProductsEntity>{
         Long id = null;
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "o.id") +
-                     String.format(" sp JOIN offers o ON sp.id = o.product_id WHERE sp.sku ='%s' AND o.store_id = %s", sku, storeId))) {
+                    " sp JOIN offers o ON sp.id = o.product_id WHERE sp.sku = ? AND o.store_id = ?")) {
+            preparedStatement.setString(1, sku);
+            preparedStatement.setInt(2, storeId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            id = resultSet.getLong("id");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    public Long getOfferIdForAlcohol(Integer storeId) {
+        Long id = null;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "o.id") +
+                     " sp JOIN offers o ON sp.id = o.product_id WHERE sp.shipping_category_id = 3 AND o.store_id = ? AND o.published = 1 AND sp.deleted_at IS NULL AND o.deleted_at IS NULL")) {
+            preparedStatement.setInt(1, storeId);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             id = resultSet.getLong("id");

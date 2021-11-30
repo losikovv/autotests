@@ -346,6 +346,18 @@ public class K8sConsumer {
         Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
     }
 
+    @Step("Перевод через консоль заказ {shipmentNumber} в статус \"Собирается\"")
+    public static void changeToCollecting(String shipmentNumber) {
+        List<String> strings = execRailsCommandWithPod(START_COLLECTING.get(shipmentNumber));
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
+
+    @Step("Перевод через консоль заказ {orderNumber} в статус \"Отменен\"")
+    public static void changeToCancel(String orderNumber) {
+        List<String> strings = execRailsCommandWithPod(CANCEL.get(orderNumber));
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
+
     @Step("Перевод через консоль позиции заказа в статус \"Собрано\"")
     public static void changeToAssembled(String shipmentNumber, String itemNumber) {
         List<String> strings = execRailsCommandWithPod(ASSEMBLY_ITEMS_ORDER.get(shipmentNumber, itemNumber));
@@ -353,7 +365,7 @@ public class K8sConsumer {
     }
 
     @Step("Перевод через консоль позиции заказа в статус \"Отменено\"")
-    public static void changeToCancel(String shipmentNumber, String itemNumber) {
+    public static void changeItemToCancel(String shipmentNumber, String itemNumber) {
         List<String> strings = execRailsCommandWithPod(CANCEL_ITEMS_ORDER.get(shipmentNumber, shipmentNumber, itemNumber));
         Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
     }

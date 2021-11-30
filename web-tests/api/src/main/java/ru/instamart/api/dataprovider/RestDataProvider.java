@@ -693,6 +693,16 @@ public class RestDataProvider extends RestBase {
         };
     }
 
+    @DataProvider(name = "invalidProductsId")
+    public static Object[][] getInvalidProductsId() {
+        Long productId = apiV2.getProductsFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_SID).get(0).getId();
+        Long alcoholProductId = SpreeProductsDao.INSTANCE.getOfferIdForAlcohol(1);
+        return new Object[][]{
+                {productId, "\"store_id\":\"Дозаказать можно только из того же магазина\""},
+                {alcoholProductId, "\"shipping_category_id\":\"Категории доставки не совпадают или в дозаказе участвует алкоголь\""},
+        };
+    }
+
     @DataProvider(name = "postCompanyDocuments")
     public static Object[][] postCompanyDocuments() {
         String name = "ООО \"Ромашка_" + (int) (Math.random() * 9999) + "\"";

@@ -12,7 +12,7 @@ public interface RailsConsole {
         START_COLLECTING("Spree::Shipment.find_by_number('%s').start_collecting!"),
         START_SHIPPING("Spree::Shipment.find_by_number('%s').start_shipping!"),
         SHIP("Spree::Shipment.find_by_number('%s').ship!"),
-        CANCEL("Spree::Shipment.find_by_number('%s').cancel!"),
+        CANCEL("Spree::Order.find_by_number('%s').cancel!"),
         STOP_COLLECTING("Spree::Shipment.find_by_number('%s').stop_collecting!"),
         FINISH_COLLECTING("Spree::Shipment.find_by_number('%s').finish_collecting!"),
         STOP_SHIPPING("Spree::Shipment.find_by_number('%s').stop_shipping!"),

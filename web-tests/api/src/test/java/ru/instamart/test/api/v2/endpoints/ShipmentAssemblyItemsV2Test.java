@@ -28,7 +28,7 @@ import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkAssemblyI
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 import static ru.instamart.api.k8s.K8sConsumer.changeToAssembled;
-import static ru.instamart.api.k8s.K8sConsumer.changeToCancel;
+import static ru.instamart.api.k8s.K8sConsumer.changeItemToCancel;
 
 @Epic("ApiV2")
 @Feature("Заказы (shipments)")
@@ -87,7 +87,7 @@ public class ShipmentAssemblyItemsV2Test extends RestBase {
             description = "Детали по сборке отмененного подзаказа",
             dependsOnMethods = {"getAssemblyItemsOfExistingShipment", "getAssemblyItemsOfShipmentAfterAssembling"})
     public void getCancelledAssemblyItemsOfShipment() {
-        changeToCancel(shipment.getNumber(), "0");
+        changeItemToCancel(shipment.getNumber(), "0");
 
         final Response responseWithAssemblyItems = ShipmentsV2Request.AssemblyItems.GET(shipment.getNumber());
         checkStatusCode200(responseWithAssemblyItems);
