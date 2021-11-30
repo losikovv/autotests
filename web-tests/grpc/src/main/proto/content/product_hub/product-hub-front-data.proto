@@ -57,10 +57,17 @@ message GetProductsBySKUResponse {
 
 message GetProductsWithOfferByEANResponse {
   repeated ProductWithOffer products_with_offer = 1;
+  repeated EANtoSKU ean_to_sku = 2;
 }
 
 message GetProductsByEANResponse {
   repeated Product products = 1;
+  repeated EANtoSKU ean_to_sku = 2;
+}
+
+message EANtoSKU{
+  string ean = 1;
+  int64 sku = 2;
 }
 
 message GetStocksRequest {
@@ -145,14 +152,14 @@ message GetPricesResponse {
 }
 
 message GetProductsWithOfferByOfferIDsRequest {
-  string store_id = 1;
-  string tenant_id = 2;
-  repeated string offer_ids = 3;
-  DisplayAttributes display_attributes = 4;
+  string tenant_id = 1;
+  repeated string offer_ids = 2;
+  DisplayAttributes display_attributes = 3;
 }
 
 message GetProductsWithOfferByOfferIDsResponse {
-  repeated ProductWithOffer products_with_offer = 1;
+  string store_id = 1;
+  repeated ProductWithOffer products_with_offer = 2;
 }
 
 message PriceWithSKU {
@@ -212,6 +219,7 @@ message GetProductsByPermalinkResponse {
 enum Status {
   DISABLE = 0;
   ENABLE = 1;
+  DELETED = 2;
 }
 
 enum ValueType {

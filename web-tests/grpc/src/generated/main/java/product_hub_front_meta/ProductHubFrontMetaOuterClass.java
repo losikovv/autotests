@@ -171,6 +171,10 @@ public final class ProductHubFrontMetaOuterClass {
      * <code>ENABLE = 1;</code>
      */
     ENABLE(1),
+    /**
+     * <code>DELETED = 2;</code>
+     */
+    DELETED(2),
     UNRECOGNIZED(-1),
     ;
 
@@ -182,6 +186,10 @@ public final class ProductHubFrontMetaOuterClass {
      * <code>ENABLE = 1;</code>
      */
     public static final int ENABLE_VALUE = 1;
+    /**
+     * <code>DELETED = 2;</code>
+     */
+    public static final int DELETED_VALUE = 2;
 
 
     public final int getNumber() {
@@ -210,6 +218,7 @@ public final class ProductHubFrontMetaOuterClass {
       switch (value) {
         case 0: return DISABLE;
         case 1: return ENABLE;
+        case 2: return DELETED;
         default: return null;
       }
     }
@@ -34508,52 +34517,53 @@ public final class ProductHubFrontMetaOuterClass {
       "alue\030\002 \001(\t\0220\n\nvalue_data\030\003 \003(\0132\034.product" +
       "_hub_front_meta.Data*S\n\tValueType\022\n\n\006STR" +
       "ING\020\000\022\013\n\007INTEGER\020\001\022\n\n\006DOUBLE\020\002\022\010\n\004BOOL\020\003" +
-      "\022\014\n\010DATETIME\020\004\022\t\n\005IMAGE\020\005*!\n\006Status\022\013\n\007D" +
-      "ISABLE\020\000\022\n\n\006ENABLE\020\0012\213\r\n\023ProductHubFront" +
-      "Meta\022u\n\020GetAllCategories\022/.product_hub_f" +
-      "ront_meta.GetAllCategoriesRequest\0320.prod" +
-      "uct_hub_front_meta.GetAllCategoriesRespo" +
-      "nse\022\223\001\n\032GetAllCategoriesWithStores\0229.pro" +
-      "duct_hub_front_meta.GetAllCategoriesWith" +
-      "StoresRequest\032:.product_hub_front_meta.G" +
-      "etAllCategoriesWithStoresResponse\022\223\001\n\032Ge" +
-      "tCategoriesByCategoryIDs\0229.product_hub_f" +
-      "ront_meta.GetCategoriesByCategoryIDsRequ" +
-      "est\032:.product_hub_front_meta.GetCategori" +
-      "esByCategoryIDsResponse\022\242\001\n\037GetCategoryF" +
-      "iltersByCategoryIDs\022>.product_hub_front_" +
-      "meta.GetCategoryFiltersByCategoryIDsRequ" +
-      "est\032?.product_hub_front_meta.GetCategory" +
-      "FiltersByCategoryIDsResponse\022~\n\023GetAttri" +
-      "butesByKeys\0222.product_hub_front_meta.Get" +
-      "AttributesByKeysRequest\0323.product_hub_fr" +
-      "ont_meta.GetAttributesByKeysResponse\022u\n\020" +
-      "GetAllAttributes\022/.product_hub_front_met" +
-      "a.GetAllAttributesRequest\0320.product_hub_" +
-      "front_meta.GetAllAttributesResponse\022{\n\022G" +
-      "etAllDictionaries\0221.product_hub_front_me" +
-      "ta.GetAllDictionariesRequest\0322.product_h" +
-      "ub_front_meta.GetAllDictionariesResponse" +
-      "\022\204\001\n\025GetDictionariesByKeys\0224.product_hub" +
-      "_front_meta.GetDictionariesByKeysRequest" +
-      "\0325.product_hub_front_meta.GetDictionarie" +
-      "sByKeysResponse\022\207\001\n\026GetAllDictionaryValu" +
-      "es\0225.product_hub_front_meta.GetAllDictio" +
-      "naryValuesRequest\0326.product_hub_front_me" +
-      "ta.GetAllDictionaryValuesResponse\022\215\001\n\030Ge" +
-      "tAllOriginalCategories\0227.product_hub_fro" +
-      "nt_meta.GetAllOriginalCategoriesRequest\032" +
-      "8.product_hub_front_meta.GetAllOriginalC" +
-      "ategoriesResponse\022x\n\021GetRetailerStores\0220" +
-      ".product_hub_front_meta.GetRetailerStore" +
-      "sRequest\0321.product_hub_front_meta.GetRet" +
-      "ailerStoresResponse\022\234\001\n\035GetDictionaryAtt" +
-      "ributesValues\022<.product_hub_front_meta.G" +
-      "etDictionaryAttributesValuesRequest\032=.pr" +
-      "oduct_hub_front_meta.GetDictionaryAttrib" +
-      "utesValuesResponseBXZVgitlab.sbermarket." +
-      "tech/paas/content/product-hub/pkg/server" +
-      "/grpc/product-hub-front-metab\006proto3"
+      "\022\014\n\010DATETIME\020\004\022\t\n\005IMAGE\020\005*.\n\006Status\022\013\n\007D" +
+      "ISABLE\020\000\022\n\n\006ENABLE\020\001\022\013\n\007DELETED\020\0022\213\r\n\023Pr" +
+      "oductHubFrontMeta\022u\n\020GetAllCategories\022/." +
+      "product_hub_front_meta.GetAllCategoriesR" +
+      "equest\0320.product_hub_front_meta.GetAllCa" +
+      "tegoriesResponse\022\223\001\n\032GetAllCategoriesWit" +
+      "hStores\0229.product_hub_front_meta.GetAllC" +
+      "ategoriesWithStoresRequest\032:.product_hub" +
+      "_front_meta.GetAllCategoriesWithStoresRe" +
+      "sponse\022\223\001\n\032GetCategoriesByCategoryIDs\0229." +
+      "product_hub_front_meta.GetCategoriesByCa" +
+      "tegoryIDsRequest\032:.product_hub_front_met" +
+      "a.GetCategoriesByCategoryIDsResponse\022\242\001\n" +
+      "\037GetCategoryFiltersByCategoryIDs\022>.produ" +
+      "ct_hub_front_meta.GetCategoryFiltersByCa" +
+      "tegoryIDsRequest\032?.product_hub_front_met" +
+      "a.GetCategoryFiltersByCategoryIDsRespons" +
+      "e\022~\n\023GetAttributesByKeys\0222.product_hub_f" +
+      "ront_meta.GetAttributesByKeysRequest\0323.p" +
+      "roduct_hub_front_meta.GetAttributesByKey" +
+      "sResponse\022u\n\020GetAllAttributes\022/.product_" +
+      "hub_front_meta.GetAllAttributesRequest\0320" +
+      ".product_hub_front_meta.GetAllAttributes" +
+      "Response\022{\n\022GetAllDictionaries\0221.product" +
+      "_hub_front_meta.GetAllDictionariesReques" +
+      "t\0322.product_hub_front_meta.GetAllDiction" +
+      "ariesResponse\022\204\001\n\025GetDictionariesByKeys\022" +
+      "4.product_hub_front_meta.GetDictionaries" +
+      "ByKeysRequest\0325.product_hub_front_meta.G" +
+      "etDictionariesByKeysResponse\022\207\001\n\026GetAllD" +
+      "ictionaryValues\0225.product_hub_front_meta" +
+      ".GetAllDictionaryValuesRequest\0326.product" +
+      "_hub_front_meta.GetAllDictionaryValuesRe" +
+      "sponse\022\215\001\n\030GetAllOriginalCategories\0227.pr" +
+      "oduct_hub_front_meta.GetAllOriginalCateg" +
+      "oriesRequest\0328.product_hub_front_meta.Ge" +
+      "tAllOriginalCategoriesResponse\022x\n\021GetRet" +
+      "ailerStores\0220.product_hub_front_meta.Get" +
+      "RetailerStoresRequest\0321.product_hub_fron" +
+      "t_meta.GetRetailerStoresResponse\022\234\001\n\035Get" +
+      "DictionaryAttributesValues\022<.product_hub" +
+      "_front_meta.GetDictionaryAttributesValue" +
+      "sRequest\032=.product_hub_front_meta.GetDic" +
+      "tionaryAttributesValuesResponseBXZVgitla" +
+      "b.sbermarket.tech/paas/content/product-h" +
+      "ub/pkg/server/grpc/product-hub-front-met" +
+      "ab\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

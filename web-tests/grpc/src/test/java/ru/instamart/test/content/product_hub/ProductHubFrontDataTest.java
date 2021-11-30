@@ -25,7 +25,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Test(  description = "Get products by SKU",
-            groups = "grpc-product-hub")
+            groups = {})
     public void getProductsBySKU() {
         var request = ProductHubFrontDataOuterClass
                 .GetProductsBySKURequest.newBuilder()

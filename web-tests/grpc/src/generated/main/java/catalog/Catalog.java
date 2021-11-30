@@ -31,6 +31,10 @@ public final class Catalog {
      * <code>PRICE_DESC = 2;</code>
      */
     PRICE_DESC(2),
+    /**
+     * <code>WEIGHT_PRICE = 3;</code>
+     */
+    WEIGHT_PRICE(3),
     UNRECOGNIZED(-1),
     ;
 
@@ -46,6 +50,10 @@ public final class Catalog {
      * <code>PRICE_DESC = 2;</code>
      */
     public static final int PRICE_DESC_VALUE = 2;
+    /**
+     * <code>WEIGHT_PRICE = 3;</code>
+     */
+    public static final int WEIGHT_PRICE_VALUE = 3;
 
 
     public final int getNumber() {
@@ -75,6 +83,7 @@ public final class Catalog {
         case 0: return POPULARITY;
         case 1: return PRICE_ASC;
         case 2: return PRICE_DESC;
+        case 3: return WEIGHT_PRICE;
         default: return null;
       }
     }
@@ -17327,19 +17336,20 @@ public final class Catalog {
       "2\017.catalog.Status\"l\n\005Offer\022\037\n\006pricer\030\001 \001" +
       "(\0162\017.catalog.Pricer\022!\n\noffer_data\030\002 \003(\0132" +
       "\r.catalog.Data\022\037\n\006status\030\003 \001(\0162\017.catalog" +
-      ".Status\"\007\n\005Empty*5\n\004Sort\022\016\n\nPOPULARITY\020\000" +
-      "\022\r\n\tPRICE_ASC\020\001\022\016\n\nPRICE_DESC\020\002*!\n\006Statu" +
-      "s\022\013\n\007DISABLE\020\000\022\n\n\006ENABLE\020\001*S\n\tValueType\022" +
-      "\n\n\006STRING\020\000\022\013\n\007INTEGER\020\001\022\n\n\006DOUBLE\020\002\022\010\n\004" +
-      "BOOL\020\003\022\014\n\010DATETIME\020\004\022\t\n\005IMAGE\020\005*U\n\006Price" +
-      "r\022\014\n\010PER_ITEM\020\000\022\025\n\021PER_ITEMS_PACKAGE\020\001\022\026" +
-      "\n\022PER_WEIGHT_PACKAGE\020\002\022\016\n\nPER_WEIGHT\020\0032\226" +
-      "\001\n\016CatalogService\022H\n\013GetProducts\022\033.catal" +
-      "og.GetProductsRequest\032\034.catalog.GetProdu" +
-      "ctsResponse\022:\n\030FlushCategoryFacetsCache\022" +
-      "\016.catalog.Empty\032\016.catalog.EmptyBEZCgitla" +
-      "b.sbermarket.tech/paas/content/catalog/p" +
-      "kg/server/grpc/catalogb\006proto3"
+      ".Status\"\007\n\005Empty*G\n\004Sort\022\016\n\nPOPULARITY\020\000" +
+      "\022\r\n\tPRICE_ASC\020\001\022\016\n\nPRICE_DESC\020\002\022\020\n\014WEIGH" +
+      "T_PRICE\020\003*!\n\006Status\022\013\n\007DISABLE\020\000\022\n\n\006ENAB" +
+      "LE\020\001*S\n\tValueType\022\n\n\006STRING\020\000\022\013\n\007INTEGER" +
+      "\020\001\022\n\n\006DOUBLE\020\002\022\010\n\004BOOL\020\003\022\014\n\010DATETIME\020\004\022\t" +
+      "\n\005IMAGE\020\005*U\n\006Pricer\022\014\n\010PER_ITEM\020\000\022\025\n\021PER" +
+      "_ITEMS_PACKAGE\020\001\022\026\n\022PER_WEIGHT_PACKAGE\020\002" +
+      "\022\016\n\nPER_WEIGHT\020\0032\226\001\n\016CatalogService\022H\n\013G" +
+      "etProducts\022\033.catalog.GetProductsRequest\032" +
+      "\034.catalog.GetProductsResponse\022:\n\030FlushCa" +
+      "tegoryFacetsCache\022\016.catalog.Empty\032\016.cata" +
+      "log.EmptyBEZCgitlab.sbermarket.tech/paas" +
+      "/content/catalog/pkg/server/grpc/catalog" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

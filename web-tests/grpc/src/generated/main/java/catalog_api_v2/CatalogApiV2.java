@@ -1875,6 +1875,21 @@ public final class CatalogApiV2 {
      */
     catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder getPromoBadgesOrBuilder(
         int index);
+
+    /**
+     * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
+     * @return Whether the rootCategories field is set.
+     */
+    boolean hasRootCategories();
+    /**
+     * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
+     * @return The rootCategories.
+     */
+    catalog_api_v2.CatalogApiV2.RootCategories getRootCategories();
+    /**
+     * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
+     */
+    catalog_api_v2.CatalogApiV2.RootCategoriesOrBuilder getRootCategoriesOrBuilder();
   }
   /**
    * Protobuf type {@code catalog_api_v2.GetProductListResponse}
@@ -1973,6 +1988,19 @@ public final class CatalogApiV2 {
               }
               promoBadges_.add(
                   input.readMessage(catalog_api_v2.CatalogApiV2.PromoBadge.parser(), extensionRegistry));
+              break;
+            }
+            case 50: {
+              catalog_api_v2.CatalogApiV2.RootCategories.Builder subBuilder = null;
+              if (rootCategories_ != null) {
+                subBuilder = rootCategories_.toBuilder();
+              }
+              rootCategories_ = input.readMessage(catalog_api_v2.CatalogApiV2.RootCategories.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(rootCategories_);
+                rootCategories_ = subBuilder.buildPartial();
+              }
+
               break;
             }
             default: {
@@ -2205,6 +2233,32 @@ public final class CatalogApiV2 {
       return promoBadges_.get(index);
     }
 
+    public static final int ROOT_CATEGORIES_FIELD_NUMBER = 6;
+    private catalog_api_v2.CatalogApiV2.RootCategories rootCategories_;
+    /**
+     * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
+     * @return Whether the rootCategories field is set.
+     */
+    @java.lang.Override
+    public boolean hasRootCategories() {
+      return rootCategories_ != null;
+    }
+    /**
+     * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
+     * @return The rootCategories.
+     */
+    @java.lang.Override
+    public catalog_api_v2.CatalogApiV2.RootCategories getRootCategories() {
+      return rootCategories_ == null ? catalog_api_v2.CatalogApiV2.RootCategories.getDefaultInstance() : rootCategories_;
+    }
+    /**
+     * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
+     */
+    @java.lang.Override
+    public catalog_api_v2.CatalogApiV2.RootCategoriesOrBuilder getRootCategoriesOrBuilder() {
+      return getRootCategories();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -2233,6 +2287,9 @@ public final class CatalogApiV2 {
       }
       for (int i = 0; i < promoBadges_.size(); i++) {
         output.writeMessage(5, promoBadges_.get(i));
+      }
+      if (rootCategories_ != null) {
+        output.writeMessage(6, getRootCategories());
       }
       unknownFields.writeTo(output);
     }
@@ -2263,6 +2320,10 @@ public final class CatalogApiV2 {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(5, promoBadges_.get(i));
       }
+      if (rootCategories_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(6, getRootCategories());
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -2291,6 +2352,11 @@ public final class CatalogApiV2 {
           .equals(other.getSortList())) return false;
       if (!getPromoBadgesList()
           .equals(other.getPromoBadgesList())) return false;
+      if (hasRootCategories() != other.hasRootCategories()) return false;
+      if (hasRootCategories()) {
+        if (!getRootCategories()
+            .equals(other.getRootCategories())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2321,6 +2387,10 @@ public final class CatalogApiV2 {
       if (getPromoBadgesCount() > 0) {
         hash = (37 * hash) + PROMO_BADGES_FIELD_NUMBER;
         hash = (53 * hash) + getPromoBadgesList().hashCode();
+      }
+      if (hasRootCategories()) {
+        hash = (37 * hash) + ROOT_CATEGORIES_FIELD_NUMBER;
+        hash = (53 * hash) + getRootCategories().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -2489,6 +2559,12 @@ public final class CatalogApiV2 {
         } else {
           promoBadgesBuilder_.clear();
         }
+        if (rootCategoriesBuilder_ == null) {
+          rootCategories_ = null;
+        } else {
+          rootCategories_ = null;
+          rootCategoriesBuilder_ = null;
+        }
         return this;
       }
 
@@ -2556,6 +2632,11 @@ public final class CatalogApiV2 {
           result.promoBadges_ = promoBadges_;
         } else {
           result.promoBadges_ = promoBadgesBuilder_.build();
+        }
+        if (rootCategoriesBuilder_ == null) {
+          result.rootCategories_ = rootCategories_;
+        } else {
+          result.rootCategories_ = rootCategoriesBuilder_.build();
         }
         onBuilt();
         return result;
@@ -2711,6 +2792,9 @@ public final class CatalogApiV2 {
               promoBadgesBuilder_.addAllMessages(other.promoBadges_);
             }
           }
+        }
+        if (other.hasRootCategories()) {
+          mergeRootCategories(other.getRootCategories());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -3820,6 +3904,125 @@ public final class CatalogApiV2 {
         }
         return promoBadgesBuilder_;
       }
+
+      private catalog_api_v2.CatalogApiV2.RootCategories rootCategories_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          catalog_api_v2.CatalogApiV2.RootCategories, catalog_api_v2.CatalogApiV2.RootCategories.Builder, catalog_api_v2.CatalogApiV2.RootCategoriesOrBuilder> rootCategoriesBuilder_;
+      /**
+       * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
+       * @return Whether the rootCategories field is set.
+       */
+      public boolean hasRootCategories() {
+        return rootCategoriesBuilder_ != null || rootCategories_ != null;
+      }
+      /**
+       * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
+       * @return The rootCategories.
+       */
+      public catalog_api_v2.CatalogApiV2.RootCategories getRootCategories() {
+        if (rootCategoriesBuilder_ == null) {
+          return rootCategories_ == null ? catalog_api_v2.CatalogApiV2.RootCategories.getDefaultInstance() : rootCategories_;
+        } else {
+          return rootCategoriesBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
+       */
+      public Builder setRootCategories(catalog_api_v2.CatalogApiV2.RootCategories value) {
+        if (rootCategoriesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          rootCategories_ = value;
+          onChanged();
+        } else {
+          rootCategoriesBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
+       */
+      public Builder setRootCategories(
+          catalog_api_v2.CatalogApiV2.RootCategories.Builder builderForValue) {
+        if (rootCategoriesBuilder_ == null) {
+          rootCategories_ = builderForValue.build();
+          onChanged();
+        } else {
+          rootCategoriesBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
+       */
+      public Builder mergeRootCategories(catalog_api_v2.CatalogApiV2.RootCategories value) {
+        if (rootCategoriesBuilder_ == null) {
+          if (rootCategories_ != null) {
+            rootCategories_ =
+              catalog_api_v2.CatalogApiV2.RootCategories.newBuilder(rootCategories_).mergeFrom(value).buildPartial();
+          } else {
+            rootCategories_ = value;
+          }
+          onChanged();
+        } else {
+          rootCategoriesBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
+       */
+      public Builder clearRootCategories() {
+        if (rootCategoriesBuilder_ == null) {
+          rootCategories_ = null;
+          onChanged();
+        } else {
+          rootCategories_ = null;
+          rootCategoriesBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
+       */
+      public catalog_api_v2.CatalogApiV2.RootCategories.Builder getRootCategoriesBuilder() {
+        
+        onChanged();
+        return getRootCategoriesFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
+       */
+      public catalog_api_v2.CatalogApiV2.RootCategoriesOrBuilder getRootCategoriesOrBuilder() {
+        if (rootCategoriesBuilder_ != null) {
+          return rootCategoriesBuilder_.getMessageOrBuilder();
+        } else {
+          return rootCategories_ == null ?
+              catalog_api_v2.CatalogApiV2.RootCategories.getDefaultInstance() : rootCategories_;
+        }
+      }
+      /**
+       * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          catalog_api_v2.CatalogApiV2.RootCategories, catalog_api_v2.CatalogApiV2.RootCategories.Builder, catalog_api_v2.CatalogApiV2.RootCategoriesOrBuilder> 
+          getRootCategoriesFieldBuilder() {
+        if (rootCategoriesBuilder_ == null) {
+          rootCategoriesBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              catalog_api_v2.CatalogApiV2.RootCategories, catalog_api_v2.CatalogApiV2.RootCategories.Builder, catalog_api_v2.CatalogApiV2.RootCategoriesOrBuilder>(
+                  getRootCategories(),
+                  getParentForChildren(),
+                  isClean());
+          rootCategories_ = null;
+        }
+        return rootCategoriesBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -3890,24 +4093,12 @@ public final class CatalogApiV2 {
         getProductIdBytes();
 
     /**
-     * <code>string store_id = 2 [json_name = "store_id"];</code>
-     * @return The storeId.
-     */
-    java.lang.String getStoreId();
-    /**
-     * <code>string store_id = 2 [json_name = "store_id"];</code>
-     * @return The bytes for storeId.
-     */
-    com.google.protobuf.ByteString
-        getStoreIdBytes();
-
-    /**
-     * <code>string tenant_id = 3 [json_name = "tenant_id"];</code>
+     * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
      * @return The tenantId.
      */
     java.lang.String getTenantId();
     /**
-     * <code>string tenant_id = 3 [json_name = "tenant_id"];</code>
+     * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
      * @return The bytes for tenantId.
      */
     com.google.protobuf.ByteString
@@ -3927,7 +4118,6 @@ public final class CatalogApiV2 {
     }
     private GetProductRequest() {
       productId_ = "";
-      storeId_ = "";
       tenantId_ = "";
     }
 
@@ -3968,12 +4158,6 @@ public final class CatalogApiV2 {
               break;
             }
             case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              storeId_ = s;
-              break;
-            }
-            case 26: {
               java.lang.String s = input.readStringRequireUtf8();
 
               tenantId_ = s;
@@ -4049,48 +4233,10 @@ public final class CatalogApiV2 {
       }
     }
 
-    public static final int STORE_ID_FIELD_NUMBER = 2;
-    private volatile java.lang.Object storeId_;
-    /**
-     * <code>string store_id = 2 [json_name = "store_id"];</code>
-     * @return The storeId.
-     */
-    @java.lang.Override
-    public java.lang.String getStoreId() {
-      java.lang.Object ref = storeId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        storeId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string store_id = 2 [json_name = "store_id"];</code>
-     * @return The bytes for storeId.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getStoreIdBytes() {
-      java.lang.Object ref = storeId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        storeId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int TENANT_ID_FIELD_NUMBER = 3;
+    public static final int TENANT_ID_FIELD_NUMBER = 2;
     private volatile java.lang.Object tenantId_;
     /**
-     * <code>string tenant_id = 3 [json_name = "tenant_id"];</code>
+     * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
      * @return The tenantId.
      */
     @java.lang.Override
@@ -4107,7 +4253,7 @@ public final class CatalogApiV2 {
       }
     }
     /**
-     * <code>string tenant_id = 3 [json_name = "tenant_id"];</code>
+     * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
      * @return The bytes for tenantId.
      */
     @java.lang.Override
@@ -4142,11 +4288,8 @@ public final class CatalogApiV2 {
       if (!getProductIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, productId_);
       }
-      if (!getStoreIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, storeId_);
-      }
       if (!getTenantIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, tenantId_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, tenantId_);
       }
       unknownFields.writeTo(output);
     }
@@ -4160,11 +4303,8 @@ public final class CatalogApiV2 {
       if (!getProductIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, productId_);
       }
-      if (!getStoreIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, storeId_);
-      }
       if (!getTenantIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, tenantId_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, tenantId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -4183,8 +4323,6 @@ public final class CatalogApiV2 {
 
       if (!getProductId()
           .equals(other.getProductId())) return false;
-      if (!getStoreId()
-          .equals(other.getStoreId())) return false;
       if (!getTenantId()
           .equals(other.getTenantId())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -4200,8 +4338,6 @@ public final class CatalogApiV2 {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + PRODUCT_ID_FIELD_NUMBER;
       hash = (53 * hash) + getProductId().hashCode();
-      hash = (37 * hash) + STORE_ID_FIELD_NUMBER;
-      hash = (53 * hash) + getStoreId().hashCode();
       hash = (37 * hash) + TENANT_ID_FIELD_NUMBER;
       hash = (53 * hash) + getTenantId().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -4339,8 +4475,6 @@ public final class CatalogApiV2 {
         super.clear();
         productId_ = "";
 
-        storeId_ = "";
-
         tenantId_ = "";
 
         return this;
@@ -4370,7 +4504,6 @@ public final class CatalogApiV2 {
       public catalog_api_v2.CatalogApiV2.GetProductRequest buildPartial() {
         catalog_api_v2.CatalogApiV2.GetProductRequest result = new catalog_api_v2.CatalogApiV2.GetProductRequest(this);
         result.productId_ = productId_;
-        result.storeId_ = storeId_;
         result.tenantId_ = tenantId_;
         onBuilt();
         return result;
@@ -4422,10 +4555,6 @@ public final class CatalogApiV2 {
         if (other == catalog_api_v2.CatalogApiV2.GetProductRequest.getDefaultInstance()) return this;
         if (!other.getProductId().isEmpty()) {
           productId_ = other.productId_;
-          onChanged();
-        }
-        if (!other.getStoreId().isEmpty()) {
-          storeId_ = other.storeId_;
           onChanged();
         }
         if (!other.getTenantId().isEmpty()) {
@@ -4537,85 +4666,9 @@ public final class CatalogApiV2 {
         return this;
       }
 
-      private java.lang.Object storeId_ = "";
-      /**
-       * <code>string store_id = 2 [json_name = "store_id"];</code>
-       * @return The storeId.
-       */
-      public java.lang.String getStoreId() {
-        java.lang.Object ref = storeId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          storeId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string store_id = 2 [json_name = "store_id"];</code>
-       * @return The bytes for storeId.
-       */
-      public com.google.protobuf.ByteString
-          getStoreIdBytes() {
-        java.lang.Object ref = storeId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          storeId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string store_id = 2 [json_name = "store_id"];</code>
-       * @param value The storeId to set.
-       * @return This builder for chaining.
-       */
-      public Builder setStoreId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        storeId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string store_id = 2 [json_name = "store_id"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearStoreId() {
-        
-        storeId_ = getDefaultInstance().getStoreId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string store_id = 2 [json_name = "store_id"];</code>
-       * @param value The bytes for storeId to set.
-       * @return This builder for chaining.
-       */
-      public Builder setStoreIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        storeId_ = value;
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object tenantId_ = "";
       /**
-       * <code>string tenant_id = 3 [json_name = "tenant_id"];</code>
+       * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
        * @return The tenantId.
        */
       public java.lang.String getTenantId() {
@@ -4631,7 +4684,7 @@ public final class CatalogApiV2 {
         }
       }
       /**
-       * <code>string tenant_id = 3 [json_name = "tenant_id"];</code>
+       * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
        * @return The bytes for tenantId.
        */
       public com.google.protobuf.ByteString
@@ -4648,7 +4701,7 @@ public final class CatalogApiV2 {
         }
       }
       /**
-       * <code>string tenant_id = 3 [json_name = "tenant_id"];</code>
+       * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
        * @param value The tenantId to set.
        * @return This builder for chaining.
        */
@@ -4663,7 +4716,7 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>string tenant_id = 3 [json_name = "tenant_id"];</code>
+       * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
        * @return This builder for chaining.
        */
       public Builder clearTenantId() {
@@ -4673,7 +4726,7 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>string tenant_id = 3 [json_name = "tenant_id"];</code>
+       * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
        * @param value The bytes for tenantId to set.
        * @return This builder for chaining.
        */
@@ -12441,16 +12494,19 @@ public final class CatalogApiV2 {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string name = 1;</code>
+     * <code>.google.protobuf.StringValue name = 1;</code>
+     * @return Whether the name field is set.
+     */
+    boolean hasName();
+    /**
+     * <code>.google.protobuf.StringValue name = 1;</code>
      * @return The name.
      */
-    java.lang.String getName();
+    com.google.protobuf.StringValue getName();
     /**
-     * <code>string name = 1;</code>
-     * @return The bytes for name.
+     * <code>.google.protobuf.StringValue name = 1;</code>
      */
-    com.google.protobuf.ByteString
-        getNameBytes();
+    com.google.protobuf.StringValueOrBuilder getNameOrBuilder();
 
     /**
      * <code>int64 value = 2;</code>
@@ -12459,7 +12515,28 @@ public final class CatalogApiV2 {
     long getValue();
 
     /**
-     * <code>bool active = 3;</code>
+     * <code>int64 count = 3;</code>
+     * @return The count.
+     */
+    long getCount();
+
+    /**
+     * <code>.google.protobuf.StringValue permalink = 4;</code>
+     * @return Whether the permalink field is set.
+     */
+    boolean hasPermalink();
+    /**
+     * <code>.google.protobuf.StringValue permalink = 4;</code>
+     * @return The permalink.
+     */
+    com.google.protobuf.StringValue getPermalink();
+    /**
+     * <code>.google.protobuf.StringValue permalink = 4;</code>
+     */
+    com.google.protobuf.StringValueOrBuilder getPermalinkOrBuilder();
+
+    /**
+     * <code>bool active = 5;</code>
      * @return The active.
      */
     boolean getActive();
@@ -12477,7 +12554,6 @@ public final class CatalogApiV2 {
       super(builder);
     }
     private FacetOption() {
-      name_ = "";
     }
 
     @java.lang.Override
@@ -12511,9 +12587,16 @@ public final class CatalogApiV2 {
               done = true;
               break;
             case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+              com.google.protobuf.StringValue.Builder subBuilder = null;
+              if (name_ != null) {
+                subBuilder = name_.toBuilder();
+              }
+              name_ = input.readMessage(com.google.protobuf.StringValue.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(name_);
+                name_ = subBuilder.buildPartial();
+              }
 
-              name_ = s;
               break;
             }
             case 16: {
@@ -12522,6 +12605,24 @@ public final class CatalogApiV2 {
               break;
             }
             case 24: {
+
+              count_ = input.readInt64();
+              break;
+            }
+            case 34: {
+              com.google.protobuf.StringValue.Builder subBuilder = null;
+              if (permalink_ != null) {
+                subBuilder = permalink_.toBuilder();
+              }
+              permalink_ = input.readMessage(com.google.protobuf.StringValue.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(permalink_);
+                permalink_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 40: {
 
               active_ = input.readBool();
               break;
@@ -12559,41 +12660,29 @@ public final class CatalogApiV2 {
     }
 
     public static final int NAME_FIELD_NUMBER = 1;
-    private volatile java.lang.Object name_;
+    private com.google.protobuf.StringValue name_;
     /**
-     * <code>string name = 1;</code>
+     * <code>.google.protobuf.StringValue name = 1;</code>
+     * @return Whether the name field is set.
+     */
+    @java.lang.Override
+    public boolean hasName() {
+      return name_ != null;
+    }
+    /**
+     * <code>.google.protobuf.StringValue name = 1;</code>
      * @return The name.
      */
     @java.lang.Override
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        name_ = s;
-        return s;
-      }
+    public com.google.protobuf.StringValue getName() {
+      return name_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : name_;
     }
     /**
-     * <code>string name = 1;</code>
-     * @return The bytes for name.
+     * <code>.google.protobuf.StringValue name = 1;</code>
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString
-        getNameBytes() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public com.google.protobuf.StringValueOrBuilder getNameOrBuilder() {
+      return getName();
     }
 
     public static final int VALUE_FIELD_NUMBER = 2;
@@ -12607,10 +12696,47 @@ public final class CatalogApiV2 {
       return value_;
     }
 
-    public static final int ACTIVE_FIELD_NUMBER = 3;
+    public static final int COUNT_FIELD_NUMBER = 3;
+    private long count_;
+    /**
+     * <code>int64 count = 3;</code>
+     * @return The count.
+     */
+    @java.lang.Override
+    public long getCount() {
+      return count_;
+    }
+
+    public static final int PERMALINK_FIELD_NUMBER = 4;
+    private com.google.protobuf.StringValue permalink_;
+    /**
+     * <code>.google.protobuf.StringValue permalink = 4;</code>
+     * @return Whether the permalink field is set.
+     */
+    @java.lang.Override
+    public boolean hasPermalink() {
+      return permalink_ != null;
+    }
+    /**
+     * <code>.google.protobuf.StringValue permalink = 4;</code>
+     * @return The permalink.
+     */
+    @java.lang.Override
+    public com.google.protobuf.StringValue getPermalink() {
+      return permalink_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : permalink_;
+    }
+    /**
+     * <code>.google.protobuf.StringValue permalink = 4;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.StringValueOrBuilder getPermalinkOrBuilder() {
+      return getPermalink();
+    }
+
+    public static final int ACTIVE_FIELD_NUMBER = 5;
     private boolean active_;
     /**
-     * <code>bool active = 3;</code>
+     * <code>bool active = 5;</code>
      * @return The active.
      */
     @java.lang.Override
@@ -12632,14 +12758,20 @@ public final class CatalogApiV2 {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
+      if (name_ != null) {
+        output.writeMessage(1, getName());
       }
       if (value_ != 0L) {
         output.writeInt64(2, value_);
       }
+      if (count_ != 0L) {
+        output.writeInt64(3, count_);
+      }
+      if (permalink_ != null) {
+        output.writeMessage(4, getPermalink());
+      }
       if (active_ != false) {
-        output.writeBool(3, active_);
+        output.writeBool(5, active_);
       }
       unknownFields.writeTo(output);
     }
@@ -12650,16 +12782,25 @@ public final class CatalogApiV2 {
       if (size != -1) return size;
 
       size = 0;
-      if (!getNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
+      if (name_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getName());
       }
       if (value_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(2, value_);
       }
+      if (count_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(3, count_);
+      }
+      if (permalink_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getPermalink());
+      }
       if (active_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(3, active_);
+          .computeBoolSize(5, active_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -12676,10 +12817,20 @@ public final class CatalogApiV2 {
       }
       catalog_api_v2.CatalogApiV2.FacetOption other = (catalog_api_v2.CatalogApiV2.FacetOption) obj;
 
-      if (!getName()
-          .equals(other.getName())) return false;
+      if (hasName() != other.hasName()) return false;
+      if (hasName()) {
+        if (!getName()
+            .equals(other.getName())) return false;
+      }
       if (getValue()
           != other.getValue()) return false;
+      if (getCount()
+          != other.getCount()) return false;
+      if (hasPermalink() != other.hasPermalink()) return false;
+      if (hasPermalink()) {
+        if (!getPermalink()
+            .equals(other.getPermalink())) return false;
+      }
       if (getActive()
           != other.getActive()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -12693,11 +12844,20 @@ public final class CatalogApiV2 {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + NAME_FIELD_NUMBER;
-      hash = (53 * hash) + getName().hashCode();
+      if (hasName()) {
+        hash = (37 * hash) + NAME_FIELD_NUMBER;
+        hash = (53 * hash) + getName().hashCode();
+      }
       hash = (37 * hash) + VALUE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getValue());
+      hash = (37 * hash) + COUNT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getCount());
+      if (hasPermalink()) {
+        hash = (37 * hash) + PERMALINK_FIELD_NUMBER;
+        hash = (53 * hash) + getPermalink().hashCode();
+      }
       hash = (37 * hash) + ACTIVE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getActive());
@@ -12834,10 +12994,22 @@ public final class CatalogApiV2 {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        name_ = "";
-
+        if (nameBuilder_ == null) {
+          name_ = null;
+        } else {
+          name_ = null;
+          nameBuilder_ = null;
+        }
         value_ = 0L;
 
+        count_ = 0L;
+
+        if (permalinkBuilder_ == null) {
+          permalink_ = null;
+        } else {
+          permalink_ = null;
+          permalinkBuilder_ = null;
+        }
         active_ = false;
 
         return this;
@@ -12866,8 +13038,18 @@ public final class CatalogApiV2 {
       @java.lang.Override
       public catalog_api_v2.CatalogApiV2.FacetOption buildPartial() {
         catalog_api_v2.CatalogApiV2.FacetOption result = new catalog_api_v2.CatalogApiV2.FacetOption(this);
-        result.name_ = name_;
+        if (nameBuilder_ == null) {
+          result.name_ = name_;
+        } else {
+          result.name_ = nameBuilder_.build();
+        }
         result.value_ = value_;
+        result.count_ = count_;
+        if (permalinkBuilder_ == null) {
+          result.permalink_ = permalink_;
+        } else {
+          result.permalink_ = permalinkBuilder_.build();
+        }
         result.active_ = active_;
         onBuilt();
         return result;
@@ -12917,12 +13099,17 @@ public final class CatalogApiV2 {
 
       public Builder mergeFrom(catalog_api_v2.CatalogApiV2.FacetOption other) {
         if (other == catalog_api_v2.CatalogApiV2.FacetOption.getDefaultInstance()) return this;
-        if (!other.getName().isEmpty()) {
-          name_ = other.name_;
-          onChanged();
+        if (other.hasName()) {
+          mergeName(other.getName());
         }
         if (other.getValue() != 0L) {
           setValue(other.getValue());
+        }
+        if (other.getCount() != 0L) {
+          setCount(other.getCount());
+        }
+        if (other.hasPermalink()) {
+          mergePermalink(other.getPermalink());
         }
         if (other.getActive() != false) {
           setActive(other.getActive());
@@ -12956,80 +13143,123 @@ public final class CatalogApiV2 {
         return this;
       }
 
-      private java.lang.Object name_ = "";
+      private com.google.protobuf.StringValue name_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> nameBuilder_;
       /**
-       * <code>string name = 1;</code>
+       * <code>.google.protobuf.StringValue name = 1;</code>
+       * @return Whether the name field is set.
+       */
+      public boolean hasName() {
+        return nameBuilder_ != null || name_ != null;
+      }
+      /**
+       * <code>.google.protobuf.StringValue name = 1;</code>
        * @return The name.
        */
-      public java.lang.String getName() {
-        java.lang.Object ref = name_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          name_ = s;
-          return s;
+      public com.google.protobuf.StringValue getName() {
+        if (nameBuilder_ == null) {
+          return name_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : name_;
         } else {
-          return (java.lang.String) ref;
+          return nameBuilder_.getMessage();
         }
       }
       /**
-       * <code>string name = 1;</code>
-       * @return The bytes for name.
+       * <code>.google.protobuf.StringValue name = 1;</code>
        */
-      public com.google.protobuf.ByteString
-          getNameBytes() {
-        java.lang.Object ref = name_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          name_ = b;
-          return b;
+      public Builder setName(com.google.protobuf.StringValue value) {
+        if (nameBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          name_ = value;
+          onChanged();
         } else {
-          return (com.google.protobuf.ByteString) ref;
+          nameBuilder_.setMessage(value);
         }
+
+        return this;
       }
       /**
-       * <code>string name = 1;</code>
-       * @param value The name to set.
-       * @return This builder for chaining.
+       * <code>.google.protobuf.StringValue name = 1;</code>
        */
       public Builder setName(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        name_ = value;
-        onChanged();
+          com.google.protobuf.StringValue.Builder builderForValue) {
+        if (nameBuilder_ == null) {
+          name_ = builderForValue.build();
+          onChanged();
+        } else {
+          nameBuilder_.setMessage(builderForValue.build());
+        }
+
         return this;
       }
       /**
-       * <code>string name = 1;</code>
-       * @return This builder for chaining.
+       * <code>.google.protobuf.StringValue name = 1;</code>
+       */
+      public Builder mergeName(com.google.protobuf.StringValue value) {
+        if (nameBuilder_ == null) {
+          if (name_ != null) {
+            name_ =
+              com.google.protobuf.StringValue.newBuilder(name_).mergeFrom(value).buildPartial();
+          } else {
+            name_ = value;
+          }
+          onChanged();
+        } else {
+          nameBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.StringValue name = 1;</code>
        */
       public Builder clearName() {
-        
-        name_ = getDefaultInstance().getName();
-        onChanged();
+        if (nameBuilder_ == null) {
+          name_ = null;
+          onChanged();
+        } else {
+          name_ = null;
+          nameBuilder_ = null;
+        }
+
         return this;
       }
       /**
-       * <code>string name = 1;</code>
-       * @param value The bytes for name to set.
-       * @return This builder for chaining.
+       * <code>.google.protobuf.StringValue name = 1;</code>
        */
-      public Builder setNameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
+      public com.google.protobuf.StringValue.Builder getNameBuilder() {
         
-        name_ = value;
         onChanged();
-        return this;
+        return getNameFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.StringValue name = 1;</code>
+       */
+      public com.google.protobuf.StringValueOrBuilder getNameOrBuilder() {
+        if (nameBuilder_ != null) {
+          return nameBuilder_.getMessageOrBuilder();
+        } else {
+          return name_ == null ?
+              com.google.protobuf.StringValue.getDefaultInstance() : name_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.StringValue name = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> 
+          getNameFieldBuilder() {
+        if (nameBuilder_ == null) {
+          nameBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder>(
+                  getName(),
+                  getParentForChildren(),
+                  isClean());
+          name_ = null;
+        }
+        return nameBuilder_;
       }
 
       private long value_ ;
@@ -13063,9 +13293,159 @@ public final class CatalogApiV2 {
         return this;
       }
 
+      private long count_ ;
+      /**
+       * <code>int64 count = 3;</code>
+       * @return The count.
+       */
+      @java.lang.Override
+      public long getCount() {
+        return count_;
+      }
+      /**
+       * <code>int64 count = 3;</code>
+       * @param value The count to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCount(long value) {
+        
+        count_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 count = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCount() {
+        
+        count_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.StringValue permalink_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> permalinkBuilder_;
+      /**
+       * <code>.google.protobuf.StringValue permalink = 4;</code>
+       * @return Whether the permalink field is set.
+       */
+      public boolean hasPermalink() {
+        return permalinkBuilder_ != null || permalink_ != null;
+      }
+      /**
+       * <code>.google.protobuf.StringValue permalink = 4;</code>
+       * @return The permalink.
+       */
+      public com.google.protobuf.StringValue getPermalink() {
+        if (permalinkBuilder_ == null) {
+          return permalink_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : permalink_;
+        } else {
+          return permalinkBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.StringValue permalink = 4;</code>
+       */
+      public Builder setPermalink(com.google.protobuf.StringValue value) {
+        if (permalinkBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          permalink_ = value;
+          onChanged();
+        } else {
+          permalinkBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.StringValue permalink = 4;</code>
+       */
+      public Builder setPermalink(
+          com.google.protobuf.StringValue.Builder builderForValue) {
+        if (permalinkBuilder_ == null) {
+          permalink_ = builderForValue.build();
+          onChanged();
+        } else {
+          permalinkBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.StringValue permalink = 4;</code>
+       */
+      public Builder mergePermalink(com.google.protobuf.StringValue value) {
+        if (permalinkBuilder_ == null) {
+          if (permalink_ != null) {
+            permalink_ =
+              com.google.protobuf.StringValue.newBuilder(permalink_).mergeFrom(value).buildPartial();
+          } else {
+            permalink_ = value;
+          }
+          onChanged();
+        } else {
+          permalinkBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.StringValue permalink = 4;</code>
+       */
+      public Builder clearPermalink() {
+        if (permalinkBuilder_ == null) {
+          permalink_ = null;
+          onChanged();
+        } else {
+          permalink_ = null;
+          permalinkBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.StringValue permalink = 4;</code>
+       */
+      public com.google.protobuf.StringValue.Builder getPermalinkBuilder() {
+        
+        onChanged();
+        return getPermalinkFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.StringValue permalink = 4;</code>
+       */
+      public com.google.protobuf.StringValueOrBuilder getPermalinkOrBuilder() {
+        if (permalinkBuilder_ != null) {
+          return permalinkBuilder_.getMessageOrBuilder();
+        } else {
+          return permalink_ == null ?
+              com.google.protobuf.StringValue.getDefaultInstance() : permalink_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.StringValue permalink = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> 
+          getPermalinkFieldBuilder() {
+        if (permalinkBuilder_ == null) {
+          permalinkBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder>(
+                  getPermalink(),
+                  getParentForChildren(),
+                  isClean());
+          permalink_ = null;
+        }
+        return permalinkBuilder_;
+      }
+
       private boolean active_ ;
       /**
-       * <code>bool active = 3;</code>
+       * <code>bool active = 5;</code>
        * @return The active.
        */
       @java.lang.Override
@@ -13073,7 +13453,7 @@ public final class CatalogApiV2 {
         return active_;
       }
       /**
-       * <code>bool active = 3;</code>
+       * <code>bool active = 5;</code>
        * @param value The active to set.
        * @return This builder for chaining.
        */
@@ -13084,7 +13464,7 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>bool active = 3;</code>
+       * <code>bool active = 5;</code>
        * @return This builder for chaining.
        */
       public Builder clearActive() {
@@ -14249,6 +14629,424 @@ public final class CatalogApiV2 {
 
     @java.lang.Override
     public catalog_api_v2.CatalogApiV2.Meta getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RootCategoriesOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:catalog_api_v2.RootCategories)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code catalog_api_v2.RootCategories}
+   */
+  public static final class RootCategories extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:catalog_api_v2.RootCategories)
+      RootCategoriesOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use RootCategories.newBuilder() to construct.
+    private RootCategories(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private RootCategories() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new RootCategories();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private RootCategories(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_RootCategories_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_RootCategories_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              catalog_api_v2.CatalogApiV2.RootCategories.class, catalog_api_v2.CatalogApiV2.RootCategories.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof catalog_api_v2.CatalogApiV2.RootCategories)) {
+        return super.equals(obj);
+      }
+      catalog_api_v2.CatalogApiV2.RootCategories other = (catalog_api_v2.CatalogApiV2.RootCategories) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static catalog_api_v2.CatalogApiV2.RootCategories parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static catalog_api_v2.CatalogApiV2.RootCategories parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static catalog_api_v2.CatalogApiV2.RootCategories parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static catalog_api_v2.CatalogApiV2.RootCategories parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static catalog_api_v2.CatalogApiV2.RootCategories parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static catalog_api_v2.CatalogApiV2.RootCategories parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static catalog_api_v2.CatalogApiV2.RootCategories parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static catalog_api_v2.CatalogApiV2.RootCategories parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static catalog_api_v2.CatalogApiV2.RootCategories parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static catalog_api_v2.CatalogApiV2.RootCategories parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static catalog_api_v2.CatalogApiV2.RootCategories parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static catalog_api_v2.CatalogApiV2.RootCategories parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(catalog_api_v2.CatalogApiV2.RootCategories prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code catalog_api_v2.RootCategories}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:catalog_api_v2.RootCategories)
+        catalog_api_v2.CatalogApiV2.RootCategoriesOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_RootCategories_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_RootCategories_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                catalog_api_v2.CatalogApiV2.RootCategories.class, catalog_api_v2.CatalogApiV2.RootCategories.Builder.class);
+      }
+
+      // Construct using catalog_api_v2.CatalogApiV2.RootCategories.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_RootCategories_descriptor;
+      }
+
+      @java.lang.Override
+      public catalog_api_v2.CatalogApiV2.RootCategories getDefaultInstanceForType() {
+        return catalog_api_v2.CatalogApiV2.RootCategories.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public catalog_api_v2.CatalogApiV2.RootCategories build() {
+        catalog_api_v2.CatalogApiV2.RootCategories result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public catalog_api_v2.CatalogApiV2.RootCategories buildPartial() {
+        catalog_api_v2.CatalogApiV2.RootCategories result = new catalog_api_v2.CatalogApiV2.RootCategories(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof catalog_api_v2.CatalogApiV2.RootCategories) {
+          return mergeFrom((catalog_api_v2.CatalogApiV2.RootCategories)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(catalog_api_v2.CatalogApiV2.RootCategories other) {
+        if (other == catalog_api_v2.CatalogApiV2.RootCategories.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        catalog_api_v2.CatalogApiV2.RootCategories parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (catalog_api_v2.CatalogApiV2.RootCategories) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:catalog_api_v2.RootCategories)
+    }
+
+    // @@protoc_insertion_point(class_scope:catalog_api_v2.RootCategories)
+    private static final catalog_api_v2.CatalogApiV2.RootCategories DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new catalog_api_v2.CatalogApiV2.RootCategories();
+    }
+
+    public static catalog_api_v2.CatalogApiV2.RootCategories getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<RootCategories>
+        PARSER = new com.google.protobuf.AbstractParser<RootCategories>() {
+      @java.lang.Override
+      public RootCategories parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RootCategories(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RootCategories> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RootCategories> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public catalog_api_v2.CatalogApiV2.RootCategories getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -31265,6 +32063,11 @@ public final class CatalogApiV2 {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_catalog_api_v2_Meta_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_catalog_api_v2_RootCategories_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_catalog_api_v2_RootCategories_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_catalog_api_v2_ProductListSort_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -31348,132 +32151,136 @@ public final class CatalogApiV2 {
       "terEntry\022\014\n\004sort\030\007 \001(\t\022\034\n\ttenant_id\030\010 \001(" +
       "\tR\ttenant_id\032Y\n\013FilterEntry\022\013\n\003key\030\001 \001(\t" +
       "\0229\n\005value\030\002 \001(\0132*.catalog_api_v2.Product" +
-      "ListAttributeFilter:\0028\001\"\375\001\n\026GetProductLi" +
+      "ListAttributeFilter:\0028\001\"\307\002\n\026GetProductLi" +
       "stResponse\022)\n\010products\030\001 \003(\0132\027.catalog_a" +
       "pi_v2.Product\022%\n\006facets\030\002 \003(\0132\025.catalog_" +
       "api_v2.Facet\022\"\n\004meta\030\003 \001(\0132\024.catalog_api" +
       "_v2.Meta\022-\n\004sort\030\004 \003(\0132\037.catalog_api_v2." +
       "ProductListSort\022>\n\014promo_badges\030\005 \003(\0132\032." +
-      "catalog_api_v2.PromoBadgeR\014promo_badges\"" +
-      "m\n\021GetProductRequest\022\036\n\nproduct_id\030\001 \001(\t" +
-      "R\nproduct_id\022\032\n\010store_id\030\002 \001(\tR\010store_id" +
-      "\022\034\n\ttenant_id\030\003 \001(\tR\ttenant_id\"\214\001\n\022GetPr" +
-      "oductResponse\0226\n\007product\030\001 \001(\0132%.catalog" +
-      "_api_v2.ProductWithProperties\022>\n\014promo_b" +
-      "adges\030\002 \003(\0132\032.catalog_api_v2.PromoBadgeR" +
-      "\014promo_badges\"\331\007\n\007Product\022\'\n\002id\030\001 \001(\0132\033." +
-      "google.protobuf.Int64Value\022(\n\003sku\030\002 \001(\0132" +
-      "\033.google.protobuf.Int64Value\022\016\n\006active\030\003" +
-      " \001(\010\022@\n\014retailer_sku\030\004 \001(\0132\034.google.prot" +
-      "obuf.StringValueR\014retailer_sku\022*\n\004name\030\005" +
-      " \001(\0132\034.google.protobuf.StringValue\022\r\n\005pr" +
-      "ice\030\006 \001(\001\022&\n\016original_price\030\007 \001(\001R\016origi" +
-      "nal_price\022\020\n\010discount\030\010 \001(\001\022@\n\014human_vol" +
-      "ume\030\t \001(\0132\034.google.protobuf.StringValueR" +
-      "\014human_volume\022+\n\006volume\030\n \001(\0132\033.google.p" +
-      "rotobuf.Int64Value\022>\n\013volume_type\030\013 \001(\0132" +
-      "\034.google.protobuf.StringValueR\013volume_ty" +
-      "pe\022C\n\016items_per_pack\030\014 \001(\0132\033.google.prot" +
-      "obuf.Int64ValueR\016items_per_pack\022H\n\020disco" +
-      "unt_ends_at\030\r \001(\0132\034.google.protobuf.Stri" +
-      "ngValueR\020discount_ends_at\022<\n\nprice_type\030" +
-      "\016 \001(\0132\034.google.protobuf.StringValueR\npri" +
-      "ce_type\022C\n\016grams_per_unit\030\017 \001(\0132\033.google" +
-      ".protobuf.Int64ValueR\016grams_per_unit\022\036\n\n" +
-      "unit_price\030\020 \001(\001R\nunit_price\0220\n\023original" +
-      "_unit_price\030\021 \001(\001R\023original_unit_price\022(" +
-      "\n\017promo_badge_ids\030\022 \003(\003R\017promo_badge_ids" +
-      "\022*\n\005score\030\023 \001(\0132\033.google.protobuf.FloatV" +
-      "alue\022\016\n\006labels\030\024 \003(\t\022%\n\006images\030\025 \003(\0132\025.c" +
-      "atalog_api_v2.Image\022\024\n\014requirements\030\026 \003(" +
-      "\t\"\251\001\n\005Image\022\032\n\010mini_url\030\001 \001(\tR\010mini_url\022" +
-      "\034\n\tsmall_url\030\002 \001(\tR\tsmall_url\022 \n\013product" +
-      "_url\030\003 \001(\tR\013product_url\022 \n\013preview_url\030\004" +
-      " \001(\tR\013preview_url\022\"\n\014original_url\030\005 \001(\tR" +
-      "\014original_url\"^\n\005Facet\022\013\n\003key\030\001 \001(\t\022\014\n\004n" +
-      "ame\030\002 \001(\t\022\014\n\004type\030\003 \001(\t\022,\n\007options\030\004 \003(\013" +
-      "2\033.catalog_api_v2.FacetOption\":\n\013FacetOp" +
-      "tion\022\014\n\004name\030\001 \001(\t\022\r\n\005value\030\002 \001(\003\022\016\n\006act" +
-      "ive\030\003 \001(\010\"\210\002\n\004Meta\022\"\n\014current_page\030\001 \001(\003" +
-      "R\014current_page\0229\n\tnext_page\030\002 \001(\0132\033.goog" +
-      "le.protobuf.Int64ValueR\tnext_page\022A\n\rpre" +
-      "vious_page\030\003 \001(\0132\033.google.protobuf.Int64" +
-      "ValueR\rprevious_page\022 \n\013total_pages\030\004 \001(" +
-      "\003R\013total_pages\022\032\n\010per_page\030\005 \001(\003R\010per_pa" +
-      "ge\022 \n\013total_count\030\006 \001(\003R\013total_count\"K\n\017" +
-      "ProductListSort\022\013\n\003key\030\001 \001(\t\022\014\n\004name\030\002 \001" +
-      "(\t\022\r\n\005order\030\003 \001(\t\022\016\n\006active\030\004 \001(\010\"\255\007\n\025Pr" +
-      "oductWithProperties\022\n\n\002id\030\001 \001(\003\022\013\n\003sku\030\002" +
-      " \001(\003\022\016\n\006active\030\003 \001(\010\022\"\n\014retailer_sku\030\004 \001" +
-      "(\tR\014retailer_sku\022\014\n\004name\030\005 \001(\t\022\r\n\005price\030" +
-      "\006 \001(\001\022&\n\016original_price\030\007 \001(\001R\016original_" +
-      "price\022\020\n\010discount\030\010 \001(\001\022\"\n\014human_volume\030" +
-      "\t \001(\tR\014human_volume\022\016\n\006volume\030\n \001(\003\022 \n\013v" +
-      "olume_type\030\013 \001(\tR\013volume_type\022&\n\016items_p" +
-      "er_pack\030\014 \001(\003R\016items_per_pack\022H\n\020discoun" +
-      "t_ends_at\030\r \001(\0132\034.google.protobuf.String" +
-      "ValueR\020discount_ends_at\022\036\n\nprice_type\030\016 " +
-      "\001(\tR\nprice_type\022&\n\016grams_per_unit\030\017 \001(\003R" +
-      "\016grams_per_unit\022\036\n\nunit_price\030\020 \001(\001R\nuni" +
-      "t_price\0220\n\023original_unit_price\030\021 \001(\001R\023or" +
-      "iginal_unit_price\022(\n\017promo_badge_ids\030\022 \003" +
-      "(\003R\017promo_badge_ids\022*\n\005score\030\023 \001(\0132\033.goo" +
-      "gle.protobuf.FloatValue\022\016\n\006labels\030\024 \003(\t\022" +
-      "%\n\006images\030\025 \003(\0132\025.catalog_api_v2.Image\022," +
-      "\n\nproperties\030\026 \003(\0132\030.catalog_api_v2.Prop" +
-      "erty\022\023\n\013description\030\027 \001(\t\022A\n\rscore_detai" +
-      "ls\030\030 \001(\0132\033.catalog_api_v2.ScoreDetailR\rs" +
-      "core_details\022\024\n\014requirements\030\031 \003(\t\022*\n\020re" +
-      "lated_products\030\032 \003(\tR\020related_products\0229" +
-      "\n\nmain_taxon\030\033 \001(\0132\031.catalog_api_v2.Main" +
-      "TaxonR\nmain_taxon\"=\n\010Property\022\014\n\004name\030\001 " +
-      "\001(\t\022\024\n\014presentation\030\002 \001(\t\022\r\n\005value\030\003 \001(\t" +
-      "\"H\n\032ProductListAttributeFilter\022*\n\020attrib" +
-      "ute_values\030\001 \003(\tR\020attribute_values\"_\n\nPr" +
-      "omoBadge\022\n\n\002id\030\001 \001(\003\022\014\n\004type\030\002 \001(\t\0227\n\nat" +
-      "tributes\030\003 \001(\0132#.catalog_api_v2.PromoBad" +
-      "geAttribute\"\241\001\n\023PromoBadgeAttribute\022\014\n\004n" +
-      "ame\030\001 \001(\t\022.\n\022banner_button_text\030\002 \001(\tR\022b" +
-      "anner_button_text\022\032\n\010taxon_id\030\003 \001(\003R\010tax" +
-      "on_id\0220\n\007options\030\004 \001(\0132\037.catalog_api_v2." +
-      "AttributeOption\"e\n\017AttributeOption\022&\n\006ac" +
-      "tive\030\001 \001(\0132\026.catalog_api_v2.Active\022*\n\010in" +
-      "active\030\002 \001(\0132\030.catalog_api_v2.Inactive\"\230" +
-      "\001\n\006Active\022\r\n\005title\030\001 \001(\t\022 \n\013title_short\030" +
-      "\002 \001(\tR\013title_short\022\013\n\003url\030\003 \001(\t\022\020\n\010deepl" +
-      "ink\030\004 \001(\t\022 \n\013button_text\030\005 \001(\tR\013button_t" +
-      "ext\022\016\n\006header\030\006 \001(\t\022\014\n\004text\030\007 \001(\t\"\210\001\n\010In" +
-      "active\022\r\n\005title\030\001 \001(\t\022 \n\013title_short\030\002 \001" +
-      "(\tR\013title_short\022\013\n\003url\030\003 \001(\t\022 \n\013button_t" +
-      "ext\030\005 \001(\tR\013button_text\022\016\n\006header\030\006 \001(\t\022\014" +
-      "\n\004text\030\007 \001(\t\"\230\001\n\013ScoreDetail\022B\n\rfeedback" +
-      "Count\030\001 \001(\0132\033.google.protobuf.Int64Value" +
-      "R\016feedback_count\022E\n\016feedbackSource\030\002 \001(\013" +
-      "2\034.google.protobuf.StringValueR\017feedback" +
-      "_source\"\372\001\n\tMainTaxon\022\n\n\002id\030\001 \001(\003\022\014\n\004typ" +
-      "e\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022&\n\016products_count\030" +
-      "\004 \001(\003R\016products_count\022&\n\016promo_services\030" +
-      "\005 \003(\tR\016promo_services\022\020\n\010position\030\006 \001(\003\022" +
-      "\r\n\005depth\030\007 \001(\005\022\"\n\004icon\030\010 \001(\0132\024.catalog_a" +
-      "pi_v2.Icon\022\032\n\010alt_icon\030\t \001(\tR\010alt_icon\022\024" +
-      "\n\014requirements\030\n \003(\t\"B\n\004Icon\022\032\n\010mini_url" +
-      "\030\001 \001(\tR\010mini_url\022\036\n\nnormal_url\030\002 \001(\tR\nno" +
-      "rmal_url\"\310\001\n\013ProtoPerson\022/\n\tfirstName\030\001 " +
-      "\001(\0132\034.google.protobuf.StringValue\022.\n\010las" +
-      "tName\030\002 \001(\0132\034.google.protobuf.StringValu" +
-      "e\022.\n\010address1\030\003 \001(\0132\034.google.protobuf.St" +
-      "ringValue\022(\n\003age\030\004 \001(\0132\033.google.protobuf" +
-      ".Int32Value*5\n\tFacetType\022\n\n\006SELECT\020\000\022\020\n\014" +
-      "MULTI_SELECT\020\001\022\n\n\006TOGGLE\020\0022\376\001\n\023CatalogAP" +
-      "IV2Service\022r\n\016GetProductList\022%.catalog_a" +
-      "pi_v2.GetProductListRequest\032&.catalog_ap" +
-      "i_v2.GetProductListResponse\"\021\202\323\344\223\002\013\022\t/pr" +
-      "oducts\022s\n\nGetProduct\022!.catalog_api_v2.Ge" +
-      "tProductRequest\032\".catalog_api_v2.GetProd" +
-      "uctResponse\"\036\202\323\344\223\002\030\022\026/products/{product_" +
-      "id}BEZCgitlab.sbermarket.tech/paas/conte" +
-      "nt/catalog/pkg/server/grpc/catalogb\006prot" +
-      "o3"
+      "catalog_api_v2.PromoBadgeR\014promo_badges\022" +
+      "H\n\017root_categories\030\006 \001(\0132\036.catalog_api_v" +
+      "2.RootCategoriesR\017root_categories\"Q\n\021Get" +
+      "ProductRequest\022\036\n\nproduct_id\030\001 \001(\tR\nprod" +
+      "uct_id\022\034\n\ttenant_id\030\002 \001(\tR\ttenant_id\"\214\001\n" +
+      "\022GetProductResponse\0226\n\007product\030\001 \001(\0132%.c" +
+      "atalog_api_v2.ProductWithProperties\022>\n\014p" +
+      "romo_badges\030\002 \003(\0132\032.catalog_api_v2.Promo" +
+      "BadgeR\014promo_badges\"\331\007\n\007Product\022\'\n\002id\030\001 " +
+      "\001(\0132\033.google.protobuf.Int64Value\022(\n\003sku\030" +
+      "\002 \001(\0132\033.google.protobuf.Int64Value\022\016\n\006ac" +
+      "tive\030\003 \001(\010\022@\n\014retailer_sku\030\004 \001(\0132\034.googl" +
+      "e.protobuf.StringValueR\014retailer_sku\022*\n\004" +
+      "name\030\005 \001(\0132\034.google.protobuf.StringValue" +
+      "\022\r\n\005price\030\006 \001(\001\022&\n\016original_price\030\007 \001(\001R" +
+      "\016original_price\022\020\n\010discount\030\010 \001(\001\022@\n\014hum" +
+      "an_volume\030\t \001(\0132\034.google.protobuf.String" +
+      "ValueR\014human_volume\022+\n\006volume\030\n \001(\0132\033.go" +
+      "ogle.protobuf.Int64Value\022>\n\013volume_type\030" +
+      "\013 \001(\0132\034.google.protobuf.StringValueR\013vol" +
+      "ume_type\022C\n\016items_per_pack\030\014 \001(\0132\033.googl" +
+      "e.protobuf.Int64ValueR\016items_per_pack\022H\n" +
+      "\020discount_ends_at\030\r \001(\0132\034.google.protobu" +
+      "f.StringValueR\020discount_ends_at\022<\n\nprice" +
+      "_type\030\016 \001(\0132\034.google.protobuf.StringValu" +
+      "eR\nprice_type\022C\n\016grams_per_unit\030\017 \001(\0132\033." +
+      "google.protobuf.Int64ValueR\016grams_per_un" +
+      "it\022\036\n\nunit_price\030\020 \001(\001R\nunit_price\0220\n\023or" +
+      "iginal_unit_price\030\021 \001(\001R\023original_unit_p" +
+      "rice\022(\n\017promo_badge_ids\030\022 \003(\003R\017promo_bad" +
+      "ge_ids\022*\n\005score\030\023 \001(\0132\033.google.protobuf." +
+      "FloatValue\022\016\n\006labels\030\024 \003(\t\022%\n\006images\030\025 \003" +
+      "(\0132\025.catalog_api_v2.Image\022\024\n\014requirement" +
+      "s\030\026 \003(\t\"\251\001\n\005Image\022\032\n\010mini_url\030\001 \001(\tR\010min" +
+      "i_url\022\034\n\tsmall_url\030\002 \001(\tR\tsmall_url\022 \n\013p" +
+      "roduct_url\030\003 \001(\tR\013product_url\022 \n\013preview" +
+      "_url\030\004 \001(\tR\013preview_url\022\"\n\014original_url\030" +
+      "\005 \001(\tR\014original_url\"^\n\005Facet\022\013\n\003key\030\001 \001(" +
+      "\t\022\014\n\004name\030\002 \001(\t\022\014\n\004type\030\003 \001(\t\022,\n\007options" +
+      "\030\004 \003(\0132\033.catalog_api_v2.FacetOption\"\230\001\n\013" +
+      "FacetOption\022*\n\004name\030\001 \001(\0132\034.google.proto" +
+      "buf.StringValue\022\r\n\005value\030\002 \001(\003\022\r\n\005count\030" +
+      "\003 \001(\003\022/\n\tpermalink\030\004 \001(\0132\034.google.protob" +
+      "uf.StringValue\022\016\n\006active\030\005 \001(\010\"\210\002\n\004Meta\022" +
+      "\"\n\014current_page\030\001 \001(\003R\014current_page\0229\n\tn" +
+      "ext_page\030\002 \001(\0132\033.google.protobuf.Int64Va" +
+      "lueR\tnext_page\022A\n\rprevious_page\030\003 \001(\0132\033." +
+      "google.protobuf.Int64ValueR\rprevious_pag" +
+      "e\022 \n\013total_pages\030\004 \001(\003R\013total_pages\022\032\n\010p" +
+      "er_page\030\005 \001(\003R\010per_page\022 \n\013total_count\030\006" +
+      " \001(\003R\013total_count\"\020\n\016RootCategories\"K\n\017P" +
+      "roductListSort\022\013\n\003key\030\001 \001(\t\022\014\n\004name\030\002 \001(" +
+      "\t\022\r\n\005order\030\003 \001(\t\022\016\n\006active\030\004 \001(\010\"\255\007\n\025Pro" +
+      "ductWithProperties\022\n\n\002id\030\001 \001(\003\022\013\n\003sku\030\002 " +
+      "\001(\003\022\016\n\006active\030\003 \001(\010\022\"\n\014retailer_sku\030\004 \001(" +
+      "\tR\014retailer_sku\022\014\n\004name\030\005 \001(\t\022\r\n\005price\030\006" +
+      " \001(\001\022&\n\016original_price\030\007 \001(\001R\016original_p" +
+      "rice\022\020\n\010discount\030\010 \001(\001\022\"\n\014human_volume\030\t" +
+      " \001(\tR\014human_volume\022\016\n\006volume\030\n \001(\003\022 \n\013vo" +
+      "lume_type\030\013 \001(\tR\013volume_type\022&\n\016items_pe" +
+      "r_pack\030\014 \001(\003R\016items_per_pack\022H\n\020discount" +
+      "_ends_at\030\r \001(\0132\034.google.protobuf.StringV" +
+      "alueR\020discount_ends_at\022\036\n\nprice_type\030\016 \001" +
+      "(\tR\nprice_type\022&\n\016grams_per_unit\030\017 \001(\003R\016" +
+      "grams_per_unit\022\036\n\nunit_price\030\020 \001(\001R\nunit" +
+      "_price\0220\n\023original_unit_price\030\021 \001(\001R\023ori" +
+      "ginal_unit_price\022(\n\017promo_badge_ids\030\022 \003(" +
+      "\003R\017promo_badge_ids\022*\n\005score\030\023 \001(\0132\033.goog" +
+      "le.protobuf.FloatValue\022\016\n\006labels\030\024 \003(\t\022%" +
+      "\n\006images\030\025 \003(\0132\025.catalog_api_v2.Image\022,\n" +
+      "\nproperties\030\026 \003(\0132\030.catalog_api_v2.Prope" +
+      "rty\022\023\n\013description\030\027 \001(\t\022A\n\rscore_detail" +
+      "s\030\030 \001(\0132\033.catalog_api_v2.ScoreDetailR\rsc" +
+      "ore_details\022\024\n\014requirements\030\031 \003(\t\022*\n\020rel" +
+      "ated_products\030\032 \003(\tR\020related_products\0229\n" +
+      "\nmain_taxon\030\033 \001(\0132\031.catalog_api_v2.MainT" +
+      "axonR\nmain_taxon\"=\n\010Property\022\014\n\004name\030\001 \001" +
+      "(\t\022\024\n\014presentation\030\002 \001(\t\022\r\n\005value\030\003 \001(\t\"" +
+      "H\n\032ProductListAttributeFilter\022*\n\020attribu" +
+      "te_values\030\001 \003(\tR\020attribute_values\"_\n\nPro" +
+      "moBadge\022\n\n\002id\030\001 \001(\003\022\014\n\004type\030\002 \001(\t\0227\n\natt" +
+      "ributes\030\003 \001(\0132#.catalog_api_v2.PromoBadg" +
+      "eAttribute\"\241\001\n\023PromoBadgeAttribute\022\014\n\004na" +
+      "me\030\001 \001(\t\022.\n\022banner_button_text\030\002 \001(\tR\022ba" +
+      "nner_button_text\022\032\n\010taxon_id\030\003 \001(\003R\010taxo" +
+      "n_id\0220\n\007options\030\004 \001(\0132\037.catalog_api_v2.A" +
+      "ttributeOption\"e\n\017AttributeOption\022&\n\006act" +
+      "ive\030\001 \001(\0132\026.catalog_api_v2.Active\022*\n\010ina" +
+      "ctive\030\002 \001(\0132\030.catalog_api_v2.Inactive\"\230\001" +
+      "\n\006Active\022\r\n\005title\030\001 \001(\t\022 \n\013title_short\030\002" +
+      " \001(\tR\013title_short\022\013\n\003url\030\003 \001(\t\022\020\n\010deepli" +
+      "nk\030\004 \001(\t\022 \n\013button_text\030\005 \001(\tR\013button_te" +
+      "xt\022\016\n\006header\030\006 \001(\t\022\014\n\004text\030\007 \001(\t\"\210\001\n\010Ina" +
+      "ctive\022\r\n\005title\030\001 \001(\t\022 \n\013title_short\030\002 \001(" +
+      "\tR\013title_short\022\013\n\003url\030\003 \001(\t\022 \n\013button_te" +
+      "xt\030\005 \001(\tR\013button_text\022\016\n\006header\030\006 \001(\t\022\014\n" +
+      "\004text\030\007 \001(\t\"\230\001\n\013ScoreDetail\022B\n\rfeedbackC" +
+      "ount\030\001 \001(\0132\033.google.protobuf.Int64ValueR" +
+      "\016feedback_count\022E\n\016feedbackSource\030\002 \001(\0132" +
+      "\034.google.protobuf.StringValueR\017feedback_" +
+      "source\"\372\001\n\tMainTaxon\022\n\n\002id\030\001 \001(\003\022\014\n\004type" +
+      "\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022&\n\016products_count\030\004" +
+      " \001(\003R\016products_count\022&\n\016promo_services\030\005" +
+      " \003(\tR\016promo_services\022\020\n\010position\030\006 \001(\003\022\r" +
+      "\n\005depth\030\007 \001(\005\022\"\n\004icon\030\010 \001(\0132\024.catalog_ap" +
+      "i_v2.Icon\022\032\n\010alt_icon\030\t \001(\tR\010alt_icon\022\024\n" +
+      "\014requirements\030\n \003(\t\"B\n\004Icon\022\032\n\010mini_url\030" +
+      "\001 \001(\tR\010mini_url\022\036\n\nnormal_url\030\002 \001(\tR\nnor" +
+      "mal_url\"\310\001\n\013ProtoPerson\022/\n\tfirstName\030\001 \001" +
+      "(\0132\034.google.protobuf.StringValue\022.\n\010last" +
+      "Name\030\002 \001(\0132\034.google.protobuf.StringValue" +
+      "\022.\n\010address1\030\003 \001(\0132\034.google.protobuf.Str" +
+      "ingValue\022(\n\003age\030\004 \001(\0132\033.google.protobuf." +
+      "Int32Value*5\n\tFacetType\022\n\n\006SELECT\020\000\022\020\n\014M" +
+      "ULTI_SELECT\020\001\022\n\n\006TOGGLE\020\0022\376\001\n\023CatalogAPI" +
+      "V2Service\022r\n\016GetProductList\022%.catalog_ap" +
+      "i_v2.GetProductListRequest\032&.catalog_api" +
+      "_v2.GetProductListResponse\"\021\202\323\344\223\002\013\022\t/pro" +
+      "ducts\022s\n\nGetProduct\022!.catalog_api_v2.Get" +
+      "ProductRequest\032\".catalog_api_v2.GetProdu" +
+      "ctResponse\"\036\202\323\344\223\002\030\022\026/products/{product_i" +
+      "d}BEZCgitlab.sbermarket.tech/paas/conten" +
+      "t/catalog/pkg/server/grpc/catalogb\006proto" +
+      "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -31498,13 +32305,13 @@ public final class CatalogApiV2 {
     internal_static_catalog_api_v2_GetProductListResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_GetProductListResponse_descriptor,
-        new java.lang.String[] { "Products", "Facets", "Meta", "Sort", "PromoBadges", });
+        new java.lang.String[] { "Products", "Facets", "Meta", "Sort", "PromoBadges", "RootCategories", });
     internal_static_catalog_api_v2_GetProductRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_catalog_api_v2_GetProductRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_GetProductRequest_descriptor,
-        new java.lang.String[] { "ProductId", "StoreId", "TenantId", });
+        new java.lang.String[] { "ProductId", "TenantId", });
     internal_static_catalog_api_v2_GetProductResponse_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_catalog_api_v2_GetProductResponse_fieldAccessorTable = new
@@ -31534,87 +32341,93 @@ public final class CatalogApiV2 {
     internal_static_catalog_api_v2_FacetOption_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_FacetOption_descriptor,
-        new java.lang.String[] { "Name", "Value", "Active", });
+        new java.lang.String[] { "Name", "Value", "Count", "Permalink", "Active", });
     internal_static_catalog_api_v2_Meta_descriptor =
       getDescriptor().getMessageTypes().get(8);
     internal_static_catalog_api_v2_Meta_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_Meta_descriptor,
         new java.lang.String[] { "CurrentPage", "NextPage", "PreviousPage", "TotalPages", "PerPage", "TotalCount", });
-    internal_static_catalog_api_v2_ProductListSort_descriptor =
+    internal_static_catalog_api_v2_RootCategories_descriptor =
       getDescriptor().getMessageTypes().get(9);
+    internal_static_catalog_api_v2_RootCategories_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_catalog_api_v2_RootCategories_descriptor,
+        new java.lang.String[] { });
+    internal_static_catalog_api_v2_ProductListSort_descriptor =
+      getDescriptor().getMessageTypes().get(10);
     internal_static_catalog_api_v2_ProductListSort_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_ProductListSort_descriptor,
         new java.lang.String[] { "Key", "Name", "Order", "Active", });
     internal_static_catalog_api_v2_ProductWithProperties_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_catalog_api_v2_ProductWithProperties_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_ProductWithProperties_descriptor,
         new java.lang.String[] { "Id", "Sku", "Active", "RetailerSku", "Name", "Price", "OriginalPrice", "Discount", "HumanVolume", "Volume", "VolumeType", "ItemsPerPack", "DiscountEndsAt", "PriceType", "GramsPerUnit", "UnitPrice", "OriginalUnitPrice", "PromoBadgeIds", "Score", "Labels", "Images", "Properties", "Description", "ScoreDetails", "Requirements", "RelatedProducts", "MainTaxon", });
     internal_static_catalog_api_v2_Property_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_catalog_api_v2_Property_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_Property_descriptor,
         new java.lang.String[] { "Name", "Presentation", "Value", });
     internal_static_catalog_api_v2_ProductListAttributeFilter_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_catalog_api_v2_ProductListAttributeFilter_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_ProductListAttributeFilter_descriptor,
         new java.lang.String[] { "AttributeValues", });
     internal_static_catalog_api_v2_PromoBadge_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_catalog_api_v2_PromoBadge_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_PromoBadge_descriptor,
         new java.lang.String[] { "Id", "Type", "Attributes", });
     internal_static_catalog_api_v2_PromoBadgeAttribute_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_catalog_api_v2_PromoBadgeAttribute_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_PromoBadgeAttribute_descriptor,
         new java.lang.String[] { "Name", "BannerButtonText", "TaxonId", "Options", });
     internal_static_catalog_api_v2_AttributeOption_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_catalog_api_v2_AttributeOption_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_AttributeOption_descriptor,
         new java.lang.String[] { "Active", "Inactive", });
     internal_static_catalog_api_v2_Active_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_catalog_api_v2_Active_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_Active_descriptor,
         new java.lang.String[] { "Title", "TitleShort", "Url", "Deeplink", "ButtonText", "Header", "Text", });
     internal_static_catalog_api_v2_Inactive_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_catalog_api_v2_Inactive_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_Inactive_descriptor,
         new java.lang.String[] { "Title", "TitleShort", "Url", "ButtonText", "Header", "Text", });
     internal_static_catalog_api_v2_ScoreDetail_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_catalog_api_v2_ScoreDetail_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_ScoreDetail_descriptor,
         new java.lang.String[] { "FeedbackCount", "FeedbackSource", });
     internal_static_catalog_api_v2_MainTaxon_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_catalog_api_v2_MainTaxon_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_MainTaxon_descriptor,
         new java.lang.String[] { "Id", "Type", "Name", "ProductsCount", "PromoServices", "Position", "Depth", "Icon", "AltIcon", "Requirements", });
     internal_static_catalog_api_v2_Icon_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_catalog_api_v2_Icon_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_Icon_descriptor,
         new java.lang.String[] { "MiniUrl", "NormalUrl", });
     internal_static_catalog_api_v2_ProtoPerson_descriptor =
-      getDescriptor().getMessageTypes().get(21);
+      getDescriptor().getMessageTypes().get(22);
     internal_static_catalog_api_v2_ProtoPerson_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_ProtoPerson_descriptor,

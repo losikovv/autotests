@@ -27,6 +27,10 @@ public final class ProductHubBackStreamOuterClass {
      * <code>ENABLE = 1;</code>
      */
     ENABLE(1),
+    /**
+     * <code>DELETED = 2;</code>
+     */
+    DELETED(2),
     UNRECOGNIZED(-1),
     ;
 
@@ -38,6 +42,10 @@ public final class ProductHubBackStreamOuterClass {
      * <code>ENABLE = 1;</code>
      */
     public static final int ENABLE_VALUE = 1;
+    /**
+     * <code>DELETED = 2;</code>
+     */
+    public static final int DELETED_VALUE = 2;
 
 
     public final int getNumber() {
@@ -66,6 +74,7 @@ public final class ProductHubBackStreamOuterClass {
       switch (value) {
         case 0: return DISABLE;
         case 1: return ENABLE;
+        case 2: return DELETED;
         default: return null;
       }
     }
@@ -9587,16 +9596,16 @@ public final class ProductHubBackStreamOuterClass {
       "ct_hub_back_stream.Data\"m\n\004Data\022\013\n\003key\030\001" +
       " \001(\t\0220\n\004type\030\002 \001(\0162\".product_hub_back_st" +
       "ream.ValueType\022\026\n\016is_multi_value\030\003 \001(\010\022\016" +
-      "\n\006values\030\004 \003(\t*!\n\006Status\022\013\n\007DISABLE\020\000\022\n\n" +
-      "\006ENABLE\020\001*S\n\tValueType\022\n\n\006STRING\020\000\022\013\n\007IN" +
-      "TEGER\020\001\022\n\n\006DOUBLE\020\002\022\010\n\004BOOL\020\003\022\014\n\010DATETIM" +
-      "E\020\004\022\t\n\005IMAGE\020\0052\204\001\n\024ProductHubBackStream\022" +
-      "l\n\013GetProducts\022+.product_hub_back_stream" +
-      ".GetProductsRequest\032,.product_hub_back_s" +
-      "tream.GetProductsResponse\"\0000\001BYZWgitlab." +
-      "sbermarket.tech/paas/content/product-hub" +
-      "/pkg/server/grpc/product-hub-back-stream" +
-      "b\006proto3"
+      "\n\006values\030\004 \003(\t*.\n\006Status\022\013\n\007DISABLE\020\000\022\n\n" +
+      "\006ENABLE\020\001\022\013\n\007DELETED\020\002*S\n\tValueType\022\n\n\006S" +
+      "TRING\020\000\022\013\n\007INTEGER\020\001\022\n\n\006DOUBLE\020\002\022\010\n\004BOOL" +
+      "\020\003\022\014\n\010DATETIME\020\004\022\t\n\005IMAGE\020\0052\204\001\n\024ProductH" +
+      "ubBackStream\022l\n\013GetProducts\022+.product_hu" +
+      "b_back_stream.GetProductsRequest\032,.produ" +
+      "ct_hub_back_stream.GetProductsResponse\"\000" +
+      "0\001BYZWgitlab.sbermarket.tech/paas/conten" +
+      "t/product-hub/pkg/server/grpc/product-hu" +
+      "b-back-streamb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

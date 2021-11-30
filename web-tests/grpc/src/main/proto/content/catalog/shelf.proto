@@ -7,17 +7,53 @@ package shelf;
 option go_package = "gitlab.sbermarket.tech/paas/content/catalog/pkg/server/grpc/shelf";
 
 service ShelfService {
-	rpc GetShelfByCategoryID(GetShelfByCategoryIDRequest) returns (GetShelfByCategoryIDResponse);
+	rpc GetShelfByOriginalCategoryID(GetShelfByOriginalCategoryIDRequest) returns (GetShelfByOriginalCategoryIDResponse);
+	rpc GetShelfByOriginalCategoryIDWithPagination(GetShelfByOriginalCategoryIDWithPaginationRequest) returns (GetShelfByOriginalCategoryIDResponse);
+	rpc GetShelfByCategoryPermalink(GetShelfByCategoryPermalinkRequest) returns (GetShelfByCategoryPermalinkResponse);
+	rpc GetShelfByCategoryPermalinkWithPagination(GetShelfByCategoryPermalinkWithPaginationRequest) returns (GetShelfByCategoryPermalinkResponse);
 	rpc FlushCategoryFacetsCache(Empty) returns (Empty);
 	rpc UpdateCategories(Empty) returns (Empty);
 }
 
-message GetShelfByCategoryIDRequest {
-	string category_id = 1;
+message GetShelfByCategoryPermalinkRequest {
+	string permalink = 1;
 	int64 products_limit = 2;
 	string store_id = 3;
 	string tenant_id = 4;
 	DisplayAttributes display_attributes = 5;
+}
+
+message GetShelfByCategoryPermalinkWithPaginationRequest {
+	string permalink = 1;
+	int64 products_limit = 2;
+	string store_id = 3;
+	string tenant_id = 4;
+	DisplayAttributes display_attributes = 5;
+	int64 limit = 6;
+	int64 offset = 7;
+}
+
+message GetShelfByCategoryPermalinkResponse {
+	repeated ShelfCategory categories = 1;
+	repeated Shelf shelves = 2;
+}
+
+message GetShelfByOriginalCategoryIDRequest {
+	string original_category_id = 1;
+	int64 products_limit = 2;
+	string store_id = 3;
+	string tenant_id = 4;
+	DisplayAttributes display_attributes = 5;
+}
+
+message GetShelfByOriginalCategoryIDWithPaginationRequest {
+	string original_category_id = 1;
+	int64 products_limit = 2;
+	string store_id = 3;
+	string tenant_id = 4;
+	DisplayAttributes display_attributes = 5;
+	int64 limit = 6;
+	int64 offset = 7;
 }
 
 message DisplayAttributes {
@@ -25,7 +61,7 @@ message DisplayAttributes {
 	repeated string flags = 2;
 }
 
-message GetShelfByCategoryIDResponse {
+message GetShelfByOriginalCategoryIDResponse {
 	repeated ShelfCategory categories = 1;
 	repeated Shelf shelves = 2;
 }
@@ -39,6 +75,8 @@ message ShelfCategory {
 	string id = 1;
 	string name = 2;
 	bool has_children = 3;
+	string permalink = 4;
+	string original_category_id = 5;
 }
 
 message Shelf {

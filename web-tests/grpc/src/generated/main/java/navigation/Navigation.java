@@ -4394,6 +4394,18 @@ public final class Navigation {
      */
     navigation.Navigation.MenuCategoryOrBuilder getChildrenOrBuilder(
         int index);
+
+    /**
+     * <code>string original_category_id = 6;</code>
+     * @return The originalCategoryId.
+     */
+    java.lang.String getOriginalCategoryId();
+    /**
+     * <code>string original_category_id = 6;</code>
+     * @return The bytes for originalCategoryId.
+     */
+    com.google.protobuf.ByteString
+        getOriginalCategoryIdBytes();
   }
   /**
    * Protobuf type {@code navigation.MenuCategory}
@@ -4412,6 +4424,7 @@ public final class Navigation {
       name_ = "";
       categoryData_ = java.util.Collections.emptyList();
       children_ = java.util.Collections.emptyList();
+      originalCategoryId_ = "";
     }
 
     @java.lang.Override
@@ -4478,6 +4491,12 @@ public final class Navigation {
               }
               children_.add(
                   input.readMessage(navigation.Navigation.MenuCategory.parser(), extensionRegistry));
+              break;
+            }
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              originalCategoryId_ = s;
               break;
             }
             default: {
@@ -4685,6 +4704,44 @@ public final class Navigation {
       return children_.get(index);
     }
 
+    public static final int ORIGINAL_CATEGORY_ID_FIELD_NUMBER = 6;
+    private volatile java.lang.Object originalCategoryId_;
+    /**
+     * <code>string original_category_id = 6;</code>
+     * @return The originalCategoryId.
+     */
+    @java.lang.Override
+    public java.lang.String getOriginalCategoryId() {
+      java.lang.Object ref = originalCategoryId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        originalCategoryId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string original_category_id = 6;</code>
+     * @return The bytes for originalCategoryId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOriginalCategoryIdBytes() {
+      java.lang.Object ref = originalCategoryId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        originalCategoryId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -4714,6 +4771,9 @@ public final class Navigation {
       for (int i = 0; i < children_.size(); i++) {
         output.writeMessage(5, children_.get(i));
       }
+      if (!getOriginalCategoryIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, originalCategoryId_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -4741,6 +4801,9 @@ public final class Navigation {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(5, children_.get(i));
       }
+      if (!getOriginalCategoryIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, originalCategoryId_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -4766,6 +4829,8 @@ public final class Navigation {
           .equals(other.getCategoryDataList())) return false;
       if (!getChildrenList()
           .equals(other.getChildrenList())) return false;
+      if (!getOriginalCategoryId()
+          .equals(other.getOriginalCategoryId())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -4792,6 +4857,8 @@ public final class Navigation {
         hash = (37 * hash) + CHILDREN_FIELD_NUMBER;
         hash = (53 * hash) + getChildrenList().hashCode();
       }
+      hash = (37 * hash) + ORIGINAL_CATEGORY_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getOriginalCategoryId().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -4945,6 +5012,8 @@ public final class Navigation {
         } else {
           childrenBuilder_.clear();
         }
+        originalCategoryId_ = "";
+
         return this;
       }
 
@@ -4993,6 +5062,7 @@ public final class Navigation {
         } else {
           result.children_ = childrenBuilder_.build();
         }
+        result.originalCategoryId_ = originalCategoryId_;
         onBuilt();
         return result;
       }
@@ -5103,6 +5173,10 @@ public final class Navigation {
               childrenBuilder_.addAllMessages(other.children_);
             }
           }
+        }
+        if (!other.getOriginalCategoryId().isEmpty()) {
+          originalCategoryId_ = other.originalCategoryId_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -5795,6 +5869,82 @@ public final class Navigation {
           children_ = null;
         }
         return childrenBuilder_;
+      }
+
+      private java.lang.Object originalCategoryId_ = "";
+      /**
+       * <code>string original_category_id = 6;</code>
+       * @return The originalCategoryId.
+       */
+      public java.lang.String getOriginalCategoryId() {
+        java.lang.Object ref = originalCategoryId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          originalCategoryId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string original_category_id = 6;</code>
+       * @return The bytes for originalCategoryId.
+       */
+      public com.google.protobuf.ByteString
+          getOriginalCategoryIdBytes() {
+        java.lang.Object ref = originalCategoryId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          originalCategoryId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string original_category_id = 6;</code>
+       * @param value The originalCategoryId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOriginalCategoryId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        originalCategoryId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string original_category_id = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOriginalCategoryId() {
+        
+        originalCategoryId_ = getDefaultInstance().getOriginalCategoryId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string original_category_id = 6;</code>
+       * @param value The bytes for originalCategoryId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOriginalCategoryIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        originalCategoryId_ = value;
+        onChanged();
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -10026,36 +10176,37 @@ public final class Navigation {
       "\030\001 \001(\t\022\021\n\ttenant_id\030\002 \001(\t\022\022\n\ntree_depth\030" +
       "\003 \001(\003\022\032\n\022category_data_keys\030\004 \003(\t\"C\n\023Get" +
       "MenuTreeResponse\022,\n\ncategories\030\001 \003(\0132\030.n" +
-      "avigation.MenuCategory\"\224\001\n\014MenuCategory\022" +
+      "avigation.MenuCategory\"\262\001\n\014MenuCategory\022" +
       "\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\025\n\rproduct_cou" +
       "nt\030\003 \001(\003\022\'\n\rcategory_data\030\004 \003(\0132\020.naviga" +
       "tion.Data\022*\n\010children\030\005 \003(\0132\030.navigation" +
-      ".MenuCategory\".\n\027GetCategoryTreesRequest" +
-      "\022\023\n\013category_id\030\001 \001(\t\"D\n\030GetCategoryTree" +
-      "sResponse\022(\n\ncategories\030\001 \003(\0132\024.navigati" +
-      "on.Category\"\217\001\n\010Category\022\n\n\002id\030\001 \001(\t\022\014\n\004" +
-      "name\030\002 \001(\t\022\035\n\025discount_copy_root_id\030\003 \001(" +
-      "\t\022\"\n\006status\030\004 \001(\0162\022.navigation.Status\022&\n" +
-      "\010children\030\005 \003(\0132\024.navigation.Category\"`\n" +
-      "\004Data\022\013\n\003key\030\001 \001(\t\022#\n\004type\030\002 \001(\0162\025.navig" +
-      "ation.ValueType\022\026\n\016is_multi_value\030\003 \001(\010\022" +
-      "\016\n\006values\030\004 \003(\t\"\007\n\005Empty*!\n\006Status\022\013\n\007DI" +
-      "SABLE\020\000\022\n\n\006ENABLE\020\001*S\n\tValueType\022\n\n\006STRI" +
-      "NG\020\000\022\013\n\007INTEGER\020\001\022\n\n\006DOUBLE\020\002\022\010\n\004BOOL\020\003\022" +
-      "\014\n\010DATETIME\020\004\022\t\n\005IMAGE\020\0052\273\003\n\021NavigationS" +
-      "ervice\022N\n\013GetMenuTree\022\036.navigation.GetMe" +
-      "nuTreeRequest\032\037.navigation.GetMenuTreeRe" +
-      "sponse\022]\n\020GetCategoryTrees\022#.navigation." +
-      "GetCategoryTreesRequest\032$.navigation.Get" +
-      "CategoryTreesResponse\022{\n\032GetBreadcrumbsB" +
-      "yCategoryID\022-.navigation.GetBreadcrumbsB" +
-      "yCategoryIDRequest\032..navigation.GetBread" +
-      "crumbsByCategoryIDResponse\022@\n\030FlushCateg" +
-      "oryFacetsCache\022\021.navigation.Empty\032\021.navi" +
-      "gation.Empty\0228\n\020UpdateCategories\022\021.navig" +
-      "ation.Empty\032\021.navigation.EmptyBHZFgitlab" +
-      ".sbermarket.tech/paas/content/catalog/pk" +
-      "g/server/grpc/navigationb\006proto3"
+      ".MenuCategory\022\034\n\024original_category_id\030\006 " +
+      "\001(\t\".\n\027GetCategoryTreesRequest\022\023\n\013catego" +
+      "ry_id\030\001 \001(\t\"D\n\030GetCategoryTreesResponse\022" +
+      "(\n\ncategories\030\001 \003(\0132\024.navigation.Categor" +
+      "y\"\217\001\n\010Category\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t" +
+      "\022\035\n\025discount_copy_root_id\030\003 \001(\t\022\"\n\006statu" +
+      "s\030\004 \001(\0162\022.navigation.Status\022&\n\010children\030" +
+      "\005 \003(\0132\024.navigation.Category\"`\n\004Data\022\013\n\003k" +
+      "ey\030\001 \001(\t\022#\n\004type\030\002 \001(\0162\025.navigation.Valu" +
+      "eType\022\026\n\016is_multi_value\030\003 \001(\010\022\016\n\006values\030" +
+      "\004 \003(\t\"\007\n\005Empty*!\n\006Status\022\013\n\007DISABLE\020\000\022\n\n" +
+      "\006ENABLE\020\001*S\n\tValueType\022\n\n\006STRING\020\000\022\013\n\007IN" +
+      "TEGER\020\001\022\n\n\006DOUBLE\020\002\022\010\n\004BOOL\020\003\022\014\n\010DATETIM" +
+      "E\020\004\022\t\n\005IMAGE\020\0052\273\003\n\021NavigationService\022N\n\013" +
+      "GetMenuTree\022\036.navigation.GetMenuTreeRequ" +
+      "est\032\037.navigation.GetMenuTreeResponse\022]\n\020" +
+      "GetCategoryTrees\022#.navigation.GetCategor" +
+      "yTreesRequest\032$.navigation.GetCategoryTr" +
+      "eesResponse\022{\n\032GetBreadcrumbsByCategoryI" +
+      "D\022-.navigation.GetBreadcrumbsByCategoryI" +
+      "DRequest\032..navigation.GetBreadcrumbsByCa" +
+      "tegoryIDResponse\022@\n\030FlushCategoryFacetsC" +
+      "ache\022\021.navigation.Empty\032\021.navigation.Emp" +
+      "ty\0228\n\020UpdateCategories\022\021.navigation.Empt" +
+      "y\032\021.navigation.EmptyBHZFgitlab.sbermarke" +
+      "t.tech/paas/content/catalog/pkg/server/g" +
+      "rpc/navigationb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -10096,7 +10247,7 @@ public final class Navigation {
     internal_static_navigation_MenuCategory_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_navigation_MenuCategory_descriptor,
-        new java.lang.String[] { "Id", "Name", "ProductCount", "CategoryData", "Children", });
+        new java.lang.String[] { "Id", "Name", "ProductCount", "CategoryData", "Children", "OriginalCategoryId", });
     internal_static_navigation_GetCategoryTreesRequest_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_navigation_GetCategoryTreesRequest_fieldAccessorTable = new

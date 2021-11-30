@@ -27,6 +27,10 @@ public final class ProductHubBackOuterClass {
      * <code>ENABLE = 1;</code>
      */
     ENABLE(1),
+    /**
+     * <code>DELETED = 2;</code>
+     */
+    DELETED(2),
     UNRECOGNIZED(-1),
     ;
 
@@ -38,6 +42,10 @@ public final class ProductHubBackOuterClass {
      * <code>ENABLE = 1;</code>
      */
     public static final int ENABLE_VALUE = 1;
+    /**
+     * <code>DELETED = 2;</code>
+     */
+    public static final int DELETED_VALUE = 2;
 
 
     public final int getNumber() {
@@ -66,6 +74,7 @@ public final class ProductHubBackOuterClass {
       switch (value) {
         case 0: return DISABLE;
         case 1: return ENABLE;
+        case 2: return DELETED;
         default: return null;
       }
     }
@@ -28885,37 +28894,38 @@ public final class ProductHubBackOuterClass {
       "duct_hub_back.Status\">\n\017CategoryFilters\022" +
       "\023\n\013category_id\030\001 \001(\t\022\026\n\016attribute_keys\030\002" +
       " \003(\t\"8\n\016RetailerStores\022\023\n\013retailer_id\030\001 " +
-      "\001(\t\022\021\n\tstore_ids\030\002 \003(\t*!\n\006Status\022\013\n\007DISA" +
-      "BLE\020\000\022\n\n\006ENABLE\020\001*S\n\tValueType\022\n\n\006STRING" +
-      "\020\000\022\013\n\007INTEGER\020\001\022\n\n\006DOUBLE\020\002\022\010\n\004BOOL\020\003\022\014\n" +
-      "\010DATETIME\020\004\022\t\n\005IMAGE\020\005*U\n\006Pricer\022\014\n\010PER_" +
-      "ITEM\020\000\022\025\n\021PER_ITEMS_PACKAGE\020\001\022\026\n\022PER_WEI" +
-      "GHT_PACKAGE\020\002\022\016\n\nPER_WEIGHT\020\0032\224\007\n\016Produc" +
-      "tHubBack\022]\n\014SaveProducts\022%.product_hub_b" +
-      "ack.SaveProductsRequest\032&.product_hub_ba" +
-      "ck.SaveProductsResponse\022W\n\nSaveStocks\022#." +
-      "product_hub_back.SaveStocksRequest\032$.pro" +
-      "duct_hub_back.SaveStocksResponse\022W\n\nSave" +
-      "Offers\022#.product_hub_back.SaveOffersRequ" +
-      "est\032$.product_hub_back.SaveOffersRespons" +
-      "e\022W\n\nSavePrices\022#.product_hub_back.SaveP" +
-      "ricesRequest\032$.product_hub_back.SavePric" +
-      "esResponse\022c\n\016SaveCategories\022\'.product_h" +
-      "ub_back.SaveCategoriesRequest\032(.product_" +
-      "hub_back.SaveCategoriesResponse\022c\n\016SaveA" +
-      "ttributes\022\'.product_hub_back.SaveAttribu" +
-      "tesRequest\032(.product_hub_back.SaveAttrib" +
-      "utesResponse\022i\n\020SaveDictionaries\022).produ" +
-      "ct_hub_back.SaveDictionariesRequest\032*.pr" +
-      "oduct_hub_back.SaveDictionariesResponse\022" +
-      "r\n\023SaveCategoryFilters\022,.product_hub_bac" +
-      "k.SaveCategoryFiltersRequest\032-.product_h" +
-      "ub_back.SaveCategoryFiltersResponse\022o\n\022S" +
-      "aveRetailerStores\022+.product_hub_back.Sav" +
-      "eRetailerStoresRequest\032,.product_hub_bac" +
-      "k.SaveRetailerStoresResponseBRZPgitlab.s" +
-      "bermarket.tech/paas/content/product-hub/" +
-      "pkg/server/grpc/product-hub-backb\006proto3"
+      "\001(\t\022\021\n\tstore_ids\030\002 \003(\t*.\n\006Status\022\013\n\007DISA" +
+      "BLE\020\000\022\n\n\006ENABLE\020\001\022\013\n\007DELETED\020\002*S\n\tValueT" +
+      "ype\022\n\n\006STRING\020\000\022\013\n\007INTEGER\020\001\022\n\n\006DOUBLE\020\002" +
+      "\022\010\n\004BOOL\020\003\022\014\n\010DATETIME\020\004\022\t\n\005IMAGE\020\005*U\n\006P" +
+      "ricer\022\014\n\010PER_ITEM\020\000\022\025\n\021PER_ITEMS_PACKAGE" +
+      "\020\001\022\026\n\022PER_WEIGHT_PACKAGE\020\002\022\016\n\nPER_WEIGHT" +
+      "\020\0032\224\007\n\016ProductHubBack\022]\n\014SaveProducts\022%." +
+      "product_hub_back.SaveProductsRequest\032&.p" +
+      "roduct_hub_back.SaveProductsResponse\022W\n\n" +
+      "SaveStocks\022#.product_hub_back.SaveStocks" +
+      "Request\032$.product_hub_back.SaveStocksRes" +
+      "ponse\022W\n\nSaveOffers\022#.product_hub_back.S" +
+      "aveOffersRequest\032$.product_hub_back.Save" +
+      "OffersResponse\022W\n\nSavePrices\022#.product_h" +
+      "ub_back.SavePricesRequest\032$.product_hub_" +
+      "back.SavePricesResponse\022c\n\016SaveCategorie" +
+      "s\022\'.product_hub_back.SaveCategoriesReque" +
+      "st\032(.product_hub_back.SaveCategoriesResp" +
+      "onse\022c\n\016SaveAttributes\022\'.product_hub_bac" +
+      "k.SaveAttributesRequest\032(.product_hub_ba" +
+      "ck.SaveAttributesResponse\022i\n\020SaveDiction" +
+      "aries\022).product_hub_back.SaveDictionarie" +
+      "sRequest\032*.product_hub_back.SaveDictiona" +
+      "riesResponse\022r\n\023SaveCategoryFilters\022,.pr" +
+      "oduct_hub_back.SaveCategoryFiltersReques" +
+      "t\032-.product_hub_back.SaveCategoryFilters" +
+      "Response\022o\n\022SaveRetailerStores\022+.product" +
+      "_hub_back.SaveRetailerStoresRequest\032,.pr" +
+      "oduct_hub_back.SaveRetailerStoresRespons" +
+      "eBRZPgitlab.sbermarket.tech/paas/content" +
+      "/product-hub/pkg/server/grpc/product-hub" +
+      "-backb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

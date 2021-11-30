@@ -45,6 +45,7 @@ message MenuCategory{
 	int64 product_count = 3;
 	repeated Data category_data = 4;
 	repeated MenuCategory children = 5;
+	string original_category_id = 6;
 }
 
 // GetCategoryTrees

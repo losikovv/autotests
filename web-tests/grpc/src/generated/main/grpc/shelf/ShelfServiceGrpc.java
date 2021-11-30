@@ -15,35 +15,128 @@ public final class ShelfServiceGrpc {
   public static final String SERVICE_NAME = "shelf.ShelfService";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<shelf.ShelfOuterClass.GetShelfByCategoryIDRequest,
-      shelf.ShelfOuterClass.GetShelfByCategoryIDResponse> getGetShelfByCategoryIDMethod;
+  private static volatile io.grpc.MethodDescriptor<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest,
+      shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse> getGetShelfByOriginalCategoryIDMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "GetShelfByCategoryID",
-      requestType = shelf.ShelfOuterClass.GetShelfByCategoryIDRequest.class,
-      responseType = shelf.ShelfOuterClass.GetShelfByCategoryIDResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "GetShelfByOriginalCategoryID",
+      requestType = shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest.class,
+      responseType = shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<shelf.ShelfOuterClass.GetShelfByCategoryIDRequest,
-      shelf.ShelfOuterClass.GetShelfByCategoryIDResponse> getGetShelfByCategoryIDMethod() {
-    io.grpc.MethodDescriptor<shelf.ShelfOuterClass.GetShelfByCategoryIDRequest, shelf.ShelfOuterClass.GetShelfByCategoryIDResponse> getGetShelfByCategoryIDMethod;
-    if ((getGetShelfByCategoryIDMethod = ShelfServiceGrpc.getGetShelfByCategoryIDMethod) == null) {
+  public static io.grpc.MethodDescriptor<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest,
+      shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse> getGetShelfByOriginalCategoryIDMethod() {
+    io.grpc.MethodDescriptor<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest, shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse> getGetShelfByOriginalCategoryIDMethod;
+    if ((getGetShelfByOriginalCategoryIDMethod = ShelfServiceGrpc.getGetShelfByOriginalCategoryIDMethod) == null) {
       synchronized (ShelfServiceGrpc.class) {
-        if ((getGetShelfByCategoryIDMethod = ShelfServiceGrpc.getGetShelfByCategoryIDMethod) == null) {
-          ShelfServiceGrpc.getGetShelfByCategoryIDMethod = getGetShelfByCategoryIDMethod =
-              io.grpc.MethodDescriptor.<shelf.ShelfOuterClass.GetShelfByCategoryIDRequest, shelf.ShelfOuterClass.GetShelfByCategoryIDResponse>newBuilder()
+        if ((getGetShelfByOriginalCategoryIDMethod = ShelfServiceGrpc.getGetShelfByOriginalCategoryIDMethod) == null) {
+          ShelfServiceGrpc.getGetShelfByOriginalCategoryIDMethod = getGetShelfByOriginalCategoryIDMethod =
+              io.grpc.MethodDescriptor.<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest, shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetShelfByCategoryID"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetShelfByOriginalCategoryID"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shelf.ShelfOuterClass.GetShelfByCategoryIDRequest.getDefaultInstance()))
+                  shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  shelf.ShelfOuterClass.GetShelfByCategoryIDResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new ShelfServiceMethodDescriptorSupplier("GetShelfByCategoryID"))
+                  shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShelfServiceMethodDescriptorSupplier("GetShelfByOriginalCategoryID"))
               .build();
         }
       }
     }
-    return getGetShelfByCategoryIDMethod;
+    return getGetShelfByOriginalCategoryIDMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest,
+      shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse> getGetShelfByOriginalCategoryIDWithPaginationMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetShelfByOriginalCategoryIDWithPagination",
+      requestType = shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest.class,
+      responseType = shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest,
+      shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse> getGetShelfByOriginalCategoryIDWithPaginationMethod() {
+    io.grpc.MethodDescriptor<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest, shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse> getGetShelfByOriginalCategoryIDWithPaginationMethod;
+    if ((getGetShelfByOriginalCategoryIDWithPaginationMethod = ShelfServiceGrpc.getGetShelfByOriginalCategoryIDWithPaginationMethod) == null) {
+      synchronized (ShelfServiceGrpc.class) {
+        if ((getGetShelfByOriginalCategoryIDWithPaginationMethod = ShelfServiceGrpc.getGetShelfByOriginalCategoryIDWithPaginationMethod) == null) {
+          ShelfServiceGrpc.getGetShelfByOriginalCategoryIDWithPaginationMethod = getGetShelfByOriginalCategoryIDWithPaginationMethod =
+              io.grpc.MethodDescriptor.<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest, shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetShelfByOriginalCategoryIDWithPagination"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShelfServiceMethodDescriptorSupplier("GetShelfByOriginalCategoryIDWithPagination"))
+              .build();
+        }
+      }
+    }
+    return getGetShelfByOriginalCategoryIDWithPaginationMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest,
+      shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse> getGetShelfByCategoryPermalinkMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetShelfByCategoryPermalink",
+      requestType = shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest.class,
+      responseType = shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest,
+      shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse> getGetShelfByCategoryPermalinkMethod() {
+    io.grpc.MethodDescriptor<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest, shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse> getGetShelfByCategoryPermalinkMethod;
+    if ((getGetShelfByCategoryPermalinkMethod = ShelfServiceGrpc.getGetShelfByCategoryPermalinkMethod) == null) {
+      synchronized (ShelfServiceGrpc.class) {
+        if ((getGetShelfByCategoryPermalinkMethod = ShelfServiceGrpc.getGetShelfByCategoryPermalinkMethod) == null) {
+          ShelfServiceGrpc.getGetShelfByCategoryPermalinkMethod = getGetShelfByCategoryPermalinkMethod =
+              io.grpc.MethodDescriptor.<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest, shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetShelfByCategoryPermalink"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShelfServiceMethodDescriptorSupplier("GetShelfByCategoryPermalink"))
+              .build();
+        }
+      }
+    }
+    return getGetShelfByCategoryPermalinkMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest,
+      shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse> getGetShelfByCategoryPermalinkWithPaginationMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetShelfByCategoryPermalinkWithPagination",
+      requestType = shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest.class,
+      responseType = shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest,
+      shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse> getGetShelfByCategoryPermalinkWithPaginationMethod() {
+    io.grpc.MethodDescriptor<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest, shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse> getGetShelfByCategoryPermalinkWithPaginationMethod;
+    if ((getGetShelfByCategoryPermalinkWithPaginationMethod = ShelfServiceGrpc.getGetShelfByCategoryPermalinkWithPaginationMethod) == null) {
+      synchronized (ShelfServiceGrpc.class) {
+        if ((getGetShelfByCategoryPermalinkWithPaginationMethod = ShelfServiceGrpc.getGetShelfByCategoryPermalinkWithPaginationMethod) == null) {
+          ShelfServiceGrpc.getGetShelfByCategoryPermalinkWithPaginationMethod = getGetShelfByCategoryPermalinkWithPaginationMethod =
+              io.grpc.MethodDescriptor.<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest, shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetShelfByCategoryPermalinkWithPagination"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShelfServiceMethodDescriptorSupplier("GetShelfByCategoryPermalinkWithPagination"))
+              .build();
+        }
+      }
+    }
+    return getGetShelfByCategoryPermalinkWithPaginationMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<shelf.ShelfOuterClass.Empty,
@@ -158,9 +251,30 @@ public final class ShelfServiceGrpc {
 
     /**
      */
-    public void getShelfByCategoryID(shelf.ShelfOuterClass.GetShelfByCategoryIDRequest request,
-        io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByCategoryIDResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetShelfByCategoryIDMethod(), responseObserver);
+    public void getShelfByOriginalCategoryID(shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest request,
+        io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetShelfByOriginalCategoryIDMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getShelfByOriginalCategoryIDWithPagination(shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest request,
+        io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetShelfByOriginalCategoryIDWithPaginationMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getShelfByCategoryPermalink(shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest request,
+        io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetShelfByCategoryPermalinkMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getShelfByCategoryPermalinkWithPagination(shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest request,
+        io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetShelfByCategoryPermalinkWithPaginationMethod(), responseObserver);
     }
 
     /**
@@ -180,12 +294,33 @@ public final class ShelfServiceGrpc {
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
-            getGetShelfByCategoryIDMethod(),
+            getGetShelfByOriginalCategoryIDMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                shelf.ShelfOuterClass.GetShelfByCategoryIDRequest,
-                shelf.ShelfOuterClass.GetShelfByCategoryIDResponse>(
-                  this, METHODID_GET_SHELF_BY_CATEGORY_ID)))
+                shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest,
+                shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse>(
+                  this, METHODID_GET_SHELF_BY_ORIGINAL_CATEGORY_ID)))
+          .addMethod(
+            getGetShelfByOriginalCategoryIDWithPaginationMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest,
+                shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse>(
+                  this, METHODID_GET_SHELF_BY_ORIGINAL_CATEGORY_IDWITH_PAGINATION)))
+          .addMethod(
+            getGetShelfByCategoryPermalinkMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest,
+                shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse>(
+                  this, METHODID_GET_SHELF_BY_CATEGORY_PERMALINK)))
+          .addMethod(
+            getGetShelfByCategoryPermalinkWithPaginationMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest,
+                shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse>(
+                  this, METHODID_GET_SHELF_BY_CATEGORY_PERMALINK_WITH_PAGINATION)))
           .addMethod(
             getFlushCategoryFacetsCacheMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -220,10 +355,34 @@ public final class ShelfServiceGrpc {
 
     /**
      */
-    public void getShelfByCategoryID(shelf.ShelfOuterClass.GetShelfByCategoryIDRequest request,
-        io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByCategoryIDResponse> responseObserver) {
+    public void getShelfByOriginalCategoryID(shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest request,
+        io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getGetShelfByCategoryIDMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getGetShelfByOriginalCategoryIDMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getShelfByOriginalCategoryIDWithPagination(shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest request,
+        io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetShelfByOriginalCategoryIDWithPaginationMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getShelfByCategoryPermalink(shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest request,
+        io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetShelfByCategoryPermalinkMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getShelfByCategoryPermalinkWithPagination(shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest request,
+        io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetShelfByCategoryPermalinkWithPaginationMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -259,9 +418,30 @@ public final class ShelfServiceGrpc {
 
     /**
      */
-    public shelf.ShelfOuterClass.GetShelfByCategoryIDResponse getShelfByCategoryID(shelf.ShelfOuterClass.GetShelfByCategoryIDRequest request) {
+    public shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse getShelfByOriginalCategoryID(shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getGetShelfByCategoryIDMethod(), getCallOptions(), request);
+          getChannel(), getGetShelfByOriginalCategoryIDMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse getShelfByOriginalCategoryIDWithPagination(shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetShelfByOriginalCategoryIDWithPaginationMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse getShelfByCategoryPermalink(shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetShelfByCategoryPermalinkMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse getShelfByCategoryPermalinkWithPagination(shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetShelfByCategoryPermalinkWithPaginationMethod(), getCallOptions(), request);
     }
 
     /**
@@ -295,10 +475,34 @@ public final class ShelfServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<shelf.ShelfOuterClass.GetShelfByCategoryIDResponse> getShelfByCategoryID(
-        shelf.ShelfOuterClass.GetShelfByCategoryIDRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse> getShelfByOriginalCategoryID(
+        shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getGetShelfByCategoryIDMethod(), getCallOptions()), request);
+          getChannel().newCall(getGetShelfByOriginalCategoryIDMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse> getShelfByOriginalCategoryIDWithPagination(
+        shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetShelfByOriginalCategoryIDWithPaginationMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse> getShelfByCategoryPermalink(
+        shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetShelfByCategoryPermalinkMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse> getShelfByCategoryPermalinkWithPagination(
+        shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetShelfByCategoryPermalinkWithPaginationMethod(), getCallOptions()), request);
     }
 
     /**
@@ -318,9 +522,12 @@ public final class ShelfServiceGrpc {
     }
   }
 
-  private static final int METHODID_GET_SHELF_BY_CATEGORY_ID = 0;
-  private static final int METHODID_FLUSH_CATEGORY_FACETS_CACHE = 1;
-  private static final int METHODID_UPDATE_CATEGORIES = 2;
+  private static final int METHODID_GET_SHELF_BY_ORIGINAL_CATEGORY_ID = 0;
+  private static final int METHODID_GET_SHELF_BY_ORIGINAL_CATEGORY_IDWITH_PAGINATION = 1;
+  private static final int METHODID_GET_SHELF_BY_CATEGORY_PERMALINK = 2;
+  private static final int METHODID_GET_SHELF_BY_CATEGORY_PERMALINK_WITH_PAGINATION = 3;
+  private static final int METHODID_FLUSH_CATEGORY_FACETS_CACHE = 4;
+  private static final int METHODID_UPDATE_CATEGORIES = 5;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -339,9 +546,21 @@ public final class ShelfServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_GET_SHELF_BY_CATEGORY_ID:
-          serviceImpl.getShelfByCategoryID((shelf.ShelfOuterClass.GetShelfByCategoryIDRequest) request,
-              (io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByCategoryIDResponse>) responseObserver);
+        case METHODID_GET_SHELF_BY_ORIGINAL_CATEGORY_ID:
+          serviceImpl.getShelfByOriginalCategoryID((shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest) request,
+              (io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse>) responseObserver);
+          break;
+        case METHODID_GET_SHELF_BY_ORIGINAL_CATEGORY_IDWITH_PAGINATION:
+          serviceImpl.getShelfByOriginalCategoryIDWithPagination((shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest) request,
+              (io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse>) responseObserver);
+          break;
+        case METHODID_GET_SHELF_BY_CATEGORY_PERMALINK:
+          serviceImpl.getShelfByCategoryPermalink((shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest) request,
+              (io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse>) responseObserver);
+          break;
+        case METHODID_GET_SHELF_BY_CATEGORY_PERMALINK_WITH_PAGINATION:
+          serviceImpl.getShelfByCategoryPermalinkWithPagination((shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest) request,
+              (io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse>) responseObserver);
           break;
         case METHODID_FLUSH_CATEGORY_FACETS_CACHE:
           serviceImpl.flushCategoryFacetsCache((shelf.ShelfOuterClass.Empty) request,
@@ -412,7 +631,10 @@ public final class ShelfServiceGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new ShelfServiceFileDescriptorSupplier())
-              .addMethod(getGetShelfByCategoryIDMethod())
+              .addMethod(getGetShelfByOriginalCategoryIDMethod())
+              .addMethod(getGetShelfByOriginalCategoryIDWithPaginationMethod())
+              .addMethod(getGetShelfByCategoryPermalinkMethod())
+              .addMethod(getGetShelfByCategoryPermalinkWithPaginationMethod())
               .addMethod(getFlushCategoryFacetsCacheMethod())
               .addMethod(getUpdateCategoriesMethod())
               .build();

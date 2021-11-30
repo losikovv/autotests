@@ -134,6 +134,7 @@ enum ValueType {
 enum Status {
   DISABLE = 0;
   ENABLE = 1;
+  DELETED = 2;
 }
 
 message Data {
