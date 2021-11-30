@@ -311,4 +311,13 @@ public final class OrdersV2Request extends ApiV2RequestBase {
                     .get(ApiV2EndPoints.Orders.PAYMENT_TOOLS_WITH_TYPES, orderNumber);
         }
     }
+
+    public static class TransferMethod {
+        @Step("{method} /" + ApiV2EndPoints.Orders.TransferMethod.ANALYZE)
+        public static Response GET(Map<String, Object> params, String orderNumber) {
+            return givenWithAuth()
+                    .formParams(params)
+                    .get(ApiV2EndPoints.Orders.TransferMethod.ANALYZE, orderNumber);
+        }
+    }
 }

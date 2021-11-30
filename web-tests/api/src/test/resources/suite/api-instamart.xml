@@ -65,6 +65,7 @@
             <class name="ru.instamart.test.api.v2.endpoints.ShipmentLineItemsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.MergedShipmentsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.PaymentToolsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.TransferMethodV2Test"/>
         </classes>
     </test>
     <!-- api-v3-tests -->
