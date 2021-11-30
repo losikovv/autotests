@@ -5,6 +5,7 @@ import io.restassured.response.Response;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.model.v2.AddressV2;
+import ru.instamart.api.model.v2.ZoneV2;
 import ru.instamart.api.request.ApiV2RequestBase;
 
 import java.util.HashMap;
@@ -314,10 +315,28 @@ public final class OrdersV2Request extends ApiV2RequestBase {
 
     public static class TransferMethod {
         @Step("{method} /" + ApiV2EndPoints.Orders.TransferMethod.ANALYZE)
-        public static Response GET(Map<String, Object> params, String orderNumber) {
+        public static Response GET(String shippingMethod, ZoneV2 zone, Integer storeId, String orderNumber) {
+            Map<String, Object> params = new HashMap<>();
+            if(shippingMethod != null) params.put("shipping_method_kind", shippingMethod);
+            if (zone != null) {
+                params.put("address_params[lat]", zone.getLat());
+                params.put("address_params[lon]", zone.getLon());
+            }
+            if (storeId != null) params.put("pickup_store_id", storeId);
             return givenWithAuth()
-                    .formParams(params)
+                    .queryParams(params)
                     .get(ApiV2EndPoints.Orders.TransferMethod.ANALYZE, orderNumber);
         }
+
+        public static Response GET(String shippingMethod, ZoneV2 zone, String orderNumber) {
+            return GET(shippingMethod, zone, null, orderNumber);
+        }
+
+        public static Response GET(String shippingMethod, Integer storeId, String orderNumber) {
+            return GET(shippingMethod, null, storeId, orderNumber);
+        }
+
     }
+
+
 }

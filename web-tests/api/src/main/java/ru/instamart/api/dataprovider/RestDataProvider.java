@@ -704,12 +704,23 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-    @DataProvider(name = "storesDataForTransferMethod")
-    public static Object[][] getStoresForTransferMethodCheck() {
+    @DataProvider(name = "storesDataForTransferMethodOnlyCourier")
+    public static Object[][] getStoresForTransferMethodCheckCourier() {
         return new Object[][]{
                 {EnvironmentProperties.DEFAULT_SID, AnalyzeResultV2.OK},
                 {1, AnalyzeResultV2.OK},
                 {2, AnalyzeResultV2.OK},
+                {22, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
+                {89, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
+        };
+    }
+
+    @DataProvider(name = "storesDataForTransferMethodAllShipping")
+    public static Object[][] getStoresForTransferMethodCheckAll() {
+        return new Object[][]{
+                {1, AnalyzeResultV2.OK},
+                {94, AnalyzeResultV2.OK},
+                {EnvironmentProperties.DEFAULT_SID, AnalyzeResultV2.OK},
                 {22, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
                 {89, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
         };
