@@ -2,13 +2,18 @@ package ru.instamart.test.reforged.admin;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestAddresses;
+import ru.instamart.api.enums.v2.CreditCardsV2;
 import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.api.request.v2.CreditCardsV2Request;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -131,5 +136,52 @@ public class AdministrationUsersSectionTests extends BaseTest {
         usersEdit().refresh();
 
         usersEdit().checkB2BIsNotSelected();
+    }
+
+    @Skip
+    @Issue("B2C-3186")
+    @CaseId(508)
+    @Test(description = "Отвязка платежный карт", groups = {"acceptance", "regression"})
+    public void testBlockPaymentCards() {
+        final var userData = UserManager.getQaUser();
+        final var creditCard = CreditCardsV2Request.CreditCard.builder()
+                .title("Новая карта")
+                .name("TESTOV TEST")
+                .year(CreditCardsV2.CARD1.getYear())
+                .month(CreditCardsV2.CARD1.getMonth())
+                .lastDigits(CreditCardsV2.CARD1.getNumber().substring(CreditCardsV2.CARD1.getNumber().length() - 4))
+                .cryptogramPacket(CreditCardsV2.CARD1.getCryptogramPacket())
+                .build();
+        helper.addCreditCard(userData, creditCard);
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        users().goToPage();
+        users().fillSearchByPhoneNumber(userData.getPhone());
+        users().clickToSearch();
+        users().clickToEditUser();
+
+        usersEdit().clickToBlockCard();
+        usersEdit().checkSuccessFlash();
+    }
+
+    @CaseId(509)
+    @Test(description = "Отвязка номера телефона от аккаунта", groups = {"acceptance", "regression"})
+    public void testBlockPhone() {
+        final var userData = UserManager.getQaUser();
+        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        users().goToPage();
+        users().fillSearchByPhoneNumber(userData.getPhone());
+        users().clickToSearch();
+        users().clickToEditUser();
+
+        usersEdit().clickToBlockPhone();
+        usersEdit().confirmBrowserAlert();
+        usersEdit().checkSuccessFlash();
     }
 }

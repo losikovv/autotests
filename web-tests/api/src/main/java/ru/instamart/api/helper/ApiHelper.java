@@ -12,6 +12,7 @@ import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.SessionV2;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
+import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
 import ru.instamart.jdbc.dao.OperationalZonesDao;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.user.UserData;
@@ -87,6 +88,12 @@ public final class ApiHelper {
         auth(user);
         apiV2.getCurrentOrderNumber();
         return apiV2.setAddressAttributes(user, address);
+    }
+
+    @Step("Добавить карту '{1}' пользователю '{0}'")
+    public void addCreditCard(final UserData user, final CreditCard creditCard) {
+        auth(user);
+        apiV2.addCreditCard(creditCard);
     }
 
     /**
