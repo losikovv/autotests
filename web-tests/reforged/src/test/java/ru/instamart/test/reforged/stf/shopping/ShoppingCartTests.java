@@ -415,19 +415,37 @@ public final class ShoppingCartTests extends BaseTest {
     @Test(description = "Подтягивание адреса и мердж корзины из профиля при авторизации", groups = "regression")
     public void testAddressAndCartGetFromProfileAuth() {
         var userData = UserManager.getQaUser();
-        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
-        helper.dropAndFillCart(userData, 1);
+        helper.setAddress(userData, RestAddresses.Moscow.learningCenter());
+        helper.dropAndFillCart(userData, 1, 2);
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-        shop().interactHeader().checkProfileButtonVisible();
-
+        shop().goToPage();
+        shop().openAddressFrame();
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().selectFirstAddress();
+        shop().interactAddress().clickOnSave();
+        shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
+
+        final var productName = shop().returnFirstProductTitleNonLogin();
+        shop().plusFirstItemToCartNonLogin();
+        shop().interactHeader().checkCartNotificationIsVisible();
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactAuthModal().checkModalIsNotVisible();
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+
+        final var currentAddress = shop().interactHeader().returnCurrentAddress();
+        shop().interactHeader().checkIsSetAddressEqualToInput(Addresses.Moscow.defaultAddress(), currentAddress);
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
-        shop().interactCart().checkCartNotEmpty();
+        shop().interactCart().deleteFirstItem();
+        shop().interactCart().checkDeleteAnimationOver();
+
+        shop().interactCart().compareProductNameInCart(productName);
     }
 
     @CaseId(2610)
