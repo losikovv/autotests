@@ -7,7 +7,10 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import ru.instamart.api.helper.*;
 import ru.instamart.api.k8s.K8sPortForward;
-import ru.instamart.kraken.helper.LogAttachmentHelper;
+import ru.instamart.kraken.helper.SystemLogAttachmentHelper;
+
+import static ru.instamart.kraken.helper.LogbackLogBuffer.clearLogbackLogBuffer;
+import static ru.instamart.kraken.helper.LogbackLogBuffer.getLogbackBufferLog;
 
 public class RestBase {
     public static final PortForward.PortForwardResult connection = K8sPortForward.getInstance().portForwardMySQL();
@@ -15,19 +18,22 @@ public class RestBase {
     protected static final ShopperAppApiHelper shopperApp = new ShopperAppApiHelper();
     protected static final ApiV3Helper apiV3 = new ApiV3Helper();
     protected static final DeliveryClubHelper dc = new DeliveryClubHelper();
-    protected final ShopperAdminApiHelper shopperAdmin = new ShopperAdminApiHelper();
     protected static final AdminHelper admin = new AdminHelper();
+    protected final ShopperAdminApiHelper shopperAdmin = new ShopperAdminApiHelper();
     protected Response response;
 
     @BeforeMethod(alwaysRun = true, description = "Стартуем запись системного лога")
     public void captureStart() {
-        LogAttachmentHelper.start();
+        SystemLogAttachmentHelper.start();
     }
 
     @AfterMethod(alwaysRun = true, description = "Добавляем системный лог к тесту")
     public void captureFinish() {
-        final String result = LogAttachmentHelper.getContent();
-        LogAttachmentHelper.stop();
+        final String result = SystemLogAttachmentHelper.getContent();
+        final String resultLB = getLogbackBufferLog();
+        clearLogbackLogBuffer();
+        SystemLogAttachmentHelper.stop();
         Allure.addAttachment("Системный лог теста", result);
+        Allure.addAttachment("logback logs", resultLB);
     }
 }

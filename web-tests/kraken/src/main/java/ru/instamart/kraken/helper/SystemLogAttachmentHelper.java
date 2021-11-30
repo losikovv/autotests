@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 import static java.util.Objects.isNull;
 
-public final class LogAttachmentHelper {
+public final class SystemLogAttachmentHelper {
 
     private static PrintStream originalStream;
     private static OutputStreamRouter router;

@@ -6,7 +6,7 @@ import org.openqa.selenium.Cookie;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.logging.LogType;
-import ru.instamart.kraken.helper.LogAttachmentHelper;
+import ru.instamart.kraken.helper.SystemLogAttachmentHelper;
 import ru.instamart.reforged.core.Kraken;
 
 import java.io.File;
@@ -15,12 +15,22 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.StringJoiner;
 
+import static ru.instamart.kraken.helper.LogbackLogBuffer.clearLogbackLogBuffer;
+import static ru.instamart.kraken.helper.LogbackLogBuffer.getLogbackBufferLog;
+
 public final class CustomReport {
 
     @Attachment(value = "Системный лог", type = "text/plain")
     public static String addSystemLog() {
-        final String result = LogAttachmentHelper.getContent();
-        LogAttachmentHelper.stop();
+        final String result = SystemLogAttachmentHelper.getContent();
+        SystemLogAttachmentHelper.stop();
+        return result;
+    }
+
+    @Attachment(value = "Slf4j лог", type = "text/plain")
+    public static String addCustomLog() {
+        final String result = getLogbackBufferLog();
+        clearLogbackLogBuffer();
         return result;
     }
 
