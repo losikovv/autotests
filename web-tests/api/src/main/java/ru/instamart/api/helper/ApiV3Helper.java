@@ -142,11 +142,18 @@ public final class ApiV3Helper {
         List<ReplacementOptionV3> replacementOptions = orderOptionsV3Response.getReplacement_options();
         String replacementOptionId = getReplacementMethod("replace", replacementOptions).getId();
 
-        response = OrderV3Request.Delivery.POST(
-                paymentOptionId,
-                shippingMethodOptions,
-                replacementOptionId,
-                testData);
+        response = OrderV3Request.Delivery.POST(paymentOptionId, shippingMethodOptions, replacementOptionId, testData);
+
+        if (response.statusCode() == 422 && response.body().toString().contains("Выбранный интервал стал недоступен")) {
+            shippingMethodOptions = OrderOptionsV3Request.Delivery.PUT(testData)
+                    .as(OrderOptionsV3Response.class)
+                    .getShipping_methods()
+                    .get(0)
+                    .getOptions()
+                    .get(1)
+                    .getId();
+            response = OrderV3Request.Delivery.POST(paymentOptionId, shippingMethodOptions, replacementOptionId, testData);
+        }
         checkStatusCode200(response);
         return response.as(OrderV3.class);
     }
@@ -165,11 +172,18 @@ public final class ApiV3Helper {
         List<ReplacementOptionV3> replacementOptions = orderOptionsV3Response.getReplacement_options();
         String replacementOptionId = getReplacementMethod("replace", replacementOptions).getId();
 
-        response = OrderV3Request.PickupFromStore.POST(
-                paymentOptionId,
-                shippingMethodOptions,
-                replacementOptionId,
-                testData);
+        response = OrderV3Request.PickupFromStore.POST(paymentOptionId, shippingMethodOptions, replacementOptionId, testData);
+
+        if (response.statusCode() == 422 && response.body().toString().contains("Выбранный интервал стал недоступен")) {
+            shippingMethodOptions = OrderOptionsV3Request.PickupFromStore.PUT(testData, "d1106342-817f-4c3e-8c18-0005295f641a")
+                    .as(OrderOptionsV3Response.class)
+                    .getShipping_methods()
+                    .get(0)
+                    .getOptions()
+                    .get(1)
+                    .getId();
+            response = OrderV3Request.PickupFromStore.POST(paymentOptionId, shippingMethodOptions, replacementOptionId, testData);
+        }
         checkStatusCode200(response);
         return response.as(OrderV3.class);
     }
