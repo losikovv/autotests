@@ -726,6 +726,33 @@ public class RestDataProvider extends RestBase {
         };
     }
 
+    @DataProvider(name = "negativeStoresForPickupTransferMethodOnlyCourier")
+    public static Object[][] getNegativeStoresForPickupTransferMethodCheckCourier() {
+        return new Object[][]{
+                {EnvironmentProperties.DEFAULT_SID},
+                {2}
+        };
+    }
+
+    @DataProvider(name = "storesDataForPickupTransferMethodOnlyCourier")
+    public static Object[][] getStoresForPickupTransferMethodCheckCourier() {
+        return new Object[][]{
+                {1, AnalyzeResultV2.OK},
+                {22, AnalyzeResultV2.OK},
+                {89, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
+        };
+    }
+
+    @DataProvider(name = "storesDataForPickupTransferMethodAll")
+    public static Object[][] getStoresForPickupTransferMethodCheckAll() {
+        return new Object[][]{
+                {1, AnalyzeResultV2.OK},
+                {94, AnalyzeResultV2.OK},
+                {22, AnalyzeResultV2.OK},
+                {89, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
+        };
+    }
+
     @DataProvider(name = "postCompanyDocuments")
     public static Object[][] postCompanyDocuments() {
         String name = "ООО \"Ромашка_" + (int) (Math.random() * 9999) + "\"";

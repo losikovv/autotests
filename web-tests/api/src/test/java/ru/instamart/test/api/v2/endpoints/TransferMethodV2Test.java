@@ -23,10 +23,6 @@ import ru.instamart.api.response.v2.TransferMethodV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -53,18 +49,62 @@ public class TransferMethodV2Test extends RestBase {
             description = "Проверяем потери для магазина, где доступна только доставка",
             dataProvider = "storesDataForTransferMethodOnlyCourier",
             dataProviderClass = RestDataProvider.class)
-    public void analyzeTransferForStoreWithoutPickup(Integer storeId, AnalyzeResultV2 analyzeResult) {
+    public void analyzeTransferForStoreWoPickup(Integer storeId, AnalyzeResultV2 analyzeResult) {
         ZoneV2 zone = apiV2.getCoordinates(storeId);
         final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), zone, order.getNumber());
         checkStatusCode200(response);
         compareTwoObjects(analyzeResult.getValue(), response.as(TransferMethodV2Response.class).getResult());
     }
 
+    @CaseIDs(value = {@CaseId(1049), @CaseId(1051), @CaseId(1052)})
+    @Story("Трансфер доставка-самовывоз")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Проверяем потери для магазина, где доступна только доставка",
+            dataProvider = "negativeStoresForPickupTransferMethodOnlyCourier",
+            dataProviderClass = RestDataProvider.class)
+    public void analyzeNegativePickupTransferForStoreWoPickup(Integer storeId) {
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), storeId, order.getNumber());
+        checkStatusCode422(response);
+        checkError(response, "Самовывоз из магазина не работает. Пожалуйста, выберите другой");
+    }
+
+    @CaseIDs(value = {@CaseId(1042), @CaseId(1043), @CaseId(1045), @CaseId(1046)})
+    @Story("Трансфер доставка-доставка")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Проверяем потери для магазина, где доступны и доставка, и самовывоз",
+            dataProvider = "storesDataForPickupTransferMethodAll",
+            dataProviderClass = RestDataProvider.class)
+    public void analyzePickupTransferForStoreWithAll(Integer storeId, AnalyzeResultV2 analyzeResult) {
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), storeId, order.getNumber());
+        checkStatusCode200(response);
+        compareTwoObjects(analyzeResult.getValue(), response.as(TransferMethodV2Response.class).getResult());
+    }
+
+    @CaseId(1167)
+    @Story("Трансфер доставка-доставка")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Проверяем потери c отсуствующим обязательным параметром")
+    public void analyzeTransferWoRequiredParams() {
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), (ZoneV2) null, order.getNumber());
+        checkStatusCode422(response);
+        checkError(response, "Недопустимые параметры запроса: address_params Для способа доставки курьером, требуется указать address_params");
+    }
+
+    @CaseId(1168)
+    @Story("Трансфер доставка-доставка")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Проверяем потери c отсуствующим обязательным параметром")
+    public void analyzePickupTransferWoRequiredParams() {
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), (Integer) null, order.getNumber());
+        checkStatusCode422(response);
+        checkError(response, "Недопустимые параметры запроса: pickup_store_id Для способа доставки самовывоз, требуется указать pickup_store_id");
+    }
+
     @CaseIDs(value = {@CaseId(959), @CaseId(960), @CaseId(991), @CaseId(992), @CaseId(993)})
     @Story("Трансфер доставка-доставка")
     @Test(groups = {"api-instamart-regress"},
             description = "Проверяем потери для магазина, где доступны и доставка, и самовывоз",
-            dependsOnMethods = "analyzeTransferForStoreWithoutPickup",
+            priority = 1,
             dataProvider = "storesDataForTransferMethodAllShipping",
             dataProviderClass = RestDataProvider.class)
     public void analyzeTransferForStoreWithPickupAndCourier(Integer storeId, AnalyzeResultV2 analyzeResult) {
@@ -77,11 +117,35 @@ public class TransferMethodV2Test extends RestBase {
         compareTwoObjects(analyzeResult.getValue(), response.as(TransferMethodV2Response.class).getResult());
     }
 
+    @CaseIDs(value = {@CaseId(1049), @CaseId(1051), @CaseId(1052)})
+    @Story("Трансфер доставка-самовывоз")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Проверяем потери для магазина, где доступна только доставка",
+            priority = 2,
+            dataProvider = "storesDataForPickupTransferMethodOnlyCourier",
+            dataProviderClass = RestDataProvider.class)
+    public void analyzePickupTransferForStoreWoPickup(Integer storeId, AnalyzeResultV2 analyzeResult) {
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), storeId, order.getNumber());
+        checkStatusCode200(response);
+        compareTwoObjects(analyzeResult.getValue(), response.as(TransferMethodV2Response.class).getResult());
+    }
+
+    @CaseId(1044)
+    @Story("Трансфер доставка-самовывоз")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Проверяем потери для магазина, где доступна только доставка",
+            priority = 2)
+    public void analyzeNegativePickupTransferForStoreWithAll() {
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), 2, order.getNumber());
+        checkStatusCode422(response);
+        checkError(response, "Самовывоз из магазина не работает. Пожалуйста, выберите другой");
+    }
+
     @CaseId(1001)
     @Story("Трансфер доставка-доставка")
     @Test(groups = {"api-instamart-regress"},
             description = "Проверяем потери для несуществующей зоны",
-            dependsOnMethods = "analyzeTransferForStoreWithPickupAndCourier")
+            priority = 3)
     public void analyzeTransferForNotExistingZone() {
         final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), new ZoneV2(69.353499, 88.205530), order.getNumber());
         checkStatusCode200(response);
@@ -92,7 +156,7 @@ public class TransferMethodV2Test extends RestBase {
     @Story("Трансфер доставка-доставка")
     @Test(groups = {"api-instamart-regress"},
             description = "Проверяем потери для пустой корзины",
-            dependsOnMethods = "analyzeTransferForNotExistingZone")
+            priority = 4)
     public void analyzeTransferForEmptyCart() {
         apiV2.dropCart(userData, apiV2.getAddressBySid(1));
         OrderV2 order = OrdersV2Request.POST().as(OrderV2Response.class).getOrder();
@@ -101,15 +165,5 @@ public class TransferMethodV2Test extends RestBase {
         final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), zone, order.getNumber());
         checkStatusCode200(response);
         compareTwoObjects(AnalyzeResultV2.OK.getValue(), response.as(TransferMethodV2Response.class).getResult());
-    }
-
-    @CaseId(1167)
-    @Story("Трансфер доставка-доставка")
-    @Test(groups = {"api-instamart-regress"},
-            description = "Проверяем потери для пустой корзины")
-    public void analyzeTransferWithoutRequiredParams() {
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), (ZoneV2) null, order.getNumber());
-        checkStatusCode422(response);
-        checkError(response, "Недопустимые параметры запроса: address_params Для способа доставки курьером, требуется указать address_params");
     }
 }
