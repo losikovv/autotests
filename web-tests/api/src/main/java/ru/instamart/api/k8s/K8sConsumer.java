@@ -44,7 +44,7 @@ public class K8sConsumer {
      * получение имени пода
      *
      * @param namespace     example: s-sb-stfkraken
-     * @param labelSelector example: app=app-sbermarket
+     * @param labelSelector example: app=app-stf-sbermarket
      * @return
      */
     private static String getPodName(String namespace, String labelSelector) {
@@ -61,7 +61,7 @@ public class K8sConsumer {
      * получение первого пода в списке
      *
      * @param namespace     example: s-sb-stfkraken
-     * @param labelSelector example: app=app-sbermarket
+     * @param labelSelector example: app=app-stf-sbermarket
      * @return
      */
     private static V1Pod getPod(String namespace, String labelSelector) {

@@ -24,7 +24,7 @@ import static ru.instamart.api.k8s.K8sConsumer.*;
 @Epic("KUBERNETES")
 public class KubernetesClientTest extends RestBase {
     private final String namespace = "s-sb-stfkraken";
-    private final String labelSelector = "app=app-sbermarket";
+    private final String labelSelector = "app=app-stf-sbermarket";
 
     @Story("Список подов для namespace")
     @Test(groups = {"api-instamart-regress"},
