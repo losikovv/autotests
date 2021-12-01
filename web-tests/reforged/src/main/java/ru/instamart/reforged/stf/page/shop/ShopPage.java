@@ -68,6 +68,11 @@ public final class ShopPage implements StfPage, ShopCheck {
         plusFirstItemToCartNonLogin.click();
     }
 
+    @Step("Нажать на плюс у второго товара")
+    public void plusSecondItemToCartNonLogin() {
+        plusSecondItemToCartNonLogin.click();
+    }
+
     @Step("Вернуть значение имени первого товара")
     public String returnFirstProductTitle() {
         return firstProductTitle.getAttribute("title");
@@ -76,6 +81,11 @@ public final class ShopPage implements StfPage, ShopCheck {
     @Step("Вернуть значение имени первого товара")
     public String returnFirstProductTitleNonLogin() {
         return firstProductTitleNonLogin.getAttribute("title");
+    }
+
+    @Step("Вернуть значение имени второго товара")
+    public String returnSecondProductTitleNonLogin() {
+        return secondProductTitleNonLogin.getText();
     }
 
     @Step("Нажать на минус у первого товара")

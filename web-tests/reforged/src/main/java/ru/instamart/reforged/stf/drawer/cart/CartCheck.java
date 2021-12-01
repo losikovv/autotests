@@ -52,7 +52,7 @@ public interface CartCheck extends Check, CartElement {
 
     @Step("Проверяем, что название продукта соответствует ожидаемому {0}")
     default void compareProductNameInCart(final String productNameExpected) {
-        Assert.assertEquals(productNameExpected, firstProductName.getText(), "Имя товара в корзине не соответствует ожидаемому");
+        Assert.assertEquals(firstProductName.getText(), productNameExpected, "Имя товара в корзине не соответствует ожидаемому");
     }
 
     @Step("Проверяем, что корзина открыта")

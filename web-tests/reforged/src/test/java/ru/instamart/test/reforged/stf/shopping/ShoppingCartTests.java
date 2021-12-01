@@ -416,7 +416,7 @@ public final class ShoppingCartTests extends BaseTest {
     public void testAddressAndCartGetFromProfileAuth() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.learningCenter());
-        helper.dropAndFillCart(userData, 1, 2);
+        helper.dropAndFillCart(userData, 1);
 
         shop().goToPage();
         shop().openAddressFrame();
@@ -426,8 +426,8 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        final var productName = shop().returnFirstProductTitleNonLogin();
-        shop().plusFirstItemToCartNonLogin();
+        final var productName = shop().returnSecondProductTitleNonLogin();
+        shop().plusSecondItemToCartNonLogin();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().goToPage();
