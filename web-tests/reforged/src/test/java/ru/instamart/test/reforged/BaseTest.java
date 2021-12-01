@@ -3,8 +3,6 @@ package ru.instamart.test.reforged;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import ru.instamart.kraken.helper.SystemLogAttachmentHelper;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.report.CustomReport;
@@ -14,15 +12,9 @@ import java.lang.reflect.Method;
 @Slf4j
 public class BaseTest {
 
-    @BeforeMethod(alwaysRun = true)
-    public void captureStart(final Method method) {
-        SystemLogAttachmentHelper.start();
-    }
-
     @AfterMethod(alwaysRun = true, description = "Завершение теста")
     public void tearDown(final Method method, final ITestResult result) {
         CustomReport.addSystemLog();
-        CustomReport.addCustomLog();
         if (method.isAnnotationPresent(DoNotOpenBrowser.class)) {
             return;
         }

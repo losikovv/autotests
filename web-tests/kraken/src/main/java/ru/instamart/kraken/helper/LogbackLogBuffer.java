@@ -7,11 +7,10 @@ import java.io.OutputStream;
 public class LogbackLogBuffer extends OutputStream {
 
     private static LogbackLogBuffer INSTANCE = new LogbackLogBuffer();
-    private ThreadLocal<ByteArrayOutputStream> local = new ThreadLocal<ByteArrayOutputStream>() {
-        protected ByteArrayOutputStream initialValue() {
-            return new ByteArrayOutputStream();
-        }
-    };
+    private ThreadLocal<ByteArrayOutputStream> local = ThreadLocal.withInitial(ByteArrayOutputStream::new);
+
+    private LogbackLogBuffer() {
+    }
 
     public static LogbackLogBuffer getInstance() {
         return INSTANCE;
@@ -22,7 +21,7 @@ public class LogbackLogBuffer extends OutputStream {
     }
 
     public static String getLogbackBufferLog() {
-        return new String(INSTANCE.local.get().toByteArray());
+        return INSTANCE.local.get().toString();
     }
 
     @Override
