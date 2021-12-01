@@ -68,8 +68,8 @@
             <class name="ru.instamart.test.api.v2.endpoints.TransferMethodV2Test"/>
         </classes>
     </test>
-    <!-- api-v3-tests -->
-    <test verbose="1" name="API v3 Tests" parallel="classes" thread-count="5">
+    <!-- api-v3-tests ВКЛЮЧИТЬ ПОСЛЕ ПОЧИНКИ АВТОРИЗАЦИИ -->
+    <!--test verbose="1" name="API v3 Tests" parallel="classes" thread-count="5">
         <classes>
             <class name="ru.instamart.test.api.v3.endpoints.StoresV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.SetupInfoV3Test"/>
@@ -81,15 +81,15 @@
             <class name="ru.instamart.test.api.v3.endpoints.CategoriesV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.ProductsV3Test"/>
         </classes>
-    </test>
+    </test-->
     <!-- api-delivery-club-tests  -->
-    <test verbose="1" name="API Delivery Club Tests" parallel="classes" thread-count="3">
+    <!--test verbose="1" name="API Delivery Club Tests" parallel="classes" thread-count="3">
         <classes>
             <class name="ru.instamart.test.api.delivery_club.endpoints.AuthenticationDCTest"/>
             <class name="ru.instamart.test.api.delivery_club.endpoints.StoresWithAuthDCTest"/>
             <class name="ru.instamart.test.api.delivery_club.endpoints.StoresWithoutAuthDCTest"/>
         </classes>
-    </test>
+    </test-->
     <!-- api-admin-tests  -->
     <test verbose="1" name="API Admin Tests" parallel="classes" thread-count="3">
         <classes>
