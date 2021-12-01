@@ -90,7 +90,6 @@ public class ProductV2 extends BaseObject {
     private Double originalUnitPrice;
 
     @Null
-    @JsonSchema(required = true)
     private Double score;
 
     @EqualsAndHashCode.Exclude
