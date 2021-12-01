@@ -38,8 +38,15 @@
         <appender-ref ref="FILE"/>
     </appender>
 
+    <appender name="SIMPLEAPPENDER" class="ru.instamart.kraken.appender.SimpleAppender">
+        <encoder>
+            <pattern>%date [%level] [%logger{0}] %message%n</pattern>
+        </encoder>
+    </appender>
+
     <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
+        <appender-ref ref="SIMPLEAPPENDER"/>
     </root>
 </configuration>
