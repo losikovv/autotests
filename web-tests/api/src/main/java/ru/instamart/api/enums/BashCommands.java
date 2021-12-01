@@ -11,7 +11,7 @@ public interface BashCommands {
          * Добавление инстакоинов через консоль для пользователя
          * передаются: email, instacoin, userId
          */
-        ADD_USER_INSATCOIN("RAILS_ENV=staging bundle exec rake \"instacoin:add_for_contest[%s, %s, %s,'proverochka']\"");
+        ADD_USER_INSATCOIN("/vault/vault-env bundle exec rake \"instacoin:add_for_contest[%s, %s, %s,'proverochka']\"");
         private String command;
         public String get(String... values) {
             return format(command, (Object[]) values);
