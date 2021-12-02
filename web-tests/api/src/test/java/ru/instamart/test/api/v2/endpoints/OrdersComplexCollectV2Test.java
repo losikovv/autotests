@@ -24,7 +24,7 @@ import static org.testng.Assert.assertFalse;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
-import static ru.instamart.api.k8s.K8sConsumer.changeToShip;
+import static ru.instamart.api.k8s.K8sHelper.changeToShip;
 
 @Epic("ApiV2")
 @Feature("Заказы (orders)")

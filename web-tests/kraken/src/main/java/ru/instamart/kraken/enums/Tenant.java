@@ -8,6 +8,7 @@ public enum Tenant {
     OKEY,
     SELGROS,
     SBERMARKET,
+    AUCHAN,
     OTHER;
 
     public static Tenant getValue(final String constant) {

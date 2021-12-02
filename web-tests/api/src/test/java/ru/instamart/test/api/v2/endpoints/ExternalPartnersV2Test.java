@@ -16,7 +16,7 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkExternalPartnersServices;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode400;
-import static ru.instamart.api.k8s.K8sConsumer.addSberPrime;
+import static ru.instamart.api.k8s.K8sHelper.addSberPrime;
 
 @Epic("ApiV2")
 @Feature("Список банеров для SberPrime")
