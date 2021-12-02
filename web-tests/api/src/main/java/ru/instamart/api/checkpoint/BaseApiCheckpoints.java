@@ -73,7 +73,8 @@ public class BaseApiCheckpoints {
      */
     @Step("Проверяем, что два объекта совпадают")
     public static <T> void compareTwoObjects(T firstObject, T secondObject, SoftAssert softAssert) {
-        softAssert.assertEquals(firstObject, secondObject, "Объекты не совпадают");
+        softAssert.assertEquals(firstObject, secondObject, String.format("Объекты %s и %s не совпадают",
+                firstObject.getClass().getSimpleName(), secondObject.getClass().getSimpleName()));
     }
 
     /**
@@ -81,7 +82,8 @@ public class BaseApiCheckpoints {
      */
     @Step("Проверяем, что два объекта совпадают")
     public static <T> void compareTwoObjects(T firstObject, T secondObject) {
-        assertEquals(firstObject, secondObject, "Объекты не совпадают");
+        assertEquals(firstObject, secondObject, String.format("Объекты %s и %s не совпадают",
+                firstObject.getClass().getSimpleName(), secondObject.getClass().getSimpleName()));
     }
 
     @Step("Проверяем json-схему")
