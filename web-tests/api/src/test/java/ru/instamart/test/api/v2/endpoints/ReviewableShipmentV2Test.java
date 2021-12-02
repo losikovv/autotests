@@ -2,7 +2,6 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
@@ -25,10 +24,9 @@ import ru.instamart.kraken.data.user.UserData;
 
 import java.util.List;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
-import static ru.instamart.api.k8s.K8sConsumer.changeToShip;
+import static ru.instamart.api.k8s.K8sHelper.changeToShip;
 
 @Epic("ApiV2")
 @Feature("Отзывы о заказе")

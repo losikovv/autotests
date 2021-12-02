@@ -8,18 +8,19 @@ import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.models.V1Pod;
 import io.kubernetes.client.openapi.models.V1PodList;
-import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.SkipException;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.utils.Mapper;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -27,12 +28,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import static java.lang.System.console;
 import static org.testng.Assert.fail;
-import static ru.instamart.api.enums.BashCommands.Instacoins.ADD_USER_INSATCOIN;
-import static ru.instamart.api.enums.RailsConsole.ExternalPartners.SUBSCRIPTION;
-import static ru.instamart.api.enums.RailsConsole.Order.*;
 
 public class K8sConsumer {
 
@@ -108,7 +107,7 @@ public class K8sConsumer {
         return null;
     }
 
-    private static List<String> execRailsCommandWithPod(String commands) {
+    protected static List<String> execRailsCommandWithPod(String commands) {
         List<String> result = new CopyOnWriteArrayList<>();
 
         String nameSpace = EnvironmentProperties.K8S_NAME_SPACE;
@@ -119,12 +118,34 @@ public class K8sConsumer {
             execRailsCommandWithPod(pod, commands, result::add, true).close();
         } catch (IOException e) {
             log.error("Error: {}", e.getMessage());
-            e.printStackTrace();
         }
         return result;
     }
 
-    private static List<String> execBashCommandWithPod(String commands) {
+    protected static <T> T getClassWithExecRailsCommand(String commands, Class<T> clazz) {
+        List<String> result = new CopyOnWriteArrayList<>();
+        T getRetailerResponse = null;
+        String nameSpace = EnvironmentProperties.K8S_NAME_SPACE;
+        String labelSelector = EnvironmentProperties.K8S_LABEL_SELECTOR;
+
+        final V1Pod pod = getPod(nameSpace, labelSelector);
+        try {
+            execRailsCommandWithPod(pod, commands+".to_json.inspect", result::add, true).close();
+            String join = result.stream()
+                    .filter(item -> !item.startsWith("{\"host\":\"app-"))
+                    .collect(Collectors.joining(""));
+
+            getRetailerResponse = Mapper.INSTANCE.jsonToObject(join, clazz);
+            if(Objects.isNull(getRetailerResponse)){
+                throw new SkipException("FATAL: JSON not valid");
+            }
+        } catch (IOException e) {
+            log.error("Error: {}", e.getMessage());
+        }
+        return getRetailerResponse;
+    }
+
+    protected static List<String> execBashCommandWithPod(String commands) {
         List<String> result = new CopyOnWriteArrayList<>();
 
         String nameSpace = EnvironmentProperties.K8S_NAME_SPACE;
@@ -166,7 +187,7 @@ public class K8sConsumer {
 
             boolean tty = console() != null;
             ApiClient apiClient = K8sConfig.getInstance().getApiClient();
-            final Process proc = new Exec(apiClient).exec(pod, commands, "puma",true, tty);
+            final Process proc = new Exec(apiClient).exec(pod, commands, "puma", true, tty);
 
             executorService.execute(() -> {
                 try {
@@ -340,46 +361,5 @@ public class K8sConsumer {
         return result;
     }
 
-    @Step("Перевод через консоль заказ {shipmentNumber} в статус \"Доставлено\"")
-    public static void changeToShip(String shipmentNumber) {
-        List<String> strings = execRailsCommandWithPod(SHIP.get(shipmentNumber));
-        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
-    }
 
-    @Step("Перевод через консоль заказ {shipmentNumber} в статус \"Собирается\"")
-    public static void changeToCollecting(String shipmentNumber) {
-        List<String> strings = execRailsCommandWithPod(START_COLLECTING.get(shipmentNumber));
-        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
-    }
-
-    @Step("Перевод через консоль заказ {orderNumber} в статус \"Отменен\"")
-    public static void changeToCancel(String orderNumber) {
-        List<String> strings = execRailsCommandWithPod(CANCEL.get(orderNumber));
-        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
-    }
-
-    @Step("Перевод через консоль позиции заказа в статус \"Собрано\"")
-    public static void changeToAssembled(String shipmentNumber, String itemNumber) {
-        List<String> strings = execRailsCommandWithPod(ASSEMBLY_ITEMS_ORDER.get(shipmentNumber, itemNumber));
-        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
-    }
-
-    @Step("Перевод через консоль позиции заказа в статус \"Отменено\"")
-    public static void changeItemToCancel(String shipmentNumber, String itemNumber) {
-        List<String> strings = execRailsCommandWithPod(CANCEL_ITEMS_ORDER.get(shipmentNumber, shipmentNumber, itemNumber));
-        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
-    }
-
-    @Step("Добавление инстакоинов {instacoin} для пользователя email: {email} userId: {userId}")
-    public static List<String> execRakeTaskAddBonus(String email, String instacoin, String userId) {
-        List<String> consoleLog = execBashCommandWithPod(ADD_USER_INSATCOIN.get(email, instacoin, userId));
-        Allure.addAttachment("Логи консоли", String.join("\n", consoleLog));
-        return consoleLog;
-    }
-
-    @Step("Добавление подписки СберПрайм")
-    public static void addSberPrime(String email) {
-        List<String> strings = execRailsCommandWithPod(SUBSCRIPTION.get(email));
-        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
-    }
 }

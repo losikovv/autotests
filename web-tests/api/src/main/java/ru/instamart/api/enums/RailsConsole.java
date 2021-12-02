@@ -126,4 +126,17 @@ public interface RailsConsole {
             return format(command, (Object[]) values);
         }
     }
+
+
+    @AllArgsConstructor
+    enum apiV3 implements RailsConsole{
+        GET_RETAILER("Spree::Retailer.where(slug: :%s)"),
+        OFFER_WHERE_LAST("Offer.where(%s).last");
+
+        private String command;
+
+        public String get(String... values) {
+            return format(command, (Object[]) values);
+        }
+    }
 }
