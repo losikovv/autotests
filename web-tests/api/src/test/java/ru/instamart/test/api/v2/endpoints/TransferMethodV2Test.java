@@ -162,7 +162,6 @@ public class TransferMethodV2Test extends RestBase {
             dataProvider = "storesDataForTransferMethodAllShipping",
             dataProviderClass = RestDataProvider.class)
     public void analyzeCourierTransferForStoreWithAll(Integer storeId, AnalyzeResultV2 analyzeResult) {
-        ;
         SpreeOrdersDao.INSTANCE.updateShippingKind(order.getNumber(), ShippingMethodsV2.PICKUP.getMethod());
         ZoneV2 zone = apiV2.getCoordinates(storeId);
 
