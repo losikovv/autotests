@@ -58,7 +58,7 @@ public final class SimpleRecsV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(287), @CaseId(1094), @CaseId(1095), @CaseId(1096), @CaseId(1097), @CaseId(1098)})
     @Story("Упрощенные рекомендации (simple-recs)")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Упрощенный запрос блока рекомендаций с обязательными параметрами",
             dataProvider = "simpleRecsData",
             dataProviderClass = RestDataProvider.class)
@@ -74,7 +74,7 @@ public final class SimpleRecsV2Test extends RestBase {
     @CaseIDs(value = {@CaseId(289), @CaseId(1099), @CaseId(1100), @CaseId(1101)})
     @Story("Упрощенные рекомендации (simple-recs)")
     @JsonDataProvider(path = "data/json_v2/api_v2_blank_simple_recs_data.json", type = RestDataProvider.SimpleRecsV2TestDataRoot.class)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Упрощенный запрос блока рекомендаций с отсутствующим обязательным параметром",
             dataProvider = "json",
             dataProviderClass = JsonProvider.class
@@ -90,7 +90,7 @@ public final class SimpleRecsV2Test extends RestBase {
     @CaseIDs(value = {@CaseId(288), @CaseId(1102)})
     @Story("Упрощенные рекомендации (simple-recs)")
     @JsonDataProvider(path = "data/json_v2/api_v2_invalid_simple_recs_data.json", type = RestDataProvider.SimpleRecsV2TestDataRoot.class)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Упрощенный запрос блока рекомендаций с невалидным обязательным параметром",
             dataProvider = "json",
             dataProviderClass = JsonProvider.class
@@ -106,7 +106,7 @@ public final class SimpleRecsV2Test extends RestBase {
 
     @CaseId(844)
     @Story("Упрощенные рекомендации (simple-recs)")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Упрощенный запрос блока рекомендаций coпутствующих товаров")
     public void getComplementarySimpleRecsTest() {
         final Response response = SimpleRecsV2Request.Complementary.POST(allRequiredParameters);
@@ -116,7 +116,7 @@ public final class SimpleRecsV2Test extends RestBase {
 
     @CaseId(845)
     @Story("Упрощенные рекомендации (simple-recs)")
-    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Упрощенный запрос блока рекомендаций товаров-заменителей")
     public void getSubstituteSimpleRecsTest() {
         final Response response = SimpleRecsV2Request.Substitute.POST(allRequiredParameters);
