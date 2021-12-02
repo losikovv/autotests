@@ -764,6 +764,16 @@ public class RestDataProvider extends RestBase {
         };
     }
 
+    @DataProvider(name = "storesDataForPickupTransferMethod")
+    public static Object[][] getStoresForPickupTransferMethodCheck() {
+        return new Object[][]{
+                {22, AnalyzeResultV2.OK},
+                {89, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
+                {1, AnalyzeResultV2.OK},
+                {82, AnalyzeResultV2.OK},
+        };
+    }
+
     @DataProvider(name = "postCompanyDocuments")
     public static Object[][] postCompanyDocuments() {
         String name = "ООО \"Ромашка_" + (int) (Math.random() * 9999) + "\"";
