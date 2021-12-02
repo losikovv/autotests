@@ -774,6 +774,24 @@ public class RestDataProvider extends RestBase {
         };
     }
 
+    @DataProvider(name = "storesDataForCourierAlcoholTransferMethod")
+    public static Object[][] getStoresForCourierAlcoholTransferMethodCheck() {
+        return new Object[][]{
+                {2},
+                {22},
+                {1}
+        };
+    }
+
+    @DataProvider(name = "storesDataForPickupAlcoholTransferMethod")
+    public static Object[][] getStoresForPickupAlcoholTransferMethodCheck() {
+        return new Object[][]{
+                {22, AnalyzeResultV2.OK},
+                {94, AnalyzeResultV2.OK},
+                {89, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
+        };
+    }
+
     @DataProvider(name = "postCompanyDocuments")
     public static Object[][] postCompanyDocuments() {
         String name = "ООО \"Ромашка_" + (int) (Math.random() * 9999) + "\"";
