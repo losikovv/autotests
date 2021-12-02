@@ -7,6 +7,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.api.response.ErrorResponse;
 
 import java.util.Collection;
+import java.util.Objects;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static org.testng.Assert.*;
@@ -74,7 +75,8 @@ public class BaseApiCheckpoints {
     @Step("Проверяем, что два объекта совпадают")
     public static <T> void compareTwoObjects(T firstObject, T secondObject, SoftAssert softAssert) {
         softAssert.assertEquals(firstObject, secondObject, String.format("Объекты %s и %s не совпадают",
-                firstObject.getClass().getSimpleName(), secondObject.getClass().getSimpleName()));
+                Objects.isNull(firstObject) ? "null" : firstObject.getClass().getSimpleName(),
+                Objects.isNull(secondObject) ? "null" : secondObject.getClass().getSimpleName()));
     }
 
     /**
@@ -83,7 +85,8 @@ public class BaseApiCheckpoints {
     @Step("Проверяем, что два объекта совпадают")
     public static <T> void compareTwoObjects(T firstObject, T secondObject) {
         assertEquals(firstObject, secondObject, String.format("Объекты %s и %s не совпадают",
-                firstObject.getClass().getSimpleName(), secondObject.getClass().getSimpleName()));
+                Objects.isNull(firstObject) ? "null" : firstObject.getClass().getSimpleName(),
+                Objects.isNull(secondObject) ? "null" : secondObject.getClass().getSimpleName()));
     }
 
     @Step("Проверяем json-схему")
