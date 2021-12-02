@@ -753,6 +753,17 @@ public class RestDataProvider extends RestBase {
         };
     }
 
+    @DataProvider(name = "storesDataForCourierTransferMethod")
+    public static Object[][] getStoresForCourierTransferMethodCheck() {
+        return new Object[][]{
+                {22, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
+                {1, AnalyzeResultV2.OK},
+                {EnvironmentProperties.DEFAULT_SID, AnalyzeResultV2.OK},
+                {82, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
+                {89, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
+        };
+    }
+
     @DataProvider(name = "postCompanyDocuments")
     public static Object[][] postCompanyDocuments() {
         String name = "ООО \"Ромашка_" + (int) (Math.random() * 9999) + "\"";
