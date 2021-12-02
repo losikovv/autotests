@@ -12,6 +12,7 @@
     </method-selectors>
     <test verbose="1" name="All In UI-API suite" parallel="classes" thread-count="5">
         <classes>
+            <class name="ru.instamart.test.reforged.stf.checkout.BasicCheckoutTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout.CheckoutAddressStepTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout.CheckoutBonusesTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout.CheckoutPromocodeTests"/>
