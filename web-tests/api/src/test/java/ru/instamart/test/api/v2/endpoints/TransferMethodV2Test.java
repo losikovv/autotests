@@ -22,6 +22,7 @@ import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.response.v2.OrderV2Response;
 import ru.instamart.api.response.v2.TransferMethodV2Response;
 import ru.instamart.jdbc.dao.SpreeOrdersDao;
+import ru.instamart.jdbc.dao.SpreeProductsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 
@@ -268,5 +269,58 @@ public class TransferMethodV2Test extends RestBase {
         final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), 1, order.getNumber());
         checkStatusCode200(response);
         compareTwoObjects(AnalyzeResultV2.OK.getValue(), response.as(TransferMethodV2Response.class).getResult());
+
+        SpreeOrdersDao.INSTANCE.updateShippingKind(order.getNumber(), ShippingMethodsV2.PICKUP.getMethod());
+        final Response responseLineItems = LineItemsV2Request.POST(SpreeProductsDao.INSTANCE.getOfferIdForAlcohol(1), 1, order.getNumber());
+        checkStatusCode200(responseLineItems);
+    }
+
+    @CaseIDs(value = {@CaseId(1080), @CaseId(1081), @CaseId(1082)})
+    @Story("Трансфер доставка, алкоголь")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Проверяем потери для магазина c разными способами доставки",
+            priority = 9,
+            dataProvider = "storesDataForCourierAlcoholTransferMethod",
+            dataProviderClass = RestDataProvider.class)
+    public void analyzeCourierTransferForAlcohol(Integer storeId) {
+        ZoneV2 zone = apiV2.getCoordinates(storeId);
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), zone, order.getNumber());
+        checkStatusCode200(response);
+        compareTwoObjects(AnalyzeResultV2.ALCOHOL_DISAPPEARS.getValue(), response.as(TransferMethodV2Response.class).getResult());
+    }
+
+    @CaseId(1080)
+    @Story("Трансфер доставка, алкоголь")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Проверяем потери для несуществующего адреса",
+            priority = 9)
+    public void analyzeCourierTransferForAlcoholWoStore() {
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), new ZoneV2(69.353499, 88.205530), order.getNumber());
+        checkStatusCode200(response);
+        compareTwoObjects(AnalyzeResultV2.ALCOHOL_DISAPPEARS.getValue(), response.as(TransferMethodV2Response.class).getResult());
+    }
+
+    @CaseIDs(value = {@CaseId(1077), @CaseId(1078), @CaseId(1079)})
+    @Story("Трансфер самовывоз, алкоголь")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Проверяем потери для магазина c разными способами доставки",
+            priority = 9,
+            dataProvider = "storesDataForPickupAlcoholTransferMethod",
+            dataProviderClass = RestDataProvider.class)
+    public void analyzePickupTransferForAlcohol(Integer storeId, AnalyzeResultV2 analyzeResult) {
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), storeId, order.getNumber());
+        checkStatusCode200(response);
+        compareTwoObjects(analyzeResult.getValue(), response.as(TransferMethodV2Response.class).getResult());
+    }
+
+    @CaseId(1076)
+    @Story("Трансфер самовывоз, алкоголь")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Проверяем потери для магазина без самовывоза",
+            priority = 9)
+    public void analyzePickupTransferForAlcoholWoPickup() {
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), EnvironmentProperties.DEFAULT_SID, order.getNumber());
+        checkStatusCode422(response);
+        checkError(response, "Самовывоз из магазина не работает. Пожалуйста, выберите другой");
     }
 }
