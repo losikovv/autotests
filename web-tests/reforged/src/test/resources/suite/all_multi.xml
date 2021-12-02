@@ -14,6 +14,7 @@
         <parameter name="browser" value="chrome_remote"/>
         <parameter name="version" value="92.0"/>
         <classes>
+            <class name="ru.instamart.test.reforged.stf.checkout.BasicCheckoutTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout.CheckoutAddressStepTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout.CheckoutBonusesTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout.CheckoutPromocodeTests"/>
@@ -60,6 +61,7 @@
         <parameter name="browser" value="firefox_remote"/>
         <parameter name="version" value="91.0"/>
         <classes>
+            <class name="ru.instamart.test.reforged.stf.checkout.BasicCheckoutTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout.CheckoutAddressStepTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout.CheckoutBonusesTests"/>
             <class name="ru.instamart.test.reforged.stf.checkout.CheckoutPromocodeTests"/>
