@@ -3,13 +3,17 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qase.api.annotation.CaseIDs;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.v2.ProductFilterTypeV2;
 import ru.instamart.api.enums.v2.ProductSortTypeV2;
 import ru.instamart.api.model.v2.FacetV2;
+import ru.instamart.api.model.v2.MetaV2;
 import ru.instamart.api.model.v2.OptionV2;
 import ru.instamart.api.model.v2.ProductV2;
 import ru.instamart.api.request.v2.ProductsV2Request;
@@ -21,7 +25,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static io.qameta.allure.Allure.step;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -48,7 +51,7 @@ public final class ProductsV2Test extends RestBase {
         checkSort(ProductSortTypeV2.POPULARITY, productsV2Response.getSort());
     }
 
-    @CaseId(265) // TODO: Добавить CaseIds (265, 869) после выполнения таски ATST-847
+    @CaseIDs(value = {@CaseId(265), @CaseId(869)})
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о продукте",
             groups = {"api-instamart-regress"},
@@ -200,5 +203,53 @@ public final class ProductsV2Test extends RestBase {
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
         checkSort(ProductSortTypeV2.UNIT_PRICE_ASC, productsV2Response.getSort());
+    }
+
+    @CaseId(1175)
+    @Story("Получить список доступных продуктов (Поиск)")
+    @Test(description = "Получаем список продуктов по категории с одиннадцатой страницы",
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
+    public void getProductWithTidAndPage() {
+        final Response response = ProductsV2Request.GET(1, 13610, 11);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ProductsV2Response.class);
+        final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(productsV2Response.getProducts().size(), productsV2Response.getMeta().getPerPage(), softAssert);
+        compareTwoObjects(11, productsV2Response.getMeta().getCurrentPage(), softAssert);
+        compareTwoObjects(10, productsV2Response.getMeta().getPreviousPage(), softAssert);
+        softAssert.assertAll();
+    }
+
+    @CaseId(1176)
+    @Story("Получить список доступных продуктов (Поиск)")
+    @Test(description = "Получаем список продуктов по запросу со второй страницы",
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
+    public void getProductWithQueryAndPage() {
+        final Response responseFirstPage = ProductsV2Request.GET(1, "хлеб", 1);
+        checkStatusCode200(responseFirstPage);
+        MetaV2 meta = responseFirstPage.as(ProductsV2Response.class).getMeta();
+
+        final Response response = ProductsV2Request.GET(1, "хлеб", meta.getTotalPages());
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ProductsV2Response.class);
+        final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
+        int elements = productsV2Response.getMeta().getTotalCount() - productsV2Response.getMeta().getPerPage() * (productsV2Response.getMeta().getTotalPages() - 1);
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(productsV2Response.getProducts().size(), elements, softAssert);
+        compareTwoObjects(meta.getTotalPages(), productsV2Response.getMeta().getCurrentPage(), softAssert);
+        compareTwoObjects(meta.getTotalPages() - 1, productsV2Response.getMeta().getPreviousPage(), softAssert);
+        softAssert.assertAll();
+    }
+
+    @CaseId(1177)
+    @Story("Получить список доступных продуктов (Поиск)")
+    @Test(description = "Получаем список продуктов по запросу с несуществующей страницы",
+            groups = {"api-instamart-regress"})
+    public void getProductsOnNonExistingPage() {
+        final Response response = ProductsV2Request.GET(1, "хлеб", 10000);
+        checkStatusCode200(response);
+        final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
+        Assert.assertTrue(productsV2Response.getProducts().isEmpty(),"Список продуктов не пустой");
     }
 }
