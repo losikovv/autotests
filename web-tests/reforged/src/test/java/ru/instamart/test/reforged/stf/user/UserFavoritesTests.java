@@ -2,17 +2,14 @@ package ru.instamart.test.reforged.stf.user;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
-import ru.instamart.reforged.core.Kraken;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -191,5 +188,24 @@ public final class UserFavoritesTests extends BaseTest {
         userFavorites().interactHeader().clickToCart();
         userFavorites().interactHeader().interactCart().checkCartOpen();
         userFavorites().interactHeader().interactCart().checkCartNotEmpty();
+    }
+
+    @CaseId(2604)
+    @Test(description = "Открывается карточка товара, которого нет в наличии", groups = {"acceptance", "regression"})
+    public void foo() {
+        final var userData = UserManager.getQaUser();
+        apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        apiHelper.addSoldProductToFavorite(userData);
+
+        home().goToPage();
+        home().openLoginModal();
+        home().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        userFavorites().goToPage();
+        userFavorites().filterOutOfStock();
+        userFavorites().refreshWithoutBasicAuth();
+        userFavorites().openCartForFirstFavoriteItem();
+        userFavorites().interactProductCart().checkBuyButtonInActive();
     }
 }
