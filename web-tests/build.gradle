@@ -24,6 +24,7 @@ project(":reforged") {
         implementation project(":api")
         implementation project(":qase-api")
         implementation project(":utils")
+        implementation project(":jdbc")
 
         implementation lib.jackson
         implementation lib.aspectjweaver

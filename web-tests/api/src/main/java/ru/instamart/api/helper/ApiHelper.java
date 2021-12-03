@@ -13,6 +13,7 @@ import ru.instamart.api.model.v2.SessionV2;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
+import ru.instamart.jdbc.dao.OffersDao;
 import ru.instamart.jdbc.dao.OperationalZonesDao;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.user.UserData;
@@ -32,6 +33,13 @@ public final class ApiHelper {
     public void addFavorites(final UserData userData, final int sid, final int count) {
         auth(userData);
         apiV2.addFavoritesListProductBySid(sid, count);
+    }
+
+    @Step("Добавить распроданный товар в избранное")
+    public void addSoldProductToFavorite(final UserData user) {
+        auth(user);
+        K8sPortForward.getInstance().portForwardMySQL();
+        apiV2.addFavoriteByProductId(OffersDao.INSTANCE.getSoldProduct());
     }
 
     @Step("Наполняем корзину избранным товаром с помощью API")

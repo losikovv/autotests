@@ -1052,6 +1052,11 @@ public final class InstamartApiHelper {
                 });
     }
 
+    public void addFavoriteByProductId(final int id) {
+        var response = FavoritesV2Request.POST(id);
+        log.debug("Product '{}' was added with status = {}", id, response.statusCode());
+    }
+
     /**
      * Наполняем корзину до минимальной суммы заказа в конкретном магазине
      */
