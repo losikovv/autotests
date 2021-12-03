@@ -13,6 +13,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.v2.ProductFilterTypeV2;
 import ru.instamart.api.enums.v2.ProductSortTypeV2;
 import ru.instamart.api.model.v2.FacetV2;
+import ru.instamart.api.model.v2.MetaV2;
 import ru.instamart.api.model.v2.OptionV2;
 import ru.instamart.api.model.v2.ProductV2;
 import ru.instamart.api.request.v2.ProductsV2Request;
@@ -24,7 +25,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static io.qameta.allure.Allure.step;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -226,14 +226,17 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем список продуктов по запросу со второй страницы",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductWithQueryAndPage() {
-        final Response response = ProductsV2Request.GET(1, "хлеб", 2);
-        checkStatusCode200(response);
+        final Response responseFirstPage = ProductsV2Request.GET(1, "хлеб", 1);
+        MetaV2 meta = responseFirstPage.as(ProductsV2Response.class).getMeta();
+
+        final Response response = ProductsV2Request.GET(1, "хлеб", meta.getTotalPages());
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
+        int elements = productsV2Response.getMeta().getTotalCount() - productsV2Response.getMeta().getPerPage() * (productsV2Response.getMeta().getTotalPages() - 1);
         final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(productsV2Response.getProducts().size(), productsV2Response.getMeta().getTotalCount() - productsV2Response.getMeta().getPerPage(), softAssert);
-        compareTwoObjects(2, productsV2Response.getMeta().getCurrentPage(), softAssert);
-        compareTwoObjects(1, productsV2Response.getMeta().getPreviousPage(), softAssert);
+        compareTwoObjects(productsV2Response.getProducts().size(), elements, softAssert);
+        compareTwoObjects(meta.getTotalPages(), productsV2Response.getMeta().getCurrentPage(), softAssert);
+        compareTwoObjects(meta.getTotalPages() - 1, productsV2Response.getMeta().getPreviousPage(), softAssert);
         softAssert.assertAll();
     }
 
