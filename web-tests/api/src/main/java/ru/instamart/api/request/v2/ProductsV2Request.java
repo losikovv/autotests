@@ -21,14 +21,28 @@ public final class ProductsV2Request extends ApiV2RequestBase {
      * Получить продукты
      */
     public static Response GET(Integer sid, String query) {
-        return GET(sid, query, null);
+        return GET(sid, query, (ProductSortTypeV2) null);
     }
 
     /**
      * Получить продукты
      */
     public static Response GET(Integer sid, Integer tid) {
-        return GET(sid, tid,null);
+        return GET(sid, tid, (ProductSortTypeV2) null);
+    }
+
+    /**
+     * Получить продукты с определенной страницы
+     */
+    public static Response GET(Integer sid, String query, Integer pageNumber) {
+        return GET(sid, query, pageNumber, null, null);
+    }
+
+    /**
+     * Получить продукты с определенной страницы
+     */
+    public static Response GET(Integer sid, Integer tid, Integer pageNumber) {
+        return GET(sid, tid,  null, null, pageNumber, null, null);
     }
 
     /**
