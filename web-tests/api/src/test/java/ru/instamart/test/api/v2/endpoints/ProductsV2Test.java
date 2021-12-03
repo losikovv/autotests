@@ -245,6 +245,6 @@ public final class ProductsV2Test extends RestBase {
         final Response response = ProductsV2Request.GET(1, "хлеб", 10000);
         checkStatusCode200(response);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
-        Assert.assertTrue(productsV2Response.getProducts().isEmpty());
+        Assert.assertTrue(productsV2Response.getProducts().isEmpty(),"Список продуктов не пустой");
     }
 }
