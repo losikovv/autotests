@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 public enum AnalyzeResultV2 {
     ALL_PRODUCTS_DISAPPEARS("all_products_disappears"),
-    OTHER_RETAILER_SHIPMENT_DISAPPEARS("other_reatailer_shipment_disappears"),
+    OTHER_RETAILER_SHIPMENTS_DISAPPEARS("other_retailer_shipments_disappears"),
     ALCOHOL_DISAPPEARS("alcohol_disappears"),
     OK("ok");
 

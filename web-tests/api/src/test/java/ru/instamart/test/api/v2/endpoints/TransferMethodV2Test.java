@@ -15,9 +15,7 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.AnalyzeResultV2;
 import ru.instamart.api.enums.v2.ShippingMethodsV2;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.ZoneV2;
-import ru.instamart.api.request.v2.LineItemsV2Request;
 import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.response.v2.OrderV2Response;
 import ru.instamart.api.response.v2.TransferMethodV2Response;
@@ -35,15 +33,15 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 @Feature("Проверка потерь")
 public class TransferMethodV2Test extends RestBase {
 
-    private OrderV2 order;
     private UserData userData;
+    private String currentOrderNumber;
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         apiV2.fillCart(userData, EnvironmentProperties.DEFAULT_SID);
-        order = apiV2.getOpenOrder();
+        currentOrderNumber = apiV2.getOpenOrder().getNumber();
     }
 
     @CaseIDs(value = {@CaseId(994), @CaseId(995), @CaseId(996), @CaseId(997), @CaseId(998)})
@@ -54,7 +52,7 @@ public class TransferMethodV2Test extends RestBase {
             dataProviderClass = RestDataProvider.class)
     public void analyzeTransferForStoreWoPickup(Integer storeId, AnalyzeResultV2 analyzeResult) {
         ZoneV2 zone = apiV2.getCoordinates(storeId);
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), zone, order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), zone, currentOrderNumber);
         checkStatusCode200(response);
         compareTwoObjects(analyzeResult.getValue(), response.as(TransferMethodV2Response.class).getResult());
     }
@@ -66,7 +64,7 @@ public class TransferMethodV2Test extends RestBase {
             dataProvider = "negativeStoresForPickupTransferMethodOnlyCourier",
             dataProviderClass = RestDataProvider.class)
     public void analyzeNegativePickupTransferForStoreWoPickup(Integer storeId) {
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), storeId, order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), storeId, currentOrderNumber);
         checkStatusCode422(response);
         checkError(response, "Самовывоз из магазина не работает. Пожалуйста, выберите другой");
     }
@@ -78,7 +76,7 @@ public class TransferMethodV2Test extends RestBase {
             dataProvider = "storesDataForPickupTransferMethodOnlyCourier",
             dataProviderClass = RestDataProvider.class)
     public void analyzePickupTransferForStoreWoPickup(Integer storeId, AnalyzeResultV2 analyzeResult) {
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), storeId, order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), storeId, currentOrderNumber);
         checkStatusCode200(response);
         compareTwoObjects(analyzeResult.getValue(), response.as(TransferMethodV2Response.class).getResult());
     }
@@ -88,7 +86,7 @@ public class TransferMethodV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Проверяем потери c отсуствующим обязательным параметром")
     public void analyzeTransferWoRequiredParams() {
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), (ZoneV2) null, order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), (ZoneV2) null, currentOrderNumber);
         checkStatusCode422(response);
         checkError(response, "Недопустимые параметры запроса: address_params Для способа доставки курьером, требуется указать address_params");
     }
@@ -99,14 +97,13 @@ public class TransferMethodV2Test extends RestBase {
             description = "Проверяем потери c отсуствующим обязательным параметром",
             priority = 1)
     public void analyzePickupTransferWoRequiredParams() {
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), (Integer) null, order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), (Integer) null, currentOrderNumber);
         checkStatusCode422(response);
         checkError(response, "Недопустимые параметры запроса: pickup_store_id Для способа доставки самовывоз, требуется указать pickup_store_id");
 
         apiV2.dropCart(userData, apiV2.getAddressBySid(1));
-        order = OrdersV2Request.POST().as(OrderV2Response.class).getOrder();
-        final Response responseLineItems = LineItemsV2Request.POST(apiV2.getProductsFromEachDepartmentInStore(1).get(0).getId(), 1, order.getNumber());
-        checkStatusCode200(responseLineItems);
+        currentOrderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
+        apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentInStore(1).get(0).getId(), 1);
     }
 
     @CaseIDs(value = {@CaseId(959), @CaseId(960), @CaseId(991), @CaseId(992), @CaseId(993)})
@@ -119,7 +116,7 @@ public class TransferMethodV2Test extends RestBase {
     public void analyzeTransferForStoreWithPickupAndCourier(Integer storeId, AnalyzeResultV2 analyzeResult) {
         ZoneV2 zone = apiV2.getCoordinates(storeId);
 
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), zone, order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), zone, currentOrderNumber);
         checkStatusCode200(response);
         compareTwoObjects(analyzeResult.getValue(), response.as(TransferMethodV2Response.class).getResult());
     }
@@ -132,7 +129,7 @@ public class TransferMethodV2Test extends RestBase {
             dataProvider = "storesDataForPickupTransferMethodAll",
             dataProviderClass = RestDataProvider.class)
     public void analyzePickupTransferForStoreWithAll(Integer storeId, AnalyzeResultV2 analyzeResult) {
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), storeId, order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), storeId, currentOrderNumber);
         checkStatusCode200(response);
         compareTwoObjects(analyzeResult.getValue(), response.as(TransferMethodV2Response.class).getResult());
     }
@@ -143,7 +140,7 @@ public class TransferMethodV2Test extends RestBase {
             description = "Проверяем потери для магазина, где доступна только доставка",
             priority = 3)
     public void analyzeNegativePickupTransferForStoreWithAll() {
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), 2, order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), 2, currentOrderNumber);
         checkStatusCode422(response);
         checkError(response, "Самовывоз из магазина не работает. Пожалуйста, выберите другой");
     }
@@ -154,7 +151,7 @@ public class TransferMethodV2Test extends RestBase {
             description = "Проверяем потери для несуществующей зоны",
             priority = 3)
     public void analyzeTransferForNotExistingZone() {
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), new ZoneV2(69.353499, 88.205530), order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), new ZoneV2(69.353499, 88.205530), currentOrderNumber);
         checkStatusCode200(response);
         compareTwoObjects(AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS.getValue(), response.as(TransferMethodV2Response.class).getResult());
     }
@@ -167,10 +164,10 @@ public class TransferMethodV2Test extends RestBase {
             dataProvider = "storesDataForTransferMethodAllShipping",
             dataProviderClass = RestDataProvider.class)
     public void analyzeCourierTransferForStoreWithAll(Integer storeId, AnalyzeResultV2 analyzeResult) {
-        SpreeOrdersDao.INSTANCE.updateShippingKind(order.getNumber(), ShippingMethodsV2.PICKUP.getMethod());
+        SpreeOrdersDao.INSTANCE.updateShippingKind(currentOrderNumber, ShippingMethodsV2.PICKUP.getMethod());
         ZoneV2 zone = apiV2.getCoordinates(storeId);
 
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), zone, order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), zone, currentOrderNumber);
         checkStatusCode200(response);
         compareTwoObjects(analyzeResult.getValue(), response.as(TransferMethodV2Response.class).getResult());
     }
@@ -183,7 +180,7 @@ public class TransferMethodV2Test extends RestBase {
             dataProvider = "storesDataForPickupTransferMethodAll",
             dataProviderClass = RestDataProvider.class)
     public void analyzePickupsTransferForStoreWithAll(Integer storeId, AnalyzeResultV2 analyzeResult) {
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), storeId, order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), storeId, currentOrderNumber);
         checkStatusCode200(response);
         compareTwoObjects(analyzeResult.getValue(), response.as(TransferMethodV2Response.class).getResult());
     }
@@ -194,7 +191,7 @@ public class TransferMethodV2Test extends RestBase {
             description = "Проверяем потери для магазина, где доступна только доставка",
             priority = 5)
     public void analyzeNegativePickupsTransferForStoreWithAll() {
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), EnvironmentProperties.DEFAULT_SID, order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), EnvironmentProperties.DEFAULT_SID, currentOrderNumber);
         checkStatusCode422(response);
         checkError(response, "Самовывоз из магазина не работает. Пожалуйста, выберите другой");
     }
@@ -206,16 +203,15 @@ public class TransferMethodV2Test extends RestBase {
             priority = 6)
     public void analyzeTransferForEmptyCart() {
         apiV2.dropCart(userData, apiV2.getAddressBySid(22));
-        order = OrdersV2Request.POST().as(OrderV2Response.class).getOrder();
+        currentOrderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
         ZoneV2 zone = apiV2.getCoordinates(EnvironmentProperties.DEFAULT_SID);
 
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), zone, order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), zone, currentOrderNumber);
         checkStatusCode200(response);
         compareTwoObjects(AnalyzeResultV2.OK.getValue(), response.as(TransferMethodV2Response.class).getResult());
 
-        SpreeOrdersDao.INSTANCE.updateShippingKind(order.getNumber(), ShippingMethodsV2.PICKUP.getMethod());
-        final Response responseLineItems = LineItemsV2Request.POST(apiV2.getProductsFromEachDepartmentInStore(22).get(0).getId(), 1, order.getNumber());
-        checkStatusCode200(responseLineItems);
+        SpreeOrdersDao.INSTANCE.updateShippingKind(currentOrderNumber, ShippingMethodsV2.PICKUP.getMethod());
+        apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentInStore(22).get(0).getId(), 1);
     }
 
     @CaseIDs(value = {@CaseId(1059), @CaseId(1060), @CaseId(1061), @CaseId(1062), @CaseId(1063)})
@@ -228,7 +224,7 @@ public class TransferMethodV2Test extends RestBase {
     public void analyzeCourierTransferForStoreWithСourier(Integer storeId, AnalyzeResultV2 analyzeResult) {
         ZoneV2 zone = apiV2.getCoordinates(storeId);
 
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), zone, order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), zone, currentOrderNumber);
         checkStatusCode200(response);
         compareTwoObjects(analyzeResult.getValue(), response.as(TransferMethodV2Response.class).getResult());
     }
@@ -241,7 +237,7 @@ public class TransferMethodV2Test extends RestBase {
             dataProvider = "storesDataForPickupTransferMethod",
             dataProviderClass = RestDataProvider.class)
     public void analyzePickupTransferForStoreWithСourier(Integer storeId, AnalyzeResultV2 analyzeResult) {
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), storeId, order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), storeId, currentOrderNumber);
         checkStatusCode200(response);
         compareTwoObjects(analyzeResult.getValue(), response.as(TransferMethodV2Response.class).getResult());
     }
@@ -252,7 +248,7 @@ public class TransferMethodV2Test extends RestBase {
             description = "Проверяем потери для магазина, где доступна только доставка",
             priority = 7)
     public void analyzeNegativePickupsTransferForStoreWithPickup() {
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), EnvironmentProperties.DEFAULT_SID, order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), EnvironmentProperties.DEFAULT_SID, currentOrderNumber);
         checkStatusCode422(response);
         checkError(response, "Самовывоз из магазина не работает. Пожалуйста, выберите другой");
     }
@@ -264,15 +260,14 @@ public class TransferMethodV2Test extends RestBase {
             priority = 8)
     public void analyzePickupsTransferForEmptyCart() {
         apiV2.dropCart(userData, apiV2.getAddressBySid(1));
-        order = OrdersV2Request.POST().as(OrderV2Response.class).getOrder();
+        currentOrderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
 
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), 1, order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), 1, currentOrderNumber);
         checkStatusCode200(response);
         compareTwoObjects(AnalyzeResultV2.OK.getValue(), response.as(TransferMethodV2Response.class).getResult());
 
-        SpreeOrdersDao.INSTANCE.updateShippingKind(order.getNumber(), ShippingMethodsV2.PICKUP.getMethod());
-        final Response responseLineItems = LineItemsV2Request.POST(SpreeProductsDao.INSTANCE.getOfferIdForAlcohol(1), 1, order.getNumber());
-        checkStatusCode200(responseLineItems);
+        SpreeOrdersDao.INSTANCE.updateShippingKind(currentOrderNumber, ShippingMethodsV2.PICKUP.getMethod());
+        apiV2.addItemToCart(SpreeProductsDao.INSTANCE.getOfferIdForAlcohol(1), 1);
     }
 
     @CaseIDs(value = {@CaseId(1080), @CaseId(1081), @CaseId(1082)})
@@ -284,18 +279,18 @@ public class TransferMethodV2Test extends RestBase {
             dataProviderClass = RestDataProvider.class)
     public void analyzeCourierTransferForAlcohol(Integer storeId) {
         ZoneV2 zone = apiV2.getCoordinates(storeId);
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), zone, order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), zone, currentOrderNumber);
         checkStatusCode200(response);
         compareTwoObjects(AnalyzeResultV2.ALCOHOL_DISAPPEARS.getValue(), response.as(TransferMethodV2Response.class).getResult());
     }
 
-    @CaseId(1080)
+    @CaseId(1083)
     @Story("Трансфер доставка, алкоголь")
     @Test(groups = {"api-instamart-regress"},
             description = "Проверяем потери для несуществующего адреса",
             priority = 9)
     public void analyzeCourierTransferForAlcoholWoStore() {
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), new ZoneV2(69.353499, 88.205530), order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.BY_COURIER.getMethod(), new ZoneV2(69.353499, 88.205530), currentOrderNumber);
         checkStatusCode200(response);
         compareTwoObjects(AnalyzeResultV2.ALCOHOL_DISAPPEARS.getValue(), response.as(TransferMethodV2Response.class).getResult());
     }
@@ -308,7 +303,7 @@ public class TransferMethodV2Test extends RestBase {
             dataProvider = "storesDataForPickupAlcoholTransferMethod",
             dataProviderClass = RestDataProvider.class)
     public void analyzePickupTransferForAlcohol(Integer storeId, AnalyzeResultV2 analyzeResult) {
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), storeId, order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), storeId, currentOrderNumber);
         checkStatusCode200(response);
         compareTwoObjects(analyzeResult.getValue(), response.as(TransferMethodV2Response.class).getResult());
     }
@@ -319,8 +314,35 @@ public class TransferMethodV2Test extends RestBase {
             description = "Проверяем потери для магазина без самовывоза",
             priority = 9)
     public void analyzePickupTransferForAlcoholWoPickup() {
-        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), EnvironmentProperties.DEFAULT_SID, order.getNumber());
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), EnvironmentProperties.DEFAULT_SID, currentOrderNumber);
         checkStatusCode422(response);
         checkError(response, "Самовывоз из магазина не работает. Пожалуйста, выберите другой");
+    }
+
+    @CaseId(1084)
+    @Story("Мультиритейлерная корзина")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Проверяем потери при смене ритейлера на одного из списка",
+            priority = 10)
+    public void analyzePickupTransferForMultiRetailers() {
+        apiV2.dropCart(userData, apiV2.getAddressBySid(1));
+        currentOrderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
+        SpreeOrdersDao.INSTANCE.updateShippingKind(currentOrderNumber, ShippingMethodsV2.BY_COURIER.getMethod());
+        apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentInStore(1).get(0).getId(), 1);
+        apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentInStore(72).get(0).getId(), 1);
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), 1, currentOrderNumber);
+        checkStatusCode200(response);
+        compareTwoObjects(AnalyzeResultV2.OTHER_RETAILER_SHIPMENTS_DISAPPEARS.getValue(), response.as(TransferMethodV2Response.class).getResult());
+    }
+
+    @CaseId(1085)
+    @Story("Мультиритейлерная корзина")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Проверяем потери при смене ритейлера на стороннего",
+            priority = 11)
+    public void analyzeCourierTransferForMultiRetailers() {
+        final Response response = OrdersV2Request.TransferMethod.GET(ShippingMethodsV2.PICKUP.getMethod(), 128, currentOrderNumber);
+        checkStatusCode200(response);
+        compareTwoObjects(AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS.getValue(), response.as(TransferMethodV2Response.class).getResult());
     }
 }
