@@ -227,9 +227,11 @@ public final class ProductsV2Test extends RestBase {
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductWithQueryAndPage() {
         final Response responseFirstPage = ProductsV2Request.GET(1, "хлеб", 1);
+        checkStatusCode200(responseFirstPage);
         MetaV2 meta = responseFirstPage.as(ProductsV2Response.class).getMeta();
 
         final Response response = ProductsV2Request.GET(1, "хлеб", meta.getTotalPages());
+        checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
         int elements = productsV2Response.getMeta().getTotalCount() - productsV2Response.getMeta().getPerPage() * (productsV2Response.getMeta().getTotalPages() - 1);
