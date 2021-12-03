@@ -214,7 +214,7 @@ public final class ProductsV2Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
-        SoftAssert softAssert = new SoftAssert();
+        final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(productsV2Response.getProducts().size(), productsV2Response.getMeta().getPerPage(), softAssert);
         compareTwoObjects(11, productsV2Response.getMeta().getCurrentPage(), softAssert);
         compareTwoObjects(10, productsV2Response.getMeta().getPreviousPage(), softAssert);
@@ -230,7 +230,7 @@ public final class ProductsV2Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
-        SoftAssert softAssert = new SoftAssert();
+        final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(productsV2Response.getProducts().size(), productsV2Response.getMeta().getTotalCount() - productsV2Response.getMeta().getPerPage(), softAssert);
         compareTwoObjects(2, productsV2Response.getMeta().getCurrentPage(), softAssert);
         compareTwoObjects(1, productsV2Response.getMeta().getPreviousPage(), softAssert);
