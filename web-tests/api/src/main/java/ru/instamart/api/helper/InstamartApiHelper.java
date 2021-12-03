@@ -331,7 +331,7 @@ public final class InstamartApiHelper {
      * Добавляем товар в корзину
      */
     @Step("Добавляем товар в корзину: id товара = {productId} и количество = {quantity} ")
-    private LineItemV2 addItemToCart(long productId, int quantity) {
+    public LineItemV2 addItemToCart(long productId, int quantity) {
         Response response = LineItemsV2Request.POST(productId, quantity, currentOrderNumber.get());
         checkStatusCode200(response);
         LineItemV2 lineItem = response.as(LineItemV2Response.class).getLineItem();
