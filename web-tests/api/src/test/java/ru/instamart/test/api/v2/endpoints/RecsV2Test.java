@@ -1,9 +1,6 @@
 package ru.instamart.test.api.v2.endpoints;
 
-import io.qameta.allure.Allure;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
@@ -26,9 +23,10 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 @Feature("Рекомендации")
 public final class RecsV2Test extends RestBase {
 
+    @Issue("INFRADEV-9952") //проект рекомендаций использует мобильный стейдж для получения офферов продуктов
     @Story("Полные рекомендации (recs)")
     @CaseId(974)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, enabled = false,
             description = "Запрос рекомендаций с обязательными параметрами")
     public void testRecsTest() {
         PersonalV2Request.RecsV2 recsV2 = PersonalV2Request.RecsV2.builder()
