@@ -26,7 +26,7 @@ import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
-import static ru.instamart.api.k8s.K8sHelper.changeToShip;
+import static ru.instamart.api.helper.K8sHelper.changeToShip;
 
 @Epic("ApiV2")
 @Feature("Отзывы о заказе")

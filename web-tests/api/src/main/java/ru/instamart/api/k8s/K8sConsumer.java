@@ -107,7 +107,7 @@ public class K8sConsumer {
         return null;
     }
 
-    protected static List<String> execRailsCommandWithPod(String commands) {
+    public static List<String> execRailsCommandWithPod(String commands) {
         List<String> result = new CopyOnWriteArrayList<>();
 
         String nameSpace = EnvironmentProperties.K8S_NAME_SPACE;
@@ -122,7 +122,7 @@ public class K8sConsumer {
         return result;
     }
 
-    protected static <T> T getClassWithExecRailsCommand(String commands, Class<T> clazz) {
+    public static <T> T getClassWithExecRailsCommand(String commands, Class<T> clazz) {
         List<String> result = new CopyOnWriteArrayList<>();
         T getRetailerResponse = null;
         String nameSpace = EnvironmentProperties.K8S_NAME_SPACE;
@@ -130,14 +130,14 @@ public class K8sConsumer {
 
         final V1Pod pod = getPod(nameSpace, labelSelector);
         try {
-            execRailsCommandWithPod(pod, commands+".to_json.inspect", result::add, true).close();
+            execRailsCommandWithPod(pod, commands, result::add, true).close();
             String join = result.stream()
                     .filter(item -> !item.startsWith("{\"host\":\"app-"))
                     .collect(Collectors.joining(""));
 
-            getRetailerResponse = Mapper.INSTANCE.jsonToObject(join, clazz);
+            getRetailerResponse = Mapper.INSTANCE.jsonToObject(Objects.requireNonNull(join), clazz);
             if(Objects.isNull(getRetailerResponse)){
-                throw new SkipException("FATAL: JSON not valid");
+                throw new SkipException("FATAL: JSON not valid. Response: " + result);
             }
         } catch (IOException e) {
             log.error("Error: {}", e.getMessage());
@@ -145,7 +145,7 @@ public class K8sConsumer {
         return getRetailerResponse;
     }
 
-    protected static List<String> execBashCommandWithPod(String commands) {
+    public static List<String> execBashCommandWithPod(String commands) {
         List<String> result = new CopyOnWriteArrayList<>();
 
         String nameSpace = EnvironmentProperties.K8S_NAME_SPACE;

@@ -18,7 +18,7 @@ import ru.instamart.jdbc.dao.SpreeUsersDao;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
-import static ru.instamart.api.k8s.K8sHelper.execRakeTaskAddBonus;
+import static ru.instamart.api.helper.K8sHelper.execRakeTaskAddBonus;
 
 @Epic("ApiV2")
 @Feature("Бонусный счет")
