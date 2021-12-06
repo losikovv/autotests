@@ -110,7 +110,7 @@ public final class UserData {
          * во всех остальных случаях нужна {@link CoreProperties#DEFAULT_SMS}
          */
         private String getSmsCode() {
-            if (nonNull(id) && !(EnvironmentProperties.Env.FULL_SITE_URL.contains("preprod") || EnvironmentProperties.Env.FULL_SITE_URL.contains("next"))) {
+            if (nonNull(id) && EnvironmentProperties.Env.FULL_SITE_URL.contains("kraken")) {
                 return StringUtil.getSMSCode(phone);
             } else {
                 return CoreProperties.DEFAULT_SMS;
