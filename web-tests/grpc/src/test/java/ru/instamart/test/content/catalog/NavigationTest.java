@@ -63,7 +63,7 @@ public class NavigationTest extends GrpcBase {
 
     @CaseId(152)
     @Test(groups = {"grpc-product-hub"},
-            description = "Получение хлебных крошек по ID категории.")
+            description = "Получение хлебных крошек по ID категории")
     public void getBreadcrumbsCategoryID() {
         var request = Navigation.GetBreadcrumbsByCategoryIDRequest.newBuilder()
                 .setCategoryId("131")
@@ -78,7 +78,7 @@ public class NavigationTest extends GrpcBase {
 
     @CaseId(153)
     @Test(groups = {"grpc-product-hub"},
-            description = "Получение хлебных крошек по ID категории.",
+            description = "Получение хлебных крошек без указания ID категории ",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: required field \"category_id\" is not specified")
     public void getBreadcrumbsWithoutCategoryID() {
