@@ -104,4 +104,11 @@
             <class name="ru.instamart.test.api.KubernetesClientTest"/>
         </classes>
     </test>
+
+    <test verbose="1" name="API DC Tests" parallel="classes" thread-count="1">
+        <classes>
+            <class name="ru.instamart.test.api.ris_exporter.AuthenticationRisTest"/>
+            <class name="ru.instamart.test.api.ris_exporter.CategoriesRisTest"/>
+        </classes>
+    </test>
 </suite>
