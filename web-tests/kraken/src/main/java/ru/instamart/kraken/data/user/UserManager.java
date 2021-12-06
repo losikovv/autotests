@@ -39,6 +39,7 @@ public final class UserManager {
     private static UserData defaultSberIdUser;
     private static UserData defaultApiUser;
     private static UserData defaultDcUser;
+    private static UserData defaultRisUser;
     private static UserData defaultUserWithoutPermission;
     private static UserData forB2BUser;
     private static UserData addressUser;
@@ -194,6 +195,15 @@ public final class UserManager {
                     .build();
         }
         return defaultDcUser;
+    }
+
+    public static UserData getRisUser() {
+        if (isNull(defaultRisUser)) {
+            defaultRisUser = UserData.builder()
+                    .token("ZGNtYXJrZXQ6MzhlYjgxYjNkOTdiZDgx")
+                    .build();
+        }
+        return defaultRisUser;
     }
 
     public static UserData userWithoutAdminPermission() {

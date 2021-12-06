@@ -11,12 +11,14 @@ import ru.instamart.api.helper.RegistrationHelper;
 import ru.instamart.api.model.shopper.app.SessionSHP;
 import ru.instamart.api.model.v1.ShoppersBackendV1;
 import ru.instamart.api.request.delivery_club.AuthenticationDCRequest;
+import ru.instamart.api.request.ris_exporter.AuthenticationRisRequest;
 import ru.instamart.api.request.shopper.app.SessionsSHPRequest;
 import ru.instamart.api.request.v1.TokensV1Request;
 import ru.instamart.api.request.v1.UserSessionsV1Request;
 import ru.instamart.api.request.v2.AuthProvidersV2Request;
 import ru.instamart.api.request.v2.PhoneConfirmationsV2Request;
 import ru.instamart.api.response.delivery_club.TokenDCResponse;
+import ru.instamart.api.response.ris_exporter.TokenRisResponse;
 import ru.instamart.api.response.shopper.app.SessionsSHPResponse;
 import ru.instamart.api.response.v1.TokensV1Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
@@ -53,6 +55,7 @@ public final class SessionFactory {
             case SHOPPER_APP:
             case SHOPPER_ADMIN:
             case DELIVERY_CLUB:
+            case RIS_EXPORTER:
                 log.warn("Not implemented yet!");
                 break;
             case API_V2:
@@ -134,6 +137,8 @@ public final class SessionFactory {
                 return createDeliveryClubSession(userData);
             case ADMIN:
                 return createAdminSession(userData);
+            case RIS_EXPORTER:
+                return createRisSession(userData);
             default:
                 log.error("Session type not selected");
                 return new SessionInfo();
@@ -224,6 +229,13 @@ public final class SessionFactory {
         log.debug("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
         log.debug("cookies: {}", response.getCookies());
         return new SessionInfo(userData, response.as(UserV2Response.class).getCsrfToken(), response.getCookies());
+    }
+
+    private static SessionInfo createRisSession(final UserData userData) {
+        final Response response = AuthenticationRisRequest.POST(userData.getToken());
+        checkStatusCode200(response);
+        log.debug("Авторизуемся с токеном: {}", userData.getToken());
+        return new SessionInfo(userData, response.as(TokenRisResponse.class).getToken());
     }
 
     @RequiredArgsConstructor

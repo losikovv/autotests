@@ -7,5 +7,6 @@ public enum SessionType {
     SHOPPER_APP,
     SHOPPER_ADMIN,
     DELIVERY_CLUB,
-    ADMIN
+    ADMIN,
+    RIS_EXPORTER
 }

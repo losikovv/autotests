@@ -35,6 +35,7 @@ public enum Specification {
     @Getter private RequestSpecification apiAdminRequestSpec;
     @Getter private RequestSpecification shopperRequestSpec;
     @Getter private RequestSpecification surgeRequestSpec;
+    @Getter private RequestSpecification risExporterRequestSpec;
 
     public void initSpec() {
         final String apiV1FullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH;
@@ -124,6 +125,13 @@ public enum Specification {
         surgeRequestSpec = new RequestSpecBuilder()
                 .setBaseUri("https://paas-content-operations-surge.k-stage.sbermarket.tech")
                 .setBasePath("api/")
+                .setAccept(ContentType.JSON)
+                .addFilter(new AllureRestAssuredCustom())
+                .build();
+
+        risExporterRequestSpec = new RequestSpecBuilder()
+                .setBaseUri("https://api-deliveryclub.sbermarket.ru")
+                .setBasePath("v1/")
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
                 .build();
