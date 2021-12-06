@@ -45,7 +45,7 @@ public class AddressV1 extends BaseObject {
 
     @Null
     @JsonSchema(required = true)
-    private Boolean elevator;
+    private String elevator;
 
     @Null
     @JsonSchema(required = true)
@@ -67,9 +67,11 @@ public class AddressV1 extends BaseObject {
     @JsonSchema(required = true)
     private String settlement;
 
+    @Null
     @JsonSchema(required = true)
     private Double lat;
 
+    @Null
     @JsonSchema(required = true)
     private Double lon;
 

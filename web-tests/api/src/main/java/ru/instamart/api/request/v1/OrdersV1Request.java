@@ -7,9 +7,9 @@ import ru.instamart.api.request.ApiV1RequestBase;
 
 public class OrdersV1Request extends ApiV1RequestBase {
     @Step("{method} /" + ApiV1Endpoints.ORDERS)
-    public static Response GET() {
+    public static Response GET(Integer pageNumber) {
         return givenWithAuth()
-                .get(ApiV1Endpoints.ORDERS);
+                .get(ApiV1Endpoints.ORDERS ,pageNumber);
     }
 
     @Step("{method} /" + ApiV1Endpoints.Orders.NUMBER)

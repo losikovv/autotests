@@ -10,12 +10,14 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.request.v1.OperationalZonesV1Request;
 import ru.instamart.api.dataprovider.RestDataProvider;
-import ru.instamart.api.response.v1.OfferV1Response;
 import ru.instamart.api.response.v1.OperationalZoneV1Response;
 import ru.instamart.api.response.v1.OperationalZonesV1Response;
+import ru.instamart.jdbc.dao.OperationalZonesDao;
 
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import java.util.List;
+
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV1")
@@ -30,6 +32,8 @@ public class OperationalZonesV1Tests extends RestBase {
         final Response response = OperationalZonesV1Request.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, OperationalZonesV1Response.class);
+        List<OperationalZoneV1> operationalZonesFromResponse = response.as(OperationalZonesV1Response.class).getOperationalZones();
+        compareTwoObjects(operationalZonesFromResponse.size(), OperationalZonesDao.INSTANCE.getCount());
     }
 
     @Story("Операционные зоны")

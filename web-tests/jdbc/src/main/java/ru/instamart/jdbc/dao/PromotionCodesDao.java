@@ -110,7 +110,9 @@ public class PromotionCodesDao implements Dao {
 
     public void updateUsageLimit(Integer usageLimit, String promoCode) {
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format("UPDATE promotion_codes SET usage_limit = %s WHERE value = '%s'", usageLimit, promoCode))) {
+             PreparedStatement preparedStatement = connect.prepareStatement("UPDATE promotion_codes SET usage_limit = ? WHERE value = ?")) {
+            preparedStatement.setInt(1, usageLimit);
+            preparedStatement.setString(2, promoCode);
              preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
