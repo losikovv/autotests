@@ -5,6 +5,7 @@ import ru.instamart.jdbc.util.ConnectionMySQLManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ public class OperationalZonesDao implements Dao<Long, OperationalZonesEntity> {
 
     public static final OperationalZonesDao INSTANCE = new OperationalZonesDao();
     private final String DELETE_SQL = "DELETE FROM operational_zones ";
+    private final String SELECT_SQL = "SELECT %s FROM operational_zones ";
 
     @Override
     public boolean delete(Long id) {
@@ -48,10 +50,24 @@ public class OperationalZonesDao implements Dao<Long, OperationalZonesEntity> {
 
     public void deleteZoneByName(String zoneName) {
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + String.format("WHERE name = '%s'", zoneName))) {
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + "WHERE name = ?")) {
+            preparedStatement.setString(1, zoneName);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getCount() {
+        int resultCount = 0;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"))) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            resultCount = resultSet.getInt("total");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultCount;
     }
 }

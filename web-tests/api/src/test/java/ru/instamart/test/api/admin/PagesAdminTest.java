@@ -7,6 +7,7 @@ import io.qase.api.annotation.CaseIDs;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -98,5 +99,10 @@ public class PagesAdminTest extends RestBase {
         admin.deleteStaticPage(id);
         SpreePagesEntity pageFromDb = SpreePagesDao.INSTANCE.getPageBySlug(slug);
         Assert.assertNull(pageFromDb, "Страница не удалилась");
+    }
+
+    @AfterClass
+    public void clearData() {
+        SpreePagesDao.INSTANCE.deletePageBySlug("Autotest-");
     }
 }

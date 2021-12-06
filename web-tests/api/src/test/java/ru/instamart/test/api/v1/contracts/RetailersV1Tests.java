@@ -13,8 +13,12 @@ import ru.instamart.api.request.v1.RetailersV1Request;
 import ru.instamart.api.response.v1.EansV1Response;
 import ru.instamart.api.response.v2.RetailerV2Response;
 import ru.instamart.api.response.v2.RetailersV2Response;
+import ru.instamart.jdbc.dao.SpreeRetailersDao;
+
+import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.dataprovider.RestDataProvider.getAvailableRetailersSpree;
 
@@ -30,6 +34,8 @@ public class RetailersV1Tests extends RestBase {
         final Response response = RetailersV1Request.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, RetailersV2Response.class);
+        List<RetailerV2> retailersFromResponse = response.as(RetailersV2Response.class).getRetailers();
+        compareTwoObjects(retailersFromResponse.size(), SpreeRetailersDao.INSTANCE.getCount());
     }
 
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"})

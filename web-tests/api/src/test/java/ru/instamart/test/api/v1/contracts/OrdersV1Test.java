@@ -54,7 +54,7 @@ public class OrdersV1Test extends RestBase {
     @Test(description = "Контрактный тест списка заказов",
             groups = "api-instamart-regress")
     public void getOrders() {
-        Response response = OrdersV1Request.GET();
+        Response response = OrdersV1Request.GET(1);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, OrdersV1Response.class);
     }

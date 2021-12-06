@@ -4,7 +4,7 @@ public final class ApiV1Endpoints {
 
     public static final String LINE_ITEMS = "line_items?shipment_number={shipmentNumber}";
     public static final String OPERATIONAL_ZONES = "operational_zones";
-    public static final String ORDERS = "orders?page=200000";
+    public static final String ORDERS = "orders?page={pageNumber}";
     public static final String RETAILERS = "retailers";
     public static final String STORES = "stores";
     public static final String TOKENS = "tokens";

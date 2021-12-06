@@ -14,6 +14,7 @@ public class SpreePagesDao implements  Dao<Long, SpreePagesEntity> {
 
     public static final SpreePagesDao INSTANCE = new SpreePagesDao();
     private final String SELECT_SQL = "SELECT * FROM spree_pages";
+    private final String DELETE_SQL = "DELETE FROM spree_pages";
 
     @Override
     public boolean delete(Long id) {
@@ -67,5 +68,15 @@ public class SpreePagesDao implements  Dao<Long, SpreePagesEntity> {
             e.printStackTrace();
         }
         return page;
+    }
+
+    public void deletePageBySlug(String slug) {
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL +" WHERE slug LIKE ?")) {
+            preparedStatement.setString(1, slug + "%");
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

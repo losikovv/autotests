@@ -8,13 +8,18 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
+import ru.instamart.api.model.v1.StoresV1;
 import ru.instamart.api.model.v2.StoreV2;
 import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.response.v1.OffersV1Response;
 import ru.instamart.api.response.v1.StoreV1Response;
 import ru.instamart.api.response.v1.StoresV1Response;
+import ru.instamart.jdbc.dao.StoresDao;
+
+import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV1")
@@ -29,6 +34,8 @@ public class StoresV1Tests extends RestBase {
         final Response response = StoresV1Request.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, StoresV1Response.class);
+        List<StoresV1> storesFromResponse = response.as(StoresV1Response.class).getStores();
+        compareTwoObjects(storesFromResponse.size(), StoresDao.INSTANCE.getCount());
     }
 
     @Story("Магазины")

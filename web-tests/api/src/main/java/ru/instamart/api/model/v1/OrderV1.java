@@ -49,6 +49,7 @@ public class OrderV1 extends BaseObject {
     @JsonProperty(value = "updated_at")
     private String updatedAt;
 
+    @Null
     @JsonSchema(required = true)
     @JsonProperty(value = "completed_at")
     private String completedAt;
@@ -111,15 +112,12 @@ public class OrderV1 extends BaseObject {
     private List<AdjustmentV1> adjustments = null;
 
     @Null
-    @JsonSchema(required = true)
     @JsonProperty(value = "line_item_adjustments")
     private List<Object> lineItemAdjustments = null;
 
     @Null
-    @JsonSchema(required = true)
     @JsonProperty("external_order_mark")
     private Object externalOrderMark;
 
-    @JsonSchema(required = true)
     ChannelV1 channel;
 }
