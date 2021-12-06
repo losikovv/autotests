@@ -27,7 +27,7 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkAssemblyItem;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
-import static ru.instamart.api.k8s.K8sHelper.*;
+import static ru.instamart.api.helper.K8sHelper.*;
 
 @Epic("ApiV2")
 @Feature("Заказы (shipments)")

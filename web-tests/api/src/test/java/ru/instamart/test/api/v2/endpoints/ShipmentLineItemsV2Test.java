@@ -30,8 +30,8 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSc
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
-import static ru.instamart.api.k8s.K8sHelper.changeToCancel;
-import static ru.instamart.api.k8s.K8sHelper.changeToCollecting;
+import static ru.instamart.api.helper.K8sHelper.changeToCancel;
+import static ru.instamart.api.helper.K8sHelper.changeToCollecting;
 
 @Epic("ApiV2")
 @Feature("Заказы (shipments)")

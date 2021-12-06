@@ -1,4 +1,4 @@
-package ru.instamart.api.k8s;
+package ru.instamart.api.helper;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
@@ -60,9 +60,9 @@ public class K8sHelper {
     }
 
     @Step("Поиск ритейлера {tenant}")
-    public static GetRetailerResponse getRetailer(Tenant tenant) {
+    public static GetRetailerResponse[] getRetailer(Tenant tenant) {
         String toLowerCase = tenant.toString().toLowerCase();
-        return getClassWithExecRailsCommand(GET_RETAILER.get(toLowerCase), GetRetailerResponse.class);
+        return getClassWithExecRailsCommand(GET_RETAILER.get(toLowerCase) + ".to_json()", GetRetailerResponse[].class);
     }
 
 
@@ -70,28 +70,32 @@ public class K8sHelper {
     public static <T> T getPricerPerItem(Integer tenantId, Integer storeId, Class<T> clazz) {
         String command = String.format("retailer_id: %s, store_id: %d, pricer: \"Pricer::PerItem\", deleted_at: nil",
                 tenantId, storeId);
-        return getClassWithExecRailsCommand(OFFER_WHERE_LAST.get(command), clazz);
+        String toJson = OFFER_WHERE_LAST.get(command) + ".to_json(:except => [:pricer])";//исключаем pricer. Иначе получим ошибку
+        return getClassWithExecRailsCommand(toJson, clazz);
     }
 
     @Step("Поиск товарного предложения по штучному товару в {tenant} и storeId = {storeId}")
-    public static  <T> T getPricerPerKilo(Integer tenantId, Integer storeId, Class<T> clazz) {
+    public static <T> T getPricerPerKilo(Integer tenantId, Integer storeId, Class<T> clazz) {
         String command = String.format("retailer_id: %s, store_id: %d, pricer: \"Pricer::PerKilo\", deleted_at: nil",
                 tenantId, storeId);
-        return getClassWithExecRailsCommand(OFFER_WHERE_LAST.get(command), clazz);
+        String toJson = OFFER_WHERE_LAST.get(command) + ".to_json(:except => [:pricer])";//исключаем pricer. Иначе получим ошибку
+        return getClassWithExecRailsCommand(toJson, clazz);
     }
 
     @Step("Поиск товарного предложения по фасованном товару в {tenant} и storeId = {storeId}")
-    public static  <T> T getPricerPerPackage(Integer tenantId, Integer storeId, Class<T> clazz) {
+    public static <T> T getPricerPerPackage(Integer tenantId, Integer storeId, Class<T> clazz) {
         String command = String.format("retailer_id: %s, store_id: %d, pricer: \"Pricer::PerPackage\", deleted_at: nil",
                 tenantId, storeId);
-        return getClassWithExecRailsCommand(OFFER_WHERE_LAST.get(command), clazz);
+        String toJson = OFFER_WHERE_LAST.get(command) + ".to_json(:except => [:pricer])";//исключаем pricer. Иначе получим ошибку
+        return getClassWithExecRailsCommand(toJson, clazz);
     }
 
     @Step("Поиск товарного предложения по упакованному товару в {tenant} и storeId = {storeId}")
-    public static  <T> T getPricerPerPack(Integer tenantId, Integer storeId, Class<T> clazz) {
+    public static <T> T getPricerPerPack(Integer tenantId, Integer storeId, Class<T> clazz) {
         String command = String.format("retailer_id: %s, store_id: %d, pricer: \"Pricer::PerPack\", deleted_at: nil",
                 tenantId, storeId);
-        return getClassWithExecRailsCommand(OFFER_WHERE_LAST.get(command), clazz);
+        String toJson = OFFER_WHERE_LAST.get(command) + ".to_json(:except => [:pricer])";//исключаем pricer. Иначе получим ошибку
+        return getClassWithExecRailsCommand(toJson, clazz);
     }
 
 }

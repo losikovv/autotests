@@ -34,7 +34,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.common.RestStaticTestData.*;
 import static ru.instamart.api.helper.PromotionCode.getExpiredPromotionCode;
 import static ru.instamart.api.helper.PromotionCode.getPromotionCode;
-import static ru.instamart.api.k8s.K8sHelper.execRakeTaskAddBonus;
+import static ru.instamart.api.helper.K8sHelper.execRakeTaskAddBonus;
 
 @Epic("ApiV2")
 @Feature("Заказы (orders)")
