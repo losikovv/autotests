@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import product_filter.ProductFilterGrpc;
 import product_filter.ProductFilterOuterClass;
 import ru.instamart.grpc.common.GrpcBase;
-import ru.instamart.grpc.common.GrpcHosts;
+import ru.instamart.grpc.common.GrpcContentHosts;
 
 import static org.testng.Assert.assertEquals;
 
@@ -18,7 +18,7 @@ public class ProductFilterTest extends GrpcBase {
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
-        channel = grpc.createChannel(GrpcHosts.PAAS_CONTENT_PRODUCT_FILTER);
+        channel = grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_PRODUCT_FILTER);
         client = ProductFilterGrpc.newBlockingStub(channel);
     }
 

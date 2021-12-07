@@ -6,13 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.grpc.common.GrpcBase;
-import ru.instamart.grpc.common.GrpcHosts;
 import salut_token.SalutToken;
 import salut_token.TokenGeneratorGrpc;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
 
+@Deprecated
 @Epic("Salut Token Microservice")
 @Slf4j
 public class SalutTokenTest extends GrpcBase {
@@ -20,7 +20,7 @@ public class SalutTokenTest extends GrpcBase {
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
-        channel = grpc.createChannel(GrpcHosts.PAAS_CONTENT_SALUT_TOKEN);
+        //channel = grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_SALUT_TOKEN);
         client = TokenGeneratorGrpc.newBlockingStub(channel);
     }
 

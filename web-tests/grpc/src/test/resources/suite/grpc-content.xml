@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM 'http://testng.org/testng-1.0.dtd'>
 <suite name="CONTENT GRPC SUITE" verbose="1">
   <listeners>
-    <listener class-name="ru.instamart.grpc.listener.GrpcExecutionListener"/>
+    <listener class-name="ru.instamart.grpc.listener.GrpcContentExecutionListener"/>
     <listener class-name="ru.instamart.grpc.listener.GrpcListener"/>
   </listeners>
   <method-selectors>
@@ -27,11 +27,6 @@
       <class name="ru.instamart.test.content.catalog.CatalogTest"/>
       <class name="ru.instamart.test.content.catalog.NavigationTest"/>
       <class name="ru.instamart.test.content.catalog.ShelfTest"/>
-    </classes>
-  </test>
-  <test verbose="1" name="SALUT TOKEN">
-    <classes>
-      <class name="ru.instamart.test.content.salut_token.SalutTokenTest"/>
     </classes>
   </test>
 </suite>

@@ -10,7 +10,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.grpc.common.GrpcBase;
-import ru.instamart.grpc.common.GrpcHosts;
+import ru.instamart.grpc.common.GrpcContentHosts;
 import shelf.ShelfOuterClass;
 import shelf.ShelfServiceGrpc;
 
@@ -23,7 +23,7 @@ public class ShelfTest extends GrpcBase {
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
-        channel = grpc.createChannel(GrpcHosts.PAAS_CONTENT_PRODUCT_SHELF);
+        channel = grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_CATALOG_SHELF);
         client = ShelfServiceGrpc.newBlockingStub(channel);
     }
 
