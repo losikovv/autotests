@@ -274,10 +274,10 @@ public final class ShoppingCartTests extends BaseTest {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-        shop().interactAuthModal().checkModalIsNotVisible();
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
 
         shop().openFirstProductCard();
         shop().interactProductCard().checkProductCardVisible();
@@ -292,11 +292,11 @@ public final class ShoppingCartTests extends BaseTest {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().clickToCategoryMenu();
         shop().interactCategoryMenu().clickToFirstLevelCategoryByName("Скидки");
 
@@ -315,9 +315,9 @@ public final class ShoppingCartTests extends BaseTest {
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().openFirstProductCard();
@@ -334,9 +334,9 @@ public final class ShoppingCartTests extends BaseTest {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().openFirstProductCard();
@@ -367,9 +367,9 @@ public final class ShoppingCartTests extends BaseTest {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().plusFirstItemToCart();
@@ -388,9 +388,9 @@ public final class ShoppingCartTests extends BaseTest {
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
         helper.dropAndFillCart(userData, 1);
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();
@@ -455,9 +455,9 @@ public final class ShoppingCartTests extends BaseTest {
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
         helper.dropAndFillCart(userData, 1, 3);
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCart();

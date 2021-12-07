@@ -19,11 +19,17 @@ public interface HomeElement {
     Footer footer = new Footer();
     CookieDrawer cookieAlert = new CookieDrawer();
 
+    //TODO: Ждет data-qa
     Button loginButton = new Button(By.xpath("//div/button[contains(text(), 'Войти')]"));
+    //TODO: Ждет data-qa
     Button forYourself = new Button(By.xpath("//button[@aria-controls='b2c-tab']"));
+    //TODO: Ждет data-qa
     Button forBusiness = new Button(By.xpath("//button[@aria-controls='b2b-tab']"));
-    Button setAddress = new Button(By.xpath("//button[contains(@class, 'description')]"));
+    //TODO: Ждет data-qa
+    Button setAddress = new Button(By.xpath("//div[@id='by_courier']/div[1]//button"), "кнопка для вызова модального окна с вводом адреса");
+    //TODO: Ждет data-qa
     Button setAddressNew = new Button(By.xpath("//div[contains(@class, 'Address')]/button"), "кнопка 'Выбрать адрес'");
+    //TODO: Ждет data-qa
     Button showAllRetailers = new Button(By.xpath("//button[contains(text(), 'Показать всех')]"));
     Button showAllCities = new Button(By.xpath("//button[@data-qa='home_landing_show_button'][contains(text(), 'Показать')]"));
     Button hideCities = new Button(By.xpath("//button[@data-qa='home_landing_show_button'][contains(text(), 'Скрыть')]"));

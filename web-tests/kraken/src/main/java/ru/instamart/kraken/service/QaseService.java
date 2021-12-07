@@ -206,11 +206,16 @@ public final class QaseService {
     }
 
     public List<String> uploadScreenshot(final File file) {
-        return qaseApi.attachments()
-                .add(projectCode, file)
-                .stream()
-                .map(Attachment::getHash)
-                .collect(Collectors.toList());
+        try {
+            return qaseApi.attachments()
+                    .add(projectCode, file)
+                    .stream()
+                    .map(Attachment::getHash)
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            log.error("FAILED: Upload screenshot", e);
+            return Collections.emptyList();
+        }
     }
 
     public void deleteOldTestRuns() {

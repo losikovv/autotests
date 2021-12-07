@@ -48,9 +48,10 @@ public final class ShoppingCatalogTests extends BaseTest {
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();
         shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().waitPageLoad();
         shop().interactHeader().checkEnteredAddressIsVisible();
-        shop().goToPage();
 
+        shop().goToPage();
         shop().interactHeader().clickToCategoryMenu();
         shop().interactCategoryMenu().checkCatalogMenuIsOpen();
         shop().interactCategoryMenu().clickToFirstLevelCategoryByName("Бакалея");
@@ -199,15 +200,14 @@ public final class ShoppingCatalogTests extends BaseTest {
         search().interactProductCard().checkProductCardIsNotVisible();
     }
 
-    //АБ по главной отключили, нужно переписать ATST-872
-    @Skip
     @CaseId(2578)
     @Test(description = "Переход в витрину магазина с главной страницы сайта", groups = "regression")
     public void successShowcaseTransitionFromMainLanding() {
         home().goToPage();
         home().clickToSetAddress();
-        home().interactAddressModal().fillAddress(Addresses.Moscow.defaultAddress());
-        home().interactAddressModal().selectFirstAddress();
+        home().interactAddressModal().checkYmapsReadyTmp();
+        home().interactAddressModal().fillAddressTmp(Addresses.Moscow.defaultAddress());
+        home().interactAddressModal().selectFirstAddressTmp();
         home().interactAddressModal().clickOnSave();
         home().clickToStoreCard();
         shop().interactHeader().checkLoginIsVisible();
