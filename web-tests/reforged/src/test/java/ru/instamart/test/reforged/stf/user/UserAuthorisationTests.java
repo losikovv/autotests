@@ -10,6 +10,7 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.test.reforged.BaseTest;
+import ru.instamart.utils.Crypt;
 
 import static ru.instamart.reforged.stf.page.StfRouter.checkout;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
@@ -142,6 +143,26 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactAuthModal().interactAuthSberIdPage()
                 .enterCode("111111");
         shop().interactAuthModal().interactAuthSberIdPage().clickToSubmitSmsCode();
+        shop().interactAuthModal().checkModalIsNotVisible();
+        shop().interactHeader().checkProfileButtonVisible();
+    }
+
+//    @CaseId(1459)
+//    @Story("Авторизация через СберБизнесID")
+    @Test(description = "Тест успешной авторизация через СберБизнесID", groups = {"smoke", "regression"})
+    public void successRegWithSberBusinessID() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().checkModalIsVisible();
+        shop().interactAuthModal().checkForBusiness();
+        shop().interactAuthModal().authViaSberBusinessId();
+        shop().interactAuthModal().interactAuthSberBusinessIdPage()
+                .setLogin(UserManager.getDefaultSberBusinessIdUser().getEmail());
+        shop().interactAuthModal().interactAuthSberBusinessIdPage()
+                .setPassword(UserManager.getDefaultSberBusinessIdUser().getPassword());
+        shop().interactAuthModal().interactAuthSberBusinessIdPage().clickToNext();
+        shop().interactAuthModal().interactAuthSberBusinessIdPage().enterCode("11111");
+
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
     }

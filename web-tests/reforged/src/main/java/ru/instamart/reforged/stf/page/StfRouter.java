@@ -14,7 +14,7 @@ import ru.instamart.reforged.stf.page.notfound.Page404;
 import ru.instamart.reforged.stf.page.search.SearchPage;
 import ru.instamart.reforged.stf.page.seo.SeoCatalogPage;
 import ru.instamart.reforged.stf.page.shop.ShopPage;
-import ru.instamart.reforged.stf.page.user.UserCompanies;
+import ru.instamart.reforged.stf.page.user.companies.UserCompaniesPage;
 import ru.instamart.reforged.stf.page.user.favorites.UserFavoritesPage;
 import ru.instamart.reforged.stf.page.user.shipments.UserShipmentsPage;
 import ru.instamart.reforged.stf.page.user.profile.UserProfilePage;
@@ -25,8 +25,8 @@ public final class StfRouter extends Router {
         return (HomePage) getPage(HomePage.class);
     }
 
-    public static UserCompanies userCompanies() {
-        return (UserCompanies) getPage(UserCompanies.class);
+    public static UserCompaniesPage userCompanies() {
+        return (UserCompaniesPage) getPage(UserCompaniesPage.class);
     }
 
     public static UserProfilePage userEdit() {

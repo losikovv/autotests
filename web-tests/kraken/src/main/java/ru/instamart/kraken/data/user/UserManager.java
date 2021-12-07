@@ -175,6 +175,16 @@ public final class UserManager {
         return defaultSberIdUser;
     }
 
+    public static UserData getDefaultSberBusinessIdUser() {
+        if (isNull(defaultSberIdUser)) {
+            defaultSberIdUser = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("Cuih++LCNGJ/peMbzjrFkw=="))
+                    .password(Crypt.INSTANCE.decrypt("N09waZFwNRQIUCCOOf8RLA=="))
+                    .build();
+        }
+        return defaultSberIdUser;
+    }
+
     public static UserData getDefaultApiUser() {
         if (isNull(defaultApiUser)) {
             defaultApiUser = UserData.builder()

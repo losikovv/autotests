@@ -32,4 +32,9 @@ public final class AccountMenu implements AccountMenuElement, AccountMenuCheck{
     public void clickToFaq() {
         delivery.click();
     }
+
+    @Step("Нажать Компании в меню пользователя")
+    public void clickToCompanies() {
+        companies.click();
+    }
 }
