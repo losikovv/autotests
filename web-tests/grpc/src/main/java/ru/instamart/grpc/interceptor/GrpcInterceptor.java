@@ -24,7 +24,7 @@ public class GrpcInterceptor implements ClientInterceptor {
             @Override
             public void sendMessage(ReqT message) {
                 log.debug("Method: {}, Request: {}", methodName, cyrillic(message));
-                Allure.addAttachment(methodName + " Request", "application/json", cyrillic(message), ".json");
+                Allure.addAttachment(methodName + "_Request", "application/json", cyrillic(message), ".json");
                 super.sendMessage(message);
             }
 
@@ -50,7 +50,7 @@ public class GrpcInterceptor implements ClientInterceptor {
         @Override
         public void onMessage(RespT message) {
             log.debug("Method: {}, Response: {}", methodName, cyrillic(message));
-            Allure.addAttachment(methodName + " Response", "application/json", cyrillic(message), ".json");
+            Allure.addAttachment(methodName + "_Response", "application/json", cyrillic(message), ".json");
             responseListener.onMessage(message);
         }
 
@@ -79,7 +79,7 @@ public class GrpcInterceptor implements ClientInterceptor {
 
         protected BackendForwardingClientCall(MethodDescriptor<ReqT, RespT> method, ClientCall delegate) {
             super(delegate);
-            methodName = method.getFullMethodName();
+            methodName = method.getBareMethodName();
         }
     }
 }

@@ -7,6 +7,7 @@ import io.qase.api.annotation.CaseId;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import product_hub_front_meta.ProductHubFrontMetaGrpc;
 import product_hub_front_meta.ProductHubFrontMetaOuterClass;
 import ru.instamart.grpc.common.GrpcBase;
@@ -16,7 +17,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 @Epic("Product Hub Microservice")
@@ -24,10 +24,10 @@ import static org.testng.Assert.assertTrue;
 @Slf4j
 public class ProductHubFrontMetaTest extends GrpcBase {
     private ProductHubFrontMetaGrpc.ProductHubFrontMetaBlockingStub client;
-    private final Set<String> categoryIds = new HashSet<>();
-    private final Set<String> retailerIds = new HashSet<>();
-    private final Set<String> attributeKeys = new HashSet<>();
-    private final Set<String> dictionaryKeys = new HashSet<>();
+    private final Set<String> expectedCategoryIds = new HashSet<>();
+    private final Set<String> expectedRetailerIds = new HashSet<>();
+    private final Set<String> expectedAttributeKeys = new HashSet<>();
+    private final Set<String> expectedDictionaryKeys = new HashSet<>();
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
@@ -48,11 +48,11 @@ public class ProductHubFrontMetaTest extends GrpcBase {
 
         assertEquals(response.getCategoriesList().size(), 100, "Количество категорий вернулось больше или меньше лимита");
 
-        response.getCategoriesList().forEach(category -> categoryIds.add(category.getId()));
-        log.debug("expected category IDs:" + categoryIds);
+        response.getCategoriesList().forEach(category -> expectedCategoryIds.add(category.getId()));
+        log.debug("expected category IDs:" + expectedCategoryIds);
 
-        response.getCategoriesList().forEach(category -> retailerIds.addAll(category.getRetailerIdsList()));
-        log.debug("expected retailer IDs:" + retailerIds);
+        response.getCategoriesList().forEach(category -> expectedRetailerIds.addAll(category.getRetailerIdsList()));
+        log.debug("expected retailer IDs:" + expectedRetailerIds);
     }
 
     @CaseId(187)
@@ -103,18 +103,20 @@ public class ProductHubFrontMetaTest extends GrpcBase {
     public void getCategoriesByCategoryIDs() {
         var request = ProductHubFrontMetaOuterClass
                 .GetCategoriesByCategoryIDsRequest.newBuilder()
-                .addAllCategoryIds(categoryIds)
+                .addAllCategoryIds(expectedCategoryIds)
                 .build();
         var response = client.getCategoriesByCategoryIDs(request);
 
         Set<String> categoryIdsFromResponse = new HashSet<>();
         response.getCategoriesList().forEach(category -> categoryIdsFromResponse.add(category.getId()));
         log.debug("category IDs from response:" + categoryIdsFromResponse);
-        categoryIds.forEach(categoryId -> assertTrue(categoryIdsFromResponse.contains(categoryId),
-                "Одна из категорий не вернулась в ответе"));
 
-        response.getCategoriesList().forEach(category -> assertTrue(categoryIds.contains(category.getId()),
-                "Лишняя категория в ответе"));
+        SoftAssert softAssert = new SoftAssert();
+        expectedCategoryIds.forEach(expected -> softAssert.assertTrue(categoryIdsFromResponse.contains(expected),
+                "Одна из категорий не вернулась в ответе: " + expected));
+        response.getCategoriesList().forEach(category -> softAssert.assertTrue(expectedCategoryIds.contains(category.getId()),
+                "Лишняя категория в ответе: " + category.getId()));
+        softAssert.assertAll();
     }
 
     @CaseId(191)
@@ -136,15 +138,17 @@ public class ProductHubFrontMetaTest extends GrpcBase {
     public void getCategoryFiltersByCategoryIDs() {
         var request = ProductHubFrontMetaOuterClass
                 .GetCategoryFiltersByCategoryIDsRequest.newBuilder()
-                .addAllCategoryIds(categoryIds)
+                .addAllCategoryIds(expectedCategoryIds)
                 .build();
         var response = client.getCategoryFiltersByCategoryIDs(request);
 
-        response.getCategoryFiltersList().forEach(categoryFilter -> assertTrue(categoryIds.contains(categoryFilter.getCategoryId()),
-                "Лишняя категория в ответе"));
+        SoftAssert softAssert = new SoftAssert();
+        response.getCategoryFiltersList().forEach(categoryFilter -> softAssert.assertTrue(expectedCategoryIds.contains(categoryFilter.getCategoryId()),
+                "Лишняя категория в ответе: " + categoryFilter.getCategoryId()));
+        softAssert.assertAll();
 
-        response.getCategoryFiltersList().forEach(categoryFilter -> attributeKeys.addAll(categoryFilter.getAttributeKeysList()));
-        log.debug("expected attribute keys:" + attributeKeys);
+        response.getCategoryFiltersList().forEach(categoryFilter -> expectedAttributeKeys.addAll(categoryFilter.getAttributeKeysList()));
+        log.debug("expected attribute keys:" + expectedAttributeKeys);
     }
 
     @CaseId(193)
@@ -166,22 +170,23 @@ public class ProductHubFrontMetaTest extends GrpcBase {
     public void getAttributesByKeys() {
         var request = ProductHubFrontMetaOuterClass
                 .GetAttributesByKeysRequest.newBuilder()
-                .addAllAttributeKeys(attributeKeys)
+                .addAllAttributeKeys(expectedAttributeKeys)
                 .build();
         var response = client.getAttributesByKeys(request);
 
         Set<String> attributeKeysFromResponse = new HashSet<>();
         response.getAttributesList().forEach(attribute -> attributeKeysFromResponse.add(attribute.getKey()));
         log.debug("attribute keys from response:" + attributeKeysFromResponse);
-        attributeKeys.forEach(categoryId -> assertTrue(attributeKeysFromResponse.contains(categoryId),
-                "Один из атрибутов не вернулся в ответе"));
 
+        SoftAssert softAssert = new SoftAssert();
+        expectedAttributeKeys.forEach(expected -> softAssert.assertTrue(attributeKeysFromResponse.contains(expected),
+                "Один из атрибутов не вернулся в ответе: " + expected));
+        response.getAttributesList().forEach(attribute -> softAssert.assertTrue(expectedAttributeKeys.contains(attribute.getKey()),
+                "Лишний атрибут в ответе: " + attribute.getKey()));
+        softAssert.assertAll();
 
-        response.getAttributesList().forEach(attribute -> assertTrue(attributeKeys.contains(attribute.getKey()),
-                "Лишний атрибут в ответе"));
-
-        response.getAttributesList().forEach(attribute -> dictionaryKeys.add(attribute.getDictionaryKey()));
-        log.debug("expected dictionary keys:" + dictionaryKeys);
+        response.getAttributesList().forEach(attribute -> expectedDictionaryKeys.add(attribute.getDictionaryKey()));
+        log.debug("expected dictionary keys:" + expectedDictionaryKeys);
     }
 
     @CaseId(195)
