@@ -4,7 +4,7 @@ public final class StaticPages {
 
     public static StaticPageData newStaticPage() {
         return new StaticPageData(
-                "AAA",
+                "AAA_" + Generate.literalString(6),
                 "testUrl_" + Generate.literalString(6),
                 "textAAA",
                 "1",
@@ -14,7 +14,7 @@ public final class StaticPages {
 
     public static StaticPageData editedStaticPage() {
         return new StaticPageData(
-                "BBB",
+                "BBB_" + Generate.literalString(6),
                 "testUrlEdited_" + Generate.literalString(6),
                 "textBBB",
                 "2",

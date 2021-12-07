@@ -4,6 +4,7 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.config.BrowserProperties;
 
@@ -44,6 +45,11 @@ public final class Link extends Component {
             component = Kraken.waitAction().shouldBeClickable(this);
         }
         return component;
+    }
+
+    public void click(final Object... args) {
+        setBy(ByKraken.xpath(((ByKraken) getBy()).getDefaultXpathExpression(), args));
+        click();
     }
 
     public void click() {

@@ -70,6 +70,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().setDateAndTimeFilterFromTableDefault(TimeUtil.getDeliveryDateFrom());
         shipments().setDateAndTimeFilterToTableDefault(TimeUtil.getDeliveryDateTo());
         shipments().search();
+        shipments().waitPageLoad();
         shipments().checkDateAndTimeShipmentsColumn(TimeUtil.getDateWithoutTime());
     }
 
@@ -84,6 +85,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().checkPageTitle();
         shipments().setPhoneFilterFromTableDefault(phone);
         shipments().search();
+        shipments().waitPageLoad();
         shipments().checkPhoneShipmentsColumn(phone);
     }
 
@@ -100,6 +102,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().setPhoneAndDateFilterDefault(phone, TimeUtil.getDeliveryDateFrom());
         shipments().setDateAndTimeFilterToTableDefault(TimeUtil.getDeliveryDateTo());
         shipments().search();
+        shipments().waitPageLoad();
         shipments().checkPhoneShipmentsColumn(phone);
         shipments().checkDateAndTimeShipmentsColumn(TimeUtil.getDateWithoutTime());
     }
@@ -155,6 +158,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         login().auth(UserManager.getDefaultAdmin());
 
         shipments().goToPage();
+        shipments().waitPageLoad();
         final String orderNumber = shipments().getOrderNumber();
         shipments().setShipmentOrOrderNumber(orderNumber);
         shipments().search();
@@ -170,6 +174,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         login().auth(UserManager.getDefaultAdmin());
 
         shipments().goToPage();
+        shipments().waitPageLoad();
         final String shipmentNumber = shipments().getShipmentNumber();
         shipments().setShipmentOrOrderNumber(shipmentNumber);
         shipments().search();
