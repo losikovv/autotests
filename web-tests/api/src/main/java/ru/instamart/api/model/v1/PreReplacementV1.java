@@ -13,13 +13,10 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class PreReplacementV1 extends BaseObject {
-    @JsonSchema(required = true)
     private List<OfferV1> offers;
 
-    @JsonSchema(required = true)
     @JsonProperty("replace_policy")
     private String replacePolicy;
 
-    @JsonSchema(required = true)
     private String sku;
 }

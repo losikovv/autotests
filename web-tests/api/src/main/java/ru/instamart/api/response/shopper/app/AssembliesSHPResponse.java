@@ -1,17 +1,23 @@
 package ru.instamart.api.response.shopper.app;
 
+import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 import ru.instamart.api.model.shopper.app.*;
 import ru.instamart.api.response.BaseResponseObject;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class AssembliesSHPResponse extends BaseResponseObject {
+    @NotEmpty
+    @JsonSchema(required = true)
     private List<AssemblySHP.Data> data = null;
+
+    @JsonSchema(required = true)
     private List<Included> included = null;
 
     @Data
@@ -20,6 +26,7 @@ public class AssembliesSHPResponse extends BaseResponseObject {
         private String id;
         private String type;
         private Attributes attributes;
+        @JsonSchema(ignore = true)
         private ShipmentSHP.Data.Relationships relationships;
 
         @Data
