@@ -18,10 +18,9 @@ import ru.instamart.kraken.data.user.UserManager;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 
-import static org.testng.Assert.*;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
+import static org.testng.Assert.assertEquals;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 import static ru.instamart.kraken.util.TimeUtil.getPastDateWithoutTime;
@@ -52,7 +51,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     public void getShoppers200() {
         Response response = ShopperAdminRequest.Shoppers.GET();
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(ShoppersSHPResponse.class).getShoppers(), "список сотрудников");
+        checkResponseJsonSchema(response, ShoppersSHPResponse.class);
     }
 
     @CaseId(24)
@@ -61,7 +60,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     public void getStores200() {
         Response response = ShopperAdminRequest.Stores.GET();
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(StoresSHPResponse.class).getStores(), "список магазинов");
+        checkResponseJsonSchema(response, StoresSHPResponse.class);
     }
 
     @CaseId(25)
@@ -70,8 +69,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     public void getRouteSchedules200() {
         Response response = ShopperAdminRequest.RouteSchedules.GET();
         checkStatusCode200(response);
-        List<RouteScheduleV1> routeSchedules = response.as(RouteSchedulesSHPResponse.class).getRouteSchedules();
-        checkFieldIsNotEmpty(routeSchedules, "список расписаний");
+        checkResponseJsonSchema(response, RouteSchedulesSHPResponse.class);
     }
 
     @CaseId(26)
@@ -80,7 +78,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     public void getOperationalZones200() {
         Response response = ShopperAdminRequest.OperationalZones.GET();
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(OperationalZonesSHPResponse.class).getOperationalZones(), "список операционных зон");
+        checkResponseJsonSchema(response, OperationalZonesSHPResponse.class);
     }
 
     @CaseId(27)
@@ -89,7 +87,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     public void getRetailers200() {
         Response response = ShopperAdminRequest.Retailers.GET();
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(RetailersSHPResponse.class).getRetailers(), "список ритейлеров");
+        checkResponseJsonSchema(response, RetailersSHPResponse.class);
     }
 
     @CaseId(28)
@@ -106,7 +104,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     public void getShifts200() {
         Response response = ShopperAdminRequest.Shifts.GET();
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(ShiftsSHPResponse.class).getShifts(), "список смен");
+        checkResponseJsonSchema(response, ShiftsSHPResponse.class);
     }
 
     @CaseId(31)
@@ -115,7 +113,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     public void getTariffs200() {
         Response response = ShopperAdminRequest.Tariffs.GET();
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(TariffsSHPResponse.class).getTariffs(), "список тарифов");
+        checkResponseJsonSchema(response, TariffsSHPResponse.class);
     }
 
     @CaseId(84)
@@ -150,7 +148,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
         RouteV1 route = response.as(RouteSHPResponse.class).getRoute();
         routeId = route.getId();
 
-        assertEquals(driverId, route.getDriver().getId(), "ИД водитеоя не совпадает");
+        assertEquals(driverId, route.getDriver().getId(), "ИД водителя не совпадает");
     }
 
     @CaseId(30)
@@ -168,7 +166,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     @CaseId(32)
     @Test(description = "Изменение расписания",
             groups = {"api-shopper-regress"},
-            dependsOnMethods = "getRouteSchedules200")
+            dependsOnMethods = "postRouteSchedules200")
     public void patchRouteSchedule200() {
         Response response = ShopperAdminRequest.RouteSchedules.PATCH(routeScheduleId, routeScheduleStatus);
 
@@ -187,7 +185,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
     public void getRoles200() {
         Response response = ShopperAdminRequest.Roles.GET();
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(RolesSHPResponse.class).getRoles(), "список ролей");
+        checkResponseJsonSchema(response, RolesSHPResponse.class);
     }
 
     @CaseId(86)
