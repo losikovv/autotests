@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="REST API Suite" parallel="tests" thread-count="30" data-provider-thread-count="20">
+<suite name="REST API Suite" parallel="tests" thread-count="15" data-provider-thread-count="10">
     <listeners>
         <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
         <listener class-name="ru.instamart.api.listener.ApiListener"/>
@@ -11,7 +11,7 @@
         </method-selector>
     </method-selectors>
     <!-- api-v1-tests -->
-    <test verbose="1" name="API v1 Tests" parallel="none" thread-count="5">
+    <test verbose="1" name="API v1 Tests" parallel="none" thread-count="2">
         <classes>
             <class name="ru.instamart.test.api.v1.contracts.OffersV1Tests"/>
             <class name="ru.instamart.test.api.v1.contracts.OperationalZonesV1Tests"/>
@@ -27,7 +27,7 @@
         </classes>
     </test>
     <!-- api-v2-tests -->
-    <test verbose="1" name="API v2 Tests" parallel="classes" thread-count="20">
+    <test verbose="1" name="API v2 Tests" parallel="classes" thread-count="10">
         <classes>
             <class name="ru.instamart.test.api.v2.endpoints.AppConfigurationV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.AuthProviderV2Test"/>
@@ -69,7 +69,7 @@
         </classes>
     </test>
     <!-- api-v3-tests -->
-    <test verbose="1" name="API v3 Tests" parallel="classes" thread-count="5">
+    <test verbose="1" name="API v3 Tests" parallel="classes" thread-count="2">
         <classes>
             <class name="ru.instamart.test.api.v3.endpoints.StoresV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.SetupInfoV3Test"/>
@@ -83,7 +83,7 @@
         </classes>
     </test>
     <!-- api-delivery-club-tests  -->
-    <test verbose="1" name="API Delivery Club Tests" parallel="classes" thread-count="3">
+    <test verbose="1" name="API Delivery Club Tests" parallel="classes" thread-count="1">
         <classes>
             <class name="ru.instamart.test.api.delivery_club.endpoints.AuthenticationDCTest"/>
             <class name="ru.instamart.test.api.delivery_club.endpoints.StoresWithAuthDCTest"/>
@@ -91,7 +91,7 @@
         </classes>
     </test>
     <!-- api-admin-tests  -->
-    <test verbose="1" name="API Admin Tests" parallel="classes" thread-count="3">
+    <test verbose="1" name="API Admin Tests" parallel="classes" thread-count="1">
         <classes>
             <class name="ru.instamart.test.api.admin.CitiesAdminTest"/>
             <class name="ru.instamart.test.api.admin.PagesAdminTest"/>

@@ -6,10 +6,11 @@ import io.kubernetes.client.openapi.models.V1PodList;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Story;
+import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.jdbc.util.ConnectionMySQLManager;
-import ru.instamart.utils.Crypt;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -21,10 +22,11 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpt
 import static ru.instamart.api.k8s.K8sConsumer.*;
 
 
+@Slf4j
 @Epic("KUBERNETES")
 public class KubernetesClientTest extends RestBase {
-    private final String namespace = "s-sb-stfkraken";
-    private final String labelSelector = "app=app-stf-sbermarket";
+    private final String namespace =  EnvironmentProperties.K8S_NAME_SPACE;
+    private final String labelSelector =  EnvironmentProperties.K8S_LABEL_SELECTOR;
 
     @Story("Список подов для namespace")
     @Test(groups = {"api-instamart-regress"},
@@ -51,10 +53,7 @@ public class KubernetesClientTest extends RestBase {
     @Test(enabled = false,
             groups = {"api-instamart-regress"},
             description = "Переброс порта с пода на localhost")
-    public void kubePortForward() throws IOException, ApiException, SQLException {
-        V1PodList list = getPodList(namespace, labelSelector);
-        PortForward.PortForwardResult test = getK8sPortForward(namespace, list.getItems().get(0).getMetadata().getName(), 3306, 3306);
-        checkFieldIsNotEmpty(test, "соединение");
+    public void kubePortForward() throws SQLException {
 
         String tenant = "metro";
         List<String> result = new ArrayList<>();
@@ -70,6 +69,6 @@ public class KubernetesClientTest extends RestBase {
                         ", hostname: " + resultQuery.getString("hostname"));
             }
         }
-        result.forEach(System.out::println);
+        result.forEach(log::debug);
     }
 }
