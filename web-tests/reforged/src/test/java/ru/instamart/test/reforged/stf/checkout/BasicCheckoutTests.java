@@ -18,27 +18,6 @@ public final class BasicCheckoutTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
 
-    @CaseId(2608)
-    @Test(description = "Тест недоступности пустого чекаута по прямой ссылке", groups = {"acceptance", "regression"})
-    public void testCheckoutNoAccessForUserWithoutCart() {
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().checkModalIsVisible();
-        home().interactAuthModal().authViaPhone(UserManager.getQaUser());
-
-        shop().interactHeader().checkProfileButtonVisible();
-        checkout().goToPage();
-        shop().interactHeader().checkMinAmountAlertVisible();
-    }
-
-    @CaseId(2301)
-    @Test(description = "Тест недоступности чекаута неавторизованному пользователю", groups = {"acceptance", "regression"})
-    public void testCheckoutNoAccessForGuest() {
-        home().goToPage();
-        checkout().goToPage();
-        shop().interactHeader().checkAuthOrRegAlertVisible();
-    }
-
     @CaseId(2939)
     @Test(description = "Тест доступности чекаута по прямой ссылке", groups = {"acceptance", "regression"})
     public void testCheckoutAccessForUserWithCart() {
@@ -46,12 +25,11 @@ public final class BasicCheckoutTests extends BaseTest {
         this.helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
         this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().checkModalIsVisible();
-        home().interactAuthModal().authViaPhone(userData);
-
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+
         checkout().goToPage();
         checkout().checkPageIsAvailable();
     }

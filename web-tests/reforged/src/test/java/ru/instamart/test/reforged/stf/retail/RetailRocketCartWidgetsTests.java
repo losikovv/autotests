@@ -11,7 +11,6 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.test.reforged.BaseTest;
 
-import static ru.instamart.reforged.stf.page.StfRouter.home;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 //TODO: На стейдже сейчас нет виджетов, реализацию проверял на проде. После добавления на стейдже, нужно перепроверить
@@ -30,10 +29,11 @@ public final class RetailRocketCartWidgetsTests extends BaseTest {
     @CaseId(1767)
     @Test(description = "Тест наличия виджета 'Не забудьте купить' в корзине", groups = {"acceptance", "regression"})
     public void successCheckDontForgetToBuyWidget() {
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().clickToCart();
         shop().interactHeader()
                 .interactCart()
@@ -45,10 +45,11 @@ public final class RetailRocketCartWidgetsTests extends BaseTest {
     @Test(description = "Тест успешного открытия карточки из виджета 'Не забудьте купить' в корзине",
             groups = {"acceptance", "regression"})
     public void successOpenItemCardFromDontForgetToBuyWidget() {
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().clickToCart();
         shop().interactHeader()
                 .interactCart()
@@ -61,10 +62,11 @@ public final class RetailRocketCartWidgetsTests extends BaseTest {
     @Test(description = "Тест успешного добавления товара в корзину из виджета ' Не забудьте купить' в корзине",
             groups = {"acceptance", "regression"})
     public void successAddItemFromDontForgetToBuyWidget() {
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+
         shop().interactHeader().clickToCart();
         shop().interactHeader()
                 .interactCart()

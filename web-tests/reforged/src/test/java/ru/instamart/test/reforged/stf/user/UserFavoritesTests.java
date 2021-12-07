@@ -12,7 +12,8 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
 
-import static ru.instamart.reforged.stf.page.StfRouter.*;
+import static ru.instamart.reforged.stf.page.StfRouter.shop;
+import static ru.instamart.reforged.stf.page.StfRouter.userFavorites;
 
 @Epic("STF UI")
 @Feature("Любимые товары")
@@ -31,10 +32,11 @@ public final class UserFavoritesTests extends BaseTest {
     @CaseId(1265)
     @Test(description = "Проверка пустого списка любимых товаров для нового пользователя", groups = {"acceptance","regression"})
     public void noFavoriteItemsByDefault() {
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
+
         userFavorites().goToPage();
         userFavorites().checkEmptyFavorites();
     }
@@ -42,10 +44,11 @@ public final class UserFavoritesTests extends BaseTest {
     @CaseId(1266)
     @Test(description = "Добавление любимого товара из карточки товара и проверка списка", groups = {"smoke", "regression"})
     public void successAddFavoriteOnItemCard() {
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
+
         shop().openFirstProductCard();
         shop().interactProductCard().addToFavorite();
         userFavorites().goToPage();
@@ -59,10 +62,11 @@ public final class UserFavoritesTests extends BaseTest {
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
         apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 2);
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+
         userFavorites().goToPage();
         userFavorites().removeFirstFavoriteItem();
         userFavorites().refresh();
@@ -77,10 +81,11 @@ public final class UserFavoritesTests extends BaseTest {
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
         apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 1);
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+
         userFavorites().goToPage();
         userFavorites().removeFirstFavoriteItem();
         userFavorites().refresh();
@@ -94,9 +99,9 @@ public final class UserFavoritesTests extends BaseTest {
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
         apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 10);
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         userFavorites().goToPage();
@@ -115,9 +120,9 @@ public final class UserFavoritesTests extends BaseTest {
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
         apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 50);
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         userFavorites().addCookie(CookieFactory.COOKIE_ALERT);
@@ -157,9 +162,9 @@ public final class UserFavoritesTests extends BaseTest {
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
         apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 3);
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         userFavorites().goToPage();
@@ -175,9 +180,9 @@ public final class UserFavoritesTests extends BaseTest {
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
         apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_SID, 3);
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         userFavorites().goToPage();
@@ -197,9 +202,9 @@ public final class UserFavoritesTests extends BaseTest {
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
         apiHelper.addSoldProductToFavorite(userData);
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         userFavorites().goToPage();

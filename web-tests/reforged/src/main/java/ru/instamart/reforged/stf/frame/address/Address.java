@@ -25,9 +25,11 @@ public final class Address implements Close, AddressCheck {
         address.fillField(text);
     }
 
-    @Step("Очистить поле адреса")
-    public void clear() {
-        address.clear();
+    //Временное решение, пока не появится data-qa
+    @Deprecated
+    @Step("Указать адрес доставки")
+    public void fillAddressTmp(final String text) {
+        addressTmp.fillField(text);
     }
 
     @Step("Выбрать любой адрес из совпадений")
@@ -38,6 +40,15 @@ public final class Address implements Close, AddressCheck {
     @Step("Выбрать первый адрес из совпадений")
     public void selectFirstAddress() {
         dropDownAddress.selectFirst();
+        //TODO: Ожидание смены геопозиции
+        ThreadUtil.simplyAwait(2);
+    }
+
+    //Временное решение, пока не появится data-qa
+    @Deprecated
+    @Step("Выбрать первый адрес из совпадений")
+    public void selectFirstAddressTmp() {
+        dropDownAddressTmp.selectFirst();
         //TODO: Ожидание смены геопозиции
         ThreadUtil.simplyAwait(2);
     }

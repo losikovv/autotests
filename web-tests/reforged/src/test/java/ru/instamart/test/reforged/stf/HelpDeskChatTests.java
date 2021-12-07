@@ -24,10 +24,11 @@ public final class HelpDeskChatTests extends BaseTest {
 
         apiHelper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+
         checkout().goToPage();
         checkout().interactHelpDesk().checkHelpDeskWidgetNotVisible();
     }

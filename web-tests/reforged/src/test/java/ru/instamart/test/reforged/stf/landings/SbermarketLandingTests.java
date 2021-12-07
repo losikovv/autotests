@@ -61,20 +61,6 @@ public class SbermarketLandingTests extends BaseTest {
         home().checkFooterContainerIsVisible();
     }
 
-    //АБ по главной отключили, нужно переписать ATST-872
-    @Skip
-    @CaseId(1683)
-    @Test(description = "Тест перехода в каталог магазина с лендинга Сбермаркета", groups = "regression")
-    public void successGoToCatalogFromSbermarketLanding() {
-        home().goToPage();
-        home().clickStoreAuchanButton();
-        home().interactAddressModal().fillAddress(Addresses.Moscow.defaultAddress());
-        home().interactAddressModal().selectFirstAddress();
-        home().interactAddressModal().clickOnSave();
-        home().interactAddressModal().interactStoreSelector().clickToStoreCard();
-        home().checkMainBlockContainerNotVisible();
-    }
-
     @CaseId(2042)
     @Test(description = "Кнопка СберБизнес ID при выбранном чекбоксе 'Хочу заказывать для бизнеса'", groups = "regression")
     public void enabledSberBusinessIdButton() {

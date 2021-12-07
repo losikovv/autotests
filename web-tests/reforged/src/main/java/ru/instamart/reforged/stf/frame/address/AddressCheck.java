@@ -26,4 +26,10 @@ public interface AddressCheck extends AddressElement {
     default void checkYmapsReady() {
         waitAction().shouldBeVisible(ymapReady);
     }
+
+    @Deprecated
+    @Step("Проверяем, что яндекс карты готовы к работе")
+    default void checkYmapsReadyTmp() {
+        waitAction().shouldBeVisible(ymapReadyTmp);
+    }
 }

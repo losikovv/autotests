@@ -7,14 +7,15 @@ import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.AddressDetailsData;
 import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.data.AddressDetailsData;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
 
-import static ru.instamart.reforged.stf.page.StfRouter.*;
+import static ru.instamart.reforged.stf.page.StfRouter.checkout;
+import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
 @Feature("Чекаут. Шаг #1. Способ получения")
@@ -30,10 +31,9 @@ public final class CheckoutAddressStepTests extends BaseTest {
     public void successFillAllFieldsAndProceedNext() {
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
         shop().addCookie(CookieFactory.COOKIE_ALERT);
 

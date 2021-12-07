@@ -6,14 +6,13 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.listener.Skip;
+import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.data.Addresses;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.test.reforged.BaseTest;
 
-import static ru.instamart.reforged.stf.page.StfRouter.home;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
@@ -33,6 +32,8 @@ public final class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().checkIsShippingAddressNotSet();
     }
 
+    //TODO: AB
+    @Skip
     @CaseId(1559)
     @Story("Дефолтные настройки адреса доставки")
     @Test(description = "Тест дефолтного списка магазинов, при отсутствии адреса доставки", groups = "regression")
@@ -186,16 +187,17 @@ public final class UserShippingAddressTests extends BaseTest {
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Тест изменения адреса на предыдущий из списка адресной модалки", groups = "regression")
     public void successChangeShippingAddressToRecent() {
-        UserData user = UserManager.addressUser();
+        UserData user = UserManager.getQaUser();
         String firstPrevAdr;
         helper.makeAndCancelOrder(user, 1, 1);
 
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().fillPhone(user);
-        home().interactAuthModal().sendSms();
-        home().interactAuthModal().fillDefaultSMSWithSleep();
+        System.out.println(user);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(user);
+        shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().clickToSelectAddress();
+
         shop().interactHeader().interactAddress().checkYmapsReady();
         shop().interactHeader().interactAddress().fillAddress(defaultAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();

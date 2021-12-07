@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -13,7 +14,8 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.test.reforged.BaseTest;
 
-import static ru.instamart.reforged.stf.page.StfRouter.*;
+import static ru.instamart.reforged.stf.page.StfRouter.checkout;
+import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
 @Feature("Промокоды")
@@ -22,6 +24,12 @@ public final class CheckoutPromocodeTests extends BaseTest {
     private final ApiHelper helper = new ApiHelper();
     private final String promoCode = Promos.freeOrderDelivery().getCode();
     private UserData userData;
+
+    @BeforeMethod(alwaysRun = true)
+    public void beforeMethod() {
+        this.userData = UserManager.getQaUser();
+        this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+    }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
@@ -32,13 +40,11 @@ public final class CheckoutPromocodeTests extends BaseTest {
     @Story("Добавление промокода к заказу")
     @Test(description = "Тест успешного применения промокода в чекауте", groups = {"acceptance", "regression", "smoke"})
     public void successAddPromocode() {
-        userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
-
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+
         checkout().goToPage();
         checkout().clickToAddPromoCode();
         checkout().interactEditPromoCodeModal().enterPromoCode(promoCode);
@@ -51,13 +57,11 @@ public final class CheckoutPromocodeTests extends BaseTest {
     @Story("Удаление промокода из заказа")
     @Test(description = "Тест удаления промокода в чекауте", groups = {"acceptance", "regression"})
     public void successDeletePromocode() {
-        userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
-
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+
         checkout().goToPage();
         checkout().clickToAddPromoCode();
         checkout().interactEditPromoCodeModal().enterPromoCode(promoCode);
@@ -72,13 +76,11 @@ public final class CheckoutPromocodeTests extends BaseTest {
     @Story("Добавление промокода к заказу")
     @Test(description = "Тест недобавления промокода при нажатии кнопки Отмена", groups = {"acceptance", "regression"})
     public void noPromocodeAddedOnCancel() {
-        userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
-
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+
         checkout().goToPage();
         checkout().clickToAddPromoCode();
         checkout().interactEditPromoCodeModal().enterPromoCode(promoCode);
@@ -91,13 +93,11 @@ public final class CheckoutPromocodeTests extends BaseTest {
     @Story("Добавление промокода к заказу")
     @Test(description = "Тест не добавления промокода при закрытии модалки промокода", groups = {"acceptance", "regression"})
     public void noPromocodeAddedOnModalClose() {
-        userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
-
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+
         checkout().goToPage();
         checkout().clickToAddPromoCode();
         checkout().interactEditPromoCodeModal().enterPromoCode(promoCode);
