@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import product_hub_back_stream.ProductHubBackStreamGrpc;
 import product_hub_back_stream.ProductHubBackStreamOuterClass;
 import ru.instamart.grpc.common.GrpcBase;
-import ru.instamart.grpc.common.GrpcHosts;
+import ru.instamart.grpc.common.GrpcContentHosts;
 
 import static org.testng.Assert.assertEquals;
 
@@ -20,7 +20,7 @@ public class ProductHubBackStreamTest extends GrpcBase {
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
-        channel = grpc.createChannel(GrpcHosts.PAAS_CONTENT_PRODUCT_HUB_BACK);
+        channel = grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_PRODUCT_HUB_BACK);
         client = ProductHubBackStreamGrpc.newBlockingStub(channel);
     }
 

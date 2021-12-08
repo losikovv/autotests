@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.grpc.common.GrpcBase;
-import ru.instamart.grpc.common.GrpcHosts;
+import ru.instamart.grpc.common.GrpcContentHosts;
 
 @Epic("Catalog Microservice")
 @Feature("Catalog")
@@ -18,7 +18,7 @@ public class CatalogTest extends GrpcBase {
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
-        channel = grpc.createChannel(GrpcHosts.PAAS_CONTENT_PRODUCT_CATALOG);
+        channel = grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_CATALOG);
         client = CatalogServiceGrpc.newBlockingStub(channel);
     }
 

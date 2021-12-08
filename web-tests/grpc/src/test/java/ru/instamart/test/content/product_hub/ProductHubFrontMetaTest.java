@@ -11,7 +11,7 @@ import org.testng.asserts.SoftAssert;
 import product_hub_front_meta.ProductHubFrontMetaGrpc;
 import product_hub_front_meta.ProductHubFrontMetaOuterClass;
 import ru.instamart.grpc.common.GrpcBase;
-import ru.instamart.grpc.common.GrpcHosts;
+import ru.instamart.grpc.common.GrpcContentHosts;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,7 +31,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
-        channel = grpc.createChannel(GrpcHosts.PAAS_CONTENT_PRODUCT_HUB_FRONT);
+        channel = grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_PRODUCT_HUB_FRONT);
         client = ProductHubFrontMetaGrpc.newBlockingStub(channel);
     }
 
