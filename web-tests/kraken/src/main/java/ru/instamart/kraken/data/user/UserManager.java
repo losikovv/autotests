@@ -91,8 +91,8 @@ public final class UserManager {
                 case "schedule":
                     log.info("User shopper SCHEDULE login");
                     defaultShopper = UserData.builder()
-                            .email(Crypt.INSTANCE.decrypt("DNzBqyrPJQuc1LP0FzyiiQ==")) //krakenSchedules
-                            .phone(Crypt.INSTANCE.decrypt("mbL67AMvUKR2bSJ/2k7FTA==")) //79588128786
+                            .email(Crypt.INSTANCE.decrypt("DNzBqyrPJQuc1LP0FzyiiQ=="))
+                            .phone(Crypt.INSTANCE.decrypt("mbL67AMvUKR2bSJ/2k7FTA=="))
                             .password(PASSWD_2)
                             .build();
                     break;
