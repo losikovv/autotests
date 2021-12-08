@@ -6,8 +6,6 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.StringUtil;
@@ -21,15 +19,14 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 public class UserProfileTests extends BaseTest {
 
     private UserData userData;
-    private final ApiHelper helper = new ApiHelper();
 
     @BeforeMethod(alwaysRun = true,
-            description = "Проверяем залогинен ли пользователь, если да то завершаем сессию")
+            description = "Авторизация")
     public void login() {
-        userData = UserManager.getQaUser();
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
+        this.userData = UserManager.getQaUser();
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
     }
 
@@ -177,7 +174,6 @@ public class UserProfileTests extends BaseTest {
     @Story("Данные профиля пользователя")
     @Test(description = "Изменение телефона для существующих пользователей", groups = {"acceptance", "regression"})
     public void changePhone() {
-        var userData = UserManager.getQaUser();
         userEdit().goToPage();
         userEdit().clickToChangePhone();
         userEdit().interactAuthModal().authViaPhone(userData);

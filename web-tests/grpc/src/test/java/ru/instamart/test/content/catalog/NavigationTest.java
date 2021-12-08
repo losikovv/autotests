@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.grpc.common.GrpcBase;
-import ru.instamart.grpc.common.GrpcHosts;
+import ru.instamart.grpc.common.GrpcContentHosts;
 
 import static org.testng.Assert.assertTrue;
 
@@ -24,7 +24,7 @@ public class NavigationTest extends GrpcBase {
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
-        channel = grpc.createChannel(GrpcHosts.PAAS_CONTENT_PRODUCT_NAVIGATION);
+        channel = grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_CATALOG_NAVIGATION);
         client = NavigationServiceGrpc.newBlockingStub(channel);
     }
 

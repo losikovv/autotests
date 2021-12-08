@@ -6,10 +6,10 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseIDs;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
@@ -25,9 +25,15 @@ public class OrdersReplacementsTests extends BaseTest {
     private final ApiHelper helper = new ApiHelper();
     private UserData ordersUser;
 
+    @BeforeMethod(alwaysRun = true, description = "Создание юзера и наполнение корзины")
+    public void beforeTest() {
+        this.ordersUser = UserManager.getQaUser();
+        this.helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_SID);
+    }
+
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
-        helper.cancelAllActiveOrders(ordersUser);
+        this.helper.cancelAllActiveOrders(ordersUser);
     }
 
     @CaseIDs(value = {@CaseId(1634), @CaseId(1635), @CaseId(1636), @CaseId(1637)})
@@ -37,11 +43,6 @@ public class OrdersReplacementsTests extends BaseTest {
             dataProviderClass = ReplacePolicyProvider.class,
             dataProvider = "replacementPolicy" )
     public void successOrderWithReplacementPolicy(final String replacementPolicy) {
-        var company = JuridicalData.juridical();
-
-        ordersUser = UserManager.getQaUser();
-        helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_SID);
-
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
@@ -51,7 +52,6 @@ public class OrdersReplacementsTests extends BaseTest {
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();
 
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
         checkout().setContacts().fillContactInfo();

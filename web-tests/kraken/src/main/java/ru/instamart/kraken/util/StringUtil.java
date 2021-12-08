@@ -32,6 +32,10 @@ public final class StringUtil {
         return Double.parseDouble(sb.toString());
     }
 
+    public static Long stringToLongParse(String stringToParse) {
+        return Long.parseLong(stringToParse.replaceAll("\\D+",""));
+    }
+
     public static String cutBasicAuthFromUrl(final String url) {
         return url.replace(EnvironmentProperties.HTTP_AUTH, "");
     }

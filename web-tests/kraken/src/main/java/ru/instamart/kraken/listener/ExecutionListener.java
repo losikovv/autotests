@@ -4,17 +4,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.IExecutionListener;
 import ru.instamart.kraken.config.ConfigManager;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.helper.AllureHelper;
-import ru.instamart.kraken.service.BannerService;
-import ru.instamart.kraken.service.QaService;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.helper.AllureHelper;
+import ru.instamart.kraken.service.BannerService;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.utils.Crypt;
 
 import java.util.Map;
-
-import static java.util.Objects.nonNull;
 
 @Slf4j
 public abstract class ExecutionListener implements IExecutionListener {
@@ -40,7 +37,7 @@ public abstract class ExecutionListener implements IExecutionListener {
         revealKraken();
     }
 
-    private void setupAllureReport() {
+    public void setupAllureReport() {
         AllureHelper.allureEnvironmentWriter(
                 Map.ofEntries(
                         Map.entry("Tenant", EnvironmentProperties.Env.ENV_NAME),
@@ -50,7 +47,7 @@ public abstract class ExecutionListener implements IExecutionListener {
                 System.getProperty("user.dir") + "/build/allure-results/");
     }
 
-    private void revealKraken() {
+    public void revealKraken() {
         log.debug("ENVIRONMENT: {} ({})", EnvironmentProperties.TENANT, EnvironmentProperties.Env.FULL_SITE_URL);
         log.debug("Tenant {}", EnvironmentProperties.Env.ENV_NAME);
         log.debug("URL {}", EnvironmentProperties.Env.FULL_SITE_URL);

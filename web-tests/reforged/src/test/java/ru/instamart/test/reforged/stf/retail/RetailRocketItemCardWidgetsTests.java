@@ -7,13 +7,11 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
 
-import static ru.instamart.reforged.stf.page.StfRouter.home;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 //TODO: На стейдже сейчас нет виджетов, реализацию проверял на проде. После добавления на стейдже, нужно перепроверить
@@ -76,11 +74,11 @@ public final class RetailRocketItemCardWidgetsTests extends BaseTest {
             groups = {"acceptance", "regression"},
             dependsOnMethods = "successCheckWithThisItemBuyWidget")
     public void successAddItemFromWithThisItemBuyWidget() {
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+
         shop().openFirstProductCardProd();
         shop().interactProductCard().interactRetailRocket().addToCartFirstProductInCarousel();
         shop().interactHeader().clickToCart();
@@ -92,10 +90,9 @@ public final class RetailRocketItemCardWidgetsTests extends BaseTest {
             groups = {"acceptance", "regression"},
             dependsOnMethods = "successCheckSimilarItemsWidget")
     public void successAddItemFromSimilarItemsWidget() {
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(userData);
-
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
         shop().addCookie(CookieFactory.COOKIE_ALERT);
         shop().refresh();

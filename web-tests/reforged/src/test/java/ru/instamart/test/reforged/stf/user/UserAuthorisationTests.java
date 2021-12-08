@@ -102,6 +102,8 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
+    //TODO: Починить юзера
+    @Skip
     @CaseId(1460)
     @Story("Авторизация через Mail.ru")
     @Test(description = "Тест успешной авторизация через MailRu", groups = {"smoke", "regression"})
@@ -119,8 +121,7 @@ public final class UserAuthorisationTests extends BaseTest {
                 .fillPassword(UserManager.getDefaultMailRuUser().getPassword());
         shop().interactAuthModal().interactAuthMailWindow().clickToSubmit();
         shop().interactAuthModal().interactAuthMailWindow().switchToFirstWindow();
-        //TODO: Костыль, что бы узнать на каком из запросов тупит
-        Kraken.jsAction().checkPendingRequests();
+        shop().waitPageLoad();
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
     }

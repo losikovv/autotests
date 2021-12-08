@@ -11,7 +11,7 @@ import product_hub_back.ProductHubBackGrpc;
 import product_hub_front_data.ProductHubFrontDataGrpc;
 import product_hub_front_data.ProductHubFrontDataOuterClass;
 import ru.instamart.grpc.common.GrpcBase;
-import ru.instamart.grpc.common.GrpcHosts;
+import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.kraken.data.Generate;
 
 import java.time.LocalDateTime;
@@ -29,7 +29,7 @@ public class ProductHubBackTest extends GrpcBase {
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
-        channel = grpc.createChannel(GrpcHosts.PAAS_CONTENT_PRODUCT_HUB_BACK);
+        channel = grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_PRODUCT_HUB_BACK);
         client = ProductHubBackGrpc.newBlockingStub(channel);
     }
 
@@ -486,7 +486,7 @@ public class ProductHubBackTest extends GrpcBase {
             groups = {"grpc-product-hub"},
             dependsOnMethods = "saveProducts")
     public void getProductsBySKU() {
-        var frontChannel = grpc.createChannel(GrpcHosts.PAAS_CONTENT_PRODUCT_HUB_FRONT);
+        var frontChannel = grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_PRODUCT_HUB_FRONT);
         var frontClient = ProductHubFrontDataGrpc.newBlockingStub(frontChannel);
 
         var request = ProductHubFrontDataOuterClass

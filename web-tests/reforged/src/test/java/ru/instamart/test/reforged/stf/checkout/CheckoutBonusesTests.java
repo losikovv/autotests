@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -13,25 +14,29 @@ import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.kraken.data.BonusPrograms.aeroflot;
 import static ru.instamart.kraken.data.BonusPrograms.mnogoru;
-
-import static ru.instamart.reforged.stf.page.StfRouter.*;
+import static ru.instamart.reforged.stf.page.StfRouter.checkout;
+import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
 @Epic("STF UI")
 @Feature("Бонусные программы")
 public final class CheckoutBonusesTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
+    private UserData userData;
+
+    @BeforeMethod(alwaysRun = true)
+    public void beforeMethod() {
+        this.userData = UserManager.getQaUser();
+        this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+    }
 
     @CaseId(1702)
     @Story("Тест успешного добавления всех доступных бонусных программ в чекауте")
     @Test(description = "Тест успешного добавления всех доступных бонусных программ в чекауте", groups = {"acceptance", "regression"})
     public void successAddBonusPrograms() {
-        final UserData checkoutBonusesUser = UserManager.getQaUser();
-        helper.dropAndFillCart(checkoutBonusesUser, EnvironmentProperties.DEFAULT_SID);
-
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(checkoutBonusesUser);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
@@ -56,12 +61,9 @@ public final class CheckoutBonusesTests extends BaseTest {
     @Story("Тест выбора добавленных бонусных программ в чекауте")
     @Test(description = "Тест выбора добавленных бонусных программ в чекауте", groups = {"acceptance", "regression"})
     public void successSelectBonusPrograms() {
-        final UserData checkoutBonusesUser = UserManager.getQaUser();
-        helper.dropAndFillCart(checkoutBonusesUser, EnvironmentProperties.DEFAULT_SID);
-
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(checkoutBonusesUser);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
@@ -94,35 +96,35 @@ public final class CheckoutBonusesTests extends BaseTest {
     @Story("Тест удаления всех бонусных программ в чекауте")
     @Test(description = "Тест удаления всех бонусных программ в чекауте", groups = {"acceptance", "regression"})
     public void successDeleteBonusPrograms() {
-        final UserData checkoutBonusesUser = UserManager.getQaUser();
-        helper.dropAndFillCart(checkoutBonusesUser, EnvironmentProperties.DEFAULT_SID);
-
-        home().goToPage();
-        home().openLoginModal();
-        home().interactAuthModal().authViaPhone(checkoutBonusesUser);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
         checkout().clickToAddLoyaltyCard(mnogoru().getName());
-        checkout().interactEditLoyaltyCardModal()
-                  .fillValue(mnogoru().getCardNumber());
-        checkout().interactEditLoyaltyCardModal()
-                  .clickToSaveModal();
+        checkout().interactEditLoyaltyCardModal().checkModalWindow();
+        checkout().interactEditLoyaltyCardModal().fillValue(mnogoru().getCardNumber());
+        checkout().interactEditLoyaltyCardModal().clickToSaveModal();
+
         checkout().checkLoyaltyCardModalNotVisible();
+
         checkout().clickToEditLoyaltyCard(mnogoru().getName());
-        checkout().interactEditLoyaltyCardModal()
-                  .clickToDeleteModal();
+        checkout().interactEditLoyaltyCardModal().checkModalWindow();
+        checkout().interactEditLoyaltyCardModal().clickToDeleteModal();
+
         checkout().checkBonusCardNotApplied(mnogoru().getName());
 
         checkout().clickToAddLoyaltyCard(aeroflot().getName());
-        checkout().interactEditLoyaltyCardModal()
-                  .fillValue(aeroflot().getCardNumber());
-        checkout().interactEditLoyaltyCardModal()
-                  .clickToSaveModal();
+        checkout().interactEditLoyaltyCardModal().checkModalWindow();
+        checkout().interactEditLoyaltyCardModal().fillValue(aeroflot().getCardNumber());
+        checkout().interactEditLoyaltyCardModal().clickToSaveModal();
+
         checkout().checkLoyaltyCardModalNotVisible();
+
         checkout().clickToEditLoyaltyCard(aeroflot().getName());
-        checkout().interactEditLoyaltyCardModal()
-                .clickToDeleteModal();
+        checkout().interactEditLoyaltyCardModal().checkModalWindow();
+        checkout().interactEditLoyaltyCardModal().clickToDeleteModal();
         checkout().checkBonusCardNotApplied(aeroflot().getName());
     }
 }

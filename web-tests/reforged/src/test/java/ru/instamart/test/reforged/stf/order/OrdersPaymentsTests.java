@@ -5,8 +5,11 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.user.UserData;
@@ -22,10 +25,18 @@ public final class OrdersPaymentsTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
     private UserData ordersUser;
+    private Juridical company;
+
+    @BeforeMethod(alwaysRun = true, description = "Шаги предусловия")
+    public void beforeTest() {
+        this.company = JuridicalData.juridical();
+        this.ordersUser = UserManager.getQaUser();
+        this.helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_SID);
+    }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
-        helper.cancelAllActiveOrders(ordersUser);
+        this.helper.cancelAllActiveOrders(ordersUser);
     }
 
     @CaseId(1624)
@@ -33,12 +44,6 @@ public final class OrdersPaymentsTests extends BaseTest {
     @Test(  description = "Тест заказа с оплатой картой онлайн",
             groups = {"smoke","regression", "acceptance"})
     public void successOrderWithCardOnline() {
-        var company = JuridicalData.juridical();
-        var card = PaymentCards.testCardNo3ds();
-
-        ordersUser = UserManager.getQaUser();
-        helper.dropAndFillCart(ordersUser, 1);
-
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
@@ -65,7 +70,7 @@ public final class OrdersPaymentsTests extends BaseTest {
         checkout().setPayment().clickToByCardOnline();
         checkout().setPayment().clickToAddNewPaymentCard();
 
-        checkout().interactEditPaymentCardModal().fillCardData(card);
+        checkout().interactEditPaymentCardModal().fillCardData(PaymentCards.testCardNo3ds());
         checkout().interactEditPaymentCardModal().clickToSaveModal();
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
@@ -80,11 +85,6 @@ public final class OrdersPaymentsTests extends BaseTest {
     @Test(  description = "Тест заказа с оплатой картой курьеру",
             groups = {"smoke","regression", "acceptance"})
     public void successOrderWithCardCourier() {
-        var company = JuridicalData.juridical();
-
-        ordersUser = UserManager.getQaUser();
-        helper.dropAndFillCart(ordersUser, 1);
-
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
@@ -121,11 +121,6 @@ public final class OrdersPaymentsTests extends BaseTest {
     @Story("Тест заказа с оплатой банковским переводом")
     @Test(description = "Тест заказа с оплатой банковским переводом", groups = {"regression", "acceptance"})
     public void successOrderWithBankTransfer() {
-        var company = JuridicalData.juridical();
-
-        ordersUser = UserManager.getQaUser();
-        helper.dropAndFillCart(ordersUser, 1);
-
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
@@ -151,6 +146,7 @@ public final class OrdersPaymentsTests extends BaseTest {
 
         checkout().setPayment().clickToByBusinessAccount();
         checkout().setSlot().setAnotherSlot();
+        checkout().waitPageLoad();
         checkout().setSlot().setFirstActiveSlot();
 
         checkout().editCompany().fillName(company.getJuridicalName());

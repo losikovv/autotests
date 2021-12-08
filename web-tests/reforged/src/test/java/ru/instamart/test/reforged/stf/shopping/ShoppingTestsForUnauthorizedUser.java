@@ -6,6 +6,7 @@ import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -13,37 +14,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.search;
 
 @Epic("STF UI")
 @Feature("Заказ")
-public class ShoppingTestsForUnauthorizedUser extends BaseTest {
-
-    @CaseId(1620)
-    @Story("Тест недоступности чекаута неавторизованному юзеру")
-    @Test(description = "Тест недоступности чекаута неавторизованному юзеру", groups = {"acceptance", "regression"})
-    public void noAccessToCheckoutByDefault() {
-        shop().goToPage();
-
-        checkout().goToPage();
-        home().checkHomePageOpen();
-    }
-
-    @CaseId(1621)
-    @Story("Тест недоступности чекаута неавторизованному юзеру c выбранным адресом и пустой корзиной")
-    @Test(description = "Тест недоступности чекаута неавторизованному юзеру c выбранным адресом и пустой корзиной",
-            groups = {"acceptance", "regression"})
-    public void noAccessToCheckoutForUnauthorizedUserWithShipAddressAndEmptyCart() {
-        shop().goToPage();
-        shop().interactHeader().clickToSelectAddress();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
-        shop().interactHeader().checkEnteredAddressIsVisible();
-
-        checkout().goToPage();
-        shop().interactHeader().checkAuthOrRegAlertVisible();
-        shop().checkDefaultShopOpened();
-    }
+public final class ShoppingTestsForUnauthorizedUser extends BaseTest {
 
     @CaseId(1622)
     @Story("Тест недоступности чекаута при сумме корзины меньше минимального заказа")
@@ -98,5 +69,25 @@ public class ShoppingTestsForUnauthorizedUser extends BaseTest {
         checkout().goToPage();
         shop().interactHeader().checkAuthOrRegAlertVisible();
         shop().checkDefaultShopOpened();
+    }
+
+    @CaseId(2608)
+    @Test(description = "Тест недоступности пустого чекаута по прямой ссылке", groups = {"acceptance", "regression"})
+    public void testCheckoutNoAccessForUserWithoutCart() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        shop().interactHeader().checkProfileButtonVisible();
+
+        checkout().goToPage();
+        shop().interactHeader().checkMinAmountAlertVisible();
+    }
+
+    @CaseId(2301)
+    @Test(description = "Тест недоступности чекаута неавторизованному пользователю", groups = {"acceptance", "regression"})
+    public void testCheckoutNoAccessForGuest() {
+        home().goToPage();
+        checkout().goToPage();
+        shop().interactHeader().checkAuthOrRegAlertVisible();
     }
 }

@@ -5,12 +5,11 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.data.Generate;
-import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.data.Addresses;
+import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.test.reforged.BaseTest;
 
-import static ru.instamart.kraken.config.CoreProperties.DEFAULT_SMS;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -28,6 +27,7 @@ public final class UserRegistrationTests extends BaseTest {
         shop().interactAuthModal().checkPhoneErrorIsVisible();
     }
 
+    @Skip
     @CaseId(1541)
     @Story("Регистрация на лендинге")
     @Test(description = "Регистрация нового пользователя на лендинге", groups = {"acceptance", "smoke", "MRAutoCheck"})

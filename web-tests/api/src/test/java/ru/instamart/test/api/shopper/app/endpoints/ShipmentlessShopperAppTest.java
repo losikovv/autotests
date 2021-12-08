@@ -22,6 +22,7 @@ import java.util.Arrays;
 
 import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("Shopper Mobile API")
@@ -46,10 +47,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     public void getShopper200() {
         response = ShopperSHPRequest.GET();
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(ShopperSHPResponse.class)
-                .getData()
-                .getAttributes()
-                .getName(), "информация о сборщике");
+        checkResponseJsonSchema(response, ShopperSHPResponse.class);
     }
 
     @Story("Получение информации о маршрутах")
@@ -86,7 +84,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     public void getCancelReasons200() {
         response = CancelReasonsSHPRequest.GET();
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(Arrays.asList(response.as(ReasonSHP[].class)).get(0).getName(), "причины отмен");
+        checkResponseJsonSchema(response, ReasonSHP[].class);
     }
 
     @Story("Получение информации о причинах")
@@ -96,7 +94,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     public void getClarifyReasons200() {
         response = ClarifyReasonsSHPRequest.GET();
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(Arrays.asList(response.as(ReasonSHP[].class)).get(0).getName(), "причины уточнения");
+        checkResponseJsonSchema(response, ReasonSHP[].class);
     }
 
     @Story("Получение информации о причинах")
@@ -106,7 +104,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     public void getReturnReasons200() {
         response = ReturnReasonsSHPRequest.GET();
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(Arrays.asList(response.as(ReasonSHP[].class)).get(0).getName(), "причины возврата");
+        checkResponseJsonSchema(response, ReasonSHP[].class);
     }
 
     @Story("Получение марс токена (стоки метро)")
@@ -116,7 +114,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     public void getMarsToken200() {
         response = MarsTokenSHPRequest.GET();
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(MarsTokenSHPResponse.class).getAccess_token(), "марс токен");
+        checkResponseJsonSchema(response, MarsTokenSHPResponse.class);
     }
 
     @Story("Получение информации о заказах")
@@ -138,7 +136,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     public void getPackerAssemblies200() {
         response = PackerSHPRequest.Assemblies.GET();
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(AssembliesSHPResponse.class).getData(), "сборки упаковщика");
+        checkResponseJsonSchema(response, AssembliesSHPResponse.class);
     }
 
     @Story("Получение информации о приложении")
@@ -161,8 +159,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
                 EnvironmentProperties.DEFAULT_SHOPPER_SID,
                 "хлеб");
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(OffersSHPResponse.class).getData().get(0).getAttributes().getName(),
-                "имя товара в поиске");
+        checkResponseJsonSchema(response, OffersSHPResponse.class);
     }
 
     @Story("Авторизация")
@@ -172,10 +169,9 @@ public class ShipmentlessShopperAppTest extends RestBase {
     public void postAuthRefresh200() {
         response = AuthSHPRequest.Refresh.POST();
         checkStatusCode200(response);
+        checkResponseJsonSchema(response, SessionsSHPResponse.class);
         final SessionsSHPResponse sessionsResponse = response.as(SessionsSHPResponse.class);
         SessionSHP.Data.Attributes attributes = sessionsResponse.getData().getAttributes();
-        checkFieldIsNotEmpty(attributes.getAccessToken(), "access_token");
-        checkFieldIsNotEmpty(attributes.getRefreshToken(), "refresh_token");
         SessionFactory.getSession(SessionType.SHOPPER_APP).setToken(attributes.getAccessToken());
         SessionFactory.getSession(SessionType.SHOPPER_APP).setRefreshToken(attributes.getRefreshToken());
     }
@@ -197,12 +193,9 @@ public class ShipmentlessShopperAppTest extends RestBase {
         response = OtpsSHPRequest.Authorizations.POST(phone, CoreProperties.DEFAULT_SMS);
 
         checkStatusCode200(response);
-        String accessToken = response.as(SessionsSHPResponse.class).getData().getAttributes().getAccessToken();
-        checkFieldIsNotEmpty(accessToken, "access_token");
-
-        String refreshToken = response.as(SessionsSHPResponse.class).getData().getAttributes().getRefreshToken();
-        checkFieldIsNotEmpty(refreshToken, "refresh_token");
-        SessionFactory.getSession(SessionType.SHOPPER_APP).setToken(accessToken);
-        SessionFactory.getSession(SessionType.SHOPPER_APP).setRefreshToken(refreshToken);
+        checkResponseJsonSchema(response, SessionsSHPResponse.class);
+        SessionSHP.Data.Attributes attributes = response.as(SessionsSHPResponse.class).getData().getAttributes();
+        SessionFactory.getSession(SessionType.SHOPPER_APP).setToken(attributes.getAccessToken());
+        SessionFactory.getSession(SessionType.SHOPPER_APP).setRefreshToken(attributes.getRefreshToken());
     }
 }
