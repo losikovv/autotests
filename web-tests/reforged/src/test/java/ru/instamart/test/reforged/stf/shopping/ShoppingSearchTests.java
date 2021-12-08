@@ -112,7 +112,7 @@ public final class ShoppingSearchTests extends BaseTest {
 
 
     //TODO: Переписать и поставить баги ATST-873
-    @Skip
+
     @CaseId(2589)
     @Test(
             description = "Работоспособность сортировки товаров",
@@ -125,11 +125,10 @@ public final class ShoppingSearchTests extends BaseTest {
         shop().interactHeader().fillSearch("кофе");
         shop().interactHeader().clickSearchButton();
 
-        search().checkSearchProductsSpinnerVisible();
-        search().checkSearchProductsSpinnerNotVisible();
-
         search().selectSort("Сначала дешевые");
         search().checkSortEnabled("Сначала дешевые");
+
+        search().waitPageLoad();
         
         search().checkPriceAscSortCorrect();
     }
@@ -166,7 +165,7 @@ public final class ShoppingSearchTests extends BaseTest {
     }
 
     //TODO: Переписать и поставить баги ATST-873
-    @Skip
+
     @CaseId(2591)
     @Test(
             description = "Сортировка + фильтрация товаров: сначала дешевые, по популярности",
@@ -175,22 +174,21 @@ public final class ShoppingSearchTests extends BaseTest {
     public void successApplyFiltersAndSortCheapAsc() {
         shop().openSitePage("okey/search?keywords=кофе&sid=128");
 
-        search().checkSearchProductsSpinnerVisible();
-        search().checkSearchProductsSpinnerNotVisible();
+        search().checkSearchImgLoaded();
 
         search().selectSort("Сначала дешевые");
+
         search().checkProductsStubVisible();
         search().checkProductsStubNotVisible();
 
+        search().waitPageLoad();
         search().checkSearchImgLoaded();
+
         search().scrollDown();
         search().checkPageScrolled();
         search().checkPriceAscSortCorrect();
 
         shop().openSitePage("okey/search?keywords=кофе&sid=128");
-
-        search().checkSearchProductsSpinnerVisible();
-        search().checkSearchProductsSpinnerNotVisible();
 
         search().checkSortEnabled("По популярности");
         search().checkSearchImgLoaded();
@@ -199,7 +197,7 @@ public final class ShoppingSearchTests extends BaseTest {
     }
 
     //TODO: Переписать и поставить баги ATST-873
-    @Skip
+
     @CaseId(2591)
     @Test(
             description = "Сортировка + фильтрация товаров: сначала дорогие, скидки + убывание, конкретный бренд",
@@ -208,15 +206,15 @@ public final class ShoppingSearchTests extends BaseTest {
     public void successApplyFiltersAndSortExpensiveDesc() {
         shop().openSitePage("okey/search?keywords=чай&sid=128");
 
-        search().checkSearchProductsSpinnerVisible();
-        search().checkSearchProductsSpinnerNotVisible();
+        search().checkSearchImgLoaded();
 
         search().selectSort("Сначала дорогие");
-        search().checkSortEnabled("Сначала дорогие");
+
         search().checkProductsStubVisible();
         search().checkProductsStubNotVisible();
 
         search().checkSearchImgLoaded();
+
         search().scrollDown();
         search().checkPageScrolled();
         search().checkPriceDescSortCorrect();
@@ -226,16 +224,15 @@ public final class ShoppingSearchTests extends BaseTest {
         search().clickToDiscountFilter();
         search().checkPriceDescSortCorrect();
 
-        shop().openSitePage("okey/search?keywords=кофе&sid=128");
+        shop().openSitePage("okey/search?keywords=чай&sid=128");
 
-        search().checkSearchProductsSpinnerVisible();
-        search().checkSearchProductsSpinnerNotVisible();
+        search().checkSearchImgLoaded();
 
         search().checkSortEnabled("По популярности");
-        search().clickOnFilter("Jacobs");
+        search().clickOnFilter("Greenfield");
 
-        search().checkSearchProductsSkeletonVisible();
-        search().checkSearchProductsSkeletonNotVisible();
+        search().checkProductsStubVisible();
+        search().checkProductsStubNotVisible();
     }
 
     @CaseId(2592)
