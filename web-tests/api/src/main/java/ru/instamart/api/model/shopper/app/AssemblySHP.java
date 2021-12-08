@@ -17,11 +17,8 @@ public class AssemblySHP extends BaseObject {
     @lombok.Data
     @EqualsAndHashCode(callSuper=false)
     public static class Data extends BaseObject {
-        @JsonSchema(ignore = true)
         private String id;
-        @JsonSchema(ignore = true)
         private String type;
-        @JsonSchema(ignore = true)
         private Attributes attributes;
         @JsonSchema(ignore = true)
         private Relationships relationships;
