@@ -36,7 +36,7 @@ public final class ShoppingCatalogTests extends BaseTest {
         shop().interactCategoryMenu().clickToClose();
     }
 
-    @CaseId(1596)
+    @CaseId(2583)
     @Test(description = "Тест открытия категории 1 уровня из шторки каталога", groups = {"MRAutoCheck", "regression"})
     public void successGoToDepartmentFromCatalogDrawer() {
         shop().goToPage();
@@ -60,7 +60,7 @@ public final class ShoppingCatalogTests extends BaseTest {
         seo().checkPageIsAvailable();
     }
 
-    @CaseId(1597)
+    @CaseId(2584)
     @Test(description = "Тест открытия категории 2 уровня из шторки каталога", groups = "regression")
     public void successGoToTaxonFromCatalogDrawer() {
         shop().goToPage();
@@ -84,7 +84,7 @@ public final class ShoppingCatalogTests extends BaseTest {
         seo().checkPageIsAvailable();
     }
 
-    @CaseId(1598)
+    @CaseId(2582)
     @Test(description = "Тест открывания/закрывания карточки продукта на главной", groups = "regression")
     public void successOperateItemCardOnRetailerPage() {
         shop().goToPage();
