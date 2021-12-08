@@ -96,8 +96,8 @@ public final class UserManager {
                             .password(PASSWD_2)
                             .build();
                     break;
-                case "trigger":
-                    log.info("User shopper TRIGGER login");
+                case "push":
+                    log.info("User shopper PUSH login");
                     defaultShopper = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("K0wOsUQv9wDe1F4a6TtDKg=="))
                             .phone(Crypt.INSTANCE.decrypt("yLvA69qlzJsxOIvcma2zXg=="))
