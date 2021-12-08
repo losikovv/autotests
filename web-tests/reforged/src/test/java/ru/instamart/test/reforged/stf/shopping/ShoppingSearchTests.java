@@ -29,7 +29,7 @@ public final class ShoppingSearchTests extends BaseTest {
         shop().interactHeader().checkSearchButtonVisible();
     }
 
-    @CaseId(1177)
+    @CaseId(2585)
     @Story("Негативные сценарии")
     @Test(description = "Тест поиска по запросу, не возвращающему результатов", groups = "regression")
     public void successSearchForNonExistingItem() {
@@ -39,7 +39,7 @@ public final class ShoppingSearchTests extends BaseTest {
         search().checkEmptySearchPlaceholderVisible();
     }
 
-    @CaseId(1178)
+    @CaseId(2586)
     @Story("Позитивные сценарии")
     @Test(description = "Тест успешного поиска товаров", groups = "regression")
     public void successSearchItem() {
@@ -50,7 +50,7 @@ public final class ShoppingSearchTests extends BaseTest {
         search().checkSearchProductGridVisible();
     }
 
-    @CaseId(1179)
+    @CaseId(2587)
     @Story("Позитивные сценарии")
     @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {"smoke", "regression"})
     public void successSearchItemUsingCategorySuggests() {
