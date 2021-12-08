@@ -49,11 +49,14 @@ public class ShipmentSHP extends BaseObject {
             @JsonSchema(required = true)
             private Integer itemCount;
             private Boolean isOnlinePayment;
+            @Null
             private String tenantId;
+            @Null
             private String retailer;
             @JsonSchema(required = true)
             private Integer storeId;
             private String uuid;
+            @Null
             private String email;
             @Null
             private String lifePayPaymentMethod;
@@ -61,6 +64,7 @@ public class ShipmentSHP extends BaseObject {
             private Boolean closingDocsRequired;
             private Boolean isOutdated;
             private List<Object> linkedShipments = null;
+            @Null
             private String deliveryBefore;
             @Null
             private String inspectionResult;
@@ -68,8 +72,11 @@ public class ShipmentSHP extends BaseObject {
             private String total;
             private String cost;
             private String itemTotal;
+            @Null
             private String adjustmentTotal;
+            @Null
             private String deliveryDate;
+            @Null
             private String deliveryInterval;
             @Null
             private String customerComment;

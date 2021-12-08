@@ -14,11 +14,10 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class AssembliesSHPResponse extends BaseResponseObject {
-    @NotEmpty
     @JsonSchema(required = true)
     private List<AssemblySHP.Data> data = null;
 
-    @JsonSchema(required = true)
+    @JsonSchema(ignore = true)
     private List<Included> included = null;
 
     @Data
