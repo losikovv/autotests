@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.Test;
+import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.StaticPages;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.data.StaticPageData;
@@ -15,6 +16,8 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 @Epic("Админка STF")
 @Feature("Работа со статическими страницами")
 public final class AdministrationPagesSectionTests extends BaseTest {
+
+    private final ApiHelper helper = new ApiHelper();
 
     @CaseId(507)
     @Story("Тест на проверку элементов на вкладке статических страниц")
@@ -39,10 +42,15 @@ public final class AdministrationPagesSectionTests extends BaseTest {
         pages().clickToNewPage();
         newPages().fillPageData(staticPage);
         newPages().submit();
+
+        pages().goToPage();
+        pages().checkTable();
+        final var id = pages().returnPageId(staticPage);
+
         pages().openSitePage(staticPage.getPageURL());
         pages().checkPageIsAvailable();
         pages().goToPage();
-        pages().deleteEntry(staticPage.getPageName());
+        pages().deleteEntry(id);
         pages().checkDeleteAlertVisible();
     }
 
@@ -55,17 +63,22 @@ public final class AdministrationPagesSectionTests extends BaseTest {
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
+
+        helper.createStaticPageInAdmin(staticPage);
+
         pages().goToPage();
-        newPages().goToPage();
-        newPages().fillPageData(staticPage);
-        newPages().submit();
         pages().editEntry(staticPage.getPageName());
         newPages().fillPageData(staticPageEdited);
         newPages().submit();
         pages().openSitePage(staticPageEdited.getPageURL());
         pages().checkPageIsAvailable();
+
         pages().goToPage();
-        pages().deleteEntry(staticPageEdited.getPageName());
-        pages().checkDeleteAlertVisible();
+        pages().checkTable();
+        final var id = pages().returnPageId(staticPageEdited);
+        helper.deleteStaticPageInAdmin(id);
+
+        pages().goToPage();
+        pages().checkSpecificEntryNotVisible(id);
     }
 }

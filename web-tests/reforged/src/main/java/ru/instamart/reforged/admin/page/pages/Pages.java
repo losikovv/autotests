@@ -2,6 +2,8 @@ package ru.instamart.reforged.admin.page.pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import ru.instamart.kraken.data.StaticPageData;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.admin.AdminPage;
 
 public final class Pages implements AdminPage, PagesCheck {
@@ -17,9 +19,14 @@ public final class Pages implements AdminPage, PagesCheck {
     }
 
     @Step("Удалить запись {0} из таблицы")
-    public void deleteEntry(final String name) {
-        table.getLine(name).findElement(By.xpath(".//ancestor::td[@class='actions']/a[@data-action='remove']")).click();
+    public void deleteEntry(final Long id) {
+        tableEntrySpecificDelete.click(id);
         confirmBrowserAlert();
+    }
+
+    @Step("Вернуть pageId")
+    public Long returnPageId(StaticPageData data) {
+        return StringUtil.stringToLongParse(table.getLine(data.getPageName()).getAttribute("id"));
     }
 
     @Override
