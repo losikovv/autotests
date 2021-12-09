@@ -96,6 +96,7 @@ project(":grpc") {
         annotationProcessor lib.lombok
         testImplementation lib.logback
         testCompileOnly lib.lombok
+        testCompileOnly lib.truthPproto
         testAnnotationProcessor lib.lombok
     }
 }
@@ -130,6 +131,7 @@ project(":kafka") {
         annotationProcessor lib.lombok
         testImplementation lib.logback
         testCompileOnly lib.lombok
+        testCompileOnly lib.truthPproto
         testAnnotationProcessor lib.lombok
     }
 }
