@@ -178,6 +178,7 @@ public class StoresWithAuthDCTest extends RestBase {
             dependsOnMethods = {"getStoresSlotsAvailable200", "getStoresCatalogProducts200"},
             description = "Создание заказа")
     public void postStoresOrders200() {
+        SessionFactory.createSessionToken(SessionType.DELIVERY_CLUB, UserManager.getDeliveryClubUser());
         Response response = StoresDCRequest.Orders.POST(sid, slotId, productId);
 
         for (int i = 0; i < 3 && response.statusCode() == 400 && response.as(ErrorResponse.class).getMessage().equals("slot_not_available"); i++) {

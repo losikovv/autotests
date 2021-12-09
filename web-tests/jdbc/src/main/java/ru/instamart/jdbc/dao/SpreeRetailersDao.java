@@ -52,4 +52,18 @@ public class SpreeRetailersDao implements Dao<Long, SpreeRetailersEntity> {
         }
         return resultCount;
     }
+
+    public Long getIdBySlug(String slug) {
+        Long id = null;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE slug = ?")) {
+            preparedStatement.setString(1, slug);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            id = resultSet.getLong("id");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
 }
