@@ -214,3 +214,16 @@ qase:actualize:
   tags:
     - k8s-stage
   allow_failure: true
+
+qase:cleanup:
+  only:
+    refs:
+      - schedules
+    variables:
+      - $CLEANUP == 'true'
+  stage: tests-api
+  script:
+    - gradle clean build qaseCleanup -Pkey=$ATST_APP_SECRET_KEY
+  tags:
+    - k8s-stage
+  allow_failure: true

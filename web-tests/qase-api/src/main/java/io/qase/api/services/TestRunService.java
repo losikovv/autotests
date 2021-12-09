@@ -17,6 +17,8 @@ public interface TestRunService {
 
     TestRuns getAll(String projectCode, boolean includeCases);
 
+    TestRuns getAll(String projectCode, int limit, boolean includeCases);
+
     TestRun get(String projectCode, long id, boolean includeCases);
 
     long create(String projectCode, String title, Integer environmentId, String description, Integer... cases);

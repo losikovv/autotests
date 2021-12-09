@@ -37,6 +37,11 @@ public final class TestRunServiceImpl implements TestRunService {
     }
 
     @Override
+    public TestRuns getAll(String projectCode, int limit, boolean includeCases) {
+        return this.getAll(projectCode, limit, 0, filter(), includeCases);
+    }
+
+    @Override
     public TestRun get(String projectCode, long id, boolean includeCases) {
         Map<String, Object> routeParams = new HashMap<>();
         routeParams.put("code", projectCode);

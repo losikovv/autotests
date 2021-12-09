@@ -114,3 +114,10 @@ task qaseActualize(type: Test) {
         includeGroups 'qase-actualize'
     }
 }
+
+task qaseCleanup(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/util.xml'
+        includeGroups 'qase-cleanup'
+    }
+}
