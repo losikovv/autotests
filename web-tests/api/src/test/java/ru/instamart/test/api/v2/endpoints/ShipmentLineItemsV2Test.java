@@ -47,6 +47,8 @@ public class ShipmentLineItemsV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2);
         products = apiV2.getProductsFromEachDepartmentInStore(1);
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 1);
+        deliveryWindowId = order.getShipments().get(0).getDeliveryWindow().getId();
+        DeliveryWindowsDao.INSTANCE.updateDeliveryWindowSettings(deliveryWindowId, 999, 1, 999, 1);
     }
 
     @CaseIDs(value = {@CaseId(1003), @CaseId(1004)})
