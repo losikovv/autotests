@@ -74,9 +74,9 @@ public class ReviewableShipmentV2Test extends RestBase {
     }
 
 
-    @CaseId(472)
+    @CaseId(472) //TODO: ATST-905
     @Story("Создание отзыва о заказе")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"}, enabled = false,
             description = "Создание отзыва о заказе с существующим номером")
     public void shipmentsReviews() {
         ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
@@ -93,9 +93,9 @@ public class ReviewableShipmentV2Test extends RestBase {
 
     }
 
-    @CaseId(475)
+    @CaseId(475) //TODO: ATST-905
     @Story("Создание отзыва о заказе")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"}, enabled = false,
             description = "Создание отзыва о заказе с существующим номером")
     public void shipmentsReviewsWithComments() {
         ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
@@ -112,9 +112,9 @@ public class ReviewableShipmentV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(476)
+    @CaseId(476) //TODO: ATST-905
     @Story("Создание отзыва о заказе")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"}, enabled = false,
             description = "Создание отзыва о заказе с несколькими значениями для review[issue_ids]")
     public void shipmentsReviewsWithIds() {
         List<ReviewIssueV2> reviewIssues = apiV2.getReviewIssues(shipmentNumber);
@@ -145,9 +145,9 @@ public class ReviewableShipmentV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-    @CaseId(477)
+    @CaseId(477) //TODO: ATST-905
     @Story("Создание отзыва о заказе")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"}, enabled = false,
             description = "Создание отзыва о заказе с [images_attributes]")
     public void shipmentsReviewsWithImage() {
         final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber);
