@@ -66,16 +66,16 @@ public class K8sHelper {
 
 
     @Step("Поиск товарного предложения по штучному товару в {tenant} и storeId = {storeId}")
-    public static <T> T getPricerPerItem(Integer tenantId, Integer storeId, Class<T> clazz) {
-        String command = String.format("retailer_id: %s, store_id: %d, pricer: \"Pricer::PerItem\", deleted_at: nil",
+    public static <T> T getPricerPerItem(Integer tenantId, Integer storeId,  Class<T> clazz) {
+        String command = String.format("retailer_id: %s, store_id: %d, pricer: \"Pricer::PerItem\", deleted_at: %S",
                 tenantId, storeId);
         String toJson = OFFER_WHERE_LAST.get(command) + ".to_json(:except => [:pricer])";//исключаем pricer. Иначе получим ошибку
         return getClassWithExecRailsCommand(toJson, clazz);
     }
 
-    @Step("Поиск товарного предложения по штучному товару в {tenant} и storeId = {storeId}")
+    @Step("Поиск товарного предложения по весовому товару в {tenant} и storeId = {storeId}")
     public static <T> T getPricerPerKilo(Integer tenantId, Integer storeId, Class<T> clazz) {
-        String command = String.format("retailer_id: %s, store_id: %d, pricer: \"Pricer::PerKilo\", deleted_at: nil",
+        String command = String.format("retailer_id: %s, store_id: %d, pricer: \"Pricer::PerKilo\", deleted_at: $s",
                 tenantId, storeId);
         String toJson = OFFER_WHERE_LAST.get(command) + ".to_json(:except => [:pricer])";//исключаем pricer. Иначе получим ошибку
         return getClassWithExecRailsCommand(toJson, clazz);
