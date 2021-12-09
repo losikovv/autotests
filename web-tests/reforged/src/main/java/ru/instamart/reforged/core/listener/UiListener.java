@@ -61,10 +61,8 @@ public final class UiListener implements ITestListener, ISuiteListener {
     public void onFinish(ISuite suite) {
         try {
             this.qaseService.completeTestRun();
-            this.qaseService.deleteOldTestRuns();
-            this.qaseService.deleteOldDefects();
         } catch (Exception e) {
-            log.error("FATAL: something wrong when try to finish test", e);
+            log.error("FATAL: something wrong when try to finish test run", e);
         }
     }
 }

@@ -219,9 +219,8 @@ public final class QaseService {
     }
 
     public void deleteOldTestRuns() {
-        if (!qase || !started) return;
         final List<TestRun> testRunList = qaseApi.testRuns()
-                .getAll(projectCode, true)
+                .getAll(projectCode, 30, true)
                 .getTestRunList();
 
         testRunList.forEach(testRun -> {
@@ -239,22 +238,22 @@ public final class QaseService {
                 }));
                 try {
                     qaseApi.testRuns().delete(projectCode, testRun.getId());
-                    log.debug("Delete old test run={} for project={}", testRun.getId(), testRun.getTitle());
+                    log.debug("CLEANUP: Delete old test run={} for project={}", testRun.getId(), testRun.getTitle());
                 } catch (Exception e) {
-                    log.warn("Delete old test failed run={} for project={}", testRun.getId(), testRun.getTitle());
+                    log.warn("CLEANUP: Delete old test failed run={} for project={}", testRun.getId(), testRun.getTitle());
                 }
             }
         });
     }
 
     public void deleteOldDefects() {
-        if (!qase || !started) return;
         final List<Defect> defects = qaseApi.defects().getAll(projectCode).getDefectList();
         defects.forEach(defect -> {
             final LocalDateTime dateTime = LocalDateTime.parse(defect.getCreated(), FORMATTER);
             // userId = 2 это пользователь от которого создаются дефекты для автотестов
             if (defect.getUserId() == 2 && DAYS_TO_DIE.isAfter(dateTime)) {
                 qaseApi.defects().delete(projectCode, defect.getId());
+                log.debug("CLEANUP: Delete old defect={} for project={}", defect.getId(), projectCode);
             }
         });
     }

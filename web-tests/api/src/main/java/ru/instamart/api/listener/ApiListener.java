@@ -70,11 +70,8 @@ public final class ApiListener implements ITestListener, ISuiteListener {
     public void onFinish(ISuite suite) {
         try {
             this.qaseService.completeTestRun();
-            this.qaseService.deleteOldTestRuns();
-            this.qaseService.deleteOldDefects();
-            //this.qaseService.actualizeAutomatedTestCases();
         } catch (Exception e) {
-            log.error("FATAL: something went wrong when try to finish test", e);
+            log.error("FATAL: something went wrong when try to finish test run", e);
         }
     }
 }
