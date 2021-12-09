@@ -238,7 +238,7 @@ public final class QaseService {
                 }));
                 try {
                     qaseApi.testRuns().delete(projectCode, testRun.getId());
-                    log.debug("CLEANUP: Delete old test run={} for project={}", testRun.getId(), testRun.getTitle());
+                    log.info("CLEANUP: Delete old test run={} for project={}", testRun.getId(), testRun.getTitle());
                 } catch (Exception e) {
                     log.warn("CLEANUP: Delete old test failed run={} for project={}", testRun.getId(), testRun.getTitle());
                 }
@@ -253,7 +253,7 @@ public final class QaseService {
             // userId = 2 это пользователь от которого создаются дефекты для автотестов
             if (defect.getUserId() == 2 && DAYS_TO_DIE.isAfter(dateTime)) {
                 qaseApi.defects().delete(projectCode, defect.getId());
-                log.debug("CLEANUP: Delete old defect={} for project={}", defect.getId(), projectCode);
+                log.info("CLEANUP: Delete old defect={} for project={}", defect.getId(), projectCode);
             }
         });
     }
