@@ -8,7 +8,7 @@ public class StoreConfigsEntity {
     private Long storeId;
     private String lifepayIdentifier;
     private String importKey;
-    private Integer shipmentBaseWeight;
+    private Double shipmentBaseWeight;
     private Integer minOrderAmount;
     private Integer minFirstOrderAmount;
     private String createdAt;

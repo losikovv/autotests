@@ -16,6 +16,7 @@ import ru.instamart.api.model.v1.OfferV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.admin.PagesAdminRequest;
+import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v1.OperationalZonesV1Request;
 import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
 import ru.instamart.api.request.v2.*;
@@ -86,6 +87,18 @@ public class RestDataProvider extends RestBase {
     @Data
     public static class StoreDataRoot implements DataList<StoresV2Request.Store> {
         private List<StoresV2Request.Store> data;
+    }
+
+    @Data
+    public static class StoresAdminTestData {
+        private StoresAdminRequest.Store store;
+        private String description;
+        private Integer statusCode;
+    }
+
+    @Data
+    public static class StoresAdminTestDataRoot implements DataList<StoresAdminTestData> {
+        private List<StoresAdminTestData> data;
     }
 
     @DataProvider(name = "authProviders")

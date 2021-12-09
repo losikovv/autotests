@@ -70,4 +70,18 @@ public class OperationalZonesDao implements Dao<Long, OperationalZonesEntity> {
         }
         return resultCount;
     }
+
+    public Long getIdByName(String name) {
+        Long id = null;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE name = ?")) {
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            id = resultSet.getLong("id");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
 }
