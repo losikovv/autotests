@@ -95,6 +95,7 @@
         <classes>
             <class name="ru.instamart.test.api.admin.CitiesAdminTest"/>
             <class name="ru.instamart.test.api.admin.PagesAdminTest"/>
+            <class name="ru.instamart.test.api.admin.StoresAdminTest"/>
         </classes>
     </test>
 
