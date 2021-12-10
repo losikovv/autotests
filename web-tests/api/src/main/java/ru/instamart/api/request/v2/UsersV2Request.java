@@ -129,5 +129,11 @@ public final class UsersV2Request extends ApiV2RequestBase {
                     .header("Client-Id", "InstamartApp")
                     .get(ApiV2EndPoints.Users.REFERRAL_PROGRAM, email);
         }
+
+        @Step("{method} /" + ApiV2EndPoints.Users.REFERRAL_PROGRAM)
+        public static Response GET(String email) {
+            return givenWithAuth()
+                    .get(ApiV2EndPoints.Users.REFERRAL_PROGRAM, email);
+        }
     }
 }

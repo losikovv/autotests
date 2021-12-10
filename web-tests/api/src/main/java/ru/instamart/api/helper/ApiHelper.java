@@ -243,4 +243,11 @@ public final class ApiHelper {
     private void authAdmin() {
         SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
     }
+
+    @Step("Получение реферального промокода для пользователя")
+    public String getReferralPromotionCode(final UserData user) {
+        auth(user);
+        String userId = apiV2.getProfile().getUser().getId();
+        return apiV2.getReferralPromotionCode(userId);
+    }
 }
