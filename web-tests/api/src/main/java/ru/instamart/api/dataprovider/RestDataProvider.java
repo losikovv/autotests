@@ -808,6 +808,14 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "shipmentReviewsData")
     public static Object[][] getShipmentReviewsData() {
         return new Object[][]{
+                {5, null},
+                {2, true}
+        };
+    }
+
+    @DataProvider(name = "shipmentReviewsCallbackData")
+    public static Object[][] getShipmentReviewsCallbackData() {
+        return new Object[][]{
                 {5, true},
                 {2, false}
         };

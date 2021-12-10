@@ -75,42 +75,24 @@ public class ReviewableShipmentV2Test extends RestBase {
         softAssert.assertAll();
     }
 
-
-    @CaseId(472)
+    @CaseIDs(value = {@CaseId(472), @CaseId(1186)})
     @Story("Создание отзыва о заказе")
     @Test(groups = {"api-instamart-regress"},
-            description = "Создание отзыва о заказе с существующим номером - положительная оценка")
-    public void shipmentsReviewsPositiveRate() {
+            description = "Создание отзыва о заказе с существующим номером",
+            dataProvider = "shipmentReviewsData",
+            dataProviderClass = RestDataProvider.class)
+    public void shipmentsReviewsPositiveRate(Integer rate, Boolean callback) {
         ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
-                .rate(5)
+                .rate(rate)
                 .build();
         final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShipmentReviewV2Response.class);
         ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
         final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(shipmentReview.getRate(), 5, softAssert);
+        compareTwoObjects(shipmentReview.getRate(), rate, softAssert);
         softAssert.assertNull(shipmentReview.getComment(), "Пришел комментарий");
-        softAssert.assertNull(shipmentReview.getCallback(), "Пришел запрос обратной связи");
-        softAssert.assertAll();
-    }
-
-    @CaseId(1186)
-    @Story("Создание отзыва о заказе")
-    @Test(groups = {"api-instamart-regress"},
-            description = "Создание отзыва о заказе с существующим номером - отрицательная оценка")
-    public void shipmentsReviewsNegativeRate() {
-        ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
-                .rate(1)
-                .build();
-        final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
-        checkStatusCode200(response);
-        checkResponseJsonSchema(response, ShipmentReviewV2Response.class);
-        ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
-        final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(shipmentReview.getRate(), 1, softAssert);
-        softAssert.assertNull(shipmentReview.getComment(), "Пришел комментарий");
-        softAssert.assertTrue(shipmentReview.getCallback(), "Не пришел запрос обратной связи");
+        compareTwoObjects(shipmentReview.getCallback(), callback, softAssert);
         softAssert.assertAll();
     }
 
@@ -118,7 +100,7 @@ public class ReviewableShipmentV2Test extends RestBase {
     @Story("Создание отзыва о заказе")
     @Test(groups = {"api-instamart-regress"},
             description = "Создание отзыва о заказе с существующим номером и галочкой 'Связаться со мной'",
-            dataProvider = "shipmentReviewsData",
+            dataProvider = "shipmentReviewsCallbackData",
             dataProviderClass = RestDataProvider.class)
     public void shipmentsReviewsWithCallBack(Integer rate, Boolean callback) {
         ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
