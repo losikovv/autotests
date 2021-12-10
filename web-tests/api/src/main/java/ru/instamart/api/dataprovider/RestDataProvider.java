@@ -805,6 +805,14 @@ public class RestDataProvider extends RestBase {
         };
     }
 
+    @DataProvider(name = "shipmentReviewsData")
+    public static Object[][] getShipmentReviewsData() {
+        return new Object[][]{
+                {5, true},
+                {2, false}
+        };
+    }
+
     @DataProvider(name = "postCompanyDocuments")
     public static Object[][] postCompanyDocuments() {
         String name = "ООО \"Ромашка_" + (int) (Math.random() * 9999) + "\"";

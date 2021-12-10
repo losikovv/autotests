@@ -3,14 +3,17 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qase.api.annotation.CaseIDs;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
+import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
@@ -24,8 +27,8 @@ import ru.instamart.kraken.data.user.UserData;
 
 import java.util.List;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.helper.K8sHelper.changeToShip;
 
 @Epic("ApiV2")
@@ -59,26 +62,25 @@ public class ReviewableShipmentV2Test extends RestBase {
         ReviewableShipmentV2 revShipment = response.as(ReviewableShipmentV2Response.class).getReviewableShipment();
         final SoftAssert softAssert = new SoftAssert();
         final ShipmentV2 shipment = order.getShipments().get(0);
-        softAssert.assertEquals(revShipment.getNumber(), shipment.getNumber(), "Number not valid");
-        softAssert.assertEquals(revShipment.getCost(), shipment.getCost(), "Cost not valid");
-        softAssert.assertEquals(revShipment.getItemTotal(), shipment.getItemTotal(), "Item total not valid");
-        softAssert.assertEquals(revShipment.getItemDiscountTotal(), shipment.getItemDiscountTotal(), "item discount total not valid");
-        softAssert.assertEquals(revShipment.getTotal(), shipment.getTotal(), "Shipments not valid");
-        softAssert.assertEquals(revShipment.getAlerts(), shipment.getAlerts(), "Alerts not valid");
-        softAssert.assertEquals(revShipment.getTotalWeight(), shipment.getTotalWeight(), "Total weight not valid");
-        softAssert.assertEquals(revShipment.getItemCount(), shipment.getItemCount(), "Item count not valid");
-//        softAssert.assertEquals(revShipment.getDeliveryWindow(), shipment.getDeliveryWindow(), "Delivery window not valid");
-        softAssert.assertEquals(revShipment.getPayment(), shipment.getPayment(), "Payment not valid");
-        softAssert.assertEquals(revShipment.getStore(), shipment.getStore(), "Store not valid");
+        compareTwoObjects(revShipment.getNumber(), shipment.getNumber(), softAssert);
+        compareTwoObjects(revShipment.getCost(), shipment.getCost(), softAssert);
+        compareTwoObjects(revShipment.getItemTotal(), shipment.getItemTotal(), softAssert);
+        compareTwoObjects(revShipment.getItemDiscountTotal(), shipment.getItemDiscountTotal(), softAssert);
+        compareTwoObjects(revShipment.getTotal(), shipment.getTotal(), softAssert);
+        compareTwoObjects(revShipment.getAlerts(), shipment.getAlerts(), softAssert);
+        compareTwoObjects(revShipment.getTotalWeight(), shipment.getTotalWeight(), softAssert);
+        compareTwoObjects(revShipment.getItemCount(), shipment.getItemCount(), softAssert);
+        compareTwoObjects(revShipment.getPayment(), shipment.getPayment(), softAssert);
+        compareTwoObjects(revShipment.getStore(), shipment.getStore(), softAssert);
         softAssert.assertAll();
     }
 
 
-    @CaseId(472) //TODO: ATST-905
+    @CaseId(472)
     @Story("Создание отзыва о заказе")
-    @Test(groups = {"api-instamart-regress"}, enabled = false,
-            description = "Создание отзыва о заказе с существующим номером")
-    public void shipmentsReviews() {
+    @Test(groups = {"api-instamart-regress"},
+            description = "Создание отзыва о заказе с существующим номером - положительная оценка")
+    public void shipmentsReviewsPositiveRate() {
         ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
                 .rate(5)
                 .build();
@@ -87,16 +89,57 @@ public class ReviewableShipmentV2Test extends RestBase {
         checkResponseJsonSchema(response, ShipmentReviewV2Response.class);
         ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(shipmentReview.getRate(), Integer.valueOf(5), "Rate not valid");
-        softAssert.assertNull(shipmentReview.getComment(), "Comment not null");
+        compareTwoObjects(shipmentReview.getRate(), 5, softAssert);
+        softAssert.assertNull(shipmentReview.getComment(), "Пришел комментарий");
+        softAssert.assertNull(shipmentReview.getCallback(), "Пришел запрос обратной связи");
         softAssert.assertAll();
-
     }
 
-    @CaseId(475) //TODO: ATST-905
+    @CaseId(1186)
     @Story("Создание отзыва о заказе")
-    @Test(groups = {"api-instamart-regress"}, enabled = false,
-            description = "Создание отзыва о заказе с существующим номером")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Создание отзыва о заказе с существующим номером - отрицательная оценка")
+    public void shipmentsReviewsNegativeRate() {
+        ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
+                .rate(1)
+                .build();
+        final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ShipmentReviewV2Response.class);
+        ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(shipmentReview.getRate(), 1, softAssert);
+        softAssert.assertNull(shipmentReview.getComment(), "Пришел комментарий");
+        softAssert.assertTrue(shipmentReview.getCallback(), "Не пришел запрос обратной связи");
+        softAssert.assertAll();
+    }
+
+    @CaseIDs(value = {@CaseId(1182), @CaseId(1185)})
+    @Story("Создание отзыва о заказе")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Создание отзыва о заказе с существующим номером и галочкой 'Связаться со мной'",
+            dataProvider = "shipmentReviewsData",
+            dataProviderClass = RestDataProvider.class)
+    public void shipmentsReviewsWithCallBack(Integer rate, Boolean callback) {
+        ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
+                .rate(rate)
+                .callback(callback)
+                .build();
+        final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ShipmentReviewV2Response.class);
+        ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(shipmentReview.getRate(), rate, softAssert);
+        softAssert.assertNull(shipmentReview.getComment(), "Пришел комментарий");
+        compareTwoObjects(shipmentReview.getCallback(), callback, softAssert);
+        softAssert.assertAll();
+    }
+
+    @CaseId(475)
+    @Story("Создание отзыва о заказе")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Создание отзыва о заказе с существующим номером и комментарием")
     public void shipmentsReviewsWithComments() {
         ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
                 .rate(5)
@@ -107,14 +150,14 @@ public class ReviewableShipmentV2Test extends RestBase {
         checkResponseJsonSchema(response, ShipmentReviewV2Response.class);
         ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(shipmentReview.getRate(), Integer.valueOf(5), "Rate not valid");
-        softAssert.assertEquals(shipmentReview.getComment(), "Тестовый комментарий", "Comment not null");
+        compareTwoObjects(shipmentReview.getRate(), 5, softAssert);
+        compareTwoObjects(shipmentReview.getComment(), "Тестовый комментарий", softAssert);
         softAssert.assertAll();
     }
 
-    @CaseId(476) //TODO: ATST-905
+    @CaseId(476)
     @Story("Создание отзыва о заказе")
-    @Test(groups = {"api-instamart-regress"}, enabled = false,
+    @Test(groups = {"api-instamart-regress"},
             description = "Создание отзыва о заказе с несколькими значениями для review[issue_ids]")
     public void shipmentsReviewsWithIds() {
         List<ReviewIssueV2> reviewIssues = apiV2.getReviewIssues(shipmentNumber);
@@ -129,25 +172,22 @@ public class ReviewableShipmentV2Test extends RestBase {
         checkResponseJsonSchema(response, ShipmentReviewV2Response.class);
         ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(shipmentReview.getRate(), review.getRate(), "Rate не совпадает с введенным");
-        softAssert.assertEquals(shipmentReview.getComment(), review.getComment(), "Comment не совпадает с введенным");
-
-        softAssert.assertEquals(shipmentReview.getIssues().get(0).getId(), reviewIssues.get(1).getId(), "issues id не совпадает с введенным");
-        softAssert.assertEquals(shipmentReview.getIssues().get(0).getPosition(), reviewIssues.get(1).getPosition(), "issues position не совпадает с введенным");
-        softAssert.assertEquals(shipmentReview.getIssues().get(0).getDescription(), reviewIssues.get(1).getDescription(), "issues description не совпадает с введенным");
-        softAssert.assertEquals(shipmentReview.getIssues().get(0).getCommentNeeded(), reviewIssues.get(1).getCommentNeeded(), "issues comment needed не совпадает с введенным");
-
-        softAssert.assertEquals(shipmentReview.getIssues().get(1).getId(), reviewIssues.get(2).getId(), "issues id не совпадает с введенным");
-        softAssert.assertEquals(shipmentReview.getIssues().get(1).getPosition(), reviewIssues.get(2).getPosition(), "issues position не совпадает с введенным");
-        softAssert.assertEquals(shipmentReview.getIssues().get(1).getDescription(), reviewIssues.get(2).getDescription(), "issues description не совпадает с введенным");
-        softAssert.assertEquals(shipmentReview.getIssues().get(1).getCommentNeeded(), reviewIssues.get(2).getCommentNeeded(), "issues comment needed не совпадает с введенным");
-
+        compareTwoObjects(shipmentReview.getRate(), review.getRate(), softAssert);
+        compareTwoObjects(shipmentReview.getComment(), review.getComment(), softAssert);
+        compareTwoObjects(shipmentReview.getIssues().get(0).getId(), reviewIssues.get(1).getId(), softAssert);
+        compareTwoObjects(shipmentReview.getIssues().get(0).getPosition(), reviewIssues.get(1).getPosition(), softAssert);
+        compareTwoObjects(shipmentReview.getIssues().get(0).getDescription(), reviewIssues.get(1).getDescription(), softAssert);
+        compareTwoObjects(shipmentReview.getIssues().get(0).getCommentNeeded(), reviewIssues.get(1).getCommentNeeded(), softAssert);
+        compareTwoObjects(shipmentReview.getIssues().get(1).getId(), reviewIssues.get(2).getId(), softAssert);
+        compareTwoObjects(shipmentReview.getIssues().get(1).getPosition(), reviewIssues.get(2).getPosition(), softAssert);
+        compareTwoObjects(shipmentReview.getIssues().get(1).getDescription(), reviewIssues.get(2).getDescription(), softAssert);
+        compareTwoObjects(shipmentReview.getIssues().get(1).getCommentNeeded(), reviewIssues.get(2).getCommentNeeded(), softAssert);
         softAssert.assertAll();
     }
 
-    @CaseId(477) //TODO: ATST-905
+    @CaseId(477)
     @Story("Создание отзыва о заказе")
-    @Test(groups = {"api-instamart-regress"}, enabled = false,
+    @Test(groups = {"api-instamart-regress"},
             description = "Создание отзыва о заказе с [images_attributes]")
     public void shipmentsReviewsWithImage() {
         final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber);
@@ -155,8 +195,52 @@ public class ReviewableShipmentV2Test extends RestBase {
         checkResponseJsonSchema(response, ShipmentReviewV2Response.class);
         ShipmentReviewV2 shipmentReview = response.as(ShipmentReviewV2Response.class).getShipmentReview();
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(shipmentReview.getRate(), Integer.valueOf(5), "Пришла неверная оценка");
+        compareTwoObjects(shipmentReview.getRate(),5, softAssert);
         softAssert.assertTrue(shipmentReview.getImages().get(0).getOriginalUrl().contains("sample.jpg"), "Изображение не добавлено");
         softAssert.assertAll();
+    }
+
+    @CaseId(1187)
+    @Story("Создание отзыва о заказе")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Создание отзыва на заказ с уже существующим отзывом")
+    public void shipmentsReviewsForSameShipment() {
+        ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
+                .rate(5)
+                .build();
+        final Response firstResponse = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
+        checkStatusCode200(firstResponse);
+        final Response secondResponse = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
+        checkStatusCode422(secondResponse);
+        Assert.assertTrue(secondResponse.asString().contains("\"shipment_id\":\"Для данного заказа уже был добавлен отзыв\""));
+    }
+
+    @CaseId(1184)
+    @Story("Создание отзыва о заказе")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Создание отзыва на заказ с токеном другого юзера")
+    public void shipmentsReviewsWithAnotherUserToken() {
+        ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
+                .rate(5)
+                .build();
+        SessionFactory.makeSession(SessionType.API_V2);
+        String token = SessionFactory.getSession(SessionType.API_V2).getToken();
+        final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review, token);
+        checkStatusCode403(response);
+        checkError(response, "Пользователь не может выполнить это действие");
+    }
+
+    @CaseId(1183)
+    @Story("Создание отзыва о заказе")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Создание отзыва без токена")
+    public void shipmentsReviewsWithoutToken() {
+        ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
+                .rate(5)
+                .build();
+        SessionFactory.clearSession(SessionType.API_V2);
+        final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
+        checkStatusCode401(response);
+        checkError(response, "Ключ доступа невалиден или отсутствует");
     }
 }
