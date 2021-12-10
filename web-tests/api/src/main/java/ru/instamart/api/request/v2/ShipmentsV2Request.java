@@ -140,14 +140,6 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
                     .multiPart("review[images_attributes][][attachment]", new File("src/test/resources/data/sample.jpg"), "image/jpeg")
                     .post(ApiV2EndPoints.Shipments.REVIEWS, shipmentNumber);
         }
-
-        @Step("{method} /" + ApiV2EndPoints.Shipments.REVIEWS)
-        public static Response POST(String shipmentNumber, Review review, String token) {
-            return givenCustomToken(token)
-                    .contentType(ContentType.JSON)
-                    .body(ReviewRequest.builder().review(review).build())
-                    .post(ApiV2EndPoints.Shipments.REVIEWS, shipmentNumber);
-        }
     }
 
     public static class Clones {

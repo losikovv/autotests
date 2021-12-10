@@ -206,8 +206,7 @@ public class ReviewableShipmentV2Test extends RestBase {
                 .rate(5)
                 .build();
         SessionFactory.makeSession(SessionType.API_V2);
-        String token = SessionFactory.getSession(SessionType.API_V2).getToken();
-        final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review, token);
+        final Response response = ShipmentsV2Request.Reviews.POST(shipmentNumber, review);
         checkStatusCode403(response);
         checkError(response, "Пользователь не может выполнить это действие");
     }
