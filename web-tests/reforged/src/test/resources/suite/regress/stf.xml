@@ -47,7 +47,6 @@
       <class name="ru.instamart.test.reforged.stf.user.UserProfileTests"/>
       <class name="ru.instamart.test.reforged.stf.user.UserRegistrationTests"/>
       <class name="ru.instamart.test.reforged.stf.user.UserShippingAddressTests"/>
-      <class name="ru.instamart.test.reforged.stf.user.UserCompaniesTests"/>
 
       <class name="ru.instamart.test.reforged.stf.BasicSbermarketTests"/>
       <class name="ru.instamart.test.reforged.stf.Page404Tests"/>
