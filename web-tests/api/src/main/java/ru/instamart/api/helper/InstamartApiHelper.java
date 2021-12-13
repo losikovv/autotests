@@ -1254,7 +1254,7 @@ public final class InstamartApiHelper {
         return response.as(PhonesV2Response.class);
     }
 
-    public String getSimpleAdsFirstImage(SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters) {
+    public String getSimpleAdsFirstImage(final SimpleAdsV2Request.SimpleAdsV2 allRequiredParameters) {
 
         final Response response = SimpleAdsV2Request.POST(allRequiredParameters);
         checkStatusCode200(response);
@@ -1271,7 +1271,7 @@ public final class InstamartApiHelper {
                 .getImage().getUrl();
     }
 
-    public void waitingForDeliveryStatus(String orderNumber) {
+    public void waitingForDeliveryStatus(final String orderNumber) {
         String shipmentState;
         int i = 0;
         do {
@@ -1285,7 +1285,7 @@ public final class InstamartApiHelper {
         } while (!shipmentState.equals("shipped") && i < 10);
     }
 
-    public List<ReviewIssueV2> getReviewIssues(String shipmentsNumber) {
+    public List<ReviewIssueV2> getReviewIssues(final String shipmentsNumber) {
         final Response response = ShipmentsV2Request.ReviewIssues.GET(shipmentsNumber);
         checkStatusCode200(response);
         ReviewIssuesV2Response reviewIssuesV2Response = response.as(ReviewIssuesV2Response.class);
@@ -1299,8 +1299,15 @@ public final class InstamartApiHelper {
     }
 
     @Step("Получаем координаты из зоны доставки магазина")
-    public ZoneV2 getCoordinates(Integer storeId) {
+    public ZoneV2 getCoordinates(final Integer storeId) {
         List<List<ZoneV2>> zones = storeZones(storeId);
         return getInnerPoint(zones.get(0));
+    }
+
+    @Step("Получение реферального промокода для пользователя с ID {userId}")
+    public String getReferralPromotionCode(final String userId) {
+        final Response response = UsersV2Request.ReferralProgram.GET(userId);
+        checkStatusCode200(response);
+        return response.as(UserReferralProgramV2Response.class).getUserReferralProgram().getCode();
     }
 }
