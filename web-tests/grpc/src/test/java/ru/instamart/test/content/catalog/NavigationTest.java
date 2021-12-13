@@ -72,7 +72,7 @@ public class NavigationTest extends GrpcBase {
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(response.getBreadcrumbs(0).getId(), "131", "Категория отличается");
         softAssert.assertEquals(response.getBreadcrumbs(0).getName(), "Вода, соки, напитки", "Наименование категории не совпадает");
-        softAssert.assertEquals(response.getBreadcrumbs(0).getPermalink(), "voda-soki-napitki-new", "Permalink не совпадает");
+        softAssert.assertEquals(response.getBreadcrumbs(0).getPermalink(), "voda-soki-napitki-1", "Permalink не совпадает");
         softAssert.assertAll();
     }
 
