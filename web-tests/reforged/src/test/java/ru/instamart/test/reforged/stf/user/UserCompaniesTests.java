@@ -4,7 +4,6 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -13,11 +12,10 @@ import ru.instamart.test.reforged.BaseTest;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
-@Feature("Профиль пользователя")
+@Feature("Профиль компаний пользователя")
 public class UserCompaniesTests extends BaseTest {
 
     private UserData userData;
-    private final ApiHelper helper = new ApiHelper();
 
     @BeforeMethod(alwaysRun = true,
             description = "Проверяем залогинен ли пользователь, если да то завершаем сессию")
@@ -47,10 +45,6 @@ public class UserCompaniesTests extends BaseTest {
         var company = JuridicalData.juridical();
         userCompanies().goToPage();
         userCompanies().clickAddCompany();
-
-        userCompanies().interactAddCompanyModal().fillCompany(company);
-
-        home().checkPageIsAvailable();
     }
 
 }
