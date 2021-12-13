@@ -110,6 +110,9 @@
         <classes>
             <class name="ru.instamart.test.api.ris_exporter.AuthenticationRisTest"/>
             <class name="ru.instamart.test.api.ris_exporter.CategoriesRisTest"/>
+            <class name="ru.instamart.test.api.ris_exporter.ProductsRisTest"/>
+            <class name="ru.instamart.test.api.ris_exporter.StockRisTest"/>
+            <class name="ru.instamart.test.api.ris_exporter.WithoutAuthenticationRisTest"/>
         </classes>
     </test>
 </suite>
