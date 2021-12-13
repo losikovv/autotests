@@ -105,35 +105,36 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
         }
     }
 
-    public static class State{
+    public static class State {
 
         @Step("{method} /" + ApiV2EndPoints.Shipments.STATE)
-        public static Response GET(String shipmentNumber){
+        public static Response GET(String shipmentNumber) {
             return givenWithAuth()
                     .get(ApiV2EndPoints.Shipments.STATE, shipmentNumber);
         }
     }
 
-    public static class ReviewIssues{
+    public static class ReviewIssues {
 
         @Step("{method} /" + ApiV2EndPoints.Shipments.REVIEW_ISSUES)
-        public static Response GET(String shipmentNumber){
+        public static Response GET(String shipmentNumber) {
             return givenWithAuth()
-                    .get(ApiV2EndPoints.Shipments.REVIEW_ISSUES,shipmentNumber);
+                    .get(ApiV2EndPoints.Shipments.REVIEW_ISSUES, shipmentNumber);
         }
     }
 
-    public static class Reviews{
+    public static class Reviews {
 
-        @Step("{method} /"+ApiV2EndPoints.Shipments.REVIEWS)
-        public static Response POST(String shipmentNumber, Review review){
+        @Step("{method} /" + ApiV2EndPoints.Shipments.REVIEWS)
+        public static Response POST(String shipmentNumber, Review review) {
             return givenWithAuth()
-                    .formParams(Mapper.INSTANCE.objectToMap(review))
+                    .contentType(ContentType.JSON)
+                    .body(ReviewRequest.builder().review(review).build())
                     .post(ApiV2EndPoints.Shipments.REVIEWS, shipmentNumber);
         }
 
-        @Step("{method} /"+ApiV2EndPoints.Shipments.REVIEWS)
-        public static Response POST(String shipmentNumber){
+        @Step("{method} /" + ApiV2EndPoints.Shipments.REVIEWS)
+        public static Response POST(String shipmentNumber) {
             return givenWithAuth()
                     .formParam("review[rate]", 5)
                     .multiPart("review[images_attributes][][attachment]", new File("src/test/resources/data/sample.jpg"), "image/jpeg")
@@ -141,21 +142,21 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
         }
     }
 
-    public static class Clones{
+    public static class Clones {
 
-        @Step("{method} /"+ApiV2EndPoints.Shipments.CLONES)
-        public static Response POST(String shipmentNumber){
+        @Step("{method} /" + ApiV2EndPoints.Shipments.CLONES)
+        public static Response POST(String shipmentNumber) {
             return givenWithAuth()
                     .post(ApiV2EndPoints.Shipments.CLONES, shipmentNumber);
         }
     }
 
-    public static class AssemblyItems{
+    public static class AssemblyItems {
 
         @Step("{method} /" + ApiV2EndPoints.Shipments.ASSEMBLY_ITEMS)
-        public static Response GET(String shipmentNumber){
+        public static Response GET(String shipmentNumber) {
             return givenWithAuth()
-                    .get(ApiV2EndPoints.Shipments.ASSEMBLY_ITEMS,shipmentNumber);
+                    .get(ApiV2EndPoints.Shipments.ASSEMBLY_ITEMS, shipmentNumber);
         }
     }
 
@@ -191,15 +192,24 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
     @Getter
     @EqualsAndHashCode
     @ToString
-    public static final class Review{
-        @JsonProperty(value = "review[rate]")
+    public static final class ReviewRequest {
+        private final Review review;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Builder
+    @Getter
+    @EqualsAndHashCode
+    @ToString
+    public static final class Review {
         private final Integer rate;
         @Singular
-        @JsonProperty(value = "review[issue_ids][]")
+        @JsonProperty(value = "issue_ids")
         private final List<Integer> issueIds;
-        @JsonProperty(value = "review[images_attributes][]")
+        @JsonProperty(value = "images_attributes")
         private final String imageAttributes;
-        @JsonProperty(value = "review[comment]")
         private final String comment;
+        @JsonProperty(value = "call_back")
+        private final Boolean callback;
     }
 }

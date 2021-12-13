@@ -145,7 +145,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
         StoreConfigsDao.INSTANCE.updateEditingSettings(1, 1, 0);
     }
 
-    @CaseId(1007)
+    @CaseId(1010)
     @Story("Добавление товара в заказ")
     @Test(groups = {"api-instamart-regress"},
             description = "Добавление другого товара с превышение количества товаров",

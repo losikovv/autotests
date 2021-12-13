@@ -14,23 +14,23 @@ import java.util.List;
 public class ShipmentReviewV2 extends BaseObject {
 
 	@JsonSchema(required = true)
-	@JsonProperty("images")
 	private List<ImageV2> images;
 
 	@JsonSchema(required = true)
-	@JsonProperty("rate")
 	private Integer rate;
 
 	@Null
 	@JsonSchema(required = true)
-	@JsonProperty("comment")
 	private String comment;
 
 	@JsonSchema(required = true)
-	@JsonProperty("id")
 	private Integer id;
 
 	@JsonSchema(required = true)
-	@JsonProperty("issues")
 	private List<IssueV2> issues;
+
+	@Null
+	@JsonSchema(required = true)
+	@JsonProperty("call_back")
+	private Boolean callback;
 }
