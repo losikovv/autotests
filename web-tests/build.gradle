@@ -144,6 +144,7 @@ project(":api") {
         implementation project(":qase-api")
         implementation project(":utils")
         implementation project(":jdbc")
+        implementation project(":k8s")
 
         implementation lib.restAssured
         implementation lib.aspectjweaver
@@ -208,6 +209,7 @@ project(":jdbc") {
     dependencies {
         implementation project(":kraken")
         implementation project(":utils")
+        implementation project(":k8s")
 
         implementation lib.lombok
         implementation lib.jacksonAnnotations
@@ -245,6 +247,25 @@ project(":utils") {
         implementation lib.jackson
         implementation lib.logback
         implementation lib.commonLang
+
+        annotationProcessor lib.lombok
+    }
+}
+
+project(":k8s") {
+    apply plugin: "java-library"
+
+    dependencies {
+        implementation project(":kraken")
+        implementation project(":utils")
+
+        implementation lib.lombok
+        implementation lib.logback
+        implementation lib.kubernetesClient
+        implementation lib.jacksonAnnotations
+        implementation lib.jackson
+        implementation lib.testng
+        implementation lib.guava
 
         annotationProcessor lib.lombok
     }

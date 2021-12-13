@@ -1,6 +1,7 @@
 package ru.instamart.jdbc.util;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.instamart.k8s.K8sPortForward;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.lang.reflect.Proxy;
@@ -22,11 +23,16 @@ public class ConnectionMySQLManager {
     private static List<Connection> sourceConnections;
 
     static {
+        portForward();
         loadDriver();
         initConnectionPool();
     }
 
     private ConnectionMySQLManager() {
+    }
+
+    private static void portForward(){
+        K8sPortForward.getInstance().portForwardMySQL();
     }
 
     public static Connection get() {

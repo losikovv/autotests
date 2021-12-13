@@ -1,5 +1,6 @@
 package ru.instamart.jdbc.util;
 
+import ru.instamart.k8s.K8sPortForward;
 import ru.instamart.utils.Crypt;
 
 import java.lang.reflect.Proxy;
@@ -21,11 +22,16 @@ public class ConnectionPgSQLManager {
     private static List<Connection> sourceConnections;
 
     static {
+        portForward();
         loadDriver();
         initConnectionPool();
     }
 
     private ConnectionPgSQLManager() {
+    }
+
+    protected static void portForward() {
+        K8sPortForward.getInstance().portForwardPgSQL();
     }
 
     protected static void initConnectionPool() {

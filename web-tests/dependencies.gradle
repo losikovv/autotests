@@ -24,7 +24,8 @@ ext.versions = [
         victoolsSchemaGenerator: '4.20.0',
         javaxValidation: '2.0.0.Final',
         imifouJsonSchema: '1.2.1',
-        truthPproto: '1.1.3'
+        truthPproto: '1.1.3',
+        guava:'31.0.1-jre'
 ]
 
 ext.lib = [
@@ -63,4 +64,5 @@ ext.lib = [
         victoolsSchemaModuleJackson:"com.github.victools:jsonschema-module-jackson:$versions.victoolsSchemaGenerator",
         victoolsSchemaModuleJavaxValidation:"com.github.victools:jsonschema-module-javax-validation:$versions.victoolsSchemaGenerator",
         truthPproto:"com.google.truth.extensions:truth-proto-extension:$versions.truthPproto",
+        guava:"com.google.guava:guava:$versions.guava"
 ]

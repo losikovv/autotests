@@ -1,4 +1,4 @@
-package ru.instamart.api.k8s;
+package ru.instamart.k8s;
 
 import com.google.common.io.ByteStreams;
 import io.kubernetes.client.Exec;
@@ -8,10 +8,8 @@ import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.models.V1Pod;
 import io.kubernetes.client.openapi.models.V1PodList;
-import io.qameta.allure.Step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.SkipException;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.utils.Mapper;
 
@@ -31,7 +29,6 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static java.lang.System.console;
-import static org.testng.Assert.fail;
 
 public class K8sConsumer {
 
@@ -52,7 +49,7 @@ public class K8sConsumer {
                     null, labelSelector, null, null, null, null, null);
             return list.getItems().get(0).getMetadata().getName();
         } catch (ApiException | IOException e) {
-            throw new SkipException("Не получилось вызвать api k8s");
+            throw new RuntimeException("Не получилось вызвать api k8s");
         }
     }
 
@@ -69,17 +66,13 @@ public class K8sConsumer {
                     null, labelSelector, null, null, null, null, null);
             return list.getItems().get(0);
         } catch (ApiException | IOException e) {
-            throw new SkipException("Не получилось вызвать api k8s");
+            throw new RuntimeException("Не получилось вызвать api k8s");
         }
     }
 
-    public static V1PodList getPodList(String namespace, String labelSelector) {
-        try {
-            return K8sConfig.getInstance().getCoreV1Api().listNamespacedPod(namespace, null, null, null,
-                    null, labelSelector, null, null, null, null, null);
-        } catch (ApiException | IOException e) {
-            throw new SkipException("Не получилось вызвать api k8s");
-        }
+    public static V1PodList getPodList(String namespace, String labelSelector) throws IOException, ApiException {
+        return K8sConfig.getInstance().getCoreV1Api().listNamespacedPod(namespace, null, null, null,
+                null, labelSelector, null, null, null, null, null);
     }
 
     /**
@@ -99,19 +92,18 @@ public class K8sConsumer {
             return exec.exec(namespace, podName, commands, true, tty);
         } catch (IOException e) {
             log.error("Error: " + e.getMessage());
-            fail("Error: " + e.getMessage());
+            throw new RuntimeException("Error: " + e.getMessage());
         } catch (ApiException ex) {
             log.error("Error k8s api: " + ex.getMessage());
-            fail("Error k8s api: " + ex.getMessage());
+            throw new RuntimeException("Error k8s api: " + ex.getMessage());
         }
-        return null;
     }
 
     public static List<String> execRailsCommandWithPod(String commands) {
         List<String> result = new CopyOnWriteArrayList<>();
 
-        String nameSpace = EnvironmentProperties.K8S_NAME_SPACE;
-        String labelSelector = EnvironmentProperties.K8S_LABEL_SELECTOR;
+        String nameSpace = EnvironmentProperties.K8S_NAME_STF_SPACE;
+        String labelSelector = EnvironmentProperties.K8S_LABEL_STF_SELECTOR;
 
         final V1Pod pod = getPod(nameSpace, labelSelector);
         try {
@@ -125,8 +117,8 @@ public class K8sConsumer {
     public static <T> T getClassWithExecRailsCommand(String commands, Class<T> clazz) {
         List<String> result = new CopyOnWriteArrayList<>();
         T getRetailerResponse = null;
-        String nameSpace = EnvironmentProperties.K8S_NAME_SPACE;
-        String labelSelector = EnvironmentProperties.K8S_LABEL_SELECTOR;
+        String nameSpace = EnvironmentProperties.K8S_NAME_STF_SPACE;
+        String labelSelector = EnvironmentProperties.K8S_LABEL_STF_SELECTOR;
 
         final V1Pod pod = getPod(nameSpace, labelSelector);
         try {
@@ -136,8 +128,8 @@ public class K8sConsumer {
                     .collect(Collectors.joining(""));
 
             getRetailerResponse = Mapper.INSTANCE.jsonToObject(Objects.requireNonNull(join), clazz);
-            if(Objects.isNull(getRetailerResponse)){
-                throw new SkipException("FATAL: JSON not valid. Response: " + result);
+            if (Objects.isNull(getRetailerResponse)) {
+                throw new RuntimeException("FATAL: JSON not valid. Response: " + result);
             }
         } catch (IOException e) {
             log.error("Error: {}", e.getMessage());
@@ -148,8 +140,8 @@ public class K8sConsumer {
     public static List<String> execBashCommandWithPod(String commands) {
         List<String> result = new CopyOnWriteArrayList<>();
 
-        String nameSpace = EnvironmentProperties.K8S_NAME_SPACE;
-        String labelSelector = EnvironmentProperties.K8S_LABEL_SELECTOR;
+        String nameSpace = EnvironmentProperties.K8S_NAME_STF_SPACE;
+        String labelSelector = EnvironmentProperties.K8S_LABEL_STF_SELECTOR;
 
         final V1Pod pod = getPod(nameSpace, labelSelector);
         try {
@@ -179,7 +171,6 @@ public class K8sConsumer {
      * @param commands
      * @return
      */
-    @Step("Выполнение команды: {commands} в pod: {pod.spec.nodeName} ")
     private static Closeable execCommandWithPod(V1Pod pod, String[] commands, Consumer<String> outputFun, boolean waiting) {
         try {
             AtomicBoolean closed = new AtomicBoolean(false);
@@ -223,10 +214,10 @@ public class K8sConsumer {
             };
         } catch (IOException e) {
             log.error("Error: " + e.getMessage());
-            fail("Error: " + e.getMessage());
+            throw new RuntimeException("Error: " + e.getMessage());
         } catch (ApiException ex) {
             log.error("Error k8s api: " + ex.getMessage());
-            fail("Error k8s api: " + ex.getMessage());
+            throw new RuntimeException("Error k8s api: " + ex.getMessage());
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error("Exec error", e);

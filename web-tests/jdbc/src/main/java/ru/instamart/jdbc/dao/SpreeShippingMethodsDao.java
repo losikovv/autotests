@@ -7,38 +7,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
 
-public class SpreeShippingMethodsDao implements Dao<Long, SpreeShippingMethods>{
+import static org.testng.Assert.fail;
+
+public class SpreeShippingMethodsDao extends AbstractDao<Long, SpreeShippingMethods> {
 
     public static final SpreeShippingMethodsDao INSTANCE = new SpreeShippingMethodsDao();
     private final String SELECT_SQL = "SELECT %s FROM spree_shipping_methods";
-
-    @Override
-    public boolean delete(Long id) {
-        return false;
-    }
-
-    @Override
-    public SpreeShippingMethods save(SpreeShippingMethods ticket) {
-        return null;
-    }
-
-    @Override
-    public void update(SpreeShippingMethods ticket) {
-
-    }
-
-    @Override
-    public Optional<SpreeShippingMethods> findById(Long id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<SpreeShippingMethods> findAll() {
-        return null;
-    }
 
     public Long getShippingMethodId(String kind) {
         Long id = null;
@@ -49,7 +24,7 @@ public class SpreeShippingMethodsDao implements Dao<Long, SpreeShippingMethods>{
             resultSet.next();
             id = resultSet.getLong("id");
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return id;
     }
