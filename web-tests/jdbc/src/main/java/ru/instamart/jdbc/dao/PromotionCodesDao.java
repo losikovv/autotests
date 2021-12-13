@@ -10,44 +10,17 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static java.util.stream.Collectors.joining;
+import static org.testng.Assert.fail;
 
-public class PromotionCodesDao implements Dao {
+public class PromotionCodesDao extends AbstractDao<Long, PromotionCodesEntity> {
 
     public static final PromotionCodesDao INSTANCE = new PromotionCodesDao();
     private static final String SQL_SELECT_PROMO_CODE = "SELECT " +
             "id, value, promotion_id, activated_at, created_at, updated_at, usage_limit " +
             "FROM promotion_codes";
 
-    private PromotionCodesDao() {
-    }
-
-    @Override
-    public boolean delete(Object id) {
-        return false;
-    }
-
-    @Override
-    public Object save(Object ticket) {
-        return null;
-    }
-
-    @Override
-    public void update(Object ticket) {
-
-    }
-
-    @Override
-    public Optional findById(Object id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<String> findAll() {
-        return null;
-    }
 
     public List<PromotionCodesEntity> findAll(PromotionCodesFilters filters) {
         List<Object> parameters = new ArrayList<>();
@@ -103,7 +76,7 @@ public class PromotionCodesDao implements Dao {
             }
             return result;
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return null;
     }
@@ -115,7 +88,7 @@ public class PromotionCodesDao implements Dao {
             preparedStatement.setString(2, promoCode);
              preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
     }
 }

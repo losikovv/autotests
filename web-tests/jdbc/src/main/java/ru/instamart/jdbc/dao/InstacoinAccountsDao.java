@@ -6,37 +6,12 @@ import ru.instamart.jdbc.util.ConnectionMySQLManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
 
-public class InstacoinAccountsDao implements Dao<Long, InstacoinAccountsEntity>{
+import static org.testng.Assert.fail;
+
+public class InstacoinAccountsDao extends AbstractDao<Long, InstacoinAccountsEntity> {
 
     public static final InstacoinAccountsDao INSTANCE = new InstacoinAccountsDao();
-
-    @Override
-    public boolean delete(Long id) {
-        return false;
-    }
-
-    @Override
-    public InstacoinAccountsEntity save(InstacoinAccountsEntity ticket) {
-        return null;
-    }
-
-    @Override
-    public void update(InstacoinAccountsEntity ticket) {
-
-    }
-
-    @Override
-    public Optional<InstacoinAccountsEntity> findById(Long id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<InstacoinAccountsEntity> findAll() {
-        return null;
-    }
 
     public void updatePromotionCode(Long promotionCodeId, Long userId) {
         try (Connection connect = ConnectionMySQLManager.get();
@@ -45,7 +20,7 @@ public class InstacoinAccountsDao implements Dao<Long, InstacoinAccountsEntity>{
             preparedStatement.setLong(2, userId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
     }
 }

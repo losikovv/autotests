@@ -1,46 +1,20 @@
 package ru.instamart.jdbc.dao;
 
 import ru.instamart.jdbc.entity.StoreConfigsEntity;
-import ru.instamart.jdbc.entity.StoresEntity;
 import ru.instamart.jdbc.util.ConnectionMySQLManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
 
-public class StoreConfigsDao implements Dao<Long, StoreConfigsEntity> {
+import static org.testng.Assert.fail;
+
+public class StoreConfigsDao extends AbstractDao<Long, StoreConfigsEntity> {
 
     public static final StoreConfigsDao INSTANCE = new StoreConfigsDao();
     private final String SELECT_SQL = "SELECT %s FROM store_configs";
     private final String DELETE_SQL = "DELETE FROM store_configs ";
-
-    @Override
-    public boolean delete(Long id) {
-        return false;
-    }
-
-    @Override
-    public StoreConfigsEntity save(StoreConfigsEntity ticket) {
-        return null;
-    }
-
-    @Override
-    public void update(StoreConfigsEntity ticket) {
-
-    }
-
-    @Override
-    public Optional<StoreConfigsEntity> findById(Long id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<StoreConfigsEntity> findAll() {
-        return null;
-    }
 
     public void updateEditingSettings(Integer storeId, Integer hours, Integer editingAllowed) {
         try (Connection connect = ConnectionMySQLManager.get();
@@ -50,7 +24,7 @@ public class StoreConfigsDao implements Dao<Long, StoreConfigsEntity> {
             preparedStatement.setLong(3, storeId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
     }
 
@@ -70,7 +44,7 @@ public class StoreConfigsDao implements Dao<Long, StoreConfigsEntity> {
                 storeConfigs.setDisallowOrderEditingHours(resultSet.getInt("disallow_order_editing_hours"));
             } else return null;
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return storeConfigs;
     }
@@ -81,7 +55,7 @@ public class StoreConfigsDao implements Dao<Long, StoreConfigsEntity> {
             preparedStatement.setLong(1, storeId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
     }
 }

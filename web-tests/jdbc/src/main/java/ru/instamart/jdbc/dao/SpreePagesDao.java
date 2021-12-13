@@ -7,39 +7,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
 
-public class SpreePagesDao implements  Dao<Long, SpreePagesEntity> {
+import static org.testng.Assert.fail;
+
+public class SpreePagesDao extends AbstractDao<Long, SpreePagesEntity> {
 
     public static final SpreePagesDao INSTANCE = new SpreePagesDao();
     private final String SELECT_SQL = "SELECT * FROM spree_pages";
     private final String DELETE_SQL = "DELETE FROM spree_pages";
-
-    @Override
-    public boolean delete(Long id) {
-        return false;
-    }
-
-    @Override
-    public SpreePagesEntity save(SpreePagesEntity ticket) {
-        return null;
-    }
-
-    @Override
-    public void update(SpreePagesEntity ticket) {
-
-    }
-
-    @Override
-    public Optional<SpreePagesEntity> findById(Long id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<SpreePagesEntity> findAll() {
-        return null;
-    }
 
     public SpreePagesEntity getPageBySlug(String pageSlug) {
         SpreePagesEntity page = new SpreePagesEntity();
@@ -65,18 +40,18 @@ public class SpreePagesDao implements  Dao<Long, SpreePagesEntity> {
                 page.setRenderLayoutAsPartial(resultSet.getInt("render_layout_as_partial"));
             } else return null;
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return page;
     }
 
     public void deletePageBySlug(String slug) {
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL +" WHERE slug LIKE ?")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE slug LIKE ?")) {
             preparedStatement.setString(1, slug + "%");
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
     }
 }

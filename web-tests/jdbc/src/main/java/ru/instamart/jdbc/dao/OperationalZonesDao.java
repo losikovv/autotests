@@ -7,10 +7,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
 
-public class OperationalZonesDao implements Dao<Long, OperationalZonesEntity> {
+import static org.testng.Assert.fail;
+
+public class OperationalZonesDao extends AbstractDao<Long, OperationalZonesEntity> {
 
     public static final OperationalZonesDao INSTANCE = new OperationalZonesDao();
     private final String DELETE_SQL = "DELETE FROM operational_zones ";
@@ -23,29 +23,9 @@ public class OperationalZonesDao implements Dao<Long, OperationalZonesEntity> {
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + String.format("WHERE id = '%s'", id))) {
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return result == 1;
-    }
-
-    @Override
-    public OperationalZonesEntity save(OperationalZonesEntity ticket) {
-        return null;
-    }
-
-    @Override
-    public void update(OperationalZonesEntity ticket) {
-
-    }
-
-    @Override
-    public Optional<OperationalZonesEntity> findById(Long id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<OperationalZonesEntity> findAll() {
-        return null;
     }
 
     public void deleteZoneByName(String zoneName) {
@@ -54,7 +34,7 @@ public class OperationalZonesDao implements Dao<Long, OperationalZonesEntity> {
             preparedStatement.setString(1, zoneName);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
     }
 
@@ -66,7 +46,7 @@ public class OperationalZonesDao implements Dao<Long, OperationalZonesEntity> {
             resultSet.next();
             resultCount = resultSet.getInt("total");
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return resultCount;
     }
@@ -80,7 +60,7 @@ public class OperationalZonesDao implements Dao<Long, OperationalZonesEntity> {
             resultSet.next();
             id = resultSet.getLong("id");
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return id;
     }

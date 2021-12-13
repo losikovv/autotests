@@ -2,7 +2,7 @@ package ru.instamart.api.helper;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
-import ru.instamart.api.rails_response.GetRetailerResponse;
+import ru.instamart.k8s.rails_response.GetRetailerResponse;
 import ru.instamart.kraken.enums.Tenant;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import static ru.instamart.api.enums.RailsConsole.ExternalPartners.SUBSCRIPTION;
 import static ru.instamart.api.enums.RailsConsole.Order.*;
 import static ru.instamart.api.enums.RailsConsole.apiV3.GET_RETAILER;
 import static ru.instamart.api.enums.RailsConsole.apiV3.OFFER_WHERE_LAST;
-import static ru.instamart.api.k8s.K8sConsumer.*;
+import static ru.instamart.k8s.K8sConsumer.*;
 
 public class K8sHelper {
     @Step("Перевод через консоль заказ {shipmentNumber} в статус \"Доставлено\"")

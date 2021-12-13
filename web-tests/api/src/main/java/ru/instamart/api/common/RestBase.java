@@ -1,17 +1,17 @@
 package ru.instamart.api.common;
 
-import io.kubernetes.client.PortForward;
+
 import io.qameta.allure.Allure;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterMethod;
 import ru.instamart.api.helper.*;
-import ru.instamart.api.k8s.K8sPortForward;
 
 import static ru.instamart.kraken.helper.LogbackLogBuffer.clearLogbackLogBuffer;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.getLogbackBufferLog;
 
 public class RestBase {
-    public static final PortForward.PortForwardResult connection = K8sPortForward.getInstance().portForwardMySQL();
+           // public static final PortForward.PortForwardResult connectionMySql = K8sPortForward.getInstance().portForwardMySQL();
+//    public static final PortForward.PortForwardResult connectionPgSql = K8sPortForward.getInstance().portForwardPgSQL();
     protected static final InstamartApiHelper apiV2 = new InstamartApiHelper();
     protected static final ShopperAppApiHelper shopperApp = new ShopperAppApiHelper();
     protected static final ApiV3Helper apiV3 = new ApiV3Helper();

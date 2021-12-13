@@ -40,12 +40,13 @@ import static ru.instamart.api.helper.K8sHelper.execRakeTaskAddBonus;
 @Feature("Заказы (orders)")
 public class OrdersV2Test extends RestBase {
 
-    private String promoCode = getPromotionCode();
+    private String promoCode;
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
         OrdersV2Request.POST();
+        promoCode = getPromotionCode();
     }
 
     @Deprecated
@@ -665,7 +666,7 @@ public class OrdersV2Test extends RestBase {
     public void checkOrderPayInstacoin() {
         final UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
-        String userId = UserIdDao.INSTANCE.findUserId(userData.getPhone()).get(0);
+        String userId = UserIdDao.INSTANCE.findUserId(userData.getPhone());
 
         execRakeTaskAddBonus(userData.getEmail(), "100", userId);
         final Response response = OrdersV2Request.Instacoins.POST(apiV2.getCurrentOrderNumber(), "100");

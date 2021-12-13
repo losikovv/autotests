@@ -7,27 +7,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Optional;
 
-public class MarketingSamplesDao implements Dao<Long, MarketingSamplesEntity> {
+import static org.testng.Assert.fail;
+
+public class MarketingSamplesDao extends AbstractDao<Long, MarketingSamplesEntity> {
 
     public static final MarketingSamplesDao INSTANCE = new MarketingSamplesDao();
     private final String SELECT_SQL = "SELECT %s FROM marketing_samples";
-
-    @Override
-    public boolean delete(Long id) {
-        return false;
-    }
-
-    @Override
-    public MarketingSamplesEntity save(MarketingSamplesEntity ticket) {
-        return null;
-    }
-
-    @Override
-    public void update(MarketingSamplesEntity ticket) {
-    }
 
     @Override
     public Optional<MarketingSamplesEntity> findById(Long id) {
@@ -45,14 +32,9 @@ public class MarketingSamplesDao implements Dao<Long, MarketingSamplesEntity> {
                 marketingSamplesEntity.setDeletedAt(resultSet.getString("deleted_at"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return Optional.of(marketingSamplesEntity);
-    }
-
-    @Override
-    public List<MarketingSamplesEntity> findAll() {
-        return null;
     }
 
     public int getCount() {
@@ -63,7 +45,7 @@ public class MarketingSamplesDao implements Dao<Long, MarketingSamplesEntity> {
             resultSet.next();
             resultCount = resultSet.getInt("total");
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return resultCount;
     }

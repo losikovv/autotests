@@ -1,9 +1,9 @@
-package ru.instamart.api.rails_response.model;
+package ru.instamart.k8s.rails_response.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import ru.instamart.api.model.BaseObject;
+import ru.instamart.k8s.rails_response.BaseObject;
 
 @EqualsAndHashCode(callSuper = true)
 @Data

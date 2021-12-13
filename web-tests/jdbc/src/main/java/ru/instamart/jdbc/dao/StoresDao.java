@@ -7,10 +7,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
 
-public class StoresDao implements Dao<Long, StoresEntity> {
+import static org.testng.Assert.fail;
+
+public class StoresDao extends AbstractDao<Long, StoresEntity> {
 
     public static final StoresDao INSTANCE = new StoresDao();
     private final String SELECT_SQL = "SELECT %s FROM stores";
@@ -24,29 +24,9 @@ public class StoresDao implements Dao<Long, StoresEntity> {
             preparedStatement.setLong(1, id);
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return result == 2;
-    }
-
-    @Override
-    public StoresEntity save(StoresEntity ticket) {
-        return null;
-    }
-
-    @Override
-    public void update(StoresEntity ticket) {
-
-    }
-
-    @Override
-    public Optional<StoresEntity> findById(Long id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<StoresEntity> findAll() {
-        return null;
     }
 
     public int getCount() {
@@ -57,7 +37,7 @@ public class StoresDao implements Dao<Long, StoresEntity> {
             resultSet.next();
             resultCount = resultSet.getInt("total");
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return resultCount;
     }
@@ -77,7 +57,7 @@ public class StoresDao implements Dao<Long, StoresEntity> {
                 store.setOperationalZoneId(resultSet.getLong("operational_zone_id"));
             } else return null;
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return store;
     }

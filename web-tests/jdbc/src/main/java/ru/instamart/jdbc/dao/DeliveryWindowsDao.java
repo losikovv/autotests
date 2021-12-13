@@ -7,39 +7,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
 
-public class DeliveryWindowsDao implements Dao<Long, DeliveryWindowsEntity> {
+import static org.testng.Assert.fail;
+
+public class DeliveryWindowsDao extends AbstractDao<Long, DeliveryWindowsEntity> {
 
     public static final DeliveryWindowsDao INSTANCE = new DeliveryWindowsDao();
     private final String SELECT_SQL = "SELECT %s FROM delivery_windows";
 
-
-    @Override
-    public boolean delete(Long id) {
-        return false;
-    }
-
-    @Override
-    public DeliveryWindowsEntity save(DeliveryWindowsEntity ticket) {
-        return null;
-    }
-
-    @Override
-    public void update(DeliveryWindowsEntity ticket) {
-
-    }
-
-    @Override
-    public Optional<DeliveryWindowsEntity> findById(Long id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<DeliveryWindowsEntity> findAll() {
-        return null;
-    }
 
     public int getCount(Long storeId, String start, String end) {
         int resultCount = 0;
@@ -52,7 +27,7 @@ public class DeliveryWindowsDao implements Dao<Long, DeliveryWindowsEntity> {
             resultSet.next();
             resultCount = resultSet.getInt("total");
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return resultCount;
     }
@@ -69,7 +44,7 @@ public class DeliveryWindowsDao implements Dao<Long, DeliveryWindowsEntity> {
             preparedStatement.setLong(5, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
     }
 }
