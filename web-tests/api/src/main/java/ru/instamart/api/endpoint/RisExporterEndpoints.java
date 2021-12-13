@@ -6,6 +6,9 @@ public class RisExporterEndpoints {
     public static class Stores {
         public static class Catalog {
             public static final String CATEGORIES = "stores/{sid}/catalog/categories";
+            public static final String PRODUCTS = "stores/{sid}/catalog/products";
         }
+
+        public static final String STOCK = "stores/{sid}/stock";
     }
 }

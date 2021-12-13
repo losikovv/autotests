@@ -747,6 +747,21 @@ public class RestDataProvider extends RestBase {
         };
     }
 
+    @DataProvider(name = "risStoreIds")
+    public static Object[][] getRisStoreIds() {
+        return new Object[][]{
+                {257}, //auchan
+                {242}, //alleya
+                {1995}, //auchansm
+                {6164}, //auchansmfd
+                {1372}, //globus
+                {999}, //megamart
+                {10}, //metro
+                {772}, //okey
+                {4} //selgros
+        };
+    }
+
     @DataProvider(name = "storesDataForPickupTransferMethodOnlyCourier")
     public static Object[][] getStoresForPickupTransferMethodCheckCourier() {
         return new Object[][]{
