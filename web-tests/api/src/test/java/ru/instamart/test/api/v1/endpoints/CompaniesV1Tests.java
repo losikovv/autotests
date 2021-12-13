@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -14,10 +15,7 @@ import ru.instamart.api.model.v1.b2b.CompanyV1;
 import ru.instamart.api.model.v1.b2b.ManagerV1;
 import ru.instamart.api.model.v1.b2b.SalesContractV1;
 import ru.instamart.api.model.v1.b2b.UserV1;
-import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
-import ru.instamart.api.request.v1.b2b.CompanyManagersV1Request;
-import ru.instamart.api.request.v1.b2b.CompanySalesContractV1Request;
-import ru.instamart.api.request.v1.b2b.UserCompaniesV1Request;
+import ru.instamart.api.request.v1.b2b.*;
 import ru.instamart.api.response.v1.b2b.CompaniesV1Response;
 import ru.instamart.api.response.v1.b2b.CompanyManagerV1Response;
 import ru.instamart.api.response.v1.b2b.CompanySalesContractV1Response;
@@ -246,5 +244,9 @@ public class CompaniesV1Tests extends RestBase {
                 response.as(CompanySalesContractV1Response.class).getSalesContract().getErrors().getNumber().get(0), "Невалидная ошибка при добавлении договора");
     }
 
-
+    @AfterClass(alwaysRun = true)
+    public void postconditions() {
+        final Response response = UserCompanyEmployeesV1Request.DELETE(company.getId().toString());
+        checkStatusCode200(response);
+    }
 }

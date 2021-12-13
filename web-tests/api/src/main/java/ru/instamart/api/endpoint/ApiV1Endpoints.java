@@ -72,6 +72,7 @@ public final class ApiV1Endpoints {
 
     public static final class User {
         public static final String COMPANIES = "user/companies";
+        public static final String COMPANIES_EMPLOYEES = "user/company_employees?company_id={companyID}";
 
         public static final class Company {
             public static final String BY_ID = "user/companies/{companyID}";
