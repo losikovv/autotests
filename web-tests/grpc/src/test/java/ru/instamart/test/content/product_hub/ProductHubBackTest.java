@@ -4,12 +4,16 @@ import io.grpc.StatusRuntimeException;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.qase.api.annotation.CaseIDs;
 import io.qase.api.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import product_hub_back.ProductHubBackGrpc;
 import product_hub_front_data.ProductHubFrontDataGrpc;
 import product_hub_front_data.ProductHubFrontDataOuterClass;
+import product_hub_front_meta.ProductHubFrontMetaGrpc;
+import product_hub_front_meta.ProductHubFrontMetaOuterClass;
 import ru.instamart.grpc.common.GrpcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.kraken.data.Generate;
@@ -24,6 +28,8 @@ import static product_hub_back.ProductHubBackOuterClass.*;
 @Feature("Product Hub Back")
 public class ProductHubBackTest extends GrpcBase {
     private ProductHubBackGrpc.ProductHubBackBlockingStub client;
+    private ProductHubFrontMetaGrpc.ProductHubFrontMetaBlockingStub clientMetaGrpc;
+    private ProductHubFrontDataGrpc.ProductHubFrontDataBlockingStub clientFrontDataGrpc;
     private final String categoryId = Generate.digitalString(9);
     private final long productSku = Generate.longInt(9);
 
@@ -31,11 +37,13 @@ public class ProductHubBackTest extends GrpcBase {
     public void createClient() {
         channel = grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_PRODUCT_HUB_BACK);
         client = ProductHubBackGrpc.newBlockingStub(channel);
+        clientMetaGrpc = ProductHubFrontMetaGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_PRODUCT_HUB_FRONT));
+        clientFrontDataGrpc = ProductHubFrontDataGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_PRODUCT_HUB_FRONT));
     }
 
     @Story("Категории")
-    @CaseId(43)
-    @Test(  description = "Создание категории для продукта",
+    @CaseIDs(value = {@CaseId(156), @CaseId(264)})
+    @Test(description = "Создание категории для продукта",
             groups = "grpc-product-hub")
     public void saveCategories() {
         SaveCategoriesRequest request = SaveCategoriesRequest
@@ -114,11 +122,25 @@ public class ProductHubBackTest extends GrpcBase {
 
         assertEquals(response.getSaveCategoriesCount(), 1,
                 "Вернулось другое количество созданных категорий");
+
+        ProductHubFrontMetaOuterClass.GetCategoriesByCategoryIDsRequest requestForCheck = ProductHubFrontMetaOuterClass
+                .GetCategoriesByCategoryIDsRequest.newBuilder()
+                .addCategoryIds(categoryId)
+                .build();
+        ProductHubFrontMetaOuterClass.GetCategoriesByCategoryIDsResponse responseForCheck = clientMetaGrpc.getCategoriesByCategoryIDs(requestForCheck);
+
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(responseForCheck.getCategories(0).getId(), request.getCategories(0).getId(), "Id категорий не совпадают");
+        softAssert.assertEquals(responseForCheck.getCategories(0).getName(), request.getCategories(0).getName(), "Названия не совпадают");
+        softAssert.assertEquals(responseForCheck.getCategories(0).getRetailerIds(0), request.getCategories(0).getRetailerIds(0), "id ретейлеров не совпадают");
+        softAssert.assertEquals(responseForCheck.getCategories(0).getCategoryData(0).getKey(), request.getCategories(0).getCategoryData(0).getKey(), "Ключи не совпадают");
+        softAssert.assertEquals(responseForCheck.getCategories(0).getTenantIds(0), request.getCategories(0).getTenantIds(0), "Id тенантов не совпадают");
+        softAssert.assertAll();
     }
 
     @Story("Категории")
-    @CaseId(44)
-    @Test(  description = "Создание категории для продукта без обязательного поля \"id\"",
+    @CaseId(157)
+    @Test(description = "Создание категории для продукта без обязательного поля \"id\"",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: category number=0 has empty id")
@@ -137,8 +159,8 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Словари")
-    @CaseId(45)
-    @Test(  description = "Создание словарей для нового продукта",
+    @CaseId(158)
+    @Test(description = "Создание словарей для нового продукта",
             groups = "grpc-product-hub")
     public void saveDictionaries() {
         SaveDictionariesRequest request = SaveDictionariesRequest.newBuilder()
@@ -170,8 +192,8 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Словари")
-    @CaseId(46)
-    @Test(  description = "Создание словарей для нового продукта без обязательного поля \"key\"",
+    @CaseId(159)
+    @Test(description = "Создание словарей для нового продукта без обязательного поля \"key\"",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: dictionary number=0 has empty key")
@@ -187,8 +209,8 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Атрибуты")
-    @CaseId(47)
-    @Test(  description = "Создание аттрибутов для нового продукта",
+    @CaseIDs(value = {@CaseId(160), @CaseId(263)})
+    @Test(description = "Создание атрибутов для нового продукта",
             groups = "grpc-product-hub")
     public void saveAttributes() {
         SaveAttributesRequest request = SaveAttributesRequest.newBuilder()
@@ -212,11 +234,27 @@ public class ProductHubBackTest extends GrpcBase {
 
         assertEquals(response.getSaveAttributesCount(), 1,
                 "Вернулось другое количество созданных атрибутов");
+
+        ProductHubFrontMetaOuterClass.GetAttributesByKeysRequest requestForCheck = ProductHubFrontMetaOuterClass
+                .GetAttributesByKeysRequest.newBuilder()
+                .addAttributeKeys("Autotest_key")
+                .build();
+        ProductHubFrontMetaOuterClass.GetAttributesByKeysResponse responseForCheck = clientMetaGrpc.getAttributesByKeys(requestForCheck);
+
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(responseForCheck.getAttributes(0).getKey(), request.getAttributes(0).getKey(), "Ключи не совпадают");
+        softAssert.assertEquals(responseForCheck.getAttributes(0).getDictionaryKey(), request.getAttributes(0).getDictionaryKey(), "Ключи словарей не совпадают");
+        softAssert.assertEquals(responseForCheck.getAttributes(0).getName(), request.getAttributes(0).getName(), "Названия не совпадают");
+        softAssert.assertEquals(responseForCheck.getAttributes(0).getFlagsMap(), request.getAttributes(0).getFlagsMap(), "Флаги не совпадают");
+        softAssert.assertEquals(responseForCheck.getAttributes(0).getAttributeData(0).getKey(), request.getAttributes(0).getAttributeData(0).getKey(), "Ключи в данных атрибутов не совпадают");
+        softAssert.assertEquals(responseForCheck.getAttributes(0).getAttributeData(0).getIsMultiValue(), request.getAttributes(0).getAttributeData(0).getIsMultiValue(), "isMultiValue не совпадают");
+        softAssert.assertEquals(responseForCheck.getAttributes(0).getAttributeData(0).getValues(0), request.getAttributes(0).getAttributeData(0).getValues(0), "Значения не совпадают");
+        softAssert.assertAll();
     }
 
     @Story("Атрибуты")
-    @CaseId(48)
-    @Test(  description = "Создание аттрибутов для нового продукта без обязательного поля \"key\"",
+    @CaseId(161)
+    @Test(description = "Создание аттрибутов для нового продукта без обязательного поля \"key\"",
             groups = "grpc-product-hub",
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: attribute number=0 has empty key")
@@ -235,8 +273,8 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(49)
-    @Test(  description = "Создание продукта",
+    @CaseId(162)
+    @Test(description = "Создание продукта",
             groups = {"grpc-product-hub"})
     public void saveProducts() {
         SaveProductsRequest request = SaveProductsRequest.newBuilder()
@@ -272,8 +310,8 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(50)
-    @Test(  description = "Создание нового продукта в системе без обязательного поля \"sku\"",
+    @CaseId(163)
+    @Test(description = "Создание нового продукта в системе без обязательного поля \"sku\"",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: product number=0 has empty sku")
@@ -291,11 +329,11 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Стоки")
-    @CaseId(51)
-    @Test(  description = "Добавление стоков к созданному новому продукту",
+    @CaseIDs(value = {@CaseId(164), @CaseId(265)})
+    @Test(description = "Добавление стоков к созданному новому продукту",
             groups = {"grpc-product-hub"},
             dependsOnMethods = "saveProducts")
-    public void saveStocks() {
+    public void saveStocks() throws InterruptedException {
         SaveStocksRequest request = SaveStocksRequest.newBuilder()
                 .addStocks(Stock.newBuilder()
                         .setSku(productSku)
@@ -314,14 +352,39 @@ public class ProductHubBackTest extends GrpcBase {
                 .build();
 
         SaveStocksResponse response = client.saveStocks(request);
-
         assertEquals(response.getSaveStocksCount(), 1,
                 "Вернулось другое количество созданных стоков");
+
+        ProductHubFrontDataOuterClass.GetStocksRequest requestForCheck = ProductHubFrontDataOuterClass.GetStocksRequest.newBuilder()
+                .addStocks(ProductHubFrontDataOuterClass.GetStocksRequest.Stock.newBuilder()
+                        .setSku(productSku)
+                        .setStoreId("1")
+                        .build())
+                .build();
+        int count = 0;
+        ProductHubFrontDataOuterClass.GetStocksResponse responseForCheck = null;
+        while (count < 20) {
+            responseForCheck = clientFrontDataGrpc.getStocks(requestForCheck);
+            if (responseForCheck.getStocksCount() > 0)
+                break;
+            Thread.sleep(1000);
+            count++;
+        }
+
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(responseForCheck.getStocks(0).getSku(), request.getStocks(0).getSku(), "SKU не совпадают");
+        softAssert.assertEquals(responseForCheck.getStocks(0).getStoreId(), request.getStocks(0).getStoreId(), "id магазинов не совпадают");
+        softAssert.assertEquals(responseForCheck.getStocks(0).getRetailerId(), request.getStocks(0).getRetailerId(), "id ретейлеров не совпадают");
+        softAssert.assertEquals(responseForCheck.getStocks(0).getRetailerSku(), request.getStocks(0).getRetailerSku(), "SKU ретейлеров не совпадают");
+        softAssert.assertEquals(responseForCheck.getStocks(0).getStock(), request.getStocks(0).getStock(), "Стоки не совпадают");
+        softAssert.assertEquals(responseForCheck.getStocks(0).getStockData(0).getKey(), request.getStocks(0).getStockData(0).getKey(), "Ключи не совпадают");
+        softAssert.assertEquals(responseForCheck.getStocks(0).getStockData(0).getValues(0), request.getStocks(0).getStockData(0).getValues(0), "Значения не совпадают");
+        softAssert.assertAll();
     }
 
     @Story("Стоки")
-    @CaseId(52)
-    @Test(  description = "Добавление стоков к созданному новому продукту без поля \"sku\"",
+    @CaseId(165)
+    @Test(description = "Добавление стоков к созданному новому продукту без поля \"sku\"",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: stock number=0 has empty sku")
@@ -340,11 +403,11 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Цены")
-    @CaseId(53)
-    @Test(  description = "Добавление стоимости продукту",
+    @CaseIDs(value = {@CaseId(166), @CaseId(266)})
+    @Test(description = "Добавление стоимости продукту",
             groups = {"grpc-product-hub"},
             dependsOnMethods = "saveProducts")
-    public void savePrices() {
+    public void savePrices() throws InterruptedException {
         SavePricesRequest request = SavePricesRequest.newBuilder()
                 .addPrices(Price.newBuilder()
                         .setSku(productSku)
@@ -396,11 +459,40 @@ public class ProductHubBackTest extends GrpcBase {
 
         assertEquals(response.getSavePricesCount(), 1,
                 "Вернулось другое количество созданных цен");
+
+
+        ProductHubFrontDataOuterClass.GetPricesRequest requestForCheck = ProductHubFrontDataOuterClass.GetPricesRequest.newBuilder()
+                .addPrices(ProductHubFrontDataOuterClass.GetPricesRequest.Price.newBuilder()
+                        .setSku(productSku)
+                        .setStoreId("1")
+                        .setTenantId("sbermarket")
+                        .build())
+                .build();
+        int count = 0;
+        ProductHubFrontDataOuterClass.GetPricesResponse responseForCheck = null;
+        while (count < 20) {
+            responseForCheck = clientFrontDataGrpc.getPrices(requestForCheck);
+            if (responseForCheck.getPricesCount() > 0)
+                break;
+            Thread.sleep(1000);
+            count++;
+        }
+
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(responseForCheck.getPrices(0).getSku(), request.getPrices(0).getSku(), "SKU не совпадают");
+        softAssert.assertEquals(responseForCheck.getPrices(0).getStoreId(), request.getPrices(0).getStoreId(), "id магазинов не совпадают");
+        softAssert.assertEquals(responseForCheck.getPrices(0).getTenantId(), request.getPrices(0).getTenantId(), "id тенантов не совпадают");
+        softAssert.assertEquals(responseForCheck.getPrices(0).getPrice(), request.getPrices(0).getPrice(), "id тенантов не совпадают");
+        softAssert.assertEquals(responseForCheck.getPrices(0).getPriceData(0).getKey(), request.getPrices(0).getPriceData(0).getKey(), "Ключи не совпадают");
+        softAssert.assertEquals(responseForCheck.getPrices(0).getPriceData(0).getValues(0), request.getPrices(0).getPriceData(0).getValues(0), "Ключи не совпадают");
+        softAssert.assertEquals(responseForCheck.getPrices(0).getPriceData(1).getKey(), request.getPrices(0).getPriceData(1).getKey(), "Ключи не совпадают");
+        softAssert.assertEquals(responseForCheck.getPrices(0).getPriceData(1).getValues(0), request.getPrices(0).getPriceData(1).getValues(0), "Ключи не совпадают");
+        softAssert.assertAll();
     }
 
     @Story("Цены")
-    @CaseId(54)
-    @Test(  description = "Добавление стоимости продукту без поля \"sku\"",
+    @CaseId(167)
+    @Test(description = "Добавление стоимости продукту без поля \"sku\"",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: price number=0 has empty sku")
@@ -420,8 +512,8 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Товарные предложения")
-    @CaseId(55)
-    @Test(  description = "Добавление предложений к продукту",
+    @CaseIDs(value = {@CaseId(168), @CaseId(267)})
+    @Test(description = "Добавление предложений к продукту",
             groups = {"grpc-product-hub"},
             dependsOnMethods = "saveProducts")
     public void saveOffers() {
@@ -458,11 +550,30 @@ public class ProductHubBackTest extends GrpcBase {
 
         assertEquals(response.getSaveOffersCount(), 1,
                 "Вернулось другое количество созданных предложений");
+
+        ProductHubFrontDataOuterClass.GetOffersRequest requestForCheck = ProductHubFrontDataOuterClass.GetOffersRequest.newBuilder()
+                .addOffers(ProductHubFrontDataOuterClass.GetOffersRequest.Offer.newBuilder()
+                        .setRetailerSku("266353")
+                        .setRetailerId("3")
+                        .build())
+                .build();
+        ProductHubFrontDataOuterClass.GetOffersResponse responseForCheck = clientFrontDataGrpc.getOffers(requestForCheck);
+
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(responseForCheck.getOffers(0).getRetailerId(), request.getOffers(0).getRetailerId(), "id ретейлеров не совпадают");
+        softAssert.assertEquals(responseForCheck.getOffers(0).getRetailerSku(), request.getOffers(0).getRetailerSku(), "SKU ретейлеров не совпадают");
+        softAssert.assertEquals(responseForCheck.getOffers(0).getOfferData(0).getKey(), request.getOffers(0).getOfferData(0).getKey(), "Ключи не совпадают");
+        softAssert.assertEquals(responseForCheck.getOffers(0).getOfferData(0).getValues(0), request.getOffers(0).getOfferData(0).getValues(0), "Значения не совпадают");
+        softAssert.assertEquals(responseForCheck.getOffers(0).getOfferData(1).getKey(), request.getOffers(0).getOfferData(1).getKey(), "Ключи не совпадают");
+        softAssert.assertEquals(responseForCheck.getOffers(0).getOfferData(1).getValues(0), request.getOffers(0).getOfferData(1).getValues(0), "Значения не совпадают");
+        softAssert.assertEquals(responseForCheck.getOffers(0).getOfferData(2).getKey(), request.getOffers(0).getOfferData(2).getKey(), "Ключи не совпадают");
+        softAssert.assertEquals(responseForCheck.getOffers(0).getOfferData(2).getValues(0), request.getOffers(0).getOfferData(2).getValues(0), "Значения не совпадают");
+        softAssert.assertAll();
     }
 
     @Story("Товарные предложения")
-    @CaseId(56)
-    @Test(  description = "Добавление предложений к продукту без поля \"retailer_id\"",
+    @CaseId(169)
+    @Test(description = "Добавление предложений к продукту без поля \"retailer_id\"",
             groups = {"grpc-product-hub"},
             dependsOnMethods = "saveProducts",
             expectedExceptions = StatusRuntimeException.class,
@@ -481,8 +592,8 @@ public class ProductHubBackTest extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(149)
-    @Test(  description = "Получение продукта по SKU",
+    @CaseId(262)
+    @Test(description = "Получение продукта по SKU",
             groups = {"grpc-product-hub"},
             dependsOnMethods = "saveProducts")
     public void getProductsBySKU() {
