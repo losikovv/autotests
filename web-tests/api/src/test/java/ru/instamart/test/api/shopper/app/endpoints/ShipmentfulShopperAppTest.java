@@ -4,7 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
-import io.qase.api.annotation.CaseId;
+import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.SkipException;
 import org.testng.annotations.AfterClass;

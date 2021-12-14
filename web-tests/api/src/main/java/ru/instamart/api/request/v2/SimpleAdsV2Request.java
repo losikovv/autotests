@@ -13,7 +13,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
-import ru.instamart.utils.Mapper;
+import ru.sbermarket.common.Mapper;
 
 public class SimpleAdsV2Request extends ApiV2RequestBase {
 

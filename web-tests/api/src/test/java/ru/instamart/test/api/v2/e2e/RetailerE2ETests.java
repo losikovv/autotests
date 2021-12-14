@@ -3,7 +3,7 @@ package ru.instamart.test.api.v2.e2e;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.qase.api.annotation.CaseId;
+import ru.sbermarket.qase.annotation.CaseId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;

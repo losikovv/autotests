@@ -3,8 +3,6 @@ import java.time.Instant
 
 allprojects { project ->
     configurations.all {
-        exclude group: 'io.qameta.allure', module: 'allure-junit4'
-        exclude group: 'io.qameta.allure', module: 'allure-junit4-aspect'
         exclude group: 'junit', module: 'junit'
     }
     ext.testsResults = []

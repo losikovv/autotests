@@ -1,7 +1,7 @@
 package ru.instamart.test.reforged.admin;
 
 import io.qameta.allure.*;
-import io.qase.api.annotation.CaseId;
+import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;

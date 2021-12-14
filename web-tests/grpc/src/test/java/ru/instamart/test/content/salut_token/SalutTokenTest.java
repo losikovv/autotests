@@ -1,7 +1,7 @@
 package ru.instamart.test.content.salut_token;
 
 import io.qameta.allure.Epic;
-import io.qase.api.annotation.CaseId;
+import ru.sbermarket.qase.annotation.CaseId;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;

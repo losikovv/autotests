@@ -1,7 +1,7 @@
 package ru.instamart.jdbc.util;
 
 import ru.instamart.k8s.K8sPortForward;
-import ru.instamart.utils.Crypt;
+import ru.sbermarket.common.Crypt;
 
 import java.lang.reflect.Proxy;
 import java.sql.Connection;

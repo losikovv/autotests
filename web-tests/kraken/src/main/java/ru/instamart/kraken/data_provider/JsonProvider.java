@@ -2,8 +2,8 @@ package ru.instamart.kraken.data_provider;
 
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.DataProvider;
-import ru.instamart.utils.FileUtils;
-import ru.instamart.utils.Mapper;
+import ru.sbermarket.common.FileUtils;
+import ru.sbermarket.common.Mapper;
 
 import java.lang.reflect.Method;
 

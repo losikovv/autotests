@@ -13,7 +13,7 @@ import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
 import ru.instamart.kraken.config.CoreProperties;
-import ru.instamart.utils.Mapper;
+import ru.sbermarket.common.Mapper;
 
 import java.util.UUID;
 

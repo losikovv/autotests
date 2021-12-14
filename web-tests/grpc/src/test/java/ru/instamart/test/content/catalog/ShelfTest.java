@@ -4,7 +4,7 @@ import io.grpc.StatusRuntimeException;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.qase.api.annotation.CaseId;
+import ru.sbermarket.qase.annotation.CaseId;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;

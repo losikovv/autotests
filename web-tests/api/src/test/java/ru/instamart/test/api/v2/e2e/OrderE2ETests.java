@@ -2,7 +2,7 @@ package ru.instamart.test.api.v2.e2e;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qase.api.annotation.CaseId;
+import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;

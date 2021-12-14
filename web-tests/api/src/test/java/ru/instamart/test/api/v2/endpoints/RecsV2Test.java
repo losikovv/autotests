@@ -1,7 +1,7 @@
 package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.*;
-import io.qase.api.annotation.CaseId;
+import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;

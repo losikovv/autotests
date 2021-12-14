@@ -2,8 +2,8 @@ package ru.instamart.kraken.config;
 
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.kraken.enums.Server;
-import ru.instamart.utils.config.Config;
-import ru.instamart.utils.config.Env;
+import ru.sbermarket.common.config.Config;
+import ru.sbermarket.common.config.Env;
 
 import java.net.MalformedURLException;
 import java.net.URI;
