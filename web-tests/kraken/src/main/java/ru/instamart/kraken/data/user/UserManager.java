@@ -102,7 +102,7 @@ public final class UserManager {
                             .build();
                     break;
                 case "push":
-                    if (API_SHOPPER_ALONE.equals("true") && CI_RUN_ALL_JOBS.equals("false")) {
+                    if (API_SHOPPER_ALONE != null && CI_PIPELINE_SOURCE != null && API_SHOPPER_ALONE.equals("true") && CI_RUN_ALL_JOBS.equals("false")) {
                         log.info("User shopper API_SHOPPER_ALONE login");
                         defaultShopper = UserData.builder()
                                 .email(Crypt.INSTANCE.decrypt("K0wOsUQv9wDe1F4a6TtDKg=="))
