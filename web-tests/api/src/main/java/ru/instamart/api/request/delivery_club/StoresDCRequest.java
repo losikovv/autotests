@@ -7,7 +7,7 @@ import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.DeliveryClubEndpoints;
 import ru.instamart.api.model.delivery_club.*;
 import ru.instamart.api.request.DeliveryClubRequestBase;
-import ru.instamart.utils.Mapper;
+import ru.sbermarket.common.Mapper;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;

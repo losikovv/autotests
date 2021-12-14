@@ -1,7 +1,6 @@
 package ru.instamart.test.api.ris_exporter;
 
 import io.qameta.allure.Epic;
-import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -12,6 +11,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.ris_exporter.StockRisRequest;
 import ru.instamart.api.response.ris_exporter.StockRisResponse;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;

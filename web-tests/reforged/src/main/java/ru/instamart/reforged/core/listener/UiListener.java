@@ -1,6 +1,6 @@
 package ru.instamart.reforged.core.listener;
 
-import io.qase.api.enums.RunResultStatus;
+import ru.sbermarket.qase.enums.RunResultStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.*;
 import ru.instamart.kraken.service.QaseService;

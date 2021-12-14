@@ -1,13 +1,14 @@
 package ru.instamart.test.api.ris_exporter;
 
 import io.qameta.allure.Epic;
-import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.ris_exporter.CategoriesRisRequest;
 import ru.instamart.api.request.ris_exporter.ProductsRisRequest;
 import ru.instamart.api.request.ris_exporter.StockRisRequest;
+import ru.sbermarket.qase.annotation.CaseId;
+
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode401;
 
 @Epic("Аутентификация")

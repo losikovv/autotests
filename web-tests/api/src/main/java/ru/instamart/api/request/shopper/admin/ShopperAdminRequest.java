@@ -15,7 +15,7 @@ import ru.instamart.api.endpoint.ShopperAdminEndpoints;
 import ru.instamart.api.endpoint.ShopperAppEndpoints;
 import ru.instamart.api.request.ShopperAdminRequestBase;
 import ru.instamart.api.request.shopper.app.ShopperSHPRequest;
-import ru.instamart.utils.Mapper;
+import ru.sbermarket.common.Mapper;
 
 import java.util.UUID;
 

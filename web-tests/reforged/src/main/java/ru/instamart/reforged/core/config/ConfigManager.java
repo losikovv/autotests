@@ -1,6 +1,6 @@
 package ru.instamart.reforged.core.config;
 
-import ru.instamart.utils.config.AbstractConfigManager;
+import ru.sbermarket.common.config.AbstractConfigManager;
 
 public final class ConfigManager extends AbstractConfigManager {
 

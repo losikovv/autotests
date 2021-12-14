@@ -1,7 +1,6 @@
 package ru.instamart.test.api.ris_exporter;
 
 import io.qameta.allure.Epic;
-import io.qase.api.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -9,14 +8,11 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.request.ris_exporter.CategoriesRisRequest;
 import ru.instamart.api.request.ris_exporter.ProductsRisRequest;
-import ru.instamart.api.response.delivery_club.CatalogCategoriesDCResponse;
-import ru.instamart.api.response.ris_exporter.CategoriesRisResponse;
 import ru.instamart.api.response.ris_exporter.ProductsRisResponse;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.sbermarket.qase.annotation.CaseId;
 
-import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;

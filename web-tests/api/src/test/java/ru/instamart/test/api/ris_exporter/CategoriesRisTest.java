@@ -1,7 +1,7 @@
 package ru.instamart.test.api.ris_exporter;
 
 import io.qameta.allure.Epic;
-import io.qase.api.annotation.CaseId;
+import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;

@@ -13,7 +13,7 @@ import ru.instamart.api.endpoint.AdminEndpoints;
 import ru.instamart.api.enums.v2.ShippingMethodsV2;
 import ru.instamart.api.request.AdminRequestBase;
 import ru.instamart.jdbc.dao.*;
-import ru.instamart.utils.Mapper;
+import ru.sbermarket.common.Mapper;
 
 import java.util.HashMap;
 import java.util.List;

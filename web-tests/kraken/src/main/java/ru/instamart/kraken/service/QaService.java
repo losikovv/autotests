@@ -2,9 +2,9 @@ package ru.instamart.kraken.service;
 
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
-import ru.instamart.qa.Api;
-import ru.instamart.qa.model.Setting;
-import ru.instamart.qa.model.response.QaSessionResponse;
+import ru.sbermarket.qa.Api;
+import ru.sbermarket.qa.model.Setting;
+import ru.sbermarket.qa.model.response.QaSessionResponse;
 
 public enum QaService {
 

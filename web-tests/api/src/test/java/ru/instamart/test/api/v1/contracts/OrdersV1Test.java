@@ -1,7 +1,7 @@
 package ru.instamart.test.api.v1.contracts;
 
 import io.qameta.allure.*;
-import io.qase.api.annotation.CaseId;
+import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.SkipException;
 import org.testng.annotations.AfterClass;

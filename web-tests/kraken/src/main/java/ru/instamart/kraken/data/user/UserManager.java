@@ -2,13 +2,13 @@ package ru.instamart.kraken.data.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
-import ru.instamart.ab.model.request.UserGroups;
+import ru.sbermarket.ab.model.request.UserGroups;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.service.AbService;
 import ru.instamart.kraken.service.QaService;
-import ru.instamart.qa.model.response.QaSessionResponse;
-import ru.instamart.utils.Crypt;
+import ru.sbermarket.qa.model.response.QaSessionResponse;
+import ru.sbermarket.common.Crypt;
 
 import java.util.ArrayList;
 import java.util.List;
