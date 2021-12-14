@@ -11,7 +11,6 @@ import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.data_provider.StaticPage;
-import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.reforged.core.service.Curl;
 import ru.instamart.test.reforged.BaseTest;
 

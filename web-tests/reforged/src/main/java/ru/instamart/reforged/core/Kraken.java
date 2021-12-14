@@ -101,6 +101,19 @@ public final class Kraken extends KrakenDriver {
         getWebDriver().manage().addCookie(cookie);
     }
 
+    public static void addIfNotExist(final Cookie cookie) {
+        final var cookies = getWebDriver().manage().getCookies();
+        for (final var c : cookies) {
+            if (c.getName().equals(cookie.getName()) && c.getValue().equals(cookie.getValue())) {
+                if (c.getExpiry().getTime() != cookie.getExpiry().getTime()) {
+                    getWebDriver().manage().deleteCookie(c);
+                    addCookie(cookie);
+                    refresh();
+                }
+            }
+        }
+    }
+
     public static void clearAllCooke() {
         log.debug("Очистить все куки");
         getWebDriver().manage().deleteAllCookies();
