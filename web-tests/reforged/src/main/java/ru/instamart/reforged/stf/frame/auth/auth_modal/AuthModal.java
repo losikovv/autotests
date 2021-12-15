@@ -40,7 +40,6 @@ public final class AuthModal implements Close, AuthModalCheck {
         return authSberBusinessIdPage;
     }
 
-
     @Step("Заполнить поле с телефоном {phone}")
     public void fillPhone(final String phone) {
         phoneField.fillField(phone, true);

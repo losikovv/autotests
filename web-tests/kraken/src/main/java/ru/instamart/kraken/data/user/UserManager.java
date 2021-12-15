@@ -39,6 +39,7 @@ public final class UserManager {
     private static UserData defaultFbUser;
     private static UserData defaultMailRuUser;
     private static UserData defaultSberIdUser;
+    private static UserData defaultSberBusinessIdUser;
     private static UserData defaultApiUser;
     private static UserData defaultDcUser;
     private static UserData defaultRisUser;
@@ -190,13 +191,13 @@ public final class UserManager {
     }
 
     public static UserData getDefaultSberBusinessIdUser() {
-        if (isNull(defaultSberIdUser)) {
-            defaultSberIdUser = UserData.builder()
+        if (isNull(defaultSberBusinessIdUser)) {
+            defaultSberBusinessIdUser = UserData.builder()
                     .email(Crypt.INSTANCE.decrypt("Cuih++LCNGJ/peMbzjrFkw=="))
                     .password(Crypt.INSTANCE.decrypt("N09waZFwNRQIUCCOOf8RLA=="))
                     .build();
         }
-        return defaultSberIdUser;
+        return defaultSberBusinessIdUser;
     }
 
     public static UserData getDefaultApiUser() {

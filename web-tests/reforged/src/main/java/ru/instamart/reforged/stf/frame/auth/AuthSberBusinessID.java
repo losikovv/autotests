@@ -7,18 +7,18 @@ import ru.instamart.reforged.core.component.Input;
 
 public final class AuthSberBusinessID {
 
-    private final Input login = new Input(By.xpath("//input[@data-test-id='login--input']"));
-    private final Input password = new Input(By.xpath("//input[@data-test-id='password--input']"));
-    private final Input smsCodeCell = new Input(By.xpath("//input[@data-test-id='smsCode--input']"));
+    private final Input login = new Input(By.xpath("//input[@data-test-id='login--input']"), "Поле для ввода логина пользователя СББОЛ");
+    private final Input password = new Input(By.xpath("//input[@data-test-id='password--input']"), "Поле для ввода пароля пользователя СББОЛ");
+    private final Input smsCodeCell = new Input(By.xpath("//input[@data-test-id='smsCode--input']"), "Первая ячейка для ввода смс-кода");
 
-    private final Button nextButton = new Button(By.xpath("//button[@data-test-id='login-submit--button']"));
+    private final Button nextButton = new Button(By.xpath("//button[@data-test-id='login-submit--button']"), "Кнопка 'Далее' на странице ввода логина/пароля");
 
-    @Step("Ввести email на странице авторизации через СберБизнесID")
+    @Step("Ввести логин {0} на странице авторизации через СберБизнесID")
     public void setLogin(final String text) {
         login.fill(text);
     }
 
-    @Step("Ввести пароль на странице авторизации через СберБизнесID")
+    @Step("Ввести пароль {0} на странице авторизации через СберБизнесID")
     public void setPassword(final String text) {
         password.fill(text);
     }
@@ -28,7 +28,7 @@ public final class AuthSberBusinessID {
         nextButton.click();
     }
 
-    @Step("Заполнить смс-код на странице авторизации через СберБизнесID")
+    @Step("Заполнить смс-код {0} на странице авторизации через СберБизнесID")
     public void enterCode(final String code) {
         smsCodeCell.fill(code);
     }
