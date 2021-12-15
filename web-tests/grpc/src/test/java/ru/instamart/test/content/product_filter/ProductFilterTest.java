@@ -3,6 +3,7 @@ package ru.instamart.test.content.product_filter;
 import io.grpc.StatusRuntimeException;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Story;
+import org.testng.Assert;
 import ru.sbermarket.qase.annotation.CaseId;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.BeforeClass;
@@ -61,5 +62,26 @@ public class ProductFilterTest extends GrpcBase {
                 .build();
 
        client.getCategoryFacetsByCategoryIDs(request);
+    }
+
+    @Story("SKU")
+    @CaseId(172)
+    @Test(description = "Получение популярных sku продуктов по ID категорий",
+            groups = "grpc-product-hub")
+    public void getPopularProductsSKUByCategoryIds() {
+        var request = ProductFilterOuterClass
+                .GetPopularProductsSKUByCategoryIDsBatchesRequest
+                .newBuilder()
+                .addCategoryIdsBatches(ProductFilterOuterClass.CategoryIDsBatch.newBuilder()
+                        .addCategoryIds("6120")
+                        .build())
+                .setStoreId("1")
+                .setTenantId("sbermarket")
+                .setAvailable(true)
+                .setProductsSkuLimit(10)
+                .build();
+
+        var response = client.getPopularProductsSKUByCategoryIDsBatches(request);
+        Assert.assertFalse(response.getProductsSkuBatches(0).getSkuList().isEmpty(), "Не вернулись SKU");
     }
 }
