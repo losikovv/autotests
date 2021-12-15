@@ -16,6 +16,6 @@ public class RisExporterRequestBase {
 
     public static RequestSpecification givenWithAuth() {
         return givenWithSpec()
-                .header("Authorization","Basic " + SessionFactory.getSession(SessionType.RIS_EXPORTER).getToken());
+                .header("Authorization","Bearer " + SessionFactory.getSession(SessionType.RIS_EXPORTER).getToken());
     }
 }

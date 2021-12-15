@@ -1,11 +1,11 @@
 package ru.instamart.kraken.service;
 
-import ru.instamart.ab.AbApi;
-import ru.instamart.ab.model.Setting;
-import ru.instamart.ab.model.request.UserGroups;
-import ru.instamart.ab.model.response.AbTests;
-import ru.instamart.ab.model.response.AuthorsResponse;
-import ru.instamart.utils.Crypt;
+import ru.sbermarket.ab.AbApi;
+import ru.sbermarket.ab.model.Setting;
+import ru.sbermarket.ab.model.request.UserGroups;
+import ru.sbermarket.ab.model.response.AbTests;
+import ru.sbermarket.ab.model.response.AuthorsResponse;
+import ru.sbermarket.common.Crypt;
 
 public enum AbService {
 

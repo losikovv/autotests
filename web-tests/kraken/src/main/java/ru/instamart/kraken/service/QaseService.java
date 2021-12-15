@@ -1,21 +1,21 @@
 package ru.instamart.kraken.service;
 
 import io.qameta.allure.TmsLink;
-import io.qase.api.QaseApi;
-import io.qase.api.annotation.CaseIDs;
-import io.qase.api.annotation.CaseId;
-import io.qase.api.enums.Automation;
-import io.qase.api.enums.RunResultStatus;
-import io.qase.api.exceptions.QaseException;
-import io.qase.api.models.v1.attachments.Attachment;
-import io.qase.api.models.v1.defects.Defect;
-import io.qase.api.models.v1.suites.Suite;
-import io.qase.api.models.v1.testcases.TestCase;
-import io.qase.api.models.v1.testplans.TestPlan;
-import io.qase.api.models.v1.testrunresults.TestRunResult;
-import io.qase.api.models.v1.testruns.TestRun;
-import io.qase.api.services.TestCaseService;
-import io.qase.api.services.TestRunResultService;
+import ru.sbermarket.qase.QaseApi;
+import ru.sbermarket.qase.annotation.CaseIDs;
+import ru.sbermarket.qase.annotation.CaseId;
+import ru.sbermarket.qase.enums.Automation;
+import ru.sbermarket.qase.enums.RunResultStatus;
+import ru.sbermarket.qase.exceptions.QaseException;
+import ru.sbermarket.qase.v1.attachments.Attachment;
+import ru.sbermarket.qase.v1.defects.Defect;
+import ru.sbermarket.qase.v1.suites.Suite;
+import ru.sbermarket.qase.v1.testcases.TestCase;
+import ru.sbermarket.qase.v1.testplans.TestPlan;
+import ru.sbermarket.qase.v1.testrunresults.TestRunResult;
+import ru.sbermarket.qase.v1.testruns.TestRun;
+import ru.sbermarket.qase.services.TestCaseService;
+import ru.sbermarket.qase.services.TestRunResultService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -35,7 +35,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static io.qase.api.utils.IntegrationUtils.getStacktrace;
+import static ru.sbermarket.qase.utils.IntegrationUtils.getStacktrace;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 
 @Slf4j

@@ -11,7 +11,7 @@ import io.kubernetes.client.openapi.models.V1PodList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.utils.Mapper;
+import ru.sbermarket.common.Mapper;
 
 import java.io.*;
 import java.net.ServerSocket;

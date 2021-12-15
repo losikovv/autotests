@@ -2,6 +2,7 @@ package ru.instamart.reforged.stf.page.shop;
 
 import io.qameta.allure.Step;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.reforged.stf.block.footer.Footer;
@@ -120,6 +121,7 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     public void goToPage(final ShopUrl shop) {
         Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + shop.getUrl());
+        Kraken.addIfNotExist(CookieFactory.RETAILERS_REMINDER_MODAL);
     }
 
     @Override

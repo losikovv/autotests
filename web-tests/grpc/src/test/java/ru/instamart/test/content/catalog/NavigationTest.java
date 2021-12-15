@@ -3,7 +3,7 @@ package ru.instamart.test.content.catalog;
 import io.grpc.StatusRuntimeException;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qase.api.annotation.CaseId;
+import ru.sbermarket.qase.annotation.CaseId;
 import lombok.extern.slf4j.Slf4j;
 import navigation.Navigation;
 import navigation.NavigationServiceGrpc;
@@ -72,7 +72,7 @@ public class NavigationTest extends GrpcBase {
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(response.getBreadcrumbs(0).getId(), "131", "Категория отличается");
         softAssert.assertEquals(response.getBreadcrumbs(0).getName(), "Вода, соки, напитки", "Наименование категории не совпадает");
-        softAssert.assertEquals(response.getBreadcrumbs(0).getPermalink(), "voda-soki-napitki-new", "Permalink не совпадает");
+        softAssert.assertEquals(response.getBreadcrumbs(0).getPermalink(), "voda-soki-napitki-1", "Permalink не совпадает");
         softAssert.assertAll();
     }
 

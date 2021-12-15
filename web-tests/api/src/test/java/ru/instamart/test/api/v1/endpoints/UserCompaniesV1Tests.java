@@ -3,8 +3,9 @@ package ru.instamart.test.api.v1.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import io.qase.api.annotation.CaseId;
+import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -14,6 +15,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.b2b.CompanyV1;
 import ru.instamart.api.request.v1.b2b.CompanyPresenceV1Request;
 import ru.instamart.api.request.v1.b2b.UserCompaniesV1Request;
+import ru.instamart.api.request.v1.b2b.UserCompanyEmployeesV1Request;
 import ru.instamart.api.response.v1.b2b.*;
 import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.JuridicalData;
@@ -123,5 +125,11 @@ public class UserCompaniesV1Tests extends RestBase {
         softAssert.assertEquals(response.as(CompanyV1Response.class).getCompany().getInn(), company.getInn(), "ИНН  регистрации компании отличается от заданного");
         softAssert.assertEquals(response.as(CompanyV1Response.class).getCompany().getName(), company.getName(), "Наименование компании отличается от заданного");
         softAssert.assertAll();
+    }
+
+    @AfterClass(alwaysRun = true)
+    public void postconditions() {
+        final Response response = UserCompanyEmployeesV1Request.DELETE(company.getId().toString());
+        checkStatusCode200(response);
     }
 }

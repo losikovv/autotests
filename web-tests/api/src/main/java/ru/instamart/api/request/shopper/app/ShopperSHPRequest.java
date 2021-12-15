@@ -12,7 +12,7 @@ import lombok.ToString;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ShopperAppEndpoints;
 import ru.instamart.api.request.ShopperAppRequestBase;
-import ru.instamart.utils.Mapper;
+import ru.sbermarket.common.Mapper;
 
 @SuppressWarnings("unchecked")
 public final class ShopperSHPRequest extends ShopperAppRequestBase {

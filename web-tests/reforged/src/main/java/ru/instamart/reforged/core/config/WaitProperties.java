@@ -1,6 +1,6 @@
 package ru.instamart.reforged.core.config;
 
-import ru.instamart.utils.config.Config;
+import ru.sbermarket.common.config.Config;
 
 public final class WaitProperties {
 

@@ -2,13 +2,13 @@ package ru.instamart.kraken.data.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
-import ru.instamart.ab.model.request.UserGroups;
+import ru.sbermarket.ab.model.request.UserGroups;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.service.AbService;
 import ru.instamart.kraken.service.QaService;
-import ru.instamart.qa.model.response.QaSessionResponse;
-import ru.instamart.utils.Crypt;
+import ru.sbermarket.qa.model.response.QaSessionResponse;
+import ru.sbermarket.common.Crypt;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,8 @@ import static java.util.Objects.nonNull;
 public final class UserManager {
 
     private static final String CI_PIPELINE_SOURCE = Optional.ofNullable(System.getenv("CI_PIPELINE_SOURCE")).orElse("local");
+    private static final String API_SHOPPER_ALONE = System.getenv("API_SHOPPER_ALONE");
+    private static final String CI_RUN_ALL_JOBS = System.getenv("CI_RUN_ALL_JOBS");
 
     private static final List<UserData> USER_DATA_LIST = new ArrayList<>();
 
@@ -86,6 +88,9 @@ public final class UserManager {
 
     public static UserData getDefaultShopper() {
         log.info("GitLab env CI_PIPELINE_SOURCE: {}", CI_PIPELINE_SOURCE);
+        log.info("GitLab env API_SHOPPER_ALONE: {}", API_SHOPPER_ALONE);
+        log.info("GitLab env CI_RUN_ALL_JOBS: {}", CI_RUN_ALL_JOBS);
+
         if (isNull(defaultShopper)) {
             switch (CI_PIPELINE_SOURCE.toLowerCase()) {
                 case "schedule":
@@ -97,12 +102,21 @@ public final class UserManager {
                             .build();
                     break;
                 case "push":
-                    log.info("User shopper PUSH login");
-                    defaultShopper = UserData.builder()
-                            .email(Crypt.INSTANCE.decrypt("K0wOsUQv9wDe1F4a6TtDKg=="))
-                            .phone(Crypt.INSTANCE.decrypt("yLvA69qlzJsxOIvcma2zXg=="))
-                            .password(PASSWD_2)
-                            .build();
+                    if (API_SHOPPER_ALONE != null && CI_PIPELINE_SOURCE != null && API_SHOPPER_ALONE.equals("true") && CI_RUN_ALL_JOBS.equals("false")) {
+                        log.info("User shopper API_SHOPPER_ALONE login");
+                        defaultShopper = UserData.builder()
+                                .email(Crypt.INSTANCE.decrypt("K0wOsUQv9wDe1F4a6TtDKg=="))
+                                .phone(Crypt.INSTANCE.decrypt("yLvA69qlzJsxOIvcma2zXg=="))
+                                .password(PASSWD_2)
+                                .build();
+                    } else {
+                        log.info("User shopper CI_RUN_ALL_JOBS login");
+                        defaultShopper = UserData.builder()
+                                .email(Crypt.INSTANCE.decrypt("/IsVBUY1et+En340g78Rvg=="))
+                                .phone(Crypt.INSTANCE.decrypt("8lsSwjJUEjlPTeu4hDGU0w=="))
+                                .password(PASSWD_2)
+                                .build();
+                    }
                     break;
                 case "local":
                     log.info("User shopper local login");
@@ -310,6 +324,7 @@ public final class UserManager {
     /**
      * При создании пользователь добавляется в список со всеми созданными пользователями,
      * для того что бы по завершению прогона можно было получить всех пользователей участвовавших в прогоне и удалить их
+     *
      * @return - {@link UserData}
      */
     public static UserData getQaUser() {
@@ -322,6 +337,7 @@ public final class UserManager {
     /**
      * При создании пользователь добавляется в список со всеми созданными пользователями,
      * для того что бы по завершению прогона можно было получить всех пользователей участвовавших в прогоне и удалить их
+     *
      * @return - {@link UserData}
      */
     public static UserData getQaUserWithoutAb(final String abTestId, final String abTestGroupId) {
@@ -333,6 +349,7 @@ public final class UserManager {
 
     /**
      * Создание пользователя с использованием тестовой ручки
+     *
      * @param password - обязательный параметр для создания через ручку
      * @return - возвращает собранную {@link UserData} из параметров ответа
      */
@@ -364,8 +381,9 @@ public final class UserManager {
 
     /**
      * Создание пользователя с использованием {@link UserManager#createUser(String)}
-     * @param password - обязательный параметр для создания через ручку
-     * @param abTestId - UUID теста, который нужно будет переключить для созданного пользователя
+     *
+     * @param password      - обязательный параметр для создания через ручку
+     * @param abTestId      - UUID теста, который нужно будет переключить для созданного пользователя
      * @param abTestGroupId - UUID группы на которую нужно будет переключить созданного пользователя
      * @return - возвращает собранную {@link UserData} из параметров ответа
      */
