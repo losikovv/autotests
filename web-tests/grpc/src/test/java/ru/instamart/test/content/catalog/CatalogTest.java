@@ -36,7 +36,7 @@ public class CatalogTest extends GrpcBase {
                 .newBuilder()
                 .setStoreId("1")
                 .setTenantId("sbermarket")
-                .setCategoryId("6120")
+                .setCategoryId("22238")
                 .setLimit(20)
                 .setOffset(20)
                 .setAvailable(true)
