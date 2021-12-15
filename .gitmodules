@@ -1,12 +1,16 @@
-[submodule "web-tests/qa"]
-	path = web-tests/qa
-	url = git@git.sbermarket.tech:qa/qa.git
-[submodule "web-tests/ab"]
-	path = web-tests/ab
-	url = git@git.sbermarket.tech:qa/ab-service.git
-[submodule "web-tests/common"]
-	path = web-tests/common
-	url = git@git.sbermarket.tech:qa/common.git
-[submodule "web-tests/qase"]
-	path = web-tests/qase
-	url = git@git.sbermarket.tech:qa/qase.git
+[submodule "qa"]
+	path = qa
+	url = ../qa.git
+	branch = master
+[submodule "ab"]
+	path = ab
+	url = ../ab-service.git
+	branch = master
+[submodule "common"]
+	path = common
+	url = ../common.git
+	branch = master
+[submodule "qase"]
+	path = qase
+	url = ../qase.git
+	branch = master
