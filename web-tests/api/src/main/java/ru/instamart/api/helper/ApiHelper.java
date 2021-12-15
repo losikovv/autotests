@@ -14,9 +14,12 @@ import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
 import ru.instamart.jdbc.dao.OffersDao;
 import ru.instamart.jdbc.dao.OperationalZonesDao;
+import ru.instamart.jdbc.dao.PromotionCodesDao;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+
+import java.sql.Date;
 
 public final class ApiHelper {
 
@@ -246,5 +249,11 @@ public final class ApiHelper {
         auth(user);
         String userId = apiV2.getProfile().getUser().getId();
         return apiV2.getReferralPromotionCode(userId);
+    }
+
+    @Step("Создание промокода")
+    public void createPromotionCode(String value, Integer promotionId, String activatedAt,
+                                    String createdAt, String updatedAt, Integer usageLimit) {
+        PromotionCodesDao.INSTANCE.createPromoCode(value, promotionId, activatedAt, createdAt, updatedAt, usageLimit);
     }
 }

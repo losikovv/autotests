@@ -21,7 +21,6 @@ public class PromotionCodesDao extends AbstractDao<Long, PromotionCodesEntity> {
             "id, value, promotion_id, activated_at, created_at, updated_at, usage_limit " +
             "FROM promotion_codes";
 
-
     public List<PromotionCodesEntity> findAll(PromotionCodesFilters filters) {
         List<Object> parameters = new ArrayList<>();
         List<String> whereSql = new ArrayList<>();
@@ -87,6 +86,21 @@ public class PromotionCodesDao extends AbstractDao<Long, PromotionCodesEntity> {
             preparedStatement.setInt(1, usageLimit);
             preparedStatement.setString(2, promoCode);
              preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+    }
+
+    public void createPromoCode(String value, Integer promotionId, String activatedAt, String createdAt, String updatedAt, Integer usageLimit) {
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement("INSERT INTO sbermarket_staging_kraken.promotion_codes(value, promotion_id, activated_at, created_at, updated_at, usage_limit) VALUES( ?, ?, ?, ?, ?, ?);")) {
+            preparedStatement.setString(1, value);
+            preparedStatement.setInt(2, promotionId);
+            preparedStatement.setString(3, activatedAt);
+            preparedStatement.setString(4, createdAt);
+            preparedStatement.setString(5, updatedAt);
+            preparedStatement.setInt(6, usageLimit);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }

@@ -15,10 +15,19 @@ import ru.instamart.kraken.data.PromoData;
 import ru.instamart.kraken.data.Promos;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.util.TimeUtil;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.data_provider.PromoCodeProvider;
 import ru.instamart.test.reforged.BaseTest;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.util.Calendar;
+
+import static ru.instamart.kraken.util.TimeUtil.getPastDateWithoutTime;
+import static ru.instamart.kraken.util.TimeUtil.getPastZoneDbDate;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -189,7 +198,55 @@ public final class OrdersPromoCodesTests extends BaseTest {
         var promo = Generate.string(8);
 
         ordersUser = UserManager.getQaUser();
-        helper.makeOrder(ordersUser, EnvironmentProperties.DEFAULT_SID, 1);
+        helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_SID);
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
+
+        checkout().goToPage();
+        checkout().setDeliveryOptions().clickToForBusiness();
+        checkout().setDeliveryOptions().clickToAddCompany();
+
+        checkout().interactAddCompanyModal().fillCompany(company);
+        checkout().interactAddCompanyModal().clickToOkButton();
+
+        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+
+        checkout().setContacts().fillContactInfo();
+        checkout().setContacts().clickToSubmit();
+
+        checkout().setReplacementPolicy().clickToSubmit();
+
+        checkout().setSlot().setFirstActiveSlot();
+
+        checkout().setPayment().clickToByCardToCourier();
+
+        checkout().clickToAddPromoCode();
+        checkout().interactEditPromoCodeModal().enterPromoCode(promo);
+        checkout().interactEditPromoCodeModal().applyPromoCode();
+        checkout().interactEditPromoCodeModal().checkNonExistAlertVisible();
+        checkout().interactEditPromoCodeModal().cancelPromoCode();
+        checkout().checkPromoCodeNotApplied();
+    }
+
+    @CaseId(1844)
+    @Story("Тест применения промокода")
+    @Test(description = "Тест применения существующего промокода",
+            groups = "regression")
+    public void createPromo() throws ParseException {
+        var company = JuridicalData.juridical();
+        var promo = Generate.string(8);
+
+        final String yesterday = getPastZoneDbDate(1L);
+
+        ApiHelper helper = new ApiHelper();
+        helper.createPromotionCode(promo, 111, yesterday, yesterday, yesterday, 100);
+
+        ordersUser = UserManager.getQaUser();
         helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_SID);
 
         shop().goToPage();
