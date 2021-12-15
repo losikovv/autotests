@@ -20,7 +20,7 @@ variables:
   RUNNER_IMAGE_NAME: "ci-tools"
   RUNNER_IMAGE_TAG: "v1.4.5"
   RUNNER_IMAGE_URL: "${RUNNER_IMAGE_REPO}/${RUNNER_IMAGE_NAME}:${RUNNER_IMAGE_TAG}"
-  GIT_SUBMODULE_STRATEGY: normal
+  GIT_SUBMODULE_STRATEGY: recursive
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   CI_RUN_ALL_JOBS: "true"
 
