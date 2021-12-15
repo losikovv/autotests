@@ -15,7 +15,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.stream.Collectors;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
 @Epic("Product Hub Microservice")
 @Feature("Product Hub Front Data")
@@ -158,7 +158,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
     }
 
     @Story("Продукты")
-    @CaseId(210)
+    @CaseId(212)
     @Test(description = "Получение продуктов по permalink",
             groups = {"grpc-product-hub"})
     public void getProductsByPermalinks() {
@@ -220,5 +220,138 @@ public class ProductHubFrontDataTest extends GrpcBase {
                 .build();
 
         client.getProductsWithOfferByPermalink(request);
+    }
+
+    @Story("Продукты c офферами")
+    @CaseId(216)
+    @Test(description = "Получение продуктов с офферами по id оффера",
+            groups = {"grpc-product-hub"})
+    public void getProductsWithOfferByOfferId() {
+        var request = ProductHubFrontDataOuterClass
+                .GetProductsWithOfferByOfferIDsRequest.newBuilder()
+                .setTenantId("sbermarket")
+                .addOfferIds("234928")
+                .build();
+
+        var response = client.getProductsWithOfferByOfferIDs(request);
+
+        response.getProductsWithOfferList().forEach(product ->
+                assertFalse(product.getOffer().getOfferDataList().isEmpty(), "Не вернулся оффер"));
+    }
+
+    @Story("Стоки")
+    @CaseId(218)
+    @Test(description = "Получение стоков продукта",
+            groups = {"grpc-product-hub"})
+    public void getStocks() {
+        var request = ProductHubFrontDataOuterClass
+                .GetStocksRequest.newBuilder()
+                .addStocks(ProductHubFrontDataOuterClass
+                        .GetStocksRequest.Stock.newBuilder()
+                        .setSku(438113)
+                        .setStoreId("1")
+                        .build())
+                .build();
+
+        var response = client.getStocks(request);
+
+        response.getStocksList().forEach(stock ->
+                assertEquals(stock.getSku(), 438113, "SKU стоков не совпадают"));
+    }
+
+    @Story("Стоки")
+    @CaseId(219)
+    @Test(description = "Получение стоков продукта без SKU",
+            groups = {"grpc-product-hub"},
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: stock number=0 has empty sku")
+    public void getStocksWithoutSKU() {
+        var request = ProductHubFrontDataOuterClass
+                .GetStocksRequest.newBuilder()
+                .addStocks(ProductHubFrontDataOuterClass
+                        .GetStocksRequest.Stock.newBuilder()
+                        .setStoreId("1")
+                        .build())
+                .build();
+
+        client.getStocks(request);
+    }
+
+    @Story("Офферы")
+    @CaseId(220)
+    @Test(description = "Получение офферов продукта",
+            groups = {"grpc-product-hub"})
+    public void getOffers() {
+        var request = ProductHubFrontDataOuterClass.
+                GetOffersRequest.newBuilder()
+                .addOffers(ProductHubFrontDataOuterClass.GetOffersRequest.
+                        Offer.newBuilder()
+                        .setRetailerSku("266353")
+                        .setRetailerId("27")
+                        .build())
+                .build();
+
+        var response = client.getOffers(request);
+
+        response.getOffersList().forEach(offer ->
+                assertEquals(offer.getRetailerSku(), "266353", "SKU ретейлеров не совпадают"));
+        response.getOffersList().forEach(offer ->
+                assertEquals(offer.getRetailerId(), "27", "Id ретейлеров не совпадают"));
+    }
+
+    @Story("Офферы")
+    @CaseId(221)
+    @Test(description = "Получение офферов продукта без SKU ретейлера",
+            groups = {"grpc-product-hub"},
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: offer number=0 has empty retailer_sku")
+    public void getOffersWithoutRetailerSku() {
+        var request = ProductHubFrontDataOuterClass.
+                GetOffersRequest.newBuilder()
+                .addOffers(ProductHubFrontDataOuterClass.GetOffersRequest.
+                        Offer.newBuilder()
+                        .setRetailerId("27")
+                        .build())
+                .build();
+
+        client.getOffers(request);
+    }
+
+    @Story("Цены")
+    @CaseId(222)
+    @Test(description = "Получение цен продукта",
+            groups = {"grpc-product-hub"})
+    public void getPrices() {
+        var request = ProductHubFrontDataOuterClass.
+                GetPricesRequest.newBuilder()
+                .addPrices(ProductHubFrontDataOuterClass.GetPricesRequest.Price.newBuilder()
+                        .setSku(888777582)
+                        .setStoreId("1")
+                        .setTenantId("sbermarket")
+                        .build())
+                .build();
+
+        var response = client.getPrices(request);
+
+        response.getPricesList().forEach(price ->
+                assertEquals(price.getSku(), 888777582, "SKU цен не совпадают"));
+    }
+
+    @Story("Цены")
+    @CaseId(223)
+    @Test(description = "Получение цен продукта без SKU",
+            groups = {"grpc-product-hub"},
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: price number=0 has empty sku")
+    public void getPricesWithoutSKU() {
+        var request = ProductHubFrontDataOuterClass.
+                GetPricesRequest.newBuilder()
+                .addPrices(ProductHubFrontDataOuterClass.GetPricesRequest.Price.newBuilder()
+                        .setStoreId("1")
+                        .setTenantId("sbermarket")
+                        .build())
+                .build();
+
+       client.getPrices(request);
     }
 }
