@@ -1,16 +1,16 @@
 [submodule "qa"]
 	path = qa
-	url = git@git.sbermarket.tech:qa/qa.git
+	url = https://gitlab.sbermarket.tech/qa/qa.git
 	branch = master
 [submodule "ab"]
 	path = ab
-	url = git@git.sbermarket.tech:qa/ab-service.git
+	url = https://gitlab.sbermarket.tech/qa/ab-service.git
 	branch = master
 [submodule "common"]
 	path = common
-	url = git@git.sbermarket.tech:qa/common.git
+	url = https://gitlab.sbermarket.tech/qa/common.git
 	branch = master
 [submodule "qase"]
 	path = qase
-	url = git@git.sbermarket.tech:qa/qase.git
+	url = https://gitlab.sbermarket.tech/qa/qase.git
 	branch = master
