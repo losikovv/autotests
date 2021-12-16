@@ -27,7 +27,7 @@ public class ProductHubBackStreamTest extends GrpcBase {
     }
 
     @CaseId(185)
-    @Test( description = "Получение данных по продуктам",
+    @Test(description = "Получение данных по продуктам",
             groups = "grpc-product-hub")
     public void getProducts() {
         var request = ProductHubBackStreamOuterClass
@@ -46,13 +46,13 @@ public class ProductHubBackStreamTest extends GrpcBase {
     }
 
     @CaseId(184)
-    @Test( description = "Получение продуктов с пустым массивом запрашиваемых данных",
+    @Test(description = "Получение продуктов с пустым массивом запрашиваемых данных",
             groups = "grpc-product-hub")
     public void getProductsWithEmptyData() {
         var request = ProductHubBackStreamOuterClass
                 .GetProductsRequest.newBuilder().build();
 
-       var responses = client.getProducts(request);
-       Assert.assertTrue(responses.hasNext());
+        var responses = client.getProducts(request);
+        Assert.assertTrue(responses.hasNext());
     }
 }
