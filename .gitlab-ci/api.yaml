@@ -33,7 +33,7 @@ tests:ApiInstamartRegress:
 tests:ApiInstamartRegress:manual:
   extends:
     - ".template_api_tests"
-    - ".template_stage"
+    - ".template_web"
   resource_group: apiInstamart:$URL_STF
   when: manual
   script:

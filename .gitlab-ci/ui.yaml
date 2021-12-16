@@ -57,3 +57,21 @@ tests:prodUiSmoke:
     - gradle clean build uiSmokeProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - bash ./report.sh reforged ui-smoke-production
+
+tests:UiRegressManual:
+  extends:
+    - ".template_ui_tests"
+    - ".template_web"
+  script:
+    - gradle clean build sberRegression -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
+  after_script:
+    - bash ./report.sh reforged ui-stf-regress
+
+tests:AdminUiRegressManual:
+  extends:
+    - ".template_ui_tests"
+    - ".template_web"
+  script:
+    - gradle clean build adminUiRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
+  after_script:
+    - bash ./report.sh reforged ui-admin-regress

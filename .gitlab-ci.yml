@@ -69,16 +69,15 @@ stages:
   except:
     refs:
       - schedules
+      - web
 
-.template_stage:
+.template_web:
   only:
     refs:
-      - master
+      - web
     variables:
-      - $URL_STF != "stf-kraken.k-stage.sbermarket.tech"
-  except:
-    refs:
-      - schedules
+      - $REGRESSION == 'true'
+  when: always
 
 .template_api_tests:
   stage: tests-api
