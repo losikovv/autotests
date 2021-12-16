@@ -103,4 +103,9 @@ public final class Address implements Close, AddressCheck {
     public String getFirstPrevAddress() {
         return firstPrevAddresses.getText();
     }
+
+    @Step("Получить '{0}' адрес из списка сохраненных")
+    public String getStoredAddress(final int order) {
+        return storedAddresses.getElementText(order);
+    }
 }
