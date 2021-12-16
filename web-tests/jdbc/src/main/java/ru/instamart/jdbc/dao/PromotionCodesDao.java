@@ -85,7 +85,7 @@ public class PromotionCodesDao extends AbstractDao<Long, PromotionCodesEntity> {
              PreparedStatement preparedStatement = connect.prepareStatement("UPDATE promotion_codes SET usage_limit = ? WHERE value = ?")) {
             preparedStatement.setInt(1, usageLimit);
             preparedStatement.setString(2, promoCode);
-             preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
