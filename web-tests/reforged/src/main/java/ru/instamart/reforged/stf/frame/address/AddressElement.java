@@ -38,4 +38,5 @@ public interface AddressElement {
     Element ymapReady = new Element(By.xpath("//div[@data-qa='address-modal']//ymaps"), "Элемент яндекс карт, готовый к работе");
     //TODO: Ждет data-qa
     Element ymapReadyTmp = new Element(By.xpath("//main//ymaps"), "Элемент яндекс карт, готовый к работе");
+    ElementCollection storedAddresses = new ElementCollection(By.xpath("//div[@class='address-modal__address']"), "список сохраненных адресов");
 }

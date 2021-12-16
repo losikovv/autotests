@@ -98,6 +98,10 @@ public class AddressV2 extends BaseObject {
         this.lon = zone.getLon();
     }
 
+    public StringJoiner fullAddress() {
+        return new StringJoiner(", ").add(city).add(street).add(building);
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(

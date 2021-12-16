@@ -3,17 +3,19 @@ package ru.instamart.test.reforged.stf.user;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.stf.page.StfRouter.shop;
+import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Адрес доставки")
@@ -225,6 +227,102 @@ public final class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().interactAddress().clickOnSave();
         shop().interactHeader().checkIsShippingAddressSet();
         shop().checkSnippet();
+    }
+
+    @CaseId(2570)
+    @Story("Сохранение и изменение адреса доставки")
+    @Test(description = "Адрес сохраняется при регистрации нового пользователя", groups = "regression")
+    public void testSuccessSaveAddressAfterRegistration() {
+        home().goToPage();
+        home().clickToSetAddress();
+        home().interactAddressModal().checkYmapsReadyTmp();
+        home().interactAddressModal().fillAddressTmp(defaultAddress);
+        home().interactAddressModal().selectFirstAddressTmp();
+        home().interactAddressModal().clickOnSave();
+        home().clickToFirstRetailer();
+
+        //TODO: Костыль из-за бейсика
+        shop().goToPage(ShopUrl.AUCHAN);
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().checkModalIsVisible();
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+        shop().interactHeader().checkIsSetAddressEqualToInput(
+                defaultAddress,
+                shop().interactHeader().getShippingAddressFromHeader()
+        );
+    }
+
+    @CaseId(2573)
+    @Story("Сохранение и изменение адреса доставки")
+    @Test(description = "Автовыбор магазина того же ретейлера после изменения адреса доставки", groups = "regression")
+    public void testAutoSelectAddressAfterChangeShipmentAddress() {
+        shop().goToPage();
+
+        shop().interactHeader().clickToSelectAddressFirstTime();
+        shop().interactAddress().checkYmapsReady();
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().selectFirstAddress();
+        shop().interactAddress().clickOnSave();
+        shop().interactHeader().checkLoginIsVisible();
+        shop().checkPageContains("metro?sid=1");
+
+        shop().goToPage();
+
+        shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().checkYmapsReady();
+        shop().interactAddress().fillAddress(Addresses.Moscow.testAddress());
+        shop().interactAddress().selectFirstAddress();
+        shop().interactAddress().clickOnSave();
+        shop().interactHeader().checkLoginIsVisible();
+        shop().checkPageContains("metro?sid=12");
+    }
+
+    @CaseId(2575)
+    @Story("Сохранение и изменение адреса доставки")
+    @Test(description = "Сохранение нескольких адресов за пользователем при оформлении заказа", groups = "regression")
+    public void testSuccessFewAddressesOnCheckout() {
+        var userData = UserManager.getQaUser();
+        this.helper.makeAndCancelOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
+        this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        this.helper.setAddress(userData, RestAddresses.Chelyabinsk.defaultAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().checkModalIsVisible();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        checkout().goToPage();
+        checkout().setDeliveryOptions().clickToForSelf();
+
+        checkout().setDeliveryOptions().fillApartment("30");
+        checkout().setDeliveryOptions().fillFloor("10");
+        checkout().setDeliveryOptions().fillEntrance("3");
+        checkout().setDeliveryOptions().fillDoorPhone("30");
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+
+        checkout().setContacts().fillContactInfo();
+        checkout().setContacts().clickToSubmit();
+
+        checkout().setReplacementPolicy().clickToSubmit();
+
+        checkout().setSlot().setFirstActiveSlot();
+
+        checkout().setPayment().clickToByCardToCourier();
+
+        checkout().setPayment().clickToSubmitFromCheckoutColumn();
+
+        userShipments().checkPageContains(userShipments().pageUrl());
+
+        shop().interactHeader().clickToSelectAddress();
+        shop().interactAddress().checkYmapsReady();
+        shop().interactAddress().checkCountOfStoredAddresses(2);
+        shop().interactAddress().checkStoredAddresses(
+                shop().interactAddress().getStoredAddress(0),
+                RestAddresses.Chelyabinsk.defaultAddress().fullAddress().add("кв. 30").toString()
+        );
     }
 
     @Skip
