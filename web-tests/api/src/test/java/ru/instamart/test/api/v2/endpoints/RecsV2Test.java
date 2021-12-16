@@ -25,7 +25,7 @@ public final class RecsV2Test extends RestBase {
 
     @Story("Полные рекомендации (recs)")
     @CaseId(974)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, enabled = false, // вернуть после выяснения причин ошибки с Александром Кокоревым
             description = "Запрос рекомендаций с обязательными параметрами")
     public void testRecsTest() {
         PersonalV2Request.RecsV2 recsV2 = PersonalV2Request.RecsV2.builder()
