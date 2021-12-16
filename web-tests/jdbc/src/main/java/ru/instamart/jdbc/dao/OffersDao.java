@@ -4,6 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import ru.instamart.jdbc.entity.OffersEntity;
 import ru.instamart.jdbc.util.ConnectionMySQLManager;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.testng.Assert.fail;
@@ -13,11 +16,11 @@ public final class OffersDao extends AbstractDao<Long, OffersEntity> {
 
     public static final OffersDao INSTANCE = new OffersDao();
 
-    private static final String SELECT_SOLD_PRODUCT = "SELECT id FROM offers WHERE stock = 0 AND published = 0 LIMIT 1";
+    private static final String SELECT_SQL = "SELECT %s FROM offers ";
 
     public int getSoldProduct() {
         try (final var connect = ConnectionMySQLManager.get();
-             final var preparedStatement = connect.prepareStatement(SELECT_SOLD_PRODUCT);
+             final var preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + "WHERE stock = 0 AND published = 0 LIMIT 1");
              final var resultSet = preparedStatement.executeQuery()) {
             resultSet.next();
             return resultSet.getInt("id");
@@ -26,5 +29,22 @@ public final class OffersDao extends AbstractDao<Long, OffersEntity> {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return 0;
+    }
+
+    public OffersEntity getOfferByStoreId(Integer storeId) {
+        OffersEntity offer = new OffersEntity();
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + "WHERE store_id = ? AND published = 1 AND deleted_at IS NULL LIMIT 1")) {
+            preparedStatement.setInt(1, storeId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            offer.setId(resultSet.getLong("id"));
+            offer.setProductSku(resultSet.getString("product_sku"));
+            offer.setRetailerSku(resultSet.getString("retailer_sku"));
+            offer.setRetailerId(resultSet.getInt("retailer_id"));
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return offer;
     }
 }

@@ -32,7 +32,8 @@ public final class ActualizeQaseTest {
                 {"INAPI"},
                 {"SHAPI"},
                 {"STF"},
-                {"SA"}
+                {"SA"},
+                {"PB"}
         };
     }
 }
