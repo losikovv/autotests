@@ -58,7 +58,7 @@ tests:prodUiSmoke:
   after_script:
     - bash ./report.sh reforged ui-smoke-production
 
-tests:UiRegress:manual:
+tests:UiRegressManual:
   extends:
     - ".template_ui_tests"
     - ".template_web"
@@ -67,7 +67,7 @@ tests:UiRegress:manual:
   after_script:
     - bash ./report.sh reforged ui-stf-regress
 
-tests:AdminUiRegress:manual:
+tests:AdminUiRegressManual:
   extends:
     - ".template_ui_tests"
     - ".template_web"
