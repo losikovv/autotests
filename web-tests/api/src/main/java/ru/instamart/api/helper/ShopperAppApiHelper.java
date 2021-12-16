@@ -93,7 +93,7 @@ public class ShopperAppApiHelper {
     public String getShipmentId(String shipmentNumber, String additionalInfoForError) {
         String shipmentId;
         String error = "Оформленного заказа нет в списке " + shipmentNumber;
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 12; i++) {
             shipmentId = getShipmentIdIteration(shipmentNumber);
             if (shipmentId != null) {
                 return shipmentId;
