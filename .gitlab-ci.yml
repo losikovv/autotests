@@ -80,6 +80,14 @@ stages:
     refs:
       - schedules
 
+.template_web:
+  only:
+    refs:
+      - web
+    variables:
+      - $REGRESSION == 'true'
+  when: manual
+
 .template_api_tests:
   stage: tests-api
   tags:
