@@ -10,13 +10,13 @@ option go_package = "gitlab.sbermarket.tech/paas/content/catalog/pkg/server/grpc
 service CatalogAPIV2Service {
 	rpc GetProductList(GetProductListRequest) returns (GetProductListResponse){
 		option (google.api.http) = {
-			get: "/products"
+			get: "/api/products"
 		};
 	}
 	rpc GetProduct(GetProductRequest) returns (GetProductResponse)
 	{
 		option (google.api.http) = {
-			get: "/products/{product_id}"
+			get: "/api/products/{product_id}"
 		};
 	}
 }
@@ -52,7 +52,7 @@ message GetProductResponse{
 }
 
 message Product {
-	google.protobuf.Int64Value id = 1;
+	double id = 1;
 	google.protobuf.Int64Value sku = 2;
 	bool active = 3;
 	google.protobuf.StringValue retailer_sku = 4 [json_name = "retailer_sku"];
@@ -61,12 +61,12 @@ message Product {
 	double original_price = 7 [json_name = "original_price"];
 	double discount = 8;
 	google.protobuf.StringValue human_volume = 9 [json_name = "human_volume"];
-	google.protobuf.Int64Value volume = 10;
+	double volume = 10;
 	google.protobuf.StringValue volume_type = 11 [json_name = "volume_type"];
-	google.protobuf.Int64Value items_per_pack = 12 [json_name = "items_per_pack"];
+	double items_per_pack = 12 [json_name = "items_per_pack"];
 	google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];
 	google.protobuf.StringValue price_type = 14 [json_name = "price_type"];
-	google.protobuf.Int64Value grams_per_unit = 15 [json_name = "grams_per_unit"];
+	double grams_per_unit = 15 [json_name = "grams_per_unit"];
 	double unit_price = 16 [json_name = "unit_price"];
 	double original_unit_price = 17 [json_name = "original_unit_price"];
 	repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];
@@ -125,7 +125,7 @@ message ProductListSort {
 }
 
 message ProductWithProperties {
-	int64 id = 1;
+	double id = 1;
 	int64 sku = 2;
 	bool active = 3;
 	string retailer_sku = 4 [json_name = "retailer_sku"];
@@ -134,12 +134,12 @@ message ProductWithProperties {
 	double original_price = 7 [json_name = "original_price"];
 	double discount = 8;
 	string human_volume = 9 [json_name = "human_volume"];
-	int64 volume = 10;
+	double volume = 10;
 	string volume_type = 11 [json_name = "volume_type"];
-	int64 items_per_pack = 12 [json_name = "items_per_pack"];
+	double items_per_pack = 12 [json_name = "items_per_pack"];
 	google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];
 	string price_type = 14 [json_name = "price_type"];
-	int64 grams_per_unit = 15 [json_name = "grams_per_unit"];
+	double grams_per_unit = 15 [json_name = "grams_per_unit"];
 	double unit_price = 16 [json_name = "unit_price"];
 	double original_unit_price = 17 [json_name = "original_unit_price"];
 	repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];
@@ -165,7 +165,7 @@ message ProductListAttributeFilter{
 }
 
 message PromoBadge {
-	int64 id = 1;
+	double id = 1;
 	string type = 2 ;
 	PromoBadgeAttribute attributes = 3;
 }
@@ -207,7 +207,7 @@ message ScoreDetail {
 }
 
 message MainTaxon {
-	int64 id = 1;
+	double id = 1;
 	string type = 2;
 	string name = 3;
 	int64 products_count = 4 [json_name = "products_count"];

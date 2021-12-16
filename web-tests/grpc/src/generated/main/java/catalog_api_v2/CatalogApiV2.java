@@ -5795,19 +5795,10 @@ public final class CatalogApiV2 {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.google.protobuf.Int64Value id = 1;</code>
-     * @return Whether the id field is set.
-     */
-    boolean hasId();
-    /**
-     * <code>.google.protobuf.Int64Value id = 1;</code>
+     * <code>double id = 1;</code>
      * @return The id.
      */
-    com.google.protobuf.Int64Value getId();
-    /**
-     * <code>.google.protobuf.Int64Value id = 1;</code>
-     */
-    com.google.protobuf.Int64ValueOrBuilder getIdOrBuilder();
+    double getId();
 
     /**
      * <code>.google.protobuf.Int64Value sku = 2;</code>
@@ -5894,19 +5885,10 @@ public final class CatalogApiV2 {
     com.google.protobuf.StringValueOrBuilder getHumanVolumeOrBuilder();
 
     /**
-     * <code>.google.protobuf.Int64Value volume = 10;</code>
-     * @return Whether the volume field is set.
-     */
-    boolean hasVolume();
-    /**
-     * <code>.google.protobuf.Int64Value volume = 10;</code>
+     * <code>double volume = 10;</code>
      * @return The volume.
      */
-    com.google.protobuf.Int64Value getVolume();
-    /**
-     * <code>.google.protobuf.Int64Value volume = 10;</code>
-     */
-    com.google.protobuf.Int64ValueOrBuilder getVolumeOrBuilder();
+    double getVolume();
 
     /**
      * <code>.google.protobuf.StringValue volume_type = 11 [json_name = "volume_type"];</code>
@@ -5924,19 +5906,10 @@ public final class CatalogApiV2 {
     com.google.protobuf.StringValueOrBuilder getVolumeTypeOrBuilder();
 
     /**
-     * <code>.google.protobuf.Int64Value items_per_pack = 12 [json_name = "items_per_pack"];</code>
-     * @return Whether the itemsPerPack field is set.
-     */
-    boolean hasItemsPerPack();
-    /**
-     * <code>.google.protobuf.Int64Value items_per_pack = 12 [json_name = "items_per_pack"];</code>
+     * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
      * @return The itemsPerPack.
      */
-    com.google.protobuf.Int64Value getItemsPerPack();
-    /**
-     * <code>.google.protobuf.Int64Value items_per_pack = 12 [json_name = "items_per_pack"];</code>
-     */
-    com.google.protobuf.Int64ValueOrBuilder getItemsPerPackOrBuilder();
+    double getItemsPerPack();
 
     /**
      * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
@@ -5969,19 +5942,10 @@ public final class CatalogApiV2 {
     com.google.protobuf.StringValueOrBuilder getPriceTypeOrBuilder();
 
     /**
-     * <code>.google.protobuf.Int64Value grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
-     * @return Whether the gramsPerUnit field is set.
-     */
-    boolean hasGramsPerUnit();
-    /**
-     * <code>.google.protobuf.Int64Value grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
+     * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
      * @return The gramsPerUnit.
      */
-    com.google.protobuf.Int64Value getGramsPerUnit();
-    /**
-     * <code>.google.protobuf.Int64Value grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
-     */
-    com.google.protobuf.Int64ValueOrBuilder getGramsPerUnitOrBuilder();
+    double getGramsPerUnit();
 
     /**
      * <code>double unit_price = 16 [json_name = "unit_price"];</code>
@@ -6151,17 +6115,9 @@ public final class CatalogApiV2 {
             case 0:
               done = true;
               break;
-            case 10: {
-              com.google.protobuf.Int64Value.Builder subBuilder = null;
-              if (id_ != null) {
-                subBuilder = id_.toBuilder();
-              }
-              id_ = input.readMessage(com.google.protobuf.Int64Value.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(id_);
-                id_ = subBuilder.buildPartial();
-              }
+            case 9: {
 
+              id_ = input.readDouble();
               break;
             }
             case 18: {
@@ -6236,17 +6192,9 @@ public final class CatalogApiV2 {
 
               break;
             }
-            case 82: {
-              com.google.protobuf.Int64Value.Builder subBuilder = null;
-              if (volume_ != null) {
-                subBuilder = volume_.toBuilder();
-              }
-              volume_ = input.readMessage(com.google.protobuf.Int64Value.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(volume_);
-                volume_ = subBuilder.buildPartial();
-              }
+            case 81: {
 
+              volume_ = input.readDouble();
               break;
             }
             case 90: {
@@ -6262,17 +6210,9 @@ public final class CatalogApiV2 {
 
               break;
             }
-            case 98: {
-              com.google.protobuf.Int64Value.Builder subBuilder = null;
-              if (itemsPerPack_ != null) {
-                subBuilder = itemsPerPack_.toBuilder();
-              }
-              itemsPerPack_ = input.readMessage(com.google.protobuf.Int64Value.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(itemsPerPack_);
-                itemsPerPack_ = subBuilder.buildPartial();
-              }
+            case 97: {
 
+              itemsPerPack_ = input.readDouble();
               break;
             }
             case 106: {
@@ -6301,17 +6241,9 @@ public final class CatalogApiV2 {
 
               break;
             }
-            case 122: {
-              com.google.protobuf.Int64Value.Builder subBuilder = null;
-              if (gramsPerUnit_ != null) {
-                subBuilder = gramsPerUnit_.toBuilder();
-              }
-              gramsPerUnit_ = input.readMessage(com.google.protobuf.Int64Value.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(gramsPerUnit_);
-                gramsPerUnit_ = subBuilder.buildPartial();
-              }
+            case 121: {
 
+              gramsPerUnit_ = input.readDouble();
               break;
             }
             case 129: {
@@ -6430,29 +6362,14 @@ public final class CatalogApiV2 {
     }
 
     public static final int ID_FIELD_NUMBER = 1;
-    private com.google.protobuf.Int64Value id_;
+    private double id_;
     /**
-     * <code>.google.protobuf.Int64Value id = 1;</code>
-     * @return Whether the id field is set.
-     */
-    @java.lang.Override
-    public boolean hasId() {
-      return id_ != null;
-    }
-    /**
-     * <code>.google.protobuf.Int64Value id = 1;</code>
+     * <code>double id = 1;</code>
      * @return The id.
      */
     @java.lang.Override
-    public com.google.protobuf.Int64Value getId() {
-      return id_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : id_;
-    }
-    /**
-     * <code>.google.protobuf.Int64Value id = 1;</code>
-     */
-    @java.lang.Override
-    public com.google.protobuf.Int64ValueOrBuilder getIdOrBuilder() {
-      return getId();
+    public double getId() {
+      return id_;
     }
 
     public static final int SKU_FIELD_NUMBER = 2;
@@ -6604,29 +6521,14 @@ public final class CatalogApiV2 {
     }
 
     public static final int VOLUME_FIELD_NUMBER = 10;
-    private com.google.protobuf.Int64Value volume_;
+    private double volume_;
     /**
-     * <code>.google.protobuf.Int64Value volume = 10;</code>
-     * @return Whether the volume field is set.
-     */
-    @java.lang.Override
-    public boolean hasVolume() {
-      return volume_ != null;
-    }
-    /**
-     * <code>.google.protobuf.Int64Value volume = 10;</code>
+     * <code>double volume = 10;</code>
      * @return The volume.
      */
     @java.lang.Override
-    public com.google.protobuf.Int64Value getVolume() {
-      return volume_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : volume_;
-    }
-    /**
-     * <code>.google.protobuf.Int64Value volume = 10;</code>
-     */
-    @java.lang.Override
-    public com.google.protobuf.Int64ValueOrBuilder getVolumeOrBuilder() {
-      return getVolume();
+    public double getVolume() {
+      return volume_;
     }
 
     public static final int VOLUME_TYPE_FIELD_NUMBER = 11;
@@ -6656,29 +6558,14 @@ public final class CatalogApiV2 {
     }
 
     public static final int ITEMS_PER_PACK_FIELD_NUMBER = 12;
-    private com.google.protobuf.Int64Value itemsPerPack_;
+    private double itemsPerPack_;
     /**
-     * <code>.google.protobuf.Int64Value items_per_pack = 12 [json_name = "items_per_pack"];</code>
-     * @return Whether the itemsPerPack field is set.
-     */
-    @java.lang.Override
-    public boolean hasItemsPerPack() {
-      return itemsPerPack_ != null;
-    }
-    /**
-     * <code>.google.protobuf.Int64Value items_per_pack = 12 [json_name = "items_per_pack"];</code>
+     * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
      * @return The itemsPerPack.
      */
     @java.lang.Override
-    public com.google.protobuf.Int64Value getItemsPerPack() {
-      return itemsPerPack_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : itemsPerPack_;
-    }
-    /**
-     * <code>.google.protobuf.Int64Value items_per_pack = 12 [json_name = "items_per_pack"];</code>
-     */
-    @java.lang.Override
-    public com.google.protobuf.Int64ValueOrBuilder getItemsPerPackOrBuilder() {
-      return getItemsPerPack();
+    public double getItemsPerPack() {
+      return itemsPerPack_;
     }
 
     public static final int DISCOUNT_ENDS_AT_FIELD_NUMBER = 13;
@@ -6734,29 +6621,14 @@ public final class CatalogApiV2 {
     }
 
     public static final int GRAMS_PER_UNIT_FIELD_NUMBER = 15;
-    private com.google.protobuf.Int64Value gramsPerUnit_;
+    private double gramsPerUnit_;
     /**
-     * <code>.google.protobuf.Int64Value grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
-     * @return Whether the gramsPerUnit field is set.
-     */
-    @java.lang.Override
-    public boolean hasGramsPerUnit() {
-      return gramsPerUnit_ != null;
-    }
-    /**
-     * <code>.google.protobuf.Int64Value grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
+     * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
      * @return The gramsPerUnit.
      */
     @java.lang.Override
-    public com.google.protobuf.Int64Value getGramsPerUnit() {
-      return gramsPerUnit_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : gramsPerUnit_;
-    }
-    /**
-     * <code>.google.protobuf.Int64Value grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
-     */
-    @java.lang.Override
-    public com.google.protobuf.Int64ValueOrBuilder getGramsPerUnitOrBuilder() {
-      return getGramsPerUnit();
+    public double getGramsPerUnit() {
+      return gramsPerUnit_;
     }
 
     public static final int UNIT_PRICE_FIELD_NUMBER = 16;
@@ -6960,8 +6832,8 @@ public final class CatalogApiV2 {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
-      if (id_ != null) {
-        output.writeMessage(1, getId());
+      if (id_ != 0D) {
+        output.writeDouble(1, id_);
       }
       if (sku_ != null) {
         output.writeMessage(2, getSku());
@@ -6987,14 +6859,14 @@ public final class CatalogApiV2 {
       if (humanVolume_ != null) {
         output.writeMessage(9, getHumanVolume());
       }
-      if (volume_ != null) {
-        output.writeMessage(10, getVolume());
+      if (volume_ != 0D) {
+        output.writeDouble(10, volume_);
       }
       if (volumeType_ != null) {
         output.writeMessage(11, getVolumeType());
       }
-      if (itemsPerPack_ != null) {
-        output.writeMessage(12, getItemsPerPack());
+      if (itemsPerPack_ != 0D) {
+        output.writeDouble(12, itemsPerPack_);
       }
       if (discountEndsAt_ != null) {
         output.writeMessage(13, getDiscountEndsAt());
@@ -7002,8 +6874,8 @@ public final class CatalogApiV2 {
       if (priceType_ != null) {
         output.writeMessage(14, getPriceType());
       }
-      if (gramsPerUnit_ != null) {
-        output.writeMessage(15, getGramsPerUnit());
+      if (gramsPerUnit_ != 0D) {
+        output.writeDouble(15, gramsPerUnit_);
       }
       if (unitPrice_ != 0D) {
         output.writeDouble(16, unitPrice_);
@@ -7039,9 +6911,9 @@ public final class CatalogApiV2 {
       if (size != -1) return size;
 
       size = 0;
-      if (id_ != null) {
+      if (id_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getId());
+          .computeDoubleSize(1, id_);
       }
       if (sku_ != null) {
         size += com.google.protobuf.CodedOutputStream
@@ -7075,17 +6947,17 @@ public final class CatalogApiV2 {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(9, getHumanVolume());
       }
-      if (volume_ != null) {
+      if (volume_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(10, getVolume());
+          .computeDoubleSize(10, volume_);
       }
       if (volumeType_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(11, getVolumeType());
       }
-      if (itemsPerPack_ != null) {
+      if (itemsPerPack_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(12, getItemsPerPack());
+          .computeDoubleSize(12, itemsPerPack_);
       }
       if (discountEndsAt_ != null) {
         size += com.google.protobuf.CodedOutputStream
@@ -7095,9 +6967,9 @@ public final class CatalogApiV2 {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(14, getPriceType());
       }
-      if (gramsPerUnit_ != null) {
+      if (gramsPerUnit_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(15, getGramsPerUnit());
+          .computeDoubleSize(15, gramsPerUnit_);
       }
       if (unitPrice_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
@@ -7160,11 +7032,9 @@ public final class CatalogApiV2 {
       }
       catalog_api_v2.CatalogApiV2.Product other = (catalog_api_v2.CatalogApiV2.Product) obj;
 
-      if (hasId() != other.hasId()) return false;
-      if (hasId()) {
-        if (!getId()
-            .equals(other.getId())) return false;
-      }
+      if (java.lang.Double.doubleToLongBits(getId())
+          != java.lang.Double.doubleToLongBits(
+              other.getId())) return false;
       if (hasSku() != other.hasSku()) return false;
       if (hasSku()) {
         if (!getSku()
@@ -7196,21 +7066,17 @@ public final class CatalogApiV2 {
         if (!getHumanVolume()
             .equals(other.getHumanVolume())) return false;
       }
-      if (hasVolume() != other.hasVolume()) return false;
-      if (hasVolume()) {
-        if (!getVolume()
-            .equals(other.getVolume())) return false;
-      }
+      if (java.lang.Double.doubleToLongBits(getVolume())
+          != java.lang.Double.doubleToLongBits(
+              other.getVolume())) return false;
       if (hasVolumeType() != other.hasVolumeType()) return false;
       if (hasVolumeType()) {
         if (!getVolumeType()
             .equals(other.getVolumeType())) return false;
       }
-      if (hasItemsPerPack() != other.hasItemsPerPack()) return false;
-      if (hasItemsPerPack()) {
-        if (!getItemsPerPack()
-            .equals(other.getItemsPerPack())) return false;
-      }
+      if (java.lang.Double.doubleToLongBits(getItemsPerPack())
+          != java.lang.Double.doubleToLongBits(
+              other.getItemsPerPack())) return false;
       if (hasDiscountEndsAt() != other.hasDiscountEndsAt()) return false;
       if (hasDiscountEndsAt()) {
         if (!getDiscountEndsAt()
@@ -7221,11 +7087,9 @@ public final class CatalogApiV2 {
         if (!getPriceType()
             .equals(other.getPriceType())) return false;
       }
-      if (hasGramsPerUnit() != other.hasGramsPerUnit()) return false;
-      if (hasGramsPerUnit()) {
-        if (!getGramsPerUnit()
-            .equals(other.getGramsPerUnit())) return false;
-      }
+      if (java.lang.Double.doubleToLongBits(getGramsPerUnit())
+          != java.lang.Double.doubleToLongBits(
+              other.getGramsPerUnit())) return false;
       if (java.lang.Double.doubleToLongBits(getUnitPrice())
           != java.lang.Double.doubleToLongBits(
               other.getUnitPrice())) return false;
@@ -7256,10 +7120,9 @@ public final class CatalogApiV2 {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasId()) {
-        hash = (37 * hash) + ID_FIELD_NUMBER;
-        hash = (53 * hash) + getId().hashCode();
-      }
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getId()));
       if (hasSku()) {
         hash = (37 * hash) + SKU_FIELD_NUMBER;
         hash = (53 * hash) + getSku().hashCode();
@@ -7288,18 +7151,16 @@ public final class CatalogApiV2 {
         hash = (37 * hash) + HUMAN_VOLUME_FIELD_NUMBER;
         hash = (53 * hash) + getHumanVolume().hashCode();
       }
-      if (hasVolume()) {
-        hash = (37 * hash) + VOLUME_FIELD_NUMBER;
-        hash = (53 * hash) + getVolume().hashCode();
-      }
+      hash = (37 * hash) + VOLUME_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getVolume()));
       if (hasVolumeType()) {
         hash = (37 * hash) + VOLUME_TYPE_FIELD_NUMBER;
         hash = (53 * hash) + getVolumeType().hashCode();
       }
-      if (hasItemsPerPack()) {
-        hash = (37 * hash) + ITEMS_PER_PACK_FIELD_NUMBER;
-        hash = (53 * hash) + getItemsPerPack().hashCode();
-      }
+      hash = (37 * hash) + ITEMS_PER_PACK_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getItemsPerPack()));
       if (hasDiscountEndsAt()) {
         hash = (37 * hash) + DISCOUNT_ENDS_AT_FIELD_NUMBER;
         hash = (53 * hash) + getDiscountEndsAt().hashCode();
@@ -7308,10 +7169,9 @@ public final class CatalogApiV2 {
         hash = (37 * hash) + PRICE_TYPE_FIELD_NUMBER;
         hash = (53 * hash) + getPriceType().hashCode();
       }
-      if (hasGramsPerUnit()) {
-        hash = (37 * hash) + GRAMS_PER_UNIT_FIELD_NUMBER;
-        hash = (53 * hash) + getGramsPerUnit().hashCode();
-      }
+      hash = (37 * hash) + GRAMS_PER_UNIT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getGramsPerUnit()));
       hash = (37 * hash) + UNIT_PRICE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           java.lang.Double.doubleToLongBits(getUnitPrice()));
@@ -7472,12 +7332,8 @@ public final class CatalogApiV2 {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        if (idBuilder_ == null) {
-          id_ = null;
-        } else {
-          id_ = null;
-          idBuilder_ = null;
-        }
+        id_ = 0D;
+
         if (skuBuilder_ == null) {
           sku_ = null;
         } else {
@@ -7510,24 +7366,16 @@ public final class CatalogApiV2 {
           humanVolume_ = null;
           humanVolumeBuilder_ = null;
         }
-        if (volumeBuilder_ == null) {
-          volume_ = null;
-        } else {
-          volume_ = null;
-          volumeBuilder_ = null;
-        }
+        volume_ = 0D;
+
         if (volumeTypeBuilder_ == null) {
           volumeType_ = null;
         } else {
           volumeType_ = null;
           volumeTypeBuilder_ = null;
         }
-        if (itemsPerPackBuilder_ == null) {
-          itemsPerPack_ = null;
-        } else {
-          itemsPerPack_ = null;
-          itemsPerPackBuilder_ = null;
-        }
+        itemsPerPack_ = 0D;
+
         if (discountEndsAtBuilder_ == null) {
           discountEndsAt_ = null;
         } else {
@@ -7540,12 +7388,8 @@ public final class CatalogApiV2 {
           priceType_ = null;
           priceTypeBuilder_ = null;
         }
-        if (gramsPerUnitBuilder_ == null) {
-          gramsPerUnit_ = null;
-        } else {
-          gramsPerUnit_ = null;
-          gramsPerUnitBuilder_ = null;
-        }
+        gramsPerUnit_ = 0D;
+
         unitPrice_ = 0D;
 
         originalUnitPrice_ = 0D;
@@ -7595,11 +7439,7 @@ public final class CatalogApiV2 {
       public catalog_api_v2.CatalogApiV2.Product buildPartial() {
         catalog_api_v2.CatalogApiV2.Product result = new catalog_api_v2.CatalogApiV2.Product(this);
         int from_bitField0_ = bitField0_;
-        if (idBuilder_ == null) {
-          result.id_ = id_;
-        } else {
-          result.id_ = idBuilder_.build();
-        }
+        result.id_ = id_;
         if (skuBuilder_ == null) {
           result.sku_ = sku_;
         } else {
@@ -7624,21 +7464,13 @@ public final class CatalogApiV2 {
         } else {
           result.humanVolume_ = humanVolumeBuilder_.build();
         }
-        if (volumeBuilder_ == null) {
-          result.volume_ = volume_;
-        } else {
-          result.volume_ = volumeBuilder_.build();
-        }
+        result.volume_ = volume_;
         if (volumeTypeBuilder_ == null) {
           result.volumeType_ = volumeType_;
         } else {
           result.volumeType_ = volumeTypeBuilder_.build();
         }
-        if (itemsPerPackBuilder_ == null) {
-          result.itemsPerPack_ = itemsPerPack_;
-        } else {
-          result.itemsPerPack_ = itemsPerPackBuilder_.build();
-        }
+        result.itemsPerPack_ = itemsPerPack_;
         if (discountEndsAtBuilder_ == null) {
           result.discountEndsAt_ = discountEndsAt_;
         } else {
@@ -7649,11 +7481,7 @@ public final class CatalogApiV2 {
         } else {
           result.priceType_ = priceTypeBuilder_.build();
         }
-        if (gramsPerUnitBuilder_ == null) {
-          result.gramsPerUnit_ = gramsPerUnit_;
-        } else {
-          result.gramsPerUnit_ = gramsPerUnitBuilder_.build();
-        }
+        result.gramsPerUnit_ = gramsPerUnit_;
         result.unitPrice_ = unitPrice_;
         result.originalUnitPrice_ = originalUnitPrice_;
         if (((bitField0_ & 0x00000001) != 0)) {
@@ -7733,8 +7561,8 @@ public final class CatalogApiV2 {
 
       public Builder mergeFrom(catalog_api_v2.CatalogApiV2.Product other) {
         if (other == catalog_api_v2.CatalogApiV2.Product.getDefaultInstance()) return this;
-        if (other.hasId()) {
-          mergeId(other.getId());
+        if (other.getId() != 0D) {
+          setId(other.getId());
         }
         if (other.hasSku()) {
           mergeSku(other.getSku());
@@ -7760,14 +7588,14 @@ public final class CatalogApiV2 {
         if (other.hasHumanVolume()) {
           mergeHumanVolume(other.getHumanVolume());
         }
-        if (other.hasVolume()) {
-          mergeVolume(other.getVolume());
+        if (other.getVolume() != 0D) {
+          setVolume(other.getVolume());
         }
         if (other.hasVolumeType()) {
           mergeVolumeType(other.getVolumeType());
         }
-        if (other.hasItemsPerPack()) {
-          mergeItemsPerPack(other.getItemsPerPack());
+        if (other.getItemsPerPack() != 0D) {
+          setItemsPerPack(other.getItemsPerPack());
         }
         if (other.hasDiscountEndsAt()) {
           mergeDiscountEndsAt(other.getDiscountEndsAt());
@@ -7775,8 +7603,8 @@ public final class CatalogApiV2 {
         if (other.hasPriceType()) {
           mergePriceType(other.getPriceType());
         }
-        if (other.hasGramsPerUnit()) {
-          mergeGramsPerUnit(other.getGramsPerUnit());
+        if (other.getGramsPerUnit() != 0D) {
+          setGramsPerUnit(other.getGramsPerUnit());
         }
         if (other.getUnitPrice() != 0D) {
           setUnitPrice(other.getUnitPrice());
@@ -7873,123 +7701,35 @@ public final class CatalogApiV2 {
       }
       private int bitField0_;
 
-      private com.google.protobuf.Int64Value id_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder> idBuilder_;
+      private double id_ ;
       /**
-       * <code>.google.protobuf.Int64Value id = 1;</code>
-       * @return Whether the id field is set.
-       */
-      public boolean hasId() {
-        return idBuilder_ != null || id_ != null;
-      }
-      /**
-       * <code>.google.protobuf.Int64Value id = 1;</code>
+       * <code>double id = 1;</code>
        * @return The id.
        */
-      public com.google.protobuf.Int64Value getId() {
-        if (idBuilder_ == null) {
-          return id_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : id_;
-        } else {
-          return idBuilder_.getMessage();
-        }
+      @java.lang.Override
+      public double getId() {
+        return id_;
       }
       /**
-       * <code>.google.protobuf.Int64Value id = 1;</code>
+       * <code>double id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
        */
-      public Builder setId(com.google.protobuf.Int64Value value) {
-        if (idBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          id_ = value;
-          onChanged();
-        } else {
-          idBuilder_.setMessage(value);
-        }
-
+      public Builder setId(double value) {
+        
+        id_ = value;
+        onChanged();
         return this;
       }
       /**
-       * <code>.google.protobuf.Int64Value id = 1;</code>
-       */
-      public Builder setId(
-          com.google.protobuf.Int64Value.Builder builderForValue) {
-        if (idBuilder_ == null) {
-          id_ = builderForValue.build();
-          onChanged();
-        } else {
-          idBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Int64Value id = 1;</code>
-       */
-      public Builder mergeId(com.google.protobuf.Int64Value value) {
-        if (idBuilder_ == null) {
-          if (id_ != null) {
-            id_ =
-              com.google.protobuf.Int64Value.newBuilder(id_).mergeFrom(value).buildPartial();
-          } else {
-            id_ = value;
-          }
-          onChanged();
-        } else {
-          idBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Int64Value id = 1;</code>
+       * <code>double id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearId() {
-        if (idBuilder_ == null) {
-          id_ = null;
-          onChanged();
-        } else {
-          id_ = null;
-          idBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Int64Value id = 1;</code>
-       */
-      public com.google.protobuf.Int64Value.Builder getIdBuilder() {
         
+        id_ = 0D;
         onChanged();
-        return getIdFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.google.protobuf.Int64Value id = 1;</code>
-       */
-      public com.google.protobuf.Int64ValueOrBuilder getIdOrBuilder() {
-        if (idBuilder_ != null) {
-          return idBuilder_.getMessageOrBuilder();
-        } else {
-          return id_ == null ?
-              com.google.protobuf.Int64Value.getDefaultInstance() : id_;
-        }
-      }
-      /**
-       * <code>.google.protobuf.Int64Value id = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder> 
-          getIdFieldBuilder() {
-        if (idBuilder_ == null) {
-          idBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder>(
-                  getId(),
-                  getParentForChildren(),
-                  isClean());
-          id_ = null;
-        }
-        return idBuilder_;
+        return this;
       }
 
       private com.google.protobuf.Int64Value sku_;
@@ -8592,123 +8332,35 @@ public final class CatalogApiV2 {
         return humanVolumeBuilder_;
       }
 
-      private com.google.protobuf.Int64Value volume_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder> volumeBuilder_;
+      private double volume_ ;
       /**
-       * <code>.google.protobuf.Int64Value volume = 10;</code>
-       * @return Whether the volume field is set.
-       */
-      public boolean hasVolume() {
-        return volumeBuilder_ != null || volume_ != null;
-      }
-      /**
-       * <code>.google.protobuf.Int64Value volume = 10;</code>
+       * <code>double volume = 10;</code>
        * @return The volume.
        */
-      public com.google.protobuf.Int64Value getVolume() {
-        if (volumeBuilder_ == null) {
-          return volume_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : volume_;
-        } else {
-          return volumeBuilder_.getMessage();
-        }
+      @java.lang.Override
+      public double getVolume() {
+        return volume_;
       }
       /**
-       * <code>.google.protobuf.Int64Value volume = 10;</code>
+       * <code>double volume = 10;</code>
+       * @param value The volume to set.
+       * @return This builder for chaining.
        */
-      public Builder setVolume(com.google.protobuf.Int64Value value) {
-        if (volumeBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          volume_ = value;
-          onChanged();
-        } else {
-          volumeBuilder_.setMessage(value);
-        }
-
+      public Builder setVolume(double value) {
+        
+        volume_ = value;
+        onChanged();
         return this;
       }
       /**
-       * <code>.google.protobuf.Int64Value volume = 10;</code>
-       */
-      public Builder setVolume(
-          com.google.protobuf.Int64Value.Builder builderForValue) {
-        if (volumeBuilder_ == null) {
-          volume_ = builderForValue.build();
-          onChanged();
-        } else {
-          volumeBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Int64Value volume = 10;</code>
-       */
-      public Builder mergeVolume(com.google.protobuf.Int64Value value) {
-        if (volumeBuilder_ == null) {
-          if (volume_ != null) {
-            volume_ =
-              com.google.protobuf.Int64Value.newBuilder(volume_).mergeFrom(value).buildPartial();
-          } else {
-            volume_ = value;
-          }
-          onChanged();
-        } else {
-          volumeBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Int64Value volume = 10;</code>
+       * <code>double volume = 10;</code>
+       * @return This builder for chaining.
        */
       public Builder clearVolume() {
-        if (volumeBuilder_ == null) {
-          volume_ = null;
-          onChanged();
-        } else {
-          volume_ = null;
-          volumeBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Int64Value volume = 10;</code>
-       */
-      public com.google.protobuf.Int64Value.Builder getVolumeBuilder() {
         
+        volume_ = 0D;
         onChanged();
-        return getVolumeFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.google.protobuf.Int64Value volume = 10;</code>
-       */
-      public com.google.protobuf.Int64ValueOrBuilder getVolumeOrBuilder() {
-        if (volumeBuilder_ != null) {
-          return volumeBuilder_.getMessageOrBuilder();
-        } else {
-          return volume_ == null ?
-              com.google.protobuf.Int64Value.getDefaultInstance() : volume_;
-        }
-      }
-      /**
-       * <code>.google.protobuf.Int64Value volume = 10;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder> 
-          getVolumeFieldBuilder() {
-        if (volumeBuilder_ == null) {
-          volumeBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder>(
-                  getVolume(),
-                  getParentForChildren(),
-                  isClean());
-          volume_ = null;
-        }
-        return volumeBuilder_;
+        return this;
       }
 
       private com.google.protobuf.StringValue volumeType_;
@@ -8830,123 +8482,35 @@ public final class CatalogApiV2 {
         return volumeTypeBuilder_;
       }
 
-      private com.google.protobuf.Int64Value itemsPerPack_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder> itemsPerPackBuilder_;
+      private double itemsPerPack_ ;
       /**
-       * <code>.google.protobuf.Int64Value items_per_pack = 12 [json_name = "items_per_pack"];</code>
-       * @return Whether the itemsPerPack field is set.
-       */
-      public boolean hasItemsPerPack() {
-        return itemsPerPackBuilder_ != null || itemsPerPack_ != null;
-      }
-      /**
-       * <code>.google.protobuf.Int64Value items_per_pack = 12 [json_name = "items_per_pack"];</code>
+       * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
        * @return The itemsPerPack.
        */
-      public com.google.protobuf.Int64Value getItemsPerPack() {
-        if (itemsPerPackBuilder_ == null) {
-          return itemsPerPack_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : itemsPerPack_;
-        } else {
-          return itemsPerPackBuilder_.getMessage();
-        }
+      @java.lang.Override
+      public double getItemsPerPack() {
+        return itemsPerPack_;
       }
       /**
-       * <code>.google.protobuf.Int64Value items_per_pack = 12 [json_name = "items_per_pack"];</code>
+       * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
+       * @param value The itemsPerPack to set.
+       * @return This builder for chaining.
        */
-      public Builder setItemsPerPack(com.google.protobuf.Int64Value value) {
-        if (itemsPerPackBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          itemsPerPack_ = value;
-          onChanged();
-        } else {
-          itemsPerPackBuilder_.setMessage(value);
-        }
-
+      public Builder setItemsPerPack(double value) {
+        
+        itemsPerPack_ = value;
+        onChanged();
         return this;
       }
       /**
-       * <code>.google.protobuf.Int64Value items_per_pack = 12 [json_name = "items_per_pack"];</code>
-       */
-      public Builder setItemsPerPack(
-          com.google.protobuf.Int64Value.Builder builderForValue) {
-        if (itemsPerPackBuilder_ == null) {
-          itemsPerPack_ = builderForValue.build();
-          onChanged();
-        } else {
-          itemsPerPackBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Int64Value items_per_pack = 12 [json_name = "items_per_pack"];</code>
-       */
-      public Builder mergeItemsPerPack(com.google.protobuf.Int64Value value) {
-        if (itemsPerPackBuilder_ == null) {
-          if (itemsPerPack_ != null) {
-            itemsPerPack_ =
-              com.google.protobuf.Int64Value.newBuilder(itemsPerPack_).mergeFrom(value).buildPartial();
-          } else {
-            itemsPerPack_ = value;
-          }
-          onChanged();
-        } else {
-          itemsPerPackBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Int64Value items_per_pack = 12 [json_name = "items_per_pack"];</code>
+       * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
+       * @return This builder for chaining.
        */
       public Builder clearItemsPerPack() {
-        if (itemsPerPackBuilder_ == null) {
-          itemsPerPack_ = null;
-          onChanged();
-        } else {
-          itemsPerPack_ = null;
-          itemsPerPackBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Int64Value items_per_pack = 12 [json_name = "items_per_pack"];</code>
-       */
-      public com.google.protobuf.Int64Value.Builder getItemsPerPackBuilder() {
         
+        itemsPerPack_ = 0D;
         onChanged();
-        return getItemsPerPackFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.google.protobuf.Int64Value items_per_pack = 12 [json_name = "items_per_pack"];</code>
-       */
-      public com.google.protobuf.Int64ValueOrBuilder getItemsPerPackOrBuilder() {
-        if (itemsPerPackBuilder_ != null) {
-          return itemsPerPackBuilder_.getMessageOrBuilder();
-        } else {
-          return itemsPerPack_ == null ?
-              com.google.protobuf.Int64Value.getDefaultInstance() : itemsPerPack_;
-        }
-      }
-      /**
-       * <code>.google.protobuf.Int64Value items_per_pack = 12 [json_name = "items_per_pack"];</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder> 
-          getItemsPerPackFieldBuilder() {
-        if (itemsPerPackBuilder_ == null) {
-          itemsPerPackBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder>(
-                  getItemsPerPack(),
-                  getParentForChildren(),
-                  isClean());
-          itemsPerPack_ = null;
-        }
-        return itemsPerPackBuilder_;
+        return this;
       }
 
       private com.google.protobuf.StringValue discountEndsAt_;
@@ -9187,123 +8751,35 @@ public final class CatalogApiV2 {
         return priceTypeBuilder_;
       }
 
-      private com.google.protobuf.Int64Value gramsPerUnit_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder> gramsPerUnitBuilder_;
+      private double gramsPerUnit_ ;
       /**
-       * <code>.google.protobuf.Int64Value grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
-       * @return Whether the gramsPerUnit field is set.
-       */
-      public boolean hasGramsPerUnit() {
-        return gramsPerUnitBuilder_ != null || gramsPerUnit_ != null;
-      }
-      /**
-       * <code>.google.protobuf.Int64Value grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
+       * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
        * @return The gramsPerUnit.
        */
-      public com.google.protobuf.Int64Value getGramsPerUnit() {
-        if (gramsPerUnitBuilder_ == null) {
-          return gramsPerUnit_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : gramsPerUnit_;
-        } else {
-          return gramsPerUnitBuilder_.getMessage();
-        }
+      @java.lang.Override
+      public double getGramsPerUnit() {
+        return gramsPerUnit_;
       }
       /**
-       * <code>.google.protobuf.Int64Value grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
+       * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
+       * @param value The gramsPerUnit to set.
+       * @return This builder for chaining.
        */
-      public Builder setGramsPerUnit(com.google.protobuf.Int64Value value) {
-        if (gramsPerUnitBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          gramsPerUnit_ = value;
-          onChanged();
-        } else {
-          gramsPerUnitBuilder_.setMessage(value);
-        }
-
+      public Builder setGramsPerUnit(double value) {
+        
+        gramsPerUnit_ = value;
+        onChanged();
         return this;
       }
       /**
-       * <code>.google.protobuf.Int64Value grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
-       */
-      public Builder setGramsPerUnit(
-          com.google.protobuf.Int64Value.Builder builderForValue) {
-        if (gramsPerUnitBuilder_ == null) {
-          gramsPerUnit_ = builderForValue.build();
-          onChanged();
-        } else {
-          gramsPerUnitBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Int64Value grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
-       */
-      public Builder mergeGramsPerUnit(com.google.protobuf.Int64Value value) {
-        if (gramsPerUnitBuilder_ == null) {
-          if (gramsPerUnit_ != null) {
-            gramsPerUnit_ =
-              com.google.protobuf.Int64Value.newBuilder(gramsPerUnit_).mergeFrom(value).buildPartial();
-          } else {
-            gramsPerUnit_ = value;
-          }
-          onChanged();
-        } else {
-          gramsPerUnitBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Int64Value grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
+       * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
+       * @return This builder for chaining.
        */
       public Builder clearGramsPerUnit() {
-        if (gramsPerUnitBuilder_ == null) {
-          gramsPerUnit_ = null;
-          onChanged();
-        } else {
-          gramsPerUnit_ = null;
-          gramsPerUnitBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Int64Value grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
-       */
-      public com.google.protobuf.Int64Value.Builder getGramsPerUnitBuilder() {
         
+        gramsPerUnit_ = 0D;
         onChanged();
-        return getGramsPerUnitFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.google.protobuf.Int64Value grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
-       */
-      public com.google.protobuf.Int64ValueOrBuilder getGramsPerUnitOrBuilder() {
-        if (gramsPerUnitBuilder_ != null) {
-          return gramsPerUnitBuilder_.getMessageOrBuilder();
-        } else {
-          return gramsPerUnit_ == null ?
-              com.google.protobuf.Int64Value.getDefaultInstance() : gramsPerUnit_;
-        }
-      }
-      /**
-       * <code>.google.protobuf.Int64Value grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder> 
-          getGramsPerUnitFieldBuilder() {
-        if (gramsPerUnitBuilder_ == null) {
-          gramsPerUnitBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder>(
-                  getGramsPerUnit(),
-                  getParentForChildren(),
-                  isClean());
-          gramsPerUnit_ = null;
-        }
-        return gramsPerUnitBuilder_;
+        return this;
       }
 
       private double unitPrice_ ;
@@ -15996,10 +15472,10 @@ public final class CatalogApiV2 {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int64 id = 1;</code>
+     * <code>double id = 1;</code>
      * @return The id.
      */
-    long getId();
+    double getId();
 
     /**
      * <code>int64 sku = 2;</code>
@@ -16068,10 +15544,10 @@ public final class CatalogApiV2 {
         getHumanVolumeBytes();
 
     /**
-     * <code>int64 volume = 10;</code>
+     * <code>double volume = 10;</code>
      * @return The volume.
      */
-    long getVolume();
+    double getVolume();
 
     /**
      * <code>string volume_type = 11 [json_name = "volume_type"];</code>
@@ -16086,10 +15562,10 @@ public final class CatalogApiV2 {
         getVolumeTypeBytes();
 
     /**
-     * <code>int64 items_per_pack = 12 [json_name = "items_per_pack"];</code>
+     * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
      * @return The itemsPerPack.
      */
-    long getItemsPerPack();
+    double getItemsPerPack();
 
     /**
      * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
@@ -16119,10 +15595,10 @@ public final class CatalogApiV2 {
         getPriceTypeBytes();
 
     /**
-     * <code>int64 grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
+     * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
      * @return The gramsPerUnit.
      */
-    long getGramsPerUnit();
+    double getGramsPerUnit();
 
     /**
      * <code>double unit_price = 16 [json_name = "unit_price"];</code>
@@ -16391,9 +15867,9 @@ public final class CatalogApiV2 {
             case 0:
               done = true;
               break;
-            case 8: {
+            case 9: {
 
-              id_ = input.readInt64();
+              id_ = input.readDouble();
               break;
             }
             case 16: {
@@ -16439,9 +15915,9 @@ public final class CatalogApiV2 {
               humanVolume_ = s;
               break;
             }
-            case 80: {
+            case 81: {
 
-              volume_ = input.readInt64();
+              volume_ = input.readDouble();
               break;
             }
             case 90: {
@@ -16450,9 +15926,9 @@ public final class CatalogApiV2 {
               volumeType_ = s;
               break;
             }
-            case 96: {
+            case 97: {
 
-              itemsPerPack_ = input.readInt64();
+              itemsPerPack_ = input.readDouble();
               break;
             }
             case 106: {
@@ -16474,9 +15950,9 @@ public final class CatalogApiV2 {
               priceType_ = s;
               break;
             }
-            case 120: {
+            case 121: {
 
-              gramsPerUnit_ = input.readInt64();
+              gramsPerUnit_ = input.readDouble();
               break;
             }
             case 129: {
@@ -16651,13 +16127,13 @@ public final class CatalogApiV2 {
     }
 
     public static final int ID_FIELD_NUMBER = 1;
-    private long id_;
+    private double id_;
     /**
-     * <code>int64 id = 1;</code>
+     * <code>double id = 1;</code>
      * @return The id.
      */
     @java.lang.Override
-    public long getId() {
+    public double getId() {
       return id_;
     }
 
@@ -16831,13 +16307,13 @@ public final class CatalogApiV2 {
     }
 
     public static final int VOLUME_FIELD_NUMBER = 10;
-    private long volume_;
+    private double volume_;
     /**
-     * <code>int64 volume = 10;</code>
+     * <code>double volume = 10;</code>
      * @return The volume.
      */
     @java.lang.Override
-    public long getVolume() {
+    public double getVolume() {
       return volume_;
     }
 
@@ -16880,13 +16356,13 @@ public final class CatalogApiV2 {
     }
 
     public static final int ITEMS_PER_PACK_FIELD_NUMBER = 12;
-    private long itemsPerPack_;
+    private double itemsPerPack_;
     /**
-     * <code>int64 items_per_pack = 12 [json_name = "items_per_pack"];</code>
+     * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
      * @return The itemsPerPack.
      */
     @java.lang.Override
-    public long getItemsPerPack() {
+    public double getItemsPerPack() {
       return itemsPerPack_;
     }
 
@@ -16955,13 +16431,13 @@ public final class CatalogApiV2 {
     }
 
     public static final int GRAMS_PER_UNIT_FIELD_NUMBER = 15;
-    private long gramsPerUnit_;
+    private double gramsPerUnit_;
     /**
-     * <code>int64 grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
+     * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
      * @return The gramsPerUnit.
      */
     @java.lang.Override
-    public long getGramsPerUnit() {
+    public double getGramsPerUnit() {
       return gramsPerUnit_;
     }
 
@@ -17331,8 +16807,8 @@ public final class CatalogApiV2 {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
-      if (id_ != 0L) {
-        output.writeInt64(1, id_);
+      if (id_ != 0D) {
+        output.writeDouble(1, id_);
       }
       if (sku_ != 0L) {
         output.writeInt64(2, sku_);
@@ -17358,14 +16834,14 @@ public final class CatalogApiV2 {
       if (!getHumanVolumeBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 9, humanVolume_);
       }
-      if (volume_ != 0L) {
-        output.writeInt64(10, volume_);
+      if (volume_ != 0D) {
+        output.writeDouble(10, volume_);
       }
       if (!getVolumeTypeBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 11, volumeType_);
       }
-      if (itemsPerPack_ != 0L) {
-        output.writeInt64(12, itemsPerPack_);
+      if (itemsPerPack_ != 0D) {
+        output.writeDouble(12, itemsPerPack_);
       }
       if (discountEndsAt_ != null) {
         output.writeMessage(13, getDiscountEndsAt());
@@ -17373,8 +16849,8 @@ public final class CatalogApiV2 {
       if (!getPriceTypeBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 14, priceType_);
       }
-      if (gramsPerUnit_ != 0L) {
-        output.writeInt64(15, gramsPerUnit_);
+      if (gramsPerUnit_ != 0D) {
+        output.writeDouble(15, gramsPerUnit_);
       }
       if (unitPrice_ != 0D) {
         output.writeDouble(16, unitPrice_);
@@ -17425,9 +16901,9 @@ public final class CatalogApiV2 {
       if (size != -1) return size;
 
       size = 0;
-      if (id_ != 0L) {
+      if (id_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(1, id_);
+          .computeDoubleSize(1, id_);
       }
       if (sku_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
@@ -17458,16 +16934,16 @@ public final class CatalogApiV2 {
       if (!getHumanVolumeBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, humanVolume_);
       }
-      if (volume_ != 0L) {
+      if (volume_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(10, volume_);
+          .computeDoubleSize(10, volume_);
       }
       if (!getVolumeTypeBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, volumeType_);
       }
-      if (itemsPerPack_ != 0L) {
+      if (itemsPerPack_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(12, itemsPerPack_);
+          .computeDoubleSize(12, itemsPerPack_);
       }
       if (discountEndsAt_ != null) {
         size += com.google.protobuf.CodedOutputStream
@@ -17476,9 +16952,9 @@ public final class CatalogApiV2 {
       if (!getPriceTypeBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(14, priceType_);
       }
-      if (gramsPerUnit_ != 0L) {
+      if (gramsPerUnit_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(15, gramsPerUnit_);
+          .computeDoubleSize(15, gramsPerUnit_);
       }
       if (unitPrice_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
@@ -17564,8 +17040,9 @@ public final class CatalogApiV2 {
       }
       catalog_api_v2.CatalogApiV2.ProductWithProperties other = (catalog_api_v2.CatalogApiV2.ProductWithProperties) obj;
 
-      if (getId()
-          != other.getId()) return false;
+      if (java.lang.Double.doubleToLongBits(getId())
+          != java.lang.Double.doubleToLongBits(
+              other.getId())) return false;
       if (getSku()
           != other.getSku()) return false;
       if (getActive()
@@ -17585,12 +17062,14 @@ public final class CatalogApiV2 {
               other.getDiscount())) return false;
       if (!getHumanVolume()
           .equals(other.getHumanVolume())) return false;
-      if (getVolume()
-          != other.getVolume()) return false;
+      if (java.lang.Double.doubleToLongBits(getVolume())
+          != java.lang.Double.doubleToLongBits(
+              other.getVolume())) return false;
       if (!getVolumeType()
           .equals(other.getVolumeType())) return false;
-      if (getItemsPerPack()
-          != other.getItemsPerPack()) return false;
+      if (java.lang.Double.doubleToLongBits(getItemsPerPack())
+          != java.lang.Double.doubleToLongBits(
+              other.getItemsPerPack())) return false;
       if (hasDiscountEndsAt() != other.hasDiscountEndsAt()) return false;
       if (hasDiscountEndsAt()) {
         if (!getDiscountEndsAt()
@@ -17598,8 +17077,9 @@ public final class CatalogApiV2 {
       }
       if (!getPriceType()
           .equals(other.getPriceType())) return false;
-      if (getGramsPerUnit()
-          != other.getGramsPerUnit()) return false;
+      if (java.lang.Double.doubleToLongBits(getGramsPerUnit())
+          != java.lang.Double.doubleToLongBits(
+              other.getGramsPerUnit())) return false;
       if (java.lang.Double.doubleToLongBits(getUnitPrice())
           != java.lang.Double.doubleToLongBits(
               other.getUnitPrice())) return false;
@@ -17648,7 +17128,7 @@ public final class CatalogApiV2 {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + ID_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getId());
+          java.lang.Double.doubleToLongBits(getId()));
       hash = (37 * hash) + SKU_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getSku());
@@ -17672,12 +17152,12 @@ public final class CatalogApiV2 {
       hash = (53 * hash) + getHumanVolume().hashCode();
       hash = (37 * hash) + VOLUME_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getVolume());
+          java.lang.Double.doubleToLongBits(getVolume()));
       hash = (37 * hash) + VOLUME_TYPE_FIELD_NUMBER;
       hash = (53 * hash) + getVolumeType().hashCode();
       hash = (37 * hash) + ITEMS_PER_PACK_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getItemsPerPack());
+          java.lang.Double.doubleToLongBits(getItemsPerPack()));
       if (hasDiscountEndsAt()) {
         hash = (37 * hash) + DISCOUNT_ENDS_AT_FIELD_NUMBER;
         hash = (53 * hash) + getDiscountEndsAt().hashCode();
@@ -17686,7 +17166,7 @@ public final class CatalogApiV2 {
       hash = (53 * hash) + getPriceType().hashCode();
       hash = (37 * hash) + GRAMS_PER_UNIT_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getGramsPerUnit());
+          java.lang.Double.doubleToLongBits(getGramsPerUnit()));
       hash = (37 * hash) + UNIT_PRICE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           java.lang.Double.doubleToLongBits(getUnitPrice()));
@@ -17866,7 +17346,7 @@ public final class CatalogApiV2 {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        id_ = 0L;
+        id_ = 0D;
 
         sku_ = 0L;
 
@@ -17884,11 +17364,11 @@ public final class CatalogApiV2 {
 
         humanVolume_ = "";
 
-        volume_ = 0L;
+        volume_ = 0D;
 
         volumeType_ = "";
 
-        itemsPerPack_ = 0L;
+        itemsPerPack_ = 0D;
 
         if (discountEndsAtBuilder_ == null) {
           discountEndsAt_ = null;
@@ -17898,7 +17378,7 @@ public final class CatalogApiV2 {
         }
         priceType_ = "";
 
-        gramsPerUnit_ = 0L;
+        gramsPerUnit_ = 0D;
 
         unitPrice_ = 0D;
 
@@ -18094,7 +17574,7 @@ public final class CatalogApiV2 {
 
       public Builder mergeFrom(catalog_api_v2.CatalogApiV2.ProductWithProperties other) {
         if (other == catalog_api_v2.CatalogApiV2.ProductWithProperties.getDefaultInstance()) return this;
-        if (other.getId() != 0L) {
+        if (other.getId() != 0D) {
           setId(other.getId());
         }
         if (other.getSku() != 0L) {
@@ -18124,14 +17604,14 @@ public final class CatalogApiV2 {
           humanVolume_ = other.humanVolume_;
           onChanged();
         }
-        if (other.getVolume() != 0L) {
+        if (other.getVolume() != 0D) {
           setVolume(other.getVolume());
         }
         if (!other.getVolumeType().isEmpty()) {
           volumeType_ = other.volumeType_;
           onChanged();
         }
-        if (other.getItemsPerPack() != 0L) {
+        if (other.getItemsPerPack() != 0D) {
           setItemsPerPack(other.getItemsPerPack());
         }
         if (other.hasDiscountEndsAt()) {
@@ -18141,7 +17621,7 @@ public final class CatalogApiV2 {
           priceType_ = other.priceType_;
           onChanged();
         }
-        if (other.getGramsPerUnit() != 0L) {
+        if (other.getGramsPerUnit() != 0D) {
           setGramsPerUnit(other.getGramsPerUnit());
         }
         if (other.getUnitPrice() != 0D) {
@@ -18285,33 +17765,33 @@ public final class CatalogApiV2 {
       }
       private int bitField0_;
 
-      private long id_ ;
+      private double id_ ;
       /**
-       * <code>int64 id = 1;</code>
+       * <code>double id = 1;</code>
        * @return The id.
        */
       @java.lang.Override
-      public long getId() {
+      public double getId() {
         return id_;
       }
       /**
-       * <code>int64 id = 1;</code>
+       * <code>double id = 1;</code>
        * @param value The id to set.
        * @return This builder for chaining.
        */
-      public Builder setId(long value) {
+      public Builder setId(double value) {
         
         id_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int64 id = 1;</code>
+       * <code>double id = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearId() {
         
-        id_ = 0L;
+        id_ = 0D;
         onChanged();
         return this;
       }
@@ -18699,33 +18179,33 @@ public final class CatalogApiV2 {
         return this;
       }
 
-      private long volume_ ;
+      private double volume_ ;
       /**
-       * <code>int64 volume = 10;</code>
+       * <code>double volume = 10;</code>
        * @return The volume.
        */
       @java.lang.Override
-      public long getVolume() {
+      public double getVolume() {
         return volume_;
       }
       /**
-       * <code>int64 volume = 10;</code>
+       * <code>double volume = 10;</code>
        * @param value The volume to set.
        * @return This builder for chaining.
        */
-      public Builder setVolume(long value) {
+      public Builder setVolume(double value) {
         
         volume_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int64 volume = 10;</code>
+       * <code>double volume = 10;</code>
        * @return This builder for chaining.
        */
       public Builder clearVolume() {
         
-        volume_ = 0L;
+        volume_ = 0D;
         onChanged();
         return this;
       }
@@ -18806,33 +18286,33 @@ public final class CatalogApiV2 {
         return this;
       }
 
-      private long itemsPerPack_ ;
+      private double itemsPerPack_ ;
       /**
-       * <code>int64 items_per_pack = 12 [json_name = "items_per_pack"];</code>
+       * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
        * @return The itemsPerPack.
        */
       @java.lang.Override
-      public long getItemsPerPack() {
+      public double getItemsPerPack() {
         return itemsPerPack_;
       }
       /**
-       * <code>int64 items_per_pack = 12 [json_name = "items_per_pack"];</code>
+       * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
        * @param value The itemsPerPack to set.
        * @return This builder for chaining.
        */
-      public Builder setItemsPerPack(long value) {
+      public Builder setItemsPerPack(double value) {
         
         itemsPerPack_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int64 items_per_pack = 12 [json_name = "items_per_pack"];</code>
+       * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
        * @return This builder for chaining.
        */
       public Builder clearItemsPerPack() {
         
-        itemsPerPack_ = 0L;
+        itemsPerPack_ = 0D;
         onChanged();
         return this;
       }
@@ -19032,33 +18512,33 @@ public final class CatalogApiV2 {
         return this;
       }
 
-      private long gramsPerUnit_ ;
+      private double gramsPerUnit_ ;
       /**
-       * <code>int64 grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
+       * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
        * @return The gramsPerUnit.
        */
       @java.lang.Override
-      public long getGramsPerUnit() {
+      public double getGramsPerUnit() {
         return gramsPerUnit_;
       }
       /**
-       * <code>int64 grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
+       * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
        * @param value The gramsPerUnit to set.
        * @return This builder for chaining.
        */
-      public Builder setGramsPerUnit(long value) {
+      public Builder setGramsPerUnit(double value) {
         
         gramsPerUnit_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int64 grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
+       * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
        * @return This builder for chaining.
        */
       public Builder clearGramsPerUnit() {
         
-        gramsPerUnit_ = 0L;
+        gramsPerUnit_ = 0D;
         onChanged();
         return this;
       }
@@ -22010,10 +21490,10 @@ public final class CatalogApiV2 {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int64 id = 1;</code>
+     * <code>double id = 1;</code>
      * @return The id.
      */
-    long getId();
+    double getId();
 
     /**
      * <code>string type = 2;</code>
@@ -22088,9 +21568,9 @@ public final class CatalogApiV2 {
             case 0:
               done = true;
               break;
-            case 8: {
+            case 9: {
 
-              id_ = input.readInt64();
+              id_ = input.readDouble();
               break;
             }
             case 18: {
@@ -22145,13 +21625,13 @@ public final class CatalogApiV2 {
     }
 
     public static final int ID_FIELD_NUMBER = 1;
-    private long id_;
+    private double id_;
     /**
-     * <code>int64 id = 1;</code>
+     * <code>double id = 1;</code>
      * @return The id.
      */
     @java.lang.Override
-    public long getId() {
+    public double getId() {
       return id_;
     }
 
@@ -22233,8 +21713,8 @@ public final class CatalogApiV2 {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (id_ != 0L) {
-        output.writeInt64(1, id_);
+      if (id_ != 0D) {
+        output.writeDouble(1, id_);
       }
       if (!getTypeBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, type_);
@@ -22251,9 +21731,9 @@ public final class CatalogApiV2 {
       if (size != -1) return size;
 
       size = 0;
-      if (id_ != 0L) {
+      if (id_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(1, id_);
+          .computeDoubleSize(1, id_);
       }
       if (!getTypeBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, type_);
@@ -22277,8 +21757,9 @@ public final class CatalogApiV2 {
       }
       catalog_api_v2.CatalogApiV2.PromoBadge other = (catalog_api_v2.CatalogApiV2.PromoBadge) obj;
 
-      if (getId()
-          != other.getId()) return false;
+      if (java.lang.Double.doubleToLongBits(getId())
+          != java.lang.Double.doubleToLongBits(
+              other.getId())) return false;
       if (!getType()
           .equals(other.getType())) return false;
       if (hasAttributes() != other.hasAttributes()) return false;
@@ -22299,7 +21780,7 @@ public final class CatalogApiV2 {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + ID_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getId());
+          java.lang.Double.doubleToLongBits(getId()));
       hash = (37 * hash) + TYPE_FIELD_NUMBER;
       hash = (53 * hash) + getType().hashCode();
       if (hasAttributes()) {
@@ -22439,7 +21920,7 @@ public final class CatalogApiV2 {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        id_ = 0L;
+        id_ = 0D;
 
         type_ = "";
 
@@ -22530,7 +22011,7 @@ public final class CatalogApiV2 {
 
       public Builder mergeFrom(catalog_api_v2.CatalogApiV2.PromoBadge other) {
         if (other == catalog_api_v2.CatalogApiV2.PromoBadge.getDefaultInstance()) return this;
-        if (other.getId() != 0L) {
+        if (other.getId() != 0D) {
           setId(other.getId());
         }
         if (!other.getType().isEmpty()) {
@@ -22569,33 +22050,33 @@ public final class CatalogApiV2 {
         return this;
       }
 
-      private long id_ ;
+      private double id_ ;
       /**
-       * <code>int64 id = 1;</code>
+       * <code>double id = 1;</code>
        * @return The id.
        */
       @java.lang.Override
-      public long getId() {
+      public double getId() {
         return id_;
       }
       /**
-       * <code>int64 id = 1;</code>
+       * <code>double id = 1;</code>
        * @param value The id to set.
        * @return This builder for chaining.
        */
-      public Builder setId(long value) {
+      public Builder setId(double value) {
         
         id_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int64 id = 1;</code>
+       * <code>double id = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearId() {
         
-        id_ = 0L;
+        id_ = 0D;
         onChanged();
         return this;
       }
@@ -28278,10 +27759,10 @@ public final class CatalogApiV2 {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int64 id = 1;</code>
+     * <code>double id = 1;</code>
      * @return The id.
      */
-    long getId();
+    double getId();
 
     /**
      * <code>string type = 2;</code>
@@ -28453,9 +27934,9 @@ public final class CatalogApiV2 {
             case 0:
               done = true;
               break;
-            case 8: {
+            case 9: {
 
-              id_ = input.readInt64();
+              id_ = input.readDouble();
               break;
             }
             case 18: {
@@ -28561,13 +28042,13 @@ public final class CatalogApiV2 {
     }
 
     public static final int ID_FIELD_NUMBER = 1;
-    private long id_;
+    private double id_;
     /**
-     * <code>int64 id = 1;</code>
+     * <code>double id = 1;</code>
      * @return The id.
      */
     @java.lang.Override
-    public long getId() {
+    public double getId() {
       return id_;
     }
 
@@ -28828,8 +28309,8 @@ public final class CatalogApiV2 {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (id_ != 0L) {
-        output.writeInt64(1, id_);
+      if (id_ != 0D) {
+        output.writeDouble(1, id_);
       }
       if (!getTypeBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, type_);
@@ -28867,9 +28348,9 @@ public final class CatalogApiV2 {
       if (size != -1) return size;
 
       size = 0;
-      if (id_ != 0L) {
+      if (id_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(1, id_);
+          .computeDoubleSize(1, id_);
       }
       if (!getTypeBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, type_);
@@ -28927,8 +28408,9 @@ public final class CatalogApiV2 {
       }
       catalog_api_v2.CatalogApiV2.MainTaxon other = (catalog_api_v2.CatalogApiV2.MainTaxon) obj;
 
-      if (getId()
-          != other.getId()) return false;
+      if (java.lang.Double.doubleToLongBits(getId())
+          != java.lang.Double.doubleToLongBits(
+              other.getId())) return false;
       if (!getType()
           .equals(other.getType())) return false;
       if (!getName()
@@ -28963,7 +28445,7 @@ public final class CatalogApiV2 {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + ID_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getId());
+          java.lang.Double.doubleToLongBits(getId()));
       hash = (37 * hash) + TYPE_FIELD_NUMBER;
       hash = (53 * hash) + getType().hashCode();
       hash = (37 * hash) + NAME_FIELD_NUMBER;
@@ -29123,7 +28605,7 @@ public final class CatalogApiV2 {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        id_ = 0L;
+        id_ = 0D;
 
         type_ = "";
 
@@ -29244,7 +28726,7 @@ public final class CatalogApiV2 {
 
       public Builder mergeFrom(catalog_api_v2.CatalogApiV2.MainTaxon other) {
         if (other == catalog_api_v2.CatalogApiV2.MainTaxon.getDefaultInstance()) return this;
-        if (other.getId() != 0L) {
+        if (other.getId() != 0D) {
           setId(other.getId());
         }
         if (!other.getType().isEmpty()) {
@@ -29321,33 +28803,33 @@ public final class CatalogApiV2 {
       }
       private int bitField0_;
 
-      private long id_ ;
+      private double id_ ;
       /**
-       * <code>int64 id = 1;</code>
+       * <code>double id = 1;</code>
        * @return The id.
        */
       @java.lang.Override
-      public long getId() {
+      public double getId() {
         return id_;
       }
       /**
-       * <code>int64 id = 1;</code>
+       * <code>double id = 1;</code>
        * @param value The id to set.
        * @return This builder for chaining.
        */
-      public Builder setId(long value) {
+      public Builder setId(double value) {
         
         id_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int64 id = 1;</code>
+       * <code>double id = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearId() {
         
-        id_ = 0L;
+        id_ = 0D;
         onChanged();
         return this;
       }
@@ -32165,122 +31647,119 @@ public final class CatalogApiV2 {
       "\022GetProductResponse\0226\n\007product\030\001 \001(\0132%.c" +
       "atalog_api_v2.ProductWithProperties\022>\n\014p" +
       "romo_badges\030\002 \003(\0132\032.catalog_api_v2.Promo" +
-      "BadgeR\014promo_badges\"\331\007\n\007Product\022\'\n\002id\030\001 " +
-      "\001(\0132\033.google.protobuf.Int64Value\022(\n\003sku\030" +
-      "\002 \001(\0132\033.google.protobuf.Int64Value\022\016\n\006ac" +
-      "tive\030\003 \001(\010\022@\n\014retailer_sku\030\004 \001(\0132\034.googl" +
-      "e.protobuf.StringValueR\014retailer_sku\022*\n\004" +
-      "name\030\005 \001(\0132\034.google.protobuf.StringValue" +
-      "\022\r\n\005price\030\006 \001(\001\022&\n\016original_price\030\007 \001(\001R" +
-      "\016original_price\022\020\n\010discount\030\010 \001(\001\022@\n\014hum" +
-      "an_volume\030\t \001(\0132\034.google.protobuf.String" +
-      "ValueR\014human_volume\022+\n\006volume\030\n \001(\0132\033.go" +
-      "ogle.protobuf.Int64Value\022>\n\013volume_type\030" +
-      "\013 \001(\0132\034.google.protobuf.StringValueR\013vol" +
-      "ume_type\022C\n\016items_per_pack\030\014 \001(\0132\033.googl" +
-      "e.protobuf.Int64ValueR\016items_per_pack\022H\n" +
-      "\020discount_ends_at\030\r \001(\0132\034.google.protobu" +
-      "f.StringValueR\020discount_ends_at\022<\n\nprice" +
-      "_type\030\016 \001(\0132\034.google.protobuf.StringValu" +
-      "eR\nprice_type\022C\n\016grams_per_unit\030\017 \001(\0132\033." +
-      "google.protobuf.Int64ValueR\016grams_per_un" +
-      "it\022\036\n\nunit_price\030\020 \001(\001R\nunit_price\0220\n\023or" +
-      "iginal_unit_price\030\021 \001(\001R\023original_unit_p" +
-      "rice\022(\n\017promo_badge_ids\030\022 \003(\003R\017promo_bad" +
-      "ge_ids\022*\n\005score\030\023 \001(\0132\033.google.protobuf." +
-      "FloatValue\022\016\n\006labels\030\024 \003(\t\022%\n\006images\030\025 \003" +
-      "(\0132\025.catalog_api_v2.Image\022\024\n\014requirement" +
-      "s\030\026 \003(\t\"\251\001\n\005Image\022\032\n\010mini_url\030\001 \001(\tR\010min" +
-      "i_url\022\034\n\tsmall_url\030\002 \001(\tR\tsmall_url\022 \n\013p" +
-      "roduct_url\030\003 \001(\tR\013product_url\022 \n\013preview" +
-      "_url\030\004 \001(\tR\013preview_url\022\"\n\014original_url\030" +
-      "\005 \001(\tR\014original_url\"^\n\005Facet\022\013\n\003key\030\001 \001(" +
-      "\t\022\014\n\004name\030\002 \001(\t\022\014\n\004type\030\003 \001(\t\022,\n\007options" +
-      "\030\004 \003(\0132\033.catalog_api_v2.FacetOption\"\230\001\n\013" +
-      "FacetOption\022*\n\004name\030\001 \001(\0132\034.google.proto" +
-      "buf.StringValue\022\r\n\005value\030\002 \001(\003\022\r\n\005count\030" +
-      "\003 \001(\003\022/\n\tpermalink\030\004 \001(\0132\034.google.protob" +
-      "uf.StringValue\022\016\n\006active\030\005 \001(\010\"\210\002\n\004Meta\022" +
-      "\"\n\014current_page\030\001 \001(\003R\014current_page\0229\n\tn" +
-      "ext_page\030\002 \001(\0132\033.google.protobuf.Int64Va" +
-      "lueR\tnext_page\022A\n\rprevious_page\030\003 \001(\0132\033." +
-      "google.protobuf.Int64ValueR\rprevious_pag" +
-      "e\022 \n\013total_pages\030\004 \001(\003R\013total_pages\022\032\n\010p" +
-      "er_page\030\005 \001(\003R\010per_page\022 \n\013total_count\030\006" +
-      " \001(\003R\013total_count\"\020\n\016RootCategories\"K\n\017P" +
-      "roductListSort\022\013\n\003key\030\001 \001(\t\022\014\n\004name\030\002 \001(" +
-      "\t\022\r\n\005order\030\003 \001(\t\022\016\n\006active\030\004 \001(\010\"\255\007\n\025Pro" +
-      "ductWithProperties\022\n\n\002id\030\001 \001(\003\022\013\n\003sku\030\002 " +
-      "\001(\003\022\016\n\006active\030\003 \001(\010\022\"\n\014retailer_sku\030\004 \001(" +
-      "\tR\014retailer_sku\022\014\n\004name\030\005 \001(\t\022\r\n\005price\030\006" +
-      " \001(\001\022&\n\016original_price\030\007 \001(\001R\016original_p" +
-      "rice\022\020\n\010discount\030\010 \001(\001\022\"\n\014human_volume\030\t" +
-      " \001(\tR\014human_volume\022\016\n\006volume\030\n \001(\003\022 \n\013vo" +
-      "lume_type\030\013 \001(\tR\013volume_type\022&\n\016items_pe" +
-      "r_pack\030\014 \001(\003R\016items_per_pack\022H\n\020discount" +
-      "_ends_at\030\r \001(\0132\034.google.protobuf.StringV" +
-      "alueR\020discount_ends_at\022\036\n\nprice_type\030\016 \001" +
-      "(\tR\nprice_type\022&\n\016grams_per_unit\030\017 \001(\003R\016" +
-      "grams_per_unit\022\036\n\nunit_price\030\020 \001(\001R\nunit" +
-      "_price\0220\n\023original_unit_price\030\021 \001(\001R\023ori" +
-      "ginal_unit_price\022(\n\017promo_badge_ids\030\022 \003(" +
-      "\003R\017promo_badge_ids\022*\n\005score\030\023 \001(\0132\033.goog" +
-      "le.protobuf.FloatValue\022\016\n\006labels\030\024 \003(\t\022%" +
-      "\n\006images\030\025 \003(\0132\025.catalog_api_v2.Image\022,\n" +
-      "\nproperties\030\026 \003(\0132\030.catalog_api_v2.Prope" +
-      "rty\022\023\n\013description\030\027 \001(\t\022A\n\rscore_detail" +
-      "s\030\030 \001(\0132\033.catalog_api_v2.ScoreDetailR\rsc" +
-      "ore_details\022\024\n\014requirements\030\031 \003(\t\022*\n\020rel" +
-      "ated_products\030\032 \003(\tR\020related_products\0229\n" +
-      "\nmain_taxon\030\033 \001(\0132\031.catalog_api_v2.MainT" +
-      "axonR\nmain_taxon\"=\n\010Property\022\014\n\004name\030\001 \001" +
-      "(\t\022\024\n\014presentation\030\002 \001(\t\022\r\n\005value\030\003 \001(\t\"" +
-      "H\n\032ProductListAttributeFilter\022*\n\020attribu" +
-      "te_values\030\001 \003(\tR\020attribute_values\"_\n\nPro" +
-      "moBadge\022\n\n\002id\030\001 \001(\003\022\014\n\004type\030\002 \001(\t\0227\n\natt" +
-      "ributes\030\003 \001(\0132#.catalog_api_v2.PromoBadg" +
-      "eAttribute\"\241\001\n\023PromoBadgeAttribute\022\014\n\004na" +
-      "me\030\001 \001(\t\022.\n\022banner_button_text\030\002 \001(\tR\022ba" +
-      "nner_button_text\022\032\n\010taxon_id\030\003 \001(\003R\010taxo" +
-      "n_id\0220\n\007options\030\004 \001(\0132\037.catalog_api_v2.A" +
-      "ttributeOption\"e\n\017AttributeOption\022&\n\006act" +
-      "ive\030\001 \001(\0132\026.catalog_api_v2.Active\022*\n\010ina" +
-      "ctive\030\002 \001(\0132\030.catalog_api_v2.Inactive\"\230\001" +
-      "\n\006Active\022\r\n\005title\030\001 \001(\t\022 \n\013title_short\030\002" +
-      " \001(\tR\013title_short\022\013\n\003url\030\003 \001(\t\022\020\n\010deepli" +
-      "nk\030\004 \001(\t\022 \n\013button_text\030\005 \001(\tR\013button_te" +
-      "xt\022\016\n\006header\030\006 \001(\t\022\014\n\004text\030\007 \001(\t\"\210\001\n\010Ina" +
-      "ctive\022\r\n\005title\030\001 \001(\t\022 \n\013title_short\030\002 \001(" +
-      "\tR\013title_short\022\013\n\003url\030\003 \001(\t\022 \n\013button_te" +
-      "xt\030\005 \001(\tR\013button_text\022\016\n\006header\030\006 \001(\t\022\014\n" +
-      "\004text\030\007 \001(\t\"\230\001\n\013ScoreDetail\022B\n\rfeedbackC" +
-      "ount\030\001 \001(\0132\033.google.protobuf.Int64ValueR" +
-      "\016feedback_count\022E\n\016feedbackSource\030\002 \001(\0132" +
-      "\034.google.protobuf.StringValueR\017feedback_" +
-      "source\"\372\001\n\tMainTaxon\022\n\n\002id\030\001 \001(\003\022\014\n\004type" +
-      "\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022&\n\016products_count\030\004" +
-      " \001(\003R\016products_count\022&\n\016promo_services\030\005" +
-      " \003(\tR\016promo_services\022\020\n\010position\030\006 \001(\003\022\r" +
-      "\n\005depth\030\007 \001(\005\022\"\n\004icon\030\010 \001(\0132\024.catalog_ap" +
-      "i_v2.Icon\022\032\n\010alt_icon\030\t \001(\tR\010alt_icon\022\024\n" +
-      "\014requirements\030\n \003(\t\"B\n\004Icon\022\032\n\010mini_url\030" +
-      "\001 \001(\tR\010mini_url\022\036\n\nnormal_url\030\002 \001(\tR\nnor" +
-      "mal_url\"\310\001\n\013ProtoPerson\022/\n\tfirstName\030\001 \001" +
-      "(\0132\034.google.protobuf.StringValue\022.\n\010last" +
-      "Name\030\002 \001(\0132\034.google.protobuf.StringValue" +
-      "\022.\n\010address1\030\003 \001(\0132\034.google.protobuf.Str" +
-      "ingValue\022(\n\003age\030\004 \001(\0132\033.google.protobuf." +
-      "Int32Value*5\n\tFacetType\022\n\n\006SELECT\020\000\022\020\n\014M" +
-      "ULTI_SELECT\020\001\022\n\n\006TOGGLE\020\0022\376\001\n\023CatalogAPI" +
-      "V2Service\022r\n\016GetProductList\022%.catalog_ap" +
-      "i_v2.GetProductListRequest\032&.catalog_api" +
-      "_v2.GetProductListResponse\"\021\202\323\344\223\002\013\022\t/pro" +
-      "ducts\022s\n\nGetProduct\022!.catalog_api_v2.Get" +
-      "ProductRequest\032\".catalog_api_v2.GetProdu" +
-      "ctResponse\"\036\202\323\344\223\002\030\022\026/products/{product_i" +
-      "d}BEZCgitlab.sbermarket.tech/paas/conten" +
-      "t/catalog/pkg/server/grpc/catalogb\006proto" +
-      "3"
+      "BadgeR\014promo_badges\"\345\006\n\007Product\022\n\n\002id\030\001 " +
+      "\001(\001\022(\n\003sku\030\002 \001(\0132\033.google.protobuf.Int64" +
+      "Value\022\016\n\006active\030\003 \001(\010\022@\n\014retailer_sku\030\004 " +
+      "\001(\0132\034.google.protobuf.StringValueR\014retai" +
+      "ler_sku\022*\n\004name\030\005 \001(\0132\034.google.protobuf." +
+      "StringValue\022\r\n\005price\030\006 \001(\001\022&\n\016original_p" +
+      "rice\030\007 \001(\001R\016original_price\022\020\n\010discount\030\010" +
+      " \001(\001\022@\n\014human_volume\030\t \001(\0132\034.google.prot" +
+      "obuf.StringValueR\014human_volume\022\016\n\006volume" +
+      "\030\n \001(\001\022>\n\013volume_type\030\013 \001(\0132\034.google.pro" +
+      "tobuf.StringValueR\013volume_type\022&\n\016items_" +
+      "per_pack\030\014 \001(\001R\016items_per_pack\022H\n\020discou" +
+      "nt_ends_at\030\r \001(\0132\034.google.protobuf.Strin" +
+      "gValueR\020discount_ends_at\022<\n\nprice_type\030\016" +
+      " \001(\0132\034.google.protobuf.StringValueR\npric" +
+      "e_type\022&\n\016grams_per_unit\030\017 \001(\001R\016grams_pe" +
+      "r_unit\022\036\n\nunit_price\030\020 \001(\001R\nunit_price\0220" +
+      "\n\023original_unit_price\030\021 \001(\001R\023original_un" +
+      "it_price\022(\n\017promo_badge_ids\030\022 \003(\003R\017promo" +
+      "_badge_ids\022*\n\005score\030\023 \001(\0132\033.google.proto" +
+      "buf.FloatValue\022\016\n\006labels\030\024 \003(\t\022%\n\006images" +
+      "\030\025 \003(\0132\025.catalog_api_v2.Image\022\024\n\014require" +
+      "ments\030\026 \003(\t\"\251\001\n\005Image\022\032\n\010mini_url\030\001 \001(\tR" +
+      "\010mini_url\022\034\n\tsmall_url\030\002 \001(\tR\tsmall_url\022" +
+      " \n\013product_url\030\003 \001(\tR\013product_url\022 \n\013pre" +
+      "view_url\030\004 \001(\tR\013preview_url\022\"\n\014original_" +
+      "url\030\005 \001(\tR\014original_url\"^\n\005Facet\022\013\n\003key\030" +
+      "\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\014\n\004type\030\003 \001(\t\022,\n\007opt" +
+      "ions\030\004 \003(\0132\033.catalog_api_v2.FacetOption\"" +
+      "\230\001\n\013FacetOption\022*\n\004name\030\001 \001(\0132\034.google.p" +
+      "rotobuf.StringValue\022\r\n\005value\030\002 \001(\003\022\r\n\005co" +
+      "unt\030\003 \001(\003\022/\n\tpermalink\030\004 \001(\0132\034.google.pr" +
+      "otobuf.StringValue\022\016\n\006active\030\005 \001(\010\"\210\002\n\004M" +
+      "eta\022\"\n\014current_page\030\001 \001(\003R\014current_page\022" +
+      "9\n\tnext_page\030\002 \001(\0132\033.google.protobuf.Int" +
+      "64ValueR\tnext_page\022A\n\rprevious_page\030\003 \001(" +
+      "\0132\033.google.protobuf.Int64ValueR\rprevious" +
+      "_page\022 \n\013total_pages\030\004 \001(\003R\013total_pages\022" +
+      "\032\n\010per_page\030\005 \001(\003R\010per_page\022 \n\013total_cou" +
+      "nt\030\006 \001(\003R\013total_count\"\020\n\016RootCategories\"" +
+      "K\n\017ProductListSort\022\013\n\003key\030\001 \001(\t\022\014\n\004name\030" +
+      "\002 \001(\t\022\r\n\005order\030\003 \001(\t\022\016\n\006active\030\004 \001(\010\"\255\007\n" +
+      "\025ProductWithProperties\022\n\n\002id\030\001 \001(\001\022\013\n\003sk" +
+      "u\030\002 \001(\003\022\016\n\006active\030\003 \001(\010\022\"\n\014retailer_sku\030" +
+      "\004 \001(\tR\014retailer_sku\022\014\n\004name\030\005 \001(\t\022\r\n\005pri" +
+      "ce\030\006 \001(\001\022&\n\016original_price\030\007 \001(\001R\016origin" +
+      "al_price\022\020\n\010discount\030\010 \001(\001\022\"\n\014human_volu" +
+      "me\030\t \001(\tR\014human_volume\022\016\n\006volume\030\n \001(\001\022 " +
+      "\n\013volume_type\030\013 \001(\tR\013volume_type\022&\n\016item" +
+      "s_per_pack\030\014 \001(\001R\016items_per_pack\022H\n\020disc" +
+      "ount_ends_at\030\r \001(\0132\034.google.protobuf.Str" +
+      "ingValueR\020discount_ends_at\022\036\n\nprice_type" +
+      "\030\016 \001(\tR\nprice_type\022&\n\016grams_per_unit\030\017 \001" +
+      "(\001R\016grams_per_unit\022\036\n\nunit_price\030\020 \001(\001R\n" +
+      "unit_price\0220\n\023original_unit_price\030\021 \001(\001R" +
+      "\023original_unit_price\022(\n\017promo_badge_ids\030" +
+      "\022 \003(\003R\017promo_badge_ids\022*\n\005score\030\023 \001(\0132\033." +
+      "google.protobuf.FloatValue\022\016\n\006labels\030\024 \003" +
+      "(\t\022%\n\006images\030\025 \003(\0132\025.catalog_api_v2.Imag" +
+      "e\022,\n\nproperties\030\026 \003(\0132\030.catalog_api_v2.P" +
+      "roperty\022\023\n\013description\030\027 \001(\t\022A\n\rscore_de" +
+      "tails\030\030 \001(\0132\033.catalog_api_v2.ScoreDetail" +
+      "R\rscore_details\022\024\n\014requirements\030\031 \003(\t\022*\n" +
+      "\020related_products\030\032 \003(\tR\020related_product" +
+      "s\0229\n\nmain_taxon\030\033 \001(\0132\031.catalog_api_v2.M" +
+      "ainTaxonR\nmain_taxon\"=\n\010Property\022\014\n\004name" +
+      "\030\001 \001(\t\022\024\n\014presentation\030\002 \001(\t\022\r\n\005value\030\003 " +
+      "\001(\t\"H\n\032ProductListAttributeFilter\022*\n\020att" +
+      "ribute_values\030\001 \003(\tR\020attribute_values\"_\n" +
+      "\nPromoBadge\022\n\n\002id\030\001 \001(\001\022\014\n\004type\030\002 \001(\t\0227\n" +
+      "\nattributes\030\003 \001(\0132#.catalog_api_v2.Promo" +
+      "BadgeAttribute\"\241\001\n\023PromoBadgeAttribute\022\014" +
+      "\n\004name\030\001 \001(\t\022.\n\022banner_button_text\030\002 \001(\t" +
+      "R\022banner_button_text\022\032\n\010taxon_id\030\003 \001(\003R\010" +
+      "taxon_id\0220\n\007options\030\004 \001(\0132\037.catalog_api_" +
+      "v2.AttributeOption\"e\n\017AttributeOption\022&\n" +
+      "\006active\030\001 \001(\0132\026.catalog_api_v2.Active\022*\n" +
+      "\010inactive\030\002 \001(\0132\030.catalog_api_v2.Inactiv" +
+      "e\"\230\001\n\006Active\022\r\n\005title\030\001 \001(\t\022 \n\013title_sho" +
+      "rt\030\002 \001(\tR\013title_short\022\013\n\003url\030\003 \001(\t\022\020\n\010de" +
+      "eplink\030\004 \001(\t\022 \n\013button_text\030\005 \001(\tR\013butto" +
+      "n_text\022\016\n\006header\030\006 \001(\t\022\014\n\004text\030\007 \001(\t\"\210\001\n" +
+      "\010Inactive\022\r\n\005title\030\001 \001(\t\022 \n\013title_short\030" +
+      "\002 \001(\tR\013title_short\022\013\n\003url\030\003 \001(\t\022 \n\013butto" +
+      "n_text\030\005 \001(\tR\013button_text\022\016\n\006header\030\006 \001(" +
+      "\t\022\014\n\004text\030\007 \001(\t\"\230\001\n\013ScoreDetail\022B\n\rfeedb" +
+      "ackCount\030\001 \001(\0132\033.google.protobuf.Int64Va" +
+      "lueR\016feedback_count\022E\n\016feedbackSource\030\002 " +
+      "\001(\0132\034.google.protobuf.StringValueR\017feedb" +
+      "ack_source\"\372\001\n\tMainTaxon\022\n\n\002id\030\001 \001(\001\022\014\n\004" +
+      "type\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022&\n\016products_cou" +
+      "nt\030\004 \001(\003R\016products_count\022&\n\016promo_servic" +
+      "es\030\005 \003(\tR\016promo_services\022\020\n\010position\030\006 \001" +
+      "(\003\022\r\n\005depth\030\007 \001(\005\022\"\n\004icon\030\010 \001(\0132\024.catalo" +
+      "g_api_v2.Icon\022\032\n\010alt_icon\030\t \001(\tR\010alt_ico" +
+      "n\022\024\n\014requirements\030\n \003(\t\"B\n\004Icon\022\032\n\010mini_" +
+      "url\030\001 \001(\tR\010mini_url\022\036\n\nnormal_url\030\002 \001(\tR" +
+      "\nnormal_url\"\310\001\n\013ProtoPerson\022/\n\tfirstName" +
+      "\030\001 \001(\0132\034.google.protobuf.StringValue\022.\n\010" +
+      "lastName\030\002 \001(\0132\034.google.protobuf.StringV" +
+      "alue\022.\n\010address1\030\003 \001(\0132\034.google.protobuf" +
+      ".StringValue\022(\n\003age\030\004 \001(\0132\033.google.proto" +
+      "buf.Int32Value*5\n\tFacetType\022\n\n\006SELECT\020\000\022" +
+      "\020\n\014MULTI_SELECT\020\001\022\n\n\006TOGGLE\020\0022\206\002\n\023Catalo" +
+      "gAPIV2Service\022v\n\016GetProductList\022%.catalo" +
+      "g_api_v2.GetProductListRequest\032&.catalog" +
+      "_api_v2.GetProductListResponse\"\025\202\323\344\223\002\017\022\r" +
+      "/api/products\022w\n\nGetProduct\022!.catalog_ap" +
+      "i_v2.GetProductRequest\032\".catalog_api_v2." +
+      "GetProductResponse\"\"\202\323\344\223\002\034\022\032/api/product" +
+      "s/{product_id}BEZCgitlab.sbermarket.tech" +
+      "/paas/content/catalog/pkg/server/grpc/ca" +
+      "talogb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
