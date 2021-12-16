@@ -27,6 +27,7 @@
       <class name="ru.instamart.test.content.catalog.CatalogTest"/>
       <class name="ru.instamart.test.content.catalog.NavigationTest"/>
       <class name="ru.instamart.test.content.catalog.ShelfTest"/>
+      <class name="ru.instamart.test.content.catalog.CatalogApiV2Test"/>
     </classes>
   </test>
 </suite>

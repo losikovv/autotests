@@ -75,6 +75,7 @@ project(":grpc") {
 
     dependencies {
         implementation project(":kraken")
+        implementation project(":jdbc")
 
         implementation lib.common
         implementation lib.qase
@@ -92,6 +93,8 @@ project(":grpc") {
 
         implementation lib.javax
         implementation lib.tomcatAnnotationsApi
+
+        implementation lib.mysqlJDBC
 
         compileOnly lib.lombok
 
