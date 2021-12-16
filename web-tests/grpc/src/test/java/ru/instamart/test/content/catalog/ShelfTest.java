@@ -55,7 +55,8 @@ public class ShelfTest extends GrpcBase {
     @Story("Проверка построения полок")
     @CaseId(257)
     @Test(description = "Проверка построения полок по категории продукта с пустым значением поля \"category_id\"",
-            groups = "grpc-product-hub")
+            groups = "grpc-product-hub",
+            enabled = false) //todo ожидаем актуализации тест-кейса от Дмитрия Дьячкова
     public void emptyCategoryID() {
         var request = ShelfOuterClass.GetShelfByOriginalCategoryIDRequest.newBuilder()
                 .setOriginalCategoryId("")
@@ -71,7 +72,6 @@ public class ShelfTest extends GrpcBase {
         softAssert.assertTrue(response.getShelves(0).getProductsList().size() > 0, "products вернулся пустым");
         softAssert.assertAll();
     }
-
 
     @Story("Проверка построения полок")
     @CaseId(258)
@@ -122,7 +122,6 @@ public class ShelfTest extends GrpcBase {
 
         client.getShelfByOriginalCategoryID(request);
     }
-
 
     @Story("Проверка построения полок")
     @CaseId(261)
