@@ -77,7 +77,7 @@ stages:
       - web
     variables:
       - $REGRESSION == 'true'
-  when: manual
+  when: always
 
 .template_api_tests:
   stage: tests-api
