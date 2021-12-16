@@ -6,10 +6,7 @@ import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.stf.frame.Close;
-import ru.instamart.reforged.stf.frame.auth.AuthFacebook;
-import ru.instamart.reforged.stf.frame.auth.AuthMail;
-import ru.instamart.reforged.stf.frame.auth.AuthSberId;
-import ru.instamart.reforged.stf.frame.auth.AuthVk;
+import ru.instamart.reforged.stf.frame.auth.*;
 
 public final class AuthModal implements Close, AuthModalCheck {
 
@@ -17,6 +14,7 @@ public final class AuthModal implements Close, AuthModalCheck {
     private final AuthFacebook authFacebookWindow = new AuthFacebook();
     private final AuthVk authVkWindow = new AuthVk();
     private final AuthSberId authSberIdPage = new AuthSberId();
+    private final AuthSberBusinessID authSberBusinessIdPage = new AuthSberBusinessID();
 
     public void fillPhone(final UserData userData) {
         fillPhone(userData.getPhone());
@@ -36,6 +34,10 @@ public final class AuthModal implements Close, AuthModalCheck {
 
     public AuthSberId interactAuthSberIdPage() {
         return authSberIdPage;
+    }
+
+    public AuthSberBusinessID interactAuthSberBusinessIdPage() {
+        return authSberBusinessIdPage;
     }
 
     @Step("Заполнить поле с телефоном {phone}")
@@ -102,6 +104,11 @@ public final class AuthModal implements Close, AuthModalCheck {
     @Step("Войти через sberId")
     public void authViaSberId() {
         sberId.hoverAndClick();
+    }
+
+    @Step("Войти через SberBusinessId")
+    public void authViaSberBusinessId() {
+        sberBusinessIdButton.hoverAndClick();
     }
 
     //TODO ThreadUtil.simplyAwait убрать после отключения проверки таймаута для повторной смс
