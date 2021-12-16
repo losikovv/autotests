@@ -19,8 +19,6 @@ import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 
-import java.sql.Date;
-
 public final class ApiHelper {
 
     private final InstamartApiHelper apiV2 = new InstamartApiHelper();
@@ -252,8 +250,8 @@ public final class ApiHelper {
     }
 
     @Step("Создание промокода")
-    public void createPromotionCode(String value, Integer promotionId, String activatedAt,
+    public void createPromotionCode(String value, Integer promotionId,
                                     String createdAt, String updatedAt, Integer usageLimit) {
-        PromotionCodesDao.INSTANCE.createPromoCode(value, promotionId, activatedAt, createdAt, updatedAt, usageLimit);
+        PromotionCodesDao.INSTANCE.createPromoCode(value, promotionId, createdAt, updatedAt, usageLimit);
     }
 }

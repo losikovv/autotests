@@ -29,7 +29,7 @@ public interface AddressElement {
     Element storeList = new Element(By.xpath("//div[@data-qa='expandable-store-list']"), "список магазинов для самовывоза");
     Element storeItem = new Element(By.xpath("//div[@data-qa='store-item']"));
     Element availableStoreCounter = new Element(By.xpath("//div[@data-qa='expandable-store-list-counter']"));
-    Button selectStoreButton = new Button(By.xpath("//button[@data-qa='store-item-btn']"));
+    Button selectStoreButton = new Button(By.xpath("//a[@data-qa='store-card']"), "Первый магазин в списке");
     Element otherRetailers = new Element(By.xpath("//div[@data-qa='address-edit']//span[contains(text(), 'Выбрать другой магазин')]"));
     Button changeStore = new Button(By.xpath("//button[@data-qa='selected-store-btn']"));
     Element login = new Element(By.xpath("//span[@data-qa='address-modal-login']"));

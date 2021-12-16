@@ -51,7 +51,9 @@ public final class TimeUtil {
         return dtdb.format(ZonedDateTime.now(ZONE_ID).minusDays(days));
     }
 
-
+    public static String getFutureZoneDbDate(Long days) {
+        return dtdb.format(ZonedDateTime.now(ZONE_ID).plusDays(days));
+    }
 
     private TimeUtil() {
     }
