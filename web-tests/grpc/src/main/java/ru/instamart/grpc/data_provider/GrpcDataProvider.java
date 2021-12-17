@@ -2,6 +2,7 @@ package ru.instamart.grpc.data_provider;
 
 import catalog_api_v2.CatalogApiV2;
 import org.testng.annotations.DataProvider;
+import product_filter.ProductFilterOuterClass;
 
 public class GrpcDataProvider {
 
@@ -33,6 +34,44 @@ public class GrpcDataProvider {
                         .setPage(1)
                         .setPerPage(24)
                         .setTenantId("sbermarket")
+                        .build()}
+        };
+    }
+
+    @DataProvider(name = "categorySKUData")
+    public static Object[][] getCategorySKUData() {
+        return new Object[][]{
+                {ProductFilterOuterClass
+                        .GetPopularProductsSKUByCategoryIDsBatchesRequest
+                        .newBuilder()
+                        .addCategoryIdsBatches(ProductFilterOuterClass.CategoryIDsBatch.newBuilder()
+                                .addCategoryIds("")
+                                .build())
+                        .setStoreId("1")
+                        .setTenantId("sbermarket")
+                        .setAvailable(true)
+                        .setProductsSkuLimit(10)
+                        .build()},
+                {ProductFilterOuterClass
+                        .GetPopularProductsSKUByCategoryIDsBatchesRequest
+                        .newBuilder()
+                        .setStoreId("1")
+                        .addCategoryIdsBatches(ProductFilterOuterClass.CategoryIDsBatch.newBuilder()
+                                .build())
+                        .setTenantId("sbermarket")
+                        .setAvailable(true)
+                        .setProductsSkuLimit(10)
+                        .build()},
+                {ProductFilterOuterClass
+                        .GetPopularProductsSKUByCategoryIDsBatchesRequest
+                        .newBuilder()
+                        .setStoreId("1")
+                        .addCategoryIdsBatches(ProductFilterOuterClass.CategoryIDsBatch.newBuilder()
+                                .addCategoryIds("6120")
+                                .build())
+                        .setTenantId("sbermarket")
+                        .setAvailable(false)
+                        .setProductsSkuLimit(10)
                         .build()}
         };
     }
