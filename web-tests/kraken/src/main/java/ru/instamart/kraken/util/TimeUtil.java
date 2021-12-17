@@ -47,6 +47,14 @@ public final class TimeUtil {
         return dtdb.format(ZonedDateTime.of(LocalDate.now(), LocalTime.MAX, ZONE_ID).plusDays(days));
     }
 
+    public static String getPastZoneDbDate(Long days) {
+        return dtdb.format(ZonedDateTime.now(ZONE_ID).minusDays(days));
+    }
+
+    public static String getFutureZoneDbDate(Long days) {
+        return dtdb.format(ZonedDateTime.now(ZONE_ID).plusDays(days));
+    }
+
     private TimeUtil() {
     }
 }

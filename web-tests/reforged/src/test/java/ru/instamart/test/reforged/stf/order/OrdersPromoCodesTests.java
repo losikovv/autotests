@@ -12,13 +12,13 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.PromoData;
-import ru.instamart.kraken.data.Promos;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.data_provider.PromoCodeProvider;
 import ru.instamart.test.reforged.BaseTest;
 
+import static ru.instamart.kraken.util.TimeUtil.*;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -50,6 +50,9 @@ public final class OrdersPromoCodesTests extends BaseTest {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().checkModalIsNotVisible();
+
+        shop().goToPage();
         shop().interactHeader().checkProfileButtonVisible();
         shop().addCookie(CookieFactory.COOKIE_ALERT);
 
@@ -91,7 +94,11 @@ public final class OrdersPromoCodesTests extends BaseTest {
             groups = "regression")
     public void successOrderWithPromoCodeFixedDiscountWithBorders() {
         var company = JuridicalData.juridical();
-        var promo = Promos.fixedDiscountForAllOrdersInPercentsBorders().getCode();
+        var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
+        final String yesterday = getPastZoneDbDate(1L);
+        //TODO: добавить в тест создание промоакций через апи метод
+
+        helper.createPromotionCode(promo, 2760, yesterday, yesterday, 100);
 
         ordersUser = UserManager.getQaUser();
         helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_SID);
@@ -99,6 +106,9 @@ public final class OrdersPromoCodesTests extends BaseTest {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().checkModalIsNotVisible();
+
+        shop().goToPage();
         shop().interactHeader().checkProfileButtonVisible();
         shop().addCookie(CookieFactory.COOKIE_ALERT);
 
@@ -141,15 +151,22 @@ public final class OrdersPromoCodesTests extends BaseTest {
             groups = "regression")
     public void failedOrderForOldUserWithFirstOrderPromo() {
         var company = JuridicalData.juridical();
-        var promo = Promos.discountOnFirstOrder().getCode();
+        var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
+        final String yesterday = getPastZoneDbDate(1L);
+        //TODO: добавить в тест создание промоакций через апи метод
 
         ordersUser = UserManager.getQaUser();
+
         helper.makeOrder(ordersUser, EnvironmentProperties.DEFAULT_SID, 1);
+        helper.createPromotionCode(promo, 2761, yesterday, yesterday, 100);
         helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().checkModalIsNotVisible();
+
+        shop().goToPage();
         shop().interactHeader().checkProfileButtonVisible();
         shop().addCookie(CookieFactory.COOKIE_ALERT);
 
@@ -189,12 +206,14 @@ public final class OrdersPromoCodesTests extends BaseTest {
         var promo = Generate.string(8);
 
         ordersUser = UserManager.getQaUser();
-        helper.makeOrder(ordersUser, EnvironmentProperties.DEFAULT_SID, 1);
         helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactAuthModal().checkModalIsNotVisible();
+
+        shop().goToPage();
         shop().interactHeader().checkProfileButtonVisible();
         shop().addCookie(CookieFactory.COOKIE_ALERT);
 

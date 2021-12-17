@@ -13,6 +13,12 @@ public interface AddressCheck extends AddressElement, Check {
         waitAction().shouldNotBeVisible(addressModal);
     }
 
+    @Step("Фрейм адреса доставки отображается")
+    default void checkAddressModalVisible() {
+        waitAction().shouldBeVisible(addressModal);
+        waitAction().shouldNotBeAnimated(addressModal);
+    }
+
     @Step("Маркер не отображается")
     default void checkMarkerOnMapInAdviceIsNotVisible() {
         waitAction().shouldNotBeVisible(markerImageOnMapInAdvice);

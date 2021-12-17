@@ -21,6 +21,9 @@ public class PromotionCodesDao extends AbstractDao<Long, PromotionCodesEntity> {
             "id, value, promotion_id, activated_at, created_at, updated_at, usage_limit " +
             "FROM promotion_codes";
 
+    private static final String SQL_INSERT_PROMO_CODE = "INSERT INTO " +
+            "promotion_codes(value, promotion_id, created_at, updated_at, usage_limit) " +
+            "VALUES( ?, ?, ?, ?, ?);";
 
     public List<PromotionCodesEntity> findAll(PromotionCodesFilters filters) {
         List<Object> parameters = new ArrayList<>();
@@ -86,7 +89,21 @@ public class PromotionCodesDao extends AbstractDao<Long, PromotionCodesEntity> {
              PreparedStatement preparedStatement = connect.prepareStatement("UPDATE promotion_codes SET usage_limit = ? WHERE value = ?")) {
             preparedStatement.setInt(1, usageLimit);
             preparedStatement.setString(2, promoCode);
-             preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+    }
+
+    public void createPromoCode(String value, Integer promotionId, String createdAt, String updatedAt, Integer usageLimit) {
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(SQL_INSERT_PROMO_CODE)) {
+            preparedStatement.setString(1, value);
+            preparedStatement.setInt(2, promotionId);
+            preparedStatement.setString(3, createdAt);
+            preparedStatement.setString(4, updatedAt);
+            preparedStatement.setInt(5, usageLimit);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
