@@ -25,8 +25,6 @@ public class PromotionCodesDao extends AbstractDao<Long, PromotionCodesEntity> {
             "promotion_codes(value, promotion_id, created_at, updated_at, usage_limit) " +
             "VALUES( ?, ?, ?, ?, ?);";
 
-
-
     public List<PromotionCodesEntity> findAll(PromotionCodesFilters filters) {
         List<Object> parameters = new ArrayList<>();
         List<String> whereSql = new ArrayList<>();
