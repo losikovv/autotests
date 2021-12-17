@@ -21,6 +21,12 @@ public class PromotionCodesDao extends AbstractDao<Long, PromotionCodesEntity> {
             "id, value, promotion_id, activated_at, created_at, updated_at, usage_limit " +
             "FROM promotion_codes";
 
+    private static final String SQL_INSERT_PROMO_CODE = "INSERT INTO " +
+            "promotion_codes(value, promotion_id, created_at, updated_at, usage_limit) " +
+            "VALUES( ?, ?, ?, ?, ?);";
+
+
+
     public List<PromotionCodesEntity> findAll(PromotionCodesFilters filters) {
         List<Object> parameters = new ArrayList<>();
         List<String> whereSql = new ArrayList<>();
@@ -93,7 +99,7 @@ public class PromotionCodesDao extends AbstractDao<Long, PromotionCodesEntity> {
 
     public void createPromoCode(String value, Integer promotionId, String createdAt, String updatedAt, Integer usageLimit) {
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement("INSERT INTO sbermarket_staging_kraken.promotion_codes(value, promotion_id, created_at, updated_at, usage_limit) VALUES( ?, ?, ?, ?, ?);")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(SQL_INSERT_PROMO_CODE)) {
             preparedStatement.setString(1, value);
             preparedStatement.setInt(2, promotionId);
             preparedStatement.setString(3, createdAt);

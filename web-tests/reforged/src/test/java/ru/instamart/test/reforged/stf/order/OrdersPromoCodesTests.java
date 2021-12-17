@@ -48,7 +48,6 @@ public final class OrdersPromoCodesTests extends BaseTest {
         helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_SID);
 
         shop().goToPage();
-        shop().interactAddress().selectFirstStore();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
         shop().interactAuthModal().checkModalIsNotVisible();
@@ -99,14 +98,12 @@ public final class OrdersPromoCodesTests extends BaseTest {
         final String yesterday = getPastZoneDbDate(1L);
         //TODO: добавить в тест создание промоакций через апи метод
 
-        ApiHelper helper = new ApiHelper();
         helper.createPromotionCode(promo, 2760, yesterday, yesterday, 100);
 
         ordersUser = UserManager.getQaUser();
         helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_SID);
 
         shop().goToPage();
-        shop().interactAddress().selectFirstStore();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
         shop().interactAuthModal().checkModalIsNotVisible();
@@ -158,7 +155,6 @@ public final class OrdersPromoCodesTests extends BaseTest {
         final String yesterday = getPastZoneDbDate(1L);
         //TODO: добавить в тест создание промоакций через апи метод
 
-        ApiHelper helper = new ApiHelper();
         ordersUser = UserManager.getQaUser();
 
         helper.makeOrder(ordersUser, EnvironmentProperties.DEFAULT_SID, 1);
@@ -166,14 +162,13 @@ public final class OrdersPromoCodesTests extends BaseTest {
         helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_SID);
 
         shop().goToPage();
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
-        shop().interactAddress().selectFirstStore();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
         shop().interactAuthModal().checkModalIsNotVisible();
 
         shop().goToPage();
         shop().interactHeader().checkProfileButtonVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForBusiness();
@@ -214,7 +209,6 @@ public final class OrdersPromoCodesTests extends BaseTest {
         helper.dropAndFillCart(ordersUser, EnvironmentProperties.DEFAULT_SID);
 
         shop().goToPage();
-        shop().interactAddress().selectFirstStore();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
         shop().interactAuthModal().checkModalIsNotVisible();
