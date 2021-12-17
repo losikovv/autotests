@@ -10,15 +10,12 @@ import ru.instamart.reforged.core.page.Window;
 
 public final class AuthMail implements Window {
 
-    private final Input name = new Input(By.xpath("//input[@name='username']"));
-    private final Selector domain = new Selector(By.xpath("//select[@name='Domain']"));
-    private final Button enterPassword = new Button(By.xpath("//button[@data-test-id='next-button']"));
-    private final Button viaVk = new Button(By.xpath("//button[@data-test-id='social-vk']"));
-    private final Button cancel = new Button(By.xpath("//span[contains(text(), 'Отмена')]/parent::button"));
+    private final Input name = new Input(By.xpath("//input[@name='username']"), "поле для ввода имени");
+    private final Button enterPassword = new Button(By.xpath("//button[@data-test-id='next-button']"), "подтверждение ввода почты");
 
-    private final Input password = new Input(By.xpath("//input[@name='password']"));
-    private final Element togglePassword = new Element(By.xpath("//div[@data-test-id='toggle-password-mask']"));
-    private final Button login = new Button(By.xpath("//button[@data-test-id='submit-button']"));
+    private final Input password = new Input(By.xpath("//input[@name='password']"), "поле для ввода пароля");
+    private final Button login = new Button(By.xpath("//button[@data-test-id='submit-button']"), "подтвердить авторизацию");
+    private final Button accept = new Button(By.xpath("//button[@data-test-id='accept-access']"), "разрешить авторизацию");
 
     @Step("Ввести email на странице авторизации через mail.ru")
     public void fillName(final String text) {
@@ -30,19 +27,9 @@ public final class AuthMail implements Window {
         enterPassword.click();
     }
 
-    @Step("Выбрать домен на странице авторизации через mail.ru")
-    public void setDomain(final String text) {
-        domain.selectByText(text);
-    }
-
     @Step("Ввести пароль на странице авторизации через mail.ru")
     public void fillPassword(final String text) {
         password.fill(text);
-    }
-
-    @Step("Нажать VK Connect на странице авторизации через mail.ru")
-    public void clickToVkConnect() {
-        viaVk.click();
     }
 
     @Step("Нажать войти на странице авторизации через mail.ru")
@@ -50,13 +37,8 @@ public final class AuthMail implements Window {
         login.click();
     }
 
-    @Step("Нажать отмена на странице авторизации через mail.ru")
-    public void clickToCancel() {
-        cancel.click();
-    }
-
-    @Step("Нажать скрыть/показать пароль на странице авторизации через mail.ru")
-    public void clickToToggle() {
-        togglePassword.click();
+    @Step("Разрешить авторизоваться на сайте")
+    public void clickToAccept() {
+        accept.click();
     }
 }

@@ -50,9 +50,10 @@ public final class ShoppingSearchTests extends BaseTest {
         search().checkSearchProductGridVisible();
     }
 
+    // AB поиска
     @CaseId(2587)
     @Story("Позитивные сценарии")
-    @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {"smoke", "regression"})
+    @Test(enabled = false, description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {"smoke", "regression"})
     public void successSearchItemUsingCategorySuggests() {
         shop().goToPage();
         shop().interactHeader().fillSearch("сыры");

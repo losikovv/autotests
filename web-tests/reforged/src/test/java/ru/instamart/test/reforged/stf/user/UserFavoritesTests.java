@@ -2,7 +2,7 @@ package ru.instamart.test.reforged.stf.user;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.Issue;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
@@ -11,6 +11,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 import static ru.instamart.reforged.stf.page.StfRouter.userFavorites;
@@ -41,8 +42,9 @@ public final class UserFavoritesTests extends BaseTest {
         userFavorites().checkEmptyFavorites();
     }
 
+    @Issue("B2C-4006")
     @CaseId(1266)
-    @Test(description = "Добавление любимого товара из карточки товара и проверка списка", groups = {"smoke", "regression"})
+    @Test(enabled = false, description = "Добавление любимого товара из карточки товара и проверка списка", groups = {"smoke", "regression"})
     public void successAddFavoriteOnItemCard() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

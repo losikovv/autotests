@@ -48,7 +48,6 @@ public final class ShoppingCatalogTests extends BaseTest {
         shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
         shop().interactAddress().clickOnSave();
         shop().interactAddress().checkAddressModalIsNotVisible();
-        shop().waitPageLoad();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().goToPage();

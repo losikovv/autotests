@@ -173,7 +173,7 @@ public final class UserManager {
     public static UserData getDefaultMailRuUser() {
         if (isNull(defaultMailRuUser)) {
             defaultMailRuUser = UserData.builder()
-                    .email(Crypt.INSTANCE.decrypt("6F+U8tpf0M8xSLKvz+UawQ=="))
+                    .email(Crypt.INSTANCE.decrypt("TLSz46APgnhRyuJhSDZJr/2tC0Dzq0Twcf2gmRS3V1E="))
                     .password(PASSWD_1)
                     .build();
         }
