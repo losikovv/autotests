@@ -145,8 +145,6 @@ public final class Header implements HeaderCheck {
 
     @Step("Получить текст выбранный адрес")
     public String getShippingAddressFromHeader() {
-        Kraken.jsAction().waitForDocumentReady();
-        Kraken.jsAction().checkPendingRequests();
         shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
         return enteredAddress.getText();
     }

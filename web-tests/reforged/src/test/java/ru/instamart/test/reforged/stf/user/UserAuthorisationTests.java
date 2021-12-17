@@ -85,7 +85,7 @@ public final class UserAuthorisationTests extends BaseTest {
 
     @CaseId(2735)
     @Story("Авторизация через VK")
-    @Test(description = "Тест успешной авторизация через ВКонтакте", groups = {"smoke", "regression"})
+    @Test(enabled = false, description = "Тест успешной авторизация через ВКонтакте", groups = {"smoke", "regression"})
     public void successRegWithVkontakte() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -103,8 +103,6 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
-    //TODO: Починить юзера
-    @Skip
     @CaseId(1460)
     @Story("Авторизация через Mail.ru")
     @Test(description = "Тест успешной авторизация через MailRu", groups = {"smoke", "regression"})
@@ -121,8 +119,8 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactAuthModal().interactAuthMailWindow()
                 .fillPassword(UserManager.getDefaultMailRuUser().getPassword());
         shop().interactAuthModal().interactAuthMailWindow().clickToSubmit();
+        shop().interactAuthModal().interactAuthMailWindow().clickToAccept();
         shop().interactAuthModal().interactAuthMailWindow().switchToFirstWindow();
-        shop().waitPageLoad();
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
     }
