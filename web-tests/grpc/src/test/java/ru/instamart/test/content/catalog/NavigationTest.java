@@ -29,7 +29,7 @@ public class NavigationTest extends GrpcBase {
     }
 
     @CaseId(150)
-    @Test(groups = {"grpc-product-hub"},
+    @Test(groups = {"grpc-product-hub"}, enabled = false, //ждет обновления от Дмитрия Дьячкова после изменения логики
             description = "Проверка построения дерева продуктов")
     public void getMenuTree() {
         var request = Navigation.GetMenuTreeRequest
@@ -72,7 +72,7 @@ public class NavigationTest extends GrpcBase {
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(response.getBreadcrumbs(0).getId(), "131", "Категория отличается");
         softAssert.assertEquals(response.getBreadcrumbs(0).getName(), "Вода, соки, напитки", "Наименование категории не совпадает");
-        softAssert.assertEquals(response.getBreadcrumbs(0).getPermalink(), "voda-soki-napitki-1", "Permalink не совпадает");
+        softAssert.assertEquals(response.getBreadcrumbs(0).getPermalink(), "voda-soki-napitki-new", "Permalink не совпадает");
         softAssert.assertAll();
     }
 
@@ -158,7 +158,7 @@ public class NavigationTest extends GrpcBase {
     }
 
     @CaseId(227)
-    @Test(groups = {"grpc-product-hub"},
+    @Test(groups = {"grpc-product-hub"}, enabled = false, //ждет обновления от Дмитрия Дьячкова после изменения логики
             description = "Проверка построения дерева продуктов без поля \"tree_depth\"")
     public void withoutTreeDepth() {
         var request = Navigation.GetMenuTreeRequest.newBuilder()
