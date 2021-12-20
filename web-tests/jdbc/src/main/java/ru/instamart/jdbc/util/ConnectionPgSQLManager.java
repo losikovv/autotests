@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -19,6 +20,7 @@ import static org.testng.Assert.fail;
 @Slf4j
 public class ConnectionPgSQLManager {
 
+    private static final String CI_PIPELINE_SOURCE = Optional.ofNullable(System.getenv("CI_PIPELINE_SOURCE")).orElse("local");
     private static final Integer DEFAULT_POOL_SIZE = 5;
     private static BlockingQueue<Connection> pool;
     private static List<Connection> sourceConnections;
@@ -33,7 +35,10 @@ public class ConnectionPgSQLManager {
     }
 
     protected static void portForward() {
-        K8sPortForward.getInstance().portForwardPgSQL();
+        //TODO: костыль для локального запуска. Нет доступа по vpn до бд
+        if(CI_PIPELINE_SOURCE.equals("local")) {
+            K8sPortForward.getInstance().portForwardPgSQL();
+        }
     }
 
     public static Connection get() {
@@ -70,7 +75,8 @@ public class ConnectionPgSQLManager {
     protected static Connection open() {
         try {
             return DriverManager.getConnection(
-                    EnvironmentProperties.DB_PGSQL_URL,
+                    //TODO: костыль для локального запуска. Нет доступа по vpn до бд
+                    CI_PIPELINE_SOURCE.equals("local")?"jdbc:postgresql://localhost:6432/shopper_staging_kraken":EnvironmentProperties.DB_PGSQL_URL,
                     EnvironmentProperties.DB_PGSQL_USERNAME,
                     EnvironmentProperties.DB_PGSQL_PASSWORD
             );
