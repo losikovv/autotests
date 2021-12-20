@@ -1,6 +1,8 @@
 package ru.instamart.jdbc.util;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.instamart.k8s.K8sPortForward;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.common.Crypt;
 
 import java.lang.reflect.Proxy;
@@ -12,11 +14,11 @@ import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+import static org.testng.Assert.fail;
+
+@Slf4j
 public class ConnectionPgSQLManager {
 
-    private static final String PASSWORD_KEY = "db.password";
-    private static final String USERNAME_KEY = "db.username";
-    private static final String URL_KEY = "db.url";
     private static final Integer DEFAULT_POOL_SIZE = 5;
     private static BlockingQueue<Connection> pool;
     private static List<Connection> sourceConnections;
@@ -32,6 +34,14 @@ public class ConnectionPgSQLManager {
 
     protected static void portForward() {
         K8sPortForward.getInstance().portForwardPgSQL();
+    }
+
+    public static Connection get() {
+        try {
+            return pool.take();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     protected static void initConnectionPool() {
@@ -60,13 +70,17 @@ public class ConnectionPgSQLManager {
     protected static Connection open() {
         try {
             return DriverManager.getConnection(
-                    PropertiesUtil.get(URL_KEY),
-                    Crypt.INSTANCE.decrypt(PropertiesUtil.get(USERNAME_KEY)),
-                    Crypt.INSTANCE.decrypt(PropertiesUtil.get(PASSWORD_KEY))
+                    EnvironmentProperties.DB_PGSQL_URL,
+                    EnvironmentProperties.DB_PGSQL_USERNAME,
+                    EnvironmentProperties.DB_PGSQL_PASSWORD
             );
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (SQLException ex) {
+            log.error("SQLException: " + ex.getMessage() +
+                    "SQLState: " + ex.getSQLState() +
+                    "VendorError: " + ex.getErrorCode());
+            fail("SQLException: " + ex.getMessage());
         }
+        return null;
     }
 
     public static void closePool() {
