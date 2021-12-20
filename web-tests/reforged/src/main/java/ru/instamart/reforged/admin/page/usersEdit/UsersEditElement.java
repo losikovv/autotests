@@ -1,14 +1,18 @@
 package ru.instamart.reforged.admin.page.usersEdit;
 
 import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.*;
+import ru.instamart.reforged.admin.block.flash_alert.FlashAlert;
+import ru.instamart.reforged.core.component.Button;
+import ru.instamart.reforged.core.component.Checkbox;
+import ru.instamart.reforged.core.component.Input;
+import ru.instamart.reforged.core.component.Link;
 
 public interface UsersEditElement {
 
+   FlashAlert alert = new FlashAlert();
+
    Link backToAllUsers = new Link(By.xpath("//a[@icon='icon-arrow-left']"));
 
-   Element successFlash = new Element(By.xpath("//div[@id='flashWrapper']//div[@class = 'flash success']"));
-   Element errorFlash = new Element(By.xpath("//div[@id='flashWrapper']//div[@class = 'flash error']"));
    Input userEmail = new Input(By.id("user_email"));
    Input password = new Input(By.id("user_password"));
    Input passwordConfirmation = new Input(By.id("user_password_confirmation"));

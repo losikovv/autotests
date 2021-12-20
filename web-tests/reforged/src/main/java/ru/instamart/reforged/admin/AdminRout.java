@@ -14,6 +14,7 @@ import ru.instamart.reforged.admin.page.settings.all_cities.city_edit.CityEditPa
 import ru.instamart.reforged.admin.page.settings.company_settings.CompanySettingsPage;
 import ru.instamart.reforged.admin.page.settings.general_settings.GeneralSettingsPage;
 import ru.instamart.reforged.admin.page.settings.payments_settings.PaymentsSettingsPage;
+import ru.instamart.reforged.admin.page.settings.shipping_method.new_method.ShippingNewMethodPage;
 import ru.instamart.reforged.admin.page.settings.sms_settings.SmsSettingsPage;
 import ru.instamart.reforged.admin.page.shipment.ShipmentsPage;
 import ru.instamart.reforged.admin.page.login.LoginPage;
@@ -120,6 +121,10 @@ public final class AdminRout extends Router {
 
     public static ShippingMethodPage shippingMethod() {
         return (ShippingMethodPage) getPage(ShippingMethodPage.class);
+    }
+
+    public static ShippingNewMethodPage shippingNewMethod() {
+        return (ShippingNewMethodPage) getPage(ShippingNewMethodPage.class);
     }
 
     public static CompanySettingsPage companySettings() {

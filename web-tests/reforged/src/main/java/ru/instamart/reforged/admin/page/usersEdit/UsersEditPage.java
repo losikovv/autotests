@@ -2,10 +2,15 @@ package ru.instamart.reforged.admin.page.usersEdit;
 
 import io.qameta.allure.Step;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.reforged.admin.block.flash_alert.FlashAlert;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.stf.page.StfPage;
 
 public final class UsersEditPage implements StfPage, UsersEditEditCheck {
+
+    public FlashAlert interactFlashAlert() {
+        return alert;
+    }
 
     @Step("Заполнить поле email на странице редактирования пользователя: {0}")
     public void fillUserEmail(String data) {

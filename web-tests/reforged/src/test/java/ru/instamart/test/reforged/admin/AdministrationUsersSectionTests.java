@@ -163,7 +163,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         users().clickToEditUser();
 
         usersEdit().clickToBlockCard();
-        usersEdit().checkSuccessFlash();
+        usersEdit().interactFlashAlert().checkSuccessFlash();
     }
 
     @CaseId(509)
@@ -182,6 +182,6 @@ public class AdministrationUsersSectionTests extends BaseTest {
 
         usersEdit().clickToBlockPhone();
         usersEdit().confirmBrowserAlert();
-        usersEdit().checkSuccessFlash();
+        usersEdit().interactFlashAlert().checkSuccessFlash();
     }
 }

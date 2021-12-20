@@ -2,8 +2,18 @@ package ru.instamart.reforged.admin.page.settings.shipping_method;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.admin.AdminPage;
+import ru.instamart.reforged.admin.block.flash_alert.FlashAlert;
 
 public final class ShippingMethodPage implements AdminPage, ShippingMethodCheck {
+
+    public FlashAlert interactFlashAlert() {
+        return alert;
+    }
+
+    @Step("Нажать на кнопку 'Новый способ доставки'")
+    public void addNewDelivery() {
+        addNewDelivery.click();
+    }
 
     @Step("Открыть на редактирование первый элемент таблица")
     public void clickToEditShipmentMethod(final String name) {

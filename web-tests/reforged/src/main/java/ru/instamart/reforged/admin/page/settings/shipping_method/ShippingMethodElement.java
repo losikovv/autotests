@@ -1,12 +1,17 @@
 package ru.instamart.reforged.admin.page.settings.shipping_method;
 
 import org.openqa.selenium.By;
+import ru.instamart.reforged.admin.block.flash_alert.FlashAlert;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Input;
 
 public interface ShippingMethodElement {
+
+    FlashAlert alert = new FlashAlert();
+
+    Button addNewDelivery = new Button(By.xpath("//span[text()='Новый способ доставки']"), "кнопка 'Новый способ доставки'");
 
     Button editButton = new Button(ByKraken.xpath("//td[text()='%s']/ancestor::tr/descendant::button"), "редактирование метода доставки");
     Button addNewMarketingRule = new Button(By.xpath("//div/span[text()='Правила маркетинговой стоимости доставки']/parent::div/following::div[3]//button"),
@@ -15,7 +20,7 @@ public interface ShippingMethodElement {
             "селектор Тип калькулятора");
     Element selectMarketingRule = new Element(By.xpath("//div/span[text()='Правила маркетинговой стоимости доставки']/parent::div/following::div[2]//div[text()='Тип правила']"),
             "селектор Тип правила");
-    Button deleteMarketingRule = new Button(By.xpath("/div/span[text()='Правила маркетинговой стоимости доставки']/parent::div/following::div[2]//span[@aria-label='delete']"),
+    Button deleteMarketingRule = new Button(By.xpath("//div/span[text()='Правила маркетинговой стоимости доставки']/parent::div/following::div[2]//span[@aria-label='delete']"),
             "кнопка удаления маркетингова правила");
 
     Button addNewNominalRule = new Button(By.xpath("//div/span[text()='Правила номинальной стоимости доставки']/parent::div/following::div[3]//button"),
@@ -24,7 +29,7 @@ public interface ShippingMethodElement {
             "селектор Тип калькулятора");
     Element selectNominalRule = new Element(By.xpath("//div/span[text()='Правила номинальной стоимости доставки']/parent::div/following::div[2]//div[text()='Тип правила']"),
             "селектор Тип правила");
-    Button deleteNominalRule = new Button(By.xpath("/div/span[text()='Правила номинальной стоимости доставки']/parent::div/following::div[2]//span[@aria-label='delete']"),
+    Button deleteNominalRule = new Button(By.xpath("//div/span[text()='Правила номинальной стоимости доставки']/parent::div/following::div[2]//span[@aria-label='delete']"),
             "кнопка удаления номинального правила");
 
     Element selectorValue = new Element(ByKraken.xpath("//div[contains(text(), '%s')]"), "пункт в селекторе");
