@@ -69,7 +69,7 @@ message Product {
 	double grams_per_unit = 15 [json_name = "grams_per_unit"];
 	double unit_price = 16 [json_name = "unit_price"];
 	double original_unit_price = 17 [json_name = "original_unit_price"];
-	repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];
+	repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];
 	google.protobuf.FloatValue score = 19;
 	repeated string labels = 20;
 	repeated Image images = 21;
@@ -142,7 +142,7 @@ message ProductWithProperties {
 	double grams_per_unit = 15 [json_name = "grams_per_unit"];
 	double unit_price = 16 [json_name = "unit_price"];
 	double original_unit_price = 17 [json_name = "original_unit_price"];
-	repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];
+	repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];
 	google.protobuf.FloatValue score = 19;
 	repeated string labels = 20;
 	repeated Image images = 21;
@@ -173,7 +173,7 @@ message PromoBadge {
 message PromoBadgeAttribute {
 	string name = 1;
 	string banner_button_text = 2 [json_name = "banner_button_text"];
-	int64 taxon_id = 3 [json_name = "taxon_id"];
+	double taxon_id = 3 [json_name = "taxon_id"];
 	AttributeOption options = 4;
 }
 
@@ -202,17 +202,18 @@ message Inactive {
 }
 
 message ScoreDetail {
-	google.protobuf.Int64Value feedbackCount = 1 [json_name = "feedback_count"];
+	google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];
 	google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];
+	google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];
 }
 
 message MainTaxon {
 	double id = 1;
 	string type = 2;
 	string name = 3;
-	int64 products_count = 4 [json_name = "products_count"];
+	double products_count = 4 [json_name = "products_count"];
 	repeated string promo_services = 5 [json_name = "promo_services"];
-	int64 position = 6;
+	double position = 6;
 	int32 depth = 7;
 	Icon icon = 8;
 	string alt_icon = 9 [json_name = "alt_icon"];

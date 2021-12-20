@@ -28,7 +28,7 @@ public class CatalogTest extends GrpcBase {
 
     @Story("Каталог продуктов")
     @CaseId(180)
-    @Test(description = "Получение продуктов",
+    @Test(description = "Получение продуктов", enabled = false, //ждет обновления от Дмитрия Дьячкова после изменения логики
             groups = {"grpc-product-hub"})
     public void getProducts() {
         var request = Catalog

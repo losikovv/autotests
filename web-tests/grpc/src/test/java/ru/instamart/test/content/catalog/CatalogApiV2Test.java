@@ -114,7 +114,7 @@ public class CatalogApiV2Test extends GrpcBase {
 
     @Story("Продукты")
     @CaseIDs(value = {@CaseId(178), @CaseId(248), @CaseId(249)})
-    @Test(description = "Получение списка товаров",
+    @Test(description = "Получение списка товаров", enabled = false, //ждет обновления от Дмитрия Дьячкова после изменения логики
             groups = {"grpc-product-hub"},
             dataProvider = "catalogProductListData",
             dataProviderClass = GrpcDataProvider.class)
