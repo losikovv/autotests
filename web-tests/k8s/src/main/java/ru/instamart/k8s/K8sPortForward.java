@@ -44,7 +44,8 @@ public final class K8sPortForward {
 
             try {
                 V1PodList podList = getPodList(namespace, labelSelector);
-                k8sConnectMySql = getK8sPortForward(namespace, podList.getItems().get(0).getMetadata().getName(), 3306, 3306);
+                k8sConnectMySql = getK8sPortForward(namespace, podList.getItems().get(0).getMetadata().getName(),
+                        EnvironmentProperties.DB_PORT, EnvironmentProperties.DB_PORT);
             } catch (IOException | ApiException e) {
                 throw new SkipException("Ошибка проброса порта 3306 до пода. Error: " + e.getMessage());
             }
@@ -58,7 +59,8 @@ public final class K8sPortForward {
 
             try {
                 V1PodList podList = getPodList(namespace, labelSelector);
-                k8sConnectPgSql = getK8sPortForward(namespace, podList.getItems().get(0).getMetadata().getName(), 5432, 5432);
+                k8sConnectPgSql = getK8sPortForward(namespace, podList.getItems().get(0).getMetadata().getName(),
+                        EnvironmentProperties.DB_PG_PORT, EnvironmentProperties.DB_PG_PORT);
             } catch (IOException | ApiException e) {
                 throw new SkipException("Ошибка проброса порта 5432 до пода. Error: " + e.getMessage());
             }
