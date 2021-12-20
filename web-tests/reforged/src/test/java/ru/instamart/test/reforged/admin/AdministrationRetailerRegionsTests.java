@@ -40,7 +40,7 @@ public final class AdministrationRetailerRegionsTests extends BaseTest {
         shopAdd().goToPage();
         shopAdd().selectTestRegionInRegionsDropdown(regionName);
 
-        apiHelper.deleteOperationalZonesInAdmin(regionName);
+        apiHelper.deleteOperationalZonesInShopper(regionName);
 
         regions().goToPage();
         regions().checkAddNewRegionButtonVisible();

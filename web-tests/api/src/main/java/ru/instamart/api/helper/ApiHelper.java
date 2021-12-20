@@ -228,6 +228,11 @@ public final class ApiHelper {
         OperationalZonesDao.INSTANCE.deleteZoneByName(zoneName);
     }
 
+    @Step("Удаляем регион {zoneName} для магазина из шоппера ")
+    public void deleteOperationalZonesInShopper(String zoneName) {
+        ru.instamart.jdbc.dao.shopper.OperationalZonesDao.INSTANCE.deleteZoneByName(zoneName);
+    }
+
     /**
      * @param user должен иметь phone и encryptedPhone
      *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])

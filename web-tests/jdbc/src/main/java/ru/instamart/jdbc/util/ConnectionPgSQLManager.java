@@ -49,6 +49,14 @@ public class ConnectionPgSQLManager {
         }
     }
 
+    public static Connection get() {
+        try {
+            return pool.take();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     protected static void initConnectionPool() {
         pool = new ArrayBlockingQueue<>(DEFAULT_POOL_SIZE);
         sourceConnections = new ArrayList<>(DEFAULT_POOL_SIZE);
