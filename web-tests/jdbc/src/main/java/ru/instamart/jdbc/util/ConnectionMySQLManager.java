@@ -71,8 +71,8 @@ public class ConnectionMySQLManager {
         try {
             return DriverManager.getConnection
                     (EnvironmentProperties.DB_URL + "?" +
-                            "user=" + EnvironmentProperties.DB_USERNAME +
-                            "&password=" + EnvironmentProperties.DB_PASSWORD);
+                            "user=" + EnvironmentProperties.DB_MYSQL_USERNAME +
+                            "&password=" + EnvironmentProperties.DB_MYSQL_PASSWORD);
         } catch (SQLException ex) {
             log.error("SQLException: " + ex.getMessage() +
                     "SQLState: " + ex.getSQLState() +

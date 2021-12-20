@@ -31,10 +31,21 @@ public final class EnvironmentProperties {
     public static int DEFAULT_SHOPPER_SID;
     @Config(configName = NAME, fieldName = "dbUrl", defaultValue = "")
     public static String DB_URL;
+    @Config(configName = NAME, fieldName = "dbPort", defaultValue = "")
+    public static int DB_PORT;
+    @Config(configName = NAME, fieldName = "dbPgUrl", defaultValue = "")
+    public static String DB_PGSQL_URL;
+    @Config(configName = NAME, fieldName = "dbPgPort", defaultValue = "")
+    public static int DB_PG_PORT;
     @Config(configName = NAME, fieldName = "dbUsername", defaultValue = "", crypted = true)
-    public static String DB_USERNAME;
+    public static String DB_MYSQL_USERNAME;
     @Config(configName = NAME, fieldName = "dbPassword", defaultValue = "", crypted = true)
-    public static String DB_PASSWORD;
+    public static String DB_MYSQL_PASSWORD;
+    @Config(configName = NAME, fieldName = "dbPgUsername", defaultValue = "", crypted = true)
+    public static String DB_PGSQL_USERNAME;
+    @Config(configName = NAME, fieldName = "dbPgPassword", defaultValue = "", crypted = true)
+    public static String DB_PGSQL_PASSWORD;
+
     @Config(configName = NAME, fieldName = "k8sNameStfSpace", defaultValue = "")
     public static String K8S_NAME_STF_SPACE;
     @Config(configName = NAME, fieldName = "k8sLabelStfSelector", defaultValue = "")
