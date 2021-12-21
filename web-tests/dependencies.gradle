@@ -25,7 +25,7 @@ ext.versions = [
         guava:'31.0.1-jre',
 
         common:'1.0.0',
-        ab:'1.0.0',
+        ab:'1.1.0',
         qase:'1.0.0',
         qa:'1.0.0'
 ]

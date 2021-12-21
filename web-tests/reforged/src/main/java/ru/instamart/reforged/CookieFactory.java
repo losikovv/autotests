@@ -1,6 +1,7 @@
 package ru.instamart.reforged;
 
 import org.openqa.selenium.Cookie;
+import ru.instamart.kraken.data.user.UserManager;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -20,6 +21,12 @@ public final class CookieFactory {
     //Окно выбора магазина
     public static final Cookie RETAILERS_REMINDER_MODAL = new Cookie("isRetailersModalReminderShown",
             "1",
+            "sbermarket.tech",
+            "/",
+            date);
+
+    public static final Cookie EXTERNAL_ANALYTICS_ANONYMOUS_ID = new Cookie("external_analytics_anonymous_id",
+            UserManager.getGuestQaWithoutAb(),
             "sbermarket.tech",
             "/",
             date);
