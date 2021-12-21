@@ -23,17 +23,17 @@ public interface RegionsCheck extends Check, RegionsElements {
         waitAction().shouldNotBeVisible(city, cityName);
     }
 
-    @Step("Проверяем, что количество кнопок удалить совпадает с кол-вом регионов")
-    default void checkQuantityDeleteButtonsEqualsRegions() {
-        assertEquals(deleteRegionButtons.elementCount(), regionsNameColumn.elementCount(),
-                "Количество кнопок удаления не совпадает с количеством регионов");
+    @Step("Проверяем, что количество кнопок настройки регионов совпадает с кол-вом регионов")
+    default void checkRegionSettingsButtonsEqualsRegions() {
+        assertEquals(regionSettingsButtons.elementCount(), regionsNameColumn.elementCount(),
+                "Количество кнопок настроек регионов не совпадает с количеством регионов");
 
     }
 
-    @Step("Проверяем, что количество кнопок удалить совпадает с кол-вом регионов")
-    default void checkQuantityEditButtonsEqualsRegions() {
-        assertEquals(editRegionButtons.elementCount(), regionsNameColumn.elementCount(),
-                "Количество кнопок редактирования не совпадает с количеством регионов");
+    @Step("Проверяем, что количество кнопок настройки диспетчеризации совпадает с кол-вом регионов")
+    default void checkDispatchSettingsButtonsEqualsRegions() {
+        assertEquals(dispatchSettingsButtons.elementCount(), regionsNameColumn.elementCount(),
+                "Количество кнопок настройки диспетчеризации не совпадает с количеством регионов");
     }
 
     @Step("Проверяем что количество номеров в таблице совпадает с кол-вом регионов")
@@ -45,6 +45,11 @@ public interface RegionsCheck extends Check, RegionsElements {
     @Step("Проверяем, что заголовок 'Список регионов' отображается")
     default void checkPageTitleVisible() {
         waitAction().shouldBeVisible(pageTitle);
+    }
+
+    @Step("Проверяем, что инпут поиска регионов отображается")
+    default void checkRegionSearchInputVisible() {
+        waitAction().shouldBeVisible(regionSearch);
     }
 
     @Step("Проверяем, что кнопка добавления нового региона отображается")

@@ -6,6 +6,7 @@ import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
+import ru.instamart.reforged.core.component.Input;
 
 public interface RegionsElements {
 
@@ -13,14 +14,15 @@ public interface RegionsElements {
 
     Button addNewRegionButton = new Button(By.xpath("//button[@class='ant-btn ant-btn-primary']"), "Кнопка добавления нового региона");
     Element successCreateRegionAlert = new Element(By.xpath("//div[@class='flash success fadeOut']"), "Алерт успешного добавления нового региона");
-    ElementCollection regionsNameColumn = new ElementCollection(
-            By.xpath("//table[@class='index']//a[contains(@href,'/admin/operational_zones/') and not(@data-action='edit') and not(@data-action='remove')]"),
-            "Список всех регионов в таблице");
-    ElementCollection deleteRegionButtons = new ElementCollection(By.xpath("//tr//a[@data-action='remove']"), "Все кнопки удалить в таблице регионов");
-    ElementCollection editRegionButtons = new ElementCollection(By.xpath("//tr//a[@data-action='edit']"), "Все кнопки редактировать в таблице регионов");
-    ElementCollection tableRowsNumbers = new ElementCollection(By.xpath("//td[@class='align-center' and not (descendant::a)]"), "Номера регионов в таблице");
-    Element pageTitle = new Element(By.xpath("//h1[@class='page-title ≈']"), "Заголовок страницы с таблицей регионов 'Список регионов'");
-    Element regionsTable = new Element(By.xpath("//table[@class='index']"), "Таблица с доступными регионами");
+    ElementCollection regionsNameColumn = new ElementCollection(By.xpath("//td[2]/p"), "Список всех регионов в таблице");
+    ElementCollection tableRowsNumbers = new ElementCollection(By.xpath("//td[1]/p"), "Номера регионов в таблице");
+    Element pageTitle = new Element(By.xpath("//h4[@class='ant-typography']"), "Заголовок страницы с таблицей регионов 'Список регионов'");
+    Element regionsTable = new Element(By.xpath("//div[@class='ant-table-wrapper']"), "Таблица с доступными регионами");
     Element removeRegion = new Element(ByKraken.xpath("//a[text()='%s']/ancestor::tr/descendant::a[@data-action='remove']"), "удаление региона");
     Element city = new Element(ByKraken.xpath("//p[text()='%s']"), "тестовый город в списке городов");
+
+    ElementCollection regionSettingsButtons = new ElementCollection(By.xpath("//div[@class='ant-table-wrapper']//span[contains(text(), 'Настройка региона')]"), "Все кнопки настроек региона в таблице регионов");
+    ElementCollection dispatchSettingsButtons = new ElementCollection(By.xpath("//div[@class='ant-table-wrapper']//span[contains(text(), 'Настройка диспетчеризации')]"), "Все кнопки настроек диспетчеризации в таблице регионов");
+
+    Input regionSearch = new Input(By.xpath("//input[@data-qa='operational_zones_list_filter']"), "Инпут поиска регионов");
 }
