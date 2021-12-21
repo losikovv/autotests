@@ -16,7 +16,7 @@
             <class name="ru.instamart.test.api.v1.contracts.OffersV1Tests"/>
             <class name="ru.instamart.test.api.v1.contracts.OperationalZonesV1Tests"/>
             <class name="ru.instamart.test.api.v1.contracts.OrdersV1Test"/>
-            <class name="ru.instamart.test.api.v1.contracts.RetailersV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.RetailersV1Tests"/>
             <class name="ru.instamart.test.api.v1.contracts.StoresV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.UserCompaniesV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.CompanyPresenceV1Tests"/>

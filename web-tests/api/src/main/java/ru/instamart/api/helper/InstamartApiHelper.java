@@ -741,7 +741,7 @@ public final class InstamartApiHelper {
      */
     @Step("Получаем список активных ритейлеров: ")
     public List<RetailerV2> getAvailableRetailersSpree() {
-        Response response = RetailersV1Request.GET();
+        Response response = RetailersV1Request.GET(new RetailersV1Request.RetailerParams());
         checkStatusCode200(response);
         List<RetailerV2> retailers = response.as(RetailersV2Response.class).getRetailers();
 

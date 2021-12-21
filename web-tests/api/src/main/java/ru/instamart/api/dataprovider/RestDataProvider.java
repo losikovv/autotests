@@ -18,15 +18,13 @@ import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v1.OperationalZonesV1Request;
+import ru.instamart.api.request.v1.RetailersV1Request;
 import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
 import ru.instamart.api.request.v2.*;
 import ru.instamart.api.response.v1.OperationalZonesV1Response;
 import ru.instamart.api.response.v2.CreditCardAuthorizationV2Response;
 import ru.instamart.api.response.v2.OrderV2Response;
-import ru.instamart.jdbc.dao.InstacoinAccountsDao;
-import ru.instamart.jdbc.dao.PromotionCodesDao;
-import ru.instamart.jdbc.dao.SpreeProductsDao;
-import ru.instamart.jdbc.dao.SpreeUsersDao;
+import ru.instamart.jdbc.dao.*;
 import ru.instamart.jdbc.dto.PromotionCodesFilters;
 import ru.instamart.jdbc.entity.PromotionCodesEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -99,6 +97,17 @@ public class RestDataProvider extends RestBase {
     @Data
     public static class StoresAdminTestDataRoot implements DataList<StoresAdminTestData> {
         private List<StoresAdminTestData> data;
+    }
+
+    @Data
+    public static class RetailerV1TestData {
+        private RetailersV1Request.Retailer retailer;
+        private String errorMessage;
+    }
+
+    @Data
+    public static class RetailerV1TestDataRoot implements DataList<RetailerV1TestData> {
+        private List<RetailerV1TestData> data;
     }
 
     @DataProvider(name = "authProviders")
@@ -833,6 +842,37 @@ public class RestDataProvider extends RestBase {
         return new Object[][]{
                 {5, true},
                 {2, false}
+        };
+    }
+
+    @DataProvider(name = "retailerNameData", parallel = true)
+    public static Object[][] getRetailerNameData() {
+        return new Object[][]{
+                {"лента"},
+                {"лен"},
+                {"НТА"},
+                {"metro"},
+                {"MET"},
+                {"etro"},
+        };
+    }
+
+    @DataProvider(name = "incorrectRetailerParams", parallel = true)
+    public static Object[][] getIncorrectRetailerParams() {
+        return new Object[][]{
+                {RetailersV1Request.RetailerParams.builder()
+                        .operationalZoneId(0L)
+                        .build()},
+                {RetailersV1Request.RetailerParams.builder()
+                        .nameCont("jhglkjrgjsbgbbldjfgb")
+                        .build()},
+                {RetailersV1Request.RetailerParams.builder()
+                        .retailerId(0L)
+                        .build()},
+                {RetailersV1Request.RetailerParams.builder()
+                        .page(10000)
+                        .perPage(10)
+                        .build()}
         };
     }
 

@@ -1,0 +1,37 @@
+{
+  "data": [
+    {
+      "retailer": {
+        "retailer[appearance_attributes][image_color]": "#DDDDDD",
+        "retailer[appearance_attributes][background_color]": "#FFFFFF",
+        "retailer[logo_background_color]": "#FFFFFF",
+        "retailer[appearance_attributes][black_theme]": true,
+        "retailer[secondary_color]": "#EEEEEE",
+        "retailer[color]": "#FFFFFF",
+        "retailer[key]": 644591234,
+        "retailer[home_page_departments_depth]": 22,
+        "retailer[contract_type]": "agent",
+        "retailer[phone]": "9328621714",
+        "retailer[short_name]": "autotest-viuztl",
+        "retailer[name]": "METRO"
+      },
+      "errorMessage": "\"name\":[\"уже существует\"]"
+    },
+    {
+      "retailer": {
+        "retailer[appearance_attributes][image_color]": "#DDDDDD",
+        "retailer[appearance_attributes][background_color]": "#FFFFFF",
+        "retailer[logo_background_color]": "#FFFFFF",
+        "retailer[appearance_attributes][black_theme]": true,
+        "retailer[secondary_color]": "#EEEEEE",
+        "retailer[color]": "#FFFFFF",
+        "retailer[key]": 24,
+        "retailer[home_page_departments_depth]": 22,
+        "retailer[contract_type]": "agent",
+        "retailer[phone]": "9328621714",
+        "retailer[short_name]": "autotest-viuztl"
+      },
+      "errorMessage": "\"key\":[\"уже существует\""
+    }
+  ]
+}

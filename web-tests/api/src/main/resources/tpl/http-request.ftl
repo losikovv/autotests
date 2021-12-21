@@ -63,7 +63,7 @@
     <#list data.formParam as name, value>
         <div>
         <#if value??>
-            <#if value?is_collection>
+            <#if value?is_collection || value?is_indexable>
                 <#list value as x>
                     <pre><code><b>${name}</b>: ${x}</code></pre>
                 </#list>
