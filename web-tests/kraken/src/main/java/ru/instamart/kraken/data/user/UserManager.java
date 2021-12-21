@@ -2,17 +2,17 @@ package ru.instamart.kraken.data.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
-import ru.sbermarket.ab.model.request.UserGroups;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.service.AbService;
 import ru.instamart.kraken.service.QaService;
-import ru.sbermarket.qa.model.response.QaSessionResponse;
 import ru.sbermarket.common.Crypt;
+import ru.sbermarket.qa.model.response.QaSessionResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -341,11 +341,22 @@ public final class UserManager {
      *
      * @return - {@link UserData}
      */
-    public static UserData getQaUserWithoutAb(final String abTestId, final String abTestGroupId) {
-        final UserData userData = createUserWithoutAb(TestVariables.CompanyParams.companyName, abTestId, abTestGroupId);
+    public static UserData getQaUserWithoutAb() {
+        final UserData userData = createUserWithoutAb(TestVariables.CompanyParams.companyName);
         USER_DATA_LIST.add(userData);
 
         return userData;
+    }
+
+    public static String getGuestQaWithoutAb() {
+        var excludedUser = AbService.INSTANCE.excludeUser(null);
+        if (nonNull(excludedUser) && (nonNull(excludedUser.getAnonymousID()) && !excludedUser.getAnonymousID().isEmpty())) {
+            var anonymousId = excludedUser.getAnonymousID();
+            log.debug("Get guest with anonymousId='{}' excluded from all AB", anonymousId);
+            return anonymousId;
+        }
+        log.error("Get guest without exclusion from AB {}", excludedUser);
+        return UUID.randomUUID().toString();
     }
 
     /**
@@ -384,22 +395,15 @@ public final class UserManager {
      * Создание пользователя с использованием {@link UserManager#createUser(String)}
      *
      * @param password      - обязательный параметр для создания через ручку
-     * @param abTestId      - UUID теста, который нужно будет переключить для созданного пользователя
-     * @param abTestGroupId - UUID группы на которую нужно будет переключить созданного пользователя
      * @return - возвращает собранную {@link UserData} из параметров ответа
      */
-    public static UserData createUserWithoutAb(final String password, final String abTestId, final String abTestGroupId) {
+    public static UserData createUserWithoutAb(final String password) {
         final UserData newUser = createUser(password);
 
-        final UserGroups userGroups = new UserGroups();
-        userGroups.setAbTestId(abTestId);
-        userGroups.setAbGroupId(abTestGroupId);
-        userGroups.setIdentityId(newUser.getAnonymousId());
-        AbService.INSTANCE.changeUserGroup(userGroups);
+        AbService.INSTANCE.excludeUser(newUser.getAnonymousId());
 
         log.debug("================================");
-        log.debug("Измененный Ab Test {}", abTestId);
-        log.debug("Группа для Ab теста {}", abTestGroupId);
+        log.debug("Пользователь {} исключен из всех AB тестов", newUser);
         log.debug("================================");
 
         return newUser;
