@@ -16,6 +16,7 @@ public final class ApiV1Endpoints {
     public static final String COMPANY_MANAGERS = "company_managers";
     public static final String MARKETING_SAMPLES = "marketing_samples";
     public static final String COMPANIES = "companies";
+    public static final String RETAILER_POSITION = "retailer_positions";
 
 
 
@@ -39,10 +40,19 @@ public final class ApiV1Endpoints {
         public static final String NUMBER = "orders/{orderNumber}";
     }
 
+    public static final class Proxy {
+        public static final class Eta {
+            public static final class Retailers {
+                public static final String ID = "proxy/eta/retailers/{retailerId}";
+            }
+        }
+    }
+
     public static final class Retailers {
         public static final String EANS = "retailers/{retailerId}/eans";
         public static final String ID = "retailers/{retailerId}";
         public static final String STORES = "retailers/{retailerId}/stores";
+        public static final String SLUG = "retailers/{slug}";
     }
 
     public static final class Shipments {

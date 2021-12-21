@@ -1,0 +1,227 @@
+{
+  "data": [
+    {
+      "retailer": {
+        "retailer[appearance_attributes][image_color]": "#DDDDDD",
+        "retailer[appearance_attributes][background_color]": "#FFFFFF",
+        "retailer[logo_background_color]": "#FFFFFF",
+        "retailer[appearance_attributes][black_theme]": true,
+        "retailer[secondary_color]": "#EEEEEE",
+        "retailer[color]": "#FFFFFF",
+        "retailer[key]": 644591234,
+        "retailer[home_page_departments_depth]": 22,
+        "retailer[contract_type]": "agent",
+        "retailer[phone]": "9328621714",
+        "retailer[slug]": "autotest-bsriyf234",
+        "retailer[short_name]": "autotest-viuztl"
+      },
+      "errorMessage": "\"name\":[\"не может быть пустым\""
+    },
+    {
+      "retailer": {
+        "retailer[appearance_attributes][image_color]": "#DDDDDD",
+        "retailer[appearance_attributes][background_color]": "#FFFFFF",
+        "retailer[logo_background_color]": "#FFFFFF",
+        "retailer[appearance_attributes][black_theme]": true,
+        "retailer[secondary_color]": "#EEEEEE",
+        "retailer[color]": "#FFFFFF",
+        "retailer[key]": 644591234,
+        "retailer[home_page_departments_depth]": 22,
+        "retailer[contract_type]": "agent",
+        "retailer[phone]": "9328621714",
+        "retailer[slug]": "autotest-bsriyf234",
+        "retailer[short_name]": "autotest-viuztl",
+        "retailer[name]": "METRO"
+      },
+      "errorMessage": "\"name\":[\"уже существует\"]"
+    },
+    {
+      "retailer": {
+        "retailer[appearance_attributes][image_color]": "#DDDDDD",
+        "retailer[appearance_attributes][background_color]": "#FFFFFF",
+        "retailer[logo_background_color]": "#FFFFFF",
+        "retailer[appearance_attributes][black_theme]": true,
+        "retailer[secondary_color]": "#EEEEEE",
+        "retailer[color]": "#FFFFFF",
+        "retailer[key]": 644591234,
+        "retailer[home_page_departments_depth]": 22,
+        "retailer[contract_type]": "agent",
+        "retailer[phone]": "9328621714",
+        "retailer[slug]": "autotest-bsriyf234",
+        "retailer[name]": "Autotest-kcybth22"
+      },
+      "errorMessage": "\"short_name\":[\"не может быть пустым\""
+    },
+    {
+      "retailer": {
+        "retailer[appearance_attributes][image_color]": "#DDDDDD",
+        "retailer[appearance_attributes][background_color]": "#FFFFFF",
+        "retailer[logo_background_color]": "#FFFFFF",
+        "retailer[appearance_attributes][black_theme]": true,
+        "retailer[secondary_color]": "#EEEEEE",
+        "retailer[color]": "#FFFFFF",
+        "retailer[key]": 644591234,
+        "retailer[home_page_departments_depth]": 22,
+        "retailer[contract_type]": "agent",
+        "retailer[phone]": "9328621714",
+        "retailer[slug]": "metro",
+        "retailer[name]": "Autotest-kcybth22"
+      },
+      "errorMessage": "\"slug\":[\"уже существует\""
+    },
+    {
+      "retailer": {
+        "retailer[appearance_attributes][image_color]": "#DDDDDD",
+        "retailer[appearance_attributes][background_color]": "#FFFFFF",
+        "retailer[logo_background_color]": "#FFFFFF",
+        "retailer[appearance_attributes][black_theme]": true,
+        "retailer[secondary_color]": "#EEEEEE",
+        "retailer[color]": "#FFFFFF",
+        "retailer[key]": 644591234,
+        "retailer[home_page_departments_depth]": 22,
+        "retailer[contract_type]": "agent",
+        "retailer[slug]": "autotest-bsriyf234",
+        "retailer[short_name]": "autotest-viuztl",
+        "retailer[name]": "Autotest-kcybth22"
+      },
+      "errorMessage": "\"phone\":[\"не может быть пустым\""
+    },
+    {
+      "retailer": {
+        "retailer[appearance_attributes][image_color]": "#DDDDDD",
+        "retailer[appearance_attributes][background_color]": "#FFFFFF",
+        "retailer[logo_background_color]": "#FFFFFF",
+        "retailer[appearance_attributes][black_theme]": true,
+        "retailer[secondary_color]": "#EEEEEE",
+        "retailer[color]": "#FFFFFF",
+        "retailer[key]": 644591234,
+        "retailer[home_page_departments_depth]": 22,
+        "retailer[phone]": "9328621714",
+        "retailer[slug]": "autotest-bsriyf234",
+        "retailer[short_name]": "autotest-viuztl",
+        "retailer[name]": "Autotest-kcybth22"
+      },
+      "errorMessage": "\"contract_type\":[\"не может быть пустым\""
+    },
+    {
+      "retailer": {
+        "retailer[appearance_attributes][image_color]": "#DDDDDD",
+        "retailer[appearance_attributes][background_color]": "#FFFFFF",
+        "retailer[logo_background_color]": "#FFFFFF",
+        "retailer[appearance_attributes][black_theme]": true,
+        "retailer[secondary_color]": "#EEEEEE",
+        "retailer[color]": "#FFFFFF",
+        "retailer[home_page_departments_depth]": 22,
+        "retailer[contract_type]": "agent",
+        "retailer[phone]": "9328621714",
+        "retailer[slug]": "autotest-bsriyf234",
+        "retailer[short_name]": "autotest-viuztl",
+        "retailer[name]": "Autotest-kcybth22"
+      },
+      "errorMessage": "\"key\":[\"не может быть пустым\",\"не является числом\"]"
+    },
+    {
+      "retailer": {
+        "retailer[appearance_attributes][image_color]": "#DDDDDD",
+        "retailer[appearance_attributes][background_color]": "#FFFFFF",
+        "retailer[logo_background_color]": "#FFFFFF",
+        "retailer[appearance_attributes][black_theme]": true,
+        "retailer[secondary_color]": "#EEEEEE",
+        "retailer[color]": "#FFFFFF",
+        "retailer[key]": 24,
+        "retailer[home_page_departments_depth]": 22,
+        "retailer[contract_type]": "agent",
+        "retailer[phone]": "9328621714",
+        "retailer[slug]": "autotest-bsriyf234",
+        "retailer[short_name]": "autotest-viuztl",
+        "retailer[name]": "Autotest-kcybth22"
+      },
+      "errorMessage": "\"key\":[\"уже существует\""
+    },
+    {
+      "retailer": {
+        "retailer[appearance_attributes][image_color]": "#DDDDDD",
+        "retailer[appearance_attributes][background_color]": "#FFFFFF",
+        "retailer[logo_background_color]": "#FFFFFF",
+        "retailer[appearance_attributes][black_theme]": true,
+        "retailer[secondary_color]": "#EEEEEE",
+        "retailer[key]": 644591234,
+        "retailer[home_page_departments_depth]": 22,
+        "retailer[contract_type]": "agent",
+        "retailer[phone]": "9328621714",
+        "retailer[slug]": "autotest-bsriyf234",
+        "retailer[short_name]": "autotest-viuztl",
+        "retailer[name]": "Autotest-kcybth22"
+      },
+      "errorMessage": "\"color\":[\"Неверный формат\""
+    },
+    {
+      "retailer": {
+        "retailer[appearance_attributes][image_color]": "#DDDDDD",
+        "retailer[appearance_attributes][background_color]": "#FFFFFF",
+        "retailer[logo_background_color]": "#FFFFFF",
+        "retailer[appearance_attributes][black_theme]": true,
+        "retailer[color]": "#FFFFFF",
+        "retailer[key]": 644591234,
+        "retailer[home_page_departments_depth]": 22,
+        "retailer[contract_type]": "agent",
+        "retailer[phone]": "9328621714",
+        "retailer[slug]": "autotest-bsriyf234",
+        "retailer[short_name]": "autotest-viuztl",
+        "retailer[name]": "Autotest-kcybth22"
+      },
+      "errorMessage": "\"secondary_color\":[\"Неверный формат\""
+    },
+    {
+      "retailer": {
+        "retailer[appearance_attributes][image_color]": "#DDDDDD",
+        "retailer[appearance_attributes][background_color]": "#FFFFFF",
+        "retailer[appearance_attributes][black_theme]": true,
+        "retailer[secondary_color]": "#EEEEEE",
+        "retailer[color]": "#FFFFFF",
+        "retailer[key]": 644591234,
+        "retailer[home_page_departments_depth]": 22,
+        "retailer[contract_type]": "agent",
+        "retailer[phone]": "9328621714",
+        "retailer[slug]": "autotest-bsriyf234",
+        "retailer[short_name]": "autotest-viuztl",
+        "retailer[name]": "Autotest-kcybth22"
+      },
+      "errorMessage": "\"logo_background_color\":[\"Неверный формат\""
+    },
+    {
+      "retailer": {
+        "retailer[appearance_attributes][image_color]": "#DDDDDD",
+        "retailer[logo_background_color]": "#FFFFFF",
+        "retailer[appearance_attributes][black_theme]": true,
+        "retailer[secondary_color]": "#EEEEEE",
+        "retailer[color]": "#FFFFFF",
+        "retailer[key]": 644591234,
+        "retailer[home_page_departments_depth]": 22,
+        "retailer[contract_type]": "agent",
+        "retailer[phone]": "9328621714",
+        "retailer[slug]": "autotest-bsriyf234",
+        "retailer[short_name]": "autotest-viuztl",
+        "retailer[name]": "Autotest-kcybth22"
+      },
+      "errorMessage": "\"appearance.background_color\":[\"Неверный формат\",\"не может быть пустым\""
+    },
+    {
+      "retailer": {
+        "retailer[appearance_attributes][background_color]": "#FFFFFF",
+        "retailer[logo_background_color]": "#FFFFFF",
+        "retailer[appearance_attributes][black_theme]": true,
+        "retailer[secondary_color]": "#EEEEEE",
+        "retailer[color]": "#FFFFFF",
+        "retailer[key]": 644591234,
+        "retailer[home_page_departments_depth]": 22,
+        "retailer[contract_type]": "agent",
+        "retailer[phone]": "9328621714",
+        "retailer[slug]": "autotest-bsriyf234",
+        "retailer[short_name]": "autotest-viuztl",
+        "retailer[name]": "Autotest-kcybth22"
+      },
+      "errorMessage": "\"appearance.image_color\":[\"Неверный формат\",\"не может быть пустым\""
+    }
+  ]
+}
