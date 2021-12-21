@@ -63,13 +63,6 @@ public final class EnvironmentProperties {
 
     public static class Env {
 
-        public static String ENV_NAME = TENANT + "-" + SERVER;
-        public static String FULL_SITE_URL = PROTOCOL + "://" + BASIC_URL + "/";
-        public static String FULL_SITE_URL_WITH_BASIC_AUTH = PROTOCOL + "://" + HTTP_AUTH + BASIC_URL + "/";
-        public static String FULL_ADMIN_URL = FULL_SITE_URL + "admin/";
-        public static String FULL_ADMIN_URL_WITH_BASIC_AUTH = FULL_SITE_URL_WITH_BASIC_AUTH + "admin/";
-        public static String FULL_SHOPPER_URL = PROTOCOL + "://" + SHOPPER_URL + "/";
-
         //TODO: Немножк костылей. Насколько мне известно эти урлы можно без костылей достать из переменных которые в основной пайпе от разработки
         static {
             var customBasicUrl = System.getProperty("url_stf");
@@ -81,12 +74,14 @@ public final class EnvironmentProperties {
                 BASIC_URL = customBasicUrl;
                 STAGE = BASIC_URL.replace("stf-", "").replace(".k-stage.sbermarket.tech", "");
                 DB_URL = DB_URL.replace("kraken", STAGE);
+                DB_PGSQL_URL= DB_PGSQL_URL.replace("kraken", STAGE);
 
-                log.debug("Кастомные данные при ручном запуске на стейджах");
-                log.debug("BASIC_URL: " + BASIC_URL);
-                log.debug("Server: " + SERVER);
-                log.debug("Stage: " + STAGE);
-                log.debug("DB_URL: " + DB_URL);
+                log.info("Кастомные данные при ручном запуске на стейджах");
+                log.info("BASIC_URL: {}", BASIC_URL);
+                log.info("Server: {}", SERVER);
+                log.info("Stage: {}", STAGE);
+                log.info("DB_URL: {}", DB_URL);
+                log.info("DB_PGSQL_URL: {}", DB_PGSQL_URL);
 
                 if (nonNull(customShopperUrl) && !customShopperUrl.isBlank()) {
                     SHOPPER_URL = getDomainName(customShopperUrl);
@@ -96,6 +91,13 @@ public final class EnvironmentProperties {
                 log.debug("SHOPPER_URL: " + SHOPPER_URL);
             }
         }
+
+        public static String ENV_NAME = TENANT + "-" + SERVER;
+        public static String FULL_SITE_URL = PROTOCOL + "://" + BASIC_URL + "/";
+        public static String FULL_SITE_URL_WITH_BASIC_AUTH = PROTOCOL + "://" + HTTP_AUTH + BASIC_URL + "/";
+        public static String FULL_ADMIN_URL = FULL_SITE_URL + "admin/";
+        public static String FULL_ADMIN_URL_WITH_BASIC_AUTH = FULL_SITE_URL_WITH_BASIC_AUTH + "admin/";
+        public static String FULL_SHOPPER_URL = PROTOCOL + "://" + SHOPPER_URL + "/";
 
         private static String getDomainName(String url) {
             try {
