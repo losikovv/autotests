@@ -134,6 +134,21 @@ public final class KrakenCondition {
         };
     }
 
+    public static ExpectedCondition<Boolean> cookieExist(final String data) {
+        return new ExpectedCondition<>() {
+            @Override
+            public Boolean apply(@Nullable WebDriver input) {
+                var cookies = Kraken.getWebDriver().manage().getCookies();
+                return cookies.stream().anyMatch(cookie -> cookie.getName().equals(data));
+            }
+
+            @Override
+            public String toString() {
+                return String.format("cookie with '%s' doesn't exist", data);
+            }
+        };
+    }
+
     private static WebElement findElement(final By by) {
         try {
             return Kraken.getWebDriver().findElements(by).stream().findFirst().orElseThrow(
