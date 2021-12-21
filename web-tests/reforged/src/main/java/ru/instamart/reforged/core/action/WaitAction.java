@@ -94,6 +94,11 @@ public final class WaitAction {
                 .until((ExpectedCondition<Boolean>) wb -> collection.elementCount() == size);
     }
 
+    public void cookieShouldBeExist(final String data) {
+        createWait(WaitProperties.BASIC_TIMEOUT, "Нет куки с таким именем: " + data)
+                .until(KrakenCondition.cookieExist(data));
+    }
+
     private FluentWait<WebDriver> createWait(final int wait, final String errorMsg) {
         return new FluentWait<>(getWebDriver())
                 .withTimeout(wait, TimeUnit.SECONDS)
