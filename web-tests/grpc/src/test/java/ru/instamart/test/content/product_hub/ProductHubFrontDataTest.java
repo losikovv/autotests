@@ -230,7 +230,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
         var request = ProductHubFrontDataOuterClass
                 .GetProductsWithOfferByOfferIDsRequest.newBuilder()
                 .setTenantId("sbermarket")
-                .addOfferIds("234928")
+                .addOfferIds("186435662")
                 .build();
 
         var response = client.getProductsWithOfferByOfferIDs(request);

@@ -5960,21 +5960,21 @@ public final class CatalogApiV2 {
     double getOriginalUnitPrice();
 
     /**
-     * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+     * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @return A list containing the promoBadgeIds.
      */
-    java.util.List<java.lang.Long> getPromoBadgeIdsList();
+    java.util.List<java.lang.Double> getPromoBadgeIdsList();
     /**
-     * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+     * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @return The count of promoBadgeIds.
      */
     int getPromoBadgeIdsCount();
     /**
-     * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+     * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @param index The index of the element to return.
      * @return The promoBadgeIds at the given index.
      */
-    long getPromoBadgeIds(int index);
+    double getPromoBadgeIds(int index);
 
     /**
      * <code>.google.protobuf.FloatValue score = 19;</code>
@@ -6078,7 +6078,7 @@ public final class CatalogApiV2 {
       super(builder);
     }
     private Product() {
-      promoBadgeIds_ = emptyLongList();
+      promoBadgeIds_ = emptyDoubleList();
       labels_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       images_ = java.util.Collections.emptyList();
       requirements_ = com.google.protobuf.LazyStringArrayList.EMPTY;
@@ -6256,23 +6256,23 @@ public final class CatalogApiV2 {
               originalUnitPrice_ = input.readDouble();
               break;
             }
-            case 144: {
+            case 145: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                promoBadgeIds_ = newLongList();
+                promoBadgeIds_ = newDoubleList();
                 mutable_bitField0_ |= 0x00000001;
               }
-              promoBadgeIds_.addLong(input.readInt64());
+              promoBadgeIds_.addDouble(input.readDouble());
               break;
             }
             case 146: {
               int length = input.readRawVarint32();
               int limit = input.pushLimit(length);
               if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
-                promoBadgeIds_ = newLongList();
+                promoBadgeIds_ = newDoubleList();
                 mutable_bitField0_ |= 0x00000001;
               }
               while (input.getBytesUntilLimit() > 0) {
-                promoBadgeIds_.addLong(input.readInt64());
+                promoBadgeIds_.addDouble(input.readDouble());
               }
               input.popLimit(limit);
               break;
@@ -6654,30 +6654,30 @@ public final class CatalogApiV2 {
     }
 
     public static final int PROMO_BADGE_IDS_FIELD_NUMBER = 18;
-    private com.google.protobuf.Internal.LongList promoBadgeIds_;
+    private com.google.protobuf.Internal.DoubleList promoBadgeIds_;
     /**
-     * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+     * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @return A list containing the promoBadgeIds.
      */
     @java.lang.Override
-    public java.util.List<java.lang.Long>
+    public java.util.List<java.lang.Double>
         getPromoBadgeIdsList() {
       return promoBadgeIds_;
     }
     /**
-     * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+     * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @return The count of promoBadgeIds.
      */
     public int getPromoBadgeIdsCount() {
       return promoBadgeIds_.size();
     }
     /**
-     * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+     * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @param index The index of the element to return.
      * @return The promoBadgeIds at the given index.
      */
-    public long getPromoBadgeIds(int index) {
-      return promoBadgeIds_.getLong(index);
+    public double getPromoBadgeIds(int index) {
+      return promoBadgeIds_.getDouble(index);
     }
     private int promoBadgeIdsMemoizedSerializedSize = -1;
 
@@ -6888,7 +6888,7 @@ public final class CatalogApiV2 {
         output.writeUInt32NoTag(promoBadgeIdsMemoizedSerializedSize);
       }
       for (int i = 0; i < promoBadgeIds_.size(); i++) {
-        output.writeInt64NoTag(promoBadgeIds_.getLong(i));
+        output.writeDoubleNoTag(promoBadgeIds_.getDouble(i));
       }
       if (score_ != null) {
         output.writeMessage(19, getScore());
@@ -6981,10 +6981,7 @@ public final class CatalogApiV2 {
       }
       {
         int dataSize = 0;
-        for (int i = 0; i < promoBadgeIds_.size(); i++) {
-          dataSize += com.google.protobuf.CodedOutputStream
-            .computeInt64SizeNoTag(promoBadgeIds_.getLong(i));
-        }
+        dataSize = 8 * getPromoBadgeIdsList().size();
         size += dataSize;
         if (!getPromoBadgeIdsList().isEmpty()) {
           size += 2;
@@ -7394,7 +7391,7 @@ public final class CatalogApiV2 {
 
         originalUnitPrice_ = 0D;
 
-        promoBadgeIds_ = emptyLongList();
+        promoBadgeIds_ = emptyDoubleList();
         bitField0_ = (bitField0_ & ~0x00000001);
         if (scoreBuilder_ == null) {
           score_ = null;
@@ -8844,7 +8841,7 @@ public final class CatalogApiV2 {
         return this;
       }
 
-      private com.google.protobuf.Internal.LongList promoBadgeIds_ = emptyLongList();
+      private com.google.protobuf.Internal.DoubleList promoBadgeIds_ = emptyDoubleList();
       private void ensurePromoBadgeIdsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
           promoBadgeIds_ = mutableCopy(promoBadgeIds_);
@@ -8852,60 +8849,60 @@ public final class CatalogApiV2 {
          }
       }
       /**
-       * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+       * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @return A list containing the promoBadgeIds.
        */
-      public java.util.List<java.lang.Long>
+      public java.util.List<java.lang.Double>
           getPromoBadgeIdsList() {
         return ((bitField0_ & 0x00000001) != 0) ?
                  java.util.Collections.unmodifiableList(promoBadgeIds_) : promoBadgeIds_;
       }
       /**
-       * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+       * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @return The count of promoBadgeIds.
        */
       public int getPromoBadgeIdsCount() {
         return promoBadgeIds_.size();
       }
       /**
-       * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+       * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @param index The index of the element to return.
        * @return The promoBadgeIds at the given index.
        */
-      public long getPromoBadgeIds(int index) {
-        return promoBadgeIds_.getLong(index);
+      public double getPromoBadgeIds(int index) {
+        return promoBadgeIds_.getDouble(index);
       }
       /**
-       * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+       * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @param index The index to set the value at.
        * @param value The promoBadgeIds to set.
        * @return This builder for chaining.
        */
       public Builder setPromoBadgeIds(
-          int index, long value) {
+          int index, double value) {
         ensurePromoBadgeIdsIsMutable();
-        promoBadgeIds_.setLong(index, value);
+        promoBadgeIds_.setDouble(index, value);
         onChanged();
         return this;
       }
       /**
-       * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+       * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @param value The promoBadgeIds to add.
        * @return This builder for chaining.
        */
-      public Builder addPromoBadgeIds(long value) {
+      public Builder addPromoBadgeIds(double value) {
         ensurePromoBadgeIdsIsMutable();
-        promoBadgeIds_.addLong(value);
+        promoBadgeIds_.addDouble(value);
         onChanged();
         return this;
       }
       /**
-       * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+       * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @param values The promoBadgeIds to add.
        * @return This builder for chaining.
        */
       public Builder addAllPromoBadgeIds(
-          java.lang.Iterable<? extends java.lang.Long> values) {
+          java.lang.Iterable<? extends java.lang.Double> values) {
         ensurePromoBadgeIdsIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
             values, promoBadgeIds_);
@@ -8913,11 +8910,11 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+       * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @return This builder for chaining.
        */
       public Builder clearPromoBadgeIds() {
-        promoBadgeIds_ = emptyLongList();
+        promoBadgeIds_ = emptyDoubleList();
         bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
@@ -15613,21 +15610,21 @@ public final class CatalogApiV2 {
     double getOriginalUnitPrice();
 
     /**
-     * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+     * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @return A list containing the promoBadgeIds.
      */
-    java.util.List<java.lang.Long> getPromoBadgeIdsList();
+    java.util.List<java.lang.Double> getPromoBadgeIdsList();
     /**
-     * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+     * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @return The count of promoBadgeIds.
      */
     int getPromoBadgeIdsCount();
     /**
-     * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+     * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @param index The index of the element to return.
      * @return The promoBadgeIds at the given index.
      */
-    long getPromoBadgeIds(int index);
+    double getPromoBadgeIds(int index);
 
     /**
      * <code>.google.protobuf.FloatValue score = 19;</code>
@@ -15827,7 +15824,7 @@ public final class CatalogApiV2 {
       humanVolume_ = "";
       volumeType_ = "";
       priceType_ = "";
-      promoBadgeIds_ = emptyLongList();
+      promoBadgeIds_ = emptyDoubleList();
       labels_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       images_ = java.util.Collections.emptyList();
       properties_ = java.util.Collections.emptyList();
@@ -15965,23 +15962,23 @@ public final class CatalogApiV2 {
               originalUnitPrice_ = input.readDouble();
               break;
             }
-            case 144: {
+            case 145: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                promoBadgeIds_ = newLongList();
+                promoBadgeIds_ = newDoubleList();
                 mutable_bitField0_ |= 0x00000001;
               }
-              promoBadgeIds_.addLong(input.readInt64());
+              promoBadgeIds_.addDouble(input.readDouble());
               break;
             }
             case 146: {
               int length = input.readRawVarint32();
               int limit = input.pushLimit(length);
               if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
-                promoBadgeIds_ = newLongList();
+                promoBadgeIds_ = newDoubleList();
                 mutable_bitField0_ |= 0x00000001;
               }
               while (input.getBytesUntilLimit() > 0) {
-                promoBadgeIds_.addLong(input.readInt64());
+                promoBadgeIds_.addDouble(input.readDouble());
               }
               input.popLimit(limit);
               break;
@@ -16464,30 +16461,30 @@ public final class CatalogApiV2 {
     }
 
     public static final int PROMO_BADGE_IDS_FIELD_NUMBER = 18;
-    private com.google.protobuf.Internal.LongList promoBadgeIds_;
+    private com.google.protobuf.Internal.DoubleList promoBadgeIds_;
     /**
-     * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+     * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @return A list containing the promoBadgeIds.
      */
     @java.lang.Override
-    public java.util.List<java.lang.Long>
+    public java.util.List<java.lang.Double>
         getPromoBadgeIdsList() {
       return promoBadgeIds_;
     }
     /**
-     * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+     * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @return The count of promoBadgeIds.
      */
     public int getPromoBadgeIdsCount() {
       return promoBadgeIds_.size();
     }
     /**
-     * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+     * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @param index The index of the element to return.
      * @return The promoBadgeIds at the given index.
      */
-    public long getPromoBadgeIds(int index) {
-      return promoBadgeIds_.getLong(index);
+    public double getPromoBadgeIds(int index) {
+      return promoBadgeIds_.getDouble(index);
     }
     private int promoBadgeIdsMemoizedSerializedSize = -1;
 
@@ -16863,7 +16860,7 @@ public final class CatalogApiV2 {
         output.writeUInt32NoTag(promoBadgeIdsMemoizedSerializedSize);
       }
       for (int i = 0; i < promoBadgeIds_.size(); i++) {
-        output.writeInt64NoTag(promoBadgeIds_.getLong(i));
+        output.writeDoubleNoTag(promoBadgeIds_.getDouble(i));
       }
       if (score_ != null) {
         output.writeMessage(19, getScore());
@@ -16966,10 +16963,7 @@ public final class CatalogApiV2 {
       }
       {
         int dataSize = 0;
-        for (int i = 0; i < promoBadgeIds_.size(); i++) {
-          dataSize += com.google.protobuf.CodedOutputStream
-            .computeInt64SizeNoTag(promoBadgeIds_.getLong(i));
-        }
+        dataSize = 8 * getPromoBadgeIdsList().size();
         size += dataSize;
         if (!getPromoBadgeIdsList().isEmpty()) {
           size += 2;
@@ -17384,7 +17378,7 @@ public final class CatalogApiV2 {
 
         originalUnitPrice_ = 0D;
 
-        promoBadgeIds_ = emptyLongList();
+        promoBadgeIds_ = emptyDoubleList();
         bitField0_ = (bitField0_ & ~0x00000001);
         if (scoreBuilder_ == null) {
           score_ = null;
@@ -18605,7 +18599,7 @@ public final class CatalogApiV2 {
         return this;
       }
 
-      private com.google.protobuf.Internal.LongList promoBadgeIds_ = emptyLongList();
+      private com.google.protobuf.Internal.DoubleList promoBadgeIds_ = emptyDoubleList();
       private void ensurePromoBadgeIdsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
           promoBadgeIds_ = mutableCopy(promoBadgeIds_);
@@ -18613,60 +18607,60 @@ public final class CatalogApiV2 {
          }
       }
       /**
-       * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+       * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @return A list containing the promoBadgeIds.
        */
-      public java.util.List<java.lang.Long>
+      public java.util.List<java.lang.Double>
           getPromoBadgeIdsList() {
         return ((bitField0_ & 0x00000001) != 0) ?
                  java.util.Collections.unmodifiableList(promoBadgeIds_) : promoBadgeIds_;
       }
       /**
-       * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+       * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @return The count of promoBadgeIds.
        */
       public int getPromoBadgeIdsCount() {
         return promoBadgeIds_.size();
       }
       /**
-       * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+       * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @param index The index of the element to return.
        * @return The promoBadgeIds at the given index.
        */
-      public long getPromoBadgeIds(int index) {
-        return promoBadgeIds_.getLong(index);
+      public double getPromoBadgeIds(int index) {
+        return promoBadgeIds_.getDouble(index);
       }
       /**
-       * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+       * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @param index The index to set the value at.
        * @param value The promoBadgeIds to set.
        * @return This builder for chaining.
        */
       public Builder setPromoBadgeIds(
-          int index, long value) {
+          int index, double value) {
         ensurePromoBadgeIdsIsMutable();
-        promoBadgeIds_.setLong(index, value);
+        promoBadgeIds_.setDouble(index, value);
         onChanged();
         return this;
       }
       /**
-       * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+       * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @param value The promoBadgeIds to add.
        * @return This builder for chaining.
        */
-      public Builder addPromoBadgeIds(long value) {
+      public Builder addPromoBadgeIds(double value) {
         ensurePromoBadgeIdsIsMutable();
-        promoBadgeIds_.addLong(value);
+        promoBadgeIds_.addDouble(value);
         onChanged();
         return this;
       }
       /**
-       * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+       * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @param values The promoBadgeIds to add.
        * @return This builder for chaining.
        */
       public Builder addAllPromoBadgeIds(
-          java.lang.Iterable<? extends java.lang.Long> values) {
+          java.lang.Iterable<? extends java.lang.Double> values) {
         ensurePromoBadgeIdsIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
             values, promoBadgeIds_);
@@ -18674,11 +18668,11 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>repeated int64 promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
+       * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @return This builder for chaining.
        */
       public Builder clearPromoBadgeIds() {
-        promoBadgeIds_ = emptyLongList();
+        promoBadgeIds_ = emptyDoubleList();
         bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
@@ -22357,10 +22351,10 @@ public final class CatalogApiV2 {
         getBannerButtonTextBytes();
 
     /**
-     * <code>int64 taxon_id = 3 [json_name = "taxon_id"];</code>
+     * <code>double taxon_id = 3 [json_name = "taxon_id"];</code>
      * @return The taxonId.
      */
-    long getTaxonId();
+    double getTaxonId();
 
     /**
      * <code>.catalog_api_v2.AttributeOption options = 4;</code>
@@ -22436,9 +22430,9 @@ public final class CatalogApiV2 {
               bannerButtonText_ = s;
               break;
             }
-            case 24: {
+            case 25: {
 
-              taxonId_ = input.readInt64();
+              taxonId_ = input.readDouble();
               break;
             }
             case 34: {
@@ -22563,13 +22557,13 @@ public final class CatalogApiV2 {
     }
 
     public static final int TAXON_ID_FIELD_NUMBER = 3;
-    private long taxonId_;
+    private double taxonId_;
     /**
-     * <code>int64 taxon_id = 3 [json_name = "taxon_id"];</code>
+     * <code>double taxon_id = 3 [json_name = "taxon_id"];</code>
      * @return The taxonId.
      */
     @java.lang.Override
-    public long getTaxonId() {
+    public double getTaxonId() {
       return taxonId_;
     }
 
@@ -22619,8 +22613,8 @@ public final class CatalogApiV2 {
       if (!getBannerButtonTextBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, bannerButtonText_);
       }
-      if (taxonId_ != 0L) {
-        output.writeInt64(3, taxonId_);
+      if (taxonId_ != 0D) {
+        output.writeDouble(3, taxonId_);
       }
       if (options_ != null) {
         output.writeMessage(4, getOptions());
@@ -22640,9 +22634,9 @@ public final class CatalogApiV2 {
       if (!getBannerButtonTextBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, bannerButtonText_);
       }
-      if (taxonId_ != 0L) {
+      if (taxonId_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(3, taxonId_);
+          .computeDoubleSize(3, taxonId_);
       }
       if (options_ != null) {
         size += com.google.protobuf.CodedOutputStream
@@ -22667,8 +22661,9 @@ public final class CatalogApiV2 {
           .equals(other.getName())) return false;
       if (!getBannerButtonText()
           .equals(other.getBannerButtonText())) return false;
-      if (getTaxonId()
-          != other.getTaxonId()) return false;
+      if (java.lang.Double.doubleToLongBits(getTaxonId())
+          != java.lang.Double.doubleToLongBits(
+              other.getTaxonId())) return false;
       if (hasOptions() != other.hasOptions()) return false;
       if (hasOptions()) {
         if (!getOptions()
@@ -22691,7 +22686,7 @@ public final class CatalogApiV2 {
       hash = (53 * hash) + getBannerButtonText().hashCode();
       hash = (37 * hash) + TAXON_ID_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getTaxonId());
+          java.lang.Double.doubleToLongBits(getTaxonId()));
       if (hasOptions()) {
         hash = (37 * hash) + OPTIONS_FIELD_NUMBER;
         hash = (53 * hash) + getOptions().hashCode();
@@ -22833,7 +22828,7 @@ public final class CatalogApiV2 {
 
         bannerButtonText_ = "";
 
-        taxonId_ = 0L;
+        taxonId_ = 0D;
 
         if (optionsBuilder_ == null) {
           options_ = null;
@@ -22931,7 +22926,7 @@ public final class CatalogApiV2 {
           bannerButtonText_ = other.bannerButtonText_;
           onChanged();
         }
-        if (other.getTaxonId() != 0L) {
+        if (other.getTaxonId() != 0D) {
           setTaxonId(other.getTaxonId());
         }
         if (other.hasOptions()) {
@@ -23118,33 +23113,33 @@ public final class CatalogApiV2 {
         return this;
       }
 
-      private long taxonId_ ;
+      private double taxonId_ ;
       /**
-       * <code>int64 taxon_id = 3 [json_name = "taxon_id"];</code>
+       * <code>double taxon_id = 3 [json_name = "taxon_id"];</code>
        * @return The taxonId.
        */
       @java.lang.Override
-      public long getTaxonId() {
+      public double getTaxonId() {
         return taxonId_;
       }
       /**
-       * <code>int64 taxon_id = 3 [json_name = "taxon_id"];</code>
+       * <code>double taxon_id = 3 [json_name = "taxon_id"];</code>
        * @param value The taxonId to set.
        * @return This builder for chaining.
        */
-      public Builder setTaxonId(long value) {
+      public Builder setTaxonId(double value) {
         
         taxonId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int64 taxon_id = 3 [json_name = "taxon_id"];</code>
+       * <code>double taxon_id = 3 [json_name = "taxon_id"];</code>
        * @return This builder for chaining.
        */
       public Builder clearTaxonId() {
         
-        taxonId_ = 0L;
+        taxonId_ = 0D;
         onChanged();
         return this;
       }
@@ -26935,19 +26930,19 @@ public final class CatalogApiV2 {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.google.protobuf.Int64Value feedbackCount = 1 [json_name = "feedback_count"];</code>
+     * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
      * @return Whether the feedbackCount field is set.
      */
     boolean hasFeedbackCount();
     /**
-     * <code>.google.protobuf.Int64Value feedbackCount = 1 [json_name = "feedback_count"];</code>
+     * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
      * @return The feedbackCount.
      */
-    com.google.protobuf.Int64Value getFeedbackCount();
+    com.google.protobuf.DoubleValue getFeedbackCount();
     /**
-     * <code>.google.protobuf.Int64Value feedbackCount = 1 [json_name = "feedback_count"];</code>
+     * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
      */
-    com.google.protobuf.Int64ValueOrBuilder getFeedbackCountOrBuilder();
+    com.google.protobuf.DoubleValueOrBuilder getFeedbackCountOrBuilder();
 
     /**
      * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
@@ -26963,6 +26958,21 @@ public final class CatalogApiV2 {
      * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
      */
     com.google.protobuf.StringValueOrBuilder getFeedbackSourceOrBuilder();
+
+    /**
+     * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+     * @return Whether the commentCount field is set.
+     */
+    boolean hasCommentCount();
+    /**
+     * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+     * @return The commentCount.
+     */
+    com.google.protobuf.DoubleValue getCommentCount();
+    /**
+     * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+     */
+    com.google.protobuf.DoubleValueOrBuilder getCommentCountOrBuilder();
   }
   /**
    * Protobuf type {@code catalog_api_v2.ScoreDetail}
@@ -27010,11 +27020,11 @@ public final class CatalogApiV2 {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Int64Value.Builder subBuilder = null;
+              com.google.protobuf.DoubleValue.Builder subBuilder = null;
               if (feedbackCount_ != null) {
                 subBuilder = feedbackCount_.toBuilder();
               }
-              feedbackCount_ = input.readMessage(com.google.protobuf.Int64Value.parser(), extensionRegistry);
+              feedbackCount_ = input.readMessage(com.google.protobuf.DoubleValue.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(feedbackCount_);
                 feedbackCount_ = subBuilder.buildPartial();
@@ -27031,6 +27041,19 @@ public final class CatalogApiV2 {
               if (subBuilder != null) {
                 subBuilder.mergeFrom(feedbackSource_);
                 feedbackSource_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 26: {
+              com.google.protobuf.DoubleValue.Builder subBuilder = null;
+              if (commentCount_ != null) {
+                subBuilder = commentCount_.toBuilder();
+              }
+              commentCount_ = input.readMessage(com.google.protobuf.DoubleValue.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(commentCount_);
+                commentCount_ = subBuilder.buildPartial();
               }
 
               break;
@@ -27068,9 +27091,9 @@ public final class CatalogApiV2 {
     }
 
     public static final int FEEDBACKCOUNT_FIELD_NUMBER = 1;
-    private com.google.protobuf.Int64Value feedbackCount_;
+    private com.google.protobuf.DoubleValue feedbackCount_;
     /**
-     * <code>.google.protobuf.Int64Value feedbackCount = 1 [json_name = "feedback_count"];</code>
+     * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
      * @return Whether the feedbackCount field is set.
      */
     @java.lang.Override
@@ -27078,18 +27101,18 @@ public final class CatalogApiV2 {
       return feedbackCount_ != null;
     }
     /**
-     * <code>.google.protobuf.Int64Value feedbackCount = 1 [json_name = "feedback_count"];</code>
+     * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
      * @return The feedbackCount.
      */
     @java.lang.Override
-    public com.google.protobuf.Int64Value getFeedbackCount() {
-      return feedbackCount_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : feedbackCount_;
+    public com.google.protobuf.DoubleValue getFeedbackCount() {
+      return feedbackCount_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : feedbackCount_;
     }
     /**
-     * <code>.google.protobuf.Int64Value feedbackCount = 1 [json_name = "feedback_count"];</code>
+     * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.Int64ValueOrBuilder getFeedbackCountOrBuilder() {
+    public com.google.protobuf.DoubleValueOrBuilder getFeedbackCountOrBuilder() {
       return getFeedbackCount();
     }
 
@@ -27119,6 +27142,32 @@ public final class CatalogApiV2 {
       return getFeedbackSource();
     }
 
+    public static final int COMMENTCOUNT_FIELD_NUMBER = 3;
+    private com.google.protobuf.DoubleValue commentCount_;
+    /**
+     * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+     * @return Whether the commentCount field is set.
+     */
+    @java.lang.Override
+    public boolean hasCommentCount() {
+      return commentCount_ != null;
+    }
+    /**
+     * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+     * @return The commentCount.
+     */
+    @java.lang.Override
+    public com.google.protobuf.DoubleValue getCommentCount() {
+      return commentCount_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : commentCount_;
+    }
+    /**
+     * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.DoubleValueOrBuilder getCommentCountOrBuilder() {
+      return getCommentCount();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -27139,6 +27188,9 @@ public final class CatalogApiV2 {
       if (feedbackSource_ != null) {
         output.writeMessage(2, getFeedbackSource());
       }
+      if (commentCount_ != null) {
+        output.writeMessage(3, getCommentCount());
+      }
       unknownFields.writeTo(output);
     }
 
@@ -27155,6 +27207,10 @@ public final class CatalogApiV2 {
       if (feedbackSource_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getFeedbackSource());
+      }
+      if (commentCount_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getCommentCount());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -27181,6 +27237,11 @@ public final class CatalogApiV2 {
         if (!getFeedbackSource()
             .equals(other.getFeedbackSource())) return false;
       }
+      if (hasCommentCount() != other.hasCommentCount()) return false;
+      if (hasCommentCount()) {
+        if (!getCommentCount()
+            .equals(other.getCommentCount())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -27199,6 +27260,10 @@ public final class CatalogApiV2 {
       if (hasFeedbackSource()) {
         hash = (37 * hash) + FEEDBACKSOURCE_FIELD_NUMBER;
         hash = (53 * hash) + getFeedbackSource().hashCode();
+      }
+      if (hasCommentCount()) {
+        hash = (37 * hash) + COMMENTCOUNT_FIELD_NUMBER;
+        hash = (53 * hash) + getCommentCount().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -27345,6 +27410,12 @@ public final class CatalogApiV2 {
           feedbackSource_ = null;
           feedbackSourceBuilder_ = null;
         }
+        if (commentCountBuilder_ == null) {
+          commentCount_ = null;
+        } else {
+          commentCount_ = null;
+          commentCountBuilder_ = null;
+        }
         return this;
       }
 
@@ -27380,6 +27451,11 @@ public final class CatalogApiV2 {
           result.feedbackSource_ = feedbackSource_;
         } else {
           result.feedbackSource_ = feedbackSourceBuilder_.build();
+        }
+        if (commentCountBuilder_ == null) {
+          result.commentCount_ = commentCount_;
+        } else {
+          result.commentCount_ = commentCountBuilder_.build();
         }
         onBuilt();
         return result;
@@ -27435,6 +27511,9 @@ public final class CatalogApiV2 {
         if (other.hasFeedbackSource()) {
           mergeFeedbackSource(other.getFeedbackSource());
         }
+        if (other.hasCommentCount()) {
+          mergeCommentCount(other.getCommentCount());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -27464,31 +27543,31 @@ public final class CatalogApiV2 {
         return this;
       }
 
-      private com.google.protobuf.Int64Value feedbackCount_;
+      private com.google.protobuf.DoubleValue feedbackCount_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder> feedbackCountBuilder_;
+          com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> feedbackCountBuilder_;
       /**
-       * <code>.google.protobuf.Int64Value feedbackCount = 1 [json_name = "feedback_count"];</code>
+       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
        * @return Whether the feedbackCount field is set.
        */
       public boolean hasFeedbackCount() {
         return feedbackCountBuilder_ != null || feedbackCount_ != null;
       }
       /**
-       * <code>.google.protobuf.Int64Value feedbackCount = 1 [json_name = "feedback_count"];</code>
+       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
        * @return The feedbackCount.
        */
-      public com.google.protobuf.Int64Value getFeedbackCount() {
+      public com.google.protobuf.DoubleValue getFeedbackCount() {
         if (feedbackCountBuilder_ == null) {
-          return feedbackCount_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : feedbackCount_;
+          return feedbackCount_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : feedbackCount_;
         } else {
           return feedbackCountBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Int64Value feedbackCount = 1 [json_name = "feedback_count"];</code>
+       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
        */
-      public Builder setFeedbackCount(com.google.protobuf.Int64Value value) {
+      public Builder setFeedbackCount(com.google.protobuf.DoubleValue value) {
         if (feedbackCountBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -27502,10 +27581,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.google.protobuf.Int64Value feedbackCount = 1 [json_name = "feedback_count"];</code>
+       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
        */
       public Builder setFeedbackCount(
-          com.google.protobuf.Int64Value.Builder builderForValue) {
+          com.google.protobuf.DoubleValue.Builder builderForValue) {
         if (feedbackCountBuilder_ == null) {
           feedbackCount_ = builderForValue.build();
           onChanged();
@@ -27516,13 +27595,13 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.google.protobuf.Int64Value feedbackCount = 1 [json_name = "feedback_count"];</code>
+       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
        */
-      public Builder mergeFeedbackCount(com.google.protobuf.Int64Value value) {
+      public Builder mergeFeedbackCount(com.google.protobuf.DoubleValue value) {
         if (feedbackCountBuilder_ == null) {
           if (feedbackCount_ != null) {
             feedbackCount_ =
-              com.google.protobuf.Int64Value.newBuilder(feedbackCount_).mergeFrom(value).buildPartial();
+              com.google.protobuf.DoubleValue.newBuilder(feedbackCount_).mergeFrom(value).buildPartial();
           } else {
             feedbackCount_ = value;
           }
@@ -27534,7 +27613,7 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.google.protobuf.Int64Value feedbackCount = 1 [json_name = "feedback_count"];</code>
+       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
        */
       public Builder clearFeedbackCount() {
         if (feedbackCountBuilder_ == null) {
@@ -27548,33 +27627,33 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.google.protobuf.Int64Value feedbackCount = 1 [json_name = "feedback_count"];</code>
+       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
        */
-      public com.google.protobuf.Int64Value.Builder getFeedbackCountBuilder() {
+      public com.google.protobuf.DoubleValue.Builder getFeedbackCountBuilder() {
         
         onChanged();
         return getFeedbackCountFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Int64Value feedbackCount = 1 [json_name = "feedback_count"];</code>
+       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
        */
-      public com.google.protobuf.Int64ValueOrBuilder getFeedbackCountOrBuilder() {
+      public com.google.protobuf.DoubleValueOrBuilder getFeedbackCountOrBuilder() {
         if (feedbackCountBuilder_ != null) {
           return feedbackCountBuilder_.getMessageOrBuilder();
         } else {
           return feedbackCount_ == null ?
-              com.google.protobuf.Int64Value.getDefaultInstance() : feedbackCount_;
+              com.google.protobuf.DoubleValue.getDefaultInstance() : feedbackCount_;
         }
       }
       /**
-       * <code>.google.protobuf.Int64Value feedbackCount = 1 [json_name = "feedback_count"];</code>
+       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder> 
+          com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> 
           getFeedbackCountFieldBuilder() {
         if (feedbackCountBuilder_ == null) {
           feedbackCountBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder>(
+              com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder>(
                   getFeedbackCount(),
                   getParentForChildren(),
                   isClean());
@@ -27701,6 +27780,125 @@ public final class CatalogApiV2 {
         }
         return feedbackSourceBuilder_;
       }
+
+      private com.google.protobuf.DoubleValue commentCount_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> commentCountBuilder_;
+      /**
+       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+       * @return Whether the commentCount field is set.
+       */
+      public boolean hasCommentCount() {
+        return commentCountBuilder_ != null || commentCount_ != null;
+      }
+      /**
+       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+       * @return The commentCount.
+       */
+      public com.google.protobuf.DoubleValue getCommentCount() {
+        if (commentCountBuilder_ == null) {
+          return commentCount_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : commentCount_;
+        } else {
+          return commentCountBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+       */
+      public Builder setCommentCount(com.google.protobuf.DoubleValue value) {
+        if (commentCountBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          commentCount_ = value;
+          onChanged();
+        } else {
+          commentCountBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+       */
+      public Builder setCommentCount(
+          com.google.protobuf.DoubleValue.Builder builderForValue) {
+        if (commentCountBuilder_ == null) {
+          commentCount_ = builderForValue.build();
+          onChanged();
+        } else {
+          commentCountBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+       */
+      public Builder mergeCommentCount(com.google.protobuf.DoubleValue value) {
+        if (commentCountBuilder_ == null) {
+          if (commentCount_ != null) {
+            commentCount_ =
+              com.google.protobuf.DoubleValue.newBuilder(commentCount_).mergeFrom(value).buildPartial();
+          } else {
+            commentCount_ = value;
+          }
+          onChanged();
+        } else {
+          commentCountBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+       */
+      public Builder clearCommentCount() {
+        if (commentCountBuilder_ == null) {
+          commentCount_ = null;
+          onChanged();
+        } else {
+          commentCount_ = null;
+          commentCountBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+       */
+      public com.google.protobuf.DoubleValue.Builder getCommentCountBuilder() {
+        
+        onChanged();
+        return getCommentCountFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+       */
+      public com.google.protobuf.DoubleValueOrBuilder getCommentCountOrBuilder() {
+        if (commentCountBuilder_ != null) {
+          return commentCountBuilder_.getMessageOrBuilder();
+        } else {
+          return commentCount_ == null ?
+              com.google.protobuf.DoubleValue.getDefaultInstance() : commentCount_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> 
+          getCommentCountFieldBuilder() {
+        if (commentCountBuilder_ == null) {
+          commentCountBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder>(
+                  getCommentCount(),
+                  getParentForChildren(),
+                  isClean());
+          commentCount_ = null;
+        }
+        return commentCountBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -27789,10 +27987,10 @@ public final class CatalogApiV2 {
         getNameBytes();
 
     /**
-     * <code>int64 products_count = 4 [json_name = "products_count"];</code>
+     * <code>double products_count = 4 [json_name = "products_count"];</code>
      * @return The productsCount.
      */
-    long getProductsCount();
+    double getProductsCount();
 
     /**
      * <code>repeated string promo_services = 5 [json_name = "promo_services"];</code>
@@ -27820,10 +28018,10 @@ public final class CatalogApiV2 {
         getPromoServicesBytes(int index);
 
     /**
-     * <code>int64 position = 6;</code>
+     * <code>double position = 6;</code>
      * @return The position.
      */
-    long getPosition();
+    double getPosition();
 
     /**
      * <code>int32 depth = 7;</code>
@@ -27951,9 +28149,9 @@ public final class CatalogApiV2 {
               name_ = s;
               break;
             }
-            case 32: {
+            case 33: {
 
-              productsCount_ = input.readInt64();
+              productsCount_ = input.readDouble();
               break;
             }
             case 42: {
@@ -27965,9 +28163,9 @@ public final class CatalogApiV2 {
               promoServices_.add(s);
               break;
             }
-            case 48: {
+            case 49: {
 
-              position_ = input.readInt64();
+              position_ = input.readDouble();
               break;
             }
             case 56: {
@@ -28129,13 +28327,13 @@ public final class CatalogApiV2 {
     }
 
     public static final int PRODUCTS_COUNT_FIELD_NUMBER = 4;
-    private long productsCount_;
+    private double productsCount_;
     /**
-     * <code>int64 products_count = 4 [json_name = "products_count"];</code>
+     * <code>double products_count = 4 [json_name = "products_count"];</code>
      * @return The productsCount.
      */
     @java.lang.Override
-    public long getProductsCount() {
+    public double getProductsCount() {
       return productsCount_;
     }
 
@@ -28175,13 +28373,13 @@ public final class CatalogApiV2 {
     }
 
     public static final int POSITION_FIELD_NUMBER = 6;
-    private long position_;
+    private double position_;
     /**
-     * <code>int64 position = 6;</code>
+     * <code>double position = 6;</code>
      * @return The position.
      */
     @java.lang.Override
-    public long getPosition() {
+    public double getPosition() {
       return position_;
     }
 
@@ -28318,14 +28516,14 @@ public final class CatalogApiV2 {
       if (!getNameBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, name_);
       }
-      if (productsCount_ != 0L) {
-        output.writeInt64(4, productsCount_);
+      if (productsCount_ != 0D) {
+        output.writeDouble(4, productsCount_);
       }
       for (int i = 0; i < promoServices_.size(); i++) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, promoServices_.getRaw(i));
       }
-      if (position_ != 0L) {
-        output.writeInt64(6, position_);
+      if (position_ != 0D) {
+        output.writeDouble(6, position_);
       }
       if (depth_ != 0) {
         output.writeInt32(7, depth_);
@@ -28358,9 +28556,9 @@ public final class CatalogApiV2 {
       if (!getNameBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, name_);
       }
-      if (productsCount_ != 0L) {
+      if (productsCount_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(4, productsCount_);
+          .computeDoubleSize(4, productsCount_);
       }
       {
         int dataSize = 0;
@@ -28370,9 +28568,9 @@ public final class CatalogApiV2 {
         size += dataSize;
         size += 1 * getPromoServicesList().size();
       }
-      if (position_ != 0L) {
+      if (position_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(6, position_);
+          .computeDoubleSize(6, position_);
       }
       if (depth_ != 0) {
         size += com.google.protobuf.CodedOutputStream
@@ -28415,12 +28613,14 @@ public final class CatalogApiV2 {
           .equals(other.getType())) return false;
       if (!getName()
           .equals(other.getName())) return false;
-      if (getProductsCount()
-          != other.getProductsCount()) return false;
+      if (java.lang.Double.doubleToLongBits(getProductsCount())
+          != java.lang.Double.doubleToLongBits(
+              other.getProductsCount())) return false;
       if (!getPromoServicesList()
           .equals(other.getPromoServicesList())) return false;
-      if (getPosition()
-          != other.getPosition()) return false;
+      if (java.lang.Double.doubleToLongBits(getPosition())
+          != java.lang.Double.doubleToLongBits(
+              other.getPosition())) return false;
       if (getDepth()
           != other.getDepth()) return false;
       if (hasIcon() != other.hasIcon()) return false;
@@ -28452,14 +28652,14 @@ public final class CatalogApiV2 {
       hash = (53 * hash) + getName().hashCode();
       hash = (37 * hash) + PRODUCTS_COUNT_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getProductsCount());
+          java.lang.Double.doubleToLongBits(getProductsCount()));
       if (getPromoServicesCount() > 0) {
         hash = (37 * hash) + PROMO_SERVICES_FIELD_NUMBER;
         hash = (53 * hash) + getPromoServicesList().hashCode();
       }
       hash = (37 * hash) + POSITION_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getPosition());
+          java.lang.Double.doubleToLongBits(getPosition()));
       hash = (37 * hash) + DEPTH_FIELD_NUMBER;
       hash = (53 * hash) + getDepth();
       if (hasIcon()) {
@@ -28611,11 +28811,11 @@ public final class CatalogApiV2 {
 
         name_ = "";
 
-        productsCount_ = 0L;
+        productsCount_ = 0D;
 
         promoServices_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000001);
-        position_ = 0L;
+        position_ = 0D;
 
         depth_ = 0;
 
@@ -28737,7 +28937,7 @@ public final class CatalogApiV2 {
           name_ = other.name_;
           onChanged();
         }
-        if (other.getProductsCount() != 0L) {
+        if (other.getProductsCount() != 0D) {
           setProductsCount(other.getProductsCount());
         }
         if (!other.promoServices_.isEmpty()) {
@@ -28750,7 +28950,7 @@ public final class CatalogApiV2 {
           }
           onChanged();
         }
-        if (other.getPosition() != 0L) {
+        if (other.getPosition() != 0D) {
           setPosition(other.getPosition());
         }
         if (other.getDepth() != 0) {
@@ -28986,33 +29186,33 @@ public final class CatalogApiV2 {
         return this;
       }
 
-      private long productsCount_ ;
+      private double productsCount_ ;
       /**
-       * <code>int64 products_count = 4 [json_name = "products_count"];</code>
+       * <code>double products_count = 4 [json_name = "products_count"];</code>
        * @return The productsCount.
        */
       @java.lang.Override
-      public long getProductsCount() {
+      public double getProductsCount() {
         return productsCount_;
       }
       /**
-       * <code>int64 products_count = 4 [json_name = "products_count"];</code>
+       * <code>double products_count = 4 [json_name = "products_count"];</code>
        * @param value The productsCount to set.
        * @return This builder for chaining.
        */
-      public Builder setProductsCount(long value) {
+      public Builder setProductsCount(double value) {
         
         productsCount_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int64 products_count = 4 [json_name = "products_count"];</code>
+       * <code>double products_count = 4 [json_name = "products_count"];</code>
        * @return This builder for chaining.
        */
       public Builder clearProductsCount() {
         
-        productsCount_ = 0L;
+        productsCount_ = 0D;
         onChanged();
         return this;
       }
@@ -29127,33 +29327,33 @@ public final class CatalogApiV2 {
         return this;
       }
 
-      private long position_ ;
+      private double position_ ;
       /**
-       * <code>int64 position = 6;</code>
+       * <code>double position = 6;</code>
        * @return The position.
        */
       @java.lang.Override
-      public long getPosition() {
+      public double getPosition() {
         return position_;
       }
       /**
-       * <code>int64 position = 6;</code>
+       * <code>double position = 6;</code>
        * @param value The position to set.
        * @return This builder for chaining.
        */
-      public Builder setPosition(long value) {
+      public Builder setPosition(double value) {
         
         position_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int64 position = 6;</code>
+       * <code>double position = 6;</code>
        * @return This builder for chaining.
        */
       public Builder clearPosition() {
         
-        position_ = 0L;
+        position_ = 0D;
         onChanged();
         return this;
       }
@@ -31665,7 +31865,7 @@ public final class CatalogApiV2 {
       "e_type\022&\n\016grams_per_unit\030\017 \001(\001R\016grams_pe" +
       "r_unit\022\036\n\nunit_price\030\020 \001(\001R\nunit_price\0220" +
       "\n\023original_unit_price\030\021 \001(\001R\023original_un" +
-      "it_price\022(\n\017promo_badge_ids\030\022 \003(\003R\017promo" +
+      "it_price\022(\n\017promo_badge_ids\030\022 \003(\001R\017promo" +
       "_badge_ids\022*\n\005score\030\023 \001(\0132\033.google.proto" +
       "buf.FloatValue\022\016\n\006labels\030\024 \003(\t\022%\n\006images" +
       "\030\025 \003(\0132\025.catalog_api_v2.Image\022\024\n\014require" +
@@ -31703,7 +31903,7 @@ public final class CatalogApiV2 {
       "(\001R\016grams_per_unit\022\036\n\nunit_price\030\020 \001(\001R\n" +
       "unit_price\0220\n\023original_unit_price\030\021 \001(\001R" +
       "\023original_unit_price\022(\n\017promo_badge_ids\030" +
-      "\022 \003(\003R\017promo_badge_ids\022*\n\005score\030\023 \001(\0132\033." +
+      "\022 \003(\001R\017promo_badge_ids\022*\n\005score\030\023 \001(\0132\033." +
       "google.protobuf.FloatValue\022\016\n\006labels\030\024 \003" +
       "(\t\022%\n\006images\030\025 \003(\0132\025.catalog_api_v2.Imag" +
       "e\022,\n\nproperties\030\026 \003(\0132\030.catalog_api_v2.P" +
@@ -31720,7 +31920,7 @@ public final class CatalogApiV2 {
       "\nattributes\030\003 \001(\0132#.catalog_api_v2.Promo" +
       "BadgeAttribute\"\241\001\n\023PromoBadgeAttribute\022\014" +
       "\n\004name\030\001 \001(\t\022.\n\022banner_button_text\030\002 \001(\t" +
-      "R\022banner_button_text\022\032\n\010taxon_id\030\003 \001(\003R\010" +
+      "R\022banner_button_text\022\032\n\010taxon_id\030\003 \001(\001R\010" +
       "taxon_id\0220\n\007options\030\004 \001(\0132\037.catalog_api_" +
       "v2.AttributeOption\"e\n\017AttributeOption\022&\n" +
       "\006active\030\001 \001(\0132\026.catalog_api_v2.Active\022*\n" +
@@ -31732,34 +31932,36 @@ public final class CatalogApiV2 {
       "\010Inactive\022\r\n\005title\030\001 \001(\t\022 \n\013title_short\030" +
       "\002 \001(\tR\013title_short\022\013\n\003url\030\003 \001(\t\022 \n\013butto" +
       "n_text\030\005 \001(\tR\013button_text\022\016\n\006header\030\006 \001(" +
-      "\t\022\014\n\004text\030\007 \001(\t\"\230\001\n\013ScoreDetail\022B\n\rfeedb" +
-      "ackCount\030\001 \001(\0132\033.google.protobuf.Int64Va" +
-      "lueR\016feedback_count\022E\n\016feedbackSource\030\002 " +
-      "\001(\0132\034.google.protobuf.StringValueR\017feedb" +
-      "ack_source\"\372\001\n\tMainTaxon\022\n\n\002id\030\001 \001(\001\022\014\n\004" +
-      "type\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022&\n\016products_cou" +
-      "nt\030\004 \001(\003R\016products_count\022&\n\016promo_servic" +
-      "es\030\005 \003(\tR\016promo_services\022\020\n\010position\030\006 \001" +
-      "(\003\022\r\n\005depth\030\007 \001(\005\022\"\n\004icon\030\010 \001(\0132\024.catalo" +
-      "g_api_v2.Icon\022\032\n\010alt_icon\030\t \001(\tR\010alt_ico" +
-      "n\022\024\n\014requirements\030\n \003(\t\"B\n\004Icon\022\032\n\010mini_" +
-      "url\030\001 \001(\tR\010mini_url\022\036\n\nnormal_url\030\002 \001(\tR" +
-      "\nnormal_url\"\310\001\n\013ProtoPerson\022/\n\tfirstName" +
-      "\030\001 \001(\0132\034.google.protobuf.StringValue\022.\n\010" +
-      "lastName\030\002 \001(\0132\034.google.protobuf.StringV" +
-      "alue\022.\n\010address1\030\003 \001(\0132\034.google.protobuf" +
-      ".StringValue\022(\n\003age\030\004 \001(\0132\033.google.proto" +
-      "buf.Int32Value*5\n\tFacetType\022\n\n\006SELECT\020\000\022" +
-      "\020\n\014MULTI_SELECT\020\001\022\n\n\006TOGGLE\020\0022\206\002\n\023Catalo" +
-      "gAPIV2Service\022v\n\016GetProductList\022%.catalo" +
-      "g_api_v2.GetProductListRequest\032&.catalog" +
-      "_api_v2.GetProductListResponse\"\025\202\323\344\223\002\017\022\r" +
-      "/api/products\022w\n\nGetProduct\022!.catalog_ap" +
-      "i_v2.GetProductRequest\032\".catalog_api_v2." +
-      "GetProductResponse\"\"\202\323\344\223\002\034\022\032/api/product" +
-      "s/{product_id}BEZCgitlab.sbermarket.tech" +
-      "/paas/content/catalog/pkg/server/grpc/ca" +
-      "talogb\006proto3"
+      "\t\022\014\n\004text\030\007 \001(\t\"\334\001\n\013ScoreDetail\022C\n\rfeedb" +
+      "ackCount\030\001 \001(\0132\034.google.protobuf.DoubleV" +
+      "alueR\016feedback_count\022E\n\016feedbackSource\030\002" +
+      " \001(\0132\034.google.protobuf.StringValueR\017feed" +
+      "back_source\022A\n\014commentCount\030\003 \001(\0132\034.goog" +
+      "le.protobuf.DoubleValueR\rcomment_count\"\372" +
+      "\001\n\tMainTaxon\022\n\n\002id\030\001 \001(\001\022\014\n\004type\030\002 \001(\t\022\014" +
+      "\n\004name\030\003 \001(\t\022&\n\016products_count\030\004 \001(\001R\016pr" +
+      "oducts_count\022&\n\016promo_services\030\005 \003(\tR\016pr" +
+      "omo_services\022\020\n\010position\030\006 \001(\001\022\r\n\005depth\030" +
+      "\007 \001(\005\022\"\n\004icon\030\010 \001(\0132\024.catalog_api_v2.Ico" +
+      "n\022\032\n\010alt_icon\030\t \001(\tR\010alt_icon\022\024\n\014require" +
+      "ments\030\n \003(\t\"B\n\004Icon\022\032\n\010mini_url\030\001 \001(\tR\010m" +
+      "ini_url\022\036\n\nnormal_url\030\002 \001(\tR\nnormal_url\"" +
+      "\310\001\n\013ProtoPerson\022/\n\tfirstName\030\001 \001(\0132\034.goo" +
+      "gle.protobuf.StringValue\022.\n\010lastName\030\002 \001" +
+      "(\0132\034.google.protobuf.StringValue\022.\n\010addr" +
+      "ess1\030\003 \001(\0132\034.google.protobuf.StringValue" +
+      "\022(\n\003age\030\004 \001(\0132\033.google.protobuf.Int32Val" +
+      "ue*5\n\tFacetType\022\n\n\006SELECT\020\000\022\020\n\014MULTI_SEL" +
+      "ECT\020\001\022\n\n\006TOGGLE\020\0022\206\002\n\023CatalogAPIV2Servic" +
+      "e\022v\n\016GetProductList\022%.catalog_api_v2.Get" +
+      "ProductListRequest\032&.catalog_api_v2.GetP" +
+      "roductListResponse\"\025\202\323\344\223\002\017\022\r/api/product" +
+      "s\022w\n\nGetProduct\022!.catalog_api_v2.GetProd" +
+      "uctRequest\032\".catalog_api_v2.GetProductRe" +
+      "sponse\"\"\202\323\344\223\002\034\022\032/api/products/{product_i" +
+      "d}BEZCgitlab.sbermarket.tech/paas/conten" +
+      "t/catalog/pkg/server/grpc/catalogb\006proto" +
+      "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -31892,7 +32094,7 @@ public final class CatalogApiV2 {
     internal_static_catalog_api_v2_ScoreDetail_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_ScoreDetail_descriptor,
-        new java.lang.String[] { "FeedbackCount", "FeedbackSource", });
+        new java.lang.String[] { "FeedbackCount", "FeedbackSource", "CommentCount", });
     internal_static_catalog_api_v2_MainTaxon_descriptor =
       getDescriptor().getMessageTypes().get(20);
     internal_static_catalog_api_v2_MainTaxon_fieldAccessorTable = new
