@@ -1,0 +1,27 @@
+package ru.instamart.jdbc.dao.shopper;
+
+import ru.instamart.jdbc.dao.AbstractDao;
+import ru.instamart.jdbc.entity.OperationalZonesEntity;
+import ru.instamart.jdbc.util.ConnectionPgSQLManager;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import static org.testng.Assert.fail;
+
+public class OperationalZonesShopperDao extends AbstractDao<Long, OperationalZonesEntity> {
+    public static final OperationalZonesShopperDao INSTANCE = new OperationalZonesShopperDao();
+    private final String DELETE_SQL = "DELETE FROM operational_zones ";
+
+    public void deleteZoneByName(String zoneName) {
+        try (Connection connect = ConnectionPgSQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + "WHERE name = ?")) {
+            preparedStatement.setString(1, zoneName);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLManager. Error: " + e.getMessage());
+        }
+    }
+}
+

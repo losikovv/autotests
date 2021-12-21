@@ -14,8 +14,13 @@ public interface RegionsCheck extends Check, RegionsElements {
     }
 
     @Step("Проверяем, что тестовый регион: {0} добавился в таблицу")
-    default void checkAutotestRegionInTableVisible(final String cityName) {
+    default void checkRegionInTableVisible(final String cityName) {
         waitAction().shouldBeVisible(city, cityName);
+    }
+
+    @Step("Проверяем, что тестовый регион: {0} добавился в таблицу")
+    default void checkRegionInTableNotVisible(final String cityName) {
+        waitAction().shouldNotBeVisible(city, cityName);
     }
 
     @Step("Проверяем, что количество кнопок удалить совпадает с кол-вом регионов")

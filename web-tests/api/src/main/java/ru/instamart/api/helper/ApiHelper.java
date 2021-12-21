@@ -15,6 +15,7 @@ import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
 import ru.instamart.jdbc.dao.OffersDao;
 import ru.instamart.jdbc.dao.OperationalZonesDao;
 import ru.instamart.jdbc.dao.PromotionCodesDao;
+import ru.instamart.jdbc.dao.shopper.OperationalZonesShopperDao;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -226,6 +227,11 @@ public final class ApiHelper {
     @Step("Удаляем регион {zoneName} для магазина в админке")
     public void deleteOperationalZonesInAdmin(String zoneName) {
         OperationalZonesDao.INSTANCE.deleteZoneByName(zoneName);
+    }
+
+    @Step("Удаляем регион {zoneName} для магазина из шоппера")
+    public void deleteOperationalZonesInShopper(String zoneName) {
+        OperationalZonesShopperDao.INSTANCE.deleteZoneByName(zoneName);
     }
 
     /**

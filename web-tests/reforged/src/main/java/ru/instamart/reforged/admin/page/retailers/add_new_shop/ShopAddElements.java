@@ -5,5 +5,5 @@ import ru.instamart.reforged.core.component.Selector;
 
 public interface ShopAddElements {
 
-    Selector regionsDropdown = new Selector(By.id("store_city_id"), "Выпадающий список доступных регионов");
+    Selector regionsDropdown = new Selector(By.id("store_operational_zone_id"), "Выпадающий список доступных регионов");
 }

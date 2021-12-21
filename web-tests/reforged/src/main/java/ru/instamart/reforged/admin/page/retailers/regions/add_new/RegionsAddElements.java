@@ -6,6 +6,6 @@ import ru.instamart.reforged.core.component.Input;
 
 public interface RegionsAddElements {
 
-    Input newRegionName = new Input(By.id("operational_zone_name"), "Инпут для ввода имени нового региона");
-    Button newRegionCreateButton = new Button(By.xpath("//button[@type='submit']"), "Кнопка подтверждения создания нового региона");
+    Input newRegionName = new Input(By.xpath("//input[@data-qa='operational_zone_edit_name']"), "Инпут для ввода имени нового региона");
+    Button newRegionCreateButton = new Button(By.xpath("//button[@data-qa='operationalZone_edit_submit_edit_btn']"), "Кнопка подтверждения создания нового региона");
 }
