@@ -7,10 +7,12 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.api.enums.v2.ProductSortTypeV2;
 import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.model.v1.MarketingSampleV1;
+import ru.instamart.api.model.v1.ShippingPolicyV1;
 import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.StoresAdminRequest;
+import ru.instamart.api.request.v1.ShippingPoliciesV1Request;
 import ru.instamart.api.response.v2.ExternalPartnersServicesV2Response;
 import ru.instamart.jdbc.dao.SpreeUsersDao;
 import ru.instamart.jdbc.entity.*;
@@ -186,6 +188,18 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(store.getMinOrderAmountPickup(), storeConfigs.getMinOrderAmountPickup(), softAssert);
         compareTwoObjects(store.getMinFirstOrderAmountPickup(), storeConfigs.getMinFirstOrderAmountPickup(), softAssert);
         compareTwoObjects(store.getDisallowOrderEditingHours(), storeConfigs.getDisallowOrderEditingHours(), softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Сравниваем полученные правила доступности слотов доставки с отправленными")
+    public static void compareShippingPolicies(ShippingPoliciesV1Request.ShippingPolicies shippingPolicies, ShippingPolicyV1 updatedShippingPolicy) {
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(updatedShippingPolicy.getTitle(), shippingPolicies.getShippingPolicy().getTitle(), softAssert);
+        compareTwoObjects(updatedShippingPolicy.getRules().get(0).getPreferences().getDays(), shippingPolicies.getShippingPolicy().getRulesAttributes().get(0).getPreferredDays(), softAssert);
+        compareTwoObjects(updatedShippingPolicy.getRules().get(1).getPreferences().getTimeGap(), shippingPolicies.getShippingPolicy().getRulesAttributes().get(1).getPreferredTimeGap(), softAssert);
+        compareTwoObjects(updatedShippingPolicy.getRules().get(2).getPreferences().getTime(), shippingPolicies.getShippingPolicy().getRulesAttributes().get(2).getPreferredTime(), softAssert);
+        compareTwoObjects(updatedShippingPolicy.getRules().get(3).getPreferences().getNumber(), shippingPolicies.getShippingPolicy().getRulesAttributes().get(3).getPreferredNumber(), softAssert);
+        compareTwoObjects(updatedShippingPolicy.getRules().get(4).getPreferences().getTimeGap(), shippingPolicies.getShippingPolicy().getRulesAttributes().get(4).getPreferredTimeGap(), softAssert);
         softAssert.assertAll();
     }
 }

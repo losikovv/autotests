@@ -70,6 +70,13 @@ public class RetailersV1Request extends ApiV1RequestBase {
         }
     }
 
+    public static class ShippingPolicies {
+        @Step("{method} /" + ApiV1Endpoints.Retailers.SHIPPING_POLICIES)
+        public static Response GET(String retailerSlug) {
+            return givenWithAuth().get(ApiV1Endpoints.Retailers.SHIPPING_POLICIES, retailerSlug);
+        }
+    }
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @AllArgsConstructor
     @NoArgsConstructor

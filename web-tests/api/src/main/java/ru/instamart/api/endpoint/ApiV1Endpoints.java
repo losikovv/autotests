@@ -17,7 +17,7 @@ public final class ApiV1Endpoints {
     public static final String MARKETING_SAMPLES = "marketing_samples";
     public static final String COMPANIES = "companies";
     public static final String RETAILER_POSITION = "retailer_positions";
-
+    public static final String SHIPPING_POLICIES = "shipping_policies";
 
 
     public static final class DeliveryWindows {
@@ -53,6 +53,7 @@ public final class ApiV1Endpoints {
         public static final String ID = "retailers/{retailerId}";
         public static final String STORES = "retailers/{retailerId}/stores";
         public static final String SLUG = "retailers/{slug}";
+        public static final String SHIPPING_POLICIES = "retailers/{slug}/shipping_policies";
     }
 
     public static final class Shipments {
@@ -61,6 +62,14 @@ public final class ApiV1Endpoints {
 
         public static final class Products {
             public static final String PREREPLACEMENTS = "shipments/{shipmentNumber}/products/{productSku}/prereplacements";
+        }
+    }
+
+    public static final class ShippingPolicies {
+        public static final String ID = "shipping_policies/{id}";
+
+        public static final class ShippingPolicyRules {
+            public static final String ID = "shipping_policies/{id}/shipping_policy_rules/{rulesId}";
         }
     }
 
@@ -96,7 +105,9 @@ public final class ApiV1Endpoints {
         }
     }
 
-    /**Страница компании в админке*/
+    /**
+     * Страница компании в админке
+     */
     public static final class Company {
         public static final String BY_INN = "companies?inn={inn}";
         public static final String BY_ID = "companies/{companyID}";

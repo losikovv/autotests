@@ -3,34 +3,40 @@ package ru.instamart.test.api.v1.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import ru.instamart.api.common.RestBase;
+import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v1.RetailerSortTypesV1;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.v1.EtaV1;
+import ru.instamart.api.model.v1.ShippingPolicyV1;
+import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.api.request.v1.ProxyV1Request;
 import ru.instamart.api.request.v1.RetailerPositionV1Request;
+import ru.instamart.api.request.v1.RetailersV1Request;
+import ru.instamart.api.request.v1.ShippingPoliciesV1Request;
 import ru.instamart.api.response.ErrorResponse;
-import ru.instamart.api.model.v1.EtaV1;
+import ru.instamart.api.response.v1.EansV1Response;
+import ru.instamart.api.response.v1.ShippingPoliciesV1Response;
+import ru.instamart.api.response.v1.ShippingPolicyV1Response;
+import ru.instamart.api.response.v2.RetailerV2Response;
+import ru.instamart.api.response.v2.RetailersV2Response;
 import ru.instamart.jdbc.dao.OperationalZonesDao;
+import ru.instamart.jdbc.dao.ShippingPoliciesDao;
+import ru.instamart.jdbc.dao.ShippingPolicyRulesDao;
+import ru.instamart.jdbc.dao.SpreeRetailersDao;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.data_provider.JsonDataProvider;
 import ru.instamart.kraken.data_provider.JsonProvider;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
-import io.restassured.response.Response;
-import org.testng.annotations.Test;
-import ru.instamart.api.common.RestBase;
-import ru.instamart.api.dataprovider.RestDataProvider;
-import ru.instamart.api.model.v2.RetailerV2;
-import ru.instamart.api.request.v1.RetailersV1Request;
-import ru.instamart.api.response.v1.EansV1Response;
-import ru.instamart.api.response.v2.RetailerV2Response;
-import ru.instamart.api.response.v2.RetailersV2Response;
-import ru.instamart.jdbc.dao.SpreeRetailersDao;
 
 import java.util.Comparator;
 import java.util.List;
@@ -38,10 +44,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.testng.Assert.assertTrue;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.compareShippingPolicies;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.dataprovider.RestDataProvider.getAvailableRetailersSpree;
+import static ru.instamart.api.request.v1.ShippingPoliciesV1Request.getShippingPolicies;
 
 @Epic("ApiV1")
 @Feature("Admin Web")
@@ -49,6 +57,7 @@ public class RetailersV1Tests extends RestBase {
 
     private List<RetailerV2> retailers;
     private RetailerV2 retailerFromResponse;
+    private ShippingPolicyV1 shippingPolicy;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
@@ -435,7 +444,7 @@ public class RetailersV1Tests extends RestBase {
         Assert.assertTrue(response.asString().contains(testData.getErrorMessage()), "Текст ошибки неверный");
     }
 
-    @Story("Ритейлеры")
+    @Story("Ритейлеры - ETA")
     @CaseId(1330)
     @Test(description = "Редактирование ETA для ритейлера",
             groups = {"api-instamart-regress"},
@@ -445,7 +454,7 @@ public class RetailersV1Tests extends RestBase {
         checkStatusCode200(response);
     }
 
-    @Story("Ритейлеры")
+    @Story("Ритейлеры - ETA")
     @CaseId(1331)
     @Test(description = "Получение ETA для ритейлера",
             groups = {"api-instamart-regress"},
@@ -461,6 +470,144 @@ public class RetailersV1Tests extends RestBase {
         compareTwoObjects(eta.getWindow(), 1020, softAssert);
         softAssert.assertAll();
     }
+
+    @Story("Ритейлеры - Слоты доставки")
+    @CaseId(1347)
+    @Test(description = "Создание правил доступности слотов доставки",
+            groups = {"api-instamart-regress"},
+            dependsOnMethods = "createRetailer")
+    public void createShippingPolicies() {
+        ShippingPoliciesV1Request.ShippingPolicies shippingPolicies = getShippingPolicies(retailerFromResponse.getId());
+        final Response response = ShippingPoliciesV1Request.POST(shippingPolicies);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ShippingPolicyV1Response.class);
+        shippingPolicy = response.as(ShippingPolicyV1Response.class).getShippingPolicy();
+        compareShippingPolicies(shippingPolicies, shippingPolicy);
+    }
+
+    @Story("Ритейлеры - Слоты доставки")
+    @CaseId(1348)
+    @Test(description = "Получение правила доступности слотов доставки",
+            groups = {"api-instamart-regress"},
+            dependsOnMethods = "createShippingPolicies")
+    public void getShippingPolicy() {
+        final Response response = ShippingPoliciesV1Request.GET(shippingPolicy.getId());
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ShippingPolicyV1Response.class);
+        ShippingPolicyV1 shippingPolicyFromResponse = response.as(ShippingPolicyV1Response.class).getShippingPolicy();
+        compareTwoObjects(shippingPolicyFromResponse, shippingPolicy);
+    }
+
+    @Story("Ритейлеры - Слоты доставки")
+    @CaseId(1349)
+    @Test(description = "Получение правил доступности слотов доставки",
+            groups = {"api-instamart-regress"},
+            dependsOnMethods = "createShippingPolicies")
+    public void getAllShippingPolicies() {
+        final Response response = RetailersV1Request.ShippingPolicies.GET(retailerFromResponse.getSlug());
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ShippingPoliciesV1Response.class);
+        List<ShippingPolicyV1> shippingPoliciesFromResponse = response.as(ShippingPoliciesV1Response.class).getShippingPolicies();
+        compareTwoObjects(1, shippingPoliciesFromResponse.size());
+        compareTwoObjects(shippingPolicy, shippingPoliciesFromResponse.get(0));
+    }
+
+    @Story("Ритейлеры - Слоты доставки")
+    @CaseId(1350)
+    @Test(description = "Получение несуществующего правила доступности слотов доставки",
+            groups = {"api-instamart-regress"})
+    public void getNonExistingShippingPolicy() {
+        final Response response = ShippingPoliciesV1Request.GET(0L);
+        checkStatusCode404(response);
+        Assert.assertTrue(response.asString().contains("Объект не найден"));
+    }
+
+    @Story("Ритейлеры - Слоты доставки")
+    @CaseId(1351)
+    @Test(description = "Получение правил доступности слотов доставки для несуществующего ритейлера",
+            groups = {"api-instamart-regress"},
+            dependsOnMethods = "createShippingPolicies")
+    public void getAllShippingPoliciesForNonExistingRetailer() {
+        final Response response = RetailersV1Request.ShippingPolicies.GET("fgdhgshsfghsgh");
+        checkStatusCode404(response);
+        Assert.assertTrue(response.asString().contains("Объект не найден"));
+    }
+
+    @Story("Ритейлеры - Слоты доставки")
+    @CaseId(1352)
+    @Test(description = "Удаление правила доступности слотов доставки",
+            groups = {"api-instamart-regress"},
+            dependsOnMethods = {"createShippingPolicies", "getShippingPolicy", "getAllShippingPolicies"})
+    public void deleteShippingPolicyRule() {
+        Long shippingPolicyRuleId = shippingPolicy.getRules().get(0).getId();
+        final Response response = ShippingPoliciesV1Request.ShippingPoliciesRules.DELETE(shippingPolicy.getId(), shippingPolicyRuleId);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ShippingPolicyV1Response.class);
+        ShippingPolicyV1 updatedShippingPolicy = response.as(ShippingPolicyV1Response.class).getShippingPolicy();
+        compareTwoObjects(updatedShippingPolicy.getRules().size(), 4);
+        Assert.assertFalse(ShippingPolicyRulesDao.INSTANCE.findById(shippingPolicyRuleId).isPresent());
+    }
+
+    @Story("Ритейлеры - Слоты доставки")
+    @CaseId(1353)
+    @Test(description = "Удаление несуществующего правила доступности слотов доставки",
+            groups = {"api-instamart-regress"},
+            dependsOnMethods = "createShippingPolicies")
+    public void deleteNonExistingShippingPolicyRule() {
+        final Response response = ShippingPoliciesV1Request.ShippingPoliciesRules.DELETE(shippingPolicy.getId(), 0L);
+        checkStatusCode404(response);
+    }
+
+    @Story("Ритейлеры - Слоты доставки")
+    @CaseId(1354)
+    @Test(description = "Редактирование правил доступности слотов доставки",
+            groups = {"api-instamart-regress"},
+            dependsOnMethods = {"createShippingPolicies", "getShippingPolicy", "getAllShippingPolicies", "deleteShippingPolicyRule"})
+    public void editShippingPolicies() {
+        ShippingPolicyRulesDao.INSTANCE.deleteRulesByShippingPolicyId(shippingPolicy.getId());
+        ShippingPoliciesV1Request.ShippingPolicies shippingPolicies = getShippingPolicies(retailerFromResponse.getId());
+        final Response response = ShippingPoliciesV1Request.PUT(shippingPolicies, shippingPolicy.getId());
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ShippingPolicyV1Response.class);
+        ShippingPolicyV1 updatedShippingPolicy = response.as(ShippingPolicyV1Response.class).getShippingPolicy();
+        compareShippingPolicies(shippingPolicies, updatedShippingPolicy);
+    }
+
+    @Story("Ритейлеры - Слоты доставки")
+    @CaseId(1355)
+    @Test(description = "Редактирование несуществующих правил доступности слотов доставки",
+            groups = {"api-instamart-regress"})
+    public void editNonExistingShippingPolicies() {
+        ShippingPoliciesV1Request.ShippingPolicies shippingPolicies = getShippingPolicies(0);
+        final Response response = ShippingPoliciesV1Request.PUT(shippingPolicies, 0L);
+        checkStatusCode404(response);
+        Assert.assertTrue(response.asString().contains("Объект не найден"));
+    }
+
+    @Story("Ритейлеры - Слоты доставки")
+    @CaseId(1356)
+    @Test(description = "Удаление правил доступности слотов доставки",
+            groups = {"api-instamart-regress"},
+            dependsOnMethods = "editShippingPolicies")
+    public void deleteShippingPolicies() {
+        final Response response = ShippingPoliciesV1Request.DELETE(shippingPolicy.getId());
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ShippingPolicyV1Response.class);
+        ShippingPolicyV1 deletedShippingPolicy = response.as(ShippingPolicyV1Response.class).getShippingPolicy();
+        compareTwoObjects(deletedShippingPolicy.getRules().size(), 0);
+        Assert.assertFalse(ShippingPoliciesDao.INSTANCE.findById(shippingPolicy.getId()).isPresent());
+    }
+
+    @Story("Ритейлеры - Слоты доставки")
+    @CaseId(1357)
+    @Test(description = "Удаление правил доступности несуществующих слотов доставки",
+            groups = {"api-instamart-regress"})
+    public void deleteNonExistingShippingPolicies() {
+        final Response response = ShippingPoliciesV1Request.DELETE(0L);
+        checkStatusCode404(response);
+        Assert.assertTrue(response.asString().contains("Объект не найден"));
+    }
+
 
     @AfterClass(alwaysRun = true)
     public void clearData() {
