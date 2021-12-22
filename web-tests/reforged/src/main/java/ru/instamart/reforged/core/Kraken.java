@@ -11,6 +11,7 @@ import ru.instamart.reforged.core.action.JsAction;
 import ru.instamart.reforged.core.action.WaitAction;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 public final class Kraken extends KrakenDriver {
@@ -92,7 +93,7 @@ public final class Kraken extends KrakenDriver {
         return getAllLogs().get(logType);
     }
 
-    public static Set<Cookie> getCookie() {
+    public static Set<Cookie> getCookies() {
         return getWebDriver().manage().getCookies();
     }
 
@@ -101,16 +102,41 @@ public final class Kraken extends KrakenDriver {
         getWebDriver().manage().addCookie(cookie);
     }
 
-    public static void addIfNotExist(final Cookie cookie) {
-        final var cookies = getWebDriver().manage().getCookies();
-        for (final var c : cookies) {
-            if (c.getName().equals(cookie.getName())
-                    && (!c.getValue().equals(cookie.getValue()) || c.getExpiry().getTime() != cookie.getExpiry().getTime())) {
-                getWebDriver().manage().deleteCookie(c);
-                addCookie(cookie);
-                refresh();
-            }
+    public static void addCookieIfNotExist(final Cookie cookie) {
+        final var cookies = getCookies()
+                .stream()
+                .filter(c -> c.getName().equals(cookie.getName())
+                        && (!c.getValue().equals(cookie.getValue()) || c.getExpiry().getTime() != cookie.getExpiry().getTime()))
+                .collect(Collectors.toSet());
+
+        cookies.forEach(c -> {
+            deleteCookie(c);
+            addCookie(cookie);
+            refresh();
+        });
+    }
+
+    public static void addCookiesIfNotExist(final Set<Cookie> newCookies) {
+        final var cookieName = newCookies.stream().map(Cookie::getName).collect(Collectors.toSet());
+        final var cookieValue = newCookies.stream().map(Cookie::getValue).collect(Collectors.toSet());
+        final var cookieExpiry = newCookies.stream().map(Cookie::getExpiry).collect(Collectors.toSet());
+
+        final var listOfCookies = getCookies()
+                .stream()
+                .filter(c -> cookieName.contains(c.getName())
+                        && (!cookieValue.contains(c.getValue()) || !cookieExpiry.contains(c.getExpiry())))
+                .collect(Collectors.toSet());
+
+        if (listOfCookies.size() > 0) {
+            listOfCookies.forEach(Kraken::deleteCookie);
+            newCookies.forEach(Kraken::addCookie);
+            refresh();
         }
+    }
+
+    public static void deleteCookie(final Cookie cookie) {
+        log.debug("Удалить куку {}", cookie);
+        getWebDriver().manage().deleteCookie(cookie);
     }
 
     public static void clearAllCooke() {

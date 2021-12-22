@@ -8,6 +8,8 @@ import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Kraken;
 
 import javax.annotation.Nullable;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
 
@@ -145,6 +147,21 @@ public final class KrakenCondition {
             @Override
             public String toString() {
                 return String.format("cookie with '%s' doesn't exist", data);
+            }
+        };
+    }
+
+    public static ExpectedCondition<Boolean> cookiesExist(final Set<String> data) {
+        return new ExpectedCondition<>() {
+            @Override
+            public Boolean apply(@Nullable WebDriver input) {
+                var cookies = Kraken.getWebDriver().manage().getCookies();
+                return cookies.stream().map(Cookie::getName).collect(Collectors.toSet()).containsAll(data);
+            }
+
+            @Override
+            public String toString() {
+                return String.format("cookie with '%s' doesn't exist", String.join(",", data));
             }
         };
     }

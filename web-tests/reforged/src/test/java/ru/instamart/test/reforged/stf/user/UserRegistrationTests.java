@@ -27,7 +27,6 @@ public final class UserRegistrationTests extends BaseTest {
         shop().interactAuthModal().checkPhoneErrorIsVisible();
     }
 
-    @Skip
     @CaseId(1541)
     @Story("Регистрация на лендинге")
     @Test(description = "Регистрация нового пользователя на лендинге", groups = {"acceptance", "smoke", "MRAutoCheck"})

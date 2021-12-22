@@ -270,7 +270,9 @@ public final class ShoppingSearchTests extends BaseTest {
         search().checkSearchProductsSpinnerNotVisible();
 
         search().checkAlcoStubInProductsSearch();
+        search().interactDisclaimerModal().clickOffTheModalToCloseDisclaimer();
         search().clickOnFirstSearchResult();
+        search().interactDisclaimerModal().clickOffTheModalToCloseDisclaimer();
 
         search().interactProductCard().checkProductCardVisible();
         search().interactProductCard().checkAlcoAlertVisible();

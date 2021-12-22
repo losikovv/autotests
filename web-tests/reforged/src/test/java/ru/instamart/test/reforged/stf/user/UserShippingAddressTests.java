@@ -8,9 +8,9 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Addresses;
-import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
+import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -34,8 +34,6 @@ public final class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().checkIsShippingAddressNotSet();
     }
 
-    //TODO: AB
-    @Skip
     @CaseId(1559)
     @Story("Дефолтные настройки адреса доставки")
     @Test(description = "Тест дефолтного списка магазинов, при отсутствии адреса доставки", groups = "regression")
@@ -184,30 +182,23 @@ public final class UserShippingAddressTests extends BaseTest {
         );
     }
 
+    //Какие то непонятки с адресами
     @Skip
     @CaseId(35)
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Тест изменения адреса на предыдущий из списка адресной модалки", groups = "regression")
     public void successChangeShippingAddressToRecent() {
-        UserData user = UserManager.getQaUser();
-        String firstPrevAdr;
-        helper.makeAndCancelOrder(user, 1, 1);
+        final var user = UserManager.getQaUser();
+        this.helper.makeAndCancelOrder(user, EnvironmentProperties.DEFAULT_SID, 1);
 
-        System.out.println(user);
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(user);
         shop().interactHeader().checkProfileButtonVisible();
-        shop().interactHeader().clickToSelectAddress();
 
-        shop().interactHeader().interactAddress().checkYmapsReady();
-        shop().interactHeader().interactAddress().fillAddress(defaultAddress);
-        shop().interactHeader().interactAddress().selectFirstAddress();
-        shop().interactHeader().interactAddress().clickOnSave();
-        shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
         shop().interactHeader().interactAddress().checkYmapsReady();
-        firstPrevAdr = shop().interactHeader().interactAddress().getFirstPrevAddress();
+        final var firstPrevAdr = shop().interactHeader().interactAddress().getFirstPrevAddress();
         shop().interactHeader().interactAddress().clickOnFirstPrevAddress();
         shop().interactHeader().interactAddress().clickOnSave();
         shop().interactHeader().checkIsSetAddressEqualToInput(
@@ -289,6 +280,7 @@ public final class UserShippingAddressTests extends BaseTest {
         this.helper.setAddress(userData, RestAddresses.Chelyabinsk.defaultAddress());
 
         shop().goToPage();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaPhone(userData);
@@ -325,7 +317,6 @@ public final class UserShippingAddressTests extends BaseTest {
         );
     }
 
-    @Skip
     @Test(description = "Тест на успешный выбор нового магазина в модалке феникса, после изменения адреса доставки", groups = "regression")
     public void successSelectNewStoreAfterShipAddressChange() {
         shop().goToPage(ShopUrl.VKUSVILL);

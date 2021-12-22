@@ -10,6 +10,7 @@ import java.util.GregorianCalendar;
 public final class CookieFactory {
 
     private static final Date date = new GregorianCalendar(3000, Calendar.DECEMBER, 31).getTime();
+    private static final String ANONYMOUS_ID = UserManager.getGuestQaWithoutAb();
 
     //Алерт о политике хранения cookies
     public static final Cookie COOKIE_ALERT = new Cookie("cookies_consented",
@@ -26,7 +27,7 @@ public final class CookieFactory {
             date);
 
     public static final Cookie EXTERNAL_ANALYTICS_ANONYMOUS_ID = new Cookie("external_analytics_anonymous_id",
-            UserManager.getGuestQaWithoutAb(),
+            ANONYMOUS_ID,
             "sbermarket.tech",
             "/",
             date);
