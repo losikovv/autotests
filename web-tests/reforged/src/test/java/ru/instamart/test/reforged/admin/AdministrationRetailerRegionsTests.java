@@ -49,17 +49,18 @@ public final class AdministrationRetailerRegionsTests extends BaseTest {
 
     @CaseId(472)
     @Story("Валидация страницы регионов")
-    @Test(enabled = false, description = "Валидация страницы регионов", groups = {"acceptance", "regression"})
+    @Test(description = "Валидация страницы регионов", groups = {"acceptance", "regression"})
     public void storeRegionsPageValidation() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
         regions().goToPage();
         regions().checkRegionsTableVisible();
-        regions().checkQuantityDeleteButtonsEqualsRegions();
-        regions().checkQuantityEditButtonsEqualsRegions();
+        regions().checkRegionSettingsButtonsEqualsRegions();
+        regions().checkDispatchSettingsButtonsEqualsRegions();
         regions().checkQuantityRowsNumbersEqualsRegions();
         regions().checkPageTitleVisible();
+        regions().checkRegionSearchInputVisible();
         regions().checkAddNewRegionButtonVisible();
     }
 }
