@@ -4,12 +4,12 @@ import io.kubernetes.client.PortForward;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.models.V1PodList;
 import lombok.extern.slf4j.Slf4j;
-import org.testng.SkipException;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.io.IOException;
 import java.util.Objects;
 
+import static org.testng.Assert.fail;
 import static ru.instamart.k8s.K8sConsumer.getK8sPortForward;
 import static ru.instamart.k8s.K8sConsumer.getPodList;
 
@@ -47,7 +47,7 @@ public final class K8sPortForward {
                 k8sConnectMySql = getK8sPortForward(namespace, podList.getItems().get(0).getMetadata().getName(),
                         EnvironmentProperties.DB_PORT, EnvironmentProperties.DB_PORT);
             } catch (IOException | ApiException e) {
-                throw new SkipException("Ошибка проброса порта 3306 до пода. Error: " + e.getMessage());
+                fail("Ошибка проброса порта 3306 до пода. Error: " + e.getMessage());
             }
         }
     }
@@ -62,7 +62,7 @@ public final class K8sPortForward {
                 k8sConnectPgSql = getK8sPortForward(namespace, podList.getItems().get(0).getMetadata().getName(),
                         EnvironmentProperties.DB_PG_PORT, EnvironmentProperties.DB_PG_PORT);
             } catch (IOException | ApiException e) {
-                throw new SkipException("Ошибка проброса порта 5432 до пода. Error: " + e.getMessage());
+                fail("Ошибка проброса порта 5432 до пода. Error: " + e.getMessage());
             }
         }
     }
