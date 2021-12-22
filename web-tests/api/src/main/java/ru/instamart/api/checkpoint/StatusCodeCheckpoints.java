@@ -1,6 +1,6 @@
 package ru.instamart.api.checkpoint;
 
-import io.qameta.allure.Step;
+import io.qameta.allure.Allure;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -10,16 +10,17 @@ import static org.hamcrest.Matchers.*;
 @Slf4j
 public class StatusCodeCheckpoints {
 
-    @Step("Проверка на {statusCode} статус код и {contentType} тип контента ответа")
     public static void checkStatusCode(final Response response, final int statusCode, final ContentType contentType) {
-        response.then().statusCode(statusCode);
-        if (statusCode == 200) response.then().contentType(contentType);
+        checkStatusCode(response, statusCode, contentType.toString());
     }
 
-    @Step("Проверка на {statusCode} статус код и {contentType} тип контента ответа")
     public static void checkStatusCode(final Response response, final int statusCode, final String contentType) {
         response.then().statusCode(statusCode);
-        if (statusCode == 200) response.then().contentType(contentType);
+        Allure.step("Проверка на " + statusCode + " статус код");
+        if (statusCode == 200) {
+            response.then().contentType(contentType);
+            Allure.step("Проверка на " + contentType + " тип контента");
+        }
     }
 
     public static void checkStatusCode(final Response response, final int statusCode) {
@@ -54,15 +55,18 @@ public class StatusCodeCheckpoints {
         checkStatusCode(response, 500);
     }
 
-    @Step("Проверка на статус код клиентской ошибки (400-499)")
     public static void checkStatusGroup400(final Response response){
         response.then().statusCode(both(greaterThan(399)).and(lessThan(500)));
+        Allure.step("Проверка на статус код клиентской ошибки (400-499)");
     }
 
-    @Step("Проверка на 200 или 404 статус код ответа")
     public static void checkStatusCode200or404(final Response response) {
         response.then().statusCode(anyOf(is(200), is(404)));
-        if (response.statusCode() == 200) response.then().contentType(ContentType.JSON);
+        Allure.step("Проверка на 200 или 404 статус код");
+        if (response.statusCode() == 200) {
+            response.then().contentType(ContentType.JSON);
+            Allure.step("Проверка на JSON тип контента");
+        }
     }
 
     public static void checkStatusCode422(final Response response) {
