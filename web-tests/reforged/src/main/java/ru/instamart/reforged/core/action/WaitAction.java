@@ -11,6 +11,7 @@ import ru.instamart.reforged.core.condition.KrakenCondition;
 import ru.instamart.reforged.core.config.WaitProperties;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static ru.instamart.reforged.core.Kraken.getWebDriver;
@@ -97,6 +98,11 @@ public final class WaitAction {
     public void cookieShouldBeExist(final String data) {
         createWait(WaitProperties.BASIC_TIMEOUT, "Нет куки с таким именем: " + data)
                 .until(KrakenCondition.cookieExist(data));
+    }
+
+    public void cookiesShouldBeExist(final Set<String> data) {
+        createWait(WaitProperties.BASIC_TIMEOUT, "Нет куки с таким именем: " + String.join(",", data))
+                .until(KrakenCondition.cookiesExist(data));
     }
 
     private FluentWait<WebDriver> createWait(final int wait, final String errorMsg) {

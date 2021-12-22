@@ -20,8 +20,7 @@ public class UserProfileTests extends BaseTest {
 
     private UserData userData;
 
-    @BeforeMethod(alwaysRun = true,
-            description = "Авторизация")
+    @BeforeMethod(alwaysRun = true, description = "Авторизация")
     public void login() {
         this.userData = UserManager.getQaUser();
         shop().goToPage();
@@ -174,11 +173,12 @@ public class UserProfileTests extends BaseTest {
     @Story("Данные профиля пользователя")
     @Test(description = "Изменение телефона для существующих пользователей", groups = {"acceptance", "regression"})
     public void changePhone() {
+        final var newUser = UserManager.getUser();
         userEdit().goToPage();
         userEdit().clickToChangePhone();
-        userEdit().interactAuthModal().authViaPhone(userData);
+        userEdit().interactAuthModal().authViaPhone(newUser);
         userEdit().checkSaveAlert();
-        userEdit().checkPhone(userData.getPhone(), StringUtil.getPhone(userEdit().getPhone()));
+        userEdit().checkPhone(newUser.getPhone(), StringUtil.getPhone(userEdit().getPhone()));
     }
 
     @CaseId(2564)

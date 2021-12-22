@@ -62,7 +62,7 @@ public final class CustomReport {
 
     @Attachment(value = "Куки браузера", type = "text/plain")
     public static String addCookieLog() {
-        final Set<Cookie> cookies = Kraken.getCookie();
+        final Set<Cookie> cookies = Kraken.getCookies();
         final int maxLineLength = cookies
                 .stream()
                 .map(Cookie::getValue)

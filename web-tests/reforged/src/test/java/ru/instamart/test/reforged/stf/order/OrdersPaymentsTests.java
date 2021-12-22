@@ -3,7 +3,6 @@ package ru.instamart.test.reforged.stf.order;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -16,6 +15,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -145,9 +145,6 @@ public final class OrdersPaymentsTests extends BaseTest {
         checkout().setSlot().setFirstActiveSlot();
 
         checkout().setPayment().clickToByBusinessAccount();
-        checkout().setSlot().setAnotherSlot();
-        checkout().waitPageLoad();
-        checkout().setSlot().setFirstActiveSlot();
 
         checkout().editCompany().fillName(company.getJuridicalName());
         checkout().editCompany().fillAddress(company.getJuridicalAddress());

@@ -100,4 +100,10 @@ public final class HomePage implements StfPage, Window, HomeCheck {
     public String pageUrl() {
         return "";
     }
+
+    @Override
+    public void goToPage() {
+        goToPage(pageUrl());
+        excludeGuestFromAllAb();
+    }
 }

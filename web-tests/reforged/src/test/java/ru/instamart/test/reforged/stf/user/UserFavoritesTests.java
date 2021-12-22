@@ -199,7 +199,7 @@ public final class UserFavoritesTests extends BaseTest {
 
     @CaseId(2604)
     @Test(description = "Открывается карточка товара, которого нет в наличии", groups = {"acceptance", "regression"})
-    public void foo() {
+    public void testOpenCartOutOfStockProduct() {
         final var userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
         apiHelper.addSoldProductToFavorite(userData);
