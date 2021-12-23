@@ -3,6 +3,7 @@ package ru.instamart.test.reforged.stf.checkout;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import ru.instamart.kraken.data.Generate;
 import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -126,5 +127,268 @@ public final class CheckoutBonusesTests extends BaseTest {
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
         checkout().interactEditLoyaltyCardModal().clickToDeleteModal();
         checkout().checkBonusCardNotApplied(aeroflot().getName());
+    }
+
+    @CaseId(1705)
+    @Story("Тест не добавлять бонусы при нажатии кнопки отмена")
+    @Test(description = "Тест не добавлять бонусы при нажатии кнопки отмена", groups = {"acceptance", "regression"})
+    public void noAddBonusProgramOnCancel() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        checkout().goToPage();
+        checkout().clickToAddLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .clickToCancelModal();
+        checkout().checkLoyaltyCardModalNotVisible();
+        checkout().checkBonusCardNotApplied(mnogoru().getName());
+    }
+
+    @CaseId(1706)
+    @Story("Тест на недобавление бонусов при закрытии модалки")
+    @Test(description = "Тест на недобавление бонусов при закрытии модалки", groups = {"acceptance", "regression"})
+    public void noAddBonusProgramOnModalClose()  {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        checkout().goToPage();
+        checkout().clickToAddLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .clickToCloseModal();
+        checkout().checkLoyaltyCardModalNotVisible();
+        checkout().checkBonusCardNotApplied(mnogoru().getName());
+    }
+
+    @CaseId(1707)
+    @Story("Тест не добавлять бонусы при отсутствии номера карты")
+    @Test(description = "Тест не добавлять бонусы при отсутствии номера карты", groups = {"acceptance", "regression"})
+    public void noAddBonusProgramWithEmptyCardNumber() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        checkout().goToPage();
+        checkout().clickToAddLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .fillValue("");
+        checkout().interactEditLoyaltyCardModal()
+                .clickToSaveModal();
+        checkout().interactEditLoyaltyCardModal()
+                .checkEmptyCardNumberAlert();
+        checkout().interactEditLoyaltyCardModal()
+                .clickToCloseModal();
+        checkout().checkLoyaltyCardModalNotVisible();
+        checkout().checkBonusCardNotApplied(mnogoru().getName());
+    }
+
+    @CaseId(1708)
+    @Story("Тест не добавлять бонусы с некорректным номером карты")
+    @Test(description = "Тест не добавлять бонусы с некорректным номером карты", groups = {"acceptance", "regression"})
+    public void noAddBonusProgramWithWrongCardNumber() {
+        final String cardNumber = Generate.literalString(8);
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        checkout().goToPage();
+        checkout().clickToAddLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .fillValue(cardNumber);
+        checkout().interactEditLoyaltyCardModal()
+                .clickToSaveModal();
+        checkout().interactEditLoyaltyCardModal()
+                .checkWrongCardNumberAlert();
+        checkout().interactEditLoyaltyCardModal()
+                .clickToCloseModal();
+        checkout().checkLoyaltyCardModalNotVisible();
+        checkout().checkBonusCardNotApplied(mnogoru().getName());
+    }
+
+    @CaseId(1736)
+    @Story("Тест успешного редактирования карты ритейлера")
+    @Test(description = "Тест успешного редактирования карты ритейлера", groups = {"acceptance", "regression"})
+    public void successEditBonusProgram() {
+        final String cardNumber = Generate.digitalString(8);
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        checkout().goToPage();
+        checkout().clickToAddLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .fillValue(mnogoru().getCardNumber());
+        checkout().interactEditLoyaltyCardModal()
+                .clickToSaveModal();
+        checkout().checkLoyaltyCardModalNotVisible();
+        checkout().checkBonusCardApplied(mnogoru().getName());
+
+        checkout().clickToEditLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .fillValue(cardNumber);
+        checkout().interactEditLoyaltyCardModal()
+                .clickToSaveModal();
+        checkout().checkLoyaltyCardModalNotVisible();
+        checkout().checkBonusCardApplied(mnogoru().getName());
+
+        checkout().clickToEditLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .checkCardNumberInputValue(cardNumber);
+    }
+
+    @CaseId(1710)
+    @Story("Тест на невозможность редактировать бонусов при нажатии кнопки отмена")
+    @Test(description = "Тест на невозможность редактировать бонусов при нажатии кнопки отмена", groups = {"acceptance", "regression"})
+    public void noEditBonusProgramOnCancel() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        checkout().goToPage();
+        checkout().clickToAddLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .fillValue(mnogoru().getCardNumber());
+        checkout().interactEditLoyaltyCardModal()
+                .clickToSaveModal();
+        checkout().checkLoyaltyCardModalNotVisible();
+        checkout().checkBonusCardApplied(mnogoru().getName());
+
+        checkout().clickToEditLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .clickToCancelModal();
+        checkout().checkLoyaltyCardModalNotVisible();
+        checkout().checkBonusCardApplied(mnogoru().getName());
+
+        checkout().clickToEditLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .checkCardNumberInputValue(mnogoru().getCardNumber());
+    }
+
+    @CaseId(1711)
+    @Story("Тест на отсутствие возможности редактировать бонусы при закрытии модалки")
+    @Test(description = "Тест на отсутствие возможности редактировать бонусы при закрытии модалки", groups = {"acceptance", "regression"})
+    public void noEditBonusProgramOnModalClose() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        checkout().goToPage();
+        checkout().clickToAddLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .fillValue(mnogoru().getCardNumber());
+        checkout().interactEditLoyaltyCardModal()
+                .clickToSaveModal();
+        checkout().checkLoyaltyCardModalNotVisible();
+        checkout().checkBonusCardApplied(mnogoru().getName());
+
+        checkout().clickToEditLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .clickToCloseModal();
+        checkout().checkLoyaltyCardModalNotVisible();
+        checkout().checkBonusCardApplied(mnogoru().getName());
+
+        checkout().clickToEditLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .checkCardNumberInputValue(mnogoru().getCardNumber());
+    }
+
+    @CaseId(1713)
+    @Story("Тест на отсутсвие возможности редактировать бонусы с пустым номером карты")
+    @Test(description = "Тест на отсутсвие возможности редактировать бонусы с пустым номером карты", groups = {"acceptance", "regression"})
+    public void noEditBonusProgramWithEmptyCardNumber() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        checkout().goToPage();
+        checkout().clickToAddLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .fillValue(mnogoru().getCardNumber());
+        checkout().interactEditLoyaltyCardModal()
+                .clickToSaveModal();
+        checkout().checkLoyaltyCardModalNotVisible();
+        checkout().checkBonusCardApplied(mnogoru().getName());
+
+        checkout().clickToEditLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .fillValue("");
+        checkout().interactEditLoyaltyCardModal()
+                .clickToSaveModal();
+        checkout().interactEditLoyaltyCardModal()
+                .checkEmptyCardNumberAlert();
+        checkout().interactEditLoyaltyCardModal()
+                .clickToCloseModal();
+        checkout().checkLoyaltyCardModalNotVisible();
+
+        checkout().clickToEditLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .checkCardNumberInputValue(mnogoru().getCardNumber());
+    }
+
+    @CaseId(1714)
+    @Story("Тест на не удаление бонусов при нажатии кнопки отмена")
+    @Test(description = "Тест на не удаление бонусов при нажатии кнопки отмена", groups = {"acceptance", "regression"})
+    public void noDeleteBonusProgramOnCancel() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        checkout().goToPage();
+        checkout().clickToAddLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .fillValue(mnogoru().getCardNumber());
+        checkout().interactEditLoyaltyCardModal()
+                .clickToSaveModal();
+        checkout().checkLoyaltyCardModalNotVisible();
+        checkout().checkBonusCardApplied(mnogoru().getName());
+
+        checkout().clickToEditLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .clickToCancelModal();
+        checkout().checkLoyaltyCardModalNotVisible();
+
+        checkout().clickToEditLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .checkCardNumberInputValue(mnogoru().getCardNumber());
+    }
+
+    @CaseId(1715)
+    @Story("Тест на не удаление бонусов при закрытии модалки")
+    @Test(description = "Тест на не удаление бонусов при закрытии модалки", groups = {"acceptance", "regression"})
+    public void noDeleteBonusProgramOnModalClose() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        checkout().goToPage();
+        checkout().clickToAddLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .fillValue(mnogoru().getCardNumber());
+        checkout().interactEditLoyaltyCardModal()
+                .clickToSaveModal();
+        checkout().checkLoyaltyCardModalNotVisible();
+        checkout().checkBonusCardApplied(mnogoru().getName());
+
+        checkout().clickToEditLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .clickToCloseModal();
+        checkout().checkLoyaltyCardModalNotVisible();
+
+        checkout().clickToEditLoyaltyCard(mnogoru().getName());
+        checkout().interactEditLoyaltyCardModal()
+                .checkCardNumberInputValue(mnogoru().getCardNumber());
     }
 }

@@ -21,4 +21,14 @@ public interface CommonFrameButtons extends Close {
     default void clickToDeleteModal() {
         delete.click();
     }
+
+    @Step("Нажать 'Отменить'")
+    default void clickToCancelModal() {
+        cancel.click();
+    }
+
+    @Step("Нажать 'Закрыть'")
+    default void clickToCloseModal() {
+        close.click();
+    }
 }
