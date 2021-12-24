@@ -112,6 +112,9 @@ project(":kafka") {
 
     dependencies {
         implementation project(":kraken")
+        implementation project(":api")
+        implementation project(":jdbc")
+        implementation project(":k8s")
 
         implementation lib.common
         implementation lib.qase
@@ -126,6 +129,7 @@ project(":kafka") {
         implementation lib.grpcNettyShaded
         implementation lib.grpcProtobuf
         implementation lib.grpcStub
+        implementation lib.kubernetesClient
 
         implementation lib.javax
         implementation lib.tomcatAnnotationsApi

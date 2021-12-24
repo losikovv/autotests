@@ -1,65 +1,50 @@
 package ru.instamart.kafka.producer;
 
-import io.confluent.kafka.serializers.protobuf.KafkaProtobufDeserializer;
-import io.confluent.kafka.serializers.protobuf.KafkaProtobufSerializer;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.serialization.StringDeserializer;
+import org.apache.kafka.common.config.SaslConfigs;
+import org.apache.kafka.common.serialization.ByteArraySerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import ru.instamart.kafka.KafkaConfig;
+import ru.instamart.kraken.config.CoreProperties;
 
-import java.util.Collection;
 import java.util.Properties;
-import java.util.logging.Level;
-
-import static ru.instamart.kafka.utils.BrokerUtil.createClientId;
 
 @Slf4j
-public class KafkaProducers<T> {
+public class KafkaProducers {
 
-    private final String topic;
+    public static KafkaProducer<String, String> kafkaProducer = null;
+    private static String saslConfigs = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"%s\" password=\"%s\";";
 
-    private final Producer<String, T> producer;
-
-    public KafkaProducers(final KafkaConfig config) {
-
-        topic = config.topic;
-
+    private Properties producerProperties(KafkaConfig config) {
+        String saslConfig = String.format(saslConfigs, config.login, config.password);
         Properties props = new Properties();
-        props.put(ProducerConfig.CLIENT_ID_CONFIG, createClientId());
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, config.bootstrapServerString());
-        props.setProperty(ProducerConfig.LINGER_MS_CONFIG, "1");
-        props.setProperty(ProducerConfig.BATCH_SIZE_CONFIG, "16384");
-        props.setProperty(ProducerConfig.BUFFER_MEMORY_CONFIG, "33554432");
-        //props.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy");
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, config.clientId);
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, CoreProperties.KAFKA_SERVER);
 
+        //protobuf
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, ByteArraySerializer.class);
 
-        if (config.exactlyOnce) {
-            props.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, true);
-        } else {
-            props.put(ProducerConfig.ACKS_CONFIG, config.acks);
-            props.put(ProducerConfig.RETRIES_CONFIG, config.retries);
-        }
-
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaProtobufSerializer.class.getName());
-
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, config.serdeClassName);
-
-        props.put("schema.registry.url", config.bootstrapServerString());
-
-
-        producer = new org.apache.kafka.clients.producer.KafkaProducer<>(props);
+        //auth
+        props.put(SaslConfigs.SASL_MECHANISM, "SCRAM-SHA-512");
+        props.put("security.protocol", "SASL_PLAINTEXT");
+        props.put("sasl.jaas.config", saslConfig);
+        return props;
     }
 
-    public void publish(T msg) {
+    private KafkaProducer<String, byte[]> createProducer(final KafkaConfig config) {
+        Properties props = producerProperties(config);
+        KafkaProducer<String, byte[]> producer = new KafkaProducer<>(props);
+        return producer;
+    }
 
-        // TODO: partition key?
-        ProducerRecord<String, T> record = new ProducerRecord<>(topic, msg);
+    public void publish(final KafkaConfig config, byte[] msg) {
+        KafkaProducer<String, byte[]> producer = createProducer(config);
+
+        ProducerRecord<String, byte[]> record = new ProducerRecord(config.topic, msg);
 
         long start = System.currentTimeMillis();
 
@@ -76,15 +61,9 @@ public class KafkaProducers<T> {
         });
     }
 
-    public void publish(Collection<T> messages) {
-        for (T message : messages) {
-            publish(message);
-        }
-    }
-
     public void shutdown() {
-        if (producer != null) {
-            producer.close();
+        if (kafkaProducer != null) {
+            kafkaProducer.close();
         }
     }
 }

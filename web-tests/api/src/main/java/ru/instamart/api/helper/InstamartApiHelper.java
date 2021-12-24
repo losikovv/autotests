@@ -462,6 +462,36 @@ public final class InstamartApiHelper {
         return deliveryWindow;
     }
 
+
+    /**
+     * Получаем первый доступный слот
+     */
+    @Step("Получаем первый доступный слот ON_DEMAND")
+    public DeliveryWindowV2 getAvailableDeliveryWindowOnDemand() {
+        Response responseDeliveryWindow = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), null);
+        checkStatusCode200(responseDeliveryWindow);
+        String availableDays = responseDeliveryWindow.as(ShippingRatesV2Response.class).getMeta().getAvailableDays().get(0);
+
+        Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), availableDays);
+        response.prettyPrint();
+        checkStatusCode200(response);
+
+        List<ShippingRateV2> shippingRates = response.as(ShippingRatesV2Response.class).getShippingRates();
+        assertFalse(shippingRates.isEmpty(),
+                "Нет слотов в магазине admin/stores/" + currentSid.get());
+        List<ShippingRateV2> shippingRatesOnDemand = shippingRates.stream()
+                .filter(item -> item.getIsExpressDelivery() == true)
+                .collect(Collectors.toList());
+        assertFalse(shippingRatesOnDemand.isEmpty(),
+                "Нет слотов быстрой доставки в магазине admin/stores/" + currentSid.get());
+        DeliveryWindowV2 deliveryWindow = shippingRatesOnDemand.get(0).getDeliveryWindow();
+
+        currentDeliveryWindowId.set(deliveryWindow.getId());
+
+        log.debug(deliveryWindow.toString());
+        return deliveryWindow;
+    }
+
     /**
      * Получаем первый доступный способ доставки
      */

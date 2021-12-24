@@ -40,6 +40,14 @@ message Settings {
 	uint64 search_radius_transport_auto = 12;
 	uint64 search_radius_transport_bike = 13;
 	uint64 last_position_expire = 14;
+	bool taxi_delivery_only = 15;
+	uint64 order_transfer_time_from_delivery_to_client_min = 16;
+	uint64 order_receive_time_from_assembly_to_delivery_min = 17;
+	uint64 offer_server_timeout_sec = 18;
+	uint64 search_radius_manual_routing = 19;
+	bool external_assembliers_presented = 20;
+	uint64 gap_taxi_punish_min = 21;
+	bool taxi_available = 22;
 }
 
 message DispatchMeta {

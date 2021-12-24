@@ -11,7 +11,7 @@
   </method-selectors>
   <test verbose="1" name="KAFKA">
     <classes>
-      <class name="ru.instamart.test.kafka.KafkaClientTest"/>
+      <class name="ru.instamart.test.kafka.KafkaDispatchTest"/>
     </classes>
   </test>
 </suite>

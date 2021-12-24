@@ -12,6 +12,8 @@ enum ShipmentStatus {
 	OFFERED = 5;
 	DECLINED = 6;
 	CANCELED = 7;
+	SHIPPED = 8;
+	REDISPATCH = 9;
 }
 
 message Location {

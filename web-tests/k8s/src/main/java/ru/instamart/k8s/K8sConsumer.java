@@ -60,7 +60,7 @@ public class K8sConsumer {
      * @param labelSelector example: app=app-stf-sbermarket
      * @return
      */
-    private static V1Pod getPod(String namespace, String labelSelector) {
+    public static V1Pod getPod(String namespace, String labelSelector) {
         try {
             V1PodList list = K8sConfig.getInstance().getCoreV1Api().listNamespacedPod(namespace, null, null, null,
                     null, labelSelector, null, null, null, null, null);
@@ -70,9 +70,13 @@ public class K8sConsumer {
         }
     }
 
-    public static V1PodList getPodList(String namespace, String labelSelector) throws IOException, ApiException {
-        return K8sConfig.getInstance().getCoreV1Api().listNamespacedPod(namespace, null, null, null,
-                null, labelSelector, null, null, null, null, null);
+    public static V1PodList getPodList(String namespace, String labelSelector) {
+        try {
+            return K8sConfig.getInstance().getCoreV1Api().listNamespacedPod(namespace, null, null, null,
+                    null, labelSelector, null, null, null, null, null);
+        } catch (ApiException | IOException e) {
+            throw new RuntimeException("Не получилось вызвать api k8s");
+        }
     }
 
     /**
@@ -233,9 +237,9 @@ public class K8sConsumer {
      * @param tailLines
      * @return
      */
-    public static List<String> getLogs(V1Pod pod, int tailLines) {
+    public static List<String> getLogs(V1Pod pod, String container, int tailLines) {
         List<String> logResult = new CopyOnWriteArrayList<>();
-        Closeable closeable = getLogs(pod, logResult::add, tailLines);//(name, container, namespace, logResult::add, tailLines);
+        Closeable closeable = getLogs(pod, container,  logResult::add, tailLines);//(name, container, namespace, logResult::add, tailLines);
 
         try {
             // Ожидание сбора журнала
@@ -266,7 +270,7 @@ public class K8sConsumer {
      * @param tailFollowFun логгер
      * @param tailLines
      */
-    private static Closeable getLogs(V1Pod pod, Consumer<String> tailFollowFun, int tailLines) {
+    private static Closeable getLogs(V1Pod pod, String container, Consumer<String> tailFollowFun, int tailLines ) {
         try {
             K8sConfig.getInstance().getCoreV1Api();
             PodLogs logs = K8sConfig.getInstance().getPodLogs();
@@ -274,7 +278,7 @@ public class K8sConsumer {
             AtomicBoolean closed = new AtomicBoolean(false);
             InputStream is = logs.streamNamespacedPodLog(pod.getMetadata().getNamespace(),
                     pod.getMetadata().getName(),
-                    pod.getSpec().getContainers().get(0).getName(),
+                    container,
                     null,
                     tailLines == 0 ? null : tailLines,
                     false

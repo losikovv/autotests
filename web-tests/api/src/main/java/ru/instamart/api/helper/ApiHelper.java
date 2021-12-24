@@ -143,6 +143,29 @@ public final class ApiHelper {
      * @param user должен иметь phone и encryptedPhone
      *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
+    @Step("Оформляем заказ ON_DEMAND с помощью API")
+    public OrderV2 makeOnDemandOrder(final UserData user, final Integer sid, final Integer itemsNumber) {
+        auth(user);
+
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+
+        apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
+        apiV2.fillCartOnSid(sid, itemsNumber);
+
+        apiV2.getAvailablePaymentTool();
+        apiV2.getAvailableShippingMethod();
+        apiV2.getAvailableDeliveryWindowOnDemand();
+
+        apiV2.setDefaultOrderAttributes();
+        return apiV2.completeOrder();
+    }
+
+
+    /**
+     * @param user должен иметь phone и encryptedPhone
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     */
     @Step("Отменяем заказ с помощью API")
     public OrderV2 cancelOrder(final UserData user, final String orderNumber) {
         auth(user);
