@@ -131,7 +131,8 @@ public interface RailsConsole {
     @AllArgsConstructor
     enum apiV3 implements RailsConsole{
         GET_RETAILER("Spree::Retailer.where(slug: :%s)"),
-        OFFER_WHERE_LAST("Offer.where(%s).last");
+        OFFER_WHERE_LAST("Offer.where(%s).last"),
+        OFFER_JOIN_PRODUCT("Offer.joins(:product).where(%s).last");
 
         private String command;
 
