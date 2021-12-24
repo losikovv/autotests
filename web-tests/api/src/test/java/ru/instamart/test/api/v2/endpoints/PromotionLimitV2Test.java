@@ -2,9 +2,9 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -26,12 +26,11 @@ public final class PromotionLimitV2Test extends RestBase {
 
     @BeforeMethod
     public void testUp() {
-        SessionFactory.makeSession(SessionType.API_V2);
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void cleanup() {
-        apiV2.deleteAllShipments();
+        if(EnvironmentProperties.SERVER.equals("production")) {
+            SessionFactory.createSessionToken(SessionType.PROD, UserManager.getQaUser());
+        } else {
+            SessionFactory.makeSession(SessionType.API_V2);
+        }
     }
 
     @CaseId(309)
@@ -45,6 +44,7 @@ public final class PromotionLimitV2Test extends RestBase {
         String orderNumber = apiV2.getCurrentOrderNumber();
         final Response response = OrdersV2Request.PromotionLimit.GET(orderNumber);
         checkStatusCode200(response);
+        apiV2.deleteAllShipments();
         final PromotionLimitV2 promotionLimit = response.as(PromotionLimitV2Response.class).getPromotionLimits().get(0);
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(promotionLimit.getType(), "instacoins_value");

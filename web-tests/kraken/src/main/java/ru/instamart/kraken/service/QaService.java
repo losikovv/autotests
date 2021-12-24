@@ -13,11 +13,12 @@ public enum QaService {
     private final Api api;
 
     QaService() {
-        this.api = new Api(new Setting(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH));
+        this.api = new Api(new Setting(EnvironmentProperties.Env.QA_FULL_URL));
     }
 
     /**
      * Создает сессию пользователя
+     *
      * @param password - пароль для пользователя
      * @return {@link QaSessionResponse}
      */
@@ -27,6 +28,7 @@ public enum QaService {
 
     /**
      * Удаляет пользователя
+     *
      * @param userId - {@link UserData#getId()}
      */
     public void deleteSession(final String userId) {

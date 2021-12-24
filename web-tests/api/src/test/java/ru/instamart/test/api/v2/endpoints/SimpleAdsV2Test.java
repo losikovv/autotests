@@ -3,6 +3,7 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.http.Header;
@@ -54,7 +55,7 @@ public final class SimpleAdsV2Test extends RestBase {
                         )
                         .app(SimpleAdsV2Request.App.builder()
                                 .ext(SimpleAdsV2Request.AppExt.builder()
-                                        .storeId(1)
+                                        .storeId(EnvironmentProperties.DEFAULT_SID)
                                         .tenantId(0)
                                         .build()
                                 )
@@ -164,7 +165,7 @@ public final class SimpleAdsV2Test extends RestBase {
                         )
                         .app(SimpleAdsV2Request.App.builder()
                                 .ext(SimpleAdsV2Request.AppExt.builder()
-                                        .storeId(1)
+                                        .storeId(EnvironmentProperties.DEFAULT_SID)
                                         .tenantId(0)
                                         .categoryId(1)
                                         .build()
@@ -186,7 +187,7 @@ public final class SimpleAdsV2Test extends RestBase {
 
 
     @CaseId(286)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Запрос проверки не существующего изображения")
     public void simpleAdsGetNotExistingImageTest() {
         String imagePath = "imageNotFound";

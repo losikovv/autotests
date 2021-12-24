@@ -388,6 +388,7 @@ public final class UserManager {
                 .password(password)
                 .name(userName)
                 .anonymousId(sessionResponse.getAnonymous().getValue())
+                .token(sessionResponse.getSession().getAccessToken())
                 .build();
     }
 

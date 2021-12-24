@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 
+import javax.validation.constraints.Null;
 import java.util.List;
 
 @Data
@@ -18,6 +19,7 @@ public class RetailerV1 extends BaseObject {
     @JsonSchema(required = true)
     private String color;
 
+    @Null
     private String description;
 
     @JsonSchema(required = true)

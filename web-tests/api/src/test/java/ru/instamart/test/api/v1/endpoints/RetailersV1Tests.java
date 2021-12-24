@@ -31,6 +31,8 @@ import ru.instamart.jdbc.dao.OperationalZonesDao;
 import ru.instamart.jdbc.dao.ShippingPoliciesDao;
 import ru.instamart.jdbc.dao.ShippingPolicyRulesDao;
 import ru.instamart.jdbc.dao.SpreeRetailersDao;
+
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.data_provider.JsonDataProvider;
@@ -61,13 +63,15 @@ public class RetailersV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdminAllRoles());
+        if(!EnvironmentProperties.SERVER.equals("production")) {
+            SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdminAllRoles());
+        }
     }
 
     @Story("Ритейлеры")
     @CaseId(122)
     @Test(description = "Контрактный тест списка ритейлеров для shopper-бэкенда",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress"})
     public void getRetailers() {
         final Response response = RetailersV1Request.GET(new RetailersV1Request.RetailerParams());
         checkStatusCode200(response);
@@ -611,6 +615,8 @@ public class RetailersV1Tests extends RestBase {
 
     @AfterClass(alwaysRun = true)
     public void clearData() {
-        SpreeRetailersDao.INSTANCE.delete(Long.valueOf(retailerFromResponse.getId()));
+        if(!EnvironmentProperties.SERVER.equals("production")) {
+            SpreeRetailersDao.INSTANCE.delete(Long.valueOf(retailerFromResponse.getId()));
+        }
     }
 }

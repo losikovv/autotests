@@ -29,7 +29,7 @@ public class StoresV1Tests extends RestBase {
     @Story("Магазины")
     @CaseId(125)
     @Test(description = "Контрактный тест списка магазинов",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress"})
     public void getStores() {
         final Response response = StoresV1Request.GET();
         checkStatusCode200(response);

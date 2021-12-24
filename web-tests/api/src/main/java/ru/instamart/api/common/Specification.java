@@ -36,12 +36,14 @@ public enum Specification {
     @Getter private RequestSpecification shopperRequestSpec;
     @Getter private RequestSpecification surgeRequestSpec;
     @Getter private RequestSpecification risExporterRequestSpec;
+    @Getter private RequestSpecification prodRequestSpec;
 
     public void initSpec() {
         final String apiV1FullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH;
         final String adminFullUrl = EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH;
         final String apiV2FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
         final String apiV3FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
+        final String prodFullUrl =  EnvironmentProperties.Env.PROD_FULL_SITE_URL;
         final String shopperFullBaseUrl = EnvironmentProperties.Env.FULL_SHOPPER_URL;
         port = 443;
         config = config().encoderConfig(encoderConfig().defaultContentCharset("UTF-8"));
@@ -132,6 +134,12 @@ public enum Specification {
         risExporterRequestSpec = new RequestSpecBuilder()
                 .setBaseUri("https://api-deliveryclub.sbermarket.ru")
                 .setBasePath("v1/")
+                .setAccept(ContentType.JSON)
+                .addFilter(new AllureRestAssuredCustom())
+                .build();
+
+        prodRequestSpec = new RequestSpecBuilder()
+                .setBaseUri(prodFullUrl)
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
                 .build();
