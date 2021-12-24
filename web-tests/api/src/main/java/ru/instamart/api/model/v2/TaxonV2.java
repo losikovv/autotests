@@ -16,13 +16,11 @@ public class TaxonV2 extends BaseObject {
     @JsonSchema(required = true)
     private Integer id;
 
-    @JsonSchema(required = true)
     private String type;
 
     @JsonSchema(required = true)
     private String name;
 
-    @JsonSchema(required = true)
     @JsonProperty(value = "products_count")
     private int productsCount;
 
@@ -30,23 +28,19 @@ public class TaxonV2 extends BaseObject {
     private IconV2 icon;
 
     @Null
-    @JsonSchema(required = true)
     @JsonProperty(value = "alt_icon")
     private IconV2 altIcon;
 
     private List<TaxonV2> children = null;
 
-    @JsonSchema(required = true)
     @JsonProperty(value = "promo_services")
     private String[] promoServices = null;
 
     @JsonSchema(required = true)
     private List<RequirementV2> requirements = null;
 
-    @JsonSchema(required = true)
     private Integer position;
 
-    @JsonSchema(required = true)
     private Integer depth;
 
     @Override

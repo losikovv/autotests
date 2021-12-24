@@ -25,7 +25,9 @@ import ru.instamart.api.response.v2.SessionsV2Response;
 import ru.instamart.api.response.v2.UserV2Response;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.service.QaService;
 import ru.instamart.kraken.util.ThreadUtil;
+import ru.sbermarket.qa.model.response.QaSessionResponse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -98,16 +100,18 @@ public final class SessionFactory {
      * {@link  ru.instamart.api.enums.SessionType#SHOPPER_ADMIN SessionType.SHOPPER_ADMIN}
      * {@link  ru.instamart.api.enums.SessionType#DELIVERY_CLUB SessionType.DELIVERY_CLUB}
      * {@link  ru.instamart.api.enums.SessionType#ADMIN SessionType.ADMIN}
-     * @param type see {@link ru.instamart.api.enums.SessionType SessionType}
+     *
+     * @param type     see {@link ru.instamart.api.enums.SessionType SessionType}
      * @param userData get default user {@link ru.instamart.kraken.data.user.UserManager#getDefaultUser UserManager.getDefaultUser}
      */
-    public static void createSessionToken(final SessionType type, final UserData userData){
+    public static void createSessionToken(final SessionType type, final UserData userData) {
         createSessionToken(type, provider, userData);
     }
 
     /**
-     *Создание сессии с провайдером авторизации для {@link  ru.instamart.api.enums.SessionType#API_V2 SessionType.API_V2}
-     * @param type see {@link ru.instamart.api.enums.SessionType SessionType}
+     * Создание сессии с провайдером авторизации для {@link  ru.instamart.api.enums.SessionType#API_V2 SessionType.API_V2}
+     *
+     * @param type     see {@link ru.instamart.api.enums.SessionType SessionType}
      * @param provider see {@link ru.instamart.api.enums.SessionProvider SessionProvider}
      * @param userData get default user {@link ru.instamart.kraken.data.user.UserManager#getDefaultUser UserManager.getDefaultUser}
      */
@@ -115,8 +119,8 @@ public final class SessionFactory {
         final SessionId sessionId = new SessionId(Thread.currentThread().getId(), type);
         final SessionInfo session = sessionMap.get(sessionId);
         if (nonNull(session) && !session.getLogin().equals(userData.getEmail())) {
-        //TODO  исправить проверку номера телефона
-        //if (nonNull(session) && (!session.getLogin().equals(userData.getEmail()) || !session.getPhone().equals(userData.getPhone()))) {
+            //TODO  исправить проверку номера телефона
+            //if (nonNull(session) && (!session.getLogin().equals(userData.getEmail()) || !session.getPhone().equals(userData.getPhone()))) {
             sessionMap.put(sessionId, createSession(type, provider, userData));
         } else if (isNull(session)) {
             sessionMap.put(sessionId, createSession(type, provider, userData));
@@ -139,6 +143,8 @@ public final class SessionFactory {
                 return createAdminSession(userData);
             case RIS_EXPORTER:
                 return createRisSession(userData);
+            case PROD:
+                return createProdSession(userData);
             default:
                 log.error("Session type not selected");
                 return new SessionInfo();
@@ -238,6 +244,10 @@ public final class SessionFactory {
         return new SessionInfo(userData, response.as(TokenRisResponse.class).getToken());
     }
 
+    private static SessionInfo createProdSession(final UserData userData) {
+        return new SessionInfo(userData, userData.getToken());
+    }
+
     @RequiredArgsConstructor
     @Getter
     @EqualsAndHashCode
@@ -278,7 +288,7 @@ public final class SessionFactory {
             this(userData, token, refreshToken, new HashMap<>());
         }
 
-        public String getPhone(){
+        public String getPhone() {
             return this.userData.getPhone();
         }
 

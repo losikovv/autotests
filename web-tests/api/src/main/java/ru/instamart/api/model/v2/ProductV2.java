@@ -58,6 +58,7 @@ public class ProductV2 extends BaseObject {
     @EqualsAndHashCode.Exclude
     private String description;
 
+    @EqualsAndHashCode.Exclude
     @JsonSchema(required = true)
     private List<ImageV2> images = null;
 
@@ -70,6 +71,7 @@ public class ProductV2 extends BaseObject {
     @JsonProperty(value = "related_products")
     private List<ProductV2> relatedProducts = null;
 
+    @EqualsAndHashCode.Exclude
     @JsonSchema(required = true)
     private List<RequirementV2> requirements = null;
 

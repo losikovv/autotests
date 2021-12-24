@@ -2,6 +2,8 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
@@ -21,7 +23,11 @@ public class ExternalAnalyticsV2Test extends RestBase {
 
     @BeforeMethod
     public void testUp() {
-        SessionFactory.makeSession(SessionType.API_V2);
+        if(EnvironmentProperties.SERVER.equals("production")) {
+            SessionFactory.createSessionToken(SessionType.PROD, UserManager.getQaUser());
+        } else {
+            SessionFactory.makeSession(SessionType.API_V2);
+        }
     }
 
     @CaseId(791)

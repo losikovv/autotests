@@ -69,6 +69,7 @@ public class RetailerV2 extends BaseObject {
     @EqualsAndHashCode.Exclude
     private String services;
 
+    @Null
     @EqualsAndHashCode.Exclude
     private String description;
 

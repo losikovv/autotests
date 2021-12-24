@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import ru.instamart.api.common.Specification;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static io.restassured.RestAssured.given;
 
@@ -16,12 +17,14 @@ public class ApiV2RequestBase {
     public static RequestSpecification givenWithAuth() {
         return givenWithSpec()
                 .header(
-                "Authorization",
-                "Token token=" + SessionFactory.getSession(SessionType.API_V2).getToken());
+                        "Authorization",
+                        "Token token=" + SessionFactory.getSession(EnvironmentProperties.SERVER.equals("production") ? SessionType.PROD
+                                : SessionType.API_V2).getToken());
     }
 
     /**
      * Авторизация с кастомным токеном, для случаев когда нужна проверка на невалидный токен
+     *
      * @param token
      * @return
      */
@@ -36,7 +39,10 @@ public class ApiV2RequestBase {
      * Добавляем спеки к запросу
      */
     public static RequestSpecification givenWithSpec() {
-        return given()
-                .spec(Specification.INSTANCE.getApiV2RequestSpec());
+        return EnvironmentProperties.SERVER.equals("production") ?
+                given()
+                        .spec(Specification.INSTANCE.getProdRequestSpec()):
+                given()
+                        .spec(Specification.INSTANCE.getApiV2RequestSpec());
     }
 }

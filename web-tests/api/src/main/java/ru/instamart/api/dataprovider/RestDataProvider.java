@@ -24,6 +24,7 @@ import ru.instamart.api.request.v2.*;
 import ru.instamart.api.response.v1.OperationalZonesV1Response;
 import ru.instamart.api.response.v2.CreditCardAuthorizationV2Response;
 import ru.instamart.api.response.v2.OrderV2Response;
+import ru.instamart.api.response.v2.StoresV2Response;
 import ru.instamart.jdbc.dao.*;
 import ru.instamart.jdbc.dto.PromotionCodesFilters;
 import ru.instamart.jdbc.entity.PromotionCodesEntity;
@@ -33,6 +34,7 @@ import ru.instamart.kraken.data_provider.DataList;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -160,33 +162,46 @@ public class RestDataProvider extends RestBase {
 
         Specification.setResponseSpecDefault();
 
-        return retailerList.stream()
-                .map(list -> new Object[]{list})
-                .toArray(Object[][]::new);
+        if(EnvironmentProperties.SERVER.equals("production")) {
+            return new Object[][] {
+                    {retailerList.get(0)},
+                    {retailerList.get(1)}
+            };
+        } else {
+            return retailerList.stream()
+                    .map(list -> new Object[]{list})
+                    .toArray(Object[][]::new);
+        }
     }
 
     @DataProvider(name = "retailersSpree-parallel", parallel = true)
     public static Object[][] getAvailableRetailersSpreeParallel() {
-        return getAvailableRetailersSpree();
+            return getAvailableRetailersSpree();
     }
 
     @DataProvider(name = "retailersSpree", parallel = true)
     public static Object[][] getAvailableRetailersSpree() {
         Specification.setResponseSpecDataProvider();
 
-        List<RetailerV2> retailerList = apiV2.getAvailableRetailersSpree();
+        List<RetailerV2> retailerList = apiV2.getAvailableRetailersSpree().stream().filter(RetailerV2::getAvailable).collect(Collectors.toList());
 
         Specification.setResponseSpecDefault();
 
-        return retailerList.stream()
-                .filter(RetailerV2::getAvailable) //Фильтрует только доступных ретейлеров
-                .map(list -> new Object[]{list})
-                .toArray(Object[][]::new);
+        if(EnvironmentProperties.SERVER.equals("production")) {
+            return new Object[][] {
+                    {retailerList.get(0)},
+                    {retailerList.get(1)}
+            };
+        } else {
+            return retailerList.stream()
+                    .map(list -> new Object[]{list})
+                    .toArray(Object[][]::new);
+        }
     }
 
     @DataProvider(name = "stores-parallel", parallel = true)
     public static Object[][] getAvailableStoresParallel() {
-        return getAvailableStores();
+            return getAvailableStores();
     }
 
     @DataProvider(name = "stores")
@@ -196,31 +211,49 @@ public class RestDataProvider extends RestBase {
         List<StoreV2> storeList = apiV2.getAvailableStores();
         Specification.setResponseSpecDefault();
 
-        return storeList.stream()
-                .map(list -> new Object[]{list})
-                .toArray(Object[][]::new);
+        if(EnvironmentProperties.SERVER.equals("production")) {
+            return new Object[][] {
+                    {storeList.get(0)},
+                    {storeList.get(1)}
+            };
+        } else {
+            return storeList.stream()
+                    .map(list -> new Object[]{list})
+                    .toArray(Object[][]::new);
+        }
     }
 
     @DataProvider(name = "storeOfEachRetailer-parallel", parallel = true)
     public static Object[][] getStoreOfEachRetailerParallel() {
-        return getStoreOfEachRetailer();
+            return getStoreOfEachRetailer();
     }
 
     @DataProvider(name = "storeOfEachRetailer", parallel = true)
     public static Object[][] getStoreOfEachRetailer() {
         Specification.setResponseSpecDataProvider();
 
-        List<StoreV2> storeList = apiV2.getAvailableRetailers()
-                .stream().parallel()
-                .map(apiV2::getAvailableStores)
-                .map(retailerStores -> retailerStores.get(retailerStores.size() - 1))
-                .collect(Collectors.toList());
+        if(EnvironmentProperties.SERVER.equals("production")) {
+            Response response = RetailersV1Request.Stores.GET(apiV2.getAvailableRetailers().get(1).getId());
+            checkStatusCode200(response);
+            List<StoreV2> retailerStores = response.as(StoresV2Response.class).getStores();
 
-        Specification.setResponseSpecDefault();
+            return new Object[][] {
+                    {retailerStores.get(0)},
+                    {retailerStores.get(1)}
+            };
+        } else {
+            List<StoreV2> storeList = apiV2.getAvailableRetailers()
+                    .stream().parallel()
+                    .map(apiV2::getAvailableStores)
+                    .map(retailerStores -> retailerStores.get(retailerStores.size() - 1))
+                    .collect(Collectors.toList());
 
-        return storeList.stream()
-                .map(list -> new Object[]{list})
-                .toArray(Object[][]::new);
+            Specification.setResponseSpecDefault();
+
+            return storeList.stream()
+                    .map(list -> new Object[]{list})
+                    .toArray(Object[][]::new);
+        }
     }
 
     @Test()
@@ -271,9 +304,16 @@ public class RestDataProvider extends RestBase {
 
         Specification.setResponseSpecDefault();
 
-        return operationalZoneList.stream()
-                .map(list -> new Object[]{list})
-                .toArray(Object[][]::new);
+        if(EnvironmentProperties.SERVER.equals("production")) {
+            return new Object[][] {
+                    {operationalZoneList.get(0)},
+                    {operationalZoneList.get(1)}
+            };
+        } else {
+            return operationalZoneList.stream()
+                    .map(list -> new Object[]{list})
+                    .toArray(Object[][]::new);
+        }
     }
 
     @Test()
@@ -290,24 +330,36 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getOfferOfEachRetailer() {
         Specification.setResponseSpecDataProvider();
 
-        List<StoreV2> storeList = apiV2.getAvailableRetailers()
-                .stream().parallel()
-                .map(apiV2::getAvailableStores)
-                .map(retailerStores -> retailerStores.get(retailerStores.size() - 1))
-                .collect(Collectors.toList());
+        if(EnvironmentProperties.SERVER.equals("production")) {
+            Response response = RetailersV1Request.Stores.GET(apiV2.getAvailableRetailers().get(0).getId());
+            checkStatusCode200(response);
+            List<StoreV2> retailerStores = response.as(StoresV2Response.class).getStores();
+            List<OfferV1> offerList = apiV2.getActiveOffers(retailerStores.get(0).getUuid());
+            return new Object[][] {
+                    {offerList.get(0)},
+                    {offerList.get(1)}
+            };
+        } else {
 
-        List<OfferV1> offerList = storeList
-                .stream().parallel()
-                .map(store -> apiV2.getActiveOffers(store.getUuid()))
-                .filter(storeOffers -> !storeOffers.isEmpty())
-                .map(storeOffers -> storeOffers.get(0))
-                .collect(Collectors.toList());
+            List<StoreV2> storeList = apiV2.getAvailableRetailers()
+                    .stream().parallel()
+                    .map(apiV2::getAvailableStores)
+                    .map(retailerStores -> retailerStores.get(retailerStores.size() - 1))
+                    .collect(Collectors.toList());
 
-        Specification.setResponseSpecDefault();
+            List<OfferV1> offerList = storeList
+                    .stream().parallel()
+                    .map(store -> apiV2.getActiveOffers(store.getUuid()))
+                    .filter(storeOffers -> !storeOffers.isEmpty())
+                    .map(storeOffers -> storeOffers.get(0))
+                    .collect(Collectors.toList());
 
-        return offerList.stream()
-                .map(list -> new Object[]{list})
-                .toArray(Object[][]::new);
+            Specification.setResponseSpecDefault();
+
+            return offerList.stream()
+                    .map(list -> new Object[]{list})
+                    .toArray(Object[][]::new);
+        }
     }
 
     @Deprecated

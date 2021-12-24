@@ -58,7 +58,7 @@ public final class StoresV2Test extends RestBase {
     @CaseId(197)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Получаем магазин")
     public void testGetStoresWithInvalidSid() {
-        final Response response = StoresV2Request.GET(6666);
+        final Response response = StoresV2Request.GET(0);
         checkStatusCode404(response);
     }
 

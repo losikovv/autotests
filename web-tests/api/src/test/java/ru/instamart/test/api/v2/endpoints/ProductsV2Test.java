@@ -41,7 +41,7 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем продукты",
             groups = {})
     public void getProducts() {
-        response = ProductsV2Request.GET(1, "");
+        response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "");
         checkStatusCode200(response);
 
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
@@ -79,7 +79,7 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Существующий sid",
             groups = {"api-instamart-smoke", "api-instamart-prod", "api-instamart-regress"})
     public void getProductsWithValidSid() {
-        final Response response = ProductsV2Request.GET(1, 13610);
+        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, EnvironmentProperties.DEFAULT_TID);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
@@ -101,7 +101,7 @@ public final class ProductsV2Test extends RestBase {
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Существующий sid", groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductsWithValidSidAndQuery() {
-        final Response response = ProductsV2Request.GET(1, "хлеб");
+        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "хлеб");
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final List<ProductV2> products = response.as(ProductsV2Response.class).getProducts();
@@ -117,7 +117,7 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем отсортированные продукты по популярности",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductsSortedByPopularity() {
-        final Response response = ProductsV2Request.GET(1, "хлеб", ProductSortTypeV2.POPULARITY);
+        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "хлеб", ProductSortTypeV2.POPULARITY);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
@@ -129,7 +129,7 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем отсортированные продукты по возрастанию цены",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductsSortedByPriceAsc() {
-        final Response response = ProductsV2Request.GET(1, "хлеб", ProductSortTypeV2.PRICE_ASC);
+        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "хлеб", ProductSortTypeV2.PRICE_ASC);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
@@ -141,7 +141,7 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем отсортированные продукты по убыванию цены",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getProductsSortedByPriceDesc() {
-        final Response response = ProductsV2Request.GET(1, "хлеб", ProductSortTypeV2.PRICE_DESC);
+        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "хлеб", ProductSortTypeV2.PRICE_DESC);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
@@ -166,7 +166,7 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем отфильтрованные по бренду продукты",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductsFilteredByBrand() {
-        final Response response = ProductsV2Request.GET(1, "сыр", 1, ProductFilterTypeV2.BRAND, 3661);
+        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "сыр", 1, ProductFilterTypeV2.BRAND, 3661);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
@@ -179,14 +179,12 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем отфильтрованные по стране изготовителя продукты",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductsFilteredByCountry() {
-        final Response response = ProductsV2Request.GET(1, "сыр", 1, ProductFilterTypeV2.COUNTRY, 36);
+        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "сыр", 1, ProductFilterTypeV2.COUNTRY, 36);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
 
         step("Проверка содержимого ответа", () -> {
-            final List<ProductV2> products = productsV2Response.getProducts();
-            products.forEach(product -> assertTrue(product.getName().contains("La Paulina")));
             final List<FacetV2> facets = productsV2Response.getFacets().stream().filter(facet -> facet.getKey().equals(ProductFilterTypeV2.COUNTRY.getValue())).collect(Collectors.toList());
             final List<OptionV2> countries = facets.get(0).getOptions();
             countries.stream().filter(country -> country.getValue() == 36).forEach(country -> assertTrue(country.getActive()));
@@ -198,7 +196,7 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем отсортированные по выгодному весу",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductsSortedByWeightPrice() {
-        final Response response = ProductsV2Request.GET(1, 13610, ProductSortTypeV2.UNIT_PRICE_ASC);
+        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, EnvironmentProperties.DEFAULT_TID, ProductSortTypeV2.UNIT_PRICE_ASC);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
@@ -210,7 +208,7 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем список продуктов по категории с одиннадцатой страницы",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductWithTidAndPage() {
-        final Response response = ProductsV2Request.GET(1, 13610, 11);
+        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, EnvironmentProperties.DEFAULT_TID, 11);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
@@ -226,11 +224,11 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем список продуктов по запросу со второй страницы",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductWithQueryAndPage() {
-        final Response responseFirstPage = ProductsV2Request.GET(1, "хлеб", 1);
+        final Response responseFirstPage = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "хлеб", 1);
         checkStatusCode200(responseFirstPage);
         MetaV2 meta = responseFirstPage.as(ProductsV2Response.class).getMeta();
 
-        final Response response = ProductsV2Request.GET(1, "хлеб", meta.getTotalPages());
+        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "хлеб", meta.getTotalPages());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
@@ -247,7 +245,7 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем список продуктов по запросу с несуществующей страницы",
             groups = {"api-instamart-regress"})
     public void getProductsOnNonExistingPage() {
-        final Response response = ProductsV2Request.GET(1, "хлеб", 10000);
+        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "хлеб", 10000);
         checkStatusCode200(response);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
         Assert.assertTrue(productsV2Response.getProducts().isEmpty(),"Список продуктов не пустой");

@@ -2,6 +2,7 @@ package ru.instamart.test.api.v2.e2e;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -18,7 +19,11 @@ public class OrderE2ETests extends RestBase {
     @BeforeClass(alwaysRun = true,
                  description = "Регистрация")
     public void preconditions() {
-        SessionFactory.makeSession(SessionType.API_V2);
+        if(EnvironmentProperties.SERVER.equals("production")) {
+            SessionFactory.createSessionToken(SessionType.PROD, UserManager.getQaUser());
+        } else {
+            SessionFactory.makeSession(SessionType.API_V2);
+        }
     }
 
     @AfterClass(alwaysRun = true,
@@ -30,6 +35,6 @@ public class OrderE2ETests extends RestBase {
     @CaseId(101)
     @Test(description = "Тест оформления заказа", groups = {"api-instamart-regress", "api-instamart-prod"})
     public void order() {
-        apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.order(SessionFactory.getSession(EnvironmentProperties.SERVER.equals("production") ? SessionType.PROD : SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
     }
 }

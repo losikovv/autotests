@@ -27,6 +27,8 @@ public final class EnvironmentProperties {
     public static String HTTP_AUTH;
     @Config(configName = NAME, fieldName = "defaultSid", defaultValue = "")
     public static int DEFAULT_SID;
+    @Config(configName = NAME, fieldName = "defaultTid", defaultValue = "")
+    public static int DEFAULT_TID;
     @Config(configName = NAME, fieldName = "defaultShopperSid", defaultValue = "")
     public static int DEFAULT_SHOPPER_SID;
     @Config(configName = NAME, fieldName = "dbUrl", defaultValue = "")
@@ -60,6 +62,8 @@ public final class EnvironmentProperties {
     private static String SHOPPER_URL;
     @Config(configName = NAME, fieldName = "protocol", defaultValue = "https", args = "protocol")
     private static String PROTOCOL;
+    @Config(configName = NAME, fieldName = "qaUrl", defaultValue = "")
+    private static String QA_URL;
 
     public static class Env {
 
@@ -98,6 +102,8 @@ public final class EnvironmentProperties {
         public static String FULL_ADMIN_URL = FULL_SITE_URL + "admin/";
         public static String FULL_ADMIN_URL_WITH_BASIC_AUTH = FULL_SITE_URL_WITH_BASIC_AUTH + "admin/";
         public static String FULL_SHOPPER_URL = PROTOCOL + "://" + SHOPPER_URL + "/";
+        public static String PROD_FULL_SITE_URL = PROTOCOL + "://" + "api." + BASIC_URL + "/";
+        public static String QA_FULL_URL = PROTOCOL + "://" + QA_URL + "/";
 
         private static String getDomainName(String url) {
             try {

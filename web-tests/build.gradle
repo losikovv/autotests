@@ -152,6 +152,7 @@ project(":api") {
 
         implementation lib.common
         implementation lib.qase
+        implementation lib.qa
 
         implementation lib.restAssured
         implementation lib.aspectjweaver
