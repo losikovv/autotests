@@ -5,4 +5,6 @@ task kafkaDispatch(type: Test) {
     }
     systemProperty 'qase.Project', 'KAFKA'
     systemProperty 'qase.Title', 'KAFKA Platform Backend Regress'
+    systemProperty 'url_stf', 'stf-6.k-stage.sbermarket.tech'
+    systemProperty 'url_shp', 'shp-6.k-stage.sbermarket.tech'
 }

@@ -4,6 +4,7 @@ include:
   - local: '/.gitlab-ci/grpc.yaml'
   - local: '/.gitlab-ci/ui.yaml'
   - local: '/.gitlab-ci/ui-tenant.yaml'
+  - local: '/.gitlab-ci/kafka.yaml'
 
 image: ${JDK11_GRADLE_IMAGE}
 
@@ -102,6 +103,19 @@ stages:
       - web-tests/grpc/build/allure-results/
       - web-tests/grpc/logs/
       - web-tests/grpc/build/reports/tests/
+    expire_in: 1 week
+  allow_failure: false
+
+.template_kafka_tests:
+  stage: tests-api
+  tags:
+    - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/kafka/build/allure-results/
+      - web-tests/kafka/logs/
+      - web-tests/kafka/build/reports/tests/
     expire_in: 1 week
   allow_failure: false
 

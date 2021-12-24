@@ -39,7 +39,7 @@ public class KubernetesClientTest extends RestBase {
             description = "Список последних 10 строк лога")
     public void kubeLogs() throws IOException, ApiException {
         V1PodList list = getPodList(namespace, labelSelector);
-        List<String> logs = getLogs(list.getItems().get(0), 10);
+        List<String> logs = getLogs(list.getItems().get(0), "app", 10);
         AtomicReference<String> attach = new AtomicReference<>();
         logs.forEach(item -> attach.set(attach + "\r\n" + item));
         Allure.addAttachment("namespace: " + namespace + " logs", String.valueOf(attach));

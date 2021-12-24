@@ -1,0 +1,11 @@
+tests:kafkaDispatch:
+  resource_group: kafkaDispatch
+  only:
+    variables:
+      - $DISPATCH_ALONE == 'true' && $CI_RUN_ALL_JOBS == 'false'
+  extends:
+    - ".template_kafka_tests"
+  script:
+    - gradle clean build kafkaDispatch -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - bash ./report.sh kafka dispatch

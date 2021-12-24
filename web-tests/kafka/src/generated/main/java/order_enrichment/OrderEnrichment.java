@@ -2826,6 +2826,54 @@ public final class OrderEnrichment {
      * @return The lastPositionExpire.
      */
     long getLastPositionExpire();
+
+    /**
+     * <code>bool taxi_delivery_only = 15;</code>
+     * @return The taxiDeliveryOnly.
+     */
+    boolean getTaxiDeliveryOnly();
+
+    /**
+     * <code>uint64 order_transfer_time_from_delivery_to_client_min = 16;</code>
+     * @return The orderTransferTimeFromDeliveryToClientMin.
+     */
+    long getOrderTransferTimeFromDeliveryToClientMin();
+
+    /**
+     * <code>uint64 order_receive_time_from_assembly_to_delivery_min = 17;</code>
+     * @return The orderReceiveTimeFromAssemblyToDeliveryMin.
+     */
+    long getOrderReceiveTimeFromAssemblyToDeliveryMin();
+
+    /**
+     * <code>uint64 offer_server_timeout_sec = 18;</code>
+     * @return The offerServerTimeoutSec.
+     */
+    long getOfferServerTimeoutSec();
+
+    /**
+     * <code>uint64 search_radius_manual_routing = 19;</code>
+     * @return The searchRadiusManualRouting.
+     */
+    long getSearchRadiusManualRouting();
+
+    /**
+     * <code>bool external_assembliers_presented = 20;</code>
+     * @return The externalAssembliersPresented.
+     */
+    boolean getExternalAssembliersPresented();
+
+    /**
+     * <code>uint64 gap_taxi_punish_min = 21;</code>
+     * @return The gapTaxiPunishMin.
+     */
+    long getGapTaxiPunishMin();
+
+    /**
+     * <code>bool taxi_available = 22;</code>
+     * @return The taxiAvailable.
+     */
+    boolean getTaxiAvailable();
   }
   /**
    * Protobuf type {@code order_enrichment.Settings}
@@ -2940,6 +2988,46 @@ public final class OrderEnrichment {
             case 112: {
 
               lastPositionExpire_ = input.readUInt64();
+              break;
+            }
+            case 120: {
+
+              taxiDeliveryOnly_ = input.readBool();
+              break;
+            }
+            case 128: {
+
+              orderTransferTimeFromDeliveryToClientMin_ = input.readUInt64();
+              break;
+            }
+            case 136: {
+
+              orderReceiveTimeFromAssemblyToDeliveryMin_ = input.readUInt64();
+              break;
+            }
+            case 144: {
+
+              offerServerTimeoutSec_ = input.readUInt64();
+              break;
+            }
+            case 152: {
+
+              searchRadiusManualRouting_ = input.readUInt64();
+              break;
+            }
+            case 160: {
+
+              externalAssembliersPresented_ = input.readBool();
+              break;
+            }
+            case 168: {
+
+              gapTaxiPunishMin_ = input.readUInt64();
+              break;
+            }
+            case 176: {
+
+              taxiAvailable_ = input.readBool();
               break;
             }
             default: {
@@ -3128,6 +3216,94 @@ public final class OrderEnrichment {
       return lastPositionExpire_;
     }
 
+    public static final int TAXI_DELIVERY_ONLY_FIELD_NUMBER = 15;
+    private boolean taxiDeliveryOnly_;
+    /**
+     * <code>bool taxi_delivery_only = 15;</code>
+     * @return The taxiDeliveryOnly.
+     */
+    @java.lang.Override
+    public boolean getTaxiDeliveryOnly() {
+      return taxiDeliveryOnly_;
+    }
+
+    public static final int ORDER_TRANSFER_TIME_FROM_DELIVERY_TO_CLIENT_MIN_FIELD_NUMBER = 16;
+    private long orderTransferTimeFromDeliveryToClientMin_;
+    /**
+     * <code>uint64 order_transfer_time_from_delivery_to_client_min = 16;</code>
+     * @return The orderTransferTimeFromDeliveryToClientMin.
+     */
+    @java.lang.Override
+    public long getOrderTransferTimeFromDeliveryToClientMin() {
+      return orderTransferTimeFromDeliveryToClientMin_;
+    }
+
+    public static final int ORDER_RECEIVE_TIME_FROM_ASSEMBLY_TO_DELIVERY_MIN_FIELD_NUMBER = 17;
+    private long orderReceiveTimeFromAssemblyToDeliveryMin_;
+    /**
+     * <code>uint64 order_receive_time_from_assembly_to_delivery_min = 17;</code>
+     * @return The orderReceiveTimeFromAssemblyToDeliveryMin.
+     */
+    @java.lang.Override
+    public long getOrderReceiveTimeFromAssemblyToDeliveryMin() {
+      return orderReceiveTimeFromAssemblyToDeliveryMin_;
+    }
+
+    public static final int OFFER_SERVER_TIMEOUT_SEC_FIELD_NUMBER = 18;
+    private long offerServerTimeoutSec_;
+    /**
+     * <code>uint64 offer_server_timeout_sec = 18;</code>
+     * @return The offerServerTimeoutSec.
+     */
+    @java.lang.Override
+    public long getOfferServerTimeoutSec() {
+      return offerServerTimeoutSec_;
+    }
+
+    public static final int SEARCH_RADIUS_MANUAL_ROUTING_FIELD_NUMBER = 19;
+    private long searchRadiusManualRouting_;
+    /**
+     * <code>uint64 search_radius_manual_routing = 19;</code>
+     * @return The searchRadiusManualRouting.
+     */
+    @java.lang.Override
+    public long getSearchRadiusManualRouting() {
+      return searchRadiusManualRouting_;
+    }
+
+    public static final int EXTERNAL_ASSEMBLIERS_PRESENTED_FIELD_NUMBER = 20;
+    private boolean externalAssembliersPresented_;
+    /**
+     * <code>bool external_assembliers_presented = 20;</code>
+     * @return The externalAssembliersPresented.
+     */
+    @java.lang.Override
+    public boolean getExternalAssembliersPresented() {
+      return externalAssembliersPresented_;
+    }
+
+    public static final int GAP_TAXI_PUNISH_MIN_FIELD_NUMBER = 21;
+    private long gapTaxiPunishMin_;
+    /**
+     * <code>uint64 gap_taxi_punish_min = 21;</code>
+     * @return The gapTaxiPunishMin.
+     */
+    @java.lang.Override
+    public long getGapTaxiPunishMin() {
+      return gapTaxiPunishMin_;
+    }
+
+    public static final int TAXI_AVAILABLE_FIELD_NUMBER = 22;
+    private boolean taxiAvailable_;
+    /**
+     * <code>bool taxi_available = 22;</code>
+     * @return The taxiAvailable.
+     */
+    @java.lang.Override
+    public boolean getTaxiAvailable() {
+      return taxiAvailable_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -3183,6 +3359,30 @@ public final class OrderEnrichment {
       }
       if (lastPositionExpire_ != 0L) {
         output.writeUInt64(14, lastPositionExpire_);
+      }
+      if (taxiDeliveryOnly_ != false) {
+        output.writeBool(15, taxiDeliveryOnly_);
+      }
+      if (orderTransferTimeFromDeliveryToClientMin_ != 0L) {
+        output.writeUInt64(16, orderTransferTimeFromDeliveryToClientMin_);
+      }
+      if (orderReceiveTimeFromAssemblyToDeliveryMin_ != 0L) {
+        output.writeUInt64(17, orderReceiveTimeFromAssemblyToDeliveryMin_);
+      }
+      if (offerServerTimeoutSec_ != 0L) {
+        output.writeUInt64(18, offerServerTimeoutSec_);
+      }
+      if (searchRadiusManualRouting_ != 0L) {
+        output.writeUInt64(19, searchRadiusManualRouting_);
+      }
+      if (externalAssembliersPresented_ != false) {
+        output.writeBool(20, externalAssembliersPresented_);
+      }
+      if (gapTaxiPunishMin_ != 0L) {
+        output.writeUInt64(21, gapTaxiPunishMin_);
+      }
+      if (taxiAvailable_ != false) {
+        output.writeBool(22, taxiAvailable_);
       }
       unknownFields.writeTo(output);
     }
@@ -3249,6 +3449,38 @@ public final class OrderEnrichment {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(14, lastPositionExpire_);
       }
+      if (taxiDeliveryOnly_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(15, taxiDeliveryOnly_);
+      }
+      if (orderTransferTimeFromDeliveryToClientMin_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(16, orderTransferTimeFromDeliveryToClientMin_);
+      }
+      if (orderReceiveTimeFromAssemblyToDeliveryMin_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(17, orderReceiveTimeFromAssemblyToDeliveryMin_);
+      }
+      if (offerServerTimeoutSec_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(18, offerServerTimeoutSec_);
+      }
+      if (searchRadiusManualRouting_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(19, searchRadiusManualRouting_);
+      }
+      if (externalAssembliersPresented_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(20, externalAssembliersPresented_);
+      }
+      if (gapTaxiPunishMin_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(21, gapTaxiPunishMin_);
+      }
+      if (taxiAvailable_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(22, taxiAvailable_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -3292,6 +3524,22 @@ public final class OrderEnrichment {
           != other.getSearchRadiusTransportBike()) return false;
       if (getLastPositionExpire()
           != other.getLastPositionExpire()) return false;
+      if (getTaxiDeliveryOnly()
+          != other.getTaxiDeliveryOnly()) return false;
+      if (getOrderTransferTimeFromDeliveryToClientMin()
+          != other.getOrderTransferTimeFromDeliveryToClientMin()) return false;
+      if (getOrderReceiveTimeFromAssemblyToDeliveryMin()
+          != other.getOrderReceiveTimeFromAssemblyToDeliveryMin()) return false;
+      if (getOfferServerTimeoutSec()
+          != other.getOfferServerTimeoutSec()) return false;
+      if (getSearchRadiusManualRouting()
+          != other.getSearchRadiusManualRouting()) return false;
+      if (getExternalAssembliersPresented()
+          != other.getExternalAssembliersPresented()) return false;
+      if (getGapTaxiPunishMin()
+          != other.getGapTaxiPunishMin()) return false;
+      if (getTaxiAvailable()
+          != other.getTaxiAvailable()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -3345,6 +3593,30 @@ public final class OrderEnrichment {
       hash = (37 * hash) + LAST_POSITION_EXPIRE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getLastPositionExpire());
+      hash = (37 * hash) + TAXI_DELIVERY_ONLY_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getTaxiDeliveryOnly());
+      hash = (37 * hash) + ORDER_TRANSFER_TIME_FROM_DELIVERY_TO_CLIENT_MIN_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getOrderTransferTimeFromDeliveryToClientMin());
+      hash = (37 * hash) + ORDER_RECEIVE_TIME_FROM_ASSEMBLY_TO_DELIVERY_MIN_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getOrderReceiveTimeFromAssemblyToDeliveryMin());
+      hash = (37 * hash) + OFFER_SERVER_TIMEOUT_SEC_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getOfferServerTimeoutSec());
+      hash = (37 * hash) + SEARCH_RADIUS_MANUAL_ROUTING_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getSearchRadiusManualRouting());
+      hash = (37 * hash) + EXTERNAL_ASSEMBLIERS_PRESENTED_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getExternalAssembliersPresented());
+      hash = (37 * hash) + GAP_TAXI_PUNISH_MIN_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getGapTaxiPunishMin());
+      hash = (37 * hash) + TAXI_AVAILABLE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getTaxiAvailable());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3506,6 +3778,22 @@ public final class OrderEnrichment {
 
         lastPositionExpire_ = 0L;
 
+        taxiDeliveryOnly_ = false;
+
+        orderTransferTimeFromDeliveryToClientMin_ = 0L;
+
+        orderReceiveTimeFromAssemblyToDeliveryMin_ = 0L;
+
+        offerServerTimeoutSec_ = 0L;
+
+        searchRadiusManualRouting_ = 0L;
+
+        externalAssembliersPresented_ = false;
+
+        gapTaxiPunishMin_ = 0L;
+
+        taxiAvailable_ = false;
+
         return this;
       }
 
@@ -3546,6 +3834,14 @@ public final class OrderEnrichment {
         result.searchRadiusTransportAuto_ = searchRadiusTransportAuto_;
         result.searchRadiusTransportBike_ = searchRadiusTransportBike_;
         result.lastPositionExpire_ = lastPositionExpire_;
+        result.taxiDeliveryOnly_ = taxiDeliveryOnly_;
+        result.orderTransferTimeFromDeliveryToClientMin_ = orderTransferTimeFromDeliveryToClientMin_;
+        result.orderReceiveTimeFromAssemblyToDeliveryMin_ = orderReceiveTimeFromAssemblyToDeliveryMin_;
+        result.offerServerTimeoutSec_ = offerServerTimeoutSec_;
+        result.searchRadiusManualRouting_ = searchRadiusManualRouting_;
+        result.externalAssembliersPresented_ = externalAssembliersPresented_;
+        result.gapTaxiPunishMin_ = gapTaxiPunishMin_;
+        result.taxiAvailable_ = taxiAvailable_;
         onBuilt();
         return result;
       }
@@ -3635,6 +3931,30 @@ public final class OrderEnrichment {
         }
         if (other.getLastPositionExpire() != 0L) {
           setLastPositionExpire(other.getLastPositionExpire());
+        }
+        if (other.getTaxiDeliveryOnly() != false) {
+          setTaxiDeliveryOnly(other.getTaxiDeliveryOnly());
+        }
+        if (other.getOrderTransferTimeFromDeliveryToClientMin() != 0L) {
+          setOrderTransferTimeFromDeliveryToClientMin(other.getOrderTransferTimeFromDeliveryToClientMin());
+        }
+        if (other.getOrderReceiveTimeFromAssemblyToDeliveryMin() != 0L) {
+          setOrderReceiveTimeFromAssemblyToDeliveryMin(other.getOrderReceiveTimeFromAssemblyToDeliveryMin());
+        }
+        if (other.getOfferServerTimeoutSec() != 0L) {
+          setOfferServerTimeoutSec(other.getOfferServerTimeoutSec());
+        }
+        if (other.getSearchRadiusManualRouting() != 0L) {
+          setSearchRadiusManualRouting(other.getSearchRadiusManualRouting());
+        }
+        if (other.getExternalAssembliersPresented() != false) {
+          setExternalAssembliersPresented(other.getExternalAssembliersPresented());
+        }
+        if (other.getGapTaxiPunishMin() != 0L) {
+          setGapTaxiPunishMin(other.getGapTaxiPunishMin());
+        }
+        if (other.getTaxiAvailable() != false) {
+          setTaxiAvailable(other.getTaxiAvailable());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -4095,6 +4415,254 @@ public final class OrderEnrichment {
       public Builder clearLastPositionExpire() {
         
         lastPositionExpire_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private boolean taxiDeliveryOnly_ ;
+      /**
+       * <code>bool taxi_delivery_only = 15;</code>
+       * @return The taxiDeliveryOnly.
+       */
+      @java.lang.Override
+      public boolean getTaxiDeliveryOnly() {
+        return taxiDeliveryOnly_;
+      }
+      /**
+       * <code>bool taxi_delivery_only = 15;</code>
+       * @param value The taxiDeliveryOnly to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTaxiDeliveryOnly(boolean value) {
+        
+        taxiDeliveryOnly_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool taxi_delivery_only = 15;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTaxiDeliveryOnly() {
+        
+        taxiDeliveryOnly_ = false;
+        onChanged();
+        return this;
+      }
+
+      private long orderTransferTimeFromDeliveryToClientMin_ ;
+      /**
+       * <code>uint64 order_transfer_time_from_delivery_to_client_min = 16;</code>
+       * @return The orderTransferTimeFromDeliveryToClientMin.
+       */
+      @java.lang.Override
+      public long getOrderTransferTimeFromDeliveryToClientMin() {
+        return orderTransferTimeFromDeliveryToClientMin_;
+      }
+      /**
+       * <code>uint64 order_transfer_time_from_delivery_to_client_min = 16;</code>
+       * @param value The orderTransferTimeFromDeliveryToClientMin to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOrderTransferTimeFromDeliveryToClientMin(long value) {
+        
+        orderTransferTimeFromDeliveryToClientMin_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 order_transfer_time_from_delivery_to_client_min = 16;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOrderTransferTimeFromDeliveryToClientMin() {
+        
+        orderTransferTimeFromDeliveryToClientMin_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long orderReceiveTimeFromAssemblyToDeliveryMin_ ;
+      /**
+       * <code>uint64 order_receive_time_from_assembly_to_delivery_min = 17;</code>
+       * @return The orderReceiveTimeFromAssemblyToDeliveryMin.
+       */
+      @java.lang.Override
+      public long getOrderReceiveTimeFromAssemblyToDeliveryMin() {
+        return orderReceiveTimeFromAssemblyToDeliveryMin_;
+      }
+      /**
+       * <code>uint64 order_receive_time_from_assembly_to_delivery_min = 17;</code>
+       * @param value The orderReceiveTimeFromAssemblyToDeliveryMin to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOrderReceiveTimeFromAssemblyToDeliveryMin(long value) {
+        
+        orderReceiveTimeFromAssemblyToDeliveryMin_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 order_receive_time_from_assembly_to_delivery_min = 17;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOrderReceiveTimeFromAssemblyToDeliveryMin() {
+        
+        orderReceiveTimeFromAssemblyToDeliveryMin_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long offerServerTimeoutSec_ ;
+      /**
+       * <code>uint64 offer_server_timeout_sec = 18;</code>
+       * @return The offerServerTimeoutSec.
+       */
+      @java.lang.Override
+      public long getOfferServerTimeoutSec() {
+        return offerServerTimeoutSec_;
+      }
+      /**
+       * <code>uint64 offer_server_timeout_sec = 18;</code>
+       * @param value The offerServerTimeoutSec to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOfferServerTimeoutSec(long value) {
+        
+        offerServerTimeoutSec_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 offer_server_timeout_sec = 18;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOfferServerTimeoutSec() {
+        
+        offerServerTimeoutSec_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long searchRadiusManualRouting_ ;
+      /**
+       * <code>uint64 search_radius_manual_routing = 19;</code>
+       * @return The searchRadiusManualRouting.
+       */
+      @java.lang.Override
+      public long getSearchRadiusManualRouting() {
+        return searchRadiusManualRouting_;
+      }
+      /**
+       * <code>uint64 search_radius_manual_routing = 19;</code>
+       * @param value The searchRadiusManualRouting to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSearchRadiusManualRouting(long value) {
+        
+        searchRadiusManualRouting_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 search_radius_manual_routing = 19;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSearchRadiusManualRouting() {
+        
+        searchRadiusManualRouting_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private boolean externalAssembliersPresented_ ;
+      /**
+       * <code>bool external_assembliers_presented = 20;</code>
+       * @return The externalAssembliersPresented.
+       */
+      @java.lang.Override
+      public boolean getExternalAssembliersPresented() {
+        return externalAssembliersPresented_;
+      }
+      /**
+       * <code>bool external_assembliers_presented = 20;</code>
+       * @param value The externalAssembliersPresented to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExternalAssembliersPresented(boolean value) {
+        
+        externalAssembliersPresented_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool external_assembliers_presented = 20;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearExternalAssembliersPresented() {
+        
+        externalAssembliersPresented_ = false;
+        onChanged();
+        return this;
+      }
+
+      private long gapTaxiPunishMin_ ;
+      /**
+       * <code>uint64 gap_taxi_punish_min = 21;</code>
+       * @return The gapTaxiPunishMin.
+       */
+      @java.lang.Override
+      public long getGapTaxiPunishMin() {
+        return gapTaxiPunishMin_;
+      }
+      /**
+       * <code>uint64 gap_taxi_punish_min = 21;</code>
+       * @param value The gapTaxiPunishMin to set.
+       * @return This builder for chaining.
+       */
+      public Builder setGapTaxiPunishMin(long value) {
+        
+        gapTaxiPunishMin_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 gap_taxi_punish_min = 21;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearGapTaxiPunishMin() {
+        
+        gapTaxiPunishMin_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private boolean taxiAvailable_ ;
+      /**
+       * <code>bool taxi_available = 22;</code>
+       * @return The taxiAvailable.
+       */
+      @java.lang.Override
+      public boolean getTaxiAvailable() {
+        return taxiAvailable_;
+      }
+      /**
+       * <code>bool taxi_available = 22;</code>
+       * @param value The taxiAvailable to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTaxiAvailable(boolean value) {
+        
+        taxiAvailable_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool taxi_available = 22;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTaxiAvailable() {
+        
+        taxiAvailable_ = false;
         onChanged();
         return this;
       }
@@ -6134,7 +6702,7 @@ public final class OrderEnrichment {
       "_enrichment.DispatchMetaH\000\210\001\001\0221\n\010setting" +
       "s\030\r \001(\0132\032.order_enrichment.SettingsH\001\210\001\001" +
       "\022$\n\034number_of_positions_in_order\030\016 \001(\004B\020" +
-      "\n\016_dispatch_metaB\013\n\t_settings\"\334\004\n\010Settin" +
+      "\n\016_dispatch_metaB\013\n\t_settings\"\220\007\n\010Settin" +
       "gs\022$\n\034max_order_assign_retry_count\030\001 \001(\004" +
       "\022\037\n\027avg_parking_min_vehicle\030\002 \001(\004\022&\n\036max" +
       "_current_order_assign_queue\030\003 \001(\004\022:\n2ord" +
@@ -6149,20 +6717,27 @@ public final class OrderEnrichment {
       "\030\n \001(\010\022*\n\"search_radius_transport_pedest" +
       "rian\030\013 \001(\004\022$\n\034search_radius_transport_au" +
       "to\030\014 \001(\004\022$\n\034search_radius_transport_bike" +
-      "\030\r \001(\004\022\034\n\024last_position_expire\030\016 \001(\004\"\212\002\n" +
-      "\014DispatchMeta\022\026\n\016dispatch_count\030\001 \001(\004\0222\n" +
-      "\016dispatch_start\030\002 \001(\0132\032.google.protobuf." +
-      "Timestamp\022\024\n\014dispatch_ids\030\003 \003(\t\022\023\n\013dispa" +
-      "tch_id\030\004 \001(\t\0222\n\014decline_task\030\005 \001(\0162\027.ord" +
-      "er_enrichment.TasksH\000\210\001\001\022#\n\026decline_perf" +
-      "ormer_uuid\030\006 \001(\tH\001\210\001\001B\017\n\r_decline_taskB\031" +
-      "\n\027_decline_performer_uuid\"/\n\010Location\022\020\n" +
-      "\010latitude\030\001 \001(\001\022\021\n\tlongitude\030\002 \001(\001*>\n\005Ta" +
-      "sks\022\014\n\010DELIVERY\020\000\022\014\n\010ASSEMBLY\020\001\022\031\n\025ASSEM" +
-      "BLY_AND_DELIVERY\020\002BaZ_gitlab.sbermarket." +
-      "tech/paas/content/operations/order-servi" +
-      "ce/pkg/server/events/order_enrichmentb\006p" +
-      "roto3"
+      "\030\r \001(\004\022\034\n\024last_position_expire\030\016 \001(\004\022\032\n\022" +
+      "taxi_delivery_only\030\017 \001(\010\0227\n/order_transf" +
+      "er_time_from_delivery_to_client_min\030\020 \001(" +
+      "\004\0228\n0order_receive_time_from_assembly_to" +
+      "_delivery_min\030\021 \001(\004\022 \n\030offer_server_time" +
+      "out_sec\030\022 \001(\004\022$\n\034search_radius_manual_ro" +
+      "uting\030\023 \001(\004\022&\n\036external_assembliers_pres" +
+      "ented\030\024 \001(\010\022\033\n\023gap_taxi_punish_min\030\025 \001(\004" +
+      "\022\026\n\016taxi_available\030\026 \001(\010\"\212\002\n\014DispatchMet" +
+      "a\022\026\n\016dispatch_count\030\001 \001(\004\0222\n\016dispatch_st" +
+      "art\030\002 \001(\0132\032.google.protobuf.Timestamp\022\024\n" +
+      "\014dispatch_ids\030\003 \003(\t\022\023\n\013dispatch_id\030\004 \001(\t" +
+      "\0222\n\014decline_task\030\005 \001(\0162\027.order_enrichmen" +
+      "t.TasksH\000\210\001\001\022#\n\026decline_performer_uuid\030\006" +
+      " \001(\tH\001\210\001\001B\017\n\r_decline_taskB\031\n\027_decline_p" +
+      "erformer_uuid\"/\n\010Location\022\020\n\010latitude\030\001 " +
+      "\001(\001\022\021\n\tlongitude\030\002 \001(\001*>\n\005Tasks\022\014\n\010DELIV" +
+      "ERY\020\000\022\014\n\010ASSEMBLY\020\001\022\031\n\025ASSEMBLY_AND_DELI" +
+      "VERY\020\002BaZ_gitlab.sbermarket.tech/paas/co" +
+      "ntent/operations/order-service/pkg/serve" +
+      "r/events/order_enrichmentb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -6181,7 +6756,7 @@ public final class OrderEnrichment {
     internal_static_order_enrichment_Settings_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_order_enrichment_Settings_descriptor,
-        new java.lang.String[] { "MaxOrderAssignRetryCount", "AvgParkingMinVehicle", "MaxCurrentOrderAssignQueue", "OrderWeightThresholdToAssignToVehicleGramms", "AverageSpeedForStraightDistanceToClientMin", "AdditionalFactorForStraightDistanceToClientMin", "OrderTransferTimeFromAssemblyToDeliveryMin", "AvgToPlaceMinExternal", "AvgToPlaceMin", "PlaceLocationCenter", "SearchRadiusTransportPedestrian", "SearchRadiusTransportAuto", "SearchRadiusTransportBike", "LastPositionExpire", });
+        new java.lang.String[] { "MaxOrderAssignRetryCount", "AvgParkingMinVehicle", "MaxCurrentOrderAssignQueue", "OrderWeightThresholdToAssignToVehicleGramms", "AverageSpeedForStraightDistanceToClientMin", "AdditionalFactorForStraightDistanceToClientMin", "OrderTransferTimeFromAssemblyToDeliveryMin", "AvgToPlaceMinExternal", "AvgToPlaceMin", "PlaceLocationCenter", "SearchRadiusTransportPedestrian", "SearchRadiusTransportAuto", "SearchRadiusTransportBike", "LastPositionExpire", "TaxiDeliveryOnly", "OrderTransferTimeFromDeliveryToClientMin", "OrderReceiveTimeFromAssemblyToDeliveryMin", "OfferServerTimeoutSec", "SearchRadiusManualRouting", "ExternalAssembliersPresented", "GapTaxiPunishMin", "TaxiAvailable", });
     internal_static_order_enrichment_DispatchMeta_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_order_enrichment_DispatchMeta_fieldAccessorTable = new

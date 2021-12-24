@@ -10,7 +10,7 @@ ext.versions = [
         jackson: '2.12.3',
         webdrivermanager: '4.4.3',
         pgsqlJDBC: '42.1.4',
-        kafkaClients: '2.8.1',
+        kafkaClients: '3.0.0',
         kubernetesClient: '13.0.1',
         mysqlJDBC: '8.0.26',
         gRPC: '1.40.0',

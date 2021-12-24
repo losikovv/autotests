@@ -51,6 +51,14 @@ public final class Enums {
      * <code>CANCELED = 7;</code>
      */
     CANCELED(7),
+    /**
+     * <code>SHIPPED = 8;</code>
+     */
+    SHIPPED(8),
+    /**
+     * <code>REDISPATCH = 9;</code>
+     */
+    REDISPATCH(9),
     UNRECOGNIZED(-1),
     ;
 
@@ -86,6 +94,14 @@ public final class Enums {
      * <code>CANCELED = 7;</code>
      */
     public static final int CANCELED_VALUE = 7;
+    /**
+     * <code>SHIPPED = 8;</code>
+     */
+    public static final int SHIPPED_VALUE = 8;
+    /**
+     * <code>REDISPATCH = 9;</code>
+     */
+    public static final int REDISPATCH_VALUE = 9;
 
 
     public final int getNumber() {
@@ -120,6 +136,8 @@ public final class Enums {
         case 5: return OFFERED;
         case 6: return DECLINED;
         case 7: return CANCELED;
+        case 8: return SHIPPED;
+        case 9: return REDISPATCH;
         default: return null;
       }
     }
@@ -753,13 +771,14 @@ public final class Enums {
   static {
     java.lang.String[] descriptorData = {
       "\n\013enums.proto\022\005enums\"/\n\010Location\022\020\n\010lati" +
-      "tude\030\001 \001(\001\022\021\n\tlongitude\030\002 \001(\001*\212\001\n\016Shipme" +
+      "tude\030\001 \001(\001\022\021\n\tlongitude\030\002 \001(\001*\247\001\n\016Shipme" +
       "ntStatus\022\007\n\003NEW\020\000\022\r\n\tPOSTPONED\020\001\022\025\n\021AUTO" +
       "MATIC_ROUTING\020\002\022\022\n\016MANUAL_ROUTING\020\003\022\014\n\010O" +
       "FFERING\020\004\022\013\n\007OFFERED\020\005\022\014\n\010DECLINED\020\006\022\014\n\010" +
-      "CANCELED\020\007BVZTgitlab.sbermarket.tech/paa" +
-      "s/content/operations/order-service/pkg/s" +
-      "erver/events/enumsb\006proto3"
+      "CANCELED\020\007\022\013\n\007SHIPPED\020\010\022\016\n\nREDISPATCH\020\tB" +
+      "VZTgitlab.sbermarket.tech/paas/content/o" +
+      "perations/order-service/pkg/server/event" +
+      "s/enumsb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
