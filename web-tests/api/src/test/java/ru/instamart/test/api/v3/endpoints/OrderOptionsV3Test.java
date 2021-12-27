@@ -61,6 +61,7 @@ public final class OrderOptionsV3Test extends RestBase {
     public void putOrderOptionsDeliveryMetroMarketplace(ApiV3TestData testData){
         Response response = OrderOptionsV3Request.Delivery.PUT(testData);
         checkStatusCode200(response);
+        response.prettyPrint();
     }
 
     @CaseId(677)

@@ -9,7 +9,7 @@ import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.testdata.ApiV3TestData;
-import ru.instamart.api.rails_response.OfferResponse;
+import ru.instamart.k8s.rails_response.OfferResponse;
 import ru.instamart.kraken.data_provider.DataList;
 
 import java.util.List;
