@@ -162,6 +162,13 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
             return givenWithAuth()
                     .get(ShopperAdminEndpoints.OPERATIONAL_ZONES);
         }
+        public static class DispatchSettings {
+            @Step("{method} /" + ShopperAdminEndpoints.OperationalZones.DISPATCH_SETTINGS)
+            public static Response GET(Integer zoneId) {
+                return givenWithAuth()
+                        .get(ShopperAdminEndpoints.OperationalZones.DISPATCH_SETTINGS, zoneId);
+            }
+        }
     }
 
     public static class Retailers {

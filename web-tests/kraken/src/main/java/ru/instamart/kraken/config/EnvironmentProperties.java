@@ -29,6 +29,8 @@ public final class EnvironmentProperties {
     public static int DEFAULT_SID;
     @Config(configName = NAME, fieldName = "defaultTid", defaultValue = "")
     public static int DEFAULT_TID;
+    @Config(configName = NAME, fieldName = "defaultIdZone", defaultValue = "")
+    public static int DEFAULT_ID_ZONE;
     @Config(configName = NAME, fieldName = "defaultShopperSid", defaultValue = "")
     public static int DEFAULT_SHOPPER_SID;
     @Config(configName = NAME, fieldName = "dbUrl", defaultValue = "")

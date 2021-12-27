@@ -1,4 +1,4 @@
-package ru.instamart.test.api.shopper.app.endpoints;
+package ru.instamart.test.api.shopper.admin.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -18,26 +18,26 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSc
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode401;
 
-@Epic("Shopper API")
-@Feature("Scan&Go")
+@Epic("Shopper Admin Panel API")
+@Feature("Endpoints")
 public class ShopperScanGoTest extends RestBase {
 
-    @Story("Получение конфига")
+    @Story("Scan&Go")
     @CaseId(103)
     @Test(description = "Получение конфига с валидным токеном",
             groups = {"api-shopper-regress"})
-    public void postAssembly200() {
+    public void shopperScanGo200() {
         SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdmin());
         response = ShopperAdminRequest.Scango.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ScangoEnginesResponse.class);
     }
 
-    @Story("Получение конфига")
+    @Story("Scan&Go")
     @CaseId(103)
     @Test(description = "Получение конфига с не валидным токеном",
             groups = {"api-shopper-regress"})
-    public void postAssembly401() {
+    public void shopperScanGo401() {
         SessionFactory.clearSession(SessionType.SHOPPER_ADMIN);
         response = ShopperAdminRequest.Scango.GET();
         checkStatusCode401(response);

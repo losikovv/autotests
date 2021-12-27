@@ -28,4 +28,8 @@ public final class ShopperAdminEndpoints {
     public static final class Scango {
         public static final String ENGINES = "v1/scango/engines";
     }
+
+    public static final class OperationalZones{
+        public static final String DISPATCH_SETTINGS = "/v1/operational_zones/{zoneId}/dispatch_settings";
+    }
 }
