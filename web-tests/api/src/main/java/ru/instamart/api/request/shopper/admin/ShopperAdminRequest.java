@@ -323,6 +323,15 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
         }
     }
 
+    public static class Scango {
+        @Step("{method} /" + ShopperAdminEndpoints.Scango.ENGINES)
+        public static Response GET(){
+            return givenWithAuth()
+                    .get(ShopperAdminEndpoints.Scango.ENGINES);
+        }
+    }
+
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
     @Getter
