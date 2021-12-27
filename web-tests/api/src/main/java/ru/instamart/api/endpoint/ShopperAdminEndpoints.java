@@ -24,4 +24,8 @@ public final class ShopperAdminEndpoints {
         public static final String LOCK = "v1/routes/{routeId}/lock";
         public static final String VISIBILITY = "v1/routes/{routeId}/visibility";
     }
+
+    public static final class Scango {
+        public static final String ENGINES = "v1/scango/engines";
+    }
 }
