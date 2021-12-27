@@ -53,8 +53,8 @@ public class OrderOptionsV3Request extends ApiV3RequestBase {
             requestParams.put("location", locationParams);
             requestParams.put("items", items);
             items.add(itemParams);
-            locationParams.put("lon", "37.797110");
-            locationParams.put("lat", "55.747581");
+            locationParams.put("lon", 37.797110);
+            locationParams.put("lat", 55.747581);
             itemParams.put("id", testData.getItemId());
             itemParams.put("quantity", testData.getItemQuantity());
             itemParams.put("price", testData.getItemPrice());

@@ -17,8 +17,8 @@ public class StoresV3Request extends ApiV3RequestBase {
         @Step("{method} /" + ApiV3Endpoints.STORES)
         public static Response GET() {
             JSONObject requestParams = new JSONObject();
-            requestParams.put("lat", "55.747581");
-            requestParams.put("lon", "37.797110");
+            requestParams.put("lat", 55.747581);
+            requestParams.put("lon", 37.797110);
             return givenWithSpec()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
@@ -35,8 +35,8 @@ public class StoresV3Request extends ApiV3RequestBase {
         @Step("{method} /" + ApiV3Endpoints.Stores.DELIVERY)
         public static Response GET() {
             JSONObject requestParams = new JSONObject();
-            requestParams.put("lat", "55.747581");
-            requestParams.put("lon", "37.797110");
+            requestParams.put("lat", 55.747581);
+            requestParams.put("lon", 37.797110);
             return givenWithSpec()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
@@ -53,8 +53,8 @@ public class StoresV3Request extends ApiV3RequestBase {
         @Step("{method} /" + ApiV3Endpoints.Stores.PICKUP_FROM_STORE)
         public static Response GET() {
             JSONObject requestParams = new JSONObject();
-            requestParams.put("lat", "55.747581");
-            requestParams.put("lon", "37.797110");
+            requestParams.put("lat", 55.747581);
+            requestParams.put("lon", 37.797110);
             return givenWithSpec()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
@@ -70,8 +70,8 @@ public class StoresV3Request extends ApiV3RequestBase {
         @Step("{method} /" + ApiV3Endpoints.Stores.CLOSEST_SHIPPING_OPTIONS)
         public static Response GET() {
             JSONObject requestParams = new JSONObject();
-            requestParams.put("lat", "55.747581");
-            requestParams.put("lon", "37.797110");
+            requestParams.put("lat", 55.747581);
+            requestParams.put("lon", 37.797110);
             return givenWithSpec()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
@@ -87,8 +87,8 @@ public class StoresV3Request extends ApiV3RequestBase {
         @Step("{method} /" + ApiV3Endpoints.Stores.RETAILER_ID)
         public static Response GET() {
             JSONObject requestParams = new JSONObject();
-            requestParams.put("lat", "55.747581");
-            requestParams.put("lon", "37.797110");
+            requestParams.put("lat", 55.747581);
+            requestParams.put("lon", 37.797110);
             return givenWithSpec()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
