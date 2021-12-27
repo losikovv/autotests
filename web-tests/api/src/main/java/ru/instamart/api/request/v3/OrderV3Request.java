@@ -132,8 +132,8 @@ public class OrderV3Request extends ApiV3RequestBase {
             addressParams.put("floor", "6");
             addressParams.put("apartment", "39");
             addressParams.put("comments", "Звонить 2 раза");
-            addressParams.put("lat", "55.747581");
-            addressParams.put("lon", "37.797110");
+            addressParams.put("lat", 55.747581);
+            addressParams.put("lon", 37.797110);
             addressParams.put("kind", "home");
             addressParams.put("door_phone", "32");
             addressParams.put("delivery_to_door", "false");
