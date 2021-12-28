@@ -11,6 +11,7 @@ import io.restassured.internal.support.Prettifier;
 import io.restassured.response.Response;
 import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.FilterableResponseSpecification;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +19,7 @@ import java.util.Objects;
 
 import static ru.instamart.api.common.HttpRequestAttachmentCustom.Builder.create;
 
+@Slf4j
 public class AllureRestAssuredCustom implements OrderedFilter {
     private String requestTemplatePath = "http-request.ftl";
     private String responseTemplatePath = "http-response.ftl";
@@ -71,16 +73,21 @@ public class AllureRestAssuredCustom implements OrderedFilter {
         if (Objects.isNull(responseAttachmentName)) {
             responseAttachmentName = "Response";
         }
-        final HttpResponseAttachment responseAttachment = HttpResponseAttachment.Builder.create(responseAttachmentName)
-                .setResponseCode(response.getStatusCode())
-                .setHeaders(toMapConverter(response.getHeaders()))
-                .setBody(prettifier.getPrettifiedBodyIfPossible(response, response.getBody()))
-                .build();
 
-        new DefaultAttachmentProcessor().addAttachment(
-                responseAttachment,
-                new FreemarkerAttachmentRenderer(responseTemplatePath)
-        );
+        try {
+            final HttpResponseAttachment responseAttachment = HttpResponseAttachment.Builder.create(responseAttachmentName)
+                    .setResponseCode(response.getStatusCode())
+                    .setHeaders(toMapConverter(response.getHeaders()))
+                    .setBody(prettifier.getPrettifiedBodyIfPossible(response, response.getBody()))
+                    .build();
+
+            new DefaultAttachmentProcessor().addAttachment(
+                    responseAttachment,
+                    new FreemarkerAttachmentRenderer(responseTemplatePath)
+            );
+        } catch (OutOfMemoryError e) { // некоторые тесты ris-exporter накапливают тут слишком данных из ответов
+            log.error(e.getMessage());
+        }
 
         return response;
     }

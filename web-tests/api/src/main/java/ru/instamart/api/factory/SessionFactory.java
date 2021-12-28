@@ -25,9 +25,7 @@ import ru.instamart.api.response.v2.SessionsV2Response;
 import ru.instamart.api.response.v2.UserV2Response;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.service.QaService;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.qa.model.response.QaSessionResponse;
 
 import java.util.HashMap;
 import java.util.Map;

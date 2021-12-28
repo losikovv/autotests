@@ -99,6 +99,15 @@ task apiSurge(type: Test) {
     systemProperty 'qase.Title', 'Surge API Regress'
 }
 
+task apiRisExporter(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/api-ris-exporter.xml'
+        includeGroups 'api-ris-exporter'
+    }
+    systemProperty 'qase.Project', 'PB'
+    systemProperty 'qase.Title', 'Ris-Exporter API Regress'
+}
+
 task localRun(type: Test) {
     useTestNG() {
         options {

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="REST API Suite" parallel="tests" thread-count="15" data-provider-thread-count="10">
+    <listeners>
+        <listener class-name="ru.instamart.api.listener.ApiRisExporterExecutionListener"/>
+        <listener class-name="ru.instamart.api.listener.ApiListener"/>
+    </listeners>
+    <method-selectors>
+        <method-selector>
+            <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+        </method-selector>
+    </method-selectors>
+    <test verbose="1" name="Ris-Exporter API Tests" parallel="none" thread-count="1">
+        <classes>
+            <class name="ru.instamart.test.api.ris_exporter.AuthenticationRisTest"/>
+            <class name="ru.instamart.test.api.ris_exporter.CategoriesRisTest"/>
+            <class name="ru.instamart.test.api.ris_exporter.ProductsRisTest"/>
+            <class name="ru.instamart.test.api.ris_exporter.StockRisTest"/>
+            <class name="ru.instamart.test.api.ris_exporter.WithoutAuthenticationRisTest"/>
+        </classes>
+    </test>
+</suite>

@@ -27,7 +27,7 @@ public class StockRisTest extends RestBase {
     }
 
     @CaseId(427)
-    @Test(groups = {},
+    @Test(  groups = {"api-ris-exporter"},
             description = "Получение остатка на складах")
     public void getStock200() {
         Response response = StockRisRequest.GET(1);
@@ -37,7 +37,7 @@ public class StockRisTest extends RestBase {
     }
 
     @CaseId(435)
-    @Test(groups = {},
+    @Test(  groups = {"api-ris-exporter"},
             description = "Получение остатка на складах по неверному storeId")
     public void getStock404() {
         Response response = StockRisRequest.GET(9999999);
@@ -46,13 +46,14 @@ public class StockRisTest extends RestBase {
     }
 
     @CaseId(436)
-    @Test(groups = {},
+    @Test(  groups = {"api-ris-exporter"},
             description = "Проверка количества остатков на складах для всех ритейлеров",
             dataProviderClass = RestDataProvider.class,
             dataProvider = "risStoreIds" )
     public void  getProductsValidCount(Integer sid) {
         Response response = StockRisRequest.GET(sid);
 
+        //todo добавить проверку на нужные статус коды
         assertTrue(response.as(StockRisResponse.class)
                 .getTotalCount() > 5000, "Продуктов меньше минимума");
     }
