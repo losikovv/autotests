@@ -215,9 +215,10 @@ message MainTaxon {
 	repeated string promo_services = 5 [json_name = "promo_services"];
 	double position = 6;
 	int32 depth = 7;
-	Icon icon = 8;
-	string alt_icon = 9 [json_name = "alt_icon"];
-	repeated string requirements = 10;
+	google.protobuf.StringValue description = 8 [json_name = "description"];
+	Icon icon = 9;
+	google.protobuf.StringValue alt_icon = 10 [json_name = "alt_icon"];
+	repeated string requirements = 11;
 }
 
 message Icon {
