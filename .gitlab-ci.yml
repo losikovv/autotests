@@ -106,7 +106,7 @@ stages:
     expire_in: 1 week
   allow_failure: false
 
-.template_kafka_tests:
+.template_dispatch_tests:
   stage: tests-api
   tags:
     - k8s-stage
