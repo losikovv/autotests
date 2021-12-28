@@ -5,6 +5,8 @@ import io.restassured.response.Response;
 import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.request.ApiV1RequestBase;
 
+import java.util.Objects;
+
 public class ShipmentsV1Request extends ApiV1RequestBase {
 
     @Step("{method} /" + ApiV1Endpoints.Shipments.NUMBER)
@@ -26,6 +28,18 @@ public class ShipmentsV1Request extends ApiV1RequestBase {
         @Step("{method} /" + ApiV1Endpoints.Shipments.OFFERS)
         public static Response GET(String shipmentNumber) {
             return givenWithSpec().get(ApiV1Endpoints.Shipments.OFFERS, shipmentNumber);
+        }
+    }
+
+    public static class ShippingRates {
+        @Step("{method} /" + ApiV1Endpoints.Shipments.SHIPPING_RATES)
+        public static Response GET(String shipmentNumber, String date) {
+            if (Objects.nonNull(date))
+                date = "date=" + date;
+            else
+                date = "";
+            return givenWithAuth()
+                    .get(ApiV1Endpoints.Shipments.SHIPPING_RATES, shipmentNumber, date);
         }
     }
 }

@@ -45,4 +45,24 @@ public class SpreeProductsDao extends AbstractDao<Long, SpreeProductsEntity> {
         }
         return id;
     }
+
+    public SpreeProductsEntity getProduct() {
+        SpreeProductsEntity spreeProductsEntity = new SpreeProductsEntity();
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
+                     " WHERE deleted_at IS NULL AND permalink NOT LIKE '%1%' AND shipping_category_id != 3 LIMIT 1")) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            spreeProductsEntity.setId(resultSet.getLong("id"));
+            spreeProductsEntity.setName(resultSet.getString("name"));
+            spreeProductsEntity.setPermalink(resultSet.getString("permalink"));
+            spreeProductsEntity.setShippingCategoryId(resultSet.getInt("shipping_category_id"));
+            spreeProductsEntity.setBrandId(resultSet.getLong("brand_id"));
+            spreeProductsEntity.setEan(resultSet.getString("ean"));
+            spreeProductsEntity.setSku(resultSet.getString("sku"));
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return spreeProductsEntity;
+    }
 }

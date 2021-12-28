@@ -20,6 +20,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -200,6 +201,18 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(updatedShippingPolicy.getRules().get(2).getPreferences().getTime(), shippingPolicies.getShippingPolicy().getRulesAttributes().get(2).getPreferredTime(), softAssert);
         compareTwoObjects(updatedShippingPolicy.getRules().get(3).getPreferences().getNumber(), shippingPolicies.getShippingPolicy().getRulesAttributes().get(3).getPreferredNumber(), softAssert);
         compareTwoObjects(updatedShippingPolicy.getRules().get(4).getPreferences().getTimeGap(), shippingPolicies.getShippingPolicy().getRulesAttributes().get(4).getPreferredTimeGap(), softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Сравнение полученной инфомарции о доставке с эталонной")
+    public static void checkShipmentInfo(ActiveShipmentV2 shipmentFromResponse, OrderV2 order) {
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(shipmentFromResponse.getOrder().getNumber(), order.getNumber(), softAssert);
+        compareTwoObjects(shipmentFromResponse.getId(), order.getShipments().get(0).getId(), softAssert);
+        compareTwoObjects(shipmentFromResponse.getNumber(), order.getShipments().get(0).getNumber(), softAssert);
+        compareTwoObjects(shipmentFromResponse.getState(), StateV2.READY.getValue(), softAssert);
+        compareTwoObjects(shipmentFromResponse.getDeliveryWindow().getId(), order.getShipments().get(0).getDeliveryWindow().getId(), softAssert);
+        compareTwoObjects(shipmentFromResponse.getLineItems().size(), order.getShipments().get(0).getLineItems().size(), softAssert);
         softAssert.assertAll();
     }
 }

@@ -5,11 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import lombok.*;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
-import ru.sbermarket.common.Mapper;
 
 import java.io.File;
 import java.util.Collections;
@@ -22,6 +22,13 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
     public static Response DELETE(String shipmentNumber) {
         return givenWithAuth()
                 .delete(ApiV2EndPoints.Shipments.SHIPMENTS, shipmentNumber);
+    }
+
+    @Step("{method} /" + ApiV2EndPoints.Shipments.ACTIVE)
+    public static Response GET(Integer storeId) {
+        RequestSpecification req = givenWithAuth();
+        if (storeId != null) req.queryParams("store_id", storeId);
+        return req.get(ApiV2EndPoints.Shipments.ACTIVE);
     }
 
     public static class DeliveryWindows {

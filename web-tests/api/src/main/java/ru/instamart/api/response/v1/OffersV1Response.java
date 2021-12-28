@@ -14,6 +14,5 @@ import java.util.List;
 public class OffersV1Response extends BaseResponseObject {
     @JsonSchema(required = true)
     private List<OfferV1> offers = null;
-    @JsonSchema(required = true)
     private MetaV2 meta;
 }

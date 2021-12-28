@@ -20,6 +20,7 @@ public class OfferV1 extends BaseObject {
     @JsonSchema(required = true)
     private String uuid;
 
+    @EqualsAndHashCode.Exclude
     @JsonSchema(required = true)
     private String name;
 
@@ -32,6 +33,7 @@ public class OfferV1 extends BaseObject {
     @JsonSchema(required = true)
     private Boolean discounted;
 
+    @EqualsAndHashCode.Exclude
     @JsonSchema(required = true)
     @JsonProperty(value = "instamart_price")
     private Double instamartPrice;
@@ -65,6 +67,7 @@ public class OfferV1 extends BaseObject {
     @JsonProperty(value = "stock_rate")
     private Integer stockRate;
 
+    @EqualsAndHashCode.Exclude
     @JsonProperty(value = "stock_rate_description")
     private String stockRateDescription;
 
@@ -73,39 +76,41 @@ public class OfferV1 extends BaseObject {
     private Integer maxStockRate;
 
     @Null
+    @EqualsAndHashCode.Exclude
     @JsonSchema(required = true)
     @JsonProperty(value = "discount_ends_at")
     private String discountEndsAt;
 
-    @JsonSchema(required = true)
+    @EqualsAndHashCode.Exclude
     private Boolean published;
 
-    @JsonSchema(required = true)
+    @EqualsAndHashCode.Exclude
     @JsonProperty(value = "product_name")
     private String productName;
 
-    @JsonSchema(required = true)
+    @EqualsAndHashCode.Exclude
     @JsonProperty(value = "pickup_order")
     private Integer pickupOrder;
 
     @Null
-    @JsonSchema(required = true)
+    @EqualsAndHashCode.Exclude
     @JsonProperty(value = "product_sku")
     private String productSku;
 
-    @JsonSchema(required = true)
+    @EqualsAndHashCode.Exclude
     @JsonProperty(value = "retailer_price")
     private Double retailerPrice;
 
-    @JsonSchema(required = true)
+    @EqualsAndHashCode.Exclude
     @JsonProperty(value = "cost_price")
     private Double costPrice;
 
+    @EqualsAndHashCode.Exclude
     @JsonSchema(required = true)
     @JsonProperty(value = "price_type")
     private String priceType;
 
-    @JsonSchema(required = true)
+    @EqualsAndHashCode.Exclude
     @JsonProperty(value = "offer_price")
     private Double offerPrice;
 
@@ -114,27 +119,29 @@ public class OfferV1 extends BaseObject {
     private Double unitPrice;
 
     @Null
+    @EqualsAndHashCode.Exclude
     @JsonSchema(required = true)
     @JsonProperty(value = "grams_per_unit")
     private Integer gramsPerUnit;
 
     @Null
-    @JsonSchema(required = true)
+    @EqualsAndHashCode.Exclude
     @JsonProperty(value = "shelf_life")
     private String shelfLife;
 
+    @EqualsAndHashCode.Exclude
     @JsonSchema(required = true)
     private Integer stock;
 
-    @JsonSchema(required = true)
+    @EqualsAndHashCode.Exclude
     @JsonProperty(value = "max_stock")
     private Integer maxStock;
 
-    @JsonSchema(required = true)
+    @EqualsAndHashCode.Exclude
     @JsonProperty(value = "vat_rate")
     private Integer vatRate;
 
-    @JsonSchema(required = true)
+    @EqualsAndHashCode.Exclude
     @JsonProperty(value = "updated_at")
     private String updatedAt;
 
@@ -142,24 +149,27 @@ public class OfferV1 extends BaseObject {
     @JsonSchema(required = true)
     private String permalink;
 
-    @JsonSchema(required = true)
+    @EqualsAndHashCode.Exclude
     private StoresV1 store;
 
     @Null
-    @JsonSchema(required = true)
+    @EqualsAndHashCode.Exclude
     private VariantV1 variant;
 
     @Null
+    @EqualsAndHashCode.Exclude
     @JsonProperty(value = "master_category")
     private MasterCategoryV1 masterCategory;
 
+    @EqualsAndHashCode.Exclude
     @JsonProperty(value = "original_unit_price")
     private Double originalUnitPrice;
 
+    @EqualsAndHashCode.Exclude
     @JsonProperty(value = "vat_info")
     private Object vatInfo;
 
-    @Override
+ @Override
     public String toString() {
         return "store: " + store +
                 ";\nname: " + name +

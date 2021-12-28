@@ -18,6 +18,7 @@ public class NextDeliveryV2 extends BaseObject {
     @JsonProperty(value = "store_id")
     private Integer storeId;
 
+    @Null
     @JsonSchema(required = true)
     private Double price;
 
@@ -36,7 +37,6 @@ public class NextDeliveryV2 extends BaseObject {
     @JsonSchema(required = true)
     private String kind;
 
-    @JsonSchema(required = true)
     @JsonProperty(value = "express_delivery")
     private Boolean expressDelivery;
 

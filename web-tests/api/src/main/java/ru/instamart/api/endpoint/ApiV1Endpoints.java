@@ -18,6 +18,7 @@ public final class ApiV1Endpoints {
     public static final String COMPANIES = "companies";
     public static final String RETAILER_POSITION = "retailer_positions";
     public static final String SHIPPING_POLICIES = "shipping_policies";
+    public static final String MULTIRETAILER_ORDER = "multiretailer_order";
 
 
     public static final class DeliveryWindows {
@@ -59,6 +60,7 @@ public final class ApiV1Endpoints {
     public static final class Shipments {
         public static final String NUMBER = "shipments/{shipmentNumber}";
         public static final String OFFERS = "shipments/{shipmentNumber}/offers";
+        public static final String SHIPPING_RATES = "shipments/{shipmentNumber}/shipping_rates?{date}";
 
         public static final class Products {
             public static final String PREREPLACEMENTS = "shipments/{shipmentNumber}/products/{productSku}/prereplacements";
@@ -82,11 +84,23 @@ public final class ApiV1Endpoints {
         public static final String OFFERS = "stores/{storeUuid}/offers?q[name]={offerName}&q[retailer_sku]={offerRetailerSku}";
         public static final String UUID = "stores/{storeUuid}";
 
-        public static final class DeliveryWindows {
-            public static final String BY_DATE = "stores/{storeId}/delivery_windows?date={date}";
-            public static final String GENERATE = "stores/{storeId}/delivery_windows/generate";
-        }
+        public static final class StoreId {
 
+            public static final String NEXT_DELIVERIES = "stores/{storeId}/next_deliveries";
+
+            public static final class DeliveryWindows {
+                public static final String BY_DATE = "stores/{storeId}/delivery_windows?date={date}";
+                public static final String GENERATE = "stores/{storeId}/delivery_windows/generate";
+            }
+
+            public static final class Offers {
+                public static final String SEARCH = "stores/{storeId}/offers/search";
+            }
+
+            public static final class Products {
+                public static final String BY_PERMALINK = "stores/{storeId}/products/{permalink}";
+            }
+        }
     }
 
     public static final class User {

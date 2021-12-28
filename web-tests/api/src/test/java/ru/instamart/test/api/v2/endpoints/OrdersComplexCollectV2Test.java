@@ -3,9 +3,10 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.testng.annotations.BeforeClass;
+import ru.instamart.api.response.v2.*;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
@@ -14,14 +15,11 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
-import ru.instamart.api.response.v2.LineItemCancellationsV2Response;
-import ru.instamart.api.response.v2.LineItemReplacementsV2Response;
-import ru.instamart.api.response.v2.OrdersV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
 
 import static org.testng.Assert.assertFalse;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 import static ru.instamart.api.helper.K8sHelper.changeToShip;
@@ -31,17 +29,15 @@ import static ru.instamart.api.helper.K8sHelper.changeToShip;
 public class OrdersComplexCollectV2Test extends RestBase {
 
     private String orderNumber, shipmentNumber;
+    private OrderV2 order;
 
-    @BeforeMethod(enabled = false,
-            description = "Авторизация, создание комплексного заказа")
+    @BeforeClass(description = "Авторизация, создание комплексного заказа", alwaysRun = true)
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
 
-        OrderV2 order = apiV2.order(
+        order = apiV2.order(
                 SessionFactory.getSession(SessionType.API_V2).getUserData(),
-                EnvironmentProperties.DEFAULT_SID,
-                4
-        );
+                EnvironmentProperties.DEFAULT_SID);
         orderNumber = order.getNumber();
         shipmentNumber = order.getShipments().get(0).getNumber();
         changeToShip(shipmentNumber);
@@ -66,11 +62,26 @@ public class OrdersComplexCollectV2Test extends RestBase {
         softAssert.assertAll();
     }
 
+    @CaseId(1406)
+    @Story("История заказов")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получение информации о предыдущем заказе")
+    public void getPreviousOrder() {
+        SessionFactory.makeSession(SessionType.API_V2);
+        order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        final Response response = OrdersV2Request.Previous.GET();
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, OrderV2Response.class);
+        OrderV2 orderFromResponse = response.as(OrderV2Response.class).getOrder();
+        compareTwoObjects(order, orderFromResponse);
+    }
+
     @CaseId(307)
     @Story("История заказов")
     @Test(groups = {"api-instamart-regress"},
-            description = "Получение информации о предыдущем заказе. Нет предыдущих заказов")
-    public void getPreviousOrder() {
+            description = "Получение информации о предыдущем заказе. Нет предыдущих заказов",
+            dependsOnMethods = "getPreviousOrder")
+    public void getPreviousNonExistentOrder() {
         SessionFactory.makeSession(SessionType.API_V2);
         final Response response = OrdersV2Request.Previous.GET();
         checkStatusCode404(response);

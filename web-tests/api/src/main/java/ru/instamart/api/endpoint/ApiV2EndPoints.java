@@ -205,6 +205,7 @@ public final class ApiV2EndPoints {
         public static final String ASSEMBLY_ITEMS = "v2/shipments/{shipmentNumber}/assembly_items";
         public static final String CANCELLATIONS = "v2/shipments/{shipmentNumber}/cancellations";
         public static final String MERGE = "v2/shipments/{shipmentNumber}/merge";
+        public static final String ACTIVE = "v2/shipments/active";
 
         public static final class LineItems {
             public static final String MERGE = "v2/shipments/{shipmentNumber}/line_items/merge";

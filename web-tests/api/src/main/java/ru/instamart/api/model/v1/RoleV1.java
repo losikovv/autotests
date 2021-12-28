@@ -14,7 +14,6 @@ public class RoleV1 extends BaseObject {
     @JsonSchema(required = true)
     private String name;
 
-    @JsonSchema(required = true)
     private String humanName;
 }
 
