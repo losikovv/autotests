@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.common.ProductsFilterParams;
 import ru.instamart.api.model.v2.LineItemV2;
 import ru.instamart.api.model.v2.ProductV2;
 import ru.instamart.api.request.v2.LineItemsV2Request;
@@ -33,7 +34,10 @@ public class LineItemsV2Test extends RestBase {
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
         orderNumber = apiV2.getCurrentOrderNumber();
-        Response response = ProductsV2Request.GET(1, "");
+        Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
+                .sid(1)
+                .query("")
+                .build());
         checkStatusCode200(response);
         List<ProductV2> products = response.as(ProductsV2Response.class).getProducts();
         assertFalse(products.isEmpty(), "Не вернулись продукты");

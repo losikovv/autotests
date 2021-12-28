@@ -13,7 +13,7 @@
   <!-- api-v1-tests -->
   <test verbose="1" name="API v1 Tests" parallel="none" thread-count="5">
     <classes>
-      <class name="ru.instamart.test.api.v1.contracts.OffersV1Tests"/>
+      <class name="ru.instamart.test.api.v1.endpoints.OffersV1Tests"/>
       <class name="ru.instamart.test.api.v1.contracts.OperationalZonesV1Tests"/>
       <class name="ru.instamart.test.api.v1.contracts.OrdersV1Test"/>
       <class name="ru.instamart.test.api.v1.endpoints.RetailersV1Tests"/>

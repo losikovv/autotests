@@ -46,8 +46,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.testng.Assert.assertTrue;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.compareShippingPolicies;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.dataprovider.RestDataProvider.getAvailableRetailersSpree;
@@ -523,7 +522,7 @@ public class RetailersV1Tests extends RestBase {
     public void getNonExistingShippingPolicy() {
         final Response response = ShippingPoliciesV1Request.GET(0L);
         checkStatusCode404(response);
-        Assert.assertTrue(response.asString().contains("Объект не найден"));
+        checkErrorText(response, "Объект не найден");
     }
 
     @Story("Ритейлеры - Слоты доставки")
@@ -534,7 +533,7 @@ public class RetailersV1Tests extends RestBase {
     public void getAllShippingPoliciesForNonExistingRetailer() {
         final Response response = RetailersV1Request.ShippingPolicies.GET("fgdhgshsfghsgh");
         checkStatusCode404(response);
-        Assert.assertTrue(response.asString().contains("Объект не найден"));
+        checkErrorText(response, "Объект не найден");
     }
 
     @Story("Ритейлеры - Слоты доставки")
@@ -585,7 +584,7 @@ public class RetailersV1Tests extends RestBase {
         ShippingPoliciesV1Request.ShippingPolicies shippingPolicies = getShippingPolicies(0);
         final Response response = ShippingPoliciesV1Request.PUT(shippingPolicies, 0L);
         checkStatusCode404(response);
-        Assert.assertTrue(response.asString().contains("Объект не найден"));
+        checkErrorText(response, "Объект не найден");
     }
 
     @Story("Ритейлеры - Слоты доставки")
@@ -609,7 +608,7 @@ public class RetailersV1Tests extends RestBase {
     public void deleteNonExistingShippingPolicies() {
         final Response response = ShippingPoliciesV1Request.DELETE(0L);
         checkStatusCode404(response);
-        Assert.assertTrue(response.asString().contains("Объект не найден"));
+        checkErrorText(response, "Объект не найден");
     }
 
 

@@ -11,7 +11,8 @@ public enum StateV2 {
     PENDING("pending"),
     ASSEMBLED("assembled"),
     CANCELED("canceled"),
-    REPLACED("replaced");
+    REPLACED("replaced"),
+    READY("ready");
 
     private final String value;
 }

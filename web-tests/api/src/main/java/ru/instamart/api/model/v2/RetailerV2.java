@@ -63,7 +63,6 @@ public class RetailerV2 extends BaseObject {
     private Object retailerAgreement;
 
     @EqualsAndHashCode.Exclude
-    @JsonSchema(required = true)
     private AppearanceV2 appearance;
 
     @EqualsAndHashCode.Exclude

@@ -3,6 +3,7 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import ru.instamart.api.model.common.ProductsFilterParams;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
@@ -41,7 +42,10 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем продукты",
             groups = {})
     public void getProducts() {
-        response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "");
+        response = ProductsV2Request.GET(ProductsFilterParams.builder()
+                .sid(EnvironmentProperties.DEFAULT_SID)
+                .query("")
+                .build());
         checkStatusCode200(response);
 
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
@@ -79,7 +83,10 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Существующий sid",
             groups = {"api-instamart-smoke", "api-instamart-prod", "api-instamart-regress"})
     public void getProductsWithValidSid() {
-        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, EnvironmentProperties.DEFAULT_TID);
+        final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
+                .sid(EnvironmentProperties.DEFAULT_SID)
+                .tid(EnvironmentProperties.DEFAULT_TID)
+                .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
@@ -92,7 +99,9 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Несуществующий sid",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getProductsWithInvalidSid() {
-        final Response response = ProductsV2Request.GET(6666666);
+        final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
+                .sid(6666666)
+                .build());
         checkStatusCode404(response);
         checkError(response, "Магазин не существует");
     }
@@ -101,7 +110,10 @@ public final class ProductsV2Test extends RestBase {
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Существующий sid", groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductsWithValidSidAndQuery() {
-        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "хлеб");
+        final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
+                        .sid(EnvironmentProperties.DEFAULT_SID)
+                        .query("хлеб")
+                        .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final List<ProductV2> products = response.as(ProductsV2Response.class).getProducts();
@@ -117,7 +129,11 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем отсортированные продукты по популярности",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductsSortedByPopularity() {
-        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "хлеб", ProductSortTypeV2.POPULARITY);
+        final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
+                .sid(EnvironmentProperties.DEFAULT_SID)
+                .query("хлеб")
+                .sort(ProductSortTypeV2.POPULARITY.getKey())
+                .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
@@ -129,7 +145,11 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем отсортированные продукты по возрастанию цены",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductsSortedByPriceAsc() {
-        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "хлеб", ProductSortTypeV2.PRICE_ASC);
+        final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
+                .sid(EnvironmentProperties.DEFAULT_SID)
+                .query("хлеб")
+                .sort(ProductSortTypeV2.PRICE_ASC.getKey())
+                .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
@@ -141,7 +161,11 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем отсортированные продукты по убыванию цены",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getProductsSortedByPriceDesc() {
-        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "хлеб", ProductSortTypeV2.PRICE_DESC);
+        final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
+                .sid(EnvironmentProperties.DEFAULT_SID)
+                .query("хлеб")
+                .sort(ProductSortTypeV2.PRICE_DESC.getKey())
+                .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
@@ -153,7 +177,12 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем отфильтрованные по наличию скидки продукты",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductsFilteredByDiscount() {
-        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "сыр", 1, ProductFilterTypeV2.DISCOUNTED, 1);
+        final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
+                        .sid(EnvironmentProperties.DEFAULT_SID)
+                        .query("сыр")
+                        .discountedFilter(1)
+                        .page(1)
+                        .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
@@ -166,12 +195,17 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем отфильтрованные по бренду продукты",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductsFilteredByBrand() {
-        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "сыр", 1, ProductFilterTypeV2.BRAND, 3661);
+        final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
+                        .sid(EnvironmentProperties.DEFAULT_SID)
+                        .query("сыр")
+                        .brandFilter(3661)
+                        .page(1)
+                        .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
         final List<ProductV2> products = productsV2Response.getProducts();
-        products.forEach(product -> assertTrue(product.getName().contains("Heidi")));
+        products.forEach(product -> assertTrue(product.getName().contains("Heidi"), "Пришел неверный бренд"));
     }
 
     @CaseId(808)
@@ -179,15 +213,21 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем отфильтрованные по стране изготовителя продукты",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductsFilteredByCountry() {
-        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "сыр", 1, ProductFilterTypeV2.COUNTRY, 36);
+        final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
+                        .sid(EnvironmentProperties.DEFAULT_SID)
+                        .query("сыр")
+                        .countryFilter(36)
+                        .page(1)
+                        .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
 
         step("Проверка содержимого ответа", () -> {
             final List<FacetV2> facets = productsV2Response.getFacets().stream().filter(facet -> facet.getKey().equals(ProductFilterTypeV2.COUNTRY.getValue())).collect(Collectors.toList());
+            Assert.assertFalse(facets.isEmpty());
             final List<OptionV2> countries = facets.get(0).getOptions();
-            countries.stream().filter(country -> country.getValue() == 36).forEach(country -> assertTrue(country.getActive()));
+            countries.stream().filter(country -> country.getValue() == 36).forEach(country -> assertTrue(country.getActive(), "Выбранная страна неактивна"));
         });
     }
 
@@ -196,7 +236,11 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем отсортированные по выгодному весу",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductsSortedByWeightPrice() {
-        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, EnvironmentProperties.DEFAULT_TID, ProductSortTypeV2.UNIT_PRICE_ASC);
+        final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
+                .sid(EnvironmentProperties.DEFAULT_SID)
+                .tid(EnvironmentProperties.DEFAULT_TID)
+                .sort(ProductSortTypeV2.UNIT_PRICE_ASC.getKey())
+                .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
@@ -208,7 +252,11 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем список продуктов по категории с одиннадцатой страницы",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductWithTidAndPage() {
-        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, EnvironmentProperties.DEFAULT_TID, 11);
+        final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
+                        .sid(EnvironmentProperties.DEFAULT_SID)
+                        .tid(EnvironmentProperties.DEFAULT_TID)
+                        .page(11)
+                        .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
@@ -224,11 +272,19 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем список продуктов по запросу со второй страницы",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductWithQueryAndPage() {
-        final Response responseFirstPage = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "хлеб", 1);
+        final Response responseFirstPage = ProductsV2Request.GET(ProductsFilterParams.builder()
+                        .sid(EnvironmentProperties.DEFAULT_SID)
+                        .query("хлеб")
+                        .page(1)
+                        .build());
         checkStatusCode200(responseFirstPage);
         MetaV2 meta = responseFirstPage.as(ProductsV2Response.class).getMeta();
 
-        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "хлеб", meta.getTotalPages());
+        final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
+                .sid(EnvironmentProperties.DEFAULT_SID)
+                .query("хлеб")
+                .page(meta.getTotalPages())
+                .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
@@ -245,9 +301,13 @@ public final class ProductsV2Test extends RestBase {
     @Test(description = "Получаем список продуктов по запросу с несуществующей страницы",
             groups = {"api-instamart-regress"})
     public void getProductsOnNonExistingPage() {
-        final Response response = ProductsV2Request.GET(EnvironmentProperties.DEFAULT_SID, "хлеб", 10000);
+        final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
+                        .sid(EnvironmentProperties.DEFAULT_SID)
+                        .query("хлеб")
+                        .page(10000)
+                        .build());
         checkStatusCode200(response);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
-        Assert.assertTrue(productsV2Response.getProducts().isEmpty(),"Список продуктов не пустой");
+        Assert.assertTrue(productsV2Response.getProducts().isEmpty(), "Список продуктов не пустой");
     }
 }

@@ -3,6 +3,7 @@ package ru.instamart.api.checkpoint;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
+import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.response.ErrorResponse;
 
@@ -43,7 +44,6 @@ public class BaseApiCheckpoints {
         log.debug("Success");
     }
 
-
     @Step("Проверка на существования сообщения об ошибке")
     public static void checkErrorTextIsNotEmpty(Response response) {
         ErrorResponse error = response.as(ErrorResponse.class);
@@ -53,6 +53,12 @@ public class BaseApiCheckpoints {
         softAssert.assertFalse(error.getErrorMessages().get(0).getMessage().isEmpty(), "Невалидная ошибка");
         softAssert.assertFalse(error.getErrorMessages().get(0).getHumanMessage().isEmpty(), "Невалидная ошибка");
         softAssert.assertAll();
+    }
+
+    @Step("Проверка правильного error сообщения")
+    public static void checkErrorText(Response response, String textError) {
+        ErrorResponse error = response.as(ErrorResponse.class);
+        Assert.assertEquals(error.getError(), textError);
     }
 
     /**

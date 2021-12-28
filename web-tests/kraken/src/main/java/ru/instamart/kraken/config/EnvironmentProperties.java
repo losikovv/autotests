@@ -27,6 +27,8 @@ public final class EnvironmentProperties {
     public static String HTTP_AUTH;
     @Config(configName = NAME, fieldName = "defaultSid", defaultValue = "")
     public static int DEFAULT_SID;
+    @Config(configName = NAME, fieldName = "defaultSecondSid", defaultValue = "1")
+    public static int DEFAULT_SECOND_SID;
     @Config(configName = NAME, fieldName = "defaultTid", defaultValue = "")
     public static int DEFAULT_TID;
     @Config(configName = NAME, fieldName = "defaultIdZone", defaultValue = "")

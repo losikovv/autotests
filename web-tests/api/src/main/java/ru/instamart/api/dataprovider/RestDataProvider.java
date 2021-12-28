@@ -11,6 +11,7 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.AnalyzeResultV2;
 import ru.instamart.api.enums.v2.AuthProviderV2;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
+import ru.instamart.api.enums.v2.ShippingMethodsV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OfferV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
@@ -19,6 +20,7 @@ import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v1.OperationalZonesV1Request;
 import ru.instamart.api.request.v1.RetailersV1Request;
+import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
 import ru.instamart.api.request.v2.*;
 import ru.instamart.api.response.v1.OperationalZonesV1Response;
@@ -924,6 +926,23 @@ public class RestDataProvider extends RestBase {
                 {RetailersV1Request.RetailerParams.builder()
                         .page(10000)
                         .perPage(10)
+                        .build()}
+        };
+    }
+
+    @DataProvider(name = "nextDeliveriesParams", parallel = true)
+    public static Object[][] getNextDeliveriesParams() {
+        AddressV2 address = apiV2.getAddressBySid(EnvironmentProperties.DEFAULT_SID);
+        return new Object[][]{
+                {StoresV1Request.NextDeliveriesParams.builder()
+                        .cargo(false)
+                        .shippingMethod(ShippingMethodsV2.BY_COURIER.getMethod())
+                        .lat(address.getLat())
+                        .lon(address.getLon())
+                        .build()},
+                {StoresV1Request.NextDeliveriesParams.builder()
+                        .lat(address.getLat())
+                        .lon(address.getLon())
                         .build()}
         };
     }

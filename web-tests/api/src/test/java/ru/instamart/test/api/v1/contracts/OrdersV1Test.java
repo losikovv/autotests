@@ -1,6 +1,7 @@
 package ru.instamart.test.api.v1.contracts;
 
 import io.qameta.allure.*;
+import ru.instamart.api.request.v1.*;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.SkipException;
@@ -12,10 +13,6 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OrderV1;
 import ru.instamart.api.model.v2.OrderV2;
-import ru.instamart.api.request.v1.LineItemsV1Request;
-import ru.instamart.api.request.v1.OrdersV1Request;
-import ru.instamart.api.request.v1.ShipmentsV1Request;
-import ru.instamart.api.request.v1.ShoppersV1Request;
 import ru.instamart.api.response.v1.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
@@ -142,5 +139,15 @@ public class OrdersV1Test extends RestBase {
         final Response response = ShoppersV1Request.OrderAvailablePaymentTools.GET(orderNumber);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, AvailablePaymentToolsV1Response.class);
+    }
+
+    @Story("Заказы")
+    @CaseId(43)
+    @Test(description = "Получение информации о мультиритейлерном заказе",
+            groups = "api-instamart-regress")
+    public void getMultireteilerOrder() {
+        final Response response = MultiretailerOrderV1Request.GET();
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, MultiretailerOrderV1Response.class);
     }
 }

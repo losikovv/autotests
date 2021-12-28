@@ -20,6 +20,7 @@ public class ProductsV2Response extends BaseResponseObject {
     private List<ProductV2> products = null;
     @JsonSchema(required = true)
     private MetaV2 meta;
+    @NotEmpty
     @JsonSchema(required = true)
     private List<FacetV2> facets = null;
     @JsonSchema(required = true)
