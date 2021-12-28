@@ -225,6 +225,7 @@ public final class UserManager {
     public static UserData getRisUser() {
         if (isNull(defaultRisUser)) {
             defaultRisUser = UserData.builder()
+                    .email("")
                     .token("ZGNtYXJrZXQ6MzhlYjgxYjNkOTdiZDgx")
                     .build();
         }

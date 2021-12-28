@@ -6,7 +6,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.kraken.listener.ExecutionListener;
 
 @Slf4j
-public final class ApiExecutionListener extends ExecutionListener {
+public class ApiExecutionListener extends ExecutionListener {
 
     // Нужно инициализировать в конструкторе, что бы гарантировать наличие конфигов до запуска чего либо
     public ApiExecutionListener() {

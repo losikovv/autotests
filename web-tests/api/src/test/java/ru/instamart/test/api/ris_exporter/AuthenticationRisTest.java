@@ -17,7 +17,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 public class AuthenticationRisTest extends RestBase {
 
     @CaseId(422)
-    @Test(groups = {},
+    @Test(  groups = {"api-ris-exporter"},
             description = "Аутентификация")
     public void authentication200() {
         Response response = AuthenticationRisRequest.POST(UserManager.getRisUser().getToken());
@@ -27,7 +27,7 @@ public class AuthenticationRisTest extends RestBase {
     }
 
     @CaseId(423)
-    @Test(groups = {},
+    @Test(  groups = {"api-ris-exporter"},
             description = "Аутентификация с неверными кредами")
     public void authentication401() {
         Response response = AuthenticationRisRequest.POST("ZGVsaXZlcnktY2x1Yi1pbnZhbGlkOmRlbGl2ZXJ5LWNsdWItcGFzc3dk");

@@ -19,7 +19,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
 @Epic("Продукты")
-public class ProductsRisTest extends RestBase{
+public class ProductsRisTest extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
@@ -27,7 +27,7 @@ public class ProductsRisTest extends RestBase{
     }
 
     @CaseId(427)
-    @Test(groups = {},
+    @Test(  groups = {"api-ris-exporter"},
             description = "Получение списка продуктов")
     public void getProducts200() {
         Response response = ProductsRisRequest.GET(1);
@@ -37,7 +37,7 @@ public class ProductsRisTest extends RestBase{
     }
 
     @CaseId(429)
-    @Test(groups = {},
+    @Test(  groups = {"api-ris-exporter"},
             description = "Получение списка продуктов по неверному storeId")
     public void getProducts404() {
         Response response = ProductsRisRequest.GET(9999999);
@@ -46,13 +46,14 @@ public class ProductsRisTest extends RestBase{
     }
 
     @CaseId(433)
-    @Test(groups = {},
+    @Test(  groups = {"api-ris-exporter"},
             description = "Проверка количества продуктов для всех ритейлеров",
             dataProviderClass = RestDataProvider.class,
             dataProvider = "risStoreIds" )
     public void  getProductsValidCount(Integer sid) {
         Response response = ProductsRisRequest.GET(sid);
 
+        //todo добавить проверку на нужные статус коды
         assertTrue(response.as(ProductsRisResponse.class)
                 .getTotalCount() > 5000, "Продуктов меньше минимума");
     }
