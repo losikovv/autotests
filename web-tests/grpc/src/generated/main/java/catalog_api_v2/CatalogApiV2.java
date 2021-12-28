@@ -28030,51 +28030,69 @@ public final class CatalogApiV2 {
     int getDepth();
 
     /**
-     * <code>.catalog_api_v2.Icon icon = 8;</code>
+     * <code>.google.protobuf.StringValue description = 8 [json_name = "description"];</code>
+     * @return Whether the description field is set.
+     */
+    boolean hasDescription();
+    /**
+     * <code>.google.protobuf.StringValue description = 8 [json_name = "description"];</code>
+     * @return The description.
+     */
+    com.google.protobuf.StringValue getDescription();
+    /**
+     * <code>.google.protobuf.StringValue description = 8 [json_name = "description"];</code>
+     */
+    com.google.protobuf.StringValueOrBuilder getDescriptionOrBuilder();
+
+    /**
+     * <code>.catalog_api_v2.Icon icon = 9;</code>
      * @return Whether the icon field is set.
      */
     boolean hasIcon();
     /**
-     * <code>.catalog_api_v2.Icon icon = 8;</code>
+     * <code>.catalog_api_v2.Icon icon = 9;</code>
      * @return The icon.
      */
     catalog_api_v2.CatalogApiV2.Icon getIcon();
     /**
-     * <code>.catalog_api_v2.Icon icon = 8;</code>
+     * <code>.catalog_api_v2.Icon icon = 9;</code>
      */
     catalog_api_v2.CatalogApiV2.IconOrBuilder getIconOrBuilder();
 
     /**
-     * <code>string alt_icon = 9 [json_name = "alt_icon"];</code>
+     * <code>.google.protobuf.StringValue alt_icon = 10 [json_name = "alt_icon"];</code>
+     * @return Whether the altIcon field is set.
+     */
+    boolean hasAltIcon();
+    /**
+     * <code>.google.protobuf.StringValue alt_icon = 10 [json_name = "alt_icon"];</code>
      * @return The altIcon.
      */
-    java.lang.String getAltIcon();
+    com.google.protobuf.StringValue getAltIcon();
     /**
-     * <code>string alt_icon = 9 [json_name = "alt_icon"];</code>
-     * @return The bytes for altIcon.
+     * <code>.google.protobuf.StringValue alt_icon = 10 [json_name = "alt_icon"];</code>
      */
-    com.google.protobuf.ByteString
-        getAltIconBytes();
+    com.google.protobuf.StringValueOrBuilder getAltIconOrBuilder();
 
     /**
-     * <code>repeated string requirements = 10;</code>
+     * <code>repeated string requirements = 11;</code>
      * @return A list containing the requirements.
      */
     java.util.List<java.lang.String>
         getRequirementsList();
     /**
-     * <code>repeated string requirements = 10;</code>
+     * <code>repeated string requirements = 11;</code>
      * @return The count of requirements.
      */
     int getRequirementsCount();
     /**
-     * <code>repeated string requirements = 10;</code>
+     * <code>repeated string requirements = 11;</code>
      * @param index The index of the element to return.
      * @return The requirements at the given index.
      */
     java.lang.String getRequirements(int index);
     /**
-     * <code>repeated string requirements = 10;</code>
+     * <code>repeated string requirements = 11;</code>
      * @param index The index of the value to return.
      * @return The bytes of the requirements at the given index.
      */
@@ -28097,7 +28115,6 @@ public final class CatalogApiV2 {
       type_ = "";
       name_ = "";
       promoServices_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      altIcon_ = "";
       requirements_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
 
@@ -28174,6 +28191,19 @@ public final class CatalogApiV2 {
               break;
             }
             case 66: {
+              com.google.protobuf.StringValue.Builder subBuilder = null;
+              if (description_ != null) {
+                subBuilder = description_.toBuilder();
+              }
+              description_ = input.readMessage(com.google.protobuf.StringValue.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(description_);
+                description_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 74: {
               catalog_api_v2.CatalogApiV2.Icon.Builder subBuilder = null;
               if (icon_ != null) {
                 subBuilder = icon_.toBuilder();
@@ -28186,13 +28216,20 @@ public final class CatalogApiV2 {
 
               break;
             }
-            case 74: {
-              java.lang.String s = input.readStringRequireUtf8();
+            case 82: {
+              com.google.protobuf.StringValue.Builder subBuilder = null;
+              if (altIcon_ != null) {
+                subBuilder = altIcon_.toBuilder();
+              }
+              altIcon_ = input.readMessage(com.google.protobuf.StringValue.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(altIcon_);
+                altIcon_ = subBuilder.buildPartial();
+              }
 
-              altIcon_ = s;
               break;
             }
-            case 82: {
+            case 90: {
               java.lang.String s = input.readStringRequireUtf8();
               if (!((mutable_bitField0_ & 0x00000002) != 0)) {
                 requirements_ = new com.google.protobuf.LazyStringArrayList();
@@ -28394,10 +28431,36 @@ public final class CatalogApiV2 {
       return depth_;
     }
 
-    public static final int ICON_FIELD_NUMBER = 8;
+    public static final int DESCRIPTION_FIELD_NUMBER = 8;
+    private com.google.protobuf.StringValue description_;
+    /**
+     * <code>.google.protobuf.StringValue description = 8 [json_name = "description"];</code>
+     * @return Whether the description field is set.
+     */
+    @java.lang.Override
+    public boolean hasDescription() {
+      return description_ != null;
+    }
+    /**
+     * <code>.google.protobuf.StringValue description = 8 [json_name = "description"];</code>
+     * @return The description.
+     */
+    @java.lang.Override
+    public com.google.protobuf.StringValue getDescription() {
+      return description_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : description_;
+    }
+    /**
+     * <code>.google.protobuf.StringValue description = 8 [json_name = "description"];</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.StringValueOrBuilder getDescriptionOrBuilder() {
+      return getDescription();
+    }
+
+    public static final int ICON_FIELD_NUMBER = 9;
     private catalog_api_v2.CatalogApiV2.Icon icon_;
     /**
-     * <code>.catalog_api_v2.Icon icon = 8;</code>
+     * <code>.catalog_api_v2.Icon icon = 9;</code>
      * @return Whether the icon field is set.
      */
     @java.lang.Override
@@ -28405,7 +28468,7 @@ public final class CatalogApiV2 {
       return icon_ != null;
     }
     /**
-     * <code>.catalog_api_v2.Icon icon = 8;</code>
+     * <code>.catalog_api_v2.Icon icon = 9;</code>
      * @return The icon.
      */
     @java.lang.Override
@@ -28413,55 +28476,43 @@ public final class CatalogApiV2 {
       return icon_ == null ? catalog_api_v2.CatalogApiV2.Icon.getDefaultInstance() : icon_;
     }
     /**
-     * <code>.catalog_api_v2.Icon icon = 8;</code>
+     * <code>.catalog_api_v2.Icon icon = 9;</code>
      */
     @java.lang.Override
     public catalog_api_v2.CatalogApiV2.IconOrBuilder getIconOrBuilder() {
       return getIcon();
     }
 
-    public static final int ALT_ICON_FIELD_NUMBER = 9;
-    private volatile java.lang.Object altIcon_;
+    public static final int ALT_ICON_FIELD_NUMBER = 10;
+    private com.google.protobuf.StringValue altIcon_;
     /**
-     * <code>string alt_icon = 9 [json_name = "alt_icon"];</code>
+     * <code>.google.protobuf.StringValue alt_icon = 10 [json_name = "alt_icon"];</code>
+     * @return Whether the altIcon field is set.
+     */
+    @java.lang.Override
+    public boolean hasAltIcon() {
+      return altIcon_ != null;
+    }
+    /**
+     * <code>.google.protobuf.StringValue alt_icon = 10 [json_name = "alt_icon"];</code>
      * @return The altIcon.
      */
     @java.lang.Override
-    public java.lang.String getAltIcon() {
-      java.lang.Object ref = altIcon_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        altIcon_ = s;
-        return s;
-      }
+    public com.google.protobuf.StringValue getAltIcon() {
+      return altIcon_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : altIcon_;
     }
     /**
-     * <code>string alt_icon = 9 [json_name = "alt_icon"];</code>
-     * @return The bytes for altIcon.
+     * <code>.google.protobuf.StringValue alt_icon = 10 [json_name = "alt_icon"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString
-        getAltIconBytes() {
-      java.lang.Object ref = altIcon_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        altIcon_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public com.google.protobuf.StringValueOrBuilder getAltIconOrBuilder() {
+      return getAltIcon();
     }
 
-    public static final int REQUIREMENTS_FIELD_NUMBER = 10;
+    public static final int REQUIREMENTS_FIELD_NUMBER = 11;
     private com.google.protobuf.LazyStringList requirements_;
     /**
-     * <code>repeated string requirements = 10;</code>
+     * <code>repeated string requirements = 11;</code>
      * @return A list containing the requirements.
      */
     public com.google.protobuf.ProtocolStringList
@@ -28469,14 +28520,14 @@ public final class CatalogApiV2 {
       return requirements_;
     }
     /**
-     * <code>repeated string requirements = 10;</code>
+     * <code>repeated string requirements = 11;</code>
      * @return The count of requirements.
      */
     public int getRequirementsCount() {
       return requirements_.size();
     }
     /**
-     * <code>repeated string requirements = 10;</code>
+     * <code>repeated string requirements = 11;</code>
      * @param index The index of the element to return.
      * @return The requirements at the given index.
      */
@@ -28484,7 +28535,7 @@ public final class CatalogApiV2 {
       return requirements_.get(index);
     }
     /**
-     * <code>repeated string requirements = 10;</code>
+     * <code>repeated string requirements = 11;</code>
      * @param index The index of the value to return.
      * @return The bytes of the requirements at the given index.
      */
@@ -28528,14 +28579,17 @@ public final class CatalogApiV2 {
       if (depth_ != 0) {
         output.writeInt32(7, depth_);
       }
-      if (icon_ != null) {
-        output.writeMessage(8, getIcon());
+      if (description_ != null) {
+        output.writeMessage(8, getDescription());
       }
-      if (!getAltIconBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 9, altIcon_);
+      if (icon_ != null) {
+        output.writeMessage(9, getIcon());
+      }
+      if (altIcon_ != null) {
+        output.writeMessage(10, getAltIcon());
       }
       for (int i = 0; i < requirements_.size(); i++) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 10, requirements_.getRaw(i));
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 11, requirements_.getRaw(i));
       }
       unknownFields.writeTo(output);
     }
@@ -28576,12 +28630,17 @@ public final class CatalogApiV2 {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(7, depth_);
       }
+      if (description_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(8, getDescription());
+      }
       if (icon_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(8, getIcon());
+          .computeMessageSize(9, getIcon());
       }
-      if (!getAltIconBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, altIcon_);
+      if (altIcon_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(10, getAltIcon());
       }
       {
         int dataSize = 0;
@@ -28623,13 +28682,21 @@ public final class CatalogApiV2 {
               other.getPosition())) return false;
       if (getDepth()
           != other.getDepth()) return false;
+      if (hasDescription() != other.hasDescription()) return false;
+      if (hasDescription()) {
+        if (!getDescription()
+            .equals(other.getDescription())) return false;
+      }
       if (hasIcon() != other.hasIcon()) return false;
       if (hasIcon()) {
         if (!getIcon()
             .equals(other.getIcon())) return false;
       }
-      if (!getAltIcon()
-          .equals(other.getAltIcon())) return false;
+      if (hasAltIcon() != other.hasAltIcon()) return false;
+      if (hasAltIcon()) {
+        if (!getAltIcon()
+            .equals(other.getAltIcon())) return false;
+      }
       if (!getRequirementsList()
           .equals(other.getRequirementsList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -28662,12 +28729,18 @@ public final class CatalogApiV2 {
           java.lang.Double.doubleToLongBits(getPosition()));
       hash = (37 * hash) + DEPTH_FIELD_NUMBER;
       hash = (53 * hash) + getDepth();
+      if (hasDescription()) {
+        hash = (37 * hash) + DESCRIPTION_FIELD_NUMBER;
+        hash = (53 * hash) + getDescription().hashCode();
+      }
       if (hasIcon()) {
         hash = (37 * hash) + ICON_FIELD_NUMBER;
         hash = (53 * hash) + getIcon().hashCode();
       }
-      hash = (37 * hash) + ALT_ICON_FIELD_NUMBER;
-      hash = (53 * hash) + getAltIcon().hashCode();
+      if (hasAltIcon()) {
+        hash = (37 * hash) + ALT_ICON_FIELD_NUMBER;
+        hash = (53 * hash) + getAltIcon().hashCode();
+      }
       if (getRequirementsCount() > 0) {
         hash = (37 * hash) + REQUIREMENTS_FIELD_NUMBER;
         hash = (53 * hash) + getRequirementsList().hashCode();
@@ -28819,14 +28892,24 @@ public final class CatalogApiV2 {
 
         depth_ = 0;
 
+        if (descriptionBuilder_ == null) {
+          description_ = null;
+        } else {
+          description_ = null;
+          descriptionBuilder_ = null;
+        }
         if (iconBuilder_ == null) {
           icon_ = null;
         } else {
           icon_ = null;
           iconBuilder_ = null;
         }
-        altIcon_ = "";
-
+        if (altIconBuilder_ == null) {
+          altIcon_ = null;
+        } else {
+          altIcon_ = null;
+          altIconBuilder_ = null;
+        }
         requirements_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
@@ -28867,12 +28950,21 @@ public final class CatalogApiV2 {
         result.promoServices_ = promoServices_;
         result.position_ = position_;
         result.depth_ = depth_;
+        if (descriptionBuilder_ == null) {
+          result.description_ = description_;
+        } else {
+          result.description_ = descriptionBuilder_.build();
+        }
         if (iconBuilder_ == null) {
           result.icon_ = icon_;
         } else {
           result.icon_ = iconBuilder_.build();
         }
-        result.altIcon_ = altIcon_;
+        if (altIconBuilder_ == null) {
+          result.altIcon_ = altIcon_;
+        } else {
+          result.altIcon_ = altIconBuilder_.build();
+        }
         if (((bitField0_ & 0x00000002) != 0)) {
           requirements_ = requirements_.getUnmodifiableView();
           bitField0_ = (bitField0_ & ~0x00000002);
@@ -28956,12 +29048,14 @@ public final class CatalogApiV2 {
         if (other.getDepth() != 0) {
           setDepth(other.getDepth());
         }
+        if (other.hasDescription()) {
+          mergeDescription(other.getDescription());
+        }
         if (other.hasIcon()) {
           mergeIcon(other.getIcon());
         }
-        if (!other.getAltIcon().isEmpty()) {
-          altIcon_ = other.altIcon_;
-          onChanged();
+        if (other.hasAltIcon()) {
+          mergeAltIcon(other.getAltIcon());
         }
         if (!other.requirements_.isEmpty()) {
           if (requirements_.isEmpty()) {
@@ -29389,18 +29483,137 @@ public final class CatalogApiV2 {
         return this;
       }
 
+      private com.google.protobuf.StringValue description_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> descriptionBuilder_;
+      /**
+       * <code>.google.protobuf.StringValue description = 8 [json_name = "description"];</code>
+       * @return Whether the description field is set.
+       */
+      public boolean hasDescription() {
+        return descriptionBuilder_ != null || description_ != null;
+      }
+      /**
+       * <code>.google.protobuf.StringValue description = 8 [json_name = "description"];</code>
+       * @return The description.
+       */
+      public com.google.protobuf.StringValue getDescription() {
+        if (descriptionBuilder_ == null) {
+          return description_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : description_;
+        } else {
+          return descriptionBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.StringValue description = 8 [json_name = "description"];</code>
+       */
+      public Builder setDescription(com.google.protobuf.StringValue value) {
+        if (descriptionBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          description_ = value;
+          onChanged();
+        } else {
+          descriptionBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.StringValue description = 8 [json_name = "description"];</code>
+       */
+      public Builder setDescription(
+          com.google.protobuf.StringValue.Builder builderForValue) {
+        if (descriptionBuilder_ == null) {
+          description_ = builderForValue.build();
+          onChanged();
+        } else {
+          descriptionBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.StringValue description = 8 [json_name = "description"];</code>
+       */
+      public Builder mergeDescription(com.google.protobuf.StringValue value) {
+        if (descriptionBuilder_ == null) {
+          if (description_ != null) {
+            description_ =
+              com.google.protobuf.StringValue.newBuilder(description_).mergeFrom(value).buildPartial();
+          } else {
+            description_ = value;
+          }
+          onChanged();
+        } else {
+          descriptionBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.StringValue description = 8 [json_name = "description"];</code>
+       */
+      public Builder clearDescription() {
+        if (descriptionBuilder_ == null) {
+          description_ = null;
+          onChanged();
+        } else {
+          description_ = null;
+          descriptionBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.StringValue description = 8 [json_name = "description"];</code>
+       */
+      public com.google.protobuf.StringValue.Builder getDescriptionBuilder() {
+        
+        onChanged();
+        return getDescriptionFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.StringValue description = 8 [json_name = "description"];</code>
+       */
+      public com.google.protobuf.StringValueOrBuilder getDescriptionOrBuilder() {
+        if (descriptionBuilder_ != null) {
+          return descriptionBuilder_.getMessageOrBuilder();
+        } else {
+          return description_ == null ?
+              com.google.protobuf.StringValue.getDefaultInstance() : description_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.StringValue description = 8 [json_name = "description"];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> 
+          getDescriptionFieldBuilder() {
+        if (descriptionBuilder_ == null) {
+          descriptionBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder>(
+                  getDescription(),
+                  getParentForChildren(),
+                  isClean());
+          description_ = null;
+        }
+        return descriptionBuilder_;
+      }
+
       private catalog_api_v2.CatalogApiV2.Icon icon_;
       private com.google.protobuf.SingleFieldBuilderV3<
           catalog_api_v2.CatalogApiV2.Icon, catalog_api_v2.CatalogApiV2.Icon.Builder, catalog_api_v2.CatalogApiV2.IconOrBuilder> iconBuilder_;
       /**
-       * <code>.catalog_api_v2.Icon icon = 8;</code>
+       * <code>.catalog_api_v2.Icon icon = 9;</code>
        * @return Whether the icon field is set.
        */
       public boolean hasIcon() {
         return iconBuilder_ != null || icon_ != null;
       }
       /**
-       * <code>.catalog_api_v2.Icon icon = 8;</code>
+       * <code>.catalog_api_v2.Icon icon = 9;</code>
        * @return The icon.
        */
       public catalog_api_v2.CatalogApiV2.Icon getIcon() {
@@ -29411,7 +29624,7 @@ public final class CatalogApiV2 {
         }
       }
       /**
-       * <code>.catalog_api_v2.Icon icon = 8;</code>
+       * <code>.catalog_api_v2.Icon icon = 9;</code>
        */
       public Builder setIcon(catalog_api_v2.CatalogApiV2.Icon value) {
         if (iconBuilder_ == null) {
@@ -29427,7 +29640,7 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.catalog_api_v2.Icon icon = 8;</code>
+       * <code>.catalog_api_v2.Icon icon = 9;</code>
        */
       public Builder setIcon(
           catalog_api_v2.CatalogApiV2.Icon.Builder builderForValue) {
@@ -29441,7 +29654,7 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.catalog_api_v2.Icon icon = 8;</code>
+       * <code>.catalog_api_v2.Icon icon = 9;</code>
        */
       public Builder mergeIcon(catalog_api_v2.CatalogApiV2.Icon value) {
         if (iconBuilder_ == null) {
@@ -29459,7 +29672,7 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.catalog_api_v2.Icon icon = 8;</code>
+       * <code>.catalog_api_v2.Icon icon = 9;</code>
        */
       public Builder clearIcon() {
         if (iconBuilder_ == null) {
@@ -29473,7 +29686,7 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.catalog_api_v2.Icon icon = 8;</code>
+       * <code>.catalog_api_v2.Icon icon = 9;</code>
        */
       public catalog_api_v2.CatalogApiV2.Icon.Builder getIconBuilder() {
         
@@ -29481,7 +29694,7 @@ public final class CatalogApiV2 {
         return getIconFieldBuilder().getBuilder();
       }
       /**
-       * <code>.catalog_api_v2.Icon icon = 8;</code>
+       * <code>.catalog_api_v2.Icon icon = 9;</code>
        */
       public catalog_api_v2.CatalogApiV2.IconOrBuilder getIconOrBuilder() {
         if (iconBuilder_ != null) {
@@ -29492,7 +29705,7 @@ public final class CatalogApiV2 {
         }
       }
       /**
-       * <code>.catalog_api_v2.Icon icon = 8;</code>
+       * <code>.catalog_api_v2.Icon icon = 9;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           catalog_api_v2.CatalogApiV2.Icon, catalog_api_v2.CatalogApiV2.Icon.Builder, catalog_api_v2.CatalogApiV2.IconOrBuilder> 
@@ -29508,80 +29721,123 @@ public final class CatalogApiV2 {
         return iconBuilder_;
       }
 
-      private java.lang.Object altIcon_ = "";
+      private com.google.protobuf.StringValue altIcon_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> altIconBuilder_;
       /**
-       * <code>string alt_icon = 9 [json_name = "alt_icon"];</code>
+       * <code>.google.protobuf.StringValue alt_icon = 10 [json_name = "alt_icon"];</code>
+       * @return Whether the altIcon field is set.
+       */
+      public boolean hasAltIcon() {
+        return altIconBuilder_ != null || altIcon_ != null;
+      }
+      /**
+       * <code>.google.protobuf.StringValue alt_icon = 10 [json_name = "alt_icon"];</code>
        * @return The altIcon.
        */
-      public java.lang.String getAltIcon() {
-        java.lang.Object ref = altIcon_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          altIcon_ = s;
-          return s;
+      public com.google.protobuf.StringValue getAltIcon() {
+        if (altIconBuilder_ == null) {
+          return altIcon_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : altIcon_;
         } else {
-          return (java.lang.String) ref;
+          return altIconBuilder_.getMessage();
         }
       }
       /**
-       * <code>string alt_icon = 9 [json_name = "alt_icon"];</code>
-       * @return The bytes for altIcon.
+       * <code>.google.protobuf.StringValue alt_icon = 10 [json_name = "alt_icon"];</code>
        */
-      public com.google.protobuf.ByteString
-          getAltIconBytes() {
-        java.lang.Object ref = altIcon_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          altIcon_ = b;
-          return b;
+      public Builder setAltIcon(com.google.protobuf.StringValue value) {
+        if (altIconBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          altIcon_ = value;
+          onChanged();
         } else {
-          return (com.google.protobuf.ByteString) ref;
+          altIconBuilder_.setMessage(value);
         }
+
+        return this;
       }
       /**
-       * <code>string alt_icon = 9 [json_name = "alt_icon"];</code>
-       * @param value The altIcon to set.
-       * @return This builder for chaining.
+       * <code>.google.protobuf.StringValue alt_icon = 10 [json_name = "alt_icon"];</code>
        */
       public Builder setAltIcon(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        altIcon_ = value;
-        onChanged();
+          com.google.protobuf.StringValue.Builder builderForValue) {
+        if (altIconBuilder_ == null) {
+          altIcon_ = builderForValue.build();
+          onChanged();
+        } else {
+          altIconBuilder_.setMessage(builderForValue.build());
+        }
+
         return this;
       }
       /**
-       * <code>string alt_icon = 9 [json_name = "alt_icon"];</code>
-       * @return This builder for chaining.
+       * <code>.google.protobuf.StringValue alt_icon = 10 [json_name = "alt_icon"];</code>
+       */
+      public Builder mergeAltIcon(com.google.protobuf.StringValue value) {
+        if (altIconBuilder_ == null) {
+          if (altIcon_ != null) {
+            altIcon_ =
+              com.google.protobuf.StringValue.newBuilder(altIcon_).mergeFrom(value).buildPartial();
+          } else {
+            altIcon_ = value;
+          }
+          onChanged();
+        } else {
+          altIconBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.StringValue alt_icon = 10 [json_name = "alt_icon"];</code>
        */
       public Builder clearAltIcon() {
-        
-        altIcon_ = getDefaultInstance().getAltIcon();
-        onChanged();
+        if (altIconBuilder_ == null) {
+          altIcon_ = null;
+          onChanged();
+        } else {
+          altIcon_ = null;
+          altIconBuilder_ = null;
+        }
+
         return this;
       }
       /**
-       * <code>string alt_icon = 9 [json_name = "alt_icon"];</code>
-       * @param value The bytes for altIcon to set.
-       * @return This builder for chaining.
+       * <code>.google.protobuf.StringValue alt_icon = 10 [json_name = "alt_icon"];</code>
        */
-      public Builder setAltIconBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
+      public com.google.protobuf.StringValue.Builder getAltIconBuilder() {
         
-        altIcon_ = value;
         onChanged();
-        return this;
+        return getAltIconFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.StringValue alt_icon = 10 [json_name = "alt_icon"];</code>
+       */
+      public com.google.protobuf.StringValueOrBuilder getAltIconOrBuilder() {
+        if (altIconBuilder_ != null) {
+          return altIconBuilder_.getMessageOrBuilder();
+        } else {
+          return altIcon_ == null ?
+              com.google.protobuf.StringValue.getDefaultInstance() : altIcon_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.StringValue alt_icon = 10 [json_name = "alt_icon"];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> 
+          getAltIconFieldBuilder() {
+        if (altIconBuilder_ == null) {
+          altIconBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder>(
+                  getAltIcon(),
+                  getParentForChildren(),
+                  isClean());
+          altIcon_ = null;
+        }
+        return altIconBuilder_;
       }
 
       private com.google.protobuf.LazyStringList requirements_ = com.google.protobuf.LazyStringArrayList.EMPTY;
@@ -29592,7 +29848,7 @@ public final class CatalogApiV2 {
          }
       }
       /**
-       * <code>repeated string requirements = 10;</code>
+       * <code>repeated string requirements = 11;</code>
        * @return A list containing the requirements.
        */
       public com.google.protobuf.ProtocolStringList
@@ -29600,14 +29856,14 @@ public final class CatalogApiV2 {
         return requirements_.getUnmodifiableView();
       }
       /**
-       * <code>repeated string requirements = 10;</code>
+       * <code>repeated string requirements = 11;</code>
        * @return The count of requirements.
        */
       public int getRequirementsCount() {
         return requirements_.size();
       }
       /**
-       * <code>repeated string requirements = 10;</code>
+       * <code>repeated string requirements = 11;</code>
        * @param index The index of the element to return.
        * @return The requirements at the given index.
        */
@@ -29615,7 +29871,7 @@ public final class CatalogApiV2 {
         return requirements_.get(index);
       }
       /**
-       * <code>repeated string requirements = 10;</code>
+       * <code>repeated string requirements = 11;</code>
        * @param index The index of the value to return.
        * @return The bytes of the requirements at the given index.
        */
@@ -29624,7 +29880,7 @@ public final class CatalogApiV2 {
         return requirements_.getByteString(index);
       }
       /**
-       * <code>repeated string requirements = 10;</code>
+       * <code>repeated string requirements = 11;</code>
        * @param index The index to set the value at.
        * @param value The requirements to set.
        * @return This builder for chaining.
@@ -29640,7 +29896,7 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>repeated string requirements = 10;</code>
+       * <code>repeated string requirements = 11;</code>
        * @param value The requirements to add.
        * @return This builder for chaining.
        */
@@ -29655,7 +29911,7 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>repeated string requirements = 10;</code>
+       * <code>repeated string requirements = 11;</code>
        * @param values The requirements to add.
        * @return This builder for chaining.
        */
@@ -29668,7 +29924,7 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>repeated string requirements = 10;</code>
+       * <code>repeated string requirements = 11;</code>
        * @return This builder for chaining.
        */
       public Builder clearRequirements() {
@@ -29678,7 +29934,7 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>repeated string requirements = 10;</code>
+       * <code>repeated string requirements = 11;</code>
        * @param value The bytes of the requirements to add.
        * @return This builder for chaining.
        */
@@ -31937,31 +32193,33 @@ public final class CatalogApiV2 {
       "alueR\016feedback_count\022E\n\016feedbackSource\030\002" +
       " \001(\0132\034.google.protobuf.StringValueR\017feed" +
       "back_source\022A\n\014commentCount\030\003 \001(\0132\034.goog" +
-      "le.protobuf.DoubleValueR\rcomment_count\"\372" +
-      "\001\n\tMainTaxon\022\n\n\002id\030\001 \001(\001\022\014\n\004type\030\002 \001(\t\022\014" +
+      "le.protobuf.DoubleValueR\rcomment_count\"\330" +
+      "\002\n\tMainTaxon\022\n\n\002id\030\001 \001(\001\022\014\n\004type\030\002 \001(\t\022\014" +
       "\n\004name\030\003 \001(\t\022&\n\016products_count\030\004 \001(\001R\016pr" +
       "oducts_count\022&\n\016promo_services\030\005 \003(\tR\016pr" +
       "omo_services\022\020\n\010position\030\006 \001(\001\022\r\n\005depth\030" +
-      "\007 \001(\005\022\"\n\004icon\030\010 \001(\0132\024.catalog_api_v2.Ico" +
-      "n\022\032\n\010alt_icon\030\t \001(\tR\010alt_icon\022\024\n\014require" +
-      "ments\030\n \003(\t\"B\n\004Icon\022\032\n\010mini_url\030\001 \001(\tR\010m" +
-      "ini_url\022\036\n\nnormal_url\030\002 \001(\tR\nnormal_url\"" +
-      "\310\001\n\013ProtoPerson\022/\n\tfirstName\030\001 \001(\0132\034.goo" +
-      "gle.protobuf.StringValue\022.\n\010lastName\030\002 \001" +
-      "(\0132\034.google.protobuf.StringValue\022.\n\010addr" +
-      "ess1\030\003 \001(\0132\034.google.protobuf.StringValue" +
-      "\022(\n\003age\030\004 \001(\0132\033.google.protobuf.Int32Val" +
-      "ue*5\n\tFacetType\022\n\n\006SELECT\020\000\022\020\n\014MULTI_SEL" +
-      "ECT\020\001\022\n\n\006TOGGLE\020\0022\206\002\n\023CatalogAPIV2Servic" +
-      "e\022v\n\016GetProductList\022%.catalog_api_v2.Get" +
-      "ProductListRequest\032&.catalog_api_v2.GetP" +
-      "roductListResponse\"\025\202\323\344\223\002\017\022\r/api/product" +
-      "s\022w\n\nGetProduct\022!.catalog_api_v2.GetProd" +
-      "uctRequest\032\".catalog_api_v2.GetProductRe" +
-      "sponse\"\"\202\323\344\223\002\034\022\032/api/products/{product_i" +
-      "d}BEZCgitlab.sbermarket.tech/paas/conten" +
-      "t/catalog/pkg/server/grpc/catalogb\006proto" +
-      "3"
+      "\007 \001(\005\022>\n\013description\030\010 \001(\0132\034.google.prot" +
+      "obuf.StringValueR\013description\022\"\n\004icon\030\t " +
+      "\001(\0132\024.catalog_api_v2.Icon\0228\n\010alt_icon\030\n " +
+      "\001(\0132\034.google.protobuf.StringValueR\010alt_i" +
+      "con\022\024\n\014requirements\030\013 \003(\t\"B\n\004Icon\022\032\n\010min" +
+      "i_url\030\001 \001(\tR\010mini_url\022\036\n\nnormal_url\030\002 \001(" +
+      "\tR\nnormal_url\"\310\001\n\013ProtoPerson\022/\n\tfirstNa" +
+      "me\030\001 \001(\0132\034.google.protobuf.StringValue\022." +
+      "\n\010lastName\030\002 \001(\0132\034.google.protobuf.Strin" +
+      "gValue\022.\n\010address1\030\003 \001(\0132\034.google.protob" +
+      "uf.StringValue\022(\n\003age\030\004 \001(\0132\033.google.pro" +
+      "tobuf.Int32Value*5\n\tFacetType\022\n\n\006SELECT\020" +
+      "\000\022\020\n\014MULTI_SELECT\020\001\022\n\n\006TOGGLE\020\0022\206\002\n\023Cata" +
+      "logAPIV2Service\022v\n\016GetProductList\022%.cata" +
+      "log_api_v2.GetProductListRequest\032&.catal" +
+      "og_api_v2.GetProductListResponse\"\025\202\323\344\223\002\017" +
+      "\022\r/api/products\022w\n\nGetProduct\022!.catalog_" +
+      "api_v2.GetProductRequest\032\".catalog_api_v" +
+      "2.GetProductResponse\"\"\202\323\344\223\002\034\022\032/api/produ" +
+      "cts/{product_id}BEZCgitlab.sbermarket.te" +
+      "ch/paas/content/catalog/pkg/server/grpc/" +
+      "catalogb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -32100,7 +32358,7 @@ public final class CatalogApiV2 {
     internal_static_catalog_api_v2_MainTaxon_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_MainTaxon_descriptor,
-        new java.lang.String[] { "Id", "Type", "Name", "ProductsCount", "PromoServices", "Position", "Depth", "Icon", "AltIcon", "Requirements", });
+        new java.lang.String[] { "Id", "Type", "Name", "ProductsCount", "PromoServices", "Position", "Depth", "Description", "Icon", "AltIcon", "Requirements", });
     internal_static_catalog_api_v2_Icon_descriptor =
       getDescriptor().getMessageTypes().get(21);
     internal_static_catalog_api_v2_Icon_fieldAccessorTable = new

@@ -3,7 +3,6 @@ package ru.instamart.test.content.product_hub;
 import io.grpc.StatusRuntimeException;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -12,6 +11,7 @@ import product_hub_front_meta.ProductHubFrontMetaGrpc;
 import product_hub_front_meta.ProductHubFrontMetaOuterClass;
 import ru.instamart.grpc.common.GrpcBase;
 import ru.instamart.grpc.common.GrpcContentHosts;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,7 +27,7 @@ public class ProductHubFrontMetaTest extends GrpcBase {
     private final Set<String> expectedCategoryIds = new HashSet<>();
     private final Set<String> expectedRetailerIds = new HashSet<>();
     private final Set<String> expectedAttributeKeys = new HashSet<>();
-    private final Set<String> expectedDictionaryKeys = new HashSet<>();
+    private String expectedDictionaryKey;
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
@@ -184,9 +184,6 @@ public class ProductHubFrontMetaTest extends GrpcBase {
         response.getAttributesList().forEach(attribute -> softAssert.assertTrue(expectedAttributeKeys.contains(attribute.getKey()),
                 "Лишний атрибут в ответе: " + attribute.getKey()));
         softAssert.assertAll();
-
-        response.getAttributesList().forEach(attribute -> expectedDictionaryKeys.add(attribute.getDictionaryKey()));
-        log.debug("expected dictionary keys:" + expectedDictionaryKeys);
     }
 
     @CaseId(195)
@@ -199,5 +196,132 @@ public class ProductHubFrontMetaTest extends GrpcBase {
                 .GetAttributesByKeysRequest.newBuilder()
                 .build();
         client.getAttributesByKeys(request);
+    }
+
+    @CaseId(196)
+    @Test(  description = "Получение всех аттрибутов в указанном диапазоне продуктов",
+            groups = "grpc-product-hub")
+    public void getAllAttributes() {
+        var request = ProductHubFrontMetaOuterClass
+                .GetAllAttributesRequest.newBuilder()
+                .setLimit(10)
+                .setOffset(0)
+                .build();
+        var response = client.getAllAttributes(request);
+
+        assertEquals(response.getAttributesCount(), 10, "Вернулось другое количество атрибутов");
+    }
+
+    @CaseId(197)
+    @Test(  description = "Получение всех аттрибутов в указанном диапазоне продуктов без поля \"limit\"",
+            groups = "grpc-product-hub",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: limit should be greater than zero")
+    public void getAllAttributesWithoutLimit() {
+        var request = ProductHubFrontMetaOuterClass
+                .GetAllAttributesRequest.newBuilder()
+                .setOffset(0)
+                .build();
+        client.getAllAttributes(request);
+    }
+
+    @CaseId(198)
+    @Test(  description = "Получение всех словарей продуктов в заданном диапазоне",
+            groups = "grpc-product-hub")
+    public void getAllDictionaries() {
+        var request = ProductHubFrontMetaOuterClass
+                .GetAllDictionariesRequest.newBuilder()
+                .setLimit(10)
+                .setOffset(0)
+                .build();
+        var response = client.getAllDictionaries(request);
+
+        assertEquals(response.getDictionariesCount(), 10, "Вернулось другое количество словарей");
+
+        expectedDictionaryKey = response.getDictionaries(0).getKey();
+    }
+
+    @CaseId(199)
+    @Test(  description = "Получение всех словарей продуктов в заданном диапазоне без поля \"limit\"",
+            groups = "grpc-product-hub",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: limit should be greater than zero")
+    public void getAllDictionariesWithoutLimit() {
+        var request = ProductHubFrontMetaOuterClass
+                .GetAllDictionariesRequest.newBuilder()
+                .setOffset(0)
+                .build();
+        client.getAllDictionaries(request);
+    }
+
+    @CaseId(200)
+    @Test(  description = "Проверка получения словарных ценностей по ключу словаря",
+            groups = "grpc-product-hub",
+            dependsOnMethods = "getAllDictionaries")
+    public void getAllDictionaryValues() {
+        var request = ProductHubFrontMetaOuterClass
+                .GetAllDictionaryValuesRequest.newBuilder()
+                .setDictionaryKey(expectedDictionaryKey)
+                .setLimit(10)
+                .setOffset(0)
+                .build();
+        var response = client.getAllDictionaryValues(request);
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(response.getDictionaryValuesCount() <= 10, "Вернулось больше словарных ценностей");
+        response.getDictionaryValuesList().forEach(dictionaryValue -> softAssert.assertEquals(dictionaryValue.getId(), expectedDictionaryKey,
+                        "Не вернулся ожидаемый ключ словаря"));
+        softAssert.assertAll();
+    }
+
+    @CaseId(201)
+    @Test(  description = "Проверка получения словарных ценностей по ключу словаря с пустым значением в поле \"dictionary_key\"",
+            groups = "grpc-product-hub",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: dictionary key can't be empty")
+    public void getAllDictionaryValuesWithEmptyKey() {
+        var request = ProductHubFrontMetaOuterClass
+                .GetAllDictionaryValuesRequest.newBuilder()
+                .setDictionaryKey("")
+                .setLimit(1)
+                .setOffset(0)
+                .build();
+        client.getAllDictionaryValues(request);
+    }
+
+    @CaseId(202)
+    @Test(  description = "Получение данных по магазинам с помощью id ритейлера",
+            groups = "grpc-product-hub",
+            dependsOnMethods = "getAllCategories")
+    public void getRetailerStores() {
+        var request = ProductHubFrontMetaOuterClass
+                .GetRetailerStoresRequest.newBuilder()
+                .addAllRetailerIds(expectedRetailerIds)
+                .build();
+        var response = client.getRetailerStores(request);
+
+        Set<String> retailerIdsFromResponse = new HashSet<>();
+        response.getRetailerStoresList().forEach(store -> retailerIdsFromResponse.add(store.getRetailerId()));
+        log.info("retailer ids from response:" + retailerIdsFromResponse);
+
+        SoftAssert softAssert = new SoftAssert();
+        expectedRetailerIds.forEach(expected -> softAssert.assertTrue(retailerIdsFromResponse.contains(expected),
+                "Один из ритейлеров не вернулся в ответе: " + expected));
+        response.getRetailerStoresList().forEach(store -> softAssert.assertTrue(expectedRetailerIds.contains(store.getRetailerId()),
+                "Лишний ритейлер в ответе: " + store.getRetailerId()));
+        softAssert.assertAll();
+    }
+
+    @CaseId(203)
+    @Test(  description = "Получение данных по магазинам с помощью пустого значения в поле \"retailer_ids\"",
+            groups = "grpc-product-hub",
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: retailer_id number 0 is empty")
+    public void getRetailerStoresWithEmptyIds() {
+        var request = ProductHubFrontMetaOuterClass
+                .GetRetailerStoresRequest.newBuilder()
+                .addRetailerIds("")
+                .build();
+        client.getRetailerStores(request);
     }
 }
