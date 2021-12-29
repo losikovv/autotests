@@ -4,12 +4,14 @@ import io.restassured.response.Response;
 import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
+import ru.instamart.api.request.admin.ShippingMethodsRequest;
 import ru.instamart.api.request.v1.OperationalZonesV1Request;
+import ru.instamart.api.request.v1.ShippingMethodsV1Request;
+import ru.instamart.api.request.v1.ShippingMethodsV1Request.MarketingPricers;
+import ru.instamart.api.request.v1.ShippingMethodsV1Request.NominalPricers;
 import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
-import ru.instamart.api.response.v1.OperationalZoneV1Response;
-import ru.instamart.api.response.v1.DeliveryWindowsV1Response;
-import ru.instamart.kraken.data.StaticPageData;
+import ru.instamart.api.response.v1.*;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
@@ -56,5 +58,75 @@ public class AdminHelper {
         final Response response = OperationalZonesV1Request.POST(zoneName);
         checkStatusCode200(response);
         return response.as(OperationalZoneV1Response.class).getOperationalZone();
+    }
+
+    public ShippingMethodsResponse getShippingMethods() {
+        final var response = ShippingMethodsV1Request.GET();
+        checkStatusCode200(response);
+
+        return response.as(ShippingMethodsResponse.class);
+    }
+
+    public void createShippingMethod(final ShippingMethodsRequest.ShippingMethod shippingMethod) {
+        final var response = ShippingMethodsRequest.POST(shippingMethod);
+        checkStatusCode302(response);
+    }
+
+    public PricersV1Response getMarketingRule(final int methodId) {
+        final var response = MarketingPricers.GET(methodId);
+        checkStatusCode200(response);
+
+        return response.as(PricersV1Response.class);
+    }
+
+    public PricerV1Response createMarketingRule(final int id) {
+        final var response = MarketingPricers.POST(id);
+        checkStatusCode200(response);
+
+        return response.as(PricerV1Response.class);
+    }
+
+    public void deleteMarketingRule(final int id) {
+        final var response = MarketingPricers.DELETE(id);
+        checkStatusCode200(response);
+    }
+
+    public PricersV1Response getNominalRule(final int methodId) {
+        final var response = NominalPricers.GET(methodId);
+        checkStatusCode200(response);
+
+        return response.as(PricersV1Response.class);
+    }
+
+    public PricerV1Response createNominalRule(final int id) {
+        final var response = NominalPricers.POST(id);
+        checkStatusCode200(response);
+
+        return response.as(PricerV1Response.class);
+    }
+
+    public void deleteNominalRule(final int id) {
+        final var response = NominalPricers.DELETE(id);
+        checkStatusCode200(response);
+    }
+
+    public void createPricerRule(final int ruleId, final ShippingMethodsV1Request.Rules rules) {
+        final var response = ShippingMethodsV1Request.Rules.POST(ruleId, rules);
+        checkStatusCode200(response);
+    }
+
+    public void createPricerCalculator(final int ruleId, final ShippingMethodsV1Request.Calculators calculators) {
+        final var response = ShippingMethodsV1Request.Calculators.POST(ruleId, calculators);
+        checkStatusCode200(response);
+    }
+
+    public void updateRule(final int ruleId, final ShippingMethodsV1Request.Rules rules) {
+        final var response = ShippingMethodsV1Request.Rules.PUT(ruleId, rules);
+        checkStatusCode200(response);
+    }
+
+    public void updateCalculator(final int ruleId, final ShippingMethodsV1Request.Calculators calculators) {
+        final var response = ShippingMethodsV1Request.Calculators.PUT(ruleId, calculators);
+        checkStatusCode200(response);
     }
 }

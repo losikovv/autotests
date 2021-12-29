@@ -11,7 +11,12 @@ import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.SessionV2;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
+import ru.instamart.api.request.admin.ShippingMethodsRequest;
+import ru.instamart.api.request.v1.ShippingMethodsV1Request;
 import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
+import ru.instamart.api.response.v1.PricerV1Response;
+import ru.instamart.api.response.v1.PricersV1Response;
+import ru.instamart.api.response.v1.ShippingMethodsResponse;
 import ru.instamart.jdbc.dao.OffersDao;
 import ru.instamart.jdbc.dao.OperationalZonesDao;
 import ru.instamart.jdbc.dao.PromotionCodesDao;
@@ -215,7 +220,7 @@ public final class ApiHelper {
 
     @Step("Добавить компанию {inn}/{companyName} пользователю {ownerEmail}")
     public void addCompanyForUser(final String inn, final String companyName, final String ownerEmail) {
-        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
+        authAdminApi();
         admin.addCompany(inn, companyName, ownerEmail);
     }
 
@@ -231,19 +236,19 @@ public final class ApiHelper {
                 .foreignLink(data.getPageURL())
                 .position(Integer.parseInt(data.getPosition()))
                 .build();
-        SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
+        authAdmin();
         admin.createStaticPage(page);
     }
 
     @Step("Удаляем статичную страницу {pageId} в админке")
     public void deleteStaticPageInAdmin(Long pageId) {
-        SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
+        authAdmin();
         admin.deleteStaticPage(pageId);
     }
 
     @Step("Добавляем новый регион {zoneName} для магазина в админке")
     public OperationalZoneV1 createOperationalZonesInAdmin(String zoneName) {
-        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdminAllRoles());
+        authAdminApi();
         return admin.addOperationalZones(zoneName);
     }
 
@@ -257,20 +262,6 @@ public final class ApiHelper {
         OperationalZonesShopperDao.INSTANCE.deleteZoneByName(zoneName);
     }
 
-    /**
-     * @param user должен иметь phone и encryptedPhone
-     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
-     */
-    @Step("Регистрация/авторизация по номеру телефона с помощью API")
-    private void auth(final UserData user) {
-        SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.PHONE, user);
-    }
-
-    @Step("Авторизация администратором")
-    private void authAdmin() {
-        SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
-    }
-
     @Step("Получение реферального промокода для пользователя")
     public String getReferralPromotionCode(final UserData user) {
         auth(user);
@@ -282,5 +273,96 @@ public final class ApiHelper {
     public void createPromotionCode(String value, Integer promotionId,
                                     String createdAt, String updatedAt, Integer usageLimit) {
         PromotionCodesDao.INSTANCE.createPromoCode(value, promotionId, createdAt, updatedAt, usageLimit);
+    }
+
+    @Step("Получить список доступных методов доставки")
+    public ShippingMethodsResponse getShippingMethod() {
+        authAdminApi();
+        return admin.getShippingMethods();
+    }
+
+    @Step("Создание нового способа доставки {0}")
+    public void createShippingMethod(final ShippingMethodsRequest.ShippingMethod shippingMethod) {
+        authAdmin();
+        admin.createShippingMethod(shippingMethod);
+    }
+
+    @Step("Получить список маркетинговых правил доставки для метода {0}")
+    public PricersV1Response getMarketingRule(final int methodId) {
+        authAdminApi();
+        return admin.getMarketingRule(methodId);
+    }
+
+    @Step("Создание нового маркетингово правила для доставки {0}")
+    public PricerV1Response createMarketingRule(final int id) {
+        authAdminApi();
+        return admin.createMarketingRule(id);
+    }
+
+    @Step("Удаление нового маркетингово правила для доставки {0}")
+    public void deleteMarketingRule(final int id) {
+        authAdminApi();
+        admin.deleteMarketingRule(id);
+    }
+
+    @Step("Получить список номинальных правил доставки для метода {0}")
+    public PricersV1Response getNominalRule(final int methodId) {
+        authAdminApi();
+        return admin.getNominalRule(methodId);
+    }
+
+    @Step("Создание нового номинального правила для доставки {0}")
+    public PricerV1Response createNominalRule(final int id) {
+        authAdminApi();
+        return admin.createNominalRule(id);
+    }
+
+    @Step("Удаление нового номинального правила для доставки {0}")
+    public void deleteNominalRule(final int id) {
+        authAdminApi();
+        admin.deleteNominalRule(id);
+    }
+
+    @Step("Создать правило {0} данными {1}")
+    public void createPricerRules(final int ruleId, final ShippingMethodsV1Request.Rules data) {
+        authAdminApi();
+        admin.createPricerRule(ruleId, data);
+    }
+
+    @Step("Создать калькулятор {0} данными {1}")
+    public void createPricerCalculator(final int ruleId, final ShippingMethodsV1Request.Calculators data) {
+        authAdminApi();
+        admin.createPricerCalculator(ruleId, data);
+    }
+
+    @Step("Обновить правило {0} данными {1}")
+    public void updateRules(final int ruleId, final ShippingMethodsV1Request.Rules data) {
+        authAdminApi();
+        admin.updateRule(ruleId, data);
+    }
+
+    @Step("Обновить калькулятор {0} данными {1}")
+    public void updateCalculator(final int ruleId, final ShippingMethodsV1Request.Calculators data) {
+        authAdminApi();
+        admin.updateCalculator(ruleId, data);
+    }
+
+    /**
+     * @param user должен иметь phone и encryptedPhone
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     */
+    @Step("Регистрация/авторизация по номеру телефона с помощью API")
+    private void auth(final UserData user) {
+        SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.PHONE, user);
+    }
+
+    @Step("Авторизация администратором для API")
+    private void authAdminApi() {
+        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdminAllRoles());
+    }
+
+    @Step("Авторизация администратором")
+    private void authAdmin() {
+        SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
     }
 }

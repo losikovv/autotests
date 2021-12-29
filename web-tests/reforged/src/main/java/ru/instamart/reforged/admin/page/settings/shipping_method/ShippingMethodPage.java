@@ -40,6 +40,26 @@ public final class ShippingMethodPage implements AdminPage, ShippingMethodCheck 
         deleteMarketingRule.click();
     }
 
+    @Step("Установить первый интервал {0} маркетингова 'Интервального правила'")
+    public void fillFirstMarketingIntervalRule(final String data) {
+        firstInterval.fillField(data);
+    }
+
+    @Step("Установить второй интервал {0} маркетингова 'Интервального правила'")
+    public void fillSecondMarketingIntervalRule(final String data) {
+        secondInterval.fillField(data);
+    }
+
+    @Step("Установить дней с последнего заказа {0} маркетингова 'Периодического правила'")
+    public void fillDayMarketingPeriodicRule(final String data) {
+        dayFromLastShipment.fillField(data);
+    }
+
+    @Step("Установить минимальной суммы последнего заказа {0} маркетингова 'Периодического правила'")
+    public void fillMinSumMarketingPeriodicRule(final String data) {
+        minShipmentSum.fillField(data);
+    }
+
     @Step("Открыть форму добавления номинального правила")
     public void clickToAddNewNominalRule() {
         addNewNominalRule.click();
@@ -117,7 +137,7 @@ public final class ShippingMethodPage implements AdminPage, ShippingMethodCheck 
 
     @Step("Нажать на кнопку 'Применить изменения'")
     public void clickToSubmitChanges() {
-        submitChanges.click();
+        submitChanges.hoverAndClick();
     }
 
     @Override

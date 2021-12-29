@@ -2,8 +2,16 @@ package ru.instamart.test.reforged.admin;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.api.request.admin.ShippingMethodsRequest.ShippingMethod;
+import ru.instamart.api.request.v1.ShippingMethodsV1Request;
+import ru.instamart.api.request.v1.ShippingMethodsV1Request.Calculators;
+import ru.instamart.api.request.v1.ShippingMethodsV1Request.Rules;
+import ru.instamart.api.response.v1.ShippingMethodsResponse.ShippingMethods;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.test.reforged.BaseTest;
@@ -11,13 +19,44 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
-//TODO: Для корректной работы нужны методы в хелпере для удаления правил
 @Epic("Админка STF")
 @Feature("Настройки")
 public final class AdministrationShippingSettingsTests extends BaseTest {
 
+    private final ApiHelper helper = new ApiHelper();
+
+    private final Rules firstOrderRule = Rules
+            .builder()
+            .type(ShippingMethodsV1Request.RulesType.FIRST_ORDER_RULE)
+            .build();
+    private final Calculators flatCalculator = Calculators
+            .builder()
+            .type(ShippingMethodsV1Request.CalculatorType.FLAT_CALCULATOR)
+            .build();
+
+    private ShippingMethods shippingMethod;
+
+    @BeforeClass
+    public void beforeClass() {
+        shippingMethod = helper.getShippingMethod()
+                .getShippingMethods()
+                .stream()
+                .filter(m -> m.getName().equals("Autotest"))
+                .findAny().orElseGet(() -> {
+                    var method = ShippingMethod.builder().build();
+                    helper.createShippingMethod(method);
+                    return null;
+                });
+        Assert.assertNotNull(shippingMethod, "Отсутствует метод доставки Autotest");
+    }
+
     @BeforeMethod()
     public void beforeMethod() {
+        helper.getNominalRule(shippingMethod.getId()).getPricers()
+                .forEach(rule -> helper.deleteNominalRule(rule.getId()));
+        helper.getMarketingRule(shippingMethod.getId()).getPricers()
+                .forEach(rule -> helper.deleteMarketingRule(rule.getId()));
+
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
     }
@@ -25,6 +64,8 @@ public final class AdministrationShippingSettingsTests extends BaseTest {
     @CaseId(527)
     @Test(description = "При клике на 'Калькулятор цены' отображается выпадающий список с типами", groups = {"acceptance", "regression"})
     public void testPriceCalculator() {
+        helper.createMarketingRule(shippingMethod.getId());
+
         shippingMethod().goToPage();
         shippingMethod().clickToEditShipmentMethod("Autotest");
         shippingMethod().clickToMarketingSelectCalculator();
@@ -35,6 +76,8 @@ public final class AdministrationShippingSettingsTests extends BaseTest {
     @CaseId(528)
     @Test(description = "Выбор калькулятора 'Фиксированная цена'", groups = {"acceptance", "regression"})
     public void testSelectFixPriceCalculator() {
+        helper.createNominalRule(shippingMethod.getId());
+
         shippingMethod().goToPage();
         shippingMethod().clickToEditShipmentMethod("Autotest");
         shippingMethod().clickToNominalSelectCalculator();
@@ -54,23 +97,25 @@ public final class AdministrationShippingSettingsTests extends BaseTest {
     @CaseId(530)
     @Test(description = "Выбор калькулятора 'Цена с учётом сложности'", groups = {"acceptance", "regression"})
     public void testSelectCalculatorPriceWithDifficulty() {
+        final var marketingPricer = helper.createMarketingRule(shippingMethod.getId()).getPricer();
+        helper.createPricerRules(marketingPricer.getId(), firstOrderRule);
+        helper.createPricerCalculator(marketingPricer.getId(), flatCalculator);
+        final var nominalPricer = helper.createNominalRule(shippingMethod.getId()).getPricer();
+        helper.createPricerRules(nominalPricer.getId(), firstOrderRule);
         shippingMethod().goToPage();
         shippingMethod().clickToEditShipmentMethod("Autotest");
-        shippingMethod().clickToAddNewNominalRule();
-        shippingMethod().clickToNominalSelectRule();
-        shippingMethod().selectValue("Первый заказ");
         shippingMethod().clickToNominalSelectCalculator();
         shippingMethod().selectValue("Цена с учетом сложности");
         shippingMethod().clickToSubmitChanges();
         shippingMethod().fillBasePrice("10");
-        shippingMethod().fillBaseCount("10");
-        shippingMethod().fillAssemblySurcharge("10");
-        shippingMethod().fillBagSurcharge("10");
-        shippingMethod().fillBaseWeight("10");
-        shippingMethod().fillAddedWeight("10");
-        shippingMethod().fillSurchargeWeight("10");
-        shippingMethod().fillAddedCount("10");
-        shippingMethod().fillSurchargeCount("10");
+        shippingMethod().fillBaseCount("11");
+        shippingMethod().fillAssemblySurcharge("12");
+        shippingMethod().fillBagSurcharge("13");
+        shippingMethod().fillBaseWeight("14");
+        shippingMethod().fillAddedWeight("15");
+        shippingMethod().fillSurchargeWeight("16");
+        shippingMethod().fillAddedCount("17");
+        shippingMethod().fillSurchargeCount("18");
         shippingMethod().clickToSubmitChanges();
     }
 
@@ -140,18 +185,93 @@ public final class AdministrationShippingSettingsTests extends BaseTest {
     @CaseId(522)
     @Test(description = "Удалить правило маркетинговой стоимости доставки", groups = {"acceptance", "regression"})
     public void testRemoveMarketingRule() {
+        helper.createMarketingRule(shippingMethod.getId());
         shippingMethod().goToPage();
         shippingMethod().clickToEditShipmentMethod("Autotest");
-        shippingMethod().clickToAddNewMarketingRule();
         shippingMethod().deleteMarketingRule();
     }
 
     @CaseId(523)
     @Test(description = "Удалить правило номинальной стоимости доставки", groups = {"acceptance", "regression"})
     public void testRemoveNominalRule() {
+        helper.createNominalRule(shippingMethod.getId());
         shippingMethod().goToPage();
         shippingMethod().clickToEditShipmentMethod("Autotest");
-        shippingMethod().clickToAddNewNominalRule();
         shippingMethod().deleteNominalRule();
+    }
+
+    @CaseId(516)
+    @Test(description = "При клике на 'Тип правила' отображается выпадающий список с типами", groups = {"acceptance", "regression"})
+    public void testPriceRules() {
+        helper.createMarketingRule(shippingMethod.getId());
+
+        shippingMethod().goToPage();
+        shippingMethod().clickToEditShipmentMethod("Autotest");
+        shippingMethod().clickToMarketingSelectRule();
+        shippingMethod().checkValueInSelector("Первый заказ");
+        shippingMethod().checkValueInSelector("Интервал стоимости заказа");
+        shippingMethod().checkValueInSelector("Ритейлер");
+        shippingMethod().checkValueInSelector("Периодический заказ");
+        shippingMethod().checkValueInSelector("Заказ c 5-20 апреля 2021");
+    }
+
+    @CaseId(517)
+    @Test(description = "Выбор правила 'Интервал стоимости заказа' и установка интервала", groups = {"acceptance", "regression"})
+    public void testInterval() {
+        final var marketingPricer = helper.createMarketingRule(shippingMethod.getId()).getPricer();
+        helper.createPricerCalculator(marketingPricer.getId(), flatCalculator);
+        final var nominalPricer = helper.createNominalRule(shippingMethod.getId()).getPricer();
+        helper.createPricerRules(nominalPricer.getId(), firstOrderRule);
+        helper.createPricerCalculator(nominalPricer.getId(), flatCalculator);
+
+        shippingMethod().goToPage();
+        shippingMethod().clickToEditShipmentMethod("Autotest");
+        shippingMethod().clickToMarketingSelectRule();
+        shippingMethod().selectValue("Интервал стоимости заказа");
+        shippingMethod().fillFirstMarketingIntervalRule("10");
+        shippingMethod().fillSecondMarketingIntervalRule("500");
+        shippingMethod().clickToSubmitChanges();
+    }
+
+    @CaseId(520)
+    @Test(description = "Выбор правила 'Периодический заказ' и заполнение полей с днями и суммой", groups = {"acceptance", "regression"})
+    public void testPeriodic() {
+        final var marketingPricer = helper.createMarketingRule(shippingMethod.getId()).getPricer();
+        helper.createPricerCalculator(marketingPricer.getId(), flatCalculator);
+        final var nominalPricer = helper.createNominalRule(shippingMethod.getId()).getPricer();
+        helper.createPricerRules(nominalPricer.getId(), firstOrderRule);
+        helper.createPricerCalculator(nominalPricer.getId(), flatCalculator);
+
+        shippingMethod().goToPage();
+        shippingMethod().clickToEditShipmentMethod("Autotest");
+        shippingMethod().clickToMarketingSelectRule();
+        shippingMethod().selectValue("Периодический заказ");
+        shippingMethod().fillDayMarketingPeriodicRule("6");
+        shippingMethod().fillMinSumMarketingPeriodicRule("666");
+        shippingMethod().clickToSubmitChanges();
+    }
+
+    @CaseId(526)
+    @Test(description = "Валидация полей интервала стоимости заказа", groups = {"acceptance", "regression"})
+    public void testValidateInterval() {
+        final var marketingPricer = helper.createMarketingRule(shippingMethod.getId()).getPricer();
+        helper.createPricerCalculator(marketingPricer.getId(), flatCalculator);
+        final var nominalPricer = helper.createNominalRule(shippingMethod.getId()).getPricer();
+        helper.createPricerRules(nominalPricer.getId(), firstOrderRule);
+        helper.createPricerCalculator(nominalPricer.getId(), flatCalculator);
+
+        shippingMethod().goToPage();
+        shippingMethod().clickToEditShipmentMethod("Autotest");
+        shippingMethod().clickToMarketingSelectRule();
+        shippingMethod().selectValue("Интервал стоимости заказа");
+        shippingMethod().fillFirstMarketingIntervalRule("2000");
+        shippingMethod().fillSecondMarketingIntervalRule("1500");
+        shippingMethod().checkIntervalError();
+
+        shippingMethod().fillFirstMarketingIntervalRule("500");
+        shippingMethod().checkSubmitButtonActive();
+
+        shippingMethod().fillFirstMarketingIntervalRule("0");
+        shippingMethod().checkSubmitButtonActive();
     }
 }

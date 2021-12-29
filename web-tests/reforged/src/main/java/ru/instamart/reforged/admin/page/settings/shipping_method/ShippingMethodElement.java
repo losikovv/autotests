@@ -23,6 +23,18 @@ public interface ShippingMethodElement {
     Button deleteMarketingRule = new Button(By.xpath("//div/span[text()='Правила маркетинговой стоимости доставки']/parent::div/following::div[2]//span[@aria-label='delete']"),
             "кнопка удаления маркетингова правила");
 
+    Input firstInterval = new Input(By.xpath("//div/span[text()='Правила маркетинговой стоимости доставки']/parent::div/following::div[2]//span[text()='Интервал стоимости заказа']/parent::div/following::div[1]/div[1]//input"),
+            "первый интервал маркетингова 'Интервального правила'");
+    Input secondInterval = new Input(By.xpath("//div/span[text()='Правила маркетинговой стоимости доставки']/parent::div/following::div[2]//span[text()='Интервал стоимости заказа']/parent::div/following::div[1]/div[2]//input"),
+            "второй интервал маркетингова 'Интервального правила'");
+
+    Input dayFromLastShipment = new Input(By.xpath("//div/span[text()='Правила маркетинговой стоимости доставки']/following::div[2]//div[text()='Дней с последнего заказа']//input"),
+            "инпут дней с последнего маркетингова заказа 'Периодический заказ'");
+    Input minShipmentSum = new Input(By.xpath("//div/span[text()='Правила маркетинговой стоимости доставки']/following::div[2]//div[text()='Дней с последнего заказа']/following::div[1]//input"),
+            "инпут минимальной суммы маркетингова заказа 'Периодический заказ'");
+
+    Element intervalError = new Element(By.xpath("//p[text()='Недопустимый интервал']"), "ошибка недопустимого интервала");
+
     Button addNewNominalRule = new Button(By.xpath("//div/span[text()='Правила номинальной стоимости доставки']/parent::div/following::div[3]//button"),
             "кнопка добавления правила");
     Element selectNominalCalculator = new Element(By.xpath("//div/span[text()='Правила номинальной стоимости доставки']/parent::div/following::div[2]//div[text()='Тип калькулятора']"),
