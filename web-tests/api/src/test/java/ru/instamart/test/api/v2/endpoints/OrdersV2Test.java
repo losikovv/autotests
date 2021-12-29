@@ -49,15 +49,15 @@ public class OrdersV2Test extends RestBase {
         promoCode = getPromotionCode();
     }
 
-    @Deprecated
-    @Test(description = "Получаем заказы",
-            groups = {})
+    @CaseId(1419)
+    @Story("Получение заказов")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получаем заказы")
     public void getOrders() {
-        response = OrdersV2Request.GET();
+        final Response response = OrdersV2Request.GET();
         checkStatusCode200(response);
-        assertNotNull(response.as(OrdersV2Response.class).getOrders(), "Не вернулись заказы");
+        checkResponseJsonSchema(response, OrdersV2Response.class);
     }
-
 
     @Deprecated
     @Test(description = "Получаем заказ",

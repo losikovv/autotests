@@ -2,6 +2,7 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
@@ -26,7 +27,7 @@ public class SearchesV2Test extends RestBase {
     @Test(description = "Получаем поисковые подсказки",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getSearchSuggestions200() {
-        response = SearchesV2Request.Suggestions.GET(1);
+        final Response response = SearchesV2Request.Suggestions.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         checkFieldIsNotEmpty(response.as(SearchSuggestionsV2Response.class).getSuggestion(), "поисковые подсказки");
     }
@@ -44,8 +45,8 @@ public class SearchesV2Test extends RestBase {
             groups = {"api-instamart-smoke", "api-instamart-prod"},
             dataProvider = "positiveQuery",
             dataProviderClass = RestDataProvider.class)
-    public void getSearchSuggestionsWithQuery(int sid, String query) {
-        final Response response = SearchesV2Request.Suggestions.GET(sid, query);
+    public void getSearchSuggestionsWithQuery(String query) {
+        final Response response = SearchesV2Request.Suggestions.GET(EnvironmentProperties.DEFAULT_SID, query);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, SearchSuggestionsV2Response.class);
     }
@@ -55,8 +56,8 @@ public class SearchesV2Test extends RestBase {
             groups = {"api-instamart-regress"},
             dataProvider = "negativeQuery",
             dataProviderClass = RestDataProvider.class)
-    public void getSearchSuggestionsWithSqlQuery(int sid, String query) {
-        final Response response = SearchesV2Request.Suggestions.GET(sid, query);
+    public void getSearchSuggestionsWithSqlQuery(String query) {
+        final Response response = SearchesV2Request.Suggestions.GET(EnvironmentProperties.DEFAULT_SID, query);
         checkStatusCode200(response);
         SuggestionV2 suggestion = response.as(SearchSuggestionsV2Response.class).getSuggestion();
         checkSearchSuggestionsNegative(suggestion);
@@ -77,7 +78,7 @@ public class SearchesV2Test extends RestBase {
             dataProvider = "emptyQueries",
             dataProviderClass = RestDataProvider.class)
     public void getSearchSuggestionsWithEmptyQuery(String query) {
-        final Response response = SearchesV2Request.Suggestions.GET(1, query);
+        final Response response = SearchesV2Request.Suggestions.GET(EnvironmentProperties.DEFAULT_SID, query);
         checkStatusCode200(response);
         assertNull(response.as(SearchSuggestionsV2Response.class).getSuggestion().getProducts(), "Вернулись продукты в поисковых подсказках");
     }

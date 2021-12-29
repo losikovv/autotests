@@ -9,7 +9,7 @@ import ru.instamart.api.model.BaseObject;
 import javax.validation.constraints.Null;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class OfferV1 extends BaseObject {
     @JsonSchema(required = true)
     private Boolean active;
@@ -169,7 +169,7 @@ public class OfferV1 extends BaseObject {
     @JsonProperty(value = "vat_info")
     private Object vatInfo;
 
- @Override
+    @Override
     public String toString() {
         return "store: " + store +
                 ";\nname: " + name +

@@ -77,6 +77,15 @@ public class StoresV1Request extends ApiV1RequestBase {
         }
     }
 
+    public static class SearchSuggestions {
+        @Step("{method} /" + ApiV1Endpoints.Stores.StoreId.SEARCH_SUGGESTIONS)
+        public static Response GET(Integer storeId, String query){
+            return givenWithSpec()
+                    .queryParam("q", query)
+                    .get(ApiV1Endpoints.Stores.StoreId.SEARCH_SUGGESTIONS, storeId);
+        }
+    }
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
     @AllArgsConstructor

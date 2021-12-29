@@ -38,6 +38,7 @@ public final class ApiV2EndPoints {
     public static final String USERS = "v2/users";
     public static final String DELIVERY_AVAILABILITY = "v2/delivery_availability?lat={lat}&lon={lon}";
     public static final String INSTACOIN_ACCOUNT = "v2/instacoin_account";
+    public static final String CITIES = "v2/cities";
 
     public static final class AbTests {
         public static final String DEVICE_ID = "v2/ab_tests?device_id={deviceId}";

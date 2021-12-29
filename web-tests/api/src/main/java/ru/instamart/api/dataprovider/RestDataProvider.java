@@ -126,21 +126,20 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "positiveQuery", parallel = true)
     public static Object[][] getPositiveQuery() {
-        Object[][] queryArray = new Object[2][2];
-        queryArray[0] = new Object[]{1, "хлеб",};
-        queryArray[1] = new Object[]{1, "а"};
-        return queryArray;
+        return new Object[][]{
+                {"хлеб"},
+                {"ХЛЕБ"},
+                {"а"},
+        };
     }
 
     @DataProvider(name = "negativeQuery", parallel = true)
     public static Object[][] getNegativeQuery() {
-        Object[][] queryArray = new Object[3][2];
-        queryArray[0] = new Object[]{1, "SELECT * FROM spree_products"};
-        queryArray[1] = new Object[]{1, "!@#$%^&*()"};
-        queryArray[2] = new Object[]{1, RandomStringUtils.randomAlphabetic(8140)};
-        //queryArray[7] = new Object[]{1, RandomStringUtils.randomAlphabetic(8141), 414};
-        //пока не можем проверить, так как в теле ответа текст вместо json
-        return queryArray;
+        return new Object[][]{
+                {"SELECT * FROM spree_products"},
+                {"!@#$%^&*()"},
+                {RandomStringUtils.randomAlphabetic(8140)},
+        };
     }
 
     @DataProvider(name = "emptyQueries", parallel = true)
@@ -943,6 +942,29 @@ public class RestDataProvider extends RestBase {
                 {StoresV1Request.NextDeliveriesParams.builder()
                         .lat(address.getLat())
                         .lon(address.getLon())
+                        .build()}
+        };
+    }
+
+    @DataProvider(name = "citiesNameData", parallel = true)
+    public static Object[][] getCitiesNameData() {
+        return new Object[][]{
+                {"Москва"},
+                {"МОСКВА"},
+                {"мос"},
+                {"ква"},
+        };
+    }
+
+    @DataProvider(name = "citiesInvalidParams", parallel = true)
+    public static Object[][] getCitiesInvalidParams() {
+        return new Object[][]{
+                {CitiesV2Request.CitiesParams.builder()
+                        .keyword("пврврварв")
+                        .build()},
+                {CitiesV2Request.CitiesParams.builder()
+                        .page(2000)
+                        .perPage(3)
                         .build()}
         };
     }
