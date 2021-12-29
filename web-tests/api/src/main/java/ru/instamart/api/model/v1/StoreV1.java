@@ -35,14 +35,12 @@ public class StoreV1 extends BaseObject {
     @JsonProperty("box_scanning")
     private Object boxScanning;
 
-    @JsonSchema(required = true)
     private CityV1 city;
 
     @JsonSchema(required = true)
     @JsonProperty("city_id")
     private Long cityId;
 
-    @JsonSchema(required = true)
     private ConfigV1 config;
 
     @Null
@@ -70,11 +68,9 @@ public class StoreV1 extends BaseObject {
     @JsonSchema(required = true)
     private Long id;
 
-    @JsonSchema(required = true)
     @JsonProperty("import_key_postfix")
     private String importKeyPostfix;
 
-    @JsonSchema(required = true)
     private List<Object> licenses;
 
     @JsonSchema(required = true)
@@ -91,20 +87,17 @@ public class StoreV1 extends BaseObject {
     @JsonProperty("operational_zone")
     private OperationalZoneV1 operationalZone;
 
-    @JsonSchema(required = true)
     @JsonProperty("payment_methods_stores")
     private List<PaymentMethodsStoreV1> paymentMethodsStores;
 
     @Null
-    @JsonSchema(required = true)
     @JsonProperty("pharmacy_legal_info")
     private Object pharmacyLegalInfo;
 
     @Null
-    @JsonSchema(required = true)
     private Object phone;
 
-    @JsonSchema(required = true)
+
     @JsonProperty("pickup_instruction")
     private String pickupInstruction;
 
@@ -120,19 +113,15 @@ public class StoreV1 extends BaseObject {
     @JsonProperty("seconds_for_assembly_item")
     private Object secondsForAssemblyItem;
 
-    @JsonSchema(required = true)
     @JsonProperty("store_schedule")
     private StoreScheduleV1 storeSchedule;
 
-    @JsonSchema(required = true)
     @JsonProperty("store_shipping_methods")
     private List<StoreShippingMethodV1> storeShippingMethods;
 
-    @JsonSchema(required = true)
     @JsonProperty("store_zones")
     private List<StoreZoneV1> storeZones;
 
-    @JsonSchema(required = true)
     private List<StoreTenantV1> tenants;
 
     @JsonSchema(required = true)

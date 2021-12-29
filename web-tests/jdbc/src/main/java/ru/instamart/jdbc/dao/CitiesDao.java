@@ -13,13 +13,13 @@ import static org.testng.Assert.fail;
 public class CitiesDao extends AbstractDao<Long, CitiesEntity> {
 
     public static final CitiesDao INSTANCE = new CitiesDao();
-    private final String SELECT_SQL = "SELECT * FROM cities";
+    private final String SELECT_SQL = "SELECT %s FROM cities";
     private final String DELETE_SQL = "DELETE FROM cities";
 
     public CitiesEntity getCityByName(String cityName) {
         CitiesEntity city = new CitiesEntity();
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(SELECT_SQL +
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
                      " WHERE name = ?")) {
             preparedStatement.setString(1, cityName);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -45,5 +45,18 @@ public class CitiesDao extends AbstractDao<Long, CitiesEntity> {
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
+    }
+
+    public int getCount() {
+        int resultCount = 0;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"))) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            resultCount = resultSet.getInt("total");
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return resultCount;
     }
 }

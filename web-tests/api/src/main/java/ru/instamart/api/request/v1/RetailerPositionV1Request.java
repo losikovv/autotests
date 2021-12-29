@@ -9,7 +9,7 @@ import ru.instamart.api.request.ApiV1RequestBase;
 
 public class RetailerPositionV1Request extends ApiV1RequestBase {
 
-    @Step("{method} /" + ApiV1Endpoints.RETAILER_POSITION)
+    @Step("{method} /" + ApiV1Endpoints.RETAILER_POSITIONS)
     public static Response PUT(Integer firstRetailerId, Integer secondRetailerId) {
         JSONObject body = new JSONObject();
         JSONObject positions = new JSONObject();
@@ -19,6 +19,6 @@ public class RetailerPositionV1Request extends ApiV1RequestBase {
         return givenWithAuth()
                 .contentType(ContentType.JSON)
                 .body(body)
-                .put(ApiV1Endpoints.RETAILER_POSITION);
+                .put(ApiV1Endpoints.RETAILER_POSITIONS);
     }
 }

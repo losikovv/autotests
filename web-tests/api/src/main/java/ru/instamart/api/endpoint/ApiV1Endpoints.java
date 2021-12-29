@@ -16,9 +16,10 @@ public final class ApiV1Endpoints {
     public static final String COMPANY_MANAGERS = "company_managers";
     public static final String MARKETING_SAMPLES = "marketing_samples";
     public static final String COMPANIES = "companies";
-    public static final String RETAILER_POSITION = "retailer_positions";
+    public static final String RETAILER_POSITIONS = "retailer_positions";
     public static final String SHIPPING_POLICIES = "shipping_policies";
     public static final String MULTIRETAILER_ORDER = "multiretailer_order";
+    public static final String SHOPPING_SESSION = "shopping_session";
 
 
     public static final class DeliveryWindows {
@@ -39,6 +40,10 @@ public final class ApiV1Endpoints {
 
     public static final class Orders {
         public static final String NUMBER = "orders/{orderNumber}";
+    }
+
+    public static final class Promotions {
+        public static final String FREE_DELIVERY = "promotions/free_delivery";
     }
 
     public static final class Proxy {
@@ -87,6 +92,7 @@ public final class ApiV1Endpoints {
         public static final class StoreId {
 
             public static final String NEXT_DELIVERIES = "stores/{storeId}/next_deliveries";
+            public static final String SEARCH_SUGGESTIONS = "stores/{storeId}/search_suggestions";
 
             public static final class DeliveryWindows {
                 public static final String BY_DATE = "stores/{storeId}/delivery_windows?date={date}";

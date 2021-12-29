@@ -61,4 +61,20 @@ public class StoresDao extends AbstractDao<Long, StoresEntity> {
         }
         return store;
     }
+
+    public int getUniqueCitiesCountByShippingMethod(String shippingMethod) {
+        int resultCount = 0;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(DISTINCT s.city_id) AS total") +
+                     " s JOIN store_shipping_methods ssm ON s.id = ssm.store_id JOIN spree_shipping_methods sm ON sm.id = ssm.shipping_method_id" +
+                     " WHERE sm.kind = ? AND s.available_on IS NOT NULL")) {
+            preparedStatement.setString(1, shippingMethod);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            resultCount = resultSet.getInt("total");
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return resultCount;
+    }
 }
