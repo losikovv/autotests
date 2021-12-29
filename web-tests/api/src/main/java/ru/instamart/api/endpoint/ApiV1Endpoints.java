@@ -1,5 +1,7 @@
 package ru.instamart.api.endpoint;
 
+import ru.instamart.api.request.v1.ShippingMethodsV1Request;
+
 public final class ApiV1Endpoints {
 
     public static final String LINE_ITEMS = "line_items?shipment_number={shipmentNumber}";
@@ -20,6 +22,7 @@ public final class ApiV1Endpoints {
     public static final String SHIPPING_POLICIES = "shipping_policies";
     public static final String MULTIRETAILER_ORDER = "multiretailer_order";
 
+    public static final String SHIPPING_METHODS = "shipping_methods";
 
     public static final class DeliveryWindows {
         public static final String BY_ID = "delivery_windows/{deliveryWindowId}";
@@ -150,5 +153,29 @@ public final class ApiV1Endpoints {
 
     public static final class Admin {
         public static final String OPERATIONAL_ZONES = "admin/operational_zones";
+    }
+
+    public static final class ShippingMethods {
+
+        public static final String RULES = "shipping_methods/pricers/{ruleId}/rules";
+        public static final String CALCULATORS = "shipping_methods/pricers/{ruleId}/calculators";
+
+        public static final class Rules {
+            public static final String RULE_ID = "shipping_methods/pricers/rules/{ruleId}";
+        }
+
+        public static final class Calculator {
+            public static final String RULE_ID = "shipping_methods/pricers/calculators/{ruleId}";
+        }
+
+        public static final class MarketingPricers {
+            public static final String MARKETING_PRICERS = "shipping_methods/{methodId}/marketing_pricers";
+            public static final String RULE_ID = "shipping_methods/marketing_pricers/{ruleId}";
+        }
+
+        public static final class NominalPricers {
+            public static final String NOMINAL_COST_PRICERS = "shipping_methods/{methodId}/nominal_cost_pricers";
+            public static final String RULE_ID = "shipping_methods/nominal_cost_pricers/{ruleId}";
+        }
     }
 }
