@@ -1,5 +1,6 @@
 package ru.instamart.api.checkpoint;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -95,9 +96,9 @@ public class BaseApiCheckpoints {
                 Objects.isNull(secondObject) ? "null" : secondObject.getClass().getSimpleName()));
     }
 
-    @Step("Проверяем json-схему")
     public static void checkResponseJsonSchema(Response response, Class<?> clazz) {
         String expectedSchema = getJsonSchema(clazz);
         response.then().assertThat().body(matchesJsonSchema(expectedSchema));
+        Allure.step("Проверяем json-схему " + clazz.getSimpleName());
     }
 }
