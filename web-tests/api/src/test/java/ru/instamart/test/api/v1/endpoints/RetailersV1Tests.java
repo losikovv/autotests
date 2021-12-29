@@ -31,7 +31,6 @@ import ru.instamart.jdbc.dao.OperationalZonesDao;
 import ru.instamart.jdbc.dao.ShippingPoliciesDao;
 import ru.instamart.jdbc.dao.ShippingPolicyRulesDao;
 import ru.instamart.jdbc.dao.SpreeRetailersDao;
-
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
@@ -49,7 +48,6 @@ import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.compareShippingPolicies;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
-import static ru.instamart.api.dataprovider.RestDataProvider.getAvailableRetailersSpree;
 import static ru.instamart.api.request.v1.ShippingPoliciesV1Request.getShippingPolicies;
 
 @Epic("ApiV1")
@@ -77,11 +75,6 @@ public class RetailersV1Tests extends RestBase {
         checkResponseJsonSchema(response, RetailersV2Response.class);
         retailers = response.as(RetailersV2Response.class).getRetailers();
         compareTwoObjects(retailers.size(), SpreeRetailersDao.INSTANCE.getCount());
-    }
-
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"})
-    public void selfTestRetailersV1() {
-        getAvailableRetailersSpree();
     }
 
     @Story("Ритейлеры")

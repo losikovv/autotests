@@ -1,5 +1,7 @@
 package ru.instamart.test.api.v2.endpoints;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
@@ -26,6 +28,8 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSc
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 
+@Epic("ApiV2")
+@Feature("Заказы (shipments)")
 public class MergedShipmentsV2Test extends RestBase {
 
     private List<ProductV2> products;
@@ -40,7 +44,7 @@ public class MergedShipmentsV2Test extends RestBase {
 
 
     @CaseId(1029)
-    @Story("Повтор подзаказа")
+    @Story("Мердж подзаказа")
     @Test(groups = {"api-instamart-regress"},
             description = "Добавление в подзаказ другого подзаказа")
     public void mergeShipments() {
@@ -53,7 +57,7 @@ public class MergedShipmentsV2Test extends RestBase {
     }
 
     @CaseId(1030)
-    @Story("Повтор подзаказа")
+    @Story("Мердж подзаказа")
     @Test(groups = {"api-instamart-regress"},
             description = "Добавление в подзаказ подзаказа из другого магазина",
             dependsOnMethods = "mergeShipments")
@@ -66,7 +70,7 @@ public class MergedShipmentsV2Test extends RestBase {
     }
 
     @CaseId(1031)
-    @Story("Повтор подзаказа")
+    @Story("Мердж подзаказа")
     @Test(groups = {"api-instamart-regress"},
             description = "Добавление в подзаказ подзаказа с алкоголем",
             dependsOnMethods = "mergeShipments")

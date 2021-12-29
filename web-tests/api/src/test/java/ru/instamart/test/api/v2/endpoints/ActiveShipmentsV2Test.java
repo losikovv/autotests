@@ -26,7 +26,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode401;
 
 @Epic("ApiV2")
-@Feature("Подзаказы (shipments)")
+@Feature("Заказы (shipments)")
 public class ActiveShipmentsV2Test extends RestBase {
 
     private OrderV2 order;
