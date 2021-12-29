@@ -40,7 +40,7 @@ public class SearchesV2Test extends RestBase {
         checkStatusCode404(response);
     }
 
-    @CaseIDs(value = {@CaseId(273), @CaseId(278)})
+    @CaseIDs(value = {@CaseId(273), @CaseId(1431), @CaseId(278)})
     @Test(description = "Получаем поисковые подсказки по слову - позитивные сценарии",
             groups = {"api-instamart-smoke", "api-instamart-prod"},
             dataProvider = "positiveQuery",
