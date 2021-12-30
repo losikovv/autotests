@@ -338,5 +338,11 @@ public final class OrdersV2Request extends ApiV2RequestBase {
 
     }
 
-
+    public static class SpasiboInfo {
+        @Step("{method} /" + ApiV2EndPoints.Orders.SPASIBO_INFO)
+        public static Response GET(String orderNumber) {
+            return givenWithAuth()
+                    .get(ApiV2EndPoints.Orders.SPASIBO_INFO, orderNumber);
+        }
+    }
 }

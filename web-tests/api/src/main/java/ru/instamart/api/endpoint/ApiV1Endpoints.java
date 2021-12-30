@@ -29,6 +29,10 @@ public final class ApiV1Endpoints {
         public static final String BY_ID = "delivery_windows/{deliveryWindowId}";
     }
 
+    public static final class ExternalPartners {
+        public static final String SERVICES = "external_partners/services";
+    }
+
     public static final class MarketingSamples {
         public static final String BY_ID = "marketing_samples/{sampleId}";
     }
@@ -159,6 +163,7 @@ public final class ApiV1Endpoints {
 
     public static final class Admin {
         public static final String OPERATIONAL_ZONES = "admin/operational_zones";
+        public static final String APP_CONFIG = "admin/app_config";
     }
 
     public static final class ShippingMethods {
