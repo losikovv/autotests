@@ -52,7 +52,7 @@ public class ExternalPartnersV2Test extends RestBase {
     @Story("Получение списка подписок для пользователя")
     @Test(groups = {"api-instamart-regress"}, description = "Подписка SberPrime неактивна")
     public void getInactiveSubscription() {
-        Response response = ExternalPartnersV2Request.Services.GET();
+        final Response response = ExternalPartnersV2Request.Services.GET();
         checkStatusCode200(response);
         checkExternalPartnersServices(response, false);
     }
@@ -63,7 +63,7 @@ public class ExternalPartnersV2Test extends RestBase {
             description = "Подписка SberPrime активна")
     public void getActiveSubscription() {
         addSberPrime(apiV2.getProfile().getUser().getEmail());
-        Response response = ExternalPartnersV2Request.Services.GET();
+        final Response response = ExternalPartnersV2Request.Services.GET();
         checkStatusCode200(response);
         checkExternalPartnersServices(response, true);
     }

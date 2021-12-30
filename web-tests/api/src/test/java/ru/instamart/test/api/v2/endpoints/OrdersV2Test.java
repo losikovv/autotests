@@ -673,4 +673,24 @@ public class OrdersV2Test extends RestBase {
         checkStatusCode422(response);
         checkError(response, "Этот заказ можно оплатить бонусами до 0 ₽");
     }
+
+    @CaseId(835)
+    @Story("Бонусы спасибо")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получение информации о возможности оплатить бонусами")
+    public void getSpasiboInfo() {
+        final Response response = OrdersV2Request.SpasiboInfo.GET(apiV2.getCurrentOrderNumber());
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, SpasiboV2Response.class);
+    }
+
+    @CaseId(1432)
+    @Story("Бонусы спасибо")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получение информации о возможности оплатить бонусами для несуществующего заказа")
+    public void getSpasiboInfoForNonexistentOrder() {
+        final Response response = OrdersV2Request.SpasiboInfo.GET("failedOrderNumber");
+        checkStatusCode404(response);
+        checkError(response, "Заказ не существует");
+    }
 }

@@ -92,7 +92,7 @@ public class ShipmentsV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseIDs(value = {@CaseId(1401), @CaseId(1403), @CaseId(1404)})
+    @CaseIDs(value = {@CaseId(1403), @CaseId(1404)})
     @Story("Получить ближайшие окна доставки")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получить ближайшие окна доставки с корректными данными",
