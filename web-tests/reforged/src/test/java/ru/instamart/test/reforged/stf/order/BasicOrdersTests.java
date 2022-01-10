@@ -335,7 +335,7 @@ public final class BasicOrdersTests extends BaseTest {
     public void successAddItemsInActiveOrder() {
         userData = UserManager.getQaUser();
 
-        helper.makeOrderOnTomorrow(userData, 1, 1);
+        helper.makeOrderOnTomorrow(userData, EnvironmentProperties.DEFAULT_SECOND_SID, 1);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -365,7 +365,7 @@ public final class BasicOrdersTests extends BaseTest {
     public void successMultiOrder() {
         userData = UserManager.getQaUser();
 
-        helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), 1, 72);
+        helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), EnvironmentProperties.DEFAULT_SECOND_SID, EnvironmentProperties.DEFAULT_THIRD_SID);
 
         var company = JuridicalData.juridical();
         var card = PaymentCards.testCard();
@@ -404,7 +404,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setSlot().checkSlotsSpinnerIsVisible();
         checkout().setSlot().checkSlotsSpinnerIsNotVisible();
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setFirstActiveSlotSecondRetailer();
 
         checkout().setPayment().clickToByCardOnline();
         checkout().setPayment().clickToAddNewPaymentCard();
@@ -414,7 +414,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        userShipments().checkPageContains(userShipments().pageUrl());
+        checkout().checkPageContains("https://demo.cloudpayments.ru/acs");
     }
 
     @CaseId(2626)
@@ -422,7 +422,7 @@ public final class BasicOrdersTests extends BaseTest {
     @Test(description = "Отмена всего мультизаказа при отмене одного из входящих в него заказов", groups = "regression")
     public void successCancelMultiOrderViaCancelOneOrder() {
         userData = UserManager.getQaUser();
-        helper.makeMultipleOrder(userData, RestAddresses.Moscow.defaultAddress(), 1, 72);
+        helper.makeMultipleOrder(userData, RestAddresses.Moscow.defaultAddress(), EnvironmentProperties.DEFAULT_SECOND_SID, EnvironmentProperties.DEFAULT_THIRD_SID);
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
@@ -435,10 +435,9 @@ public final class BasicOrdersTests extends BaseTest {
 
     @CaseId(2628)
     @Story("Заказ")
-    @Test(description = "Тест полного оформления заказа с оплатой картой онлайн (добавленна карта c 3ds )", groups = "regression")
+    @Test(description = "Тест полного оформления заказа с оплатой картой онлайн (добавлена карта c 3ds)", groups = "regression")
     public void successCompleteCheckoutWithNewPaymentCard3DSAlreadyIn() {
         //TODO: после починки addCreditCard() нужно добавить сюда добавление карты через апи
-
         userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 

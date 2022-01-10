@@ -30,8 +30,6 @@ public final class ApiHelper {
     private final InstamartApiHelper apiV2 = new InstamartApiHelper();
     private final AdminHelper admin = new AdminHelper();
 
-    private final ThreadLocal<Integer> currentSid = new ThreadLocal<>();
-
     @Step("Подтверждение кода с помощью API")
     public SessionV2 confirmPhone(final String phone, final String code, final boolean promoTermsAccepted) {
         return apiV2.confirmPhone(phone, code, promoTermsAccepted);
