@@ -182,7 +182,7 @@ tests:AutoMRCheck:
   stage: tests-api
   script:
     - echo $P_ENV
-    - gradle clean build AutoMRCheck -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    - gradle --continue clean build :api:autoMr :reforged:autoMr allureCopyHistoryDir -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - bash ./report.sh . default
   tags:

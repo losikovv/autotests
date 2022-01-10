@@ -1,8 +1,6 @@
 task AutoMRCheck(type: Test) {
     dependsOn(':api:autoMr')
     dependsOn(':reforged:autoMr')
-
-    finalizedBy(':allureCopyHistoryDir')
 }
 
 task allureCopyHistoryDir(type: Copy) {
