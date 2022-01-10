@@ -117,4 +117,14 @@ public interface CheckoutCheck extends Check, CheckoutElement {
     default void checkCheckoutLoaderNotVisible() {
         waitAction().shouldNotBeVisible(checkoutLoader);
     }
+
+    @Step("Проверяем что лоадер чекаута показан")
+    default void checkCheckoutSidebarSpinnerVisible() {
+        waitAction().shouldBeVisible(sideBarSpinner);
+    }
+
+    @Step("Проверяем что лоадер чекаута скрылся")
+    default void checkCheckoutSidebarSpinnerNotVisible() {
+        waitAction().shouldNotBeVisible(sideBarSpinner);
+    }
 }

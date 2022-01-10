@@ -83,6 +83,17 @@ public final class ElementCollection extends CollectionComponent {
         }
     }
 
+    public Boolean isElementWithTextPresent(final String text) {
+        for (final WebElement we : getComponents()) {
+            final String elementText = we.getText();
+            if (elementText.contains(text)) {
+                log.debug("Element {} contains text {}", we, elementText);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<WebElement> getElements() {
         return getComponents();
     }

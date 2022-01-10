@@ -24,6 +24,8 @@ public interface CartElement {
     Button showRisePrice = new Button(By.xpath("//button[@data-qa='cart_price_diff_toggle_button'][contains(text(),'Показать')]"), "кнопка 'посмотреть' цену с учетом повышения");
     Button hideRisePrice = new Button(By.xpath("//button[@data-qa='cart_price_diff_toggle_button'][contains(text(),'Скрыть')]"), "кнопка 'скрыть' цену с учетом повышения");
 
+    Link viewOrder = new Link(By.xpath("//a[@data-qa='merged_products_look_button']"), "кнопка 'посмотреть' заказ после мерджа товаров");
+
     Button clearCart = new Button(By.xpath("//button[@data-qa='cart_remove_shipments_button']"), "кнопка 'Очистить корзину'");
     Element itemCounter = new Element(By.xpath("//div[@data-qa='line-item-counter']"), "кол-во добавленных товаров");
     Element minAmountAlert = new Element(By.xpath("//div[@class='cart-retailer__alert-message-box']"), "сообщение о минимальной сумме корзины");

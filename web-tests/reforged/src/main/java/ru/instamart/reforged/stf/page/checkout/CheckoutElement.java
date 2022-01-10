@@ -56,4 +56,6 @@ public interface CheckoutElement {
 
     Element checkoutLoader = new Element(By.xpath("//div[contains(@class, 'Loading')]"), "Лоадер чекаута");
 
+    Element sideBarSpinner = new Element(By.xpath("//div[@class='checkout-summary']//span[contains(text(), 'Загрузка...')]"), "Лоадер сайдбара");
+
 }

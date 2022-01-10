@@ -29,6 +29,11 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
         Assert.assertEquals(summ, StringUtil.stringToDoubleParse(discountSumm.getText()));
     }
 
+    @Step("Проверяем, что среди названий товара в заказе есть искомое {0}")
+    default void compareProductNameInOrder(final String productNameExpected) {
+        Assert.assertTrue(productsInOrderNames.isElementWithTextPresent(productNameExpected));
+    }
+
     @Step("Проверка метода оплаты 'Картой онлайн'")
     default void checkPaymentMethodCardOnline() {
         waitAction().shouldBeVisible(paymentMethodCardOnline);

@@ -30,6 +30,8 @@ public final class ApiHelper {
     private final InstamartApiHelper apiV2 = new InstamartApiHelper();
     private final AdminHelper admin = new AdminHelper();
 
+    private final ThreadLocal<Integer> currentSid = new ThreadLocal<>();
+
     @Step("Подтверждение кода с помощью API")
     public SessionV2 confirmPhone(final String phone, final String code, final boolean promoTermsAccepted) {
         return apiV2.confirmPhone(phone, code, promoTermsAccepted);
@@ -78,6 +80,16 @@ public final class ApiHelper {
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
         apiV2.fillCartOnSid(sid);
+    }
+
+    @Step("Наполняем корзину с помощью API")
+    public void dropAndFillCartMultiple(final UserData user, AddressV2 address, final Integer sid, final Integer sid2) {
+        auth(user);
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+        apiV2.setAddressAttributes(user, address);
+        apiV2.fillCartOnSid(sid);
+        apiV2.fillCartOnSid(sid2);
     }
 
     /**
@@ -139,6 +151,58 @@ public final class ApiHelper {
         apiV2.getAvailablePaymentTool();
         apiV2.getAvailableShippingMethod();
         apiV2.getAvailableDeliveryWindow();
+
+        apiV2.setDefaultOrderAttributes();
+        return apiV2.completeOrder();
+    }
+
+    /**
+     * @param user должен иметь phone и encryptedPhone
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     */
+    @Step("Оформляем мульти заказ с помощью API")
+    public OrderV2 makeMultipleOrder(final UserData user, AddressV2 address, final Integer sid, final Integer sid2) {
+        auth(user);
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+
+        apiV2.setAddressAttributes(user, address);
+
+        apiV2.fillCartOnSid(sid);
+
+        apiV2.getAvailablePaymentTool();
+        apiV2.getAvailableShippingMethodForMultiOrder(sid);
+        apiV2.getAvailableDeliveryWindow();
+
+        apiV2.setDefaultOrderAttributes();
+
+        apiV2.fillCartOnSid(sid2);
+
+        apiV2.getAvailablePaymentTool();
+        apiV2.getAvailableShippingMethodForMultiOrder(sid2);
+        apiV2.getAvailableDeliveryWindow();
+
+        apiV2.setDefaultOrderAttributes();
+        return apiV2.completeOrder();
+    }
+
+    /**
+     * @param user должен иметь phone и encryptedPhone
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     */
+    @Step("Оформляем заказ с помощью API на завтра")
+    public OrderV2 makeOrderOnTomorrow(final UserData user, final Integer sid, final Integer itemsNumber) {
+        auth(user);
+
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+
+        apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
+        apiV2.fillCartOnSid(sid, itemsNumber);
+
+        apiV2.getAvailablePaymentTool();
+        apiV2.getAvailableShippingMethod();
+        apiV2.getAvailableDeliveryWindowOnTomorrow();
 
         apiV2.setDefaultOrderAttributes();
         return apiV2.completeOrder();

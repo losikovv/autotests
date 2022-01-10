@@ -11,7 +11,7 @@ public final class UserShipmentsPage implements StfPage, UserShipmentsCheck {
         return repeatModal;
     }
 
-    public ShipmentCancelModal interactShipmentModal() {
+    public ShipmentCancelModal interactShipmentCancelModal() {
         return shipmentModal;
     }
 

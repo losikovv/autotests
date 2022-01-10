@@ -5,7 +5,6 @@ import io.qameta.allure.Feature;
 import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
@@ -74,7 +73,7 @@ public final class OrderRepeatTests extends BaseTest {
         userShipments().goToPage();
         userShipments().clickToFirstShipment();
         userShipments().clickToCancelFromOrder();
-        userShipments().interactShipmentModal().clickToAccept();
+        userShipments().interactShipmentCancelModal().clickToAccept();
         userShipments().checkStatusWasCanceled();
     }
 }

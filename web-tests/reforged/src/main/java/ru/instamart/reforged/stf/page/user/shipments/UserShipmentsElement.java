@@ -5,6 +5,7 @@ import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
+import ru.instamart.reforged.core.component.Link;
 import ru.instamart.reforged.stf.frame.RepeatModal;
 import ru.instamart.reforged.stf.frame.ShipmentCancelModal;
 
@@ -34,4 +35,8 @@ public interface UserShipmentsElement {
     Button finishedOrders = new Button(By.xpath("//button[@data-qa='user-shipment-list-selector-inactive']"), "кнопка завершенные заказы");
     Button allOrders = new Button(By.xpath("//button[@data-qa='user-shipment-list-selector-all']"), "кнопка все заказы");
     Button goToShopping = new Button(By.xpath("//a[@data-qa='user-shipment-list-buy-more']"), "кнопка перейти к покупкам");
+
+    Link firstProductName = new Link(By.xpath("//div[@data-qa='line-item']//dt"), "Название первого продукта в корзине");
+
+    ElementCollection productsInOrderNames = new ElementCollection(By.xpath("//div[@data-qa='user-shipment-assembly-items']"), "Коллекция элементов-имен продуктов в заказе");
 }
