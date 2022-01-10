@@ -71,13 +71,12 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
 
         @Step("{method} /" + ShopperAdminEndpoints.SHOPPERS)
         public static Response GET(ShipmentsParams shipments) {
-            //shipments?store_id=16&assembly_state=shipped&includes[assembly]=items
             return givenWithAuth()
                     .formParams(Mapper.INSTANCE.objectToMap(shipments))
                     .get(ShopperAdminEndpoints.SHOPPERS);
         }
 
-        @Step("{method} /" + ShopperAdminEndpoints.SHOPPER)
+        @Step("{method} /" + ShopperAdminEndpoints.Shoppers.BY_ID)
         public static Response PATCH(final int shopperId,
                                     final String status) {
             JSONObject requestParams = new JSONObject();
@@ -85,7 +84,7 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
             return givenWithAuth()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
-                    .patch(ShopperAdminEndpoints.SHOPPER, shopperId);
+                    .patch(ShopperAdminEndpoints.Shoppers.BY_ID, shopperId);
             }
     }
     

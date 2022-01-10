@@ -254,4 +254,13 @@ public class ShopperAppWithoutAuthTest extends RestBase {
         response = OtpsSHPRequest.Authorizations.POST("79991119911", CoreProperties.DEFAULT_SMS);
         checkStatusCode401(response);
     }
+
+    @Story("Авторизация")
+    @CaseId(73)
+    @Test( description = "Авторизация по незарегистрированному номеру телефона и коду из смс",
+            groups = {"api-shopper-regress", "api-shopper-prod"})
+    public void postOtpsAuthorizations4011one() {
+        response = ShopperSHPRequest.Shipments.Active.GET();
+        checkStatusCode401(response);
+    }
 }

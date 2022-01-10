@@ -15,10 +15,13 @@ public final class ShopperAdminEndpoints {
     public static final String SHIFT_ASSIGNMENTS = "/v1/shift_assignments";
     public static final String SHIFTS = "v1/shifts";
     public static final String SHIPMENTS = "v1/shipments?store_id={sid}&date={date}";
-    public static final String SHOPPER = "v1/shoppers/{shopperId}";
     public static final String SHOPPERS = "v1/shoppers";
     public static final String STORES = "v1/stores";
     public static final String TARIFFS = "v1/tariffs";
+
+    public static final class OperationalZones{
+        public static final String DISPATCH_SETTINGS = "/v1/operational_zones/{zoneId}/dispatch_settings";
+    }
 
     public static final class Routes {
         public static final String LOCK = "v1/routes/{routeId}/lock";
@@ -29,7 +32,7 @@ public final class ShopperAdminEndpoints {
         public static final String ENGINES = "v1/scango/engines";
     }
 
-    public static final class OperationalZones{
-        public static final String DISPATCH_SETTINGS = "/v1/operational_zones/{zoneId}/dispatch_settings";
+    public static final class Shoppers{
+        public static final String BY_ID = "v1/shoppers/{shopperId}";
     }
 }

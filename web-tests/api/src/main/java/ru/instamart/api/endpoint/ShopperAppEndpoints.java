@@ -16,6 +16,10 @@ public final class ShopperAppEndpoints {
         public static final String ASSEMBLIES = "shopper/assemblies";
         public static final String OPERATION_SHIFTS = "shopper/operation_shifts";
         public static final String SHIPMENTS = "shopper/shipments";
+
+        public static class Shipments{
+            public static final String ACTIVE = "shopper/shipments/active";
+        }
     }
 
     public static class Driver {
@@ -87,5 +91,10 @@ public final class ShopperAppEndpoints {
         public static final String AUTHORIZATIONS = "otps/authorizations";
         public static final String TOKENS = "otps/tokens";
 
+    }
+
+    public static class Orders{
+        public static final String IMPORTS = "orders/{orderNumber}/imports";
+        // /orders/:order_number/imports(.:format)
     }
 }
