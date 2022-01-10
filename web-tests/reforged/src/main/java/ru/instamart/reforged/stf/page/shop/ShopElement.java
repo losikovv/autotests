@@ -7,6 +7,7 @@ import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.block.header.Header;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
 import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
+import ru.instamart.reforged.stf.drawer.cart_new.CartNew;
 import ru.instamart.reforged.stf.drawer.category_menu.CategoryMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.address.Address;
@@ -19,6 +20,7 @@ public interface ShopElement {
     RetailRocket retailRocket = new RetailRocket();
     ProductCard productCard = new ProductCard();
     Cart cart = new Cart();
+    CartNew cartNew = new CartNew();
     Address address = new Address();
     CategoryMenu categoryMenu = new CategoryMenu();
     Footer footer = new Footer();

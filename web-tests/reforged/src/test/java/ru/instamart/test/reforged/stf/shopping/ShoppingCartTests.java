@@ -2,7 +2,6 @@ package ru.instamart.test.reforged.stf.shopping;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
@@ -12,6 +11,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -89,7 +89,7 @@ public final class ShoppingCartTests extends BaseTest {
     }
 
     @CaseId(1574)
-    @Test(description = "Тест на изменение кол-ва товаров в корзине", groups = "regression" )
+    @Test(description = "Тест на изменение кол-ва товаров в корзине", groups = "regression")
     public void successChangeItemQuantityInCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -228,7 +228,7 @@ public final class ShoppingCartTests extends BaseTest {
     // ATST-872
     @Skip
     @CaseId(1578)
-    @Test(description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером", groups = "regression" )
+    @Test(description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером", groups = "regression")
     public void successChangeMinOrderSum() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
@@ -405,7 +405,7 @@ public final class ShoppingCartTests extends BaseTest {
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
-        shop().interactCart().compareFirstItemQuantityInCart(firstItemQuantity+1);
+        shop().interactCart().compareFirstItemQuantityInCart(firstItemQuantity + 1);
         final var secondOrderAmount = shop().interactCart().returnOrderAmount();
         shop().interactCart().checkAmountNotEquals(startOrderAmount, secondOrderAmount);
         shop().assertAll();
@@ -474,7 +474,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactCart().checkCartOpen();
         final var secondOrderAmount = shop().interactCart().returnOrderAmount();
         shop().interactCart().checkAmountNotEquals(startOrderAmount, secondOrderAmount);
-        shop().interactCart().compareItemsInCart(startProductsQuantity-1);
+        shop().interactCart().compareItemsInCart(startProductsQuantity - 1);
         shop().assertAll();
     }
 

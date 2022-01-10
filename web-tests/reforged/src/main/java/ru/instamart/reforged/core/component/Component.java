@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
@@ -22,7 +22,7 @@ public abstract class Component {
     public static final Pattern LOCATOR = Pattern.compile("/[^\\r\\n]*");
 
     protected WebElement component;
-    protected boolean isCacheDisable = true;
+    protected boolean isCacheDisable = false;
 
     @Setter(AccessLevel.PROTECTED)
     private By by;
@@ -41,6 +41,11 @@ public abstract class Component {
         this.description = description == null ? this.getClass().getSimpleName() : description;
         this.errorMsg = errorMsg == null ? "Элемент " + by + " не найден" : errorMsg;
         this.actions = new Actions(this);
+    }
+
+    public Component(final WebElement webElement) {
+        this(null, WaitProperties.BASIC_TIMEOUT, null, null);
+        this.component = webElement;
     }
 
     public Component(final By by) {
@@ -110,5 +115,14 @@ public abstract class Component {
         } else {
             return "locator empty";
         }
+    }
+
+    public boolean isDisplayed() {
+        try {
+            return getComponent().isDisplayed();
+        } catch (TimeoutException ex) {
+            log.debug("Element {} with locator {} not found", getDescription(), getBy());
+        }
+        return false;
     }
 }

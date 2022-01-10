@@ -7,6 +7,7 @@ import ru.instamart.reforged.stf.block.header.Header;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
 import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
+import ru.instamart.reforged.stf.drawer.cart_new.CartNew;
 import ru.instamart.reforged.stf.drawer.category_menu.CategoryMenu;
 import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
@@ -33,6 +34,10 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     public Cart interactCart() {
         return cart;
+    }
+
+    public CartNew interactCartNew() {
+        return cartNew;
     }
 
     public Address interactAddress() {
