@@ -36,7 +36,7 @@ public final class AdministrationShippingSettingsTests extends BaseTest {
 
     private ShippingMethods shippingMethod;
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void beforeClass() {
         shippingMethod = helper.getShippingMethod()
                 .getShippingMethods()
@@ -50,7 +50,7 @@ public final class AdministrationShippingSettingsTests extends BaseTest {
         Assert.assertNotNull(shippingMethod, "Отсутствует метод доставки Autotest");
     }
 
-    @BeforeMethod()
+    @BeforeMethod(alwaysRun = true)
     public void beforeMethod() {
         helper.getNominalRule(shippingMethod.getId()).getPricers()
                 .forEach(rule -> helper.deleteNominalRule(rule.getId()));
