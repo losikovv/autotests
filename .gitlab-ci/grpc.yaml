@@ -10,6 +10,16 @@ tests:product:hub:
   after_script:
     - bash ./report.sh grpc grpc-product-hub
 
+tests:product:hub:schedule:
+  resource_group: testProductHub
+  extends:
+    - ".template_grpc_tests"
+    - ".template_schedule"
+  script:
+    - gradle clean build grpcProductHub -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - bash ./report.sh grpc grpc-product-hub
+
 tests:salut:token:
   resource_group: testSalutToken
   only:
