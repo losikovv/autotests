@@ -43,6 +43,15 @@ public final class ShopperSHPRequest extends ShopperAppRequestBase {
                     .get(ShopperAppEndpoints.Shopper.SHIPMENTS);
         }
 
+       public static class Active{
+
+            @Step("{method} /" + ShopperAppEndpoints.Shopper.Shipments.ACTIVE)
+            public static Response GET(){
+                return givenWithAuth()
+                        .get(ShopperAppEndpoints.Shopper.Shipments.ACTIVE);
+            }
+        }
+
     }
     public static class Assemblies {
         /**

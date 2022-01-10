@@ -6,7 +6,7 @@ import ru.instamart.api.model.BaseObject;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class DataItem  extends BaseObject {
+public class DataItemSHP extends BaseObject {
 	private Relationships relationships;
 	private Attributes attributes;
 	private String id;
