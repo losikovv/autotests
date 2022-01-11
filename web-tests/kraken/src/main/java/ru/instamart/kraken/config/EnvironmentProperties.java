@@ -25,10 +25,12 @@ public final class EnvironmentProperties {
     public static String STAGE;
     @Config(configName = NAME, fieldName = "httpAuth", defaultValue = "", crypted = true)
     public static String HTTP_AUTH;
-    @Config(configName = NAME, fieldName = "defaultSid", defaultValue = "")
+    @Config(configName = NAME, fieldName = "defaultSid", defaultValue = "81")
     public static int DEFAULT_SID;
     @Config(configName = NAME, fieldName = "defaultSecondSid", defaultValue = "1")
     public static int DEFAULT_SECOND_SID;
+    @Config(configName = NAME, fieldName = "defaultAuchanSid", defaultValue = "72")
+    public static int DEFAULT_AUCHAN_SID;
     @Config(configName = NAME, fieldName = "defaultTid", defaultValue = "")
     public static int DEFAULT_TID;
     @Config(configName = NAME, fieldName = "defaultIdZone", defaultValue = "")

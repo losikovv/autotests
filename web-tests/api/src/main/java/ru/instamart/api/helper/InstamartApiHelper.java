@@ -366,24 +366,27 @@ public final class InstamartApiHelper {
     private void getMinSumFromAlert() {
         final Response response = OrdersV2Request.Current.GET();
         checkStatusCode200(response);
-        final ShipmentV2 shipment = response
+        final List<ShipmentV2> shipments = response
                 .as(OrderV2Response.class)
                 .getOrder()
-                .getShipments()
-                .get(0);
-        if (!shipment.getAlerts().isEmpty()) {
-            String alertMessage = shipment.getAlerts().get(0).getMessage().replaceAll("[^0-9]", "");
-            minSum.set(Integer.parseInt(alertMessage.substring(0, alertMessage.length() - 2)));
-            log.debug("Минимальная сумма корзины: {}", minSum.get());
-            minSumNotReached.set(true);
-        } else {
-            log.warn("Минимальная сумма корзины набрана");
-            minSumNotReached.set(false);
-        }
-        currentShipmentId.set(shipment.getId());
-        currentShipmentNumber.set(shipment.getNumber());
-        Allure.step("Номер доставки: " + currentShipmentNumber.get());
-        log.debug("Номер доставки: {}", currentShipmentNumber.get());
+                .getShipments();
+
+        shipments.forEach(shipment-> {
+            if (!shipment.getAlerts().isEmpty()) {
+                String alertMessage = shipment.getAlerts().get(0).getMessage().replaceAll("[^0-9]", "");
+                minSum.set(Integer.parseInt(alertMessage.substring(0, alertMessage.length() - 2)));
+                log.debug("Минимальная сумма корзины: {}", minSum.get());
+                minSumNotReached.set(true);
+            }
+            else {
+                log.warn("Минимальная сумма корзины набрана");
+                minSumNotReached.set(false);
+            }
+            currentShipmentId.set(shipment.getId());
+            currentShipmentNumber.set(shipment.getNumber());
+            Allure.step("Номер доставки: " + currentShipmentNumber.get());
+            log.debug("Номер доставки: {}", currentShipmentNumber.get());
+        });
     }
 
     /**
@@ -493,10 +496,55 @@ public final class InstamartApiHelper {
     }
 
     /**
+     * Получаем первый доступный слот на завтра
+     */
+    @Step("Получаем первый доступный слот на завтра")
+    public DeliveryWindowV2 getAvailableDeliveryWindowOnTomorrow() {
+        Response responseDeliveryWindow = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), null);
+        checkStatusCode200(responseDeliveryWindow);
+        String availableDays = responseDeliveryWindow.as(ShippingRatesV2Response.class).getMeta().getAvailableDays().get(1);
+
+        Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), availableDays);
+        checkStatusCode200(response);
+
+        List<ShippingRateV2> shippingRates = response.as(ShippingRatesV2Response.class).getShippingRates();
+
+        assertFalse(shippingRates.isEmpty(),
+                "Нет слотов в магазине admin/stores/" + currentSid.get());
+
+        DeliveryWindowV2 deliveryWindow = shippingRates.get(0).getDeliveryWindow();
+
+        currentDeliveryWindowId.set(deliveryWindow.getId());
+
+        log.debug(deliveryWindow.toString());
+        return deliveryWindow;
+    }
+
+    /**
      * Получаем первый доступный способ доставки
      */
     @Step("Получаем первый доступный способ доставки")
     ShippingMethodV2 getAvailableShippingMethod() {
+        Response response = ShippingMethodsV2Request.GET(currentSid.get());
+        checkStatusCode200(response);
+        List<ShippingMethodV2> shippingMethods = response.as(ShippingMethodsV2Response.class).getShippingMethods();
+
+        assertFalse(shippingMethods.isEmpty(), "Нет способов доставки в магазине admin/stores/" + currentSid.get());
+
+        ShippingMethodV2 shippingMethod = shippingMethods.get(0);
+
+        currentShipmentMethodId.set(shippingMethod.getId());
+
+        log.debug(shippingMethod.toString());
+        return shippingMethod;
+    }
+
+    /**
+     * Получаем первый доступный способ доставки для мультизаказа
+     */
+    @Step("Получаем первый доступный способ доставки")
+    ShippingMethodV2 getAvailableShippingMethodForMultiOrder(int sid) {
+        currentSid.set(sid);
         Response response = ShippingMethodsV2Request.GET(currentSid.get());
         checkStatusCode200(response);
         List<ShippingMethodV2> shippingMethods = response.as(ShippingMethodsV2Response.class).getShippingMethods();

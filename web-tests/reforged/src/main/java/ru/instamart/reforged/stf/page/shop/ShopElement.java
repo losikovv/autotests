@@ -3,7 +3,6 @@ package ru.instamart.reforged.stf.page.shop;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
-import ru.instamart.reforged.core.component.Link;
 import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.block.header.Header;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
@@ -33,10 +32,13 @@ public interface ShopElement {
     Element deleteFirstItemFromFavorite = new Element(By.xpath("//div[contains(@class, 'favorite-button--active')]"));
     Button plusFirstItemToCartAddedAddress = new Button(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']//button[@title='Добавить в корзину']"),
             "Кнопка добавить в корзину у первого элемента");
+    Button plusSecondItemToCartAddedAddress = new Button(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_1']//button[@title='Добавить в корзину']"),
+            "Кнопка добавить в корзину у первого элемента");
     Button minusFirstItemFromCartAddedAddress = new Button(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']//button[contains(@title, 'Убрать из корзины')]"),
             "Кнопка убрать из корзины у первого элемента");
     Element spinner = new Element(By.xpath("//div[@data-qa='catalog_page_popular_products']/div"), "Спиннер блока рекомендаций");
     Element firstProductTitle = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_0']//h3"), "Имя первого товара в каталоге на стейдже");
+    Element secondProductTitle = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_1_product_item_1']//h3"), "Имя второго товара в каталоге на стейдже");
     Element firstProductTitleNonLogin = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_0_product_item_0']//h3"), "Имя первого товара в каталоге на стейдже незалогин");
     Element secondProductTitleNonLogin = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_0_product_item_1']//h3"), "Имя второго товара в каталоге на стейдже незалогин");
 

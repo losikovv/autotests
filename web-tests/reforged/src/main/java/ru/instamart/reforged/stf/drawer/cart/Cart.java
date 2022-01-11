@@ -128,4 +128,9 @@ public final class Cart implements CartCheck {
         showRisePrice.click();
     }
 
+    @Step("Показать товары не в наличии")
+    public void clickToViewOrder() {
+        viewOrder.click();
+    }
+
 }

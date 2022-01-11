@@ -9,6 +9,11 @@ public class SlotStep implements SlotStepCheck {
         firstActiveSlot.click();
     }
 
+    @Step("Выбрать первый активный слот")
+    public void setFirstActiveSlotSecondRetailer() {
+        firstActiveSlotSecondRetailer.click();
+    }
+
     @Step("Выбрать другое время доставки")
     public void setAnotherSlot() {
         choseAnotherTimeButton.click();

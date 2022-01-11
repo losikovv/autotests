@@ -3,6 +3,8 @@ package ru.instamart.test.reforged.stf.order;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import ru.instamart.api.common.RestAddresses;
+import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -15,7 +17,6 @@ import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
-import ru.instamart.reforged.stf.page.StfRouter;
 import ru.instamart.test.reforged.BaseTest;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -71,7 +72,8 @@ public final class BasicOrdersTests extends BaseTest {
         userShipments().checkPageContains(userShipments().pageUrl());
     }
 
-    @CaseId(1672)
+    @CaseIDs
+    (value = {@CaseId(1672), @CaseId(2627)})
     @Test(description = "Тест заказа с новой картой оплаты c 3ds", groups = {"regression", "smoke"})
     public void successCompleteCheckoutWithNewPaymentCard() {
         userData = UserManager.getQaUser();
@@ -116,7 +118,7 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().checkPageContains("https://demo.cloudpayments.ru/acs");
     }
 
-    @CaseId(2066)
+    @CaseIDs(value={@CaseId(2066), @CaseId(3043), @CaseId(2641)})
     @Test(description = "Тест заказа с новой картой оплаты без 3ds", groups = "regression")
     public void successCompleteCheckoutWithNewNoSecurePaymentCard() {
         userData = UserManager.getQaUser();
@@ -281,5 +283,231 @@ public final class BasicOrdersTests extends BaseTest {
         userEdit().goToPage();
 
         userEdit().checkFullName(userEdit().getName(), userData.getName());
+    }
+
+    @CaseId(2623)
+    @Story("Отмена заказа")
+    @Test(description = "Отмена заказа", groups = "regression")
+    public void successOrderCancel() {
+        userData = UserManager.getQaUser();
+        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+
+        var company = JuridicalData.juridical();
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
+
+        checkout().goToPage();
+        checkout().setDeliveryOptions().clickToForBusiness();
+        checkout().setDeliveryOptions().clickToAddCompany();
+
+        checkout().interactAddCompanyModal().fillCompany(company);
+        checkout().interactAddCompanyModal().clickToOkButton();
+
+        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+
+        checkout().checkCheckoutLoaderNotVisible();
+
+        checkout().setContacts().fillContactInfo();
+        checkout().setContacts().clickToSubmit();
+
+        checkout().setReplacementPolicy().clickToSubmit();
+
+        checkout().setSlot().setFirstActiveSlot();
+
+        checkout().setPayment().clickToByCardToCourier();
+        checkout().setPayment().clickToSubmitFromCheckoutColumn();
+
+        userShipments().checkPageContains(userShipments().pageUrl());
+        userShipments().clickToCancelFromOrder();
+        userShipments().interactShipmentCancelModal().clickToAccept();
+
+        userShipments().checkStatusWasCanceled();
+    }
+
+    @CaseId(2624)
+    @Story("Заказ")
+    @Test(description = "Добавление товаров в активный заказ", groups = "regression")
+    public void successAddItemsInActiveOrder() {
+        userData = UserManager.getQaUser();
+
+        helper.makeOrderOnTomorrow(userData, EnvironmentProperties.DEFAULT_SECOND_SID, 1);
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+
+        shop().goToPage();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+
+        final var itemName = shop().returnSecondProductTitle();
+        shop().plusSecondItemToCart();
+        shop().interactHeader().checkCartNotificationIsVisible();
+
+        shop().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().mergeProducts();
+        shop().interactCart().clickToViewOrder();
+
+        userShipments().compareProductNameInOrder(itemName);
+    }
+
+    @CaseId(2625)
+    @Story("Заказ")
+    @Test(description = "Успешное оформление мультизаказа", groups = "regression")
+    public void successMultiOrder() {
+        userData = UserManager.getQaUser();
+
+        helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), EnvironmentProperties.DEFAULT_SECOND_SID, EnvironmentProperties.DEFAULT_AUCHAN_SID);
+
+        var company = JuridicalData.juridical();
+        var card = PaymentCards.testCard();
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().submitOrder();
+
+        checkout().goToPage();
+        checkout().setDeliveryOptions().clickToForBusiness();
+        checkout().setDeliveryOptions().clickToAddCompany();
+
+        checkout().interactAddCompanyModal().fillCompany(company);
+        checkout().interactAddCompanyModal().clickToOkButton();
+
+        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+
+        checkout().checkCheckoutLoaderNotVisible();
+
+        checkout().setContacts().fillContactInfo();
+        checkout().setContacts().clickToSubmit();
+
+        checkout().setReplacementPolicy().clickToSubmit();
+        checkout().setReplacementPolicy().checkReplacementSpinnerVisible();
+        checkout().setReplacementPolicy().checkReplacementSpinnerNotVisible();
+
+        checkout().setSlot().checkSlotsSpinnerIsVisible();
+        checkout().setSlot().checkSlotsSpinnerIsNotVisible();
+        checkout().setSlot().setFirstActiveSlot();
+
+        checkout().setSlot().checkSlotsSpinnerIsVisible();
+        checkout().setSlot().checkSlotsSpinnerIsNotVisible();
+        checkout().setSlot().setFirstActiveSlotSecondRetailer();
+
+        checkout().setPayment().clickToByCardOnline();
+        checkout().setPayment().clickToAddNewPaymentCard();
+
+        checkout().interactEditPaymentCardModal().fillCardData(card);
+        checkout().interactEditPaymentCardModal().clickToSaveModal();
+
+        checkout().setPayment().clickToSubmitFromCheckoutColumn();
+
+        checkout().checkPageContains("https://demo.cloudpayments.ru/acs");
+    }
+
+    @CaseId(2626)
+    @Story("Заказ")
+    @Test(description = "Отмена всего мультизаказа при отмене одного из входящих в него заказов", groups = "regression")
+    public void successCancelMultiOrderViaCancelOneOrder() {
+        userData = UserManager.getQaUser();
+        helper.makeMultipleOrder(userData, RestAddresses.Moscow.defaultAddress(), EnvironmentProperties.DEFAULT_SECOND_SID, EnvironmentProperties.DEFAULT_AUCHAN_SID);
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
+
+        userShipments().goToPage();
+        userShipments().checkPageContains(userShipments().pageUrl());
+    }
+
+    @CaseId(2628)
+    @Story("Заказ")
+    @Test(description = "Тест полного оформления заказа с оплатой картой онлайн (добавлена карта c 3ds)", groups = "regression")
+    public void successCompleteCheckoutWithNewPaymentCard3DSAlreadyIn() {
+        //TODO: после починки addCreditCard() нужно добавить сюда добавление карты через апи
+        userData = UserManager.getQaUser();
+        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+
+        var company = JuridicalData.juridical();
+        var card = PaymentCards.testCard();
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
+
+        checkout().goToPage();
+        checkout().setDeliveryOptions().clickToForBusiness();
+        checkout().setDeliveryOptions().clickToAddCompany();
+
+        checkout().interactAddCompanyModal().fillCompany(company);
+        checkout().interactAddCompanyModal().clickToOkButton();
+
+        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+
+        checkout().checkCheckoutLoaderNotVisible();
+
+        checkout().setContacts().fillContactInfo();
+        checkout().setContacts().clickToSubmit();
+
+        checkout().setReplacementPolicy().clickToSubmit();
+
+        checkout().setSlot().setFirstActiveSlot();
+
+        checkout().setPayment().clickToByCardOnline();
+        checkout().setPayment().clickToAddNewPaymentCard();
+
+        checkout().interactEditPaymentCardModal().fillCardData(card);
+        checkout().interactEditPaymentCardModal().clickToSaveModal();
+
+        checkout().setPayment().clickToSubmitFromCheckoutColumn();
+
+        checkout().checkPageContains("https://demo.cloudpayments.ru/acs");
+
+        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+
+        company = JuridicalData.juridical();
+
+        shop().goToPage();
+
+        checkout().goToPage();
+        checkout().setDeliveryOptions().clickToForBusiness();
+        checkout().setDeliveryOptions().clickToAddCompany();
+
+        checkout().interactAddCompanyModal().fillCompany(company);
+        checkout().interactAddCompanyModal().clickToOkButton();
+
+        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+
+        checkout().checkCheckoutLoaderNotVisible();
+
+        checkout().setContacts().fillContactInfo();
+        checkout().setContacts().clickToSubmit();
+
+        checkout().setReplacementPolicy().clickToSubmit();
+
+        checkout().setSlot().setFirstActiveSlot();
+
+        checkout().setPayment().clickToByCardOnline();
+
+        checkout().setPayment().clickToSubmitFromCheckoutColumn();
+
+        checkout().checkPageContains("https://demo.cloudpayments.ru/acs");
     }
 }
