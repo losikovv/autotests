@@ -90,6 +90,7 @@
             <class name="ru.instamart.test.api.v3.endpoints.OrdersPickupFromStoreV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.CategoriesV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.ProductsV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.NotificationsV3Test"/>
         </classes>
     </test>
     <!-- api-delivery-club-tests  -->
