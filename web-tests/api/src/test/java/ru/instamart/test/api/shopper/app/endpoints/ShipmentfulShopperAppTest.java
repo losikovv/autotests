@@ -2,23 +2,22 @@ package ru.instamart.test.api.shopper.app.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.helper.RegistrationHelper;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.shopper.app.AssemblySHP;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.shopper.app.*;
 import ru.instamart.api.response.shopper.app.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
@@ -37,9 +36,8 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @BeforeClass(alwaysRun = true,
             description = "Оформляем заказ")
     public void preconditions() {
-        final UserData userData = UserManager.getUser();
-        RegistrationHelper.registration(userData);
-        OrderV2 order = apiV2.order(userData, EnvironmentProperties.DEFAULT_SID);
+        SessionFactory.makeSession(SessionType.API_V2);
+        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         shipmentNumber = order.getShipments().get(0).getNumber();
         if (order == null) throw new SkipException("Заказ не удалось оплатить");
         String isDeliveryToday = checkIsDeliveryToday(order);
