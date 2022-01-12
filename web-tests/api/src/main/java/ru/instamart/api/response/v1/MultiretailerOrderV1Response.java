@@ -18,7 +18,7 @@ public class MultiretailerOrderV1Response extends BaseResponseObject  {
 
     @JsonSchema(required = true)
     @JsonProperty("adjustment_total")
-    private Object adjustmentTotal; //TODO:разница в работе api.sbermarket.ru и sbermarket.ru/api
+    private Double adjustmentTotal;
 
     @Null
     @JsonSchema(required = true)
@@ -56,7 +56,7 @@ public class MultiretailerOrderV1Response extends BaseResponseObject  {
 
     @JsonSchema(required = true)
     @JsonProperty("promo_total")
-    private Object promoTotal; //TODO:разница в работе api.sbermarket.ru и sbermarket.ru/api
+    private Double promoTotal;
 
     @Null
     @JsonSchema(required = true)
@@ -69,7 +69,7 @@ public class MultiretailerOrderV1Response extends BaseResponseObject  {
 
     @JsonSchema(required = true)
     @JsonProperty("ship_total")
-    private Object shipTotal; //TODO:разница в работе api.sbermarket.ru и sbermarket.ru/api
+    private Double shipTotal;
 
     @JsonSchema(required = true)
     private List<Object> shipments;
@@ -85,7 +85,7 @@ public class MultiretailerOrderV1Response extends BaseResponseObject  {
     private String token;
 
     @JsonSchema(required = true)
-    private Object total; //TODO:разница в работе api.sbermarket.ru и sbermarket.ru/api
+    private Double total;
 
     @JsonSchema(required = true)
     private UserV1 user;

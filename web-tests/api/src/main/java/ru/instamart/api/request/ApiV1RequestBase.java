@@ -13,7 +13,15 @@ public class ApiV1RequestBase {
     public static RequestSpecification givenWithSpec() {
         return EnvironmentProperties.SERVER.equals("production") ?
                 given()
-                        .spec(Specification.INSTANCE.getProdRequestSpec()):
+                        .spec(Specification.INSTANCE.getProdWebRequestSpec()):
+                given()
+                        .spec(Specification.INSTANCE.getApiV1RequestSpec());
+    }
+
+    public static RequestSpecification givenAdminWithSpec() {
+        return EnvironmentProperties.SERVER.equals("production") ?
+                given()
+                        .spec(Specification.INSTANCE.getProdAdminRequestSpec()):
                 given()
                         .spec(Specification.INSTANCE.getApiV1RequestSpec());
     }
