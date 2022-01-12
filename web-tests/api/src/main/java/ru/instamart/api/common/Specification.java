@@ -37,6 +37,8 @@ public enum Specification {
     @Getter private RequestSpecification surgeRequestSpec;
     @Getter private RequestSpecification risExporterRequestSpec;
     @Getter private RequestSpecification prodRequestSpec;
+    @Getter private RequestSpecification prodWebRequestSpec;
+    @Getter private RequestSpecification prodAdminRequestSpec;
 
     public void initSpec() {
         final String apiV1FullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH;
@@ -44,6 +46,8 @@ public enum Specification {
         final String apiV2FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
         final String apiV3FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
         final String prodFullUrl =  EnvironmentProperties.Env.PROD_FULL_SITE_URL;
+        final String prodWebUrl =  EnvironmentProperties.Env.PROD_WEB_SITE_URL;
+        final String prodAdminUrl =  EnvironmentProperties.Env.ADMIN_FULL_URL;
         final String shopperFullBaseUrl = EnvironmentProperties.Env.FULL_SHOPPER_URL;
         port = 443;
         config = config().encoderConfig(encoderConfig().defaultContentCharset("UTF-8"));
@@ -140,6 +144,20 @@ public enum Specification {
 
         prodRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(prodFullUrl)
+                .setAccept(ContentType.JSON)
+                .addFilter(new AllureRestAssuredCustom())
+                .build();
+
+        prodWebRequestSpec = new RequestSpecBuilder()
+                .setBaseUri(prodWebUrl)
+                .setBasePath("api/")
+                .setAccept(ContentType.JSON)
+                .addFilter(new AllureRestAssuredCustom())
+                .build();
+
+        prodAdminRequestSpec = new RequestSpecBuilder()
+                .setBaseUri(prodAdminUrl)
+                .setBasePath("api/")
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
                 .build();

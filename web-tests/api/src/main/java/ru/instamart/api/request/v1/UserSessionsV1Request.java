@@ -21,7 +21,7 @@ public class UserSessionsV1Request extends ApiV1RequestBase {
         userParams.put("email", email);
         userParams.put("password", password);
         userParams.put("remember_me", true);
-        return givenWithSpec()
+        return givenAdminWithSpec()
                 .body(requestParams)
                 .contentType(ContentType.JSON)
                 .post(ApiV1Endpoints.USER_SESSIONS);
