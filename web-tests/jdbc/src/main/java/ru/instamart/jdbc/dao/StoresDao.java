@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import static org.testng.Assert.fail;
 
@@ -76,5 +77,25 @@ public class StoresDao extends AbstractDao<Long, StoresEntity> {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return resultCount;
+    }
+
+    @Override
+    public Optional<StoresEntity> findById(Long id) {
+        StoresEntity store = new StoresEntity();
+        var sql = String.format(SELECT_SQL, "*") + " WHERE id = ?";
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                store.setId(resultSet.getLong("id"));
+                store.setRetailerId(resultSet.getLong("retailer_id"));
+                store.setTimeZone(resultSet.getString("time_zone"));
+                store.setOperationalZoneId(resultSet.getLong("operational_zone_id"));
+            }
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return Optional.of(store);
     }
 }

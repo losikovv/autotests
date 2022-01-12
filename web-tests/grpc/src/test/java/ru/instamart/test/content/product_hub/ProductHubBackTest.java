@@ -4,6 +4,8 @@ import io.grpc.StatusRuntimeException;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import ru.instamart.jdbc.dao.StoresDao;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
@@ -337,8 +339,8 @@ public class ProductHubBackTest extends GrpcBase {
         SaveStocksRequest request = SaveStocksRequest.newBuilder()
                 .addStocks(Stock.newBuilder()
                         .setSku(productSku)
-                        .setStoreId("1")
-                        .setRetailerId("3")
+                        .setStoreId(String.valueOf(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID))
+                        .setRetailerId(StoresDao.INSTANCE.findById((long) EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID).get().getRetailerId().toString())
                         .setRetailerSku("266353")
                         .setStock(666)
                         .addStockData(Data.newBuilder()
@@ -391,8 +393,8 @@ public class ProductHubBackTest extends GrpcBase {
     public void saveStocksWithoutSKU() {
         SaveStocksRequest request = SaveStocksRequest.newBuilder()
                 .addStocks(Stock.newBuilder()
-                        .setStoreId("1")
-                        .setRetailerId("3")
+                        .setStoreId(String.valueOf(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID))
+                        .setRetailerId(StoresDao.INSTANCE.findById((long) EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID).get().getRetailerId().toString())
                         .setRetailerSku("266353")
                         .setStock(666)
                         .setStatus(Status.ENABLE)
@@ -411,9 +413,9 @@ public class ProductHubBackTest extends GrpcBase {
         SavePricesRequest request = SavePricesRequest.newBuilder()
                 .addPrices(Price.newBuilder()
                         .setSku(productSku)
-                        .setStoreId("1")
+                        .setStoreId(String.valueOf(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID))
                         .setTenantId("sbermarket")
-                        .setRetailerId("3")
+                        .setRetailerId(StoresDao.INSTANCE.findById((long) EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID).get().getRetailerId().toString())
                         .setRetailerSku("266353")
                         .setPrice(666)
                         .addPriceData(Data.newBuilder()
@@ -464,7 +466,7 @@ public class ProductHubBackTest extends GrpcBase {
         ProductHubFrontDataOuterClass.GetPricesRequest requestForCheck = ProductHubFrontDataOuterClass.GetPricesRequest.newBuilder()
                 .addPrices(ProductHubFrontDataOuterClass.GetPricesRequest.Price.newBuilder()
                         .setSku(productSku)
-                        .setStoreId("1")
+                        .setStoreId(String.valueOf(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID))
                         .setTenantId("sbermarket")
                         .build())
                 .build();
@@ -499,7 +501,7 @@ public class ProductHubBackTest extends GrpcBase {
     public void savePricesWithoutSKU() {
         SavePricesRequest request = SavePricesRequest.newBuilder()
                 .addPrices(Price.newBuilder()
-                        .setStoreId("1")
+                        .setStoreId(String.valueOf(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID))
                         .setTenantId("sbermarket")
                         .setRetailerId("3")
                         .setRetailerSku("266353")
