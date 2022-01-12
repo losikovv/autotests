@@ -6,9 +6,10 @@ import ru.instamart.api.common.Specification;
 import static io.restassured.RestAssured.given;
 
 public class ApiV3RequestBase {
+
     public static RequestSpecification givenWithSpec() {
         return given()
-                .spec(Specification.INSTANCE.getApiV3RequestSpec());
+                .spec(Specification.INSTANCE.getApiV2RequestSpec());
     }
 
     public static RequestSpecification givenMetroMarketPlace() {
