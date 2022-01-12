@@ -26,11 +26,7 @@ public class ExternalPartnersV2Test extends RestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void testUp() {
-        if(EnvironmentProperties.SERVER.equals("production")) {
-            SessionFactory.createSessionToken(SessionType.PROD, UserManager.getQaUser());
-        } else {
-            SessionFactory.makeSession(SessionType.API_V2);
-        }
+        SessionFactory.makeSession(SessionType.API_V2);
     }
 
     @CaseId(270)

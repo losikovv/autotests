@@ -101,7 +101,7 @@ public class CitiesV2Test extends RestBase {
     @CaseId(1415)
     @Story("Получение городов")
     @Test(description = "Получаем все города с определенной страницы",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getAllCitiesForPage() {
         final Response response = CitiesV2Request.GET(CitiesV2Request.CitiesParams.builder()
                 .page(2)

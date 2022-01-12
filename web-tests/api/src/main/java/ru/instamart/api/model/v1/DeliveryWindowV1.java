@@ -23,7 +23,7 @@ public class DeliveryWindowV1 extends BaseObject {
     @Null
     @JsonSchema(required = true)
     @JsonProperty("closing_time_gap")
-    private String closingTimeGap;
+    private Object closingTimeGap;
 
     @JsonSchema(required = true)
     private String date;

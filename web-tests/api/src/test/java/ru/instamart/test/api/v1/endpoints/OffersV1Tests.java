@@ -45,7 +45,7 @@ public class OffersV1Tests extends RestBase {
     @Story("Поиск товаров")
     @CaseId(1382)
     @Test(  description = "Поиск товаров в магазине по SKU",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dependsOnMethods = "getOffer")
     public void getOfferBySku() {
         final Response response = StoresV1Request.Offers.GET(offerForRequest.getStoreId(), offerForRequest.getProductSku());
@@ -58,7 +58,7 @@ public class OffersV1Tests extends RestBase {
     @Story("Поиск товаров")
     @CaseId(1383)
     @Test(  description = "Поиск товаров в магазине по нескольким SKU",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dependsOnMethods = "getOffer")
     public void getOfferBySkus() {
         List<OfferV1> offersFromStore = apiV2.getActiveOffers(offerForRequest.getStore().getUuid()).stream().sorted(Comparator.comparing(OfferV1::getId)).collect(Collectors.toList());
@@ -78,7 +78,7 @@ public class OffersV1Tests extends RestBase {
     @Story("Поиск товаров")
     @CaseId(1384)
     @Test(  description = "Поиск товаров в магазине без SKU",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getOfferWithoutSkus() {
         final Response response = StoresV1Request.Offers.GET(EnvironmentProperties.DEFAULT_SID, null);
         checkStatusCode400(response);
@@ -88,7 +88,7 @@ public class OffersV1Tests extends RestBase {
     @Story("Поиск товаров")
     @CaseId(1385)
     @Test(  description = "Поиск товаров в несуществующем магазине по SKU",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getOfferForNonExistentStore() {
         final Response response = StoresV1Request.Offers.GET(0, "123");
         checkStatusCode404(response);
@@ -98,7 +98,7 @@ public class OffersV1Tests extends RestBase {
     @Story("Поиск товаров")
     @CaseId(1386)
     @Test(  description = "Поиск товаров в магазине по несуществующему SKU",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getOfferByNonExistentSkus() {
         final Response response = StoresV1Request.Offers.GET(EnvironmentProperties.DEFAULT_SID, "000");
         checkStatusCode200(response);

@@ -38,7 +38,7 @@ public class PaymentToolsV2Test extends RestBase {
 
     @CaseId(1115)
     @Story("Способы оплаты")
-    @Test(groups = {"api-instamart-smoke"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Получить способы оплаты")
     public void getPaymentMethods() {
         final Response response = PaymentToolsV2Request.GET();
@@ -54,7 +54,7 @@ public class PaymentToolsV2Test extends RestBase {
 
     @CaseId(682)
     @Story("Способы оплаты с типами")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Существующий номер заказа")
     public void getPaymentMethodsWithTypes() {
         final Response response = OrdersV2Request.PaymentToolsWithTypes.GET(orderNumber);
@@ -76,7 +76,7 @@ public class PaymentToolsV2Test extends RestBase {
 
     @CaseId(820)
     @Story("Способы оплаты с типами")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Несуществующий номер заказа")
     public void getPaymentMethodsWithTypesForNonexistingOrder() {
         final Response response = OrdersV2Request.PaymentToolsWithTypes.GET("failedOrderNumber");
@@ -111,7 +111,7 @@ public class PaymentToolsV2Test extends RestBase {
 
     @CaseId(1117)
     @Story("Способы оплаты")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Несуществующий номер заказа")
     public void getPaymentToolsWithOrder404() {
         final Response response = PaymentToolsV2Request.GET("failedOrderNumber");

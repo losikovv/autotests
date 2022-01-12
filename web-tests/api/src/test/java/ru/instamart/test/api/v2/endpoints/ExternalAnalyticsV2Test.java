@@ -23,11 +23,7 @@ public class ExternalAnalyticsV2Test extends RestBase {
 
     @BeforeMethod
     public void testUp() {
-        if(EnvironmentProperties.SERVER.equals("production")) {
-            SessionFactory.createSessionToken(SessionType.PROD, UserManager.getQaUser());
-        } else {
-            SessionFactory.makeSession(SessionType.API_V2);
-        }
+        SessionFactory.makeSession(SessionType.API_V2);
     }
 
     @CaseId(791)

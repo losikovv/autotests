@@ -19,7 +19,6 @@ import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.data.user.UserManager;
 
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
@@ -59,7 +58,7 @@ public class OrdersV1Test extends RestBase {
     @Story("Заказы")
     @CaseId(115)
     @Test(description = "Контрактный тест инфы о заказе",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getOrder() {
         final Response response = OrdersV1Request.GET(orderNumber);
         checkStatusCode200(response);
@@ -69,7 +68,7 @@ public class OrdersV1Test extends RestBase {
     @Story("Заказы")
     @CaseId(116)
     @Test(description = "Контрактный тест инфы о шипменте",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getShipment() {
         final Response response = ShipmentsV1Request.GET(shipmentNumber);
         checkStatusCode200(response);
@@ -81,7 +80,7 @@ public class OrdersV1Test extends RestBase {
     @Story("Заказы")
     @CaseId(117)
     @Test(description = "Контрактный тест списка офферов в шипменте",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getShipmentOffers() {
         final Response response = ShipmentsV1Request.Offers.GET(shipmentNumber);
         checkStatusCode200(response);
@@ -91,7 +90,7 @@ public class OrdersV1Test extends RestBase {
     @Story("Заказы")
     @CaseId(118)
     @Test(description = "Контрактный тест списка лайн айтемов в шимпенте",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getLineItems() {
         final Response response = LineItemsV1Request.GET(shipmentNumber);
         checkStatusCode200(response);
@@ -134,7 +133,7 @@ public class OrdersV1Test extends RestBase {
     @Story("Заказы")
     @CaseId(121)
     @Test(description = "Контрактный тест списка способов оплаты в заказе",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getShopperOrderAvailablePaymentTools() {
         final Response response = ShoppersV1Request.OrderAvailablePaymentTools.GET(orderNumber);
         checkStatusCode200(response);
@@ -144,7 +143,7 @@ public class OrdersV1Test extends RestBase {
     @Story("Заказы")
     @CaseId(43)
     @Test(description = "Получение информации о мультиритейлерном заказе",
-            groups = "api-instamart-regress")
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getMultireteilerOrder() {
         final Response response = MultiretailerOrderV1Request.GET();
         checkStatusCode200(response);

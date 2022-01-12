@@ -25,7 +25,7 @@ import static ru.instamart.kraken.data.user.UserManager.getDefaultApiUser;
 public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
     @CaseId(466)
     @Story("Получение последнего подзаказа без отзыва о заказе")
-    @Test(groups = {"api-instamart-smoke"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Автоматическое получение последнего шипмента без оценки при старте приложения. Заказа на аккаунте не было.")
     public void automaticReceiptLastMessage404() {
         SessionFactory.makeSession(SessionType.API_V2);
@@ -48,7 +48,7 @@ public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
 
     @CaseId(473)
     @Story("Создание отзыва о заказе")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Создание отзыва о заказе с несуществующим номером")
     public void test(){
         ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()

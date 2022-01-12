@@ -74,7 +74,7 @@ public final class SimpleRecsV2Test extends RestBase {
     @CaseIDs(value = {@CaseId(289), @CaseId(1099), @CaseId(1100), @CaseId(1101)})
     @Story("Упрощенные рекомендации (simple-recs)")
     @JsonDataProvider(path = "data/json_v2/api_v2_blank_simple_recs_data.json", type = RestDataProvider.SimpleRecsV2TestDataRoot.class)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Упрощенный запрос блока рекомендаций с отсутствующим обязательным параметром",
             dataProvider = "json",
             dataProviderClass = JsonProvider.class
@@ -90,7 +90,7 @@ public final class SimpleRecsV2Test extends RestBase {
     @CaseIDs(value = {@CaseId(288), @CaseId(1102)})
     @Story("Упрощенные рекомендации (simple-recs)")
     @JsonDataProvider(path = "data/json_v2/api_v2_invalid_simple_recs_data.json", type = RestDataProvider.SimpleRecsV2TestDataRoot.class)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Упрощенный запрос блока рекомендаций с невалидным обязательным параметром",
             dataProvider = "json",
             dataProviderClass = JsonProvider.class

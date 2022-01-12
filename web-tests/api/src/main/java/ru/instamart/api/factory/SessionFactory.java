@@ -39,7 +39,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Slf4j
 public final class SessionFactory {
 
-    private static final SessionProvider provider = SessionProvider.PHONE;
+    private static final SessionProvider provider = SessionProvider.QA;
 
     @Getter
     private static final Map<SessionId, SessionInfo> sessionMap = new ConcurrentHashMap<>();
@@ -49,7 +49,7 @@ public final class SessionFactory {
     }
 
     public static void makeSession(final SessionType type, final SessionProvider provider) {
-        final UserData userData = UserManager.getUser();
+        final UserData userData = provider.equals(SessionProvider.QA) ? UserManager.getQaUser() : UserManager.getUser();
         switch (type) {
             case API_V1:
             case SHOPPER_APP:
@@ -59,10 +59,10 @@ public final class SessionFactory {
                 log.warn("Not implemented yet!");
                 break;
             case API_V2:
-                if (!provider.equals(SessionProvider.PHONE)) {
+                if (!provider.equals(SessionProvider.PHONE) && !provider.equals(SessionProvider.QA)) {
                     RegistrationHelper.registration(userData);
                 }
-                createSessionToken(type, userData);
+                createSessionToken(type, provider, userData);
                 break;
             default:
                 log.error("Pls select session type");
@@ -141,8 +141,6 @@ public final class SessionFactory {
                 return createAdminSession(userData);
             case RIS_EXPORTER:
                 return createRisSession(userData);
-            case PROD:
-                return createProdSession(userData);
             default:
                 log.error("Session type not selected");
                 return new SessionInfo();
@@ -160,6 +158,8 @@ public final class SessionFactory {
                 return createApiV2FacebookSession(userData);
             case PHONE:
                 return createApiV2PhoneSession(userData);
+            case QA:
+                return createQaSession(userData);
             default:
                 log.error("Session type not selected");
                 return new SessionInfo();
@@ -242,7 +242,7 @@ public final class SessionFactory {
         return new SessionInfo(userData, response.as(TokenRisResponse.class).getToken());
     }
 
-    private static SessionInfo createProdSession(final UserData userData) {
+    private static SessionInfo createQaSession(final UserData userData) {
         return new SessionInfo(userData, userData.getToken());
     }
 

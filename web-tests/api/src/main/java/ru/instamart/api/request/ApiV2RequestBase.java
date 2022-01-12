@@ -18,8 +18,7 @@ public class ApiV2RequestBase {
         return givenWithSpec()
                 .header(
                         "Authorization",
-                        "Token token=" + SessionFactory.getSession(EnvironmentProperties.SERVER.equals("production") ? SessionType.PROD
-                                : SessionType.API_V2).getToken());
+                        "Token token=" + SessionFactory.getSession(SessionType.API_V2).getToken());
     }
 
     /**

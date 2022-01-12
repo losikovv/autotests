@@ -29,7 +29,7 @@ public class TaxonV2 extends BaseObject {
 
     @Null
     @JsonProperty(value = "alt_icon")
-    private IconV2 altIcon;
+    private AltIconV2 altIcon;
 
     private List<TaxonV2> children = null;
 

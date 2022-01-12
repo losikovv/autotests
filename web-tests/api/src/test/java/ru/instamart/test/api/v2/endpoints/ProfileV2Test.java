@@ -37,7 +37,7 @@ public class ProfileV2Test extends RestBase {
     @Test(description = "Получение данных профиля пользователя. Запрос с токеном",
             groups = {"api-instamart-smoke"})
     public void getProfile200() {
-        SessionFactory.makeSession(SessionType.API_V2);
+        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2);
         UserV2 user = apiV2.getProfile().getUser();
         final SoftAssert softAssert = new SoftAssert();
@@ -57,7 +57,7 @@ public class ProfileV2Test extends RestBase {
 
     @CaseId(160)
     @Test(description = "Получение данных профиля пользователя. Запрос без токена",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getProfile401() {
         final Response response = ProfileV2Request.GET();
         checkStatusCode401(response);

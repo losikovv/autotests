@@ -58,7 +58,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseIDs(value = {@CaseId(265), @CaseId(869)})
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о продукте",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dependsOnMethods = "getProductsWithValidSid")
     public void getProductInfo() {
         final Response response = ProductsV2Request.GET(product.getId());
@@ -270,7 +270,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(1176)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по запросу со второй страницы",
-            groups = {"api-instamart-smoke", "api-instamart-prod"})
+            groups = {"api-instamart-smoke"})
     public void getProductWithQueryAndPage() {
         final Response responseFirstPage = ProductsV2Request.GET(ProductsFilterParams.builder()
                         .sid(EnvironmentProperties.DEFAULT_SID)
@@ -299,7 +299,7 @@ public final class ProductsV2Test extends RestBase {
     @CaseId(1177)
     @Story("Получить список доступных продуктов (Поиск)")
     @Test(description = "Получаем список продуктов по запросу с несуществующей страницы",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getProductsOnNonExistingPage() {
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
                         .sid(EnvironmentProperties.DEFAULT_SID)

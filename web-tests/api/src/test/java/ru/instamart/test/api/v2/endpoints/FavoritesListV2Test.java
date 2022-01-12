@@ -34,11 +34,7 @@ public class FavoritesListV2Test extends RestBase {
     @BeforeClass(alwaysRun = true)
     @Story("Создание сессии")
     public void preconditions() {
-        if(EnvironmentProperties.SERVER.equals("production")) {
-            SessionFactory.createSessionToken(SessionType.PROD, UserManager.getQaUser());
-        } else {
-            SessionFactory.makeSession(SessionType.API_V2);
-        }
+        SessionFactory.makeSession(SessionType.API_V2);
     }
 
     @Deprecated
@@ -71,7 +67,7 @@ public class FavoritesListV2Test extends RestBase {
         Response response = FavoritesV2Request.POST(PRODUCT_ID_2);
         checkStatusCode200(response);
         final ItemV2 item = response.as(FavoritesItemV2Response.class).getItem();
-        assertNotNull(item, "Избранное вернуло пустое значение" );
+        assertNotNull(item, "Избранное вернуло пустое значение");
         response = FavoritesV2Request.DELETE(item.getId());
         checkStatusCode200(response);
     }
@@ -127,7 +123,7 @@ public class FavoritesListV2Test extends RestBase {
 
     @CaseId(524)
     @Story("Список SKU товаров из избранного")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Список SKU товаров из избранного. В избранном нет товаров")
     public void getFavoritesSku() {
         final Response response = FavoritesV2Request.ProductSku.GET();
@@ -138,7 +134,7 @@ public class FavoritesListV2Test extends RestBase {
 
     @CaseId(526)
     @Story("Добавить товар в избранное")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Добавить товар в избранное с несуществующим id")
     public void addFavoritesList404() {
         final Response response = FavoritesV2Request.POST("invalidNumber_0120102012");

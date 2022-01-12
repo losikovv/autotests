@@ -2,7 +2,6 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
@@ -24,13 +23,9 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 @Feature("Условия оплаты бонусами")
 public final class PromotionLimitV2Test extends RestBase {
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void testUp() {
-        if(EnvironmentProperties.SERVER.equals("production")) {
-            SessionFactory.createSessionToken(SessionType.PROD, UserManager.getQaUser());
-        } else {
-            SessionFactory.makeSession(SessionType.API_V2);
-        }
+        SessionFactory.makeSession(SessionType.API_V2);
     }
 
     @CaseId(309)
@@ -64,6 +59,6 @@ public final class PromotionLimitV2Test extends RestBase {
         String orderNumber = "test";
         final Response response = OrdersV2Request.PromotionLimit.GET(orderNumber);
         checkStatusCode404(response);
-        checkError(response,"Заказ не существует");
+        checkError(response, "Заказ не существует");
     }
 }

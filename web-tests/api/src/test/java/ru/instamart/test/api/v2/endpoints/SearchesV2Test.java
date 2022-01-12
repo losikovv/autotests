@@ -53,7 +53,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(276), @CaseId(277), @CaseId(279)})
     @Test(description = "Получаем поисковые подсказки по слову - негативные сценарии",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProvider = "negativeQuery",
             dataProviderClass = RestDataProvider.class)
     public void getSearchSuggestionsWithSqlQuery(String query) {
@@ -65,7 +65,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(274)
     @Test(description = "Получаем поисковые подсказки по слову для несуществующего магазина",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getSearchSuggestionsWithQueryAndNonExistentShop() {
         final Response response = SearchesV2Request.Suggestions.GET(0, "сыр");
         checkStatusCode404(response);
@@ -74,7 +74,7 @@ public class SearchesV2Test extends RestBase {
 
     @CaseId(275)
     @Test(description = "Получаем поисковые подсказки c пустым запросом",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProvider = "emptyQueries",
             dataProviderClass = RestDataProvider.class)
     public void getSearchSuggestionsWithEmptyQuery(String query) {

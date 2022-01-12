@@ -37,7 +37,7 @@ public class ShipmentAssemblyItemsV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
+        SessionFactory.makeSession(SessionType.API_V2);
         UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         apiV2.fillCart(userData, EnvironmentProperties.DEFAULT_SID);
         OrderV2 order = apiV2.getOpenOrder();
@@ -47,7 +47,7 @@ public class ShipmentAssemblyItemsV2Test extends RestBase {
 
     @CaseId(529)
     @Story("Детали по сборке подзаказа")
-    @Test(groups = {"api-instamart-smoke"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Детали по существующему подзаказу до сборки")
     public void getAssemblyItemsOfExistingShipment() {
         final Response response = ShipmentsV2Request.AssemblyItems.GET(shipment.getNumber());
@@ -58,7 +58,7 @@ public class ShipmentAssemblyItemsV2Test extends RestBase {
 
     @CaseId(536)
     @Story("Детали по сборке подзаказа")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Детали по сборке несуществующего подзаказа")
     public void getAssemblyItemsOfNonExistingShipment() {
         final Response response = ShipmentsV2Request.AssemblyItems.GET("failedShipmentNumber");
@@ -73,7 +73,6 @@ public class ShipmentAssemblyItemsV2Test extends RestBase {
             dependsOnMethods = "getAssemblyItemsOfExistingShipment")
     public void getAssemblyItemsOfShipmentAfterAssembling() {
         changeToAssembled(shipment.getNumber(), "0");
-        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         final Response response = ShipmentsV2Request.AssemblyItems.GET(shipment.getNumber());
         checkStatusCode200(response);
         AssemblyItemV2 assemblyItem = response.as(ShipmentAssemblyItemsV2Response.class).getAssemblyItems().get(0);
@@ -99,7 +98,8 @@ public class ShipmentAssemblyItemsV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Детали по сборке существующего подзаказа c выбранным типом цены",
             dataProvider = "priceTypes",
-            dataProviderClass = RestDataProvider.class)
+            dataProviderClass = RestDataProvider.class,
+            dependsOnMethods = "getCancelledAssemblyItemsOfShipment")
     public void getAssemblyItemsWithPriceType(ProductPriceTypeV2 priceType) {
         UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
         apiV2.fillCart(userData, EnvironmentProperties.DEFAULT_SID, priceType);

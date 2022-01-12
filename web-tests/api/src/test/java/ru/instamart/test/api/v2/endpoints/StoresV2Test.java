@@ -79,7 +79,7 @@ public final class StoresV2Test extends RestBase {
     }
 
     @CaseId(196)
-    @Test(groups = {"api-instamart-regress"}, description = "Получаем магазин")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Получаем магазин")
     public void testGetStoresWithDefaultSid() {
         final Response response = StoresV2Request.GET(EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
