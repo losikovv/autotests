@@ -4,6 +4,7 @@ public class ApiV3Endpoints {
 
     public static final String STORES = "v3/stores";
     public static final String SETUP_INFO = "v3/setup_info";
+    public static final String NOTIFICATIONS = "v3/notifications";
 
     public static final class Stores {
         public static final String DELIVERY = "v3/stores?shipping_method=delivery";
@@ -32,6 +33,6 @@ public class ApiV3Endpoints {
         public static final String DELIVERY = "v3/orders/delivery";
         public static final String PICKUP_FROM_STORE = "v3/orders/pickup_from_store";
         public static final String ORDER_BY_UUID = "v3/orders/{UUID}?include=contact,shipping,shipping_crew,packages,payments";
-        public  static final String CANCEL ="v3/orders/{UUID}/status";
+        public static final String CANCEL ="v3/orders/{UUID}/status";
     }
 }
