@@ -50,6 +50,7 @@ stages:
   only:
     refs:
       - master
+      - schedules
     variables:
       - $PRODACTION == 'true'
 

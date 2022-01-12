@@ -134,7 +134,7 @@ public final class SimpleAdsV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(283), @CaseId(1090)})
     @JsonDataProvider(path = "data/json_v2/api_v2_invalid_simple_ads_data.json", type = RestDataProvider.SimpleAdsV2TestDataRoot.class)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProvider = "json",
             dataProviderClass = JsonProvider.class,
             description = "Упрощенный запрос нативной рекламы с невалидными параметрами")

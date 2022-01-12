@@ -28,11 +28,7 @@ public final class ShipAddressV2Test extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        if(EnvironmentProperties.SERVER.equals("production")) {
-            SessionFactory.createSessionToken(SessionType.PROD, UserManager.getQaUser());
-        } else {
-            SessionFactory.makeSession(SessionType.API_V2);
-        }
+        SessionFactory.makeSession(SessionType.API_V2);
     }
 
     @Deprecated
@@ -63,13 +59,13 @@ public final class ShipAddressV2Test extends RestBase {
     @Test(groups = {})
     @Story("Несуществующий id для не авторизованных")
     public void testAddressWithoutAuthAndInvalidOrderId() {
-        final Response response = OrdersV2Request.ShipAddress.GET("invalid_token","66666");
+        final Response response = OrdersV2Request.ShipAddress.GET("invalid_token", "66666");
         checkStatusCode404(response);
     }
 
     @Deprecated
     @Story("Получение списка возможных изменений для заказа")
-    @Test(  groups = {},
+    @Test(groups = {},
             description = "Существующий id для авторизованных")
     public void testGetChangeAddressWithValidIdAndAuth() {
         final Response response = OrdersV2Request.ShipAddressChange.GET(apiV2.getCurrentOrderNumber());

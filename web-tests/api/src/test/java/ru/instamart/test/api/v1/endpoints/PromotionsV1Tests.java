@@ -22,10 +22,10 @@ public class PromotionsV1Tests extends RestBase {
 
     @CaseId(1430)
     @Story("Бесплатная доставка")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение информации о бесплатной доставке")
     public void getFreeDeliveryPromotionsInfo() {
-        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdminAllRoles());
+        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
         final Response response = PromotionsV1Request.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, FreeDeliveryV1Response.class);

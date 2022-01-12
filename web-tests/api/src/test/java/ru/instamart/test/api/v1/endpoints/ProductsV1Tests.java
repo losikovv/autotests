@@ -43,7 +43,7 @@ public class ProductsV1Tests extends RestBase {
     @CaseId(1381)
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о продукте c несуществующим permalink",
-            groups = {"api-instamart-regress", "api-instamart-smoke"})
+            groups = {"api-instamart-regress", "api-instamart-smoke", "api-instamart-prod"})
     public void getProductInfoWithInvalidPermalink() {
         final Response response = StoresV1Request.Products.GET(EnvironmentProperties.DEFAULT_SID, "fgdgdfgdfgdfg");
         checkStatusCode404(response);

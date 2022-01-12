@@ -120,7 +120,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseIDs(value = {@CaseId(1277), @CaseId(1284), @CaseId(1288), @CaseId(1296)})
     @Test(description = "Получение списка ритейлеров с несуществующими параметрами",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProvider = "incorrectRetailerParams",
             dataProviderClass = RestDataProvider.class)
     public void getRetailersByNonExistingOperationalZones(RetailersV1Request.RetailerParams retailerParams) {
@@ -134,7 +134,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseIDs(value = {@CaseId(1278), @CaseId(1279), @CaseId(1280), @CaseId(1281), @CaseId(1282), @CaseId(1283)})
     @Test(description = "Получение списка ритейлеров по имени",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProvider = "retailerNameData",
             dataProviderClass = RestDataProvider.class)
     public void getRetailersByName(String retailerName) {
@@ -290,7 +290,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1295)
     @Test(description = "Получение ритейлеров с пагинацией",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getRetailersWithPagination() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
                 .page(2)
@@ -309,7 +309,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1297)
     @Test(description = "Получение ритейлеров с несколькими параметрами сортировки и фильтрации",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getRetailersWithAFewParams() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
                 .page(1)

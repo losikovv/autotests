@@ -38,8 +38,8 @@ public class MergedShipmentsV2Test extends RestBase {
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
-        products = apiV2.getProductsFromEachDepartmentInStore(1);
-        order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 1);
+        products = apiV2.getProductsFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
     }
 
 
@@ -77,7 +77,7 @@ public class MergedShipmentsV2Test extends RestBase {
     public void mergeShipmentWithAlcoholShipment() {
         String orderNumber = apiV2.getOpenOrder().getNumber();
         SpreeOrdersDao.INSTANCE.updateShippingKind(orderNumber, ShippingMethodsV2.PICKUP.getMethod());
-        final Response response = LineItemsV2Request.POST(SpreeProductsDao.INSTANCE.getOfferIdForAlcohol(1), 1, orderNumber);
+        final Response response = LineItemsV2Request.POST(SpreeProductsDao.INSTANCE.getOfferIdForAlcohol(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID), 1, orderNumber);
         checkStatusCode200(response);
         OrderV2 newOrder = OrdersV2Request.GET(orderNumber).as(OrderV2Response.class).getOrder();
         final Response responseWithMerge = ShipmentsV2Request.Merge.POST(newOrder.getShipments().get(0).getNumber(), order.getShipments().get(0).getNumber());

@@ -620,7 +620,7 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-    @DataProvider(name = "priceTypes", parallel = true)
+    @DataProvider(name = "priceTypes")
     public static Object[][] getPriceType() {
         return new Object[][]{
                 {ProductPriceTypeV2.PER_ITEM},
@@ -783,7 +783,7 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getStoresForTransferMethodCheckCourier() {
         return new Object[][]{
                 {EnvironmentProperties.DEFAULT_SID, AnalyzeResultV2.OK},
-                {1, AnalyzeResultV2.OK},
+                {EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, AnalyzeResultV2.OK},
                 {2, AnalyzeResultV2.OK},
                 {22, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
                 {89, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
@@ -793,7 +793,7 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "storesDataForTransferMethodAllShipping")
     public static Object[][] getStoresForTransferMethodCheckAll() {
         return new Object[][]{
-                {1, AnalyzeResultV2.OK},
+                {EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, AnalyzeResultV2.OK},
                 {94, AnalyzeResultV2.OK},
                 {EnvironmentProperties.DEFAULT_SID, AnalyzeResultV2.OK},
                 {22, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
@@ -827,7 +827,7 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "storesDataForPickupTransferMethodOnlyCourier")
     public static Object[][] getStoresForPickupTransferMethodCheckCourier() {
         return new Object[][]{
-                {1, AnalyzeResultV2.OK},
+                {EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, AnalyzeResultV2.OK},
                 {22, AnalyzeResultV2.OK},
                 {89, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
         };
@@ -836,7 +836,7 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "storesDataForPickupTransferMethodAll")
     public static Object[][] getStoresForPickupTransferMethodCheckAll() {
         return new Object[][]{
-                {1, AnalyzeResultV2.OK},
+                {EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, AnalyzeResultV2.OK},
                 {94, AnalyzeResultV2.OK},
                 {22, AnalyzeResultV2.OK},
                 {89, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
@@ -847,7 +847,7 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getStoresForCourierTransferMethodCheck() {
         return new Object[][]{
                 {22, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
-                {1, AnalyzeResultV2.OK},
+                {EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, AnalyzeResultV2.OK},
                 {EnvironmentProperties.DEFAULT_SID, AnalyzeResultV2.OK},
                 {82, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
                 {89, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
@@ -859,7 +859,7 @@ public class RestDataProvider extends RestBase {
         return new Object[][]{
                 {22, AnalyzeResultV2.OK},
                 {89, AnalyzeResultV2.ALL_PRODUCTS_DISAPPEARS},
-                {1, AnalyzeResultV2.OK},
+                {EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, AnalyzeResultV2.OK},
                 {82, AnalyzeResultV2.OK},
         };
     }
@@ -869,7 +869,7 @@ public class RestDataProvider extends RestBase {
         return new Object[][]{
                 {2},
                 {22},
-                {1}
+                {EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID}
         };
     }
 

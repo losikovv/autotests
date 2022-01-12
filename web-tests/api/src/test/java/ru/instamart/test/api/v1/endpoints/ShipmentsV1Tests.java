@@ -37,12 +37,9 @@ public class ShipmentsV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        if(EnvironmentProperties.SERVER.equals("production")) {
-            SessionFactory.createSessionToken(SessionType.PROD, UserManager.getQaUser());
-            apiV2.fillCart(SessionFactory.getSession(SessionType.PROD).getUserData(), EnvironmentProperties.DEFAULT_SID);
-        } else {
-            SessionFactory.makeSession(SessionType.API_V2);
-            apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        SessionFactory.makeSession(SessionType.API_V2);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        if (!EnvironmentProperties.SERVER.equals("production")) {
             SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdminAllRoles());
         }
     }
@@ -60,7 +57,7 @@ public class ShipmentsV1Tests extends RestBase {
 
     @CaseId(1391)
     @Story("Получить окно доставки для подзаказа для указанного дня")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получить окно доставки для несуществующего подзаказа для указанного дня")
     public void getShippingRatesForNonExistentShipment() {
         final Response response = ShipmentsV1Request.ShippingRates.GET("failedShippingNumber", getDateFromMSK());
@@ -70,7 +67,7 @@ public class ShipmentsV1Tests extends RestBase {
 
     @CaseIDs(value = {@CaseId(1392), @CaseId(1393), @CaseId(1394), @CaseId(1395), @CaseId(1396), @CaseId(1397), @CaseId(1400), @CaseId(1398), @CaseId(1399)})
     @Story("Получить окно доставки для подзаказа для указанного дня")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProvider = "dateFormats",
             dataProviderClass = RestDataProvider.class,
             description = "Получить окно доставки для подзаказа для указанного дня с неверным форматом даты")

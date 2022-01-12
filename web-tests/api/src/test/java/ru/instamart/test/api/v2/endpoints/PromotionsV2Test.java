@@ -23,7 +23,7 @@ public class PromotionsV2Test extends RestBase {
 
     @CaseId(824)
     @Story("Реферальная программа")
-    @Test(groups = {"api-instamart-regress"}, description = "Общие сведения о реферальной программе")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Общие сведения о реферальной программе")
     public void getReferralProgram() {
         final Response response = PromotionsV2Request.ReferralProgram.GET();
         checkStatusCode200(response);
@@ -52,7 +52,7 @@ public class PromotionsV2Test extends RestBase {
     @Story("Список продуктов для активации промо")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Несуществующий sid")
     public void testGetListOfProductWithInvalidSid() {
-        final Response response = PromotionsV2Request.PromoProducts.GET(2707, 66666);
+        final Response response = PromotionsV2Request.PromoProducts.GET(2707, 0);
         checkStatusCode404(response);
     }
 }

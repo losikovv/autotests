@@ -335,7 +335,7 @@ public final class BasicOrdersTests extends BaseTest {
     public void successAddItemsInActiveOrder() {
         userData = UserManager.getQaUser();
 
-        helper.makeOrderOnTomorrow(userData, EnvironmentProperties.DEFAULT_SECOND_SID, 1);
+        helper.makeOrderOnTomorrow(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 1);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -365,7 +365,7 @@ public final class BasicOrdersTests extends BaseTest {
     public void successMultiOrder() {
         userData = UserManager.getQaUser();
 
-        helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), EnvironmentProperties.DEFAULT_SECOND_SID, EnvironmentProperties.DEFAULT_AUCHAN_SID);
+        helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, EnvironmentProperties.DEFAULT_AUCHAN_SID);
 
         var company = JuridicalData.juridical();
         var card = PaymentCards.testCard();
@@ -422,7 +422,7 @@ public final class BasicOrdersTests extends BaseTest {
     @Test(description = "Отмена всего мультизаказа при отмене одного из входящих в него заказов", groups = "regression")
     public void successCancelMultiOrderViaCancelOneOrder() {
         userData = UserManager.getQaUser();
-        helper.makeMultipleOrder(userData, RestAddresses.Moscow.defaultAddress(), EnvironmentProperties.DEFAULT_SECOND_SID, EnvironmentProperties.DEFAULT_AUCHAN_SID);
+        helper.makeMultipleOrder(userData, RestAddresses.Moscow.defaultAddress(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, EnvironmentProperties.DEFAULT_AUCHAN_SID);
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);

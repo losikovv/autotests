@@ -32,7 +32,7 @@ public class InstacoinAccountV2Test extends RestBase {
     @CaseId(555)
     @Story("Бонусный счет пользователя")
     @Test(description = "У пользователя нет бонусов",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getNonExistingInstacoinAccount() {
         final Response response = InstacoinAccountV2Request.GET();
         checkStatusCode200(response);

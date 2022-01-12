@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.BeforeClass;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.response.v2.*;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
@@ -48,7 +49,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Получение истории заказов (1-ая страница)")
     public void getPreviousOrder200() {
-        SessionFactory.createSessionToken(SessionType.API_V2, UserManager.getDefaultApiUser());
+        SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.PHONE, UserManager.getDefaultApiUser());
         final Response response = OrdersV2Request.GET(1);
         checkStatusCode200(response);
         OrdersV2Response ordersV2Response = response.as(OrdersV2Response.class);

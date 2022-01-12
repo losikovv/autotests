@@ -16,7 +16,7 @@ public class AppConfigurationV2Test extends RestBase {
 
     @CaseId(789)
     @Test(description = "Получение конфигурации приложения",
-            groups = {"api-instamart-smoke"})
+            groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getAppConfiguration200() {
         final Response response = AppConfigurationV2Request.GET();
 

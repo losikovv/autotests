@@ -26,10 +26,10 @@ public class ShoppingSessionV1Tests extends RestBase {
 
     @CaseId(1417)
     @Story("Сессия покупки")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение сессии для авторизованного пользователя")
     public void getShoppingSessionWithAuth() {
-        UserData user = UserManager.getDefaultAdminAllRoles();
+        UserData user = UserManager.getDefaultAdmin();
         SessionFactory.createSessionToken(SessionType.API_V1, user);
         final Response response = ShoppingSessionV1Request.GET();
         checkStatusCode200(response);
@@ -43,7 +43,7 @@ public class ShoppingSessionV1Tests extends RestBase {
 
     @CaseId(1418)
     @Story("Сессия покупки")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение сессии для неавторизованного пользователя")
     public void getShoppingSessionWithoutAuth() {
         SessionFactory.clearSession(SessionType.API_V1);
