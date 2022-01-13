@@ -65,10 +65,9 @@ public class CatalogApiV2Test extends GrpcBase {
         client.getProduct(request);
     }
 
-    @Story("Продукты")
-    @CaseId(241)
+    @Deprecated
     @Test(description = "Получение карточки товара без tenant_id",
-            groups = {"grpc-product-hub"},
+            groups = {},
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty tenant_id")
     public void getProductWithoutTenantId() {
@@ -96,10 +95,9 @@ public class CatalogApiV2Test extends GrpcBase {
         client.getProduct(request);
     }
 
-    @Story("Продукты")
-    @CaseId(244)
+    @Deprecated
     @Test(description = "Получение карточки товара с пустым tenant_id",
-            groups = {"grpc-product-hub"},
+            groups = {},
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty tenant_id")
     public void getProductWitEmptyTenantId() {
