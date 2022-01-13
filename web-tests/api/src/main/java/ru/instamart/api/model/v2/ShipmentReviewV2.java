@@ -27,7 +27,7 @@ public class ShipmentReviewV2 extends BaseObject {
 	private Integer id;
 
 	@JsonSchema(required = true)
-	private List<IssueV2> issues;
+	private List<ReviewIssueV2> issues;
 
 	@Null
 	@JsonSchema(required = true)

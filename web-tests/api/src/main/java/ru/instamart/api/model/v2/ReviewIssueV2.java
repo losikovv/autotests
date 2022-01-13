@@ -13,12 +13,17 @@ public final class ReviewIssueV2 extends BaseObject {
     private Integer id;
 
     @JsonSchema(required = true)
-    private Integer position;
-
-    @JsonSchema(required = true)
     private String description;
 
     @JsonSchema(required = true)
     @JsonProperty(value = "comment_needed")
     private Boolean commentNeeded;
+
+    @JsonSchema(required = true)
+    @JsonProperty(value = "min_rate")
+    private Integer minRate;
+
+    @JsonSchema(required = true)
+    @JsonProperty(value = "max_rate")
+    private Integer maxRate;
 }
