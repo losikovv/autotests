@@ -10,7 +10,7 @@ import lombok.Data;
 @Builder
 public final class ItemData {
 
-    private String count;
+    private int count;
     private String name;
     private String packageSize;
     private String price;

@@ -62,7 +62,7 @@ public final class ShoppingTestsForUnauthorizedUser extends BaseTest {
 
         shop().goToPage();
         shop().interactHeader().clickToCart();
-        shop().interactCart().increaseCountToMin();
+        shop().interactCart().getFirstItem().increaseCountToMin();
         shop().interactCart().submitOrder();
         shop().interactAuthModal().checkModalIsVisible();
 

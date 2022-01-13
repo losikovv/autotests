@@ -20,4 +20,8 @@ public class InnerCollectionComponent extends InnerComponent {
     public List<WebElement> getComponents() {
         return Kraken.waitAction().isElementsExist(this, getWebElement());
     }
+
+    public int elementCount() {
+        return getComponents().size();
+    }
 }

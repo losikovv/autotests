@@ -3,13 +3,9 @@ package ru.instamart.test.reforged.stf.order;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
-import ru.instamart.api.common.RestAddresses;
-import ru.instamart.api.enums.RailsConsole;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.AddressDetailsData;
@@ -20,6 +16,8 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseIDs;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -75,7 +73,7 @@ public final class BasicOrdersTests extends BaseTest {
     }
 
     @CaseIDs
-    (value = {@CaseId(1672), @CaseId(2627)})
+            (value = {@CaseId(1672), @CaseId(2627)})
     @Test(description = "Тест заказа с новой картой оплаты c 3ds", groups = {"regression", "smoke"})
     public void successCompleteCheckoutWithNewPaymentCard() {
         userData = UserManager.getQaUser();
@@ -120,7 +118,7 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().checkPageContains("https://demo.cloudpayments.ru/acs");
     }
 
-    @CaseIDs(value={@CaseId(2066), @CaseId(3043), @CaseId(2641)})
+    @CaseIDs(value = {@CaseId(2066), @CaseId(3043), @CaseId(2641)})
     @Test(description = "Тест заказа с новой картой оплаты без 3ds", groups = "regression")
     public void successCompleteCheckoutWithNewNoSecurePaymentCard() {
         userData = UserManager.getQaUser();
@@ -338,8 +336,8 @@ public final class BasicOrdersTests extends BaseTest {
 
         shop().goToPage();
         shop().interactHeader().clickToCart();
-        shop().interactCart().mergeProducts();
-        shop().interactCart().clickToViewOrder();
+        shop().interactCart().getFirstRetailer().mergeProducts();
+        shop().interactCart().getFirstRetailer().clickToViewOrder();
 
         userShipments().compareProductNameInOrder(itemName);
     }

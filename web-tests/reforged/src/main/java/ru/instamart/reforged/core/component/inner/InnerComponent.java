@@ -1,6 +1,5 @@
 package ru.instamart.reforged.core.component.inner;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -51,5 +50,10 @@ public abstract class InnerComponent implements Component {
         log.debug("Click on element {}", getDescription());
         var action = Kraken.action();
         action.moveToElement(getComponent()).click().build().perform();
+    }
+
+    public void hoverAndClick() {
+        hoverAction();
+        clickAction();
     }
 }

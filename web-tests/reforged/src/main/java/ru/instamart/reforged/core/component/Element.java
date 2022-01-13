@@ -8,7 +8,6 @@ import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.config.BrowserProperties;
 
-import static java.lang.Thread.sleep;
 import static java.util.Objects.isNull;
 
 @ToString(callSuper = true)
@@ -38,6 +37,10 @@ public final class Element extends AbstractComponent {
             component = Kraken.waitAction().shouldBeVisible(this);
         }
         return component;
+    }
+
+    public WebElement getElement() {
+        return getComponent();
     }
 
     public void click(final Object... args) {
