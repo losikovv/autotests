@@ -157,11 +157,9 @@ public class ReviewableShipmentV2Test extends RestBase {
         compareTwoObjects(shipmentReview.getRate(), review.getRate(), softAssert);
         compareTwoObjects(shipmentReview.getComment(), review.getComment(), softAssert);
         compareTwoObjects(shipmentReview.getIssues().get(0).getId(), reviewIssues.get(1).getId(), softAssert);
-        compareTwoObjects(shipmentReview.getIssues().get(0).getPosition(), reviewIssues.get(1).getPosition(), softAssert);
         compareTwoObjects(shipmentReview.getIssues().get(0).getDescription(), reviewIssues.get(1).getDescription(), softAssert);
         compareTwoObjects(shipmentReview.getIssues().get(0).getCommentNeeded(), reviewIssues.get(1).getCommentNeeded(), softAssert);
         compareTwoObjects(shipmentReview.getIssues().get(1).getId(), reviewIssues.get(2).getId(), softAssert);
-        compareTwoObjects(shipmentReview.getIssues().get(1).getPosition(), reviewIssues.get(2).getPosition(), softAssert);
         compareTwoObjects(shipmentReview.getIssues().get(1).getDescription(), reviewIssues.get(2).getDescription(), softAssert);
         compareTwoObjects(shipmentReview.getIssues().get(1).getCommentNeeded(), reviewIssues.get(2).getCommentNeeded(), softAssert);
         softAssert.assertAll();

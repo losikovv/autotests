@@ -21,8 +21,4 @@ public class IssueV2 extends BaseObject {
 	@JsonSchema(required = true)
 	@JsonProperty("id")
 	private Integer id;
-
-	@JsonSchema(required = true)
-	@JsonProperty("position")
-	private Integer position;
 }
