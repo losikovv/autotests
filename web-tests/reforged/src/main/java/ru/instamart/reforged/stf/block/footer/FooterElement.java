@@ -17,7 +17,7 @@ public interface FooterElement {
                 "ссылка 'О компании' в футере");
     Link contactsLink = new Link(By.xpath("//footer//a[@href='/contacts_2']"),
             "ссылка 'Контакты' в футере");
-    Link vacanciesLink = new Link(By.xpath("//footer//a[@href='https://hh.ru/employer/1272486#vacancy-list']"),
+    Link vacanciesLink = new Link(By.xpath("//footer//a[@href='https://job.sbermarket.ru/']"),
             "ссылка 'Вакансии' в футере");
     Link documentsLink = new Link(By.xpath("//footer//a[@href='/terms-sbermarket']"),
             "ссылка 'Документы' в футере");

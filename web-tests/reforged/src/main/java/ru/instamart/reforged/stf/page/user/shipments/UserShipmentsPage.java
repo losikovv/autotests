@@ -2,7 +2,7 @@ package ru.instamart.reforged.stf.page.user.shipments;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.stf.frame.RepeatModal;
-import ru.instamart.reforged.stf.frame.ShipmentCancelModal;
+import ru.instamart.reforged.stf.frame.shipment_cancel_modal.ShipmentCancelModal;
 import ru.instamart.reforged.stf.page.StfPage;
 
 public final class UserShipmentsPage implements StfPage, UserShipmentsCheck {

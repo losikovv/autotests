@@ -28,7 +28,7 @@ public interface SearchElement {
     Element searchSpinner = new Element(By.xpath("//div[contains(@class, 'Spinner')]"), "Спиннер в поиске");
     Element infiniteSearchSpinner = new Element(By.xpath("//div[contains(@class, 'InfiniteScroll')]"), "Спиннер в бесконечном поиске");
 
-    ElementCollection searchProductsImagesCollection = new ElementCollection(By.xpath("//div[contains(@data-qa, 'search_result_products_products_grid_item')]//img"), "Коллекция картинок продуктов в поиске");
+    ElementCollection searchProductsImagesCollection = new ElementCollection(By.xpath("//div[contains(@data-qa, 'grid_item')]//img"), "Коллекция картинок продуктов в поиске");
 
     ElementCollection searchProductsCollectionImagesAlco = new ElementCollection(By.xpath("//div[@data-qa='search_result_products_products_grid']//img[contains(@src, 'adult-warning')]"), "Коллекция картинок-заглушек алко в поиске");
 
@@ -38,18 +38,19 @@ public interface SearchElement {
     Element searchProductGrid = new Element(By.xpath("//div[@data-qa='search_result_products_products_grid']"), "Сетка продуктов в результатах поиска");
     Element emptySearchPlaceHolder = new Element(By.xpath("//div[@data-qa='search_result_products_products_grid_no_products_title']"), "Заголовок пустых результатов поиска");
 
-    Element searchProductsSkeleton = new Element(By.xpath("//div[contains(@class,'Skeleton')] "), "Заглушка продуктов в поиске");
+    Element searchProductsSkeleton = new Element(By.xpath("//ul[@aria-hidden='true']"), "Заглушка продуктов в поиске");
 
     ElementCollection searchProductPrices = new ElementCollection(By.xpath("//span[contains(text(),'Цена за 1 шт.') or contains(text(), 'со скидкой')]/parent::div"), "Коллекция элементов цен товаров в поиске");
     Element discountFilter = new Element(By.xpath("//span[contains(text(), 'Товары со скидкой')]/parent::label"), "Фильтр 'Товары со скидкой'");
 
-    Element searchProductsQuantity = new Element(By.xpath("//h4[contains(@class, 'Filter')]"), "Надпись с колвом товаров в поиске");
+    Element searchProductsQuantity = new Element(By.xpath("//div[@data-qa='category_taxon_products_filter']//h4"), "Надпись с колвом товаров в поиске");
 
-    ElementCollection filtersCollection = new ElementCollection(By.xpath("//input[@type='checkbox' and @name='brand']/following-sibling::span"), "Коллекция элементов фильтров поиска");
+    ElementCollection filtersCollection = new ElementCollection(By.xpath("//label[@role='option']//span"), "Коллекция элементов фильтров поиска");
     Selector filterCheckbox = new Selector(ByKraken.xpath("//span[contains(text(), '%s')]/parent::label/input"), "Чекбокс фильтра");
 
     Element productsStub = new Element(By.xpath("//div[@data-qa='search_result_products_products_grid']//ul[@aria-hidden='true']"), "Заглушка загрузки товаров");
 
     Element productImg = new Element(ByKraken.xpath("//img[contains(@src, '%s')]"), "Конкретное отдельное изображение на странице");
 
+    Element filterActivePin = new Element(By.xpath("//span[contains(text(), 'фильтр активен')]"),"Пин активного фильтра с текстом");
 }

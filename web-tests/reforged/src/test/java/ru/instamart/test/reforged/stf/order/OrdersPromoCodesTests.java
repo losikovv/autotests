@@ -113,6 +113,7 @@ public final class OrdersPromoCodesTests extends BaseTest {
         shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
+        checkout().checkCheckoutButtonIsVisible();
         checkout().setDeliveryOptions().clickToForBusiness();
         checkout().setDeliveryOptions().clickToAddCompany();
 
