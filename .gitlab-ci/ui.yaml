@@ -49,7 +49,7 @@ tests:AdminUiRegress:
 tests:prodUiSmoke:
   extends:
     - ".template_ui_tests"
-    - ".template_prod"
+  #  - ".template_prod"
   when: manual
   script:
     - gradle clean build uiSmokeProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL

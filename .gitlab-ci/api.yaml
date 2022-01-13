@@ -47,7 +47,7 @@ tests:ApiInstamartRegress:manual:
 tests:preprodApiMetro:
   extends:
     - ".template_api_tests"
-    - ".template_prod"
+   # - ".template_prod"
   resource_group: apiInstamart:$URL_STF
   when: manual
   script:
@@ -68,7 +68,7 @@ tests:prodApiInstamart:
 tests:prodApiRetailer:
   extends:
     - ".template_api_tests"
-    - ".template_prod"
+  #  - ".template_prod"
   when: manual
   script:
     - gradle clean build apiRetailerE2E -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
