@@ -44,16 +44,16 @@ tests:ApiInstamartRegress:manual:
   after_script:
     - bash ./report.sh api api-instamart-staging-regress
 
-tests:preprodApiMetro:
-  extends:
-  #  - ".template_api_tests"
-  # - ".template_prod"
-  resource_group: apiInstamart:$URL_STF
-  when: manual
-  script:
-    - gradle clean build apiInstamartRegress -Penv=metro-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
-  after_script:
-    - bash ./report.sh api api-metro-preprod-regress
+    #tests:preprodApiMetro:
+    #  extends:
+    #  - ".template_api_tests"
+    # - ".template_prod"
+    #  resource_group: apiInstamart:$URL_STF
+    #  when: manual
+    #  script:
+    #    - gradle clean build apiInstamartRegress -Penv=metro-preprod -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    #  after_script:
+  #   - bash ./report.sh api api-metro-preprod-regress
 
 tests:prodApiInstamart:
   extends:
@@ -65,15 +65,15 @@ tests:prodApiInstamart:
   after_script:
     - bash ./report.sh api api-instamart-production-regress
 
-tests:prodApiRetailer:
-  extends:
-  #  - ".template_api_tests"
-  #  - ".template_prod"
-  when: manual
-  script:
-    - gradle clean build apiRetailerE2E -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
-  after_script:
-    - bash ./report.sh api api-retailer-e2e-production
+    #tests:prodApiRetailer:
+    #  extends:
+    #  - ".template_api_tests"
+    #  - ".template_prod"
+    #  when: manual
+    #  script:
+    #    - gradle clean build apiRetailerE2E -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    # after_script:
+    #  - bash ./report.sh api api-retailer-e2e-production
 
 tests:surge:
   resource_group: testSurge
