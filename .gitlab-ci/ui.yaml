@@ -46,15 +46,15 @@ tests:AdminUiRegress:
   after_script:
     - bash ./report.sh reforged ui-admin-regress
 
-tests:prodUiSmoke:
-  extends:
-    - ".template_ui_tests"
-  #  - ".template_prod"
-  when: manual
-  script:
-    - gradle clean build uiSmokeProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
-  after_script:
-    - bash ./report.sh reforged ui-smoke-production
+    #tests:prodUiSmoke:
+    #extends:
+    #  - ".template_ui_tests"
+    #  - ".template_prod"
+    #when: manual
+    #script:
+    #  - gradle clean build uiSmokeProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+    #after_script:
+    # - bash ./report.sh reforged ui-smoke-production
 
 tests:UiRegressManual:
   extends:
