@@ -11,20 +11,12 @@ import static java.util.Objects.isNull;
 
 @ToString(callSuper = true)
 @Slf4j
-public final class Selector extends Component {
+public final class Selector extends AbstractComponent {
 
     private Select select;
 
-    public Selector(final By by) {
-        super(by);
-    }
-
     public Selector(final By by, final String description) {
         super(by, description);
-    }
-
-    public Selector(final By by, final long timeout) {
-        super(by, timeout);
     }
 
     public Selector(final By by, final long timeout, final String description) {

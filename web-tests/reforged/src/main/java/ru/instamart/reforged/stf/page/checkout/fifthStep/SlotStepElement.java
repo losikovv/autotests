@@ -12,8 +12,8 @@ public interface SlotStepElement {
     Element firstActiveSlotSecondRetailer = new Element(By.xpath("//div[@class='windows-selector-content']//div[@class='windows-selector-item']"), "Первый доступный слот второго ретейлера");
     ElementCollection activeSlots = new ElementCollection(By.xpath("//div[(contains(@id, 'deliveryDay'))]//div[@class='windows-selector-item']"), "Коллекция активных слотов");
     Button choseAnotherTimeButton = new Button(By.xpath("//button[text()='Выбрать другое время']"),"Выбрать другое время");
-    Element firstActiveSlotTime = new Element(By.xpath("//div[(contains(@id, 'deliveryDay'))]//div[@class='windows-selector-item']//span[(contains(@class, 'interval'))]"));
-    Button submit = new Button(By.xpath("//button[@data-qa='checkout_delivery_submit_button']"));
-    Element deliveryPlaceholder = new Element(By.xpath("//div[text()='Интервалы доставки недоступны']"));
+    Element firstActiveSlotTime = new Element(By.xpath("//div[(contains(@id, 'deliveryDay'))]//div[@class='windows-selector-item']//span[(contains(@class, 'interval'))]"), "empty");
+    Button submit = new Button(By.xpath("//button[@data-qa='checkout_delivery_submit_button']"), "empty");
+    Element deliveryPlaceholder = new Element(By.xpath("//div[text()='Интервалы доставки недоступны']"), "empty");
 
 }

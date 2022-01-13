@@ -19,26 +19,26 @@ public interface HeaderElement {
 
     Link logo = new Link(By.xpath("//header//i"), "лого на сайте");
 
-    Button delivery = new Button(By.xpath("//button[@data-qa='ship_selector_type_delivery']"));
-    Button pickup = new Button(By.xpath("//button[@data-qa='ship_selector_type_pickup']"));
-    Button selectAddress = new Button(By.xpath("//button[@data-qa='select-button']"));
-    Button firstSelectAddress = new Button(By.xpath("//button[@data-qa='shipping_method_button']"));
-    Element hotlineWorkHoursText = new Element(By.xpath("//header//span[text()='" + TestVariables.CompanyParams.companyHotlineWorkhoursShort + "']"));
+    Button delivery = new Button(By.xpath("//button[@data-qa='ship_selector_type_delivery']"), "кнопка доставки");
+    Button pickup = new Button(By.xpath("//button[@data-qa='ship_selector_type_pickup']"), "empty");
+    Button selectAddress = new Button(By.xpath("//button[@data-qa='select-button']"), "empty");
+    Button firstSelectAddress = new Button(By.xpath("//button[@data-qa='shipping_method_button']"), "empty");
+    Element hotlineWorkHoursText = new Element(By.xpath("//header//span[text()='" + TestVariables.CompanyParams.companyHotlineWorkhoursShort + "']"), "empty");
     Element enteredAddress = new Element(By.xpath("//span[@data-qa='current-ship-address']"), "Лэйбл отображающий введенный адрес в шапке");
 
-    Link forB2B = new Link(By.xpath("//a[contains(@href, '/transfer/to_b2b')]"));
-    Link forBrands = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Для производителей')]"));
-    Link howWeWork = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Как мы работаем')]"));
-    Link contacts = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Контакты')]"));
-    Link help = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Помощь')]"));
-    Link deliveryAndPayment = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Доставка')]"));
+    Link forB2B = new Link(By.xpath("//a[contains(@href, '/transfer/to_b2b')]"), "empty");
+    Link forBrands = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Для производителей')]"), "empty");
+    Link howWeWork = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Как мы работаем')]"), "empty");
+    Link contacts = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Контакты')]"), "empty");
+    Link help = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Помощь')]"), "empty");
+    Link deliveryAndPayment = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Доставка')]"), "empty");
 
-    Button categoryMenu = new Button(By.xpath("//button[@data-qa='catalog-button']"));
-    Button storeSelector = new Button(By.xpath("//button[@data-qa='open-store-selector-button']"));
+    Button categoryMenu = new Button(By.xpath("//button[@data-qa='catalog-button']"), "empty");
+    Button storeSelector = new Button(By.xpath("//button[@data-qa='open-store-selector-button']"), "empty");
     Element searchContainer = new Element(By.xpath("//div[@data-qa='search']"), "Контейнер поиска");
     Input searchInput = new Input(By.xpath("//div[@data-qa='search']//input"), "Инпут поиска");
     Button searchButton = new Button(By.xpath("//button[@data-qa='suggester_header_form_search_button']"), "Кнопка поиска");
-    DropDown searchDropDown = new DropDown(By.xpath("//div[@data-qa='offer']"));
+    DropDown searchDropDown = new DropDown(By.xpath("//div[@data-qa='offer']"), "empty");
     Element taxonCategories = new Element(By.xpath("//div[@class='header-search-list__categories']"), "Список категорий в подсказке поиска");
     Element taxonFirstCategory = new Element(By.xpath("//div[@class='header-search-list-category']"), "Первая категория в подсказке поиска");
     Element minAmountAlert = new Element(By.xpath("//div[@class='alerts']//div[contains(@class, 'alert--error')]"), "Алерт минимальной суммы заказа в шапке");
@@ -52,10 +52,10 @@ public interface HeaderElement {
 
     Button profile = new Button(By.xpath("//button[@data-qa='profile-button_button']"), "кнопка профиль пользователя в хэдере");
     Button cart = new Button(By.xpath("//button[@data-qa='open-cart-button']"), "кнопка корзины");
-    Link favorite = new Link(By.xpath("//a[@data-qa='favorites-link']"));
+    Link favorite = new Link(By.xpath("//a[@data-qa='favorites-link']"), "empty");
     Link favoriteWithOutAuth = new Link(By.xpath("//button[@data-qa='favorites-link']"), "кнопка избранного для неавторизованных");
-    Link orders = new Link(By.xpath("//a[@data-qa='shipments-link']"));
-    Button login = new Button(By.xpath("//button[@data-qa='login-button_button']")); // кнопка в хедере, но без авторизации
+    Link orders = new Link(By.xpath("//a[@data-qa='shipments-link']"), "empty");
+    Button login = new Button(By.xpath("//button[@data-qa='login-button_button']"), "empty"); // кнопка в хедере, но без авторизации
 
     Element cartNotification = new Element(By.xpath("//div[@class='notification']"), "Алерт добавления товара в корзину");
 

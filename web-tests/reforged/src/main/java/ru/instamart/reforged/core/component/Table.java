@@ -9,23 +9,32 @@ import ru.instamart.reforged.core.Kraken;
 import static java.util.Objects.isNull;
 
 @Slf4j
-public final class Table extends Component {
+public final class Table extends AbstractComponent {
 
     private final ElementCollection lines;
 
     public Table() {
-        super(By.xpath("//table"));
-        this.lines = new ElementCollection(By.xpath("//tbody/tr"));
+        super(By.xpath("//table"), "таблица");
+        this.lines = new ElementCollection(By.xpath("//tbody/tr"), "вложенный элемент таблицы");
     }
 
     public Table(final String description) {
         super(By.xpath("//table"), description);
-        this.lines = new ElementCollection(By.xpath("//tbody/tr"));
+        this.lines = new ElementCollection(By.xpath("//tbody/tr"), description);
     }
 
     public Table(final String description, final String errorMsg) {
         super(By.xpath("//table"), description, errorMsg);
-        this.lines = new ElementCollection(By.xpath("//tbody/tr"));
+        this.lines = new ElementCollection(By.xpath("//tbody/tr"), description, errorMsg);
+    }
+
+    @Override
+    protected WebElement getComponent() {
+        log.debug("Create {} with locator {}", getClass().getSimpleName(), getBy());
+        if (isNull(component) || isCacheDisable) {
+            component = Kraken.waitAction().shouldBeVisible(this);
+        }
+        return component;
     }
 
     public WebElement getLine(final int index) {
@@ -57,14 +66,5 @@ public final class Table extends Component {
             }
         }
         throw new NoSuchElementException("Строка " + name + " не найдена");
-    }
-
-    @Override
-    protected WebElement getComponent() {
-        log.debug("Create {} with locator {}", getClass().getSimpleName(), getBy());
-        if (isNull(component) || isCacheDisable) {
-            component = Kraken.waitAction().shouldBeVisible(this);
-        }
-        return component;
     }
 }

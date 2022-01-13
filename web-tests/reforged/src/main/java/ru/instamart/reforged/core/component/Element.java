@@ -8,29 +8,15 @@ import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.config.BrowserProperties;
 
-import java.util.List;
-
 import static java.lang.Thread.sleep;
 import static java.util.Objects.isNull;
 
 @ToString(callSuper = true)
 @Slf4j
-public final class Element extends Component {
-
-    public Element(final WebElement webElement){
-        super(webElement);
-    }
-
-    public Element(final By by) {
-        super(by);
-    }
+public final class Element extends AbstractComponent {
 
     public Element(final By by, final String description) {
         super(by, description);
-    }
-
-    public Element(final By by, final long timeout) {
-        super(by, timeout);
     }
 
     public Element(final By by, final long timeout, final String description) {
@@ -99,22 +85,5 @@ public final class Element extends Component {
     public void waitImgLoad() {
         log.debug("Get img '{}' with locator {}", getDescription(), getBy());
         Kraken.jsAction().waitImgLoad(getLocator());
-    }
-
-    public WebElement getElement() {
-        return getComponent();
-    }
-
-    public WebElement getInnerElement(final By by){
-        return getComponent().findElement(by);
-    }
-
-    public List<WebElement> getInnerElements(final By by){
-        try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return getComponent().findElements(by);
     }
 }

@@ -7,15 +7,15 @@ import ru.instamart.reforged.core.component.Input;
 
 public final class AuthSberId {
 
-    private final Input phoneNumber = new Input(By.xpath("//input[@name='phone-number']"));
-    private final Input login = new Input(By.xpath("//input[@name='login']"));
-    private final Input password = new Input(By.xpath("//input[@name='password']"));
-    private final Button changeAuthTypeOnLogin = new Button(By.xpath("//span[text() = 'Войти по логину']/parent::button"));
-    private final Button changeAuthTypeOnPhone = new Button(By.xpath("//span[text() = 'Войти по номеру телефона']/parent::button"));
-    private final Button submitLogin = new Button(By.xpath("//button[@type='submit']"));
-    private final Button submitPassword = new Button(By.xpath("//button[@type='submit']"));
+    private final Input phoneNumber = new Input(By.xpath("//input[@name='phone-number']"), "empty");
+    private final Input login = new Input(By.xpath("//input[@name='login']"), "empty");
+    private final Input password = new Input(By.xpath("//input[@name='password']"), "empty");
+    private final Button changeAuthTypeOnLogin = new Button(By.xpath("//span[text() = 'Войти по логину']/parent::button"), "empty");
+    private final Button changeAuthTypeOnPhone = new Button(By.xpath("//span[text() = 'Войти по номеру телефона']/parent::button"), "empty");
+    private final Button submitLogin = new Button(By.xpath("//button[@type='submit']"), "empty");
+    private final Button submitPassword = new Button(By.xpath("//button[@type='submit']"), "empty");
     private final Button submitSmsCode = new Button(By.xpath("//button[@type='submit']"), "кнопка подтверждения введенного кода из смс");
-    private final Button receivedSms = new Button(By.xpath("//span[text() = 'Я получил СМС-код']/parent::button"));
+    private final Button receivedSms = new Button(By.xpath("//span[text() = 'Я получил СМС-код']/parent::button"), "empty");
     private final Input smsCode = new Input(By.xpath("//input[@name='code']"), "поле ввода кода из смс");
 
     @Step("Ввести номер телефона на странице авторизации через sberID")

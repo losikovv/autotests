@@ -9,24 +9,14 @@ import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.config.BrowserProperties;
 
-import java.util.regex.Matcher;
-
 import static java.util.Objects.isNull;
 
 @ToString(callSuper = true)
 @Slf4j
-public final class Input extends Component {
-
-    public Input(final By by) {
-        super(by);
-    }
+public final class Input extends AbstractComponent {
 
     public Input(final By by, final String description) {
         super(by, description);
-    }
-
-    public Input(final By by, final long timeout) {
-        super(by, timeout);
     }
 
     public Input(final By by, final long timeout, final String description) {

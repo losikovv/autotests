@@ -10,18 +10,10 @@ import static java.util.Objects.isNull;
 
 @ToString(callSuper = true)
 @Slf4j
-public final class Autocomplete extends Component {
-
-    public Autocomplete(final By by) {
-        super(by);
-    }
+public final class Autocomplete extends AbstractComponent {
 
     public Autocomplete(final By by, final String description) {
         super(by, description);
-    }
-
-    public Autocomplete(final By by, final long timeout) {
-        super(by, timeout);
     }
 
     public Autocomplete(final By by, final long timeout, final String description) {

@@ -8,5 +8,5 @@ public interface HelpDeskElement {
 
     Button chatButton = new Button(By.id("hde-chat-button"),"кнопка открытия контейнера с чатом");
     Button chatButtonClose = new Button(By.id("hde-chat-button-close"), "кнопка закрытия чата");
-    Element chatContainer = new Element(By.xpath("//div[@class='hde-container-mobile']"));
+    Element chatContainer = new Element(By.xpath("//div[@class='hde-container-mobile']"), "окно чата HD");
 }

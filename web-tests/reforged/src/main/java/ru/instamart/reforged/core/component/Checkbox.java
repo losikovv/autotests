@@ -10,18 +10,10 @@ import static java.util.Objects.isNull;
 
 @ToString(callSuper = true)
 @Slf4j
-public final class Checkbox extends Component {
-
-    public Checkbox(final By by) {
-        super(by);
-    }
+public final class Checkbox extends AbstractComponent {
 
     public Checkbox(final By by, final String description) {
         super(by, description);
-    }
-
-    public Checkbox(final By by, final long timeout) {
-        super(by, timeout);
     }
 
     public Checkbox(final By by, final long timeout, final String description) {

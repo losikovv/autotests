@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 @Slf4j
 public final class Actions {
 
-    private final Component component;
+    private final AbstractComponent component;
     private final Consumer<WebElement> hover = (we) -> Kraken.action().moveToElement(we).perform();
     private final Consumer<Keys> sendKeys = (key) -> Kraken.action().sendKeys(key).perform();
     private final TriConsumer<WebElement, Integer, Integer> clickWithOffset = (we, xOffset, yOffset) -> Kraken.action().moveToElement(we, xOffset, yOffset).click().perform();

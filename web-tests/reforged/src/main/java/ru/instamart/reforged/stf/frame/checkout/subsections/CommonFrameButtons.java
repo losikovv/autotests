@@ -7,10 +7,10 @@ import ru.instamart.reforged.stf.frame.Close;
 
 public interface CommonFrameButtons extends Close {
 
-    Button save = new Button(By.xpath("//div[@class='modal-form']//button[text() = 'Сохранить']"));
-    Button cancel = new Button(By.xpath("//div[@class='modal-form']//button[text() = 'Отменить']"));
-    Button delete = new Button(By.xpath("//div[@class='modal-form']//button[text() = 'Удалить']"));
-    Button close = new Button(By.xpath("//header/button"));
+    Button save = new Button(By.xpath("//div[@class='modal-form']//button[text() = 'Сохранить']"), "кнопка Сохранить");
+    Button cancel = new Button(By.xpath("//div[@class='modal-form']//button[text() = 'Отменить']"), "кнопка Отменить");
+    Button delete = new Button(By.xpath("//div[@class='modal-form']//button[text() = 'Удалить']"), "кнопка Удалить");
+    Button close = new Button(By.xpath("//header/button"), "кнопка Закрыть");
 
     @Step("Нажать 'Сохранить'")
     default void clickToSaveModal() {

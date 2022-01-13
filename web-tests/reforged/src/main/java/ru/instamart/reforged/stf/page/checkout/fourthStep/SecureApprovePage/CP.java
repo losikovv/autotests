@@ -7,8 +7,8 @@ import ru.instamart.reforged.core.component.Input;
 
 public class CP {
 
-    private final Input value = new Input(By.xpath("//input[@id='password']"));
-    private final Button submit = new Button(By.xpath("//button[@type='submit']"));
+    private final Input value = new Input(By.xpath("//input[@id='password']"), "empty");
+    private final Button submit = new Button(By.xpath("//button[@type='submit']"), "empty");
 
     @Step("Заполнить проверочное значение на странице подтверждения 3ds(CP)")
     public void fillValue(String data) {

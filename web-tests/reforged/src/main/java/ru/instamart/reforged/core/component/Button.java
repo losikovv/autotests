@@ -12,18 +12,10 @@ import static java.util.Objects.isNull;
 
 @ToString(callSuper = true)
 @Slf4j
-public final class Button extends Component {
-
-    public Button(final By by) {
-        super(by);
-    }
+public final class Button extends AbstractComponent {
 
     public Button(final By by, final String description) {
         super(by, description);
-    }
-
-    public Button(final By by, final long timeout) {
-        super(by, timeout);
     }
 
     public Button(final By by, final long timeout, final String description) {

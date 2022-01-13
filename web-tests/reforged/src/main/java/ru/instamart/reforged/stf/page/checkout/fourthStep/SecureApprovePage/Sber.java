@@ -7,8 +7,8 @@ import ru.instamart.reforged.core.component.Input;
 
 public class Sber {
 
-    private final Input value = new Input(By.xpath("//input[@id='password']"));
-    private final Button cancel = new Button(By.xpath("//a[text() = 'Отмена']"));
+    private final Input value = new Input(By.xpath("//input[@id='password']"), "empty");
+    private final Button cancel = new Button(By.xpath("//a[text() = 'Отмена']"), "empty");
 
     @Step("Заполнить проверочное значение на странице подтверждения 3ds(sber)")
     public void fillValue(String data) {

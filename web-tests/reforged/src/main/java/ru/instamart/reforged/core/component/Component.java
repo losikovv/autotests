@@ -1,128 +1,21 @@
 package ru.instamart.reforged.core.component;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.core.ByKraken;
-import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.core.config.WaitProperties;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+public interface Component {
 
-@ToString
-@Slf4j
-public abstract class Component {
+    By getBy();
 
-    public static final Pattern LOCATOR = Pattern.compile("/[^\\r\\n]*");
-
-    protected WebElement component;
-    protected boolean isCacheDisable = false;
-
-    @Setter(AccessLevel.PROTECTED)
-    private By by;
-    @Getter
-    private final long timeout;
-    @Getter
-    private final String description;
-    @Getter
-    private final String errorMsg;
-    @Getter
-    private final Actions actions;
-
-    public Component(final By by, final long timeout, final String description, final String errorMsg) {
-        this.by = by;
-        this.timeout = timeout;
-        this.description = description == null ? this.getClass().getSimpleName() : description;
-        this.errorMsg = errorMsg == null ? "Элемент " + by + " не найден" : errorMsg;
-        this.actions = new Actions(this);
-    }
-
-    public Component(final WebElement webElement) {
-        this(null, WaitProperties.BASIC_TIMEOUT, null, null);
-        this.component = webElement;
-    }
-
-    public Component(final By by) {
-        this(by, WaitProperties.BASIC_TIMEOUT, null, null);
-    }
-
-    public Component(final By by, final long timeout) {
-        this(by, timeout, null, null);
-    }
-
-    public Component(final By by, final boolean isCacheDisable) {
-        this(by, WaitProperties.BASIC_TIMEOUT, null, null);
-        this.isCacheDisable = isCacheDisable;
-    }
-
-    public Component(final By by, final String description) {
-        this(by, WaitProperties.BASIC_TIMEOUT, description, null);
-    }
-
-    public Component(final By by, final long timeout, final String description) {
-        this(by, timeout, description, null);
-    }
-
-    public Component(final By by, final String description, final String errorMsg) {
-        this(by, WaitProperties.BASIC_TIMEOUT, description, errorMsg);
-    }
-
-    protected abstract WebElement getComponent();
-
-    public By getBy() {
-        return by;
-    }
-
-    public By getBy(final Object... args) {
-        if (by instanceof ByKraken) {
-            final ByKraken byKraken = (ByKraken) by;
+    default By getBy(final Object... args) {
+        if (getBy() instanceof ByKraken) {
+            final ByKraken byKraken = (ByKraken) getBy();
             return ByKraken.xpath(byKraken.getDefaultXpathExpression(), args);
         }
-        return by;
+        return getBy();
     }
 
-    /**
-     * В обход дома делает наведение и клик по элементу через js
-     */
-    public void hoverAndClick() {
-        log.debug("Hover and click to element {} '{}'", description, by);
-        Kraken.jsAction().hoverAndClick(getLocator());
-    }
-
-    public void jsClick() {
-        log.debug("JS Click on {} with locator {} '{}'", getClass().getSimpleName(), description, by);
-        Kraken.jsAction().click(component);
-    }
-
-    /**
-     * В обход дома через js скролит до элемента
-     */
-    public void scrollTo() {
-        log.debug("Scroll to element {} '{}'", description, by);
-        Kraken.jsAction().scrollToElement(getLocator());
-    }
-
-    protected String getLocator() {
-        final Matcher matcher = LOCATOR.matcher(by.toString());
-        if (matcher.find()) {
-            return matcher.group();
-        } else {
-            return "locator empty";
-        }
-    }
-
-    public boolean isDisplayed() {
-        try {
-            return getComponent().isDisplayed();
-        } catch (TimeoutException ex) {
-            log.debug("Element {} with locator {} not found", getDescription(), getBy());
-        }
-        return false;
-    }
+    long getTimeout();
+    String getDescription();
+    String getErrorMsg();
 }

@@ -8,9 +8,9 @@ import ru.instamart.reforged.core.page.Window;
 
 public final class AuthVk implements Window {
 
-    private final Input email = new Input(By.xpath("//input[@name='email']"));
-    private final Input password = new Input(By.xpath("//input[@name='pass']"));
-    private final Button login = new Button(By.xpath("//button[@type='submit']"));
+    private final Input email = new Input(By.xpath("//input[@name='email']"), "поле для ввода email");
+    private final Input password = new Input(By.xpath("//input[@name='pass']"), "поле для ввода пароля");
+    private final Button login = new Button(By.xpath("//button[@type='submit']"), "кнопка сабмита формы");
 
     @Step("Ввести email на странице авторизации через VK")
     public void setEmail(final String text) {

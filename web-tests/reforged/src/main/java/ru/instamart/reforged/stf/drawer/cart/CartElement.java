@@ -3,11 +3,11 @@ package ru.instamart.reforged.stf.drawer.cart;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.*;
 import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
-import ru.instamart.reforged.stf.frame.ClearCart;
+import ru.instamart.reforged.stf.frame.ClearCartModal;
 
 public interface CartElement {
 
-    ClearCart clearCartModal = new ClearCart();
+    ClearCartModal clearCartModal = new ClearCartModal();
     RetailRocket retailRocket = new RetailRocket();
 
     Button close = new Button(By.xpath("//button[@data-qa='cart_close-button']"), "кнопка 'Закрыть корзину'");
@@ -32,7 +32,7 @@ public interface CartElement {
     Button increaseCount = new Button(By.xpath("//button[@data-qa='increase-button']"), "кнопка Увеличить кол-во");
     Button decreaseCount = new Button(By.xpath("//button[@data-qa='decrease-button']"), "кнопка Уменьшить кол-во");
     Link openItemCard = new Link(By.xpath("//a[@data-qa='open-button']"), "переход к карточке товара");
-    Button mobileRemoveItem = new Button(By.xpath("//button[@data-qa='remove-button-mobile']"));
+    Button mobileRemoveItem = new Button(By.xpath("//button[@data-qa='remove-button-mobile']"), "empty");
     Button removeItem = new Button(By.xpath("//button[@data-qa='cart_delete_item_button']"), "кнопка Удалить позицию");
     Element costSpinner = new Element(By.xpath("//div[@data-qa='line-item']//span[contains(text(),'Загрузка')]"), "спиннер пересчета цены позиции");
     Element retailRocketBlock = new Element(By.xpath("//div[@data-qa='cart']//div[contains(@class, 'retail-rocket-block')]"), "блок Не забудьте купить");

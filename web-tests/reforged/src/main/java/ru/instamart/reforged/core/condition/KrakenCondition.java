@@ -9,6 +9,7 @@ import ru.instamart.reforged.core.Kraken;
 
 import javax.annotation.Nullable;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
@@ -166,6 +167,68 @@ public final class KrakenCondition {
         };
     }
 
+    public static ExpectedCondition<WebElement> visibilityOfElementLocated(final WebElement webElement, final By locator) {
+        return new ExpectedCondition<>() {
+            @Override
+            public WebElement apply(WebDriver driver) {
+                try {
+                    return elementIfVisible(findElement(webElement, locator));
+                } catch (StaleElementReferenceException e) {
+                    return null;
+                }
+            }
+
+            @Override
+            public String toString() {
+                return "visibility of element located by " + locator;
+            }
+        };
+    }
+
+    public static ExpectedCondition<Boolean> invisibilityOfElementLocated(final WebElement webElement, final By locator) {
+        return new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver driver) {
+                try {
+                    return !(findElement(webElement, locator).isDisplayed());
+                } catch (NoSuchElementException | StaleElementReferenceException e) {
+                    // Returns true because the element is not present in DOM. The
+                    // try block checks if the element is present but is invisible.
+                    // Returns true because stale element reference implies that element
+                    // is no longer visible.
+                    return true;
+                }
+            }
+
+            @Override
+            public String toString() {
+                return "element to no longer be visible: " + locator;
+            }
+        };
+    }
+
+    public static ExpectedCondition<WebElement> elementToBeClickable(final WebElement webElement, final By locator) {
+        return new ExpectedCondition<WebElement>() {
+            @Override
+            public WebElement apply(WebDriver driver) {
+                final var element = visibilityOfElementLocated(webElement, locator).apply(driver);
+                try {
+                    if (nonNull(element) && element.isEnabled()) {
+                        return element;
+                    }
+                    return null;
+                } catch (StaleElementReferenceException e) {
+                    return null;
+                }
+            }
+
+            @Override
+            public String toString() {
+                return "element to be clickable: " + locator;
+            }
+        };
+    }
+
     private static WebElement findElement(final By by) {
         try {
             return Kraken.getWebDriver().findElements(by).stream().findFirst().orElseThrow(
@@ -176,5 +239,21 @@ public final class KrakenCondition {
             log.warn(String.format("WebDriverException thrown by findElement(%s)", by), e);
             throw e;
         }
+    }
+
+    private static WebElement findElement(final WebElement webElement, final By by) {
+        try {
+            return webElement.findElements(by).stream().findFirst().orElseThrow(
+                    () -> new NoSuchElementException("Cannot locate an element using " + by));
+        } catch (NoSuchElementException e) {
+            throw e;
+        } catch (WebDriverException e) {
+            log.warn(String.format("WebDriverException thrown by findElement(%s)", by), e);
+            throw e;
+        }
+    }
+
+    private static WebElement elementIfVisible(WebElement element) {
+        return element.isDisplayed() ? element : null;
     }
 }
