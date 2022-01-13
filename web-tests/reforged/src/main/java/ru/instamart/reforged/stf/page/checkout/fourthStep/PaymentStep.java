@@ -14,7 +14,7 @@ public class PaymentStep implements PaymentStepElement {
         byBusinessAccount.click();
     }
 
-    @Step("Выбрать метод оплаты По счеты бизнеса")
+    @Step("Выбрать метод оплаты по карте онлайн")
     public void clickToByCardOnline() {
         byCardOnline.click();
     }

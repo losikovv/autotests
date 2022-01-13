@@ -229,7 +229,7 @@ public final class UserShippingAddressTests extends BaseTest {
         home().interactAddressModal().checkYmapsReadyTmp();
         home().interactAddressModal().fillAddressTmp(defaultAddress);
         home().interactAddressModal().selectFirstAddressTmp();
-        home().interactAddressModal().clickOnSave();
+        home().interactAddressModal().clickToSearchAddress();
         home().clickToFirstRetailer();
 
         //TODO: Костыль из-за бейсика

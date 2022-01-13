@@ -141,23 +141,33 @@ public final class ShoppingSearchTests extends BaseTest {
     )
     public void successApplyFilters() {
         shop().openSitePage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
-
-        search().checkSearchProductsSpinnerVisible();
-        search().checkSearchProductsSpinnerNotVisible();
+        search().waitPageLoad();
+        search().checkSearchImgLoaded();
 
         final double startProductsQuantity = search().returnSearchProductsQuantity();
 
         search().clickToDiscountFilter();
-        search().checkSearchProductsSkeletonVisible();
-        search().checkSearchProductsSkeletonNotVisible();
+        search().waitPageLoad();
+        search().checkSearchImgLoaded();
+
+        search().refresh();
+        search().waitPageLoad();
+        search().checkSearchImgLoaded();
 
         final double discountFilterProductsQuantity = search().returnSearchProductsQuantity();
 
         search().checkQuantitiesNotEquals(startProductsQuantity, discountFilterProductsQuantity);
-        search().clickOnFilter("Ультрапастеризованное");
 
-        search().checkSearchProductsSkeletonVisible();
-        search().checkSearchProductsSkeletonNotVisible();
+        shop().openSitePage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
+        search().waitPageLoad();
+        search().checkSearchImgLoaded();
+
+        search().clickOnFilter("Ультрапастеризованное");
+        search().checkFilterActivePinVisible();
+        search().refresh();
+
+        search().waitPageLoad();
+        search().checkSearchImgLoaded();
 
         final double someFilterProductsQuantity = search().returnSearchProductsQuantity();
         search().checkQuantitiesNotEquals(discountFilterProductsQuantity, someFilterProductsQuantity);
@@ -243,11 +253,12 @@ public final class ShoppingSearchTests extends BaseTest {
     )
     public void successApplyOtherFilters() {
         shop().openSitePage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
-
-        search().checkSearchProductsSpinnerVisible();
-        search().checkSearchProductsSpinnerNotVisible();
+        search().waitPageLoad();
+        search().checkSearchImgLoaded();
 
         search().clickToDiscountFilter();
+        search().waitPageLoad();
+        search().checkSearchImgLoaded();
 
         search().checkFilterDisabled("Стерилизованное");
     }

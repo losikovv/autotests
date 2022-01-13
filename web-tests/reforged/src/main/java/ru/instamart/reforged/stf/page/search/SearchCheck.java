@@ -25,6 +25,11 @@ public interface SearchCheck extends Check, SearchElement {
         waitAction().shouldBeVisible(searchProductsSkeleton);
     }
 
+    @Step("Проверяем, что пин активного фильтра отображается в поиске")
+    default void checkFilterActivePinVisible() {
+        waitAction().shouldBeVisible(filterActivePin);
+    }
+
     @Step("Проверяем, что селектор виден")
     default void checkSortSelectVisible() {
         waitAction().shouldBeVisible(selectSort);
@@ -135,5 +140,10 @@ public interface SearchCheck extends Check, SearchElement {
     @Step("Проверяем, что отображается заголовок пустых результатов поиска")
     default void checkEmptySearchPlaceholderVisible() {
         waitAction().shouldBeVisible(emptySearchPlaceHolder);
+    }
+
+    @Step("Проверяем, что фильтр 'Товары со скидкой' выбран")
+    default void checkDiscountFilter() {
+        discountFilter.click();
     }
 }

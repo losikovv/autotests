@@ -7,6 +7,7 @@ import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.stf.drawer.store_selector.StoreSelector;
 import ru.instamart.reforged.stf.frame.Close;
 
+import static ru.instamart.reforged.stf.block.header.HeaderElement.searchButton;
 import static ru.instamart.reforged.stf.block.header.HeaderElement.storeSelectorDrawer;
 
 public final class Address implements Close, AddressCheck {
@@ -51,6 +52,11 @@ public final class Address implements Close, AddressCheck {
         dropDownAddressTmp.selectFirst();
         //TODO: Ожидание смены геопозиции
         ThreadUtil.simplyAwait(2);
+    }
+
+    @Step("Нажать кнопку найти адрес")
+    public void clickToSearchAddress() {
+        searchButton.click();
     }
 
     @Step("Выбрать самовывоз")

@@ -49,7 +49,7 @@ public interface HomeElement {
     Element storesButtonAuchan = new Element(By.xpath("//div[text()='Ашан']/ancestor::button"), "кнопка выбора магазина Ашан");
     Element storesButtonMetro = new Element(By.xpath("//div[text()='METRO']/ancestor::button"), "кнопка выбора магазина Метро");
     Element storesButtonLenta = new Element(By.xpath("//div[text()='Лента']/ancestor::button"), "кнопка выбора магазина Лента");
-    ElementCollection retailers = new ElementCollection(By.xpath("//a[@data-qa='store-card']"), "коллекция магазинов");
+    ElementCollection retailers = new ElementCollection(By.xpath("//a[contains(@data-qa, 'b2c_home_landing_stores_block_store_card')]"), "коллекция магазинов");
     Element advantagesBlockContainer = new Element(By.xpath("//div[@data-qa='home_landing_advantages']"), "блок преимуществ на лендинге Сбермаркета");
     Element deliveryAdv = new Element(By.xpath("//div[@data-qa='home_landing_advantage_delivery']"), "преимущества быстрой доставки");
     Element heavyToDoorAdv = new Element(By.xpath("//div[@data-qa='home_landing_advantage_door']"), "преимущества доставки тяжелых товаров до двери");

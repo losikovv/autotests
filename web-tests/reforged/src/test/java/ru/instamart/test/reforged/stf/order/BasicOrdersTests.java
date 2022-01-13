@@ -3,7 +3,9 @@ package ru.instamart.test.reforged.stf.order;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
 import ru.instamart.api.common.RestAddresses;
+import ru.instamart.api.enums.RailsConsole;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
@@ -290,41 +292,24 @@ public final class BasicOrdersTests extends BaseTest {
     @Test(description = "Отмена заказа", groups = "regression")
     public void successOrderCancel() {
         userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
-
-        var company = JuridicalData.juridical();
+        helper.makeOrder(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 1);
+        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+
         shop().addCookie(CookieFactory.COOKIE_ALERT);
 
-        checkout().goToPage();
-        checkout().setDeliveryOptions().clickToForBusiness();
-        checkout().setDeliveryOptions().clickToAddCompany();
-
-        checkout().interactAddCompanyModal().fillCompany(company);
-        checkout().interactAddCompanyModal().clickToOkButton();
-
-        checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
-        checkout().setDeliveryOptions().clickToSubmitForDelivery();
-
-        checkout().checkCheckoutLoaderNotVisible();
-
-        checkout().setContacts().fillContactInfo();
-        checkout().setContacts().clickToSubmit();
-
-        checkout().setReplacementPolicy().clickToSubmit();
-
-        checkout().setSlot().setFirstActiveSlot();
-
-        checkout().setPayment().clickToByCardToCourier();
-        checkout().setPayment().clickToSubmitFromCheckoutColumn();
-
-        userShipments().checkPageContains(userShipments().pageUrl());
+        userShipments().goToPage();
+        userShipments().clickToFirstShipment();
         userShipments().clickToCancelFromOrder();
+
+        userShipments().interactShipmentCancelModal().shipmentCancelModalVisible();
         userShipments().interactShipmentCancelModal().clickToAccept();
+        userShipments().interactShipmentCancelModal().shipmentCancelModalNotVisible();
 
         userShipments().checkStatusWasCanceled();
     }
