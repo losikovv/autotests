@@ -41,6 +41,7 @@ public class AssembliesSHPResponse extends BaseResponseObject {
              * Shipment attributes
              */
             private Integer weight;
+            @Null
             private String logisticVolume;
             private String state;
             @Null
