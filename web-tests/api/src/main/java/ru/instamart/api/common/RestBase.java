@@ -3,10 +3,11 @@ package ru.instamart.api.common;
 
 import io.qameta.allure.Allure;
 import io.restassured.response.Response;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import ru.instamart.api.helper.*;
 import ru.instamart.jdbc.dao.PhoneTokensDao;
+import ru.instamart.jdbc.dao.SpreeUsersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static ru.instamart.kraken.helper.LogbackLogBuffer.clearLogbackLogBuffer;
@@ -23,10 +24,11 @@ public class RestBase {
     protected final ShopperAdminApiHelper shopperAdmin = new ShopperAdminApiHelper();
     protected Response response;
 
-    @AfterClass(alwaysRun = true)
+    @AfterSuite(alwaysRun = true)
     public void clearData() {
         if(!EnvironmentProperties.SERVER.equals("production")) {
             PhoneTokensDao.INSTANCE.deleteQAPhones();
+            SpreeUsersDao.INSTANCE.deleteQAUsers();
         }
     }
 

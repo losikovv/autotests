@@ -3,6 +3,8 @@ package ru.instamart.api.model.shopper.app.active_shipments;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.Null;
+
 public class Attributes{
 
 	@JsonProperty("logisticVolume")
@@ -74,6 +76,7 @@ public class Attributes{
 	@JsonProperty("expressDelivery")
 	private Boolean expressDelivery;
 
+	@Null
 	@JsonProperty("lifePayPaymentMethod")
 	private String lifePayPaymentMethod;
 
