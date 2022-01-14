@@ -61,18 +61,18 @@ public class GrpcDataProvider {
                         .setTenantId("sbermarket")
                         .setAvailable(true)
                         .setProductsSkuLimit(10)
-                        .build()},
-                {ProductFilterOuterClass
-                        .GetPopularProductsSKUByCategoryIDsBatchesRequest
-                        .newBuilder()
-                        .setStoreId("1")
-                        .addCategoryIdsBatches(ProductFilterOuterClass.CategoryIDsBatch.newBuilder()
-                                .addCategoryIds("6120")
-                                .build())
-                        .setTenantId("sbermarket")
-                        .setAvailable(false)
-                        .setProductsSkuLimit(10)
                         .build()}
+//                , {ProductFilterOuterClass
+//                        .GetPopularProductsSKUByCategoryIDsBatchesRequest
+//                        .newBuilder()
+//                        .setStoreId("1")
+//                        .addCategoryIdsBatches(ProductFilterOuterClass.CategoryIDsBatch.newBuilder()
+//                                .addCategoryIds("6120") //todo выбрать категорию без SKU, либо чистить SKU перед тестом
+//                                .build())
+//                        .setTenantId("sbermarket")
+//                        .setAvailable(false)
+//                        .setProductsSkuLimit(10)
+//                        .build()}
         };
     }
 }
