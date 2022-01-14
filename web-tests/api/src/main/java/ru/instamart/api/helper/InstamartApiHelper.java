@@ -340,7 +340,7 @@ public final class InstamartApiHelper {
         return lineItem;
     }
 
-    @Step("Получаем минимальныю сумму корзины")
+    @Step("Получаем минимальную сумму корзины")
     public int getMinOrderAmount(int sid) {
         double minSum = getStore(sid).getMinOrderAmount();
         Allure.step("Минимальная сумма корзины: " + minSum);
@@ -349,7 +349,7 @@ public final class InstamartApiHelper {
         return (int) minSum;
     }
 
-    @Step("Получаем минимальныю сумму корзины")
+    @Step("Получаем минимальную сумму корзины")
     public int getMinFirstOrderAmount(int sid) {
         double minSum = getStore(sid).getMinFirstOrderAmount();
         Allure.step("Минимальная сумма корзины: " + minSum);
@@ -359,7 +359,7 @@ public final class InstamartApiHelper {
     }
 
     /**
-     * Получаем id и номер шипмента
+     * Получаем id и номер шипмента,
      * Получаем минимальную сумму заказа, если сумма не набрана
      */
     @Step("Узнаём минимальную сумму заказа, если сумма не набрана")
@@ -590,16 +590,20 @@ public final class InstamartApiHelper {
         return selectedPaymentTool;
     }
 
+    OrderV2 setDefaultOrderAttributes() {
+        return setDefaultOrderAttributes("test");
+    }
+
     /**
      * Применяем дефолтные параметры к заказу
      */
     @Step("Применяем параметры к заказу по умолчанию: ")
-    OrderV2 setDefaultOrderAttributes() {
+    OrderV2 setDefaultOrderAttributes(String comment) {
         Response response = OrdersV2Request.PUT(
                 //currentAddressId.get(), //параметр ломает оформление заказа в некоторых магазинах
                 1,
                 userPhone,
-                "test",
+                comment,
                 currentPaymentTool.get().getId(),
                 currentShipmentId.get(),
                 currentDeliveryWindowId.get(),
@@ -685,10 +689,10 @@ public final class InstamartApiHelper {
     }
 
     /**
-     * Выбираем первый доступный магазин (берем координаты из обьекта необходимого адреса)
+     * Выбираем первый доступный магазин (берем координаты из объекта необходимого адреса)
      */
     private StoreV2 getCurrentStore(AddressV2 address) {
-        Allure.step("Выбираем первый доступный магазин (берем координаты из обьекта необходимого адреса)");
+        Allure.step("Выбираем первый доступный магазин (берем координаты из объекта необходимого адреса)");
         return getCurrentStore(address.getLat(), address.getLon());
     }
 
@@ -706,9 +710,9 @@ public final class InstamartApiHelper {
     }
 
     /**
-     * Выбираем первый доступный магазин определенного ритейлера (берем координаты из обьекта необходимого адреса)
+     * Выбираем первый доступный магазин определенного ритейлера (берем координаты из объекта необходимого адреса)
      */
-    @Step("Выбираем первый доступный магазин ритейлера: {retailer} для координат из обьекта необходимого адреса: lat = {address.lat}, lon = {address.lon}")
+    @Step("Выбираем первый доступный магазин ритейлера: {retailer} для координат из объекта необходимого адреса: lat = {address.lat}, lon = {address.lon}")
     private StoreV2 getCurrentStore(AddressV2 address, String retailer) {
         if (address.getLat() == null || address.getLon() == null)
             throw new NullPointerException("Не указаны координаты");
@@ -985,7 +989,7 @@ public final class InstamartApiHelper {
         checkStatusCode200(response);
     }
 
-    @Step("Получение списка способв доставки для sid = {sid}")
+    @Step("Получение списка способов доставки для sid = {sid}")
     public List<ShippingMethodV2> getShippingMethods(int sid) {
         Response response = ShippingMethodsV2Request.GET(sid);
         checkStatusCode200(response);
@@ -996,7 +1000,7 @@ public final class InstamartApiHelper {
         return getShippingMethods(currentSid.get());
     }
 
-    @Step("Получаем данные достаки для заказа")
+    @Step("Получаем данные доставки для заказа")
     public ShipmentV2 getShippingWithOrder() {
         final Response response = OrdersV2Request.Current.GET();
         checkStatusCode200(response);
@@ -1143,7 +1147,7 @@ public final class InstamartApiHelper {
     }
 
     /**
-     * Наполняем корзину до минимальной суммы заказа в конкретном магазине c выбором типа цены
+     * Наполняем корзину до минимальной суммы заказа в конкретном магазине с выбором типа цены
      */
     public void fillCartOnSid(int sid, ProductPriceTypeV2 priceType) {
         fillCartOnSid(sid, 1, false, priceType);
@@ -1153,15 +1157,19 @@ public final class InstamartApiHelper {
         fillCartOnSid(sid, itemsNumber, false, ProductPriceTypeV2.PER_ITEM);
     }
 
+    public OrderV2 setDefaultAttributesAndCompleteOrder() {
+        return setDefaultAttributesAndCompleteOrder("test");
+    }
+
     /**
      * Применяем атрибуты заказа (способ оплаты и слот) и завершаем его
      */
-    public OrderV2 setDefaultAttributesAndCompleteOrder() {
+    public OrderV2 setDefaultAttributesAndCompleteOrder(String comment) {
         getAvailablePaymentTool();
         getAvailableShippingMethod();
         getAvailableDeliveryWindow();
 
-        setDefaultOrderAttributes();
+        setDefaultOrderAttributes(comment);
         return completeOrder();
     }
 
@@ -1234,7 +1242,7 @@ public final class InstamartApiHelper {
     /**
      * Очистить корзину и выбрать адрес у юзера
      */
-    @Step("Очистить корзину ползователя {user.email}")
+    @Step("Очистить корзину пользователя {user.email}")
     public void dropCart(UserData user, AddressV2 address) {
         SessionFactory.createSessionToken(SessionType.API_V2, user);
         getCurrentOrderNumber();
@@ -1244,8 +1252,8 @@ public final class InstamartApiHelper {
     }
 
 
-    @Step("Запроленение корзины и аттрибутов заказа без оформления")
-    public void fillingCartAndOrderAttributesWithoutCompletition(UserData user, int sid) {
+    @Step("Заполнение корзины и аттрибутов заказа без оформления")
+    public void fillingCartAndOrderAttributesWithoutCompletion(UserData user, int sid) {
         fillCart(user, sid);
         getAvailablePaymentTool();
         getAvailableShippingMethod();
@@ -1253,8 +1261,8 @@ public final class InstamartApiHelper {
         setDefaultOrderAttributes();
     }
 
-    @Step("Запроленение корзины и аттрибутов заказа без оформления")
-    public void fillingCartAndOrderAttributesWithoutCompletition(UserData user, AddressV2 address) {
+    @Step("Заполнение корзины и аттрибутов заказа без оформления")
+    public void fillingCartAndOrderAttributesWithoutCompletion(UserData user, AddressV2 address) {
         fillCart(user, address);
         getAvailablePaymentTool();
         getAvailableShippingMethod();
@@ -1294,10 +1302,10 @@ public final class InstamartApiHelper {
      * Оформить тестовый заказ у юзера в определенном магазине
      */
     @Step("Оформляем заказ у юзера {user.email} в магазине с sid = {sid} c количеством товаров в корзине = {itemsNumber}")
-    public OrderV2 order(UserData user, int sid, int itemsNumber) {
+    public OrderV2 order(UserData user, int sid, int itemsNumber, String comment) {
         dropCart(user, getAddressBySid(sid));
         fillCartOnSid(sid, itemsNumber, false, ProductPriceTypeV2.PER_ITEM);
-        return setDefaultAttributesAndCompleteOrder();
+        return setDefaultAttributesAndCompleteOrder(comment);
     }
 
     /**

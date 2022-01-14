@@ -468,7 +468,7 @@ public class OrdersV2Test extends RestBase {
             description = "Завершение заказа с существующим id")
     public void orderCompletion200() {
         String orderNumber = apiV2.getCurrentOrderNumber();
-        apiV2.fillingCartAndOrderAttributesWithoutCompletition(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.fillingCartAndOrderAttributesWithoutCompletion(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         String shipmentNumber = apiV2.getShipmentsNumber();
 

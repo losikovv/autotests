@@ -25,6 +25,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
@@ -37,7 +38,7 @@ import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 public class ShopperAppApiHelper {
     private String currentAssemblyId;
 
-    @Step("Авторизация пользовалтелем: {user.email} в шопере")
+    @Step("Авторизация пользователем: {user.email} в шопере")
     public void authorisation(UserData user) {
         SessionFactory.createSessionToken(SessionType.SHOPPER_APP, user);
     }
@@ -59,6 +60,24 @@ public class ShopperAppApiHelper {
         log.debug("refresh_token: {}", SessionFactory.getSession(SessionType.SHOPPER_APP).getRefreshToken());
     }
 
+    private List<ShipmentSHP.Data> getAllShipments() {
+        Response response = ShopperSHPRequest.Shipments.GET();
+        checkStatusCode200(response);
+        return response.as(ShipmentsSHPResponse.class).getData();
+    }
+
+    public String getShipmentIdByComment(String comment) {
+        List<ShipmentSHP.Data> shipments = getAllShipments();
+
+        for (ShipmentSHP.Data shipment : shipments)
+            if (Objects.nonNull(shipment.getAttributes().getCustomerComment()) &&
+                    shipment.getAttributes().getCustomerComment().trim().equalsIgnoreCase(comment))
+                return shipment.getId();
+
+        log.error("Нет оформленных заказов с комментарием " + comment);
+        return null;
+    }
+
     /**
      * Получаем shipment id по shipment number
      */
@@ -66,9 +85,7 @@ public class ShopperAppApiHelper {
         ThreadUtil.simplyAwait(10);
         log.debug("Получаем список доступных для сборки заказов");
         String shipmentId = null;
-        Response response = ShopperSHPRequest.Shipments.GET();
-        checkStatusCode200(response);
-        List<ShipmentSHP.Data> shipments = response.as(ShipmentsSHPResponse.class).getData();
+        List<ShipmentSHP.Data> shipments = getAllShipments();
 
         StringJoiner availableShipmentNumbers = new StringJoiner(
                 "\n• ",
@@ -266,7 +283,7 @@ public class ShopperAppApiHelper {
     /**
      * Берем заказ в сборку
      */
-    @Step("Берем заказ в сбоку: shipmentId = {shipmentId}")
+    @Step("Берем заказ в сборку: shipmentId = {shipmentId}")
     public AssemblySHP.Data startAssembly(String shipmentId) {
         log.debug("Берем заказ в сборку");
         Response response = AssembliesSHPRequest.POST(shipmentId);
@@ -279,61 +296,53 @@ public class ShopperAppApiHelper {
     /**
      * Собираем все позиции в текущей сборке с изначальным количеством
      */
-    private void assemblyItemsWithOriginalQty() {
+    public void assemblyItemsWithOriginalQty() {
         getItems().forEach(item -> assemblyItem(item.getId(), item.getAttributes().getQty()));
     }
 
     /**
-     * Собираем все позиции в текущей сборке по разному
-     * 0. Сборка с изначальным количеством
+     * Собираем все позиции в текущей сборке по-разному
      * 1. Сборка с измененным количеством
      * 2. Отмена товара
      * 3. Замена товара
      * 4. Допзамена для замены
      * 5. Новый товар
+     * Остальные товары - сборка с изначальным количеством
      */
     @Step("Сборка всех позиций заказа")
-    private void assemblyItems() {
+    public void assemblyItems() {
         List<AssemblyItemSHP.Data> items = getItems();
         List<OfferSHP.Data> offers = getOffers();
 
-        Allure.step("Сборка с изначальным количеством: ID = " + items.get(0).getId() + " QTY=" + items.get(0).getAttributes().getQty());
-        assemblyItem(items.get(0).getId(), items.get(0).getAttributes().getQty());
-        clarifyItem(items.get(0).getId());
-        approveItem(items.get(0).getId());
-
-        if (items.size() > 1) {
-            Allure.step("Сборка с измененным количеством: ID = " + items.get(1).getId() + " QTY=" + items.get(1).getAttributes().getQty());
-            assemblyItem(items.get(1).getId(), items.get(1).getAttributes().getQty() * 50);
-            approveItem(items.get(1).getId());
-
-            if (items.size() > 2) {
-                Allure.step("Отмена товара: ID = " + items.get(2).getId() + " QTY=" + items.get(2).getAttributes().getQty());
-                cancelItem(items.get(2).getId());
-                approveItem(items.get(2).getId());
-
-                if (items.size() > 3) {
-                    Allure.step("Замена товара: ID = " + items.get(3).getId() + " QTY=" + items.get(3).getAttributes().getQty());
-                    ReplacementSHP.Data replacement = replaceItem(items.get(3).getId(), offers.get(0).getAttributes().getUuid());
+        for (int i = 0; i < items.size(); i++) {
+            switch (i) {
+                case 0:
+                    assemblyItem(items.get(i).getId(), items.get(i).getAttributes().getQty() * 50);
+                    approveItem(items.get(i).getId());
+                    break;
+                case 1:
+                    cancelItem(items.get(i).getId());
+                    approveItem(items.get(i).getId());
+                    break;
+                case 2:
+                    ReplacementSHP.Data replacement = replaceItem(items.get(i).getId(), offers.get(0).getAttributes().getUuid());
                     approveItem(replacement.getAttributes().getToItemId().toString());
 
                     AssemblyItemSHP.Data assemblyItem = additionalItemForReplacement(replacement.getId(), offers.get(1).getId());
                     approveItem(assemblyItem.getId());
-
-                    if (items.size() > 4) {
-                        Allure.step("Допзамена для замены: ID = " + items.get(4).getId() + " QTY=" + items.get(4).getAttributes().getQty());
-                        for (int i = 4; i < items.size(); i++) {
-                            assemblyItem(items.get(i).getId(), items.get(i).getAttributes().getQty());
-                        }
-                    }
-                } else log.error("Всего три товара в заказе");
-            } else log.error("Всего два товара в заказе");
-        } else log.error("Всего один товар в заказе");
-
+                    break;
+                default:
+                    assemblyItem(items.get(i).getId(), items.get(i).getAttributes().getQty());
+                    clarifyItem(items.get(i).getId());
+                    approveItem(items.get(i).getId());
+                    break;
+            }
+        }
         AssemblyItemSHP.Data assemblyItem = addItem(offers.get(2).getAttributes().getUuid());
         approveItem(assemblyItem.getId());
     }
 
+    @Step("Поиск товаров в магазине")
     private List<OfferSHP.Data> getOffers() {
         log.debug("Поиск товаров в магазине");
         Response response = StoresSHPRequest.Offers.GET(
@@ -345,6 +354,7 @@ public class ShopperAppApiHelper {
     /**
      * Получаем инфу о позициях в текущей сборке
      */
+    @Step("Получаем инфу о позициях в текущей сборке")
     public List<AssemblyItemSHP.Data> getItems() {
         log.debug("Получаем инфу о позициях в сборке");
         Response response = AssembliesSHPRequest.GET(currentAssemblyId);
@@ -367,6 +377,7 @@ public class ShopperAppApiHelper {
         return response.as(AssemblyItemSHPResponse.class).getData();
     }
 
+    @Step("Добавляем новый товар")
     private AssemblyItemSHP.Data addItem(String offerUuid) {
         log.debug("Добавляем новый товар");
         Response response = AssembliesSHPRequest.Items.POST(currentAssemblyId, offerUuid, 2);
@@ -374,6 +385,7 @@ public class ShopperAppApiHelper {
         return response.as(AssemblyItemSHPResponse.class).getData();
     }
 
+    @Step("Отменяем товар")
     public void cancelItem(String assemblyItemId) {
         int reasonId = getCancelReasons().get(0).getId();
         log.debug("Отменяем товар");
@@ -381,13 +393,15 @@ public class ShopperAppApiHelper {
         checkStatusCode200(response);
     }
 
+    @Step("Добавляем комментарий к позиции")
     private void clarifyItem(String assemblyItemId) {
         int reasonId = getClarifyReasons().get(0).getId();
-        log.debug("Уточняем товар");
+        log.debug("Добавляем комментарий к позиции");
         Response response = AssemblyItemsSHPRequest.Clarifications.POST(assemblyItemId, reasonId);
         checkStatusCode200(response);
     }
 
+    @Step("Заменяем товар")
     private ReplacementSHP.Data replaceItem(String assemblyItemId, String offerUuid) {
         int reasonId = getCancelReasons().get(0).getId();
         log.debug("Заменяем товар");
@@ -418,6 +432,7 @@ public class ShopperAppApiHelper {
         return Arrays.asList(response.as(ReasonSHP[].class));
     }
 
+    @Step("Дополнительный товар для замены")
     private AssemblyItemSHP.Data additionalItemForReplacement(String replacementId, String offerUuid) {
         log.debug("Дополнительный товар для замены");
         Response response = ReplacementsSHPRequest.AdditionalItems.POST(replacementId, offerUuid, 2);
@@ -427,6 +442,7 @@ public class ShopperAppApiHelper {
         return response.as(AssemblyItemSHPResponse.class).getData();
     }
 
+    @Step("Подтверждаем позицию")
     private void approveItem(String assemblyItemId) {
         log.debug("Подтверждаем позицию");
         Response response = AssemblyItemsSHPRequest.Approve.PATCH(assemblyItemId);
@@ -445,7 +461,7 @@ public class ShopperAppApiHelper {
     }
 
     @Step("Подтверждаем прохождение оплаты у сборки для передачи упаковщику")
-    private void startPaymentVerification() {
+    public void startPaymentVerification() {
         log.debug("Подтверждаем прохождение оплаты у сборки для передачи упаковщику");
         Response response = AssembliesSHPRequest.StartPaymentVerification.PUT(currentAssemblyId);
         checkStatusCode200(response);
@@ -454,7 +470,7 @@ public class ShopperAppApiHelper {
     }
 
     @Step("Раскладываем заказ для передачи упаковщику")
-    private void shopperCreatesPackageSets() {
+    public void shopperCreatesPackageSets() {
         log.debug("Раскладываем заказ для передачи упаковщику");
         int boxNumber = 10;
         Response response = AssembliesSHPRequest.PackageSets.POST(currentAssemblyId, boxNumber);
@@ -463,7 +479,7 @@ public class ShopperAppApiHelper {
     }
 
     @Step("Завершаем сборку для передачи упаковщику")
-    private void finishAssembling() {
+    public void finishAssembling() {
         log.debug("Завершаем сборку для передачи упаковщику");
         Response response = AssembliesSHPRequest.FinishAssembling.PUT(currentAssemblyId);
         checkStatusCode200(response);
@@ -474,7 +490,7 @@ public class ShopperAppApiHelper {
     }
 
     @Step("Берем сборку упаковщиком")
-    private void packer() {
+    public void packer() {
         log.debug("Берем сборку упаковщиком");
         Response response = AssembliesSHPRequest.Packer.PUT(currentAssemblyId);
         checkStatusCode200(response);
@@ -485,7 +501,7 @@ public class ShopperAppApiHelper {
     }
 
     @Step("Оплата на кассе")
-    private void startPurchasing() {
+    public void startPurchasing() {
         log.debug("Начинаем оплату на кассе");
         Response response = AssembliesSHPRequest.StartPurchasing.PUT(currentAssemblyId);
         checkStatusCode200(response);
@@ -493,13 +509,13 @@ public class ShopperAppApiHelper {
                 AssemblyStateSHP.ON_CASH_DESK.getState());
     }
 
-    private void createReceipts(){
+    public void createReceipts(){
         createReceipts(Generate.digitalString(10));
     }
 
 
     @Step("Регистрация чека: {fiscalDocumentNumber}")
-    private void createReceipts(String fiscalDocumentNumber) {
+    public void createReceipts(String fiscalDocumentNumber) {
         log.debug("Отправляем инфу о чеке");
         String
                 total = "1.0",
@@ -524,7 +540,7 @@ public class ShopperAppApiHelper {
     }
 
     @Step("Упаковка заказа")
-    private void startPackaging() {
+    public void startPackaging() {
         log.debug("Начинаем упаковку");
         Response response = AssembliesSHPRequest.StartPackaging.PATCH(currentAssemblyId);
         checkStatusCode200(response);
@@ -533,14 +549,14 @@ public class ShopperAppApiHelper {
     }
 
     @Step("Получаем данные о ячейке собранного заказа")
-    private void getPackageSets() {
+    public void getPackageSets() {
         log.debug("Смотрим где лежит заказ для упаковки");
         Response response = AssembliesSHPRequest.PackageSets.GET(currentAssemblyId);
         checkStatusCode200(response);
     }
 
     @Step("Раскладываем упакованный заказ")
-    private void packerCreatesPackageSets() {
+    public void packerCreatesPackageSets() {
         log.debug("Раскладываем упакованный заказ");
         Response response = AssembliesSHPRequest.PackageSets.POST(
                 currentAssemblyId, 1, 1, 1, 1);
@@ -553,7 +569,7 @@ public class ShopperAppApiHelper {
     }
 
     @Step("Завершаем упаковку")
-    private void finishPurchasing() {
+    public void finishPurchasing() {
         log.debug("Завершаем упаковку");
         Response response = AssembliesSHPRequest.Purchase.PATCH(currentAssemblyId);
         checkStatusCode200(response);
@@ -562,7 +578,7 @@ public class ShopperAppApiHelper {
     }
 
     @Step("Ставим сборку на паузу")
-    private void pauseAssembly() {
+    public void pauseAssembly() {
         log.debug("Ставим сборку на паузу");
         Response response = AssembliesSHPRequest.Pause.PATCH(currentAssemblyId);
         checkStatusCode200(response);
@@ -571,7 +587,7 @@ public class ShopperAppApiHelper {
     }
 
     @Step("Отдаём сборку другому сборщику: ")
-    private void suspendAssembly() {
+    public void suspendAssembly() {
         log.debug("Отдаём сборку другому сборщику");
         Response response = AssembliesSHPRequest.Suspend.PATCH(currentAssemblyId);
         checkStatusCode200(response);
@@ -580,14 +596,14 @@ public class ShopperAppApiHelper {
     }
 
     @Step("Оплачиваем сборку через LifePay")
-    private void payAssemblyByLifePay() {
+    public void payAssemblyByLifePay() {
         log.debug("Оплачиваем сборку через LifePay");
         Response response = AssembliesSHPRequest.LifePay.PUT(currentAssemblyId);
         checkStatusCode200(response);
     }
 
     @Step("Отмечаем сборку как доставленную")
-    private void shipAssembly() {
+    public void shipAssembly() {
         log.debug("Отмечаем сборку как доставленную");
         Response response = AssembliesSHPRequest.Ship.PATCH(currentAssemblyId);
         checkStatusCode200(response);
