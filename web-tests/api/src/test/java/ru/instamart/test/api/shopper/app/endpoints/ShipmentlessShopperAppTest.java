@@ -172,8 +172,8 @@ public class ShipmentlessShopperAppTest extends RestBase {
         checkResponseJsonSchema(response, SessionsSHPResponse.class);
         final SessionsSHPResponse sessionsResponse = response.as(SessionsSHPResponse.class);
         SessionSHP.Data.Attributes attributes = sessionsResponse.getData().getAttributes();
-        SessionFactory.getSession(SessionType.SHOPPER_APP).setToken(attributes.getAccessToken());
-        SessionFactory.getSession(SessionType.SHOPPER_APP).setRefreshToken(attributes.getRefreshToken());
+        SessionFactory.updateToken(SessionType.SHOPPER_APP, attributes.getAccessToken(), attributes.getRefreshToken());
+
     }
 
     @Story("Авторизация")
@@ -195,7 +195,8 @@ public class ShipmentlessShopperAppTest extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, SessionsSHPResponse.class);
         SessionSHP.Data.Attributes attributes = response.as(SessionsSHPResponse.class).getData().getAttributes();
-        SessionFactory.getSession(SessionType.SHOPPER_APP).setToken(attributes.getAccessToken());
-        SessionFactory.getSession(SessionType.SHOPPER_APP).setRefreshToken(attributes.getRefreshToken());
+        SessionFactory.updateToken(SessionType.SHOPPER_APP, attributes.getAccessToken(), attributes.getRefreshToken());
+//        SessionFactory.getSession(SessionType.SHOPPER_APP).setToken(attributes.getAccessToken());
+//        SessionFactory.getSession(SessionType.SHOPPER_APP).setRefreshToken(attributes.getRefreshToken());
     }
 }

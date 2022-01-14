@@ -51,9 +51,7 @@ public class ShopperAppApiHelper {
                 .getData()
                 .getAttributes();
 
-
-        SessionFactory.getSession(SessionType.SHOPPER_APP).setToken(sessionAttributes.getAccessToken());
-        SessionFactory.getSession(SessionType.SHOPPER_APP).setToken(sessionAttributes.getRefreshToken());
+        SessionFactory.updateToken(SessionType.SHOPPER_APP, sessionAttributes.getAccessToken(), sessionAttributes.getRefreshToken());
 
         log.debug("Обновляем авторизацию");
         log.debug("access_token: {}", SessionFactory.getSession(SessionType.SHOPPER_APP).getToken());
@@ -166,7 +164,7 @@ public class ShopperAppApiHelper {
     /**
      * Простая сборка заказа с генерацией фискального номера чека
      */
-    public void simpleCollect(String shipmentNumber){
+    public void simpleCollect(String shipmentNumber) {
         simpleCollect(shipmentNumber, Generate.digitalString(10));
     }
 
@@ -197,7 +195,7 @@ public class ShopperAppApiHelper {
     }
 
     @Step("Простая сборка заказа {shipmentNumber} до регистрации чека")
-    public String simpleAssemblyPriorToReceiptCreation(String shipmentNumber){
+    public String simpleAssemblyPriorToReceiptCreation(String shipmentNumber) {
         authorisation(UserManager.getDefaultShopper());
         deleteCurrentAssembly();
         String shipmentId = getShipmentId(shipmentNumber);
@@ -229,7 +227,7 @@ public class ShopperAppApiHelper {
             simplyAwait(10);
         } while (filterCollect.size() > 0 || i > retryCount);
         if (filterCollect.size() == 0) {
-            System.out.println("count: "+filterCollect.size());
+            System.out.println("count: " + filterCollect.size());
             throw new SkipException("Оформленный заказ не пришел на шопер");
         }
     }

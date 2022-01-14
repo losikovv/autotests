@@ -86,7 +86,7 @@ public final class EnvironmentProperties {
                 BASIC_URL = customBasicUrl;
                 STAGE = BASIC_URL.replace("stf-", "").replace(".k-stage.sbermarket.tech", "");
                 DB_URL = DB_URL.replace("kraken", STAGE);
-                DB_PGSQL_URL= DB_PGSQL_URL.replace("kraken", STAGE);
+                DB_PGSQL_URL = DB_PGSQL_URL.replace("kraken", STAGE);
 
                 log.info("Кастомные данные при ручном запуске на стейджах");
                 log.info("BASIC_URL: {}", BASIC_URL);
@@ -114,6 +114,7 @@ public final class EnvironmentProperties {
         public static String PROD_FULL_SITE_URL = PROTOCOL + "://" + "api." + BASIC_URL + "/";
         public static String QA_FULL_URL = PROTOCOL + "://" + QA_URL + "/";
         public static String ADMIN_FULL_URL = PROTOCOL + "://" + ADMIN_URL + "/";
+        public static String ONE_SESSION = System.getProperty("one_session");
 
         private static String getDomainName(String url) {
             try {

@@ -8,7 +8,7 @@ import ru.instamart.api.request.ShopperAppRequestBase;
 public final class ClarifyReasonsSHPRequest extends ShopperAppRequestBase {
 
     /**
-     * Получаем причины несоответсвия
+     * Получаем причины несоответствия
      */
     @Step("{method} /" + ShopperAppEndpoints.CLARIFY_REASONS)
     public static Response GET() {

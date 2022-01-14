@@ -37,19 +37,19 @@ public final class ApiHelper {
 
     @Step("Добавить {count} продукт в список избранного")
     public void addFavorites(final UserData userData, final int sid, final int count) {
-        auth(userData);
+        apiV2.auth(userData);
         apiV2.addFavoritesListProductBySid(sid, count);
     }
 
     @Step("Добавить распроданный товар в избранное")
     public void addSoldProductToFavorite(final UserData user) {
-        auth(user);
+        apiV2.auth(user);
         apiV2.addFavoriteByProductId(OffersDao.INSTANCE.getSoldProduct());
     }
 
     @Step("Наполняем корзину избранным товаром с помощью API")
     public void dropAndFillCartFromFavorites(final UserData userData, final int sid) {
-        auth(userData);
+        apiV2.auth(userData);
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(userData, apiV2.getAddressBySid(sid));
@@ -62,7 +62,7 @@ public final class ApiHelper {
      */
     @Step("Очищаем корзину с помощью API")
     public OrderV2 dropCart(final UserData user) {
-        auth(user);
+        apiV2.auth(user);
         apiV2.getCurrentOrderNumber();
         return apiV2.deleteAllShipments();
     }
@@ -73,7 +73,7 @@ public final class ApiHelper {
      */
     @Step("Наполняем корзину с помощью API")
     public void dropAndFillCart(final UserData user, final Integer sid) {
-        auth(user);
+        apiV2.auth(user);
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
@@ -82,7 +82,7 @@ public final class ApiHelper {
 
     @Step("Наполняем корзину с помощью API")
     public void dropAndFillCartMultiple(final UserData user, AddressV2 address, final Integer sid, final Integer sid2) {
-        auth(user);
+        apiV2.auth(user);
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, address);
@@ -96,7 +96,7 @@ public final class ApiHelper {
      */
     @Step("Наполняем корзину с помощью API")
     public void dropAndFillCart(final UserData user, final Integer sid, final Integer itemsNumber) {
-        auth(user);
+        apiV2.auth(user);
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
@@ -108,7 +108,7 @@ public final class ApiHelper {
      */
     @Step("Наполняем корзину с помощью API")
     public void dropAndFillCart(final UserData user, final Integer sid, final AddressV2 address) {
-        auth(user);
+        apiV2.auth(user);
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, address);
@@ -121,14 +121,14 @@ public final class ApiHelper {
      */
     @Step("Указываем адрес с помощью API")
     public AddressV2 setAddress(final UserData user, AddressV2 address) {
-        auth(user);
+        apiV2.auth(user);
         apiV2.getCurrentOrderNumber();
         return apiV2.setAddressAttributes(user, address);
     }
 
     @Step("Добавить карту '{1}' пользователю '{0}'")
     public void addCreditCard(final UserData user, final CreditCard creditCard) {
-        auth(user);
+        apiV2.auth(user);
         apiV2.addCreditCard(creditCard);
     }
 
@@ -138,7 +138,7 @@ public final class ApiHelper {
      */
     @Step("Оформляем заказ с помощью API")
     public OrderV2 makeOrder(final UserData user, final Integer sid, final Integer itemsNumber) {
-        auth(user);
+        apiV2.auth(user);
 
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
@@ -160,7 +160,7 @@ public final class ApiHelper {
      */
     @Step("Оформляем мульти заказ с помощью API")
     public OrderV2 makeMultipleOrder(final UserData user, AddressV2 address, final Integer sid, final Integer sid2) {
-        auth(user);
+        apiV2.auth(user);
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
 
@@ -190,7 +190,7 @@ public final class ApiHelper {
      */
     @Step("Оформляем заказ с помощью API на завтра")
     public OrderV2 makeOrderOnTomorrow(final UserData user, final Integer sid, final Integer itemsNumber) {
-        auth(user);
+        apiV2.auth(user);
 
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
@@ -212,7 +212,7 @@ public final class ApiHelper {
      */
     @Step("Оформляем заказ ON_DEMAND с помощью API")
     public OrderV2 makeOnDemandOrder(final UserData user, final Integer sid, final Integer itemsNumber) {
-        auth(user);
+        apiV2.auth(user);
 
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
@@ -235,13 +235,13 @@ public final class ApiHelper {
      */
     @Step("Отменяем заказ с помощью API")
     public OrderV2 cancelOrder(final UserData user, final String orderNumber) {
-        auth(user);
+        apiV2.auth(user);
         return apiV2.cancelOrder(orderNumber);
     }
 
     @Step("Отменяем все заказы с помощью API")
     public void cancelAllActiveOrders(final UserData userData) {
-        auth(userData);
+        apiV2.auth(userData);
         apiV2.cancelActiveOrders();
     }
 
@@ -251,7 +251,7 @@ public final class ApiHelper {
      */
     @Step("Оформляем и отменяем заказ с помощью API")
     public void makeAndCancelOrder(final UserData user, final Integer sid, final Integer itemsNumber) {
-        auth(user);
+        apiV2.auth(user);
 
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
@@ -270,19 +270,19 @@ public final class ApiHelper {
 
     @Step("Добавляем новый город {cityName} в админке")
     public void createCityInAdmin(String cityName) {
-        authAdmin();
+        admin.authAdmin();
         admin.createCity(new CitiesAdminRequest.City(cityName));
     }
 
     @Step("Удаляем город {cityName} в админке")
     public void deleteCityInAdmin(String cityName) {
-        authAdmin();
+        admin.authAdmin();
         admin.deleteCity(cityName);
     }
 
     @Step("Добавить компанию {inn}/{companyName} пользователю {ownerEmail}")
     public void addCompanyForUser(final String inn, final String companyName, final String ownerEmail) {
-        authAdminApi();
+        admin.authAdminApi();
         admin.addCompany(inn, companyName, ownerEmail);
     }
 
@@ -298,19 +298,19 @@ public final class ApiHelper {
                 .foreignLink(data.getPageURL())
                 .position(Integer.parseInt(data.getPosition()))
                 .build();
-        authAdmin();
+        admin.authAdmin();
         admin.createStaticPage(page);
     }
 
     @Step("Удаляем статичную страницу {pageId} в админке")
     public void deleteStaticPageInAdmin(Long pageId) {
-        authAdmin();
+        admin.authAdmin();
         admin.deleteStaticPage(pageId);
     }
 
     @Step("Добавляем новый регион {zoneName} для магазина в админке")
     public OperationalZoneV1 createOperationalZonesInAdmin(String zoneName) {
-        authAdminApi();
+        admin.authAdminApi();
         return admin.addOperationalZones(zoneName);
     }
 
@@ -326,7 +326,7 @@ public final class ApiHelper {
 
     @Step("Получение реферального промокода для пользователя")
     public String getReferralPromotionCode(final UserData user) {
-        auth(user);
+        apiV2.auth(user);
         String userId = apiV2.getProfile().getUser().getId();
         return apiV2.getReferralPromotionCode(userId);
     }
@@ -339,92 +339,73 @@ public final class ApiHelper {
 
     @Step("Получить список доступных методов доставки")
     public ShippingMethodsResponse getShippingMethod() {
-        authAdminApi();
+        admin.authAdminApi();
         return admin.getShippingMethods();
     }
 
     @Step("Создание нового способа доставки {0}")
     public void createShippingMethod(final ShippingMethodsRequest.ShippingMethod shippingMethod) {
-        authAdmin();
+        admin.authAdmin();
         admin.createShippingMethod(shippingMethod);
     }
 
     @Step("Получить список маркетинговых правил доставки для метода {0}")
     public PricersV1Response getMarketingRule(final int methodId) {
-        authAdminApi();
+        admin.authAdminApi();
         return admin.getMarketingRule(methodId);
     }
 
     @Step("Создание нового маркетингово правила для доставки {0}")
     public PricerV1Response createMarketingRule(final int id) {
-        authAdminApi();
+        admin.authAdminApi();
         return admin.createMarketingRule(id);
     }
 
     @Step("Удаление нового маркетингово правила для доставки {0}")
     public void deleteMarketingRule(final int id) {
-        authAdminApi();
+        admin.authAdminApi();
         admin.deleteMarketingRule(id);
     }
 
     @Step("Получить список номинальных правил доставки для метода {0}")
     public PricersV1Response getNominalRule(final int methodId) {
-        authAdminApi();
+        admin.authAdminApi();
         return admin.getNominalRule(methodId);
     }
 
     @Step("Создание нового номинального правила для доставки {0}")
     public PricerV1Response createNominalRule(final int id) {
-        authAdminApi();
+        admin.authAdminApi();
         return admin.createNominalRule(id);
     }
 
     @Step("Удаление нового номинального правила для доставки {0}")
     public void deleteNominalRule(final int id) {
-        authAdminApi();
+        admin.authAdminApi();
         admin.deleteNominalRule(id);
     }
 
     @Step("Создать правило {0} данными {1}")
     public void createPricerRules(final int ruleId, final ShippingMethodsV1Request.Rules data) {
-        authAdminApi();
+        admin.authAdminApi();
         admin.createPricerRule(ruleId, data);
     }
 
     @Step("Создать калькулятор {0} данными {1}")
     public void createPricerCalculator(final int ruleId, final ShippingMethodsV1Request.Calculators data) {
-        authAdminApi();
+        admin.authAdminApi();
         admin.createPricerCalculator(ruleId, data);
     }
 
     @Step("Обновить правило {0} данными {1}")
     public void updateRules(final int ruleId, final ShippingMethodsV1Request.Rules data) {
-        authAdminApi();
+        admin.authAdminApi();
         admin.updateRule(ruleId, data);
     }
 
     @Step("Обновить калькулятор {0} данными {1}")
     public void updateCalculator(final int ruleId, final ShippingMethodsV1Request.Calculators data) {
-        authAdminApi();
+        admin.authAdminApi();
         admin.updateCalculator(ruleId, data);
-    }
-
-    /**
-     * @param user должен иметь phone и encryptedPhone
-     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
-     */
-    @Step("Регистрация/авторизация по номеру телефона с помощью API")
-    private void auth(final UserData user) {
-        SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.PHONE, user);
-    }
-
-    @Step("Авторизация администратором для API")
-    private void authAdminApi() {
-        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdminAllRoles());
-    }
-
-    @Step("Авторизация администратором")
-    private void authAdmin() {
-        SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
     }
 }
