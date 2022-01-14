@@ -7,12 +7,12 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface ShipmentCancelModalCheck extends ShipmentCancelModalElement, Check {
 
-    @Step("Проверяем что моадльное окно отмены заказа показано")
+    @Step("Проверяем что модальное окно отмены заказа показано")
     default void shipmentCancelModalVisible() {
         waitAction().shouldBeVisible(shipmentCancelModal);
     }
 
-    @Step("Проверяем что моадльное окно отмены заказа не видно")
+    @Step("Проверяем что модальное окно отмены заказа не видно")
     default void shipmentCancelModalNotVisible() {
         waitAction().shouldNotBeVisible(shipmentCancelModal);
     }
