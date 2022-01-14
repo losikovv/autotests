@@ -242,3 +242,16 @@ qase:cleanup:
   tags:
     - k8s-stage
   allow_failure: true
+
+generate:data:
+  only:
+    refs:
+      - schedules
+    variables:
+      - $GENERATE_DATA == 'true'
+  stage: tests-api
+  script:
+    - gradle clean build generateData -Pkey=$ATST_APP_SECRET_KEY
+  tags:
+    - k8s-stage
+  allow_failure: true

@@ -130,3 +130,10 @@ task qaseCleanup(type: Test) {
         includeGroups 'qase-cleanup'
     }
 }
+
+task generateData(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/util.xml'
+        includeGroups 'generate-data'
+    }
+}

@@ -19,6 +19,8 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import java.util.Objects;
+
 import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkIsDeliveryToday;
@@ -27,23 +29,32 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Epic("Shopper Mobile API")
 @Feature("Endpoints")
 public class ShipmentfulShopperAppTest extends RestBase {
-    String shipmentId;
-    String assemblyId;
-    String assemblyItemId;
-    Integer itemQty;
-    String shipmentNumber;
+    private String shipmentId;
+    private String assemblyId;
+    private String assemblyItemId;
+    private Integer itemQty;
+    private String shipmentNumber;
+    private final String COMMENT = "SHP-TEST-SINGLE";
 
     @BeforeClass(alwaysRun = true,
             description = "Оформляем заказ")
     public void preconditions() {
-        SessionFactory.makeSession(SessionType.API_V2);
-        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
-        shipmentNumber = order.getShipments().get(0).getNumber();
-        if (order == null) throw new SkipException("Заказ не удалось оплатить");
-        String isDeliveryToday = checkIsDeliveryToday(order);
         shopperApp.authorisation(UserManager.getDefaultShopper());
         shopperApp.deleteCurrentAssembly();
-        shipmentId = shopperApp.getShipmentId(shipmentNumber, isDeliveryToday);
+        shipmentId = shopperApp.getShipmentIdByComment(COMMENT);
+
+        if (Objects.isNull(shipmentId)) {
+            SessionFactory.makeSession(SessionType.API_V2);
+            OrderV2 order = apiV2.order(
+                    SessionFactory.getSession(SessionType.API_V2).getUserData(),
+                    EnvironmentProperties.DEFAULT_SID,
+                    1,
+                    COMMENT);
+            if (Objects.isNull(order)) throw new SkipException("Заказ не удалось оплатить");
+            shipmentNumber = order.getShipments().get(0).getNumber();
+            String errorMessageIfDeliveryIsNotToday = checkIsDeliveryToday(order);
+            shipmentId = shopperApp.getShipmentId(shipmentNumber, errorMessageIfDeliveryIsNotToday);
+        }
     }
 
     @AfterClass(alwaysRun = true,
