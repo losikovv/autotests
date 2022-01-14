@@ -32,9 +32,10 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
         return id;
     }
 
-    public void deleteQAUsers() {
+    public void deleteUserByEmail(String email) {
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE email LIKE 'qasession+%'")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE email = ?")) {
+            preparedStatement.setString(1, email);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             log.error("Error init ConnectionMySQLManager. Error: {}", e.getMessage());

@@ -10,6 +10,8 @@ import ru.instamart.jdbc.dao.PhoneTokensDao;
 import ru.instamart.jdbc.dao.SpreeUsersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
+import static java.util.Objects.nonNull;
+import static ru.instamart.kraken.data.user.UserManager.getUserDataList;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.clearLogbackLogBuffer;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.getLogbackBufferLog;
 
@@ -24,9 +26,14 @@ public class RestBase {
 
     @AfterSuite(alwaysRun = true)
     public void clearData() {
-        if(!EnvironmentProperties.SERVER.equals("production")) {
+        if (!EnvironmentProperties.SERVER.equals("production")) {
             PhoneTokensDao.INSTANCE.deleteQAPhones();
-            SpreeUsersDao.INSTANCE.deleteQAUsers();
+            getUserDataList().forEach(userData -> {
+                final String email = userData.getEmail();
+                if (nonNull(email) && !email.isEmpty()) {
+                    SpreeUsersDao.INSTANCE.deleteUserByEmail(email);
+                }
+            });
         }
     }
 
