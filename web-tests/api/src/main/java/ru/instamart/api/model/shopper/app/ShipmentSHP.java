@@ -41,6 +41,7 @@ public class ShipmentSHP extends BaseObject {
             private String number;
             @JsonSchema(required = true)
             private Integer weight;
+            @Null
             private String logisticVolume;
             @JsonSchema(required = true)
             private String state;
