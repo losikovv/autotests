@@ -19,6 +19,7 @@ public final class InnerInput extends InnerComponent {
     }
 
     public void click() {
+        log.debug("Click {} with locator {}", getDescription(), getBy());
         getComponent().click();
     }
 

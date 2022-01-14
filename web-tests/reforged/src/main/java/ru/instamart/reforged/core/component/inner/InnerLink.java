@@ -18,6 +18,7 @@ public final class InnerLink extends InnerComponent {
     }
 
     public void click() {
+        log.debug("Click {} with locator {}", getDescription(), getBy());
         getComponent().click();
     }
 }

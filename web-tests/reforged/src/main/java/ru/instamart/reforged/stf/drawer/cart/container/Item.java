@@ -7,7 +7,6 @@ import ru.instamart.reforged.core.Container;
 import ru.instamart.reforged.core.component.inner.InnerButton;
 import ru.instamart.reforged.core.component.inner.InnerElement;
 import ru.instamart.reforged.core.component.inner.InnerInput;
-import ru.instamart.reforged.data.ItemData;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 
 import static ru.instamart.reforged.core.Check.krakenAssert;
@@ -43,31 +42,15 @@ public final class Item extends Container {
         buttonOpenItemPopupInfo.click();
     }
 
-    public ItemData getItemData() {
-        return ItemData.builder()
-                .count(getCount())
-                .name(getName())
-                .packageSize(getPackageSize())
-                .totalAmount(getTotalAmount())
-                .build();
-    }
-
+    @Step("Получаем количество единиц продукта в корзине")
     public int getCount() {
         return itemCountInput.getNumericValue();
     }
 
+    @Step("Получаем наименование продукта")
     public String getName() {
         return itemName.getText();
     }
-
-    private String getPackageSize() {
-        return itemPackageSize.getText();
-    }
-
-    private String getTotalAmount() {
-        return itemsAmount.getText();
-    }
-
 
     @Step("Сравниваем кол-во штук товара с ожидаемым значением {0}")
     public void compareItemQuantityInCart(final int expected) {
@@ -87,21 +70,22 @@ public final class Item extends Container {
     @Step("Кликаем на кнопку 'Уменьшить' количество товара")
     public void increaseCount() {
         itemCountInput.hoverAction(); //кнопка становится видимой только после того, как наводимся на поле
-        buttonIncreaseItemsCount.hoverAndClick();
+        buttonIncreaseItemsCount.clickAction();
     }
 
     @Step("Кликаем на кнопку 'Увеличить' количество товара")
     public void decreaseCount() {
         itemCountInput.hoverAction(); //кнопка становится видимой только после того, как наводимся на поле
-        buttonDecreaseItemsCount.hoverAndClick();
+        buttonDecreaseItemsCount.clickAction();
     }
 
-    @Step("Увеличиваем кол-во товара до тех пор, пока заказ не станет доступен")
-    public void increaseCountToMin() {
-        while (!new Cart().checkOrderButtonIsEnabled()) {
-            itemCountInput.hoverAction(); //кнопка становится видимой только после того, как наводимся на поле
-            buttonIncreaseItemsCount.hoverAndClick();
-            checkSpinnerIsNotVisible();
-        }
+    @Step("Получаем размер упаковки продукта")
+    private String getPackageSize() {
+        return itemPackageSize.getText();
+    }
+
+    @Step("Получаем итоговую стоимость продукта")
+    private String getTotalAmount() {
+        return itemsAmount.getText();
     }
 }

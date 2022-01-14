@@ -75,7 +75,7 @@ public final class UserRegistrationTests extends BaseTest {
 
         shop().goToPage();
         shop().interactHeader().clickToCart();
-        shop().interactCart().getFirstItem().increaseCountToMin();
+        shop().interactCart().increaseFirstItemCountToMin();
         shop().interactCart().submitOrder();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         checkout().checkCheckoutButtonIsVisible();

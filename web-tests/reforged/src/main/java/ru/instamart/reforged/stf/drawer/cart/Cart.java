@@ -39,13 +39,6 @@ public final class Cart implements CartCheck {
                 .collect(Collectors.toList());
     }
 
-    private List<Retailer> getAllRetailers() {
-        return retailers.getElements()
-                .stream()
-                .map(Retailer::new)
-                .collect(Collectors.toList());
-    }
-
     @Step("Получаем первый магазин в корзине")
     public Retailer getFirstRetailer() {
         return new Retailer(firstRetailer.getElement());
@@ -64,5 +57,21 @@ public final class Cart implements CartCheck {
     @Step("Получаем значение стоимости товаров в корзине")
     public double returnOrderAmount() {
         return StringUtil.stringToDoubleParse(orderAmount.getText());
+    }
+
+    @Step("Увеличиваем кол-во товара до тех пор, пока заказ не станет доступен")
+    public void increaseFirstItemCountToMin() {
+        Item item = getFirstItem();
+        while (!checkOrderButtonIsEnabled()) {
+            item.increaseCount();
+            item.checkSpinnerIsNotVisible();
+        }
+    }
+
+    private List<Retailer> getAllRetailers() {
+        return retailers.getElements()
+                .stream()
+                .map(Retailer::new)
+                .collect(Collectors.toList());
     }
 }

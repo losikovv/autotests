@@ -20,6 +20,7 @@ public final class InnerElement extends InnerComponent {
     }
 
     public String getText() {
+        log.debug("Get text {} with locator {}", getDescription(), getBy());
         return getComponent().getText();
     }
 }

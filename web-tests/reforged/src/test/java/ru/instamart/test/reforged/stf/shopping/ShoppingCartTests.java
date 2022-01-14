@@ -190,10 +190,8 @@ public final class ShoppingCartTests extends BaseTest {
         shop().goToPage();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
-        shop().interactCart().checkCartNotEmpty();
 
         shop().interactCart().getFirstItem().deleteItem();
-        shop().interactCart().getFirstItem().checkSpinnerIsNotVisible();
         shop().interactCart().checkCartEmpty();
     }
 
@@ -219,7 +217,6 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactCart().checkCartNotEmpty();
 
         shop().interactCart().getFirstItem().deleteItem();
-        shop().interactCart().getFirstItem().checkSpinnerIsNotVisible();
         shop().interactCart().checkCartEmpty();
     }
 
@@ -466,7 +463,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
         final var startOrderAmount = shop().interactCart().returnOrderAmount();
-        final var startProductsQuantity = shop().interactCart().getFirstRetailer().getUniqueItemsInList();
+        final var startProductsQuantity = shop().interactCart().getFirstRetailer().getItemsCountInList();
         shop().interactCart().getFirstItem().deleteItem();
         shop().interactCart().checkDeleteAnimationOver();
         shop().interactCart().closeCart();

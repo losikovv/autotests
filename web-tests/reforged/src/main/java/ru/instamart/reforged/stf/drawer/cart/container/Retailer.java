@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Container;
 import ru.instamart.reforged.core.Kraken;
@@ -11,8 +12,7 @@ import ru.instamart.reforged.core.component.inner.InnerButton;
 import ru.instamart.reforged.core.component.inner.InnerCollectionComponent;
 import ru.instamart.reforged.core.component.inner.InnerElement;
 import ru.instamart.reforged.core.component.inner.InnerLink;
-import ru.instamart.reforged.data.ItemData;
-import ru.instamart.reforged.data.RetailerData;
+import ru.instamart.reforged.core.custom_exceptions.NoSuchElementInCollection;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,6 +41,7 @@ public final class Retailer extends Container {
         super(container);
     }
 
+    @Step("Получаем название магазина")
     public String getName() {
         return name.getText();
     }
@@ -50,29 +51,21 @@ public final class Retailer extends Container {
         Kraken.waitAction().shouldNotBeVisible(minAmountAlert, getContainer());
     }
 
+    @Step("Получаем {} продукт из списка продуктов магазина")
     public Item getItem(final int order) {
         final List<Item> items = getAllItems();
         if (items.size() >= order) {
             return items.get(order);
         } else {
-            log.error("Try to get undefined item {} from item list {}", order, items);
-            return new Item(getContainer());
+            var exception = new NoSuchElementInCollection(order);
+            Assert.fail(exception.getMessage(), exception);
+            return null;
         }
     }
 
-    public int getUniqueItemsInList() {
+    @Step("Получаем количество наименований продуктов в списке магазина")
+    public int getItemsCountInList() {
         return getAllItems().size();
-    }
-
-    public RetailerData getRetailerData() {
-        return RetailerData.builder()
-                .name(getName())
-                .itemsCount(getItemsCountInHeader())
-                .totalWeight(getTotalWeight())
-                .totalAmount(getTotalAmount())
-                .deliveryInfo(getNearestDeliveryInfo())
-                .itemsData(getItemsData())
-                .build();
     }
 
     @Step("Кликаем на кнопку 'Удалить' магазин из корзины")
@@ -80,30 +73,7 @@ public final class Retailer extends Container {
         buttonRemoveShipments.click();
     }
 
-    private String getItemsCountInHeader() {
-        return itemsCountInHeader.getText();
-    }
-
-    private String getTotalWeight() {
-        return totalWeight.getText();
-    }
-
-    private String getTotalAmount() {
-        return totalAmount.getText();
-    }
-
-    private String getNearestDeliveryInfo() {
-        return nearestDeliveryInfo.getText();
-    }
-
-    private List<Item> getAllItems() {
-        return itemInList.getComponents().stream().map(Item::new).collect(Collectors.toList());
-    }
-
-    private List<ItemData> getItemsData() {
-        return getAllItems().stream().map(Item::getItemData).collect(Collectors.toList());
-    }
-
+    @Step("Получаем минимальную сумму заказа из плашки-алерта")
     public double returnMinOrderAmount() {
         return StringUtil.stringToDoubleParse(minAmountAlert.getText());
     }
@@ -121,5 +91,29 @@ public final class Retailer extends Container {
     @Step("Сравнить количество уникальных товаров магазина с ожидаемым значением {0}")
     public void compareItemsInCart(final int expected) {
         assertEquals(itemInList.elementCount(), expected, "Количество товаров в корзине отличается от ожидаемого");
+    }
+
+    @Step("Получаем количество продуктов, указанное в шапке магазина")
+    private String getItemsCountInHeader() {
+        return itemsCountInHeader.getText();
+    }
+
+    @Step("Получаем итоговый вес продуктов, указанный в шапке магазина ")
+    private String getTotalWeight() {
+        return totalWeight.getText();
+    }
+
+    @Step("Получаем итоговую стоимость продуктов, указанную в шапке магазина")
+    private String getTotalAmount() {
+        return totalAmount.getText();
+    }
+
+    @Step("Получаем информацию о ближайшей доставке")
+    private String getNearestDeliveryInfo() {
+        return nearestDeliveryInfo.getText();
+    }
+
+    private List<Item> getAllItems() {
+        return itemInList.getComponents().stream().map(Item::new).collect(Collectors.toList());
     }
 }

@@ -51,9 +51,4 @@ public abstract class InnerComponent implements Component {
         var action = Kraken.action();
         action.moveToElement(getComponent()).click().build().perform();
     }
-
-    public void hoverAndClick() {
-        hoverAction();
-        clickAction();
-    }
 }
