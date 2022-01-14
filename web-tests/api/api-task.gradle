@@ -5,7 +5,7 @@ task apiShopperSmoke(type: Test) {
     }
     systemProperty 'qase.Project', 'SHAPI'
     systemProperty 'qase.Title', 'Shopper API Smoke'
-    systemProperty 'one_session', 'true'
+//    systemProperty 'one_session', 'true'
 }
 
 task apiShopperRegress(type: Test) {
@@ -15,7 +15,7 @@ task apiShopperRegress(type: Test) {
     }
     systemProperty 'qase.Project', 'SHAPI'
     systemProperty 'qase.Title', 'Shopper API Regress'
-    systemProperty 'one_session', 'true'
+//    systemProperty 'one_session', 'true'
 }
 
 task apiInstamartRegress(type: Test) {
