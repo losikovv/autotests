@@ -51,7 +51,6 @@ public class ShipmentfulShopperAppTest extends RestBase {
                     1,
                     COMMENT);
             if (Objects.isNull(order)) throw new SkipException("Заказ не удалось оплатить");
-            shipmentNumber = order.getShipments().get(0).getNumber();
             String errorMessageIfDeliveryIsNotToday = checkIsDeliveryToday(order);
             shipmentId = shopperApp.getShipmentId(shipmentNumber, errorMessageIfDeliveryIsNotToday);
         }
@@ -142,7 +141,8 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Story("Хелпдеск")
     @CaseId(102)
     @Test(description = "Создаем новый тикет в хелпдеске",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {"api-shopper-smoke", "api-shopper-prod"},
+            dependsOnMethods = "getShipment200")
     public void createHelpdeskTicket() {
         Response response = HelpdeskSHPRequest.Tickets.POST(shipmentId);
         checkStatusCode200(response);
@@ -172,6 +172,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
         response = ShipmentsSHPRequest.GET(shipmentId);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShipmentSHPResponse.class);
+        shipmentNumber = response.as(ShipmentSHPResponse.class).getData().getAttributes().getNumber();
     }
 
     @Story("Получение информации о сборках")
