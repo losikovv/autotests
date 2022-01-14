@@ -1,5 +1,6 @@
 package ru.instamart.jdbc.dao;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.instamart.jdbc.entity.PhoneTokensEntity;
 import ru.instamart.jdbc.util.ConnectionMySQLManager;
 
@@ -7,8 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import static org.testng.Assert.fail;
-
+@Slf4j
 public class PhoneTokensDao extends AbstractDao<Long, PhoneTokensEntity>{
 
     public static final PhoneTokensDao INSTANCE = new PhoneTokensDao();
@@ -19,7 +19,7 @@ public class PhoneTokensDao extends AbstractDao<Long, PhoneTokensEntity>{
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE value LIKE '7990%'")) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+            log.error("Error init ConnectionMySQLManager. Error: {}", e.getMessage());
         }
     }
 }

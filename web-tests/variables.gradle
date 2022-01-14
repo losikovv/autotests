@@ -38,4 +38,7 @@ tasks.withType(Test) {
     if (project.hasProperty('url_shp')) {
         systemProperty 'url_shp',"${url_shp}"
     }
+    if (project.hasProperty('one_session')) {
+        systemProperty 'one_session',"${one_session}"
+    }
 }

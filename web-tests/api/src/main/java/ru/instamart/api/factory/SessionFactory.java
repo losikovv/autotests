@@ -1,5 +1,8 @@
 package ru.instamart.api.factory;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.qameta.allure.Allure;
 import io.restassured.response.Response;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +26,7 @@ import ru.instamart.api.response.shopper.app.SessionsSHPResponse;
 import ru.instamart.api.response.v1.TokensV1Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
 import ru.instamart.api.response.v2.UserV2Response;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
@@ -31,6 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -91,6 +96,18 @@ public final class SessionFactory {
         return new SessionInfo();
     }
 
+    public static void getAllSessionUpdateToken(final SessionType type, final String accessToken, final String refreshToken) {
+        sessionMap.entrySet().stream()
+//                .filter(entry -> entry.getKey().getType().equals(type))
+                .filter(token -> token.getValue().getToken().equals(SessionFactory.getSession(type).getToken()))
+                .forEach(item -> {
+                    SessionInfo sessionInfo = item.getValue();
+                    sessionInfo.setToken(accessToken);
+                    sessionInfo.setRefreshToken(refreshToken);
+                    item.setValue(sessionInfo);
+                });
+    }
+
     /**
      * Создание сессии без провайдера для
      * {@link  ru.instamart.api.enums.SessionType#API_V1 SessionType.API_V1}
@@ -118,9 +135,33 @@ public final class SessionFactory {
         final SessionInfo session = sessionMap.get(sessionId);
         if (nonNull(session) && !session.getLogin().equals(userData.getEmail())) {
             //TODO  исправить проверку номера телефона
-            //if (nonNull(session) && (!session.getLogin().equals(userData.getEmail()) || !session.getPhone().equals(userData.getPhone()))) {
-            sessionMap.put(sessionId, createSession(type, provider, userData));
+            // if (nonNull(session) && (!session.getLogin().equals(userData.getEmail()) || !session.getPhone().equals(userData.getPhone()))) {
+            addSessionMap(type, provider, userData);
         } else if (isNull(session)) {
+            addSessionMap(type, provider, userData);
+        }
+
+    }
+
+    private static void addSessionMap(final SessionType type, final SessionProvider provider, final UserData userData) {
+        final SessionId sessionId = new SessionId(Thread.currentThread().getId(), type);
+        if (nonNull(EnvironmentProperties.Env.ONE_SESSION)) {
+            ThreadUtil.simplyAwait(Math.random()*10);
+            Map<SessionId, SessionInfo> collect = sessionMap.entrySet().stream()
+                    .filter(item -> item.getKey().getType().equals(type))
+                    .filter(item->
+                            (item.getValue().getLogin().equals(userData.getEmail()) || item.getValue().getPhone().equals(userData.getPhone()))
+                    )
+                    .collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue()));
+
+            if (!collect.isEmpty()) {
+                log.info("Используем существующую сессию для пользователя {}, тип сессии {}, поток {}", userData.getPhone(), type, sessionId.getThreadId());
+                sessionMap.put(sessionId, collect.entrySet().iterator().next().getValue());
+            } else {
+                log.info("Используем новую сессию для пользователя {}, тип сессии {}, поток {}", userData.getPhone(), type, sessionId.getThreadId());
+                sessionMap.put(sessionId, createSession(type, provider, userData));
+            }
+        } else {
             sessionMap.put(sessionId, createSession(type, provider, userData));
         }
     }
@@ -244,6 +285,15 @@ public final class SessionFactory {
 
     private static SessionInfo createQaSession(final UserData userData) {
         return new SessionInfo(userData, userData.getToken());
+    }
+
+    public static void updateToken(final SessionType sessionType, final String accessToken, final String refreshToken) {
+        if (nonNull(EnvironmentProperties.Env.ONE_SESSION)) {
+            getAllSessionUpdateToken(sessionType, accessToken, refreshToken);
+        } else {
+            SessionFactory.getSession(sessionType).setToken(accessToken);
+            SessionFactory.getSession(sessionType).setRefreshToken(refreshToken);
+        }
     }
 
     @RequiredArgsConstructor
