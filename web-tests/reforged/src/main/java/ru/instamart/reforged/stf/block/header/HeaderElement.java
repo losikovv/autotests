@@ -37,7 +37,7 @@ public interface HeaderElement {
     Button storeSelector = new Button(By.xpath("//button[@data-qa='open-store-selector-button']"));
     Element searchContainer = new Element(By.xpath("//div[@data-qa='search']"), "Контейнер поиска");
     Input searchInput = new Input(By.xpath("//div[@data-qa='search']//input"), "Инпут поиска");
-    Button searchButton = new Button(By.xpath("//div[@data-qa='search']//button[@type='submit']"), "Кнопка поиска");
+    Button searchButton = new Button(By.xpath("//button[@data-qa='b2c_home_landing_address_block_address_modal_submit_button']"), "Кнопка поиска");
     DropDown searchDropDown = new DropDown(By.xpath("//div[@data-qa='offer']"));
     Element taxonCategories = new Element(By.xpath("//div[@class='header-search-list__categories']"), "Список категорий в подсказке поиска");
     Element taxonFirstCategory = new Element(By.xpath("//div[@class='header-search-list-category']"), "Первая категория в подсказке поиска");

@@ -7,7 +7,7 @@ import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
 import ru.instamart.reforged.core.component.Link;
 import ru.instamart.reforged.stf.frame.RepeatModal;
-import ru.instamart.reforged.stf.frame.ShipmentCancelModal;
+import ru.instamart.reforged.stf.frame.shipment_cancel_modal.ShipmentCancelModal;
 
 public interface UserShipmentsElement {
 

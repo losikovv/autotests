@@ -469,6 +469,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactCart().closeCart();
         shop().interactCart().checkCartClose();
 
+        shop().refresh();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
         final var secondOrderAmount = shop().interactCart().returnOrderAmount();
