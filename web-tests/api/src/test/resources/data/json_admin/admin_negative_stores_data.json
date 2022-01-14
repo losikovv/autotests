@@ -362,7 +362,7 @@
         "store[location_attributes][building]": 61
       },
       "description": "Без расписания",
-      "statusCode": 500
+      "statusCode": 200
     },
     {
       "store": {
