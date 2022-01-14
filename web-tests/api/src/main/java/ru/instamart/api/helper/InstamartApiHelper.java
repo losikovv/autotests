@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.SkipException;
 import org.testng.asserts.SoftAssert;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
@@ -1395,5 +1396,14 @@ public final class InstamartApiHelper {
         final Response response = UsersV2Request.ReferralProgram.GET(userId);
         checkStatusCode200(response);
         return response.as(UserReferralProgramV2Response.class).getUserReferralProgram().getCode();
+    }
+
+    /**
+     * @param user должен иметь phone и encryptedPhone
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     */
+    @Step("Регистрация/авторизация по номеру телефона с помощью API")
+    public void auth(final UserData user) {
+        SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.PHONE, user);
     }
 }

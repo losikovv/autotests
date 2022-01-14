@@ -1,6 +1,9 @@
 package ru.instamart.api.helper;
 
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
@@ -12,6 +15,7 @@ import ru.instamart.api.request.v1.ShippingMethodsV1Request.NominalPricers;
 import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
 import ru.instamart.api.response.v1.*;
+import ru.instamart.kraken.data.user.UserManager;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
@@ -128,5 +132,14 @@ public class AdminHelper {
     public void updateCalculator(final int ruleId, final ShippingMethodsV1Request.Calculators calculators) {
         final var response = ShippingMethodsV1Request.Calculators.PUT(ruleId, calculators);
         checkStatusCode200(response);
+    }
+
+    @Step("Авторизация администратором")
+    public void authAdmin() {
+        SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
+    }
+    @Step("Авторизация администратором для API")
+    public void authAdminApi() {
+        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdminAllRoles());
     }
 }
