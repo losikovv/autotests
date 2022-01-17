@@ -1257,7 +1257,6 @@ public final class InstamartApiHelper {
      */
     @Step("Очистить корзину пользователя {user.email}")
     public void dropCart(UserData user, AddressV2 address) {
-        SessionFactory.createSessionToken(SessionType.API_V2, user);
         getCurrentOrderNumber();
         deleteAllShipments();
 

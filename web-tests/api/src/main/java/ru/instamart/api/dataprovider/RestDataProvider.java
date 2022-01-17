@@ -24,13 +24,8 @@ import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
 import ru.instamart.api.request.v2.*;
 import ru.instamart.api.response.v1.OperationalZonesV1Response;
-import ru.instamart.api.response.v2.CreditCardAuthorizationV2Response;
-import ru.instamart.api.response.v2.OrderV2Response;
-import ru.instamart.api.response.v2.StoresV2Response;
-import ru.instamart.jdbc.dao.InstacoinAccountsDao;
-import ru.instamart.jdbc.dao.PromotionCodesDao;
-import ru.instamart.jdbc.dao.SpreeProductsDao;
-import ru.instamart.jdbc.dao.SpreeUsersDao;
+import ru.instamart.api.response.v2.*;
+import ru.instamart.jdbc.dao.*;
 import ru.instamart.jdbc.dto.PromotionCodesFilters;
 import ru.instamart.jdbc.entity.PromotionCodesEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -124,6 +119,16 @@ public class RestDataProvider extends RestBase {
         authProviderArray[2][0] = AuthProviderV2.VKONTAKTE;
         authProviderArray[3][0] = AuthProviderV2.FACEBOOK;
         return authProviderArray;
+    }
+
+    @DataProvider(name = "authProvidersWithParams")
+    public static Object[][] getAuthProvidersWithParams() {
+        return new Object[][]{
+                {AuthProviderV2.VKONTAKTE, AuthParamsV2Response.class},
+                {AuthProviderV2.FACEBOOK, AuthParamsV2Response.class},
+                {AuthProviderV2.MAIL_RU, AuthParamsV2Response.class},
+                {AuthProviderV2.SBERBANK, AuthParamsSberbankV2Response.class},
+        };
     }
 
     @DataProvider(name = "positiveQuery", parallel = true)
@@ -630,7 +635,7 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-    @DataProvider(name = "orderNumbers", parallel = true)
+    @DataProvider(name = "orderNumbers")
     public static Object[][] getOrderNumber() {
         OrderV2 order = OrdersV2Request.POST().as(OrderV2Response.class).getOrder();
         return new Object[][]{
@@ -639,9 +644,8 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-    @DataProvider(name = "transactionNumbers", parallel = true)
+    @DataProvider(name = "transactionNumbers")
     public static Object[][] getTransactionNumber() {
-        SessionFactory.makeSession(SessionType.API_V2);
         OrderV2 order = OrdersV2Request.POST().as(OrderV2Response.class).getOrder();
         CreditCardAuthorizationV2 creditCardAuthorization = PaymentsV2Request.POST(order.getNumber()).
                 as(CreditCardAuthorizationV2Response.class).getCreditCardAuthorization();
@@ -651,9 +655,8 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-    @DataProvider(name = "invalidTransactionData", parallel = true)
+    @DataProvider(name = "invalidTransactionData")
     public static Object[][] getInvalidTransactionData() {
-        SessionFactory.makeSession(SessionType.API_V2);
         String orderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
         String userUuid = apiV2.getProfile().getUser().getId();
         String transactionNumber = PaymentsV2Request.POST(orderNumber).

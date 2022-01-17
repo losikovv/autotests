@@ -3,6 +3,11 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.response.v1.FreeDeliveryV1Response;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
@@ -21,6 +26,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 @Feature("Промо-акции")
 public class PromotionsV2Test extends RestBase {
 
+    @Skip(onServer = Server.PRODUCTION) // DMND-1222
     @CaseId(824)
     @Story("Реферальная программа")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Общие сведения о реферальной программе")
@@ -54,5 +60,15 @@ public class PromotionsV2Test extends RestBase {
     public void testGetListOfProductWithInvalidSid() {
         final Response response = PromotionsV2Request.PromoProducts.GET(2707, 0);
         checkStatusCode404(response);
+    }
+
+    @CaseId(1484)
+    @Story("Бесплатная доставка")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Получение информации о бесплатной доставке")
+    public void getFreeDelivery() {
+        SessionFactory.makeSession(SessionType.API_V2);
+        final Response response = PromotionsV2Request.FreeDelivery.GET();
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, FreeDeliveryV1Response.class);
     }
 }

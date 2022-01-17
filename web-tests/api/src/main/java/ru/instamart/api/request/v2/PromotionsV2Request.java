@@ -24,4 +24,11 @@ public final class PromotionsV2Request extends ApiV2RequestBase {
             return givenWithSpec().get(ApiV2EndPoints.Promotions.REFERRAL_PROGRAM);
         }
     }
+
+    public static class FreeDelivery {
+        @Step("{method} /" + ApiV2EndPoints.Promotions.FREE_DELIVERY)
+        public static Response GET() {
+            return givenWithAuth().get(ApiV2EndPoints.Promotions.FREE_DELIVERY);
+        }
+    }
 }

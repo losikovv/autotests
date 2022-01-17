@@ -13,6 +13,22 @@ import ru.instamart.kraken.data.user.UserData;
 @SuppressWarnings("unchecked")
 public final class AuthProvidersV2Request extends ApiV2RequestBase {
 
+    public static class AuthParams {
+        @Step("{method} /" + ApiV2EndPoints.AuthProviders.AUTH_PARAMS)
+        public static Response POST(String provider) {
+            return givenWithSpec()
+                    .post(ApiV2EndPoints.AuthProviders.AUTH_PARAMS, provider);
+        }
+    }
+
+    public static class AvailableForAttach {
+        @Step("{method} /" + ApiV2EndPoints.AuthProviders.AVAILABLE_FOR_ATTACH)
+        public static Response GET() {
+            return givenWithAuth()
+                    .get(ApiV2EndPoints.AuthProviders.AVAILABLE_FOR_ATTACH);
+        }
+    }
+
     public static class Sessions {
 
         public static Response POST(final AuthProviderV2 provider) {
