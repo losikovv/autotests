@@ -2,24 +2,26 @@ package ru.instamart.test.api.v3.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.dataprovider.ApiV3DataProvider;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.enums.v3.NotificationTypesV3;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v3.NotificationsV3Request;
-import ru.instamart.api.response.v3.ProductsV3Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 
 @Epic("ApiV3")
 @Feature("Нотификации")
-public class NotificationsV3Test extends RestBase {
+public class NotificationsNegativeV3Test extends RestBase {
     private OrderV2 order;
 
     @BeforeClass(alwaysRun = true)
@@ -28,22 +30,19 @@ public class NotificationsV3Test extends RestBase {
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
     }
 
+    @Story("Негативные тесты")
     @CaseId(1448)
-    @Test(description = "Отправка нотификации 405", groups = "api-instamart-regress")
-    public void postNotifications405() {
-        Response responseInWork = NotificationsV3Request.POST(order.getShipments().get(0).getNumber(), "order.in_work");
-        Response responseAssembled = NotificationsV3Request.POST(order.getShipments().get(0).getNumber(), "order.assembled");
-        Response responseReadyForDelivery = NotificationsV3Request.POST(order.getShipments().get(0).getNumber(), "order.ready_for_delivery");
-        Response responseDelivered = NotificationsV3Request.POST(order.getShipments().get(0).getNumber(), "order.delivered");
-        Response responseCanceled = NotificationsV3Request.POST(order.getShipments().get(0).getNumber(), "order.canceled");
+    @Test(  description = "Отправка нотификации 405",
+            groups = "api-instamart-regress",
+            dataProvider = "notificationTypes",
+            dataProviderClass = ApiV3DataProvider.class)
+    public void postNotifications405(NotificationTypesV3 type) {
+        Response response = NotificationsV3Request.POST(order.getShipments().get(0).getNumber(), type.getValue());
 
-        checkStatusCode(responseInWork, 405);
-        checkStatusCode(responseAssembled, 405);
-        checkStatusCode(responseReadyForDelivery, 405);
-        checkStatusCode(responseDelivered, 405);
-        checkStatusCode(responseCanceled, 405);
+        checkStatusCode(response, 405);
     }
 
+    @Story("Негативные тесты")
     @CaseId(796)
     @Test(description = "Отправка нотификации unknown 422", groups = "api-instamart-regress")
     public void postNotificationsUnknown422() {

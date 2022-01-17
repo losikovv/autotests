@@ -1,7 +1,9 @@
 package ru.instamart.api.dataprovider;
 
 import lombok.Data;
+import org.testng.annotations.DataProvider;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.v3.NotificationTypesV3;
 import ru.instamart.api.model.testdata.ApiV3TestData;
 import ru.instamart.kraken.data_provider.DataList;
 
@@ -26,5 +28,16 @@ public class ApiV3DataProvider extends RestBase {
     @Data
     public static class ApiV3TestDataRoot implements DataList<ApiV3TestData> {
         private List<ApiV3TestData> data;
+    }
+
+    @DataProvider(name = "notificationTypes")
+    public static Object[][] getNotificationTypes() {
+        return new Object[][]{
+                {NotificationTypesV3.IN_WORK},
+                {NotificationTypesV3.ASSEMBLED},
+                {NotificationTypesV3.READY_FOR_DELIVERY},
+                {NotificationTypesV3.DELIVERED},
+                {NotificationTypesV3.CANCELED}
+        };
     }
 }
