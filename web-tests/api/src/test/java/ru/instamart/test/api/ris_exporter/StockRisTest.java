@@ -49,11 +49,11 @@ public class StockRisTest extends RestBase {
     @Test(  groups = {"api-ris-exporter"},
             description = "Проверка количества остатков на складах для всех ритейлеров",
             dataProviderClass = RestDataProvider.class,
-            dataProvider = "risStoreIds" )
-    public void  getProductsValidCount(Integer sid) {
+            dataProvider = "risStoreIdsProduction")
+    public void getProductsValidCount(Integer sid) {
         Response response = StockRisRequest.GET(sid);
 
-        //todo добавить проверку на нужные статус коды
+        checkStatusCode200(response);
         assertTrue(response.as(StockRisResponse.class)
                 .getTotalCount() > 5000, "Продуктов меньше минимума");
     }
