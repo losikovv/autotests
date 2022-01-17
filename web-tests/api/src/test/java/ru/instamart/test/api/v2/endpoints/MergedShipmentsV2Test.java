@@ -3,6 +3,7 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import ru.instamart.api.response.v2.MergeStatusV2Response;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -24,9 +25,9 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.util.List;
 
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV2")
 @Feature("Заказы (shipments)")
@@ -83,5 +84,26 @@ public class MergedShipmentsV2Test extends RestBase {
         final Response responseWithMerge = ShipmentsV2Request.Merge.POST(newOrder.getShipments().get(0).getNumber(), order.getShipments().get(0).getNumber());
         checkStatusCode422(responseWithMerge);
         Assert.assertTrue(responseWithMerge.asString().contains("\"shipping_category_id\":\"Категории доставки не совпадают или в дозаказе участвует алкоголь\""));
+    }
+
+    @CaseId(1474)
+    @Story("Статус мержа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получение информации о статусе мержа для существующего заказа",
+            dependsOnMethods = "mergeShipments")
+    public void getMergeStatus() {
+        final Response response = OrdersV2Request.MergeStatus.GET(order.getNumber());
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, MergeStatusV2Response.class);
+    }
+
+    @CaseId(1475)
+    @Story("Статус мержа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получение информации о статусе мержа для несуществующего заказа")
+    public void getMergeStatusOfNonexistentOrder() {
+        final Response response = OrdersV2Request.MergeStatus.GET("failedOrder");
+        checkStatusCode404(response);
+        checkError(response, "Заказ не существует");
     }
 }

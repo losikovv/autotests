@@ -345,4 +345,12 @@ public final class OrdersV2Request extends ApiV2RequestBase {
                     .get(ApiV2EndPoints.Orders.SPASIBO_INFO, orderNumber);
         }
     }
+
+    public static class MergeStatus {
+        @Step("{method} /" + ApiV2EndPoints.Orders.MERGE_STATUS)
+        public static Response GET(String orderNumber) {
+            return givenWithAuth()
+                    .get(ApiV2EndPoints.Orders.MERGE_STATUS, orderNumber);
+        }
+    }
 }

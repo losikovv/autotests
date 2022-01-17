@@ -2,6 +2,14 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import org.testng.asserts.SoftAssert;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.v2.AvailableProviderV2;
+import ru.instamart.api.response.v2.AuthParamsSberbankV2Response;
+import ru.instamart.api.response.v2.AuthParamsV2Response;
+import ru.instamart.api.response.v2.AvailableProvidersForAttachV2Response;
+import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
@@ -13,8 +21,7 @@ import ru.instamart.api.response.v2.SessionsV2Response;
 
 import java.util.UUID;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic(value = "ApiV2")
@@ -43,6 +50,42 @@ public final class AuthProviderV2Test extends RestBase {
         final Response response = AuthProvidersV2Request.Sessions.POST(AuthProviderV2.FACEBOOK);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, SessionsV2Response.class);
+    }
+
+    @CaseId(827)
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Получение списка провайдеров для пользователя")
+    public void getProvidersList() {
+        SessionFactory.makeSession(SessionType.API_V2);
+        final Response response = AuthProvidersV2Request.AvailableForAttach.GET();
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, AvailableProvidersForAttachV2Response.class);
+        AvailableProviderV2 availableProvider = response.as(AvailableProvidersForAttachV2Response.class).getAvailableProviders().get(0);
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(availableProvider.getId(), "sberbank", softAssert);
+        compareTwoObjects(availableProvider.getIconType(), "sberprime", softAssert);
+        softAssert.assertAll();
+    }
+
+    @CaseId(1476)
+    @Test(groups = {"api-instamart-regress"},
+            description = "Получение списка провайдеров для пользователя без авторизации")
+    public void getProvidersListWithoutAuth() {
+        SessionFactory.clearSession(SessionType.API_V2);
+        final Response response = AuthProvidersV2Request.AvailableForAttach.GET();
+        checkStatusCode401(response);
+        checkError(response, "Ключ доступа невалиден или отсутствует");
+    }
+
+    @CaseIDs(value = {@CaseId(790), @CaseId(1481), @CaseId(1482), @CaseId(1483)})
+    @Test(dataProvider = "authProvidersWithParams",
+            dataProviderClass = RestDataProvider.class,
+            groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Получаем параметры для авторизации через стороннего провайдера")
+    public void getAuthParams(AuthProviderV2 provider, Class clazz) {
+        final Response response = AuthProvidersV2Request.AuthParams.POST(provider.getId());
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, clazz);
     }
 
     @Deprecated

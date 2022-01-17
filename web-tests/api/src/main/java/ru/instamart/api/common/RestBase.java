@@ -28,12 +28,7 @@ public class RestBase {
     public void clearData() {
         if (!EnvironmentProperties.SERVER.equals("production")) {
             PhoneTokensDao.INSTANCE.deleteQAPhones();
-            getUserDataList().forEach(userData -> {
-                final String email = userData.getEmail();
-                if (nonNull(email) && !email.isEmpty()) {
-                    SpreeUsersDao.INSTANCE.deleteUserByEmail(email);
-                }
-            });
+            SpreeUsersDao.INSTANCE.deleteQAUsers();
         }
     }
 

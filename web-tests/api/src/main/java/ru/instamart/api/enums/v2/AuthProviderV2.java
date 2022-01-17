@@ -14,6 +14,8 @@ public enum AuthProviderV2 {
     SBERAPP("sberapp", "111000", "$2y$12$pmOBY91.fqcwTnRdSzG0WuWhYD4skzAg1vw4HKm.vL1nekpNsj/D."),
     VKONTAKTE("vkontakte", "553607487", null),
     FACEBOOK("facebook", "2509563982470943", null),
+    SBERBANK("sberbank", "", null),
+    MAIL_RU("mail_ru", "", null),
 
     WRONG_ID("wrong", null, null);
 

@@ -1,0 +1,31 @@
+
+package ru.instamart.api.response.v2;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import ru.instamart.api.response.BaseResponseObject;
+
+@Data
+@EqualsAndHashCode(callSuper=false)
+public class AuthParamsV2Response extends BaseResponseObject {
+    @JsonSchema(required = true)
+    @JsonProperty("authorize_url")
+    private String authorizeUrl;
+
+    @JsonSchema(required = true)
+    @JsonProperty("client_id")
+    private String clientId;
+
+    @JsonSchema(required = true)
+    @JsonProperty("redirect_uri")
+    private String redirectUri;
+
+    @JsonSchema(required = true)
+    @JsonProperty("response_type")
+    private String responseType;
+
+    @JsonSchema(required = true)
+    private String state;
+}

@@ -41,4 +41,26 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
             log.error("Error init ConnectionMySQLManager. Error: {}", e.getMessage());
         }
     }
+
+    public String getEmailByLogin(String login) {
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "email") + " WHERE login = ?")) {
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            return resultSet.getString("email");
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public void deleteQAUsers() {
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE email LIKE 'qasession+%' AND locked_at IS NOT NULL")) {
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            log.error("Error init ConnectionMySQLManager. Error: {}", e.getMessage());
+        }
+    }
 }

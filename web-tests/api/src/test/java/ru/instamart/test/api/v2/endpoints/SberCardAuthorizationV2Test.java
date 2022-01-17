@@ -3,6 +3,7 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.testng.annotations.BeforeClass;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
@@ -24,7 +25,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
 
     private String transactionNumber;
 
-    @BeforeMethod(alwaysRun = true, description = "Авторизация")
+    @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
     }

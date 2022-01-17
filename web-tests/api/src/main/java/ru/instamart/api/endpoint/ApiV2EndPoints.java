@@ -50,6 +50,8 @@ public final class ApiV2EndPoints {
 
     public static final class AuthProviders {
         public static final String SESSIONS = "v2/auth_providers/{provider}/sessions";
+        public static final String AVAILABLE_FOR_ATTACH = "v2/auth_providers/available_for_attach";
+        public static final String AUTH_PARAMS = "v2/auth_providers/{provider}/auth_params";
     }
 
     public static final class BonusCards {
@@ -124,6 +126,7 @@ public final class ApiV2EndPoints {
         public static final String LINE_ITEM_REPLACEMENTS = "v2/orders/{orderNumber}/line_item_replacements";
         public static final String PAYMENT_TOOLS_WITH_TYPES = "v2/orders/{orderNumber}/payment_tools_with_types";
         public static final String SPASIBO_INFO = "v2/orders/{orderNumber}/spasibo_info";
+        public static final String MERGE_STATUS = "v2/orders/{orderNumber}/merge_status";
 
         public static final class TransferMethod {
             public static final String ANALYZE = "v2/orders/{orderNumber}/transfer_method/analyze";
@@ -163,6 +166,7 @@ public final class ApiV2EndPoints {
     public static final class Promotions {
         public static final String PROMO_PRODUCTS = "v2/promotions/{promo_id}/promo_products?sid={sid}";
         public static final String REFERRAL_PROGRAM = "v2/promotions/referral_program";
+        public static final String FREE_DELIVERY = "v2/promotions/free_delivery";
     }
 
     public static final class Retailers {

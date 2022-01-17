@@ -63,7 +63,7 @@ public class StoresV1Request extends ApiV1RequestBase {
     public static class Products {
         @Step("{method} /" + ApiV1Endpoints.Stores.StoreId.Products.BY_PERMALINK)
         public static Response GET(Integer storeId, String permalink) {
-            return givenWithSpec()
+            return givenWithAuth()
                     .get(ApiV1Endpoints.Stores.StoreId.Products.BY_PERMALINK, storeId, permalink);
         }
     }
