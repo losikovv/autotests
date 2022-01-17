@@ -1,12 +1,18 @@
 package ru.instamart.api.request.v3;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import lombok.Builder;
+import lombok.Data;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV3Endpoints;
 import ru.instamart.api.request.ApiV3RequestBase;
+import ru.sbermarket.common.Mapper;
+
+import java.util.List;
 
 public class NotificationsV3Request extends ApiV3RequestBase {
 
@@ -60,5 +66,80 @@ public class NotificationsV3Request extends ApiV3RequestBase {
                 .contentType(ContentType.JSON)
                 .body(requestParams)
                 .post(ApiV3Endpoints.NOTIFICATIONS);
+    }
+
+    @Step("{method} /" + ApiV3Endpoints.NOTIFICATIONS)
+    public static Response POST(NotificationsV3Request.Notifications notifications) {
+
+        return givenMetroMarketPlace()
+                .contentType(ContentType.JSON)
+                .body(Mapper.INSTANCE.objectToString(notifications))
+                .post(ApiV3Endpoints.NOTIFICATIONS);
+    }
+
+    @Data
+    @Builder
+    public static final class Notifications {
+        private Event event;
+    }
+
+    @Data
+    @Builder
+    public static final class Event {
+        private String type;
+        private Payload payload;
+    }
+
+    @Data
+    @Builder
+    public static final class Payload {
+        @JsonProperty(value = "order_id")
+        private String orderId;
+        private Order order;
+    }
+
+    @Data
+    @Builder
+    public static final class Order {
+        private String originalOrderId;
+        private Customer customer;
+        private Delivery delivery;
+        private List<Position> positions;
+        private Total total;
+    }
+
+    @Data
+    @Builder
+    public static final class Customer {
+        private String name;
+        private String phone;
+    }
+
+    @Data
+    @Builder
+    public static final class Delivery {
+        private String expectedFrom;
+        private String expectedTo;
+    }
+
+    @Data
+    @Builder
+    public static final class Position {
+        private String id;
+        private Integer originalQuantity;
+        private Integer quantity;
+        private String price;
+        private String discountPrice;
+        private String replacedByID;
+        private String weight;
+        private String totalPrice;
+        private String totalDiscountPrice;
+    }
+
+    @Data
+    @Builder
+    public static final class Total {
+        private String totalPrice;
+        private String discountTotalPrice;
     }
 }

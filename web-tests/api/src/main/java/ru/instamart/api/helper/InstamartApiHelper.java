@@ -939,6 +939,18 @@ public final class InstamartApiHelper {
         return response.as(StoreV2Response.class).getStore();
     }
 
+    public OrderV2 getCurrentOrder() {
+        final Response response = OrdersV2Request.Current.GET();
+        checkStatusCode200(response);
+        return response.as(OrderV2Response.class).getOrder();
+    }
+
+    public OrderV2 getOrder(String orderNumber) {
+        final Response response = OrdersV2Request.GET(orderNumber);
+        checkStatusCode200(response);
+        return response.as(OrderV2Response.class).getOrder();
+    }
+
     /**
      * Узнаем номер заказа
      */
