@@ -814,13 +814,13 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-    @DataProvider(name = "risStoreIds")
-    public static Object[][] getRisStoreIds() {
+    @DataProvider(name = "risStoreIdsProduction")
+    public static Object[][] getRisStoreIdsProduction() {
         return new Object[][]{
                 {257}, //auchan
                 {242}, //alleya
                 {1995}, //auchansm
-                {6164}, //auchansmfd
+                //{6164}, //auchansmfd - нет больше такого сида на проде
                 {1372}, //globus
                 {999}, //megamart
                 {10}, //metro

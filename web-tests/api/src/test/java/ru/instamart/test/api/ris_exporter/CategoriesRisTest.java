@@ -49,11 +49,11 @@ public class CategoriesRisTest extends RestBase {
     @Test(  groups = {"api-ris-exporter"},
             description = "Проверка количества категорий",
             dataProviderClass = RestDataProvider.class,
-            dataProvider = "risStoreIds" )
+            dataProvider = "risStoreIdsProduction")
     public void getCategoriesValidCount(Integer sid) {
         Response response = CategoriesRisRequest.GET(sid);
 
-        //todo добавить проверку на нужные статус коды
+        checkStatusCode200(response);
         assertTrue(response.as(CategoriesRisResponse.class)
                 .getTotalCount() > 100, "Категорий меньше минимума");
     }
