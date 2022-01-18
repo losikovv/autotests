@@ -40,30 +40,6 @@ public final class AdministrationRetailerTests extends BaseTest {
     @Test(description = "Корректное отображение страницы загрузки зон", groups = {"acceptance", "regression"})
     public void successViewRetailerZones() {
 
-        final String regionName = "тест-" + Generate.literalCyrillicString(6);
-
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdminAllRoles());
-
-        regions().goToPage();
-        regions().checkAddNewRegionButtonVisible();
-        regions().clickToAddNewRegion();
-
-        regions().interactRegionsAddModal().checkAddNewRegionModalNotAnimated();
-        regions().interactRegionsAddModal().fillNewTestRegionName(regionName);
-        regions().interactRegionsAddModal().clickToCreateNewRegion();
-
-        regions().checkAddNewRegionButtonVisible();
-        regions().checkRegionInTableVisible(regionName);
-
-        shopAdd().goToPage();
-        shopAdd().selectTestRegionInRegionsDropdown(regionName);
-
-        apiHelper.deleteOperationalZonesInShopper(regionName);
-
-        regions().goToPage();
-        regions().checkAddNewRegionButtonVisible();
-        regions().checkRegionInTableNotVisible(regionName);
     }
 
     @CaseId(185)
