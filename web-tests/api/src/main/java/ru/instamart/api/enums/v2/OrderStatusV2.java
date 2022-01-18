@@ -9,6 +9,9 @@ import lombok.ToString;
 public enum OrderStatusV2 {
 
     ACTIVE("active"),
+    READY("ready"),
+    COLLECTING("collecting"),
+    READY_TO_SHIP("ready_to_ship"),
     COMPLETE("complete"),
     CANCELED("canceled");
 

@@ -26,6 +26,47 @@ public class NotificationsV3Request extends ApiV3RequestBase {
         JSONObject delivery = new JSONObject();
         JSONArray positions = new JSONArray();
         JSONObject position = new JSONObject();
+
+        requestParams.put("event", event);
+
+        event.put("type", type);
+        event.put("payload", payload);
+
+        payload.put("order_id", orderId);
+        payload.put("order", order);
+
+        order.put("originalOrderId", orderId);
+        order.put("customer", customer);
+        order.put("delivery", delivery);
+        order.put("positions", positions);
+
+        customer.put("phone", "+799911111111");
+
+        delivery.put("expectedFrom", "2021-05-24T13:00:00+03:00");
+        delivery.put("expectedTo", "2021-05-24T16:00:00+03:00");
+
+        positions.add(position);
+        position.put("id", "5548");
+        position.put("originalQuantity", 1);
+        position.put("quantity", 1);
+        position.put("weight", "700");
+
+        return givenMetroMarketPlace()
+                .contentType(ContentType.JSON)
+                .body(requestParams)
+                .post(ApiV3Endpoints.NOTIFICATIONS);
+    }
+
+    @Step("{method} /" + ApiV3Endpoints.NOTIFICATIONS)
+    public static Response POST(String orderId, String type, String name) {
+        JSONObject requestParams = new JSONObject();
+        JSONObject event = new JSONObject();
+        JSONObject payload = new JSONObject();
+        JSONObject order = new JSONObject();
+        JSONObject customer = new JSONObject();
+        JSONObject delivery = new JSONObject();
+        JSONArray positions = new JSONArray();
+        JSONObject position = new JSONObject();
         JSONObject total = new JSONObject();
 
         requestParams.put("event", event);
@@ -42,7 +83,7 @@ public class NotificationsV3Request extends ApiV3RequestBase {
         order.put("positions", positions);
         order.put("total", total);
 
-        customer.put("name", "John Snow");
+        customer.put("name", name);
         customer.put("phone", "+799911111111");
 
         delivery.put("expectedFrom", "2021-05-24T13:00:00+03:00");
