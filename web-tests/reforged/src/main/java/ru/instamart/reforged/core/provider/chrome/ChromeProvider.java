@@ -29,6 +29,11 @@ public final class ChromeProvider extends AbstractBrowserProvider {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-notifications");
 
+        if (BrowserProperties.ENABLE_PROFILE) {
+            options.addArguments("--user-data-dir=" + BrowserProperties.PROFILE_PATH);
+            options.addArguments("--profile-directory=" + BrowserProperties.PROFILE_NAME);
+        }
+
         options.setExperimentalOption("prefs", jsonObject);
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         options.setCapability(CapabilityType.LOGGING_PREFS, getLogPref());
