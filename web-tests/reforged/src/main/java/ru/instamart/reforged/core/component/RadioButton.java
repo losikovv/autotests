@@ -10,18 +10,10 @@ import static java.util.Objects.isNull;
 
 @ToString(callSuper = true)
 @Slf4j
-public class RadioButton extends Component {
-
-    public RadioButton(final By by) {
-        super(by);
-    }
+public class RadioButton extends AbstractComponent {
 
     public RadioButton(final By by, final String description) {
         super(by, description);
-    }
-
-    public RadioButton(final By by, final long timeout) {
-        super(by, timeout);
     }
 
     public RadioButton(final By by, final long timeout, final String description) {

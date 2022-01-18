@@ -2,15 +2,16 @@ package ru.instamart.reforged.stf.frame.auth;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Input;
 import ru.instamart.reforged.core.page.Window;
 
 public final class AuthFacebook implements Window {
 
-    private final Input email = new Input(By.xpath("//input[@id='email']"));
-    private final Input password = new Input(By.xpath("//input[@id='pass']"));
-    private final Element login = new Element(By.xpath("//label[@id='loginbutton']"));
+    private final Input email = new Input(By.xpath("//input[@id='email']"), "поле ввода email");
+    private final Input password = new Input(By.xpath("//input[@id='pass']"), "поле для ввода пароля");
+    private final Button login = new Button(By.xpath("//label[@id='loginbutton']"), "кнопка сабмита формы");
 
     @Step("Ввести email на странице авторизации через FB")
     public void setEmail(final String text) {

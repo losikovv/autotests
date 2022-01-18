@@ -57,7 +57,7 @@ public final class UserAuthorisationTests extends BaseTest {
 
         shop().goToPage();
         shop().interactHeader().clickToCart();
-        shop().interactCart().increaseCountToMin();
+        shop().interactCart().increaseFirstItemCountToMin();
         shop().interactCart().submitOrder();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         checkout().checkCheckoutButtonIsVisible();

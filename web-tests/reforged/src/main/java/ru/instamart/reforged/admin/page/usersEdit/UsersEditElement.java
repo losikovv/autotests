@@ -11,17 +11,17 @@ public interface UsersEditElement {
 
    FlashAlert alert = new FlashAlert();
 
-   Link backToAllUsers = new Link(By.xpath("//a[@icon='icon-arrow-left']"));
+   Link backToAllUsers = new Link(By.xpath("//a[@icon='icon-arrow-left']"), "empty");
 
-   Input userEmail = new Input(By.id("user_email"));
-   Input password = new Input(By.id("user_password"));
-   Input passwordConfirmation = new Input(By.id("user_password_confirmation"));
-   Input userComment = new Input(By.id("user_customer_comment"));
-   Checkbox roleAdminCheckbox = new Checkbox(By.xpath("//label[text()='Admin']/preceding-sibling::input[@type='checkbox']"));
-   Checkbox b2bUser = new Checkbox(By.id("user_b2b"));
+   Input userEmail = new Input(By.id("user_email"), "empty");
+   Input password = new Input(By.id("user_password"), "empty");
+   Input passwordConfirmation = new Input(By.id("user_password_confirmation"), "empty");
+   Input userComment = new Input(By.id("user_customer_comment"), "empty");
+   Checkbox roleAdminCheckbox = new Checkbox(By.xpath("//label[text()='Admin']/preceding-sibling::input[@type='checkbox']"), "empty");
+   Checkbox b2bUser = new Checkbox(By.id("user_b2b"), "empty");
 
    Button blockCard = new Button(By.xpath("//button[text()='Заблокировать карты']"), "кнопка 'Заблокировать карты'");
    Button blockPhone = new Button(By.xpath("//div[@id='user_phone_token_field']/a"), "кнопка 'Отвязать'");
 
-   Button saveChanges = new Button(By.xpath("//div[@data-hook='admin_user_edit_form_button']//button[@class='icon-refresh button']"));
+   Button saveChanges = new Button(By.xpath("//div[@data-hook='admin_user_edit_form_button']//button[@class='icon-refresh button']"), "empty");
 }

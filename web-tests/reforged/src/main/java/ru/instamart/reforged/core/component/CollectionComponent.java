@@ -7,20 +7,12 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 @ToString(callSuper = true)
-public abstract class CollectionComponent extends Component {
+public abstract class CollectionComponent extends AbstractComponent {
 
     protected List<WebElement> components;
 
-    public CollectionComponent(final By by) {
-        super(by);
-    }
-
     public CollectionComponent(final By by, final String description) {
         super(by, description);
-    }
-
-    public CollectionComponent(final By by, final long timeout) {
-        super(by, timeout);
     }
 
     public CollectionComponent(final By by, final long timeout, final String description) {

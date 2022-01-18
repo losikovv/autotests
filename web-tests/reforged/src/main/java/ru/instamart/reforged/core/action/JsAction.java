@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.reforged.core.component.AbstractComponent;
 import ru.instamart.reforged.core.config.WaitProperties;
 
 import java.util.Objects;
@@ -65,7 +66,7 @@ public final class JsAction {
 
     /**
      * Скролл до элемента
-     * @param locator - локатор достается из компонента через регулярку {@link ru.instamart.reforged.core.component.Component}
+     * @param locator - локатор достается из компонента через регулярку {@link AbstractComponent}
      */
     public void scrollToElement(final String locator) {
         execute("document.evaluate(\"" + locator + "\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollIntoView(true);");

@@ -14,16 +14,8 @@ import static java.util.Objects.isNull;
 @Slf4j
 public final class DropDown extends CollectionComponent {
 
-    public DropDown(final By by) {
-        super(by);
-    }
-
     public DropDown(final By by, final String description) {
         super(by, description);
-    }
-
-    public DropDown(final By by, final long timeout) {
-        super(by, timeout);
     }
 
     public DropDown(final By by, final long timeout, final String description) {
@@ -36,6 +28,24 @@ public final class DropDown extends CollectionComponent {
 
     public DropDown(final By by, final long timeout, final String description, final String errorMsg) {
         super(by, timeout, description, errorMsg);
+    }
+
+    @Override
+    protected WebElement getComponent() {
+        log.debug("Create {} with locator {}", getDescription(), getBy());
+        if (isNull(component) || isCacheDisable) {
+            component = Kraken.waitAction().shouldBeClickable(this);
+        }
+        return component;
+    }
+
+    @Override
+    protected List<WebElement> getComponents() {
+        log.debug("Get {}'s with locator {}", getDescription(), getBy());
+        if (isNull(components) || isCacheDisable) {
+            components = Kraken.waitAction().isElementsExist(this);
+        }
+        return components;
     }
 
     public void selectFirst() {
@@ -73,23 +83,5 @@ public final class DropDown extends CollectionComponent {
     public void click() {
         log.debug("Click {} with locator {}", getDescription(), getBy());
         getComponent().click();
-    }
-
-    @Override
-    protected WebElement getComponent() {
-        log.debug("Create {} with locator {}", getDescription(), getBy());
-        if (isNull(component) || isCacheDisable) {
-            component = Kraken.waitAction().shouldBeClickable(this);
-        }
-        return component;
-    }
-
-    @Override
-    protected List<WebElement> getComponents() {
-        log.debug("Get {}'s with locator {}", getDescription(), getBy());
-        if (isNull(components) || isCacheDisable) {
-            components = Kraken.waitAction().isElementsExist(this);
-        }
-        return components;
     }
 }

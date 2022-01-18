@@ -2,7 +2,6 @@ package ru.instamart.test.reforged.stf.shopping;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
@@ -12,6 +11,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -89,7 +89,7 @@ public final class ShoppingCartTests extends BaseTest {
     }
 
     @CaseId(1574)
-    @Test(description = "Тест на изменение кол-ва товаров в корзине", groups = "regression" )
+    @Test(description = "Тест на изменение кол-ва товаров в корзине", groups = "regression")
     public void successChangeItemQuantityInCart() {
         shop().goToPage();
         shop().interactHeader().clickToSelectAddress();
@@ -106,13 +106,13 @@ public final class ShoppingCartTests extends BaseTest {
 
         shop().goToPage();
         shop().interactHeader().clickToCart();
-        shop().interactCart().compareFirstItemQuantityInCart(1);
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(1);
 
-        shop().interactCart().increaseCount();
-        shop().interactCart().compareFirstItemQuantityInCart(2);
+        shop().interactCart().getFirstItem().increaseCount();
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(2);
 
-        shop().interactCart().decreaseCount();
-        shop().interactCart().compareFirstItemQuantityInCart(1);
+        shop().interactCart().getFirstItem().decreaseCount();
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(1);
         shop().assertAll();
     }
 
@@ -140,7 +140,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().goToPage();
         shop().interactProductCard().checkProductCardIsNotVisible();
         shop().interactHeader().clickToCart();
-        shop().interactCart().compareFirstItemQuantityInCart(1);
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(1);
 
         shop().goToPage();
         shop().refresh();
@@ -154,7 +154,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToCart();
-        shop().interactCart().compareFirstItemQuantityInCart(2);
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(2);
 
         shop().goToPage();
         shop().refreshWithoutBasicAuth();
@@ -169,7 +169,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().goToPage();
         shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToCart();
-        shop().interactCart().compareFirstItemQuantityInCart(1);
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(1);
         shop().assertAll();
     }
 
@@ -190,10 +190,8 @@ public final class ShoppingCartTests extends BaseTest {
         shop().goToPage();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
-        shop().interactCart().checkCartNotEmpty();
 
-        shop().interactCart().deleteFirstItem();
-        shop().interactCart().checkSpinnerIsNotVisible();
+        shop().interactCart().getFirstItem().deleteItem();
         shop().interactCart().checkCartEmpty();
     }
 
@@ -218,8 +216,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactCart().checkCartOpen();
         shop().interactCart().checkCartNotEmpty();
 
-        shop().interactCart().deleteFirstItem();
-        shop().interactCart().checkSpinnerIsNotVisible();
+        shop().interactCart().getFirstItem().deleteItem();
         shop().interactCart().checkCartEmpty();
     }
 
@@ -228,7 +225,7 @@ public final class ShoppingCartTests extends BaseTest {
     // ATST-872
     @Skip
     @CaseId(1578)
-    @Test(description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером", groups = "regression" )
+    @Test(description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером", groups = "regression")
     public void successChangeMinOrderSum() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);
@@ -246,7 +243,7 @@ public final class ShoppingCartTests extends BaseTest {
 
         shop().goToPage();
         shop().interactHeader().clickToCart();
-        final double firstOrderMinAmount = shop().interactCart().returnMinOrderAmount();
+        final double firstOrderMinAmount = shop().interactCart().getFirstRetailer().returnMinOrderAmount();
 
         helper.makeOrder(shoppingCartUser, EnvironmentProperties.DEFAULT_SID, 3);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
@@ -262,7 +259,7 @@ public final class ShoppingCartTests extends BaseTest {
 
         shop().goToPage();
         shop().interactHeader().clickToCart();
-        final double repeatedOrderMinAmount = shop().interactCart().returnMinOrderAmount();
+        final double repeatedOrderMinAmount = shop().interactCart().getFirstRetailer().returnMinOrderAmount();
 
         shop().interactCart().checkFirstMinAmountMoreThanRepeated(firstOrderMinAmount, repeatedOrderMinAmount);
         shop().assertAll();
@@ -325,7 +322,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactProductCard().close();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
-        shop().interactCart().compareFirstItemQuantityInCart(5);
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(5);
     }
 
     @CaseId(2620) //2937, 2938
@@ -347,7 +344,7 @@ public final class ShoppingCartTests extends BaseTest {
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
-        shop().interactCart().compareFirstItemQuantityInCart(3);
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(3);
         shop().interactCart().closeCart();
 
         shop().openFirstProductCard();
@@ -373,12 +370,13 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().plusFirstItemToCart();
-        final var productName = shop().returnFirstProductTitle();
+        final var shopProductName = shop().returnFirstProductTitle();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
-        shop().interactCart().compareProductNameInCart(productName);
+        final var cartProductName = shop().interactCart().getFirstItem().getName();
+        shop().interactCart().compareProductNameInCart(cartProductName, shopProductName);
     }
 
     @CaseId(2607)
@@ -395,17 +393,17 @@ public final class ShoppingCartTests extends BaseTest {
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
-        final var firstItemQuantity = shop().interactCart().returnFirstItemQuantity();
+        final var firstItemQuantity = shop().interactCart().getFirstItem().getCount();
         final var startOrderAmount = shop().interactCart().returnOrderAmount();
-        shop().interactCart().increaseCount();
-        shop().interactCart().checkSpinnerIsVisible();
-        shop().interactCart().checkSpinnerIsNotVisible();
+        shop().interactCart().getFirstItem().increaseCount();
+        shop().interactCart().getFirstItem().checkSpinnerIsVisible();
+        shop().interactCart().getFirstItem().checkSpinnerIsNotVisible();
         shop().interactCart().closeCart();
         shop().interactCart().checkCartClose();
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
-        shop().interactCart().compareFirstItemQuantityInCart(firstItemQuantity+1);
+        shop().interactCart().getFirstItem().compareItemQuantityInCart(firstItemQuantity + 1);
         final var secondOrderAmount = shop().interactCart().returnOrderAmount();
         shop().interactCart().checkAmountNotEquals(startOrderAmount, secondOrderAmount);
         shop().assertAll();
@@ -426,7 +424,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        final var productName = shop().returnSecondProductTitleNonLogin();
+        final var shopProductName = shop().returnSecondProductTitleNonLogin();
         shop().plusSecondItemToCartNonLogin();
         shop().interactHeader().checkCartNotificationIsVisible();
 
@@ -442,10 +440,12 @@ public final class ShoppingCartTests extends BaseTest {
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
-        shop().interactCart().deleteFirstItem();
+        shop().interactCart().getFirstItem().deleteItem();
         shop().interactCart().checkDeleteAnimationOver();
 
-        shop().interactCart().compareProductNameInCart(productName);
+
+        final var cartProductName = shop().interactCart().getFirstItem().getName();
+        shop().interactCart().compareProductNameInCart(cartProductName, shopProductName);
     }
 
     @CaseId(2610)
@@ -463,8 +463,8 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
         final var startOrderAmount = shop().interactCart().returnOrderAmount();
-        final var startProductsQuantity = shop().interactCart().returnUniqueItemsQuantity();
-        shop().interactCart().deleteFirstItem();
+        final var startProductsQuantity = shop().interactCart().getFirstRetailer().getItemsCountInList();
+        shop().interactCart().getFirstItem().deleteItem();
         shop().interactCart().checkDeleteAnimationOver();
         shop().interactCart().closeCart();
         shop().interactCart().checkCartClose();
@@ -474,7 +474,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactCart().checkCartOpen();
         final var secondOrderAmount = shop().interactCart().returnOrderAmount();
         shop().interactCart().checkAmountNotEquals(startOrderAmount, secondOrderAmount);
-        shop().interactCart().compareItemsInCart(startProductsQuantity-1);
+        shop().interactCart().getFirstRetailer().compareItemsInCart(startProductsQuantity - 1);
         shop().assertAll();
     }
 
@@ -490,11 +490,13 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().plusFirstItemToCartNonLogin();
-        final var productName = shop().returnFirstProductTitleNonLogin();
+        final var shopProductName = shop().returnFirstProductTitleNonLogin();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
-        shop().interactCart().compareProductNameInCart(productName);
+
+        final var cartProductName = shop().interactCart().getFirstItem().getName();
+        shop().interactCart().compareProductNameInCart(cartProductName, shopProductName);
     }
 }

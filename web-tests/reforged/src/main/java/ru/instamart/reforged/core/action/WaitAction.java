@@ -24,9 +24,19 @@ public final class WaitAction {
                 .until(ExpectedConditions.elementToBeClickable(component.getBy()));
     }
 
+    public WebElement shouldBeClickable(final Component component, final WebElement webElement) {
+        return createWait(component)
+                .until(KrakenCondition.elementToBeClickable(webElement, component.getBy()));
+    }
+
     public WebElement shouldBeVisible(final Component component) {
         return createWait(component)
                 .until(ExpectedConditions.visibilityOfElementLocated(component.getBy()));
+    }
+
+    public WebElement shouldBeVisible(final Component component, final WebElement webElement) {
+        return createWait(component)
+                .until(KrakenCondition.visibilityOfElementLocated(webElement, component.getBy()));
     }
 
     public WebElement shouldBeVisible(final Component component, final Object... args) {
@@ -34,14 +44,19 @@ public final class WaitAction {
                 .until(ExpectedConditions.visibilityOfElementLocated(component.getBy(args)));
     }
 
-    public boolean shouldNotBeAnimated(final Component component) {
-        return createWait(component)
+    public void shouldNotBeAnimated(final Component component) {
+        createWait(component)
                 .until(KrakenCondition.steadinessOfElementLocated(component.getBy()));
     }
 
     public boolean shouldNotBeVisible(final Component component) {
         return createWait(component)
                 .until(ExpectedConditions.invisibilityOfElementLocated(component.getBy()));
+    }
+
+    public boolean shouldNotBeVisible(final Component component, final WebElement webElement) {
+        return createWait(component)
+                .until(KrakenCondition.invisibilityOfElementLocated(webElement, component.getBy()));
     }
 
     public boolean shouldNotBeVisible(final Component component, final Object... args) {
@@ -60,23 +75,34 @@ public final class WaitAction {
                 });
     }
 
-    public boolean elementSelectCheckboxState(final WebElement element, final boolean selected) {
-        return createWait(WaitProperties.BASIC_TIMEOUT, "Состояние чекбокса, отличается от ожидаемого")
+    public List<WebElement> isElementsExist(final Component component, final WebElement webElement) {
+        return createWait(component)
+                .until((ExpectedCondition<List<WebElement>>) driver -> {
+                    final List<WebElement> webElements = webElement.findElements(component.getBy());
+                    if (webElements.size() > 0) {
+                        return webElements;
+                    }
+                    throw new NoSuchElementException("Elements not found or size < 1");
+                });
+    }
+
+    public void elementSelectCheckboxState(final WebElement element, final boolean selected) {
+        createWait(WaitProperties.BASIC_TIMEOUT, "Состояние чекбокса, отличается от ожидаемого")
                 .until(KrakenCondition.elementSelectCheckboxState(element, selected));
     }
 
-    public boolean shouldNotBeClickable(final Component component, final Object... args) {
-        return createWait(component)
+    public void shouldNotBeClickable(final Component component, final Object... args) {
+        createWait(component)
                 .until(KrakenCondition.elementNotToBeClickable(component.getBy(args)));
     }
 
-    public boolean urlEquals(final String url) {
-        return createWait(WaitProperties.BASIC_TIMEOUT, "Текущая страница отличается от ожидаемой")
+    public void urlEquals(final String url) {
+        createWait(WaitProperties.BASIC_TIMEOUT, "Текущая страница отличается от ожидаемой")
                 .until(ExpectedConditions.urlToBe(url));
     }
 
-    public boolean urlContains(final String url) {
-        return createWait(WaitProperties.BASIC_TIMEOUT, "Текущая страница отличается от ожидаемой")
+    public void urlContains(final String url) {
+        createWait(WaitProperties.BASIC_TIMEOUT, "Текущая страница отличается от ожидаемой")
                 .until(ExpectedConditions.urlContains(url));
     }
 

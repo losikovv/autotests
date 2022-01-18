@@ -12,18 +12,10 @@ import static java.util.Objects.isNull;
 
 @ToString(callSuper = true)
 @Slf4j
-public final class Element extends Component {
-
-    public Element(final By by) {
-        super(by);
-    }
+public final class Element extends AbstractComponent {
 
     public Element(final By by, final String description) {
         super(by, description);
-    }
-
-    public Element(final By by, final long timeout) {
-        super(by, timeout);
     }
 
     public Element(final By by, final long timeout, final String description) {
@@ -45,6 +37,10 @@ public final class Element extends Component {
             component = Kraken.waitAction().shouldBeVisible(this);
         }
         return component;
+    }
+
+    public WebElement getElement() {
+        return getComponent();
     }
 
     public void click(final Object... args) {

@@ -82,7 +82,7 @@ public final class RetailRocketItemCardWidgetsTests extends BaseTest {
         shop().openFirstProductCardProd();
         shop().interactProductCard().interactRetailRocket().addToCartFirstProductInCarousel();
         shop().interactHeader().clickToCart();
-        shop().interactCart().compareItemsInCart(1);
+        shop().interactCart().getFirstRetailer().compareItemsInCart(1);
     }
 
     @CaseId(1783)
@@ -100,6 +100,6 @@ public final class RetailRocketItemCardWidgetsTests extends BaseTest {
         shop().openFirstProductCardProd();
         shop().interactProductCard().interactRetailRocket().addToCartFirstProductInSimilar();
         shop().interactHeader().clickToCart();
-        shop().interactCart().compareItemsInCart(1);
+        shop().interactCart().getFirstRetailer().compareItemsInCart(1);
     }
 }

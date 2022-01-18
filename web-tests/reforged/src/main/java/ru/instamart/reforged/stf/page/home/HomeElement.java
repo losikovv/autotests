@@ -21,19 +21,19 @@ public interface HomeElement {
     CookieDrawer cookieAlert = new CookieDrawer();
 
     //TODO: Ждет data-qa
-    Button loginButton = new Button(By.xpath("//div/button[contains(text(), 'Войти')]"));
+    Button loginButton = new Button(By.xpath("//div/button[contains(text(), 'Войти')]"), "empty");
     //TODO: Ждет data-qa
-    Button forYourself = new Button(By.xpath("//button[@aria-controls='b2c-tab']"));
+    Button forYourself = new Button(By.xpath("//button[@aria-controls='b2c-tab']"), "empty");
     //TODO: Ждет data-qa
-    Button forBusiness = new Button(By.xpath("//button[@aria-controls='b2b-tab']"));
+    Button forBusiness = new Button(By.xpath("//button[@aria-controls='b2b-tab']"), "empty");
     //TODO: Ждет data-qa
     Button setAddress = new Button(By.xpath("//div[@id='by_courier']/div[1]//button"), "кнопка для вызова модального окна с вводом адреса");
     //TODO: Ждет data-qa
     Button setAddressNew = new Button(By.xpath("//div[contains(@class, 'Address')]/button"), "кнопка 'Выбрать адрес'");
     //TODO: Ждет data-qa
-    Button showAllRetailers = new Button(By.xpath("//button[contains(text(), 'Показать всех')]"));
-    Button showAllCities = new Button(By.xpath("//button[@data-qa='home_landing_show_button'][contains(text(), 'Показать')]"));
-    Button hideCities = new Button(By.xpath("//button[@data-qa='home_landing_show_button'][contains(text(), 'Скрыть')]"));
+    Button showAllRetailers = new Button(By.xpath("//button[contains(text(), 'Показать всех')]"), "empty");
+    Button showAllCities = new Button(By.xpath("//button[@data-qa='home_landing_show_button'][contains(text(), 'Показать')]"), "empty");
+    Button hideCities = new Button(By.xpath("//button[@data-qa='home_landing_show_button'][contains(text(), 'Скрыть')]"), "empty");
     Link googlePlay = new Link(By.xpath("//a[@data-qa='home_landing_google_play_app_container']"), "Кнопка скачивания приложения сбермаркет в google play");
     Link appStore = new Link(By.xpath("//a[@data-qa='home_landing_app_store_app_container']"), "Кнопка скачивания приложения сбермаркет в app store");
     Link appGallery = new Link(By.xpath("//a[@data-qa='home_landing_huawei_store_app_container']"), "Кнопка скачивания приложения сбермаркет в app gallery");

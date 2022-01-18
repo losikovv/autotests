@@ -55,6 +55,6 @@ public final class RetailRocketRetailerPageWidgetsTests extends BaseTest {
 
         shop().interactRetailRocket().addToCartFirstProductInPopular();
         shop().interactHeader().clickToCart();
-        shop().interactCart().compareItemsInCart(1);
+        shop().interactCart().getFirstRetailer().compareItemsInCart(1);
     }
 }

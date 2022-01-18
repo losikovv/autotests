@@ -7,11 +7,11 @@ import ru.instamart.reforged.core.component.Input;
 
 public class EditPaymentCard implements CommonFrameButtons {
 
-    private final Input cardNumber = new Input(By.xpath("//input[@data-cp='cardNumber']"));
-    private final Input expMonth = new Input(By.xpath("//input[@data-cp='expDateMonth']"));
-    private final Input expYear = new Input(By.xpath("//input[@data-cp='expDateYear']"));
-    private final Input cvv = new Input(By.xpath("//input[@data-cp='cvv']"));
-    private final Input holderName = new Input(By.xpath("//input[@data-cp='name']"));
+    private final Input cardNumber = new Input(By.xpath("//input[@data-cp='cardNumber']"), "empty");
+    private final Input expMonth = new Input(By.xpath("//input[@data-cp='expDateMonth']"), "empty");
+    private final Input expYear = new Input(By.xpath("//input[@data-cp='expDateYear']"), "empty");
+    private final Input cvv = new Input(By.xpath("//input[@data-cp='cvv']"), "empty");
+    private final Input holderName = new Input(By.xpath("//input[@data-cp='name']"), "empty");
 
     @Step("Заполнить данные карты {0}")
     public void fillCardData(final PaymentCardData data) {

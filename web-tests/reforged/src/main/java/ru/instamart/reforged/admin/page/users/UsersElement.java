@@ -7,9 +7,9 @@ import ru.instamart.reforged.core.component.Link;
 
 public interface UsersElement {
 
-    Input searchEmail = new Input(By.id("search_email"));
-    Input searchPhoneNumber = new Input(By.id("search_phone"));
-    Button submitSearch = new Button(By.xpath("//button[@type='submit']"));
-    Link editUser = new Link(By.xpath("//a[@data-action='edit']"));
-    Link foundUserEmail = new Link(By.xpath("//div[@class='user_email']//a"));
+    Input searchEmail = new Input(By.id("search_email"), "empty");
+    Input searchPhoneNumber = new Input(By.id("search_phone"), "empty");
+    Button submitSearch = new Button(By.xpath("//button[@type='submit']"), "empty");
+    Link editUser = new Link(By.xpath("//a[@data-action='edit']"), "empty");
+    Link foundUserEmail = new Link(By.xpath("//div[@class='user_email']//a"), "empty");
 }

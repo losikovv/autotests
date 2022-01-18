@@ -14,16 +14,8 @@ import static java.util.Objects.isNull;
 @Slf4j
 public final class ElementCollection extends CollectionComponent {
 
-    public ElementCollection(final By by) {
-        super(by);
-    }
-
     public ElementCollection(final By by, final String description) {
         super(by, description);
-    }
-
-    public ElementCollection(final By by, final long timeout) {
-        super(by, timeout);
     }
 
     public ElementCollection(final By by, final long timeout, final String description) {
@@ -36,6 +28,15 @@ public final class ElementCollection extends CollectionComponent {
 
     public ElementCollection(final By by, final long timeout, final String description, final String errorMsg) {
         super(by, timeout, description, errorMsg);
+    }
+
+    @Override
+    protected List<WebElement> getComponents() {
+        log.debug("Get {}'s with locator {}", getClass().getSimpleName(), getBy());
+        if (isNull(components) || isCacheDisable) {
+            components = Kraken.waitAction().isElementsExist(this);
+        }
+        return components;
     }
 
     public void clickOnFirst() {
@@ -100,14 +101,5 @@ public final class ElementCollection extends CollectionComponent {
 
     public int elementCount() {
         return getComponents().size();
-    }
-
-    @Override
-    protected List<WebElement> getComponents() {
-        log.debug("Get {}'s with locator {}", getClass().getSimpleName(), getBy());
-        if (isNull(components) || isCacheDisable) {
-            components = Kraken.waitAction().isElementsExist(this);
-        }
-        return components;
     }
 }

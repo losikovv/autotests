@@ -3,134 +3,75 @@ package ru.instamart.reforged.stf.drawer.cart;
 import io.qameta.allure.Step;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
+import ru.instamart.reforged.stf.drawer.cart.container.Item;
+import ru.instamart.reforged.stf.drawer.cart.container.Retailer;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Корзина. Основные элементы
+ */
 public final class Cart implements CartCheck {
 
     public RetailRocket interactRetailRocket() {
         return retailRocket;
     }
 
-    @Step("Закрыть корзину")
+    @Step("Кликаем 'Закрыть' корзину")
     public void closeCart() {
-        close.click();
+        closeButton.click();
     }
 
-    @Step("Вернуться в каталог")
-    public void returnToCatalog() {
-        returnToCatalog.click();
+    @Step("Выбираем в корзине магазин с названием {0}")
+    public Retailer getRetailerByName(final String retailerName) {
+        return getAllRetailers()
+                .stream()
+                .filter(retailer -> retailer.getName().equals(retailerName))
+                .findFirst().orElseThrow();
     }
 
-    @Step("Вернуть значение стоимости товаров в корзине")
-    public double returnOrderAmount() {
-        return StringUtil.stringToDoubleParse(orderAmount.getText());
+    @Step("Получаем названия всех магазинов в корзине")
+    public List<String> getAllRetailerNames() {
+        return getAllRetailers()
+                .stream()
+                .map(Retailer::getName)
+                .collect(Collectors.toList());
     }
 
-    @Step("Вернуть значение мин суммы заказа в корзине")
-    public double returnMinOrderAmount() {
-        return StringUtil.stringToDoubleParse(minAmountAlert.getText());
+    @Step("Получаем первый магазин в корзине")
+    public Retailer getFirstRetailer() {
+        return new Retailer(firstRetailer.getElement());
     }
 
-    @Step("Очистить корзину")
-    public void clearCart() {
-        clearCart.click();
+    @Step("Получаем первый товар в корзине")
+    public Item getFirstItem() {
+        return new Item(firstItem.getElement());
     }
 
-    @Step("Подтвердить очистку корзины")
-    public void confirmClearCart() {
-        clearCartModal.confirm();
-    }
-
-    @Step("Отменить очистку корзины")
-    public void cancelClearCart() {
-        clearCartModal.cancel();
-    }
-
-    @Step("Сделать заказ")
+    @Step("Кликаем 'Сделать' заказ")
     public void submitOrder() {
         submitOrder.click();
     }
 
-    @Step("Увеличить кол-во товара")
-    public void increaseCount() {
-        increaseCount.hoverAndClick();
+    @Step("Получаем значение стоимости товаров в корзине")
+    public double returnOrderAmount() {
+        return StringUtil.stringToDoubleParse(orderAmount.getText());
     }
 
-    @Step("Удалить первый товар из корзины")
-    public void deleteFirstItem() {
-        deleteFirstItemButton.hoverAndClick();
-    }
-
-    @Step("Вернуть значение кол-ва единиц у первого товара")
-    public int returnFirstItemQuantity() {
-        return  firstElementQuantity.getNumericValue();
-    }
-
-    @Step("Вернуть значение кол-ва уник товаров")
-    public int returnUniqueItemsQuantity() {
-        return  items.elementCount();
-    }
-
-    @Step("Увеличить кол-во товара до минимального, доступного к заказу")
-    public void increaseCountToMin() {
+    @Step("Увеличиваем кол-во товара до тех пор, пока заказ не станет доступен")
+    public void increaseFirstItemCountToMin() {
+        Item item = getFirstItem();
         while (!checkOrderButtonIsEnabled()) {
-            increaseCount.hoverAndClick();
-            checkSpinnerIsNotVisible();
+            item.increaseCount();
+            item.checkSpinnerIsNotVisible();
         }
     }
 
-    @Step("Уменьшить кол-во товара")
-    public void decreaseCount() {
-        decreaseCount.hoverAndClick();
+    private List<Retailer> getAllRetailers() {
+        return retailers.getElements()
+                .stream()
+                .map(Retailer::new)
+                .collect(Collectors.toList());
     }
-
-    @Step("Открыть карточку товара")
-    public void openItemCard() {
-        openItemCard.click();
-    }
-
-    @Step("Удалить товар")
-    public void removeItem() {
-        removeItem.hoverAndClick();
-    }
-
-    @Step("Удалить товар")
-    public void mobileRemoveItem() {
-        mobileRemoveItem.hoverAndClick();
-    }
-
-    @Step("Следующий слайд в блоке 'Не забудьте купить'")
-    public void nextRetailSlide() {
-        nextRetailSlide.click();
-    }
-
-    @Step("Предыдущий слайд в блоке 'Не забудьте купить'")
-    public void prevRetailSlide() {
-        prevRetailSlide.click();
-    }
-
-    @Step("Добавление позиций в существующий заказ")
-    public void mergeProducts() {
-        mergeButton.click();
-    }
-
-    @Step("Переход на страницу заказа для проверки позиций дозаказа")
-    public void checkMergeProducts() {
-        lookMergedProductsButton.click();
-    }
-
-    @Step("Скрыть товары не в наличии")
-    public void clickToHideOutOfStock() {
-        hideRisePrice.click();
-    }
-
-    @Step("Показать товары не в наличии")
-    public void clickToShowOutOfStock() {
-        showRisePrice.click();
-    }
-
-    @Step("Показать товары не в наличии")
-    public void clickToViewOrder() {
-        viewOrder.click();
-    }
-
 }
