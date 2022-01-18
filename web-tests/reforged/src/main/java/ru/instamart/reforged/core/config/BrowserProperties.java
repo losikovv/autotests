@@ -24,4 +24,11 @@ public final class BrowserProperties {
     public static boolean VNC;
     @Config(configName = NAME, fieldName = "fullScreenMode", defaultValue = "true")
     public static boolean FULL_SCREEN_MODE;
+
+    @Config(configName = NAME, fieldName = "enableProfile", defaultValue = "false")
+    public static boolean ENABLE_PROFILE;
+    @Config(configName = NAME, fieldName = "profilePath", defaultValue = "")
+    public static String PROFILE_PATH;
+    @Config(configName = NAME, fieldName = "profileName", defaultValue = "Default")
+    public static String PROFILE_NAME;
 }

@@ -6,6 +6,7 @@ import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
+import ru.instamart.reforged.core.config.BrowserProperties;
 import ru.instamart.reforged.core.provider.AbstractBrowserProvider;
 
 import java.util.Optional;
@@ -23,12 +24,10 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
         jsonObject.put("credentials_enable_service", false);
         jsonObject.put("profile.password_manager_enabled", false);
 
-        //TODO: Добавить поддержку профилей в Moon
-        /*options.addArguments("--allow-profiles-outside-user-dir");
-        options.addArguments("--enable-profile-shortcut-manager");
-        options.addArguments("--disable-blink-features=AutomationControlled");
-        options.addArguments("--user-data-dir=" + FileUtils.getResourceDir("Selenium"));
-        options.addArguments("--profile-directory=Profile");*/
+        if (BrowserProperties.ENABLE_PROFILE) {
+            options.addArguments("--user-data-dir=" + BrowserProperties.PROFILE_PATH);
+            options.addArguments("--profile-directory=" + BrowserProperties.PROFILE_NAME);
+        }
 
         options.addArguments("--disable-extensions");
         options.addArguments("--disable-geolocation");
