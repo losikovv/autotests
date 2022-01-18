@@ -53,11 +53,12 @@ public final class Retailer extends Container {
 
     @Step("Получаем {0} по порядку продукт из списка продуктов магазина")
     public Item getItem(final int productOrder) {
+        var index = productOrder - 1;
         final List<Item> items = getAllItems();
-        if (items.size() >= productOrder - 1) {
-            return items.get(productOrder - 1);
+        if (items.size() >= index) {
+            return items.get(index);
         } else {
-            var exception = new NoSuchElementInCollection(productOrder - 1);
+            var exception = new NoSuchElementInCollection(index);
             Assert.fail(exception.getMessage(), exception);
             return null;
         }

@@ -21,7 +21,7 @@ public final class Cart implements CartCheck {
         return retailRocket;
     }
 
-    public ClearCartModal clearCartModal() {
+    public ClearCartModal interactCartModal() {
         return clearCartModal;
     }
 
@@ -32,11 +32,12 @@ public final class Cart implements CartCheck {
 
     @Step("Получаем {0} по порядку магазин корзины")
     public Retailer getRetailerByOrder(final int retailerOrder) {
+        final var index = retailerOrder - 1;
         final List<Retailer> retailers = getAllRetailers();
-        if (retailers.size() >= retailerOrder - 1) {
-            return retailers.get(retailerOrder - 1);
+        if (retailers.size() >= index) {
+            return retailers.get(index);
         } else {
-            var exception = new NoSuchElementInCollection(retailerOrder - 1);
+            var exception = new NoSuchElementInCollection(index);
             Assert.fail(exception.getMessage(), exception);
             return null;
         }

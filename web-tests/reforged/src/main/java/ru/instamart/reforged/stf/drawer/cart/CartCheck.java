@@ -75,7 +75,7 @@ public interface CartCheck extends Check, CartElement {
         waitAction().shouldNotBeAnimated(items);
     }
 
-    @Step("Проверяем соответствие количества товаров")
+    @Step("Проверяем соответствие текущего количества товаров {0} ожидаемому {1}")
     default void checkItemsCount(final int actualItemsCount, final int expectedItemsCount) {
         Assert.assertEquals(actualItemsCount, expectedItemsCount, "Количество товаров в корзине не соответствует ожидаемому");
     }

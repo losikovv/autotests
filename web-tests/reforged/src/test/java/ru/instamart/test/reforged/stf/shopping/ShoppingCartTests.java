@@ -5,7 +5,6 @@ import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -13,8 +12,7 @@ import ru.instamart.kraken.listener.Skip;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import java.util.Objects;
-
+import static ru.instamart.kraken.config.EnvironmentProperties.*;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -247,7 +245,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactHeader().clickToCart();
         final double firstOrderMinAmount = shop().interactCart().getFirstRetailer().returnMinOrderAmount();
 
-        helper.makeOrder(shoppingCartUser, EnvironmentProperties.DEFAULT_SID, 3);
+        helper.makeOrder(shoppingCartUser, DEFAULT_SID, 3);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
@@ -311,7 +309,7 @@ public final class ShoppingCartTests extends BaseTest {
     @Test(description = "Добавление товара после изменения адреса доставки", groups = "regression")
     public void testAddProductAfterChangeAddress() {
         var userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        helper.dropAndFillCart(userData, DEFAULT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
@@ -506,7 +504,7 @@ public final class ShoppingCartTests extends BaseTest {
     public void testRemoveRetailerFromCart() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
-        helper.dropAndFillCart(userData, 1, 3);
+        helper.dropAndFillCart(userData, DEFAULT_SID, 3);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -518,7 +516,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactCart().checkCartNotEmpty();
 
         shop().interactCart().getFirstRetailer().removeRetailer();
-        shop().interactCart().clearCartModal().confirm();
+        shop().interactCart().interactCartModal().confirm();
         shop().interactCart().checkCartEmpty();
     }
 
@@ -526,7 +524,7 @@ public final class ShoppingCartTests extends BaseTest {
     @Test(description = "Отображение нескольких магазинов в корзине, разбивка товаров по магазинам", groups = "regression")
     public void testMultiplyOrderGroupingProductsByRetailers() {
         var userData = UserManager.getQaUser();
-        helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 2, EnvironmentProperties.DEFAULT_AUCHAN_SID, 3);
+        helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), DEFAULT_METRO_MOSCOW_SID, 2, DEFAULT_AUCHAN_SID, 3);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -537,10 +535,10 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactCart().checkCartOpen();
         shop().interactCart().getRetailersCount();
 
-        var itemsCountInRetailer = Objects.requireNonNull(shop().interactCart().getRetailerByOrder(1)).getItemsCountInList();
+        var itemsCountInRetailer = shop().interactCart().getRetailerByOrder(1).getItemsCountInList();
         shop().interactCart().checkItemsCount(itemsCountInRetailer, 2);
 
-        itemsCountInRetailer = Objects.requireNonNull(shop().interactCart().getRetailerByOrder(2)).getItemsCountInList();
+        itemsCountInRetailer = shop().interactCart().getRetailerByOrder(2).getItemsCountInList();
         shop().interactCart().checkItemsCount(itemsCountInRetailer, 3);
     }
 
@@ -548,8 +546,12 @@ public final class ShoppingCartTests extends BaseTest {
     @Test(description = "Удаление магазина из корзины, при удалении всех его товаров в корзине", groups = "regression")
     public void testAutoRemoveRetailerAfterRemoveAllProducts() {
         var userData = UserManager.getQaUser();
-        helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 2,
-                EnvironmentProperties.DEFAULT_AUCHAN_SID, 3);
+        helper.dropAndFillCartMultiple(userData,
+                RestAddresses.Moscow.defaultAddress(),
+                DEFAULT_METRO_MOSCOW_SID,
+                2,
+                DEFAULT_AUCHAN_SID,
+                3);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();

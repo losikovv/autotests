@@ -81,23 +81,23 @@ public final class ApiHelper {
     }
 
     @Step("Наполняем корзину с помощью API")
-    public void dropAndFillCartMultiple(final UserData user, AddressV2 address, final Integer sid, final Integer sid2) {
+    public void dropAndFillCartMultiple(final UserData user, AddressV2 address, final Integer firstShopSid, final Integer secondShopSid) {
         apiV2.auth(user);
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, address);
-        apiV2.fillCartOnSid(sid);
-        apiV2.fillCartOnSid(sid2);
+        apiV2.fillCartOnSid(firstShopSid);
+        apiV2.fillCartOnSid(secondShopSid);
     }
 
     @Step("Наполняем корзину с помощью API")
-    public void dropAndFillCartMultiple(final UserData user, AddressV2 address, final Integer sid, final Integer itemsCount, final Integer sid2, final Integer itemsCount2) {
+    public void dropAndFillCartMultiple(final UserData user, AddressV2 address, final Integer firstShopSid, final Integer firstShopItemCount, final Integer secondShopSid, final Integer secondShopItemCount) {
         apiV2.auth(user);
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, address);
-        apiV2.fillCartOnSid(sid, itemsCount);
-        apiV2.fillCartOnSid(sid2, itemsCount2);
+        apiV2.fillCartOnSid(firstShopSid, firstShopItemCount);
+        apiV2.fillCartOnSid(secondShopSid, secondShopItemCount);
     }
 
     /**
