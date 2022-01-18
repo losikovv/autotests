@@ -184,58 +184,74 @@ public final class CatalogApiV2 {
     long getPerPage();
 
     /**
-     * <code>map&lt;string, .catalog_api_v2.ProductListAttributeFilter&gt; filter = 6;</code>
+     * <code>repeated string filter_keys = 6;</code>
+     * @return A list containing the filterKeys.
      */
-    int getFilterCount();
+    java.util.List<java.lang.String>
+        getFilterKeysList();
     /**
-     * <code>map&lt;string, .catalog_api_v2.ProductListAttributeFilter&gt; filter = 6;</code>
+     * <code>repeated string filter_keys = 6;</code>
+     * @return The count of filterKeys.
      */
-    boolean containsFilter(
-        java.lang.String key);
+    int getFilterKeysCount();
     /**
-     * Use {@link #getFilterMap()} instead.
+     * <code>repeated string filter_keys = 6;</code>
+     * @param index The index of the element to return.
+     * @return The filterKeys at the given index.
      */
-    @java.lang.Deprecated
-    java.util.Map<java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter>
-    getFilter();
+    java.lang.String getFilterKeys(int index);
     /**
-     * <code>map&lt;string, .catalog_api_v2.ProductListAttributeFilter&gt; filter = 6;</code>
+     * <code>repeated string filter_keys = 6;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the filterKeys at the given index.
      */
-    java.util.Map<java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter>
-    getFilterMap();
-    /**
-     * <code>map&lt;string, .catalog_api_v2.ProductListAttributeFilter&gt; filter = 6;</code>
-     */
-
-    catalog_api_v2.CatalogApiV2.ProductListAttributeFilter getFilterOrDefault(
-        java.lang.String key,
-        catalog_api_v2.CatalogApiV2.ProductListAttributeFilter defaultValue);
-    /**
-     * <code>map&lt;string, .catalog_api_v2.ProductListAttributeFilter&gt; filter = 6;</code>
-     */
-
-    catalog_api_v2.CatalogApiV2.ProductListAttributeFilter getFilterOrThrow(
-        java.lang.String key);
+    com.google.protobuf.ByteString
+        getFilterKeysBytes(int index);
 
     /**
-     * <code>string sort = 7;</code>
+     * <code>repeated string filter_values = 7;</code>
+     * @return A list containing the filterValues.
+     */
+    java.util.List<java.lang.String>
+        getFilterValuesList();
+    /**
+     * <code>repeated string filter_values = 7;</code>
+     * @return The count of filterValues.
+     */
+    int getFilterValuesCount();
+    /**
+     * <code>repeated string filter_values = 7;</code>
+     * @param index The index of the element to return.
+     * @return The filterValues at the given index.
+     */
+    java.lang.String getFilterValues(int index);
+    /**
+     * <code>repeated string filter_values = 7;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the filterValues at the given index.
+     */
+    com.google.protobuf.ByteString
+        getFilterValuesBytes(int index);
+
+    /**
+     * <code>string sort = 8;</code>
      * @return The sort.
      */
     java.lang.String getSort();
     /**
-     * <code>string sort = 7;</code>
+     * <code>string sort = 8;</code>
      * @return The bytes for sort.
      */
     com.google.protobuf.ByteString
         getSortBytes();
 
     /**
-     * <code>string tenant_id = 8 [json_name = "tenant_id"];</code>
+     * <code>string tenant_id = 9 [json_name = "tenant_id"];</code>
      * @return The tenantId.
      */
     java.lang.String getTenantId();
     /**
-     * <code>string tenant_id = 8 [json_name = "tenant_id"];</code>
+     * <code>string tenant_id = 9 [json_name = "tenant_id"];</code>
      * @return The bytes for tenantId.
      */
     com.google.protobuf.ByteString
@@ -257,6 +273,8 @@ public final class CatalogApiV2 {
       sid_ = "";
       tid_ = "";
       q_ = "";
+      filterKeys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      filterValues_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       sort_ = "";
       tenantId_ = "";
     }
@@ -321,25 +339,30 @@ public final class CatalogApiV2 {
               break;
             }
             case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                filter_ = com.google.protobuf.MapField.newMapField(
-                    FilterDefaultEntryHolder.defaultEntry);
+                filterKeys_ = new com.google.protobuf.LazyStringArrayList();
                 mutable_bitField0_ |= 0x00000001;
               }
-              com.google.protobuf.MapEntry<java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter>
-              filter__ = input.readMessage(
-                  FilterDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
-              filter_.getMutableMap().put(
-                  filter__.getKey(), filter__.getValue());
+              filterKeys_.add(s);
               break;
             }
             case 58: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                filterValues_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              filterValues_.add(s);
+              break;
+            }
+            case 66: {
               java.lang.String s = input.readStringRequireUtf8();
 
               sort_ = s;
               break;
             }
-            case 66: {
+            case 74: {
               java.lang.String s = input.readStringRequireUtf8();
 
               tenantId_ = s;
@@ -360,6 +383,12 @@ public final class CatalogApiV2 {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          filterKeys_ = filterKeys_.getUnmodifiableView();
+        }
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          filterValues_ = filterValues_.getUnmodifiableView();
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -369,18 +398,6 @@ public final class CatalogApiV2 {
       return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductListRequest_descriptor;
     }
 
-    @SuppressWarnings({"rawtypes"})
-    @java.lang.Override
-    protected com.google.protobuf.MapField internalGetMapField(
-        int number) {
-      switch (number) {
-        case 6:
-          return internalGetFilter();
-        default:
-          throw new RuntimeException(
-              "Invalid map field number: " + number);
-      }
-    }
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
@@ -525,91 +542,80 @@ public final class CatalogApiV2 {
       return perPage_;
     }
 
-    public static final int FILTER_FIELD_NUMBER = 6;
-    private static final class FilterDefaultEntryHolder {
-      static final com.google.protobuf.MapEntry<
-          java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter> defaultEntry =
-              com.google.protobuf.MapEntry
-              .<java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter>newDefaultInstance(
-                  catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductListRequest_FilterEntry_descriptor, 
-                  com.google.protobuf.WireFormat.FieldType.STRING,
-                  "",
-                  com.google.protobuf.WireFormat.FieldType.MESSAGE,
-                  catalog_api_v2.CatalogApiV2.ProductListAttributeFilter.getDefaultInstance());
-    }
-    private com.google.protobuf.MapField<
-        java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter> filter_;
-    private com.google.protobuf.MapField<java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter>
-    internalGetFilter() {
-      if (filter_ == null) {
-        return com.google.protobuf.MapField.emptyMapField(
-            FilterDefaultEntryHolder.defaultEntry);
-      }
-      return filter_;
-    }
-
-    public int getFilterCount() {
-      return internalGetFilter().getMap().size();
+    public static final int FILTER_KEYS_FIELD_NUMBER = 6;
+    private com.google.protobuf.LazyStringList filterKeys_;
+    /**
+     * <code>repeated string filter_keys = 6;</code>
+     * @return A list containing the filterKeys.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getFilterKeysList() {
+      return filterKeys_;
     }
     /**
-     * <code>map&lt;string, .catalog_api_v2.ProductListAttributeFilter&gt; filter = 6;</code>
+     * <code>repeated string filter_keys = 6;</code>
+     * @return The count of filterKeys.
      */
-
-    @java.lang.Override
-    public boolean containsFilter(
-        java.lang.String key) {
-      if (key == null) { throw new java.lang.NullPointerException(); }
-      return internalGetFilter().getMap().containsKey(key);
+    public int getFilterKeysCount() {
+      return filterKeys_.size();
     }
     /**
-     * Use {@link #getFilterMap()} instead.
+     * <code>repeated string filter_keys = 6;</code>
+     * @param index The index of the element to return.
+     * @return The filterKeys at the given index.
      */
-    @java.lang.Override
-    @java.lang.Deprecated
-    public java.util.Map<java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter> getFilter() {
-      return getFilterMap();
+    public java.lang.String getFilterKeys(int index) {
+      return filterKeys_.get(index);
     }
     /**
-     * <code>map&lt;string, .catalog_api_v2.ProductListAttributeFilter&gt; filter = 6;</code>
+     * <code>repeated string filter_keys = 6;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the filterKeys at the given index.
      */
-    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getFilterKeysBytes(int index) {
+      return filterKeys_.getByteString(index);
+    }
 
-    public java.util.Map<java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter> getFilterMap() {
-      return internalGetFilter().getMap();
+    public static final int FILTER_VALUES_FIELD_NUMBER = 7;
+    private com.google.protobuf.LazyStringList filterValues_;
+    /**
+     * <code>repeated string filter_values = 7;</code>
+     * @return A list containing the filterValues.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getFilterValuesList() {
+      return filterValues_;
     }
     /**
-     * <code>map&lt;string, .catalog_api_v2.ProductListAttributeFilter&gt; filter = 6;</code>
+     * <code>repeated string filter_values = 7;</code>
+     * @return The count of filterValues.
      */
-    @java.lang.Override
-
-    public catalog_api_v2.CatalogApiV2.ProductListAttributeFilter getFilterOrDefault(
-        java.lang.String key,
-        catalog_api_v2.CatalogApiV2.ProductListAttributeFilter defaultValue) {
-      if (key == null) { throw new java.lang.NullPointerException(); }
-      java.util.Map<java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter> map =
-          internalGetFilter().getMap();
-      return map.containsKey(key) ? map.get(key) : defaultValue;
+    public int getFilterValuesCount() {
+      return filterValues_.size();
     }
     /**
-     * <code>map&lt;string, .catalog_api_v2.ProductListAttributeFilter&gt; filter = 6;</code>
+     * <code>repeated string filter_values = 7;</code>
+     * @param index The index of the element to return.
+     * @return The filterValues at the given index.
      */
-    @java.lang.Override
-
-    public catalog_api_v2.CatalogApiV2.ProductListAttributeFilter getFilterOrThrow(
-        java.lang.String key) {
-      if (key == null) { throw new java.lang.NullPointerException(); }
-      java.util.Map<java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter> map =
-          internalGetFilter().getMap();
-      if (!map.containsKey(key)) {
-        throw new java.lang.IllegalArgumentException();
-      }
-      return map.get(key);
+    public java.lang.String getFilterValues(int index) {
+      return filterValues_.get(index);
+    }
+    /**
+     * <code>repeated string filter_values = 7;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the filterValues at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getFilterValuesBytes(int index) {
+      return filterValues_.getByteString(index);
     }
 
-    public static final int SORT_FIELD_NUMBER = 7;
+    public static final int SORT_FIELD_NUMBER = 8;
     private volatile java.lang.Object sort_;
     /**
-     * <code>string sort = 7;</code>
+     * <code>string sort = 8;</code>
      * @return The sort.
      */
     @java.lang.Override
@@ -626,7 +632,7 @@ public final class CatalogApiV2 {
       }
     }
     /**
-     * <code>string sort = 7;</code>
+     * <code>string sort = 8;</code>
      * @return The bytes for sort.
      */
     @java.lang.Override
@@ -644,10 +650,10 @@ public final class CatalogApiV2 {
       }
     }
 
-    public static final int TENANT_ID_FIELD_NUMBER = 8;
+    public static final int TENANT_ID_FIELD_NUMBER = 9;
     private volatile java.lang.Object tenantId_;
     /**
-     * <code>string tenant_id = 8 [json_name = "tenant_id"];</code>
+     * <code>string tenant_id = 9 [json_name = "tenant_id"];</code>
      * @return The tenantId.
      */
     @java.lang.Override
@@ -664,7 +670,7 @@ public final class CatalogApiV2 {
       }
     }
     /**
-     * <code>string tenant_id = 8 [json_name = "tenant_id"];</code>
+     * <code>string tenant_id = 9 [json_name = "tenant_id"];</code>
      * @return The bytes for tenantId.
      */
     @java.lang.Override
@@ -711,17 +717,17 @@ public final class CatalogApiV2 {
       if (perPage_ != 0L) {
         output.writeInt64(5, perPage_);
       }
-      com.google.protobuf.GeneratedMessageV3
-        .serializeStringMapTo(
-          output,
-          internalGetFilter(),
-          FilterDefaultEntryHolder.defaultEntry,
-          6);
+      for (int i = 0; i < filterKeys_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, filterKeys_.getRaw(i));
+      }
+      for (int i = 0; i < filterValues_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, filterValues_.getRaw(i));
+      }
       if (!getSortBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, sort_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, sort_);
       }
       if (!getTenantIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, tenantId_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 9, tenantId_);
       }
       unknownFields.writeTo(output);
     }
@@ -749,21 +755,27 @@ public final class CatalogApiV2 {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(5, perPage_);
       }
-      for (java.util.Map.Entry<java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter> entry
-           : internalGetFilter().getMap().entrySet()) {
-        com.google.protobuf.MapEntry<java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter>
-        filter__ = FilterDefaultEntryHolder.defaultEntry.newBuilderForType()
-            .setKey(entry.getKey())
-            .setValue(entry.getValue())
-            .build();
-        size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(6, filter__);
+      {
+        int dataSize = 0;
+        for (int i = 0; i < filterKeys_.size(); i++) {
+          dataSize += computeStringSizeNoTag(filterKeys_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getFilterKeysList().size();
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < filterValues_.size(); i++) {
+          dataSize += computeStringSizeNoTag(filterValues_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getFilterValuesList().size();
       }
       if (!getSortBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, sort_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, sort_);
       }
       if (!getTenantIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, tenantId_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, tenantId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -790,8 +802,10 @@ public final class CatalogApiV2 {
           != other.getPage()) return false;
       if (getPerPage()
           != other.getPerPage()) return false;
-      if (!internalGetFilter().equals(
-          other.internalGetFilter())) return false;
+      if (!getFilterKeysList()
+          .equals(other.getFilterKeysList())) return false;
+      if (!getFilterValuesList()
+          .equals(other.getFilterValuesList())) return false;
       if (!getSort()
           .equals(other.getSort())) return false;
       if (!getTenantId()
@@ -819,9 +833,13 @@ public final class CatalogApiV2 {
       hash = (37 * hash) + PER_PAGE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getPerPage());
-      if (!internalGetFilter().getMap().isEmpty()) {
-        hash = (37 * hash) + FILTER_FIELD_NUMBER;
-        hash = (53 * hash) + internalGetFilter().hashCode();
+      if (getFilterKeysCount() > 0) {
+        hash = (37 * hash) + FILTER_KEYS_FIELD_NUMBER;
+        hash = (53 * hash) + getFilterKeysList().hashCode();
+      }
+      if (getFilterValuesCount() > 0) {
+        hash = (37 * hash) + FILTER_VALUES_FIELD_NUMBER;
+        hash = (53 * hash) + getFilterValuesList().hashCode();
       }
       hash = (37 * hash) + SORT_FIELD_NUMBER;
       hash = (53 * hash) + getSort().hashCode();
@@ -934,28 +952,6 @@ public final class CatalogApiV2 {
         return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductListRequest_descriptor;
       }
 
-      @SuppressWarnings({"rawtypes"})
-      protected com.google.protobuf.MapField internalGetMapField(
-          int number) {
-        switch (number) {
-          case 6:
-            return internalGetFilter();
-          default:
-            throw new RuntimeException(
-                "Invalid map field number: " + number);
-        }
-      }
-      @SuppressWarnings({"rawtypes"})
-      protected com.google.protobuf.MapField internalGetMutableMapField(
-          int number) {
-        switch (number) {
-          case 6:
-            return internalGetMutableFilter();
-          default:
-            throw new RuntimeException(
-                "Invalid map field number: " + number);
-        }
-      }
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
@@ -992,7 +988,10 @@ public final class CatalogApiV2 {
 
         perPage_ = 0L;
 
-        internalGetMutableFilter().clear();
+        filterKeys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        filterValues_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
         sort_ = "";
 
         tenantId_ = "";
@@ -1029,8 +1028,16 @@ public final class CatalogApiV2 {
         result.q_ = q_;
         result.page_ = page_;
         result.perPage_ = perPage_;
-        result.filter_ = internalGetFilter();
-        result.filter_.makeImmutable();
+        if (((bitField0_ & 0x00000001) != 0)) {
+          filterKeys_ = filterKeys_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.filterKeys_ = filterKeys_;
+        if (((bitField0_ & 0x00000002) != 0)) {
+          filterValues_ = filterValues_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        }
+        result.filterValues_ = filterValues_;
         result.sort_ = sort_;
         result.tenantId_ = tenantId_;
         onBuilt();
@@ -1099,8 +1106,26 @@ public final class CatalogApiV2 {
         if (other.getPerPage() != 0L) {
           setPerPage(other.getPerPage());
         }
-        internalGetMutableFilter().mergeFrom(
-            other.internalGetFilter());
+        if (!other.filterKeys_.isEmpty()) {
+          if (filterKeys_.isEmpty()) {
+            filterKeys_ = other.filterKeys_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureFilterKeysIsMutable();
+            filterKeys_.addAll(other.filterKeys_);
+          }
+          onChanged();
+        }
+        if (!other.filterValues_.isEmpty()) {
+          if (filterValues_.isEmpty()) {
+            filterValues_ = other.filterValues_;
+            bitField0_ = (bitField0_ & ~0x00000002);
+          } else {
+            ensureFilterValuesIsMutable();
+            filterValues_.addAll(other.filterValues_);
+          }
+          onChanged();
+        }
         if (!other.getSort().isEmpty()) {
           sort_ = other.sort_;
           onChanged();
@@ -1429,137 +1454,229 @@ public final class CatalogApiV2 {
         return this;
       }
 
-      private com.google.protobuf.MapField<
-          java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter> filter_;
-      private com.google.protobuf.MapField<java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter>
-      internalGetFilter() {
-        if (filter_ == null) {
-          return com.google.protobuf.MapField.emptyMapField(
-              FilterDefaultEntryHolder.defaultEntry);
-        }
-        return filter_;
-      }
-      private com.google.protobuf.MapField<java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter>
-      internalGetMutableFilter() {
-        onChanged();;
-        if (filter_ == null) {
-          filter_ = com.google.protobuf.MapField.newMapField(
-              FilterDefaultEntryHolder.defaultEntry);
-        }
-        if (!filter_.isMutable()) {
-          filter_ = filter_.copy();
-        }
-        return filter_;
-      }
-
-      public int getFilterCount() {
-        return internalGetFilter().getMap().size();
+      private com.google.protobuf.LazyStringList filterKeys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureFilterKeysIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          filterKeys_ = new com.google.protobuf.LazyStringArrayList(filterKeys_);
+          bitField0_ |= 0x00000001;
+         }
       }
       /**
-       * <code>map&lt;string, .catalog_api_v2.ProductListAttributeFilter&gt; filter = 6;</code>
+       * <code>repeated string filter_keys = 6;</code>
+       * @return A list containing the filterKeys.
        */
-
-      @java.lang.Override
-      public boolean containsFilter(
-          java.lang.String key) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        return internalGetFilter().getMap().containsKey(key);
+      public com.google.protobuf.ProtocolStringList
+          getFilterKeysList() {
+        return filterKeys_.getUnmodifiableView();
       }
       /**
-       * Use {@link #getFilterMap()} instead.
+       * <code>repeated string filter_keys = 6;</code>
+       * @return The count of filterKeys.
        */
-      @java.lang.Override
-      @java.lang.Deprecated
-      public java.util.Map<java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter> getFilter() {
-        return getFilterMap();
+      public int getFilterKeysCount() {
+        return filterKeys_.size();
       }
       /**
-       * <code>map&lt;string, .catalog_api_v2.ProductListAttributeFilter&gt; filter = 6;</code>
+       * <code>repeated string filter_keys = 6;</code>
+       * @param index The index of the element to return.
+       * @return The filterKeys at the given index.
        */
-      @java.lang.Override
-
-      public java.util.Map<java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter> getFilterMap() {
-        return internalGetFilter().getMap();
+      public java.lang.String getFilterKeys(int index) {
+        return filterKeys_.get(index);
       }
       /**
-       * <code>map&lt;string, .catalog_api_v2.ProductListAttributeFilter&gt; filter = 6;</code>
+       * <code>repeated string filter_keys = 6;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the filterKeys at the given index.
        */
-      @java.lang.Override
-
-      public catalog_api_v2.CatalogApiV2.ProductListAttributeFilter getFilterOrDefault(
-          java.lang.String key,
-          catalog_api_v2.CatalogApiV2.ProductListAttributeFilter defaultValue) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        java.util.Map<java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter> map =
-            internalGetFilter().getMap();
-        return map.containsKey(key) ? map.get(key) : defaultValue;
+      public com.google.protobuf.ByteString
+          getFilterKeysBytes(int index) {
+        return filterKeys_.getByteString(index);
       }
       /**
-       * <code>map&lt;string, .catalog_api_v2.ProductListAttributeFilter&gt; filter = 6;</code>
+       * <code>repeated string filter_keys = 6;</code>
+       * @param index The index to set the value at.
+       * @param value The filterKeys to set.
+       * @return This builder for chaining.
        */
-      @java.lang.Override
-
-      public catalog_api_v2.CatalogApiV2.ProductListAttributeFilter getFilterOrThrow(
-          java.lang.String key) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        java.util.Map<java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter> map =
-            internalGetFilter().getMap();
-        if (!map.containsKey(key)) {
-          throw new java.lang.IllegalArgumentException();
-        }
-        return map.get(key);
-      }
-
-      public Builder clearFilter() {
-        internalGetMutableFilter().getMutableMap()
-            .clear();
+      public Builder setFilterKeys(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureFilterKeysIsMutable();
+        filterKeys_.set(index, value);
+        onChanged();
         return this;
       }
       /**
-       * <code>map&lt;string, .catalog_api_v2.ProductListAttributeFilter&gt; filter = 6;</code>
+       * <code>repeated string filter_keys = 6;</code>
+       * @param value The filterKeys to add.
+       * @return This builder for chaining.
        */
-
-      public Builder removeFilter(
-          java.lang.String key) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        internalGetMutableFilter().getMutableMap()
-            .remove(key);
+      public Builder addFilterKeys(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureFilterKeysIsMutable();
+        filterKeys_.add(value);
+        onChanged();
         return this;
       }
       /**
-       * Use alternate mutation accessors instead.
+       * <code>repeated string filter_keys = 6;</code>
+       * @param values The filterKeys to add.
+       * @return This builder for chaining.
        */
-      @java.lang.Deprecated
-      public java.util.Map<java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter>
-      getMutableFilter() {
-        return internalGetMutableFilter().getMutableMap();
-      }
-      /**
-       * <code>map&lt;string, .catalog_api_v2.ProductListAttributeFilter&gt; filter = 6;</code>
-       */
-      public Builder putFilter(
-          java.lang.String key,
-          catalog_api_v2.CatalogApiV2.ProductListAttributeFilter value) {
-        if (key == null) { throw new java.lang.NullPointerException(); }
-        if (value == null) { throw new java.lang.NullPointerException(); }
-        internalGetMutableFilter().getMutableMap()
-            .put(key, value);
+      public Builder addAllFilterKeys(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureFilterKeysIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, filterKeys_);
+        onChanged();
         return this;
       }
       /**
-       * <code>map&lt;string, .catalog_api_v2.ProductListAttributeFilter&gt; filter = 6;</code>
+       * <code>repeated string filter_keys = 6;</code>
+       * @return This builder for chaining.
        */
+      public Builder clearFilterKeys() {
+        filterKeys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string filter_keys = 6;</code>
+       * @param value The bytes of the filterKeys to add.
+       * @return This builder for chaining.
+       */
+      public Builder addFilterKeysBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureFilterKeysIsMutable();
+        filterKeys_.add(value);
+        onChanged();
+        return this;
+      }
 
-      public Builder putAllFilter(
-          java.util.Map<java.lang.String, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter> values) {
-        internalGetMutableFilter().getMutableMap()
-            .putAll(values);
+      private com.google.protobuf.LazyStringList filterValues_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureFilterValuesIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          filterValues_ = new com.google.protobuf.LazyStringArrayList(filterValues_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+      /**
+       * <code>repeated string filter_values = 7;</code>
+       * @return A list containing the filterValues.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getFilterValuesList() {
+        return filterValues_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string filter_values = 7;</code>
+       * @return The count of filterValues.
+       */
+      public int getFilterValuesCount() {
+        return filterValues_.size();
+      }
+      /**
+       * <code>repeated string filter_values = 7;</code>
+       * @param index The index of the element to return.
+       * @return The filterValues at the given index.
+       */
+      public java.lang.String getFilterValues(int index) {
+        return filterValues_.get(index);
+      }
+      /**
+       * <code>repeated string filter_values = 7;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the filterValues at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getFilterValuesBytes(int index) {
+        return filterValues_.getByteString(index);
+      }
+      /**
+       * <code>repeated string filter_values = 7;</code>
+       * @param index The index to set the value at.
+       * @param value The filterValues to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFilterValues(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureFilterValuesIsMutable();
+        filterValues_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string filter_values = 7;</code>
+       * @param value The filterValues to add.
+       * @return This builder for chaining.
+       */
+      public Builder addFilterValues(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureFilterValuesIsMutable();
+        filterValues_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string filter_values = 7;</code>
+       * @param values The filterValues to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllFilterValues(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureFilterValuesIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, filterValues_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string filter_values = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFilterValues() {
+        filterValues_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string filter_values = 7;</code>
+       * @param value The bytes of the filterValues to add.
+       * @return This builder for chaining.
+       */
+      public Builder addFilterValuesBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureFilterValuesIsMutable();
+        filterValues_.add(value);
+        onChanged();
         return this;
       }
 
       private java.lang.Object sort_ = "";
       /**
-       * <code>string sort = 7;</code>
+       * <code>string sort = 8;</code>
        * @return The sort.
        */
       public java.lang.String getSort() {
@@ -1575,7 +1692,7 @@ public final class CatalogApiV2 {
         }
       }
       /**
-       * <code>string sort = 7;</code>
+       * <code>string sort = 8;</code>
        * @return The bytes for sort.
        */
       public com.google.protobuf.ByteString
@@ -1592,7 +1709,7 @@ public final class CatalogApiV2 {
         }
       }
       /**
-       * <code>string sort = 7;</code>
+       * <code>string sort = 8;</code>
        * @param value The sort to set.
        * @return This builder for chaining.
        */
@@ -1607,7 +1724,7 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>string sort = 7;</code>
+       * <code>string sort = 8;</code>
        * @return This builder for chaining.
        */
       public Builder clearSort() {
@@ -1617,7 +1734,7 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>string sort = 7;</code>
+       * <code>string sort = 8;</code>
        * @param value The bytes for sort to set.
        * @return This builder for chaining.
        */
@@ -1635,7 +1752,7 @@ public final class CatalogApiV2 {
 
       private java.lang.Object tenantId_ = "";
       /**
-       * <code>string tenant_id = 8 [json_name = "tenant_id"];</code>
+       * <code>string tenant_id = 9 [json_name = "tenant_id"];</code>
        * @return The tenantId.
        */
       public java.lang.String getTenantId() {
@@ -1651,7 +1768,7 @@ public final class CatalogApiV2 {
         }
       }
       /**
-       * <code>string tenant_id = 8 [json_name = "tenant_id"];</code>
+       * <code>string tenant_id = 9 [json_name = "tenant_id"];</code>
        * @return The bytes for tenantId.
        */
       public com.google.protobuf.ByteString
@@ -1668,7 +1785,7 @@ public final class CatalogApiV2 {
         }
       }
       /**
-       * <code>string tenant_id = 8 [json_name = "tenant_id"];</code>
+       * <code>string tenant_id = 9 [json_name = "tenant_id"];</code>
        * @param value The tenantId to set.
        * @return This builder for chaining.
        */
@@ -1683,7 +1800,7 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>string tenant_id = 8 [json_name = "tenant_id"];</code>
+       * <code>string tenant_id = 9 [json_name = "tenant_id"];</code>
        * @return This builder for chaining.
        */
       public Builder clearTenantId() {
@@ -1693,7 +1810,7 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>string tenant_id = 8 [json_name = "tenant_id"];</code>
+       * <code>string tenant_id = 9 [json_name = "tenant_id"];</code>
        * @param value The bytes for tenantId to set.
        * @return This builder for chaining.
        */
@@ -20841,644 +20958,6 @@ public final class CatalogApiV2 {
 
   }
 
-  public interface ProductListAttributeFilterOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:catalog_api_v2.ProductListAttributeFilter)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>repeated string attribute_values = 1 [json_name = "attribute_values"];</code>
-     * @return A list containing the attributeValues.
-     */
-    java.util.List<java.lang.String>
-        getAttributeValuesList();
-    /**
-     * <code>repeated string attribute_values = 1 [json_name = "attribute_values"];</code>
-     * @return The count of attributeValues.
-     */
-    int getAttributeValuesCount();
-    /**
-     * <code>repeated string attribute_values = 1 [json_name = "attribute_values"];</code>
-     * @param index The index of the element to return.
-     * @return The attributeValues at the given index.
-     */
-    java.lang.String getAttributeValues(int index);
-    /**
-     * <code>repeated string attribute_values = 1 [json_name = "attribute_values"];</code>
-     * @param index The index of the value to return.
-     * @return The bytes of the attributeValues at the given index.
-     */
-    com.google.protobuf.ByteString
-        getAttributeValuesBytes(int index);
-  }
-  /**
-   * Protobuf type {@code catalog_api_v2.ProductListAttributeFilter}
-   */
-  public static final class ProductListAttributeFilter extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:catalog_api_v2.ProductListAttributeFilter)
-      ProductListAttributeFilterOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use ProductListAttributeFilter.newBuilder() to construct.
-    private ProductListAttributeFilter(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private ProductListAttributeFilter() {
-      attributeValues_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new ProductListAttributeFilter();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private ProductListAttributeFilter(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                attributeValues_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              attributeValues_.add(s);
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000001) != 0)) {
-          attributeValues_ = attributeValues_.getUnmodifiableView();
-        }
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ProductListAttributeFilter_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ProductListAttributeFilter_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              catalog_api_v2.CatalogApiV2.ProductListAttributeFilter.class, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter.Builder.class);
-    }
-
-    public static final int ATTRIBUTE_VALUES_FIELD_NUMBER = 1;
-    private com.google.protobuf.LazyStringList attributeValues_;
-    /**
-     * <code>repeated string attribute_values = 1 [json_name = "attribute_values"];</code>
-     * @return A list containing the attributeValues.
-     */
-    public com.google.protobuf.ProtocolStringList
-        getAttributeValuesList() {
-      return attributeValues_;
-    }
-    /**
-     * <code>repeated string attribute_values = 1 [json_name = "attribute_values"];</code>
-     * @return The count of attributeValues.
-     */
-    public int getAttributeValuesCount() {
-      return attributeValues_.size();
-    }
-    /**
-     * <code>repeated string attribute_values = 1 [json_name = "attribute_values"];</code>
-     * @param index The index of the element to return.
-     * @return The attributeValues at the given index.
-     */
-    public java.lang.String getAttributeValues(int index) {
-      return attributeValues_.get(index);
-    }
-    /**
-     * <code>repeated string attribute_values = 1 [json_name = "attribute_values"];</code>
-     * @param index The index of the value to return.
-     * @return The bytes of the attributeValues at the given index.
-     */
-    public com.google.protobuf.ByteString
-        getAttributeValuesBytes(int index) {
-      return attributeValues_.getByteString(index);
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      for (int i = 0; i < attributeValues_.size(); i++) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, attributeValues_.getRaw(i));
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      {
-        int dataSize = 0;
-        for (int i = 0; i < attributeValues_.size(); i++) {
-          dataSize += computeStringSizeNoTag(attributeValues_.getRaw(i));
-        }
-        size += dataSize;
-        size += 1 * getAttributeValuesList().size();
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof catalog_api_v2.CatalogApiV2.ProductListAttributeFilter)) {
-        return super.equals(obj);
-      }
-      catalog_api_v2.CatalogApiV2.ProductListAttributeFilter other = (catalog_api_v2.CatalogApiV2.ProductListAttributeFilter) obj;
-
-      if (!getAttributeValuesList()
-          .equals(other.getAttributeValuesList())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (getAttributeValuesCount() > 0) {
-        hash = (37 * hash) + ATTRIBUTE_VALUES_FIELD_NUMBER;
-        hash = (53 * hash) + getAttributeValuesList().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static catalog_api_v2.CatalogApiV2.ProductListAttributeFilter parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProductListAttributeFilter parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProductListAttributeFilter parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProductListAttributeFilter parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProductListAttributeFilter parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProductListAttributeFilter parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProductListAttributeFilter parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProductListAttributeFilter parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProductListAttributeFilter parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProductListAttributeFilter parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProductListAttributeFilter parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProductListAttributeFilter parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(catalog_api_v2.CatalogApiV2.ProductListAttributeFilter prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code catalog_api_v2.ProductListAttributeFilter}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:catalog_api_v2.ProductListAttributeFilter)
-        catalog_api_v2.CatalogApiV2.ProductListAttributeFilterOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ProductListAttributeFilter_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ProductListAttributeFilter_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                catalog_api_v2.CatalogApiV2.ProductListAttributeFilter.class, catalog_api_v2.CatalogApiV2.ProductListAttributeFilter.Builder.class);
-      }
-
-      // Construct using catalog_api_v2.CatalogApiV2.ProductListAttributeFilter.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        attributeValues_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ProductListAttributeFilter_descriptor;
-      }
-
-      @java.lang.Override
-      public catalog_api_v2.CatalogApiV2.ProductListAttributeFilter getDefaultInstanceForType() {
-        return catalog_api_v2.CatalogApiV2.ProductListAttributeFilter.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public catalog_api_v2.CatalogApiV2.ProductListAttributeFilter build() {
-        catalog_api_v2.CatalogApiV2.ProductListAttributeFilter result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public catalog_api_v2.CatalogApiV2.ProductListAttributeFilter buildPartial() {
-        catalog_api_v2.CatalogApiV2.ProductListAttributeFilter result = new catalog_api_v2.CatalogApiV2.ProductListAttributeFilter(this);
-        int from_bitField0_ = bitField0_;
-        if (((bitField0_ & 0x00000001) != 0)) {
-          attributeValues_ = attributeValues_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        }
-        result.attributeValues_ = attributeValues_;
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof catalog_api_v2.CatalogApiV2.ProductListAttributeFilter) {
-          return mergeFrom((catalog_api_v2.CatalogApiV2.ProductListAttributeFilter)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(catalog_api_v2.CatalogApiV2.ProductListAttributeFilter other) {
-        if (other == catalog_api_v2.CatalogApiV2.ProductListAttributeFilter.getDefaultInstance()) return this;
-        if (!other.attributeValues_.isEmpty()) {
-          if (attributeValues_.isEmpty()) {
-            attributeValues_ = other.attributeValues_;
-            bitField0_ = (bitField0_ & ~0x00000001);
-          } else {
-            ensureAttributeValuesIsMutable();
-            attributeValues_.addAll(other.attributeValues_);
-          }
-          onChanged();
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        catalog_api_v2.CatalogApiV2.ProductListAttributeFilter parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (catalog_api_v2.CatalogApiV2.ProductListAttributeFilter) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private com.google.protobuf.LazyStringList attributeValues_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      private void ensureAttributeValuesIsMutable() {
-        if (!((bitField0_ & 0x00000001) != 0)) {
-          attributeValues_ = new com.google.protobuf.LazyStringArrayList(attributeValues_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-      /**
-       * <code>repeated string attribute_values = 1 [json_name = "attribute_values"];</code>
-       * @return A list containing the attributeValues.
-       */
-      public com.google.protobuf.ProtocolStringList
-          getAttributeValuesList() {
-        return attributeValues_.getUnmodifiableView();
-      }
-      /**
-       * <code>repeated string attribute_values = 1 [json_name = "attribute_values"];</code>
-       * @return The count of attributeValues.
-       */
-      public int getAttributeValuesCount() {
-        return attributeValues_.size();
-      }
-      /**
-       * <code>repeated string attribute_values = 1 [json_name = "attribute_values"];</code>
-       * @param index The index of the element to return.
-       * @return The attributeValues at the given index.
-       */
-      public java.lang.String getAttributeValues(int index) {
-        return attributeValues_.get(index);
-      }
-      /**
-       * <code>repeated string attribute_values = 1 [json_name = "attribute_values"];</code>
-       * @param index The index of the value to return.
-       * @return The bytes of the attributeValues at the given index.
-       */
-      public com.google.protobuf.ByteString
-          getAttributeValuesBytes(int index) {
-        return attributeValues_.getByteString(index);
-      }
-      /**
-       * <code>repeated string attribute_values = 1 [json_name = "attribute_values"];</code>
-       * @param index The index to set the value at.
-       * @param value The attributeValues to set.
-       * @return This builder for chaining.
-       */
-      public Builder setAttributeValues(
-          int index, java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureAttributeValuesIsMutable();
-        attributeValues_.set(index, value);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string attribute_values = 1 [json_name = "attribute_values"];</code>
-       * @param value The attributeValues to add.
-       * @return This builder for chaining.
-       */
-      public Builder addAttributeValues(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureAttributeValuesIsMutable();
-        attributeValues_.add(value);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string attribute_values = 1 [json_name = "attribute_values"];</code>
-       * @param values The attributeValues to add.
-       * @return This builder for chaining.
-       */
-      public Builder addAllAttributeValues(
-          java.lang.Iterable<java.lang.String> values) {
-        ensureAttributeValuesIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, attributeValues_);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string attribute_values = 1 [json_name = "attribute_values"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearAttributeValues() {
-        attributeValues_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string attribute_values = 1 [json_name = "attribute_values"];</code>
-       * @param value The bytes of the attributeValues to add.
-       * @return This builder for chaining.
-       */
-      public Builder addAttributeValuesBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        ensureAttributeValuesIsMutable();
-        attributeValues_.add(value);
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:catalog_api_v2.ProductListAttributeFilter)
-    }
-
-    // @@protoc_insertion_point(class_scope:catalog_api_v2.ProductListAttributeFilter)
-    private static final catalog_api_v2.CatalogApiV2.ProductListAttributeFilter DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new catalog_api_v2.CatalogApiV2.ProductListAttributeFilter();
-    }
-
-    public static catalog_api_v2.CatalogApiV2.ProductListAttributeFilter getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<ProductListAttributeFilter>
-        PARSER = new com.google.protobuf.AbstractParser<ProductListAttributeFilter>() {
-      @java.lang.Override
-      public ProductListAttributeFilter parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ProductListAttributeFilter(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<ProductListAttributeFilter> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ProductListAttributeFilter> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public catalog_api_v2.CatalogApiV2.ProductListAttributeFilter getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface PromoBadgeOrBuilder extends
       // @@protoc_insertion_point(interface_extends:catalog_api_v2.PromoBadge)
       com.google.protobuf.MessageOrBuilder {
@@ -31956,11 +31435,6 @@ public final class CatalogApiV2 {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_catalog_api_v2_GetProductListRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_catalog_api_v2_GetProductListRequest_FilterEntry_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_catalog_api_v2_GetProductListRequest_FilterEntry_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_catalog_api_v2_GetProductListResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -32021,11 +31495,6 @@ public final class CatalogApiV2 {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_catalog_api_v2_Property_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_catalog_api_v2_ProductListAttributeFilter_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_catalog_api_v2_ProductListAttributeFilter_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_catalog_api_v2_PromoBadge_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -32081,145 +31550,140 @@ public final class CatalogApiV2 {
     java.lang.String[] descriptorData = {
       "\n$content/catalog/catalog_api_v2.proto\022\016" +
       "catalog_api_v2\032\034google/api/annotations.p" +
-      "roto\032\036google/protobuf/wrappers.proto\"\260\002\n" +
+      "roto\032\036google/protobuf/wrappers.proto\"\276\001\n" +
       "\025GetProductListRequest\022\013\n\003sid\030\001 \001(\t\022\013\n\003t" +
       "id\030\002 \001(\t\022\t\n\001q\030\003 \001(\t\022\014\n\004page\030\004 \001(\003\022\032\n\010per" +
-      "_page\030\005 \001(\003R\010per_page\022A\n\006filter\030\006 \003(\01321." +
-      "catalog_api_v2.GetProductListRequest.Fil" +
-      "terEntry\022\014\n\004sort\030\007 \001(\t\022\034\n\ttenant_id\030\010 \001(" +
-      "\tR\ttenant_id\032Y\n\013FilterEntry\022\013\n\003key\030\001 \001(\t" +
-      "\0229\n\005value\030\002 \001(\0132*.catalog_api_v2.Product" +
-      "ListAttributeFilter:\0028\001\"\307\002\n\026GetProductLi" +
-      "stResponse\022)\n\010products\030\001 \003(\0132\027.catalog_a" +
-      "pi_v2.Product\022%\n\006facets\030\002 \003(\0132\025.catalog_" +
-      "api_v2.Facet\022\"\n\004meta\030\003 \001(\0132\024.catalog_api" +
-      "_v2.Meta\022-\n\004sort\030\004 \003(\0132\037.catalog_api_v2." +
-      "ProductListSort\022>\n\014promo_badges\030\005 \003(\0132\032." +
-      "catalog_api_v2.PromoBadgeR\014promo_badges\022" +
-      "H\n\017root_categories\030\006 \001(\0132\036.catalog_api_v" +
-      "2.RootCategoriesR\017root_categories\"Q\n\021Get" +
-      "ProductRequest\022\036\n\nproduct_id\030\001 \001(\tR\nprod" +
-      "uct_id\022\034\n\ttenant_id\030\002 \001(\tR\ttenant_id\"\214\001\n" +
-      "\022GetProductResponse\0226\n\007product\030\001 \001(\0132%.c" +
-      "atalog_api_v2.ProductWithProperties\022>\n\014p" +
-      "romo_badges\030\002 \003(\0132\032.catalog_api_v2.Promo" +
-      "BadgeR\014promo_badges\"\345\006\n\007Product\022\n\n\002id\030\001 " +
-      "\001(\001\022(\n\003sku\030\002 \001(\0132\033.google.protobuf.Int64" +
-      "Value\022\016\n\006active\030\003 \001(\010\022@\n\014retailer_sku\030\004 " +
-      "\001(\0132\034.google.protobuf.StringValueR\014retai" +
-      "ler_sku\022*\n\004name\030\005 \001(\0132\034.google.protobuf." +
-      "StringValue\022\r\n\005price\030\006 \001(\001\022&\n\016original_p" +
-      "rice\030\007 \001(\001R\016original_price\022\020\n\010discount\030\010" +
-      " \001(\001\022@\n\014human_volume\030\t \001(\0132\034.google.prot" +
-      "obuf.StringValueR\014human_volume\022\016\n\006volume" +
-      "\030\n \001(\001\022>\n\013volume_type\030\013 \001(\0132\034.google.pro" +
-      "tobuf.StringValueR\013volume_type\022&\n\016items_" +
-      "per_pack\030\014 \001(\001R\016items_per_pack\022H\n\020discou" +
-      "nt_ends_at\030\r \001(\0132\034.google.protobuf.Strin" +
-      "gValueR\020discount_ends_at\022<\n\nprice_type\030\016" +
-      " \001(\0132\034.google.protobuf.StringValueR\npric" +
-      "e_type\022&\n\016grams_per_unit\030\017 \001(\001R\016grams_pe" +
-      "r_unit\022\036\n\nunit_price\030\020 \001(\001R\nunit_price\0220" +
-      "\n\023original_unit_price\030\021 \001(\001R\023original_un" +
-      "it_price\022(\n\017promo_badge_ids\030\022 \003(\001R\017promo" +
-      "_badge_ids\022*\n\005score\030\023 \001(\0132\033.google.proto" +
-      "buf.FloatValue\022\016\n\006labels\030\024 \003(\t\022%\n\006images" +
-      "\030\025 \003(\0132\025.catalog_api_v2.Image\022\024\n\014require" +
-      "ments\030\026 \003(\t\"\251\001\n\005Image\022\032\n\010mini_url\030\001 \001(\tR" +
-      "\010mini_url\022\034\n\tsmall_url\030\002 \001(\tR\tsmall_url\022" +
-      " \n\013product_url\030\003 \001(\tR\013product_url\022 \n\013pre" +
-      "view_url\030\004 \001(\tR\013preview_url\022\"\n\014original_" +
-      "url\030\005 \001(\tR\014original_url\"^\n\005Facet\022\013\n\003key\030" +
-      "\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\014\n\004type\030\003 \001(\t\022,\n\007opt" +
-      "ions\030\004 \003(\0132\033.catalog_api_v2.FacetOption\"" +
-      "\230\001\n\013FacetOption\022*\n\004name\030\001 \001(\0132\034.google.p" +
-      "rotobuf.StringValue\022\r\n\005value\030\002 \001(\003\022\r\n\005co" +
-      "unt\030\003 \001(\003\022/\n\tpermalink\030\004 \001(\0132\034.google.pr" +
-      "otobuf.StringValue\022\016\n\006active\030\005 \001(\010\"\210\002\n\004M" +
-      "eta\022\"\n\014current_page\030\001 \001(\003R\014current_page\022" +
-      "9\n\tnext_page\030\002 \001(\0132\033.google.protobuf.Int" +
-      "64ValueR\tnext_page\022A\n\rprevious_page\030\003 \001(" +
-      "\0132\033.google.protobuf.Int64ValueR\rprevious" +
-      "_page\022 \n\013total_pages\030\004 \001(\003R\013total_pages\022" +
-      "\032\n\010per_page\030\005 \001(\003R\010per_page\022 \n\013total_cou" +
-      "nt\030\006 \001(\003R\013total_count\"\020\n\016RootCategories\"" +
-      "K\n\017ProductListSort\022\013\n\003key\030\001 \001(\t\022\014\n\004name\030" +
-      "\002 \001(\t\022\r\n\005order\030\003 \001(\t\022\016\n\006active\030\004 \001(\010\"\255\007\n" +
-      "\025ProductWithProperties\022\n\n\002id\030\001 \001(\001\022\013\n\003sk" +
-      "u\030\002 \001(\003\022\016\n\006active\030\003 \001(\010\022\"\n\014retailer_sku\030" +
-      "\004 \001(\tR\014retailer_sku\022\014\n\004name\030\005 \001(\t\022\r\n\005pri" +
-      "ce\030\006 \001(\001\022&\n\016original_price\030\007 \001(\001R\016origin" +
-      "al_price\022\020\n\010discount\030\010 \001(\001\022\"\n\014human_volu" +
-      "me\030\t \001(\tR\014human_volume\022\016\n\006volume\030\n \001(\001\022 " +
-      "\n\013volume_type\030\013 \001(\tR\013volume_type\022&\n\016item" +
-      "s_per_pack\030\014 \001(\001R\016items_per_pack\022H\n\020disc" +
-      "ount_ends_at\030\r \001(\0132\034.google.protobuf.Str" +
-      "ingValueR\020discount_ends_at\022\036\n\nprice_type" +
-      "\030\016 \001(\tR\nprice_type\022&\n\016grams_per_unit\030\017 \001" +
-      "(\001R\016grams_per_unit\022\036\n\nunit_price\030\020 \001(\001R\n" +
-      "unit_price\0220\n\023original_unit_price\030\021 \001(\001R" +
-      "\023original_unit_price\022(\n\017promo_badge_ids\030" +
-      "\022 \003(\001R\017promo_badge_ids\022*\n\005score\030\023 \001(\0132\033." +
-      "google.protobuf.FloatValue\022\016\n\006labels\030\024 \003" +
-      "(\t\022%\n\006images\030\025 \003(\0132\025.catalog_api_v2.Imag" +
-      "e\022,\n\nproperties\030\026 \003(\0132\030.catalog_api_v2.P" +
-      "roperty\022\023\n\013description\030\027 \001(\t\022A\n\rscore_de" +
-      "tails\030\030 \001(\0132\033.catalog_api_v2.ScoreDetail" +
-      "R\rscore_details\022\024\n\014requirements\030\031 \003(\t\022*\n" +
-      "\020related_products\030\032 \003(\tR\020related_product" +
-      "s\0229\n\nmain_taxon\030\033 \001(\0132\031.catalog_api_v2.M" +
-      "ainTaxonR\nmain_taxon\"=\n\010Property\022\014\n\004name" +
-      "\030\001 \001(\t\022\024\n\014presentation\030\002 \001(\t\022\r\n\005value\030\003 " +
-      "\001(\t\"H\n\032ProductListAttributeFilter\022*\n\020att" +
-      "ribute_values\030\001 \003(\tR\020attribute_values\"_\n" +
-      "\nPromoBadge\022\n\n\002id\030\001 \001(\001\022\014\n\004type\030\002 \001(\t\0227\n" +
-      "\nattributes\030\003 \001(\0132#.catalog_api_v2.Promo" +
-      "BadgeAttribute\"\241\001\n\023PromoBadgeAttribute\022\014" +
-      "\n\004name\030\001 \001(\t\022.\n\022banner_button_text\030\002 \001(\t" +
-      "R\022banner_button_text\022\032\n\010taxon_id\030\003 \001(\001R\010" +
-      "taxon_id\0220\n\007options\030\004 \001(\0132\037.catalog_api_" +
-      "v2.AttributeOption\"e\n\017AttributeOption\022&\n" +
-      "\006active\030\001 \001(\0132\026.catalog_api_v2.Active\022*\n" +
-      "\010inactive\030\002 \001(\0132\030.catalog_api_v2.Inactiv" +
-      "e\"\230\001\n\006Active\022\r\n\005title\030\001 \001(\t\022 \n\013title_sho" +
-      "rt\030\002 \001(\tR\013title_short\022\013\n\003url\030\003 \001(\t\022\020\n\010de" +
-      "eplink\030\004 \001(\t\022 \n\013button_text\030\005 \001(\tR\013butto" +
-      "n_text\022\016\n\006header\030\006 \001(\t\022\014\n\004text\030\007 \001(\t\"\210\001\n" +
-      "\010Inactive\022\r\n\005title\030\001 \001(\t\022 \n\013title_short\030" +
-      "\002 \001(\tR\013title_short\022\013\n\003url\030\003 \001(\t\022 \n\013butto" +
-      "n_text\030\005 \001(\tR\013button_text\022\016\n\006header\030\006 \001(" +
-      "\t\022\014\n\004text\030\007 \001(\t\"\334\001\n\013ScoreDetail\022C\n\rfeedb" +
-      "ackCount\030\001 \001(\0132\034.google.protobuf.DoubleV" +
-      "alueR\016feedback_count\022E\n\016feedbackSource\030\002" +
-      " \001(\0132\034.google.protobuf.StringValueR\017feed" +
-      "back_source\022A\n\014commentCount\030\003 \001(\0132\034.goog" +
-      "le.protobuf.DoubleValueR\rcomment_count\"\330" +
-      "\002\n\tMainTaxon\022\n\n\002id\030\001 \001(\001\022\014\n\004type\030\002 \001(\t\022\014" +
-      "\n\004name\030\003 \001(\t\022&\n\016products_count\030\004 \001(\001R\016pr" +
-      "oducts_count\022&\n\016promo_services\030\005 \003(\tR\016pr" +
-      "omo_services\022\020\n\010position\030\006 \001(\001\022\r\n\005depth\030" +
-      "\007 \001(\005\022>\n\013description\030\010 \001(\0132\034.google.prot" +
-      "obuf.StringValueR\013description\022\"\n\004icon\030\t " +
-      "\001(\0132\024.catalog_api_v2.Icon\0228\n\010alt_icon\030\n " +
-      "\001(\0132\034.google.protobuf.StringValueR\010alt_i" +
-      "con\022\024\n\014requirements\030\013 \003(\t\"B\n\004Icon\022\032\n\010min" +
-      "i_url\030\001 \001(\tR\010mini_url\022\036\n\nnormal_url\030\002 \001(" +
-      "\tR\nnormal_url\"\310\001\n\013ProtoPerson\022/\n\tfirstNa" +
-      "me\030\001 \001(\0132\034.google.protobuf.StringValue\022." +
-      "\n\010lastName\030\002 \001(\0132\034.google.protobuf.Strin" +
-      "gValue\022.\n\010address1\030\003 \001(\0132\034.google.protob" +
-      "uf.StringValue\022(\n\003age\030\004 \001(\0132\033.google.pro" +
-      "tobuf.Int32Value*5\n\tFacetType\022\n\n\006SELECT\020" +
-      "\000\022\020\n\014MULTI_SELECT\020\001\022\n\n\006TOGGLE\020\0022\206\002\n\023Cata" +
-      "logAPIV2Service\022v\n\016GetProductList\022%.cata" +
-      "log_api_v2.GetProductListRequest\032&.catal" +
-      "og_api_v2.GetProductListResponse\"\025\202\323\344\223\002\017" +
-      "\022\r/api/products\022w\n\nGetProduct\022!.catalog_" +
-      "api_v2.GetProductRequest\032\".catalog_api_v" +
-      "2.GetProductResponse\"\"\202\323\344\223\002\034\022\032/api/produ" +
-      "cts/{product_id}BEZCgitlab.sbermarket.te" +
-      "ch/paas/content/catalog/pkg/server/grpc/" +
-      "catalogb\006proto3"
+      "_page\030\005 \001(\003R\010per_page\022\023\n\013filter_keys\030\006 \003" +
+      "(\t\022\025\n\rfilter_values\030\007 \003(\t\022\014\n\004sort\030\010 \001(\t\022" +
+      "\034\n\ttenant_id\030\t \001(\tR\ttenant_id\"\307\002\n\026GetPro" +
+      "ductListResponse\022)\n\010products\030\001 \003(\0132\027.cat" +
+      "alog_api_v2.Product\022%\n\006facets\030\002 \003(\0132\025.ca" +
+      "talog_api_v2.Facet\022\"\n\004meta\030\003 \001(\0132\024.catal" +
+      "og_api_v2.Meta\022-\n\004sort\030\004 \003(\0132\037.catalog_a" +
+      "pi_v2.ProductListSort\022>\n\014promo_badges\030\005 " +
+      "\003(\0132\032.catalog_api_v2.PromoBadgeR\014promo_b" +
+      "adges\022H\n\017root_categories\030\006 \001(\0132\036.catalog" +
+      "_api_v2.RootCategoriesR\017root_categories\"" +
+      "Q\n\021GetProductRequest\022\036\n\nproduct_id\030\001 \001(\t" +
+      "R\nproduct_id\022\034\n\ttenant_id\030\002 \001(\tR\ttenant_" +
+      "id\"\214\001\n\022GetProductResponse\0226\n\007product\030\001 \001" +
+      "(\0132%.catalog_api_v2.ProductWithPropertie" +
+      "s\022>\n\014promo_badges\030\002 \003(\0132\032.catalog_api_v2" +
+      ".PromoBadgeR\014promo_badges\"\345\006\n\007Product\022\n\n" +
+      "\002id\030\001 \001(\001\022(\n\003sku\030\002 \001(\0132\033.google.protobuf" +
+      ".Int64Value\022\016\n\006active\030\003 \001(\010\022@\n\014retailer_" +
+      "sku\030\004 \001(\0132\034.google.protobuf.StringValueR" +
+      "\014retailer_sku\022*\n\004name\030\005 \001(\0132\034.google.pro" +
+      "tobuf.StringValue\022\r\n\005price\030\006 \001(\001\022&\n\016orig" +
+      "inal_price\030\007 \001(\001R\016original_price\022\020\n\010disc" +
+      "ount\030\010 \001(\001\022@\n\014human_volume\030\t \001(\0132\034.googl" +
+      "e.protobuf.StringValueR\014human_volume\022\016\n\006" +
+      "volume\030\n \001(\001\022>\n\013volume_type\030\013 \001(\0132\034.goog" +
+      "le.protobuf.StringValueR\013volume_type\022&\n\016" +
+      "items_per_pack\030\014 \001(\001R\016items_per_pack\022H\n\020" +
+      "discount_ends_at\030\r \001(\0132\034.google.protobuf" +
+      ".StringValueR\020discount_ends_at\022<\n\nprice_" +
+      "type\030\016 \001(\0132\034.google.protobuf.StringValue" +
+      "R\nprice_type\022&\n\016grams_per_unit\030\017 \001(\001R\016gr" +
+      "ams_per_unit\022\036\n\nunit_price\030\020 \001(\001R\nunit_p" +
+      "rice\0220\n\023original_unit_price\030\021 \001(\001R\023origi" +
+      "nal_unit_price\022(\n\017promo_badge_ids\030\022 \003(\001R" +
+      "\017promo_badge_ids\022*\n\005score\030\023 \001(\0132\033.google" +
+      ".protobuf.FloatValue\022\016\n\006labels\030\024 \003(\t\022%\n\006" +
+      "images\030\025 \003(\0132\025.catalog_api_v2.Image\022\024\n\014r" +
+      "equirements\030\026 \003(\t\"\251\001\n\005Image\022\032\n\010mini_url\030" +
+      "\001 \001(\tR\010mini_url\022\034\n\tsmall_url\030\002 \001(\tR\tsmal" +
+      "l_url\022 \n\013product_url\030\003 \001(\tR\013product_url\022" +
+      " \n\013preview_url\030\004 \001(\tR\013preview_url\022\"\n\014ori" +
+      "ginal_url\030\005 \001(\tR\014original_url\"^\n\005Facet\022\013" +
+      "\n\003key\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\014\n\004type\030\003 \001(\t\022" +
+      ",\n\007options\030\004 \003(\0132\033.catalog_api_v2.FacetO" +
+      "ption\"\230\001\n\013FacetOption\022*\n\004name\030\001 \001(\0132\034.go" +
+      "ogle.protobuf.StringValue\022\r\n\005value\030\002 \001(\003" +
+      "\022\r\n\005count\030\003 \001(\003\022/\n\tpermalink\030\004 \001(\0132\034.goo" +
+      "gle.protobuf.StringValue\022\016\n\006active\030\005 \001(\010" +
+      "\"\210\002\n\004Meta\022\"\n\014current_page\030\001 \001(\003R\014current" +
+      "_page\0229\n\tnext_page\030\002 \001(\0132\033.google.protob" +
+      "uf.Int64ValueR\tnext_page\022A\n\rprevious_pag" +
+      "e\030\003 \001(\0132\033.google.protobuf.Int64ValueR\rpr" +
+      "evious_page\022 \n\013total_pages\030\004 \001(\003R\013total_" +
+      "pages\022\032\n\010per_page\030\005 \001(\003R\010per_page\022 \n\013tot" +
+      "al_count\030\006 \001(\003R\013total_count\"\020\n\016RootCateg" +
+      "ories\"K\n\017ProductListSort\022\013\n\003key\030\001 \001(\t\022\014\n" +
+      "\004name\030\002 \001(\t\022\r\n\005order\030\003 \001(\t\022\016\n\006active\030\004 \001" +
+      "(\010\"\255\007\n\025ProductWithProperties\022\n\n\002id\030\001 \001(\001" +
+      "\022\013\n\003sku\030\002 \001(\003\022\016\n\006active\030\003 \001(\010\022\"\n\014retaile" +
+      "r_sku\030\004 \001(\tR\014retailer_sku\022\014\n\004name\030\005 \001(\t\022" +
+      "\r\n\005price\030\006 \001(\001\022&\n\016original_price\030\007 \001(\001R\016" +
+      "original_price\022\020\n\010discount\030\010 \001(\001\022\"\n\014huma" +
+      "n_volume\030\t \001(\tR\014human_volume\022\016\n\006volume\030\n" +
+      " \001(\001\022 \n\013volume_type\030\013 \001(\tR\013volume_type\022&" +
+      "\n\016items_per_pack\030\014 \001(\001R\016items_per_pack\022H" +
+      "\n\020discount_ends_at\030\r \001(\0132\034.google.protob" +
+      "uf.StringValueR\020discount_ends_at\022\036\n\npric" +
+      "e_type\030\016 \001(\tR\nprice_type\022&\n\016grams_per_un" +
+      "it\030\017 \001(\001R\016grams_per_unit\022\036\n\nunit_price\030\020" +
+      " \001(\001R\nunit_price\0220\n\023original_unit_price\030" +
+      "\021 \001(\001R\023original_unit_price\022(\n\017promo_badg" +
+      "e_ids\030\022 \003(\001R\017promo_badge_ids\022*\n\005score\030\023 " +
+      "\001(\0132\033.google.protobuf.FloatValue\022\016\n\006labe" +
+      "ls\030\024 \003(\t\022%\n\006images\030\025 \003(\0132\025.catalog_api_v" +
+      "2.Image\022,\n\nproperties\030\026 \003(\0132\030.catalog_ap" +
+      "i_v2.Property\022\023\n\013description\030\027 \001(\t\022A\n\rsc" +
+      "ore_details\030\030 \001(\0132\033.catalog_api_v2.Score" +
+      "DetailR\rscore_details\022\024\n\014requirements\030\031 " +
+      "\003(\t\022*\n\020related_products\030\032 \003(\tR\020related_p" +
+      "roducts\0229\n\nmain_taxon\030\033 \001(\0132\031.catalog_ap" +
+      "i_v2.MainTaxonR\nmain_taxon\"=\n\010Property\022\014" +
+      "\n\004name\030\001 \001(\t\022\024\n\014presentation\030\002 \001(\t\022\r\n\005va" +
+      "lue\030\003 \001(\t\"_\n\nPromoBadge\022\n\n\002id\030\001 \001(\001\022\014\n\004t" +
+      "ype\030\002 \001(\t\0227\n\nattributes\030\003 \001(\0132#.catalog_" +
+      "api_v2.PromoBadgeAttribute\"\241\001\n\023PromoBadg" +
+      "eAttribute\022\014\n\004name\030\001 \001(\t\022.\n\022banner_butto" +
+      "n_text\030\002 \001(\tR\022banner_button_text\022\032\n\010taxo" +
+      "n_id\030\003 \001(\001R\010taxon_id\0220\n\007options\030\004 \001(\0132\037." +
+      "catalog_api_v2.AttributeOption\"e\n\017Attrib" +
+      "uteOption\022&\n\006active\030\001 \001(\0132\026.catalog_api_" +
+      "v2.Active\022*\n\010inactive\030\002 \001(\0132\030.catalog_ap" +
+      "i_v2.Inactive\"\230\001\n\006Active\022\r\n\005title\030\001 \001(\t\022" +
+      " \n\013title_short\030\002 \001(\tR\013title_short\022\013\n\003url" +
+      "\030\003 \001(\t\022\020\n\010deeplink\030\004 \001(\t\022 \n\013button_text\030" +
+      "\005 \001(\tR\013button_text\022\016\n\006header\030\006 \001(\t\022\014\n\004te" +
+      "xt\030\007 \001(\t\"\210\001\n\010Inactive\022\r\n\005title\030\001 \001(\t\022 \n\013" +
+      "title_short\030\002 \001(\tR\013title_short\022\013\n\003url\030\003 " +
+      "\001(\t\022 \n\013button_text\030\005 \001(\tR\013button_text\022\016\n" +
+      "\006header\030\006 \001(\t\022\014\n\004text\030\007 \001(\t\"\334\001\n\013ScoreDet" +
+      "ail\022C\n\rfeedbackCount\030\001 \001(\0132\034.google.prot" +
+      "obuf.DoubleValueR\016feedback_count\022E\n\016feed" +
+      "backSource\030\002 \001(\0132\034.google.protobuf.Strin" +
+      "gValueR\017feedback_source\022A\n\014commentCount\030" +
+      "\003 \001(\0132\034.google.protobuf.DoubleValueR\rcom" +
+      "ment_count\"\330\002\n\tMainTaxon\022\n\n\002id\030\001 \001(\001\022\014\n\004" +
+      "type\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022&\n\016products_cou" +
+      "nt\030\004 \001(\001R\016products_count\022&\n\016promo_servic" +
+      "es\030\005 \003(\tR\016promo_services\022\020\n\010position\030\006 \001" +
+      "(\001\022\r\n\005depth\030\007 \001(\005\022>\n\013description\030\010 \001(\0132\034" +
+      ".google.protobuf.StringValueR\013descriptio" +
+      "n\022\"\n\004icon\030\t \001(\0132\024.catalog_api_v2.Icon\0228\n" +
+      "\010alt_icon\030\n \001(\0132\034.google.protobuf.String" +
+      "ValueR\010alt_icon\022\024\n\014requirements\030\013 \003(\t\"B\n" +
+      "\004Icon\022\032\n\010mini_url\030\001 \001(\tR\010mini_url\022\036\n\nnor" +
+      "mal_url\030\002 \001(\tR\nnormal_url\"\310\001\n\013ProtoPerso" +
+      "n\022/\n\tfirstName\030\001 \001(\0132\034.google.protobuf.S" +
+      "tringValue\022.\n\010lastName\030\002 \001(\0132\034.google.pr" +
+      "otobuf.StringValue\022.\n\010address1\030\003 \001(\0132\034.g" +
+      "oogle.protobuf.StringValue\022(\n\003age\030\004 \001(\0132" +
+      "\033.google.protobuf.Int32Value*5\n\tFacetTyp" +
+      "e\022\n\n\006SELECT\020\000\022\020\n\014MULTI_SELECT\020\001\022\n\n\006TOGGL" +
+      "E\020\0022\214\002\n\023CatalogAPIV2Service\022y\n\016GetProduc" +
+      "tList\022%.catalog_api_v2.GetProductListReq" +
+      "uest\032&.catalog_api_v2.GetProductListResp" +
+      "onse\"\030\202\323\344\223\002\022\022\020/api/v2/products\022z\n\nGetPro" +
+      "duct\022!.catalog_api_v2.GetProductRequest\032" +
+      "\".catalog_api_v2.GetProductResponse\"%\202\323\344" +
+      "\223\002\037\022\035/api/v2/products/{product_id}BEZCgi" +
+      "tlab.sbermarket.tech/paas/content/catalo" +
+      "g/pkg/server/grpc/catalogb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -32232,13 +31696,7 @@ public final class CatalogApiV2 {
     internal_static_catalog_api_v2_GetProductListRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_GetProductListRequest_descriptor,
-        new java.lang.String[] { "Sid", "Tid", "Q", "Page", "PerPage", "Filter", "Sort", "TenantId", });
-    internal_static_catalog_api_v2_GetProductListRequest_FilterEntry_descriptor =
-      internal_static_catalog_api_v2_GetProductListRequest_descriptor.getNestedTypes().get(0);
-    internal_static_catalog_api_v2_GetProductListRequest_FilterEntry_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_catalog_api_v2_GetProductListRequest_FilterEntry_descriptor,
-        new java.lang.String[] { "Key", "Value", });
+        new java.lang.String[] { "Sid", "Tid", "Q", "Page", "PerPage", "FilterKeys", "FilterValues", "Sort", "TenantId", });
     internal_static_catalog_api_v2_GetProductListResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_catalog_api_v2_GetProductListResponse_fieldAccessorTable = new
@@ -32311,62 +31769,56 @@ public final class CatalogApiV2 {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_Property_descriptor,
         new java.lang.String[] { "Name", "Presentation", "Value", });
-    internal_static_catalog_api_v2_ProductListAttributeFilter_descriptor =
-      getDescriptor().getMessageTypes().get(13);
-    internal_static_catalog_api_v2_ProductListAttributeFilter_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_catalog_api_v2_ProductListAttributeFilter_descriptor,
-        new java.lang.String[] { "AttributeValues", });
     internal_static_catalog_api_v2_PromoBadge_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_catalog_api_v2_PromoBadge_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_PromoBadge_descriptor,
         new java.lang.String[] { "Id", "Type", "Attributes", });
     internal_static_catalog_api_v2_PromoBadgeAttribute_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_catalog_api_v2_PromoBadgeAttribute_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_PromoBadgeAttribute_descriptor,
         new java.lang.String[] { "Name", "BannerButtonText", "TaxonId", "Options", });
     internal_static_catalog_api_v2_AttributeOption_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_catalog_api_v2_AttributeOption_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_AttributeOption_descriptor,
         new java.lang.String[] { "Active", "Inactive", });
     internal_static_catalog_api_v2_Active_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_catalog_api_v2_Active_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_Active_descriptor,
         new java.lang.String[] { "Title", "TitleShort", "Url", "Deeplink", "ButtonText", "Header", "Text", });
     internal_static_catalog_api_v2_Inactive_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_catalog_api_v2_Inactive_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_Inactive_descriptor,
         new java.lang.String[] { "Title", "TitleShort", "Url", "ButtonText", "Header", "Text", });
     internal_static_catalog_api_v2_ScoreDetail_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_catalog_api_v2_ScoreDetail_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_ScoreDetail_descriptor,
         new java.lang.String[] { "FeedbackCount", "FeedbackSource", "CommentCount", });
     internal_static_catalog_api_v2_MainTaxon_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_catalog_api_v2_MainTaxon_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_MainTaxon_descriptor,
         new java.lang.String[] { "Id", "Type", "Name", "ProductsCount", "PromoServices", "Position", "Depth", "Description", "Icon", "AltIcon", "Requirements", });
     internal_static_catalog_api_v2_Icon_descriptor =
-      getDescriptor().getMessageTypes().get(21);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_catalog_api_v2_Icon_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_Icon_descriptor,
         new java.lang.String[] { "MiniUrl", "NormalUrl", });
     internal_static_catalog_api_v2_ProtoPerson_descriptor =
-      getDescriptor().getMessageTypes().get(22);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_catalog_api_v2_ProtoPerson_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_ProtoPerson_descriptor,

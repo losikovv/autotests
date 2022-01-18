@@ -15,6 +15,7 @@ import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.grpc.data_provider.GrpcDataProvider;
 import ru.instamart.jdbc.dao.OffersDao;
 import ru.instamart.jdbc.entity.OffersEntity;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -170,7 +171,7 @@ public class CatalogApiV2Test extends GrpcBase {
     public void getProductListWithEmptyTid() {
         var request = CatalogApiV2
                 .GetProductListRequest.newBuilder()
-                .setSid("1")
+                .setSid(String.valueOf(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID))
                 .setTid("")
                 .setPage(1)
                 .setPage(24)
@@ -190,7 +191,7 @@ public class CatalogApiV2Test extends GrpcBase {
     public void getProductListWithoutTid() {
         var request = CatalogApiV2
                 .GetProductListRequest.newBuilder()
-                .setSid("1")
+                .setSid(String.valueOf(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID))
                 .setPage(1)
                 .setPage(24)
                 .setSort("0")

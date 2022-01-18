@@ -10,13 +10,13 @@ option go_package = "gitlab.sbermarket.tech/paas/content/catalog/pkg/server/grpc
 service CatalogAPIV2Service {
 	rpc GetProductList(GetProductListRequest) returns (GetProductListResponse){
 		option (google.api.http) = {
-			get: "/api/products"
+			get: "/api/v2/products"
 		};
 	}
 	rpc GetProduct(GetProductRequest) returns (GetProductResponse)
 	{
 		option (google.api.http) = {
-			get: "/api/products/{product_id}"
+			get: "/api/v2/products/{product_id}"
 		};
 	}
 }
@@ -27,9 +27,10 @@ message GetProductListRequest {
 	string q = 3;
 	int64 page = 4;
 	int64 per_page = 5 [json_name = "per_page"];
-	map<string, ProductListAttributeFilter> filter = 6;
-	string sort = 7;
-	string tenant_id = 8 [json_name = "tenant_id"];
+	repeated string filter_keys = 6;
+	repeated string filter_values = 7;
+	string sort = 8;
+	string tenant_id = 9 [json_name = "tenant_id"];
 }
 
 message GetProductListResponse{
@@ -158,10 +159,6 @@ message Property {
 	string name = 1;
 	string presentation = 2;
 	string value = 3;
-}
-
-message ProductListAttributeFilter{
-	repeated string attribute_values = 1 [json_name = "attribute_values"];
 }
 
 message PromoBadge {
