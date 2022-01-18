@@ -1,10 +1,13 @@
 package ru.instamart.reforged.stf.drawer.cart;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.kraken.util.StringUtil;
+import ru.instamart.reforged.core.custom_exceptions.NoSuchElementInCollection;
 import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
 import ru.instamart.reforged.stf.drawer.cart.container.Item;
 import ru.instamart.reforged.stf.drawer.cart.container.Retailer;
+import ru.instamart.reforged.stf.frame.ClearCartModal;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,9 +21,25 @@ public final class Cart implements CartCheck {
         return retailRocket;
     }
 
+    public ClearCartModal clearCartModal() {
+        return clearCartModal;
+    }
+
     @Step("Кликаем 'Закрыть' корзину")
     public void closeCart() {
         closeButton.click();
+    }
+
+    @Step("Получаем {0} по порядку магазин корзины")
+    public Retailer getRetailerByOrder(final int retailerOrder) {
+        final List<Retailer> retailers = getAllRetailers();
+        if (retailers.size() >= retailerOrder - 1) {
+            return retailers.get(retailerOrder - 1);
+        } else {
+            var exception = new NoSuchElementInCollection(retailerOrder - 1);
+            Assert.fail(exception.getMessage(), exception);
+            return null;
+        }
     }
 
     @Step("Выбираем в корзине магазин с названием {0}")
@@ -73,5 +92,10 @@ public final class Cart implements CartCheck {
                 .stream()
                 .map(Retailer::new)
                 .collect(Collectors.toList());
+    }
+
+    @Step("Получаем количество ритейлеров в корзине")
+    public int getRetailersCount() {
+        return retailers.elementCount();
     }
 }

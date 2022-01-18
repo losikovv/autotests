@@ -90,6 +90,16 @@ public final class ApiHelper {
         apiV2.fillCartOnSid(sid2);
     }
 
+    @Step("Наполняем корзину с помощью API")
+    public void dropAndFillCartMultiple(final UserData user, AddressV2 address, final Integer sid, final Integer itemsCount, final Integer sid2, final Integer itemsCount2) {
+        apiV2.auth(user);
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+        apiV2.setAddressAttributes(user, address);
+        apiV2.fillCartOnSid(sid, itemsCount);
+        apiV2.fillCartOnSid(sid2, itemsCount2);
+    }
+
     /**
      * @param user должен иметь phone и encryptedPhone
      *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])

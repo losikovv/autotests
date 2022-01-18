@@ -13,6 +13,8 @@ import ru.instamart.kraken.listener.Skip;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import java.util.Objects;
+
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -443,7 +445,6 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactCart().getFirstItem().deleteItem();
         shop().interactCart().checkDeleteAnimationOver();
 
-
         final var cartProductName = shop().interactCart().getFirstItem().getName();
         shop().interactCart().compareProductNameInCart(cartProductName, shopProductName);
     }
@@ -498,5 +499,68 @@ public final class ShoppingCartTests extends BaseTest {
 
         final var cartProductName = shop().interactCart().getFirstItem().getName();
         shop().interactCart().compareProductNameInCart(cartProductName, shopProductName);
+    }
+
+    @CaseId(2611)
+    @Test(description = "Удаление всех товаров в корзине", groups = "regression")
+    public void testRemoveRetailerFromCart() {
+        var userData = UserManager.getQaUser();
+        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        helper.dropAndFillCart(userData, 1, 3);
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().checkCartNotEmpty();
+
+        shop().interactCart().getFirstRetailer().removeRetailer();
+        shop().interactCart().clearCartModal().confirm();
+        shop().interactCart().checkCartEmpty();
+    }
+
+    @CaseId(2612)
+    @Test(description = "Отображение нескольких магазинов в корзине, разбивка товаров по магазинам", groups = "regression")
+    public void testMultiplyOrderGroupingProductsByRetailers() {
+        var userData = UserManager.getQaUser();
+        helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 2, EnvironmentProperties.DEFAULT_AUCHAN_SID, 3);
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().getRetailersCount();
+
+        var itemsCountInRetailer = Objects.requireNonNull(shop().interactCart().getRetailerByOrder(1)).getItemsCountInList();
+        shop().interactCart().checkItemsCount(itemsCountInRetailer, 2);
+
+        itemsCountInRetailer = Objects.requireNonNull(shop().interactCart().getRetailerByOrder(2)).getItemsCountInList();
+        shop().interactCart().checkItemsCount(itemsCountInRetailer, 3);
+    }
+
+    @CaseId(2613)
+    @Test(description = "Удаление магазина из корзины, при удалении всех его товаров в корзине", groups = "regression")
+    public void testAutoRemoveRetailerAfterRemoveAllProducts() {
+        var userData = UserManager.getQaUser();
+        helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 2,
+                EnvironmentProperties.DEFAULT_AUCHAN_SID, 3);
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().checkRetailersCountShouldBe(2);
+
+        shop().interactCart().getFirstRetailer().removeAllItemsFromRetailer();
+        shop().interactCart().checkRetailersCountShouldBe(1);
     }
 }

@@ -7,7 +7,6 @@ import ru.instamart.reforged.core.Container;
 import ru.instamart.reforged.core.component.inner.InnerButton;
 import ru.instamart.reforged.core.component.inner.InnerElement;
 import ru.instamart.reforged.core.component.inner.InnerInput;
-import ru.instamart.reforged.stf.drawer.cart.Cart;
 
 import static ru.instamart.reforged.core.Check.krakenAssert;
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -33,7 +32,7 @@ public final class Item extends Container {
 
     @Step("Удаляем товар")
     public void deleteItem() {
-        itemsAmount.hoverAction();
+        itemName.hoverAction();
         buttonDeleteItem.clickAction();
     }
 

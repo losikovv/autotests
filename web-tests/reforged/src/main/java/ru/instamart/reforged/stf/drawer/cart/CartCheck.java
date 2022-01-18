@@ -74,4 +74,15 @@ public interface CartCheck extends Check, CartElement {
     default void checkDeleteAnimationOver() {
         waitAction().shouldNotBeAnimated(items);
     }
+
+    @Step("Проверяем соответствие количества товаров")
+    default void checkItemsCount(final int actualItemsCount, final int expectedItemsCount) {
+        Assert.assertEquals(actualItemsCount, expectedItemsCount, "Количество товаров в корзине не соответствует ожидаемому");
+    }
+
+    @Step("Проверяем, что количество магазинов в корзине равно {0}" )
+    default void checkRetailersCountShouldBe(int expectedRetailersCount) {
+        waitAction().elementCollectionSizeShouldBeEqual(retailers, expectedRetailersCount);
+    }
+
 }
