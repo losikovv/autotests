@@ -13,5 +13,5 @@ task adminUiRegress(type: Test) {
         includeGroups 'regression'
     }
     systemProperty 'qase.Project', 'SA'
-    systemProperty 'qase.Title', 'Admin UI Smoke'
+    systemProperty 'qase.Title', 'Admin UI Regression'
 }

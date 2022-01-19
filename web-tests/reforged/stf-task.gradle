@@ -14,7 +14,7 @@ task uiSmokeProduction(type: Test) {
         systemProperty 'env',"sbermarket-production"
     }
     systemProperty 'qase.Project', 'STF'
-    systemProperty 'qase.Title', 'STF UI Smoke'
+    systemProperty 'qase.Title', 'STF UI Smoke Production'
 }
 
 task sberAcceptance(type: Test) {
@@ -22,6 +22,8 @@ task sberAcceptance(type: Test) {
         suites 'src/test/resources/suite/smoke/stf.xml'
         includeGroups 'acceptance','smoke'
     }
+    systemProperty 'qase.Project', 'STF'
+    systemProperty 'qase.Title', 'STF UI Acceptance'
 }
 
 task sberRegression(type: Test) {
@@ -29,6 +31,8 @@ task sberRegression(type: Test) {
         suites 'src/test/resources/suite/regress/stf.xml'
         includeGroups 'regression','acceptance','smoke'
     }
+    systemProperty 'qase.Project', 'STF'
+    systemProperty 'qase.Title', 'STF UI Regression'
 }
 
 task sberRegressionMulti(type: Test) {
