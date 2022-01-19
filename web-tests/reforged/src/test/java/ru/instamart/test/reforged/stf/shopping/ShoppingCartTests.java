@@ -565,4 +565,33 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactCart().getFirstRetailer().removeAllItemsFromRetailer();
         shop().interactCart().checkRetailersCountShouldBe(1);
     }
+
+    @CaseId(2617)
+    @Test(description = "Добавление/удаление товара из категории", groups = "regression")
+    public void testAddRemoveProductFromCategory() {
+        var userData = UserManager.getQaUser();
+        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCategoryMenu();
+        shop().interactCategoryMenu().clickToFirstLevelCategoryByName("Бакалея");
+
+        seo().interactHeader().checkEnteredAddressIsVisible();
+        seo().addFirstProductOnDepartmentToCart();
+
+        seo().interactHeader().clickToCart();
+        seo().interactCart().checkCartOpen();
+        seo().interactCart().checkCartNotEmpty();
+
+        seo().interactCart().closeCart();
+        seo().removeFirstProductOnDepartmentFromCart();
+
+        seo().interactHeader().clickToCart();
+        seo().interactCart().checkCartOpen();
+        seo().interactCart().checkCartEmpty();
+    }
 }
