@@ -64,25 +64,25 @@ public class ShopperAppApiHelper {
         return response.as(ShipmentsSHPResponse.class).getData();
     }
 
-    public String getShipmentIdByComment(String comment) {
+    public ShipmentSHP.Data getShipmentByComment(String comment) {
         List<ShipmentSHP.Data> shipments = getAllShipments();
 
         for (ShipmentSHP.Data shipment : shipments)
             if (Objects.nonNull(shipment.getAttributes().getCustomerComment()) &&
                     shipment.getAttributes().getCustomerComment().trim().equalsIgnoreCase(comment))
-                return shipment.getId();
+                return shipment;
 
         log.error("Нет оформленных заказов с комментарием " + comment);
         return null;
     }
 
     /**
-     * Получаем shipment id по shipment number
+     * Получаем shipment по shipment number
      */
-    private String getShipmentIdIteration(String shipmentNumber) {
+    private ShipmentSHP.Data getShipmentIteration(String shipmentNumber) {
         ThreadUtil.simplyAwait(10);
         log.debug("Получаем список доступных для сборки заказов");
-        String shipmentId = null;
+        ShipmentSHP.Data foundShipment = null;
         List<ShipmentSHP.Data> shipments = getAllShipments();
 
         StringJoiner availableShipmentNumbers = new StringJoiner(
@@ -92,28 +92,27 @@ public class ShopperAppApiHelper {
         for (ShipmentSHP.Data shipment : shipments) {
             String number = shipment.getAttributes().getNumber();
             if (shipment.getAttributes().getNumber().equalsIgnoreCase(shipmentNumber)) {
-                shipmentId = shipment.getId();
+                foundShipment = shipment;
                 availableShipmentNumbers.add(number + " <<< Выбран");
             } else availableShipmentNumbers.add(number);
         }
         log.debug(availableShipmentNumbers.toString());
-        return shipmentId;
+        return foundShipment;
     }
 
-    @Step("Получаем ShipmentId заказа")
-    public String getShipmentId(String shipmentNumber) {
-        return getShipmentId(shipmentNumber, "");
+    public ShipmentSHP.Data getShipment(String shipmentNumber) {
+        return getShipment(shipmentNumber, "");
     }
 
-    public String getShipmentId(String shipmentNumber, String additionalInfoForError) {
-        String shipmentId;
+    @Step("Получаем оформленный заказ")
+    public ShipmentSHP.Data getShipment(String shipmentNumber, String additionalInfoForError) {
+        ShipmentSHP.Data shipment;
         String error = "Оформленного заказа нет в списке " + shipmentNumber;
         for (int i = 0; i < 12; i++) {
-            shipmentId = getShipmentIdIteration(shipmentNumber);
-            if (shipmentId != null) {
-                return shipmentId;
-            } else log.error(error);
+            shipment = getShipmentIteration(shipmentNumber);
+            if (Objects.nonNull(shipment)) return shipment;
         }
+        log.error(error);
         Assert.fail(error + "\n" + additionalInfoForError);
         return null;
     }
@@ -175,9 +174,9 @@ public class ShopperAppApiHelper {
     public void simpleCollect(String shipmentNumber, String fiscalDocumentNumber) {
         authorisation(UserManager.getDefaultShopper());
         deleteCurrentAssembly();
-        String shipmentId = getShipmentId(shipmentNumber);
+        ShipmentSHP.Data shipment = getShipment(shipmentNumber);
 
-        startAssembly(shipmentId);
+        startAssembly(shipment.getId());
         assemblyItemsWithOriginalQty();
         startPaymentVerification();
         shopperCreatesPackageSets();
@@ -198,9 +197,9 @@ public class ShopperAppApiHelper {
     public String simpleAssemblyPriorToReceiptCreation(String shipmentNumber) {
         authorisation(UserManager.getDefaultShopper());
         deleteCurrentAssembly();
-        String shipmentId = getShipmentId(shipmentNumber);
+        ShipmentSHP.Data shipment = getShipment(shipmentNumber);
 
-        currentAssemblyId = startAssembly(shipmentId).getId();
+        currentAssemblyId = startAssembly(shipment.getId()).getId();
         assemblyItemsWithOriginalQty();
         startPaymentVerification();
         shopperCreatesPackageSets();
@@ -240,16 +239,16 @@ public class ShopperAppApiHelper {
         authorisation(UserManager.getDefaultShopper());
         //Удаляем текущую сборку
         deleteCurrentAssembly();
-        String shipmentId = getShipmentId(shipmentNumber);
+        ShipmentSHP.Data shipment = getShipment(shipmentNumber);
 
-        AssemblySHP.Data assembly = startAssembly(shipmentId);
+        AssemblySHP.Data assembly = startAssembly(shipment.getId());
         Assert.assertEquals(assembly.getAttributes().getState(), AssemblyStateSHP.COLLECTING.getState(), "Статус сборки не валиден");
 
         simplyAwait(3); //Пауза перед передачей в сборку. В БД не успевает поменяться статус
         //Отдаём сборку другому сборщику
         suspendAssembly();
         simplyAwait(3); //Пауза перед получением в сборку. В БД не успевает поменяться статус
-        assembly = startAssembly(shipmentId);
+        assembly = startAssembly(shipment.getId());
         Assert.assertEquals(assembly.getAttributes().getState(), AssemblyStateSHP.COLLECTING.getState(), "Статус сборки не валиден");
 
         //Сборка всех позиций заказа
@@ -259,7 +258,7 @@ public class ShopperAppApiHelper {
         //Ставим сборку на паузу
         pauseAssembly();
         simplyAwait(3); //пауза перед сборкой
-        assembly = startAssembly(shipmentId);
+        assembly = startAssembly(shipment.getId());
         Assert.assertEquals(assembly.getAttributes().getState(), AssemblyStateSHP.ON_APPROVAL.getState(), "Статус сборки не валиден");
 
         startPaymentVerification();

@@ -477,7 +477,6 @@ public final class InstamartApiHelper {
         String availableDays = responseDeliveryWindow.as(ShippingRatesV2Response.class).getMeta().getAvailableDays().get(0);
 
         Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), availableDays);
-        response.prettyPrint();
         checkStatusCode200(response);
 
         List<ShippingRateV2> shippingRates = response.as(ShippingRatesV2Response.class).getShippingRates();

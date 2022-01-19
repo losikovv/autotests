@@ -9,12 +9,13 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 
 @Slf4j
 public class GenerateDataTest {
-    InstamartApiHelper apiV2 = new InstamartApiHelper();
+    private final InstamartApiHelper apiV2 = new InstamartApiHelper();
+    private final int numberOfTestRuns = 20;
 
     @Test(groups = "generate-data")
     public void generateOrdersWithSingleItem() {
         SessionFactory.makeSession(SessionType.API_V2);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < numberOfTestRuns; i++) {
             log.info("Создание заказа для шоппера с 1 товаром");
             apiV2.order(
                     SessionFactory.getSession(SessionType.API_V2).getUserData(),
@@ -27,7 +28,7 @@ public class GenerateDataTest {
     @Test(groups = "generate-data")
     public void generateOrdersWithMultipleItems() {
         SessionFactory.makeSession(SessionType.API_V2);
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < (numberOfTestRuns * 2); i++) {
             log.info("Создание заказа для шоппера с несколькими товарами");
             apiV2.order(
                     SessionFactory.getSession(SessionType.API_V2).getUserData(),

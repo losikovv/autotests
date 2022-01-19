@@ -12,6 +12,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.shopper.app.AssemblySHP;
+import ru.instamart.api.model.shopper.app.ShipmentSHP;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.shopper.app.*;
 import ru.instamart.api.response.shopper.app.*;
@@ -29,21 +30,20 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Epic("Shopper Mobile API")
 @Feature("Endpoints")
 public class ShipmentfulShopperAppTest extends RestBase {
-    private String shipmentId;
+    private ShipmentSHP.Data shipment;
     private String assemblyId;
     private String assemblyItemId;
     private Integer itemQty;
-    private String shipmentNumber;
-    private final String COMMENT = "SHP-TEST-SINGLE";
 
     @BeforeClass(alwaysRun = true,
-            description = "Оформляем заказ")
+            description = "Получаем оформленный заказ")
     public void preconditions() {
         shopperApp.authorisation(UserManager.getDefaultShopper());
         shopperApp.deleteCurrentAssembly();
-        shipmentId = shopperApp.getShipmentIdByComment(COMMENT);
+        String COMMENT = "SHP-TEST-SINGLE";
+        shipment = shopperApp.getShipmentByComment(COMMENT);
 
-        if (Objects.isNull(shipmentId)) {
+        if (Objects.isNull(shipment)) {
             SessionFactory.makeSession(SessionType.API_V2);
             OrderV2 order = apiV2.order(
                     SessionFactory.getSession(SessionType.API_V2).getUserData(),
@@ -52,7 +52,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
                     COMMENT);
             if (Objects.isNull(order)) throw new SkipException("Заказ не удалось оплатить");
             String errorMessageIfDeliveryIsNotToday = checkIsDeliveryToday(order);
-            shipmentId = shopperApp.getShipmentId(shipmentNumber, errorMessageIfDeliveryIsNotToday);
+            shipment = shopperApp.getShipment(order.getShipments().get(0).getNumber(), errorMessageIfDeliveryIsNotToday);
         }
     }
 
@@ -70,7 +70,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     public void createOrderImport() {
         //todo проверять сам вебхук
 
-        checkFieldIsNotEmpty(shipmentId, "shipmentId");
+        checkFieldIsNotEmpty(shipment.getId(), "shipmentId");
     }
 
     @Story("Начало сборки")
@@ -78,7 +78,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Test(description = "Создаём сборку",
             groups = {"api-shopper-smoke", "api-shopper-prod"})
     public void postAssembly200() {
-        response = AssembliesSHPRequest.POST(shipmentId);
+        response = AssembliesSHPRequest.POST(shipment.getId());
         checkStatusCode200(response);
         AssemblySHP.Data assembly = response.as(AssemblySHPResponse.class).getData();
         checkFieldIsNotEmpty(assembly.getId(), "сборка");
@@ -141,14 +141,13 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Story("Хелпдеск")
     @CaseId(102)
     @Test(description = "Создаем новый тикет в хелпдеске",
-            groups = {"api-shopper-smoke", "api-shopper-prod"},
-            dependsOnMethods = "getShipment200")
+            groups = {"api-shopper-smoke", "api-shopper-prod"})
     public void createHelpdeskTicket() {
-        Response response = HelpdeskSHPRequest.Tickets.POST(shipmentId);
+        Response response = HelpdeskSHPRequest.Tickets.POST(shipment.getId());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, TicketSHPResponse.class);
         TicketSHPResponse ticketFromResponse = response.as(TicketSHPResponse.class);
-        compareTwoObjects(ticketFromResponse.getData().getAttributes().getTitle(), shipmentNumber + " АПИ-АВТОТЕСТ");
+        compareTwoObjects(ticketFromResponse.getData().getAttributes().getTitle(), shipment.getAttributes().getNumber() + " АПИ-АВТОТЕСТ");
     }
 
     @Story("Хелпдеск")
@@ -157,11 +156,11 @@ public class ShipmentfulShopperAppTest extends RestBase {
             groups = {"api-shopper-smoke", "api-shopper-prod"},
             dependsOnMethods = {"createHelpdeskTicket"})
     public void getHelpdeskTickets200() {
-        Response response = HelpdeskSHPRequest.Tickets.GET(shipmentId);
+        Response response = HelpdeskSHPRequest.Tickets.GET(shipment.getId());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, TicketsSHPResponse.class);
         TicketsSHPResponse ticketsFromResponse = response.as(TicketsSHPResponse.class);
-        compareTwoObjects(ticketsFromResponse.getData().get(0).getAttributes().getTitle(), shipmentNumber + " АПИ-АВТОТЕСТ");
+        compareTwoObjects(ticketsFromResponse.getData().get(0).getAttributes().getTitle(), shipment.getAttributes().getNumber() + " АПИ-АВТОТЕСТ");
     }
 
     @Story("Получение информации о заказах")
@@ -169,10 +168,9 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Test(description = "Получаем заказ по номеру",
             groups = {"api-shopper-smoke", "api-shopper-prod"})
     public void getShipment200() {
-        response = ShipmentsSHPRequest.GET(shipmentId);
+        response = ShipmentsSHPRequest.GET(shipment.getId());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShipmentSHPResponse.class);
-        shipmentNumber = response.as(ShipmentSHPResponse.class).getData().getAttributes().getNumber();
     }
 
     @Story("Получение информации о сборках")
@@ -191,7 +189,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     @Test(description = "Получаем инфу о стоках товаров в заказе",
             groups = {"api-shopper-smoke", "api-shopper-prod"})
     public void getShipmentStock200() {
-        response = ShipmentsSHPRequest.Stocks.GET(shipmentId);
+        response = ShipmentsSHPRequest.Stocks.GET(shipment.getId());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShipmentStocksSHPResponse.class);
     }
@@ -212,7 +210,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
             groups = {"api-shopper-smoke", "api-shopper-prod"},
             dependsOnMethods = "postAssembly200")
     public void getShipmentMarketingSampleItems200() {
-        response = ShipmentsSHPRequest.MarketingSampleItems.GET(shipmentId);
+        response = ShipmentsSHPRequest.MarketingSampleItems.GET(shipment.getId());
         checkStatusCode200(response);
         assertNotNull(response.as(MarketingSampleItemsSHPResponse.class).getMarketingSampleItems(),
                 "Не вернулся массив маркетинговых пробников"); //ATST-804
