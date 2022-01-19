@@ -54,8 +54,8 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(  description = "Canceled после создания",
             groups = "api-instamart-regress")
     public void cancelOrder() {
-        Response responseСanceled = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.CANCELED.getValue());
-        checkStatusCode200(responseСanceled);
+        Response responseCanceled = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.CANCELED.getValue());
+        checkStatusCode200(responseCanceled);
 
         OrderV2 canceledOrder = apiV2.getOrder(order.getNumber());
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus());
@@ -68,8 +68,8 @@ public class NotificationsPositiveV3Test extends RestBase {
     public void cancelOrderInWork() {
         Response responseInWork = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
-        Response responseСanceled = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.CANCELED.getValue());
-        checkStatusCode200(responseСanceled);
+        Response responseCanceled = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.CANCELED.getValue());
+        checkStatusCode200(responseCanceled);
 
         OrderV2 canceledOrder = apiV2.getOrder(order.getNumber());
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus());
@@ -84,8 +84,8 @@ public class NotificationsPositiveV3Test extends RestBase {
         checkStatusCode200(responseInWork);
         Response responseAssembled = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.ASSEMBLED.getValue());
         checkStatusCode200(responseAssembled);
-        Response responseСanceled = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.CANCELED.getValue());
-        checkStatusCode200(responseСanceled);
+        Response responseCanceled = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.CANCELED.getValue());
+        checkStatusCode200(responseCanceled);
 
         OrderV2 canceledOrder = apiV2.getOrder(order.getNumber());
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus());
@@ -100,8 +100,8 @@ public class NotificationsPositiveV3Test extends RestBase {
         checkStatusCode200(responseInWork);
         Response responseReadyForDelivery = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.READY_FOR_DELIVERY.getValue());
         checkStatusCode200(responseReadyForDelivery);
-        Response responseСanceled = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.CANCELED.getValue());
-        checkStatusCode200(responseСanceled);
+        Response responseCanceled = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.CANCELED.getValue());
+        checkStatusCode200(responseCanceled);
 
         OrderV2 canceledOrder = apiV2.getOrder(order.getNumber());
         Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus());
