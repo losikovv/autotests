@@ -10,6 +10,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.config.EnvironmentProperties.*;
@@ -325,7 +326,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactCart().getFirstItem().compareItemQuantityInCart(5);
     }
 
-    @CaseId(2620) //2937, 2938
+    @CaseIDs(value = {@CaseId(2620), @CaseId(2937), @CaseId(2938)})
     @Test(description = "Многократное добавление и удаление одной позиции", groups = "regression")
     public void testMultipleAddAndRemoveProduct() {
         var userData = UserManager.getQaUser();
@@ -593,5 +594,19 @@ public final class ShoppingCartTests extends BaseTest {
         seo().interactHeader().clickToCart();
         seo().interactCart().checkCartOpen();
         seo().interactCart().checkCartEmpty();
+    }
+
+    @CaseId(3042)
+    @Test(description = "Добавление товара в корзину из seo-каталога", groups = "regression")
+    public void testAddProductFromSEOCategory() {
+        seoIncognito().goToPage();
+        seoIncognito().checkProductGridVisible();
+
+        seoIncognito().hoverFirstProduct();
+        seoIncognito().checkAddToCartButtonVisible();
+
+        seoIncognito().clickAddToCartButton();
+        seoIncognito().interactHeader().interactAddress().checkAddressModalVisible();
+
     }
 }

@@ -71,7 +71,7 @@ public class ShoppingTestsForExistingUser extends BaseTest {
         shop().interactCart().checkOrderButtonIsNotEnabled();
     }
 
-    @CaseId(1618)
+    @CaseId(2606)
     @Story("Тест набора корзины до суммы, достаточной для оформления заказа")
     @Test(description = "Тест набора корзины до суммы, достаточной для оформления заказа",
             groups = {"acceptance", "regression"})

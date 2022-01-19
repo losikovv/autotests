@@ -13,6 +13,7 @@ import ru.instamart.reforged.stf.page.landings.job.JobPage;
 import ru.instamart.reforged.stf.page.notfound.Page404;
 import ru.instamart.reforged.stf.page.search.SearchPage;
 import ru.instamart.reforged.stf.page.seo.SeoCatalogPage;
+import ru.instamart.reforged.stf.page.seo_incognito.SeoIncognitoPage;
 import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.reforged.stf.page.user.favorites.UserFavoritesPage;
 import ru.instamart.reforged.stf.page.user.shipments.UserShipmentsPage;
@@ -107,6 +108,10 @@ public final class StfRouter extends Router {
 
     public static SeoCatalogPage seo() {
         return (SeoCatalogPage) getPage(SeoCatalogPage.class);
+    }
+
+    public static SeoIncognitoPage seoIncognito() {
+        return (SeoIncognitoPage) getPage(SeoIncognitoPage.class);
     }
 
     private StfRouter() {

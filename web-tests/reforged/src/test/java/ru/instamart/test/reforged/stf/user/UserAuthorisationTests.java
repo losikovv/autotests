@@ -39,7 +39,7 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
-    @CaseId(1457)
+    @CaseId(2621)
     @Test(description = "Тест успешной авторизации из корзины", groups = "regression")
     public void successAuthFromCart() {
         shop().goToPage();
