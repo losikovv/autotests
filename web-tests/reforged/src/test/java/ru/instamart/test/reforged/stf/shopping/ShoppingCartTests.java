@@ -5,7 +5,6 @@ import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -13,6 +12,7 @@ import ru.instamart.kraken.listener.Skip;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.kraken.config.EnvironmentProperties.*;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -245,7 +245,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactHeader().clickToCart();
         final double firstOrderMinAmount = shop().interactCart().getFirstRetailer().returnMinOrderAmount();
 
-        helper.makeOrder(shoppingCartUser, EnvironmentProperties.DEFAULT_SID, 3);
+        helper.makeOrder(shoppingCartUser, DEFAULT_SID, 3);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
@@ -309,7 +309,7 @@ public final class ShoppingCartTests extends BaseTest {
     @Test(description = "Добавление товара после изменения адреса доставки", groups = "regression")
     public void testAddProductAfterChangeAddress() {
         var userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        helper.dropAndFillCart(userData, DEFAULT_SID);
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
@@ -443,7 +443,6 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactCart().getFirstItem().deleteItem();
         shop().interactCart().checkDeleteAnimationOver();
 
-
         final var cartProductName = shop().interactCart().getFirstItem().getName();
         shop().interactCart().compareProductNameInCart(cartProductName, shopProductName);
     }
@@ -498,5 +497,72 @@ public final class ShoppingCartTests extends BaseTest {
 
         final var cartProductName = shop().interactCart().getFirstItem().getName();
         shop().interactCart().compareProductNameInCart(cartProductName, shopProductName);
+    }
+
+    @CaseId(2611)
+    @Test(description = "Удаление всех товаров в корзине", groups = "regression")
+    public void testRemoveRetailerFromCart() {
+        var userData = UserManager.getQaUser();
+        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        helper.dropAndFillCart(userData, DEFAULT_SID, 3);
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().checkCartNotEmpty();
+
+        shop().interactCart().getFirstRetailer().removeRetailer();
+        shop().interactCart().interactCartModal().confirm();
+        shop().interactCart().checkCartEmpty();
+    }
+
+    @CaseId(2612)
+    @Test(description = "Отображение нескольких магазинов в корзине, разбивка товаров по магазинам", groups = "regression")
+    public void testMultiplyOrderGroupingProductsByRetailers() {
+        var userData = UserManager.getQaUser();
+        helper.dropAndFillCartMultiple(userData, RestAddresses.Moscow.defaultAddress(), DEFAULT_METRO_MOSCOW_SID, 2, DEFAULT_AUCHAN_SID, 3);
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().getRetailersCount();
+
+        var itemsCountInRetailer = shop().interactCart().getRetailerByOrder(1).getItemsCountInList();
+        shop().interactCart().checkItemsCount(itemsCountInRetailer, 2);
+
+        itemsCountInRetailer = shop().interactCart().getRetailerByOrder(2).getItemsCountInList();
+        shop().interactCart().checkItemsCount(itemsCountInRetailer, 3);
+    }
+
+    @CaseId(2613)
+    @Test(description = "Удаление магазина из корзины, при удалении всех его товаров в корзине", groups = "regression")
+    public void testAutoRemoveRetailerAfterRemoveAllProducts() {
+        var userData = UserManager.getQaUser();
+        helper.dropAndFillCartMultiple(userData,
+                RestAddresses.Moscow.defaultAddress(),
+                DEFAULT_METRO_MOSCOW_SID,
+                2,
+                DEFAULT_AUCHAN_SID,
+                3);
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+        shop().interactCart().checkRetailersCountShouldBe(2);
+
+        shop().interactCart().getFirstRetailer().removeAllItemsFromRetailer();
+        shop().interactCart().checkRetailersCountShouldBe(1);
     }
 }

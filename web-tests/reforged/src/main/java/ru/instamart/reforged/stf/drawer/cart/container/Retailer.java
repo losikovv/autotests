@@ -51,13 +51,14 @@ public final class Retailer extends Container {
         Kraken.waitAction().shouldNotBeVisible(minAmountAlert, getContainer());
     }
 
-    @Step("Получаем {} продукт из списка продуктов магазина")
-    public Item getItem(final int order) {
+    @Step("Получаем {0} по порядку продукт из списка продуктов магазина")
+    public Item getItem(final int productOrder) {
+        var index = productOrder - 1;
         final List<Item> items = getAllItems();
-        if (items.size() >= order) {
-            return items.get(order);
+        if (items.size() >= index) {
+            return items.get(index);
         } else {
-            var exception = new NoSuchElementInCollection(order);
+            var exception = new NoSuchElementInCollection(index);
             Assert.fail(exception.getMessage(), exception);
             return null;
         }
@@ -71,6 +72,11 @@ public final class Retailer extends Container {
     @Step("Кликаем на кнопку 'Удалить' магазин из корзины")
     public void removeRetailer() {
         buttonRemoveShipments.click();
+    }
+
+    @Step("Удаляем все товары магазина по одному")
+    public void removeAllItemsFromRetailer() {
+        getAllItems().forEach(Item::deleteItem);
     }
 
     @Step("Получаем минимальную сумму заказа из плашки-алерта")

@@ -27,8 +27,8 @@ public final class OrderRepeatTests extends BaseTest {
         helper.makeOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
     }
 
-    @CaseId(1668)
-    @Test(description = "Повтор крайнего заказа из истории заказов", groups = {"smoke", "regression", "acceptance"})
+    @CaseId(2614)
+    @Test(description = "Добавление в корзину товаров из истории заказов", groups = {"smoke", "regression", "acceptance"})
     public void successRepeatLastOrderFromOrderHistory() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

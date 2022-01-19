@@ -5,9 +5,11 @@ import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
 import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
+import ru.instamart.reforged.stf.frame.ClearCartModal;
 
 public interface CartElement {
     RetailRocket retailRocket = new RetailRocket();
+    ClearCartModal clearCartModal = new ClearCartModal();
 
     Element cartContainer = new Element(By.xpath("//div[@data-qa='cart']"), "Окно Корзина");
     Element title = new Element(By.xpath("//div[@class='new-cart__title']"), "Заголовок окна Корзина");
