@@ -64,7 +64,7 @@ public interface HomeElement {
     Element appsBlockContainer = new Element(By.xpath("//div[@data-qa='home_landing_app_stores']"), "блок моб. приложений на лендинге Сбермаркета");
     Element footerContainer = new Element(By.xpath("//footer"), "подвал лендинга Сбермаркета");
 
-    Link storeCard = new Link(By.xpath("//a[@data-qa='store-card']"), "карточка магазина на главной");
+    Link storeCard = new Link(By.xpath("//a[@data-qa='b2c_home_landing_stores_block_store_card_0']"), "карточка первого магазина на главной");
 
 }
 

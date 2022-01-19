@@ -24,4 +24,6 @@ public interface CartElement {
     ElementCollection items = new ElementCollection(By.xpath("//div[@data-qa='line-item']"), "Все товары в корзине");
     Element firstRetailer = new Element(By.xpath("//div[@class='cart-retailer']"), "Первый магазин в корзине");
     ElementCollection retailers = new ElementCollection(By.xpath("//div[@class='cart-retailer']"), "Все магазины в корзине");
+    Element viewOrder = new Element(By.xpath("//a[@data-qa='merged_products_look_button']"), "Кнопка 'посмотреть' заказ после мерджа товаров");
+
 }
