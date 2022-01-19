@@ -156,9 +156,10 @@ public final class QaseService {
         final String comment = resultThrowable
                 .flatMap(throwable -> Optional.of(throwable.toString()))
                 .orElse("");
-        final Boolean isDefect = resultThrowable
-                .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
-                .orElse(false);
+        final Boolean isDefect = false; // создание дефектов пока отключено
+//                resultThrowable
+//                .flatMap(throwable -> Optional.of(throwable instanceof AssertionError))
+//                .orElse(false);
         final String stacktrace = resultThrowable
                 .flatMap(throwable -> Optional.of(getStacktrace(throwable)))
                 .orElse(null);
