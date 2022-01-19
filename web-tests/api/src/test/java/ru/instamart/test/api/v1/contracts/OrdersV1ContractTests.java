@@ -24,7 +24,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 
 @Epic("ApiV1")
 @Feature("Эндпоинты, используемые шоппер бэкендом")
-public class OrdersV1Test extends RestBase {
+public class OrdersV1ContractTests extends RestBase {
     private String shipmentUuid;
     private String orderNumber;
     private String shipmentNumber;

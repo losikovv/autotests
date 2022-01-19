@@ -14,10 +14,10 @@
     <test verbose="1" name="API v1 Tests" parallel="none" thread-count="2">
         <classes>
             <class name="ru.instamart.test.api.v1.endpoints.OffersV1Tests"/>
-            <class name="ru.instamart.test.api.v1.contracts.OperationalZonesV1Tests"/>
-            <class name="ru.instamart.test.api.v1.contracts.OrdersV1Test"/>
+            <class name="ru.instamart.test.api.v1.contracts.OperationalZonesV1ContractTests"/>
+            <class name="ru.instamart.test.api.v1.contracts.OrdersV1ContractTests"/>
             <class name="ru.instamart.test.api.v1.endpoints.RetailersV1Tests"/>
-            <class name="ru.instamart.test.api.v1.contracts.StoresV1Tests"/>
+            <class name="ru.instamart.test.api.v1.contracts.StoresV1ContractTests"/>
             <class name="ru.instamart.test.api.v1.endpoints.UserCompaniesV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.CompanyPresenceV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.LegalEntityV1Tests"/>
@@ -31,7 +31,8 @@
             <class name="ru.instamart.test.api.v1.endpoints.SearchSuggestionsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.PromotionsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.ExternalPartnersV1Tests"/>
-            <class name="ru.instamart.test.api.v1.endpoints.AppConfigV1Tests"/>
+            <class name="ru.instamart.test.api.admin_api.AppConfigV1Tests"/>
+            <class name="ru.instamart.test.api.admin_api.OperationalZonesV1Tests"/>
         </classes>
     </test>
     <!-- api-v2-tests -->

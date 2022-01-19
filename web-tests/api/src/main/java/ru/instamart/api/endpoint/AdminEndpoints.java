@@ -1,5 +1,8 @@
 package ru.instamart.api.endpoint;
 
+/**
+ * sbermarket.tech/admin/ endpoints (без /api/)
+ */
 public final class AdminEndpoints {
 
     public static final String CITIES = "cities";

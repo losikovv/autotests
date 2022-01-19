@@ -18,14 +18,15 @@ import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.StoresAdminRequest;
-import ru.instamart.api.request.v1.OperationalZonesV1Request;
 import ru.instamart.api.request.v1.RetailersV1Request;
 import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
 import ru.instamart.api.request.v2.*;
-import ru.instamart.api.response.v1.OperationalZonesV1Response;
 import ru.instamart.api.response.v2.*;
-import ru.instamart.jdbc.dao.*;
+import ru.instamart.jdbc.dao.InstacoinAccountsDao;
+import ru.instamart.jdbc.dao.PromotionCodesDao;
+import ru.instamart.jdbc.dao.SpreeProductsDao;
+import ru.instamart.jdbc.dao.SpreeUsersDao;
 import ru.instamart.jdbc.dto.PromotionCodesFilters;
 import ru.instamart.jdbc.entity.PromotionCodesEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -152,8 +153,20 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "emptyQueries", parallel = true)
     public static Object[][] getEmptyQuery() {
         return new Object[][]{
-                {"",},
+                {""},
                 {" "}
+        };
+    }
+
+    @DataProvider(name = "negativeOperationalZonesNames", parallel = true)
+    public static Object[][] getNegativeOperationalZonesNames() {
+        return new Object[][]{
+                {400, null},
+                {422, Generate.literalCyrillicString(10)}, //todo bug - null error message
+                {422, ""},
+                {422, " "}, //todo bug - null error message
+                {422, "москва"}, //todo bug - null error message
+                {500, "тест-" + Generate.literalCyrillicString(251)} //todo bug 500
         };
     }
 
@@ -303,25 +316,23 @@ public class RestDataProvider extends RestBase {
         return zoneArray;
     }
 
+    /**
+     * @return 20 операционных зон (10 первых и 10 последних)
+     */
     @DataProvider(name = "operationalZones", parallel = true)
     public static Object[][] getOperationalZones() {
         Specification.setResponseSpecDataProvider();
 
-        List<OperationalZoneV1> operationalZoneList = OperationalZonesV1Request.GET()
-                .as(OperationalZonesV1Response.class).getOperationalZones();
+        List<OperationalZoneV1> operationalZones = apiV1.getAllOperationalZones();
+        List<OperationalZoneV1> newOperationalZones = operationalZones.subList(operationalZones.size() - 10, operationalZones.size());
+        operationalZones = operationalZones.subList(0, 10);
+        operationalZones.addAll(newOperationalZones);
 
         Specification.setResponseSpecDefault();
 
-        if(EnvironmentProperties.SERVER.equals("production")) {
-            return new Object[][] {
-                    {operationalZoneList.get(0)},
-                    {operationalZoneList.get(1)}
-            };
-        } else {
-            return operationalZoneList.stream()
-                    .map(list -> new Object[]{list})
-                    .toArray(Object[][]::new);
-        }
+        return operationalZones.stream()
+                .map(list -> new Object[]{list})
+                .toArray(Object[][]::new);
     }
 
     @Test()

@@ -15,6 +15,7 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.shopper.AssemblyStateSHP;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.shopper.app.AssemblySHP;
+import ru.instamart.api.model.shopper.app.ShipmentSHP;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.shopper.app.AssembliesSHPRequest;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -32,18 +33,17 @@ import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 @Epic("Shopper Mobile API")
 @Feature("E2E тесты")
 public class ShopperAppE2ETest extends RestBase {
-    private String shipmentNumber;
-    private String shipmentId;
-    private final String COMMENT = "SHP-TEST-MULTI";
+    private ShipmentSHP.Data shipment;
 
     @BeforeMethod(alwaysRun = true,
-            description = "Оформляем заказ")
+            description = "Получаем оформленный заказ")
     public void preconditions() {
         shopperApp.authorisation(UserManager.getDefaultShopper());
         shopperApp.deleteCurrentAssembly();
-        shipmentId = shopperApp.getShipmentIdByComment(COMMENT);
+        String COMMENT = "SHP-TEST-MULTI";
+        shipment = shopperApp.getShipmentByComment(COMMENT);
 
-        if (Objects.isNull(shipmentId)) {
+        if (Objects.isNull(shipment)) {
             SessionFactory.makeSession(SessionType.API_V2);
             OrderV2 order = apiV2.order(
                     SessionFactory.getSession(SessionType.API_V2).getUserData(),
@@ -51,9 +51,8 @@ public class ShopperAppE2ETest extends RestBase {
                     5,
                     COMMENT);
             if (Objects.isNull(order)) throw new SkipException("Заказ не удалось оплатить");
-            shipmentNumber = order.getShipments().get(0).getNumber();
             String errorMessageIfDeliveryIsNotToday = checkIsDeliveryToday(order);
-            shipmentId = shopperApp.getShipmentId(shipmentNumber, errorMessageIfDeliveryIsNotToday);
+            shipment = shopperApp.getShipment(order.getShipments().get(0).getNumber(), errorMessageIfDeliveryIsNotToday);
         }
     }
 
@@ -69,7 +68,7 @@ public class ShopperAppE2ETest extends RestBase {
     @Test(description = "Собираем все позиции в заказе",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void simpleCollect() {
-        shopperApp.startAssembly(shipmentId);
+        shopperApp.startAssembly(shipment.getId());
         shopperApp.assemblyItemsWithOriginalQty();
         shopperApp.startPaymentVerification();
         shopperApp.shopperCreatesPackageSets();
@@ -91,14 +90,14 @@ public class ShopperAppE2ETest extends RestBase {
     @Test(description = "Собираем/отменяем/заменяем позиции в заказе",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void complexCollect() {
-        AssemblySHP.Data assembly = shopperApp.startAssembly(shipmentId);
+        AssemblySHP.Data assembly = shopperApp.startAssembly(shipment.getId());
         Assert.assertEquals(assembly.getAttributes().getState(), AssemblyStateSHP.COLLECTING.getState(), "Статус сборки не валиден");
 
         simplyAwait(3); //Пауза перед передачей в сборку. В БД не успевает поменяться статус
         //Отдаём сборку другому сборщику
         shopperApp.suspendAssembly();
         simplyAwait(3); //Пауза перед получением в сборку. В БД не успевает поменяться статус
-        assembly = shopperApp.startAssembly(shipmentId);
+        assembly = shopperApp.startAssembly(shipment.getId());
         Assert.assertEquals(assembly.getAttributes().getState(), AssemblyStateSHP.COLLECTING.getState(), "Статус сборки не валиден");
 
         //Сборка всех позиций заказа
@@ -108,7 +107,7 @@ public class ShopperAppE2ETest extends RestBase {
         //Ставим сборку на паузу
         shopperApp.pauseAssembly();
         simplyAwait(3); //пауза перед сборкой
-        assembly = shopperApp.startAssembly(shipmentId);
+        assembly = shopperApp.startAssembly(shipment.getId());
         Assert.assertEquals(assembly.getAttributes().getState(), AssemblyStateSHP.ON_APPROVAL.getState(), "Статус сборки не валиден");
 
         shopperApp.startPaymentVerification();
@@ -134,7 +133,7 @@ public class ShopperAppE2ETest extends RestBase {
             description = "Дублирование существующего чека",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void simpleCollectNonUniqueFiscalNumber() {
-        String currentAssemblyId = shopperApp.startAssembly(shipmentId).getId();
+        String currentAssemblyId = shopperApp.startAssembly(shipment.getId()).getId();
         shopperApp.assemblyItemsWithOriginalQty();
         shopperApp.startPaymentVerification();
         shopperApp.shopperCreatesPackageSets();

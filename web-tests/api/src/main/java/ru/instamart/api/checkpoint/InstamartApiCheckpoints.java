@@ -68,7 +68,7 @@ public class InstamartApiCheckpoints {
                 .plusDays(1);
 
         if (deliveryTime.isBefore(nextDay)) {
-            return "Заказ оформлен не на сегодня\nnow: " + LocalDateTime.now()
+            return "Проверьте дату оформления заказа (Заказ должен быть оформлен на сегодня)\nnow: " + LocalDateTime.now()
                     + "\ndelivery time: " + deliveryTime;
         } else return "";
     }

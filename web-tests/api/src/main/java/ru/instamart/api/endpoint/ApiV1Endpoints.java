@@ -1,29 +1,71 @@
 package ru.instamart.api.endpoint;
 
-import ru.instamart.api.request.v1.ShippingMethodsV1Request;
-
+/**
+ * sbermarket.tech/api/ endpoints (без указания версии)
+ */
 public final class ApiV1Endpoints {
 
+    public static final String COMPANIES = "companies";
+    public static final String COMPANY_EMPLOYEES = "company_employees";
+    public static final String COMPANY_MANAGERS = "company_managers";
+    public static final String COMPANY_PRESENCE = "company_presence?inn={inn}";
+    public static final String COMPANY_SALES_CONTRACT = "company_sales_contracts";
+    public static final String LEGAL_ENTITY = "legal_entity?inn={inn}";
     public static final String LINE_ITEMS = "line_items?shipment_number={shipmentNumber}";
+    public static final String MARKETING_SAMPLES = "marketing_samples";
+    public static final String MULTIRETAILER_ORDER = "multiretailer_order";
     public static final String OPERATIONAL_ZONES = "operational_zones";
     public static final String ORDERS = "orders?page={pageNumber}";
     public static final String RETAILERS = "retailers";
+    public static final String RETAILER_POSITIONS = "retailer_positions";
+    public static final String SHIPPING_METHODS = "shipping_methods";
+    public static final String SHIPPING_POLICIES = "shipping_policies";
+    public static final String SHOPPING_SESSION = "shopping_session";
     public static final String STORES = "stores";
     public static final String TOKENS = "tokens";
     public static final String USER_SESSIONS = "user_sessions";
-    public static final String COMPANY_PRESENCE = "company_presence?inn={inn}";
-    public static final String LEGAL_ENTITY = "legal_entity?inn={inn}";
-    public static final String COMPANY_SALES_CONTRACT = "company_sales_contracts";
-    public static final String COMPANY_EMPLOYEES = "company_employees";
-    public static final String COMPANY_MANAGERS = "company_managers";
-    public static final String MARKETING_SAMPLES = "marketing_samples";
-    public static final String COMPANIES = "companies";
-    public static final String RETAILER_POSITIONS = "retailer_positions";
-    public static final String SHIPPING_POLICIES = "shipping_policies";
-    public static final String MULTIRETAILER_ORDER = "multiretailer_order";
-    public static final String SHOPPING_SESSION = "shopping_session";
 
-    public static final String SHIPPING_METHODS = "shipping_methods";
+    /**
+     * sbermarket.tech/api/admin/ endpoints (с /api/)
+     */
+    public static final class Admin {
+        public static final String APP_CONFIG = "admin/app_config";
+        public static final String OPERATIONAL_ZONES = "admin/operational_zones";
+
+        public static final class OperationalZones {
+            public static final String BY_ID = "admin/operational_zones/{operationalZoneID}";
+            public static final String DISPATCH_SETTING = "admin/operational_zones/{operationalZoneID}/dispatch_setting";
+        }
+    }
+
+    /**
+     * Страница компании в админке
+     */
+    public static final class Company {
+        public static final String BY_ID = "companies/{companyID}";
+        public static final String BY_INN = "companies?inn={inn}";
+
+        public static final class PaymentAccount {
+            public static final String REFRESH = "companies/{companyID}/payment_account/refresh";
+        }
+
+        public static final class SecurityCode {
+            public static final String REFRESH = "companies/{companyID}/security_code/refresh";
+        }
+    }
+
+    public static final class CompanyEmployees {
+        public static final String BY_ID = "company_employees/{employeeID}";
+    }
+
+    public static final class CompanyManagers {
+        public static final String BY_ID = "company_managers/{managerID}";
+    }
+
+    public static final class CompanySalesContracts {
+        public static final String ARCHIVE = "company_sales_contracts/{contractID}/archive";
+        public static final String BY_ID = "company_sales_contracts/{contractID}";
+    }
 
     public static final class DeliveryWindows {
         public static final String BY_ID = "delivery_windows/{deliveryWindowId}";
@@ -64,9 +106,9 @@ public final class ApiV1Endpoints {
     public static final class Retailers {
         public static final String EANS = "retailers/{retailerId}/eans";
         public static final String ID = "retailers/{retailerId}";
-        public static final String STORES = "retailers/{retailerId}/stores";
-        public static final String SLUG = "retailers/{slug}";
         public static final String SHIPPING_POLICIES = "retailers/{slug}/shipping_policies";
+        public static final String SLUG = "retailers/{slug}";
+        public static final String STORES = "retailers/{retailerId}/stores";
     }
 
     public static final class Shipments {
@@ -76,6 +118,30 @@ public final class ApiV1Endpoints {
 
         public static final class Products {
             public static final String PREREPLACEMENTS = "shipments/{shipmentNumber}/products/{productSku}/prereplacements";
+        }
+    }
+
+    public static final class ShippingMethods {
+
+        public static final String CALCULATORS = "shipping_methods/pricers/{ruleId}/calculators";
+        public static final String RULES = "shipping_methods/pricers/{ruleId}/rules";
+
+        public static final class Calculator {
+            public static final String RULE_ID = "shipping_methods/pricers/calculators/{ruleId}";
+        }
+
+        public static final class MarketingPricers {
+            public static final String MARKETING_PRICERS = "shipping_methods/{methodId}/marketing_pricers";
+            public static final String RULE_ID = "shipping_methods/marketing_pricers/{ruleId}";
+        }
+
+        public static final class NominalPricers {
+            public static final String NOMINAL_COST_PRICERS = "shipping_methods/{methodId}/nominal_cost_pricers";
+            public static final String RULE_ID = "shipping_methods/nominal_cost_pricers/{ruleId}";
+        }
+
+        public static final class Rules {
+            public static final String RULE_ID = "shipping_methods/pricers/rules/{ruleId}";
         }
     }
 
@@ -122,71 +188,13 @@ public final class ApiV1Endpoints {
 
         public static final class Company {
             public static final String BY_ID = "user/companies/{companyID}";
-            public static final String MANAGER = "user/companies/{companyID}/manager";
             public static final String EMPLOYEES = "user/companies/{companyID}/employees?per_page=10&page=1";
+            public static final String MANAGER = "user/companies/{companyID}/manager";
             public static final String PAYMENT_ACCOUNT = "user/companies/{companyID}/payment_account";
 
             public static final class PaymentAccount {
                 public static final String REFRESH = "user/companies/{companyID}/payment_account/refresh";
             }
-        }
-    }
-
-    /**
-     * Страница компании в админке
-     */
-    public static final class Company {
-        public static final String BY_INN = "companies?inn={inn}";
-        public static final String BY_ID = "companies/{companyID}";
-
-        public static final class PaymentAccount {
-            public static final String REFRESH = "companies/{companyID}/payment_account/refresh";
-        }
-
-        public static final class SecurityCode {
-            public static final String REFRESH = "companies/{companyID}/security_code/refresh";
-        }
-    }
-
-    public static final class CompanySalesContracts {
-        public static final String ARCHIVE = "company_sales_contracts/{contractID}/archive";
-        public static final String BY_ID = "company_sales_contracts/{contractID}";
-    }
-
-    public static final class CompanyEmployees {
-        public static final String BY_ID = "company_employees/{employeeID}";
-    }
-
-    public static final class CompanyManagers {
-        public static final String BY_ID = "company_managers/{managerID}";
-    }
-
-    public static final class Admin {
-        public static final String OPERATIONAL_ZONES = "admin/operational_zones";
-        public static final String APP_CONFIG = "admin/app_config";
-    }
-
-    public static final class ShippingMethods {
-
-        public static final String RULES = "shipping_methods/pricers/{ruleId}/rules";
-        public static final String CALCULATORS = "shipping_methods/pricers/{ruleId}/calculators";
-
-        public static final class Rules {
-            public static final String RULE_ID = "shipping_methods/pricers/rules/{ruleId}";
-        }
-
-        public static final class Calculator {
-            public static final String RULE_ID = "shipping_methods/pricers/calculators/{ruleId}";
-        }
-
-        public static final class MarketingPricers {
-            public static final String MARKETING_PRICERS = "shipping_methods/{methodId}/marketing_pricers";
-            public static final String RULE_ID = "shipping_methods/marketing_pricers/{ruleId}";
-        }
-
-        public static final class NominalPricers {
-            public static final String NOMINAL_COST_PRICERS = "shipping_methods/{methodId}/nominal_cost_pricers";
-            public static final String RULE_ID = "shipping_methods/nominal_cost_pricers/{ruleId}";
         }
     }
 }

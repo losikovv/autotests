@@ -10,12 +10,11 @@ import ru.instamart.jdbc.dao.PhoneTokensDao;
 import ru.instamart.jdbc.dao.SpreeUsersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
-import static java.util.Objects.nonNull;
-import static ru.instamart.kraken.data.user.UserManager.getUserDataList;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.clearLogbackLogBuffer;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.getLogbackBufferLog;
 
 public class RestBase {
+    protected static final ApiV1Helper apiV1 = new ApiV1Helper();
     protected static final InstamartApiHelper apiV2 = new InstamartApiHelper();
     protected static final ShopperAppApiHelper shopperApp = new ShopperAppApiHelper();
     protected static final ApiV3Helper apiV3 = new ApiV3Helper();

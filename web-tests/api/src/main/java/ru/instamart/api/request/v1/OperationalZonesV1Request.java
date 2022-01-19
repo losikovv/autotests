@@ -7,6 +7,8 @@ import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.request.ApiV1RequestBase;
 
+import java.util.Objects;
+
 public class OperationalZonesV1Request extends ApiV1RequestBase {
     @Step("{method} /" + ApiV1Endpoints.OPERATIONAL_ZONES)
     public static Response GET() {
@@ -22,11 +24,23 @@ public class OperationalZonesV1Request extends ApiV1RequestBase {
     public static Response POST(String zoneName) {
         JSONObject body = new JSONObject();
         JSONObject operationalZone = new JSONObject();
-        operationalZone.put("name", zoneName);
+        if (Objects.nonNull(zoneName)) operationalZone.put("name", zoneName);
         body.put("operational_zone", operationalZone);
         return givenWithAuth()
                 .contentType(ContentType.JSON)
                 .body(body)
                 .post(ApiV1Endpoints.Admin.OPERATIONAL_ZONES);
+    }
+
+    @Step("{method} /" + ApiV1Endpoints.Admin.OPERATIONAL_ZONES)
+    public static Response PUT(Integer operationalZoneID, String zoneName) {
+        JSONObject body = new JSONObject();
+        JSONObject operationalZone = new JSONObject();
+        if (Objects.nonNull(zoneName)) operationalZone.put("name", zoneName);
+        body.put("operational_zone", operationalZone);
+        return givenWithAuth()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .put(ApiV1Endpoints.Admin.OperationalZones.BY_ID, operationalZoneID);
     }
 }
