@@ -11,15 +11,17 @@ public final class ApiV1Endpoints {
     public static final String COMPANY_PRESENCE = "company_presence?inn={inn}";
     public static final String COMPANY_SALES_CONTRACT = "company_sales_contracts";
     public static final String LEGAL_ENTITY = "legal_entity?inn={inn}";
-    public static final String LINE_ITEMS = "line_items?shipment_number={shipmentNumber}";
+    public static final String LINE_ITEMS = "line_items";
     public static final String MARKETING_SAMPLES = "marketing_samples";
     public static final String MULTIRETAILER_ORDER = "multiretailer_order";
     public static final String OPERATIONAL_ZONES = "operational_zones";
     public static final String ORDERS = "orders?page={pageNumber}";
+    public static final String PHONE_CONFIRMATIONS = "phone_confirmations";
     public static final String RETAILERS = "retailers";
     public static final String RETAILER_POSITIONS = "retailer_positions";
     public static final String SHIPPING_METHODS = "shipping_methods";
     public static final String SHIPPING_POLICIES = "shipping_policies";
+    public static final String SHOPPING_CONTEXT = "shopping_context";
     public static final String SHOPPING_SESSION = "shopping_session";
     public static final String STORES = "stores";
     public static final String TOKENS = "tokens";
@@ -73,6 +75,15 @@ public final class ApiV1Endpoints {
 
     public static final class ExternalPartners {
         public static final String SERVICES = "external_partners/services";
+
+        public static final class Banners {
+            public static final String SBER_PRIME = "external_partners/banners/sberprime";
+        }
+
+    }
+
+    public static final class LineItems {
+        public static final String BY_ID = "line_items/{lineItemId}";
     }
 
     public static final class MarketingSamples {
@@ -89,6 +100,15 @@ public final class ApiV1Endpoints {
 
     public static final class Orders {
         public static final String NUMBER = "orders/{orderNumber}";
+
+        public static final class Number {
+            public static final String LINE_ITEMS = "orders/{orderNumber}/line_items";
+            public static final String MERGE_STATUS = "orders/{orderNumber}/merge_status";
+        }
+    }
+
+    public static final class PhoneConfirmations {
+        public static final String BY_NUMBER = "phone_confirmations/{phoneNumber}";
     }
 
     public static final class Promotions {

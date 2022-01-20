@@ -249,21 +249,21 @@ public final class ProductsV2Test extends RestBase {
 
     @CaseId(1175)
     @Story("Получить список доступных продуктов (Поиск)")
-    @Test(description = "Получаем список продуктов по категории с одиннадцатой страницы",
+    @Test(description = "Получаем список продуктов по категории с десятой страницы",
             groups = {"api-instamart-smoke", "api-instamart-prod"})
     public void getProductWithTidAndPage() {
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
                         .sid(EnvironmentProperties.DEFAULT_SID)
                         .tid(EnvironmentProperties.DEFAULT_TID)
-                        .page(11)
+                        .page(10)
                         .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(productsV2Response.getProducts().size(), productsV2Response.getMeta().getPerPage(), softAssert);
-        compareTwoObjects(11, productsV2Response.getMeta().getCurrentPage(), softAssert);
-        compareTwoObjects(10, productsV2Response.getMeta().getPreviousPage(), softAssert);
+        compareTwoObjects(10, productsV2Response.getMeta().getCurrentPage(), softAssert);
+        compareTwoObjects(9, productsV2Response.getMeta().getPreviousPage(), softAssert);
         softAssert.assertAll();
     }
 

@@ -4,16 +4,22 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.enums.v2.ShippingMethodsV2;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.model.v2.NextDeliveryV2;
+import ru.instamart.api.model.v1.LineItemV1;
+import ru.instamart.api.model.v1.MergeShipmentV1;
+import ru.instamart.api.request.v1.MultiretailerOrderV1Request;
+import ru.instamart.api.request.v1.OrdersV1Request;
 import ru.instamart.api.request.v1.ShipmentsV1Request;
 import ru.instamart.api.request.v1.StoresV1Request;
+import ru.instamart.api.response.v1.MergeStatusV1Response;
+import ru.instamart.api.response.v1.MultiretailerOrderV1Response;
 import ru.instamart.api.response.v1.ShippingRatesV1Response;
 import ru.instamart.api.response.v2.NextDeliveriesV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -23,7 +29,6 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -34,31 +39,35 @@ import static ru.instamart.kraken.util.TimeUtil.getFutureDateWithoutTime;
 @Epic("ApiV1")
 @Feature("Подзаказы")
 public class ShipmentsV1Tests extends RestBase {
+    private LineItemV1 lineItem;
+    private MultiretailerOrderV1Response order;
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        SessionFactory.makeSession(SessionType.API_V2);
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
-        if (!EnvironmentProperties.SERVER.equals("production")) {
-            SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdminAllRoles());
+        if (EnvironmentProperties.SERVER.equals("production")) {
+            SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdmin());
+        } else {
+            SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.PHONE, UserManager.getQaUser());
         }
+        apiV1.changeAddress(apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_SID), ShippingMethodsV2.BY_COURIER.getMethod());
+        lineItem = apiV1.addItemToCart(apiV2.getProductFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_SID).get(0).getId());
     }
 
 
     @CaseId(1390)
-    @Story("Получить окно доставки для подзаказа для указанного дня")
+    @Story("Окна доставки")
     @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
-            description = "Получить окно доставки для подзаказа для указанного дня с существующим id")
+            description = "Получение окна доставки для подзаказа для указанного дня с существующим id")
     public void getShippingRates() {
-        final Response response = ShipmentsV1Request.ShippingRates.GET(apiV2.getShipmentsNumber(), getFutureDateWithoutTime(1L));
+        final Response response = ShipmentsV1Request.ShippingRates.GET(lineItem.getShipmentNumber(), getFutureDateWithoutTime(1L));
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShippingRatesV1Response.class);
     }
 
     @CaseId(1391)
-    @Story("Получить окно доставки для подзаказа для указанного дня")
+    @Story("Окна доставки")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
-            description = "Получить окно доставки для несуществующего подзаказа для указанного дня")
+            description = "Получение окна доставки для несуществующего подзаказа для указанного дня")
     public void getShippingRatesForNonExistentShipment() {
         final Response response = ShipmentsV1Request.ShippingRates.GET("failedShippingNumber", getDateFromMSK());
         checkStatusCode404(response);
@@ -66,33 +75,33 @@ public class ShipmentsV1Tests extends RestBase {
     }
 
     @CaseIDs(value = {@CaseId(1392), @CaseId(1393), @CaseId(1394), @CaseId(1395), @CaseId(1396), @CaseId(1397), @CaseId(1400), @CaseId(1398), @CaseId(1399)})
-    @Story("Получить окно доставки для подзаказа для указанного дня")
+    @Story("Окна доставки")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             dataProvider = "dateFormats",
             dataProviderClass = RestDataProvider.class,
-            description = "Получить окно доставки для подзаказа для указанного дня с неверным форматом даты")
+            description = "Получение окна доставки для подзаказа для указанного дня с неверным форматом даты")
     public void getShippingRatesWithOtherDate(DateTimeFormatter formatter) {
         ZonedDateTime localDate = ZonedDateTime.now().plusDays(1);
         String formattedDate = localDate.format(formatter);
-        final Response response = ShipmentsV1Request.ShippingRates.GET(apiV2.getShipmentsNumber(), formattedDate);
+        final Response response = ShipmentsV1Request.ShippingRates.GET(lineItem.getShipmentNumber(), formattedDate);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShippingRatesV1Response.class);
     }
 
     @CaseId(1402)
-    @Story("Получить ближайшие окна доставки")
+    @Story("Окна доставки")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
-            description = "Получить ближайшие окна доставки для несуществующего магазина")
+            description = "Получение ближайших окон доставки для несуществующего магазина")
     public void getNextDeliveriesForNonexistentStore() {
         final Response response = StoresV1Request.NextDeliveries.GET(0, new StoresV1Request.NextDeliveriesParams());
         checkStatusCode404(response);
         checkErrorText(response, "Объект не найден");
     }
 
-    @CaseIDs(value = {@CaseId(1403), @CaseId(1404)})
-    @Story("Получить ближайшие окна доставки")
+    @CaseIDs(value = {@CaseId(1403), @CaseId(1404), @CaseId(1405)})
+    @Story("Окна доставки")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
-            description = "Получить ближайшие окна доставки с корректными данными",
+            description = "Получение ближайших окон доставки с корректными данными",
             dataProvider = "nextDeliveriesParams",
             dataProviderClass = RestDataProvider.class)
     public void getNextDeliverWithAllData(StoresV1Request.NextDeliveriesParams params) {
@@ -101,14 +110,60 @@ public class ShipmentsV1Tests extends RestBase {
         checkResponseJsonSchema(response, NextDeliveriesV2Response.class);
     }
 
-    @CaseId(1405)
-    @Story("Получить ближайшие окна доставки")
-    @Test(groups = {"api-instamart-regress"},
-            description = "Получить ближайшие окна доставки без параметров")
-    public void getNextDeliverWithoutParams() {
-        final Response response = StoresV1Request.NextDeliveries.GET(EnvironmentProperties.DEFAULT_SID, new StoresV1Request.NextDeliveriesParams());
+    @Story("Заказы")
+    @CaseId(43)
+    @Test(description = "Получение информации о мультиритейлерном заказе",
+            groups = {"api-instamart-regress", "api-instamart-prod"})
+    public void getMultireteilerOrder() {
+        final Response response = MultiretailerOrderV1Request.GET();
         checkStatusCode200(response);
-        List<NextDeliveryV2> nextDeliveries = response.as(NextDeliveriesV2Response.class).getNextDeliveries();
-        compareTwoObjects(0, nextDeliveries.size());
+        checkResponseJsonSchema(response, MultiretailerOrderV1Response.class);
+        order = response.as(MultiretailerOrderV1Response.class);
+    }
+
+    @CaseId(1557)
+    @Story("Мерж заказов")
+    @Test(groups = {"api-instamart-regression", "api-instamart-prod"},
+            description = "Получение статуса мержа",
+            dependsOnMethods = "getMultireteilerOrder")
+    public void getMergeStatus() {
+        final Response response = OrdersV1Request.MergeStatus.GET(order.getNumber());
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, MergeStatusV1Response.class);
+        MergeShipmentV1 mergeShipment = response.as(MergeStatusV1Response.class).getShipments().get(0);
+        compareTwoObjects(mergeShipment.getShipmentId(), (long) lineItem.getShipmentId());
+    }
+
+    @CaseId(1558)
+    @Story("Мерж заказов")
+    @Test(groups = {"api-instamart-regression", "api-instamart-prod"},
+            description = "Получение статуса мержа для несуществующего заказа")
+    public void getMergeStatusForNonexistentOrder() {
+        final Response response = OrdersV1Request.MergeStatus.GET("failedOrderNumber");
+        checkStatusCode404(response);
+        checkErrorText(response, "Объект не найден");
+    }
+
+    @CaseId(1559)
+    @Story("Удаление подзаказа")
+    @Test(groups = {"api-instamart-regression", "api-instamart-prod"},
+            description = "Удаление существующего подзаказа",
+            dependsOnMethods = {"getMultireteilerOrder", "getMergeStatus"})
+    public void deleteShipment() {
+        final Response response = ShipmentsV1Request.DELETE(lineItem.getShipmentNumber(), order.getToken());
+        checkStatusCode200(response);
+        final Response responseAfterRemoval = ShipmentsV1Request.GET(lineItem.getShipmentNumber());
+        checkStatusCode404(responseAfterRemoval);
+    }
+
+    @CaseId(1560)
+    @Story("Удаление подзаказа")
+    @Test(groups = {"api-instamart-regression", "api-instamart-prod"},
+            description = "Удаление несуществующего подзаказа без токена заказа",
+            dependsOnMethods = "getMultireteilerOrder")
+    public void deleteNonexistentShipment() {
+        final Response response = ShipmentsV1Request.DELETE("failedShipmentNumber", order.getToken());
+        checkStatusCode404(response);
+        checkErrorText(response, "Объект не найден");
     }
 }

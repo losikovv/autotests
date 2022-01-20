@@ -25,6 +25,7 @@ public final class UserData {
     private String token;
     private String encryptedPhone;
     private String anonymousId;
+    private String qaSessionId;
 
     public static UserDataBuilder builder() {
         return new UserDataBuilder();
@@ -56,6 +57,7 @@ public final class UserData {
         private String name;
         private String token;
         private String anonymousId;
+        private String qaSessionId;
 
         UserDataBuilder() {
         }
@@ -100,8 +102,13 @@ public final class UserData {
             return this;
         }
 
+        public UserDataBuilder qaSessionId(final String qaSessionId) {
+            this.qaSessionId = qaSessionId;
+            return this;
+        }
+
         public UserData build() {
-            return new UserData(id, role, email, phone, getSmsCode(), password, name, token, generateEncryptedPhone(), anonymousId);
+            return new UserData(id, role, email, phone, getSmsCode(), password, name, token, generateEncryptedPhone(), anonymousId, qaSessionId);
         }
 
         /**

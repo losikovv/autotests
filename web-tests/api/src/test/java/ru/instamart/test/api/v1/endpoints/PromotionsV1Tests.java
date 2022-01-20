@@ -6,6 +6,7 @@ import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v1.PromotionsV1Request;
@@ -25,7 +26,7 @@ public class PromotionsV1Tests extends RestBase {
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение информации о бесплатной доставке")
     public void getFreeDeliveryPromotionsInfo() {
-        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
+        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdmin());
         final Response response = PromotionsV1Request.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, FreeDeliveryV1Response.class);

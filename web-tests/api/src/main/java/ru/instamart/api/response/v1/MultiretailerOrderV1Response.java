@@ -44,7 +44,7 @@ public class MultiretailerOrderV1Response extends BaseResponseObject  {
 
     @JsonSchema(required = true)
     @JsonProperty("item_total")
-    private Integer itemTotal;
+    private Double itemTotal;
 
     @JsonSchema(required = true)
     @JsonProperty("mnogoru_bonuses_text")

@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 import ru.instamart.api.model.v2.ProfileConfigV2;
 
+import javax.validation.constraints.Null;
 import java.util.List;
 
 @Data
@@ -17,14 +18,18 @@ public class UserV1 extends BaseObject {
     @JsonSchema(required = true)
     private String email;
     @JsonSchema(required = true)
+    @Null
     @JsonProperty(value = "display_email")
     private String displayEmail;
     @JsonProperty(value = "email_md5")
     private String emailMd5;
+    @Null
     @JsonProperty(value = "first_name")
     private String firstName;
+    @Null
     @JsonProperty(value = "last_name")
     private String lastName;
+    @Null
     private String fullname;
     @JsonSchema(required = true)
     private String phone;

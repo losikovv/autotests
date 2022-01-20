@@ -1,6 +1,7 @@
 package ru.instamart.test.api.v1.contracts;
 
 import io.qameta.allure.*;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.request.v1.*;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
@@ -37,7 +38,7 @@ public class OrdersV1ContractTests extends RestBase {
         if (order == null) throw new SkipException("Заказ не удалось оплатить");
         orderNumber = order.getNumber();
         shipmentNumber = order.getShipments().get(0).getNumber();
-        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
+        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdmin());
     }
 
     @AfterClass(alwaysRun = true)
@@ -138,15 +139,5 @@ public class OrdersV1ContractTests extends RestBase {
         final Response response = ShoppersV1Request.OrderAvailablePaymentTools.GET(orderNumber);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, AvailablePaymentToolsV1Response.class);
-    }
-
-    @Story("Заказы")
-    @CaseId(43)
-    @Test(description = "Получение информации о мультиритейлерном заказе",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
-    public void getMultireteilerOrder() {
-        final Response response = MultiretailerOrderV1Request.GET();
-        checkStatusCode200(response);
-        checkResponseJsonSchema(response, MultiretailerOrderV1Response.class);
     }
 }

@@ -3,6 +3,7 @@ package ru.instamart.test.api.v1.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import ru.instamart.api.enums.SessionProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
@@ -43,7 +44,7 @@ public class CompaniesV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
+        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdmin());
         final Response response = UserCompaniesV1Request.POST(companyData);
         checkStatusCode200(response);
         company = response.as(CompanyV1Response.class).getCompany();

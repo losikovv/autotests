@@ -14,9 +14,11 @@ import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v1.ShippingPoliciesV1Request;
 import ru.instamart.api.response.v2.ExternalPartnersServicesV2Response;
+import ru.instamart.jdbc.dao.SpreeAddressesDao;
 import ru.instamart.jdbc.dao.SpreeUsersDao;
 import ru.instamart.jdbc.entity.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.user.UserData;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -212,6 +214,20 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(shipmentFromResponse.getState(), StateV2.READY.getValue(), softAssert);
         compareTwoObjects(shipmentFromResponse.getDeliveryWindow().getId(), order.getShipments().get(0).getDeliveryWindow().getId(), softAssert);
         compareTwoObjects(shipmentFromResponse.getLineItems().size(), order.getShipments().get(0).getLineItems().size(), softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем сохранение адреса в базе данных")
+    public static void checkAddressInDb(AddressV2 address, UserData user) {
+        SpreeAddressesEntity addressFromDb = SpreeAddressesDao.INSTANCE.getAddressByUserPhone(user.getPhone());
+        checkFieldIsNotEmpty(addressFromDb, "адрес пользователя");
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(addressFromDb.getCity(), address.getCity(), softAssert);
+        compareTwoObjects(addressFromDb.getStreet(), address.getStreet(), softAssert);
+        compareTwoObjects(addressFromDb.getBuilding(), address.getBuilding(), softAssert);
+        compareTwoObjects(addressFromDb.getFullAddress(), address.getFullAddress(), softAssert);
+        compareTwoObjects(addressFromDb.getLat(), address.getLat(), softAssert);
+        compareTwoObjects(addressFromDb.getLon(), address.getLon(), softAssert);
         softAssert.assertAll();
     }
 }

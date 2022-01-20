@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v1.RetailerSortTypesV1;
 import ru.instamart.api.factory.SessionFactory;
@@ -61,7 +62,7 @@ public class RetailersV1Tests extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         if(!EnvironmentProperties.SERVER.equals("production")) {
-            SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdminAllRoles());
+            SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdminAllRoles());
         }
     }
 

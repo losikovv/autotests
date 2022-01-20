@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 
+import javax.validation.constraints.Null;
+
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class LineItemV1 extends BaseObject {
@@ -14,7 +16,7 @@ public class LineItemV1 extends BaseObject {
     private String humanVolume;
 
     @JsonSchema(required = true)
-    private Integer id;
+    private Long id;
 
     @JsonSchema(required = true)
     private String image;
@@ -24,7 +26,7 @@ public class LineItemV1 extends BaseObject {
 
     @JsonSchema(required = true)
     @JsonProperty(value = "offer_id")
-    private Integer offerId;
+    private Long offerId;
 
     @JsonSchema(required = true)
     @JsonProperty(value = "product_permalink")
@@ -99,7 +101,7 @@ public class LineItemV1 extends BaseObject {
     @JsonSchema(required = true)
     private OfferV1 offer;
 
-    @JsonSchema(required = true)
+    @Null
     @JsonProperty(value = "master_category")
     private Object masterCategory;
 }

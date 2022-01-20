@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.b2b.CompanyV1;
@@ -29,7 +30,7 @@ public class UserCompanyEmployeesV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
+        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdmin());
         final Response response = UserCompaniesV1Request.POST(companyData);
         checkStatusCode200(response);
         company = response.as(CompanyV1Response.class).getCompany();

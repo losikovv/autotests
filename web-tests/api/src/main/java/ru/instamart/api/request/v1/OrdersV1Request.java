@@ -17,4 +17,21 @@ public class OrdersV1Request extends ApiV1RequestBase {
         return givenWithAuth()
                 .get(ApiV1Endpoints.Orders.NUMBER, orderNumber);
     }
+
+    public static class LineItems {
+        @Step("{method} /" + ApiV1Endpoints.Orders.Number.LINE_ITEMS)
+        public static Response GET(String orderNumber) {
+            return givenWithAuth()
+                    .queryParam("order_number", orderNumber)
+                    .get(ApiV1Endpoints.Orders.Number.LINE_ITEMS, orderNumber);
+        }
+    }
+
+    public static class MergeStatus {
+        @Step("{method} /" + ApiV1Endpoints.Orders.Number.MERGE_STATUS)
+        public static Response GET(String orderNumber) {
+            return givenWithAuth()
+                    .get(ApiV1Endpoints.Orders.Number.MERGE_STATUS, orderNumber);
+        }
+    }
 }

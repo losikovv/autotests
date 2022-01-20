@@ -39,6 +39,7 @@ public final class OffersDao extends AbstractDao<Long, OffersEntity> {
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             offer.setId(resultSet.getLong("id"));
+            offer.setProductId(resultSet.getLong("product_id"));
             offer.setProductSku(resultSet.getString("product_sku"));
             offer.setRetailerSku(resultSet.getString("retailer_sku"));
             offer.setRetailerId(resultSet.getInt("retailer_id"));

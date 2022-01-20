@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
+import ru.instamart.api.enums.SessionProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
@@ -30,7 +31,7 @@ public class LegalEntityV1Tests extends RestBase {
     @Test(description = "Загрузка реквизитов компании из Контур-Фокус",
             groups = {"api-instamart-regress"})
     public void getWithoutLegalEntity() {
-        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
+        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdmin());
 
         final Response response = LegalEntityV1Request.GET("123456789");
         checkStatusCode200(response);

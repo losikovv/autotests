@@ -3,6 +3,7 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import ru.instamart.kraken.data.user.UserData;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
@@ -45,9 +46,8 @@ public class InstacoinAccountV2Test extends RestBase {
     @Test(description = "У пользователя есть бонусы",
             groups = {"api-instamart-regress"})
     public void getInstacoinAccount() {
-        UserV2 user = apiV2.getProfile().getUser();
-        Long userId = SpreeUsersDao.INSTANCE.getIdByEmail(user.getEmail());
-        execRakeTaskAddBonus(user.getEmail(), "100", userId.toString());
+        UserData user = SessionFactory.getSession(SessionType.API_V2).getUserData();
+        execRakeTaskAddBonus(user.getEmail(), "100", user.getId());
         final Response response = InstacoinAccountV2Request.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, InstacoinAccountV2Response.class);

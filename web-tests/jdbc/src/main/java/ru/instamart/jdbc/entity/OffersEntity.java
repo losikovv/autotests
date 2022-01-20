@@ -9,7 +9,7 @@ public final class OffersEntity {
 
     private Long id;
     private Integer retailerId;
-    private Integer productId;
+    private Long productId;
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private String productSku;
