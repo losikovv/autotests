@@ -27,6 +27,8 @@
       <class name="ru.instamart.test.reforged.stf.order.OrdersPromoCodesTests"/>
       <class name="ru.instamart.test.reforged.stf.order.OrdersReplacementsTests"/>
       <class name="ru.instamart.test.reforged.stf.order.OrdersRetailerCardsTests"/>
+      <class name="ru.instamart.test.reforged.stf.order.OrdersCitiesTests"/>
+      <class name="ru.instamart.test.reforged.stf.order.OrdersRetailersTests"/>
 
       <!-- Ждет включения данной фичи на стейдже или перехода на полноценный препрод -->
       <!--

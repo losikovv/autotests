@@ -1,10 +1,7 @@
 package ru.instamart.api.helper;
 
 import io.qameta.allure.Step;
-import ru.instamart.api.enums.SessionProvider;
-import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.OrderV2;
@@ -23,7 +20,6 @@ import ru.instamart.jdbc.dao.PromotionCodesDao;
 import ru.instamart.jdbc.dao.shopper.OperationalZonesShopperDao;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.user.UserData;
-import ru.instamart.kraken.data.user.UserManager;
 
 public final class ApiHelper {
 
@@ -123,6 +119,15 @@ public final class ApiHelper {
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, address);
         apiV2.fillCartOnSid(sid);
+    }
+
+    @Step("Наполняем корзину с помощью API")
+    public void dropAndFillCart(final UserData user, final String retailerName, final AddressV2 address) {
+        apiV2.auth(user);
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+        apiV2.setAddressAttributes(user, address);
+        apiV2.fillCartOnSid(apiV2.getCurrentStore(address, retailerName).getId());
     }
 
     /**
