@@ -26,7 +26,6 @@ public class RestBase {
     @AfterSuite(alwaysRun = true)
     public void clearData() {
         if (!EnvironmentProperties.SERVER.equals("production")) {
-            PhoneTokensDao.INSTANCE.deleteQAPhones();
             SpreeUsersDao.INSTANCE.deleteQAUsers();
         }
     }

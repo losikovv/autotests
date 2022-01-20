@@ -57,7 +57,8 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
 
     public void deleteQAUsers() {
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE email LIKE 'qasession+%' AND locked_at IS NOT NULL")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + ", phone_tokens USING spree_users, phone_tokens" +
+                     " WHERE spree_users.id = phone_tokens.user_id AND spree_users.email LIKE 'qasession+%' AND spree_users.locked_at IS NOT NULL")) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             log.error("Error init ConnectionMySQLManager. Error: {}", e.getMessage());
