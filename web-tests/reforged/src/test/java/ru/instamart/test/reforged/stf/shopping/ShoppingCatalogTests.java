@@ -205,7 +205,7 @@ public final class ShoppingCatalogTests extends BaseTest {
         home().interactAddressModal().fillAddressTmp(Addresses.Moscow.defaultAddress());
         home().interactAddressModal().selectFirstAddressTmp();
         home().interactAddressModal().clickFindStores();
-        home().clickToStoreCard();
+        home().clickToFirstStoreCard();
         shop().interactHeader().checkLoginIsVisible();
     }
 

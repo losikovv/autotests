@@ -1,7 +1,6 @@
 package ru.instamart.reforged.stf.page.home;
 
 import org.openqa.selenium.By;
-
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
@@ -64,7 +63,7 @@ public interface HomeElement {
     Element appsBlockContainer = new Element(By.xpath("//div[@data-qa='home_landing_app_stores']"), "блок моб. приложений на лендинге Сбермаркета");
     Element footerContainer = new Element(By.xpath("//footer"), "подвал лендинга Сбермаркета");
 
-    Link storeCard = new Link(By.xpath("//a[@data-qa='b2c_home_landing_stores_block_store_card_0']"), "карточка первого магазина на главной");
-
+    Link firstStoreCard = new Link(By.xpath("//a[@data-qa='b2c_home_landing_stores_block_store_card_0']"), "карточка первого магазина на главной");
+    Link secondStoreCard = new Link(By.xpath("//a[@data-qa='b2c_home_landing_stores_block_store_card_1']"), "карточка второго магазина на главной");
 }
 

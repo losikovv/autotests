@@ -42,6 +42,7 @@
       <class name="ru.instamart.test.reforged.stf.shopping.ShoppingSearchTests"/>
       <class name="ru.instamart.test.reforged.stf.shopping.ShoppingTestsForExistingUser"/>
       <class name="ru.instamart.test.reforged.stf.shopping.ShoppingTestsForUnauthorizedUser"/>
+      <class name="ru.instamart.test.reforged.stf.shopping.ShoppingYouBoughtBeforeTests"/>
 
       <class name="ru.instamart.test.reforged.stf.user.UserAuthorisationTests"/>
       <class name="ru.instamart.test.reforged.stf.user.UserFavoritesTests"/>

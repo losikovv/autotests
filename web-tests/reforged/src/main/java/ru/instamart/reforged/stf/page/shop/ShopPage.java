@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.page.shop;
 
 import io.qameta.allure.Step;
+import ru.instamart.kraken.util.CollectionUtil;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.reforged.stf.block.footer.Footer;
@@ -14,6 +15,8 @@ import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 import ru.instamart.reforged.stf.frame.product_card.ProductCard;
 import ru.instamart.reforged.stf.frame.store_modal.StoreModal;
 import ru.instamart.reforged.stf.page.StfPage;
+
+import java.util.List;
 
 public final class ShopPage implements StfPage, ShopCheck {
 
@@ -152,6 +155,17 @@ public final class ShopPage implements StfPage, ShopCheck {
         fullPriceInFirstItemWithDiscount.hoverAndClick();
     }
 
+    @Step("Получаем название первой категории товаров в магазине")
+    public String getFirstCategoryTitle() {
+        return firstProductsCategoryTitle.getText();
+    }
+
+    @Step("Получаем названия продуктов из первой категории товаров магазина")
+    public List<String> getFirstCategoryProductNames() {
+        //TODO Костыль потому что название продукта длинее 60 символов обрезается, невозможно сравнить в карточке, корзине, истории
+        return CollectionUtil.cropItemsByLengthAndSort(firstCategoryProductNames.getTextFromAllElements(), 59);
+    }
+
     @Override
     public void goToPage() {
         goToPage(ShopUrl.DEFAULT);
@@ -164,6 +178,7 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     /**
      * Метод создан для того, что бы в куках указывать фиксированный UUID пользователя, который заранее добавлен в нужную АБ группу
+     *
      * @param isFixedUUID - служит идентификатором для UUID
      */
     public void goToPage(final boolean isFixedUUID) {
