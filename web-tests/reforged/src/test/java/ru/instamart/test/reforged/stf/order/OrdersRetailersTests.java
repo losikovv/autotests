@@ -2,6 +2,8 @@ package ru.instamart.test.reforged.stf.order;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import ru.instamart.kraken.data.AddressDetailsData;
+import ru.instamart.kraken.data.TestVariables;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
@@ -22,6 +24,7 @@ public class OrdersRetailersTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
     private UserData userData;
+    private final AddressDetailsData data = TestVariables.testAddressData();
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
@@ -43,6 +46,13 @@ public class OrdersRetailersTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
 
         checkout().goToPage();
+        checkout().setDeliveryOptions().clickToForSelf();
+        checkout().setDeliveryOptions().fillApartment(data.getApartment());
+        checkout().setDeliveryOptions().fillFloor(data.getFloor());
+        checkout().setDeliveryOptions().checkElevator();
+        checkout().setDeliveryOptions().fillEntrance(data.getEntrance());
+        checkout().setDeliveryOptions().fillDoorPhone(data.getDomofon());
+        checkout().setDeliveryOptions().fillComments(data.getComments());
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
         checkout().setContacts().fillContactInfo();
@@ -51,7 +61,6 @@ public class OrdersRetailersTests extends BaseTest {
         checkout().setReplacementPolicy().clickToSubmit();
 
         checkout().setSlot().setFirstActiveSlot();
-
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
         userShipments().checkPageContains(userShipments().pageUrl());

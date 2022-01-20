@@ -2,19 +2,18 @@ package ru.instamart.test.reforged.stf.order;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.model.v2.AddressV2;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.data_provider.CityProvider;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseIDs;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -23,17 +22,19 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 public final class OrdersCitiesTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
-    private final UserData userData = UserManager.getQaUser();
+    private UserData userData;
 
-    @CaseIDs(value = {@CaseId(1650), @CaseId(1651), @CaseId(1652), @CaseId(1653), @CaseId(1654),@CaseId(1655),
+    @CaseIDs(value = {@CaseId(1650), @CaseId(1651), @CaseId(1652), @CaseId(1653), @CaseId(1654), @CaseId(1655),
             @CaseId(1656), @CaseId(1657), @CaseId(1658), @CaseId(1659), @CaseId(1660), @CaseId(1661),
             @CaseId(1662), @CaseId(1663), @CaseId(1664), @CaseId(1665)})
-    @Test(  description = "Тест заказа в METRO",
+    @Test(description = "Тест заказа в METRO",
             groups = {"regression", "acceptance"},
             dataProviderClass = CityProvider.class,
             dataProvider = "city")
     public void successOrderFromCity(final AddressV2 address) {
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID, address);
+        userData = UserManager.getQaUser();
+        helper.dropAndFillCart(userData, "METRO", address);
+        helper.setAddress(userData, address);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
