@@ -2,6 +2,7 @@ package ru.instamart.api.helper;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OperationalZoneV1;
@@ -140,6 +141,6 @@ public class AdminHelper {
     }
     @Step("Авторизация администратором для API")
     public void authAdminApi() {
-        SessionFactory.createSessionToken(SessionType.API_V1, UserManager.getDefaultAdminAllRoles());
+        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdminAllRoles());
     }
 }

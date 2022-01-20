@@ -14,4 +14,14 @@ public class ExternalPartnersV1Request extends ApiV1RequestBase {
                     .get(ApiV1Endpoints.ExternalPartners.SERVICES);
         }
     }
+
+    public static class Banners {
+        public static class SberPrime {
+            @Step("{method} /" + ApiV1Endpoints.ExternalPartners.Banners.SBER_PRIME)
+            public static Response GET() {
+                return givenWithAuth()
+                        .get(ApiV1Endpoints.ExternalPartners.Banners.SBER_PRIME);
+            }
+        }
+    }
 }

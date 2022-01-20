@@ -926,6 +926,14 @@ public class RestDataProvider extends RestBase {
         };
     }
 
+    @DataProvider(name = "shippingMethods")
+    public static Object[][] getShippingMethods() {
+        return new Object[][]{
+                {ShippingMethodsV2.BY_COURIER.getMethod()},
+                {ShippingMethodsV2.PICKUP.getMethod()},
+        };
+    }
+
     @DataProvider(name = "incorrectRetailerParams", parallel = true)
     public static Object[][] getIncorrectRetailerParams() {
         return new Object[][]{
@@ -958,6 +966,8 @@ public class RestDataProvider extends RestBase {
                 {StoresV1Request.NextDeliveriesParams.builder()
                         .lat(address.getLat())
                         .lon(address.getLon())
+                        .build()},
+                {StoresV1Request.NextDeliveriesParams.builder()
                         .build()}
         };
     }

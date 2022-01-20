@@ -6,5 +6,6 @@ public enum SessionProvider {
     MAILRU,
     PHONE,
     SBER_ID,
-    QA
+    QA,
+    EMAIL
 }

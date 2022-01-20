@@ -15,6 +15,13 @@ public class ShipmentsV1Request extends ApiV1RequestBase {
                 .get(ApiV1Endpoints.Shipments.NUMBER, shipmentNumber);
     }
 
+    @Step("{method} /" + ApiV1Endpoints.Shipments.NUMBER)
+    public static Response DELETE(String shipmentNumber, String orderToken) {
+        return givenWithAuth()
+                .queryParam("order_token", orderToken)
+                .delete(ApiV1Endpoints.Shipments.NUMBER, shipmentNumber);
+    }
+
     public static class Products {
         public static class Prereplacements {
             @Step("{method} /" + ApiV1Endpoints.Shipments.Products.PREREPLACEMENTS)

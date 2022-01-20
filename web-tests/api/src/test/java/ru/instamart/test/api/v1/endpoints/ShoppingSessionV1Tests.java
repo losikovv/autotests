@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v1.ShoppingSessionV1Request;
@@ -14,6 +15,7 @@ import ru.instamart.api.model.v1.ShoppingSessionV1;
 import ru.instamart.api.response.v1.ShoppingSessionV1Response;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -24,13 +26,13 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Feature("Сессия")
 public class ShoppingSessionV1Tests extends RestBase {
 
-    @CaseId(1417)
+    @CaseIDs(value = {@CaseId(44), @CaseId(1417)})
     @Story("Сессия покупки")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение сессии для авторизованного пользователя")
     public void getShoppingSessionWithAuth() {
         UserData user = UserManager.getDefaultAdmin();
-        SessionFactory.createSessionToken(SessionType.API_V1, user);
+        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, user);
         final Response response = ShoppingSessionV1Request.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShoppingSessionV1Response.class);

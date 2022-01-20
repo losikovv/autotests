@@ -9,10 +9,7 @@ import ru.instamart.kraken.service.QaService;
 import ru.sbermarket.common.Crypt;
 import ru.sbermarket.qa.model.response.QaSessionResponse;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -290,10 +287,7 @@ public final class UserManager {
     }
 
     private static UserData generateData(final String role, final int prefix) {
-        final UserData userData = testCredentials(role, prefix);
-        USER_DATA_LIST.add(userData);
-
-        return userData;
+        return testCredentials(role, prefix);
     }
 
     public static UserData testCredentials(final String role, final int prefixLength) {
@@ -382,7 +376,7 @@ public final class UserManager {
         log.debug("ФИО: {}", userName);
 
         return UserData.builder()
-                .id(sessionResponse.getId())
+                .id(sessionResponse.getUser().getId().toString())
                 .role(role)
                 .email(sessionResponse.getUser().getEmail())
                 .phone(sessionResponse.getUser().getPhone().substring(1))
@@ -390,6 +384,7 @@ public final class UserManager {
                 .name(userName)
                 .anonymousId(sessionResponse.getAnonymous().getValue())
                 .token(sessionResponse.getSession().getAccessToken())
+                .qaSessionId(sessionResponse.getId())
                 .build();
     }
 
@@ -416,12 +411,15 @@ public final class UserManager {
     }
 
     public static void cleanupUsers() {
-        USER_DATA_LIST.forEach(userData -> {
-            final String userId = userData.getId();
-            if (nonNull(userId) && !userId.isEmpty()) {
-                QaService.INSTANCE.deleteSession(userId);
-                log.debug("Remove user {}", userData.getPhone());
-            }
-        });
+        USER_DATA_LIST.stream()
+                .filter(Objects::nonNull)
+                .forEach(userData -> {
+                    final String qaSessionId = userData.getQaSessionId();
+                    if (nonNull(qaSessionId) && !qaSessionId.isEmpty()) {
+                        QaService.INSTANCE.deleteSession(qaSessionId);
+                        log.debug("Remove user {}", userData.getPhone());
+                    }
+                });
+
     }
 }

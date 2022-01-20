@@ -16,6 +16,7 @@ import ru.instamart.api.model.v1.ShoppersBackendV1;
 import ru.instamart.api.request.delivery_club.AuthenticationDCRequest;
 import ru.instamart.api.request.ris_exporter.AuthenticationRisRequest;
 import ru.instamart.api.request.shopper.app.SessionsSHPRequest;
+import ru.instamart.api.request.v1.PhoneConfirmationsV1Request;
 import ru.instamart.api.request.v1.TokensV1Request;
 import ru.instamart.api.request.v1.UserSessionsV1Request;
 import ru.instamart.api.request.v2.AuthProvidersV2Request;
@@ -23,9 +24,11 @@ import ru.instamart.api.request.v2.PhoneConfirmationsV2Request;
 import ru.instamart.api.response.delivery_club.TokenDCResponse;
 import ru.instamart.api.response.ris_exporter.TokenRisResponse;
 import ru.instamart.api.response.shopper.app.SessionsSHPResponse;
+import ru.instamart.api.response.v1.PhoneConfirmationsV1Response;
 import ru.instamart.api.response.v1.TokensV1Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
 import ru.instamart.api.response.v2.UserV2Response;
+import ru.instamart.jdbc.dao.PhoneTokensDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -169,7 +172,7 @@ public final class SessionFactory {
     private static SessionInfo createSession(final SessionType type, final SessionProvider provider, final UserData userData) {
         switch (type) {
             case API_V1:
-                return createApiV1Session(userData);
+                return createApiV1Session(provider, userData);
             case API_V2:
                 return createSession(provider, userData);
             case SHOPPER_APP:
@@ -207,12 +210,27 @@ public final class SessionFactory {
         }
     }
 
-    private static SessionInfo createApiV1Session(final UserData userData) {
-        final Response response = UserSessionsV1Request.POST(userData.getEmail(), userData.getPassword());
-        checkStatusCode200(response);
-        log.debug("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
-        log.debug("cookies: {}", response.getCookies());
-        return new SessionInfo(userData, response.getCookies());
+    private static SessionInfo createApiV1Session(final SessionProvider provider, final UserData userData) {
+        switch (provider) {
+            case EMAIL:
+                final Response response = UserSessionsV1Request.POST(userData.getEmail(), userData.getPassword());
+                checkStatusCode200(response);
+                log.debug("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
+                log.debug("cookies: {}", response.getCookies());
+                return new SessionInfo(userData, response.getCookies());
+            case PHONE:
+                final Response postResponse = PhoneConfirmationsV1Request.POST(userData.getEncryptedPhone());
+                checkStatusCode200(postResponse);
+                String phone = userData.getPhone();
+                final Response phoneResponse = PhoneConfirmationsV1Request.PUT(phone, PhoneTokensDao.INSTANCE.getByPhoneValue(phone).getConfirmationCode());
+                checkStatusCode200(phoneResponse);
+                log.debug("Авторизуемся: {}", userData.getPhone());
+                log.debug("cookies: {}", phoneResponse.getCookies());
+                return new SessionInfo(userData, phoneResponse.as(PhoneConfirmationsV1Response.class).getCsrfToken(), phoneResponse.getCookies());
+            default:
+                log.error("Session type not selected");
+                return new SessionInfo();
+        }
     }
 
     private static SessionInfo createApiV2PhoneSession(final UserData userData) {
@@ -249,7 +267,7 @@ public final class SessionFactory {
     }
 
     private static SessionInfo createShopperAdminSession(final UserData userData) {
-        createSessionToken(SessionType.API_V1, UserManager.getDefaultAdmin());
+        createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdmin());
         final Response response = TokensV1Request.GET();
         checkStatusCode200(response);
         final ShoppersBackendV1 shoppersBackend = response.as(TokensV1Response.class).getShoppersBackend();
