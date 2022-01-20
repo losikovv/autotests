@@ -99,4 +99,10 @@ public final class Cart implements CartCheck {
     public int getRetailersCount() {
         return retailers.elementCount();
     }
+
+
+    @Step("Кликаем на кнопку 'Посмотреть' в сообщении об успешном переносе товаров в активный заказ")
+    public void clickToViewOrder() {
+        viewOrder.click();
+    }
 }

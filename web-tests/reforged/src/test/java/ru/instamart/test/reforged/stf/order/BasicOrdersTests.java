@@ -337,7 +337,7 @@ public final class BasicOrdersTests extends BaseTest {
         shop().goToPage();
         shop().interactHeader().clickToCart();
         shop().interactCart().getFirstRetailer().mergeProducts();
-        shop().interactCart().getFirstRetailer().clickToViewOrder();
+        shop().interactCart().clickToViewOrder();
 
         userShipments().compareProductNameInOrder(itemName);
     }

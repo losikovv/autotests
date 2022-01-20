@@ -229,8 +229,9 @@ public final class UserShippingAddressTests extends BaseTest {
         home().interactAddressModal().checkYmapsReadyTmp();
         home().interactAddressModal().fillAddressTmp(defaultAddress);
         home().interactAddressModal().selectFirstAddressTmp();
-        home().interactAddressModal().clickToSearchAddress();
+        home().interactAddressModal().clickFindStores();
         home().clickToFirstRetailer();
+        shop().interactHeader().checkEnteredAddressIsVisible();
 
         //TODO: Костыль из-за бейсика
         shop().goToPage(ShopUrl.AUCHAN);

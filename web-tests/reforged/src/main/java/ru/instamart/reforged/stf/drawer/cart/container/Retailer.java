@@ -35,7 +35,6 @@ public final class Retailer extends Container {
     private final InnerCollectionComponent itemInList = new InnerCollectionComponent(getContainer(), By.xpath(".//div[@data-qa='line-item']"), "Список товаров магазина");
     private final InnerElement mergeChecker = new InnerElement(getContainer(), By.xpath("//div[@class='cart-retailer__merge-checker']"), "Сообщение о возможности сделать дозаказ");
     private final InnerButton mergeButton = new InnerButton(getContainer(), By.xpath("//button[@data-qa='merge_products_button']"), "Кнопка 'перенести' в сообщении дозаказа");
-    private final InnerLink viewOrder = new InnerLink(getContainer(), By.xpath("//a[@data-qa='merged_products_look_button']"), "Кнопка 'посмотреть' заказ после мерджа товаров");
 
     public Retailer(final WebElement container) {
         super(container);
@@ -87,11 +86,6 @@ public final class Retailer extends Container {
     @Step("Кликаем на кнопку 'Перенести' в сообщении о возможности перенести товары в активный заказ")
     public void mergeProducts() {
         mergeButton.click();
-    }
-
-    @Step("Кликаем на кнопку 'Посмотреть' в сообщении об успешном переносе товаров в активный заказ")
-    public void clickToViewOrder() {
-        viewOrder.click();
     }
 
     @Step("Сравнить количество уникальных товаров магазина с ожидаемым значением {0}")

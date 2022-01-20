@@ -21,6 +21,7 @@ public interface AddressElement {
     //TODO: Ждет data-qa
     DropDown dropDownAddressTmp = new DropDown(By.xpath("//main//input/following::div[2]/div/div/div"), "empty");
     Button save = new Button(By.xpath("//button[@data-qa='address-modal-submit']"), "кнопка Сохранить");
+    Button findStores = new Button(By.xpath("//button[@data-qa='b2c_home_landing_address_block_address_modal_submit_button']"), "кнопка 'Найти магазины'");
     Element outOfShippingZone = new Element(By.xpath("//div[text()='Адрес не в зоне доставки']"), "лейбл Адрес не в зоне доставки");
     Button chooseOtherAddress = new Button(By.xpath("//button[@data-qa='address-modal-other-address']"), "кнопка Выбрать другой адрес");
     Button choosePickUp = new Button(By.xpath("//button[@data-qa='address-modal-pickup']"), "кнопка Выбрать самовывоз");

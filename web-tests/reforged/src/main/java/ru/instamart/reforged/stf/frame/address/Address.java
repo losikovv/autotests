@@ -74,6 +74,11 @@ public final class Address implements Close, AddressCheck {
         save.click();
     }
 
+    @Step("Нажать 'Найти магазины'")
+    public void clickFindStores() {
+        findStores.click();
+    }
+
     @Step("Нажать Выбрать другой магазин")
     public void clickViewOtherRetailers() {
         otherRetailers.click();
