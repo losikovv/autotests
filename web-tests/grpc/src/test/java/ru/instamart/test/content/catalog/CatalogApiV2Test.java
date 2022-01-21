@@ -203,13 +203,14 @@ public class CatalogApiV2Test extends GrpcBase {
 
     @Story("Продукты")
     @CaseId(250)
-    @Test(description = "Получение списка товаров с пустым tenant_d",
+    @Test(description = "Получение списка товаров с пустым tenant_id",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty tenant_id")
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty category_ids") //todo ждём актуализации в Qase
     public void getProductListWithEmptyTenantId() {
         var request = CatalogApiV2
                 .GetProductListRequest.newBuilder()
+                .setTid("0")
                 .setSid("1")
                 .setPage(1)
                 .setPage(24)
@@ -222,13 +223,14 @@ public class CatalogApiV2Test extends GrpcBase {
 
     @Story("Продукты")
     @CaseId(251)
-    @Test(description = "Получение списка товаров без tenant_d",
+    @Test(description = "Получение списка товаров без tenant_id",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty tenant_id")
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty category_ids") //todo ждём актуализации в Qase
     public void getProductListWithoutTenantId() {
         var request = CatalogApiV2
                 .GetProductListRequest.newBuilder()
+                .setTid("0")
                 .setSid("1")
                 .setPage(1)
                 .setPage(24)
