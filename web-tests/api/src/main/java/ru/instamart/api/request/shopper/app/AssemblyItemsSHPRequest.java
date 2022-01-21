@@ -25,6 +25,22 @@ public final class AssemblyItemsSHPRequest extends ShopperAppRequestBase {
                 .patch(ShopperAppEndpoints.Assemblies.Items.ID, assemblyId, itemId);
     }
 
+    /**
+     * Собираем товар
+     */
+    @Step("{method} /" + ShopperAppEndpoints.Assemblies.Items.ID)
+    public static Response PUT(String assemblyId, String itemId, int itemQty) {
+        JSONObject requestParams = new JSONObject();
+        JSONObject assemblyItem = new JSONObject();
+        requestParams.put("assembly_item", assemblyItem);
+        assemblyItem.put("found_qty", itemQty);
+        return givenWithAuth()
+                .body(requestParams)
+                .contentType(ContentType.JSON)
+                .patch(ShopperAppEndpoints.Assemblies.Items.ID, assemblyId, itemId);
+    }
+
+
     public static class Approve {
         /**
          * Подтверждаем товар
@@ -73,6 +89,20 @@ public final class AssemblyItemsSHPRequest extends ShopperAppRequestBase {
          * Уточняем товар
          */
         @Step("{method} /" + ShopperAppEndpoints.AssemblyItems.CLARIFICATIONS)
+        public static Response POST(String itemId, int reasonId) {
+            JSONObject requestParams = new JSONObject();
+            requestParams.put("reason_id", reasonId);
+            return givenWithAuth()
+                    .body(requestParams)
+                    .contentType(ContentType.JSON)
+                    .post(ShopperAppEndpoints.AssemblyItems.CLARIFICATIONS, itemId);
+        }
+    }
+    public static class LogNotFoundEans {
+        /**
+         * Уточняем товар
+         */
+        @Step("{method} /" + ShopperAppEndpoints.AssemblyItems.LOG_NOT_FOUND_EANS)
         public static Response POST(String itemId, int reasonId) {
             JSONObject requestParams = new JSONObject();
             requestParams.put("reason_id", reasonId);

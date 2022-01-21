@@ -3,6 +3,7 @@ package ru.instamart.test.api.shopper.app.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.restassured.response.Response;
 import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -13,7 +14,7 @@ import ru.instamart.api.request.shopper.app.*;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode401;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("Shopper Mobile API")
 @Feature("Endpoints")
@@ -22,6 +23,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     String assemblyId = "000";
     String assemblyItemId = "000";
     Integer itemQty = 1;
+    String notificationsId = "2280";
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
@@ -55,6 +57,15 @@ public class ShopperAppWithoutAuthTest extends RestBase {
         checkStatusCode401(response);
     }
 
+    @Story("Получение информации о заказах")
+    @CaseId(105)
+    @Test(  description = "Получаем все заказы для сборщика без авторизации",
+            groups = {"api-shopper-regress", "api-shopper-prod"})
+    public void getShopperShipment401() {
+        response = ShopperSHPRequest.Shipment.GET();
+        checkStatusCode401(response);
+    }
+
     @Story("Получение информации о сборках")
     @CaseId(52)
     @Test(  description = "Получаем все сборки сборщика без авторизации",
@@ -66,10 +77,19 @@ public class ShopperAppWithoutAuthTest extends RestBase {
 
     @Story("Процесс сборки")
     @CaseId(53)
-    @Test(  description = "Собираем товар без авторизации",
+    @Test(  description = "Собираем товар(PATCH) без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void patchAssemblyItem401() {
         response = AssemblyItemsSHPRequest.PATCH(assemblyId, assemblyItemId, itemQty);
+        checkStatusCode401(response);
+    }
+
+    @Story("Процесс сборки")
+    @CaseId(53)
+    @Test(  description = "Собираем товар(PUT) без авторизации",
+            groups = {"api-shopper-regress", "api-shopper-prod"})
+    public void putAssemblyItem401() {
+        response = AssemblyItemsSHPRequest.PUT(assemblyId, assemblyItemId, itemQty);
         checkStatusCode401(response);
     }
 
@@ -255,12 +275,65 @@ public class ShopperAppWithoutAuthTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @Story("Авторизация")
+    @Story("Сборки/отгрузки")
     @CaseId(73)
-    @Test( description = "Авторизация по незарегистрированному номеру телефона и коду из смс",
+    @Test( description = "Shopper shipments active get",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void postOtpsAuthorizations4011one() {
         response = ShopperSHPRequest.Shipments.Active.GET();
+        checkStatusCode401(response);
+    }
+
+    @Story("Интеграция shp -> stf")
+    @CaseId(4)
+    @Test(description = "Тест на импорт заказов из stf с filed order number",
+            groups = {"api-shopper-regress"})
+    public void orderImport401(){
+        final Response response = OrderSHPRequest.Import.POST("failedNumber");
+        checkStatusCode200(response);
+    }
+
+    @Story("Маршрут")
+    @CaseId(106)
+    @Test(description = "Запрос назначенных маршрутов без авторизации",
+            groups = {"api-shopper-regress"})
+    public void nextUncompletedRoute401(){
+        final Response response = NextUncompletedRouteSHPRequest.GET();
+        checkStatusCode401(response);
+    }
+
+    @Story("ScanGo")
+    @CaseId(4)
+    @Test(description = "Запрос конфигурации ScanGo",
+            groups = {"api-shopper-regress"})
+    public void scanGoAssemblies401(){
+        final Response response = ScangoSHPRequest.Assemblies.GET("failedNumber");
+        checkStatusCode404(response);
+    }
+
+    @Story("Сборки/отгрузки")
+    @CaseId(108)
+    @Test( description = "Список активных сборок/отгрузок магазина текущего партнёра для универсалов",
+            groups = {"api-shopper-regress", "api-shopper-prod"})
+    public void shopperDriverActive401() {
+        final Response response = ShopperDriverSHPRequest.Shipments.Active.GET();
+        checkStatusCode401(response);
+    }
+
+    @Story("Notifications")
+    @CaseId(107)
+    @Test(  description = "Отметка о прочтении уведомления без авторизации PATCH",
+            groups = {"api-shopper-regress"})
+    public void getShopperNotificationsPatch401 () {
+        response = ShopperSHPRequest.Notifications.PATCH(notificationsId);
+        checkStatusCode401(response);
+    }
+    @Story("Notifications")
+    @CaseId(107)
+    @Test(  description = "Отметка о прочтении уведомления без авторизации PUT",
+            groups = {"api-shopper-regress"})
+    public void getShopperNotificationsPut401 () {
+        response = ShopperSHPRequest.Notifications.PUT(notificationsId);
         checkStatusCode401(response);
     }
 }

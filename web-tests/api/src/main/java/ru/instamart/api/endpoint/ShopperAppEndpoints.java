@@ -7,6 +7,7 @@ public final class ShopperAppEndpoints {
     public static final String CLARIFY_REASONS = "clarify_reasons";
     public static final String CURRENT_APP_VERSION = "current_app_version";
     public static final String MARS_TOKEN = "mars_token";
+    public static final String NEXT_UNCOMPLETED_ROUTE = "next_uncompleted_route";
     public static final String RETURN_REASONS = "return_reasons";
     public static final String ROUTES = "routes";
     public static final String SESSIONS = "sessions";
@@ -14,11 +15,22 @@ public final class ShopperAppEndpoints {
 
     public static class Shopper {
         public static final String ASSEMBLIES = "shopper/assemblies";
+        public static final String NOTIFICATIONS = "shopper/notifications";
         public static final String OPERATION_SHIFTS = "shopper/operation_shifts";
         public static final String SHIPMENTS = "shopper/shipments";
+        public static final String SHIPMENT = "shopper/shipment";
 
+        public static class Notifications{
+            public static final String BY_ID = "shopper/notifications/{id}";
+        }
         public static class Shipments{
             public static final String ACTIVE = "shopper/shipments/active";
+        }
+    }
+
+    public static class ShopperDriver {
+        public static class Shipments {
+            public static final String ACTIVE = "/shopper_driver/shipments/active";
         }
     }
 
@@ -60,6 +72,7 @@ public final class ShopperAppEndpoints {
         public static final String APPROVE = "assembly_items/{itemId}/approve";
         public static final String CANCELLATIONS = "assembly_items/{itemId}/cancellations";
         public static final String CLARIFICATIONS = "assembly_items/{itemId}/clarifications";
+        public static final String LOG_NOT_FOUND_EANS = "assembly_items/{itemId}/log_not_found_eans";
         public static final String PREREPLACEMENTS = "assembly_items/{itemId}/prereplacements";
         public static final String REPLACEMENTS = "assembly_items/{itemId}/replacements";
     }
@@ -95,6 +108,11 @@ public final class ShopperAppEndpoints {
 
     public static class Orders{
         public static final String IMPORTS = "orders/{orderNumber}/imports";
-        // /orders/:order_number/imports(.:format)
+    }
+
+    public static class Scango{
+        public static class Assemblies{
+            public static final String CONFIG = "scango/assemblies/{assemblyId}/config";
+        }
     }
 }
