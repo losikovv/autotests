@@ -203,10 +203,10 @@ public class CatalogApiV2Test extends GrpcBase {
 
     @Story("Продукты")
     @CaseId(250)
-    @Test(description = "Получение списка товаров с пустым tenant_d",
+    @Test(description = "Получение списка товаров с пустым tid",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty tenant_id")
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty tid")
     public void getProductListWithEmptyTenantId() {
         var request = CatalogApiV2
                 .GetProductListRequest.newBuilder()
@@ -222,10 +222,10 @@ public class CatalogApiV2Test extends GrpcBase {
 
     @Story("Продукты")
     @CaseId(251)
-    @Test(description = "Получение списка товаров без tenant_d",
+    @Test(description = "Получение списка товаров без tid",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty tenant_id")
+            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty tid")
     public void getProductListWithoutTenantId() {
         var request = CatalogApiV2
                 .GetProductListRequest.newBuilder()
