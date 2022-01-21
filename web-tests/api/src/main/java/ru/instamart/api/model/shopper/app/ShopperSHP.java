@@ -30,6 +30,7 @@ public class ShopperSHP extends BaseObject {
             @JsonSchema(required = true)
             private String login;
             @JsonSchema(required = true)
+            @Null
             private String phone;
             @JsonSchema(required = true)
             private String status;
