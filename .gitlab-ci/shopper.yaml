@@ -24,13 +24,12 @@ tests:ApiShopper:alone:
     - ".template_api_tests"
     - ".template_shopper_regress"
 
-    #tests:prodApiShopper:
-    #  extends:
-    #  - ".template_api_tests"
-    #   - ".template_prod"
-    # resource_group: apiShopperProd
-    # when: manual
-    # script:
-    #   - gradle clean build apiShopperProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
-    # after_script:
-  #   - bash ./report.sh api api-shopper-production
+tests:prodApiShopper:
+  extends:
+    - ".template_api_tests"
+    - ".template_prod"
+  resource_group: apiShopperProd
+  script:
+    - gradle clean build apiShopperProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - bash ./report.sh api api-shopper-production

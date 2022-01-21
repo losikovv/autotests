@@ -52,7 +52,7 @@ stages:
       - master
       - schedules
     variables:
-      - $PRODACTION == 'true'
+      - $PRODUCTION == 'true'
 
 .template_schedule:
   only:
