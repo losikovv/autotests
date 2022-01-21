@@ -78,10 +78,10 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     @Step("Вернуть значение имени первого товара")
     public String returnFirstProductTitle() {
-        return firstProductTitle.getAttribute("title");
+        return firstProductTitle.getText();
     }
 
-    @Step("Вернуть значение имени первого товара")
+    @Step("Вернуть значение имени второго товара")
     public String returnSecondProductTitle() {
         return secondProductTitle.getText();
     }

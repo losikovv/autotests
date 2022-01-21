@@ -294,12 +294,11 @@ public final class BasicOrdersTests extends BaseTest {
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
-
-        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         userShipments().goToPage();
         userShipments().clickToFirstShipment();
@@ -319,16 +318,12 @@ public final class BasicOrdersTests extends BaseTest {
         userData = UserManager.getQaUser();
 
         helper.makeOrderOnTomorrow(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 1);
+        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
-
-        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
-
-        shop().goToPage();
-        shop().interactHeader().checkEnteredAddressIsVisible();
 
         final var itemName = shop().returnSecondProductTitle();
         shop().plusSecondItemToCart();

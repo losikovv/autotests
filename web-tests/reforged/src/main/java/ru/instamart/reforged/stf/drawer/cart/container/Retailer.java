@@ -59,7 +59,7 @@ public final class Retailer extends Container {
         } else {
             var exception = new NoSuchElementInCollection(index);
             Assert.fail(exception.getMessage(), exception);
-            return null;
+            return new Item(null);
         }
     }
 
