@@ -28,9 +28,14 @@ message GetProductListRequest {
 	int64 page = 4;
 	int64 per_page = 5 [json_name = "per_page"];
 	repeated string filter_keys = 6;
+	// Все значения для одного ключа идут в одном значение value через запятую без пробела
 	repeated string filter_values = 7;
 	string sort = 8;
 	string tenant_id = 9 [json_name = "tenant_id"];
+	// При хттп запросе этот параметр должен передаваться как header
+	string anonymous_id = 10;
+	// При хттп запросе этот параметр должен передаваться как header
+	string user_id = 11;
 }
 
 message GetProductListResponse{
