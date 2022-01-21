@@ -302,15 +302,6 @@ public class ShopperAppWithoutAuthTest extends RestBase {
         checkStatusCode401(response);
     }
 
-    @Story("ScanGo")
-    @CaseId(4)
-    @Test(description = "Запрос конфигурации ScanGo",
-            groups = {"api-shopper-regress"})
-    public void scanGoAssemblies401(){
-        final Response response = ScangoSHPRequest.Assemblies.GET("failedNumber");
-        checkStatusCode404(response);
-    }
-
     @Story("Сборки/отгрузки")
     @CaseId(108)
     @Test( description = "Список активных сборок/отгрузок магазина текущего партнёра для универсалов",
