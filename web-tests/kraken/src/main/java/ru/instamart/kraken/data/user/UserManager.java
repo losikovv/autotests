@@ -2,6 +2,7 @@ package ru.instamart.kraken.data.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.service.AbService;
@@ -85,9 +86,20 @@ public final class UserManager {
     }
 
     public static UserData getDefaultShopper() {
-        log.info("GitLab env CI_PIPELINE_SOURCE: {}", CI_PIPELINE_SOURCE);
-        log.info("GitLab env API_SHOPPER_ALONE: {}", API_SHOPPER_ALONE);
-        log.info("GitLab env CI_RUN_ALL_JOBS: {}", CI_RUN_ALL_JOBS);
+
+        if (isNull(defaultShopper)) {
+            log.info("GitLab env CI_PIPELINE_SOURCE: {}", CI_PIPELINE_SOURCE);
+            log.info("GitLab env API_SHOPPER_ALONE: {}", API_SHOPPER_ALONE);
+            log.info("GitLab env CI_RUN_ALL_JOBS: {}", CI_RUN_ALL_JOBS);
+            log.info("SERVER: {}", EnvironmentProperties.SERVER);
+        }
+
+        if (isNull(defaultShopper) && EnvironmentProperties.SERVER.contains("production")) {
+            defaultShopper = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("fge71qP00DC40VYpfYee6w=="))
+                    .password(Crypt.INSTANCE.decrypt("BXRLOtT6Xdrca4FWsHy7Sg=="))
+                    .build();
+        }
 
         if (isNull(defaultShopper)) {
             switch (CI_PIPELINE_SOURCE.toLowerCase()) {
