@@ -118,7 +118,8 @@ public class ShipmentfulShopperAppTest extends RestBase {
 
     @Story("Получение информации о заказах")
     @CaseId(105)
-    @Test(description = "Получаем все заказы для сборщика",
+    @Test(enabled = false,
+            description = "Получаем все заказы для сборщика",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getShopperShipment200() {
         response = ShopperSHPRequest.Shipment.GET();
