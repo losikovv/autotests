@@ -116,6 +116,17 @@ public class ShipmentfulShopperAppTest extends RestBase {
         checkResponseJsonSchema(response, ShipmentsSHPResponse.class);
     }
 
+    @Story("Получение информации о заказах")
+    @CaseId(105)
+    @Test(description = "Получаем все заказы для сборщика",
+            groups = {"api-shopper-regress", "api-shopper-prod"})
+    public void getShopperShipment200() {
+        response = ShopperSHPRequest.Shipment.GET();
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ShipmentSHPResponse.class);
+    }
+
+
     @Story("Получение информации о сборках")
     @CaseId(6)
     @Test(description = "Получаем все сборки сборщика",
@@ -129,11 +140,22 @@ public class ShipmentfulShopperAppTest extends RestBase {
 
     @Story("Процесс сборки")
     @CaseId(7)
-    @Test(description = "Собираем товар",
+    @Test(description = "Собираем товар PATCH",
             groups = {"api-shopper-smoke", "api-shopper-prod"},
             dependsOnMethods = {"postAssembly200", "getAssembly200"})
     public void patchAssemblyItem200() {
         response = AssemblyItemsSHPRequest.PATCH(assemblyId, assemblyItemId, itemQty);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, AssemblyItemSHPResponse.class);
+    }
+
+    @Story("Процесс сборки")
+    @CaseId(7)
+    @Test(description = "Собираем товар PUT",
+            groups = {"api-shopper-smoke", "api-shopper-prod"},
+            dependsOnMethods = {"postAssembly200", "getAssembly200"})
+    public void putAssemblyItem200() {
+        response = AssemblyItemsSHPRequest.PUT(assemblyId, assemblyItemId, itemQty);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, AssemblyItemSHPResponse.class);
     }

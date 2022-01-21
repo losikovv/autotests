@@ -53,6 +53,25 @@ public final class ShopperSHPRequest extends ShopperAppRequestBase {
         }
 
     }
+
+    public static class Shipment {
+        /**
+         * Получаем список заказов для сборщика
+         */
+        @Step("{method} /" + ShopperAppEndpoints.Shopper.SHIPMENT)
+        public static Response GET() {
+            return givenWithAuth()
+                    .get(ShopperAppEndpoints.Shopper.SHIPMENT);
+        }
+
+        @Step("{method} /" + ShopperAppEndpoints.Shopper.SHIPMENT)
+        public static Response GET(ShipmentsParams shipment) {
+            return givenWithAuth()
+                    .formParams(Mapper.INSTANCE.objectToMap(shipment))
+                    .get(ShopperAppEndpoints.Shopper.SHIPMENT);
+        }
+    }
+
     public static class Assemblies {
         /**
          * Получаем список доставок сборщика
@@ -63,6 +82,22 @@ public final class ShopperSHPRequest extends ShopperAppRequestBase {
                     .get(ShopperAppEndpoints.Shopper.ASSEMBLIES);
         }
     }
+
+    public static class Notifications{
+
+        @Step("{method} /" + ShopperAppEndpoints.Shopper.Notifications.BY_ID)
+        public static Response PATCH(String id){
+            return givenWithAuth()
+                    .patch(ShopperAppEndpoints.Shopper.Notifications.BY_ID, id);
+        }
+
+        @Step("{method} /" + ShopperAppEndpoints.Shopper.Notifications.BY_ID)
+        public static Response PUT(String id){
+            return givenWithAuth()
+                    .put(ShopperAppEndpoints.Shopper.Notifications.BY_ID, id);
+        }
+    }
+
     public static class OperationShifts {
         /**
          * Получаем список смен сборщика
