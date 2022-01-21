@@ -1136,7 +1136,7 @@ public final class InstamartApiHelper {
     }
 
     public void addFavoritesListProductBySid(final int sid, final int count) {
-        getProductFromEachDepartmentInStore(sid)
+        getProductsFromEachDepartmentInStore(sid)
                 .stream()
                 .limit(count)
                 .forEach(product -> {

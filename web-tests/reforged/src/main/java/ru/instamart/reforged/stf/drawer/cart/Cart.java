@@ -39,7 +39,7 @@ public final class Cart implements CartCheck {
         } else {
             var exception = new NoSuchElementInCollection(index);
             Assert.fail(exception.getMessage(), exception);
-            return null;
+            return new Retailer(null);
         }
     }
 

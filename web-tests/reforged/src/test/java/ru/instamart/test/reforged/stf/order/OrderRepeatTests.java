@@ -37,9 +37,11 @@ public final class OrderRepeatTests extends BaseTest {
 
         userShipments().goToPage();
         userShipments().clickToRepeat();
+        userShipments().interactRepeatModal().checkModalWindowVisible();
         userShipments().interactRepeatModal().clickToAccept();
 
         shop().checkPageContains(shop().pageUrl());
+        shop().interactCart().checkCartOpen();
         shop().interactCart().checkCartNotEmpty();
         shop().interactCart().getFirstRetailer().compareItemsInCart(2);
     }
@@ -55,9 +57,12 @@ public final class OrderRepeatTests extends BaseTest {
         userShipments().goToPage();
         userShipments().clickToFirstShipment();
         userShipments().clickToRepeatFromOrder();
+        userShipments().waitPageLoad();
+        userShipments().interactRepeatModal().checkModalWindowVisible();
         userShipments().interactRepeatModal().clickToAccept();
 
         shop().checkPageContains(shop().pageUrl());
+        shop().interactCart().checkCartOpen();
         shop().interactCart().checkCartNotEmpty();
         shop().interactCart().getFirstRetailer().compareItemsInCart(2);
     }
@@ -73,6 +78,7 @@ public final class OrderRepeatTests extends BaseTest {
         userShipments().goToPage();
         userShipments().clickToFirstShipment();
         userShipments().clickToCancelFromOrder();
+        userShipments().interactShipmentCancelModal().shipmentCancelModalVisible();
         userShipments().interactShipmentCancelModal().clickToAccept();
         userShipments().checkStatusWasCanceled();
     }

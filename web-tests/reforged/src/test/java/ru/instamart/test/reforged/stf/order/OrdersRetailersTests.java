@@ -31,7 +31,7 @@ public class OrdersRetailersTests extends BaseTest {
         helper.cancelAllActiveOrders(userData);
     }
 
-    @CaseIDs(value = {@CaseId(1627), @CaseId(1628), @CaseId(1631), @CaseId(1629), @CaseId(1630)})
+    @CaseIDs(value = {@CaseId(1627), @CaseId(1628), @CaseId(1629), @CaseId(1630), @CaseId(1631)})
     @Test(  description = "Тестовые заказы в ритейлерах Москвы",
             groups = "regression",
             dataProviderClass = StoreProvider.class,

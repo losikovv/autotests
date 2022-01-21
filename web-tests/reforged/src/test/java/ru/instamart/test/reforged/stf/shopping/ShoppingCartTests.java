@@ -310,7 +310,7 @@ public final class ShoppingCartTests extends BaseTest {
     public void testAddProductAfterChangeAddress() {
         var userData = UserManager.getQaUser();
         helper.dropAndFillCart(userData, DEFAULT_SID);
-        helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
+        helper.setAddress(userData, RestAddresses.NizhnyNovgorod.defaultAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -318,8 +318,9 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().openFirstProductCard();
-        shop().interactProductCard().increaseItemCount();
+        shop().interactProductCard().clickOnBuy();
         shop().interactProductCard().close();
+
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
         shop().interactCart().getFirstItem().compareItemQuantityInCart(5);
@@ -533,7 +534,6 @@ public final class ShoppingCartTests extends BaseTest {
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
-        shop().interactCart().getRetailersCount();
 
         var itemsCountInRetailer = shop().interactCart().getRetailerByOrder(1).getItemsCountInList();
         shop().interactCart().checkItemsCount(itemsCountInRetailer, 2);
