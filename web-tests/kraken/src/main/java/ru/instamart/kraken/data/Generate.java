@@ -55,8 +55,8 @@ public final class Generate {
     }
     /** Сгенерировать тестовый номер телефона */
     public static String phoneNumber(){
-        String phone = "9";
-        return phone + digitalString(9);
+        String phone = "972";
+        return phone + digitalString(7);
     }
 
     /** Сгенерировать тестовый email */
