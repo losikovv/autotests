@@ -1,7 +1,6 @@
 package ru.instamart.reforged.admin.page.retailers;
 
 import io.qameta.allure.Step;
-import org.testng.Assert;
 import ru.instamart.reforged.admin.AdminPage;
 
 public final class RetailersPage implements AdminPage, RetailersPageCheck {
@@ -9,6 +8,11 @@ public final class RetailersPage implements AdminPage, RetailersPageCheck {
     @Step("Вернуть количество ретейлеров на странице ретейлеров")
     public Integer retailerQuantityReturn() {
         return retailersInTable.elementCount();
+    }
+
+    @Step("Нажать на ретейлера {0}")
+    public void clickOnRetailer(final String retailer) {
+        retailersInTable.clickOnElementWithText(retailer);
     }
 
     @Override

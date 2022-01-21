@@ -6,8 +6,10 @@ import ru.instamart.reforged.admin.page.main.MainPage;
 import ru.instamart.reforged.admin.page.retailers.RetailersPage;
 import ru.instamart.reforged.admin.page.retailers.add_new_shop.ShopAddPage;
 import ru.instamart.reforged.admin.page.retailers.regions.RegionsPage;
+import ru.instamart.reforged.admin.page.retailers.retailer_page.RetailerPage;
+import ru.instamart.reforged.admin.page.retailers.retailer_page.store_page.StorePage;
+import ru.instamart.reforged.admin.page.retailers.retailer_page.store_page.store_zone_edit.StoreZone;
 import ru.instamart.reforged.admin.page.settings.shipping_method.ShippingMethodPage;
-import ru.instamart.reforged.admin.page.retailers.regions.add_new.RegionsAdd;
 import ru.instamart.reforged.admin.page.settings.all_cities.AllCitiesPage;
 import ru.instamart.reforged.admin.page.settings.all_cities.city_add.CityAddPage;
 import ru.instamart.reforged.admin.page.settings.all_cities.city_edit.CityEditPage;
@@ -53,6 +55,18 @@ public final class AdminRout extends Router {
 
     public static RetailersPage retailers() {
         return (RetailersPage) getPage(RetailersPage.class);
+    }
+
+    public static RetailerPage retailer() {
+        return (RetailerPage) getPage(RetailerPage.class);
+    }
+
+    public static StorePage store() {
+        return (StorePage) getPage(StorePage.class);
+    }
+
+    public static StoreZone zonePage() {
+        return (StoreZone) getPage(StoreZone.class);
     }
 
     public static RegionsPage regions() {

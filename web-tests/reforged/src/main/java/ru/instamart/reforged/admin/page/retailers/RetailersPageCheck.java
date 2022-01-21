@@ -23,4 +23,13 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
         Assert.assertEquals(retailersCreateDateInTable.elementCount(), quantity);
     }
 
+    @Step("Проверка недоступности ретейлера")
+    default void checkRetailerInactive(final String retailer) {
+        waitAction().shouldBeVisible(retailerInaccessibilityInTable, retailer);
+    }
+
+    @Step("Проверка доступности ретейлера")
+    default void checkRetailerActive(final String retailer) {
+        waitAction().shouldBeVisible(retailerAccessibilityInTable, retailer);
+    }
 }
