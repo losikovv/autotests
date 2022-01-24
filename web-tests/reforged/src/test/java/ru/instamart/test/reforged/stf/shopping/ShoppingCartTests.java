@@ -296,6 +296,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().interactHeader().clickToCategoryMenu();
+        shop().waitPageLoad();
         shop().interactCategoryMenu().clickToFirstLevelCategoryByName("Скидки");
 
         seo().openFirstProductCardOnDepartment();
@@ -386,7 +387,7 @@ public final class ShoppingCartTests extends BaseTest {
     public void testAddProductsInCart() {
         var userData = UserManager.getQaUser();
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
-        helper.dropAndFillCart(userData, 1);
+        helper.dropAndFillCart(userData, DEFAULT_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -400,8 +401,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactCart().getFirstItem().increaseCount();
         shop().interactCart().getFirstItem().checkSpinnerIsVisible();
         shop().interactCart().getFirstItem().checkSpinnerIsNotVisible();
-        shop().interactCart().closeCart();
-        shop().interactCart().checkCartClose();
+        shop().refresh();
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
