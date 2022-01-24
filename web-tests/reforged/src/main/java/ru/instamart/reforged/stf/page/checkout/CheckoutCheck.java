@@ -83,7 +83,7 @@ public interface CheckoutCheck extends Check, CheckoutElement {
         waitAction().shouldNotBeVisible(deletePromoCode);
     }
 
-    @Step("Проверяем, что кнопка кнопка добавления промокода в корзине видна")
+    @Step("Проверяем, что кнопка добавления промокода в корзине видна")
     default void checkAddPromoCodeVisible() {
         waitAction().shouldBeVisible(addPromoCode);
     }
