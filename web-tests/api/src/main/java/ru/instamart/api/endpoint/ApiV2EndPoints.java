@@ -133,6 +133,7 @@ public final class ApiV2EndPoints {
 
         public static final class TransferMethod {
             public static final String ANALYZE = "v2/orders/{orderNumber}/transfer_method/analyze";
+            public static final String LOSSES = "v2/orders/{orderNumber}/transfer_method/losses";
         }
     }
 

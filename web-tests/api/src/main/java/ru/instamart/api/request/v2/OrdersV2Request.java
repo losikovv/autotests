@@ -1,12 +1,18 @@
 package ru.instamart.api.request.v2;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.model.v2.AddressV2;
-import ru.instamart.api.model.v2.ZoneV2;
 import ru.instamart.api.request.ApiV2RequestBase;
+import ru.sbermarket.common.Mapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -314,28 +320,23 @@ public final class OrdersV2Request extends ApiV2RequestBase {
     }
 
     public static class TransferMethod {
-        @Step("{method} /" + ApiV2EndPoints.Orders.TransferMethod.ANALYZE)
-        public static Response GET(String shippingMethod, ZoneV2 zone, Integer storeId, String orderNumber) {
-            Map<String, Object> params = new HashMap<>();
-            if(shippingMethod != null) params.put("shipping_method_kind", shippingMethod);
-            if (zone != null) {
-                params.put("address_params[lat]", zone.getLat());
-                params.put("address_params[lon]", zone.getLon());
+        public static class Analyze {
+            @Step("{method} /" + ApiV2EndPoints.Orders.TransferMethod.ANALYZE)
+            public static Response GET(TransferMethodParams params, String orderNumber) {
+                return givenWithAuth()
+                        .queryParams(Mapper.INSTANCE.objectToMap(params))
+                        .get(ApiV2EndPoints.Orders.TransferMethod.ANALYZE, orderNumber);
             }
-            if (storeId != null) params.put("pickup_store_id", storeId);
-            return givenWithAuth()
-                    .queryParams(params)
-                    .get(ApiV2EndPoints.Orders.TransferMethod.ANALYZE, orderNumber);
         }
 
-        public static Response GET(String shippingMethod, ZoneV2 zone, String orderNumber) {
-            return GET(shippingMethod, zone, null, orderNumber);
+        public static class Losses {
+            @Step("{method} /" + ApiV2EndPoints.Orders.TransferMethod.LOSSES)
+            public static Response GET(TransferMethodParams params, String orderNumber) {
+                return givenWithAuth()
+                        .queryParams(Mapper.INSTANCE.objectToMap(params))
+                        .get(ApiV2EndPoints.Orders.TransferMethod.LOSSES, orderNumber);
+            }
         }
-
-        public static Response GET(String shippingMethod, Integer storeId, String orderNumber) {
-            return GET(shippingMethod, null, storeId, orderNumber);
-        }
-
     }
 
     public static class SpasiboInfo {
@@ -352,5 +353,22 @@ public final class OrdersV2Request extends ApiV2RequestBase {
             return givenWithAuth()
                     .get(ApiV2EndPoints.Orders.MERGE_STATUS, orderNumber);
         }
+    }
+
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    @Data
+    public static class TransferMethodParams {
+        @JsonProperty("shipping_method_kind")
+        String shippingMethod;
+        @JsonProperty("address_params[lat]")
+        Double lat;
+        @JsonProperty("address_params[lon]")
+        Double lon;
+        @JsonProperty("pickup_store_id")
+        Integer pickupStoreId;
     }
 }

@@ -14,7 +14,9 @@ import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v1.ShippingPoliciesV1Request;
 import ru.instamart.api.response.v2.ExternalPartnersServicesV2Response;
+import ru.instamart.api.response.v2.TransferMethodLossesV2Response;
 import ru.instamart.jdbc.dao.SpreeAddressesDao;
+import ru.instamart.jdbc.dao.SpreeRetailersDao;
 import ru.instamart.jdbc.dao.SpreeUsersDao;
 import ru.instamart.jdbc.entity.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -28,8 +30,7 @@ import java.util.Optional;
 import static java.util.Objects.isNull;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.kraken.util.TimeUtil.getDateWithoutTime;
 import static ru.instamart.kraken.util.TimeUtil.getFutureDateWithoutTime;
 
@@ -228,6 +229,18 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(addressFromDb.getFullAddress(), address.getFullAddress(), softAssert);
         compareTwoObjects(addressFromDb.getLat(), address.getLat(), softAssert);
         compareTwoObjects(addressFromDb.getLon(), address.getLon(), softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем потери")
+    public static void checkLosses(Response response, LineItemV2 lineItem) {
+        checkResponseJsonSchema(response, TransferMethodLossesV2Response.class);
+        List<LossV2> losses = response.as(TransferMethodLossesV2Response.class).getLosses();
+        checkFieldIsNotEmpty(losses, "потери");
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects((long) losses.get(0).getRetailer().getId(), SpreeRetailersDao.INSTANCE.getIdBySlug("metro"), softAssert);
+        compareTwoObjects(losses.get(0).getOffers().size(), 1);
+        compareTwoObjects(losses.get(0).getOffers().get(0).getId(), lineItem.getProduct().getId(), softAssert);
         softAssert.assertAll();
     }
 }

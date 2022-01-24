@@ -898,6 +898,83 @@ public class RestDataProvider extends RestBase {
         };
     }
 
+    @DataProvider(name = "storesForCourierWithoutLosses")
+    public static Object[][] getStoresForCourierWithoutLosses() {
+        return new Object[][]{
+                {EnvironmentProperties.DEFAULT_SID},
+                {EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID},
+                {2}
+        };
+    }
+
+    @DataProvider(name = "storesForCourierWithLosses")
+    public static Object[][] getStoresForCourierWithLosses() {
+        return new Object[][]{
+                {22},
+                {89}
+        };
+    }
+
+    @DataProvider(name = "storesForPickupWithoutLosses")
+    public static Object[][] getStoresForPickupWithoutLosses() {
+        return new Object[][]{
+                {EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID},
+                {22}
+        };
+    }
+
+    @DataProvider(name = "storesForCouriersWithoutLosses")
+    public static Object[][] getStoresForCouriersWithoutLosses() {
+        return new Object[][]{
+                {EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID},
+                {94},
+                {EnvironmentProperties.DEFAULT_SID}
+        };
+    }
+
+    @DataProvider(name = "storesForPickupAndCourierWithoutLosses")
+    public static Object[][] getStoresForPickupAndCourierWithoutLosses() {
+        return new Object[][]{
+                {EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID},
+                {94},
+                {22}
+        };
+    }
+
+    @DataProvider(name = "storesForPickupCourierWithoutLosses")
+    public static Object[][] getStoresForPickupCourierWithoutLosses() {
+        return new Object[][]{
+                {EnvironmentProperties.DEFAULT_SID},
+                {EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID}
+        };
+    }
+
+    @DataProvider(name = "storesForPickupCourierWithLosses")
+    public static Object[][] getStoresForPickupCourierWithLosses() {
+        return new Object[][]{
+                {22},
+                {82},
+                {89},
+        };
+    }
+
+    @DataProvider(name = "storeForPickupsWithoutLosses")
+    public static Object[][] getStoresForPickupsWithoutLosses() {
+        return new Object[][]{
+                {22},
+                {EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID},
+                {82},
+        };
+    }
+
+    @DataProvider(name = "storeForPickupAlcoholWithoutLosses")
+    public static Object[][] getStoresForPickupAlcoholWithoutLosses() {
+        return new Object[][]{
+                {22},
+                {94},
+        };
+    }
+
     @DataProvider(name = "shipmentReviewsData")
     public static Object[][] getShipmentReviewsData() {
         return new Object[][]{
