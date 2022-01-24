@@ -139,16 +139,25 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().goToPage();
         retailers().checkAddNewRetailerButtonVisible();
         retailers().clickOnPlusForRetailer("METRO");
+        retailers().clickOnStore("тест-352519385 (17)");
 
-        
-        Date date = TimeUtil.returnDateFromString("15 Ноября 2016");
-        System.out.println(date);
+        retailers().checkDateSortCorrect();
     }
 
     @CaseId(558)
     @Story("Страница ретейлеров")
     @Test(description = "При клике на адрес магазина происходит переход на его страницу", groups = {"acceptance", "regression"})
     public void successTransitOnStorePageViaClickOnAddress() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
 
+        retailers().goToPage();
+        retailers().checkAddNewRetailerButtonVisible();
+        retailers().clickOnPlusForRetailer("METRO");
+        retailers().clickOnStore("тест-352519385 (17)");
+        retailers().clickOnAddress("Москва, просп. Мира, 211, стр. 1");
+
+        store().checkBackToStoresListButtonVisible();
+        store().checkAddressCorrect("Москва, просп. Мира, 211, стр. 1");
     }
 }

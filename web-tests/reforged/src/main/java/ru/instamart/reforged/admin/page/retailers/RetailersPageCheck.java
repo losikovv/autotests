@@ -5,7 +5,9 @@ import org.testng.Assert;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 
+import java.text.ParseException;
 import java.util.Arrays;
+import java.util.Date;
 
 import static ru.instamart.reforged.admin.AdminRout.retailers;
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -49,6 +51,19 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
         return Arrays.equals(array, retailers().sortStoreArray(array));
     }
 
+    @Step("Проверяем корректность сортировки адресов магазинов по дате создания")
+    default Boolean checkDateSort() throws ParseException {
+        Date[] original = retailers().convertStringArrayDatesToDate();
+        Date[] clone = original;
+        Arrays.sort(clone);
+        return Arrays.equals(original, clone);
+    }
+
+    @Step("Проверяем корректность сортировки адресов магазинов по дате создания")
+    default void checkDateSortCorrect() throws ParseException {
+        Assert.assertTrue(checkDateSort());
+    }
+
     @Step("Проверяем, что сортировка городов магазинов отображается корректно")
     default void checkStoreNameSortCorrect() {
         Assert.assertTrue(checkStoreNameSort());
@@ -78,4 +93,5 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
         }
         return true;
     }
+
 }
