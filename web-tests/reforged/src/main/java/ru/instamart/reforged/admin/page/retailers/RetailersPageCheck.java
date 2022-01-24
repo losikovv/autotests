@@ -54,7 +54,7 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
     @Step("Проверяем корректность сортировки адресов магазинов по дате создания")
     default Boolean checkDateSort() throws ParseException {
         Date[] original = retailers().convertStringArrayDatesToDate();
-        Date[] clone = original;
+        Date[] clone = Arrays.copyOf(original, original.length);
         Arrays.sort(clone);
         return Arrays.equals(original, clone);
     }
@@ -93,5 +93,4 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
         }
         return true;
     }
-
 }

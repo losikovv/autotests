@@ -62,7 +62,6 @@ public final class StringUtil {
         return numArray;
     }
 
-
     private StringUtil() {
     }
 }

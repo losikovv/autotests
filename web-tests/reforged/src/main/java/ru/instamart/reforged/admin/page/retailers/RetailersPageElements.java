@@ -22,5 +22,4 @@ public interface RetailersPageElements {
     ElementCollection addressDatesInTable = new ElementCollection(By.xpath("//tr[@class='ant-table-row ant-table-row-level-1']//td[3]"), "Коллекция элементов дат создания адресов магазинов");
 
     ElementCollection addressesInTable = new ElementCollection(By.xpath("//span[contains(@class, 'anticon-right')]/preceding-sibling::span"), "Коллекция элементов дат создания адресов магазинов");
-
 }
