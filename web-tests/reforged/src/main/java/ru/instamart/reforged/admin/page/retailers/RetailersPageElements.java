@@ -16,4 +16,7 @@ public interface RetailersPageElements {
 
     Element retailerInaccessibilityInTable = new Element(ByKraken.xpath("//span[text()='%s']/ancestor::tr//span[text() = 'Недоступен']"), "Недоступность определенного ретейлера в таблице");
     Element retailerAccessibilityInTable = new Element(ByKraken.xpath("//span[text()='%s']/ancestor::tr//span[text() = 'Доступен']"), "Недоступность определенного ретейлера в таблице");
+    Element retailerPlusIconInTable = new Element(ByKraken.xpath("//span[text()='%s']/ancestor::td/preceding-sibling::td[contains(@class, 'icon')]"),"Кнопка плюс возле конкретного ретейлера");
+
+    ElementCollection storesInTable = new ElementCollection(By.xpath("//td//span[@class='ant-btn-link']"), "Строки магазинов в таблице");
 }

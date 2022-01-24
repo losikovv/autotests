@@ -51,6 +51,18 @@ public final class StringUtil {
         return phone.substring(phone.length() - 6);
     }
 
+    public static Integer[] returnCitiesInTableNumbersArray(final String[] array) {
+        Integer[] numArray = new Integer[array.length];
+        for (int i = 0; i < array.length; i++) {
+            int startIndex = array[i].indexOf("(");
+            int endIndex = array[i].indexOf(")");
+            String subs = array[i].substring(startIndex + 1, endIndex);
+            numArray[i] = Integer.parseInt(subs);
+        }
+        return numArray;
+    }
+
+
     private StringUtil() {
     }
 }
