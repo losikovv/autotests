@@ -3,6 +3,7 @@ package ru.instamart.reforged.admin.page.retailers.retailer_page;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.Button;
+import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
 
 public interface RetailerPageElements {
