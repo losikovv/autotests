@@ -77,7 +77,8 @@
             <class name="ru.instamart.test.api.v2.endpoints.ShipmentLineItemsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.MergedShipmentsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.PaymentToolsV2Test"/>
-            <class name="ru.instamart.test.api.v2.endpoints.TransferMethodV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.TransferMethodAnalyzeV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.TransferMethodLossesV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.ActiveShipmentsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.CitiesV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.SessionsV2Test"/>
@@ -135,3 +136,4 @@
         </classes>
     </test>
 </suite>
+

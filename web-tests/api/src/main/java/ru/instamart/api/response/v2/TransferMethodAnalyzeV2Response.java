@@ -7,7 +7,7 @@ import ru.instamart.api.response.BaseResponseObject;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class TransferMethodV2Response extends BaseResponseObject {
+public class TransferMethodAnalyzeV2Response extends BaseResponseObject {
 
     @JsonSchema(required = true)
     private String result;
