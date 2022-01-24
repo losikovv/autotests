@@ -356,7 +356,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         lineItem = apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentInStore(22).get(0).getId(), 1);
     }
 
-    @CaseIDs(value = {@CaseId(1671), @CaseId(1672), @CaseId(1673)})
+    @CaseIDs(value = {@CaseId(1674), @CaseId(1675)})
     @Story("Трансфер самовывоз-доставка")
     @Test(groups = {"api-instamart-regress"},
             description = "Проверяем потери для магазина, где доступен только самовывоз",
@@ -375,7 +375,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         compareTwoObjects(response.as(TransferMethodLossesV2Response.class).getLosses().size(), 0);
     }
 
-    @CaseIDs(value = {@CaseId(1674), @CaseId(1675)})
+    @CaseIDs(value = {@CaseId(1671), @CaseId(1672), @CaseId(1673)})
     @Story("Трансфер самовывоз-доставка")
     @Test(groups = {"api-instamart-regress"},
             description = "Проверяем потери для магазина, где доступен только самовывоз",
