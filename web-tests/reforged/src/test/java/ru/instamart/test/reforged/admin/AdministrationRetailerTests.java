@@ -5,14 +5,16 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.data.Addresses;
-import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.util.TimeUtil;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
+
+import java.text.ParseException;
+import java.util.Date;
+
 import static ru.instamart.reforged.admin.AdminRout.*;
-import static ru.instamart.reforged.admin.AdminRout.regions;
 
 @Epic("Админка STF")
 @Feature("Управление ретейлерами")
@@ -110,5 +112,43 @@ public final class AdministrationRetailerTests extends BaseTest {
 
         retailers().goToPage();
         retailers().checkRetailerActive("METRO");
+    }
+
+    @CaseId(536)
+    @Story("Страница ретейлеров")
+    @Test(description = "Cортировка городов по кол-ву магазинов в каждом и по алфавиту", groups = {"acceptance", "regression"})
+    public void storesQuantityAndAlphabetSortCities() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        retailers().goToPage();
+        retailers().checkAddNewRetailerButtonVisible();
+        retailers().clickOnPlusForRetailer("METRO");
+
+        retailers().checkStoreNumbersSortCorrect();
+        retailers().checkStoreNameSortCorrect();
+    }
+
+    @CaseId(537)
+    @Story("Страница ретейлеров")
+    @Test(description = "Cортировка городов по дате создания", groups = {"acceptance", "regression"})
+    public void storesCreateDateSortCities() throws ParseException {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        retailers().goToPage();
+        retailers().checkAddNewRetailerButtonVisible();
+        retailers().clickOnPlusForRetailer("METRO");
+
+        
+        Date date = TimeUtil.returnDateFromString("15 Ноября 2016");
+        System.out.println(date);
+    }
+
+    @CaseId(558)
+    @Story("Страница ретейлеров")
+    @Test(description = "При клике на адрес магазина происходит переход на его страницу", groups = {"acceptance", "regression"})
+    public void successTransitOnStorePageViaClickOnAddress() {
+
     }
 }

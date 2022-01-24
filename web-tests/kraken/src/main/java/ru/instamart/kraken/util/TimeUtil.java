@@ -1,7 +1,13 @@
 package ru.instamart.kraken.util;
 
+import java.text.DateFormat;
+import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
 
 public final class TimeUtil {
 
@@ -53,6 +59,16 @@ public final class TimeUtil {
 
     public static String getFutureZoneDbDate(Long days) {
         return dtdb.format(ZonedDateTime.now(ZONE_ID).plusDays(days));
+    }
+
+    public static Date returnDateFromString(final String str) throws ParseException {
+        String[] months = {"Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"};
+        Locale ru = new Locale("ru");
+        DateFormatSymbols symbols = DateFormatSymbols.getInstance(ru);
+        symbols.setMonths(months);
+        SimpleDateFormat format = new SimpleDateFormat("dd MMMM yyyy", ru);
+        format.setDateFormatSymbols(symbols);
+        return format.parse(str);
     }
 
     private TimeUtil() {
