@@ -409,6 +409,14 @@ public final class BasicOrdersTests extends BaseTest {
 
         userShipments().goToPage();
         userShipments().checkPageContains(userShipments().pageUrl());
+        userShipments().clickToFirstShipment();
+        userShipments().clickToCancelFromOrder();
+        userShipments().interactShipmentCancelModal().shipmentCancelModalVisible();
+        userShipments().interactShipmentCancelModal().clickToAccept();
+        userShipments().checkStatusWasCanceled();
+
+        userShipments().goToPage();
+        userShipments().checkAllOrderStatusWasCanceled();
     }
 
     @CaseId(2628)
