@@ -25,7 +25,9 @@ public final class InnerInput extends InnerComponent {
 
     public int getNumericValue() {
         log.debug("Получить численное значение");
-        return StringUtil.extractNumberFromString(getComponent().getText());
+        var debutText = getComponent().getText();
+        log.debug("Текст с числовым значением {}", debutText);
+        return StringUtil.extractNumberFromString(debutText);
     }
 
     public String getValue() {
