@@ -6,13 +6,10 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.util.TimeUtil;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
-
 import java.text.ParseException;
-import java.util.Date;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
@@ -33,7 +30,7 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().goToPage();
         retailers().checkAddNewRetailerButtonVisible();
 
-        final var retailersQuantity = retailers().retailerQuantityReturn();
+        final int retailersQuantity = retailers().retailerQuantityReturn();
         retailers().retailerAccessibilityCompare(retailersQuantity);
         retailers().retailerCreateDateCompare(retailersQuantity);
     }
