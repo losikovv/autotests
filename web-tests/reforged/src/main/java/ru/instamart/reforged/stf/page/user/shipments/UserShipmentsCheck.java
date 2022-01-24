@@ -14,6 +14,11 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
         waitAction().shouldBeVisible(shipmentStatusCancel);
     }
 
+    @Step("Проверка отмены статуса")
+    default void checkAllOrderStatusWasCanceled() {
+        Assert.assertEquals(shipments.elementCount(), orderCancelStatuses.elementCount());
+    }
+
     @Step("Проверка статуса заказа 'Ожидает отправки'")
     default void checkStatusShipmentReady() {
         waitAction().shouldBeVisible(shipmentStatusShipmentReady);
