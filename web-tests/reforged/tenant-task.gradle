@@ -60,3 +60,10 @@ task selgrosRegression(type: Test){
         includeGroups 'regression'
     }
 }
+
+task businessSmoke(type: Test){
+    useTestNG() {
+        suites 'src/test/resources/suite/smoke/business.xml'
+        includeGroups 'smoke'
+    }
+}
