@@ -218,7 +218,7 @@ public final class InstamartApiHelper {
      * Изменение/применение параметров адреса из объекта адреса
      */
     @Step("Изменение/применение параметров адреса из объекта адреса")
-    private AddressV2 setAddressAttributes(AddressV2 address) {
+    public AddressV2 setAddressAttributes(AddressV2 address) {
         Response response = OrdersV2Request.ShipAddressChange.PUT(address, currentOrderNumber.get());
         checkStatusCode200(response);
         AddressV2 addressFromResponse = response
@@ -1414,5 +1414,11 @@ public final class InstamartApiHelper {
     @Step("Регистрация/авторизация по номеру телефона с помощью API")
     public void auth(final UserData user) {
         SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.PHONE, user);
+    }
+
+    @Step("Меняем адрес пользователя и добавляем товар в корзину")
+    public LineItemV2 changeAddressAndAddItemToCart(AddressV2 address, Long offerId, Integer quantity) {
+        setAddressAttributes(address);
+        return addItemToCart(offerId, quantity);
     }
 }

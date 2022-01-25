@@ -320,6 +320,14 @@ public final class OrdersV2Request extends ApiV2RequestBase {
     }
 
     public static class TransferMethod {
+
+        @Step("{method} /" + ApiV2EndPoints.Orders.TRANSFER_METHOD)
+        public static Response PUT(TransferMethodParams params, String orderNumber) {
+            return givenWithAuth()
+                    .queryParams(Mapper.INSTANCE.objectToMap(params))
+                    .put(ApiV2EndPoints.Orders.TRANSFER_METHOD, orderNumber);
+        }
+
         public static class Analyze {
             @Step("{method} /" + ApiV2EndPoints.Orders.TransferMethod.ANALYZE)
             public static Response GET(TransferMethodParams params, String orderNumber) {
@@ -368,6 +376,12 @@ public final class OrdersV2Request extends ApiV2RequestBase {
         Double lat;
         @JsonProperty("address_params[lon]")
         Double lon;
+        @JsonProperty("address_params[city]")
+        String city;
+        @JsonProperty("address_params[street]")
+        String street;
+        @JsonProperty("address_params[building]")
+        String building;
         @JsonProperty("pickup_store_id")
         Integer pickupStoreId;
     }

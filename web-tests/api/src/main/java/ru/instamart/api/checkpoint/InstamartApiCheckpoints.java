@@ -15,6 +15,7 @@ import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v1.ShippingPoliciesV1Request;
 import ru.instamart.api.response.v2.ExternalPartnersServicesV2Response;
 import ru.instamart.api.response.v2.TransferMethodLossesV2Response;
+import ru.instamart.api.response.v2.TransferMethodV2Response;
 import ru.instamart.jdbc.dao.SpreeAddressesDao;
 import ru.instamart.jdbc.dao.SpreeRetailersDao;
 import ru.instamart.jdbc.dao.SpreeUsersDao;
@@ -241,6 +242,28 @@ public class InstamartApiCheckpoints {
         compareTwoObjects((long) losses.get(0).getRetailer().getId(), SpreeRetailersDao.INSTANCE.getIdBySlug("metro"), softAssert);
         compareTwoObjects(losses.get(0).getOffers().size(), 1);
         compareTwoObjects(losses.get(0).getOffers().get(0).getId(), lineItem.getProduct().getId(), softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем, что потери отсутствуют")
+    public static void checkEmptyLossesWithOrder(Response response, String orderNumber) {
+        checkResponseJsonSchema(response, TransferMethodV2Response.class);
+        TransferMethodV2Response transferMethod = response.as(TransferMethodV2Response.class);
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(transferMethod.getLosses().size(), 0, softAssert);
+        compareTwoObjects(transferMethod.getOrder().getNumber(), orderNumber, softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем потери")
+    public static void checkLossesWithOrder(Response response, LineItemV2 lineItem, String orderNumber) {
+        checkResponseJsonSchema(response, TransferMethodV2Response.class);
+        TransferMethodV2Response transferMethod = response.as(TransferMethodV2Response.class);
+        checkFieldIsNotEmpty(transferMethod.getLosses(), "потери");
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(transferMethod.getLosses().size(), 1);
+        compareTwoObjects(transferMethod.getLosses().get(0).getOffers().get(0).getId(), lineItem.getProduct().getId(), softAssert);
+        compareTwoObjects(transferMethod.getOrder().getNumber(), orderNumber, softAssert);
         softAssert.assertAll();
     }
 }

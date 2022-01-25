@@ -17,9 +17,11 @@ public class AddressV2 extends BaseObject {
     @JsonSchema(required = true)
     private Integer id;
 
+    @Null
     @JsonProperty(value = "first_name")
     private String firstName;
 
+    @Null
     @JsonProperty(value = "last_name")
     private String lastName;
 
