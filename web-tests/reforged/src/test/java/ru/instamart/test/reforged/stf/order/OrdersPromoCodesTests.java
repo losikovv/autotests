@@ -198,7 +198,7 @@ public final class OrdersPromoCodesTests extends BaseTest {
         checkout().checkPromoCodeNotApplied();
     }
 
-    @CaseId(1844)
+    @CaseId(2640)
     @Story("Тест применения промокода")
     @Test(description = "Тест применения несуществующего промокода",
             groups = "regression")
