@@ -25,7 +25,7 @@ public class DispatchSettingsTest extends RestBase {
     @Story("Dispatch settings")
     @CaseId(104)
     @Test(description = "Получение конфига с валидным токеном",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void dispatchSettings200() {
         SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdmin());
         response = ShopperAdminRequest.OperationalZones.DispatchSettings.GET(EnvironmentProperties.DEFAULT_ID_ZONE);
@@ -36,7 +36,7 @@ public class DispatchSettingsTest extends RestBase {
     @Story("Dispatch settings")
     @CaseId(104)
     @Test(description = "Получение конфига с несуществующим zoneId",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void dispatchSettings404() {
         SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdmin());
         response = ShopperAdminRequest.OperationalZones.DispatchSettings.GET(9999);
@@ -48,7 +48,7 @@ public class DispatchSettingsTest extends RestBase {
     @Story("Dispatch settings")
     @CaseId(104)
     @Test(description = "Получение конфига с не валидным токеном",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void dispatchSettings401() {
         SessionFactory.clearSession(SessionType.SHOPPER_ADMIN);
         response = ShopperAdminRequest.OperationalZones.DispatchSettings.GET(EnvironmentProperties.DEFAULT_ID_ZONE);

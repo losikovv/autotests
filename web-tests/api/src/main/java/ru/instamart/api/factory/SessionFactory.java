@@ -1,8 +1,5 @@
 package ru.instamart.api.factory;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.qameta.allure.Allure;
 import io.restassured.response.Response;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -258,8 +255,7 @@ public final class SessionFactory {
     private static SessionInfo createShopperAppSession(final UserData userData) {
         final Response response = SessionsSHPRequest.POST(userData.getEmail(), userData.getPassword());
         checkStatusCode200(response);
-        final SessionsSHPResponse sessionsResponse = response.as(SessionsSHPResponse.class);
-        final SessionSHP.Data.Attributes sessionAttributes = sessionsResponse.getData().getAttributes();
+        final SessionSHP.Data.Attributes sessionAttributes = response.as(SessionsSHPResponse.class).getData().getAttributes();
         log.debug("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
         log.debug("access_token: {}", sessionAttributes.getAccessToken());
         log.debug("refresh_token: {}", sessionAttributes.getRefreshToken());

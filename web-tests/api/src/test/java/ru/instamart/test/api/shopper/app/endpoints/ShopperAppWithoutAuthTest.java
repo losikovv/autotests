@@ -287,8 +287,8 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     @Story("Интеграция shp -> stf")
     @CaseId(4)
     @Test(description = "Тест на импорт заказов из stf с filed order number",
-            groups = {"api-shopper-regress"})
-    public void orderImport401(){
+            groups = {"api-shopper-regress", "api-shopper-prod"})
+    public void orderImport200(){
         final Response response = OrderSHPRequest.Import.POST("failedNumber");
         checkStatusCode200(response);
     }
@@ -296,7 +296,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     @Story("Маршрут")
     @CaseId(106)
     @Test(description = "Запрос назначенных маршрутов без авторизации",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void nextUncompletedRoute401(){
         final Response response = NextUncompletedRouteSHPRequest.GET();
         checkStatusCode401(response);
@@ -314,7 +314,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     @Story("Notifications")
     @CaseId(107)
     @Test(  description = "Отметка о прочтении уведомления без авторизации PATCH",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getShopperNotificationsPatch401 () {
         response = ShopperSHPRequest.Notifications.PATCH(notificationsId);
         checkStatusCode401(response);
@@ -322,7 +322,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     @Story("Notifications")
     @CaseId(107)
     @Test(  description = "Отметка о прочтении уведомления без авторизации PUT",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getShopperNotificationsPut401 () {
         response = ShopperSHPRequest.Notifications.PUT(notificationsId);
         checkStatusCode401(response);

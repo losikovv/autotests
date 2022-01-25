@@ -31,7 +31,7 @@ public class ShopperAppAuthTest extends RestBase {
     @Story("Сборки/отгрузки")
     @CaseId(73)
     @Test(description = "Список активных отгрузок магазина текущего партнёра",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void activeShipments200() {
         final Response response = ShopperSHPRequest.Shipments.Active.GET();
         checkStatusCode200(response);
@@ -41,7 +41,7 @@ public class ShopperAppAuthTest extends RestBase {
     @Story("Сборки/отгрузки")
     @CaseId(108)
     @Test(description = "Список активных сборок/отгрузок магазина текущего партнёра для универсалов",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void shopperDriverActive200() {
         final Response response = ShopperDriverSHPRequest.Shipments.Active.GET();
         checkStatusCode200(response);
@@ -52,7 +52,7 @@ public class ShopperAppAuthTest extends RestBase {
     @CaseId(107)
     @Test(  description = "Отметка о прочтении уведомления без авторизации PATCH",
             groups = {"api-shopper-regress"})
-    public void getShopperNotificationsPatch401 () {
+    public void getShopperNotificationsPatch403 () {
         String id = "2280";
         response = ShopperSHPRequest.Notifications.PATCH(id);
         checkStatusCode403(response);
@@ -61,7 +61,7 @@ public class ShopperAppAuthTest extends RestBase {
     @CaseId(107)
     @Test(  description = "Отметка о прочтении уведомления без авторизации PUT",
             groups = {"api-shopper-regress"})
-    public void getShopperNotificationsPut401 () {
+    public void getShopperNotificationsPut403 () {
         String id = "2280";
         response = ShopperSHPRequest.Notifications.PUT(id);
         checkStatusCode403(response);
@@ -70,7 +70,7 @@ public class ShopperAppAuthTest extends RestBase {
     @Story("ScanGo")
     @CaseId(4)
     @Test(description = "Запрос конфигурации ScanGo",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void scanGoAssemblies404(){
         final Response response = ScangoSHPRequest.Assemblies.GET("failedNumber");
         checkStatusCode404(response);

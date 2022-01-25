@@ -25,7 +25,7 @@ public class ShopperScanGoTest extends RestBase {
     @Story("Scan&Go")
     @CaseId(103)
     @Test(description = "Получение конфига с валидным токеном",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void shopperScanGo200() {
         SessionFactory.createSessionToken(SessionType.SHOPPER_ADMIN, UserManager.getDefaultAdmin());
         response = ShopperAdminRequest.Scango.GET();
@@ -36,12 +36,11 @@ public class ShopperScanGoTest extends RestBase {
     @Story("Scan&Go")
     @CaseId(103)
     @Test(description = "Получение конфига с не валидным токеном",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void shopperScanGo401() {
         SessionFactory.clearSession(SessionType.SHOPPER_ADMIN);
         response = ShopperAdminRequest.Scango.GET();
         checkStatusCode401(response);
         assertEquals(response.as(ErrorResponse.class).getError(), "token_missing", "Error message not valid");
     }
-
 }
