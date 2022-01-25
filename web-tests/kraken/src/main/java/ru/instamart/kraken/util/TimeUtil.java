@@ -15,6 +15,10 @@ public final class TimeUtil {
     private static final DateTimeFormatter zdt = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private static final DateTimeFormatter dtdb = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static final ZoneId ZONE_ID = ZoneId.of("Europe/Moscow");
+    private static final Locale LOCALE_RU = new Locale("ru");
+    private static final String ADMIN_DATE_PATTERN = "dd MMMM yyyy";
+    private static final String[] RU_MONTHS = {"Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"};
+
 
     public static String getDeliveryDateFrom() {
         return dt.format(ZonedDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT, ZONE_ID));
@@ -61,11 +65,9 @@ public final class TimeUtil {
     }
 
     public static Date convertStringToDate(final String str) {
-        String[] months = {"Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"};
-        Locale ru = new Locale("ru");
-        DateFormatSymbols symbols = DateFormatSymbols.getInstance(ru);
-        symbols.setMonths(months);
-        SimpleDateFormat format = new SimpleDateFormat("dd MMMM yyyy", ru);
+        DateFormatSymbols symbols = DateFormatSymbols.getInstance(LOCALE_RU);
+        symbols.setMonths(RU_MONTHS);
+        SimpleDateFormat format = new SimpleDateFormat(ADMIN_DATE_PATTERN, LOCALE_RU);
         format.setDateFormatSymbols(symbols);
             try {
                 return format.parse(str);
