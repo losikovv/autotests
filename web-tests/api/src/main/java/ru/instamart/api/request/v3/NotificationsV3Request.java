@@ -13,11 +13,30 @@ import ru.instamart.api.request.ApiV3RequestBase;
 import ru.sbermarket.common.Mapper;
 
 import java.util.List;
+import java.util.Objects;
 
 public class NotificationsV3Request extends ApiV3RequestBase {
 
-    @Step("{method} /" + ApiV3Endpoints.NOTIFICATIONS)
+
     public static Response POST(String orderId, String type) {
+        return POST(orderId, type, "5548", 1, 1);
+    }
+
+    public static Response POST(String orderId, String type, String positionId, Integer originalQuantity, Integer quantity) {
+        return POST(orderId, type, positionId, originalQuantity, quantity, "700", "+799911111111",
+                "2021-05-24T13:00:00+03:00", "2021-05-24T16:00:00+03:00");
+    }
+
+    @Step("{method} /" + ApiV3Endpoints.NOTIFICATIONS)
+    public static Response POST(String orderId,
+                                String type,
+                                String positionId,
+                                Integer originalQuantity,
+                                Integer quantity,
+                                String weight,
+                                String phone,
+                                String expectedFrom,
+                                String expectedTo) {
         JSONObject requestParams = new JSONObject();
         JSONObject event = new JSONObject();
         JSONObject payload = new JSONObject();
@@ -29,27 +48,27 @@ public class NotificationsV3Request extends ApiV3RequestBase {
 
         requestParams.put("event", event);
 
-        event.put("type", type);
+        if (Objects.nonNull(type)) event.put("type", type);
         event.put("payload", payload);
 
-        payload.put("order_id", orderId);
+        if (Objects.nonNull(orderId)) payload.put("order_id", orderId);
         payload.put("order", order);
 
-        order.put("originalOrderId", orderId);
+        if (Objects.nonNull(orderId)) order.put("originalOrderId", orderId);
         order.put("customer", customer);
         order.put("delivery", delivery);
         order.put("positions", positions);
 
-        customer.put("phone", "+799911111111");
+        if (Objects.nonNull(phone)) customer.put("phone", phone);
 
-        delivery.put("expectedFrom", "2021-05-24T13:00:00+03:00");
-        delivery.put("expectedTo", "2021-05-24T16:00:00+03:00");
+        if (Objects.nonNull(expectedFrom)) delivery.put("expectedFrom", expectedFrom);
+        if (Objects.nonNull(expectedTo)) delivery.put("expectedTo", expectedTo);
 
         positions.add(position);
-        position.put("id", "5548");
-        position.put("originalQuantity", 1);
-        position.put("quantity", 1);
-        position.put("weight", "700");
+        if (Objects.nonNull(positionId)) position.put("id", positionId);
+        if (Objects.nonNull(originalQuantity)) position.put("originalQuantity", originalQuantity);
+        if (Objects.nonNull(quantity)) position.put("quantity", quantity);
+        if (Objects.nonNull(weight)) position.put("weight", weight);
 
         return givenMetroMarketPlace()
                 .contentType(ContentType.JSON)

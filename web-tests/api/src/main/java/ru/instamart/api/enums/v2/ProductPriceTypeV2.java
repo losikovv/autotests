@@ -10,7 +10,9 @@ import lombok.ToString;
 public enum ProductPriceTypeV2 {
 
     PER_ITEM("per_item"),
-    PER_PACK("per_pack");
+    PER_KILO("per_kilo"),
+    PER_PACK("per_pack"),
+    PER_PACKAGE("per_package");
 
     private final String value;
 }

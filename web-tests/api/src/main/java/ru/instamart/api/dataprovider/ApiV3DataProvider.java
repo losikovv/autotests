@@ -3,7 +3,10 @@ package ru.instamart.api.dataprovider;
 import lombok.Data;
 import org.testng.annotations.DataProvider;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.enums.v3.NotificationTypesV3;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.testdata.ApiV3TestData;
 import ru.instamart.kraken.data_provider.DataList;
 
@@ -38,6 +41,17 @@ public class ApiV3DataProvider extends RestBase {
                 {NotificationTypesV3.READY_FOR_DELIVERY},
                 {NotificationTypesV3.DELIVERED},
                 {NotificationTypesV3.CANCELED}
+        };
+    }
+
+    @DataProvider(name = "ordersWithDifferentPricers")
+    public static Object[][] getOrdersWithDifferentPricers() {
+        SessionFactory.makeSession(SessionType.API_V2);
+        return new Object[][]{
+                {apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_ITEM)},
+                //{apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_KILO)},
+                {apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_PACK)},
+                {apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_PACKAGE)}
         };
     }
 }
