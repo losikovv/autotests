@@ -100,6 +100,7 @@
             <class name="ru.instamart.test.api.v3.endpoints.ProductsV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.NotificationsNegativeV3Test"/>
             <class name="ru.instamart.test.api.v3.endpoints.NotificationsPositiveV3Test"/>
+            <class name="ru.instamart.test.api.v3.endpoints.NotificationsPositionsV3Test"/>
         </classes>
     </test>
     <!-- api-delivery-club-tests  -->
