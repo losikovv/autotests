@@ -47,7 +47,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(23)
     @Test(description = "Список сотрудников",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getShoppers200() {
         Response response = ShopperAdminRequest.Shoppers.GET();
         checkStatusCode200(response);
@@ -56,7 +56,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(24)
     @Test(description = "Список магазинов",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getStores200() {
         Response response = ShopperAdminRequest.Stores.GET();
         checkStatusCode200(response);
@@ -65,7 +65,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(25)
     @Test(description = "Список расписаний",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getRouteSchedules200() {
         Response response = ShopperAdminRequest.RouteSchedules.GET();
         checkStatusCode200(response);
@@ -74,7 +74,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(26)
     @Test(description = "Список операционных зон",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getOperationalZones200() {
         Response response = ShopperAdminRequest.OperationalZones.GET();
         checkStatusCode200(response);
@@ -83,7 +83,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(27)
     @Test(description = "Список ретейлеров",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getRetailers200() {
         Response response = ShopperAdminRequest.Retailers.GET();
         checkStatusCode200(response);
@@ -92,7 +92,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(28)
     @Test(description = "Список доставок",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getShipments200() {
         Response response = ShopperAdminRequest.Shipments.GET(sid, getPastDateWithoutTime(1L));
         checkStatusCode200(response);
@@ -100,7 +100,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(29)
     @Test(description = "Список смен",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getShifts200() {
         Response response = ShopperAdminRequest.Shifts.GET();
         checkStatusCode200(response);
@@ -109,7 +109,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(31)
     @Test(description = "Список тарифов",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getTariffs200() {
         Response response = ShopperAdminRequest.Tariffs.GET();
         checkStatusCode200(response);
@@ -181,7 +181,7 @@ public class ShopperAdminWithAuthTest extends RestBase {
 
     @CaseId(37)
     @Test(description = "Получение всех доступных ролей",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getRoles200() {
         Response response = ShopperAdminRequest.Roles.GET();
         checkStatusCode200(response);

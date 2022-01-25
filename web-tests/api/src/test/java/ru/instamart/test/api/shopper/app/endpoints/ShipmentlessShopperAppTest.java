@@ -142,12 +142,13 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Получение информации о приложении")
     @CaseId(20)
     @Test(description = "Получаем инфу о текущей версии приложения",
-            groups = {"api-shopper-regress"})
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getCurrentAppVersion200() {
         response = CurrentAppVersionSHPRequest.GET();
         checkStatusCode200(response);
-        checkFieldIsNotEmpty(response.as(AppVersionSHPResponse.class).getData().getAttributes().getMajor(),
-                "информация о текущей версии приложения");
+        AppVersionSHPResponse.Data.Attributes attributes = response.as(AppVersionSHPResponse.class).getData().getAttributes();
+        checkFieldIsNotEmpty(attributes.getMajor(), "информация о текущей версии приложения");
+        checkFieldIsNotEmpty(attributes.getDownloadUrl(), "ссылка на последнюю сборку");
     }
 
     @Story("Поиск")
@@ -165,15 +166,14 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Авторизация")
     @CaseId(43)
     @Test(description = "Обновление авторизации",
-            groups = {"api-shopper-smoke"})
+            groups = {"api-shopper-smoke"//, "api-shopper-prod" //на проде почему-то не приходит рефреш токен
+            })
     public void postAuthRefresh200() {
         response = AuthSHPRequest.Refresh.POST();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, SessionsSHPResponse.class);
-        final SessionsSHPResponse sessionsResponse = response.as(SessionsSHPResponse.class);
-        SessionSHP.Data.Attributes attributes = sessionsResponse.getData().getAttributes();
+        SessionSHP.Data.Attributes attributes = response.as(SessionsSHPResponse.class).getData().getAttributes();
         SessionFactory.updateToken(SessionType.SHOPPER_APP, attributes.getAccessToken(), attributes.getRefreshToken());
-
     }
 
     @Story("Авторизация")
@@ -201,8 +201,8 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Маршрут")
     @CaseId(106)
     @Test(description = "Запрос назначенных маршрутов без авторизации",
-            groups = {"api-shopper-regress"})
-    public void nextUncompletedRoute200(){
+            groups = {"api-shopper-regress", "api-shopper-prod"})
+    public void nextUncompletedRoute404(){
         final Response response = NextUncompletedRouteSHPRequest.GET();
         checkStatusCode404(response);
         assertEquals(response.as(ErrorSHPResponse.class).getErrors().get(0).getDetail(), "Маршрут не найден", "Неправильная ошибка");
