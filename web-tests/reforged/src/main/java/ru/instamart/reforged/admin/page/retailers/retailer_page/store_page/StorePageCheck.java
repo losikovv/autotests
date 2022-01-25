@@ -12,7 +12,7 @@ public interface StorePageCheck extends Check, StorePageElements {
         waitAction().shouldBeVisible(backToStoresList);
     }
 
-    @Step("Проверяем, что адрес на странице магазина соответствует ожидаемому")
+    @Step("Проверяем, что адрес {0} на странице магазина соответствует ожидаемому")
     default void checkAddressCorrect(final String addressExp) {
         waitAction().shouldBeVisible(address, addressExp);
     }

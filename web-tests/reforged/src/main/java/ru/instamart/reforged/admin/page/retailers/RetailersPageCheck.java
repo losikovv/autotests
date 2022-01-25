@@ -5,11 +5,10 @@ import org.testng.Assert;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 
-import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
-import static ru.instamart.reforged.admin.AdminRout.retailers;
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface RetailersPageCheck extends Check, RetailersPageElements {
@@ -39,58 +38,38 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
         waitAction().shouldBeVisible(retailerAccessibilityInTable, retailer);
     }
 
-    @Step("Проверяем, что сортировка городов магазинов отображается корректно")
-    default void checkStoreNumbersSortCorrect() {
-        Assert.assertTrue(checkStoreSort());
-    }
-
     @Step("Проверяем, что сортировка городов магазинов по количеству отображается корректно")
-    default Boolean checkStoreSort() {
-        Integer[] array = StringUtil.returnCitiesInTableNumbersArray(
-                retailers().returnStringArrayFromAddressCollection(storesInTable));
-        return Arrays.equals(array, retailers().sortStoreArray(array));
+    default void checkStoreSortViaNumbersCorrect() {
+        Integer[] array = StringUtil.returnNumbersOfCitiesInTableArray(storesInTable.getTextFromAllElements());
+        Integer[] arrayClone = Arrays.copyOf(array, array.length);
+
+        Assert.assertTrue(Arrays.equals(array, arrayClone));
     }
 
     @Step("Проверяем корректность сортировки адресов магазинов по дате создания")
-    default Boolean checkDateSort() throws ParseException {
-        Date[] original = retailers().convertStringArrayDatesToDate();
+    default void checkDateSortCorrect(List storeList) {
+        Date[] original = new Date[storeList.size()];
+        original = (Date[]) storeList.toArray(original);
         Date[] clone = Arrays.copyOf(original, original.length);
         Arrays.sort(clone);
-        return Arrays.equals(original, clone);
+        Assert.assertTrue(Arrays.equals(original, clone));
     }
 
-    @Step("Проверяем корректность сортировки адресов магазинов по дате создания")
-    default void checkDateSortCorrect() throws ParseException {
-        Assert.assertTrue(checkDateSort());
-    }
-
-    @Step("Проверяем, что сортировка городов магазинов отображается корректно")
-    default void checkStoreNameSortCorrect() {
-        Assert.assertTrue(checkStoreNameSort());
-    }
-
-    @Step("Проверяем, что сортировка городов магазинов по имени отображается корректно")
-    default Boolean checkStoreNameSort() {
-        Integer[] array = StringUtil.returnCitiesInTableNumbersArray(
-                retailers().returnStringArrayFromAddressCollection(storesInTable));
-        String[] strings = retailers().returnStringArrayFromAddressCollection(storesInTable);
-
-        return retailers().checkIfStoreAlphabeticallySorted(strings, array);
-    }
-
-    @Step("Получаем отсортированный массив количества адресов для магазинов")
-    default Boolean checkIfStoreAlphabeticallySorted(final String[] strings, final Integer[] array) {
+    @Step("Проверяем, что список магазинов отсортирован по алфавиту")
+    default void checkIfStoreAlphabeticallySorted() {
         char str1;
         char str2;
+        List<String> list = storesInTable.getTextFromAllElements();
+        var array = StringUtil.returnNumbersOfCitiesInTableArray(list);
+
         if (array.length > 2) {
             for (int i = 1; i < array.length; i++) {
                 if (array[i] == array[i - 1]) {
-                    str1 = strings[i].charAt(0);
-                    str2 = strings[i - 1].charAt(0);
+                    str1 = list.get(i).charAt(0);
+                    str2 = list.get(i - 1).charAt(0);
                     Assert.assertTrue(str1 >= str2);
                 }
             }
         }
-        return true;
     }
 }

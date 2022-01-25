@@ -60,14 +60,19 @@ public final class TimeUtil {
         return dtdb.format(ZonedDateTime.now(ZONE_ID).plusDays(days));
     }
 
-    public static Date returnDateFromString(final String str) throws ParseException {
+    public static Date convertStringToDate(final String str) {
         String[] months = {"Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"};
         Locale ru = new Locale("ru");
         DateFormatSymbols symbols = DateFormatSymbols.getInstance(ru);
         symbols.setMonths(months);
         SimpleDateFormat format = new SimpleDateFormat("dd MMMM yyyy", ru);
         format.setDateFormatSymbols(symbols);
-        return format.parse(str);
+            try {
+                return format.parse(str);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        return null;
     }
 
     private TimeUtil() {

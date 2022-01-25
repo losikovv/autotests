@@ -9,8 +9,6 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import java.text.ParseException;
-
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
@@ -122,14 +120,15 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().checkAddNewRetailerButtonVisible();
         retailers().clickOnPlusForRetailer("METRO");
 
-        retailers().checkStoreNumbersSortCorrect();
-        retailers().checkStoreNameSortCorrect();
+        retailers().checkStoreSortViaNumbersCorrect();
+
+        retailers().checkIfStoreAlphabeticallySorted();
     }
 
     @CaseId(537)
     @Story("Страница ретейлеров")
     @Test(description = "Cортировка городов по дате создания", groups = {"acceptance", "regression"})
-    public void storesCreateDateSortCities() throws ParseException {
+    public void storesCreateDateSortCities() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
@@ -138,7 +137,8 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().clickOnPlusForRetailer("METRO");
         retailers().clickOnStore("тест-352519385 (17)");
 
-        retailers().checkDateSortCorrect();
+        var stringArrayDates = retailers().convertStringArrayDatesToDate();
+        retailers().checkDateSortCorrect(stringArrayDates);
     }
 
     @CaseId(558)

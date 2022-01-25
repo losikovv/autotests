@@ -3,6 +3,7 @@ package ru.instamart.kraken.util;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,12 +52,14 @@ public final class StringUtil {
         return phone.substring(phone.length() - 6);
     }
 
-    public static Integer[] returnCitiesInTableNumbersArray(final String[] array) {
-        Integer[] numArray = new Integer[array.length];
-        for (int i = 0; i < array.length; i++) {
-            int startIndex = array[i].indexOf("(");
-            int endIndex = array[i].indexOf(")");
-            String subs = array[i].substring(startIndex + 1, endIndex);
+    /* Получает на вход массив List<String> {"Москва (17)","Санкт-Петербург (3)","Екатеринбург (7)"},
+        а на выход отдает числа из скобок массивом Integer {17, 3, 7} */
+    public static Integer[] returnNumbersOfCitiesInTableArray(List<String> cities) {
+        Integer[] numArray = new Integer[cities.size()];
+        for (int i = 0; i < cities.size(); i++) {
+            int startIndex = cities.get(i).indexOf("(");
+            int endIndex = cities.get(i).indexOf(")");
+            String subs = cities.get(i).substring(startIndex + 1, endIndex);
             numArray[i] = Integer.parseInt(subs);
         }
         return numArray;
