@@ -58,7 +58,8 @@ public class CitiesV2Test extends RestBase {
     @CaseId(1409)
     @Story("Получение городов")
     @Test(description = "Получаем все города",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-regress"},
+            dependsOnMethods = "getCitiesWithPickup")
     public void getAllCities() {
         final Response response = CitiesV2Request.GET(CitiesV2Request.CitiesParams.builder()
                 .perPage(1000)

@@ -129,6 +129,7 @@ public final class ApiV2EndPoints {
         public static final String SHIP_ADDRESS_CHANGE = "v2/orders/{orderNumber}/ship_address_change";
         public static final String SPASIBO_INFO = "v2/orders/{orderNumber}/spasibo_info";
         public static final String STATUS = "v2/orders?status={status}&page={page}";
+        public static final String TRANSFER_METHOD = "v2/orders/{orderNumber}/transfer_method";
         public static final String UNRATED = "v2/orders/unrated";
 
         public static final class TransferMethod {
