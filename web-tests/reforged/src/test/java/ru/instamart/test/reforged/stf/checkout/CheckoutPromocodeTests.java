@@ -36,7 +36,7 @@ public final class CheckoutPromocodeTests extends BaseTest {
         helper.cancelAllActiveOrders(userData);
     }
 
-    @CaseId(1727)
+    @CaseId(2638)
     @Story("Добавление промокода к заказу")
     @Test(description = "Тест успешного применения промокода в чекауте", groups = {"acceptance", "regression", "smoke"})
     public void successAddPromocode() {
@@ -53,7 +53,7 @@ public final class CheckoutPromocodeTests extends BaseTest {
         checkout().clickToDeletePromoCode();
     }
 
-    @CaseId(1208)
+    @CaseId(2639)
     @Story("Удаление промокода из заказа")
     @Test(description = "Тест удаления промокода в чекауте", groups = {"acceptance", "regression"})
     public void successDeletePromocode() {

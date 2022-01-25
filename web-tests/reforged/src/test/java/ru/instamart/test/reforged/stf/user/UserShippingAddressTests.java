@@ -59,7 +59,7 @@ public final class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().checkIsShippingAddressNotSet();
     }
 
-    @CaseId(1562)
+    @CaseId(2567)
     @Story("Зона доставки")
     @Test(description = "Тест на отсутствие доступных магазинов по адресу вне зоны доставки", groups = "regression")
     public void noAvailableShopsOutOfDeliveryZone() {
