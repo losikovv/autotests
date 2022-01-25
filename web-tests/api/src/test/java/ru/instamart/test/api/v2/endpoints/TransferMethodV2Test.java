@@ -403,7 +403,7 @@ public class TransferMethodV2Test extends RestBase {
         SpreeOrdersDao.INSTANCE.updateShippingKind(currentOrderNumber, ShippingMethodsV2.PICKUP.getMethod());
     }
 
-    @CaseIDs(value = {@CaseId(1750), @CaseId(1751), @CaseId(1752)})
+    @CaseIDs(value = {@CaseId(1753), @CaseId(1754)})
     @Story("Трансфер самовывоз-доставка")
     @Test(groups = {"api-instamart-regress"},
             description = "Проверяем потери для магазина, где доступен только самовывоз",
@@ -426,7 +426,7 @@ public class TransferMethodV2Test extends RestBase {
         checkEmptyLossesWithOrder(response, currentOrderNumber);
     }
 
-    @CaseIDs(value = {@CaseId(1753), @CaseId(1754)})
+    @CaseIDs(value = {@CaseId(1750), @CaseId(1751), @CaseId(1752)})
     @Story("Трансфер самовывоз-доставка")
     @Test(groups = {"api-instamart-regress"},
             description = "Проверяем потери для магазина, где доступен только самовывоз",
