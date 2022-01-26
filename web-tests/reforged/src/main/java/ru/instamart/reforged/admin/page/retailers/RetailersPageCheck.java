@@ -41,13 +41,16 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
 
     @Step("Проверяем, что сортировка городов магазинов по количеству отображается корректно")
     default void checkStoreSortViaNumbersCorrect() {
-        List<Integer> numbersOfCities = storesInTable.getTextFromAllElements().stream().map(StringUtil::extractNumberCitiesFromString).collect(Collectors.toList());
-        Assert.assertEquals(numbersOfCities, numbersOfCities.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList()));
+        List<Integer> numbersOfCities = storesInTable.getTextFromAllElements().stream()
+                .map(StringUtil::parseNumberCitiesFromString).collect(Collectors.toList());
+        Assert.assertEquals(numbersOfCities, numbersOfCities.stream()
+                .sorted(Collections.reverseOrder()).collect(Collectors.toList()));
     }
 
     @Step("Проверяем, что сортировка городов магазинов по количеству отображается корректно")
     default void checkDateSortCorrect() {
-        List<ZonedDateTime> datesList = addressDatesInTable.getTextFromAllElements().stream().map(TimeUtil::convertStringToDate).collect(Collectors.toList());
+        List<ZonedDateTime> datesList = addressDatesInTable.getTextFromAllElements().stream()
+                .map(TimeUtil::convertStringToDate).collect(Collectors.toList());
         Assert.assertEquals(datesList, datesList.stream().sorted().collect(Collectors.toList()));
     }
 
@@ -56,7 +59,8 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
         char str1;
         char str2;
         List<String> listCities = storesInTable.getTextFromAllElements();
-        List<Integer> listCitiesNumbers = listCities.stream().map(StringUtil::extractNumberCitiesFromString).collect(Collectors.toList());
+        List<Integer> listCitiesNumbers = listCities.stream().map(StringUtil::parseNumberCitiesFromString)
+                                            .collect(Collectors.toList());
 
         if (listCitiesNumbers.size() > 2) {
             for (int i = 1; i < listCitiesNumbers.size(); i++) {

@@ -53,13 +53,11 @@ public final class StringUtil {
         return phone.substring(phone.length() - 6);
     }
 
-    public static int extractNumberCitiesFromString(final String text) {
+    public static Integer parseNumberCitiesFromString(final String text) {
         Matcher matcher = citiesPattern.matcher(text);
-        StringBuilder sb = new StringBuilder();
-        while (matcher.find()) {
-            sb.append(matcher.group(1));
-        }
-        return Integer.parseInt(sb.toString());
+        if (matcher.find()) {
+            return Integer.parseInt(matcher.group(1));
+        }else return null;
     }
 
     private StringUtil() {
