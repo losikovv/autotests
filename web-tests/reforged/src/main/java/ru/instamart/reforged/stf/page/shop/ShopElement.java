@@ -3,6 +3,7 @@ package ru.instamart.reforged.stf.page.shop;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
+import ru.instamart.reforged.core.component.ElementCollection;
 import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.block.header.Header;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
@@ -44,4 +45,13 @@ public interface ShopElement {
 
     Button plusFirstItemToCartNonLogin = new Button(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_0_product_item_0']//button[@title='Добавить в корзину']"), "Кнопка добавить в корзину у первого элемента незалогин");
     Button plusSecondItemToCartNonLogin = new Button(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_0_product_item_1']//button[@title='Добавить в корзину']"), "Кнопка добавить в корзину у второго элемента незалогин");
+
+    Element imageInFirstItem = new Element(By.xpath("//div[contains(@data-qa,'_product_item_')]//img"), "Изображение товара");
+    Element nameInFirstItem = new Element(By.xpath("//div[contains(@data-qa,'_product_item_')]//h3"), "Название товара");
+    Element packageSizeInFirstItem = new Element(By.xpath("//div[contains(@data-qa,'_product_item_')]//h3/following-sibling::div[1]"), "Размер упаковки товара");
+    ElementCollection pricesInItemWithoutDiscount = new ElementCollection(By.xpath("(//div[contains(@data-qa,'_product_item_')][not(.//li[.//span[contains(.,'Скидка')]])])[1]//h3/following-sibling::div[2]/div"), "Отображаемые цены (для первого товара без скидки)");
+    ElementCollection pricesInItemWithDiscount = new ElementCollection(By.xpath("(//div[contains(@data-qa,'_product_item_')][.//li[.//span[contains(.,'Скидка')]]])[1]//h3/following-sibling::div[2]/div[./span]"), "Отображаемые цены (для первого товара со скидкой)");
+    Element priceInFirstItemWithoutDiscount = new Element(By.xpath("//div[contains(@data-qa,'_product_item_')][not(.//li[.//span[contains(.,'Скидка')]])]//div[./span[contains(.,'Цена за')]]"), "Цена товара (для первого товара без скидки)");
+    Element fullPriceInFirstItemWithDiscount = new Element(By.xpath("//div[contains(@data-qa,'_product_item_')][.//li[.//span[contains(.,'Скидка')]]]//h3/following-sibling::div[2]/div[contains(.,'Цена без скидки')]"), "Цена товара без скидки (для первого товара со скидкой)");
+    Element discountPriceInFirstItemWithDiscount = new Element(By.xpath("//div[contains(@data-qa,'_product_item_')][.//li[.//span[contains(.,'Скидка')]]]//h3/following-sibling::div[2]/div[contains(.,'Цена со скидкой')]"), "Цена товара со скидкой (для первого товара со скидкой)");
 }
