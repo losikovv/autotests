@@ -3,7 +3,6 @@ package ru.instamart.test.reforged.stf;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -13,6 +12,7 @@ import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.data_provider.StaticPage;
 import ru.instamart.reforged.core.service.Curl;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -51,7 +51,7 @@ public final class BasicSbermarketTests extends BaseTest {
     @CaseId(733)
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на как мы работаем", groups = "regression")
-    public void successTransitionHowWeWork(){
+    public void successTransitionHowWeWork() {
         shop().goToPage();
         shop().interactHeader().clickToHowWeWork();
         howWeWork().checkPageIsAvailable();
@@ -60,7 +60,7 @@ public final class BasicSbermarketTests extends BaseTest {
     @CaseId(1810)
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на информацию о контактах", groups = "regression")
-    public void successTransitionContactsInfo(){
+    public void successTransitionContactsInfo() {
         shop().goToPage();
         shop().interactHeader().clickToContacts();
         contacts().checkPageIsAvailable();
@@ -69,7 +69,7 @@ public final class BasicSbermarketTests extends BaseTest {
     @CaseId(1811)
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на страничку с помощью для клиента", groups = "regression")
-    public void successTransitionHelpInfo(){
+    public void successTransitionHelpInfo() {
         shop().goToPage();
         shop().interactHeader().clickToHelp();
         faq().checkPageIsAvailable();
@@ -78,7 +78,7 @@ public final class BasicSbermarketTests extends BaseTest {
     @CaseId(1812)
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на страничку с информацией о доставке", groups = "regression")
-    public void successTransitionDeliveryInfo(){
+    public void successTransitionDeliveryInfo() {
         shop().goToPage();
         shop().interactHeader().clickToDeliveryAndPayment();
         delivery().checkPageIsAvailable();
@@ -87,7 +87,7 @@ public final class BasicSbermarketTests extends BaseTest {
     @CaseId(1813)
     @Story("Навигация")
     @Test(description = "Тест перехода из Сбермаркета на страничку с Logo", groups = "regression")
-    public void successTransitionLogo(){
+    public void successTransitionLogo() {
         shop().goToPage();
         shop().interactHeader().clickToLogo();
         shop().checkPageIsAvailable();
@@ -125,6 +125,7 @@ public final class BasicSbermarketTests extends BaseTest {
         shop().interactFooter().checkFacebookButtonVisible();
         shop().interactFooter().checkVkontakteButtonVisible();
         shop().interactFooter().checkInstagramButtonVisible();
+        shop().interactFooter().checkTwitterButtonVisible();
 
         shop().interactFooter().checkGooglePlayButtonVisible();
         shop().interactFooter().checkAppstoreButtonVisible();
@@ -166,7 +167,7 @@ public final class BasicSbermarketTests extends BaseTest {
     @DoNotOpenBrowser
     @CaseId(1437)
     @Story("Витрины ретейлеров")
-    @Test(  dataProviderClass = StaticPage.class,
+    @Test(dataProviderClass = StaticPage.class,
             dataProvider = "filteredAvailableRetailersSpree",
             description = "Тест доступности витрин ритейлеров Сбермаркета ",
             groups = "regression")
@@ -178,7 +179,7 @@ public final class BasicSbermarketTests extends BaseTest {
     @DoNotOpenBrowser
     @CaseId(1437)
     @Story("Витрины ретейлеров")
-    @Test(  dataProviderClass = StaticPage.class,
+    @Test(dataProviderClass = StaticPage.class,
             dataProvider = "filteredUnavailableRetailersSpree",
             description = "Тест недоступности витрин ритейлеров Сбермаркета ",
             groups = "regression")
