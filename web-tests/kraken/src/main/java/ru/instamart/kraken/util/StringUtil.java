@@ -53,6 +53,7 @@ public final class StringUtil {
         return phone.substring(phone.length() - 6);
     }
 
+    /* Парсит строку типа "Екатеринбург (17)" в (Integer)17, или "тест-375756123 (13)" в (Integer)13 */
     public static Integer parseNumberCitiesFromString(final String text) {
         Matcher matcher = citiesPattern.matcher(text);
         if (matcher.find()) {
