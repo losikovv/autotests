@@ -12,16 +12,19 @@ public final class StringUtil {
 
     private static final Pattern pattern = Pattern.compile("\\d+\\.\\d+");
 
+    private StringUtil() {
+    }
+
     public static String failMessage(final String text) {
         return "\n> " + text;
     }
 
     public static int extractNumberFromString(final String text) {
-        return Integer.parseInt(text.replaceAll("\\D+",""));
+        return Integer.parseInt(text.replaceAll("\\D+", ""));
     }
 
     public static double stringToDoubleParse(String stringToParse) {
-        stringToParse = stringToParse.replace(",",".").replace(" ", "");
+        stringToParse = stringToParse.replace(",", ".").replace(" ", "");
 
         Matcher matcher = pattern.matcher(stringToParse);
         StringBuilder sb = new StringBuilder();
@@ -33,7 +36,7 @@ public final class StringUtil {
     }
 
     public static Long stringToLongParse(String stringToParse) {
-        return Long.parseLong(stringToParse.replaceAll("\\D+",""));
+        return Long.parseLong(stringToParse.replaceAll("\\D+", ""));
     }
 
     public static String cutBasicAuthFromUrl(final String url) {
@@ -51,6 +54,7 @@ public final class StringUtil {
         return phone.substring(phone.length() - 6);
     }
 
-    private StringUtil() {
+    public static String getLastLine(String text) {
+        return text.replaceAll("^.+\\n", "");
     }
 }

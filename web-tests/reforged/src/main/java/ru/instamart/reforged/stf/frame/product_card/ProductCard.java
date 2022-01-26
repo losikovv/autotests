@@ -1,14 +1,13 @@
 package ru.instamart.reforged.stf.frame.product_card;
 
 import io.qameta.allure.Step;
-
 import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
 import ru.instamart.reforged.stf.frame.Close;
 
 public final class ProductCard implements ProductCardCheck, Close {
 
     public RetailRocket interactRetailRocket() {
-        return  retailRocket;
+        return retailRocket;
     }
 
     @Step("Нажать купить")
@@ -59,5 +58,15 @@ public final class ProductCard implements ProductCardCheck, Close {
     @Step("Нажать зарезервировать")
     public void clickOnReserve() {
         reserveButton.click();
+    }
+
+    @Step("Получаем цену товара ")
+    public String getPrice() {
+        return price.getText();
+    }
+
+    @Step("Получаем цену товара со скидкой (для товара со скидкой)")
+    public String getPriceWithDiscount() {
+        return priceWithDiscount.getText();
     }
 }
