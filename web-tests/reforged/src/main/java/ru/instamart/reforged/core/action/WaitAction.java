@@ -117,7 +117,7 @@ public final class WaitAction {
     }
 
     public void elementCollectionSizeShouldBeEqual(ElementCollection collection, final int size) {
-        createWait(WaitProperties.BASIC_TIMEOUT, "Кол-во элементов в коллекции не совпадает с ожидаемым")
+        createWait(WaitProperties.BASIC_TIMEOUT, "Кол-во элементов в коллекции: " + collection.elementCount() + " не совпадает с ожидаемым: " + size)
                 .until((ExpectedCondition<Boolean>) wb -> collection.elementCount() == size);
     }
 

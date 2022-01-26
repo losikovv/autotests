@@ -12,6 +12,9 @@ public final class StringUtil {
 
     private static final Pattern pattern = Pattern.compile("\\d+\\.\\d+");
 
+    private StringUtil() {
+    }
+
     private static final Pattern citiesPattern = Pattern.compile("\\(([^\\D+]+)\\)");
 
     public static String failMessage(final String text) {
@@ -53,14 +56,15 @@ public final class StringUtil {
         return phone.substring(phone.length() - 6);
     }
 
+    public static String getLastLine(String text) {
+        return text.replaceAll("^.+\\n", "");
+    }
+
     /* Парсит строку типа "Екатеринбург (17)" в (Integer)17, или "тест-375756123 (13)" в (Integer)13 */
     public static int parseNumberCitiesFromString(final String text) {
         Matcher matcher = citiesPattern.matcher(text);
         if (matcher.find()) {
             return Integer.parseInt(matcher.group(1));
         } else return 0;
-    }
-
-    private StringUtil() {
     }
 }

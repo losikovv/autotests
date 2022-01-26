@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.page.shop;
 
 import io.qameta.allure.Step;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.block.header.Header;
@@ -134,5 +135,30 @@ public final class ShopPage implements StfPage, ShopCheck {
     @Override
     public String pageUrl() {
         return "";
+    }
+
+    @Step("Получаем цену товара")
+    public String getPrice() {
+        return StringUtil.getLastLine(priceInFirstItemWithoutDiscount.getText());
+    }
+
+    @Step("Получаем цену товара без скидки (для товара со скидкой)")
+    public String getFullPrice() {
+        return StringUtil.getLastLine(fullPriceInFirstItemWithDiscount.getText());
+    }
+
+    @Step("Получаем цену товара с учётом скидки (для товара со скидкой)")
+    public String getPriceWithDiscount() {
+        return StringUtil.getLastLine(discountPriceInFirstItemWithDiscount.getText());
+    }
+
+    @Step("Открыть карточку первого товара со скидкой")
+    public void openFirstProductCardWithoutDiscount() {
+        priceInFirstItemWithoutDiscount.hoverAndClick();
+    }
+
+    @Step("Открыть карточку первого товара без скидки")
+    public void openFirstProductCardWithDiscount() {
+        fullPriceInFirstItemWithDiscount.hoverAndClick();
     }
 }

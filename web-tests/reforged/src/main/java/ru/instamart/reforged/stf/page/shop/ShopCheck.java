@@ -38,4 +38,29 @@ public interface ShopCheck extends Check, ShopElement {
     default void checkDefaultShopOpened() {
         waitAction().urlEquals(EnvironmentProperties.Env.FULL_SITE_URL + ShopUrl.DEFAULT.getUrl());
     }
+
+    @Step("Проверяем, что изображение товара отображается")
+    default void checkItemImageDisplayed() {
+        waitAction().shouldBeVisible(imageInFirstItem);
+    }
+
+    @Step("Проверяем, что название товара отображается")
+    default void checkItemNameDisplayed() {
+        waitAction().shouldBeVisible(nameInFirstItem);
+    }
+
+    @Step("Проверяем, что размер упаковки товара отображается")
+    default void checkItemPackageSizeDisplayed() {
+        waitAction().shouldBeVisible(packageSizeInFirstItem);
+    }
+
+    @Step("Проверяем, что для товара без скидки отображается только одна цена")
+    default void checkItemWithoutDiscountPricesCount() {
+        waitAction().elementCollectionSizeShouldBeEqual(pricesInItemWithoutDiscount, 1);
+    }
+
+    @Step("Проверяем, что для товара со скидкой отображаются две цены")
+    default void checkItemWithDiscountPricesCount() {
+        waitAction().elementCollectionSizeShouldBeEqual(pricesInItemWithDiscount, 2);
+    }
 }

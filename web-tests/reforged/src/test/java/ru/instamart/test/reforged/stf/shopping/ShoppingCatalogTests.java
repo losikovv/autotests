@@ -2,15 +2,12 @@ package ru.instamart.test.reforged.stf.shopping;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
-
-import ru.instamart.kraken.listener.Skip;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
-import static ru.instamart.reforged.stf.page.StfRouter.search;
 
 @Epic("STF UI")
 @Feature("Проверка каталога товаров")
@@ -210,5 +207,56 @@ public final class ShoppingCatalogTests extends BaseTest {
         home().interactAddressModal().clickFindStores();
         home().clickToStoreCard();
         shop().interactHeader().checkLoginIsVisible();
+    }
+
+    @CaseId(2593)
+    @Test(description = "Корректное отображение информации о товаре (основные элементы)", groups = "regression")
+    public void productSnippetAndCardInfo() {
+        shop().goToPage();
+        shop().checkItemNameDisplayed();
+        shop().checkItemImageDisplayed();
+        shop().checkItemPackageSizeDisplayed();
+
+        shop().openFirstProductCard();
+        shop().interactProductCard().checkBreadscrumbsVisible();
+        shop().interactProductCard().checkProductImageDisplayed();
+        shop().interactProductCard().checkNameDisplayed();
+        shop().interactProductCard().checkPackageSizeDisplayed();
+        shop().interactProductCard().checkBuyButton();
+        shop().interactProductCard().checkFavoriteButtonDisplayed();
+        shop().interactProductCard().checkDescriptionDisplayed();
+        shop().interactProductCard().checkGeneralInfoDisplayed();
+    }
+
+    //@CaseId(2593)
+    @Test(description = "Корректное отображение информации о товаре (элементы товара без скидки)", groups = "regression")
+    public void productSnippetAndCardInfoItemWithoutDiscount() {
+        shop().goToPage();
+        shop().checkSnippet();
+        shop().checkItemWithoutDiscountPricesCount();
+        var snippetPrice = shop().getPrice();
+
+        shop().openFirstProductCardWithoutDiscount();
+        shop().interactProductCard().checkProductCardVisible();
+        shop().interactProductCard().checkDiscountLabelNotDisplayed();
+        shop().interactProductCard().checkItemWithoutDiscountPricesCount();
+        shop().interactProductCard().checkFullPrice(snippetPrice, shop().interactProductCard().getPrice());
+    }
+
+    //@CaseId(2593)
+    @Test(description = "Корректное отображение информации о товаре (элементы товара со скидкой)", groups = "regression")
+    public void productSnippetAndCardInfoItemWithDiscount() {
+        shop().goToPage();
+        shop().checkSnippet();
+        shop().checkItemWithDiscountPricesCount();
+        var snippetPriceWithoutDiscount = shop().getFullPrice();
+        var snippetPriceWithDiscount = shop().getPriceWithDiscount();
+
+        shop().openFirstProductCardWithDiscount();
+        shop().interactProductCard().checkProductCardVisible();
+        shop().interactProductCard().checkDiscountLabelDisplayed();
+        shop().interactProductCard().checkItemWithDiscountPricesCount();
+        shop().interactProductCard().checkFullPrice(snippetPriceWithoutDiscount, shop().interactProductCard().getPrice());
+        shop().interactProductCard().checkDiscountPrice(snippetPriceWithDiscount, shop().interactProductCard().getPriceWithDiscount());
     }
 }
