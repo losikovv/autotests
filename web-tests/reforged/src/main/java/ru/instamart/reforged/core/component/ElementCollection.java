@@ -101,6 +101,7 @@ public final class ElementCollection extends CollectionComponent {
     }
 
     public List<String> getTextFromAllElements() {
+        log.debug("Get text from all elements of element collection {}'s with locator {}", getClass().getSimpleName(), getBy());
         return getElements().stream().map(WebElement::getText).collect(Collectors.toList());
     }
 

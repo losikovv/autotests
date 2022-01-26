@@ -137,8 +137,7 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().clickOnPlusForRetailer("METRO");
         retailers().clickOnStore("тест-352519385 (17)");
 
-        var stringArrayDates = retailers().convertStringArrayDatesToDate();
-        retailers().checkDateSortCorrect(stringArrayDates);
+        retailers().checkDateSortCorrect();
     }
 
     @CaseId(558)
