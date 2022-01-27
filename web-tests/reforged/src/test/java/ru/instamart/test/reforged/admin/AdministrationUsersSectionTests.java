@@ -47,7 +47,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         final String password = Generate.literalString(8);
 
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().auth(UserManager.getDefaultAdminAllRoles());
 
         users().goToPage();
         users().fillSearchByPhoneNumber(userData.getPhone());
@@ -60,6 +60,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         usersEdit().fillPasswordConfirmation(password);
         usersEdit().checkAdminRole();
         usersEdit().clickToSave();
+        usersEdit().interactFlashAlert().checkSuccessFlash();
         main().doLogout();
 
         login().goToPage();
@@ -80,6 +81,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
 
         usersEdit().uncheckAdminRole();
         usersEdit().clickToSave();
+        usersEdit().interactFlashAlert().checkSuccessFlash();
         main().doLogout();
 
         login().goToPage();
@@ -97,7 +99,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         final UserData userData = UserManager.getQaUser();
         final String email = Generate.email();
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().auth(UserManager.getDefaultAdminAllRoles());
 
         users().goToPage();
         users().fillSearchByPhoneNumber(userData.getPhone());
@@ -108,6 +110,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         usersEdit().fillUserEmail(email);
 
         usersEdit().clickToSave();
+        usersEdit().interactFlashAlert().checkSuccessFlash();
         usersEdit().checkEditUserEmail(usersEdit().getEditUserEmail(), email);
     }
 
@@ -119,7 +122,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         final UserData userData = UserManager.getQaUser();
 
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().auth(UserManager.getDefaultAdminAllRoles());
 
         users().goToPage();
         users().fillSearchByPhoneNumber(userData.getPhone());
@@ -128,11 +131,13 @@ public class AdministrationUsersSectionTests extends BaseTest {
 
         usersEdit().setB2BUser();
         usersEdit().clickToSave();
+        usersEdit().interactFlashAlert().checkSuccessFlash();
         usersEdit().refresh();
         usersEdit().checkB2BIsSelected();
 
         usersEdit().unsetB2BUser();
         usersEdit().clickToSave();
+        usersEdit().interactFlashAlert().checkSuccessFlash();
         usersEdit().refresh();
 
         usersEdit().checkB2BIsNotSelected();
