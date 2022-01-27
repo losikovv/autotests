@@ -80,7 +80,7 @@ public final class Retailer extends Container {
 
     @Step("Получаем минимальную сумму заказа из плашки-алерта")
     public double returnMinOrderAmount() {
-        return StringUtil.stringToDoubleParse(minAmountAlert.getText());
+        return StringUtil.stringToDouble(minAmountAlert.getText());
     }
 
     @Step("Кликаем на кнопку 'Перенести' в сообщении о возможности перенести товары в активный заказ")

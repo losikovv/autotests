@@ -26,7 +26,7 @@ public final class Pages implements AdminPage, PagesCheck {
 
     @Step("Вернуть pageId")
     public Long returnPageId(StaticPageData data) {
-        return StringUtil.stringToLongParse(table.getLine(data.getPageName()).getAttribute("id"));
+        return StringUtil.stringToLong(table.getLine(data.getPageName()).getAttribute("id"));
     }
 
     @Override

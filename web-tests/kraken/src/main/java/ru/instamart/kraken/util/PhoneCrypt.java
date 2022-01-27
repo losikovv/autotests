@@ -37,13 +37,13 @@ public enum PhoneCrypt {
      */
     public String encryptPhone(final String phone) {
         final byte[] iv = getRandomNonce();
-        final IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
+        final var ivParameterSpec = new IvParameterSpec(iv);
         String result = "error";
         try {
-            final Cipher cipher = Cipher.getInstance(ENCRYPT_ALGO);
+            final var cipher = Cipher.getInstance(ENCRYPT_ALGO);
             cipher.init(Cipher.ENCRYPT_MODE, SECRET_KEY_SPEC, ivParameterSpec);
 
-            try(final ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            try(final var outputStream = new ByteArrayOutputStream()) {
                 outputStream.write(iv);
                 outputStream.write(cipher.update(phone.getBytes(StandardCharsets.UTF_8)));
                 outputStream.write(cipher.doFinal());

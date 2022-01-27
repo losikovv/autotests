@@ -25,13 +25,8 @@ public final class JsAction {
      * Ожидание инициализации реактовского jQuery
      */
     public void jQueryReady() {
-        createWait().until((ExpectedCondition<Boolean>) wb -> {
-            final Object reactState = execute("return ReactRailsUJS.jQuery.active==0");
-            if (Objects.isNull(reactState)) {
-                return false;
-            }
-            return (Boolean) reactState;
-        });
+        createWait().until((ExpectedCondition<Boolean>) wb ->
+                JsAction.apply(wb, "return ReactRailsUJS.jQuery.active==0"));
     }
 
     /**
@@ -40,7 +35,7 @@ public final class JsAction {
     public void waitForDocumentReady() {
         createWait().until((ExpectedCondition<Boolean>) wb -> {
             final Object state = execute("return document.readyState");
-            if (Objects.isNull(state)) {
+            if (isNull(state)) {
                 return false;
             }
             return state.equals("complete");
@@ -51,13 +46,8 @@ public final class JsAction {
      * Ожидание загрузки картинки
      */
     public void waitImgLoad(final String xpath) {
-        createWait().until((ExpectedCondition<Boolean>) wb -> {
-            final Object loadState = execute("return document.evaluate(\""+ xpath +"\", document, null, XPathResult.ANY_TYPE, null).iterateNext().complete;");
-            if (Objects.isNull(loadState)) {
-                return false;
-            }
-            return (Boolean) loadState;
-        });
+        createWait().until((ExpectedCondition<Boolean>) wb ->
+            JsAction.apply(wb, "return document.evaluate(\""+ xpath +"\", document, null, XPathResult.ANY_TYPE, null).iterateNext().complete;"));
     }
 
     public void scrollToTheTop() {
@@ -218,5 +208,13 @@ public final class JsAction {
     private FluentWait<WebDriver> createWait() {
         return new WebDriverWait(getWebDriver(), WaitProperties.BASIC_TIMEOUT)
                 .pollingEvery(WaitProperties.POLLING_INTERVAL, TimeUnit.MILLISECONDS);
+    }
+
+    private static Boolean apply(final WebDriver wb, final String jsCode) {
+        final Object reactState = execute(jsCode);
+        if (isNull(reactState)) {
+            return false;
+        }
+        return (Boolean) reactState;
     }
 }
