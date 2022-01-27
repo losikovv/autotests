@@ -88,10 +88,10 @@ public final class UserManager {
     public static UserData getDefaultShopper() {
 
         if (isNull(defaultShopper)) {
-            log.info("GitLab env CI_PIPELINE_SOURCE: {}", CI_PIPELINE_SOURCE);
-            log.info("GitLab env API_SHOPPER_ALONE: {}", API_SHOPPER_ALONE);
-            log.info("GitLab env CI_RUN_ALL_JOBS: {}", CI_RUN_ALL_JOBS);
-            log.info("SERVER: {}", EnvironmentProperties.SERVER);
+            log.debug("GitLab env CI_PIPELINE_SOURCE: {}", CI_PIPELINE_SOURCE);
+            log.debug("GitLab env API_SHOPPER_ALONE: {}", API_SHOPPER_ALONE);
+            log.debug("GitLab env CI_RUN_ALL_JOBS: {}", CI_RUN_ALL_JOBS);
+            log.debug("SERVER: {}", EnvironmentProperties.SERVER);
         }
 
         if (isNull(defaultShopper) && EnvironmentProperties.SERVER.contains("production")) {
@@ -104,7 +104,7 @@ public final class UserManager {
         if (isNull(defaultShopper)) {
             switch (CI_PIPELINE_SOURCE.toLowerCase()) {
                 case "schedule":
-                    log.info("User shopper SCHEDULE login");
+                    log.debug("User shopper SCHEDULE login");
                     defaultShopper = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("DNzBqyrPJQuc1LP0FzyiiQ=="))
                             .phone(Crypt.INSTANCE.decrypt("mbL67AMvUKR2bSJ/2k7FTA=="))
@@ -113,14 +113,14 @@ public final class UserManager {
                     break;
                 case "push":
                     if (API_SHOPPER_ALONE != null && CI_PIPELINE_SOURCE != null && API_SHOPPER_ALONE.equals("true") && CI_RUN_ALL_JOBS.equals("false")) {
-                        log.info("User shopper API_SHOPPER_ALONE login");
+                        log.debug("User shopper API_SHOPPER_ALONE login");
                         defaultShopper = UserData.builder()
                                 .email(Crypt.INSTANCE.decrypt("K0wOsUQv9wDe1F4a6TtDKg=="))
                                 .phone(Crypt.INSTANCE.decrypt("yLvA69qlzJsxOIvcma2zXg=="))
                                 .password(PASSWD_2)
                                 .build();
                     } else {
-                        log.info("User shopper CI_RUN_ALL_JOBS login");
+                        log.debug("User shopper CI_RUN_ALL_JOBS login");
                         defaultShopper = UserData.builder()
                                 .email(Crypt.INSTANCE.decrypt("/IsVBUY1et+En340g78Rvg=="))
                                 .phone(Crypt.INSTANCE.decrypt("8lsSwjJUEjlPTeu4hDGU0w=="))
@@ -129,7 +129,7 @@ public final class UserManager {
                     }
                     break;
                 case "local":
-                    log.info("User shopper local login");
+                    log.debug("User shopper local login");
                     defaultShopper = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("qq6/4elx6MF64Jw9VdI6xg=="))
                             .phone(Crypt.INSTANCE.decrypt("wOpdY2rf7+p9gnSoSndRWg=="))
@@ -137,7 +137,7 @@ public final class UserManager {
                             .build();
                     break;
                 default:
-                    log.info("User shopper default login");
+                    log.debug("User shopper default login");
                     defaultShopper = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("/IsVBUY1et+En340g78Rvg=="))
                             .phone(Crypt.INSTANCE.decrypt("8lsSwjJUEjlPTeu4hDGU0w=="))

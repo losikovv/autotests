@@ -88,12 +88,12 @@ public final class EnvironmentProperties {
                 DB_URL = DB_URL.replace("kraken", STAGE);
                 DB_PGSQL_URL = DB_PGSQL_URL.replace("kraken", STAGE);
 
-                log.info("Кастомные данные при ручном запуске на стейджах");
-                log.info("BASIC_URL: {}", BASIC_URL);
-                log.info("Server: {}", SERVER);
-                log.info("Stage: {}", STAGE);
-                log.info("DB_URL: {}", DB_URL);
-                log.info("DB_PGSQL_URL: {}", DB_PGSQL_URL);
+                log.debug("Кастомные данные при ручном запуске на стейджах");
+                log.debug("BASIC_URL: {}", BASIC_URL);
+                log.debug("Server: {}", SERVER);
+                log.debug("Stage: {}", STAGE);
+                log.debug("DB_URL: {}", DB_URL);
+                log.debug("DB_PGSQL_URL: {}", DB_PGSQL_URL);
 
                 if (nonNull(customShopperUrl) && !customShopperUrl.isBlank()) {
                     SHOPPER_URL = getDomainName(customShopperUrl);
