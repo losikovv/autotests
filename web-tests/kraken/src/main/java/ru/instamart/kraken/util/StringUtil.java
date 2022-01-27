@@ -11,11 +11,10 @@ import static java.util.Objects.isNull;
 public final class StringUtil {
 
     private static final Pattern pattern = Pattern.compile("\\d+\\.\\d+");
+    private static final Pattern citiesPattern = Pattern.compile("\\(([^\\D+]+)\\)");
 
     private StringUtil() {
     }
-
-    private static final Pattern citiesPattern = Pattern.compile("\\(([^\\D+]+)\\)");
 
     public static String failMessage(final String text) {
         return "\n> " + text;

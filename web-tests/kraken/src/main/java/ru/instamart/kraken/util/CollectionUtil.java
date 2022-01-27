@@ -56,9 +56,9 @@ public final class CollectionUtil {
     }
 
     /**
-     * Сортирует мапу по <V>
+     * Сортирует мапу по <V> в обратном порядке
      */
-    public static Map<String, Integer> sortMapByValue(final Map<String, Integer> map) {
+    public static Map<String, Integer> reverseSortMapByValue(final Map<String, Integer> map) {
         return map.entrySet()
                 .stream()
                 .sorted((Map.Entry.<String, Integer>comparingByValue().reversed()))

@@ -22,12 +22,14 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
 
     @Step("Сравнение количества ретейлеров с количеством надписей о доступности/недоступности")
     default void retailerAccessibilityCompare(final int quantity) {
-        Assert.assertEquals(retailersAccessibilityInTable.elementCount(), quantity);
+        Assert.assertEquals(retailersAccessibilityInTable.elementCount(), quantity,
+                "Количество ретейлеров не совпадает с количеством надписей о доступности/недоступности");
     }
 
     @Step("Сравнение количества ретейлеров с количеством дат создания ретейлеров")
     default void retailerCreateDateCompare(final int quantity) {
-        Assert.assertEquals(retailersCreateDateInTable.elementCount(), quantity);
+        Assert.assertEquals(retailersCreateDateInTable.elementCount(), quantity,
+                "Количество ретейлеров не совпадает с количеством дат создания");
     }
 
     @Step("Проверка недоступности ретейлера")
@@ -45,14 +47,16 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
         List<Integer> numbersOfCities = storesInTable.getTextFromAllElements().stream()
                 .map(StringUtil::parseNumberCitiesFromString).collect(Collectors.toList());
         Assert.assertEquals(numbersOfCities, numbersOfCities.stream()
-                .sorted(Collections.reverseOrder()).collect(Collectors.toList()));
+                .sorted(Collections.reverseOrder()).collect(Collectors.toList()),
+                "Города по количеству магазинов отсортированы некорректно");
     }
 
-    @Step("Проверяем, что сортировка городов магазинов по количеству отображается корректно")
+    @Step("Проверяем, что сортировка городов магазинов по дате создания отображается корректно")
     default void checkDateSortCorrect() {
         List<ZonedDateTime> datesList = addressDatesInTable.getTextFromAllElements().stream()
                 .map(TimeUtil::convertStringToDate).collect(Collectors.toList());
-        Assert.assertEquals(datesList, datesList.stream().sorted().collect(Collectors.toList()));
+        Assert.assertEquals(datesList, datesList.stream().sorted().collect(Collectors.toList()),
+                "Города по дате создания отсортированы некорректно");
     }
 
     @Step("Проверяем, что список магазинов отсортирован по алфавиту")
@@ -63,8 +67,8 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
 
         Map<String, Integer> mapMerged = CollectionUtil.mergeIntoMap(listCities, listCitiesNumbers);
         Map<String, Integer> mapNotUnique = CollectionUtil.removeUniqueValues(mapMerged);
-        Map<String, Integer> mapSorted =  CollectionUtil.sortMapByValue(mapNotUnique);
+        Map<String, Integer> mapSorted =  CollectionUtil.reverseSortMapByValue(mapNotUnique);
 
-        Assert.assertEquals(mapNotUnique, mapSorted);
+        Assert.assertEquals(mapNotUnique, mapSorted, "Список городов отсортирован некорректно");
     }
 }
