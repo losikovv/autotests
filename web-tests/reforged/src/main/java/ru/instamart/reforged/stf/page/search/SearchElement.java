@@ -18,7 +18,7 @@ public interface SearchElement {
     ProductCard productCard = new ProductCard();
     Disclaimer disclaimer = new Disclaimer();
 
-    Element categoryTitle = new Element(ByKraken.xpath("//h1[@data-qa='category_header_title' and text()='%s']"), "заголовок найденной категории");
+    Element searchResultsTitle = new Element(ByKraken.xpath("//h1[@data-qa='search_result_header_category_title'][contains(.,'%s')]"), "заголовок 'Нашлось по запросу:...'");
 
     ElementCollection subCategories = new ElementCollection(By.xpath("//a[contains(@class, 'SimpleTaxons')]"), "Подкатегории");
     Button firstAddToCartButton = new Button(By.xpath("//button[@title='Добавить в корзину']"), "Кнопка добавить в корзину у первого элемента на странице поиска");
@@ -52,5 +52,5 @@ public interface SearchElement {
 
     Element productImg = new Element(ByKraken.xpath("//img[contains(@src, '%s')]"), "Конкретное отдельное изображение на странице");
 
-    Element filterActivePin = new Element(By.xpath("//span[contains(text(), 'фильтр активен')]"),"Пин активного фильтра с текстом");
+    Element filterActivePin = new Element(By.xpath("//span[contains(text(), 'фильтр активен')]"), "Пин активного фильтра с текстом");
 }

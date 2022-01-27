@@ -33,21 +33,26 @@ public interface HeaderElement {
     Link help = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Помощь')]"), "empty");
     Link deliveryAndPayment = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Доставка')]"), "empty");
 
-    Button categoryMenu = new Button(By.xpath("//button[@data-qa='catalog-button']"), "empty");
-    Button storeSelector = new Button(By.xpath("//button[@data-qa='open-store-selector-button']"), "empty");
+    Button categoryMenu = new Button(By.xpath("//button[@data-qa='catalog-button']"), "кнопка 'Каталог'");
+    Button storeSelector = new Button(By.xpath("//button[@data-qa='open-store-selector-button']"), "кнопка выбора магазина");
+
     Element searchContainer = new Element(By.xpath("//div[@data-qa='search']"), "Контейнер поиска");
-    Input searchInput = new Input(By.xpath("//div[@data-qa='search']//input"), "Инпут поиска");
-    Button searchButton = new Button(By.xpath("//div[@data-qa='search']//button[@type='submit']"), "Кнопка поиска");
-    DropDown searchDropDown = new DropDown(By.xpath("//div[@data-qa='offer']"), "empty");
-    Element taxonCategories = new Element(By.xpath("//div[@class='header-search-list__categories']"), "Список категорий в подсказке поиска");
-    Element taxonFirstCategory = new Element(By.xpath("//div[@class='header-search-list-category']"), "Первая категория в подсказке поиска");
+    Input searchInput = new Input(By.xpath("//input[@data-qa='suggester_header_form_input']"), "Инпут поиска");
+    Button searchInputResetButton = new Button(By.xpath("//button[@data-qa='suggester_header_form_reset_button']"), "Кнопка очистки инпута поиска");
+    Button searchButton = new Button(By.xpath("//button[@data-qa='suggester_header_form_search_button']"), "Кнопка запуска поиска");
+    Element searchSuggester = new Element(By.xpath("//div[@data-qa='suggester_header_dropdown_content']"), "Саджестор поиска");
+    Button scrollTabHeadersLeft = new Button(By.xpath("//button[@data-qa='suggester_header_prev_slide']"), "Кнопка пролистать вкладки категорий влево");
+    Button scrollTabHeadersRight = new Button(By.xpath("//button[@data-qa='suggester_header_next_slide']"), "Кнопка пролистать вкладки категорий вправо");
+    ElementCollection suggesterTabHeaders = new ElementCollection(By.xpath("//button[contains(@data-qa,'suggester_header_tab_')]"), "Вкладки категорий в саджесторе");
+    ElementCollection suggesterFirstTabItems = new ElementCollection(By.xpath("//div[@data-qa='suggester_header_tab_panel_0']/div[contains(@data-qa,'suggester_header_item_')]"), "Результаты поиска на первой вкладке саджестора");
+    ElementCollection suggesterSecondTabItems = new ElementCollection(By.xpath("//div[@data-qa='suggester_header_tab_panel_1']/div[contains(@data-qa,'suggester_header_item_')]"), "Результаты поиска на второй вкладке саджестора");
+    Button showAllResults = new Button(By.xpath("//a[@data-qa='suggester_header_show_all_link']"), "Кнопка 'Показать все ХХ результаты'");
+
     Element minAmountAlert = new Element(By.xpath("//div[@class='alerts']//div[contains(@class, 'alert--error')]"), "Алерт минимальной суммы заказа в шапке");
     Element authOrRegAlert = new Element(By.xpath("//div[@class='alerts']//span[contains(text(), 'войти или зарегистрироваться')]"), "Алерт регистрации или авторизации в шапке");
 
     ElementCollection taxonCategoriesCollection = new ElementCollection(By.xpath("//div[@data-qa='taxon']"), "Список категорий в подсказке поиска");
     ElementCollection taxonCategoriesCollectionImagesAlco = new ElementCollection(By.cssSelector("svg.header-search-list-category__icon-content"), "Картинки 18+ списка категорий в подсказке поиска");
-
-    ElementCollection searchSuggestsCollection = new ElementCollection(By.xpath("//div[@data-qa='offer']"), "Товарные подсказки поиска");
     ElementCollection searchSuggestsCollectionImagesAlco = new ElementCollection(By.cssSelector("svg.header-search-list-product__image-content"), "Картинки 18+ в подсказках поиска");
 
     Button profile = new Button(By.xpath("//button[@data-qa='profile-button_button']"), "кнопка профиль пользователя в хэдере");

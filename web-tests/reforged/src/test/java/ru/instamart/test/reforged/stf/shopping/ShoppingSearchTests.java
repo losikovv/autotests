@@ -2,14 +2,16 @@ package ru.instamart.test.reforged.stf.shopping;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.Addresses;
+import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.search;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
@@ -52,27 +54,24 @@ public final class ShoppingSearchTests extends BaseTest {
     // AB поиска
     @CaseId(2587)
     @Story("Позитивные сценарии")
-    @Test(enabled = false, description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {"smoke", "regression"})
+    @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {"smoke", "regression"})
     public void successSearchItemUsingCategorySuggests() {
         shop().goToPage();
         shop().interactHeader().fillSearch("сыры");
-        shop().interactHeader().checkTaxonCategoriesVisible();
-        shop().interactHeader().clickOnFirstTaxonCategory();
+        shop().interactHeader().checkSuggesterVisible();
+        shop().interactHeader().clickShowAllSearchResults();
         search().checkPageIsAvailable();
-        search().checkTaxonTitle("Сыры");
+        search().checkSearchTitle("сыры");
     }
 
     @CaseId(2588)
     @Story("Позитивные сценарии")
-    @Test(
-            description = "Тест успешного поиска товаров c использованием товарных саджестов",
-            groups = {"regression"}
-    )
+    @Test(description = "Тест успешного поиска товаров c использованием товарных саджестов", groups = {"regression"})
     public void successSearchItemUsingSuggests() {
         shop().goToPage();
         shop().interactHeader().fillSearch("шоколад");
         shop().interactHeader().checkSearchSuggestsVisible();
-        shop().interactHeader().clickOnFirstSearchSuggest();
+        shop().interactHeader().clickOnFirstSuggesterSearchResult();
         search().interactProductCard().checkProductCardVisible();
     }
 
@@ -110,14 +109,10 @@ public final class ShoppingSearchTests extends BaseTest {
         search().interactCart().checkCartNotEmpty();
     }
 
-
     //TODO: Переписать и поставить баги ATST-873
 
     @CaseId(2589)
-    @Test(
-            description = "Работоспособность сортировки товаров",
-            groups = {"regression"}
-    )
+    @Test(description = "Работоспособность сортировки товаров", groups = {"regression"})
     public void successApplySort() {
         shop().goToPage(ShopUrl.OKEY);
         shop().checkSpinnerIsNotVisible();
@@ -129,15 +124,11 @@ public final class ShoppingSearchTests extends BaseTest {
         search().checkSortEnabled("Сначала дешевые");
 
         search().waitPageLoad();
-        
         search().checkPriceAscSortCorrect();
     }
 
     @CaseId(2590)
-    @Test(
-            description = "Фильтрация товаров",
-            groups = {"regression"}
-    )
+    @Test(description = "Фильтрация товаров", groups = {"regression"})
     public void successApplyFilters() {
         shop().openSitePage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
         search().waitPageLoad();
@@ -177,10 +168,7 @@ public final class ShoppingSearchTests extends BaseTest {
     //TODO: Переписать и поставить баги ATST-873
 
     @CaseId(2591)
-    @Test(
-            description = "Сортировка + фильтрация товаров: сначала дешевые, по популярности",
-            groups = {"regression"}
-    )
+    @Test(description = "Сортировка + фильтрация товаров: сначала дешевые, по популярности", groups = {"regression"})
     public void successApplyFiltersAndSortCheapAsc() {
         shop().openSitePage("okey/search?keywords=кофе&sid=128");
 
@@ -209,10 +197,7 @@ public final class ShoppingSearchTests extends BaseTest {
     //TODO: Переписать и поставить баги ATST-873
 
     @CaseId(2591)
-    @Test(
-            description = "Сортировка + фильтрация товаров: сначала дорогие, скидки + убывание, конкретный бренд",
-            groups = {"regression"}
-    )
+    @Test(description = "Сортировка + фильтрация товаров: сначала дорогие, скидки + убывание, конкретный бренд", groups = {"regression"})
     public void successApplyFiltersAndSortExpensiveDesc() {
         shop().openSitePage("okey/search?keywords=чай&sid=128");
 
@@ -246,10 +231,7 @@ public final class ShoppingSearchTests extends BaseTest {
     }
 
     @CaseId(2592)
-    @Test(
-            description = "При применении фильтра для выданных товаров блокируются другие фильтры (неприменимые к ним)",
-            groups = {"regression"}
-    )
+    @Test(description = "При применении фильтра для выданных товаров блокируются другие фильтры (неприменимые к ним)", groups = {"regression"})
     public void successApplyOtherFilters() {
         shop().openSitePage(ShopUrl.METRO.getUrl() + "/c/new-molochnyie-produkty/moloko/korovie");
         search().waitPageLoad();
@@ -262,15 +244,14 @@ public final class ShoppingSearchTests extends BaseTest {
         search().checkFilterDisabled("Стерилизованное");
     }
 
+    @Skip
+    @Issue("B2C-7775")
     @CaseId(2737)
-    @Test(
-            description = "Отображение алкоголя в результатах поиска при неподтверждении возраста: нажатие за пределы модального окна",
-            groups = {"regression"}
-    )
+    @Test(description = "Отображение алкоголя в результатах поиска при неподтверждении возраста: нажатие за пределы модального окна", groups = {"regression"})
     public void alcoholSearchModalClose() {
         shop().goToPage();
         shop().interactHeader().fillSearch("вино красное");
-        shop().interactHeader().checkTaxonCategoriesVisible();
+        shop().interactHeader().checkSuggesterVisible();
         search().interactHeader().checkAlcoStubInCategories();
         search().interactHeader().checkAlcoStubInSuggest();
         search().interactHeader().clickSearchButton();
