@@ -2,6 +2,7 @@ package ru.instamart.reforged.admin.page.retailers;
 
 import io.qameta.allure.Step;
 import org.testng.Assert;
+import ru.instamart.kraken.util.CollectionUtil;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.TimeUtil;
 import ru.instamart.reforged.core.Check;
@@ -56,20 +57,14 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
 
     @Step("Проверяем, что список магазинов отсортирован по алфавиту")
     default void checkIfStoreAlphabeticallySorted() {
-        char str1;
-        char str2;
         List<String> listCities = storesInTable.getTextFromAllElements();
         List<Integer> listCitiesNumbers = listCities.stream().map(StringUtil::parseNumberCitiesFromString)
-                                            .collect(Collectors.toList());
+                .collect(Collectors.toList());
 
-        if (listCitiesNumbers.size() > 2) {
-            for (int i = 1; i < listCitiesNumbers.size(); i++) {
-                if (listCitiesNumbers.get(i) == listCitiesNumbers.get(i - 1)) {
-                    str1 = listCities.get(i).charAt(0);
-                    str2 = listCities.get(i - 1).charAt(0);
-                    Assert.assertTrue(str1 >= str2);
-                }
-            }
-        }
+        Map<String, Integer> mapMerged = CollectionUtil.mergeIntoMap(listCities, listCitiesNumbers);
+        Map<String, Integer> mapNotUnique = CollectionUtil.removeUniqueValues(mapMerged);
+        Map<String, Integer> mapSorted =  CollectionUtil.sortMapByValue(mapNotUnique);
+
+        Assert.assertEquals(mapNotUnique, mapSorted);
     }
 }
