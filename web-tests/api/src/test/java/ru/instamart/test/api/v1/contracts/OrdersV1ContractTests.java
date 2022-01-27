@@ -116,11 +116,9 @@ public class OrdersV1ContractTests extends RestBase {
 
     //todo убрать скип после выдачи прав SD-13260
     @Skip(onServer = Server.PRODUCTION)
-    @Issues({@Issue("INFRADEV-3167"), @Issue("STF-9483")})
     @Story("Заказы")
     @CaseId(120)
-    @Test(enabled = false,
-            description = "Контрактный тест списка сэмплов в шипменте",
+    @Test(description = "Контрактный тест списка сэмплов в шипменте",
             groups = "api-instamart-regress",
             dependsOnMethods = "getShipment")
     public void getShopperMarketingSampleItems() {

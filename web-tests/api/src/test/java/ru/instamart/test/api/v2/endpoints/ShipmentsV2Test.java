@@ -281,8 +281,7 @@ public class ShipmentsV2Test extends RestBase {
     @CaseId(371)
     @Story("Получить ближайшие окна доставки")
     @Test(groups = {"api-instamart-regress"},
-            description = "Получить ближайшие окна доставки со всеми необязательными полями с корректными данными",
-            enabled = false) //задизейблен до выяснения актуальности ТК
+            description = "Получить ближайшие окна доставки со всеми необязательными полями с корректными данными")
     public void nextDeliverWithAllIncorrectData() {
         Map<String, String> params = new HashMap<>();
         params.put("cargo", "notValidData");
@@ -292,7 +291,7 @@ public class ShipmentsV2Test extends RestBase {
 
         response = StoresV2Request.NextDeliveries.GET(EnvironmentProperties.DEFAULT_SID, params);
         checkStatusCode200(response);
-        checkResponseJsonSchema(response, NextDeliveriesV2Response.class);
+        compareTwoObjects(response.as(NextDeliveriesV2Response.class).getNextDeliveries().size(), 0);
     }
 
     @CaseId(785)
