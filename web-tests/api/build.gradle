@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'io.qameta.allure' version '2.8.1'
     id "org.gradle.test-retry" version "1.3.1"
+    id 'com.adarshr.test-logger' version '3.1.0'
 }
 
 apply from: 'api-task.gradle'
@@ -16,4 +17,21 @@ allure {
         version = versions.allure
     }
     downloadLink = "https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/"+versions.allure+"/allure-commandline-"+versions.allure+".zip"
+}
+
+testlogger {
+    theme 'standard-parallel'
+    showStackTraces false
+    showFullStackTraces false
+    slowThreshold 2000 //время при котором в тестах будет регистрировано время выполнения
+    showSummary true
+    showSimpleNames true
+    showPassed false
+    showSkipped false
+    showFailed true
+    showStandardStreams false
+    showPassedStandardStreams false
+    showSkippedStandardStreams false
+    showFailedStandardStreams true
+    logLevel 'lifecycle'
 }

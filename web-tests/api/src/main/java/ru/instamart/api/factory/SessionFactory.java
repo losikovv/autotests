@@ -155,10 +155,10 @@ public final class SessionFactory {
                     .collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue()));
 
             if (!collect.isEmpty()) {
-                log.info("Используем существующую сессию для пользователя {}, тип сессии {}, поток {}", userData.getPhone(), type, sessionId.getThreadId());
+                log.debug("Используем существующую сессию для пользователя {}, тип сессии {}, поток {}", userData.getPhone(), type, sessionId.getThreadId());
                 sessionMap.put(sessionId, collect.entrySet().iterator().next().getValue());
             } else {
-                log.info("Используем новую сессию для пользователя {}, тип сессии {}, поток {}", userData.getPhone(), type, sessionId.getThreadId());
+                log.debug("Используем новую сессию для пользователя {}, тип сессии {}, поток {}", userData.getPhone(), type, sessionId.getThreadId());
                 sessionMap.put(sessionId, createSession(type, provider, userData));
             }
         } else {

@@ -222,7 +222,7 @@ public class ShopperAppApiHelper {
             filterCollect = shipments.stream()
                     .filter(e -> e.getNumber().equals(shipmentNumber))
                     .collect(Collectors.toList());
-            log.info("Попытка: " + (i++) + ". filterCollect size" + filterCollect.size());
+            log.debug("Попытка: " + (i++) + ". filterCollect size" + filterCollect.size());
             simplyAwait(10);
         } while (filterCollect.size() > 0 || i > retryCount);
         if (filterCollect.size() == 0) {
