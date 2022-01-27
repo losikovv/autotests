@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.enums.v2.ShippingMethodsV2;
+import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.DeliveryWindowV1;
 import ru.instamart.api.request.v1.DeliveryWindowsV1Request;
@@ -100,7 +100,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
         compareTwoObjects((double) number, deliveryWindowFromResponse.getShipmentsExcessKilos(), softAssert);
         compareTwoObjects(number, deliveryWindowFromResponse.getShipmentsExcessItemsCount(), softAssert);
         compareTwoObjects(number, deliveryWindowFromResponse.getShipmentsLimit(), softAssert);
-        compareTwoObjects(ShippingMethodsV2.PICKUP.getMethod(), deliveryWindowFromResponse.getKind(), softAssert);
+        compareTwoObjects(ShippingMethodV2.PICKUP.getMethod(), deliveryWindowFromResponse.getKind(), softAssert);
         softAssert.assertAll();
     }
 

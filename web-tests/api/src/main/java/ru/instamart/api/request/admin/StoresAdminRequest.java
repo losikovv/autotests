@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.RandomUtils;
 import ru.instamart.api.endpoint.AdminEndpoints;
-import ru.instamart.api.enums.v2.ShippingMethodsV2;
+import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.request.AdminRequestBase;
 import ru.instamart.jdbc.dao.*;
 import ru.sbermarket.common.Mapper;
@@ -212,7 +212,7 @@ public class StoresAdminRequest extends AdminRequestBase {
                 .useWorkSchedule(0)
                 .monday("monday")
                 .mondayDayOff(0)
-                .shippingMethodId(SpreeShippingMethodsDao.INSTANCE.getShippingMethodId(ShippingMethodsV2.BY_COURIER.getMethod()))
+                .shippingMethodId(SpreeShippingMethodsDao.INSTANCE.getShippingMethodId(ShippingMethodV2.BY_COURIER.getMethod()))
                 .tenantId("instamart")
                 .availableOn(getDeliveryDateFrom())
                 .paymentMethodInstamart1(paymentMethodIds.get(0))

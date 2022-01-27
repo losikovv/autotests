@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.enums.v2.ShippingMethodsV2;
+import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.ProductV2;
@@ -77,7 +77,7 @@ public class MergedShipmentsV2Test extends RestBase {
             dependsOnMethods = "mergeShipments")
     public void mergeShipmentWithAlcoholShipment() {
         String orderNumber = apiV2.getOpenOrder().getNumber();
-        SpreeOrdersDao.INSTANCE.updateShippingKind(orderNumber, ShippingMethodsV2.PICKUP.getMethod());
+        SpreeOrdersDao.INSTANCE.updateShippingKind(orderNumber, ShippingMethodV2.PICKUP.getMethod());
         final Response response = LineItemsV2Request.POST(SpreeProductsDao.INSTANCE.getOfferIdForAlcohol(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID), 1, orderNumber);
         checkStatusCode200(response);
         OrderV2 newOrder = OrdersV2Request.GET(orderNumber).as(OrderV2Response.class).getOrder();

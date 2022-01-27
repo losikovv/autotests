@@ -10,7 +10,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.enums.v2.ShippingMethodsV2;
+import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.request.v1.ShoppingContextV1Request;
@@ -55,7 +55,7 @@ public class ShoppingContextV1Tests extends RestBase {
             dependsOnMethods = "createShoppingContext")
     public void changeShoppingContext() {
         AddressV2 address = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
-        final Response response = ShoppingContextV1Request.PUT(address, ShippingMethodsV2.BY_COURIER.getMethod());
+        final Response response = ShoppingContextV1Request.PUT(address, ShippingMethodV2.BY_COURIER.getMethod());
         checkStatusCode200(response);
         checkAddressInDb(address, user);
     }

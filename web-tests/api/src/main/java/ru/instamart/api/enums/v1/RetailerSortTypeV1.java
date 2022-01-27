@@ -7,7 +7,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @ToString
 @Getter
-public enum RetailerSortTypesV1 {
+public enum RetailerSortTypeV1 {
     NAME_ASC("name asc"),
     NAME_DESC("name desc"),
     CREATED_AT_ASC("created_at asc"),

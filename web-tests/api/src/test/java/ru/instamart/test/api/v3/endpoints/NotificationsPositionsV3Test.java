@@ -8,7 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.ApiV3DataProvider;
-import ru.instamart.api.enums.v3.NotificationTypesV3;
+import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v3.NotificationsV3Request;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -31,14 +31,14 @@ public class NotificationsPositionsV3Test extends RestBase {
 
         Response responseInWork = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
-                NotificationTypesV3.IN_WORK.getValue(),
+                NotificationTypeV3.IN_WORK.getValue(),
                 String.valueOf(productId),
                 quantity,
                 quantity);
         checkStatusCode200(responseInWork);
         Response responseReady = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
-                NotificationTypesV3.READY_FOR_DELIVERY.getValue(),
+                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
                 String.valueOf(productId),
                 quantity,
                 quantity);

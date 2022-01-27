@@ -7,7 +7,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @ToString
 @Getter
-public enum ReplacementPoliciesV2 {
+public enum ReplacementPolicyV2 {
     REPLACEMENT_1(1, "Позвонить мне. Подобрать замену, если не смогу ответить"),
     REPLACEMENT_2(2, "Позвонить мне. Убрать из заказа, если не смогу ответить"),
     REPLACEMENT_3(3, "Не звонить мне. Подобрать замену"),

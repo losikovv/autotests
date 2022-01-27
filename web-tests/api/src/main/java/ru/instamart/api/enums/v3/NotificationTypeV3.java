@@ -7,7 +7,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @ToString
 @Getter
-public enum NotificationTypesV3 {
+public enum NotificationTypeV3 {
     IN_WORK("order.in_work"),
     ASSEMBLED("order.assembled"),
     READY_FOR_DELIVERY("order.ready_for_delivery"),
