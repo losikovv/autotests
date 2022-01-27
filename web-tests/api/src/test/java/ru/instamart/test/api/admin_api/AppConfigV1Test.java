@@ -15,7 +15,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 
 @Epic("ApiV1")
 @Feature("Конфигурация")
-public class AppConfigV1Tests extends RestBase {
+public class AppConfigV1Test extends RestBase {
 
     @CaseId(1435)
     @Story("Конфигурация системы")

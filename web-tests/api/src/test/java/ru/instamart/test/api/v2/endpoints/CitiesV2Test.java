@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
-import ru.instamart.api.enums.v2.ShippingMethodsV2;
+import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.model.v2.CityV2;
 import ru.instamart.api.request.v2.CitiesV2Request;
 import ru.instamart.api.response.v2.CitiesV2Response;
@@ -52,7 +52,7 @@ public class CitiesV2Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, CitiesV2Response.class);
         List<CityV2> citiesFromResponse = response.as(CitiesV2Response.class).getCities();
-        compareTwoObjects(StoresDao.INSTANCE.getUniqueCitiesCountByShippingMethod(ShippingMethodsV2.PICKUP.getMethod()), citiesFromResponse.size());
+        compareTwoObjects(StoresDao.INSTANCE.getUniqueCitiesCountByShippingMethod(ShippingMethodV2.PICKUP.getMethod()), citiesFromResponse.size());
     }
 
     @CaseId(1409)

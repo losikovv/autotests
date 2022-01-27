@@ -11,7 +11,7 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.AnalyzeResultV2;
 import ru.instamart.api.enums.v2.AuthProviderV2;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
-import ru.instamart.api.enums.v2.ShippingMethodsV2;
+import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OfferV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
@@ -253,7 +253,7 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getStoreOfEachRetailer() {
         Specification.setResponseSpecDataProvider();
 
-        if(EnvironmentProperties.SERVER.equals("production")) {
+        if (EnvironmentProperties.SERVER.equals("production")) {
             Response response = RetailersV1Request.Stores.GET(apiV2.getAvailableRetailers().get(1).getId());
             checkStatusCode200(response);
             List<StoreV2> retailerStores = response.as(StoresV2Response.class).getStores();
@@ -1006,8 +1006,8 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "shippingMethods")
     public static Object[][] getShippingMethods() {
         return new Object[][]{
-                {ShippingMethodsV2.BY_COURIER.getMethod()},
-                {ShippingMethodsV2.PICKUP.getMethod()},
+                {ShippingMethodV2.BY_COURIER.getMethod()},
+                {ShippingMethodV2.PICKUP.getMethod()},
         };
     }
 
@@ -1036,7 +1036,7 @@ public class RestDataProvider extends RestBase {
         return new Object[][]{
                 {StoresV1Request.NextDeliveriesParams.builder()
                         .cargo(false)
-                        .shippingMethod(ShippingMethodsV2.BY_COURIER.getMethod())
+                        .shippingMethod(ShippingMethodV2.BY_COURIER.getMethod())
                         .lat(address.getLat())
                         .lon(address.getLon())
                         .build()},

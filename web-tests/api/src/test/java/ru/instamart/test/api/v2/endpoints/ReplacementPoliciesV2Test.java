@@ -14,7 +14,7 @@ import ru.instamart.api.response.v2.ReplacementPoliciesV2Response;
 import java.util.List;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
-import static ru.instamart.api.enums.v2.ReplacementPoliciesV2.*;
+import static ru.instamart.api.enums.v2.ReplacementPolicyV2.*;
 
 @Epic("ApiV2")
 @Feature("Способы замены")

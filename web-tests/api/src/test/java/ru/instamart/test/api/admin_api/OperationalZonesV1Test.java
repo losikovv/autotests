@@ -20,7 +20,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV1")
 @Feature("Регионы (операционные зоны)")
-public class OperationalZonesV1Tests extends RestBase {
+public class OperationalZonesV1Test extends RestBase {
     private Integer zoneId;
 
     @BeforeMethod(alwaysRun = true)

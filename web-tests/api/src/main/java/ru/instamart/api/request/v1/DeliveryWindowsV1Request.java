@@ -5,7 +5,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV1Endpoints;
-import ru.instamart.api.enums.v2.ShippingMethodsV2;
+import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.request.ApiV1RequestBase;
 
 public class DeliveryWindowsV1Request extends ApiV1RequestBase {
@@ -18,7 +18,7 @@ public class DeliveryWindowsV1Request extends ApiV1RequestBase {
         deliveryWindow.put("shipments_excess_kilos", number);
         deliveryWindow.put("shipments_limit", number);
         deliveryWindow.put("shipments_excess_items_count", number);
-        deliveryWindow.put("kind", ShippingMethodsV2.PICKUP.getMethod());
+        deliveryWindow.put("kind", ShippingMethodV2.PICKUP.getMethod());
         body.put("delivery_window", deliveryWindow);
         return givenWithAuth()
                 .contentType(ContentType.JSON)

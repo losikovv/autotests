@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.enums.v2.PaymentToolsV2;
+import ru.instamart.api.enums.v2.PaymentToolV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.request.v2.PaymentToolsV2Request;
@@ -46,9 +46,9 @@ public class PaymentToolsV2Test extends RestBase {
         PaymentToolsV2Response paymentToolsV2Response = response.as(PaymentToolsV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
         paymentToolsV2Response.getPaymentTools().stream()
-                .forEach(value -> softAssert.assertNotNull(PaymentToolsV2.getIfKeyIsPresent(value.getType()), "Способ оплаты пустой"));
+                .forEach(value -> softAssert.assertNotNull(PaymentToolV2.getIfKeyIsPresent(value.getType()), "Способ оплаты пустой"));
         paymentToolsV2Response.getPaymentTools().stream()
-                .forEach(value -> softAssert.assertNotNull(PaymentToolsV2.getIfNameIsPresent(value.getName()), "Способ оплаты пустой"));
+                .forEach(value -> softAssert.assertNotNull(PaymentToolV2.getIfNameIsPresent(value.getName()), "Способ оплаты пустой"));
         softAssert.assertAll();
     }
 
@@ -62,15 +62,15 @@ public class PaymentToolsV2Test extends RestBase {
         PaymentToolsWithTypesV2Response paymentToolsWithTypesV2Response = response.as(PaymentToolsWithTypesV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
         paymentToolsWithTypesV2Response.getPaymentTools()
-                .forEach(value -> softAssert.assertNotNull(PaymentToolsV2.getIfKeyIsPresent(value.getType()), "Тип способа оплаты пустой"));
+                .forEach(value -> softAssert.assertNotNull(PaymentToolV2.getIfKeyIsPresent(value.getType()), "Тип способа оплаты пустой"));
         paymentToolsWithTypesV2Response.getPaymentTools()
-                .forEach(value -> softAssert.assertNotNull(PaymentToolsV2.getIfNameIsPresent(value.getName()), "Имя способа оплаты пустое"));
+                .forEach(value -> softAssert.assertNotNull(PaymentToolV2.getIfNameIsPresent(value.getName()), "Имя способа оплаты пустое"));
         paymentToolsWithTypesV2Response.getPaymentToolTypes()
-                .forEach(value -> softAssert.assertNotNull(PaymentToolsV2.getIfKeyIsPresent(value.getType()), "Тип способа оплаты пустой"));
+                .forEach(value -> softAssert.assertNotNull(PaymentToolV2.getIfKeyIsPresent(value.getType()), "Тип способа оплаты пустой"));
         paymentToolsWithTypesV2Response.getPaymentToolTypes()
-                .forEach(value -> softAssert.assertNotNull(PaymentToolsV2.getIfNameIsPresent(value.getName()), "Имя способа оплаты пустое"));
+                .forEach(value -> softAssert.assertNotNull(PaymentToolV2.getIfNameIsPresent(value.getName()), "Имя способа оплаты пустое"));
         paymentToolsWithTypesV2Response.getPaymentToolTypes()
-                .forEach(value -> softAssert.assertNotNull(PaymentToolsV2.getIfNameIsPresent(value.getName()), "Описание способа оплаты пустое"));
+                .forEach(value -> softAssert.assertNotNull(PaymentToolV2.getIfNameIsPresent(value.getName()), "Описание способа оплаты пустое"));
         softAssert.assertAll();
     }
 

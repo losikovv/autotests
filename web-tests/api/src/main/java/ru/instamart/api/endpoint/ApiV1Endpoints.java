@@ -34,6 +34,14 @@ public final class ApiV1Endpoints {
         public static final String APP_CONFIG = "admin/app_config";
         public static final String OPERATIONAL_ZONES = "admin/operational_zones";
 
+        public static final class Dictionaries {
+            public static final String API_CLIENTS = "admin/dictionaries/api_clients";
+            public static final String PAYMENT_METHODS = "admin/dictionaries/payment_methods";
+            public static final String PAYMENT_STATES = "admin/dictionaries/payment_states";
+            public static final String SHIPMENT_COMBINED_STATES = "admin/dictionaries/shipment_combined_states";
+            public static final String TENANTS = "admin/dictionaries/tenants";
+        }
+
         public static final class OperationalZones {
             public static final String BY_ID = "admin/operational_zones/{operationalZoneID}";
             public static final String DISPATCH_SETTING = "admin/operational_zones/{operationalZoneID}/dispatch_setting";

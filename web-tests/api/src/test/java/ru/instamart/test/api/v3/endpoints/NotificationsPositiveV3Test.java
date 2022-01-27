@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.OrderStatusV2;
-import ru.instamart.api.enums.v3.NotificationTypesV3;
+import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -54,7 +54,7 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(  description = "Canceled после создания",
             groups = "api-instamart-regress")
     public void cancelOrder() {
-        Response responseCanceled = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.CANCELED.getValue());
+        Response responseCanceled = POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
         checkStatusCode200(responseCanceled);
 
         OrderV2 canceledOrder = apiV2.getOrder(order.getNumber());
@@ -66,9 +66,9 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(  description = "Canceled после order.in_work",
             groups = "api-instamart-regress")
     public void cancelOrderInWork() {
-        Response responseInWork = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.IN_WORK.getValue());
+        Response responseInWork = POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
-        Response responseCanceled = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.CANCELED.getValue());
+        Response responseCanceled = POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
         checkStatusCode200(responseCanceled);
 
         OrderV2 canceledOrder = apiV2.getOrder(order.getNumber());
@@ -80,11 +80,11 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(  description = "Canceled после order.assembled",
             groups = "api-instamart-regress")
     public void cancelOrderAssembled() {
-        Response responseInWork = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.IN_WORK.getValue());
+        Response responseInWork = POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
-        Response responseAssembled = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.ASSEMBLED.getValue());
+        Response responseAssembled = POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.ASSEMBLED.getValue());
         checkStatusCode200(responseAssembled);
-        Response responseCanceled = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.CANCELED.getValue());
+        Response responseCanceled = POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
         checkStatusCode200(responseCanceled);
 
         OrderV2 canceledOrder = apiV2.getOrder(order.getNumber());
@@ -96,11 +96,11 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(  description = "Canceled после order.ready_for_delivery",
             groups = "api-instamart-regress")
     public void cancelOrderReadyForDelivery() {
-        Response responseInWork = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.IN_WORK.getValue());
+        Response responseInWork = POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.READY_FOR_DELIVERY.getValue());
+        Response responseReadyForDelivery = POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.READY_FOR_DELIVERY.getValue());
         checkStatusCode200(responseReadyForDelivery);
-        Response responseCanceled = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.CANCELED.getValue());
+        Response responseCanceled = POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
         checkStatusCode200(responseCanceled);
 
         OrderV2 canceledOrder = apiV2.getOrder(order.getNumber());
@@ -112,7 +112,7 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(  description = "In_work после создания",
             groups = "api-instamart-regress")
     public void orderInWork() {
-        Response responseInWork = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.IN_WORK.getValue());
+        Response responseInWork = POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
 
         OrderV2 collectingOrder = apiV2.getOrder(order.getNumber());
@@ -124,9 +124,9 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(  description = "Assembled после order.in_work",
             groups = "api-instamart-regress")
     public void orderAssembled() {
-        Response responseInWork = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.IN_WORK.getValue());
+        Response responseInWork = POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
-        Response responseAssembled = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.ASSEMBLED.getValue());
+        Response responseAssembled = POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.ASSEMBLED.getValue());
         checkStatusCode200(responseAssembled);
 
         OrderV2 collectingOrder = apiV2.getOrder(order.getNumber());
@@ -138,9 +138,9 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Test(  description = "Ready_for_delivery после order.in_work",
             groups = "api-instamart-regress")
     public void orderReadyForDelivery() {
-        Response responseInWork = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.IN_WORK.getValue());
+        Response responseInWork = POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
-        Response responseReadyForDelivery = POST(order.getShipments().get(0).getNumber(), NotificationTypesV3.READY_FOR_DELIVERY.getValue());
+        Response responseReadyForDelivery = POST(order.getShipments().get(0).getNumber(), NotificationTypeV3.READY_FOR_DELIVERY.getValue());
         checkStatusCode200(responseReadyForDelivery);
 
         OrderV2 collectingOrder = apiV2.getOrder(order.getNumber());

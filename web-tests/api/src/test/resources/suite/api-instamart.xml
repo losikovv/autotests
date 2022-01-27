@@ -31,8 +31,10 @@
             <class name="ru.instamart.test.api.v1.endpoints.SearchSuggestionsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.PromotionsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.ExternalPartnersV1Tests"/>
-            <class name="ru.instamart.test.api.admin_api.AppConfigV1Tests"/>
-            <class name="ru.instamart.test.api.admin_api.OperationalZonesV1Tests"/>
+            <class name="ru.instamart.test.api.admin_api.AppConfigV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.OperationalZonesV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.DictionariesWithAuthV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.DictionariesWithoutAuthV1Test"/>
             <class name="ru.instamart.test.api.v1.endpoints.LineItemsV1Test"/>
             <class name="ru.instamart.test.api.v1.endpoints.PhoneConfirmationsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.ShoppingContextV1Tests"/>

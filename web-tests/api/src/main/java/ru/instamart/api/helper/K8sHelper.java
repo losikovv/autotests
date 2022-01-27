@@ -7,7 +7,7 @@ import ru.instamart.kraken.enums.Tenant;
 
 import java.util.List;
 
-import static ru.instamart.api.enums.BashCommands.Instacoins.ADD_USER_INSATCOIN;
+import static ru.instamart.api.enums.BashCommands.Instacoins.ADD_USER_INSTACOIN;
 import static ru.instamart.api.enums.RailsConsole.ExternalPartners.SUBSCRIPTION;
 import static ru.instamart.api.enums.RailsConsole.Order.*;
 import static ru.instamart.api.enums.RailsConsole.apiV3.*;
@@ -47,7 +47,7 @@ public class K8sHelper {
 
     @Step("Добавление инстакоинов {instacoin} для пользователя email: {email} userId: {userId}")
     public static List<String> execRakeTaskAddBonus(String email, String instacoin, String userId) {
-        List<String> consoleLog = execBashCommandWithPod(ADD_USER_INSATCOIN.get(email, instacoin, userId));
+        List<String> consoleLog = execBashCommandWithPod(ADD_USER_INSTACOIN.get(email, instacoin, userId));
         Allure.addAttachment("Логи консоли", String.join("\n", consoleLog));
         return consoleLog;
     }

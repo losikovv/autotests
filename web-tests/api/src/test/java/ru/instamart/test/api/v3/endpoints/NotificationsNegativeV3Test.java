@@ -11,7 +11,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.ApiV3DataProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.OrderStatusV2;
-import ru.instamart.api.enums.v3.NotificationTypesV3;
+import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v3.NotificationsV3Request;
@@ -40,7 +40,7 @@ public class NotificationsNegativeV3Test extends RestBase {
             groups = "api-instamart-regress",
             dataProvider = "notificationTypes",
             dataProviderClass = ApiV3DataProvider.class)
-    public void orderForAccounting405(NotificationTypesV3 type) {
+    public void orderForAccounting405(NotificationTypeV3 type) {
         Response response = NotificationsV3Request.POST(orderForAccounting.getShipments().get(0).getNumber(), type.getValue());
 
         checkStatusCode(response, 405);
@@ -55,7 +55,7 @@ public class NotificationsNegativeV3Test extends RestBase {
             groups = "api-instamart-regress",
             dataProvider = "notificationTypes",
             dataProviderClass = ApiV3DataProvider.class)
-    public void postNotifications405(NotificationTypesV3 type) {
+    public void postNotifications405(NotificationTypeV3 type) {
         Response response = NotificationsV3Request.POST(orderShopper.getShipments().get(0).getNumber(), type.getValue());
 
         checkStatusCode(response, 405);

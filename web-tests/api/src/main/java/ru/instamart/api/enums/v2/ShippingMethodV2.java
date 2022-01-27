@@ -7,7 +7,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @ToString
 @Getter
-public enum ShippingMethodsV2 {
+public enum ShippingMethodV2 {
     PICKUP("pickup"),
     BY_COURIER("by_courier");
 

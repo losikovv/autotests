@@ -10,7 +10,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @ToString
 @Getter
-public enum PaymentToolsV2 {
+public enum PaymentToolV2 {
     LIFEPAY("lifepay", "Картой курьеру"),
     CASH_DESK("cash_desk", "На кассе"),
     EXTERNAL_PARTNER_PAY("external_partner_pay", "Внешний платеж через партнера"),
@@ -20,14 +20,14 @@ public enum PaymentToolsV2 {
     private final String key;
     private final String name;
 
-    public static Optional<PaymentToolsV2> getIfKeyIsPresent(String str) {
-        return Arrays.stream(PaymentToolsV2.values())
+    public static Optional<PaymentToolV2> getIfKeyIsPresent(String str) {
+        return Arrays.stream(PaymentToolV2.values())
                 .filter(payment -> str.equals(payment.getKey()))
                 .findFirst();
     }
 
-    public static Optional<PaymentToolsV2> getIfNameIsPresent(String str) {
-        return Arrays.stream(PaymentToolsV2.values())
+    public static Optional<PaymentToolV2> getIfNameIsPresent(String str) {
+        return Arrays.stream(PaymentToolV2.values())
                 .filter(payment -> str.equals(payment.getName()))
                 .findFirst();
     }

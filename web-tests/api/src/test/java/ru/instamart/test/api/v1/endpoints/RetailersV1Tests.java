@@ -13,7 +13,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.enums.v1.RetailerSortTypesV1;
+import ru.instamart.api.enums.v1.RetailerSortTypeV1;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.EtaV1;
 import ru.instamart.api.model.v1.ShippingPolicyV1;
@@ -231,7 +231,7 @@ public class RetailersV1Tests extends RestBase {
             dependsOnMethods = "getRetailers")
     public void getRetailersSortedByNameAsc() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
-                .sorts(RetailerSortTypesV1.NAME_ASC.getValue())
+                .sorts(RetailerSortTypeV1.NAME_ASC.getValue())
                 .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, RetailersV2Response.class);
@@ -247,7 +247,7 @@ public class RetailersV1Tests extends RestBase {
             dependsOnMethods = "getRetailers")
     public void getRetailersSortedByNameDesc() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
-                .sorts(RetailerSortTypesV1.NAME_DESC.getValue())
+                .sorts(RetailerSortTypeV1.NAME_DESC.getValue())
                 .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, RetailersV2Response.class);
@@ -263,7 +263,7 @@ public class RetailersV1Tests extends RestBase {
             dependsOnMethods = "getRetailers")
     public void getRetailersSortedByCreatedAtAsc() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
-                .sorts(RetailerSortTypesV1.CREATED_AT_ASC.getValue())
+                .sorts(RetailerSortTypeV1.CREATED_AT_ASC.getValue())
                 .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, RetailersV2Response.class);
@@ -279,7 +279,7 @@ public class RetailersV1Tests extends RestBase {
             dependsOnMethods = "getRetailers")
     public void getRetailersSortedByCreatedAtDesc() {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
-                .sorts(RetailerSortTypesV1.CREATED_AT_DESC.getValue())
+                .sorts(RetailerSortTypeV1.CREATED_AT_DESC.getValue())
                 .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, RetailersV2Response.class);
@@ -315,7 +315,7 @@ public class RetailersV1Tests extends RestBase {
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()
                 .page(1)
                 .perPage(10)
-                .sorts(RetailerSortTypesV1.NAME_DESC.getValue())
+                .sorts(RetailerSortTypeV1.NAME_DESC.getValue())
                 .active(true)
                 .build());
         checkStatusCode200(response);
