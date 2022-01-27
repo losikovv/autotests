@@ -1,5 +1,6 @@
 package ru.instamart.kraken.service;
 
+import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.sbermarket.qa.Api;
@@ -13,7 +14,7 @@ public enum QaService {
     private final Api api;
 
     QaService() {
-        this.api = new Api(new Setting(EnvironmentProperties.Env.QA_FULL_URL));
+        this.api = new Api(new Setting(EnvironmentProperties.Env.QA_FULL_URL, CoreProperties.DEFAULT_TIMEOUT));
     }
 
     /**

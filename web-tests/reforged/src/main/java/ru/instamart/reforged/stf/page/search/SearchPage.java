@@ -43,7 +43,7 @@ public class SearchPage implements StfPage, SearchCheck {
 
     @Step("Вернуть значение цены товара #{0} на странице поиска")
     public double returnProductPrice(int number) {
-        return StringUtil.stringToDoubleParse(searchProductPrices.getElementText(number));
+        return StringUtil.stringToDouble(searchProductPrices.getElementText(number));
     }
 
     @Step("Вернуть значение кол-ва товаров на странице поиска")

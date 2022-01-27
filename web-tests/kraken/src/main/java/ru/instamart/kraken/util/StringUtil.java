@@ -3,7 +3,6 @@ package ru.instamart.kraken.util;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.util.Objects.isNull;
@@ -25,19 +24,18 @@ public final class StringUtil {
         return Integer.parseInt(text.replaceAll("\\D+", ""));
     }
 
-    public static double stringToDoubleParse(String stringToParse) {
+    public static double stringToDouble(String stringToParse) {
         stringToParse = stringToParse.replace(",", ".").replace(" ", "");
 
-        Matcher matcher = pattern.matcher(stringToParse);
-        StringBuilder sb = new StringBuilder();
-        while (matcher.find()) {
-            sb.append(matcher.group());
+        final var matcher = pattern.matcher(stringToParse);
+        if (matcher.find()) {
+            return Double.parseDouble(matcher.group());
         }
 
-        return Double.parseDouble(sb.toString());
+        return 0.0d;
     }
 
-    public static Long stringToLongParse(String stringToParse) {
+    public static Long stringToLong(final String stringToParse) {
         return Long.parseLong(stringToParse.replaceAll("\\D+", ""));
     }
 
@@ -56,7 +54,7 @@ public final class StringUtil {
         return phone.substring(phone.length() - 6);
     }
 
-    public static String getLastLine(String text) {
+    public static String getLastLine(final String text) {
         return text.replaceAll("^.+\\n", "");
     }
 

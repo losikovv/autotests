@@ -9,7 +9,7 @@ import javax.validation.constraints.Null;
 import java.util.StringJoiner;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -110,6 +110,9 @@ public class AddressV2 extends BaseObject {
                 "\n",
                 fullAddress + "\n",
                 "\n")
+                .add("      city: " + city)
+                .add("    street: " + street)
+                .add("  building: " + building)
                 .add("       lat: " + lat)
                 .add("       lon: " + lon)
                 .add("first_name: " + firstName)

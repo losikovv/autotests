@@ -85,7 +85,7 @@ public interface SearchCheck extends Check, SearchElement {
         jsAction().waitForDocumentReady();
         var tmp = new ArrayList<>();
         searchProductPrices.getElements().forEach(element -> {
-            tmp.add(StringUtil.stringToDoubleParse(element.getText()));
+            tmp.add(StringUtil.stringToDouble(element.getText()));
         });
         assertEquals(tmp, tmp.stream().sorted().collect(Collectors.toList()), "Сортировка 'Сначала дешевые' работает неправильно");
     }
@@ -95,7 +95,7 @@ public interface SearchCheck extends Check, SearchElement {
         jsAction().waitForDocumentReady();
         var tmp = new ArrayList<>();
         searchProductPrices.getElements().forEach(element -> {
-            tmp.add(StringUtil.stringToDoubleParse(element.getText()));
+            tmp.add(StringUtil.stringToDouble(element.getText()));
         });
         assertEquals(tmp, tmp.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList()), "Сортировка 'Сначала дорогие' работает неправильно");
     }

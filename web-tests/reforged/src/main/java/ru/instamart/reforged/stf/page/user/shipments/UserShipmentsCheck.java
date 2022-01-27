@@ -31,7 +31,7 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
 
     @Step("Проверка суммы скидки: {0}")
     default void checkUserShipmentPromocodeCorrect(double summ) {
-        Assert.assertEquals(summ, StringUtil.stringToDoubleParse(discountSumm.getText()));
+        Assert.assertEquals(summ, StringUtil.stringToDouble(discountSumm.getText()));
     }
 
     @Step("Проверяем, что среди названий товара в заказе есть искомое {0}")

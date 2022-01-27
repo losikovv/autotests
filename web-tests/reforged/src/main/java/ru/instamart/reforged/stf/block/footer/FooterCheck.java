@@ -97,6 +97,11 @@ public interface FooterCheck extends Check, FooterElement {
         waitAction().shouldBeVisible(instagramButton);
     }
 
+    @Step("Проверяем что отображается кнопка 'Twitter'")
+    default void checkTwitterButtonVisible() {
+        waitAction().shouldBeVisible(twitterButton);
+    }
+
     @Step("Проверяем что отображается кнопка 'Google Play'")
     default void checkGooglePlayButtonVisible() {
         waitAction().shouldBeVisible(googlePlayButton);

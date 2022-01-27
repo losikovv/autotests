@@ -17,6 +17,9 @@ public final class TimeUtil {
             .appendPattern("dd MMMM yyyy")
             .toFormatter(new Locale("ru"));
 
+    private TimeUtil() {
+    }
+
     public static String getDeliveryDateFrom() {
         return dt.format(ZonedDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT, ZONE_ID));
     }
@@ -64,8 +67,5 @@ public final class TimeUtil {
     /* Парсит строку типа "15 ноября 2016" в (ZoneDateTime) 2016-11-15T00:00+07:00[Asia/Novosibirsk] */
     public static ZonedDateTime convertStringToDate(final String str) {
         return LocalDate.parse(str, formatter).atStartOfDay(ZoneId.systemDefault());
-    }
-
-    private TimeUtil() {
     }
 }

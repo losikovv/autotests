@@ -3,14 +3,11 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
-import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.enums.v2.StateV2;
@@ -22,12 +19,18 @@ import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.response.v2.ShipmentAssemblyItemsV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
+import ru.sbermarket.qase.annotation.CaseIDs;
+import ru.sbermarket.qase.annotation.CaseId;
+
+import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkAssemblyItem;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
-import static ru.instamart.api.helper.K8sHelper.*;
+import static ru.instamart.api.helper.K8sHelper.changeItemToCancel;
+import static ru.instamart.api.helper.K8sHelper.changeToAssembled;
 
 @Epic("ApiV2")
 @Feature("Заказы (shipments)")
@@ -52,8 +55,10 @@ public class ShipmentAssemblyItemsV2Test extends RestBase {
     public void getAssemblyItemsOfExistingShipment() {
         final Response response = ShipmentsV2Request.AssemblyItems.GET(shipment.getNumber());
         checkStatusCode200(response);
-        AssemblyItemV2 assemblyItem = response.as(ShipmentAssemblyItemsV2Response.class).getAssemblyItems().get(0);
-        checkAssemblyItem(shipment, assemblyItem, StateV2.PENDING);
+
+        List<AssemblyItemV2> items = response.as(ShipmentAssemblyItemsV2Response.class).getAssemblyItems();
+        checkFieldIsNotEmpty(items, "список товаров в заказе");
+        checkAssemblyItem(shipment, items.get(0), StateV2.PENDING);
     }
 
     @CaseId(536)
