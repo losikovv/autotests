@@ -22,7 +22,7 @@ import ru.instamart.api.response.v1.OffersV1Response;
 import ru.instamart.api.response.v2.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
-import ru.instamart.kraken.util.MapUtil;
+import ru.instamart.kraken.util.CollectionUtil;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.ThreadUtil;
 
@@ -125,7 +125,7 @@ public final class InstamartApiHelper {
                 104, "Зона #4" //METRO, Воронеж, Семилуки Займище
         );
         if (pickupRetailers.contains(store.getRetailer().getId()) ||
-                MapUtil.hasPairInMap(store.getId(), zoneName, pickupZones)) {
+                CollectionUtil.hasPairInMap(store.getId(), zoneName, pickupZones)) {
             throw new SkipException("Доступен только самовывоз\nsid: " + store.getId() + "\n" + zoneName);
         }
     }

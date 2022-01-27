@@ -11,6 +11,9 @@ public final class TimeUtil {
     private static final DateTimeFormatter dtdb = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static final ZoneId ZONE_ID = ZoneId.of("Europe/Moscow");
 
+    private TimeUtil() {
+    }
+
     public static String getDeliveryDateFrom() {
         return dt.format(ZonedDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT, ZONE_ID));
     }
@@ -53,8 +56,5 @@ public final class TimeUtil {
 
     public static String getFutureZoneDbDate(Long days) {
         return dtdb.format(ZonedDateTime.now(ZONE_ID).plusDays(days));
-    }
-
-    private TimeUtil() {
     }
 }
