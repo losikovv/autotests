@@ -13,7 +13,7 @@ public class ShopperAdminRequestBase {
      * Добавляем спеки к запросу
      */
     public static RequestSpecification givenWithSpec() {
-        return given().spec(Specification.INSTANCE.getShopperRequestSpec());
+        return given().spec(Specification.INSTANCE.getShopperAdminRequestSpec());
     }
 
     /**

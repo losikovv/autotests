@@ -69,6 +69,15 @@ public class StatusCodeCheckpoints {
         }
     }
 
+    public static void checkStatusCode200or422(final Response response) {
+        response.then().statusCode(anyOf(is(200), is(422)));
+        Allure.step("Проверка на 200 или 422 статус код");
+        if (response.statusCode() == 200) {
+            response.then().contentType(ContentType.JSON);
+            Allure.step("Проверка на JSON тип контента");
+        }
+    }
+
     public static void checkStatusCode422(final Response response) {
         checkStatusCode(response, 422);
     }

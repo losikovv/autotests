@@ -27,10 +27,10 @@ public class ShopperSHP extends BaseObject {
         public static class Attributes extends BaseObject {
             @JsonSchema(required = true)
             private String name;
+            @Null
             @JsonSchema(required = true)
             private String login;
             @JsonSchema(required = true)
-            @Null
             private String phone;
             @JsonSchema(required = true)
             private String status;
