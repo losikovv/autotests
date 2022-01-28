@@ -319,13 +319,14 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().openFirstProductCard();
-        shop().interactProductCard().clickOnBuy();
+        shop().openFirstProductCardProd();
+        shop().interactProductCard().increaseItemCount();
         shop().interactProductCard().close();
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
         shop().interactCart().getFirstItem().compareItemQuantityInCart(5);
+        shop().assertAll();
     }
 
     @CaseIDs(value = {@CaseId(2620), @CaseId(2937), @CaseId(2938)})
@@ -348,6 +349,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
         shop().interactCart().getFirstItem().compareItemQuantityInCart(3);
+        shop().assertAll();
         shop().interactCart().closeCart();
 
         shop().openFirstProductCard();
