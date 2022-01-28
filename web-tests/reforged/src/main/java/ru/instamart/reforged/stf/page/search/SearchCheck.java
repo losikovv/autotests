@@ -1,7 +1,6 @@
 package ru.instamart.reforged.stf.page.search;
 
 import io.qameta.allure.Step;
-
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 
@@ -10,8 +9,8 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
-import static ru.instamart.reforged.core.Kraken.*;
+import static ru.instamart.reforged.core.Kraken.jsAction;
+import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface SearchCheck extends Check, SearchElement {
 
@@ -122,9 +121,9 @@ public interface SearchCheck extends Check, SearchElement {
         waitAction().shouldNotBeVisible(searchProductGrid);
     }
 
-    @Step("Проверяем, что произошел переход в категорию {0}")
-    default void checkTaxonTitle(final String title) {
-        waitAction().shouldBeVisible(categoryTitle, title);
+    @Step("Проверяем, что заголовок 'Нашлось по запросу: ...' содержит текст {0}")
+    default void checkSearchTitle(final String searchText) {
+        waitAction().shouldBeVisible(searchResultsTitle, searchText);
     }
 
     @Step("Проверяем, что товарные подсказки при поиске алко имеют картинки 18+")

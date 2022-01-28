@@ -2,7 +2,6 @@ package ru.instamart.reforged.stf.block.header;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
-import ru.instamart.reforged.core.Kraken;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -124,26 +123,26 @@ public interface HeaderCheck extends Check, HeaderElement {
         assertEquals(firstSelectAddress.getText(), "Выберите адрес доставки");
     }
 
-    @Step("Проверяем, категорийные подсказки в поиске отображаются")
-    default void checkTaxonCategoriesVisible() {
-        waitAction().shouldBeVisible(taxonCategories);
+    @Step("Проверяем, что саджестор поиска отображается")
+    default void checkSuggesterVisible() {
+        waitAction().shouldBeVisible(searchSuggester);
     }
 
     @Step("Проверяем, что категорийные подсказки при поиске алко имеют картинки 18+")
     default void checkAlcoStubInCategories() {
         krakenAssert.assertTrue(taxonCategoriesCollection.getElements().size() ==
-                               taxonCategoriesCollectionImagesAlco.getElements().size(), "Не все категорийные подсказки имеют картинки-заглушки 18+");
+                taxonCategoriesCollectionImagesAlco.getElements().size(), "Не все категорийные подсказки имеют картинки-заглушки 18+");
     }
 
     @Step("Проверяем, что товарные подсказки при поиске алко имеют картинки 18+")
     default void checkAlcoStubInSuggest() {
-        krakenAssert.assertTrue(searchSuggestsCollection.getElements().size() ==
+        krakenAssert.assertTrue(suggesterFirstTabItems.getElements().size() ==
                 searchSuggestsCollectionImagesAlco.getElements().size(), "Не все товарные подсказки имеют картинки-заглушки 18+");
     }
 
     @Step("Проверяем, товарные подсказки в поиске отображаются")
     default void checkSearchSuggestsVisible() {
-        waitAction().shouldBeVisible(searchSuggestsCollection);
+        waitAction().shouldBeVisible(suggesterFirstTabItems);
     }
 
     @Step("Проверяем, что выбран адрес доставки")
@@ -169,21 +168,21 @@ public interface HeaderCheck extends Check, HeaderElement {
     }
 
     @Step("Проверяем, что установленный адрес:\"{0}\" не изменился")
-    default void checkIsSetAddressNotEqualToInput(String defaultAddress, String currentAddress){
+    default void checkIsSetAddressNotEqualToInput(String defaultAddress, String currentAddress) {
         final String[] defaultAddressList = defaultAddress.split(", ");
         log.debug("> проверяем, что адрес доставки не изменился: {}", defaultAddress);
         String checkState;
-        for(final String check: defaultAddressList){
+        for (final String check : defaultAddressList) {
             if (currentAddress.contains(check)) checkState = "contains";
             else {
                 log.debug("> в введенном адресе отсутсвует: {}", check);
-                checkState ="doesn't";
+                checkState = "doesn't";
             }
             krakenAssert.assertNotEquals(
                     checkState, "contains",
                     "\n> Адрес доставки изменен после выбора предыдущего: "
-                            +"\n> отображаемый адрес: " + currentAddress
-                            +"\n> Ожидаемый элемент: " + check
+                            + "\n> отображаемый адрес: " + currentAddress
+                            + "\n> Ожидаемый элемент: " + check
             );
         }
         log.debug("✓ Успешно");

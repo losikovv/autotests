@@ -43,24 +43,29 @@ public final class Header implements HeaderCheck {
         searchInput.fill(text);
     }
 
-    @Step("Выбрать первую категорийную подсказку в поиске")
-    public void clickOnFirstTaxonCategory() {
-        taxonFirstCategory.click();
+    @Step("Очистить инпут поиска")
+    public void clearSearchInput() {
+        searchInputResetButton.click();
     }
 
-    @Step("Выбрать первую товарную подсказку в поиске")
-    public void clickOnFirstSearchSuggest() {
-        searchSuggestsCollection.clickOnFirst();
+    @Step("Выбрать первую найденную категорию в саджесторе")
+    public void clickOnFirstSuggesterCategory(){
+        suggesterTabHeaders.clickOnFirst();
     }
 
-    @Step("Выбрать элемент поиска")
+    @Step("Выбрать первый результат поиска в саджесторе")
+    public void clickOnFirstSuggesterSearchResult() {
+        suggesterFirstTabItems.clickOnFirst();
+    }
+
+    @Step("Нажимаем кнопку 'Показать все *** результаты' поиска в саджесторе")
+    public void clickShowAllSearchResults() {
+        showAllResults.click();
+    }
+
+    @Step("Нажать кнопку поиска")
     public void clickSearchButton() {
         searchButton.click();
-    }
-
-    @Step("Выбрать элемент поиска")
-    public void selectSearch() {
-        searchDropDown.selectAny();
     }
 
     @Step("Открыть мень профиля")
