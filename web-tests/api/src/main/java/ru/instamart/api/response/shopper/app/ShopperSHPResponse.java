@@ -47,13 +47,14 @@ public class ShopperSHPResponse extends BaseResponseObject {
             @Null
             private Boolean fastPaymentCashless;
             @Null
-            private Boolean fastPaymentMetroStoreDns;
+            private String fastPaymentMetroStoreDns;
             private Boolean expressDelivery;
             @Null
             private Integer secondsForAssemblyItem;
             @Null
             private Integer additionalSecondsForAssembly;
             private Boolean autoRouting;
+            @Null
             private Boolean boxScanning;
             @Null
             private Object deliveryAreaId;
