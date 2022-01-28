@@ -39,6 +39,7 @@ public enum Specification {
     @Getter private RequestSpecification prodRequestSpec;
     @Getter private RequestSpecification prodWebRequestSpec;
     @Getter private RequestSpecification prodAdminRequestSpec;
+    @Getter private RequestSpecification shopperAdminRequestSpec;
 
     public void initSpec() {
         final String apiV1FullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH;
@@ -48,7 +49,10 @@ public enum Specification {
         final String prodFullUrl =  EnvironmentProperties.Env.PROD_FULL_SITE_URL;
         final String prodWebUrl =  EnvironmentProperties.Env.PROD_WEB_SITE_URL;
         final String prodAdminUrl =  EnvironmentProperties.Env.ADMIN_FULL_URL;
-        final String shopperFullBaseUrl = EnvironmentProperties.Env.FULL_SHOPPER_URL;
+        final String shopperFullBaseUrl = EnvironmentProperties.Env.FULL_SHOPPER_GW_URL;
+        final String shopperFullAdminUrl = EnvironmentProperties.Env.FULL_SHOPPER_URL;
+        final String shopperStage = (EnvironmentProperties.STAGE).isBlank() ? EnvironmentProperties.K8S_NAME_SHP_SPACE :
+                (EnvironmentProperties.K8S_NAME_SHP_SPACE).replace("kraken", EnvironmentProperties.STAGE);
         port = 443;
         config = config().encoderConfig(encoderConfig().defaultContentCharset("UTF-8"));
         defaultParser = Parser.JSON;
@@ -119,7 +123,20 @@ public enum Specification {
                 .build();
 
         shopperRequestSpec = new RequestSpecBuilder()
-                .setBaseUri(shopperFullBaseUrl.substring(0, shopperFullBaseUrl.length() - 1))
+                .setBaseUri(shopperFullBaseUrl)
+                .setAccept(ContentType.JSON)
+                .addHeader(
+                        "Client-Ver",
+                        "99.9.9")
+                .addHeader("x-testing-otp","true")
+                .addHeader("x-testing-nosms","true")
+                .addHeader("x-testing-nolimiter","true")
+                .addHeader("sbm-forward-feature-version-shp", shopperStage)
+                .addFilter(new AllureRestAssuredCustom())
+                .build();
+
+        shopperAdminRequestSpec = new RequestSpecBuilder()
+                .setBaseUri(shopperFullAdminUrl.substring(0, shopperFullAdminUrl.length() - 1))
                 .setBasePath("")
                 .setAccept(ContentType.JSON)
                 .addHeader(

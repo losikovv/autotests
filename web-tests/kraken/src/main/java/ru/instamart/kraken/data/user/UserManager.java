@@ -97,7 +97,7 @@ public final class UserManager {
         if (isNull(defaultShopper) && EnvironmentProperties.SERVER.contains("production")) {
             defaultShopper = UserData.builder()
                     .email(Crypt.INSTANCE.decrypt("fge71qP00DC40VYpfYee6w=="))
-                    .password(Crypt.INSTANCE.decrypt("BXRLOtT6Xdrca4FWsHy7Sg=="))
+                    .phone(Crypt.INSTANCE.decrypt("vodVNuxqMcNPIBazZFHfAA=="))
                     .build();
         }
 
@@ -107,8 +107,7 @@ public final class UserManager {
                     log.debug("User shopper SCHEDULE login");
                     defaultShopper = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("DNzBqyrPJQuc1LP0FzyiiQ=="))
-                            .phone(Crypt.INSTANCE.decrypt("mbL67AMvUKR2bSJ/2k7FTA=="))
-                            .password(PASSWD_2)
+                            .phone(Crypt.INSTANCE.decrypt("VKxPCYWxtW47hpCL/Qj43Q=="))
                             .build();
                     break;
                 case "push":
@@ -116,15 +115,13 @@ public final class UserManager {
                         log.debug("User shopper API_SHOPPER_ALONE login");
                         defaultShopper = UserData.builder()
                                 .email(Crypt.INSTANCE.decrypt("K0wOsUQv9wDe1F4a6TtDKg=="))
-                                .phone(Crypt.INSTANCE.decrypt("yLvA69qlzJsxOIvcma2zXg=="))
-                                .password(PASSWD_2)
+                                .phone(Crypt.INSTANCE.decrypt("SnggaupjoOoDXgTrdww1PA=="))
                                 .build();
                     } else {
                         log.debug("User shopper CI_RUN_ALL_JOBS login");
                         defaultShopper = UserData.builder()
                                 .email(Crypt.INSTANCE.decrypt("/IsVBUY1et+En340g78Rvg=="))
-                                .phone(Crypt.INSTANCE.decrypt("8lsSwjJUEjlPTeu4hDGU0w=="))
-                                .password(PASSWD_2)
+                                .phone(Crypt.INSTANCE.decrypt("91K1YSFP8P4lmL8eDk/bAg=="))
                                 .build();
                     }
                     break;
@@ -132,16 +129,14 @@ public final class UserManager {
                     log.debug("User shopper local login");
                     defaultShopper = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("qq6/4elx6MF64Jw9VdI6xg=="))
-                            .phone(Crypt.INSTANCE.decrypt("wOpdY2rf7+p9gnSoSndRWg=="))
-                            .password(PASSWD_2)
+                            .phone(Crypt.INSTANCE.decrypt("jKQeEMXjzX5ROozXx40AgA=="))
                             .build();
                     break;
                 default:
                     log.debug("User shopper default login");
                     defaultShopper = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("/IsVBUY1et+En340g78Rvg=="))
-                            .phone(Crypt.INSTANCE.decrypt("8lsSwjJUEjlPTeu4hDGU0w=="))
-                            .password(PASSWD_2)
+                            .phone(Crypt.INSTANCE.decrypt("91K1YSFP8P4lmL8eDk/bAg=="))
                             .build();
                     break;
             }
@@ -403,7 +398,7 @@ public final class UserManager {
     /**
      * Создание пользователя с использованием {@link UserManager#createUser(String)}
      *
-     * @param password      - обязательный параметр для создания через ручку
+     * @param password - обязательный параметр для создания через ручку
      * @return - возвращает собранную {@link UserData} из параметров ответа
      */
     public static UserData createUserWithoutAb(final String password) {

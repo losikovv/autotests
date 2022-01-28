@@ -72,6 +72,8 @@ public final class EnvironmentProperties {
     private static String QA_URL;
     @Config(configName = NAME, fieldName = "adminUrl", defaultValue = "")
     private static String ADMIN_URL;
+    @Config(configName = NAME, fieldName = "shopperGwUrl", defaultValue = "")
+    private static String SHOPPER_GW_URL;
 
     public static class Env {
 
@@ -115,6 +117,7 @@ public final class EnvironmentProperties {
         public static String QA_FULL_URL = PROTOCOL + "://" + QA_URL + "/";
         public static String ADMIN_FULL_URL = PROTOCOL + "://" + ADMIN_URL + "/";
         public static String ONE_SESSION = System.getProperty("one_session");
+        public static String FULL_SHOPPER_GW_URL = PROTOCOL + "://" + SHOPPER_GW_URL + "/";
 
         private static String getDomainName(String url) {
             try {

@@ -98,6 +98,12 @@ public final class ShopperAppEndpoints {
 
     public static class Auth {
         public static final String REFRESH = "auth/refresh";
+
+        public static class Partners {
+            public static final String CODE = "auth/partners/code";
+            public static final String LOGIN = "auth/partners/login";
+            public static final String REFRESH = "auth/partners/refresh";
+        }
     }
 
     public static class Otps {

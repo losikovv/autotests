@@ -179,18 +179,20 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Авторизация")
     @CaseId(46)
     @Test(description = "Отправка запроса для получения смс кодом для авторизации",
-            groups = {"api-shopper-smoke", "api-shopper-prod"})
+            groups = {"api-shopper-smoke"//, "api-shopper-prod" - ожидает B2C-7772
+            })
     public void postOtpsTokens200() {
-        response = OtpsSHPRequest.Tokens.POST(phone);
+        response = AuthSHPRequest.Login.POST(phone);
         checkStatusCode200(response);
     }
 
     @Story("Авторизация")
     @CaseId(47)
     @Test(description = "Авторизация по номеру телефона и коду из смс",
-            groups = {"api-shopper-smoke"})
+            groups = {"api-shopper-smoke"},
+            dependsOnMethods = "postOtpsTokens200")
     public void postOtpsAuthorizations200() {
-        response = OtpsSHPRequest.Authorizations.POST(phone, CoreProperties.DEFAULT_SMS);
+        response = AuthSHPRequest.Code.POST(phone, CoreProperties.DEFAULT_SMS);
 
         checkStatusCode200(response);
         checkResponseJsonSchema(response, SessionsSHPResponse.class);
@@ -202,7 +204,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @CaseId(106)
     @Test(description = "Запрос назначенных маршрутов без авторизации",
             groups = {"api-shopper-regress", "api-shopper-prod"})
-    public void nextUncompletedRoute404(){
+    public void nextUncompletedRoute404() {
         final Response response = NextUncompletedRouteSHPRequest.GET();
         checkStatusCode404(response);
         assertEquals(response.as(ErrorSHPResponse.class).getErrors().get(0).getDetail(), "Маршрут не найден", "Неправильная ошибка");
