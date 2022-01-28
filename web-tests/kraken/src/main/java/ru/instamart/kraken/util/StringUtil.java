@@ -3,6 +3,7 @@ package ru.instamart.kraken.util;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.util.Objects.isNull;
@@ -10,6 +11,7 @@ import static java.util.Objects.isNull;
 public final class StringUtil {
 
     private static final Pattern pattern = Pattern.compile("\\d+\\.\\d+");
+    private static final Pattern citiesPattern = Pattern.compile("\\(([^\\D+]+)\\)");
 
     private StringUtil() {
     }
@@ -54,5 +56,15 @@ public final class StringUtil {
 
     public static String getLastLine(final String text) {
         return text.replaceAll("^.+\\n", "");
+    }
+
+    /**
+     *Парсит строку типа "Екатеринбург (17)" в (Integer)17, или "тест-375756123 (13)" в (Integer)13
+     */
+    public static int parseNumberCitiesFromString(final String text) {
+        Matcher matcher = citiesPattern.matcher(text);
+        if (matcher.find()) {
+            return Integer.parseInt(matcher.group(1));
+        } else return 0;
     }
 }

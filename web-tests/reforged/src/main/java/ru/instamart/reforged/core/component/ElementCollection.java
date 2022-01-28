@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.core.Kraken;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 
@@ -98,6 +99,12 @@ public final class ElementCollection extends CollectionComponent {
     public List<WebElement> getElements() {
         return getComponents();
     }
+
+    public List<String> getTextFromAllElements() {
+        log.debug("Get text from all elements of element collection {}'s with locator {}", getClass().getSimpleName(), getBy());
+        return getElements().stream().map(WebElement::getText).collect(Collectors.toList());
+    }
+
 
     public int elementCount() {
         return getComponents().size();

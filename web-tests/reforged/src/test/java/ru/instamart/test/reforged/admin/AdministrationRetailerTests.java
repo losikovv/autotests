@@ -5,14 +5,11 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.data.Addresses;
-import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
-import static ru.instamart.reforged.admin.AdminRout.regions;
 
 @Epic("Админка STF")
 @Feature("Управление ретейлерами")
@@ -31,7 +28,7 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().goToPage();
         retailers().checkAddNewRetailerButtonVisible();
 
-        final var retailersQuantity = retailers().retailerQuantityReturn();
+        final int retailersQuantity = retailers().retailerQuantityReturn();
         retailers().retailerAccessibilityCompare(retailersQuantity);
         retailers().retailerCreateDateCompare(retailersQuantity);
     }
@@ -110,5 +107,53 @@ public final class AdministrationRetailerTests extends BaseTest {
 
         retailers().goToPage();
         retailers().checkRetailerActive("METRO");
+    }
+
+    @CaseId(536)
+    @Story("Страница ретейлеров")
+    @Test(description = "Cортировка городов по кол-ву магазинов в каждом и по алфавиту", groups = {"acceptance", "regression"})
+    public void storesQuantityAndAlphabetSortCities() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        retailers().goToPage();
+        retailers().checkAddNewRetailerButtonVisible();
+        retailers().clickOnPlusForRetailer("METRO");
+
+        retailers().checkStoreSortViaNumbersCorrect();
+
+        retailers().checkIfStoreAlphabeticallySorted();
+    }
+
+    @CaseId(537)
+    @Story("Страница ретейлеров")
+    @Test(description = "Cортировка городов по дате создания", groups = {"acceptance", "regression"})
+    public void storesCreateDateSortCities() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        retailers().goToPage();
+        retailers().checkAddNewRetailerButtonVisible();
+        retailers().clickOnPlusForRetailer("METRO");
+        retailers().clickOnStore("тест-352519385 (17)");
+
+        retailers().checkDateSortCorrect();
+    }
+
+    @CaseId(558)
+    @Story("Страница ретейлеров")
+    @Test(description = "При клике на адрес магазина происходит переход на его страницу", groups = {"acceptance", "regression"})
+    public void successTransitOnStorePageViaClickOnAddress() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        retailers().goToPage();
+        retailers().checkAddNewRetailerButtonVisible();
+        retailers().clickOnPlusForRetailer("METRO");
+        retailers().clickOnStore("тест-352519385 (17)");
+        retailers().clickOnAddress("Москва, просп. Мира, 211, стр. 1");
+
+        store().checkBackToStoresListButtonVisible();
+        store().checkAddressCorrect("Москва, просп. Мира, 211, стр. 1");
     }
 }

@@ -55,6 +55,16 @@ public final class CollectionUtil {
                 ));
     }
 
+    /**
+     * Сортирует мапу по <V> в обратном порядке
+     */
+    public static Map<String, Integer> reverseSortMapByValue(final Map<String, Integer> map) {
+        return map.entrySet()
+                .stream()
+                .sorted((Map.Entry.<String, Integer>comparingByValue().reversed()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+    }
+
     // Сортировка списка в прямом порядке
     public static <K> List<K> sortList(List<K> list) {
         return list.stream().sorted().collect(Collectors.toList());

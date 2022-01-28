@@ -11,4 +11,9 @@ public interface StorePageCheck extends Check, StorePageElements {
     default void checkBackToStoresListButtonVisible() {
         waitAction().shouldBeVisible(backToStoresList);
     }
+
+    @Step("Проверяем, что адрес {0} на странице магазина соответствует ожидаемому")
+    default void checkAddressCorrect(final String addressExp) {
+        waitAction().shouldBeVisible(address, addressExp);
+    }
 }

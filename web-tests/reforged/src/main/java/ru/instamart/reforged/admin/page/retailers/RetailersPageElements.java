@@ -15,5 +15,11 @@ public interface RetailersPageElements {
     ElementCollection retailersCreateDateInTable = new ElementCollection(By.xpath("//td[4]"), "Даты создания ретейлеров в таблице");
 
     Element retailerInaccessibilityInTable = new Element(ByKraken.xpath("//span[text()='%s']/ancestor::tr//span[text() = 'Недоступен']"), "Недоступность определенного ретейлера в таблице");
-    Element retailerAccessibilityInTable = new Element(ByKraken.xpath("//span[text()='%s']/ancestor::tr//span[text() = 'Доступен']"), "Недоступность определенного ретейлера в таблице");
+    Element retailerAccessibilityInTable = new Element(ByKraken.xpath("//span[text()='%s']/ancestor::tr//span[text() = 'Доступен']"), "Доступность определенного ретейлера в таблице");
+    Element retailerPlusIconInTable = new Element(ByKraken.xpath("//span[text()='%s']/ancestor::td/preceding-sibling::td[contains(@class, 'icon')]"),"Кнопка плюс возле конкретного ретейлера");
+
+    ElementCollection storesInTable = new ElementCollection(By.xpath("//td//span[@class='ant-btn-link']"), "Строки магазинов в таблице");
+    ElementCollection addressDatesInTable = new ElementCollection(By.xpath("//tr[@class='ant-table-row ant-table-row-level-1']//td[3]"), "Коллекция элементов дат создания адресов магазинов");
+
+    ElementCollection addressesInTable = new ElementCollection(By.xpath("//span[contains(@class, 'anticon-right')]/preceding-sibling::span"), "Коллекция элементов адресов магазинов");
 }
