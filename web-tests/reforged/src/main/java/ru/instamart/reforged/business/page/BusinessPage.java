@@ -7,7 +7,10 @@ import ru.instamart.reforged.core.page.Page;
 public interface BusinessPage extends Page {
 
     default void goToPage() {
-        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + pageUrl());
-        Kraken.jsAction().waitForDocumentReady();
+        goToPage(pageUrl());
+    }
+
+    default void goToPage(final String url) {
+        Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + url);
     }
 }

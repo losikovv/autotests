@@ -1,4 +1,4 @@
-task metroSmoke(type: Test){
+task metroSmoke(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/smoke/metro.xml'
         includeGroups 'smoke'
@@ -12,14 +12,14 @@ task metroAcceptance(type: Test) {
     }
 }
 
-task metroRegression(type: Test){
+task metroRegression(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/regress/metro.xml'
         includeGroups 'regression'
     }
 }
 
-task okeySmoke(type: Test){
+task okeySmoke(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/smoke/okey.xml'
         includeGroups 'smoke'
@@ -33,14 +33,14 @@ task okeyAcceptance(type: Test) {
     }
 }
 
-task okeyRegression(type: Test){
+task okeyRegression(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/regress/okey.xml'
         includeGroups 'regression'
     }
 }
 
-task selgrosSmoke(type: Test){
+task selgrosSmoke(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/smoke/selgros.xml'
         includeGroups 'smoke'
@@ -54,16 +54,27 @@ task selgrosAcceptance(type: Test) {
     }
 }
 
-task selgrosRegression(type: Test){
+task selgrosRegression(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/regress/selgros.xml'
         includeGroups 'regression'
     }
 }
 
-task businessSmoke(type: Test){
+task businessSmoke(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/smoke/business.xml'
         includeGroups 'smoke'
     }
+    systemProperty 'qase.Project', 'B2B'
+    systemProperty 'qase.Title', 'B2B UI Smoke'
+}
+
+task businessRegression(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/regress/business.xml'
+        includeGroups 'regression'
+    }
+    systemProperty 'qase.Project', 'B2B'
+    systemProperty 'qase.Title', 'B2B UI Regression'
 }

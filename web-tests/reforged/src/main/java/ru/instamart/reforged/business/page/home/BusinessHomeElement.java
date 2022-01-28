@@ -1,10 +1,10 @@
 package ru.instamart.reforged.business.page.home;
 
-import ru.instamart.reforged.metro.block.footer.Footer;
-import ru.instamart.reforged.metro.block.header.Header;
+import ru.instamart.reforged.business.block.header.Header;
+import ru.instamart.reforged.business.frame.auth.auth_modal.AuthModal;
 
 public interface BusinessHomeElement {
 
     Header header = new Header();
-    Footer footer = new Footer();
+    AuthModal authModal = new AuthModal();
 }

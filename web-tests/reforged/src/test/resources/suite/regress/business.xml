@@ -12,7 +12,7 @@
     </method-selectors>
     <test verbose="1" name="Web business UI tests" parallel="classes" thread-count="3">
         <classes>
-            <class name="ru.instamart.test.reforged.business.BasicBusinessTests"/>
+            <class name="ru.instamart.test.reforged.business.UserAuthorisationBusinessTests"/>
         </classes>
     </test>
 </suite>
