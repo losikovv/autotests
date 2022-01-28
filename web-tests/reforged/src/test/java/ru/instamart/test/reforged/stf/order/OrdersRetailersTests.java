@@ -2,19 +2,19 @@ package ru.instamart.test.reforged.stf.order;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.instamart.kraken.data.AddressDetailsData;
-import ru.instamart.kraken.data.TestVariables;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.data.AddressDetailsData;
+import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.data_provider.StoreProvider;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseIDs;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
@@ -44,6 +44,7 @@ public class OrdersRetailersTests extends BaseTest {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();

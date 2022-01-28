@@ -3,8 +3,6 @@ package ru.instamart.test.reforged.stf.order;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
@@ -17,8 +15,10 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.data_provider.PromoCodeProvider;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseIDs;
+import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.kraken.util.TimeUtil.*;
+import static ru.instamart.kraken.util.TimeUtil.getPastZoneDbDate;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -50,9 +50,6 @@ public final class OrdersPromoCodesTests extends BaseTest {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
-        shop().interactAuthModal().checkModalIsNotVisible();
-
-        shop().goToPage();
         shop().interactHeader().checkProfileButtonVisible();
         shop().addCookie(CookieFactory.COOKIE_ALERT);
 
@@ -90,8 +87,7 @@ public final class OrdersPromoCodesTests extends BaseTest {
 
     @CaseId(1641)
     @Story("Тест применения промокода")
-    @Test(description = "Тест применения промокода со фиксированной ограниченной скидкой",
-            groups = "regression")
+    @Test(description = "Тест применения промокода со фиксированной ограниченной скидкой", groups = "regression")
     public void successOrderWithPromoCodeFixedDiscountWithBorders() {
         var company = JuridicalData.juridical();
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
@@ -106,9 +102,6 @@ public final class OrdersPromoCodesTests extends BaseTest {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
-        shop().interactAuthModal().checkModalIsNotVisible();
-
-        shop().goToPage();
         shop().interactHeader().checkProfileButtonVisible();
         shop().addCookie(CookieFactory.COOKIE_ALERT);
 
@@ -148,8 +141,7 @@ public final class OrdersPromoCodesTests extends BaseTest {
 
     @CaseId(1642)
     @Story("Тест применения промокода")
-    @Test(description = "Тест применения промокода на первый заказ старым пользователем",
-            groups = "regression")
+    @Test(description = "Тест применения промокода на первый заказ старым пользователем", groups = "regression")
     public void failedOrderForOldUserWithFirstOrderPromo() {
         var company = JuridicalData.juridical();
         var promo = "test_prefix" + Generate.literalString(5) + Generate.string(1);
@@ -165,9 +157,6 @@ public final class OrdersPromoCodesTests extends BaseTest {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
-        shop().interactAuthModal().checkModalIsNotVisible();
-
-        shop().goToPage();
         shop().interactHeader().checkProfileButtonVisible();
         shop().addCookie(CookieFactory.COOKIE_ALERT);
 
@@ -200,8 +189,7 @@ public final class OrdersPromoCodesTests extends BaseTest {
 
     @CaseId(2640)
     @Story("Тест применения промокода")
-    @Test(description = "Тест применения несуществующего промокода",
-            groups = "regression")
+    @Test(description = "Тест применения несуществующего промокода", groups = "regression")
     public void failedOrderWithNonExistingPromo() {
         var company = JuridicalData.juridical();
         var promo = Generate.string(8);
@@ -212,9 +200,6 @@ public final class OrdersPromoCodesTests extends BaseTest {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(ordersUser);
-        shop().interactAuthModal().checkModalIsNotVisible();
-
-        shop().goToPage();
         shop().interactHeader().checkProfileButtonVisible();
         shop().addCookie(CookieFactory.COOKIE_ALERT);
 
