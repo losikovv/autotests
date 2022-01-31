@@ -117,7 +117,7 @@ public final class UserData {
          * во всех остальных случаях нужна {@link CoreProperties#DEFAULT_SMS}
          */
         private String getSmsCode() {
-            if ((nonNull(id) && EnvironmentProperties.SERVER.equals("preprod"))) {
+            if (nonNull(id) && EnvironmentProperties.SERVER.equalsIgnoreCase("preprod")) {
                 return StringUtil.getSMSCode(phone);
             } else {
                 return CoreProperties.DEFAULT_SMS;
