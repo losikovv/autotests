@@ -55,6 +55,17 @@ public final class RetailersPage implements AdminPage, RetailersPageCheck {
         addressesInTable.clickOnElementWithText(store);
     }
 
+    @Step("Кликнуть на кнопку 'Добавить ритейлера'")
+    public void clickOnAddRetailerButton() {
+        addNewRetailerButton.click();
+    }
+
+    @Step("Нажать на кнопку 'Добавить магазин' для ретейлера {0}")
+    public void clickOnAddStore(final String retailer) {
+        addNewStoreForRetailer.click(retailer);
+    }
+
+
     @Override
     public String pageUrl() {
         return "retailers";

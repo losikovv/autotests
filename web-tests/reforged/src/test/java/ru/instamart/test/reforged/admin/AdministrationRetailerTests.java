@@ -229,4 +229,67 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().checkSortViaCreationDateDesc();
         retailers().assertAll();
     }
+
+    @CaseId(534)
+    @Story("Страница ретейлеров")
+    @Test(description = "Сохранение и воспроизведение фильтров и сортировок в URL", groups = {"acceptance", "regression"})
+    public void saveSortViaUrl() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        retailers().goToPage();
+        retailers().checkAddNewRetailerButtonVisible();
+
+        retailers().clickOnSortViaCreationDate();
+        retailers().checkSpinnerVisible();
+        retailers().checkSpinnerNotVisible();
+
+        retailers().checkSortViaCreationDateAscEnabled();
+        retailers().checkSortViaCreationDateAsc();
+
+        retailers().checkPageContains("?sortKey=created_at&sortOrder=ascend");
+
+        retailers().goToPage();
+        retailers().checkAddNewRetailerButtonVisible();
+
+        retailers().openAdminPage("retailers?sortKey=created_at&sortOrder=ascend");
+        retailers().checkAddNewRetailerButtonVisible();
+
+        retailers().checkSortViaCreationDateAscEnabled();
+        retailers().checkSortViaCreationDateAsc();
+
+        retailers().assertAll();
+    }
+
+    @CaseId(538)
+    @Story("Страница ретейлеров")
+    @Test(description = "Кнопка 'Добавить ритейлера' ведёт на страницу создания нового ритейлера", groups = {"acceptance", "regression"})
+    public void successTransitToRetailerCreatePage() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        retailers().goToPage();
+        retailers().checkAddNewRetailerButtonVisible();
+
+        retailers().clickOnAddRetailerButton();
+
+        retailerAdd().checkPageContains(retailerAdd().pageUrl());
+        retailerAdd().checkNameInputVisible();
+    }
+
+    @CaseId(539)
+    @Story("Страница ретейлеров")
+    @Test(description = "Кнопка 'Добавить магазин' ведёт на страницу создания нового магазина ритейлера", groups = {"acceptance", "regression"})
+    public void successTransitToRetailerStoreCreatePage() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        retailers().goToPage();
+        retailers().checkAddNewRetailerButtonVisible();
+
+        retailers().clickOnAddStore("Flora");
+
+        shopAdd().checkPageContains("retailers/flora/stores/new");
+        shopAdd().checkRegionDropdownVisible();
+    }
 }
