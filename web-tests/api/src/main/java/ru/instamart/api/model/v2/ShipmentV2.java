@@ -111,6 +111,6 @@ public class ShipmentV2 extends BaseObject {
     @JsonSchema(required = true)
     private PaymentV2 payment;
 
-    @JsonSchema(ignore = true)
-    private StoreV2 store;
+    @JsonSchema(required = true)
+    private ShipmentStoreV2 store;
 }

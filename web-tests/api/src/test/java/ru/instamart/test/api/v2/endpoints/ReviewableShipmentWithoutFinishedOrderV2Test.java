@@ -3,6 +3,9 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import ru.instamart.api.response.ErrorResponse;
+import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +18,8 @@ import ru.instamart.api.request.v2.ReviewableShipmentV2Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.factory.SessionFactory.createSessionToken;
 import static ru.instamart.kraken.data.user.UserManager.getDefaultApiUser;
 
@@ -23,10 +27,10 @@ import static ru.instamart.kraken.data.user.UserManager.getDefaultApiUser;
 @Feature("Отзывы о заказе")
 @Slf4j
 public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
-    @CaseId(466)
-    @Story("Получение последнего подзаказа без отзыва о заказе")
+    @CaseIDs(value = {@CaseId(466), @CaseId(1165)})
+    @Story("Получение последнего подзаказа для отзыва")
     @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
-            description = "Автоматическое получение последнего шипмента без оценки при старте приложения. Заказа на аккаунте не было.")
+            description = "Получение последнего подзаказа для отзыва - Заказа на аккаунте не было")
     public void automaticReceiptLastMessage404() {
         SessionFactory.makeSession(SessionType.API_V2);
         final Response response = ReviewableShipmentV2Request.GET();
@@ -35,9 +39,9 @@ public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
     }
 
     @CaseId(467)
-    @Story("Получение последнего подзаказа без отзыва о заказе")
+    @Story("Получение последнего подзаказа для отзыва")
     @Test(groups = {"api-instamart-regress"},
-            description = "Последний подзаказ без оценки но старше 7 дней")
+            description = "Получение последнего подзаказа для отзыва - Последний подзаказ без оценки но старше 7 дней")
     public void lastSuborderWithoutEvaluationButOlderThan7Days() {
         createSessionToken(SessionType.API_V2, SessionProvider.FB, getDefaultApiUser());
         final Response response = ReviewableShipmentV2Request.GET();
@@ -50,11 +54,45 @@ public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
     @Story("Создание отзыва о заказе")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Создание отзыва о заказе с несуществующим номером")
-    public void test(){
+    public void shipmentsReviewsForNonexistentOrder(){
         ShipmentsV2Request.Review review = ShipmentsV2Request.Review.builder()
                 .rate(5)
                 .build();
         final Response response = ShipmentsV2Request.Reviews.POST("failed920934723904", review);
+        checkStatusCode404(response);
+        checkError(response, "Доставка не существует");
+    }
+
+    @CaseId(1166)
+    @Story("Получение последнего подзаказа для отзыва")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Получение последнего подзаказа для отзыва без авторизации")
+    public void getReviewsWithoutAuth(){
+        SessionFactory.clearSession(SessionType.API_V2);
+        final Response response = ReviewableShipmentV2Request.GET();
+        checkStatusCode401(response);
+        checkError(response, "Ключ доступа невалиден или отсутствует");
+    }
+
+    @CaseId(1174)
+    @Story("Закрытие окна заказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Закрытие окна заказа для недоставленного заказа")
+    public void closeReviewableWindowForNotShippedOrder() {
+        SessionFactory.makeSession(SessionType.API_V2);
+        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        final Response response = ShipmentsV2Request.ReviewWindowClose.PUT(apiV2.getShipmentsNumber());
+        checkStatusCode422(response);
+        ErrorResponse error = response.as(ErrorResponse.class);
+        compareTwoObjects(error.getErrorMessages().get(0).getMessage(), "Оценка доступна только для доставленных заказов");
+    }
+
+    @CaseId(1163)
+    @Story("Закрытие окна заказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Закрытие окна заказа для несуществующего заказа")
+    public void closeReviewableWindowForNonexistentOrder() {
+        final Response response = ShipmentsV2Request.ReviewWindowClose.PUT("failedShipmentNumber");
         checkStatusCode404(response);
         checkError(response, "Доставка не существует");
     }

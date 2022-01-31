@@ -14,7 +14,7 @@ public enum QaService {
     private final Api api;
 
     QaService() {
-        this.api = new Api(new Setting(EnvironmentProperties.Env.QA_FULL_URL, CoreProperties.DEFAULT_TIMEOUT));
+        this.api = new Api(new Setting(EnvironmentProperties.Env.QA_FULL_URL, CoreProperties.DEFAULT_QA_SERVICE_TIMEOUT));
     }
 
     /**

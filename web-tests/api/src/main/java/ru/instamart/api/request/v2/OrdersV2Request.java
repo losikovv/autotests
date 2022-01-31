@@ -363,6 +363,15 @@ public final class OrdersV2Request extends ApiV2RequestBase {
         }
     }
 
+    public static class ReviewIssues {
+
+        @Step("{method} /" + ApiV2EndPoints.Orders.REVIEW_ISSUES)
+        public static Response GET(String orderNumber) {
+            return givenWithAuth()
+                    .get(ApiV2EndPoints.Orders.REVIEW_ISSUES, orderNumber);
+        }
+    }
+
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @AllArgsConstructor

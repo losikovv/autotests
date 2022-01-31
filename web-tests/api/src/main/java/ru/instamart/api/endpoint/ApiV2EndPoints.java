@@ -124,6 +124,7 @@ public final class ApiV2EndPoints {
         public static final String PROMOTIONS = "v2/orders/{orderNumber}/promotions";
         public static final String PROMOTION_CODE = "v2/orders/{orderNumber}/promotions/{promoCode}";
         public static final String PROMOTION_LIMITS = "v2/orders/{orderNumber}/promotion_limits";
+        public static final String REVIEW_ISSUES = "v2/orders/{orderNumber}/review_issues";
         public static final String SHIPMENTS = "v2/orders/{orderNumber}/shipments";
         public static final String SHIP_ADDRESS = "v2/orders/{orderNumber}/ship_address";
         public static final String SHIP_ADDRESS_CHANGE = "v2/orders/{orderNumber}/ship_address_change";
@@ -207,6 +208,7 @@ public final class ApiV2EndPoints {
         public static final String MERGE = "v2/shipments/{shipmentNumber}/merge";
         public static final String REVIEWS = "v2/shipments/{shipmentNumber}/reviews";
         public static final String REVIEW_ISSUES = "v2/shipments/{shipmentNumber}/review_issues";
+        public static final String REVIEW_WINDOW_CLOSE = "v2/shipments/{shipmentNumber}/review_window_close";
         public static final String SERVICE_RATE = "v2/shipments/{shipmentNumber}/service_rate?{deliveryWindowId}";
         public static final String SHIPMENTS = "v2/shipments/{shipmentNumber}";
         public static final String SHIPPING_RATES = "v2/shipments/{shipmentNumber}/shipping_rates?{date}";
