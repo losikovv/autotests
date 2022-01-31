@@ -34,7 +34,7 @@ public final class UserData {
     public String getFirstName() {
         if (isNull(name)) return "FirstName";
 
-        final String[] fullName = name.split(" ",2);
+        final String[] fullName = name.split(" ", 2);
 
         return fullName.length >= 1 ? fullName[0] : "FirstName";
     }
@@ -42,7 +42,7 @@ public final class UserData {
     public String getLastName() {
         if (isNull(name)) return "LastName";
 
-        final String[] fullName = name.split(" ",2);
+        final String[] fullName = name.split(" ", 2);
 
         return fullName.length > 1 ? fullName[1] : "LastName";
     }
@@ -117,7 +117,7 @@ public final class UserData {
          * во всех остальных случаях нужна {@link CoreProperties#DEFAULT_SMS}
          */
         private String getSmsCode() {
-            if (nonNull(id) && EnvironmentProperties.Env.FULL_SITE_URL.contains("kraken")) {
+            if ((nonNull(id) && EnvironmentProperties.SERVER.equals("preprod"))) {
                 return StringUtil.getSMSCode(phone);
             } else {
                 return CoreProperties.DEFAULT_SMS;
