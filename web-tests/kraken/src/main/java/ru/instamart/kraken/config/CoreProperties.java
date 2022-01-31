@@ -25,6 +25,6 @@ public final class CoreProperties {
     @Config(configName = NAME, fieldName = "kafkaServer", defaultValue = "84.201.149.206:9094")
     public static String KAFKA_SERVER;
 
-    @Config(configName = NAME, fieldName = "defaultTimeout", defaultValue = "15")
-    public static int DEFAULT_TIMEOUT;
+    @Config(configName = NAME, fieldName = "defaultQaServiceTimeout", defaultValue = "15")
+    public static int DEFAULT_QA_SERVICE_TIMEOUT;
 }

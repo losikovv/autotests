@@ -14,8 +14,10 @@ import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v1.ShippingPoliciesV1Request;
 import ru.instamart.api.response.v2.ExternalPartnersServicesV2Response;
+import ru.instamart.api.response.v2.ReviewIssuesV2Response;
 import ru.instamart.api.response.v2.TransferMethodLossesV2Response;
 import ru.instamart.api.response.v2.TransferMethodV2Response;
+import ru.instamart.jdbc.dao.ShipmentReviewIssuesDao;
 import ru.instamart.jdbc.dao.SpreeAddressesDao;
 import ru.instamart.jdbc.dao.SpreeRetailersDao;
 import ru.instamart.jdbc.dao.SpreeUsersDao;
@@ -25,8 +27,10 @@ import ru.instamart.kraken.data.user.UserData;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 import static org.testng.Assert.assertEquals;
@@ -264,6 +268,17 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(transferMethod.getLosses().size(), 1);
         compareTwoObjects(transferMethod.getLosses().get(0).getOffers().get(0).getId(), lineItem.getProduct().getId(), softAssert);
         compareTwoObjects(transferMethod.getOrder().getNumber(), orderNumber, softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем пришедшие проблемы для отзыва и сравниваем их с БД")
+    public static void checkReviewIssuesList(Response response) {
+        checkResponseJsonSchema(response, ReviewIssuesV2Response.class);
+        List<ReviewIssueV2> reviewIssues = response.as(ReviewIssuesV2Response.class).getReviewIssues();
+        List<ReviewIssueV2> sortedReviewIssues = reviewIssues.stream().sorted(Comparator.comparing(ReviewIssueV2::getPosition)).collect(Collectors.toList());
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(reviewIssues, sortedReviewIssues, softAssert);
+        compareTwoObjects(reviewIssues.size(), ShipmentReviewIssuesDao.INSTANCE.getCount(), softAssert);
         softAssert.assertAll();
     }
 }

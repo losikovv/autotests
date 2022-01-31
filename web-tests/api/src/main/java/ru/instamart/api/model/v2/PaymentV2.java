@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 
+import javax.validation.constraints.Null;
+
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class PaymentV2 extends BaseObject {
@@ -17,6 +19,7 @@ public class PaymentV2 extends BaseObject {
     @JsonProperty(value = "is_finalization_needed")
     private Boolean isFinalizationNeeded;
 
+    @Null
     @JsonProperty(value = "finalization_url")
     private Object finalizationUrl;
 }

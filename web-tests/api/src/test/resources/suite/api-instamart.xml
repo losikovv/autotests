@@ -87,6 +87,7 @@
             <class name="ru.instamart.test.api.v2.endpoints.SessionsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.CategoriesV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.DeliveryAvailabilityV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ReviewIssuesV2Test"/>
         </classes>
     </test>
     <!-- api-v3-tests -->

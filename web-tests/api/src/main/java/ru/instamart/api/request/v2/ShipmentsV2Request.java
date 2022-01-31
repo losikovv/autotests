@@ -149,6 +149,15 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
         }
     }
 
+    public static class ReviewWindowClose {
+
+        @Step("{method} /" + ApiV2EndPoints.Shipments.REVIEW_WINDOW_CLOSE)
+        public static Response PUT(String shipmentNumber) {
+            return givenWithAuth()
+                    .put(ApiV2EndPoints.Shipments.REVIEW_WINDOW_CLOSE, shipmentNumber);
+        }
+    }
+
     public static class Clones {
 
         @Step("{method} /" + ApiV2EndPoints.Shipments.CLONES)

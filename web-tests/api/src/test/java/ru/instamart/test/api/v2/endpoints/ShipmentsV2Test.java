@@ -315,27 +315,6 @@ public class ShipmentsV2Test extends RestBase {
         checkError(response, "Доставка не существует");
     }
 
-    @CaseId(470)
-    @Story("Получение списка возможных проблем для отзыва о заказе")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
-            description = "Получение списка возможных проблем для отзыва о существующем заказе")
-    public void getListIssues200() {
-        String shipmentsNumber = apiV2.getShipmentsNumber();
-        final Response response = ShipmentsV2Request.ReviewIssues.GET(shipmentsNumber);
-        checkStatusCode200(response);
-        checkResponseJsonSchema(response, ReviewIssuesV2Response.class);
-    }
-
-    @CaseId(471)
-    @Story("Получение списка возможных проблем для отзыва о заказе")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
-            description = "Получение списка возможных проблем для отзыва о не существующем заказе")
-    public void getListIssues404() {
-        final Response response = ShipmentsV2Request.ReviewIssues.GET("failedShipmentNumber");
-        checkStatusCode404(response);
-        checkError(response, "Доставка не существует");
-    }
-
     @CaseId(298)
     @Story("Повтор подзаказа")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
