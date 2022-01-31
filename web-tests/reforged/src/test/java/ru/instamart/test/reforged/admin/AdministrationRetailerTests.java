@@ -137,7 +137,7 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().clickOnPlusForRetailer("METRO");
         retailers().clickOnStore("тест-352519385 (17)");
 
-        retailers().checkDateSortCorrect();
+        retailers().checkStoreSortViaCreationDateCorrect();
     }
 
     @CaseId(558)
@@ -155,5 +155,78 @@ public final class AdministrationRetailerTests extends BaseTest {
 
         store().checkBackToStoresListButtonVisible();
         store().checkAddressCorrect("Москва, просп. Мира, 211, стр. 1");
+    }
+
+    @CaseId(532)
+    @Story("Страница ретейлеров")
+    @Test(description = "Поиск ретейлера", groups = {"acceptance", "regression"})
+    public void retailerSearch() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        retailers().goToPage();
+        retailers().checkAddNewRetailerButtonVisible();
+
+        retailers().clickOnRetailerSearchElement();
+        retailers().checkOptionsInSearchVisible();
+
+        retailers().clickOnRetailerSearchElement();
+        retailers().searchRetailerFill("METRO");
+        retailers().clickOnFirstRetailerInSearchSuggest();
+
+        retailers().checkRetailerLabelInSearchFieldVisible("METRO");
+        retailers().checkRetailerSearchCorrect("METRO");
+    }
+
+    @CaseId(533)
+    @Story("Страница ретейлеров")
+    @Test(description = "Сортировка по названию", groups = {"acceptance", "regression"})
+    public void retailerSortViaName() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        retailers().goToPage();
+        retailers().checkAddNewRetailerButtonVisible();
+
+        retailers().clickOnSortViaName();
+        retailers().checkSpinnerVisible();
+        retailers().checkSpinnerNotVisible();
+
+        retailers().checkSortViaNameAscEnabled();
+        retailers().checkSortViaNameAsc();
+
+        retailers().clickOnSortViaName();
+        retailers().checkSpinnerVisible();
+        retailers().checkSpinnerNotVisible();
+
+        retailers().checkSortViaNameDescEnabled();
+        retailers().checkSortViaNameDesc();
+        retailers().assertAll();
+    }
+
+    @CaseId(557)
+    @Story("Страница ретейлеров")
+    @Test(description = "Сортировка по дате создания", groups = {"acceptance", "regression"})
+    public void retailerSortViaDate() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        retailers().goToPage();
+        retailers().checkAddNewRetailerButtonVisible();
+
+        retailers().clickOnSortViaCreationDate();
+        retailers().checkSpinnerVisible();
+        retailers().checkSpinnerNotVisible();
+
+        retailers().checkSortViaCreationDateAscEnabled();
+        retailers().checkSortViaCreationDateAsc();
+
+        retailers().clickOnSortViaCreationDate();
+        retailers().checkSpinnerVisible();
+        retailers().checkSpinnerNotVisible();
+
+        retailers().checkSortViaCreationDateDescEnabled();
+        retailers().checkSortViaCreationDateDesc();
+        retailers().assertAll();
     }
 }

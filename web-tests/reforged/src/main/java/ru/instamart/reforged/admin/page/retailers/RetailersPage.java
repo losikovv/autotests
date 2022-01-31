@@ -20,6 +20,31 @@ public final class RetailersPage implements AdminPage, RetailersPageCheck {
         retailerPlusIconInTable.click(retailer);
     }
 
+    @Step("Ввести название ретейлера '{0}' в поиск")
+    public void searchRetailerFill(final String retailer) {
+        retailerSearchInput.fillField(retailer);
+    }
+
+    @Step("Кликнуть на поиск ретейлера")
+    public void clickOnRetailerSearchElement() {
+        retailerSearchElement.click();
+    }
+
+    @Step("Кликнуть на сортировку ретейлеров по имени")
+    public void clickOnSortViaName() {
+        sortRetailersViaNameInTable.click();
+    }
+
+    @Step("Кликнуть на сортировку ретейлеров по дате создания")
+    public void clickOnSortViaCreationDate() {
+        sortRetailersViaCreationDateInTable.click();
+    }
+
+    @Step("Выбрать первый ретейлер из подсказок результатов поиска")
+    public void clickOnFirstRetailerInSearchSuggest() {
+        retailerSearchOptions.clickOnFirst();
+    }
+
     @Step("Нажать на магазин {0}")
     public void clickOnStore(final String store) {
         storesInTable.clickOnElementWithText(store);
