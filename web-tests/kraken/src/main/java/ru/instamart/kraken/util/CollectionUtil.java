@@ -74,4 +74,14 @@ public final class CollectionUtil {
     public static <K> List<K> reverseListOrder(List<K> list) {
         return list.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList());
     }
+
+    // Сортировка списка в прямом порядке регистронезависимо
+    public static <K> List<K> sortListCaseInsensitive(List<K> list) {
+        return list.stream().sorted((Comparator<? super K>) String.CASE_INSENSITIVE_ORDER).collect(Collectors.toList());
+    }
+
+    // Сортировка списка в обратном порядке регистронезависимо
+    public static <K> List<K> reverseListOrderCaseInsensitive(List<K> list) {
+        return list.stream().sorted((Comparator<? super K>) Collections.reverseOrder(String.CASE_INSENSITIVE_ORDER)).collect(Collectors.toList());
+    }
 }
