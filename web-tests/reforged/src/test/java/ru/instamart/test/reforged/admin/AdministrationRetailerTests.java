@@ -249,14 +249,15 @@ public final class AdministrationRetailerTests extends BaseTest {
 
         retailers().checkPageContains("?sortKey=created_at&sortOrder=ascend");
 
-        retailers().refresh();
+        retailers().goToPage();
+        retailers().checkAddNewRetailerButtonVisible();
 
+        retailers().openAdminPage("retailers?sortKey=created_at&sortOrder=ascend");
         retailers().checkAddNewRetailerButtonVisible();
 
         retailers().checkSortViaCreationDateAscEnabled();
         retailers().checkSortViaCreationDateAsc();
 
-        retailers().checkPageContains("?sortKey=created_at&sortOrder=ascend");
         retailers().assertAll();
     }
 
