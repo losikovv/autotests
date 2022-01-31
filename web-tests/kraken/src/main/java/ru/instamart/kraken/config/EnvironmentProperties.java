@@ -84,7 +84,9 @@ public final class EnvironmentProperties {
 
             if (nonNull(customBasicUrl) && !customBasicUrl.isBlank()) {
                 customBasicUrl = getDomainName(customBasicUrl);
-                SERVER = customBasicUrl.contains("kraken") ? Server.PREPROD.name() : customBasicUrl.contains("k-stage") ? Server.STAGING.name() : Server.PRODUCTION.name();
+                SERVER = customBasicUrl.contains("kraken")
+                        ? Server.PREPROD.name().toLowerCase() : customBasicUrl.contains("k-stage")
+                        ? Server.STAGING.name().toLowerCase() : Server.PRODUCTION.name().toLowerCase();
                 BASIC_URL = customBasicUrl;
                 STAGE = BASIC_URL.replace("stf-", "").replace(".k-stage.sbermarket.tech", "");
                 DB_URL = DB_URL.replace("kraken", STAGE);
