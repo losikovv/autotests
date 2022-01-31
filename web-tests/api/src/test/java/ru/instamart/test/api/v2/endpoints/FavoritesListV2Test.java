@@ -3,9 +3,6 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.data.user.UserManager;
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -18,6 +15,7 @@ import ru.instamart.api.response.v2.FavoritesItemV2Response;
 import ru.instamart.api.response.v2.FavoritesListItemsV2Response;
 import ru.instamart.api.response.v2.FavoritesSkuListItemV2Response;
 import ru.instamart.api.response.v2.ProductSkuV2Response;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;

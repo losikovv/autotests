@@ -372,7 +372,7 @@ public final class UserManager {
         final String userName = Generate.testUserName(role);
         final QaSessionResponse sessionResponse = QaService.INSTANCE.createSession(password);
 
-        Assert.assertNotNull(sessionResponse, "Ответ от QA сервиса не вернулся");
+        Assert.assertNotNull(sessionResponse.getSession(), "Ответ от QA сервиса не вернулся");
 
         log.debug("Сгенерированы тестовые реквизиты для роли {}", role);
         log.debug("Телефон: {}", sessionResponse.getUser().getPhone());
