@@ -63,9 +63,13 @@ public final class UserAuthorisationTests extends BaseTest {
         checkout().checkCheckoutButtonIsVisible();
     }
 
+    /**
+     * Тест с авторизацией через FB падает из-за того,
+     * что FB забанил наш ip из-за частых запросов, пока непонятно что делать, кроме как делать мок-сервер
+     */
     @CaseId(1459)
     @Story("Авторизация через Facebook")
-    @Test(description = "Тест успешной авторизация через Facebook", groups = {"smoke", "regression"})
+    @Test(enabled = false, description = "Тест успешной авторизация через Facebook", groups = {"smoke", "regression"})
     public void successRegWithFacebook() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
