@@ -40,4 +40,6 @@ public interface RetailersPageElements {
     Element sortRetailersViaCreationDateDesc = new Element(By.xpath("//span[text()='Дата создания']/ancestor::div[@class='ant-table-column-sorters']//span[contains(@class, 'sorter-down active')]"), "Иконка сортировки по дате создания ретейлеров в таблице DESC");
 
     Element spinner = new Element(By.xpath("//div[@class='ant-spin ant-spin-spinning']"), "Спиннер");
+
+    Element addNewStoreForRetailer = new Element(ByKraken.xpath("//span[text()='%s']/ancestor::tr[contains(@class,'level-0')]//a[contains(@href, 'new')]"), "Кнопка 'Добавить магазин' у определенного ретейлера");
 }
