@@ -38,6 +38,8 @@
             <class name="ru.instamart.test.api.v1.endpoints.LineItemsV1Test"/>
             <class name="ru.instamart.test.api.v1.endpoints.PhoneConfirmationsV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.ShoppingContextV1Tests"/>
+            <class name="ru.instamart.test.api.admin_api.MainNavigationV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.UserPermissionsV1Test"/>
         </classes>
     </test>
     <!-- api-v2-tests -->
@@ -122,6 +124,7 @@
             <class name="ru.instamart.test.api.admin.ManufacturersTest"/>
             <class name="ru.instamart.test.api.admin.PagesAdminTest"/>
             <class name="ru.instamart.test.api.admin.StoresAdminTest"/>
+            <class name="ru.instamart.test.api.admin.GeneralSettingsAdminTest"/>
         </classes>
     </test>
 

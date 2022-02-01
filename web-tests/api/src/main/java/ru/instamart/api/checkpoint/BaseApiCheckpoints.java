@@ -77,6 +77,20 @@ public class BaseApiCheckpoints {
     }
 
     /**
+     * Проверяет любые объекты на null, также реалзиована дополнительная проверка на наличие содержимого для String и List
+     */
+    @Step("Проверяем, что поле {fieldName} не пустое")
+    public static <T> void checkFieldIsNotEmpty(T field, String fieldName, SoftAssert softAssert) {
+        softAssert.assertNotNull(field, String.format("Поле %s равно null", fieldName));
+        if (field instanceof String) {
+            softAssert.assertFalse(field.toString().isBlank(), String.format("Поле %s пришло пустым", fieldName));
+        } else if (field instanceof Collection) {
+            Collection<?> collection = (Collection<?>) field;
+            softAssert.assertFalse(collection.isEmpty(), String.format("Коллекция %s пришла пустой", fieldName));
+        }
+    }
+
+    /**
      * Проверяет, что два объекта совпадают, используя soft assertion
      */
     @Step("Проверяем, что два объекта совпадают")
