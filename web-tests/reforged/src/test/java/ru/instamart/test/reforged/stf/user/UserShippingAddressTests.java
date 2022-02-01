@@ -8,11 +8,13 @@ import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Addresses;
+import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -21,10 +23,10 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Адрес доставки")
 public final class UserShippingAddressTests extends BaseTest {
 
+    private final ApiHelper helper = new ApiHelper();
     private final String defaultAddress = Addresses.Moscow.defaultAddress();
     private final String testAddress = Addresses.Moscow.testAddress();
     private final String outOfZoneAddress = Addresses.Moscow.outOfZoneAddress();
-    private final ApiHelper helper = new ApiHelper();
 
     @CaseId(1558)
     @Story("Дефолтные настройки адреса доставки")
@@ -173,20 +175,16 @@ public final class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().interactAddress().clickOnSave();
         shop().interactHeader().interactAddress().clickToChangeAddress();
         shop().interactHeader().interactAddress().checkYmapsReady();
-        shop().interactHeader().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactHeader().interactAddress().fillAddress(defaultAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
-        shop().interactHeader().checkIsSetAddressEqualToInput(
-                Addresses.Moscow.defaultAddress(),
-                shop().interactHeader().getShippingAddressFromHeader()
-        );
+        shop().interactHeader().checkIsSetAddressEqualToInput(defaultAddress, shop().interactHeader().getShippingAddressFromHeader());
     }
 
     //Какие то непонятки с адресами
-    @Skip
     @CaseId(35)
     @Story("Сохранение и изменение адреса доставки")
-    @Test(description = "Тест изменения адреса на предыдущий из списка адресной модалки", groups = "regression")
+    @Test(enabled = false, description = "Тест изменения адреса на предыдущий из списка адресной модалки", groups = "regression")
     public void successChangeShippingAddressToRecent() {
         final var user = UserManager.getQaUser();
         this.helper.makeAndCancelOrder(user, EnvironmentProperties.DEFAULT_SID, 1);
@@ -220,6 +218,7 @@ public final class UserShippingAddressTests extends BaseTest {
         shop().checkSnippet();
     }
 
+    @CaseIDs({@CaseId(2568), @CaseId(2570)})
     @CaseId(2570)
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Адрес сохраняется при регистрации нового пользователя", groups = "regression")
@@ -232,6 +231,8 @@ public final class UserShippingAddressTests extends BaseTest {
         home().interactAddressModal().clickFindStores();
         home().clickToFirstRetailer();
         shop().interactHeader().checkEnteredAddressIsVisible();
+        shop().interactHeader().checkIsSetAddressEqualToInput(defaultAddress,
+                shop().interactHeader().getShippingAddressFromHeader());
 
         //TODO: Костыль из-за бейсика
         shop().goToPage(ShopUrl.AUCHAN);
@@ -254,7 +255,7 @@ public final class UserShippingAddressTests extends BaseTest {
 
         shop().interactHeader().clickToSelectAddressFirstTime();
         shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().fillAddress(defaultAddress);
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().clickOnSave();
         shop().interactHeader().checkLoginIsVisible();
@@ -264,18 +265,70 @@ public final class UserShippingAddressTests extends BaseTest {
 
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.testAddress());
+        shop().interactAddress().fillAddress(testAddress);
         shop().interactAddress().selectFirstAddress();
         shop().interactAddress().clickOnSave();
         shop().interactHeader().checkLoginIsVisible();
         shop().checkPageContains("metro?sid=12");
     }
 
+    @CaseIDs({@CaseId(2576), @CaseId(2574)})
+    @Story("Сохранение и изменение адреса доставки")
+    @Test(description = "Сохранение адреса за пользователем при оформлении заказа", groups = "regression")
+    public void saveAddressForNextOrder() {
+        final var addressData = TestVariables.testAddressData();
+        final var userData = UserManager.getQaUser();
+        this.helper.makeAndCancelOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
+        this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+
+        shop().goToPage();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().checkModalIsVisible();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        checkout().goToPage();
+        checkout().setDeliveryOptions().clickToForSelf();
+
+        checkout().setDeliveryOptions().fillApartment(addressData.getApartment());
+        checkout().setDeliveryOptions().fillFloor(addressData.getFloor());
+        checkout().setDeliveryOptions().fillEntrance(addressData.getEntrance());
+        checkout().setDeliveryOptions().fillDoorPhone(addressData.getDomofon());
+        checkout().setDeliveryOptions().fillComments(addressData.getComments());
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+
+        checkout().setContacts().fillContactInfo();
+        checkout().setContacts().clickToSubmit();
+
+        checkout().setReplacementPolicy().clickToSubmit();
+
+        checkout().setSlot().setFirstActiveSlot();
+
+        checkout().setPayment().clickToByCardToCourier();
+
+        checkout().setPayment().clickToSubmitFromCheckoutColumn();
+
+        userShipments().checkPageContains(userShipments().pageUrl());
+
+        helper.dropAndFillCartWithoutSetAddress(userData, EnvironmentProperties.DEFAULT_SID);
+
+        checkout().goToPage();
+        checkout().setDeliveryOptions().clickToForSelf();
+
+        checkout().setDeliveryOptions().checkApartmentValue(checkout().setDeliveryOptions().getApartmentValue(), addressData.getApartment());
+        checkout().setDeliveryOptions().checkFloorValue(checkout().setDeliveryOptions().getFloorValue(), addressData.getFloor());
+        checkout().setDeliveryOptions().checkEntranceValue(checkout().setDeliveryOptions().getEntranceValue(), addressData.getEntrance());
+        checkout().setDeliveryOptions().checkDoorPhoneValue(checkout().setDeliveryOptions().getDoorPhoneValue(), addressData.getDomofon());
+        checkout().setDeliveryOptions().checkCommentsValue(checkout().setDeliveryOptions().getCommentsValue(), addressData.getComments());
+        checkout().assertAll();
+    }
+
     @CaseId(2575)
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Сохранение нескольких адресов за пользователем при оформлении заказа", groups = "regression")
     public void testSuccessFewAddressesOnCheckout() {
-        var userData = UserManager.getQaUser();
+        final var userData = UserManager.getQaUser();
         this.helper.makeAndCancelOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
         this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
         this.helper.setAddress(userData, RestAddresses.Chelyabinsk.defaultAddress());
@@ -318,6 +371,85 @@ public final class UserShippingAddressTests extends BaseTest {
         );
     }
 
+    @CaseId(2577)
+    @Story("Сохранение и изменение адреса доставки")
+    @Test(description = "Редактирование параметров сохраненного адреса", groups = "regression")
+    public void editSavedParamsAddressOnCheckoutPage() {
+        final var addressData = TestVariables.testAddressData();
+        final var addressChangeData = TestVariables.testChangeAddressData();
+        final var userData = UserManager.getQaUser();
+        this.helper.makeAndCancelOrder(userData, EnvironmentProperties.DEFAULT_SID, 2);
+        this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+
+        shop().goToPage();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().checkModalIsVisible();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        checkout().goToPage();
+        checkout().setDeliveryOptions().clickToForSelf();
+
+        checkout().setDeliveryOptions().fillApartment(addressData.getApartment());
+        checkout().setDeliveryOptions().fillFloor(addressData.getFloor());
+        checkout().setDeliveryOptions().fillEntrance(addressData.getEntrance());
+        checkout().setDeliveryOptions().fillDoorPhone(addressData.getDomofon());
+        checkout().setDeliveryOptions().fillComments(addressData.getComments());
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+
+        checkout().setContacts().fillContactInfo();
+        checkout().setContacts().clickToSubmit();
+
+        checkout().setReplacementPolicy().clickToSubmit();
+
+        checkout().setSlot().setFirstActiveSlot();
+
+        checkout().setPayment().clickToByCardToCourier();
+
+        checkout().setPayment().clickToSubmitFromCheckoutColumn();
+
+        userShipments().checkPageContains(userShipments().pageUrl());
+
+        this.helper.dropAndFillCartWithoutSetAddress(userData, EnvironmentProperties.DEFAULT_SID);
+
+        checkout().goToPage();
+        checkout().setDeliveryOptions().clickToForSelf();
+
+        checkout().setDeliveryOptions().fillApartment(addressChangeData.getApartment());
+        checkout().setDeliveryOptions().fillFloor(addressChangeData.getFloor());
+        checkout().setDeliveryOptions().fillEntrance(addressChangeData.getEntrance());
+        checkout().setDeliveryOptions().fillDoorPhone(addressChangeData.getDomofon());
+        checkout().setDeliveryOptions().fillComments(addressChangeData.getComments());
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+
+        checkout().setContacts().fillContactInfo();
+        checkout().setContacts().clickToSubmit();
+
+        checkout().setReplacementPolicy().clickToSubmit();
+
+        checkout().setSlot().setFirstActiveSlot();
+
+        checkout().setPayment().clickToByCardToCourier();
+
+        checkout().setPayment().clickToSubmitFromCheckoutColumn();
+
+        userShipments().checkPageContains(userShipments().pageUrl());
+
+        this.helper.dropAndFillCartWithoutSetAddress(userData, EnvironmentProperties.DEFAULT_SID);
+
+        checkout().goToPage();
+        checkout().setDeliveryOptions().clickToForSelf();
+
+        checkout().setDeliveryOptions().checkApartmentValue(checkout().setDeliveryOptions().getApartmentValue(), addressChangeData.getApartment());
+        checkout().setDeliveryOptions().checkFloorValue(checkout().setDeliveryOptions().getFloorValue(), addressChangeData.getFloor());
+        checkout().setDeliveryOptions().checkEntranceValue(checkout().setDeliveryOptions().getEntranceValue(), addressChangeData.getEntrance());
+        checkout().setDeliveryOptions().checkDoorPhoneValue(checkout().setDeliveryOptions().getDoorPhoneValue(), addressChangeData.getDomofon());
+        checkout().setDeliveryOptions().checkCommentsValue(checkout().setDeliveryOptions().getCommentsValue(), addressChangeData.getComments());
+        checkout().assertAll();
+    }
+
+    @CaseId(1568)
     @Test(description = "Тест на успешный выбор нового магазина в модалке феникса, после изменения адреса доставки", groups = "regression")
     public void successSelectNewStoreAfterShipAddressChange() {
         shop().goToPage(ShopUrl.VKUSVILL);
@@ -329,5 +461,68 @@ public final class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().interactStoreSelector().clickToStoreCard();
         shop().plusFirstItemToCart();
         shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsNotOpen();
+    }
+
+    @CaseId(2569)
+    @Test(description = "Ввод адреса доступен в каталоге магазина (новый пользователь)", groups = "regression")
+    public void successSelectAddressAfterRegistration() {
+        final var userData = UserManager.getQaUser();
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().clickToSelectAddressFirstTime();
+        shop().interactHeader().interactAddress().checkYmapsReady();
+        shop().interactHeader().interactAddress().fillAddress(defaultAddress);
+        shop().interactHeader().interactAddress().selectFirstAddress();
+        shop().interactHeader().interactAddress().clickOnSave();
+        shop().interactHeader().checkIsSetAddressEqualToInput(
+                defaultAddress,
+                shop().interactHeader().getShippingAddressFromHeader()
+        );
+    }
+
+    @CaseId(2571)
+    @Test(description = "Адрес и магазин сохраняется при авторизации пользователя с ранее выбранным другим адресом и магазином", groups = "regression")
+    public void saveAddressAfterAuth() {
+        final var userData = UserManager.getQaUser();
+        helper.setAddress(userData, RestAddresses.Ekaterinburg.defaultAddress());
+
+        shop().goToPage();
+        shop().interactHeader().clickToSelectAddressFirstTime();
+        shop().interactHeader().interactAddress().checkYmapsReady();
+        shop().interactHeader().interactAddress().fillAddress(defaultAddress);
+        shop().interactHeader().interactAddress().selectFirstAddress();
+        shop().interactHeader().interactAddress().clickOnSave();
+        shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
+
+        //TODO: Костыль из-за бейсика
+        shop().goToPage(ShopUrl.METRO);
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().interactHeader().checkIsSetAddressEqualToInput(
+                defaultAddress,
+                shop().interactHeader().getShippingAddressFromHeader()
+        );
+    }
+
+    @CaseId(2572)
+    @Test(description = "Выбранный адрес не попадает в зону доставки ритейлера", groups = "regression")
+    public void selectedAddressIsOutOfDeliveryRange() {
+        shop().goToPage();
+        shop().interactHeader().clickToSelectAddressFirstTime();
+        shop().interactHeader().interactAddress().checkYmapsReady();
+        shop().interactHeader().interactAddress().fillAddress("Мытищи, Лётная улица, 17");
+        shop().interactHeader().interactAddress().selectFirstAddress();
+        shop().interactHeader().interactAddress().clickOnSave();
+        shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
+
+        shop().goToPage(ShopUrl.VKUSVILL);
+        shop().plusFirstItemToCart();
+        shop().interactStoreModal().checkStoreModalIsOpen();
     }
 }

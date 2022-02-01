@@ -1,11 +1,9 @@
 package ru.instamart.reforged.stf.frame.address;
 
 import io.qameta.allure.Step;
-import lombok.SneakyThrows;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.stf.drawer.store_selector.StoreSelector;
 import ru.instamart.reforged.stf.frame.Close;
+import ru.instamart.reforged.stf.frame.store_selector.StoreSelector;
 
 import static ru.instamart.reforged.stf.block.header.HeaderElement.searchButton;
 import static ru.instamart.reforged.stf.block.header.HeaderElement.storeSelectorDrawer;

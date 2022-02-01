@@ -1,4 +1,4 @@
-package ru.instamart.reforged.stf.drawer.store_selector;
+package ru.instamart.reforged.stf.frame.store_selector;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
@@ -6,7 +6,6 @@ import ru.instamart.reforged.core.Check;
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface StoreSelectorCheck extends Check, StoreSelectorElement {
-
 
     @Step("Проверяем, что окно выбора магазина открыто")
     default void checkStoreSelectorFrameIsOpen() {

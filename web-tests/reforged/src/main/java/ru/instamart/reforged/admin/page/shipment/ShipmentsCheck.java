@@ -1,6 +1,7 @@
 package ru.instamart.reforged.admin.page.shipment;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 
@@ -79,8 +80,7 @@ public interface ShipmentsCheck extends Check, ShipmentsElement {
 
     @Step("Проверяем, что количество заказов до фильтрации: {0}, отличается от количества заказов после фильтрации: {1}")
     default void checkNumberOfShipmentsAfterFiltration(final String beforeFiltration, final String afterFiltration) {
-        krakenAssert.assertNotEquals(beforeFiltration, afterFiltration,
+        Assert.assertNotEquals(beforeFiltration, afterFiltration,
                 "после применения фильтра количество заказов не изменилось");
-        krakenAssert.assertAll();
     }
 }

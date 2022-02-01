@@ -3,14 +3,13 @@ package ru.instamart.test.reforged.stf.user;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
-import ru.instamart.kraken.listener.Skip;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.checkout;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
@@ -129,10 +128,10 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
-    @Skip
+    //Нет учетки для SberID
     @CaseId(1461)
     @Story("Авторизация через SberID")
-    @Test(description = "Тест успешной авторизация через Sber ID", groups = {"smoke", "regression"})
+    @Test(enabled = false, description = "Тест успешной авторизация через Sber ID", groups = {"smoke", "regression"})
     public void successRegWithSberID() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

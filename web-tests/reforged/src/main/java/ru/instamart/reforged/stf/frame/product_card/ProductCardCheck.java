@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.frame.product_card;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 import ru.instamart.reforged.core.Kraken;
 
@@ -100,13 +101,11 @@ public interface ProductCardCheck extends Check, ProductCardElement {
 
     @Step("Проверяем соответствие цены товара в карточке: {0} и сниппете: {1}")
     default void checkFullPrice(final String cardPrice, final String snippetPrice) {
-        krakenAssert.assertEquals(cardPrice, snippetPrice, "отображаемая цена товара в карточке не соответствует цене товара в сниппете");
-        krakenAssert.assertAll();
+        Assert.assertEquals(cardPrice, snippetPrice, "отображаемая цена товара в карточке не соответствует цене товара в сниппете");
     }
 
     @Step("Проверяем соотвествие цены товара со скидкой в карточке: {0} и сниппете: {1}")
     default void checkDiscountPrice(final String cardPriceWithDiscount, final String snippetPriceWithDiscount) {
-        krakenAssert.assertEquals(cardPriceWithDiscount, snippetPriceWithDiscount, "отображаемая цена товара со скидкой в карточке не соответствует цене товара со скидкой в сниппете");
-        krakenAssert.assertAll();
+        Assert.assertEquals(cardPriceWithDiscount, snippetPriceWithDiscount, "отображаемая цена товара со скидкой в карточке не соответствует цене товара со скидкой в сниппете");
     }
 }

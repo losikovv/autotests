@@ -7,7 +7,6 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.Generate;
-import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.test.reforged.BaseTest;
@@ -244,10 +243,9 @@ public final class ShoppingSearchTests extends BaseTest {
         search().checkFilterDisabled("Стерилизованное");
     }
 
-    @Skip
     @Issue("B2C-7775")
     @CaseId(2737)
-    @Test(description = "Отображение алкоголя в результатах поиска при неподтверждении возраста: нажатие за пределы модального окна", groups = {"regression"})
+    @Test(enabled = false, description = "Отображение алкоголя в результатах поиска при неподтверждении возраста: нажатие за пределы модального окна", groups = {"regression"})
     public void alcoholSearchModalClose() {
         shop().goToPage();
         shop().interactHeader().fillSearch("вино красное");

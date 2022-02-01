@@ -5,7 +5,7 @@ import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.reforged.core.component.*;
 import ru.instamart.reforged.stf.drawer.account_menu.AccountMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
-import ru.instamart.reforged.stf.drawer.store_selector.StoreSelector;
+import ru.instamart.reforged.stf.frame.store_selector.StoreSelector;
 import ru.instamart.reforged.stf.frame.address.Address;
 
 public interface HeaderElement {

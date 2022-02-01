@@ -2,12 +2,10 @@ package ru.instamart.test.reforged.stf.landings;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
-import ru.instamart.kraken.data.Addresses;
-import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.home;
 
@@ -16,9 +14,8 @@ import static ru.instamart.reforged.stf.page.StfRouter.home;
 public class SbermarketLandingTests extends BaseTest {
 
     //АБ по главной отключили, нужно переписать ATST-872
-    @Skip
     @CaseId(1687)
-    @Test(description = "Тест валидности и наличия элементов лендинга Сбермаркета", groups = "regression")
+    @Test(enabled = false, description = "Тест валидности и наличия элементов лендинга Сбермаркета", groups = "regression")
     public void successValidateSbermarketLanding() {
         home().goToPage();
         home().addCookie(CookieFactory.COOKIE_ALERT);
