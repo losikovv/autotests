@@ -13,10 +13,12 @@ import ru.instamart.reforged.stf.drawer.category_menu.CategoryMenu;
 import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 import ru.instamart.reforged.stf.frame.product_card.ProductCard;
+import ru.instamart.reforged.stf.frame.store_modal.StoreModal;
 
 public interface ShopElement {
 
     Header header = new Header();
+    StoreModal storeModal = new StoreModal();
     RetailRocket retailRocket = new RetailRocket();
     ProductCard productCard = new ProductCard();
     Cart cart = new Cart();

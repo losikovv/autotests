@@ -76,6 +76,19 @@ public final class ApiHelper {
         apiV2.fillCartOnSid(sid);
     }
 
+    /**
+     * Указание адреса apiV2.setAddressAttributes()
+     * перезатирает данные для пользователя который оформлял заказ и указывал параметры адреса доставки(этаж, номер квартиры и тп)
+     * что ломает некоторые кейсы
+     */
+    @Step("Наполняем корзину с помощью API без указания адреса")
+    public void dropAndFillCartWithoutSetAddress(final UserData user, final Integer sid) {
+        apiV2.auth(user);
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+        apiV2.fillCartOnSid(sid);
+    }
+
     @Step("Наполняем корзину с помощью API")
     public void dropAndFillCartMultiple(final UserData user, AddressV2 address, final Integer firstShopSid, final Integer secondShopSid) {
         apiV2.auth(user);

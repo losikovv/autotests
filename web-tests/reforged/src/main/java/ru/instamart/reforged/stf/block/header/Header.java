@@ -5,7 +5,7 @@ import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.action.JsAction;
 import ru.instamart.reforged.stf.drawer.account_menu.AccountMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
-import ru.instamart.reforged.stf.drawer.store_selector.StoreSelector;
+import ru.instamart.reforged.stf.frame.store_selector.StoreSelector;
 import ru.instamart.reforged.stf.frame.address.Address;
 
 import static ru.instamart.reforged.stf.page.StfRouter.shop;

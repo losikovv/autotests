@@ -1,4 +1,4 @@
-package ru.instamart.reforged.stf.drawer.store_selector;
+package ru.instamart.reforged.stf.frame.store_selector;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.stf.frame.Close;

@@ -12,7 +12,7 @@ public interface TestVariables {
         String companyFacebookLink = "https://www.facebook.com/sbermarket.ru/";
         String companyVkontakteLink = "https://vk.com/sbermarket_ru";
         String companyTwitterLink = "https://twitter.com/sbermarket_ru";
-        String companyInstagramLink = "https://www.instagram.com/sbermarket.ru/";
+        String companyInstagramLink = "https://www.instagram.com/sbermarket.ru";
         String companyAdjustFooterAppLink = "https://app.adjust.com/kfrpj8y";
     }
 

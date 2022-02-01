@@ -8,7 +8,6 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.listener.Skip;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -224,9 +223,8 @@ public final class ShoppingCartTests extends BaseTest {
     //TODO: Требует уточнения, сейчас если не отменить\завершить первый заказ, возможен дозаказ.
     // После успешного первого заказа, минималка не меняется, для метро
     // ATST-872
-    @Skip
     @CaseId(1578)
-    @Test(description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером", groups = "regression")
+    @Test(enabled = false, description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером", groups = "regression")
     public void successChangeMinOrderSum() {
         final UserData shoppingCartUser = UserManager.getQaUser();
         helper.dropCart(shoppingCartUser);

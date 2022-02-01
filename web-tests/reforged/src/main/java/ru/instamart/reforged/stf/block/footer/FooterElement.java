@@ -46,7 +46,7 @@ public interface FooterElement {
             "кнопка Facebook в футере");
     Button vkontakteButton = new Button(By.xpath("//footer//div[@class='footer__networks']//a[@href='" + TestVariables.CompanyParams.companyVkontakteLink + "']"),
             "кнопка Вконтакте в футере");
-    Button instagramButton = new Button(By.xpath("//footer//div[@class='footer__networks']//a[@href='" + TestVariables.CompanyParams.companyInstagramLink + "']"),
+    Button instagramButton = new Button(By.xpath("//footer//div[@class='footer__networks']//a[contains(@href,'" + TestVariables.CompanyParams.companyInstagramLink + "')]"),
             "кнопка Instagram в футере");
     Button twitterButton = new Button(By.xpath("//footer//div[@class='footer__networks']//a[@href='" + TestVariables.CompanyParams.companyTwitterLink + "']"),
             "кнопка Twitter в футере");
