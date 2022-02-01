@@ -6,6 +6,7 @@ package ru.instamart.api.endpoint;
 public final class AdminEndpoints {
 
     public static final String CITIES = "cities";
+    public static final String MANUFACTURERS = "manufacturers";
     public static final String PAGES = "pages";
     public static final String STORES = "stores";
     public static final String SHIPPING_METHODS = "shipping_methods";
@@ -20,5 +21,9 @@ public final class AdminEndpoints {
 
     public static final class Stores {
         public static final String BY_ID = "stores/{storeId}";
+    }
+
+    public static final class Manufacturers {
+        public static final String BY_ID = "manufacturers/{id}";
     }
 }
