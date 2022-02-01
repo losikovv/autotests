@@ -6,14 +6,263 @@ package shelf;
 
 option go_package = "gitlab.sbermarket.tech/paas/content/catalog/pkg/server/grpc/shelf";
 
+/**
+ * slack:
+ *    #product-hub
+ *
+ * swagger:
+ *     https://paas-content-catalog-shelf.sbmt.io/api
+ *
+ * public prod grpc uri:
+ *    paas-content-catalog-shelf.sbmt.io:443
+ *
+ * public stg grpc uri:
+ *    paas-content-catalog-shelf.gw-stage.sbmt.io:443
+ *
+ * kuber prod grpc uri:
+ *    base-product-hub.paas-content-catalog-shelf:3009
+ *
+ * description:
+ *    Фронтовый сервис catalog shelf возвращающий полки.
+ *    Предназначет для real-time нагрузки.
+ */
 service ShelfService {
+	/**
+	 * Возвращает полки по идентификатору монолитовской категории (mysql.taxons.id)
+	 * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	 *
+	 * Обязательные параметры:
+	 *    store_id - идентификатор магазина
+	 *    tenant_id - идентификатор площадки
+	 *    products_limit - кол-во продуктов в 1 полке
+	 *
+	 * Примеры:
+	 *    Вернуть полки для рутовой категории:
+	 *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "products_limit": 10}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryID
+	 *
+	 *    Вернуть полки для конкретной категории:
+	 *        grpcurl -d '{"original_category_id": "6245", "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryID
+	 *
+	 *    Вернуть полки для конкретной категории с атрибутам товаров image, brand:
+	 *        grpcurl -d '{"original_category_id": "6245", "display_attributes": [{"keys":["brand", "image"]}], "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryID
+	 *
+	 */
 	rpc GetShelfByOriginalCategoryID(GetShelfByOriginalCategoryIDRequest) returns (GetShelfByOriginalCategoryIDResponse);
+
+	/**
+	 * Возвращает полки по идентификатору монолитовской категории (mysql.taxons.id) с пагинацией
+	 * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	 *
+	 * Обязательные параметры:
+	 *    store_id - идентификатор магазина
+	 *    tenant_id - идентификатор площадки
+	 *    products_limit - кол-во продуктов в 1 полке
+	 *	  limit - кол-во полок в ответе
+	 *	  offset - сдвиг, начинать с 0
+	 *
+	 * Примеры:
+	 *    Вернуть полки для рутовой категории с пигинацией:
+	 *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "products_limit": 10, "limit": 2, "offset": 0}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryIDWithPagination
+	 *
+	 *    Вернуть полки для конкретной категории с пигинацией:
+	 *        grpcurl -d '{"original_category_id": "6245", "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10, "limit": 2, "offset": 0}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryIDWithPagination
+	 *
+	 *    Вернуть полки для конкретной категории с атрибутам товаров image, brand с пигинацией:
+	 *        grpcurl -d '{"original_category_id": "6245", "display_attributes": [{"keys":["brand", "image"]}], "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10, "limit": 2, "offset": 0}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryIDWithPagination
+	 *
+	 */
 	rpc GetShelfByOriginalCategoryIDWithPagination(GetShelfByOriginalCategoryIDWithPaginationRequest) returns (GetShelfByOriginalCategoryIDResponse);
+	
+	/**
+	 * Аналог GetShelfByOriginalCategoryID, но в качестве идентификатора категории принимает permalink ктаегории
+	 */
 	rpc GetShelfByCategoryPermalink(GetShelfByCategoryPermalinkRequest) returns (GetShelfByCategoryPermalinkResponse);
+
+	/**
+	 * Аналог GetShelfByOriginalCategoryIDWithPagination, но в качестве идентификатора категории принимает permalink ктаегории
+	 */
 	rpc GetShelfByCategoryPermalinkWithPagination(GetShelfByCategoryPermalinkWithPaginationRequest) returns (GetShelfByCategoryPermalinkResponse);
+
+	/**
+	 * PRIVATE:Удаление кеша от product-filter
+	 *
+	 * Примеры:
+	 *    Удалить кеш с пода:
+	 *        grpcurl -d '{}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.FlushCategoryFacetsCache
+	 *
+	 */
 	rpc FlushCategoryFacetsCache(Empty) returns (Empty);
+
+	/**
+	 * PRIVATE:Форсированный импорт категорий из product-hub
+	 *
+	 * Примеры:
+	 *    Обновить дерево в поде:
+	 *        grpcurl -d '{}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.UpdateCategories
+	 *
+	 */
 	rpc UpdateCategories(Empty) returns (Empty);
 }
+
+/**
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *                    Основные сущности
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
+
+/**
+ * Возможность фильтровать в выдаче атрибуты по key или flag
+ *  - фильтрация по key: {"keys":["brand", "image"]}
+ *  - фильтрация по flag: {"flags":["show_as_characteristic"]}
+ *  - фильтрация по flag+key: {"keys":["brand", "image"], "flags":["show_as_characteristic"]}
+ */
+message DisplayAttributes {
+	repeated string keys = 1; // ключи атрибутов
+	repeated string flags = 2; // флаги атрибутов
+}
+
+/**
+ * Категория
+ */
+message Category {
+	string id = 1; // идентификатор категории
+	string name = 2; // название категории
+}
+
+/**
+ * Соседнии категории полок
+ */
+message ShelfCategory {
+	string id = 1; // идентификатор категории
+	string name = 2; // название категории
+	bool has_children = 3; // есть ли дочернии категории
+	string permalink = 4; // пермалинк
+	string original_category_id = 5; // идентификатор монолитовской категории (mysql.taxon.if)
+}
+
+/**
+ * Экземпляр полки
+ */
+message Shelf {
+	string category_id = 1; // идентификатор категории
+	string category_name = 2; // название категории
+	string category_permalink = 3; // пермалинк категории
+	int64 product_count = 4; // кол-во продуктов в категории
+	repeated Product products = 5; // продукты
+}
+
+/**
+ * Статус любой сущности
+ */
+enum Status {
+	DISABLE = 0; // сущность не активна
+	ENABLE = 1; // сущность активна
+}
+
+/**
+ * Тип атрибута (message Attribute) или data атрибута (message Data)
+ */
+enum ValueType {
+	STRING = 0; // строка
+	INTEGER = 1; // число
+	DOUBLE = 2; // число с точкой
+	BOOL = 3; // флаг
+	DATETIME = 4; // время в формате ISO-8601 (YYYY-MM-DDThh:mm:ss)
+	IMAGE = 5; // uri на картинку в s3
+}
+
+/**
+ * Тип цены товарного предложения
+ */
+enum Pricer {
+	PER_ITEM = 0;  // за штуку
+	PER_ITEMS_PACKAGE = 1;  // за упаковку
+	PER_WEIGHT_PACKAGE = 2;  // весовой фасованный
+	PER_WEIGHT = 3;  // весовой, не фасованный
+}
+
+/**
+ * Дата атрибут.
+ * Используется для описания атрибутов сущностей Stock, Price, Offer.
+ * Так же используется для доп. описания сущностей Attribute, Dictionary, DictionaryValue
+ */
+message Data {
+	string key = 1; // уникальный ключ атрибута
+	ValueType type = 2; // тип атрибута, см. ValueType
+	bool is_multi_value = 3; // флаг означающий 1 или n значений будет в values
+	repeated string values = 4; // значения атрибута
+}
+
+/**
+ * Атрибута описания
+ */
+message Attribute {
+	string key = 1; // уникальный ключ атрибута описания, по ним можно фильтровать при запросе через display_attributes
+	string name = 2; // название атрибута
+	string dictionary_key = 3; // уникальный ключ словаря (если атрибут словарный)
+	ValueType type = 4; // тип атрибута, см. ValueType
+	bool is_multi_value = 5; // флаг означающий 1 или n значений будет в values
+	map<string, bool> flags = 6; // флаги атрибута, по ним можно фильтровать при запросе через display_attributes
+	repeated Data attribute_data = 7; // доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	repeated AttributeValue values = 8; // значения атриута
+}
+
+/**
+ * Значения атрибута
+ */
+message AttributeValue {
+	string value = 1; // значение атрибута
+	repeated Data value_data = 2; // доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+}
+
+/**
+ * Продукт
+ */
+message Product {
+	int64 sku = 1; // идентификатор описания
+	string name = 2; // название
+	repeated Category categories = 3; // категории продукта
+	repeated Attribute attributes = 4; // атрибуты продукта
+	Stock stock = 5; // остатки
+	Price price = 6; // цена
+	Offer offer = 7; // товарное предложение
+	Status status = 8; // статус сущности
+}
+
+/**
+ * Остатки
+ */
+message Stock {
+	double stock = 1; // остаток
+	repeated Data stock_data = 2; // доп. данные остатка. подробнее https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	Status status = 3; // статус сущности
+}
+
+/**
+ * Цена
+ */
+message Price {
+	double price = 1; // оригинальная цена за единицу товара со всеми скидками
+	repeated Data price_data = 2; // доп. данные цены. подробнее https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	Status status = 3; // статус сущности
+}
+
+/**
+ * Товарное предложение
+ */
+message Offer {
+	Pricer pricer = 1; // тип цены товарного предложения
+	repeated Data offer_data = 2; // доп. данные товарного рпедложения. подробнее https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	Status status = 3; // статус сущности
+	string retailer_id = 4; // идентификатор ритейлера
+	string retailer_sku = 5; // идентификатор товарного предложения ритейлера
+}
+
+/**
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *                    Request && Response
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
 
 message GetShelfByCategoryPermalinkRequest {
 	string permalink = 1;
@@ -36,6 +285,7 @@ message GetShelfByCategoryPermalinkWithPaginationRequest {
 message GetShelfByCategoryPermalinkResponse {
 	repeated ShelfCategory categories = 1;
 	repeated Shelf shelves = 2;
+	int64 total_shelves_count = 3;
 }
 
 message GetShelfByOriginalCategoryIDRequest {
@@ -56,110 +306,10 @@ message GetShelfByOriginalCategoryIDWithPaginationRequest {
 	int64 offset = 7;
 }
 
-message DisplayAttributes {
-	repeated string keys = 1;
-	repeated string flags = 2;
-}
-
 message GetShelfByOriginalCategoryIDResponse {
 	repeated ShelfCategory categories = 1;
 	repeated Shelf shelves = 2;
-}
-
-message Category {
-	string id = 1;
-	string name = 2;
-}
-
-message ShelfCategory {
-	string id = 1;
-	string name = 2;
-	bool has_children = 3;
-	string permalink = 4;
-	string original_category_id = 5;
-}
-
-message Shelf {
-	string category_id = 1;
-	string category_name = 2;
-	string category_permalink = 3;
-	int64 product_count = 4;
-	repeated Product products = 5;
-}
-
-enum Status {
-	DISABLE = 0;
-	ENABLE = 1;
-}
-
-enum ValueType {
-	STRING = 0;
-	INTEGER = 1;
-	DOUBLE = 2;
-	BOOL = 3;
-	DATETIME = 4;
-	IMAGE = 5;
-}
-
-enum Pricer {
-	PER_ITEM = 0;  // за штуку
-	PER_ITEMS_PACKAGE = 1;  // за упаковку
-	PER_WEIGHT_PACKAGE = 2;  // весовой фасованный
-	PER_WEIGHT = 3;  // весовой, не фасованный
-}
-
-message Data {
-	string key = 1;
-	ValueType type = 2;
-	bool is_multi_value = 3;
-	repeated string values = 4;
-}
-
-message Attribute {
-	string key = 1;
-	string name = 2;
-	string dictionary_key = 3;
-	ValueType type = 4;
-	bool is_multi_value = 5;
-	map<string, bool> flags = 6;
-	repeated Data attribute_data = 7;
-	repeated AttributeValue values = 8;
-}
-
-message AttributeValue {
-	string value = 1;
-	repeated Data value_data = 2;
-}
-
-message Product {
-	int64 sku = 1;
-	string name = 2;
-	repeated Category categories = 3;
-	repeated Attribute attributes = 4;
-	Stock stock = 5;
-	Price price = 6;
-	Offer offer = 7;
-	Status status = 8;
-}
-
-message Stock {
-	double stock = 1;
-	repeated Data stock_data = 2;
-	Status status = 3;
-}
-
-message Price {
-	double price = 1;
-	repeated Data price_data = 2;
-	Status status = 3;
-}
-
-message Offer {
-	Pricer pricer = 1;
-	repeated Data offer_data = 2;
-	Status status = 3;
-	string retailer_id = 4;
-	string retailer_sku = 5;
+	int64 total_shelves_count = 3;
 }
 
 message Empty{}

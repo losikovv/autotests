@@ -4,19 +4,262 @@ package product_hub_back;
 
 option go_package = "gitlab.sbermarket.tech/paas/content/product-hub/pkg/server/grpc/product-hub-back";
 
+/**
+ * slack:
+ *    #product-hub
+ *
+ * swagger:
+ *     https://paas-content-product-hub-back.sbmt.io/api
+ *
+ * public prod grpc uri:
+ *    paas-content-product-hub-back.sbmt.io:443
+ *
+ * public stg grpc uri:
+ *    paas-content-product-hub.gw-stage-back.sbmt.io:443
+ *
+ * kuber prod grpc uri:
+ *    base-product-hub.paas-content-product-hub-back:3009
+ *
+ * description:
+ *    Back сервис product-hub для импорта данных
+ */
 service ProductHubBack {
+	/**
+   * Сохраняет описание продуктов.
+   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  */
 	rpc SaveProducts(SaveProductsRequest) returns (SaveProductsResponse);
+
+	/**
+   * Сохраняет стоки.
+   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  */
 	rpc SaveStocks(SaveStocksRequest) returns (SaveStocksResponse);
+
+	/**
+   * Сохраняет товарные предложения.
+   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  */
 	rpc SaveOffers(SaveOffersRequest) returns (SaveOffersResponse);
+
+	/**
+   * Сохраняет цены.
+   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  */
 	rpc SavePrices(SavePricesRequest) returns (SavePricesResponse);
+
+	/**
+   * Сохраняет категории.
+   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  */
 	rpc SaveCategories(SaveCategoriesRequest) returns (SaveCategoriesResponse);
+
+	/**
+   * Сохраняет атрибуты.
+   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  */
 	rpc SaveAttributes(SaveAttributesRequest) returns (SaveAttributesResponse);
+
+	/**
+   * Сохраняет словари и значения словарей.
+   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  */
 	rpc SaveDictionaries(SaveDictionariesRequest) returns (SaveDictionariesResponse);
+
+	/**
+   * Сохраняет категорийные фильтры.
+   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  */
 	rpc SaveCategoryFilters(SaveCategoryFiltersRequest) returns (SaveCategoryFiltersResponse);
+
+	/**
+   * Сохраняет связки магазинов на ритейлеров.
+   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+  */
 	rpc SaveRetailerStores(SaveRetailerStoresRequest) returns (SaveRetailerStoresResponse);
 }
 
-// SaveProducts
+/**
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *                    Основные сущности
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
+
+/**
+ * Статус любой сущности
+ */
+enum Status {
+	DISABLE = 0; // сущность не активна
+	ENABLE = 1; // сущность активна
+	DELETED = 2; // сущность удалена из других систем (в product-hub сущности не удаляются)
+}
+
+/**
+ * Тип атрибута (message Attribute) или data атрибута (message Data)
+ */
+enum ValueType {
+	STRING = 0; // строка
+	INTEGER = 1; // число
+	DOUBLE = 2; // число с точкой
+	BOOL = 3; // флаг
+	DATETIME = 4; // время в формате ISO-8601 (YYYY-MM-DDThh:mm:ss)
+	IMAGE = 5; // uri на картинку в s3
+}
+
+/**
+ * Тип цены товарного предложения
+ */
+enum Pricer {
+	PER_ITEM = 0;  // за штуку
+	PER_ITEMS_PACKAGE = 1;  // за упаковку
+	PER_WEIGHT_PACKAGE = 2;  // весовой фасованный
+	PER_WEIGHT = 3;  // весовой, не фасованный
+}
+
+/**
+ * Дата атрибут.
+ * Используется для описания атрибутов сущностей Stock, Price, Offer.
+ * Так же используется для доп. описания сущностей Attribute, Dictionary, DictionaryValue
+ */
+message Data {
+	string key = 1; // уникальный ключ атрибута
+	ValueType type = 2; // тип атрибута, см. ValueType
+	bool is_multi_value = 3; // флаг означающий 1 или n значений будет в values
+	repeated string values = 4; // значения атрибута
+}
+
+/**
+ * Описание товара
+ */
+message Product {
+	int64 sku = 1; // идентификатор описания товара
+	string name = 2; // название товара
+	repeated string category_ids = 3; // товарные категории
+	repeated AttributeValue attribute_values = 4; // значения атрибутов
+	Status status = 5; // статус сущности
+}
+
+/**
+ * Значение атрибута описания
+ */
+message AttributeValue {
+	string attribute_key = 1; // ключ атрибута
+	string value = 2; // значения атрибута
+	string dictionary_value_id = 3; // ссылка на словарное значения если атрибут словарный
+}
+
+/**
+ * Описательная категория
+ */
+message Category {
+	string id = 1; // идентификатор категории
+	string name = 2; // название категории
+	string parent_id = 3; // родительский идентификатор категории
+	repeated string retailer_ids = 4; // список идентификаторов ритейлеров
+	repeated Data category_data = 5; // доп. описание категории, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	repeated string tenant_ids = 6; // список площадок где используется данная категория
+	Status status = 7; // статус сущности
+}
+
+/*
+ * Атрибут описания
+ */
+message Attribute {
+	string key = 1; // уникальный ключ атрибута описания
+	string dictionary_key = 2; // уникальный ключ словаря (если атрибут словарный)
+	string name = 3; // название атрибута
+	ValueType type = 4; // тип атрибута, см. ValueType
+	bool is_multi_value = 5; // флаг означающий 1 или n значений будет в values
+	map<string, bool> flags = 6; // флаги атрибута, по ним можно фильтровать при запросе через display_attributes
+	repeated Data attribute_data = 7; // доп. данные атрибута, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+}
+
+/*
+ * Словарь описания
+ */
+message Dictionary {
+	string key = 1; // уникальный ключ словаря
+	string name = 2; // название словаря
+	ValueType type = 3; // тип словаря, см. ValueType
+	repeated DictionaryValue values = 4; // значения словаря
+	repeated Data dictionary_data = 5; // доп. данные словаря, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+}
+
+/**
+ * Словарное значени
+ */
+message DictionaryValue {
+	message AdditionalDictionaryValue {
+		string dictionary_key = 1; // идентификатор ссылающегося значения
+		string dictionary_value_id = 2; // ключ словаря ссылающегося значения
+	}
+	string id = 1; // идентификатор словарного значения
+	string value = 2; // значение
+	repeated Data value_data = 3; // доп. данные значения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	repeated AdditionalDictionaryValue additional_dictionary_values = 4; // массив дополнительных значений (например на значение бренда будет ссылаться страна изготовления)
+}
+
+/**
+ * Остатки товарного предложения
+ */
+message Stock {
+	int64 sku = 1; // идентификатор описания
+	string store_id = 2; // идентификатор магазина
+	string retailer_id = 3; // идентификатор ритейлера
+	string retailer_sku = 4; // идентификатор описания ритейлера
+	double stock = 5; // кол-во остатка
+	repeated Data stock_data = 6; // доп. данные остатков, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	Status status = 7; // статус сущности
+}
+
+/**
+ * Товарное предложение
+ */
+message Offer {
+	int64 sku = 1; // идентификатор описания
+	string retailer_id = 2; // идентификатор ритейлера
+	string retailer_sku = 3; // идентификатор описания ритейлера
+	Pricer pricer = 4; // тип цены товарного предложения
+	repeated Data offer_data = 5; // доп. данные товарного предложения, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	Status status = 6; // статус сущности
+}
+
+/**
+ * Цена товарного предложения
+ */
+message Price {
+	int64 sku = 1; // идентификатор описания
+	string store_id = 2; // идентификатор магазина
+	string tenant_id = 3; // идентификатор площадки
+	string retailer_id = 4; // идентификатор ритейлера
+	string retailer_sku = 5; // идентификатор описания ритейлера
+	double price = 6; // оригинальная цена за единицу товара со всеми скидками
+	repeated Data price_data = 7; // доп. данные цены, полный список data атрибутов описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	Status status = 8; // статус сущности
+}
+
+/**
+ * Ключи атрибутов которые необходимо вывести в фасетах фильтров.
+ */
+message CategoryFilters {
+	string category_id = 1; // идентификатор категории
+	repeated string attribute_keys = 2; // список ключей атрибутов
+}
+
+/**
+ * Список идентификаторов магазинов у ритейлера
+ */
+message RetailerStores {
+	string retailer_id = 1; // идентификатор ритейлера
+	repeated string store_ids = 2; // идентификаторы магазинов ритейлера
+}
+
+/**
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *                    Request && Response
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
+
 message SaveProductsRequest {
 	repeated Product products = 1;
 }
@@ -25,7 +268,6 @@ message SaveProductsResponse {
 	int64 save_products_count = 1;
 }
 
-// SaveOffers
 message SaveOffersRequest {
 	repeated Offer offers = 1;
 }
@@ -34,7 +276,6 @@ message SaveOffersResponse {
 	int64 save_offers_count = 1;
 }
 
-// SaveStocks
 message SaveStocksRequest {
 	repeated Stock stocks = 1;
 }
@@ -43,7 +284,6 @@ message SaveStocksResponse {
 	int64 save_stocks_count = 1;
 }
 
-// SavePrices
 message SavePricesRequest {
 	repeated Price prices = 1;
 }
@@ -52,7 +292,6 @@ message SavePricesResponse {
 	int64 save_prices_count = 1;
 }
 
-// SaveCategories
 message SaveCategoriesRequest {
 	repeated Category categories = 1;
 }
@@ -61,7 +300,6 @@ message SaveCategoriesResponse {
 	int64 save_categories_count = 1;
 }
 
-// SaveAttributes
 message SaveAttributesRequest {
 	repeated Attribute attributes = 1;
 }
@@ -70,7 +308,6 @@ message SaveAttributesResponse {
 	int64 save_attributes_count = 1;
 }
 
-// SaveDictionaries
 message SaveDictionariesRequest {
 	repeated Dictionary dictionaries = 1;
 }
@@ -79,7 +316,6 @@ message SaveDictionariesResponse {
 	int64 save_dictionaries_count = 1;
 }
 
-// SaveCategoryFilters
 message SaveCategoryFiltersRequest {
 	repeated CategoryFilters categoryFilters = 1;
 }
@@ -95,126 +331,4 @@ message SaveRetailerStoresResponse {
 
 message SaveRetailerStoresRequest {
 	repeated RetailerStores retailer_stores = 1;
-}
-
-enum Status {
-	DISABLE = 0;
-	ENABLE = 1;
-	DELETED = 2;
-}
-
-enum ValueType {
-	STRING = 0;
-	INTEGER = 1;
-	DOUBLE = 2;
-	BOOL = 3;
-	DATETIME = 4;
-	IMAGE = 5;
-}
-
-enum Pricer {
-	PER_ITEM = 0;  // за штуку
-	PER_ITEMS_PACKAGE = 1;  // за упаковку
-	PER_WEIGHT_PACKAGE = 2;  // весовой фасованный
-	PER_WEIGHT = 3;  // весовой, не фасованный
-}
-
-message Data {
-	string key = 1;
-	ValueType type = 2;
-	bool is_multi_value = 3;
-	repeated string values = 4;
-}
-
-message Product {
-	int64 sku = 1;
-	string name = 2;
-	repeated string category_ids = 3;
-	repeated AttributeValue attribute_values = 4;
-	Status status = 5;
-}
-
-message AttributeValue {
-	string attribute_key = 1;
-	string value = 2;
-	string dictionary_value_id = 3;
-}
-
-message Category {
-	string id = 1;
-	string name = 2;
-	string parent_id = 3;
-	repeated string retailer_ids = 4;
-	repeated Data category_data = 5;
-	repeated string tenant_ids = 6;
-	Status status = 7;
-}
-
-message Attribute {
-	string key = 1;
-	string dictionary_key = 2;
-	string name = 3;
-	ValueType type = 4;
-	bool is_multi_value = 5;
-	map<string, bool> flags = 6;
-	repeated Data attribute_data = 7;
-}
-
-message Dictionary {
-	string key = 1;
-	string name = 2;
-	ValueType type = 3;
-	repeated DictionaryValue values = 4;
-	repeated Data dictionary_data = 5;
-}
-
-message DictionaryValue {
-	message AdditionalDictionaryValue {
-		string dictionary_key = 1;
-		string dictionary_value_id = 2;
-	}
-	string id = 1;
-	string value = 2;
-	repeated Data value_data = 3;
-	repeated AdditionalDictionaryValue additional_dictionary_values = 4;
-}
-
-message Stock {
-	int64 sku = 1;
-	string store_id = 2;
-	string retailer_id = 3;
-	string retailer_sku = 4;
-	double stock = 5;
-	repeated Data stock_data = 6;
-	Status status = 7;
-}
-
-message Offer {
-	int64 sku = 1;
-	string retailer_id = 2;
-	string retailer_sku = 3;
-	Pricer pricer = 4;
-	repeated Data offer_data = 5;
-	Status status = 6;
-}
-
-message Price {
-	int64 sku = 1;
-	string store_id = 2;
-	string tenant_id = 3;
-	string retailer_id = 4;
-	string retailer_sku = 5;
-	double price = 6;
-	repeated Data price_data = 7;
-	Status status = 8;
-}
-
-message CategoryFilters {
-	string category_id = 1;
-	repeated string attribute_keys = 2;
-}
-
-message RetailerStores {
-	string retailer_id = 1;
-	repeated string store_ids = 2;
 }

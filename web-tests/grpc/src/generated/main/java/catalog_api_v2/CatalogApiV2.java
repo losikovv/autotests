@@ -15,19 +15,36 @@ public final class CatalogApiV2 {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   /**
+   * <pre>
+   **
+   * Тип отображения фильтра
+   * </pre>
+   *
    * Protobuf enum {@code catalog_api_v2.FacetType}
    */
   public enum FacetType
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
+     * <pre>
+     * выбор
+     * </pre>
+     *
      * <code>SELECT = 0;</code>
      */
     SELECT(0),
     /**
+     * <pre>
+     * мильтивыбор
+     * </pre>
+     *
      * <code>MULTI_SELECT = 1;</code>
      */
     MULTI_SELECT(1),
     /**
+     * <pre>
+     * переключатель
+     * </pre>
+     *
      * <code>TOGGLE = 2;</code>
      */
     TOGGLE(2),
@@ -35,14 +52,26 @@ public final class CatalogApiV2 {
     ;
 
     /**
+     * <pre>
+     * выбор
+     * </pre>
+     *
      * <code>SELECT = 0;</code>
      */
     public static final int SELECT_VALUE = 0;
     /**
+     * <pre>
+     * мильтивыбор
+     * </pre>
+     *
      * <code>MULTI_SELECT = 1;</code>
      */
     public static final int MULTI_SELECT_VALUE = 1;
     /**
+     * <pre>
+     * переключатель
+     * </pre>
+     *
      * <code>TOGGLE = 2;</code>
      */
     public static final int TOGGLE_VALUE = 2;
@@ -131,16 +160,2002 @@ public final class CatalogApiV2 {
     // @@protoc_insertion_point(enum_scope:catalog_api_v2.FacetType)
   }
 
+  public interface GetProductRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:catalog_api_v2.GetProductRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * идентификатор офера, в монолите табилчка offers
+     * </pre>
+     *
+     * <code>string product_id = 1 [json_name = "product_id"];</code>
+     * @return The productId.
+     */
+    java.lang.String getProductId();
+    /**
+     * <pre>
+     * идентификатор офера, в монолите табилчка offers
+     * </pre>
+     *
+     * <code>string product_id = 1 [json_name = "product_id"];</code>
+     * @return The bytes for productId.
+     */
+    com.google.protobuf.ByteString
+        getProductIdBytes();
+
+    /**
+     * <pre>
+     * идентификатор площадки
+     * </pre>
+     *
+     * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
+     * @return The tenantId.
+     */
+    java.lang.String getTenantId();
+    /**
+     * <pre>
+     * идентификатор площадки
+     * </pre>
+     *
+     * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
+     * @return The bytes for tenantId.
+     */
+    com.google.protobuf.ByteString
+        getTenantIdBytes();
+  }
+  /**
+   * <pre>
+   **
+   * Запрос карточки товара
+   * </pre>
+   *
+   * Protobuf type {@code catalog_api_v2.GetProductRequest}
+   */
+  public static final class GetProductRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:catalog_api_v2.GetProductRequest)
+      GetProductRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetProductRequest.newBuilder() to construct.
+    private GetProductRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetProductRequest() {
+      productId_ = "";
+      tenantId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetProductRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetProductRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              productId_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              tenantId_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              catalog_api_v2.CatalogApiV2.GetProductRequest.class, catalog_api_v2.CatalogApiV2.GetProductRequest.Builder.class);
+    }
+
+    public static final int PRODUCT_ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object productId_;
+    /**
+     * <pre>
+     * идентификатор офера, в монолите табилчка offers
+     * </pre>
+     *
+     * <code>string product_id = 1 [json_name = "product_id"];</code>
+     * @return The productId.
+     */
+    @java.lang.Override
+    public java.lang.String getProductId() {
+      java.lang.Object ref = productId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        productId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * идентификатор офера, в монолите табилчка offers
+     * </pre>
+     *
+     * <code>string product_id = 1 [json_name = "product_id"];</code>
+     * @return The bytes for productId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getProductIdBytes() {
+      java.lang.Object ref = productId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        productId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TENANT_ID_FIELD_NUMBER = 2;
+    private volatile java.lang.Object tenantId_;
+    /**
+     * <pre>
+     * идентификатор площадки
+     * </pre>
+     *
+     * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
+     * @return The tenantId.
+     */
+    @java.lang.Override
+    public java.lang.String getTenantId() {
+      java.lang.Object ref = tenantId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        tenantId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * идентификатор площадки
+     * </pre>
+     *
+     * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
+     * @return The bytes for tenantId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTenantIdBytes() {
+      java.lang.Object ref = tenantId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        tenantId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getProductIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, productId_);
+      }
+      if (!getTenantIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, tenantId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getProductIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, productId_);
+      }
+      if (!getTenantIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, tenantId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof catalog_api_v2.CatalogApiV2.GetProductRequest)) {
+        return super.equals(obj);
+      }
+      catalog_api_v2.CatalogApiV2.GetProductRequest other = (catalog_api_v2.CatalogApiV2.GetProductRequest) obj;
+
+      if (!getProductId()
+          .equals(other.getProductId())) return false;
+      if (!getTenantId()
+          .equals(other.getTenantId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + PRODUCT_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getProductId().hashCode();
+      hash = (37 * hash) + TENANT_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getTenantId().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(catalog_api_v2.CatalogApiV2.GetProductRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     **
+     * Запрос карточки товара
+     * </pre>
+     *
+     * Protobuf type {@code catalog_api_v2.GetProductRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:catalog_api_v2.GetProductRequest)
+        catalog_api_v2.CatalogApiV2.GetProductRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                catalog_api_v2.CatalogApiV2.GetProductRequest.class, catalog_api_v2.CatalogApiV2.GetProductRequest.Builder.class);
+      }
+
+      // Construct using catalog_api_v2.CatalogApiV2.GetProductRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        productId_ = "";
+
+        tenantId_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public catalog_api_v2.CatalogApiV2.GetProductRequest getDefaultInstanceForType() {
+        return catalog_api_v2.CatalogApiV2.GetProductRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public catalog_api_v2.CatalogApiV2.GetProductRequest build() {
+        catalog_api_v2.CatalogApiV2.GetProductRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public catalog_api_v2.CatalogApiV2.GetProductRequest buildPartial() {
+        catalog_api_v2.CatalogApiV2.GetProductRequest result = new catalog_api_v2.CatalogApiV2.GetProductRequest(this);
+        result.productId_ = productId_;
+        result.tenantId_ = tenantId_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof catalog_api_v2.CatalogApiV2.GetProductRequest) {
+          return mergeFrom((catalog_api_v2.CatalogApiV2.GetProductRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(catalog_api_v2.CatalogApiV2.GetProductRequest other) {
+        if (other == catalog_api_v2.CatalogApiV2.GetProductRequest.getDefaultInstance()) return this;
+        if (!other.getProductId().isEmpty()) {
+          productId_ = other.productId_;
+          onChanged();
+        }
+        if (!other.getTenantId().isEmpty()) {
+          tenantId_ = other.tenantId_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        catalog_api_v2.CatalogApiV2.GetProductRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (catalog_api_v2.CatalogApiV2.GetProductRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object productId_ = "";
+      /**
+       * <pre>
+       * идентификатор офера, в монолите табилчка offers
+       * </pre>
+       *
+       * <code>string product_id = 1 [json_name = "product_id"];</code>
+       * @return The productId.
+       */
+      public java.lang.String getProductId() {
+        java.lang.Object ref = productId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          productId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор офера, в монолите табилчка offers
+       * </pre>
+       *
+       * <code>string product_id = 1 [json_name = "product_id"];</code>
+       * @return The bytes for productId.
+       */
+      public com.google.protobuf.ByteString
+          getProductIdBytes() {
+        java.lang.Object ref = productId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          productId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор офера, в монолите табилчка offers
+       * </pre>
+       *
+       * <code>string product_id = 1 [json_name = "product_id"];</code>
+       * @param value The productId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProductId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        productId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор офера, в монолите табилчка offers
+       * </pre>
+       *
+       * <code>string product_id = 1 [json_name = "product_id"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearProductId() {
+        
+        productId_ = getDefaultInstance().getProductId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор офера, в монолите табилчка offers
+       * </pre>
+       *
+       * <code>string product_id = 1 [json_name = "product_id"];</code>
+       * @param value The bytes for productId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProductIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        productId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object tenantId_ = "";
+      /**
+       * <pre>
+       * идентификатор площадки
+       * </pre>
+       *
+       * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
+       * @return The tenantId.
+       */
+      public java.lang.String getTenantId() {
+        java.lang.Object ref = tenantId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          tenantId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор площадки
+       * </pre>
+       *
+       * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
+       * @return The bytes for tenantId.
+       */
+      public com.google.protobuf.ByteString
+          getTenantIdBytes() {
+        java.lang.Object ref = tenantId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          tenantId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор площадки
+       * </pre>
+       *
+       * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
+       * @param value The tenantId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTenantId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        tenantId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор площадки
+       * </pre>
+       *
+       * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTenantId() {
+        
+        tenantId_ = getDefaultInstance().getTenantId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор площадки
+       * </pre>
+       *
+       * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
+       * @param value The bytes for tenantId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTenantIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        tenantId_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:catalog_api_v2.GetProductRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:catalog_api_v2.GetProductRequest)
+    private static final catalog_api_v2.CatalogApiV2.GetProductRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new catalog_api_v2.CatalogApiV2.GetProductRequest();
+    }
+
+    public static catalog_api_v2.CatalogApiV2.GetProductRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetProductRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetProductRequest>() {
+      @java.lang.Override
+      public GetProductRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetProductRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetProductRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetProductRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public catalog_api_v2.CatalogApiV2.GetProductRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetProductResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:catalog_api_v2.GetProductResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * продукт
+     * </pre>
+     *
+     * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
+     * @return Whether the product field is set.
+     */
+    boolean hasProduct();
+    /**
+     * <pre>
+     * продукт
+     * </pre>
+     *
+     * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
+     * @return The product.
+     */
+    catalog_api_v2.CatalogApiV2.ProductWithProperties getProduct();
+    /**
+     * <pre>
+     * продукт
+     * </pre>
+     *
+     * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
+     */
+    catalog_api_v2.CatalogApiV2.ProductWithPropertiesOrBuilder getProductOrBuilder();
+
+    /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
+     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+     */
+    java.util.List<catalog_api_v2.CatalogApiV2.PromoBadge> 
+        getPromoBadgesList();
+    /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
+     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+     */
+    catalog_api_v2.CatalogApiV2.PromoBadge getPromoBadges(int index);
+    /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
+     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+     */
+    int getPromoBadgesCount();
+    /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
+     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+     */
+    java.util.List<? extends catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder> 
+        getPromoBadgesOrBuilderList();
+    /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
+     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+     */
+    catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder getPromoBadgesOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   **
+   * Ответ карточки товара
+   * </pre>
+   *
+   * Protobuf type {@code catalog_api_v2.GetProductResponse}
+   */
+  public static final class GetProductResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:catalog_api_v2.GetProductResponse)
+      GetProductResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetProductResponse.newBuilder() to construct.
+    private GetProductResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetProductResponse() {
+      promoBadges_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GetProductResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetProductResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              catalog_api_v2.CatalogApiV2.ProductWithProperties.Builder subBuilder = null;
+              if (product_ != null) {
+                subBuilder = product_.toBuilder();
+              }
+              product_ = input.readMessage(catalog_api_v2.CatalogApiV2.ProductWithProperties.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(product_);
+                product_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                promoBadges_ = new java.util.ArrayList<catalog_api_v2.CatalogApiV2.PromoBadge>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              promoBadges_.add(
+                  input.readMessage(catalog_api_v2.CatalogApiV2.PromoBadge.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          promoBadges_ = java.util.Collections.unmodifiableList(promoBadges_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              catalog_api_v2.CatalogApiV2.GetProductResponse.class, catalog_api_v2.CatalogApiV2.GetProductResponse.Builder.class);
+    }
+
+    public static final int PRODUCT_FIELD_NUMBER = 1;
+    private catalog_api_v2.CatalogApiV2.ProductWithProperties product_;
+    /**
+     * <pre>
+     * продукт
+     * </pre>
+     *
+     * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
+     * @return Whether the product field is set.
+     */
+    @java.lang.Override
+    public boolean hasProduct() {
+      return product_ != null;
+    }
+    /**
+     * <pre>
+     * продукт
+     * </pre>
+     *
+     * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
+     * @return The product.
+     */
+    @java.lang.Override
+    public catalog_api_v2.CatalogApiV2.ProductWithProperties getProduct() {
+      return product_ == null ? catalog_api_v2.CatalogApiV2.ProductWithProperties.getDefaultInstance() : product_;
+    }
+    /**
+     * <pre>
+     * продукт
+     * </pre>
+     *
+     * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
+     */
+    @java.lang.Override
+    public catalog_api_v2.CatalogApiV2.ProductWithPropertiesOrBuilder getProductOrBuilder() {
+      return getProduct();
+    }
+
+    public static final int PROMO_BADGES_FIELD_NUMBER = 2;
+    private java.util.List<catalog_api_v2.CatalogApiV2.PromoBadge> promoBadges_;
+    /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
+     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<catalog_api_v2.CatalogApiV2.PromoBadge> getPromoBadgesList() {
+      return promoBadges_;
+    }
+    /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
+     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder> 
+        getPromoBadgesOrBuilderList() {
+      return promoBadges_;
+    }
+    /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
+     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+     */
+    @java.lang.Override
+    public int getPromoBadgesCount() {
+      return promoBadges_.size();
+    }
+    /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
+     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+     */
+    @java.lang.Override
+    public catalog_api_v2.CatalogApiV2.PromoBadge getPromoBadges(int index) {
+      return promoBadges_.get(index);
+    }
+    /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
+     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+     */
+    @java.lang.Override
+    public catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder getPromoBadgesOrBuilder(
+        int index) {
+      return promoBadges_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (product_ != null) {
+        output.writeMessage(1, getProduct());
+      }
+      for (int i = 0; i < promoBadges_.size(); i++) {
+        output.writeMessage(2, promoBadges_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (product_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getProduct());
+      }
+      for (int i = 0; i < promoBadges_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, promoBadges_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof catalog_api_v2.CatalogApiV2.GetProductResponse)) {
+        return super.equals(obj);
+      }
+      catalog_api_v2.CatalogApiV2.GetProductResponse other = (catalog_api_v2.CatalogApiV2.GetProductResponse) obj;
+
+      if (hasProduct() != other.hasProduct()) return false;
+      if (hasProduct()) {
+        if (!getProduct()
+            .equals(other.getProduct())) return false;
+      }
+      if (!getPromoBadgesList()
+          .equals(other.getPromoBadgesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasProduct()) {
+        hash = (37 * hash) + PRODUCT_FIELD_NUMBER;
+        hash = (53 * hash) + getProduct().hashCode();
+      }
+      if (getPromoBadgesCount() > 0) {
+        hash = (37 * hash) + PROMO_BADGES_FIELD_NUMBER;
+        hash = (53 * hash) + getPromoBadgesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(catalog_api_v2.CatalogApiV2.GetProductResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     **
+     * Ответ карточки товара
+     * </pre>
+     *
+     * Protobuf type {@code catalog_api_v2.GetProductResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:catalog_api_v2.GetProductResponse)
+        catalog_api_v2.CatalogApiV2.GetProductResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                catalog_api_v2.CatalogApiV2.GetProductResponse.class, catalog_api_v2.CatalogApiV2.GetProductResponse.Builder.class);
+      }
+
+      // Construct using catalog_api_v2.CatalogApiV2.GetProductResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getPromoBadgesFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (productBuilder_ == null) {
+          product_ = null;
+        } else {
+          product_ = null;
+          productBuilder_ = null;
+        }
+        if (promoBadgesBuilder_ == null) {
+          promoBadges_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          promoBadgesBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public catalog_api_v2.CatalogApiV2.GetProductResponse getDefaultInstanceForType() {
+        return catalog_api_v2.CatalogApiV2.GetProductResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public catalog_api_v2.CatalogApiV2.GetProductResponse build() {
+        catalog_api_v2.CatalogApiV2.GetProductResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public catalog_api_v2.CatalogApiV2.GetProductResponse buildPartial() {
+        catalog_api_v2.CatalogApiV2.GetProductResponse result = new catalog_api_v2.CatalogApiV2.GetProductResponse(this);
+        int from_bitField0_ = bitField0_;
+        if (productBuilder_ == null) {
+          result.product_ = product_;
+        } else {
+          result.product_ = productBuilder_.build();
+        }
+        if (promoBadgesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            promoBadges_ = java.util.Collections.unmodifiableList(promoBadges_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.promoBadges_ = promoBadges_;
+        } else {
+          result.promoBadges_ = promoBadgesBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof catalog_api_v2.CatalogApiV2.GetProductResponse) {
+          return mergeFrom((catalog_api_v2.CatalogApiV2.GetProductResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(catalog_api_v2.CatalogApiV2.GetProductResponse other) {
+        if (other == catalog_api_v2.CatalogApiV2.GetProductResponse.getDefaultInstance()) return this;
+        if (other.hasProduct()) {
+          mergeProduct(other.getProduct());
+        }
+        if (promoBadgesBuilder_ == null) {
+          if (!other.promoBadges_.isEmpty()) {
+            if (promoBadges_.isEmpty()) {
+              promoBadges_ = other.promoBadges_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensurePromoBadgesIsMutable();
+              promoBadges_.addAll(other.promoBadges_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.promoBadges_.isEmpty()) {
+            if (promoBadgesBuilder_.isEmpty()) {
+              promoBadgesBuilder_.dispose();
+              promoBadgesBuilder_ = null;
+              promoBadges_ = other.promoBadges_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              promoBadgesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getPromoBadgesFieldBuilder() : null;
+            } else {
+              promoBadgesBuilder_.addAllMessages(other.promoBadges_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        catalog_api_v2.CatalogApiV2.GetProductResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (catalog_api_v2.CatalogApiV2.GetProductResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private catalog_api_v2.CatalogApiV2.ProductWithProperties product_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          catalog_api_v2.CatalogApiV2.ProductWithProperties, catalog_api_v2.CatalogApiV2.ProductWithProperties.Builder, catalog_api_v2.CatalogApiV2.ProductWithPropertiesOrBuilder> productBuilder_;
+      /**
+       * <pre>
+       * продукт
+       * </pre>
+       *
+       * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
+       * @return Whether the product field is set.
+       */
+      public boolean hasProduct() {
+        return productBuilder_ != null || product_ != null;
+      }
+      /**
+       * <pre>
+       * продукт
+       * </pre>
+       *
+       * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
+       * @return The product.
+       */
+      public catalog_api_v2.CatalogApiV2.ProductWithProperties getProduct() {
+        if (productBuilder_ == null) {
+          return product_ == null ? catalog_api_v2.CatalogApiV2.ProductWithProperties.getDefaultInstance() : product_;
+        } else {
+          return productBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * продукт
+       * </pre>
+       *
+       * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
+       */
+      public Builder setProduct(catalog_api_v2.CatalogApiV2.ProductWithProperties value) {
+        if (productBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          product_ = value;
+          onChanged();
+        } else {
+          productBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * продукт
+       * </pre>
+       *
+       * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
+       */
+      public Builder setProduct(
+          catalog_api_v2.CatalogApiV2.ProductWithProperties.Builder builderForValue) {
+        if (productBuilder_ == null) {
+          product_ = builderForValue.build();
+          onChanged();
+        } else {
+          productBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * продукт
+       * </pre>
+       *
+       * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
+       */
+      public Builder mergeProduct(catalog_api_v2.CatalogApiV2.ProductWithProperties value) {
+        if (productBuilder_ == null) {
+          if (product_ != null) {
+            product_ =
+              catalog_api_v2.CatalogApiV2.ProductWithProperties.newBuilder(product_).mergeFrom(value).buildPartial();
+          } else {
+            product_ = value;
+          }
+          onChanged();
+        } else {
+          productBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * продукт
+       * </pre>
+       *
+       * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
+       */
+      public Builder clearProduct() {
+        if (productBuilder_ == null) {
+          product_ = null;
+          onChanged();
+        } else {
+          product_ = null;
+          productBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       * продукт
+       * </pre>
+       *
+       * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
+       */
+      public catalog_api_v2.CatalogApiV2.ProductWithProperties.Builder getProductBuilder() {
+        
+        onChanged();
+        return getProductFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * продукт
+       * </pre>
+       *
+       * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
+       */
+      public catalog_api_v2.CatalogApiV2.ProductWithPropertiesOrBuilder getProductOrBuilder() {
+        if (productBuilder_ != null) {
+          return productBuilder_.getMessageOrBuilder();
+        } else {
+          return product_ == null ?
+              catalog_api_v2.CatalogApiV2.ProductWithProperties.getDefaultInstance() : product_;
+        }
+      }
+      /**
+       * <pre>
+       * продукт
+       * </pre>
+       *
+       * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          catalog_api_v2.CatalogApiV2.ProductWithProperties, catalog_api_v2.CatalogApiV2.ProductWithProperties.Builder, catalog_api_v2.CatalogApiV2.ProductWithPropertiesOrBuilder> 
+          getProductFieldBuilder() {
+        if (productBuilder_ == null) {
+          productBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              catalog_api_v2.CatalogApiV2.ProductWithProperties, catalog_api_v2.CatalogApiV2.ProductWithProperties.Builder, catalog_api_v2.CatalogApiV2.ProductWithPropertiesOrBuilder>(
+                  getProduct(),
+                  getParentForChildren(),
+                  isClean());
+          product_ = null;
+        }
+        return productBuilder_;
+      }
+
+      private java.util.List<catalog_api_v2.CatalogApiV2.PromoBadge> promoBadges_ =
+        java.util.Collections.emptyList();
+      private void ensurePromoBadgesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          promoBadges_ = new java.util.ArrayList<catalog_api_v2.CatalogApiV2.PromoBadge>(promoBadges_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          catalog_api_v2.CatalogApiV2.PromoBadge, catalog_api_v2.CatalogApiV2.PromoBadge.Builder, catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder> promoBadgesBuilder_;
+
+      /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
+       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+       */
+      public java.util.List<catalog_api_v2.CatalogApiV2.PromoBadge> getPromoBadgesList() {
+        if (promoBadgesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(promoBadges_);
+        } else {
+          return promoBadgesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
+       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+       */
+      public int getPromoBadgesCount() {
+        if (promoBadgesBuilder_ == null) {
+          return promoBadges_.size();
+        } else {
+          return promoBadgesBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
+       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+       */
+      public catalog_api_v2.CatalogApiV2.PromoBadge getPromoBadges(int index) {
+        if (promoBadgesBuilder_ == null) {
+          return promoBadges_.get(index);
+        } else {
+          return promoBadgesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
+       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+       */
+      public Builder setPromoBadges(
+          int index, catalog_api_v2.CatalogApiV2.PromoBadge value) {
+        if (promoBadgesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePromoBadgesIsMutable();
+          promoBadges_.set(index, value);
+          onChanged();
+        } else {
+          promoBadgesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
+       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+       */
+      public Builder setPromoBadges(
+          int index, catalog_api_v2.CatalogApiV2.PromoBadge.Builder builderForValue) {
+        if (promoBadgesBuilder_ == null) {
+          ensurePromoBadgesIsMutable();
+          promoBadges_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          promoBadgesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
+       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+       */
+      public Builder addPromoBadges(catalog_api_v2.CatalogApiV2.PromoBadge value) {
+        if (promoBadgesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePromoBadgesIsMutable();
+          promoBadges_.add(value);
+          onChanged();
+        } else {
+          promoBadgesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
+       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+       */
+      public Builder addPromoBadges(
+          int index, catalog_api_v2.CatalogApiV2.PromoBadge value) {
+        if (promoBadgesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePromoBadgesIsMutable();
+          promoBadges_.add(index, value);
+          onChanged();
+        } else {
+          promoBadgesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
+       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+       */
+      public Builder addPromoBadges(
+          catalog_api_v2.CatalogApiV2.PromoBadge.Builder builderForValue) {
+        if (promoBadgesBuilder_ == null) {
+          ensurePromoBadgesIsMutable();
+          promoBadges_.add(builderForValue.build());
+          onChanged();
+        } else {
+          promoBadgesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
+       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+       */
+      public Builder addPromoBadges(
+          int index, catalog_api_v2.CatalogApiV2.PromoBadge.Builder builderForValue) {
+        if (promoBadgesBuilder_ == null) {
+          ensurePromoBadgesIsMutable();
+          promoBadges_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          promoBadgesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
+       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+       */
+      public Builder addAllPromoBadges(
+          java.lang.Iterable<? extends catalog_api_v2.CatalogApiV2.PromoBadge> values) {
+        if (promoBadgesBuilder_ == null) {
+          ensurePromoBadgesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, promoBadges_);
+          onChanged();
+        } else {
+          promoBadgesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
+       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+       */
+      public Builder clearPromoBadges() {
+        if (promoBadgesBuilder_ == null) {
+          promoBadges_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          promoBadgesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
+       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+       */
+      public Builder removePromoBadges(int index) {
+        if (promoBadgesBuilder_ == null) {
+          ensurePromoBadgesIsMutable();
+          promoBadges_.remove(index);
+          onChanged();
+        } else {
+          promoBadgesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
+       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+       */
+      public catalog_api_v2.CatalogApiV2.PromoBadge.Builder getPromoBadgesBuilder(
+          int index) {
+        return getPromoBadgesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
+       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+       */
+      public catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder getPromoBadgesOrBuilder(
+          int index) {
+        if (promoBadgesBuilder_ == null) {
+          return promoBadges_.get(index);  } else {
+          return promoBadgesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
+       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+       */
+      public java.util.List<? extends catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder> 
+           getPromoBadgesOrBuilderList() {
+        if (promoBadgesBuilder_ != null) {
+          return promoBadgesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(promoBadges_);
+        }
+      }
+      /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
+       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+       */
+      public catalog_api_v2.CatalogApiV2.PromoBadge.Builder addPromoBadgesBuilder() {
+        return getPromoBadgesFieldBuilder().addBuilder(
+            catalog_api_v2.CatalogApiV2.PromoBadge.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
+       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+       */
+      public catalog_api_v2.CatalogApiV2.PromoBadge.Builder addPromoBadgesBuilder(
+          int index) {
+        return getPromoBadgesFieldBuilder().addBuilder(
+            index, catalog_api_v2.CatalogApiV2.PromoBadge.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
+       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
+       */
+      public java.util.List<catalog_api_v2.CatalogApiV2.PromoBadge.Builder> 
+           getPromoBadgesBuilderList() {
+        return getPromoBadgesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          catalog_api_v2.CatalogApiV2.PromoBadge, catalog_api_v2.CatalogApiV2.PromoBadge.Builder, catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder> 
+          getPromoBadgesFieldBuilder() {
+        if (promoBadgesBuilder_ == null) {
+          promoBadgesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              catalog_api_v2.CatalogApiV2.PromoBadge, catalog_api_v2.CatalogApiV2.PromoBadge.Builder, catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder>(
+                  promoBadges_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          promoBadges_ = null;
+        }
+        return promoBadgesBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:catalog_api_v2.GetProductResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:catalog_api_v2.GetProductResponse)
+    private static final catalog_api_v2.CatalogApiV2.GetProductResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new catalog_api_v2.CatalogApiV2.GetProductResponse();
+    }
+
+    public static catalog_api_v2.CatalogApiV2.GetProductResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetProductResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetProductResponse>() {
+      @java.lang.Override
+      public GetProductResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetProductResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetProductResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetProductResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public catalog_api_v2.CatalogApiV2.GetProductResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface GetProductListRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:catalog_api_v2.GetProductListRequest)
       com.google.protobuf.MessageOrBuilder {
 
     /**
+     * <pre>
+     * идентификатор магазина
+     * </pre>
+     *
      * <code>string sid = 1;</code>
      * @return The sid.
      */
     java.lang.String getSid();
     /**
+     * <pre>
+     * идентификатор магазина
+     * </pre>
+     *
      * <code>string sid = 1;</code>
      * @return The bytes for sid.
      */
@@ -148,11 +2163,19 @@ public final class CatalogApiV2 {
         getSidBytes();
 
     /**
+     * <pre>
+     * идентификатор монолитовской категории (mysql.taxons)
+     * </pre>
+     *
      * <code>string tid = 2;</code>
      * @return The tid.
      */
     java.lang.String getTid();
     /**
+     * <pre>
+     * идентификатор монолитовской категории (mysql.taxons)
+     * </pre>
+     *
      * <code>string tid = 2;</code>
      * @return The bytes for tid.
      */
@@ -160,11 +2183,19 @@ public final class CatalogApiV2 {
         getTidBytes();
 
     /**
+     * <pre>
+     * не используется, добавлен для совместимости с апи монолита
+     * </pre>
+     *
      * <code>string q = 3;</code>
      * @return The q.
      */
     java.lang.String getQ();
     /**
+     * <pre>
+     * не используется, добавлен для совместимости с апи монолита
+     * </pre>
+     *
      * <code>string q = 3;</code>
      * @return The bytes for q.
      */
@@ -172,35 +2203,59 @@ public final class CatalogApiV2 {
         getQBytes();
 
     /**
+     * <pre>
+     * порядковый номер страницы
+     * </pre>
+     *
      * <code>int64 page = 4;</code>
      * @return The page.
      */
     long getPage();
 
     /**
+     * <pre>
+     * кол-во элементов на странице
+     * </pre>
+     *
      * <code>int64 per_page = 5 [json_name = "per_page"];</code>
      * @return The perPage.
      */
     long getPerPage();
 
     /**
+     * <pre>
+     * системное поле
+     * </pre>
+     *
      * <code>repeated string filter_keys = 6;</code>
      * @return A list containing the filterKeys.
      */
     java.util.List<java.lang.String>
         getFilterKeysList();
     /**
+     * <pre>
+     * системное поле
+     * </pre>
+     *
      * <code>repeated string filter_keys = 6;</code>
      * @return The count of filterKeys.
      */
     int getFilterKeysCount();
     /**
+     * <pre>
+     * системное поле
+     * </pre>
+     *
      * <code>repeated string filter_keys = 6;</code>
      * @param index The index of the element to return.
      * @return The filterKeys at the given index.
      */
     java.lang.String getFilterKeys(int index);
     /**
+     * <pre>
+     * системное поле
+     * </pre>
+     *
      * <code>repeated string filter_keys = 6;</code>
      * @param index The index of the value to return.
      * @return The bytes of the filterKeys at the given index.
@@ -210,7 +2265,7 @@ public final class CatalogApiV2 {
 
     /**
      * <pre>
-     * Все значения для одного ключа идут в одном значение value через запятую без пробела
+     * системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
      * </pre>
      *
      * <code>repeated string filter_values = 7;</code>
@@ -220,7 +2275,7 @@ public final class CatalogApiV2 {
         getFilterValuesList();
     /**
      * <pre>
-     * Все значения для одного ключа идут в одном значение value через запятую без пробела
+     * системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
      * </pre>
      *
      * <code>repeated string filter_values = 7;</code>
@@ -229,7 +2284,7 @@ public final class CatalogApiV2 {
     int getFilterValuesCount();
     /**
      * <pre>
-     * Все значения для одного ключа идут в одном значение value через запятую без пробела
+     * системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
      * </pre>
      *
      * <code>repeated string filter_values = 7;</code>
@@ -239,7 +2294,7 @@ public final class CatalogApiV2 {
     java.lang.String getFilterValues(int index);
     /**
      * <pre>
-     * Все значения для одного ключа идут в одном значение value через запятую без пробела
+     * системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
      * </pre>
      *
      * <code>repeated string filter_values = 7;</code>
@@ -250,11 +2305,19 @@ public final class CatalogApiV2 {
         getFilterValuesBytes(int index);
 
     /**
+     * <pre>
+     * сортировка
+     * </pre>
+     *
      * <code>string sort = 8;</code>
      * @return The sort.
      */
     java.lang.String getSort();
     /**
+     * <pre>
+     * сортировка
+     * </pre>
+     *
      * <code>string sort = 8;</code>
      * @return The bytes for sort.
      */
@@ -262,11 +2325,19 @@ public final class CatalogApiV2 {
         getSortBytes();
 
     /**
+     * <pre>
+     * идентификатор площадки
+     * </pre>
+     *
      * <code>string tenant_id = 9 [json_name = "tenant_id"];</code>
      * @return The tenantId.
      */
     java.lang.String getTenantId();
     /**
+     * <pre>
+     * идентификатор площадки
+     * </pre>
+     *
      * <code>string tenant_id = 9 [json_name = "tenant_id"];</code>
      * @return The bytes for tenantId.
      */
@@ -275,7 +2346,7 @@ public final class CatalogApiV2 {
 
     /**
      * <pre>
-     * При хттп запросе этот параметр должен передаваться как header
+     * идентификатор не авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
      * </pre>
      *
      * <code>string anonymous_id = 10;</code>
@@ -284,7 +2355,7 @@ public final class CatalogApiV2 {
     java.lang.String getAnonymousId();
     /**
      * <pre>
-     * При хттп запросе этот параметр должен передаваться как header
+     * идентификатор не авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
      * </pre>
      *
      * <code>string anonymous_id = 10;</code>
@@ -295,7 +2366,7 @@ public final class CatalogApiV2 {
 
     /**
      * <pre>
-     * При хттп запросе этот параметр должен передаваться как header
+     * идентификатор авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
      * </pre>
      *
      * <code>string user_id = 11;</code>
@@ -304,7 +2375,7 @@ public final class CatalogApiV2 {
     java.lang.String getUserId();
     /**
      * <pre>
-     * При хттп запросе этот параметр должен передаваться как header
+     * идентификатор авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
      * </pre>
      *
      * <code>string user_id = 11;</code>
@@ -314,6 +2385,11 @@ public final class CatalogApiV2 {
         getUserIdBytes();
   }
   /**
+   * <pre>
+   **
+   * Запрос листинга товаров
+   * </pre>
+   *
    * Protobuf type {@code catalog_api_v2.GetProductListRequest}
    */
   public static final class GetProductListRequest extends
@@ -479,6 +2555,10 @@ public final class CatalogApiV2 {
     public static final int SID_FIELD_NUMBER = 1;
     private volatile java.lang.Object sid_;
     /**
+     * <pre>
+     * идентификатор магазина
+     * </pre>
+     *
      * <code>string sid = 1;</code>
      * @return The sid.
      */
@@ -496,6 +2576,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * идентификатор магазина
+     * </pre>
+     *
      * <code>string sid = 1;</code>
      * @return The bytes for sid.
      */
@@ -517,6 +2601,10 @@ public final class CatalogApiV2 {
     public static final int TID_FIELD_NUMBER = 2;
     private volatile java.lang.Object tid_;
     /**
+     * <pre>
+     * идентификатор монолитовской категории (mysql.taxons)
+     * </pre>
+     *
      * <code>string tid = 2;</code>
      * @return The tid.
      */
@@ -534,6 +2622,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * идентификатор монолитовской категории (mysql.taxons)
+     * </pre>
+     *
      * <code>string tid = 2;</code>
      * @return The bytes for tid.
      */
@@ -555,6 +2647,10 @@ public final class CatalogApiV2 {
     public static final int Q_FIELD_NUMBER = 3;
     private volatile java.lang.Object q_;
     /**
+     * <pre>
+     * не используется, добавлен для совместимости с апи монолита
+     * </pre>
+     *
      * <code>string q = 3;</code>
      * @return The q.
      */
@@ -572,6 +2668,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * не используется, добавлен для совместимости с апи монолита
+     * </pre>
+     *
      * <code>string q = 3;</code>
      * @return The bytes for q.
      */
@@ -593,6 +2693,10 @@ public final class CatalogApiV2 {
     public static final int PAGE_FIELD_NUMBER = 4;
     private long page_;
     /**
+     * <pre>
+     * порядковый номер страницы
+     * </pre>
+     *
      * <code>int64 page = 4;</code>
      * @return The page.
      */
@@ -604,6 +2708,10 @@ public final class CatalogApiV2 {
     public static final int PER_PAGE_FIELD_NUMBER = 5;
     private long perPage_;
     /**
+     * <pre>
+     * кол-во элементов на странице
+     * </pre>
+     *
      * <code>int64 per_page = 5 [json_name = "per_page"];</code>
      * @return The perPage.
      */
@@ -615,6 +2723,10 @@ public final class CatalogApiV2 {
     public static final int FILTER_KEYS_FIELD_NUMBER = 6;
     private com.google.protobuf.LazyStringList filterKeys_;
     /**
+     * <pre>
+     * системное поле
+     * </pre>
+     *
      * <code>repeated string filter_keys = 6;</code>
      * @return A list containing the filterKeys.
      */
@@ -623,6 +2735,10 @@ public final class CatalogApiV2 {
       return filterKeys_;
     }
     /**
+     * <pre>
+     * системное поле
+     * </pre>
+     *
      * <code>repeated string filter_keys = 6;</code>
      * @return The count of filterKeys.
      */
@@ -630,6 +2746,10 @@ public final class CatalogApiV2 {
       return filterKeys_.size();
     }
     /**
+     * <pre>
+     * системное поле
+     * </pre>
+     *
      * <code>repeated string filter_keys = 6;</code>
      * @param index The index of the element to return.
      * @return The filterKeys at the given index.
@@ -638,6 +2758,10 @@ public final class CatalogApiV2 {
       return filterKeys_.get(index);
     }
     /**
+     * <pre>
+     * системное поле
+     * </pre>
+     *
      * <code>repeated string filter_keys = 6;</code>
      * @param index The index of the value to return.
      * @return The bytes of the filterKeys at the given index.
@@ -651,7 +2775,7 @@ public final class CatalogApiV2 {
     private com.google.protobuf.LazyStringList filterValues_;
     /**
      * <pre>
-     * Все значения для одного ключа идут в одном значение value через запятую без пробела
+     * системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
      * </pre>
      *
      * <code>repeated string filter_values = 7;</code>
@@ -663,7 +2787,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     * Все значения для одного ключа идут в одном значение value через запятую без пробела
+     * системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
      * </pre>
      *
      * <code>repeated string filter_values = 7;</code>
@@ -674,7 +2798,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     * Все значения для одного ключа идут в одном значение value через запятую без пробела
+     * системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
      * </pre>
      *
      * <code>repeated string filter_values = 7;</code>
@@ -686,7 +2810,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     * Все значения для одного ключа идут в одном значение value через запятую без пробела
+     * системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
      * </pre>
      *
      * <code>repeated string filter_values = 7;</code>
@@ -701,6 +2825,10 @@ public final class CatalogApiV2 {
     public static final int SORT_FIELD_NUMBER = 8;
     private volatile java.lang.Object sort_;
     /**
+     * <pre>
+     * сортировка
+     * </pre>
+     *
      * <code>string sort = 8;</code>
      * @return The sort.
      */
@@ -718,6 +2846,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * сортировка
+     * </pre>
+     *
      * <code>string sort = 8;</code>
      * @return The bytes for sort.
      */
@@ -739,6 +2871,10 @@ public final class CatalogApiV2 {
     public static final int TENANT_ID_FIELD_NUMBER = 9;
     private volatile java.lang.Object tenantId_;
     /**
+     * <pre>
+     * идентификатор площадки
+     * </pre>
+     *
      * <code>string tenant_id = 9 [json_name = "tenant_id"];</code>
      * @return The tenantId.
      */
@@ -756,6 +2892,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * идентификатор площадки
+     * </pre>
+     *
      * <code>string tenant_id = 9 [json_name = "tenant_id"];</code>
      * @return The bytes for tenantId.
      */
@@ -778,7 +2918,7 @@ public final class CatalogApiV2 {
     private volatile java.lang.Object anonymousId_;
     /**
      * <pre>
-     * При хттп запросе этот параметр должен передаваться как header
+     * идентификатор не авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
      * </pre>
      *
      * <code>string anonymous_id = 10;</code>
@@ -799,7 +2939,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     * При хттп запросе этот параметр должен передаваться как header
+     * идентификатор не авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
      * </pre>
      *
      * <code>string anonymous_id = 10;</code>
@@ -824,7 +2964,7 @@ public final class CatalogApiV2 {
     private volatile java.lang.Object userId_;
     /**
      * <pre>
-     * При хттп запросе этот параметр должен передаваться как header
+     * идентификатор авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
      * </pre>
      *
      * <code>string user_id = 11;</code>
@@ -845,7 +2985,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     * При хттп запросе этот параметр должен передаваться как header
+     * идентификатор авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
      * </pre>
      *
      * <code>string user_id = 11;</code>
@@ -1139,6 +3279,11 @@ public final class CatalogApiV2 {
       return builder;
     }
     /**
+     * <pre>
+     **
+     * Запрос листинга товаров
+     * </pre>
+     *
      * Protobuf type {@code catalog_api_v2.GetProductListRequest}
      */
     public static final class Builder extends
@@ -1378,6 +3523,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object sid_ = "";
       /**
+       * <pre>
+       * идентификатор магазина
+       * </pre>
+       *
        * <code>string sid = 1;</code>
        * @return The sid.
        */
@@ -1394,6 +3543,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * идентификатор магазина
+       * </pre>
+       *
        * <code>string sid = 1;</code>
        * @return The bytes for sid.
        */
@@ -1411,6 +3564,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * идентификатор магазина
+       * </pre>
+       *
        * <code>string sid = 1;</code>
        * @param value The sid to set.
        * @return This builder for chaining.
@@ -1426,6 +3583,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор магазина
+       * </pre>
+       *
        * <code>string sid = 1;</code>
        * @return This builder for chaining.
        */
@@ -1436,6 +3597,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор магазина
+       * </pre>
+       *
        * <code>string sid = 1;</code>
        * @param value The bytes for sid to set.
        * @return This builder for chaining.
@@ -1454,6 +3619,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object tid_ = "";
       /**
+       * <pre>
+       * идентификатор монолитовской категории (mysql.taxons)
+       * </pre>
+       *
        * <code>string tid = 2;</code>
        * @return The tid.
        */
@@ -1470,6 +3639,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * идентификатор монолитовской категории (mysql.taxons)
+       * </pre>
+       *
        * <code>string tid = 2;</code>
        * @return The bytes for tid.
        */
@@ -1487,6 +3660,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * идентификатор монолитовской категории (mysql.taxons)
+       * </pre>
+       *
        * <code>string tid = 2;</code>
        * @param value The tid to set.
        * @return This builder for chaining.
@@ -1502,6 +3679,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор монолитовской категории (mysql.taxons)
+       * </pre>
+       *
        * <code>string tid = 2;</code>
        * @return This builder for chaining.
        */
@@ -1512,6 +3693,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор монолитовской категории (mysql.taxons)
+       * </pre>
+       *
        * <code>string tid = 2;</code>
        * @param value The bytes for tid to set.
        * @return This builder for chaining.
@@ -1530,6 +3715,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object q_ = "";
       /**
+       * <pre>
+       * не используется, добавлен для совместимости с апи монолита
+       * </pre>
+       *
        * <code>string q = 3;</code>
        * @return The q.
        */
@@ -1546,6 +3735,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * не используется, добавлен для совместимости с апи монолита
+       * </pre>
+       *
        * <code>string q = 3;</code>
        * @return The bytes for q.
        */
@@ -1563,6 +3756,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * не используется, добавлен для совместимости с апи монолита
+       * </pre>
+       *
        * <code>string q = 3;</code>
        * @param value The q to set.
        * @return This builder for chaining.
@@ -1578,6 +3775,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * не используется, добавлен для совместимости с апи монолита
+       * </pre>
+       *
        * <code>string q = 3;</code>
        * @return This builder for chaining.
        */
@@ -1588,6 +3789,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * не используется, добавлен для совместимости с апи монолита
+       * </pre>
+       *
        * <code>string q = 3;</code>
        * @param value The bytes for q to set.
        * @return This builder for chaining.
@@ -1606,6 +3811,10 @@ public final class CatalogApiV2 {
 
       private long page_ ;
       /**
+       * <pre>
+       * порядковый номер страницы
+       * </pre>
+       *
        * <code>int64 page = 4;</code>
        * @return The page.
        */
@@ -1614,6 +3823,10 @@ public final class CatalogApiV2 {
         return page_;
       }
       /**
+       * <pre>
+       * порядковый номер страницы
+       * </pre>
+       *
        * <code>int64 page = 4;</code>
        * @param value The page to set.
        * @return This builder for chaining.
@@ -1625,6 +3838,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * порядковый номер страницы
+       * </pre>
+       *
        * <code>int64 page = 4;</code>
        * @return This builder for chaining.
        */
@@ -1637,6 +3854,10 @@ public final class CatalogApiV2 {
 
       private long perPage_ ;
       /**
+       * <pre>
+       * кол-во элементов на странице
+       * </pre>
+       *
        * <code>int64 per_page = 5 [json_name = "per_page"];</code>
        * @return The perPage.
        */
@@ -1645,6 +3866,10 @@ public final class CatalogApiV2 {
         return perPage_;
       }
       /**
+       * <pre>
+       * кол-во элементов на странице
+       * </pre>
+       *
        * <code>int64 per_page = 5 [json_name = "per_page"];</code>
        * @param value The perPage to set.
        * @return This builder for chaining.
@@ -1656,6 +3881,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * кол-во элементов на странице
+       * </pre>
+       *
        * <code>int64 per_page = 5 [json_name = "per_page"];</code>
        * @return This builder for chaining.
        */
@@ -1674,6 +3903,10 @@ public final class CatalogApiV2 {
          }
       }
       /**
+       * <pre>
+       * системное поле
+       * </pre>
+       *
        * <code>repeated string filter_keys = 6;</code>
        * @return A list containing the filterKeys.
        */
@@ -1682,6 +3915,10 @@ public final class CatalogApiV2 {
         return filterKeys_.getUnmodifiableView();
       }
       /**
+       * <pre>
+       * системное поле
+       * </pre>
+       *
        * <code>repeated string filter_keys = 6;</code>
        * @return The count of filterKeys.
        */
@@ -1689,6 +3926,10 @@ public final class CatalogApiV2 {
         return filterKeys_.size();
       }
       /**
+       * <pre>
+       * системное поле
+       * </pre>
+       *
        * <code>repeated string filter_keys = 6;</code>
        * @param index The index of the element to return.
        * @return The filterKeys at the given index.
@@ -1697,6 +3938,10 @@ public final class CatalogApiV2 {
         return filterKeys_.get(index);
       }
       /**
+       * <pre>
+       * системное поле
+       * </pre>
+       *
        * <code>repeated string filter_keys = 6;</code>
        * @param index The index of the value to return.
        * @return The bytes of the filterKeys at the given index.
@@ -1706,6 +3951,10 @@ public final class CatalogApiV2 {
         return filterKeys_.getByteString(index);
       }
       /**
+       * <pre>
+       * системное поле
+       * </pre>
+       *
        * <code>repeated string filter_keys = 6;</code>
        * @param index The index to set the value at.
        * @param value The filterKeys to set.
@@ -1722,6 +3971,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * системное поле
+       * </pre>
+       *
        * <code>repeated string filter_keys = 6;</code>
        * @param value The filterKeys to add.
        * @return This builder for chaining.
@@ -1737,6 +3990,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * системное поле
+       * </pre>
+       *
        * <code>repeated string filter_keys = 6;</code>
        * @param values The filterKeys to add.
        * @return This builder for chaining.
@@ -1750,6 +4007,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * системное поле
+       * </pre>
+       *
        * <code>repeated string filter_keys = 6;</code>
        * @return This builder for chaining.
        */
@@ -1760,6 +4021,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * системное поле
+       * </pre>
+       *
        * <code>repeated string filter_keys = 6;</code>
        * @param value The bytes of the filterKeys to add.
        * @return This builder for chaining.
@@ -1785,7 +4050,7 @@ public final class CatalogApiV2 {
       }
       /**
        * <pre>
-       * Все значения для одного ключа идут в одном значение value через запятую без пробела
+       * системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
        * </pre>
        *
        * <code>repeated string filter_values = 7;</code>
@@ -1797,7 +4062,7 @@ public final class CatalogApiV2 {
       }
       /**
        * <pre>
-       * Все значения для одного ключа идут в одном значение value через запятую без пробела
+       * системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
        * </pre>
        *
        * <code>repeated string filter_values = 7;</code>
@@ -1808,7 +4073,7 @@ public final class CatalogApiV2 {
       }
       /**
        * <pre>
-       * Все значения для одного ключа идут в одном значение value через запятую без пробела
+       * системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
        * </pre>
        *
        * <code>repeated string filter_values = 7;</code>
@@ -1820,7 +4085,7 @@ public final class CatalogApiV2 {
       }
       /**
        * <pre>
-       * Все значения для одного ключа идут в одном значение value через запятую без пробела
+       * системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
        * </pre>
        *
        * <code>repeated string filter_values = 7;</code>
@@ -1833,7 +4098,7 @@ public final class CatalogApiV2 {
       }
       /**
        * <pre>
-       * Все значения для одного ключа идут в одном значение value через запятую без пробела
+       * системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
        * </pre>
        *
        * <code>repeated string filter_values = 7;</code>
@@ -1853,7 +4118,7 @@ public final class CatalogApiV2 {
       }
       /**
        * <pre>
-       * Все значения для одного ключа идут в одном значение value через запятую без пробела
+       * системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
        * </pre>
        *
        * <code>repeated string filter_values = 7;</code>
@@ -1872,7 +4137,7 @@ public final class CatalogApiV2 {
       }
       /**
        * <pre>
-       * Все значения для одного ключа идут в одном значение value через запятую без пробела
+       * системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
        * </pre>
        *
        * <code>repeated string filter_values = 7;</code>
@@ -1889,7 +4154,7 @@ public final class CatalogApiV2 {
       }
       /**
        * <pre>
-       * Все значения для одного ключа идут в одном значение value через запятую без пробела
+       * системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
        * </pre>
        *
        * <code>repeated string filter_values = 7;</code>
@@ -1903,7 +4168,7 @@ public final class CatalogApiV2 {
       }
       /**
        * <pre>
-       * Все значения для одного ключа идут в одном значение value через запятую без пробела
+       * системное поле. Все значения для одного ключа идут в одном значение value через запятую без пробела
        * </pre>
        *
        * <code>repeated string filter_values = 7;</code>
@@ -1924,6 +4189,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object sort_ = "";
       /**
+       * <pre>
+       * сортировка
+       * </pre>
+       *
        * <code>string sort = 8;</code>
        * @return The sort.
        */
@@ -1940,6 +4209,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * сортировка
+       * </pre>
+       *
        * <code>string sort = 8;</code>
        * @return The bytes for sort.
        */
@@ -1957,6 +4230,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * сортировка
+       * </pre>
+       *
        * <code>string sort = 8;</code>
        * @param value The sort to set.
        * @return This builder for chaining.
@@ -1972,6 +4249,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * сортировка
+       * </pre>
+       *
        * <code>string sort = 8;</code>
        * @return This builder for chaining.
        */
@@ -1982,6 +4263,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * сортировка
+       * </pre>
+       *
        * <code>string sort = 8;</code>
        * @param value The bytes for sort to set.
        * @return This builder for chaining.
@@ -2000,6 +4285,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object tenantId_ = "";
       /**
+       * <pre>
+       * идентификатор площадки
+       * </pre>
+       *
        * <code>string tenant_id = 9 [json_name = "tenant_id"];</code>
        * @return The tenantId.
        */
@@ -2016,6 +4305,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * идентификатор площадки
+       * </pre>
+       *
        * <code>string tenant_id = 9 [json_name = "tenant_id"];</code>
        * @return The bytes for tenantId.
        */
@@ -2033,6 +4326,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * идентификатор площадки
+       * </pre>
+       *
        * <code>string tenant_id = 9 [json_name = "tenant_id"];</code>
        * @param value The tenantId to set.
        * @return This builder for chaining.
@@ -2048,6 +4345,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор площадки
+       * </pre>
+       *
        * <code>string tenant_id = 9 [json_name = "tenant_id"];</code>
        * @return This builder for chaining.
        */
@@ -2058,6 +4359,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор площадки
+       * </pre>
+       *
        * <code>string tenant_id = 9 [json_name = "tenant_id"];</code>
        * @param value The bytes for tenantId to set.
        * @return This builder for chaining.
@@ -2077,7 +4382,7 @@ public final class CatalogApiV2 {
       private java.lang.Object anonymousId_ = "";
       /**
        * <pre>
-       * При хттп запросе этот параметр должен передаваться как header
+       * идентификатор не авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
        * </pre>
        *
        * <code>string anonymous_id = 10;</code>
@@ -2097,7 +4402,7 @@ public final class CatalogApiV2 {
       }
       /**
        * <pre>
-       * При хттп запросе этот параметр должен передаваться как header
+       * идентификатор не авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
        * </pre>
        *
        * <code>string anonymous_id = 10;</code>
@@ -2118,7 +4423,7 @@ public final class CatalogApiV2 {
       }
       /**
        * <pre>
-       * При хттп запросе этот параметр должен передаваться как header
+       * идентификатор не авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
        * </pre>
        *
        * <code>string anonymous_id = 10;</code>
@@ -2137,7 +4442,7 @@ public final class CatalogApiV2 {
       }
       /**
        * <pre>
-       * При хттп запросе этот параметр должен передаваться как header
+       * идентификатор не авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
        * </pre>
        *
        * <code>string anonymous_id = 10;</code>
@@ -2151,7 +4456,7 @@ public final class CatalogApiV2 {
       }
       /**
        * <pre>
-       * При хттп запросе этот параметр должен передаваться как header
+       * идентификатор не авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
        * </pre>
        *
        * <code>string anonymous_id = 10;</code>
@@ -2173,7 +4478,7 @@ public final class CatalogApiV2 {
       private java.lang.Object userId_ = "";
       /**
        * <pre>
-       * При хттп запросе этот параметр должен передаваться как header
+       * идентификатор авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
        * </pre>
        *
        * <code>string user_id = 11;</code>
@@ -2193,7 +4498,7 @@ public final class CatalogApiV2 {
       }
       /**
        * <pre>
-       * При хттп запросе этот параметр должен передаваться как header
+       * идентификатор авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
        * </pre>
        *
        * <code>string user_id = 11;</code>
@@ -2214,7 +4519,7 @@ public final class CatalogApiV2 {
       }
       /**
        * <pre>
-       * При хттп запросе этот параметр должен передаваться как header
+       * идентификатор авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
        * </pre>
        *
        * <code>string user_id = 11;</code>
@@ -2233,7 +4538,7 @@ public final class CatalogApiV2 {
       }
       /**
        * <pre>
-       * При хттп запросе этот параметр должен передаваться как header
+       * идентификатор авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
        * </pre>
        *
        * <code>string user_id = 11;</code>
@@ -2247,7 +4552,7 @@ public final class CatalogApiV2 {
       }
       /**
        * <pre>
-       * При хттп запросе этот параметр должен передаваться как header
+       * идентификатор авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
        * </pre>
        *
        * <code>string user_id = 11;</code>
@@ -2323,132 +4628,241 @@ public final class CatalogApiV2 {
       com.google.protobuf.MessageOrBuilder {
 
     /**
+     * <pre>
+     * продукты
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Product products = 1;</code>
      */
     java.util.List<catalog_api_v2.CatalogApiV2.Product> 
         getProductsList();
     /**
+     * <pre>
+     * продукты
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Product products = 1;</code>
      */
     catalog_api_v2.CatalogApiV2.Product getProducts(int index);
     /**
+     * <pre>
+     * продукты
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Product products = 1;</code>
      */
     int getProductsCount();
     /**
+     * <pre>
+     * продукты
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Product products = 1;</code>
      */
     java.util.List<? extends catalog_api_v2.CatalogApiV2.ProductOrBuilder> 
         getProductsOrBuilderList();
     /**
+     * <pre>
+     * продукты
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Product products = 1;</code>
      */
     catalog_api_v2.CatalogApiV2.ProductOrBuilder getProductsOrBuilder(
         int index);
 
     /**
+     * <pre>
+     * фильтры
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
      */
     java.util.List<catalog_api_v2.CatalogApiV2.Facet> 
         getFacetsList();
     /**
+     * <pre>
+     * фильтры
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
      */
     catalog_api_v2.CatalogApiV2.Facet getFacets(int index);
     /**
+     * <pre>
+     * фильтры
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
      */
     int getFacetsCount();
     /**
+     * <pre>
+     * фильтры
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
      */
     java.util.List<? extends catalog_api_v2.CatalogApiV2.FacetOrBuilder> 
         getFacetsOrBuilderList();
     /**
+     * <pre>
+     * фильтры
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
      */
     catalog_api_v2.CatalogApiV2.FacetOrBuilder getFacetsOrBuilder(
         int index);
 
     /**
+     * <pre>
+     * мета информация о стрницах
+     * </pre>
+     *
      * <code>.catalog_api_v2.Meta meta = 3;</code>
      * @return Whether the meta field is set.
      */
     boolean hasMeta();
     /**
+     * <pre>
+     * мета информация о стрницах
+     * </pre>
+     *
      * <code>.catalog_api_v2.Meta meta = 3;</code>
      * @return The meta.
      */
     catalog_api_v2.CatalogApiV2.Meta getMeta();
     /**
+     * <pre>
+     * мета информация о стрницах
+     * </pre>
+     *
      * <code>.catalog_api_v2.Meta meta = 3;</code>
      */
     catalog_api_v2.CatalogApiV2.MetaOrBuilder getMetaOrBuilder();
 
     /**
+     * <pre>
+     * возможная сортировка
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
      */
     java.util.List<catalog_api_v2.CatalogApiV2.ProductListSort> 
         getSortList();
     /**
+     * <pre>
+     * возможная сортировка
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
      */
     catalog_api_v2.CatalogApiV2.ProductListSort getSort(int index);
     /**
+     * <pre>
+     * возможная сортировка
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
      */
     int getSortCount();
     /**
+     * <pre>
+     * возможная сортировка
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
      */
     java.util.List<? extends catalog_api_v2.CatalogApiV2.ProductListSortOrBuilder> 
         getSortOrBuilderList();
     /**
+     * <pre>
+     * возможная сортировка
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
      */
     catalog_api_v2.CatalogApiV2.ProductListSortOrBuilder getSortOrBuilder(
         int index);
 
     /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
      */
     java.util.List<catalog_api_v2.CatalogApiV2.PromoBadge> 
         getPromoBadgesList();
     /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
      */
     catalog_api_v2.CatalogApiV2.PromoBadge getPromoBadges(int index);
     /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
      */
     int getPromoBadgesCount();
     /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
      */
     java.util.List<? extends catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder> 
         getPromoBadgesOrBuilderList();
     /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
      */
     catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder getPromoBadgesOrBuilder(
         int index);
 
     /**
+     * <pre>
+     * корневые категории
+     * </pre>
+     *
      * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
      * @return Whether the rootCategories field is set.
      */
     boolean hasRootCategories();
     /**
+     * <pre>
+     * корневые категории
+     * </pre>
+     *
      * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
      * @return The rootCategories.
      */
     catalog_api_v2.CatalogApiV2.RootCategories getRootCategories();
     /**
+     * <pre>
+     * корневые категории
+     * </pre>
+     *
      * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
      */
     catalog_api_v2.CatalogApiV2.RootCategoriesOrBuilder getRootCategoriesOrBuilder();
   }
   /**
+   * <pre>
+   **
+   * Ответ листинга товаров
+   * </pre>
+   *
    * Protobuf type {@code catalog_api_v2.GetProductListResponse}
    */
   public static final class GetProductListResponse extends
@@ -2607,6 +5021,10 @@ public final class CatalogApiV2 {
     public static final int PRODUCTS_FIELD_NUMBER = 1;
     private java.util.List<catalog_api_v2.CatalogApiV2.Product> products_;
     /**
+     * <pre>
+     * продукты
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Product products = 1;</code>
      */
     @java.lang.Override
@@ -2614,6 +5032,10 @@ public final class CatalogApiV2 {
       return products_;
     }
     /**
+     * <pre>
+     * продукты
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Product products = 1;</code>
      */
     @java.lang.Override
@@ -2622,6 +5044,10 @@ public final class CatalogApiV2 {
       return products_;
     }
     /**
+     * <pre>
+     * продукты
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Product products = 1;</code>
      */
     @java.lang.Override
@@ -2629,6 +5055,10 @@ public final class CatalogApiV2 {
       return products_.size();
     }
     /**
+     * <pre>
+     * продукты
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Product products = 1;</code>
      */
     @java.lang.Override
@@ -2636,6 +5066,10 @@ public final class CatalogApiV2 {
       return products_.get(index);
     }
     /**
+     * <pre>
+     * продукты
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Product products = 1;</code>
      */
     @java.lang.Override
@@ -2647,6 +5081,10 @@ public final class CatalogApiV2 {
     public static final int FACETS_FIELD_NUMBER = 2;
     private java.util.List<catalog_api_v2.CatalogApiV2.Facet> facets_;
     /**
+     * <pre>
+     * фильтры
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
      */
     @java.lang.Override
@@ -2654,6 +5092,10 @@ public final class CatalogApiV2 {
       return facets_;
     }
     /**
+     * <pre>
+     * фильтры
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
      */
     @java.lang.Override
@@ -2662,6 +5104,10 @@ public final class CatalogApiV2 {
       return facets_;
     }
     /**
+     * <pre>
+     * фильтры
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
      */
     @java.lang.Override
@@ -2669,6 +5115,10 @@ public final class CatalogApiV2 {
       return facets_.size();
     }
     /**
+     * <pre>
+     * фильтры
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
      */
     @java.lang.Override
@@ -2676,6 +5126,10 @@ public final class CatalogApiV2 {
       return facets_.get(index);
     }
     /**
+     * <pre>
+     * фильтры
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
      */
     @java.lang.Override
@@ -2687,6 +5141,10 @@ public final class CatalogApiV2 {
     public static final int META_FIELD_NUMBER = 3;
     private catalog_api_v2.CatalogApiV2.Meta meta_;
     /**
+     * <pre>
+     * мета информация о стрницах
+     * </pre>
+     *
      * <code>.catalog_api_v2.Meta meta = 3;</code>
      * @return Whether the meta field is set.
      */
@@ -2695,6 +5153,10 @@ public final class CatalogApiV2 {
       return meta_ != null;
     }
     /**
+     * <pre>
+     * мета информация о стрницах
+     * </pre>
+     *
      * <code>.catalog_api_v2.Meta meta = 3;</code>
      * @return The meta.
      */
@@ -2703,6 +5165,10 @@ public final class CatalogApiV2 {
       return meta_ == null ? catalog_api_v2.CatalogApiV2.Meta.getDefaultInstance() : meta_;
     }
     /**
+     * <pre>
+     * мета информация о стрницах
+     * </pre>
+     *
      * <code>.catalog_api_v2.Meta meta = 3;</code>
      */
     @java.lang.Override
@@ -2713,6 +5179,10 @@ public final class CatalogApiV2 {
     public static final int SORT_FIELD_NUMBER = 4;
     private java.util.List<catalog_api_v2.CatalogApiV2.ProductListSort> sort_;
     /**
+     * <pre>
+     * возможная сортировка
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
      */
     @java.lang.Override
@@ -2720,6 +5190,10 @@ public final class CatalogApiV2 {
       return sort_;
     }
     /**
+     * <pre>
+     * возможная сортировка
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
      */
     @java.lang.Override
@@ -2728,6 +5202,10 @@ public final class CatalogApiV2 {
       return sort_;
     }
     /**
+     * <pre>
+     * возможная сортировка
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
      */
     @java.lang.Override
@@ -2735,6 +5213,10 @@ public final class CatalogApiV2 {
       return sort_.size();
     }
     /**
+     * <pre>
+     * возможная сортировка
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
      */
     @java.lang.Override
@@ -2742,6 +5224,10 @@ public final class CatalogApiV2 {
       return sort_.get(index);
     }
     /**
+     * <pre>
+     * возможная сортировка
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
      */
     @java.lang.Override
@@ -2753,6 +5239,10 @@ public final class CatalogApiV2 {
     public static final int PROMO_BADGES_FIELD_NUMBER = 5;
     private java.util.List<catalog_api_v2.CatalogApiV2.PromoBadge> promoBadges_;
     /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
      */
     @java.lang.Override
@@ -2760,6 +5250,10 @@ public final class CatalogApiV2 {
       return promoBadges_;
     }
     /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
      */
     @java.lang.Override
@@ -2768,6 +5262,10 @@ public final class CatalogApiV2 {
       return promoBadges_;
     }
     /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
      */
     @java.lang.Override
@@ -2775,6 +5273,10 @@ public final class CatalogApiV2 {
       return promoBadges_.size();
     }
     /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
      */
     @java.lang.Override
@@ -2782,6 +5284,10 @@ public final class CatalogApiV2 {
       return promoBadges_.get(index);
     }
     /**
+     * <pre>
+     * бейджи
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
      */
     @java.lang.Override
@@ -2793,6 +5299,10 @@ public final class CatalogApiV2 {
     public static final int ROOT_CATEGORIES_FIELD_NUMBER = 6;
     private catalog_api_v2.CatalogApiV2.RootCategories rootCategories_;
     /**
+     * <pre>
+     * корневые категории
+     * </pre>
+     *
      * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
      * @return Whether the rootCategories field is set.
      */
@@ -2801,6 +5311,10 @@ public final class CatalogApiV2 {
       return rootCategories_ != null;
     }
     /**
+     * <pre>
+     * корневые категории
+     * </pre>
+     *
      * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
      * @return The rootCategories.
      */
@@ -2809,6 +5323,10 @@ public final class CatalogApiV2 {
       return rootCategories_ == null ? catalog_api_v2.CatalogApiV2.RootCategories.getDefaultInstance() : rootCategories_;
     }
     /**
+     * <pre>
+     * корневые категории
+     * </pre>
+     *
      * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
      */
     @java.lang.Override
@@ -3045,6 +5563,11 @@ public final class CatalogApiV2 {
       return builder;
     }
     /**
+     * <pre>
+     **
+     * Ответ листинга товаров
+     * </pre>
+     *
      * Protobuf type {@code catalog_api_v2.GetProductListResponse}
      */
     public static final class Builder extends
@@ -3396,6 +5919,10 @@ public final class CatalogApiV2 {
           catalog_api_v2.CatalogApiV2.Product, catalog_api_v2.CatalogApiV2.Product.Builder, catalog_api_v2.CatalogApiV2.ProductOrBuilder> productsBuilder_;
 
       /**
+       * <pre>
+       * продукты
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Product products = 1;</code>
        */
       public java.util.List<catalog_api_v2.CatalogApiV2.Product> getProductsList() {
@@ -3406,6 +5933,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * продукты
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Product products = 1;</code>
        */
       public int getProductsCount() {
@@ -3416,6 +5947,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * продукты
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Product products = 1;</code>
        */
       public catalog_api_v2.CatalogApiV2.Product getProducts(int index) {
@@ -3426,6 +5961,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * продукты
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Product products = 1;</code>
        */
       public Builder setProducts(
@@ -3443,6 +5982,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * продукты
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Product products = 1;</code>
        */
       public Builder setProducts(
@@ -3457,6 +6000,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * продукты
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Product products = 1;</code>
        */
       public Builder addProducts(catalog_api_v2.CatalogApiV2.Product value) {
@@ -3473,6 +6020,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * продукты
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Product products = 1;</code>
        */
       public Builder addProducts(
@@ -3490,6 +6041,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * продукты
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Product products = 1;</code>
        */
       public Builder addProducts(
@@ -3504,6 +6059,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * продукты
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Product products = 1;</code>
        */
       public Builder addProducts(
@@ -3518,6 +6077,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * продукты
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Product products = 1;</code>
        */
       public Builder addAllProducts(
@@ -3533,6 +6096,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * продукты
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Product products = 1;</code>
        */
       public Builder clearProducts() {
@@ -3546,6 +6113,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * продукты
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Product products = 1;</code>
        */
       public Builder removeProducts(int index) {
@@ -3559,6 +6130,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * продукты
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Product products = 1;</code>
        */
       public catalog_api_v2.CatalogApiV2.Product.Builder getProductsBuilder(
@@ -3566,6 +6141,10 @@ public final class CatalogApiV2 {
         return getProductsFieldBuilder().getBuilder(index);
       }
       /**
+       * <pre>
+       * продукты
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Product products = 1;</code>
        */
       public catalog_api_v2.CatalogApiV2.ProductOrBuilder getProductsOrBuilder(
@@ -3576,6 +6155,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * продукты
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Product products = 1;</code>
        */
       public java.util.List<? extends catalog_api_v2.CatalogApiV2.ProductOrBuilder> 
@@ -3587,6 +6170,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * продукты
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Product products = 1;</code>
        */
       public catalog_api_v2.CatalogApiV2.Product.Builder addProductsBuilder() {
@@ -3594,6 +6181,10 @@ public final class CatalogApiV2 {
             catalog_api_v2.CatalogApiV2.Product.getDefaultInstance());
       }
       /**
+       * <pre>
+       * продукты
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Product products = 1;</code>
        */
       public catalog_api_v2.CatalogApiV2.Product.Builder addProductsBuilder(
@@ -3602,6 +6193,10 @@ public final class CatalogApiV2 {
             index, catalog_api_v2.CatalogApiV2.Product.getDefaultInstance());
       }
       /**
+       * <pre>
+       * продукты
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Product products = 1;</code>
        */
       public java.util.List<catalog_api_v2.CatalogApiV2.Product.Builder> 
@@ -3636,6 +6231,10 @@ public final class CatalogApiV2 {
           catalog_api_v2.CatalogApiV2.Facet, catalog_api_v2.CatalogApiV2.Facet.Builder, catalog_api_v2.CatalogApiV2.FacetOrBuilder> facetsBuilder_;
 
       /**
+       * <pre>
+       * фильтры
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
        */
       public java.util.List<catalog_api_v2.CatalogApiV2.Facet> getFacetsList() {
@@ -3646,6 +6245,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * фильтры
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
        */
       public int getFacetsCount() {
@@ -3656,6 +6259,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * фильтры
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
        */
       public catalog_api_v2.CatalogApiV2.Facet getFacets(int index) {
@@ -3666,6 +6273,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * фильтры
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
        */
       public Builder setFacets(
@@ -3683,6 +6294,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * фильтры
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
        */
       public Builder setFacets(
@@ -3697,6 +6312,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * фильтры
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
        */
       public Builder addFacets(catalog_api_v2.CatalogApiV2.Facet value) {
@@ -3713,6 +6332,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * фильтры
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
        */
       public Builder addFacets(
@@ -3730,6 +6353,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * фильтры
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
        */
       public Builder addFacets(
@@ -3744,6 +6371,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * фильтры
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
        */
       public Builder addFacets(
@@ -3758,6 +6389,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * фильтры
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
        */
       public Builder addAllFacets(
@@ -3773,6 +6408,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * фильтры
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
        */
       public Builder clearFacets() {
@@ -3786,6 +6425,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * фильтры
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
        */
       public Builder removeFacets(int index) {
@@ -3799,6 +6442,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * фильтры
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
        */
       public catalog_api_v2.CatalogApiV2.Facet.Builder getFacetsBuilder(
@@ -3806,6 +6453,10 @@ public final class CatalogApiV2 {
         return getFacetsFieldBuilder().getBuilder(index);
       }
       /**
+       * <pre>
+       * фильтры
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
        */
       public catalog_api_v2.CatalogApiV2.FacetOrBuilder getFacetsOrBuilder(
@@ -3816,6 +6467,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * фильтры
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
        */
       public java.util.List<? extends catalog_api_v2.CatalogApiV2.FacetOrBuilder> 
@@ -3827,6 +6482,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * фильтры
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
        */
       public catalog_api_v2.CatalogApiV2.Facet.Builder addFacetsBuilder() {
@@ -3834,6 +6493,10 @@ public final class CatalogApiV2 {
             catalog_api_v2.CatalogApiV2.Facet.getDefaultInstance());
       }
       /**
+       * <pre>
+       * фильтры
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
        */
       public catalog_api_v2.CatalogApiV2.Facet.Builder addFacetsBuilder(
@@ -3842,6 +6505,10 @@ public final class CatalogApiV2 {
             index, catalog_api_v2.CatalogApiV2.Facet.getDefaultInstance());
       }
       /**
+       * <pre>
+       * фильтры
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Facet facets = 2;</code>
        */
       public java.util.List<catalog_api_v2.CatalogApiV2.Facet.Builder> 
@@ -3867,6 +6534,10 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           catalog_api_v2.CatalogApiV2.Meta, catalog_api_v2.CatalogApiV2.Meta.Builder, catalog_api_v2.CatalogApiV2.MetaOrBuilder> metaBuilder_;
       /**
+       * <pre>
+       * мета информация о стрницах
+       * </pre>
+       *
        * <code>.catalog_api_v2.Meta meta = 3;</code>
        * @return Whether the meta field is set.
        */
@@ -3874,6 +6545,10 @@ public final class CatalogApiV2 {
         return metaBuilder_ != null || meta_ != null;
       }
       /**
+       * <pre>
+       * мета информация о стрницах
+       * </pre>
+       *
        * <code>.catalog_api_v2.Meta meta = 3;</code>
        * @return The meta.
        */
@@ -3885,6 +6560,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * мета информация о стрницах
+       * </pre>
+       *
        * <code>.catalog_api_v2.Meta meta = 3;</code>
        */
       public Builder setMeta(catalog_api_v2.CatalogApiV2.Meta value) {
@@ -3901,6 +6580,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * мета информация о стрницах
+       * </pre>
+       *
        * <code>.catalog_api_v2.Meta meta = 3;</code>
        */
       public Builder setMeta(
@@ -3915,6 +6598,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * мета информация о стрницах
+       * </pre>
+       *
        * <code>.catalog_api_v2.Meta meta = 3;</code>
        */
       public Builder mergeMeta(catalog_api_v2.CatalogApiV2.Meta value) {
@@ -3933,6 +6620,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * мета информация о стрницах
+       * </pre>
+       *
        * <code>.catalog_api_v2.Meta meta = 3;</code>
        */
       public Builder clearMeta() {
@@ -3947,6 +6638,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * мета информация о стрницах
+       * </pre>
+       *
        * <code>.catalog_api_v2.Meta meta = 3;</code>
        */
       public catalog_api_v2.CatalogApiV2.Meta.Builder getMetaBuilder() {
@@ -3955,6 +6650,10 @@ public final class CatalogApiV2 {
         return getMetaFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * мета информация о стрницах
+       * </pre>
+       *
        * <code>.catalog_api_v2.Meta meta = 3;</code>
        */
       public catalog_api_v2.CatalogApiV2.MetaOrBuilder getMetaOrBuilder() {
@@ -3966,6 +6665,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * мета информация о стрницах
+       * </pre>
+       *
        * <code>.catalog_api_v2.Meta meta = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -3995,6 +6698,10 @@ public final class CatalogApiV2 {
           catalog_api_v2.CatalogApiV2.ProductListSort, catalog_api_v2.CatalogApiV2.ProductListSort.Builder, catalog_api_v2.CatalogApiV2.ProductListSortOrBuilder> sortBuilder_;
 
       /**
+       * <pre>
+       * возможная сортировка
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
        */
       public java.util.List<catalog_api_v2.CatalogApiV2.ProductListSort> getSortList() {
@@ -4005,6 +6712,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * возможная сортировка
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
        */
       public int getSortCount() {
@@ -4015,6 +6726,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * возможная сортировка
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
        */
       public catalog_api_v2.CatalogApiV2.ProductListSort getSort(int index) {
@@ -4025,6 +6740,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * возможная сортировка
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
        */
       public Builder setSort(
@@ -4042,6 +6761,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * возможная сортировка
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
        */
       public Builder setSort(
@@ -4056,6 +6779,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * возможная сортировка
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
        */
       public Builder addSort(catalog_api_v2.CatalogApiV2.ProductListSort value) {
@@ -4072,6 +6799,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * возможная сортировка
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
        */
       public Builder addSort(
@@ -4089,6 +6820,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * возможная сортировка
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
        */
       public Builder addSort(
@@ -4103,6 +6838,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * возможная сортировка
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
        */
       public Builder addSort(
@@ -4117,6 +6856,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * возможная сортировка
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
        */
       public Builder addAllSort(
@@ -4132,6 +6875,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * возможная сортировка
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
        */
       public Builder clearSort() {
@@ -4145,6 +6892,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * возможная сортировка
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
        */
       public Builder removeSort(int index) {
@@ -4158,6 +6909,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * возможная сортировка
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
        */
       public catalog_api_v2.CatalogApiV2.ProductListSort.Builder getSortBuilder(
@@ -4165,6 +6920,10 @@ public final class CatalogApiV2 {
         return getSortFieldBuilder().getBuilder(index);
       }
       /**
+       * <pre>
+       * возможная сортировка
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
        */
       public catalog_api_v2.CatalogApiV2.ProductListSortOrBuilder getSortOrBuilder(
@@ -4175,6 +6934,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * возможная сортировка
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
        */
       public java.util.List<? extends catalog_api_v2.CatalogApiV2.ProductListSortOrBuilder> 
@@ -4186,6 +6949,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * возможная сортировка
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
        */
       public catalog_api_v2.CatalogApiV2.ProductListSort.Builder addSortBuilder() {
@@ -4193,6 +6960,10 @@ public final class CatalogApiV2 {
             catalog_api_v2.CatalogApiV2.ProductListSort.getDefaultInstance());
       }
       /**
+       * <pre>
+       * возможная сортировка
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
        */
       public catalog_api_v2.CatalogApiV2.ProductListSort.Builder addSortBuilder(
@@ -4201,6 +6972,10 @@ public final class CatalogApiV2 {
             index, catalog_api_v2.CatalogApiV2.ProductListSort.getDefaultInstance());
       }
       /**
+       * <pre>
+       * возможная сортировка
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.ProductListSort sort = 4;</code>
        */
       public java.util.List<catalog_api_v2.CatalogApiV2.ProductListSort.Builder> 
@@ -4235,6 +7010,10 @@ public final class CatalogApiV2 {
           catalog_api_v2.CatalogApiV2.PromoBadge, catalog_api_v2.CatalogApiV2.PromoBadge.Builder, catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder> promoBadgesBuilder_;
 
       /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
        */
       public java.util.List<catalog_api_v2.CatalogApiV2.PromoBadge> getPromoBadgesList() {
@@ -4245,6 +7024,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
        */
       public int getPromoBadgesCount() {
@@ -4255,6 +7038,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
        */
       public catalog_api_v2.CatalogApiV2.PromoBadge getPromoBadges(int index) {
@@ -4265,6 +7052,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
        */
       public Builder setPromoBadges(
@@ -4282,6 +7073,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
        */
       public Builder setPromoBadges(
@@ -4296,6 +7091,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
        */
       public Builder addPromoBadges(catalog_api_v2.CatalogApiV2.PromoBadge value) {
@@ -4312,6 +7111,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
        */
       public Builder addPromoBadges(
@@ -4329,6 +7132,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
        */
       public Builder addPromoBadges(
@@ -4343,6 +7150,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
        */
       public Builder addPromoBadges(
@@ -4357,6 +7168,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
        */
       public Builder addAllPromoBadges(
@@ -4372,6 +7187,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
        */
       public Builder clearPromoBadges() {
@@ -4385,6 +7204,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
        */
       public Builder removePromoBadges(int index) {
@@ -4398,6 +7221,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
        */
       public catalog_api_v2.CatalogApiV2.PromoBadge.Builder getPromoBadgesBuilder(
@@ -4405,6 +7232,10 @@ public final class CatalogApiV2 {
         return getPromoBadgesFieldBuilder().getBuilder(index);
       }
       /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
        */
       public catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder getPromoBadgesOrBuilder(
@@ -4415,6 +7246,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
        */
       public java.util.List<? extends catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder> 
@@ -4426,6 +7261,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
        */
       public catalog_api_v2.CatalogApiV2.PromoBadge.Builder addPromoBadgesBuilder() {
@@ -4433,6 +7272,10 @@ public final class CatalogApiV2 {
             catalog_api_v2.CatalogApiV2.PromoBadge.getDefaultInstance());
       }
       /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
        */
       public catalog_api_v2.CatalogApiV2.PromoBadge.Builder addPromoBadgesBuilder(
@@ -4441,6 +7284,10 @@ public final class CatalogApiV2 {
             index, catalog_api_v2.CatalogApiV2.PromoBadge.getDefaultInstance());
       }
       /**
+       * <pre>
+       * бейджи
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 5 [json_name = "promo_badges"];</code>
        */
       public java.util.List<catalog_api_v2.CatalogApiV2.PromoBadge.Builder> 
@@ -4466,6 +7313,10 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           catalog_api_v2.CatalogApiV2.RootCategories, catalog_api_v2.CatalogApiV2.RootCategories.Builder, catalog_api_v2.CatalogApiV2.RootCategoriesOrBuilder> rootCategoriesBuilder_;
       /**
+       * <pre>
+       * корневые категории
+       * </pre>
+       *
        * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
        * @return Whether the rootCategories field is set.
        */
@@ -4473,6 +7324,10 @@ public final class CatalogApiV2 {
         return rootCategoriesBuilder_ != null || rootCategories_ != null;
       }
       /**
+       * <pre>
+       * корневые категории
+       * </pre>
+       *
        * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
        * @return The rootCategories.
        */
@@ -4484,6 +7339,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * корневые категории
+       * </pre>
+       *
        * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
        */
       public Builder setRootCategories(catalog_api_v2.CatalogApiV2.RootCategories value) {
@@ -4500,6 +7359,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * корневые категории
+       * </pre>
+       *
        * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
        */
       public Builder setRootCategories(
@@ -4514,6 +7377,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * корневые категории
+       * </pre>
+       *
        * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
        */
       public Builder mergeRootCategories(catalog_api_v2.CatalogApiV2.RootCategories value) {
@@ -4532,6 +7399,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * корневые категории
+       * </pre>
+       *
        * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
        */
       public Builder clearRootCategories() {
@@ -4546,6 +7417,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * корневые категории
+       * </pre>
+       *
        * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
        */
       public catalog_api_v2.CatalogApiV2.RootCategories.Builder getRootCategoriesBuilder() {
@@ -4554,6 +7429,10 @@ public final class CatalogApiV2 {
         return getRootCategoriesFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * корневые категории
+       * </pre>
+       *
        * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
        */
       public catalog_api_v2.CatalogApiV2.RootCategoriesOrBuilder getRootCategoriesOrBuilder() {
@@ -4565,6 +7444,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * корневые категории
+       * </pre>
+       *
        * <code>.catalog_api_v2.RootCategories root_categories = 6 [json_name = "root_categories"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -4633,1900 +7516,360 @@ public final class CatalogApiV2 {
 
   }
 
-  public interface GetProductRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:catalog_api_v2.GetProductRequest)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string product_id = 1 [json_name = "product_id"];</code>
-     * @return The productId.
-     */
-    java.lang.String getProductId();
-    /**
-     * <code>string product_id = 1 [json_name = "product_id"];</code>
-     * @return The bytes for productId.
-     */
-    com.google.protobuf.ByteString
-        getProductIdBytes();
-
-    /**
-     * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
-     * @return The tenantId.
-     */
-    java.lang.String getTenantId();
-    /**
-     * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
-     * @return The bytes for tenantId.
-     */
-    com.google.protobuf.ByteString
-        getTenantIdBytes();
-  }
-  /**
-   * Protobuf type {@code catalog_api_v2.GetProductRequest}
-   */
-  public static final class GetProductRequest extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:catalog_api_v2.GetProductRequest)
-      GetProductRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use GetProductRequest.newBuilder() to construct.
-    private GetProductRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private GetProductRequest() {
-      productId_ = "";
-      tenantId_ = "";
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new GetProductRequest();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private GetProductRequest(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              productId_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              tenantId_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductRequest_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              catalog_api_v2.CatalogApiV2.GetProductRequest.class, catalog_api_v2.CatalogApiV2.GetProductRequest.Builder.class);
-    }
-
-    public static final int PRODUCT_ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object productId_;
-    /**
-     * <code>string product_id = 1 [json_name = "product_id"];</code>
-     * @return The productId.
-     */
-    @java.lang.Override
-    public java.lang.String getProductId() {
-      java.lang.Object ref = productId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        productId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string product_id = 1 [json_name = "product_id"];</code>
-     * @return The bytes for productId.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getProductIdBytes() {
-      java.lang.Object ref = productId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        productId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int TENANT_ID_FIELD_NUMBER = 2;
-    private volatile java.lang.Object tenantId_;
-    /**
-     * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
-     * @return The tenantId.
-     */
-    @java.lang.Override
-    public java.lang.String getTenantId() {
-      java.lang.Object ref = tenantId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        tenantId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
-     * @return The bytes for tenantId.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getTenantIdBytes() {
-      java.lang.Object ref = tenantId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        tenantId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getProductIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, productId_);
-      }
-      if (!getTenantIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, tenantId_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getProductIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, productId_);
-      }
-      if (!getTenantIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, tenantId_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof catalog_api_v2.CatalogApiV2.GetProductRequest)) {
-        return super.equals(obj);
-      }
-      catalog_api_v2.CatalogApiV2.GetProductRequest other = (catalog_api_v2.CatalogApiV2.GetProductRequest) obj;
-
-      if (!getProductId()
-          .equals(other.getProductId())) return false;
-      if (!getTenantId()
-          .equals(other.getTenantId())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + PRODUCT_ID_FIELD_NUMBER;
-      hash = (53 * hash) + getProductId().hashCode();
-      hash = (37 * hash) + TENANT_ID_FIELD_NUMBER;
-      hash = (53 * hash) + getTenantId().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(catalog_api_v2.CatalogApiV2.GetProductRequest prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code catalog_api_v2.GetProductRequest}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:catalog_api_v2.GetProductRequest)
-        catalog_api_v2.CatalogApiV2.GetProductRequestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductRequest_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                catalog_api_v2.CatalogApiV2.GetProductRequest.class, catalog_api_v2.CatalogApiV2.GetProductRequest.Builder.class);
-      }
-
-      // Construct using catalog_api_v2.CatalogApiV2.GetProductRequest.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        productId_ = "";
-
-        tenantId_ = "";
-
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductRequest_descriptor;
-      }
-
-      @java.lang.Override
-      public catalog_api_v2.CatalogApiV2.GetProductRequest getDefaultInstanceForType() {
-        return catalog_api_v2.CatalogApiV2.GetProductRequest.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public catalog_api_v2.CatalogApiV2.GetProductRequest build() {
-        catalog_api_v2.CatalogApiV2.GetProductRequest result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public catalog_api_v2.CatalogApiV2.GetProductRequest buildPartial() {
-        catalog_api_v2.CatalogApiV2.GetProductRequest result = new catalog_api_v2.CatalogApiV2.GetProductRequest(this);
-        result.productId_ = productId_;
-        result.tenantId_ = tenantId_;
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof catalog_api_v2.CatalogApiV2.GetProductRequest) {
-          return mergeFrom((catalog_api_v2.CatalogApiV2.GetProductRequest)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(catalog_api_v2.CatalogApiV2.GetProductRequest other) {
-        if (other == catalog_api_v2.CatalogApiV2.GetProductRequest.getDefaultInstance()) return this;
-        if (!other.getProductId().isEmpty()) {
-          productId_ = other.productId_;
-          onChanged();
-        }
-        if (!other.getTenantId().isEmpty()) {
-          tenantId_ = other.tenantId_;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        catalog_api_v2.CatalogApiV2.GetProductRequest parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (catalog_api_v2.CatalogApiV2.GetProductRequest) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object productId_ = "";
-      /**
-       * <code>string product_id = 1 [json_name = "product_id"];</code>
-       * @return The productId.
-       */
-      public java.lang.String getProductId() {
-        java.lang.Object ref = productId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          productId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string product_id = 1 [json_name = "product_id"];</code>
-       * @return The bytes for productId.
-       */
-      public com.google.protobuf.ByteString
-          getProductIdBytes() {
-        java.lang.Object ref = productId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          productId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string product_id = 1 [json_name = "product_id"];</code>
-       * @param value The productId to set.
-       * @return This builder for chaining.
-       */
-      public Builder setProductId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        productId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string product_id = 1 [json_name = "product_id"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearProductId() {
-        
-        productId_ = getDefaultInstance().getProductId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string product_id = 1 [json_name = "product_id"];</code>
-       * @param value The bytes for productId to set.
-       * @return This builder for chaining.
-       */
-      public Builder setProductIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        productId_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object tenantId_ = "";
-      /**
-       * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
-       * @return The tenantId.
-       */
-      public java.lang.String getTenantId() {
-        java.lang.Object ref = tenantId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          tenantId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
-       * @return The bytes for tenantId.
-       */
-      public com.google.protobuf.ByteString
-          getTenantIdBytes() {
-        java.lang.Object ref = tenantId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          tenantId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
-       * @param value The tenantId to set.
-       * @return This builder for chaining.
-       */
-      public Builder setTenantId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        tenantId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearTenantId() {
-        
-        tenantId_ = getDefaultInstance().getTenantId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string tenant_id = 2 [json_name = "tenant_id"];</code>
-       * @param value The bytes for tenantId to set.
-       * @return This builder for chaining.
-       */
-      public Builder setTenantIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        tenantId_ = value;
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:catalog_api_v2.GetProductRequest)
-    }
-
-    // @@protoc_insertion_point(class_scope:catalog_api_v2.GetProductRequest)
-    private static final catalog_api_v2.CatalogApiV2.GetProductRequest DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new catalog_api_v2.CatalogApiV2.GetProductRequest();
-    }
-
-    public static catalog_api_v2.CatalogApiV2.GetProductRequest getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<GetProductRequest>
-        PARSER = new com.google.protobuf.AbstractParser<GetProductRequest>() {
-      @java.lang.Override
-      public GetProductRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new GetProductRequest(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<GetProductRequest> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<GetProductRequest> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public catalog_api_v2.CatalogApiV2.GetProductRequest getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface GetProductResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:catalog_api_v2.GetProductResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
-     * @return Whether the product field is set.
-     */
-    boolean hasProduct();
-    /**
-     * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
-     * @return The product.
-     */
-    catalog_api_v2.CatalogApiV2.ProductWithProperties getProduct();
-    /**
-     * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
-     */
-    catalog_api_v2.CatalogApiV2.ProductWithPropertiesOrBuilder getProductOrBuilder();
-
-    /**
-     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-     */
-    java.util.List<catalog_api_v2.CatalogApiV2.PromoBadge> 
-        getPromoBadgesList();
-    /**
-     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-     */
-    catalog_api_v2.CatalogApiV2.PromoBadge getPromoBadges(int index);
-    /**
-     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-     */
-    int getPromoBadgesCount();
-    /**
-     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-     */
-    java.util.List<? extends catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder> 
-        getPromoBadgesOrBuilderList();
-    /**
-     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-     */
-    catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder getPromoBadgesOrBuilder(
-        int index);
-  }
-  /**
-   * Protobuf type {@code catalog_api_v2.GetProductResponse}
-   */
-  public static final class GetProductResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:catalog_api_v2.GetProductResponse)
-      GetProductResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use GetProductResponse.newBuilder() to construct.
-    private GetProductResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private GetProductResponse() {
-      promoBadges_ = java.util.Collections.emptyList();
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new GetProductResponse();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private GetProductResponse(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              catalog_api_v2.CatalogApiV2.ProductWithProperties.Builder subBuilder = null;
-              if (product_ != null) {
-                subBuilder = product_.toBuilder();
-              }
-              product_ = input.readMessage(catalog_api_v2.CatalogApiV2.ProductWithProperties.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(product_);
-                product_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            case 18: {
-              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                promoBadges_ = new java.util.ArrayList<catalog_api_v2.CatalogApiV2.PromoBadge>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              promoBadges_.add(
-                  input.readMessage(catalog_api_v2.CatalogApiV2.PromoBadge.parser(), extensionRegistry));
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000001) != 0)) {
-          promoBadges_ = java.util.Collections.unmodifiableList(promoBadges_);
-        }
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductResponse_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              catalog_api_v2.CatalogApiV2.GetProductResponse.class, catalog_api_v2.CatalogApiV2.GetProductResponse.Builder.class);
-    }
-
-    public static final int PRODUCT_FIELD_NUMBER = 1;
-    private catalog_api_v2.CatalogApiV2.ProductWithProperties product_;
-    /**
-     * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
-     * @return Whether the product field is set.
-     */
-    @java.lang.Override
-    public boolean hasProduct() {
-      return product_ != null;
-    }
-    /**
-     * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
-     * @return The product.
-     */
-    @java.lang.Override
-    public catalog_api_v2.CatalogApiV2.ProductWithProperties getProduct() {
-      return product_ == null ? catalog_api_v2.CatalogApiV2.ProductWithProperties.getDefaultInstance() : product_;
-    }
-    /**
-     * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
-     */
-    @java.lang.Override
-    public catalog_api_v2.CatalogApiV2.ProductWithPropertiesOrBuilder getProductOrBuilder() {
-      return getProduct();
-    }
-
-    public static final int PROMO_BADGES_FIELD_NUMBER = 2;
-    private java.util.List<catalog_api_v2.CatalogApiV2.PromoBadge> promoBadges_;
-    /**
-     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-     */
-    @java.lang.Override
-    public java.util.List<catalog_api_v2.CatalogApiV2.PromoBadge> getPromoBadgesList() {
-      return promoBadges_;
-    }
-    /**
-     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-     */
-    @java.lang.Override
-    public java.util.List<? extends catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder> 
-        getPromoBadgesOrBuilderList() {
-      return promoBadges_;
-    }
-    /**
-     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-     */
-    @java.lang.Override
-    public int getPromoBadgesCount() {
-      return promoBadges_.size();
-    }
-    /**
-     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-     */
-    @java.lang.Override
-    public catalog_api_v2.CatalogApiV2.PromoBadge getPromoBadges(int index) {
-      return promoBadges_.get(index);
-    }
-    /**
-     * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-     */
-    @java.lang.Override
-    public catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder getPromoBadgesOrBuilder(
-        int index) {
-      return promoBadges_.get(index);
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (product_ != null) {
-        output.writeMessage(1, getProduct());
-      }
-      for (int i = 0; i < promoBadges_.size(); i++) {
-        output.writeMessage(2, promoBadges_.get(i));
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (product_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getProduct());
-      }
-      for (int i = 0; i < promoBadges_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, promoBadges_.get(i));
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof catalog_api_v2.CatalogApiV2.GetProductResponse)) {
-        return super.equals(obj);
-      }
-      catalog_api_v2.CatalogApiV2.GetProductResponse other = (catalog_api_v2.CatalogApiV2.GetProductResponse) obj;
-
-      if (hasProduct() != other.hasProduct()) return false;
-      if (hasProduct()) {
-        if (!getProduct()
-            .equals(other.getProduct())) return false;
-      }
-      if (!getPromoBadgesList()
-          .equals(other.getPromoBadgesList())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasProduct()) {
-        hash = (37 * hash) + PRODUCT_FIELD_NUMBER;
-        hash = (53 * hash) + getProduct().hashCode();
-      }
-      if (getPromoBadgesCount() > 0) {
-        hash = (37 * hash) + PROMO_BADGES_FIELD_NUMBER;
-        hash = (53 * hash) + getPromoBadgesList().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static catalog_api_v2.CatalogApiV2.GetProductResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(catalog_api_v2.CatalogApiV2.GetProductResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code catalog_api_v2.GetProductResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:catalog_api_v2.GetProductResponse)
-        catalog_api_v2.CatalogApiV2.GetProductResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductResponse_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                catalog_api_v2.CatalogApiV2.GetProductResponse.class, catalog_api_v2.CatalogApiV2.GetProductResponse.Builder.class);
-      }
-
-      // Construct using catalog_api_v2.CatalogApiV2.GetProductResponse.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-          getPromoBadgesFieldBuilder();
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        if (productBuilder_ == null) {
-          product_ = null;
-        } else {
-          product_ = null;
-          productBuilder_ = null;
-        }
-        if (promoBadgesBuilder_ == null) {
-          promoBadges_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          promoBadgesBuilder_.clear();
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_GetProductResponse_descriptor;
-      }
-
-      @java.lang.Override
-      public catalog_api_v2.CatalogApiV2.GetProductResponse getDefaultInstanceForType() {
-        return catalog_api_v2.CatalogApiV2.GetProductResponse.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public catalog_api_v2.CatalogApiV2.GetProductResponse build() {
-        catalog_api_v2.CatalogApiV2.GetProductResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public catalog_api_v2.CatalogApiV2.GetProductResponse buildPartial() {
-        catalog_api_v2.CatalogApiV2.GetProductResponse result = new catalog_api_v2.CatalogApiV2.GetProductResponse(this);
-        int from_bitField0_ = bitField0_;
-        if (productBuilder_ == null) {
-          result.product_ = product_;
-        } else {
-          result.product_ = productBuilder_.build();
-        }
-        if (promoBadgesBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0)) {
-            promoBadges_ = java.util.Collections.unmodifiableList(promoBadges_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.promoBadges_ = promoBadges_;
-        } else {
-          result.promoBadges_ = promoBadgesBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof catalog_api_v2.CatalogApiV2.GetProductResponse) {
-          return mergeFrom((catalog_api_v2.CatalogApiV2.GetProductResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(catalog_api_v2.CatalogApiV2.GetProductResponse other) {
-        if (other == catalog_api_v2.CatalogApiV2.GetProductResponse.getDefaultInstance()) return this;
-        if (other.hasProduct()) {
-          mergeProduct(other.getProduct());
-        }
-        if (promoBadgesBuilder_ == null) {
-          if (!other.promoBadges_.isEmpty()) {
-            if (promoBadges_.isEmpty()) {
-              promoBadges_ = other.promoBadges_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensurePromoBadgesIsMutable();
-              promoBadges_.addAll(other.promoBadges_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.promoBadges_.isEmpty()) {
-            if (promoBadgesBuilder_.isEmpty()) {
-              promoBadgesBuilder_.dispose();
-              promoBadgesBuilder_ = null;
-              promoBadges_ = other.promoBadges_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              promoBadgesBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getPromoBadgesFieldBuilder() : null;
-            } else {
-              promoBadgesBuilder_.addAllMessages(other.promoBadges_);
-            }
-          }
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        catalog_api_v2.CatalogApiV2.GetProductResponse parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (catalog_api_v2.CatalogApiV2.GetProductResponse) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private catalog_api_v2.CatalogApiV2.ProductWithProperties product_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          catalog_api_v2.CatalogApiV2.ProductWithProperties, catalog_api_v2.CatalogApiV2.ProductWithProperties.Builder, catalog_api_v2.CatalogApiV2.ProductWithPropertiesOrBuilder> productBuilder_;
-      /**
-       * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
-       * @return Whether the product field is set.
-       */
-      public boolean hasProduct() {
-        return productBuilder_ != null || product_ != null;
-      }
-      /**
-       * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
-       * @return The product.
-       */
-      public catalog_api_v2.CatalogApiV2.ProductWithProperties getProduct() {
-        if (productBuilder_ == null) {
-          return product_ == null ? catalog_api_v2.CatalogApiV2.ProductWithProperties.getDefaultInstance() : product_;
-        } else {
-          return productBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
-       */
-      public Builder setProduct(catalog_api_v2.CatalogApiV2.ProductWithProperties value) {
-        if (productBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          product_ = value;
-          onChanged();
-        } else {
-          productBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
-       */
-      public Builder setProduct(
-          catalog_api_v2.CatalogApiV2.ProductWithProperties.Builder builderForValue) {
-        if (productBuilder_ == null) {
-          product_ = builderForValue.build();
-          onChanged();
-        } else {
-          productBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
-       */
-      public Builder mergeProduct(catalog_api_v2.CatalogApiV2.ProductWithProperties value) {
-        if (productBuilder_ == null) {
-          if (product_ != null) {
-            product_ =
-              catalog_api_v2.CatalogApiV2.ProductWithProperties.newBuilder(product_).mergeFrom(value).buildPartial();
-          } else {
-            product_ = value;
-          }
-          onChanged();
-        } else {
-          productBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
-       */
-      public Builder clearProduct() {
-        if (productBuilder_ == null) {
-          product_ = null;
-          onChanged();
-        } else {
-          product_ = null;
-          productBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
-       */
-      public catalog_api_v2.CatalogApiV2.ProductWithProperties.Builder getProductBuilder() {
-        
-        onChanged();
-        return getProductFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
-       */
-      public catalog_api_v2.CatalogApiV2.ProductWithPropertiesOrBuilder getProductOrBuilder() {
-        if (productBuilder_ != null) {
-          return productBuilder_.getMessageOrBuilder();
-        } else {
-          return product_ == null ?
-              catalog_api_v2.CatalogApiV2.ProductWithProperties.getDefaultInstance() : product_;
-        }
-      }
-      /**
-       * <code>.catalog_api_v2.ProductWithProperties product = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          catalog_api_v2.CatalogApiV2.ProductWithProperties, catalog_api_v2.CatalogApiV2.ProductWithProperties.Builder, catalog_api_v2.CatalogApiV2.ProductWithPropertiesOrBuilder> 
-          getProductFieldBuilder() {
-        if (productBuilder_ == null) {
-          productBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              catalog_api_v2.CatalogApiV2.ProductWithProperties, catalog_api_v2.CatalogApiV2.ProductWithProperties.Builder, catalog_api_v2.CatalogApiV2.ProductWithPropertiesOrBuilder>(
-                  getProduct(),
-                  getParentForChildren(),
-                  isClean());
-          product_ = null;
-        }
-        return productBuilder_;
-      }
-
-      private java.util.List<catalog_api_v2.CatalogApiV2.PromoBadge> promoBadges_ =
-        java.util.Collections.emptyList();
-      private void ensurePromoBadgesIsMutable() {
-        if (!((bitField0_ & 0x00000001) != 0)) {
-          promoBadges_ = new java.util.ArrayList<catalog_api_v2.CatalogApiV2.PromoBadge>(promoBadges_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          catalog_api_v2.CatalogApiV2.PromoBadge, catalog_api_v2.CatalogApiV2.PromoBadge.Builder, catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder> promoBadgesBuilder_;
-
-      /**
-       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-       */
-      public java.util.List<catalog_api_v2.CatalogApiV2.PromoBadge> getPromoBadgesList() {
-        if (promoBadgesBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(promoBadges_);
-        } else {
-          return promoBadgesBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-       */
-      public int getPromoBadgesCount() {
-        if (promoBadgesBuilder_ == null) {
-          return promoBadges_.size();
-        } else {
-          return promoBadgesBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-       */
-      public catalog_api_v2.CatalogApiV2.PromoBadge getPromoBadges(int index) {
-        if (promoBadgesBuilder_ == null) {
-          return promoBadges_.get(index);
-        } else {
-          return promoBadgesBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-       */
-      public Builder setPromoBadges(
-          int index, catalog_api_v2.CatalogApiV2.PromoBadge value) {
-        if (promoBadgesBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensurePromoBadgesIsMutable();
-          promoBadges_.set(index, value);
-          onChanged();
-        } else {
-          promoBadgesBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-       */
-      public Builder setPromoBadges(
-          int index, catalog_api_v2.CatalogApiV2.PromoBadge.Builder builderForValue) {
-        if (promoBadgesBuilder_ == null) {
-          ensurePromoBadgesIsMutable();
-          promoBadges_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          promoBadgesBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-       */
-      public Builder addPromoBadges(catalog_api_v2.CatalogApiV2.PromoBadge value) {
-        if (promoBadgesBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensurePromoBadgesIsMutable();
-          promoBadges_.add(value);
-          onChanged();
-        } else {
-          promoBadgesBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-       */
-      public Builder addPromoBadges(
-          int index, catalog_api_v2.CatalogApiV2.PromoBadge value) {
-        if (promoBadgesBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensurePromoBadgesIsMutable();
-          promoBadges_.add(index, value);
-          onChanged();
-        } else {
-          promoBadgesBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-       */
-      public Builder addPromoBadges(
-          catalog_api_v2.CatalogApiV2.PromoBadge.Builder builderForValue) {
-        if (promoBadgesBuilder_ == null) {
-          ensurePromoBadgesIsMutable();
-          promoBadges_.add(builderForValue.build());
-          onChanged();
-        } else {
-          promoBadgesBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-       */
-      public Builder addPromoBadges(
-          int index, catalog_api_v2.CatalogApiV2.PromoBadge.Builder builderForValue) {
-        if (promoBadgesBuilder_ == null) {
-          ensurePromoBadgesIsMutable();
-          promoBadges_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          promoBadgesBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-       */
-      public Builder addAllPromoBadges(
-          java.lang.Iterable<? extends catalog_api_v2.CatalogApiV2.PromoBadge> values) {
-        if (promoBadgesBuilder_ == null) {
-          ensurePromoBadgesIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, promoBadges_);
-          onChanged();
-        } else {
-          promoBadgesBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-       */
-      public Builder clearPromoBadges() {
-        if (promoBadgesBuilder_ == null) {
-          promoBadges_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-        } else {
-          promoBadgesBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-       */
-      public Builder removePromoBadges(int index) {
-        if (promoBadgesBuilder_ == null) {
-          ensurePromoBadgesIsMutable();
-          promoBadges_.remove(index);
-          onChanged();
-        } else {
-          promoBadgesBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-       */
-      public catalog_api_v2.CatalogApiV2.PromoBadge.Builder getPromoBadgesBuilder(
-          int index) {
-        return getPromoBadgesFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-       */
-      public catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder getPromoBadgesOrBuilder(
-          int index) {
-        if (promoBadgesBuilder_ == null) {
-          return promoBadges_.get(index);  } else {
-          return promoBadgesBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-       */
-      public java.util.List<? extends catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder> 
-           getPromoBadgesOrBuilderList() {
-        if (promoBadgesBuilder_ != null) {
-          return promoBadgesBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(promoBadges_);
-        }
-      }
-      /**
-       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-       */
-      public catalog_api_v2.CatalogApiV2.PromoBadge.Builder addPromoBadgesBuilder() {
-        return getPromoBadgesFieldBuilder().addBuilder(
-            catalog_api_v2.CatalogApiV2.PromoBadge.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-       */
-      public catalog_api_v2.CatalogApiV2.PromoBadge.Builder addPromoBadgesBuilder(
-          int index) {
-        return getPromoBadgesFieldBuilder().addBuilder(
-            index, catalog_api_v2.CatalogApiV2.PromoBadge.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .catalog_api_v2.PromoBadge promo_badges = 2 [json_name = "promo_badges"];</code>
-       */
-      public java.util.List<catalog_api_v2.CatalogApiV2.PromoBadge.Builder> 
-           getPromoBadgesBuilderList() {
-        return getPromoBadgesFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          catalog_api_v2.CatalogApiV2.PromoBadge, catalog_api_v2.CatalogApiV2.PromoBadge.Builder, catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder> 
-          getPromoBadgesFieldBuilder() {
-        if (promoBadgesBuilder_ == null) {
-          promoBadgesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              catalog_api_v2.CatalogApiV2.PromoBadge, catalog_api_v2.CatalogApiV2.PromoBadge.Builder, catalog_api_v2.CatalogApiV2.PromoBadgeOrBuilder>(
-                  promoBadges_,
-                  ((bitField0_ & 0x00000001) != 0),
-                  getParentForChildren(),
-                  isClean());
-          promoBadges_ = null;
-        }
-        return promoBadgesBuilder_;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:catalog_api_v2.GetProductResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:catalog_api_v2.GetProductResponse)
-    private static final catalog_api_v2.CatalogApiV2.GetProductResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new catalog_api_v2.CatalogApiV2.GetProductResponse();
-    }
-
-    public static catalog_api_v2.CatalogApiV2.GetProductResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<GetProductResponse>
-        PARSER = new com.google.protobuf.AbstractParser<GetProductResponse>() {
-      @java.lang.Override
-      public GetProductResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new GetProductResponse(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<GetProductResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<GetProductResponse> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public catalog_api_v2.CatalogApiV2.GetProductResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface ProductOrBuilder extends
       // @@protoc_insertion_point(interface_extends:catalog_api_v2.Product)
       com.google.protobuf.MessageOrBuilder {
 
     /**
+     * <pre>
+     * идентификатор офера, в монолите табилчка offers
+     * </pre>
+     *
      * <code>double id = 1;</code>
      * @return The id.
      */
     double getId();
 
     /**
+     * <pre>
+     * идентификатор описания
+     * </pre>
+     *
      * <code>.google.protobuf.Int64Value sku = 2;</code>
      * @return Whether the sku field is set.
      */
     boolean hasSku();
     /**
+     * <pre>
+     * идентификатор описания
+     * </pre>
+     *
      * <code>.google.protobuf.Int64Value sku = 2;</code>
      * @return The sku.
      */
     com.google.protobuf.Int64Value getSku();
     /**
+     * <pre>
+     * идентификатор описания
+     * </pre>
+     *
      * <code>.google.protobuf.Int64Value sku = 2;</code>
      */
     com.google.protobuf.Int64ValueOrBuilder getSkuOrBuilder();
 
     /**
+     * <pre>
+     * активность продукта
+     * </pre>
+     *
      * <code>bool active = 3;</code>
      * @return The active.
      */
     boolean getActive();
 
     /**
+     * <pre>
+     * идентификатор товарного предложения ритейлера
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue retailer_sku = 4 [json_name = "retailer_sku"];</code>
      * @return Whether the retailerSku field is set.
      */
     boolean hasRetailerSku();
     /**
+     * <pre>
+     * идентификатор товарного предложения ритейлера
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue retailer_sku = 4 [json_name = "retailer_sku"];</code>
      * @return The retailerSku.
      */
     com.google.protobuf.StringValue getRetailerSku();
     /**
+     * <pre>
+     * идентификатор товарного предложения ритейлера
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue retailer_sku = 4 [json_name = "retailer_sku"];</code>
      */
     com.google.protobuf.StringValueOrBuilder getRetailerSkuOrBuilder();
 
     /**
+     * <pre>
+     * название продукта
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue name = 5;</code>
      * @return Whether the name field is set.
      */
     boolean hasName();
     /**
+     * <pre>
+     * название продукта
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue name = 5;</code>
      * @return The name.
      */
     com.google.protobuf.StringValue getName();
     /**
+     * <pre>
+     * название продукта
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue name = 5;</code>
      */
     com.google.protobuf.StringValueOrBuilder getNameOrBuilder();
 
     /**
+     * <pre>
+     **
+     * Цена продукта
+     *  - варинат из ph: ph.price.price
+     *  - вариант из mysql: prices.price 
+     * </pre>
+     *
      * <code>double price = 6;</code>
      * @return The price.
      */
     double getPrice();
 
     /**
+     * <pre>
+     **
+     * Оригинальная цена продукта (без скидок)
+     *  - варинат из ph: ph.price.price + ph.price.discount
+     *  - вариант из mysql: prices.price + prices.discount 
+     * </pre>
+     *
      * <code>double original_price = 7 [json_name = "original_price"];</code>
      * @return The originalPrice.
      */
     double getOriginalPrice();
 
     /**
+     * <pre>
+     **
+     * Скидка товара
+     *  - варинат из ph: ph.price.discount
+     *  - вариант из mysql: prices.discount 
+     * </pre>
+     *
      * <code>double discount = 8;</code>
      * @return The discount.
      */
     double getDiscount();
 
     /**
+     * <pre>
+     **
+     * Вес упаковки и количество в человеко читаемом формате  
+     * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue human_volume = 9 [json_name = "human_volume"];</code>
      * @return Whether the humanVolume field is set.
      */
     boolean hasHumanVolume();
     /**
+     * <pre>
+     **
+     * Вес упаковки и количество в человеко читаемом формате  
+     * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue human_volume = 9 [json_name = "human_volume"];</code>
      * @return The humanVolume.
      */
     com.google.protobuf.StringValue getHumanVolume();
     /**
+     * <pre>
+     **
+     * Вес упаковки и количество в человеко читаемом формате  
+     * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue human_volume = 9 [json_name = "human_volume"];</code>
      */
     com.google.protobuf.StringValueOrBuilder getHumanVolumeOrBuilder();
 
     /**
+     * <pre>
+     * объем неделимой единицы продажи ph.attr[volume]
+     * </pre>
+     *
      * <code>double volume = 10;</code>
      * @return The volume.
      */
     double getVolume();
 
     /**
+     * <pre>
+     * единица измерения объема ph.attr[volume_type], например kg = килограммы
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue volume_type = 11 [json_name = "volume_type"];</code>
      * @return Whether the volumeType field is set.
      */
     boolean hasVolumeType();
     /**
+     * <pre>
+     * единица измерения объема ph.attr[volume_type], например kg = килограммы
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue volume_type = 11 [json_name = "volume_type"];</code>
      * @return The volumeType.
      */
     com.google.protobuf.StringValue getVolumeType();
     /**
+     * <pre>
+     * единица измерения объема ph.attr[volume_type], например kg = килограммы
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue volume_type = 11 [json_name = "volume_type"];</code>
      */
     com.google.protobuf.StringValueOrBuilder getVolumeTypeOrBuilder();
 
     /**
+     * <pre>
+     * кол-во шт в упаковке ph.attr[quantity_at_box]
+     * </pre>
+     *
      * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
      * @return The itemsPerPack.
      */
     double getItemsPerPack();
 
     /**
+     * <pre>
+     * конечная дата действия скидки
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
      * @return Whether the discountEndsAt field is set.
      */
     boolean hasDiscountEndsAt();
     /**
+     * <pre>
+     * конечная дата действия скидки
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
      * @return The discountEndsAt.
      */
     com.google.protobuf.StringValue getDiscountEndsAt();
     /**
+     * <pre>
+     * конечная дата действия скидки
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
      */
     com.google.protobuf.StringValueOrBuilder getDiscountEndsAtOrBuilder();
 
     /**
+     * <pre>
+     **
+     * Тип цены товарного предложения
+     *  - варинат из ph: offer.pricer
+     *  - вариант из mysql: offer.pricer 
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue price_type = 14 [json_name = "price_type"];</code>
      * @return Whether the priceType field is set.
      */
     boolean hasPriceType();
     /**
+     * <pre>
+     **
+     * Тип цены товарного предложения
+     *  - варинат из ph: offer.pricer
+     *  - вариант из mysql: offer.pricer 
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue price_type = 14 [json_name = "price_type"];</code>
      * @return The priceType.
      */
     com.google.protobuf.StringValue getPriceType();
     /**
+     * <pre>
+     **
+     * Тип цены товарного предложения
+     *  - варинат из ph: offer.pricer
+     *  - вариант из mysql: offer.pricer 
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue price_type = 14 [json_name = "price_type"];</code>
      */
     com.google.protobuf.StringValueOrBuilder getPriceTypeOrBuilder();
 
     /**
+     * <pre>
+     **
+     * Общий вес товара
+     * ph.attr[weight_net] * ph.attr[quantity_at_box]
+     * </pre>
+     *
      * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
      * @return The gramsPerUnit.
      */
     double getGramsPerUnit();
 
     /**
+     * <pre>
+     **
+     * Цена за 1 единицу
+     * ph.attr[offer_price]
+     * </pre>
+     *
      * <code>double unit_price = 16 [json_name = "unit_price"];</code>
      * @return The unitPrice.
      */
     double getUnitPrice();
 
     /**
+     * <pre>
+     **
+     * Оригинальная цена за 1 единицу (без скидок)
+     *  - варинат из ph для pricer:PER_ITEM: ph.price.price + ph.price.discount
+     *  - варинат из ph для pricer:PER_ITEMS_PACKAGE: (ph.price.price + ph.price.discount) * ph.attr[quantity_at_box]
+     *  - варинат из ph для pricer:PER_WEIGHT_PACKAGE: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+     *  - варинат из ph для pricer:PER_WEIGHT: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+     *  -------
+     *  - варинат из mysql для pricer:PER_ITEM: prices.price + prices.discount
+     *  - варинат из mysql для pricer:PER_ITEMS_PACKAGE: (prices.price + prices.discount) * offers.items_per_pack
+     *  - варинат из mysql для pricer:PER_WEIGHT_PACKAGE: ((prices.price+prices.discount)/offers.grams_per_unit)*1000
+     *  - варинат из mysql для pricer:PER_WEIGHT: ((prices.price+prices.discount)/offers.grams_per_unit])*1000
+     * </pre>
+     *
      * <code>double original_unit_price = 17 [json_name = "original_unit_price"];</code>
      * @return The originalUnitPrice.
      */
     double getOriginalUnitPrice();
 
     /**
+     * <pre>
+     * идентификаторы бейджей
+     * </pre>
+     *
      * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @return A list containing the promoBadgeIds.
      */
     java.util.List<java.lang.Double> getPromoBadgeIdsList();
     /**
+     * <pre>
+     * идентификаторы бейджей
+     * </pre>
+     *
      * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @return The count of promoBadgeIds.
      */
     int getPromoBadgeIdsCount();
     /**
+     * <pre>
+     * идентификаторы бейджей
+     * </pre>
+     *
      * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @param index The index of the element to return.
      * @return The promoBadgeIds at the given index.
@@ -6534,38 +7877,66 @@ public final class CatalogApiV2 {
     double getPromoBadgeIds(int index);
 
     /**
+     * <pre>
+     * рейтинг товара
+     * </pre>
+     *
      * <code>.google.protobuf.FloatValue score = 19;</code>
      * @return Whether the score field is set.
      */
     boolean hasScore();
     /**
+     * <pre>
+     * рейтинг товара
+     * </pre>
+     *
      * <code>.google.protobuf.FloatValue score = 19;</code>
      * @return The score.
      */
     com.google.protobuf.FloatValue getScore();
     /**
+     * <pre>
+     * рейтинг товара
+     * </pre>
+     *
      * <code>.google.protobuf.FloatValue score = 19;</code>
      */
     com.google.protobuf.FloatValueOrBuilder getScoreOrBuilder();
 
     /**
+     * <pre>
+     * лейблы товара
+     * </pre>
+     *
      * <code>repeated string labels = 20;</code>
      * @return A list containing the labels.
      */
     java.util.List<java.lang.String>
         getLabelsList();
     /**
+     * <pre>
+     * лейблы товара
+     * </pre>
+     *
      * <code>repeated string labels = 20;</code>
      * @return The count of labels.
      */
     int getLabelsCount();
     /**
+     * <pre>
+     * лейблы товара
+     * </pre>
+     *
      * <code>repeated string labels = 20;</code>
      * @param index The index of the element to return.
      * @return The labels at the given index.
      */
     java.lang.String getLabels(int index);
     /**
+     * <pre>
+     * лейблы товара
+     * </pre>
+     *
      * <code>repeated string labels = 20;</code>
      * @param index The index of the value to return.
      * @return The bytes of the labels at the given index.
@@ -6574,47 +7945,83 @@ public final class CatalogApiV2 {
         getLabelsBytes(int index);
 
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     java.util.List<catalog_api_v2.CatalogApiV2.Image> 
         getImagesList();
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     catalog_api_v2.CatalogApiV2.Image getImages(int index);
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     int getImagesCount();
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     java.util.List<? extends catalog_api_v2.CatalogApiV2.ImageOrBuilder> 
         getImagesOrBuilderList();
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     catalog_api_v2.CatalogApiV2.ImageOrBuilder getImagesOrBuilder(
         int index);
 
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string requirements = 22;</code>
      * @return A list containing the requirements.
      */
     java.util.List<java.lang.String>
         getRequirementsList();
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string requirements = 22;</code>
      * @return The count of requirements.
      */
     int getRequirementsCount();
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string requirements = 22;</code>
      * @param index The index of the element to return.
      * @return The requirements at the given index.
      */
     java.lang.String getRequirements(int index);
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string requirements = 22;</code>
      * @param index The index of the value to return.
      * @return The bytes of the requirements at the given index.
@@ -6921,6 +8328,10 @@ public final class CatalogApiV2 {
     public static final int ID_FIELD_NUMBER = 1;
     private double id_;
     /**
+     * <pre>
+     * идентификатор офера, в монолите табилчка offers
+     * </pre>
+     *
      * <code>double id = 1;</code>
      * @return The id.
      */
@@ -6932,6 +8343,10 @@ public final class CatalogApiV2 {
     public static final int SKU_FIELD_NUMBER = 2;
     private com.google.protobuf.Int64Value sku_;
     /**
+     * <pre>
+     * идентификатор описания
+     * </pre>
+     *
      * <code>.google.protobuf.Int64Value sku = 2;</code>
      * @return Whether the sku field is set.
      */
@@ -6940,6 +8355,10 @@ public final class CatalogApiV2 {
       return sku_ != null;
     }
     /**
+     * <pre>
+     * идентификатор описания
+     * </pre>
+     *
      * <code>.google.protobuf.Int64Value sku = 2;</code>
      * @return The sku.
      */
@@ -6948,6 +8367,10 @@ public final class CatalogApiV2 {
       return sku_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : sku_;
     }
     /**
+     * <pre>
+     * идентификатор описания
+     * </pre>
+     *
      * <code>.google.protobuf.Int64Value sku = 2;</code>
      */
     @java.lang.Override
@@ -6958,6 +8381,10 @@ public final class CatalogApiV2 {
     public static final int ACTIVE_FIELD_NUMBER = 3;
     private boolean active_;
     /**
+     * <pre>
+     * активность продукта
+     * </pre>
+     *
      * <code>bool active = 3;</code>
      * @return The active.
      */
@@ -6969,6 +8396,10 @@ public final class CatalogApiV2 {
     public static final int RETAILER_SKU_FIELD_NUMBER = 4;
     private com.google.protobuf.StringValue retailerSku_;
     /**
+     * <pre>
+     * идентификатор товарного предложения ритейлера
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue retailer_sku = 4 [json_name = "retailer_sku"];</code>
      * @return Whether the retailerSku field is set.
      */
@@ -6977,6 +8408,10 @@ public final class CatalogApiV2 {
       return retailerSku_ != null;
     }
     /**
+     * <pre>
+     * идентификатор товарного предложения ритейлера
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue retailer_sku = 4 [json_name = "retailer_sku"];</code>
      * @return The retailerSku.
      */
@@ -6985,6 +8420,10 @@ public final class CatalogApiV2 {
       return retailerSku_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : retailerSku_;
     }
     /**
+     * <pre>
+     * идентификатор товарного предложения ритейлера
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue retailer_sku = 4 [json_name = "retailer_sku"];</code>
      */
     @java.lang.Override
@@ -6995,6 +8434,10 @@ public final class CatalogApiV2 {
     public static final int NAME_FIELD_NUMBER = 5;
     private com.google.protobuf.StringValue name_;
     /**
+     * <pre>
+     * название продукта
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue name = 5;</code>
      * @return Whether the name field is set.
      */
@@ -7003,6 +8446,10 @@ public final class CatalogApiV2 {
       return name_ != null;
     }
     /**
+     * <pre>
+     * название продукта
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue name = 5;</code>
      * @return The name.
      */
@@ -7011,6 +8458,10 @@ public final class CatalogApiV2 {
       return name_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : name_;
     }
     /**
+     * <pre>
+     * название продукта
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue name = 5;</code>
      */
     @java.lang.Override
@@ -7021,6 +8472,13 @@ public final class CatalogApiV2 {
     public static final int PRICE_FIELD_NUMBER = 6;
     private double price_;
     /**
+     * <pre>
+     **
+     * Цена продукта
+     *  - варинат из ph: ph.price.price
+     *  - вариант из mysql: prices.price 
+     * </pre>
+     *
      * <code>double price = 6;</code>
      * @return The price.
      */
@@ -7032,6 +8490,13 @@ public final class CatalogApiV2 {
     public static final int ORIGINAL_PRICE_FIELD_NUMBER = 7;
     private double originalPrice_;
     /**
+     * <pre>
+     **
+     * Оригинальная цена продукта (без скидок)
+     *  - варинат из ph: ph.price.price + ph.price.discount
+     *  - вариант из mysql: prices.price + prices.discount 
+     * </pre>
+     *
      * <code>double original_price = 7 [json_name = "original_price"];</code>
      * @return The originalPrice.
      */
@@ -7043,6 +8508,13 @@ public final class CatalogApiV2 {
     public static final int DISCOUNT_FIELD_NUMBER = 8;
     private double discount_;
     /**
+     * <pre>
+     **
+     * Скидка товара
+     *  - варинат из ph: ph.price.discount
+     *  - вариант из mysql: prices.discount 
+     * </pre>
+     *
      * <code>double discount = 8;</code>
      * @return The discount.
      */
@@ -7054,6 +8526,12 @@ public final class CatalogApiV2 {
     public static final int HUMAN_VOLUME_FIELD_NUMBER = 9;
     private com.google.protobuf.StringValue humanVolume_;
     /**
+     * <pre>
+     **
+     * Вес упаковки и количество в человеко читаемом формате  
+     * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue human_volume = 9 [json_name = "human_volume"];</code>
      * @return Whether the humanVolume field is set.
      */
@@ -7062,6 +8540,12 @@ public final class CatalogApiV2 {
       return humanVolume_ != null;
     }
     /**
+     * <pre>
+     **
+     * Вес упаковки и количество в человеко читаемом формате  
+     * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue human_volume = 9 [json_name = "human_volume"];</code>
      * @return The humanVolume.
      */
@@ -7070,6 +8554,12 @@ public final class CatalogApiV2 {
       return humanVolume_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : humanVolume_;
     }
     /**
+     * <pre>
+     **
+     * Вес упаковки и количество в человеко читаемом формате  
+     * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue human_volume = 9 [json_name = "human_volume"];</code>
      */
     @java.lang.Override
@@ -7080,6 +8570,10 @@ public final class CatalogApiV2 {
     public static final int VOLUME_FIELD_NUMBER = 10;
     private double volume_;
     /**
+     * <pre>
+     * объем неделимой единицы продажи ph.attr[volume]
+     * </pre>
+     *
      * <code>double volume = 10;</code>
      * @return The volume.
      */
@@ -7091,6 +8585,10 @@ public final class CatalogApiV2 {
     public static final int VOLUME_TYPE_FIELD_NUMBER = 11;
     private com.google.protobuf.StringValue volumeType_;
     /**
+     * <pre>
+     * единица измерения объема ph.attr[volume_type], например kg = килограммы
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue volume_type = 11 [json_name = "volume_type"];</code>
      * @return Whether the volumeType field is set.
      */
@@ -7099,6 +8597,10 @@ public final class CatalogApiV2 {
       return volumeType_ != null;
     }
     /**
+     * <pre>
+     * единица измерения объема ph.attr[volume_type], например kg = килограммы
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue volume_type = 11 [json_name = "volume_type"];</code>
      * @return The volumeType.
      */
@@ -7107,6 +8609,10 @@ public final class CatalogApiV2 {
       return volumeType_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : volumeType_;
     }
     /**
+     * <pre>
+     * единица измерения объема ph.attr[volume_type], например kg = килограммы
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue volume_type = 11 [json_name = "volume_type"];</code>
      */
     @java.lang.Override
@@ -7117,6 +8623,10 @@ public final class CatalogApiV2 {
     public static final int ITEMS_PER_PACK_FIELD_NUMBER = 12;
     private double itemsPerPack_;
     /**
+     * <pre>
+     * кол-во шт в упаковке ph.attr[quantity_at_box]
+     * </pre>
+     *
      * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
      * @return The itemsPerPack.
      */
@@ -7128,6 +8638,10 @@ public final class CatalogApiV2 {
     public static final int DISCOUNT_ENDS_AT_FIELD_NUMBER = 13;
     private com.google.protobuf.StringValue discountEndsAt_;
     /**
+     * <pre>
+     * конечная дата действия скидки
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
      * @return Whether the discountEndsAt field is set.
      */
@@ -7136,6 +8650,10 @@ public final class CatalogApiV2 {
       return discountEndsAt_ != null;
     }
     /**
+     * <pre>
+     * конечная дата действия скидки
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
      * @return The discountEndsAt.
      */
@@ -7144,6 +8662,10 @@ public final class CatalogApiV2 {
       return discountEndsAt_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : discountEndsAt_;
     }
     /**
+     * <pre>
+     * конечная дата действия скидки
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
      */
     @java.lang.Override
@@ -7154,6 +8676,13 @@ public final class CatalogApiV2 {
     public static final int PRICE_TYPE_FIELD_NUMBER = 14;
     private com.google.protobuf.StringValue priceType_;
     /**
+     * <pre>
+     **
+     * Тип цены товарного предложения
+     *  - варинат из ph: offer.pricer
+     *  - вариант из mysql: offer.pricer 
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue price_type = 14 [json_name = "price_type"];</code>
      * @return Whether the priceType field is set.
      */
@@ -7162,6 +8691,13 @@ public final class CatalogApiV2 {
       return priceType_ != null;
     }
     /**
+     * <pre>
+     **
+     * Тип цены товарного предложения
+     *  - варинат из ph: offer.pricer
+     *  - вариант из mysql: offer.pricer 
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue price_type = 14 [json_name = "price_type"];</code>
      * @return The priceType.
      */
@@ -7170,6 +8706,13 @@ public final class CatalogApiV2 {
       return priceType_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : priceType_;
     }
     /**
+     * <pre>
+     **
+     * Тип цены товарного предложения
+     *  - варинат из ph: offer.pricer
+     *  - вариант из mysql: offer.pricer 
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue price_type = 14 [json_name = "price_type"];</code>
      */
     @java.lang.Override
@@ -7180,6 +8723,12 @@ public final class CatalogApiV2 {
     public static final int GRAMS_PER_UNIT_FIELD_NUMBER = 15;
     private double gramsPerUnit_;
     /**
+     * <pre>
+     **
+     * Общий вес товара
+     * ph.attr[weight_net] * ph.attr[quantity_at_box]
+     * </pre>
+     *
      * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
      * @return The gramsPerUnit.
      */
@@ -7191,6 +8740,12 @@ public final class CatalogApiV2 {
     public static final int UNIT_PRICE_FIELD_NUMBER = 16;
     private double unitPrice_;
     /**
+     * <pre>
+     **
+     * Цена за 1 единицу
+     * ph.attr[offer_price]
+     * </pre>
+     *
      * <code>double unit_price = 16 [json_name = "unit_price"];</code>
      * @return The unitPrice.
      */
@@ -7202,6 +8757,20 @@ public final class CatalogApiV2 {
     public static final int ORIGINAL_UNIT_PRICE_FIELD_NUMBER = 17;
     private double originalUnitPrice_;
     /**
+     * <pre>
+     **
+     * Оригинальная цена за 1 единицу (без скидок)
+     *  - варинат из ph для pricer:PER_ITEM: ph.price.price + ph.price.discount
+     *  - варинат из ph для pricer:PER_ITEMS_PACKAGE: (ph.price.price + ph.price.discount) * ph.attr[quantity_at_box]
+     *  - варинат из ph для pricer:PER_WEIGHT_PACKAGE: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+     *  - варинат из ph для pricer:PER_WEIGHT: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+     *  -------
+     *  - варинат из mysql для pricer:PER_ITEM: prices.price + prices.discount
+     *  - варинат из mysql для pricer:PER_ITEMS_PACKAGE: (prices.price + prices.discount) * offers.items_per_pack
+     *  - варинат из mysql для pricer:PER_WEIGHT_PACKAGE: ((prices.price+prices.discount)/offers.grams_per_unit)*1000
+     *  - варинат из mysql для pricer:PER_WEIGHT: ((prices.price+prices.discount)/offers.grams_per_unit])*1000
+     * </pre>
+     *
      * <code>double original_unit_price = 17 [json_name = "original_unit_price"];</code>
      * @return The originalUnitPrice.
      */
@@ -7213,6 +8782,10 @@ public final class CatalogApiV2 {
     public static final int PROMO_BADGE_IDS_FIELD_NUMBER = 18;
     private com.google.protobuf.Internal.DoubleList promoBadgeIds_;
     /**
+     * <pre>
+     * идентификаторы бейджей
+     * </pre>
+     *
      * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @return A list containing the promoBadgeIds.
      */
@@ -7222,6 +8795,10 @@ public final class CatalogApiV2 {
       return promoBadgeIds_;
     }
     /**
+     * <pre>
+     * идентификаторы бейджей
+     * </pre>
+     *
      * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @return The count of promoBadgeIds.
      */
@@ -7229,6 +8806,10 @@ public final class CatalogApiV2 {
       return promoBadgeIds_.size();
     }
     /**
+     * <pre>
+     * идентификаторы бейджей
+     * </pre>
+     *
      * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @param index The index of the element to return.
      * @return The promoBadgeIds at the given index.
@@ -7241,6 +8822,10 @@ public final class CatalogApiV2 {
     public static final int SCORE_FIELD_NUMBER = 19;
     private com.google.protobuf.FloatValue score_;
     /**
+     * <pre>
+     * рейтинг товара
+     * </pre>
+     *
      * <code>.google.protobuf.FloatValue score = 19;</code>
      * @return Whether the score field is set.
      */
@@ -7249,6 +8834,10 @@ public final class CatalogApiV2 {
       return score_ != null;
     }
     /**
+     * <pre>
+     * рейтинг товара
+     * </pre>
+     *
      * <code>.google.protobuf.FloatValue score = 19;</code>
      * @return The score.
      */
@@ -7257,6 +8846,10 @@ public final class CatalogApiV2 {
       return score_ == null ? com.google.protobuf.FloatValue.getDefaultInstance() : score_;
     }
     /**
+     * <pre>
+     * рейтинг товара
+     * </pre>
+     *
      * <code>.google.protobuf.FloatValue score = 19;</code>
      */
     @java.lang.Override
@@ -7267,6 +8860,10 @@ public final class CatalogApiV2 {
     public static final int LABELS_FIELD_NUMBER = 20;
     private com.google.protobuf.LazyStringList labels_;
     /**
+     * <pre>
+     * лейблы товара
+     * </pre>
+     *
      * <code>repeated string labels = 20;</code>
      * @return A list containing the labels.
      */
@@ -7275,6 +8872,10 @@ public final class CatalogApiV2 {
       return labels_;
     }
     /**
+     * <pre>
+     * лейблы товара
+     * </pre>
+     *
      * <code>repeated string labels = 20;</code>
      * @return The count of labels.
      */
@@ -7282,6 +8883,10 @@ public final class CatalogApiV2 {
       return labels_.size();
     }
     /**
+     * <pre>
+     * лейблы товара
+     * </pre>
+     *
      * <code>repeated string labels = 20;</code>
      * @param index The index of the element to return.
      * @return The labels at the given index.
@@ -7290,6 +8895,10 @@ public final class CatalogApiV2 {
       return labels_.get(index);
     }
     /**
+     * <pre>
+     * лейблы товара
+     * </pre>
+     *
      * <code>repeated string labels = 20;</code>
      * @param index The index of the value to return.
      * @return The bytes of the labels at the given index.
@@ -7302,6 +8911,10 @@ public final class CatalogApiV2 {
     public static final int IMAGES_FIELD_NUMBER = 21;
     private java.util.List<catalog_api_v2.CatalogApiV2.Image> images_;
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     @java.lang.Override
@@ -7309,6 +8922,10 @@ public final class CatalogApiV2 {
       return images_;
     }
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     @java.lang.Override
@@ -7317,6 +8934,10 @@ public final class CatalogApiV2 {
       return images_;
     }
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     @java.lang.Override
@@ -7324,6 +8945,10 @@ public final class CatalogApiV2 {
       return images_.size();
     }
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     @java.lang.Override
@@ -7331,6 +8956,10 @@ public final class CatalogApiV2 {
       return images_.get(index);
     }
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     @java.lang.Override
@@ -7342,6 +8971,10 @@ public final class CatalogApiV2 {
     public static final int REQUIREMENTS_FIELD_NUMBER = 22;
     private com.google.protobuf.LazyStringList requirements_;
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string requirements = 22;</code>
      * @return A list containing the requirements.
      */
@@ -7350,6 +8983,10 @@ public final class CatalogApiV2 {
       return requirements_;
     }
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string requirements = 22;</code>
      * @return The count of requirements.
      */
@@ -7357,6 +8994,10 @@ public final class CatalogApiV2 {
       return requirements_.size();
     }
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string requirements = 22;</code>
      * @param index The index of the element to return.
      * @return The requirements at the given index.
@@ -7365,6 +9006,10 @@ public final class CatalogApiV2 {
       return requirements_.get(index);
     }
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string requirements = 22;</code>
      * @param index The index of the value to return.
      * @return The bytes of the requirements at the given index.
@@ -8257,6 +9902,10 @@ public final class CatalogApiV2 {
 
       private double id_ ;
       /**
+       * <pre>
+       * идентификатор офера, в монолите табилчка offers
+       * </pre>
+       *
        * <code>double id = 1;</code>
        * @return The id.
        */
@@ -8265,6 +9914,10 @@ public final class CatalogApiV2 {
         return id_;
       }
       /**
+       * <pre>
+       * идентификатор офера, в монолите табилчка offers
+       * </pre>
+       *
        * <code>double id = 1;</code>
        * @param value The id to set.
        * @return This builder for chaining.
@@ -8276,6 +9929,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор офера, в монолите табилчка offers
+       * </pre>
+       *
        * <code>double id = 1;</code>
        * @return This builder for chaining.
        */
@@ -8290,6 +9947,10 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder> skuBuilder_;
       /**
+       * <pre>
+       * идентификатор описания
+       * </pre>
+       *
        * <code>.google.protobuf.Int64Value sku = 2;</code>
        * @return Whether the sku field is set.
        */
@@ -8297,6 +9958,10 @@ public final class CatalogApiV2 {
         return skuBuilder_ != null || sku_ != null;
       }
       /**
+       * <pre>
+       * идентификатор описания
+       * </pre>
+       *
        * <code>.google.protobuf.Int64Value sku = 2;</code>
        * @return The sku.
        */
@@ -8308,6 +9973,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * идентификатор описания
+       * </pre>
+       *
        * <code>.google.protobuf.Int64Value sku = 2;</code>
        */
       public Builder setSku(com.google.protobuf.Int64Value value) {
@@ -8324,6 +9993,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор описания
+       * </pre>
+       *
        * <code>.google.protobuf.Int64Value sku = 2;</code>
        */
       public Builder setSku(
@@ -8338,6 +10011,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор описания
+       * </pre>
+       *
        * <code>.google.protobuf.Int64Value sku = 2;</code>
        */
       public Builder mergeSku(com.google.protobuf.Int64Value value) {
@@ -8356,6 +10033,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор описания
+       * </pre>
+       *
        * <code>.google.protobuf.Int64Value sku = 2;</code>
        */
       public Builder clearSku() {
@@ -8370,6 +10051,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор описания
+       * </pre>
+       *
        * <code>.google.protobuf.Int64Value sku = 2;</code>
        */
       public com.google.protobuf.Int64Value.Builder getSkuBuilder() {
@@ -8378,6 +10063,10 @@ public final class CatalogApiV2 {
         return getSkuFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * идентификатор описания
+       * </pre>
+       *
        * <code>.google.protobuf.Int64Value sku = 2;</code>
        */
       public com.google.protobuf.Int64ValueOrBuilder getSkuOrBuilder() {
@@ -8389,6 +10078,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * идентификатор описания
+       * </pre>
+       *
        * <code>.google.protobuf.Int64Value sku = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -8407,6 +10100,10 @@ public final class CatalogApiV2 {
 
       private boolean active_ ;
       /**
+       * <pre>
+       * активность продукта
+       * </pre>
+       *
        * <code>bool active = 3;</code>
        * @return The active.
        */
@@ -8415,6 +10112,10 @@ public final class CatalogApiV2 {
         return active_;
       }
       /**
+       * <pre>
+       * активность продукта
+       * </pre>
+       *
        * <code>bool active = 3;</code>
        * @param value The active to set.
        * @return This builder for chaining.
@@ -8426,6 +10127,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * активность продукта
+       * </pre>
+       *
        * <code>bool active = 3;</code>
        * @return This builder for chaining.
        */
@@ -8440,6 +10145,10 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> retailerSkuBuilder_;
       /**
+       * <pre>
+       * идентификатор товарного предложения ритейлера
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue retailer_sku = 4 [json_name = "retailer_sku"];</code>
        * @return Whether the retailerSku field is set.
        */
@@ -8447,6 +10156,10 @@ public final class CatalogApiV2 {
         return retailerSkuBuilder_ != null || retailerSku_ != null;
       }
       /**
+       * <pre>
+       * идентификатор товарного предложения ритейлера
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue retailer_sku = 4 [json_name = "retailer_sku"];</code>
        * @return The retailerSku.
        */
@@ -8458,6 +10171,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * идентификатор товарного предложения ритейлера
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue retailer_sku = 4 [json_name = "retailer_sku"];</code>
        */
       public Builder setRetailerSku(com.google.protobuf.StringValue value) {
@@ -8474,6 +10191,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор товарного предложения ритейлера
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue retailer_sku = 4 [json_name = "retailer_sku"];</code>
        */
       public Builder setRetailerSku(
@@ -8488,6 +10209,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор товарного предложения ритейлера
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue retailer_sku = 4 [json_name = "retailer_sku"];</code>
        */
       public Builder mergeRetailerSku(com.google.protobuf.StringValue value) {
@@ -8506,6 +10231,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор товарного предложения ритейлера
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue retailer_sku = 4 [json_name = "retailer_sku"];</code>
        */
       public Builder clearRetailerSku() {
@@ -8520,6 +10249,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор товарного предложения ритейлера
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue retailer_sku = 4 [json_name = "retailer_sku"];</code>
        */
       public com.google.protobuf.StringValue.Builder getRetailerSkuBuilder() {
@@ -8528,6 +10261,10 @@ public final class CatalogApiV2 {
         return getRetailerSkuFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * идентификатор товарного предложения ритейлера
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue retailer_sku = 4 [json_name = "retailer_sku"];</code>
        */
       public com.google.protobuf.StringValueOrBuilder getRetailerSkuOrBuilder() {
@@ -8539,6 +10276,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * идентификатор товарного предложения ритейлера
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue retailer_sku = 4 [json_name = "retailer_sku"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -8559,6 +10300,10 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> nameBuilder_;
       /**
+       * <pre>
+       * название продукта
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue name = 5;</code>
        * @return Whether the name field is set.
        */
@@ -8566,6 +10311,10 @@ public final class CatalogApiV2 {
         return nameBuilder_ != null || name_ != null;
       }
       /**
+       * <pre>
+       * название продукта
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue name = 5;</code>
        * @return The name.
        */
@@ -8577,6 +10326,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * название продукта
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue name = 5;</code>
        */
       public Builder setName(com.google.protobuf.StringValue value) {
@@ -8593,6 +10346,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * название продукта
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue name = 5;</code>
        */
       public Builder setName(
@@ -8607,6 +10364,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * название продукта
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue name = 5;</code>
        */
       public Builder mergeName(com.google.protobuf.StringValue value) {
@@ -8625,6 +10386,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * название продукта
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue name = 5;</code>
        */
       public Builder clearName() {
@@ -8639,6 +10404,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * название продукта
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue name = 5;</code>
        */
       public com.google.protobuf.StringValue.Builder getNameBuilder() {
@@ -8647,6 +10416,10 @@ public final class CatalogApiV2 {
         return getNameFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * название продукта
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue name = 5;</code>
        */
       public com.google.protobuf.StringValueOrBuilder getNameOrBuilder() {
@@ -8658,6 +10431,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * название продукта
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue name = 5;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -8676,6 +10453,13 @@ public final class CatalogApiV2 {
 
       private double price_ ;
       /**
+       * <pre>
+       **
+       * Цена продукта
+       *  - варинат из ph: ph.price.price
+       *  - вариант из mysql: prices.price 
+       * </pre>
+       *
        * <code>double price = 6;</code>
        * @return The price.
        */
@@ -8684,6 +10468,13 @@ public final class CatalogApiV2 {
         return price_;
       }
       /**
+       * <pre>
+       **
+       * Цена продукта
+       *  - варинат из ph: ph.price.price
+       *  - вариант из mysql: prices.price 
+       * </pre>
+       *
        * <code>double price = 6;</code>
        * @param value The price to set.
        * @return This builder for chaining.
@@ -8695,6 +10486,13 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Цена продукта
+       *  - варинат из ph: ph.price.price
+       *  - вариант из mysql: prices.price 
+       * </pre>
+       *
        * <code>double price = 6;</code>
        * @return This builder for chaining.
        */
@@ -8707,6 +10505,13 @@ public final class CatalogApiV2 {
 
       private double originalPrice_ ;
       /**
+       * <pre>
+       **
+       * Оригинальная цена продукта (без скидок)
+       *  - варинат из ph: ph.price.price + ph.price.discount
+       *  - вариант из mysql: prices.price + prices.discount 
+       * </pre>
+       *
        * <code>double original_price = 7 [json_name = "original_price"];</code>
        * @return The originalPrice.
        */
@@ -8715,6 +10520,13 @@ public final class CatalogApiV2 {
         return originalPrice_;
       }
       /**
+       * <pre>
+       **
+       * Оригинальная цена продукта (без скидок)
+       *  - варинат из ph: ph.price.price + ph.price.discount
+       *  - вариант из mysql: prices.price + prices.discount 
+       * </pre>
+       *
        * <code>double original_price = 7 [json_name = "original_price"];</code>
        * @param value The originalPrice to set.
        * @return This builder for chaining.
@@ -8726,6 +10538,13 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Оригинальная цена продукта (без скидок)
+       *  - варинат из ph: ph.price.price + ph.price.discount
+       *  - вариант из mysql: prices.price + prices.discount 
+       * </pre>
+       *
        * <code>double original_price = 7 [json_name = "original_price"];</code>
        * @return This builder for chaining.
        */
@@ -8738,6 +10557,13 @@ public final class CatalogApiV2 {
 
       private double discount_ ;
       /**
+       * <pre>
+       **
+       * Скидка товара
+       *  - варинат из ph: ph.price.discount
+       *  - вариант из mysql: prices.discount 
+       * </pre>
+       *
        * <code>double discount = 8;</code>
        * @return The discount.
        */
@@ -8746,6 +10572,13 @@ public final class CatalogApiV2 {
         return discount_;
       }
       /**
+       * <pre>
+       **
+       * Скидка товара
+       *  - варинат из ph: ph.price.discount
+       *  - вариант из mysql: prices.discount 
+       * </pre>
+       *
        * <code>double discount = 8;</code>
        * @param value The discount to set.
        * @return This builder for chaining.
@@ -8757,6 +10590,13 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Скидка товара
+       *  - варинат из ph: ph.price.discount
+       *  - вариант из mysql: prices.discount 
+       * </pre>
+       *
        * <code>double discount = 8;</code>
        * @return This builder for chaining.
        */
@@ -8771,6 +10611,12 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> humanVolumeBuilder_;
       /**
+       * <pre>
+       **
+       * Вес упаковки и количество в человеко читаемом формате  
+       * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue human_volume = 9 [json_name = "human_volume"];</code>
        * @return Whether the humanVolume field is set.
        */
@@ -8778,6 +10624,12 @@ public final class CatalogApiV2 {
         return humanVolumeBuilder_ != null || humanVolume_ != null;
       }
       /**
+       * <pre>
+       **
+       * Вес упаковки и количество в человеко читаемом формате  
+       * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue human_volume = 9 [json_name = "human_volume"];</code>
        * @return The humanVolume.
        */
@@ -8789,6 +10641,12 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       **
+       * Вес упаковки и количество в человеко читаемом формате  
+       * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue human_volume = 9 [json_name = "human_volume"];</code>
        */
       public Builder setHumanVolume(com.google.protobuf.StringValue value) {
@@ -8805,6 +10663,12 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Вес упаковки и количество в человеко читаемом формате  
+       * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue human_volume = 9 [json_name = "human_volume"];</code>
        */
       public Builder setHumanVolume(
@@ -8819,6 +10683,12 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Вес упаковки и количество в человеко читаемом формате  
+       * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue human_volume = 9 [json_name = "human_volume"];</code>
        */
       public Builder mergeHumanVolume(com.google.protobuf.StringValue value) {
@@ -8837,6 +10707,12 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Вес упаковки и количество в человеко читаемом формате  
+       * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue human_volume = 9 [json_name = "human_volume"];</code>
        */
       public Builder clearHumanVolume() {
@@ -8851,6 +10727,12 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Вес упаковки и количество в человеко читаемом формате  
+       * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue human_volume = 9 [json_name = "human_volume"];</code>
        */
       public com.google.protobuf.StringValue.Builder getHumanVolumeBuilder() {
@@ -8859,6 +10741,12 @@ public final class CatalogApiV2 {
         return getHumanVolumeFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       **
+       * Вес упаковки и количество в человеко читаемом формате  
+       * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue human_volume = 9 [json_name = "human_volume"];</code>
        */
       public com.google.protobuf.StringValueOrBuilder getHumanVolumeOrBuilder() {
@@ -8870,6 +10758,12 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       **
+       * Вес упаковки и количество в человеко читаемом формате  
+       * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue human_volume = 9 [json_name = "human_volume"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -8888,6 +10782,10 @@ public final class CatalogApiV2 {
 
       private double volume_ ;
       /**
+       * <pre>
+       * объем неделимой единицы продажи ph.attr[volume]
+       * </pre>
+       *
        * <code>double volume = 10;</code>
        * @return The volume.
        */
@@ -8896,6 +10794,10 @@ public final class CatalogApiV2 {
         return volume_;
       }
       /**
+       * <pre>
+       * объем неделимой единицы продажи ph.attr[volume]
+       * </pre>
+       *
        * <code>double volume = 10;</code>
        * @param value The volume to set.
        * @return This builder for chaining.
@@ -8907,6 +10809,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * объем неделимой единицы продажи ph.attr[volume]
+       * </pre>
+       *
        * <code>double volume = 10;</code>
        * @return This builder for chaining.
        */
@@ -8921,6 +10827,10 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> volumeTypeBuilder_;
       /**
+       * <pre>
+       * единица измерения объема ph.attr[volume_type], например kg = килограммы
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue volume_type = 11 [json_name = "volume_type"];</code>
        * @return Whether the volumeType field is set.
        */
@@ -8928,6 +10838,10 @@ public final class CatalogApiV2 {
         return volumeTypeBuilder_ != null || volumeType_ != null;
       }
       /**
+       * <pre>
+       * единица измерения объема ph.attr[volume_type], например kg = килограммы
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue volume_type = 11 [json_name = "volume_type"];</code>
        * @return The volumeType.
        */
@@ -8939,6 +10853,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * единица измерения объема ph.attr[volume_type], например kg = килограммы
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue volume_type = 11 [json_name = "volume_type"];</code>
        */
       public Builder setVolumeType(com.google.protobuf.StringValue value) {
@@ -8955,6 +10873,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * единица измерения объема ph.attr[volume_type], например kg = килограммы
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue volume_type = 11 [json_name = "volume_type"];</code>
        */
       public Builder setVolumeType(
@@ -8969,6 +10891,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * единица измерения объема ph.attr[volume_type], например kg = килограммы
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue volume_type = 11 [json_name = "volume_type"];</code>
        */
       public Builder mergeVolumeType(com.google.protobuf.StringValue value) {
@@ -8987,6 +10913,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * единица измерения объема ph.attr[volume_type], например kg = килограммы
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue volume_type = 11 [json_name = "volume_type"];</code>
        */
       public Builder clearVolumeType() {
@@ -9001,6 +10931,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * единица измерения объема ph.attr[volume_type], например kg = килограммы
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue volume_type = 11 [json_name = "volume_type"];</code>
        */
       public com.google.protobuf.StringValue.Builder getVolumeTypeBuilder() {
@@ -9009,6 +10943,10 @@ public final class CatalogApiV2 {
         return getVolumeTypeFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * единица измерения объема ph.attr[volume_type], например kg = килограммы
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue volume_type = 11 [json_name = "volume_type"];</code>
        */
       public com.google.protobuf.StringValueOrBuilder getVolumeTypeOrBuilder() {
@@ -9020,6 +10958,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * единица измерения объема ph.attr[volume_type], например kg = килограммы
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue volume_type = 11 [json_name = "volume_type"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -9038,6 +10980,10 @@ public final class CatalogApiV2 {
 
       private double itemsPerPack_ ;
       /**
+       * <pre>
+       * кол-во шт в упаковке ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
        * @return The itemsPerPack.
        */
@@ -9046,6 +10992,10 @@ public final class CatalogApiV2 {
         return itemsPerPack_;
       }
       /**
+       * <pre>
+       * кол-во шт в упаковке ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
        * @param value The itemsPerPack to set.
        * @return This builder for chaining.
@@ -9057,6 +11007,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * кол-во шт в упаковке ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
        * @return This builder for chaining.
        */
@@ -9071,6 +11025,10 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> discountEndsAtBuilder_;
       /**
+       * <pre>
+       * конечная дата действия скидки
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
        * @return Whether the discountEndsAt field is set.
        */
@@ -9078,6 +11036,10 @@ public final class CatalogApiV2 {
         return discountEndsAtBuilder_ != null || discountEndsAt_ != null;
       }
       /**
+       * <pre>
+       * конечная дата действия скидки
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
        * @return The discountEndsAt.
        */
@@ -9089,6 +11051,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * конечная дата действия скидки
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
        */
       public Builder setDiscountEndsAt(com.google.protobuf.StringValue value) {
@@ -9105,6 +11071,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * конечная дата действия скидки
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
        */
       public Builder setDiscountEndsAt(
@@ -9119,6 +11089,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * конечная дата действия скидки
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
        */
       public Builder mergeDiscountEndsAt(com.google.protobuf.StringValue value) {
@@ -9137,6 +11111,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * конечная дата действия скидки
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
        */
       public Builder clearDiscountEndsAt() {
@@ -9151,6 +11129,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * конечная дата действия скидки
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
        */
       public com.google.protobuf.StringValue.Builder getDiscountEndsAtBuilder() {
@@ -9159,6 +11141,10 @@ public final class CatalogApiV2 {
         return getDiscountEndsAtFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * конечная дата действия скидки
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
        */
       public com.google.protobuf.StringValueOrBuilder getDiscountEndsAtOrBuilder() {
@@ -9170,6 +11156,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * конечная дата действия скидки
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -9190,6 +11180,13 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> priceTypeBuilder_;
       /**
+       * <pre>
+       **
+       * Тип цены товарного предложения
+       *  - варинат из ph: offer.pricer
+       *  - вариант из mysql: offer.pricer 
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue price_type = 14 [json_name = "price_type"];</code>
        * @return Whether the priceType field is set.
        */
@@ -9197,6 +11194,13 @@ public final class CatalogApiV2 {
         return priceTypeBuilder_ != null || priceType_ != null;
       }
       /**
+       * <pre>
+       **
+       * Тип цены товарного предложения
+       *  - варинат из ph: offer.pricer
+       *  - вариант из mysql: offer.pricer 
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue price_type = 14 [json_name = "price_type"];</code>
        * @return The priceType.
        */
@@ -9208,6 +11212,13 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       **
+       * Тип цены товарного предложения
+       *  - варинат из ph: offer.pricer
+       *  - вариант из mysql: offer.pricer 
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue price_type = 14 [json_name = "price_type"];</code>
        */
       public Builder setPriceType(com.google.protobuf.StringValue value) {
@@ -9224,6 +11235,13 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Тип цены товарного предложения
+       *  - варинат из ph: offer.pricer
+       *  - вариант из mysql: offer.pricer 
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue price_type = 14 [json_name = "price_type"];</code>
        */
       public Builder setPriceType(
@@ -9238,6 +11256,13 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Тип цены товарного предложения
+       *  - варинат из ph: offer.pricer
+       *  - вариант из mysql: offer.pricer 
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue price_type = 14 [json_name = "price_type"];</code>
        */
       public Builder mergePriceType(com.google.protobuf.StringValue value) {
@@ -9256,6 +11281,13 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Тип цены товарного предложения
+       *  - варинат из ph: offer.pricer
+       *  - вариант из mysql: offer.pricer 
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue price_type = 14 [json_name = "price_type"];</code>
        */
       public Builder clearPriceType() {
@@ -9270,6 +11302,13 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Тип цены товарного предложения
+       *  - варинат из ph: offer.pricer
+       *  - вариант из mysql: offer.pricer 
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue price_type = 14 [json_name = "price_type"];</code>
        */
       public com.google.protobuf.StringValue.Builder getPriceTypeBuilder() {
@@ -9278,6 +11317,13 @@ public final class CatalogApiV2 {
         return getPriceTypeFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       **
+       * Тип цены товарного предложения
+       *  - варинат из ph: offer.pricer
+       *  - вариант из mysql: offer.pricer 
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue price_type = 14 [json_name = "price_type"];</code>
        */
       public com.google.protobuf.StringValueOrBuilder getPriceTypeOrBuilder() {
@@ -9289,6 +11335,13 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       **
+       * Тип цены товарного предложения
+       *  - варинат из ph: offer.pricer
+       *  - вариант из mysql: offer.pricer 
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue price_type = 14 [json_name = "price_type"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -9307,6 +11360,12 @@ public final class CatalogApiV2 {
 
       private double gramsPerUnit_ ;
       /**
+       * <pre>
+       **
+       * Общий вес товара
+       * ph.attr[weight_net] * ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
        * @return The gramsPerUnit.
        */
@@ -9315,6 +11374,12 @@ public final class CatalogApiV2 {
         return gramsPerUnit_;
       }
       /**
+       * <pre>
+       **
+       * Общий вес товара
+       * ph.attr[weight_net] * ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
        * @param value The gramsPerUnit to set.
        * @return This builder for chaining.
@@ -9326,6 +11391,12 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Общий вес товара
+       * ph.attr[weight_net] * ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
        * @return This builder for chaining.
        */
@@ -9338,6 +11409,12 @@ public final class CatalogApiV2 {
 
       private double unitPrice_ ;
       /**
+       * <pre>
+       **
+       * Цена за 1 единицу
+       * ph.attr[offer_price]
+       * </pre>
+       *
        * <code>double unit_price = 16 [json_name = "unit_price"];</code>
        * @return The unitPrice.
        */
@@ -9346,6 +11423,12 @@ public final class CatalogApiV2 {
         return unitPrice_;
       }
       /**
+       * <pre>
+       **
+       * Цена за 1 единицу
+       * ph.attr[offer_price]
+       * </pre>
+       *
        * <code>double unit_price = 16 [json_name = "unit_price"];</code>
        * @param value The unitPrice to set.
        * @return This builder for chaining.
@@ -9357,6 +11440,12 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Цена за 1 единицу
+       * ph.attr[offer_price]
+       * </pre>
+       *
        * <code>double unit_price = 16 [json_name = "unit_price"];</code>
        * @return This builder for chaining.
        */
@@ -9369,6 +11458,20 @@ public final class CatalogApiV2 {
 
       private double originalUnitPrice_ ;
       /**
+       * <pre>
+       **
+       * Оригинальная цена за 1 единицу (без скидок)
+       *  - варинат из ph для pricer:PER_ITEM: ph.price.price + ph.price.discount
+       *  - варинат из ph для pricer:PER_ITEMS_PACKAGE: (ph.price.price + ph.price.discount) * ph.attr[quantity_at_box]
+       *  - варинат из ph для pricer:PER_WEIGHT_PACKAGE: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+       *  - варинат из ph для pricer:PER_WEIGHT: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+       *  -------
+       *  - варинат из mysql для pricer:PER_ITEM: prices.price + prices.discount
+       *  - варинат из mysql для pricer:PER_ITEMS_PACKAGE: (prices.price + prices.discount) * offers.items_per_pack
+       *  - варинат из mysql для pricer:PER_WEIGHT_PACKAGE: ((prices.price+prices.discount)/offers.grams_per_unit)*1000
+       *  - варинат из mysql для pricer:PER_WEIGHT: ((prices.price+prices.discount)/offers.grams_per_unit])*1000
+       * </pre>
+       *
        * <code>double original_unit_price = 17 [json_name = "original_unit_price"];</code>
        * @return The originalUnitPrice.
        */
@@ -9377,6 +11480,20 @@ public final class CatalogApiV2 {
         return originalUnitPrice_;
       }
       /**
+       * <pre>
+       **
+       * Оригинальная цена за 1 единицу (без скидок)
+       *  - варинат из ph для pricer:PER_ITEM: ph.price.price + ph.price.discount
+       *  - варинат из ph для pricer:PER_ITEMS_PACKAGE: (ph.price.price + ph.price.discount) * ph.attr[quantity_at_box]
+       *  - варинат из ph для pricer:PER_WEIGHT_PACKAGE: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+       *  - варинат из ph для pricer:PER_WEIGHT: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+       *  -------
+       *  - варинат из mysql для pricer:PER_ITEM: prices.price + prices.discount
+       *  - варинат из mysql для pricer:PER_ITEMS_PACKAGE: (prices.price + prices.discount) * offers.items_per_pack
+       *  - варинат из mysql для pricer:PER_WEIGHT_PACKAGE: ((prices.price+prices.discount)/offers.grams_per_unit)*1000
+       *  - варинат из mysql для pricer:PER_WEIGHT: ((prices.price+prices.discount)/offers.grams_per_unit])*1000
+       * </pre>
+       *
        * <code>double original_unit_price = 17 [json_name = "original_unit_price"];</code>
        * @param value The originalUnitPrice to set.
        * @return This builder for chaining.
@@ -9388,6 +11505,20 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Оригинальная цена за 1 единицу (без скидок)
+       *  - варинат из ph для pricer:PER_ITEM: ph.price.price + ph.price.discount
+       *  - варинат из ph для pricer:PER_ITEMS_PACKAGE: (ph.price.price + ph.price.discount) * ph.attr[quantity_at_box]
+       *  - варинат из ph для pricer:PER_WEIGHT_PACKAGE: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+       *  - варинат из ph для pricer:PER_WEIGHT: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+       *  -------
+       *  - варинат из mysql для pricer:PER_ITEM: prices.price + prices.discount
+       *  - варинат из mysql для pricer:PER_ITEMS_PACKAGE: (prices.price + prices.discount) * offers.items_per_pack
+       *  - варинат из mysql для pricer:PER_WEIGHT_PACKAGE: ((prices.price+prices.discount)/offers.grams_per_unit)*1000
+       *  - варинат из mysql для pricer:PER_WEIGHT: ((prices.price+prices.discount)/offers.grams_per_unit])*1000
+       * </pre>
+       *
        * <code>double original_unit_price = 17 [json_name = "original_unit_price"];</code>
        * @return This builder for chaining.
        */
@@ -9406,6 +11537,10 @@ public final class CatalogApiV2 {
          }
       }
       /**
+       * <pre>
+       * идентификаторы бейджей
+       * </pre>
+       *
        * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @return A list containing the promoBadgeIds.
        */
@@ -9415,6 +11550,10 @@ public final class CatalogApiV2 {
                  java.util.Collections.unmodifiableList(promoBadgeIds_) : promoBadgeIds_;
       }
       /**
+       * <pre>
+       * идентификаторы бейджей
+       * </pre>
+       *
        * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @return The count of promoBadgeIds.
        */
@@ -9422,6 +11561,10 @@ public final class CatalogApiV2 {
         return promoBadgeIds_.size();
       }
       /**
+       * <pre>
+       * идентификаторы бейджей
+       * </pre>
+       *
        * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @param index The index of the element to return.
        * @return The promoBadgeIds at the given index.
@@ -9430,6 +11573,10 @@ public final class CatalogApiV2 {
         return promoBadgeIds_.getDouble(index);
       }
       /**
+       * <pre>
+       * идентификаторы бейджей
+       * </pre>
+       *
        * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @param index The index to set the value at.
        * @param value The promoBadgeIds to set.
@@ -9443,6 +11590,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификаторы бейджей
+       * </pre>
+       *
        * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @param value The promoBadgeIds to add.
        * @return This builder for chaining.
@@ -9454,6 +11605,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификаторы бейджей
+       * </pre>
+       *
        * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @param values The promoBadgeIds to add.
        * @return This builder for chaining.
@@ -9467,6 +11622,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификаторы бейджей
+       * </pre>
+       *
        * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @return This builder for chaining.
        */
@@ -9481,6 +11640,10 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.FloatValue, com.google.protobuf.FloatValue.Builder, com.google.protobuf.FloatValueOrBuilder> scoreBuilder_;
       /**
+       * <pre>
+       * рейтинг товара
+       * </pre>
+       *
        * <code>.google.protobuf.FloatValue score = 19;</code>
        * @return Whether the score field is set.
        */
@@ -9488,6 +11651,10 @@ public final class CatalogApiV2 {
         return scoreBuilder_ != null || score_ != null;
       }
       /**
+       * <pre>
+       * рейтинг товара
+       * </pre>
+       *
        * <code>.google.protobuf.FloatValue score = 19;</code>
        * @return The score.
        */
@@ -9499,6 +11666,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * рейтинг товара
+       * </pre>
+       *
        * <code>.google.protobuf.FloatValue score = 19;</code>
        */
       public Builder setScore(com.google.protobuf.FloatValue value) {
@@ -9515,6 +11686,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * рейтинг товара
+       * </pre>
+       *
        * <code>.google.protobuf.FloatValue score = 19;</code>
        */
       public Builder setScore(
@@ -9529,6 +11704,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * рейтинг товара
+       * </pre>
+       *
        * <code>.google.protobuf.FloatValue score = 19;</code>
        */
       public Builder mergeScore(com.google.protobuf.FloatValue value) {
@@ -9547,6 +11726,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * рейтинг товара
+       * </pre>
+       *
        * <code>.google.protobuf.FloatValue score = 19;</code>
        */
       public Builder clearScore() {
@@ -9561,6 +11744,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * рейтинг товара
+       * </pre>
+       *
        * <code>.google.protobuf.FloatValue score = 19;</code>
        */
       public com.google.protobuf.FloatValue.Builder getScoreBuilder() {
@@ -9569,6 +11756,10 @@ public final class CatalogApiV2 {
         return getScoreFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * рейтинг товара
+       * </pre>
+       *
        * <code>.google.protobuf.FloatValue score = 19;</code>
        */
       public com.google.protobuf.FloatValueOrBuilder getScoreOrBuilder() {
@@ -9580,6 +11771,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * рейтинг товара
+       * </pre>
+       *
        * <code>.google.protobuf.FloatValue score = 19;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -9604,6 +11799,10 @@ public final class CatalogApiV2 {
          }
       }
       /**
+       * <pre>
+       * лейблы товара
+       * </pre>
+       *
        * <code>repeated string labels = 20;</code>
        * @return A list containing the labels.
        */
@@ -9612,6 +11811,10 @@ public final class CatalogApiV2 {
         return labels_.getUnmodifiableView();
       }
       /**
+       * <pre>
+       * лейблы товара
+       * </pre>
+       *
        * <code>repeated string labels = 20;</code>
        * @return The count of labels.
        */
@@ -9619,6 +11822,10 @@ public final class CatalogApiV2 {
         return labels_.size();
       }
       /**
+       * <pre>
+       * лейблы товара
+       * </pre>
+       *
        * <code>repeated string labels = 20;</code>
        * @param index The index of the element to return.
        * @return The labels at the given index.
@@ -9627,6 +11834,10 @@ public final class CatalogApiV2 {
         return labels_.get(index);
       }
       /**
+       * <pre>
+       * лейблы товара
+       * </pre>
+       *
        * <code>repeated string labels = 20;</code>
        * @param index The index of the value to return.
        * @return The bytes of the labels at the given index.
@@ -9636,6 +11847,10 @@ public final class CatalogApiV2 {
         return labels_.getByteString(index);
       }
       /**
+       * <pre>
+       * лейблы товара
+       * </pre>
+       *
        * <code>repeated string labels = 20;</code>
        * @param index The index to set the value at.
        * @param value The labels to set.
@@ -9652,6 +11867,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * лейблы товара
+       * </pre>
+       *
        * <code>repeated string labels = 20;</code>
        * @param value The labels to add.
        * @return This builder for chaining.
@@ -9667,6 +11886,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * лейблы товара
+       * </pre>
+       *
        * <code>repeated string labels = 20;</code>
        * @param values The labels to add.
        * @return This builder for chaining.
@@ -9680,6 +11903,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * лейблы товара
+       * </pre>
+       *
        * <code>repeated string labels = 20;</code>
        * @return This builder for chaining.
        */
@@ -9690,6 +11917,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * лейблы товара
+       * </pre>
+       *
        * <code>repeated string labels = 20;</code>
        * @param value The bytes of the labels to add.
        * @return This builder for chaining.
@@ -9719,6 +11950,10 @@ public final class CatalogApiV2 {
           catalog_api_v2.CatalogApiV2.Image, catalog_api_v2.CatalogApiV2.Image.Builder, catalog_api_v2.CatalogApiV2.ImageOrBuilder> imagesBuilder_;
 
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public java.util.List<catalog_api_v2.CatalogApiV2.Image> getImagesList() {
@@ -9729,6 +11964,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public int getImagesCount() {
@@ -9739,6 +11978,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public catalog_api_v2.CatalogApiV2.Image getImages(int index) {
@@ -9749,6 +11992,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public Builder setImages(
@@ -9766,6 +12013,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public Builder setImages(
@@ -9780,6 +12031,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public Builder addImages(catalog_api_v2.CatalogApiV2.Image value) {
@@ -9796,6 +12051,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public Builder addImages(
@@ -9813,6 +12072,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public Builder addImages(
@@ -9827,6 +12090,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public Builder addImages(
@@ -9841,6 +12108,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public Builder addAllImages(
@@ -9856,6 +12127,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public Builder clearImages() {
@@ -9869,6 +12144,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public Builder removeImages(int index) {
@@ -9882,6 +12161,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public catalog_api_v2.CatalogApiV2.Image.Builder getImagesBuilder(
@@ -9889,6 +12172,10 @@ public final class CatalogApiV2 {
         return getImagesFieldBuilder().getBuilder(index);
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public catalog_api_v2.CatalogApiV2.ImageOrBuilder getImagesOrBuilder(
@@ -9899,6 +12186,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public java.util.List<? extends catalog_api_v2.CatalogApiV2.ImageOrBuilder> 
@@ -9910,6 +12201,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public catalog_api_v2.CatalogApiV2.Image.Builder addImagesBuilder() {
@@ -9917,6 +12212,10 @@ public final class CatalogApiV2 {
             catalog_api_v2.CatalogApiV2.Image.getDefaultInstance());
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public catalog_api_v2.CatalogApiV2.Image.Builder addImagesBuilder(
@@ -9925,6 +12224,10 @@ public final class CatalogApiV2 {
             index, catalog_api_v2.CatalogApiV2.Image.getDefaultInstance());
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public java.util.List<catalog_api_v2.CatalogApiV2.Image.Builder> 
@@ -9954,6 +12257,10 @@ public final class CatalogApiV2 {
          }
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string requirements = 22;</code>
        * @return A list containing the requirements.
        */
@@ -9962,6 +12269,10 @@ public final class CatalogApiV2 {
         return requirements_.getUnmodifiableView();
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string requirements = 22;</code>
        * @return The count of requirements.
        */
@@ -9969,6 +12280,10 @@ public final class CatalogApiV2 {
         return requirements_.size();
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string requirements = 22;</code>
        * @param index The index of the element to return.
        * @return The requirements at the given index.
@@ -9977,6 +12292,10 @@ public final class CatalogApiV2 {
         return requirements_.get(index);
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string requirements = 22;</code>
        * @param index The index of the value to return.
        * @return The bytes of the requirements at the given index.
@@ -9986,6 +12305,10 @@ public final class CatalogApiV2 {
         return requirements_.getByteString(index);
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string requirements = 22;</code>
        * @param index The index to set the value at.
        * @param value The requirements to set.
@@ -10002,6 +12325,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string requirements = 22;</code>
        * @param value The requirements to add.
        * @return This builder for chaining.
@@ -10017,6 +12344,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string requirements = 22;</code>
        * @param values The requirements to add.
        * @return This builder for chaining.
@@ -10030,6 +12361,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string requirements = 22;</code>
        * @return This builder for chaining.
        */
@@ -10040,6 +12375,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string requirements = 22;</code>
        * @param value The bytes of the requirements to add.
        * @return This builder for chaining.
@@ -10173,6 +12512,12 @@ public final class CatalogApiV2 {
         getOriginalUrlBytes();
   }
   /**
+   * <pre>
+   * Картинки, приходят в формате url 
+   * ph.attr[main_image]
+   * ph.attr[image]
+   * </pre>
+   *
    * Protobuf type {@code catalog_api_v2.Image}
    */
   public static final class Image extends
@@ -10669,6 +13014,12 @@ public final class CatalogApiV2 {
       return builder;
     }
     /**
+     * <pre>
+     * Картинки, приходят в формате url 
+     * ph.attr[main_image]
+     * ph.attr[image]
+     * </pre>
+     *
      * Protobuf type {@code catalog_api_v2.Image}
      */
     public static final class Builder extends
@@ -11281,11 +13632,19 @@ public final class CatalogApiV2 {
       com.google.protobuf.MessageOrBuilder {
 
     /**
+     * <pre>
+     * ключ фильтра
+     * </pre>
+     *
      * <code>string key = 1;</code>
      * @return The key.
      */
     java.lang.String getKey();
     /**
+     * <pre>
+     * ключ фильтра
+     * </pre>
+     *
      * <code>string key = 1;</code>
      * @return The bytes for key.
      */
@@ -11293,11 +13652,19 @@ public final class CatalogApiV2 {
         getKeyBytes();
 
     /**
+     * <pre>
+     * название фильтра
+     * </pre>
+     *
      * <code>string name = 2;</code>
      * @return The name.
      */
     java.lang.String getName();
     /**
+     * <pre>
+     * название фильтра
+     * </pre>
+     *
      * <code>string name = 2;</code>
      * @return The bytes for name.
      */
@@ -11305,11 +13672,19 @@ public final class CatalogApiV2 {
         getNameBytes();
 
     /**
+     * <pre>
+     * тип фильтра (везде multi_select кроме discount:toggle)
+     * </pre>
+     *
      * <code>string type = 3;</code>
      * @return The type.
      */
     java.lang.String getType();
     /**
+     * <pre>
+     * тип фильтра (везде multi_select кроме discount:toggle)
+     * </pre>
+     *
      * <code>string type = 3;</code>
      * @return The bytes for type.
      */
@@ -11317,30 +13692,55 @@ public final class CatalogApiV2 {
         getTypeBytes();
 
     /**
+     * <pre>
+     * значения фильтра
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
      */
     java.util.List<catalog_api_v2.CatalogApiV2.FacetOption> 
         getOptionsList();
     /**
+     * <pre>
+     * значения фильтра
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
      */
     catalog_api_v2.CatalogApiV2.FacetOption getOptions(int index);
     /**
+     * <pre>
+     * значения фильтра
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
      */
     int getOptionsCount();
     /**
+     * <pre>
+     * значения фильтра
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
      */
     java.util.List<? extends catalog_api_v2.CatalogApiV2.FacetOptionOrBuilder> 
         getOptionsOrBuilderList();
     /**
+     * <pre>
+     * значения фильтра
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
      */
     catalog_api_v2.CatalogApiV2.FacetOptionOrBuilder getOptionsOrBuilder(
         int index);
   }
   /**
+   * <pre>
+   **
+   * Фильтр
+   * </pre>
+   *
    * Protobuf type {@code catalog_api_v2.Facet}
    */
   public static final class Facet extends
@@ -11455,6 +13855,10 @@ public final class CatalogApiV2 {
     public static final int KEY_FIELD_NUMBER = 1;
     private volatile java.lang.Object key_;
     /**
+     * <pre>
+     * ключ фильтра
+     * </pre>
+     *
      * <code>string key = 1;</code>
      * @return The key.
      */
@@ -11472,6 +13876,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * ключ фильтра
+     * </pre>
+     *
      * <code>string key = 1;</code>
      * @return The bytes for key.
      */
@@ -11493,6 +13901,10 @@ public final class CatalogApiV2 {
     public static final int NAME_FIELD_NUMBER = 2;
     private volatile java.lang.Object name_;
     /**
+     * <pre>
+     * название фильтра
+     * </pre>
+     *
      * <code>string name = 2;</code>
      * @return The name.
      */
@@ -11510,6 +13922,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * название фильтра
+     * </pre>
+     *
      * <code>string name = 2;</code>
      * @return The bytes for name.
      */
@@ -11531,6 +13947,10 @@ public final class CatalogApiV2 {
     public static final int TYPE_FIELD_NUMBER = 3;
     private volatile java.lang.Object type_;
     /**
+     * <pre>
+     * тип фильтра (везде multi_select кроме discount:toggle)
+     * </pre>
+     *
      * <code>string type = 3;</code>
      * @return The type.
      */
@@ -11548,6 +13968,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * тип фильтра (везде multi_select кроме discount:toggle)
+     * </pre>
+     *
      * <code>string type = 3;</code>
      * @return The bytes for type.
      */
@@ -11569,6 +13993,10 @@ public final class CatalogApiV2 {
     public static final int OPTIONS_FIELD_NUMBER = 4;
     private java.util.List<catalog_api_v2.CatalogApiV2.FacetOption> options_;
     /**
+     * <pre>
+     * значения фильтра
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
      */
     @java.lang.Override
@@ -11576,6 +14004,10 @@ public final class CatalogApiV2 {
       return options_;
     }
     /**
+     * <pre>
+     * значения фильтра
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
      */
     @java.lang.Override
@@ -11584,6 +14016,10 @@ public final class CatalogApiV2 {
       return options_;
     }
     /**
+     * <pre>
+     * значения фильтра
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
      */
     @java.lang.Override
@@ -11591,6 +14027,10 @@ public final class CatalogApiV2 {
       return options_.size();
     }
     /**
+     * <pre>
+     * значения фильтра
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
      */
     @java.lang.Override
@@ -11598,6 +14038,10 @@ public final class CatalogApiV2 {
       return options_.get(index);
     }
     /**
+     * <pre>
+     * значения фильтра
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
      */
     @java.lang.Override
@@ -11794,6 +14238,11 @@ public final class CatalogApiV2 {
       return builder;
     }
     /**
+     * <pre>
+     **
+     * Фильтр
+     * </pre>
+     *
      * Protobuf type {@code catalog_api_v2.Facet}
      */
     public static final class Builder extends
@@ -12001,6 +14450,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object key_ = "";
       /**
+       * <pre>
+       * ключ фильтра
+       * </pre>
+       *
        * <code>string key = 1;</code>
        * @return The key.
        */
@@ -12017,6 +14470,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * ключ фильтра
+       * </pre>
+       *
        * <code>string key = 1;</code>
        * @return The bytes for key.
        */
@@ -12034,6 +14491,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * ключ фильтра
+       * </pre>
+       *
        * <code>string key = 1;</code>
        * @param value The key to set.
        * @return This builder for chaining.
@@ -12049,6 +14510,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * ключ фильтра
+       * </pre>
+       *
        * <code>string key = 1;</code>
        * @return This builder for chaining.
        */
@@ -12059,6 +14524,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * ключ фильтра
+       * </pre>
+       *
        * <code>string key = 1;</code>
        * @param value The bytes for key to set.
        * @return This builder for chaining.
@@ -12077,6 +14546,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object name_ = "";
       /**
+       * <pre>
+       * название фильтра
+       * </pre>
+       *
        * <code>string name = 2;</code>
        * @return The name.
        */
@@ -12093,6 +14566,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * название фильтра
+       * </pre>
+       *
        * <code>string name = 2;</code>
        * @return The bytes for name.
        */
@@ -12110,6 +14587,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * название фильтра
+       * </pre>
+       *
        * <code>string name = 2;</code>
        * @param value The name to set.
        * @return This builder for chaining.
@@ -12125,6 +14606,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * название фильтра
+       * </pre>
+       *
        * <code>string name = 2;</code>
        * @return This builder for chaining.
        */
@@ -12135,6 +14620,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * название фильтра
+       * </pre>
+       *
        * <code>string name = 2;</code>
        * @param value The bytes for name to set.
        * @return This builder for chaining.
@@ -12153,6 +14642,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object type_ = "";
       /**
+       * <pre>
+       * тип фильтра (везде multi_select кроме discount:toggle)
+       * </pre>
+       *
        * <code>string type = 3;</code>
        * @return The type.
        */
@@ -12169,6 +14662,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * тип фильтра (везде multi_select кроме discount:toggle)
+       * </pre>
+       *
        * <code>string type = 3;</code>
        * @return The bytes for type.
        */
@@ -12186,6 +14683,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * тип фильтра (везде multi_select кроме discount:toggle)
+       * </pre>
+       *
        * <code>string type = 3;</code>
        * @param value The type to set.
        * @return This builder for chaining.
@@ -12201,6 +14702,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * тип фильтра (везде multi_select кроме discount:toggle)
+       * </pre>
+       *
        * <code>string type = 3;</code>
        * @return This builder for chaining.
        */
@@ -12211,6 +14716,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * тип фильтра (везде multi_select кроме discount:toggle)
+       * </pre>
+       *
        * <code>string type = 3;</code>
        * @param value The bytes for type to set.
        * @return This builder for chaining.
@@ -12240,6 +14749,10 @@ public final class CatalogApiV2 {
           catalog_api_v2.CatalogApiV2.FacetOption, catalog_api_v2.CatalogApiV2.FacetOption.Builder, catalog_api_v2.CatalogApiV2.FacetOptionOrBuilder> optionsBuilder_;
 
       /**
+       * <pre>
+       * значения фильтра
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
        */
       public java.util.List<catalog_api_v2.CatalogApiV2.FacetOption> getOptionsList() {
@@ -12250,6 +14763,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * значения фильтра
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
        */
       public int getOptionsCount() {
@@ -12260,6 +14777,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * значения фильтра
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
        */
       public catalog_api_v2.CatalogApiV2.FacetOption getOptions(int index) {
@@ -12270,6 +14791,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * значения фильтра
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
        */
       public Builder setOptions(
@@ -12287,6 +14812,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * значения фильтра
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
        */
       public Builder setOptions(
@@ -12301,6 +14830,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * значения фильтра
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
        */
       public Builder addOptions(catalog_api_v2.CatalogApiV2.FacetOption value) {
@@ -12317,6 +14850,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * значения фильтра
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
        */
       public Builder addOptions(
@@ -12334,6 +14871,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * значения фильтра
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
        */
       public Builder addOptions(
@@ -12348,6 +14889,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * значения фильтра
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
        */
       public Builder addOptions(
@@ -12362,6 +14907,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * значения фильтра
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
        */
       public Builder addAllOptions(
@@ -12377,6 +14926,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * значения фильтра
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
        */
       public Builder clearOptions() {
@@ -12390,6 +14943,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * значения фильтра
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
        */
       public Builder removeOptions(int index) {
@@ -12403,6 +14960,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * значения фильтра
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
        */
       public catalog_api_v2.CatalogApiV2.FacetOption.Builder getOptionsBuilder(
@@ -12410,6 +14971,10 @@ public final class CatalogApiV2 {
         return getOptionsFieldBuilder().getBuilder(index);
       }
       /**
+       * <pre>
+       * значения фильтра
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
        */
       public catalog_api_v2.CatalogApiV2.FacetOptionOrBuilder getOptionsOrBuilder(
@@ -12420,6 +14985,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * значения фильтра
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
        */
       public java.util.List<? extends catalog_api_v2.CatalogApiV2.FacetOptionOrBuilder> 
@@ -12431,6 +15000,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * значения фильтра
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
        */
       public catalog_api_v2.CatalogApiV2.FacetOption.Builder addOptionsBuilder() {
@@ -12438,6 +15011,10 @@ public final class CatalogApiV2 {
             catalog_api_v2.CatalogApiV2.FacetOption.getDefaultInstance());
       }
       /**
+       * <pre>
+       * значения фильтра
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
        */
       public catalog_api_v2.CatalogApiV2.FacetOption.Builder addOptionsBuilder(
@@ -12446,6 +15023,10 @@ public final class CatalogApiV2 {
             index, catalog_api_v2.CatalogApiV2.FacetOption.getDefaultInstance());
       }
       /**
+       * <pre>
+       * значения фильтра
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.FacetOption options = 4;</code>
        */
       public java.util.List<catalog_api_v2.CatalogApiV2.FacetOption.Builder> 
@@ -12524,54 +15105,95 @@ public final class CatalogApiV2 {
       com.google.protobuf.MessageOrBuilder {
 
     /**
+     * <pre>
+     * название значения
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue name = 1;</code>
      * @return Whether the name field is set.
      */
     boolean hasName();
     /**
+     * <pre>
+     * название значения
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue name = 1;</code>
      * @return The name.
      */
     com.google.protobuf.StringValue getName();
     /**
+     * <pre>
+     * название значения
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue name = 1;</code>
      */
     com.google.protobuf.StringValueOrBuilder getNameOrBuilder();
 
     /**
-     * <code>int64 value = 2;</code>
+     * <pre>
+     * идентификатор значения
+     * </pre>
+     *
+     * <code>double value = 2;</code>
      * @return The value.
      */
-    long getValue();
+    double getValue();
 
     /**
-     * <code>int64 count = 3;</code>
+     * <pre>
+     * кол-во продуктов 
+     * </pre>
+     *
+     * <code>double count = 3;</code>
      * @return The count.
      */
-    long getCount();
+    double getCount();
 
     /**
+     * <pre>
+     * пермалинк значения
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue permalink = 4;</code>
      * @return Whether the permalink field is set.
      */
     boolean hasPermalink();
     /**
+     * <pre>
+     * пермалинк значения
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue permalink = 4;</code>
      * @return The permalink.
      */
     com.google.protobuf.StringValue getPermalink();
     /**
+     * <pre>
+     * пермалинк значения
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue permalink = 4;</code>
      */
     com.google.protobuf.StringValueOrBuilder getPermalinkOrBuilder();
 
     /**
+     * <pre>
+     * участвует ли значения в фильтрации
+     * </pre>
+     *
      * <code>bool active = 5;</code>
      * @return The active.
      */
     boolean getActive();
   }
   /**
+   * <pre>
+   **
+   * Значение фильтра
+   * </pre>
+   *
    * Protobuf type {@code catalog_api_v2.FacetOption}
    */
   public static final class FacetOption extends
@@ -12629,14 +15251,14 @@ public final class CatalogApiV2 {
 
               break;
             }
-            case 16: {
+            case 17: {
 
-              value_ = input.readInt64();
+              value_ = input.readDouble();
               break;
             }
-            case 24: {
+            case 25: {
 
-              count_ = input.readInt64();
+              count_ = input.readDouble();
               break;
             }
             case 34: {
@@ -12692,6 +15314,10 @@ public final class CatalogApiV2 {
     public static final int NAME_FIELD_NUMBER = 1;
     private com.google.protobuf.StringValue name_;
     /**
+     * <pre>
+     * название значения
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue name = 1;</code>
      * @return Whether the name field is set.
      */
@@ -12700,6 +15326,10 @@ public final class CatalogApiV2 {
       return name_ != null;
     }
     /**
+     * <pre>
+     * название значения
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue name = 1;</code>
      * @return The name.
      */
@@ -12708,6 +15338,10 @@ public final class CatalogApiV2 {
       return name_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : name_;
     }
     /**
+     * <pre>
+     * название значения
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue name = 1;</code>
      */
     @java.lang.Override
@@ -12716,30 +15350,42 @@ public final class CatalogApiV2 {
     }
 
     public static final int VALUE_FIELD_NUMBER = 2;
-    private long value_;
+    private double value_;
     /**
-     * <code>int64 value = 2;</code>
+     * <pre>
+     * идентификатор значения
+     * </pre>
+     *
+     * <code>double value = 2;</code>
      * @return The value.
      */
     @java.lang.Override
-    public long getValue() {
+    public double getValue() {
       return value_;
     }
 
     public static final int COUNT_FIELD_NUMBER = 3;
-    private long count_;
+    private double count_;
     /**
-     * <code>int64 count = 3;</code>
+     * <pre>
+     * кол-во продуктов 
+     * </pre>
+     *
+     * <code>double count = 3;</code>
      * @return The count.
      */
     @java.lang.Override
-    public long getCount() {
+    public double getCount() {
       return count_;
     }
 
     public static final int PERMALINK_FIELD_NUMBER = 4;
     private com.google.protobuf.StringValue permalink_;
     /**
+     * <pre>
+     * пермалинк значения
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue permalink = 4;</code>
      * @return Whether the permalink field is set.
      */
@@ -12748,6 +15394,10 @@ public final class CatalogApiV2 {
       return permalink_ != null;
     }
     /**
+     * <pre>
+     * пермалинк значения
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue permalink = 4;</code>
      * @return The permalink.
      */
@@ -12756,6 +15406,10 @@ public final class CatalogApiV2 {
       return permalink_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : permalink_;
     }
     /**
+     * <pre>
+     * пермалинк значения
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue permalink = 4;</code>
      */
     @java.lang.Override
@@ -12766,6 +15420,10 @@ public final class CatalogApiV2 {
     public static final int ACTIVE_FIELD_NUMBER = 5;
     private boolean active_;
     /**
+     * <pre>
+     * участвует ли значения в фильтрации
+     * </pre>
+     *
      * <code>bool active = 5;</code>
      * @return The active.
      */
@@ -12791,11 +15449,11 @@ public final class CatalogApiV2 {
       if (name_ != null) {
         output.writeMessage(1, getName());
       }
-      if (value_ != 0L) {
-        output.writeInt64(2, value_);
+      if (value_ != 0D) {
+        output.writeDouble(2, value_);
       }
-      if (count_ != 0L) {
-        output.writeInt64(3, count_);
+      if (count_ != 0D) {
+        output.writeDouble(3, count_);
       }
       if (permalink_ != null) {
         output.writeMessage(4, getPermalink());
@@ -12816,13 +15474,13 @@ public final class CatalogApiV2 {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getName());
       }
-      if (value_ != 0L) {
+      if (value_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, value_);
+          .computeDoubleSize(2, value_);
       }
-      if (count_ != 0L) {
+      if (count_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(3, count_);
+          .computeDoubleSize(3, count_);
       }
       if (permalink_ != null) {
         size += com.google.protobuf.CodedOutputStream
@@ -12852,10 +15510,12 @@ public final class CatalogApiV2 {
         if (!getName()
             .equals(other.getName())) return false;
       }
-      if (getValue()
-          != other.getValue()) return false;
-      if (getCount()
-          != other.getCount()) return false;
+      if (java.lang.Double.doubleToLongBits(getValue())
+          != java.lang.Double.doubleToLongBits(
+              other.getValue())) return false;
+      if (java.lang.Double.doubleToLongBits(getCount())
+          != java.lang.Double.doubleToLongBits(
+              other.getCount())) return false;
       if (hasPermalink() != other.hasPermalink()) return false;
       if (hasPermalink()) {
         if (!getPermalink()
@@ -12880,10 +15540,10 @@ public final class CatalogApiV2 {
       }
       hash = (37 * hash) + VALUE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getValue());
+          java.lang.Double.doubleToLongBits(getValue()));
       hash = (37 * hash) + COUNT_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getCount());
+          java.lang.Double.doubleToLongBits(getCount()));
       if (hasPermalink()) {
         hash = (37 * hash) + PERMALINK_FIELD_NUMBER;
         hash = (53 * hash) + getPermalink().hashCode();
@@ -12987,6 +15647,11 @@ public final class CatalogApiV2 {
       return builder;
     }
     /**
+     * <pre>
+     **
+     * Значение фильтра
+     * </pre>
+     *
      * Protobuf type {@code catalog_api_v2.FacetOption}
      */
     public static final class Builder extends
@@ -13030,9 +15695,9 @@ public final class CatalogApiV2 {
           name_ = null;
           nameBuilder_ = null;
         }
-        value_ = 0L;
+        value_ = 0D;
 
-        count_ = 0L;
+        count_ = 0D;
 
         if (permalinkBuilder_ == null) {
           permalink_ = null;
@@ -13132,10 +15797,10 @@ public final class CatalogApiV2 {
         if (other.hasName()) {
           mergeName(other.getName());
         }
-        if (other.getValue() != 0L) {
+        if (other.getValue() != 0D) {
           setValue(other.getValue());
         }
-        if (other.getCount() != 0L) {
+        if (other.getCount() != 0D) {
           setCount(other.getCount());
         }
         if (other.hasPermalink()) {
@@ -13177,6 +15842,10 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> nameBuilder_;
       /**
+       * <pre>
+       * название значения
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue name = 1;</code>
        * @return Whether the name field is set.
        */
@@ -13184,6 +15853,10 @@ public final class CatalogApiV2 {
         return nameBuilder_ != null || name_ != null;
       }
       /**
+       * <pre>
+       * название значения
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue name = 1;</code>
        * @return The name.
        */
@@ -13195,6 +15868,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * название значения
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue name = 1;</code>
        */
       public Builder setName(com.google.protobuf.StringValue value) {
@@ -13211,6 +15888,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * название значения
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue name = 1;</code>
        */
       public Builder setName(
@@ -13225,6 +15906,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * название значения
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue name = 1;</code>
        */
       public Builder mergeName(com.google.protobuf.StringValue value) {
@@ -13243,6 +15928,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * название значения
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue name = 1;</code>
        */
       public Builder clearName() {
@@ -13257,6 +15946,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * название значения
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue name = 1;</code>
        */
       public com.google.protobuf.StringValue.Builder getNameBuilder() {
@@ -13265,6 +15958,10 @@ public final class CatalogApiV2 {
         return getNameFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * название значения
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue name = 1;</code>
        */
       public com.google.protobuf.StringValueOrBuilder getNameOrBuilder() {
@@ -13276,6 +15973,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * название значения
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue name = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -13292,64 +15993,88 @@ public final class CatalogApiV2 {
         return nameBuilder_;
       }
 
-      private long value_ ;
+      private double value_ ;
       /**
-       * <code>int64 value = 2;</code>
+       * <pre>
+       * идентификатор значения
+       * </pre>
+       *
+       * <code>double value = 2;</code>
        * @return The value.
        */
       @java.lang.Override
-      public long getValue() {
+      public double getValue() {
         return value_;
       }
       /**
-       * <code>int64 value = 2;</code>
+       * <pre>
+       * идентификатор значения
+       * </pre>
+       *
+       * <code>double value = 2;</code>
        * @param value The value to set.
        * @return This builder for chaining.
        */
-      public Builder setValue(long value) {
+      public Builder setValue(double value) {
         
         value_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int64 value = 2;</code>
+       * <pre>
+       * идентификатор значения
+       * </pre>
+       *
+       * <code>double value = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearValue() {
         
-        value_ = 0L;
+        value_ = 0D;
         onChanged();
         return this;
       }
 
-      private long count_ ;
+      private double count_ ;
       /**
-       * <code>int64 count = 3;</code>
+       * <pre>
+       * кол-во продуктов 
+       * </pre>
+       *
+       * <code>double count = 3;</code>
        * @return The count.
        */
       @java.lang.Override
-      public long getCount() {
+      public double getCount() {
         return count_;
       }
       /**
-       * <code>int64 count = 3;</code>
+       * <pre>
+       * кол-во продуктов 
+       * </pre>
+       *
+       * <code>double count = 3;</code>
        * @param value The count to set.
        * @return This builder for chaining.
        */
-      public Builder setCount(long value) {
+      public Builder setCount(double value) {
         
         count_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int64 count = 3;</code>
+       * <pre>
+       * кол-во продуктов 
+       * </pre>
+       *
+       * <code>double count = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearCount() {
         
-        count_ = 0L;
+        count_ = 0D;
         onChanged();
         return this;
       }
@@ -13358,6 +16083,10 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> permalinkBuilder_;
       /**
+       * <pre>
+       * пермалинк значения
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue permalink = 4;</code>
        * @return Whether the permalink field is set.
        */
@@ -13365,6 +16094,10 @@ public final class CatalogApiV2 {
         return permalinkBuilder_ != null || permalink_ != null;
       }
       /**
+       * <pre>
+       * пермалинк значения
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue permalink = 4;</code>
        * @return The permalink.
        */
@@ -13376,6 +16109,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * пермалинк значения
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue permalink = 4;</code>
        */
       public Builder setPermalink(com.google.protobuf.StringValue value) {
@@ -13392,6 +16129,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * пермалинк значения
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue permalink = 4;</code>
        */
       public Builder setPermalink(
@@ -13406,6 +16147,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * пермалинк значения
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue permalink = 4;</code>
        */
       public Builder mergePermalink(com.google.protobuf.StringValue value) {
@@ -13424,6 +16169,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * пермалинк значения
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue permalink = 4;</code>
        */
       public Builder clearPermalink() {
@@ -13438,6 +16187,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * пермалинк значения
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue permalink = 4;</code>
        */
       public com.google.protobuf.StringValue.Builder getPermalinkBuilder() {
@@ -13446,6 +16199,10 @@ public final class CatalogApiV2 {
         return getPermalinkFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * пермалинк значения
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue permalink = 4;</code>
        */
       public com.google.protobuf.StringValueOrBuilder getPermalinkOrBuilder() {
@@ -13457,6 +16214,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * пермалинк значения
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue permalink = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -13475,6 +16236,10 @@ public final class CatalogApiV2 {
 
       private boolean active_ ;
       /**
+       * <pre>
+       * участвует ли значения в фильтрации
+       * </pre>
+       *
        * <code>bool active = 5;</code>
        * @return The active.
        */
@@ -13483,6 +16248,10 @@ public final class CatalogApiV2 {
         return active_;
       }
       /**
+       * <pre>
+       * участвует ли значения в фильтрации
+       * </pre>
+       *
        * <code>bool active = 5;</code>
        * @param value The active to set.
        * @return This builder for chaining.
@@ -13494,6 +16263,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * участвует ли значения в фильтрации
+       * </pre>
+       *
        * <code>bool active = 5;</code>
        * @return This builder for chaining.
        */
@@ -13561,60 +16334,105 @@ public final class CatalogApiV2 {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int64 current_page = 1 [json_name = "current_page"];</code>
+     * <pre>
+     * текущая страница
+     * </pre>
+     *
+     * <code>double current_page = 1 [json_name = "current_page"];</code>
      * @return The currentPage.
      */
-    long getCurrentPage();
+    double getCurrentPage();
 
     /**
-     * <code>.google.protobuf.Int64Value next_page = 2 [json_name = "next_page"];</code>
+     * <pre>
+     * следующая страница
+     * </pre>
+     *
+     * <code>.google.protobuf.DoubleValue next_page = 2 [json_name = "next_page"];</code>
      * @return Whether the nextPage field is set.
      */
     boolean hasNextPage();
     /**
-     * <code>.google.protobuf.Int64Value next_page = 2 [json_name = "next_page"];</code>
+     * <pre>
+     * следующая страница
+     * </pre>
+     *
+     * <code>.google.protobuf.DoubleValue next_page = 2 [json_name = "next_page"];</code>
      * @return The nextPage.
      */
-    com.google.protobuf.Int64Value getNextPage();
+    com.google.protobuf.DoubleValue getNextPage();
     /**
-     * <code>.google.protobuf.Int64Value next_page = 2 [json_name = "next_page"];</code>
+     * <pre>
+     * следующая страница
+     * </pre>
+     *
+     * <code>.google.protobuf.DoubleValue next_page = 2 [json_name = "next_page"];</code>
      */
-    com.google.protobuf.Int64ValueOrBuilder getNextPageOrBuilder();
+    com.google.protobuf.DoubleValueOrBuilder getNextPageOrBuilder();
 
     /**
-     * <code>.google.protobuf.Int64Value previous_page = 3 [json_name = "previous_page"];</code>
+     * <pre>
+     * пред. страница
+     * </pre>
+     *
+     * <code>.google.protobuf.DoubleValue previous_page = 3 [json_name = "previous_page"];</code>
      * @return Whether the previousPage field is set.
      */
     boolean hasPreviousPage();
     /**
-     * <code>.google.protobuf.Int64Value previous_page = 3 [json_name = "previous_page"];</code>
+     * <pre>
+     * пред. страница
+     * </pre>
+     *
+     * <code>.google.protobuf.DoubleValue previous_page = 3 [json_name = "previous_page"];</code>
      * @return The previousPage.
      */
-    com.google.protobuf.Int64Value getPreviousPage();
+    com.google.protobuf.DoubleValue getPreviousPage();
     /**
-     * <code>.google.protobuf.Int64Value previous_page = 3 [json_name = "previous_page"];</code>
+     * <pre>
+     * пред. страница
+     * </pre>
+     *
+     * <code>.google.protobuf.DoubleValue previous_page = 3 [json_name = "previous_page"];</code>
      */
-    com.google.protobuf.Int64ValueOrBuilder getPreviousPageOrBuilder();
+    com.google.protobuf.DoubleValueOrBuilder getPreviousPageOrBuilder();
 
     /**
-     * <code>int64 total_pages = 4 [json_name = "total_pages"];</code>
+     * <pre>
+     * всего страниц
+     * </pre>
+     *
+     * <code>double total_pages = 4 [json_name = "total_pages"];</code>
      * @return The totalPages.
      */
-    long getTotalPages();
+    double getTotalPages();
 
     /**
-     * <code>int64 per_page = 5 [json_name = "per_page"];</code>
+     * <pre>
+     * кол-во товаров на странице
+     * </pre>
+     *
+     * <code>double per_page = 5 [json_name = "per_page"];</code>
      * @return The perPage.
      */
-    long getPerPage();
+    double getPerPage();
 
     /**
-     * <code>int64 total_count = 6 [json_name = "total_count"];</code>
+     * <pre>
+     * кол-во товаров всего
+     * </pre>
+     *
+     * <code>double total_count = 6 [json_name = "total_count"];</code>
      * @return The totalCount.
      */
-    long getTotalCount();
+    double getTotalCount();
   }
   /**
+   * <pre>
+   **
+   * Мета страницы
+   * </pre>
+   *
    * Protobuf type {@code catalog_api_v2.Meta}
    */
   public static final class Meta extends
@@ -13659,17 +16477,17 @@ public final class CatalogApiV2 {
             case 0:
               done = true;
               break;
-            case 8: {
+            case 9: {
 
-              currentPage_ = input.readInt64();
+              currentPage_ = input.readDouble();
               break;
             }
             case 18: {
-              com.google.protobuf.Int64Value.Builder subBuilder = null;
+              com.google.protobuf.DoubleValue.Builder subBuilder = null;
               if (nextPage_ != null) {
                 subBuilder = nextPage_.toBuilder();
               }
-              nextPage_ = input.readMessage(com.google.protobuf.Int64Value.parser(), extensionRegistry);
+              nextPage_ = input.readMessage(com.google.protobuf.DoubleValue.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(nextPage_);
                 nextPage_ = subBuilder.buildPartial();
@@ -13678,11 +16496,11 @@ public final class CatalogApiV2 {
               break;
             }
             case 26: {
-              com.google.protobuf.Int64Value.Builder subBuilder = null;
+              com.google.protobuf.DoubleValue.Builder subBuilder = null;
               if (previousPage_ != null) {
                 subBuilder = previousPage_.toBuilder();
               }
-              previousPage_ = input.readMessage(com.google.protobuf.Int64Value.parser(), extensionRegistry);
+              previousPage_ = input.readMessage(com.google.protobuf.DoubleValue.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(previousPage_);
                 previousPage_ = subBuilder.buildPartial();
@@ -13690,19 +16508,19 @@ public final class CatalogApiV2 {
 
               break;
             }
-            case 32: {
+            case 33: {
 
-              totalPages_ = input.readInt64();
+              totalPages_ = input.readDouble();
               break;
             }
-            case 40: {
+            case 41: {
 
-              perPage_ = input.readInt64();
+              perPage_ = input.readDouble();
               break;
             }
-            case 48: {
+            case 49: {
 
-              totalCount_ = input.readInt64();
+              totalCount_ = input.readDouble();
               break;
             }
             default: {
@@ -13738,20 +16556,28 @@ public final class CatalogApiV2 {
     }
 
     public static final int CURRENT_PAGE_FIELD_NUMBER = 1;
-    private long currentPage_;
+    private double currentPage_;
     /**
-     * <code>int64 current_page = 1 [json_name = "current_page"];</code>
+     * <pre>
+     * текущая страница
+     * </pre>
+     *
+     * <code>double current_page = 1 [json_name = "current_page"];</code>
      * @return The currentPage.
      */
     @java.lang.Override
-    public long getCurrentPage() {
+    public double getCurrentPage() {
       return currentPage_;
     }
 
     public static final int NEXT_PAGE_FIELD_NUMBER = 2;
-    private com.google.protobuf.Int64Value nextPage_;
+    private com.google.protobuf.DoubleValue nextPage_;
     /**
-     * <code>.google.protobuf.Int64Value next_page = 2 [json_name = "next_page"];</code>
+     * <pre>
+     * следующая страница
+     * </pre>
+     *
+     * <code>.google.protobuf.DoubleValue next_page = 2 [json_name = "next_page"];</code>
      * @return Whether the nextPage field is set.
      */
     @java.lang.Override
@@ -13759,25 +16585,37 @@ public final class CatalogApiV2 {
       return nextPage_ != null;
     }
     /**
-     * <code>.google.protobuf.Int64Value next_page = 2 [json_name = "next_page"];</code>
+     * <pre>
+     * следующая страница
+     * </pre>
+     *
+     * <code>.google.protobuf.DoubleValue next_page = 2 [json_name = "next_page"];</code>
      * @return The nextPage.
      */
     @java.lang.Override
-    public com.google.protobuf.Int64Value getNextPage() {
-      return nextPage_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : nextPage_;
+    public com.google.protobuf.DoubleValue getNextPage() {
+      return nextPage_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : nextPage_;
     }
     /**
-     * <code>.google.protobuf.Int64Value next_page = 2 [json_name = "next_page"];</code>
+     * <pre>
+     * следующая страница
+     * </pre>
+     *
+     * <code>.google.protobuf.DoubleValue next_page = 2 [json_name = "next_page"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.Int64ValueOrBuilder getNextPageOrBuilder() {
+    public com.google.protobuf.DoubleValueOrBuilder getNextPageOrBuilder() {
       return getNextPage();
     }
 
     public static final int PREVIOUS_PAGE_FIELD_NUMBER = 3;
-    private com.google.protobuf.Int64Value previousPage_;
+    private com.google.protobuf.DoubleValue previousPage_;
     /**
-     * <code>.google.protobuf.Int64Value previous_page = 3 [json_name = "previous_page"];</code>
+     * <pre>
+     * пред. страница
+     * </pre>
+     *
+     * <code>.google.protobuf.DoubleValue previous_page = 3 [json_name = "previous_page"];</code>
      * @return Whether the previousPage field is set.
      */
     @java.lang.Override
@@ -13785,51 +16623,71 @@ public final class CatalogApiV2 {
       return previousPage_ != null;
     }
     /**
-     * <code>.google.protobuf.Int64Value previous_page = 3 [json_name = "previous_page"];</code>
+     * <pre>
+     * пред. страница
+     * </pre>
+     *
+     * <code>.google.protobuf.DoubleValue previous_page = 3 [json_name = "previous_page"];</code>
      * @return The previousPage.
      */
     @java.lang.Override
-    public com.google.protobuf.Int64Value getPreviousPage() {
-      return previousPage_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : previousPage_;
+    public com.google.protobuf.DoubleValue getPreviousPage() {
+      return previousPage_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : previousPage_;
     }
     /**
-     * <code>.google.protobuf.Int64Value previous_page = 3 [json_name = "previous_page"];</code>
+     * <pre>
+     * пред. страница
+     * </pre>
+     *
+     * <code>.google.protobuf.DoubleValue previous_page = 3 [json_name = "previous_page"];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.Int64ValueOrBuilder getPreviousPageOrBuilder() {
+    public com.google.protobuf.DoubleValueOrBuilder getPreviousPageOrBuilder() {
       return getPreviousPage();
     }
 
     public static final int TOTAL_PAGES_FIELD_NUMBER = 4;
-    private long totalPages_;
+    private double totalPages_;
     /**
-     * <code>int64 total_pages = 4 [json_name = "total_pages"];</code>
+     * <pre>
+     * всего страниц
+     * </pre>
+     *
+     * <code>double total_pages = 4 [json_name = "total_pages"];</code>
      * @return The totalPages.
      */
     @java.lang.Override
-    public long getTotalPages() {
+    public double getTotalPages() {
       return totalPages_;
     }
 
     public static final int PER_PAGE_FIELD_NUMBER = 5;
-    private long perPage_;
+    private double perPage_;
     /**
-     * <code>int64 per_page = 5 [json_name = "per_page"];</code>
+     * <pre>
+     * кол-во товаров на странице
+     * </pre>
+     *
+     * <code>double per_page = 5 [json_name = "per_page"];</code>
      * @return The perPage.
      */
     @java.lang.Override
-    public long getPerPage() {
+    public double getPerPage() {
       return perPage_;
     }
 
     public static final int TOTAL_COUNT_FIELD_NUMBER = 6;
-    private long totalCount_;
+    private double totalCount_;
     /**
-     * <code>int64 total_count = 6 [json_name = "total_count"];</code>
+     * <pre>
+     * кол-во товаров всего
+     * </pre>
+     *
+     * <code>double total_count = 6 [json_name = "total_count"];</code>
      * @return The totalCount.
      */
     @java.lang.Override
-    public long getTotalCount() {
+    public double getTotalCount() {
       return totalCount_;
     }
 
@@ -13847,8 +16705,8 @@ public final class CatalogApiV2 {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (currentPage_ != 0L) {
-        output.writeInt64(1, currentPage_);
+      if (currentPage_ != 0D) {
+        output.writeDouble(1, currentPage_);
       }
       if (nextPage_ != null) {
         output.writeMessage(2, getNextPage());
@@ -13856,14 +16714,14 @@ public final class CatalogApiV2 {
       if (previousPage_ != null) {
         output.writeMessage(3, getPreviousPage());
       }
-      if (totalPages_ != 0L) {
-        output.writeInt64(4, totalPages_);
+      if (totalPages_ != 0D) {
+        output.writeDouble(4, totalPages_);
       }
-      if (perPage_ != 0L) {
-        output.writeInt64(5, perPage_);
+      if (perPage_ != 0D) {
+        output.writeDouble(5, perPage_);
       }
-      if (totalCount_ != 0L) {
-        output.writeInt64(6, totalCount_);
+      if (totalCount_ != 0D) {
+        output.writeDouble(6, totalCount_);
       }
       unknownFields.writeTo(output);
     }
@@ -13874,9 +16732,9 @@ public final class CatalogApiV2 {
       if (size != -1) return size;
 
       size = 0;
-      if (currentPage_ != 0L) {
+      if (currentPage_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(1, currentPage_);
+          .computeDoubleSize(1, currentPage_);
       }
       if (nextPage_ != null) {
         size += com.google.protobuf.CodedOutputStream
@@ -13886,17 +16744,17 @@ public final class CatalogApiV2 {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, getPreviousPage());
       }
-      if (totalPages_ != 0L) {
+      if (totalPages_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(4, totalPages_);
+          .computeDoubleSize(4, totalPages_);
       }
-      if (perPage_ != 0L) {
+      if (perPage_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(5, perPage_);
+          .computeDoubleSize(5, perPage_);
       }
-      if (totalCount_ != 0L) {
+      if (totalCount_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(6, totalCount_);
+          .computeDoubleSize(6, totalCount_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -13913,8 +16771,9 @@ public final class CatalogApiV2 {
       }
       catalog_api_v2.CatalogApiV2.Meta other = (catalog_api_v2.CatalogApiV2.Meta) obj;
 
-      if (getCurrentPage()
-          != other.getCurrentPage()) return false;
+      if (java.lang.Double.doubleToLongBits(getCurrentPage())
+          != java.lang.Double.doubleToLongBits(
+              other.getCurrentPage())) return false;
       if (hasNextPage() != other.hasNextPage()) return false;
       if (hasNextPage()) {
         if (!getNextPage()
@@ -13925,12 +16784,15 @@ public final class CatalogApiV2 {
         if (!getPreviousPage()
             .equals(other.getPreviousPage())) return false;
       }
-      if (getTotalPages()
-          != other.getTotalPages()) return false;
-      if (getPerPage()
-          != other.getPerPage()) return false;
-      if (getTotalCount()
-          != other.getTotalCount()) return false;
+      if (java.lang.Double.doubleToLongBits(getTotalPages())
+          != java.lang.Double.doubleToLongBits(
+              other.getTotalPages())) return false;
+      if (java.lang.Double.doubleToLongBits(getPerPage())
+          != java.lang.Double.doubleToLongBits(
+              other.getPerPage())) return false;
+      if (java.lang.Double.doubleToLongBits(getTotalCount())
+          != java.lang.Double.doubleToLongBits(
+              other.getTotalCount())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -13944,7 +16806,7 @@ public final class CatalogApiV2 {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + CURRENT_PAGE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getCurrentPage());
+          java.lang.Double.doubleToLongBits(getCurrentPage()));
       if (hasNextPage()) {
         hash = (37 * hash) + NEXT_PAGE_FIELD_NUMBER;
         hash = (53 * hash) + getNextPage().hashCode();
@@ -13955,13 +16817,13 @@ public final class CatalogApiV2 {
       }
       hash = (37 * hash) + TOTAL_PAGES_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getTotalPages());
+          java.lang.Double.doubleToLongBits(getTotalPages()));
       hash = (37 * hash) + PER_PAGE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getPerPage());
+          java.lang.Double.doubleToLongBits(getPerPage()));
       hash = (37 * hash) + TOTAL_COUNT_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getTotalCount());
+          java.lang.Double.doubleToLongBits(getTotalCount()));
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -14058,6 +16920,11 @@ public final class CatalogApiV2 {
       return builder;
     }
     /**
+     * <pre>
+     **
+     * Мета страницы
+     * </pre>
+     *
      * Protobuf type {@code catalog_api_v2.Meta}
      */
     public static final class Builder extends
@@ -14095,7 +16962,7 @@ public final class CatalogApiV2 {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        currentPage_ = 0L;
+        currentPage_ = 0D;
 
         if (nextPageBuilder_ == null) {
           nextPage_ = null;
@@ -14109,11 +16976,11 @@ public final class CatalogApiV2 {
           previousPage_ = null;
           previousPageBuilder_ = null;
         }
-        totalPages_ = 0L;
+        totalPages_ = 0D;
 
-        perPage_ = 0L;
+        perPage_ = 0D;
 
-        totalCount_ = 0L;
+        totalCount_ = 0D;
 
         return this;
       }
@@ -14203,7 +17070,7 @@ public final class CatalogApiV2 {
 
       public Builder mergeFrom(catalog_api_v2.CatalogApiV2.Meta other) {
         if (other == catalog_api_v2.CatalogApiV2.Meta.getDefaultInstance()) return this;
-        if (other.getCurrentPage() != 0L) {
+        if (other.getCurrentPage() != 0D) {
           setCurrentPage(other.getCurrentPage());
         }
         if (other.hasNextPage()) {
@@ -14212,13 +17079,13 @@ public final class CatalogApiV2 {
         if (other.hasPreviousPage()) {
           mergePreviousPage(other.getPreviousPage());
         }
-        if (other.getTotalPages() != 0L) {
+        if (other.getTotalPages() != 0D) {
           setTotalPages(other.getTotalPages());
         }
-        if (other.getPerPage() != 0L) {
+        if (other.getPerPage() != 0D) {
           setPerPage(other.getPerPage());
         }
-        if (other.getTotalCount() != 0L) {
+        if (other.getTotalCount() != 0D) {
           setTotalCount(other.getTotalCount());
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -14250,62 +17117,86 @@ public final class CatalogApiV2 {
         return this;
       }
 
-      private long currentPage_ ;
+      private double currentPage_ ;
       /**
-       * <code>int64 current_page = 1 [json_name = "current_page"];</code>
+       * <pre>
+       * текущая страница
+       * </pre>
+       *
+       * <code>double current_page = 1 [json_name = "current_page"];</code>
        * @return The currentPage.
        */
       @java.lang.Override
-      public long getCurrentPage() {
+      public double getCurrentPage() {
         return currentPage_;
       }
       /**
-       * <code>int64 current_page = 1 [json_name = "current_page"];</code>
+       * <pre>
+       * текущая страница
+       * </pre>
+       *
+       * <code>double current_page = 1 [json_name = "current_page"];</code>
        * @param value The currentPage to set.
        * @return This builder for chaining.
        */
-      public Builder setCurrentPage(long value) {
+      public Builder setCurrentPage(double value) {
         
         currentPage_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int64 current_page = 1 [json_name = "current_page"];</code>
+       * <pre>
+       * текущая страница
+       * </pre>
+       *
+       * <code>double current_page = 1 [json_name = "current_page"];</code>
        * @return This builder for chaining.
        */
       public Builder clearCurrentPage() {
         
-        currentPage_ = 0L;
+        currentPage_ = 0D;
         onChanged();
         return this;
       }
 
-      private com.google.protobuf.Int64Value nextPage_;
+      private com.google.protobuf.DoubleValue nextPage_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder> nextPageBuilder_;
+          com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> nextPageBuilder_;
       /**
-       * <code>.google.protobuf.Int64Value next_page = 2 [json_name = "next_page"];</code>
+       * <pre>
+       * следующая страница
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue next_page = 2 [json_name = "next_page"];</code>
        * @return Whether the nextPage field is set.
        */
       public boolean hasNextPage() {
         return nextPageBuilder_ != null || nextPage_ != null;
       }
       /**
-       * <code>.google.protobuf.Int64Value next_page = 2 [json_name = "next_page"];</code>
+       * <pre>
+       * следующая страница
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue next_page = 2 [json_name = "next_page"];</code>
        * @return The nextPage.
        */
-      public com.google.protobuf.Int64Value getNextPage() {
+      public com.google.protobuf.DoubleValue getNextPage() {
         if (nextPageBuilder_ == null) {
-          return nextPage_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : nextPage_;
+          return nextPage_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : nextPage_;
         } else {
           return nextPageBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Int64Value next_page = 2 [json_name = "next_page"];</code>
+       * <pre>
+       * следующая страница
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue next_page = 2 [json_name = "next_page"];</code>
        */
-      public Builder setNextPage(com.google.protobuf.Int64Value value) {
+      public Builder setNextPage(com.google.protobuf.DoubleValue value) {
         if (nextPageBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -14319,10 +17210,14 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.google.protobuf.Int64Value next_page = 2 [json_name = "next_page"];</code>
+       * <pre>
+       * следующая страница
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue next_page = 2 [json_name = "next_page"];</code>
        */
       public Builder setNextPage(
-          com.google.protobuf.Int64Value.Builder builderForValue) {
+          com.google.protobuf.DoubleValue.Builder builderForValue) {
         if (nextPageBuilder_ == null) {
           nextPage_ = builderForValue.build();
           onChanged();
@@ -14333,13 +17228,17 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.google.protobuf.Int64Value next_page = 2 [json_name = "next_page"];</code>
+       * <pre>
+       * следующая страница
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue next_page = 2 [json_name = "next_page"];</code>
        */
-      public Builder mergeNextPage(com.google.protobuf.Int64Value value) {
+      public Builder mergeNextPage(com.google.protobuf.DoubleValue value) {
         if (nextPageBuilder_ == null) {
           if (nextPage_ != null) {
             nextPage_ =
-              com.google.protobuf.Int64Value.newBuilder(nextPage_).mergeFrom(value).buildPartial();
+              com.google.protobuf.DoubleValue.newBuilder(nextPage_).mergeFrom(value).buildPartial();
           } else {
             nextPage_ = value;
           }
@@ -14351,7 +17250,11 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.google.protobuf.Int64Value next_page = 2 [json_name = "next_page"];</code>
+       * <pre>
+       * следующая страница
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue next_page = 2 [json_name = "next_page"];</code>
        */
       public Builder clearNextPage() {
         if (nextPageBuilder_ == null) {
@@ -14365,33 +17268,45 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.google.protobuf.Int64Value next_page = 2 [json_name = "next_page"];</code>
+       * <pre>
+       * следующая страница
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue next_page = 2 [json_name = "next_page"];</code>
        */
-      public com.google.protobuf.Int64Value.Builder getNextPageBuilder() {
+      public com.google.protobuf.DoubleValue.Builder getNextPageBuilder() {
         
         onChanged();
         return getNextPageFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Int64Value next_page = 2 [json_name = "next_page"];</code>
+       * <pre>
+       * следующая страница
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue next_page = 2 [json_name = "next_page"];</code>
        */
-      public com.google.protobuf.Int64ValueOrBuilder getNextPageOrBuilder() {
+      public com.google.protobuf.DoubleValueOrBuilder getNextPageOrBuilder() {
         if (nextPageBuilder_ != null) {
           return nextPageBuilder_.getMessageOrBuilder();
         } else {
           return nextPage_ == null ?
-              com.google.protobuf.Int64Value.getDefaultInstance() : nextPage_;
+              com.google.protobuf.DoubleValue.getDefaultInstance() : nextPage_;
         }
       }
       /**
-       * <code>.google.protobuf.Int64Value next_page = 2 [json_name = "next_page"];</code>
+       * <pre>
+       * следующая страница
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue next_page = 2 [json_name = "next_page"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder> 
+          com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> 
           getNextPageFieldBuilder() {
         if (nextPageBuilder_ == null) {
           nextPageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder>(
+              com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder>(
                   getNextPage(),
                   getParentForChildren(),
                   isClean());
@@ -14400,31 +17315,43 @@ public final class CatalogApiV2 {
         return nextPageBuilder_;
       }
 
-      private com.google.protobuf.Int64Value previousPage_;
+      private com.google.protobuf.DoubleValue previousPage_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder> previousPageBuilder_;
+          com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> previousPageBuilder_;
       /**
-       * <code>.google.protobuf.Int64Value previous_page = 3 [json_name = "previous_page"];</code>
+       * <pre>
+       * пред. страница
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue previous_page = 3 [json_name = "previous_page"];</code>
        * @return Whether the previousPage field is set.
        */
       public boolean hasPreviousPage() {
         return previousPageBuilder_ != null || previousPage_ != null;
       }
       /**
-       * <code>.google.protobuf.Int64Value previous_page = 3 [json_name = "previous_page"];</code>
+       * <pre>
+       * пред. страница
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue previous_page = 3 [json_name = "previous_page"];</code>
        * @return The previousPage.
        */
-      public com.google.protobuf.Int64Value getPreviousPage() {
+      public com.google.protobuf.DoubleValue getPreviousPage() {
         if (previousPageBuilder_ == null) {
-          return previousPage_ == null ? com.google.protobuf.Int64Value.getDefaultInstance() : previousPage_;
+          return previousPage_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : previousPage_;
         } else {
           return previousPageBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Int64Value previous_page = 3 [json_name = "previous_page"];</code>
+       * <pre>
+       * пред. страница
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue previous_page = 3 [json_name = "previous_page"];</code>
        */
-      public Builder setPreviousPage(com.google.protobuf.Int64Value value) {
+      public Builder setPreviousPage(com.google.protobuf.DoubleValue value) {
         if (previousPageBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -14438,10 +17365,14 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.google.protobuf.Int64Value previous_page = 3 [json_name = "previous_page"];</code>
+       * <pre>
+       * пред. страница
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue previous_page = 3 [json_name = "previous_page"];</code>
        */
       public Builder setPreviousPage(
-          com.google.protobuf.Int64Value.Builder builderForValue) {
+          com.google.protobuf.DoubleValue.Builder builderForValue) {
         if (previousPageBuilder_ == null) {
           previousPage_ = builderForValue.build();
           onChanged();
@@ -14452,13 +17383,17 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.google.protobuf.Int64Value previous_page = 3 [json_name = "previous_page"];</code>
+       * <pre>
+       * пред. страница
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue previous_page = 3 [json_name = "previous_page"];</code>
        */
-      public Builder mergePreviousPage(com.google.protobuf.Int64Value value) {
+      public Builder mergePreviousPage(com.google.protobuf.DoubleValue value) {
         if (previousPageBuilder_ == null) {
           if (previousPage_ != null) {
             previousPage_ =
-              com.google.protobuf.Int64Value.newBuilder(previousPage_).mergeFrom(value).buildPartial();
+              com.google.protobuf.DoubleValue.newBuilder(previousPage_).mergeFrom(value).buildPartial();
           } else {
             previousPage_ = value;
           }
@@ -14470,7 +17405,11 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.google.protobuf.Int64Value previous_page = 3 [json_name = "previous_page"];</code>
+       * <pre>
+       * пред. страница
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue previous_page = 3 [json_name = "previous_page"];</code>
        */
       public Builder clearPreviousPage() {
         if (previousPageBuilder_ == null) {
@@ -14484,33 +17423,45 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.google.protobuf.Int64Value previous_page = 3 [json_name = "previous_page"];</code>
+       * <pre>
+       * пред. страница
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue previous_page = 3 [json_name = "previous_page"];</code>
        */
-      public com.google.protobuf.Int64Value.Builder getPreviousPageBuilder() {
+      public com.google.protobuf.DoubleValue.Builder getPreviousPageBuilder() {
         
         onChanged();
         return getPreviousPageFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Int64Value previous_page = 3 [json_name = "previous_page"];</code>
+       * <pre>
+       * пред. страница
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue previous_page = 3 [json_name = "previous_page"];</code>
        */
-      public com.google.protobuf.Int64ValueOrBuilder getPreviousPageOrBuilder() {
+      public com.google.protobuf.DoubleValueOrBuilder getPreviousPageOrBuilder() {
         if (previousPageBuilder_ != null) {
           return previousPageBuilder_.getMessageOrBuilder();
         } else {
           return previousPage_ == null ?
-              com.google.protobuf.Int64Value.getDefaultInstance() : previousPage_;
+              com.google.protobuf.DoubleValue.getDefaultInstance() : previousPage_;
         }
       }
       /**
-       * <code>.google.protobuf.Int64Value previous_page = 3 [json_name = "previous_page"];</code>
+       * <pre>
+       * пред. страница
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue previous_page = 3 [json_name = "previous_page"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder> 
+          com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> 
           getPreviousPageFieldBuilder() {
         if (previousPageBuilder_ == null) {
           previousPageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Int64Value, com.google.protobuf.Int64Value.Builder, com.google.protobuf.Int64ValueOrBuilder>(
+              com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder>(
                   getPreviousPage(),
                   getParentForChildren(),
                   isClean());
@@ -14519,95 +17470,131 @@ public final class CatalogApiV2 {
         return previousPageBuilder_;
       }
 
-      private long totalPages_ ;
+      private double totalPages_ ;
       /**
-       * <code>int64 total_pages = 4 [json_name = "total_pages"];</code>
+       * <pre>
+       * всего страниц
+       * </pre>
+       *
+       * <code>double total_pages = 4 [json_name = "total_pages"];</code>
        * @return The totalPages.
        */
       @java.lang.Override
-      public long getTotalPages() {
+      public double getTotalPages() {
         return totalPages_;
       }
       /**
-       * <code>int64 total_pages = 4 [json_name = "total_pages"];</code>
+       * <pre>
+       * всего страниц
+       * </pre>
+       *
+       * <code>double total_pages = 4 [json_name = "total_pages"];</code>
        * @param value The totalPages to set.
        * @return This builder for chaining.
        */
-      public Builder setTotalPages(long value) {
+      public Builder setTotalPages(double value) {
         
         totalPages_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int64 total_pages = 4 [json_name = "total_pages"];</code>
+       * <pre>
+       * всего страниц
+       * </pre>
+       *
+       * <code>double total_pages = 4 [json_name = "total_pages"];</code>
        * @return This builder for chaining.
        */
       public Builder clearTotalPages() {
         
-        totalPages_ = 0L;
+        totalPages_ = 0D;
         onChanged();
         return this;
       }
 
-      private long perPage_ ;
+      private double perPage_ ;
       /**
-       * <code>int64 per_page = 5 [json_name = "per_page"];</code>
+       * <pre>
+       * кол-во товаров на странице
+       * </pre>
+       *
+       * <code>double per_page = 5 [json_name = "per_page"];</code>
        * @return The perPage.
        */
       @java.lang.Override
-      public long getPerPage() {
+      public double getPerPage() {
         return perPage_;
       }
       /**
-       * <code>int64 per_page = 5 [json_name = "per_page"];</code>
+       * <pre>
+       * кол-во товаров на странице
+       * </pre>
+       *
+       * <code>double per_page = 5 [json_name = "per_page"];</code>
        * @param value The perPage to set.
        * @return This builder for chaining.
        */
-      public Builder setPerPage(long value) {
+      public Builder setPerPage(double value) {
         
         perPage_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int64 per_page = 5 [json_name = "per_page"];</code>
+       * <pre>
+       * кол-во товаров на странице
+       * </pre>
+       *
+       * <code>double per_page = 5 [json_name = "per_page"];</code>
        * @return This builder for chaining.
        */
       public Builder clearPerPage() {
         
-        perPage_ = 0L;
+        perPage_ = 0D;
         onChanged();
         return this;
       }
 
-      private long totalCount_ ;
+      private double totalCount_ ;
       /**
-       * <code>int64 total_count = 6 [json_name = "total_count"];</code>
+       * <pre>
+       * кол-во товаров всего
+       * </pre>
+       *
+       * <code>double total_count = 6 [json_name = "total_count"];</code>
        * @return The totalCount.
        */
       @java.lang.Override
-      public long getTotalCount() {
+      public double getTotalCount() {
         return totalCount_;
       }
       /**
-       * <code>int64 total_count = 6 [json_name = "total_count"];</code>
+       * <pre>
+       * кол-во товаров всего
+       * </pre>
+       *
+       * <code>double total_count = 6 [json_name = "total_count"];</code>
        * @param value The totalCount to set.
        * @return This builder for chaining.
        */
-      public Builder setTotalCount(long value) {
+      public Builder setTotalCount(double value) {
         
         totalCount_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int64 total_count = 6 [json_name = "total_count"];</code>
+       * <pre>
+       * кол-во товаров всего
+       * </pre>
+       *
+       * <code>double total_count = 6 [json_name = "total_count"];</code>
        * @return This builder for chaining.
        */
       public Builder clearTotalCount() {
         
-        totalCount_ = 0L;
+        totalCount_ = 0D;
         onChanged();
         return this;
       }
@@ -15087,11 +18074,19 @@ public final class CatalogApiV2 {
       com.google.protobuf.MessageOrBuilder {
 
     /**
+     * <pre>
+     * ключ сортировки
+     * </pre>
+     *
      * <code>string key = 1;</code>
      * @return The key.
      */
     java.lang.String getKey();
     /**
+     * <pre>
+     * ключ сортировки
+     * </pre>
+     *
      * <code>string key = 1;</code>
      * @return The bytes for key.
      */
@@ -15099,11 +18094,19 @@ public final class CatalogApiV2 {
         getKeyBytes();
 
     /**
+     * <pre>
+     * название сортировки
+     * </pre>
+     *
      * <code>string name = 2;</code>
      * @return The name.
      */
     java.lang.String getName();
     /**
+     * <pre>
+     * название сортировки
+     * </pre>
+     *
      * <code>string name = 2;</code>
      * @return The bytes for name.
      */
@@ -15111,11 +18114,19 @@ public final class CatalogApiV2 {
         getNameBytes();
 
     /**
+     * <pre>
+     * направление
+     * </pre>
+     *
      * <code>string order = 3;</code>
      * @return The order.
      */
     java.lang.String getOrder();
     /**
+     * <pre>
+     * направление
+     * </pre>
+     *
      * <code>string order = 3;</code>
      * @return The bytes for order.
      */
@@ -15123,12 +18134,21 @@ public final class CatalogApiV2 {
         getOrderBytes();
 
     /**
+     * <pre>
+     * активность
+     * </pre>
+     *
      * <code>bool active = 4;</code>
      * @return The active.
      */
     boolean getActive();
   }
   /**
+   * <pre>
+   **
+   * Сортировка листинга
+   * </pre>
+   *
    * Protobuf type {@code catalog_api_v2.ProductListSort}
    */
   public static final class ProductListSort extends
@@ -15234,6 +18254,10 @@ public final class CatalogApiV2 {
     public static final int KEY_FIELD_NUMBER = 1;
     private volatile java.lang.Object key_;
     /**
+     * <pre>
+     * ключ сортировки
+     * </pre>
+     *
      * <code>string key = 1;</code>
      * @return The key.
      */
@@ -15251,6 +18275,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * ключ сортировки
+     * </pre>
+     *
      * <code>string key = 1;</code>
      * @return The bytes for key.
      */
@@ -15272,6 +18300,10 @@ public final class CatalogApiV2 {
     public static final int NAME_FIELD_NUMBER = 2;
     private volatile java.lang.Object name_;
     /**
+     * <pre>
+     * название сортировки
+     * </pre>
+     *
      * <code>string name = 2;</code>
      * @return The name.
      */
@@ -15289,6 +18321,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * название сортировки
+     * </pre>
+     *
      * <code>string name = 2;</code>
      * @return The bytes for name.
      */
@@ -15310,6 +18346,10 @@ public final class CatalogApiV2 {
     public static final int ORDER_FIELD_NUMBER = 3;
     private volatile java.lang.Object order_;
     /**
+     * <pre>
+     * направление
+     * </pre>
+     *
      * <code>string order = 3;</code>
      * @return The order.
      */
@@ -15327,6 +18367,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * направление
+     * </pre>
+     *
      * <code>string order = 3;</code>
      * @return The bytes for order.
      */
@@ -15348,6 +18392,10 @@ public final class CatalogApiV2 {
     public static final int ACTIVE_FIELD_NUMBER = 4;
     private boolean active_;
     /**
+     * <pre>
+     * активность
+     * </pre>
+     *
      * <code>bool active = 4;</code>
      * @return The active.
      */
@@ -15543,6 +18591,11 @@ public final class CatalogApiV2 {
       return builder;
     }
     /**
+     * <pre>
+     **
+     * Сортировка листинга
+     * </pre>
+     *
      * Protobuf type {@code catalog_api_v2.ProductListSort}
      */
     public static final class Builder extends
@@ -15712,6 +18765,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object key_ = "";
       /**
+       * <pre>
+       * ключ сортировки
+       * </pre>
+       *
        * <code>string key = 1;</code>
        * @return The key.
        */
@@ -15728,6 +18785,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * ключ сортировки
+       * </pre>
+       *
        * <code>string key = 1;</code>
        * @return The bytes for key.
        */
@@ -15745,6 +18806,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * ключ сортировки
+       * </pre>
+       *
        * <code>string key = 1;</code>
        * @param value The key to set.
        * @return This builder for chaining.
@@ -15760,6 +18825,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * ключ сортировки
+       * </pre>
+       *
        * <code>string key = 1;</code>
        * @return This builder for chaining.
        */
@@ -15770,6 +18839,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * ключ сортировки
+       * </pre>
+       *
        * <code>string key = 1;</code>
        * @param value The bytes for key to set.
        * @return This builder for chaining.
@@ -15788,6 +18861,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object name_ = "";
       /**
+       * <pre>
+       * название сортировки
+       * </pre>
+       *
        * <code>string name = 2;</code>
        * @return The name.
        */
@@ -15804,6 +18881,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * название сортировки
+       * </pre>
+       *
        * <code>string name = 2;</code>
        * @return The bytes for name.
        */
@@ -15821,6 +18902,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * название сортировки
+       * </pre>
+       *
        * <code>string name = 2;</code>
        * @param value The name to set.
        * @return This builder for chaining.
@@ -15836,6 +18921,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * название сортировки
+       * </pre>
+       *
        * <code>string name = 2;</code>
        * @return This builder for chaining.
        */
@@ -15846,6 +18935,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * название сортировки
+       * </pre>
+       *
        * <code>string name = 2;</code>
        * @param value The bytes for name to set.
        * @return This builder for chaining.
@@ -15864,6 +18957,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object order_ = "";
       /**
+       * <pre>
+       * направление
+       * </pre>
+       *
        * <code>string order = 3;</code>
        * @return The order.
        */
@@ -15880,6 +18977,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * направление
+       * </pre>
+       *
        * <code>string order = 3;</code>
        * @return The bytes for order.
        */
@@ -15897,6 +18998,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * направление
+       * </pre>
+       *
        * <code>string order = 3;</code>
        * @param value The order to set.
        * @return This builder for chaining.
@@ -15912,6 +19017,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * направление
+       * </pre>
+       *
        * <code>string order = 3;</code>
        * @return This builder for chaining.
        */
@@ -15922,6 +19031,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * направление
+       * </pre>
+       *
        * <code>string order = 3;</code>
        * @param value The bytes for order to set.
        * @return This builder for chaining.
@@ -15940,6 +19053,10 @@ public final class CatalogApiV2 {
 
       private boolean active_ ;
       /**
+       * <pre>
+       * активность
+       * </pre>
+       *
        * <code>bool active = 4;</code>
        * @return The active.
        */
@@ -15948,6 +19065,10 @@ public final class CatalogApiV2 {
         return active_;
       }
       /**
+       * <pre>
+       * активность
+       * </pre>
+       *
        * <code>bool active = 4;</code>
        * @param value The active to set.
        * @return This builder for chaining.
@@ -15959,6 +19080,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * активность
+       * </pre>
+       *
        * <code>bool active = 4;</code>
        * @return This builder for chaining.
        */
@@ -16026,29 +19151,49 @@ public final class CatalogApiV2 {
       com.google.protobuf.MessageOrBuilder {
 
     /**
+     * <pre>
+     * идентификатор офера, в монолите табилчка offers
+     * </pre>
+     *
      * <code>double id = 1;</code>
      * @return The id.
      */
     double getId();
 
     /**
+     * <pre>
+     * идентификатор описания
+     * </pre>
+     *
      * <code>int64 sku = 2;</code>
      * @return The sku.
      */
     long getSku();
 
     /**
+     * <pre>
+     * активность продукта
+     * </pre>
+     *
      * <code>bool active = 3;</code>
      * @return The active.
      */
     boolean getActive();
 
     /**
+     * <pre>
+     * идентификатор товарного предложения ритейлера
+     * </pre>
+     *
      * <code>string retailer_sku = 4 [json_name = "retailer_sku"];</code>
      * @return The retailerSku.
      */
     java.lang.String getRetailerSku();
     /**
+     * <pre>
+     * идентификатор товарного предложения ритейлера
+     * </pre>
+     *
      * <code>string retailer_sku = 4 [json_name = "retailer_sku"];</code>
      * @return The bytes for retailerSku.
      */
@@ -16056,11 +19201,19 @@ public final class CatalogApiV2 {
         getRetailerSkuBytes();
 
     /**
+     * <pre>
+     * название продукта
+     * </pre>
+     *
      * <code>string name = 5;</code>
      * @return The name.
      */
     java.lang.String getName();
     /**
+     * <pre>
+     * название продукта
+     * </pre>
+     *
      * <code>string name = 5;</code>
      * @return The bytes for name.
      */
@@ -16068,29 +19221,62 @@ public final class CatalogApiV2 {
         getNameBytes();
 
     /**
+     * <pre>
+     **
+     * Цена продукта
+     *  - варинат из ph: ph.price.price
+     *  - вариант из mysql: prices.price 
+     * </pre>
+     *
      * <code>double price = 6;</code>
      * @return The price.
      */
     double getPrice();
 
     /**
+     * <pre>
+     **
+     * Оригинальная цена продукта (без скидок)
+     *  - варинат из ph: ph.price.price + ph.price.discount
+     *  - вариант из mysql: prices.price + prices.discount 
+     * </pre>
+     *
      * <code>double original_price = 7 [json_name = "original_price"];</code>
      * @return The originalPrice.
      */
     double getOriginalPrice();
 
     /**
+     * <pre>
+     **
+     * Скидка товара
+     *  - варинат из ph: ph.price.discount
+     *  - вариант из mysql: prices.discount 
+     * </pre>
+     *
      * <code>double discount = 8;</code>
      * @return The discount.
      */
     double getDiscount();
 
     /**
+     * <pre>
+     **
+     * Вес упаковки и количество в человеко читаемом формате  
+     * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+     * </pre>
+     *
      * <code>string human_volume = 9 [json_name = "human_volume"];</code>
      * @return The humanVolume.
      */
     java.lang.String getHumanVolume();
     /**
+     * <pre>
+     **
+     * Вес упаковки и количество в человеко читаемом формате  
+     * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+     * </pre>
+     *
      * <code>string human_volume = 9 [json_name = "human_volume"];</code>
      * @return The bytes for humanVolume.
      */
@@ -16098,17 +19284,29 @@ public final class CatalogApiV2 {
         getHumanVolumeBytes();
 
     /**
+     * <pre>
+     * объем неделимой единицы продажи ph.attr[volume]
+     * </pre>
+     *
      * <code>double volume = 10;</code>
      * @return The volume.
      */
     double getVolume();
 
     /**
+     * <pre>
+     * единица измерения объема ph.attr[volume_type], например kg = килограммы
+     * </pre>
+     *
      * <code>string volume_type = 11 [json_name = "volume_type"];</code>
      * @return The volumeType.
      */
     java.lang.String getVolumeType();
     /**
+     * <pre>
+     * единица измерения объема ph.attr[volume_type], например kg = килограммы
+     * </pre>
+     *
      * <code>string volume_type = 11 [json_name = "volume_type"];</code>
      * @return The bytes for volumeType.
      */
@@ -16116,32 +19314,62 @@ public final class CatalogApiV2 {
         getVolumeTypeBytes();
 
     /**
+     * <pre>
+     * кол-во шт в упаковке ph.attr[quantity_at_box]
+     * </pre>
+     *
      * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
      * @return The itemsPerPack.
      */
     double getItemsPerPack();
 
     /**
+     * <pre>
+     * конечная дата действия скидки
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
      * @return Whether the discountEndsAt field is set.
      */
     boolean hasDiscountEndsAt();
     /**
+     * <pre>
+     * конечная дата действия скидки
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
      * @return The discountEndsAt.
      */
     com.google.protobuf.StringValue getDiscountEndsAt();
     /**
+     * <pre>
+     * конечная дата действия скидки
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
      */
     com.google.protobuf.StringValueOrBuilder getDiscountEndsAtOrBuilder();
 
     /**
+     * <pre>
+     **
+     * Тип цены товарного предложения
+     *  - варинат из ph: offer.pricer
+     *  - вариант из mysql: offer.pricer 
+     * </pre>
+     *
      * <code>string price_type = 14 [json_name = "price_type"];</code>
      * @return The priceType.
      */
     java.lang.String getPriceType();
     /**
+     * <pre>
+     **
+     * Тип цены товарного предложения
+     *  - варинат из ph: offer.pricer
+     *  - вариант из mysql: offer.pricer 
+     * </pre>
+     *
      * <code>string price_type = 14 [json_name = "price_type"];</code>
      * @return The bytes for priceType.
      */
@@ -16149,34 +19377,72 @@ public final class CatalogApiV2 {
         getPriceTypeBytes();
 
     /**
+     * <pre>
+     **
+     * Общий вес товара
+     * ph.attr[weight_net] * ph.attr[quantity_at_box]
+     * </pre>
+     *
      * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
      * @return The gramsPerUnit.
      */
     double getGramsPerUnit();
 
     /**
+     * <pre>
+     **
+     * Цена за 1 единицу
+     * ph.attr[offer_price]
+     * </pre>
+     *
      * <code>double unit_price = 16 [json_name = "unit_price"];</code>
      * @return The unitPrice.
      */
     double getUnitPrice();
 
     /**
+     * <pre>
+     **
+     * Оригинальная цена за 1 единицу (без скидок)
+     *  - варинат из ph для pricer:PER_ITEM: ph.price.price + ph.price.discount
+     *  - варинат из ph для pricer:PER_ITEMS_PACKAGE: (ph.price.price + ph.price.discount) * ph.attr[quantity_at_box]
+     *  - варинат из ph для pricer:PER_WEIGHT_PACKAGE: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+     *  - варинат из ph для pricer:PER_WEIGHT: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+     *  -------
+     *  - варинат из mysql для pricer:PER_ITEM: prices.price + prices.discount
+     *  - варинат из mysql для pricer:PER_ITEMS_PACKAGE: (prices.price + prices.discount) * offers.items_per_pack
+     *  - варинат из mysql для pricer:PER_WEIGHT_PACKAGE: ((prices.price+prices.discount)/offers.grams_per_unit)*1000
+     *  - варинат из mysql для pricer:PER_WEIGHT: ((prices.price+prices.discount)/offers.grams_per_unit])*1000
+     * </pre>
+     *
      * <code>double original_unit_price = 17 [json_name = "original_unit_price"];</code>
      * @return The originalUnitPrice.
      */
     double getOriginalUnitPrice();
 
     /**
+     * <pre>
+     * идентификаторы бейджей
+     * </pre>
+     *
      * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @return A list containing the promoBadgeIds.
      */
     java.util.List<java.lang.Double> getPromoBadgeIdsList();
     /**
+     * <pre>
+     * идентификаторы бейджей
+     * </pre>
+     *
      * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @return The count of promoBadgeIds.
      */
     int getPromoBadgeIdsCount();
     /**
+     * <pre>
+     * идентификаторы бейджей
+     * </pre>
+     *
      * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @param index The index of the element to return.
      * @return The promoBadgeIds at the given index.
@@ -16184,38 +19450,66 @@ public final class CatalogApiV2 {
     double getPromoBadgeIds(int index);
 
     /**
+     * <pre>
+     * рейтинг товара
+     * </pre>
+     *
      * <code>.google.protobuf.FloatValue score = 19;</code>
      * @return Whether the score field is set.
      */
     boolean hasScore();
     /**
+     * <pre>
+     * рейтинг товара
+     * </pre>
+     *
      * <code>.google.protobuf.FloatValue score = 19;</code>
      * @return The score.
      */
     com.google.protobuf.FloatValue getScore();
     /**
+     * <pre>
+     * рейтинг товара
+     * </pre>
+     *
      * <code>.google.protobuf.FloatValue score = 19;</code>
      */
     com.google.protobuf.FloatValueOrBuilder getScoreOrBuilder();
 
     /**
+     * <pre>
+     * лейблы товара
+     * </pre>
+     *
      * <code>repeated string labels = 20;</code>
      * @return A list containing the labels.
      */
     java.util.List<java.lang.String>
         getLabelsList();
     /**
+     * <pre>
+     * лейблы товара
+     * </pre>
+     *
      * <code>repeated string labels = 20;</code>
      * @return The count of labels.
      */
     int getLabelsCount();
     /**
+     * <pre>
+     * лейблы товара
+     * </pre>
+     *
      * <code>repeated string labels = 20;</code>
      * @param index The index of the element to return.
      * @return The labels at the given index.
      */
     java.lang.String getLabels(int index);
     /**
+     * <pre>
+     * лейблы товара
+     * </pre>
+     *
      * <code>repeated string labels = 20;</code>
      * @param index The index of the value to return.
      * @return The bytes of the labels at the given index.
@@ -16224,59 +19518,107 @@ public final class CatalogApiV2 {
         getLabelsBytes(int index);
 
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     java.util.List<catalog_api_v2.CatalogApiV2.Image> 
         getImagesList();
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     catalog_api_v2.CatalogApiV2.Image getImages(int index);
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     int getImagesCount();
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     java.util.List<? extends catalog_api_v2.CatalogApiV2.ImageOrBuilder> 
         getImagesOrBuilderList();
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     catalog_api_v2.CatalogApiV2.ImageOrBuilder getImagesOrBuilder(
         int index);
 
     /**
+     * <pre>
+     * свойства товара
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Property properties = 22;</code>
      */
     java.util.List<catalog_api_v2.CatalogApiV2.Property> 
         getPropertiesList();
     /**
+     * <pre>
+     * свойства товара
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Property properties = 22;</code>
      */
     catalog_api_v2.CatalogApiV2.Property getProperties(int index);
     /**
+     * <pre>
+     * свойства товара
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Property properties = 22;</code>
      */
     int getPropertiesCount();
     /**
+     * <pre>
+     * свойства товара
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Property properties = 22;</code>
      */
     java.util.List<? extends catalog_api_v2.CatalogApiV2.PropertyOrBuilder> 
         getPropertiesOrBuilderList();
     /**
+     * <pre>
+     * свойства товара
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Property properties = 22;</code>
      */
     catalog_api_v2.CatalogApiV2.PropertyOrBuilder getPropertiesOrBuilder(
         int index);
 
     /**
+     * <pre>
+     * описание товара ph.attr[description]
+     * </pre>
+     *
      * <code>string description = 23;</code>
      * @return The description.
      */
     java.lang.String getDescription();
     /**
+     * <pre>
+     * описание товара ph.attr[description]
+     * </pre>
+     *
      * <code>string description = 23;</code>
      * @return The bytes for description.
      */
@@ -16299,23 +19641,39 @@ public final class CatalogApiV2 {
     catalog_api_v2.CatalogApiV2.ScoreDetailOrBuilder getScoreDetailsOrBuilder();
 
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string requirements = 25;</code>
      * @return A list containing the requirements.
      */
     java.util.List<java.lang.String>
         getRequirementsList();
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string requirements = 25;</code>
      * @return The count of requirements.
      */
     int getRequirementsCount();
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string requirements = 25;</code>
      * @param index The index of the element to return.
      * @return The requirements at the given index.
      */
     java.lang.String getRequirements(int index);
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string requirements = 25;</code>
      * @param index The index of the value to return.
      * @return The bytes of the requirements at the given index.
@@ -16324,23 +19682,39 @@ public final class CatalogApiV2 {
         getRequirementsBytes(int index);
 
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string related_products = 26 [json_name = "related_products"];</code>
      * @return A list containing the relatedProducts.
      */
     java.util.List<java.lang.String>
         getRelatedProductsList();
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string related_products = 26 [json_name = "related_products"];</code>
      * @return The count of relatedProducts.
      */
     int getRelatedProductsCount();
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string related_products = 26 [json_name = "related_products"];</code>
      * @param index The index of the element to return.
      * @return The relatedProducts at the given index.
      */
     java.lang.String getRelatedProducts(int index);
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string related_products = 26 [json_name = "related_products"];</code>
      * @param index The index of the value to return.
      * @return The bytes of the relatedProducts at the given index.
@@ -16349,21 +19723,39 @@ public final class CatalogApiV2 {
         getRelatedProductsBytes(int index);
 
     /**
+     * <pre>
+     * таксон
+     * </pre>
+     *
      * <code>.catalog_api_v2.MainTaxon main_taxon = 27 [json_name = "main_taxon"];</code>
      * @return Whether the mainTaxon field is set.
      */
     boolean hasMainTaxon();
     /**
+     * <pre>
+     * таксон
+     * </pre>
+     *
      * <code>.catalog_api_v2.MainTaxon main_taxon = 27 [json_name = "main_taxon"];</code>
      * @return The mainTaxon.
      */
     catalog_api_v2.CatalogApiV2.MainTaxon getMainTaxon();
     /**
+     * <pre>
+     * таксон
+     * </pre>
+     *
      * <code>.catalog_api_v2.MainTaxon main_taxon = 27 [json_name = "main_taxon"];</code>
      */
     catalog_api_v2.CatalogApiV2.MainTaxonOrBuilder getMainTaxonOrBuilder();
   }
   /**
+   * <pre>
+   **
+   * Ответ карточки товара
+   * &#64;see Product
+   * </pre>
+   *
    * Protobuf type {@code catalog_api_v2.ProductWithProperties}
    */
   public static final class ProductWithProperties extends
@@ -16683,6 +20075,10 @@ public final class CatalogApiV2 {
     public static final int ID_FIELD_NUMBER = 1;
     private double id_;
     /**
+     * <pre>
+     * идентификатор офера, в монолите табилчка offers
+     * </pre>
+     *
      * <code>double id = 1;</code>
      * @return The id.
      */
@@ -16694,6 +20090,10 @@ public final class CatalogApiV2 {
     public static final int SKU_FIELD_NUMBER = 2;
     private long sku_;
     /**
+     * <pre>
+     * идентификатор описания
+     * </pre>
+     *
      * <code>int64 sku = 2;</code>
      * @return The sku.
      */
@@ -16705,6 +20105,10 @@ public final class CatalogApiV2 {
     public static final int ACTIVE_FIELD_NUMBER = 3;
     private boolean active_;
     /**
+     * <pre>
+     * активность продукта
+     * </pre>
+     *
      * <code>bool active = 3;</code>
      * @return The active.
      */
@@ -16716,6 +20120,10 @@ public final class CatalogApiV2 {
     public static final int RETAILER_SKU_FIELD_NUMBER = 4;
     private volatile java.lang.Object retailerSku_;
     /**
+     * <pre>
+     * идентификатор товарного предложения ритейлера
+     * </pre>
+     *
      * <code>string retailer_sku = 4 [json_name = "retailer_sku"];</code>
      * @return The retailerSku.
      */
@@ -16733,6 +20141,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * идентификатор товарного предложения ритейлера
+     * </pre>
+     *
      * <code>string retailer_sku = 4 [json_name = "retailer_sku"];</code>
      * @return The bytes for retailerSku.
      */
@@ -16754,6 +20166,10 @@ public final class CatalogApiV2 {
     public static final int NAME_FIELD_NUMBER = 5;
     private volatile java.lang.Object name_;
     /**
+     * <pre>
+     * название продукта
+     * </pre>
+     *
      * <code>string name = 5;</code>
      * @return The name.
      */
@@ -16771,6 +20187,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * название продукта
+     * </pre>
+     *
      * <code>string name = 5;</code>
      * @return The bytes for name.
      */
@@ -16792,6 +20212,13 @@ public final class CatalogApiV2 {
     public static final int PRICE_FIELD_NUMBER = 6;
     private double price_;
     /**
+     * <pre>
+     **
+     * Цена продукта
+     *  - варинат из ph: ph.price.price
+     *  - вариант из mysql: prices.price 
+     * </pre>
+     *
      * <code>double price = 6;</code>
      * @return The price.
      */
@@ -16803,6 +20230,13 @@ public final class CatalogApiV2 {
     public static final int ORIGINAL_PRICE_FIELD_NUMBER = 7;
     private double originalPrice_;
     /**
+     * <pre>
+     **
+     * Оригинальная цена продукта (без скидок)
+     *  - варинат из ph: ph.price.price + ph.price.discount
+     *  - вариант из mysql: prices.price + prices.discount 
+     * </pre>
+     *
      * <code>double original_price = 7 [json_name = "original_price"];</code>
      * @return The originalPrice.
      */
@@ -16814,6 +20248,13 @@ public final class CatalogApiV2 {
     public static final int DISCOUNT_FIELD_NUMBER = 8;
     private double discount_;
     /**
+     * <pre>
+     **
+     * Скидка товара
+     *  - варинат из ph: ph.price.discount
+     *  - вариант из mysql: prices.discount 
+     * </pre>
+     *
      * <code>double discount = 8;</code>
      * @return The discount.
      */
@@ -16825,6 +20266,12 @@ public final class CatalogApiV2 {
     public static final int HUMAN_VOLUME_FIELD_NUMBER = 9;
     private volatile java.lang.Object humanVolume_;
     /**
+     * <pre>
+     **
+     * Вес упаковки и количество в человеко читаемом формате  
+     * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+     * </pre>
+     *
      * <code>string human_volume = 9 [json_name = "human_volume"];</code>
      * @return The humanVolume.
      */
@@ -16842,6 +20289,12 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     **
+     * Вес упаковки и количество в человеко читаемом формате  
+     * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+     * </pre>
+     *
      * <code>string human_volume = 9 [json_name = "human_volume"];</code>
      * @return The bytes for humanVolume.
      */
@@ -16863,6 +20316,10 @@ public final class CatalogApiV2 {
     public static final int VOLUME_FIELD_NUMBER = 10;
     private double volume_;
     /**
+     * <pre>
+     * объем неделимой единицы продажи ph.attr[volume]
+     * </pre>
+     *
      * <code>double volume = 10;</code>
      * @return The volume.
      */
@@ -16874,6 +20331,10 @@ public final class CatalogApiV2 {
     public static final int VOLUME_TYPE_FIELD_NUMBER = 11;
     private volatile java.lang.Object volumeType_;
     /**
+     * <pre>
+     * единица измерения объема ph.attr[volume_type], например kg = килограммы
+     * </pre>
+     *
      * <code>string volume_type = 11 [json_name = "volume_type"];</code>
      * @return The volumeType.
      */
@@ -16891,6 +20352,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * единица измерения объема ph.attr[volume_type], например kg = килограммы
+     * </pre>
+     *
      * <code>string volume_type = 11 [json_name = "volume_type"];</code>
      * @return The bytes for volumeType.
      */
@@ -16912,6 +20377,10 @@ public final class CatalogApiV2 {
     public static final int ITEMS_PER_PACK_FIELD_NUMBER = 12;
     private double itemsPerPack_;
     /**
+     * <pre>
+     * кол-во шт в упаковке ph.attr[quantity_at_box]
+     * </pre>
+     *
      * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
      * @return The itemsPerPack.
      */
@@ -16923,6 +20392,10 @@ public final class CatalogApiV2 {
     public static final int DISCOUNT_ENDS_AT_FIELD_NUMBER = 13;
     private com.google.protobuf.StringValue discountEndsAt_;
     /**
+     * <pre>
+     * конечная дата действия скидки
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
      * @return Whether the discountEndsAt field is set.
      */
@@ -16931,6 +20404,10 @@ public final class CatalogApiV2 {
       return discountEndsAt_ != null;
     }
     /**
+     * <pre>
+     * конечная дата действия скидки
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
      * @return The discountEndsAt.
      */
@@ -16939,6 +20416,10 @@ public final class CatalogApiV2 {
       return discountEndsAt_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : discountEndsAt_;
     }
     /**
+     * <pre>
+     * конечная дата действия скидки
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
      */
     @java.lang.Override
@@ -16949,6 +20430,13 @@ public final class CatalogApiV2 {
     public static final int PRICE_TYPE_FIELD_NUMBER = 14;
     private volatile java.lang.Object priceType_;
     /**
+     * <pre>
+     **
+     * Тип цены товарного предложения
+     *  - варинат из ph: offer.pricer
+     *  - вариант из mysql: offer.pricer 
+     * </pre>
+     *
      * <code>string price_type = 14 [json_name = "price_type"];</code>
      * @return The priceType.
      */
@@ -16966,6 +20454,13 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     **
+     * Тип цены товарного предложения
+     *  - варинат из ph: offer.pricer
+     *  - вариант из mysql: offer.pricer 
+     * </pre>
+     *
      * <code>string price_type = 14 [json_name = "price_type"];</code>
      * @return The bytes for priceType.
      */
@@ -16987,6 +20482,12 @@ public final class CatalogApiV2 {
     public static final int GRAMS_PER_UNIT_FIELD_NUMBER = 15;
     private double gramsPerUnit_;
     /**
+     * <pre>
+     **
+     * Общий вес товара
+     * ph.attr[weight_net] * ph.attr[quantity_at_box]
+     * </pre>
+     *
      * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
      * @return The gramsPerUnit.
      */
@@ -16998,6 +20499,12 @@ public final class CatalogApiV2 {
     public static final int UNIT_PRICE_FIELD_NUMBER = 16;
     private double unitPrice_;
     /**
+     * <pre>
+     **
+     * Цена за 1 единицу
+     * ph.attr[offer_price]
+     * </pre>
+     *
      * <code>double unit_price = 16 [json_name = "unit_price"];</code>
      * @return The unitPrice.
      */
@@ -17009,6 +20516,20 @@ public final class CatalogApiV2 {
     public static final int ORIGINAL_UNIT_PRICE_FIELD_NUMBER = 17;
     private double originalUnitPrice_;
     /**
+     * <pre>
+     **
+     * Оригинальная цена за 1 единицу (без скидок)
+     *  - варинат из ph для pricer:PER_ITEM: ph.price.price + ph.price.discount
+     *  - варинат из ph для pricer:PER_ITEMS_PACKAGE: (ph.price.price + ph.price.discount) * ph.attr[quantity_at_box]
+     *  - варинат из ph для pricer:PER_WEIGHT_PACKAGE: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+     *  - варинат из ph для pricer:PER_WEIGHT: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+     *  -------
+     *  - варинат из mysql для pricer:PER_ITEM: prices.price + prices.discount
+     *  - варинат из mysql для pricer:PER_ITEMS_PACKAGE: (prices.price + prices.discount) * offers.items_per_pack
+     *  - варинат из mysql для pricer:PER_WEIGHT_PACKAGE: ((prices.price+prices.discount)/offers.grams_per_unit)*1000
+     *  - варинат из mysql для pricer:PER_WEIGHT: ((prices.price+prices.discount)/offers.grams_per_unit])*1000
+     * </pre>
+     *
      * <code>double original_unit_price = 17 [json_name = "original_unit_price"];</code>
      * @return The originalUnitPrice.
      */
@@ -17020,6 +20541,10 @@ public final class CatalogApiV2 {
     public static final int PROMO_BADGE_IDS_FIELD_NUMBER = 18;
     private com.google.protobuf.Internal.DoubleList promoBadgeIds_;
     /**
+     * <pre>
+     * идентификаторы бейджей
+     * </pre>
+     *
      * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @return A list containing the promoBadgeIds.
      */
@@ -17029,6 +20554,10 @@ public final class CatalogApiV2 {
       return promoBadgeIds_;
     }
     /**
+     * <pre>
+     * идентификаторы бейджей
+     * </pre>
+     *
      * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @return The count of promoBadgeIds.
      */
@@ -17036,6 +20565,10 @@ public final class CatalogApiV2 {
       return promoBadgeIds_.size();
     }
     /**
+     * <pre>
+     * идентификаторы бейджей
+     * </pre>
+     *
      * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
      * @param index The index of the element to return.
      * @return The promoBadgeIds at the given index.
@@ -17048,6 +20581,10 @@ public final class CatalogApiV2 {
     public static final int SCORE_FIELD_NUMBER = 19;
     private com.google.protobuf.FloatValue score_;
     /**
+     * <pre>
+     * рейтинг товара
+     * </pre>
+     *
      * <code>.google.protobuf.FloatValue score = 19;</code>
      * @return Whether the score field is set.
      */
@@ -17056,6 +20593,10 @@ public final class CatalogApiV2 {
       return score_ != null;
     }
     /**
+     * <pre>
+     * рейтинг товара
+     * </pre>
+     *
      * <code>.google.protobuf.FloatValue score = 19;</code>
      * @return The score.
      */
@@ -17064,6 +20605,10 @@ public final class CatalogApiV2 {
       return score_ == null ? com.google.protobuf.FloatValue.getDefaultInstance() : score_;
     }
     /**
+     * <pre>
+     * рейтинг товара
+     * </pre>
+     *
      * <code>.google.protobuf.FloatValue score = 19;</code>
      */
     @java.lang.Override
@@ -17074,6 +20619,10 @@ public final class CatalogApiV2 {
     public static final int LABELS_FIELD_NUMBER = 20;
     private com.google.protobuf.LazyStringList labels_;
     /**
+     * <pre>
+     * лейблы товара
+     * </pre>
+     *
      * <code>repeated string labels = 20;</code>
      * @return A list containing the labels.
      */
@@ -17082,6 +20631,10 @@ public final class CatalogApiV2 {
       return labels_;
     }
     /**
+     * <pre>
+     * лейблы товара
+     * </pre>
+     *
      * <code>repeated string labels = 20;</code>
      * @return The count of labels.
      */
@@ -17089,6 +20642,10 @@ public final class CatalogApiV2 {
       return labels_.size();
     }
     /**
+     * <pre>
+     * лейблы товара
+     * </pre>
+     *
      * <code>repeated string labels = 20;</code>
      * @param index The index of the element to return.
      * @return The labels at the given index.
@@ -17097,6 +20654,10 @@ public final class CatalogApiV2 {
       return labels_.get(index);
     }
     /**
+     * <pre>
+     * лейблы товара
+     * </pre>
+     *
      * <code>repeated string labels = 20;</code>
      * @param index The index of the value to return.
      * @return The bytes of the labels at the given index.
@@ -17109,6 +20670,10 @@ public final class CatalogApiV2 {
     public static final int IMAGES_FIELD_NUMBER = 21;
     private java.util.List<catalog_api_v2.CatalogApiV2.Image> images_;
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     @java.lang.Override
@@ -17116,6 +20681,10 @@ public final class CatalogApiV2 {
       return images_;
     }
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     @java.lang.Override
@@ -17124,6 +20693,10 @@ public final class CatalogApiV2 {
       return images_;
     }
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     @java.lang.Override
@@ -17131,6 +20704,10 @@ public final class CatalogApiV2 {
       return images_.size();
     }
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     @java.lang.Override
@@ -17138,6 +20715,10 @@ public final class CatalogApiV2 {
       return images_.get(index);
     }
     /**
+     * <pre>
+     * картинки
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Image images = 21;</code>
      */
     @java.lang.Override
@@ -17149,6 +20730,10 @@ public final class CatalogApiV2 {
     public static final int PROPERTIES_FIELD_NUMBER = 22;
     private java.util.List<catalog_api_v2.CatalogApiV2.Property> properties_;
     /**
+     * <pre>
+     * свойства товара
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Property properties = 22;</code>
      */
     @java.lang.Override
@@ -17156,6 +20741,10 @@ public final class CatalogApiV2 {
       return properties_;
     }
     /**
+     * <pre>
+     * свойства товара
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Property properties = 22;</code>
      */
     @java.lang.Override
@@ -17164,6 +20753,10 @@ public final class CatalogApiV2 {
       return properties_;
     }
     /**
+     * <pre>
+     * свойства товара
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Property properties = 22;</code>
      */
     @java.lang.Override
@@ -17171,6 +20764,10 @@ public final class CatalogApiV2 {
       return properties_.size();
     }
     /**
+     * <pre>
+     * свойства товара
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Property properties = 22;</code>
      */
     @java.lang.Override
@@ -17178,6 +20775,10 @@ public final class CatalogApiV2 {
       return properties_.get(index);
     }
     /**
+     * <pre>
+     * свойства товара
+     * </pre>
+     *
      * <code>repeated .catalog_api_v2.Property properties = 22;</code>
      */
     @java.lang.Override
@@ -17189,6 +20790,10 @@ public final class CatalogApiV2 {
     public static final int DESCRIPTION_FIELD_NUMBER = 23;
     private volatile java.lang.Object description_;
     /**
+     * <pre>
+     * описание товара ph.attr[description]
+     * </pre>
+     *
      * <code>string description = 23;</code>
      * @return The description.
      */
@@ -17206,6 +20811,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * описание товара ph.attr[description]
+     * </pre>
+     *
      * <code>string description = 23;</code>
      * @return The bytes for description.
      */
@@ -17253,6 +20862,10 @@ public final class CatalogApiV2 {
     public static final int REQUIREMENTS_FIELD_NUMBER = 25;
     private com.google.protobuf.LazyStringList requirements_;
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string requirements = 25;</code>
      * @return A list containing the requirements.
      */
@@ -17261,6 +20874,10 @@ public final class CatalogApiV2 {
       return requirements_;
     }
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string requirements = 25;</code>
      * @return The count of requirements.
      */
@@ -17268,6 +20885,10 @@ public final class CatalogApiV2 {
       return requirements_.size();
     }
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string requirements = 25;</code>
      * @param index The index of the element to return.
      * @return The requirements at the given index.
@@ -17276,6 +20897,10 @@ public final class CatalogApiV2 {
       return requirements_.get(index);
     }
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string requirements = 25;</code>
      * @param index The index of the value to return.
      * @return The bytes of the requirements at the given index.
@@ -17288,6 +20913,10 @@ public final class CatalogApiV2 {
     public static final int RELATED_PRODUCTS_FIELD_NUMBER = 26;
     private com.google.protobuf.LazyStringList relatedProducts_;
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string related_products = 26 [json_name = "related_products"];</code>
      * @return A list containing the relatedProducts.
      */
@@ -17296,6 +20925,10 @@ public final class CatalogApiV2 {
       return relatedProducts_;
     }
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string related_products = 26 [json_name = "related_products"];</code>
      * @return The count of relatedProducts.
      */
@@ -17303,6 +20936,10 @@ public final class CatalogApiV2 {
       return relatedProducts_.size();
     }
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string related_products = 26 [json_name = "related_products"];</code>
      * @param index The index of the element to return.
      * @return The relatedProducts at the given index.
@@ -17311,6 +20948,10 @@ public final class CatalogApiV2 {
       return relatedProducts_.get(index);
     }
     /**
+     * <pre>
+     * не используется
+     * </pre>
+     *
      * <code>repeated string related_products = 26 [json_name = "related_products"];</code>
      * @param index The index of the value to return.
      * @return The bytes of the relatedProducts at the given index.
@@ -17323,6 +20964,10 @@ public final class CatalogApiV2 {
     public static final int MAIN_TAXON_FIELD_NUMBER = 27;
     private catalog_api_v2.CatalogApiV2.MainTaxon mainTaxon_;
     /**
+     * <pre>
+     * таксон
+     * </pre>
+     *
      * <code>.catalog_api_v2.MainTaxon main_taxon = 27 [json_name = "main_taxon"];</code>
      * @return Whether the mainTaxon field is set.
      */
@@ -17331,6 +20976,10 @@ public final class CatalogApiV2 {
       return mainTaxon_ != null;
     }
     /**
+     * <pre>
+     * таксон
+     * </pre>
+     *
      * <code>.catalog_api_v2.MainTaxon main_taxon = 27 [json_name = "main_taxon"];</code>
      * @return The mainTaxon.
      */
@@ -17339,6 +20988,10 @@ public final class CatalogApiV2 {
       return mainTaxon_ == null ? catalog_api_v2.CatalogApiV2.MainTaxon.getDefaultInstance() : mainTaxon_;
     }
     /**
+     * <pre>
+     * таксон
+     * </pre>
+     *
      * <code>.catalog_api_v2.MainTaxon main_taxon = 27 [json_name = "main_taxon"];</code>
      */
     @java.lang.Override
@@ -17858,6 +21511,12 @@ public final class CatalogApiV2 {
       return builder;
     }
     /**
+     * <pre>
+     **
+     * Ответ карточки товара
+     * &#64;see Product
+     * </pre>
+     *
      * Protobuf type {@code catalog_api_v2.ProductWithProperties}
      */
     public static final class Builder extends
@@ -18318,6 +21977,10 @@ public final class CatalogApiV2 {
 
       private double id_ ;
       /**
+       * <pre>
+       * идентификатор офера, в монолите табилчка offers
+       * </pre>
+       *
        * <code>double id = 1;</code>
        * @return The id.
        */
@@ -18326,6 +21989,10 @@ public final class CatalogApiV2 {
         return id_;
       }
       /**
+       * <pre>
+       * идентификатор офера, в монолите табилчка offers
+       * </pre>
+       *
        * <code>double id = 1;</code>
        * @param value The id to set.
        * @return This builder for chaining.
@@ -18337,6 +22004,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор офера, в монолите табилчка offers
+       * </pre>
+       *
        * <code>double id = 1;</code>
        * @return This builder for chaining.
        */
@@ -18349,6 +22020,10 @@ public final class CatalogApiV2 {
 
       private long sku_ ;
       /**
+       * <pre>
+       * идентификатор описания
+       * </pre>
+       *
        * <code>int64 sku = 2;</code>
        * @return The sku.
        */
@@ -18357,6 +22032,10 @@ public final class CatalogApiV2 {
         return sku_;
       }
       /**
+       * <pre>
+       * идентификатор описания
+       * </pre>
+       *
        * <code>int64 sku = 2;</code>
        * @param value The sku to set.
        * @return This builder for chaining.
@@ -18368,6 +22047,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор описания
+       * </pre>
+       *
        * <code>int64 sku = 2;</code>
        * @return This builder for chaining.
        */
@@ -18380,6 +22063,10 @@ public final class CatalogApiV2 {
 
       private boolean active_ ;
       /**
+       * <pre>
+       * активность продукта
+       * </pre>
+       *
        * <code>bool active = 3;</code>
        * @return The active.
        */
@@ -18388,6 +22075,10 @@ public final class CatalogApiV2 {
         return active_;
       }
       /**
+       * <pre>
+       * активность продукта
+       * </pre>
+       *
        * <code>bool active = 3;</code>
        * @param value The active to set.
        * @return This builder for chaining.
@@ -18399,6 +22090,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * активность продукта
+       * </pre>
+       *
        * <code>bool active = 3;</code>
        * @return This builder for chaining.
        */
@@ -18411,6 +22106,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object retailerSku_ = "";
       /**
+       * <pre>
+       * идентификатор товарного предложения ритейлера
+       * </pre>
+       *
        * <code>string retailer_sku = 4 [json_name = "retailer_sku"];</code>
        * @return The retailerSku.
        */
@@ -18427,6 +22126,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * идентификатор товарного предложения ритейлера
+       * </pre>
+       *
        * <code>string retailer_sku = 4 [json_name = "retailer_sku"];</code>
        * @return The bytes for retailerSku.
        */
@@ -18444,6 +22147,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * идентификатор товарного предложения ритейлера
+       * </pre>
+       *
        * <code>string retailer_sku = 4 [json_name = "retailer_sku"];</code>
        * @param value The retailerSku to set.
        * @return This builder for chaining.
@@ -18459,6 +22166,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор товарного предложения ритейлера
+       * </pre>
+       *
        * <code>string retailer_sku = 4 [json_name = "retailer_sku"];</code>
        * @return This builder for chaining.
        */
@@ -18469,6 +22180,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор товарного предложения ритейлера
+       * </pre>
+       *
        * <code>string retailer_sku = 4 [json_name = "retailer_sku"];</code>
        * @param value The bytes for retailerSku to set.
        * @return This builder for chaining.
@@ -18487,6 +22202,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object name_ = "";
       /**
+       * <pre>
+       * название продукта
+       * </pre>
+       *
        * <code>string name = 5;</code>
        * @return The name.
        */
@@ -18503,6 +22222,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * название продукта
+       * </pre>
+       *
        * <code>string name = 5;</code>
        * @return The bytes for name.
        */
@@ -18520,6 +22243,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * название продукта
+       * </pre>
+       *
        * <code>string name = 5;</code>
        * @param value The name to set.
        * @return This builder for chaining.
@@ -18535,6 +22262,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * название продукта
+       * </pre>
+       *
        * <code>string name = 5;</code>
        * @return This builder for chaining.
        */
@@ -18545,6 +22276,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * название продукта
+       * </pre>
+       *
        * <code>string name = 5;</code>
        * @param value The bytes for name to set.
        * @return This builder for chaining.
@@ -18563,6 +22298,13 @@ public final class CatalogApiV2 {
 
       private double price_ ;
       /**
+       * <pre>
+       **
+       * Цена продукта
+       *  - варинат из ph: ph.price.price
+       *  - вариант из mysql: prices.price 
+       * </pre>
+       *
        * <code>double price = 6;</code>
        * @return The price.
        */
@@ -18571,6 +22313,13 @@ public final class CatalogApiV2 {
         return price_;
       }
       /**
+       * <pre>
+       **
+       * Цена продукта
+       *  - варинат из ph: ph.price.price
+       *  - вариант из mysql: prices.price 
+       * </pre>
+       *
        * <code>double price = 6;</code>
        * @param value The price to set.
        * @return This builder for chaining.
@@ -18582,6 +22331,13 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Цена продукта
+       *  - варинат из ph: ph.price.price
+       *  - вариант из mysql: prices.price 
+       * </pre>
+       *
        * <code>double price = 6;</code>
        * @return This builder for chaining.
        */
@@ -18594,6 +22350,13 @@ public final class CatalogApiV2 {
 
       private double originalPrice_ ;
       /**
+       * <pre>
+       **
+       * Оригинальная цена продукта (без скидок)
+       *  - варинат из ph: ph.price.price + ph.price.discount
+       *  - вариант из mysql: prices.price + prices.discount 
+       * </pre>
+       *
        * <code>double original_price = 7 [json_name = "original_price"];</code>
        * @return The originalPrice.
        */
@@ -18602,6 +22365,13 @@ public final class CatalogApiV2 {
         return originalPrice_;
       }
       /**
+       * <pre>
+       **
+       * Оригинальная цена продукта (без скидок)
+       *  - варинат из ph: ph.price.price + ph.price.discount
+       *  - вариант из mysql: prices.price + prices.discount 
+       * </pre>
+       *
        * <code>double original_price = 7 [json_name = "original_price"];</code>
        * @param value The originalPrice to set.
        * @return This builder for chaining.
@@ -18613,6 +22383,13 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Оригинальная цена продукта (без скидок)
+       *  - варинат из ph: ph.price.price + ph.price.discount
+       *  - вариант из mysql: prices.price + prices.discount 
+       * </pre>
+       *
        * <code>double original_price = 7 [json_name = "original_price"];</code>
        * @return This builder for chaining.
        */
@@ -18625,6 +22402,13 @@ public final class CatalogApiV2 {
 
       private double discount_ ;
       /**
+       * <pre>
+       **
+       * Скидка товара
+       *  - варинат из ph: ph.price.discount
+       *  - вариант из mysql: prices.discount 
+       * </pre>
+       *
        * <code>double discount = 8;</code>
        * @return The discount.
        */
@@ -18633,6 +22417,13 @@ public final class CatalogApiV2 {
         return discount_;
       }
       /**
+       * <pre>
+       **
+       * Скидка товара
+       *  - варинат из ph: ph.price.discount
+       *  - вариант из mysql: prices.discount 
+       * </pre>
+       *
        * <code>double discount = 8;</code>
        * @param value The discount to set.
        * @return This builder for chaining.
@@ -18644,6 +22435,13 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Скидка товара
+       *  - варинат из ph: ph.price.discount
+       *  - вариант из mysql: prices.discount 
+       * </pre>
+       *
        * <code>double discount = 8;</code>
        * @return This builder for chaining.
        */
@@ -18656,6 +22454,12 @@ public final class CatalogApiV2 {
 
       private java.lang.Object humanVolume_ = "";
       /**
+       * <pre>
+       **
+       * Вес упаковки и количество в человеко читаемом формате  
+       * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>string human_volume = 9 [json_name = "human_volume"];</code>
        * @return The humanVolume.
        */
@@ -18672,6 +22476,12 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       **
+       * Вес упаковки и количество в человеко читаемом формате  
+       * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>string human_volume = 9 [json_name = "human_volume"];</code>
        * @return The bytes for humanVolume.
        */
@@ -18689,6 +22499,12 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       **
+       * Вес упаковки и количество в человеко читаемом формате  
+       * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>string human_volume = 9 [json_name = "human_volume"];</code>
        * @param value The humanVolume to set.
        * @return This builder for chaining.
@@ -18704,6 +22520,12 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Вес упаковки и количество в человеко читаемом формате  
+       * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>string human_volume = 9 [json_name = "human_volume"];</code>
        * @return This builder for chaining.
        */
@@ -18714,6 +22536,12 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Вес упаковки и количество в человеко читаемом формате  
+       * ph.attr[volume] + ph.attr[volume_type] + ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>string human_volume = 9 [json_name = "human_volume"];</code>
        * @param value The bytes for humanVolume to set.
        * @return This builder for chaining.
@@ -18732,6 +22560,10 @@ public final class CatalogApiV2 {
 
       private double volume_ ;
       /**
+       * <pre>
+       * объем неделимой единицы продажи ph.attr[volume]
+       * </pre>
+       *
        * <code>double volume = 10;</code>
        * @return The volume.
        */
@@ -18740,6 +22572,10 @@ public final class CatalogApiV2 {
         return volume_;
       }
       /**
+       * <pre>
+       * объем неделимой единицы продажи ph.attr[volume]
+       * </pre>
+       *
        * <code>double volume = 10;</code>
        * @param value The volume to set.
        * @return This builder for chaining.
@@ -18751,6 +22587,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * объем неделимой единицы продажи ph.attr[volume]
+       * </pre>
+       *
        * <code>double volume = 10;</code>
        * @return This builder for chaining.
        */
@@ -18763,6 +22603,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object volumeType_ = "";
       /**
+       * <pre>
+       * единица измерения объема ph.attr[volume_type], например kg = килограммы
+       * </pre>
+       *
        * <code>string volume_type = 11 [json_name = "volume_type"];</code>
        * @return The volumeType.
        */
@@ -18779,6 +22623,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * единица измерения объема ph.attr[volume_type], например kg = килограммы
+       * </pre>
+       *
        * <code>string volume_type = 11 [json_name = "volume_type"];</code>
        * @return The bytes for volumeType.
        */
@@ -18796,6 +22644,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * единица измерения объема ph.attr[volume_type], например kg = килограммы
+       * </pre>
+       *
        * <code>string volume_type = 11 [json_name = "volume_type"];</code>
        * @param value The volumeType to set.
        * @return This builder for chaining.
@@ -18811,6 +22663,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * единица измерения объема ph.attr[volume_type], например kg = килограммы
+       * </pre>
+       *
        * <code>string volume_type = 11 [json_name = "volume_type"];</code>
        * @return This builder for chaining.
        */
@@ -18821,6 +22677,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * единица измерения объема ph.attr[volume_type], например kg = килограммы
+       * </pre>
+       *
        * <code>string volume_type = 11 [json_name = "volume_type"];</code>
        * @param value The bytes for volumeType to set.
        * @return This builder for chaining.
@@ -18839,6 +22699,10 @@ public final class CatalogApiV2 {
 
       private double itemsPerPack_ ;
       /**
+       * <pre>
+       * кол-во шт в упаковке ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
        * @return The itemsPerPack.
        */
@@ -18847,6 +22711,10 @@ public final class CatalogApiV2 {
         return itemsPerPack_;
       }
       /**
+       * <pre>
+       * кол-во шт в упаковке ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
        * @param value The itemsPerPack to set.
        * @return This builder for chaining.
@@ -18858,6 +22726,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * кол-во шт в упаковке ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>double items_per_pack = 12 [json_name = "items_per_pack"];</code>
        * @return This builder for chaining.
        */
@@ -18872,6 +22744,10 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> discountEndsAtBuilder_;
       /**
+       * <pre>
+       * конечная дата действия скидки
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
        * @return Whether the discountEndsAt field is set.
        */
@@ -18879,6 +22755,10 @@ public final class CatalogApiV2 {
         return discountEndsAtBuilder_ != null || discountEndsAt_ != null;
       }
       /**
+       * <pre>
+       * конечная дата действия скидки
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
        * @return The discountEndsAt.
        */
@@ -18890,6 +22770,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * конечная дата действия скидки
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
        */
       public Builder setDiscountEndsAt(com.google.protobuf.StringValue value) {
@@ -18906,6 +22790,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * конечная дата действия скидки
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
        */
       public Builder setDiscountEndsAt(
@@ -18920,6 +22808,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * конечная дата действия скидки
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
        */
       public Builder mergeDiscountEndsAt(com.google.protobuf.StringValue value) {
@@ -18938,6 +22830,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * конечная дата действия скидки
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
        */
       public Builder clearDiscountEndsAt() {
@@ -18952,6 +22848,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * конечная дата действия скидки
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
        */
       public com.google.protobuf.StringValue.Builder getDiscountEndsAtBuilder() {
@@ -18960,6 +22860,10 @@ public final class CatalogApiV2 {
         return getDiscountEndsAtFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * конечная дата действия скидки
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
        */
       public com.google.protobuf.StringValueOrBuilder getDiscountEndsAtOrBuilder() {
@@ -18971,6 +22875,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * конечная дата действия скидки
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -18989,6 +22897,13 @@ public final class CatalogApiV2 {
 
       private java.lang.Object priceType_ = "";
       /**
+       * <pre>
+       **
+       * Тип цены товарного предложения
+       *  - варинат из ph: offer.pricer
+       *  - вариант из mysql: offer.pricer 
+       * </pre>
+       *
        * <code>string price_type = 14 [json_name = "price_type"];</code>
        * @return The priceType.
        */
@@ -19005,6 +22920,13 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       **
+       * Тип цены товарного предложения
+       *  - варинат из ph: offer.pricer
+       *  - вариант из mysql: offer.pricer 
+       * </pre>
+       *
        * <code>string price_type = 14 [json_name = "price_type"];</code>
        * @return The bytes for priceType.
        */
@@ -19022,6 +22944,13 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       **
+       * Тип цены товарного предложения
+       *  - варинат из ph: offer.pricer
+       *  - вариант из mysql: offer.pricer 
+       * </pre>
+       *
        * <code>string price_type = 14 [json_name = "price_type"];</code>
        * @param value The priceType to set.
        * @return This builder for chaining.
@@ -19037,6 +22966,13 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Тип цены товарного предложения
+       *  - варинат из ph: offer.pricer
+       *  - вариант из mysql: offer.pricer 
+       * </pre>
+       *
        * <code>string price_type = 14 [json_name = "price_type"];</code>
        * @return This builder for chaining.
        */
@@ -19047,6 +22983,13 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Тип цены товарного предложения
+       *  - варинат из ph: offer.pricer
+       *  - вариант из mysql: offer.pricer 
+       * </pre>
+       *
        * <code>string price_type = 14 [json_name = "price_type"];</code>
        * @param value The bytes for priceType to set.
        * @return This builder for chaining.
@@ -19065,6 +23008,12 @@ public final class CatalogApiV2 {
 
       private double gramsPerUnit_ ;
       /**
+       * <pre>
+       **
+       * Общий вес товара
+       * ph.attr[weight_net] * ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
        * @return The gramsPerUnit.
        */
@@ -19073,6 +23022,12 @@ public final class CatalogApiV2 {
         return gramsPerUnit_;
       }
       /**
+       * <pre>
+       **
+       * Общий вес товара
+       * ph.attr[weight_net] * ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
        * @param value The gramsPerUnit to set.
        * @return This builder for chaining.
@@ -19084,6 +23039,12 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Общий вес товара
+       * ph.attr[weight_net] * ph.attr[quantity_at_box]
+       * </pre>
+       *
        * <code>double grams_per_unit = 15 [json_name = "grams_per_unit"];</code>
        * @return This builder for chaining.
        */
@@ -19096,6 +23057,12 @@ public final class CatalogApiV2 {
 
       private double unitPrice_ ;
       /**
+       * <pre>
+       **
+       * Цена за 1 единицу
+       * ph.attr[offer_price]
+       * </pre>
+       *
        * <code>double unit_price = 16 [json_name = "unit_price"];</code>
        * @return The unitPrice.
        */
@@ -19104,6 +23071,12 @@ public final class CatalogApiV2 {
         return unitPrice_;
       }
       /**
+       * <pre>
+       **
+       * Цена за 1 единицу
+       * ph.attr[offer_price]
+       * </pre>
+       *
        * <code>double unit_price = 16 [json_name = "unit_price"];</code>
        * @param value The unitPrice to set.
        * @return This builder for chaining.
@@ -19115,6 +23088,12 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Цена за 1 единицу
+       * ph.attr[offer_price]
+       * </pre>
+       *
        * <code>double unit_price = 16 [json_name = "unit_price"];</code>
        * @return This builder for chaining.
        */
@@ -19127,6 +23106,20 @@ public final class CatalogApiV2 {
 
       private double originalUnitPrice_ ;
       /**
+       * <pre>
+       **
+       * Оригинальная цена за 1 единицу (без скидок)
+       *  - варинат из ph для pricer:PER_ITEM: ph.price.price + ph.price.discount
+       *  - варинат из ph для pricer:PER_ITEMS_PACKAGE: (ph.price.price + ph.price.discount) * ph.attr[quantity_at_box]
+       *  - варинат из ph для pricer:PER_WEIGHT_PACKAGE: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+       *  - варинат из ph для pricer:PER_WEIGHT: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+       *  -------
+       *  - варинат из mysql для pricer:PER_ITEM: prices.price + prices.discount
+       *  - варинат из mysql для pricer:PER_ITEMS_PACKAGE: (prices.price + prices.discount) * offers.items_per_pack
+       *  - варинат из mysql для pricer:PER_WEIGHT_PACKAGE: ((prices.price+prices.discount)/offers.grams_per_unit)*1000
+       *  - варинат из mysql для pricer:PER_WEIGHT: ((prices.price+prices.discount)/offers.grams_per_unit])*1000
+       * </pre>
+       *
        * <code>double original_unit_price = 17 [json_name = "original_unit_price"];</code>
        * @return The originalUnitPrice.
        */
@@ -19135,6 +23128,20 @@ public final class CatalogApiV2 {
         return originalUnitPrice_;
       }
       /**
+       * <pre>
+       **
+       * Оригинальная цена за 1 единицу (без скидок)
+       *  - варинат из ph для pricer:PER_ITEM: ph.price.price + ph.price.discount
+       *  - варинат из ph для pricer:PER_ITEMS_PACKAGE: (ph.price.price + ph.price.discount) * ph.attr[quantity_at_box]
+       *  - варинат из ph для pricer:PER_WEIGHT_PACKAGE: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+       *  - варинат из ph для pricer:PER_WEIGHT: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+       *  -------
+       *  - варинат из mysql для pricer:PER_ITEM: prices.price + prices.discount
+       *  - варинат из mysql для pricer:PER_ITEMS_PACKAGE: (prices.price + prices.discount) * offers.items_per_pack
+       *  - варинат из mysql для pricer:PER_WEIGHT_PACKAGE: ((prices.price+prices.discount)/offers.grams_per_unit)*1000
+       *  - варинат из mysql для pricer:PER_WEIGHT: ((prices.price+prices.discount)/offers.grams_per_unit])*1000
+       * </pre>
+       *
        * <code>double original_unit_price = 17 [json_name = "original_unit_price"];</code>
        * @param value The originalUnitPrice to set.
        * @return This builder for chaining.
@@ -19146,6 +23153,20 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       **
+       * Оригинальная цена за 1 единицу (без скидок)
+       *  - варинат из ph для pricer:PER_ITEM: ph.price.price + ph.price.discount
+       *  - варинат из ph для pricer:PER_ITEMS_PACKAGE: (ph.price.price + ph.price.discount) * ph.attr[quantity_at_box]
+       *  - варинат из ph для pricer:PER_WEIGHT_PACKAGE: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+       *  - варинат из ph для pricer:PER_WEIGHT: ((ph.price.price+ph.price.discount)/ph.attr[weight_net])*1000
+       *  -------
+       *  - варинат из mysql для pricer:PER_ITEM: prices.price + prices.discount
+       *  - варинат из mysql для pricer:PER_ITEMS_PACKAGE: (prices.price + prices.discount) * offers.items_per_pack
+       *  - варинат из mysql для pricer:PER_WEIGHT_PACKAGE: ((prices.price+prices.discount)/offers.grams_per_unit)*1000
+       *  - варинат из mysql для pricer:PER_WEIGHT: ((prices.price+prices.discount)/offers.grams_per_unit])*1000
+       * </pre>
+       *
        * <code>double original_unit_price = 17 [json_name = "original_unit_price"];</code>
        * @return This builder for chaining.
        */
@@ -19164,6 +23185,10 @@ public final class CatalogApiV2 {
          }
       }
       /**
+       * <pre>
+       * идентификаторы бейджей
+       * </pre>
+       *
        * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @return A list containing the promoBadgeIds.
        */
@@ -19173,6 +23198,10 @@ public final class CatalogApiV2 {
                  java.util.Collections.unmodifiableList(promoBadgeIds_) : promoBadgeIds_;
       }
       /**
+       * <pre>
+       * идентификаторы бейджей
+       * </pre>
+       *
        * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @return The count of promoBadgeIds.
        */
@@ -19180,6 +23209,10 @@ public final class CatalogApiV2 {
         return promoBadgeIds_.size();
       }
       /**
+       * <pre>
+       * идентификаторы бейджей
+       * </pre>
+       *
        * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @param index The index of the element to return.
        * @return The promoBadgeIds at the given index.
@@ -19188,6 +23221,10 @@ public final class CatalogApiV2 {
         return promoBadgeIds_.getDouble(index);
       }
       /**
+       * <pre>
+       * идентификаторы бейджей
+       * </pre>
+       *
        * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @param index The index to set the value at.
        * @param value The promoBadgeIds to set.
@@ -19201,6 +23238,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификаторы бейджей
+       * </pre>
+       *
        * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @param value The promoBadgeIds to add.
        * @return This builder for chaining.
@@ -19212,6 +23253,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификаторы бейджей
+       * </pre>
+       *
        * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @param values The promoBadgeIds to add.
        * @return This builder for chaining.
@@ -19225,6 +23270,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификаторы бейджей
+       * </pre>
+       *
        * <code>repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];</code>
        * @return This builder for chaining.
        */
@@ -19239,6 +23288,10 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.FloatValue, com.google.protobuf.FloatValue.Builder, com.google.protobuf.FloatValueOrBuilder> scoreBuilder_;
       /**
+       * <pre>
+       * рейтинг товара
+       * </pre>
+       *
        * <code>.google.protobuf.FloatValue score = 19;</code>
        * @return Whether the score field is set.
        */
@@ -19246,6 +23299,10 @@ public final class CatalogApiV2 {
         return scoreBuilder_ != null || score_ != null;
       }
       /**
+       * <pre>
+       * рейтинг товара
+       * </pre>
+       *
        * <code>.google.protobuf.FloatValue score = 19;</code>
        * @return The score.
        */
@@ -19257,6 +23314,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * рейтинг товара
+       * </pre>
+       *
        * <code>.google.protobuf.FloatValue score = 19;</code>
        */
       public Builder setScore(com.google.protobuf.FloatValue value) {
@@ -19273,6 +23334,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * рейтинг товара
+       * </pre>
+       *
        * <code>.google.protobuf.FloatValue score = 19;</code>
        */
       public Builder setScore(
@@ -19287,6 +23352,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * рейтинг товара
+       * </pre>
+       *
        * <code>.google.protobuf.FloatValue score = 19;</code>
        */
       public Builder mergeScore(com.google.protobuf.FloatValue value) {
@@ -19305,6 +23374,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * рейтинг товара
+       * </pre>
+       *
        * <code>.google.protobuf.FloatValue score = 19;</code>
        */
       public Builder clearScore() {
@@ -19319,6 +23392,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * рейтинг товара
+       * </pre>
+       *
        * <code>.google.protobuf.FloatValue score = 19;</code>
        */
       public com.google.protobuf.FloatValue.Builder getScoreBuilder() {
@@ -19327,6 +23404,10 @@ public final class CatalogApiV2 {
         return getScoreFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * рейтинг товара
+       * </pre>
+       *
        * <code>.google.protobuf.FloatValue score = 19;</code>
        */
       public com.google.protobuf.FloatValueOrBuilder getScoreOrBuilder() {
@@ -19338,6 +23419,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * рейтинг товара
+       * </pre>
+       *
        * <code>.google.protobuf.FloatValue score = 19;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -19362,6 +23447,10 @@ public final class CatalogApiV2 {
          }
       }
       /**
+       * <pre>
+       * лейблы товара
+       * </pre>
+       *
        * <code>repeated string labels = 20;</code>
        * @return A list containing the labels.
        */
@@ -19370,6 +23459,10 @@ public final class CatalogApiV2 {
         return labels_.getUnmodifiableView();
       }
       /**
+       * <pre>
+       * лейблы товара
+       * </pre>
+       *
        * <code>repeated string labels = 20;</code>
        * @return The count of labels.
        */
@@ -19377,6 +23470,10 @@ public final class CatalogApiV2 {
         return labels_.size();
       }
       /**
+       * <pre>
+       * лейблы товара
+       * </pre>
+       *
        * <code>repeated string labels = 20;</code>
        * @param index The index of the element to return.
        * @return The labels at the given index.
@@ -19385,6 +23482,10 @@ public final class CatalogApiV2 {
         return labels_.get(index);
       }
       /**
+       * <pre>
+       * лейблы товара
+       * </pre>
+       *
        * <code>repeated string labels = 20;</code>
        * @param index The index of the value to return.
        * @return The bytes of the labels at the given index.
@@ -19394,6 +23495,10 @@ public final class CatalogApiV2 {
         return labels_.getByteString(index);
       }
       /**
+       * <pre>
+       * лейблы товара
+       * </pre>
+       *
        * <code>repeated string labels = 20;</code>
        * @param index The index to set the value at.
        * @param value The labels to set.
@@ -19410,6 +23515,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * лейблы товара
+       * </pre>
+       *
        * <code>repeated string labels = 20;</code>
        * @param value The labels to add.
        * @return This builder for chaining.
@@ -19425,6 +23534,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * лейблы товара
+       * </pre>
+       *
        * <code>repeated string labels = 20;</code>
        * @param values The labels to add.
        * @return This builder for chaining.
@@ -19438,6 +23551,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * лейблы товара
+       * </pre>
+       *
        * <code>repeated string labels = 20;</code>
        * @return This builder for chaining.
        */
@@ -19448,6 +23565,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * лейблы товара
+       * </pre>
+       *
        * <code>repeated string labels = 20;</code>
        * @param value The bytes of the labels to add.
        * @return This builder for chaining.
@@ -19477,6 +23598,10 @@ public final class CatalogApiV2 {
           catalog_api_v2.CatalogApiV2.Image, catalog_api_v2.CatalogApiV2.Image.Builder, catalog_api_v2.CatalogApiV2.ImageOrBuilder> imagesBuilder_;
 
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public java.util.List<catalog_api_v2.CatalogApiV2.Image> getImagesList() {
@@ -19487,6 +23612,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public int getImagesCount() {
@@ -19497,6 +23626,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public catalog_api_v2.CatalogApiV2.Image getImages(int index) {
@@ -19507,6 +23640,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public Builder setImages(
@@ -19524,6 +23661,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public Builder setImages(
@@ -19538,6 +23679,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public Builder addImages(catalog_api_v2.CatalogApiV2.Image value) {
@@ -19554,6 +23699,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public Builder addImages(
@@ -19571,6 +23720,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public Builder addImages(
@@ -19585,6 +23738,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public Builder addImages(
@@ -19599,6 +23756,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public Builder addAllImages(
@@ -19614,6 +23775,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public Builder clearImages() {
@@ -19627,6 +23792,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public Builder removeImages(int index) {
@@ -19640,6 +23809,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public catalog_api_v2.CatalogApiV2.Image.Builder getImagesBuilder(
@@ -19647,6 +23820,10 @@ public final class CatalogApiV2 {
         return getImagesFieldBuilder().getBuilder(index);
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public catalog_api_v2.CatalogApiV2.ImageOrBuilder getImagesOrBuilder(
@@ -19657,6 +23834,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public java.util.List<? extends catalog_api_v2.CatalogApiV2.ImageOrBuilder> 
@@ -19668,6 +23849,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public catalog_api_v2.CatalogApiV2.Image.Builder addImagesBuilder() {
@@ -19675,6 +23860,10 @@ public final class CatalogApiV2 {
             catalog_api_v2.CatalogApiV2.Image.getDefaultInstance());
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public catalog_api_v2.CatalogApiV2.Image.Builder addImagesBuilder(
@@ -19683,6 +23872,10 @@ public final class CatalogApiV2 {
             index, catalog_api_v2.CatalogApiV2.Image.getDefaultInstance());
       }
       /**
+       * <pre>
+       * картинки
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Image images = 21;</code>
        */
       public java.util.List<catalog_api_v2.CatalogApiV2.Image.Builder> 
@@ -19717,6 +23910,10 @@ public final class CatalogApiV2 {
           catalog_api_v2.CatalogApiV2.Property, catalog_api_v2.CatalogApiV2.Property.Builder, catalog_api_v2.CatalogApiV2.PropertyOrBuilder> propertiesBuilder_;
 
       /**
+       * <pre>
+       * свойства товара
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Property properties = 22;</code>
        */
       public java.util.List<catalog_api_v2.CatalogApiV2.Property> getPropertiesList() {
@@ -19727,6 +23924,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * свойства товара
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Property properties = 22;</code>
        */
       public int getPropertiesCount() {
@@ -19737,6 +23938,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * свойства товара
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Property properties = 22;</code>
        */
       public catalog_api_v2.CatalogApiV2.Property getProperties(int index) {
@@ -19747,6 +23952,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * свойства товара
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Property properties = 22;</code>
        */
       public Builder setProperties(
@@ -19764,6 +23973,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * свойства товара
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Property properties = 22;</code>
        */
       public Builder setProperties(
@@ -19778,6 +23991,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * свойства товара
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Property properties = 22;</code>
        */
       public Builder addProperties(catalog_api_v2.CatalogApiV2.Property value) {
@@ -19794,6 +24011,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * свойства товара
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Property properties = 22;</code>
        */
       public Builder addProperties(
@@ -19811,6 +24032,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * свойства товара
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Property properties = 22;</code>
        */
       public Builder addProperties(
@@ -19825,6 +24050,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * свойства товара
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Property properties = 22;</code>
        */
       public Builder addProperties(
@@ -19839,6 +24068,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * свойства товара
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Property properties = 22;</code>
        */
       public Builder addAllProperties(
@@ -19854,6 +24087,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * свойства товара
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Property properties = 22;</code>
        */
       public Builder clearProperties() {
@@ -19867,6 +24104,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * свойства товара
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Property properties = 22;</code>
        */
       public Builder removeProperties(int index) {
@@ -19880,6 +24121,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * свойства товара
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Property properties = 22;</code>
        */
       public catalog_api_v2.CatalogApiV2.Property.Builder getPropertiesBuilder(
@@ -19887,6 +24132,10 @@ public final class CatalogApiV2 {
         return getPropertiesFieldBuilder().getBuilder(index);
       }
       /**
+       * <pre>
+       * свойства товара
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Property properties = 22;</code>
        */
       public catalog_api_v2.CatalogApiV2.PropertyOrBuilder getPropertiesOrBuilder(
@@ -19897,6 +24146,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * свойства товара
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Property properties = 22;</code>
        */
       public java.util.List<? extends catalog_api_v2.CatalogApiV2.PropertyOrBuilder> 
@@ -19908,6 +24161,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * свойства товара
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Property properties = 22;</code>
        */
       public catalog_api_v2.CatalogApiV2.Property.Builder addPropertiesBuilder() {
@@ -19915,6 +24172,10 @@ public final class CatalogApiV2 {
             catalog_api_v2.CatalogApiV2.Property.getDefaultInstance());
       }
       /**
+       * <pre>
+       * свойства товара
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Property properties = 22;</code>
        */
       public catalog_api_v2.CatalogApiV2.Property.Builder addPropertiesBuilder(
@@ -19923,6 +24184,10 @@ public final class CatalogApiV2 {
             index, catalog_api_v2.CatalogApiV2.Property.getDefaultInstance());
       }
       /**
+       * <pre>
+       * свойства товара
+       * </pre>
+       *
        * <code>repeated .catalog_api_v2.Property properties = 22;</code>
        */
       public java.util.List<catalog_api_v2.CatalogApiV2.Property.Builder> 
@@ -19946,6 +24211,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object description_ = "";
       /**
+       * <pre>
+       * описание товара ph.attr[description]
+       * </pre>
+       *
        * <code>string description = 23;</code>
        * @return The description.
        */
@@ -19962,6 +24231,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * описание товара ph.attr[description]
+       * </pre>
+       *
        * <code>string description = 23;</code>
        * @return The bytes for description.
        */
@@ -19979,6 +24252,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * описание товара ph.attr[description]
+       * </pre>
+       *
        * <code>string description = 23;</code>
        * @param value The description to set.
        * @return This builder for chaining.
@@ -19994,6 +24271,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * описание товара ph.attr[description]
+       * </pre>
+       *
        * <code>string description = 23;</code>
        * @return This builder for chaining.
        */
@@ -20004,6 +24285,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * описание товара ph.attr[description]
+       * </pre>
+       *
        * <code>string description = 23;</code>
        * @param value The bytes for description to set.
        * @return This builder for chaining.
@@ -20147,6 +24432,10 @@ public final class CatalogApiV2 {
          }
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string requirements = 25;</code>
        * @return A list containing the requirements.
        */
@@ -20155,6 +24444,10 @@ public final class CatalogApiV2 {
         return requirements_.getUnmodifiableView();
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string requirements = 25;</code>
        * @return The count of requirements.
        */
@@ -20162,6 +24455,10 @@ public final class CatalogApiV2 {
         return requirements_.size();
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string requirements = 25;</code>
        * @param index The index of the element to return.
        * @return The requirements at the given index.
@@ -20170,6 +24467,10 @@ public final class CatalogApiV2 {
         return requirements_.get(index);
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string requirements = 25;</code>
        * @param index The index of the value to return.
        * @return The bytes of the requirements at the given index.
@@ -20179,6 +24480,10 @@ public final class CatalogApiV2 {
         return requirements_.getByteString(index);
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string requirements = 25;</code>
        * @param index The index to set the value at.
        * @param value The requirements to set.
@@ -20195,6 +24500,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string requirements = 25;</code>
        * @param value The requirements to add.
        * @return This builder for chaining.
@@ -20210,6 +24519,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string requirements = 25;</code>
        * @param values The requirements to add.
        * @return This builder for chaining.
@@ -20223,6 +24536,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string requirements = 25;</code>
        * @return This builder for chaining.
        */
@@ -20233,6 +24550,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string requirements = 25;</code>
        * @param value The bytes of the requirements to add.
        * @return This builder for chaining.
@@ -20257,6 +24578,10 @@ public final class CatalogApiV2 {
          }
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string related_products = 26 [json_name = "related_products"];</code>
        * @return A list containing the relatedProducts.
        */
@@ -20265,6 +24590,10 @@ public final class CatalogApiV2 {
         return relatedProducts_.getUnmodifiableView();
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string related_products = 26 [json_name = "related_products"];</code>
        * @return The count of relatedProducts.
        */
@@ -20272,6 +24601,10 @@ public final class CatalogApiV2 {
         return relatedProducts_.size();
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string related_products = 26 [json_name = "related_products"];</code>
        * @param index The index of the element to return.
        * @return The relatedProducts at the given index.
@@ -20280,6 +24613,10 @@ public final class CatalogApiV2 {
         return relatedProducts_.get(index);
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string related_products = 26 [json_name = "related_products"];</code>
        * @param index The index of the value to return.
        * @return The bytes of the relatedProducts at the given index.
@@ -20289,6 +24626,10 @@ public final class CatalogApiV2 {
         return relatedProducts_.getByteString(index);
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string related_products = 26 [json_name = "related_products"];</code>
        * @param index The index to set the value at.
        * @param value The relatedProducts to set.
@@ -20305,6 +24646,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string related_products = 26 [json_name = "related_products"];</code>
        * @param value The relatedProducts to add.
        * @return This builder for chaining.
@@ -20320,6 +24665,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string related_products = 26 [json_name = "related_products"];</code>
        * @param values The relatedProducts to add.
        * @return This builder for chaining.
@@ -20333,6 +24682,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string related_products = 26 [json_name = "related_products"];</code>
        * @return This builder for chaining.
        */
@@ -20343,6 +24696,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * не используется
+       * </pre>
+       *
        * <code>repeated string related_products = 26 [json_name = "related_products"];</code>
        * @param value The bytes of the relatedProducts to add.
        * @return This builder for chaining.
@@ -20363,6 +24720,10 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           catalog_api_v2.CatalogApiV2.MainTaxon, catalog_api_v2.CatalogApiV2.MainTaxon.Builder, catalog_api_v2.CatalogApiV2.MainTaxonOrBuilder> mainTaxonBuilder_;
       /**
+       * <pre>
+       * таксон
+       * </pre>
+       *
        * <code>.catalog_api_v2.MainTaxon main_taxon = 27 [json_name = "main_taxon"];</code>
        * @return Whether the mainTaxon field is set.
        */
@@ -20370,6 +24731,10 @@ public final class CatalogApiV2 {
         return mainTaxonBuilder_ != null || mainTaxon_ != null;
       }
       /**
+       * <pre>
+       * таксон
+       * </pre>
+       *
        * <code>.catalog_api_v2.MainTaxon main_taxon = 27 [json_name = "main_taxon"];</code>
        * @return The mainTaxon.
        */
@@ -20381,6 +24746,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * таксон
+       * </pre>
+       *
        * <code>.catalog_api_v2.MainTaxon main_taxon = 27 [json_name = "main_taxon"];</code>
        */
       public Builder setMainTaxon(catalog_api_v2.CatalogApiV2.MainTaxon value) {
@@ -20397,6 +24766,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * таксон
+       * </pre>
+       *
        * <code>.catalog_api_v2.MainTaxon main_taxon = 27 [json_name = "main_taxon"];</code>
        */
       public Builder setMainTaxon(
@@ -20411,6 +24784,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * таксон
+       * </pre>
+       *
        * <code>.catalog_api_v2.MainTaxon main_taxon = 27 [json_name = "main_taxon"];</code>
        */
       public Builder mergeMainTaxon(catalog_api_v2.CatalogApiV2.MainTaxon value) {
@@ -20429,6 +24806,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * таксон
+       * </pre>
+       *
        * <code>.catalog_api_v2.MainTaxon main_taxon = 27 [json_name = "main_taxon"];</code>
        */
       public Builder clearMainTaxon() {
@@ -20443,6 +24824,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * таксон
+       * </pre>
+       *
        * <code>.catalog_api_v2.MainTaxon main_taxon = 27 [json_name = "main_taxon"];</code>
        */
       public catalog_api_v2.CatalogApiV2.MainTaxon.Builder getMainTaxonBuilder() {
@@ -20451,6 +24836,10 @@ public final class CatalogApiV2 {
         return getMainTaxonFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * таксон
+       * </pre>
+       *
        * <code>.catalog_api_v2.MainTaxon main_taxon = 27 [json_name = "main_taxon"];</code>
        */
       public catalog_api_v2.CatalogApiV2.MainTaxonOrBuilder getMainTaxonOrBuilder() {
@@ -20462,6 +24851,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * таксон
+       * </pre>
+       *
        * <code>.catalog_api_v2.MainTaxon main_taxon = 27 [json_name = "main_taxon"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -20535,11 +24928,19 @@ public final class CatalogApiV2 {
       com.google.protobuf.MessageOrBuilder {
 
     /**
+     * <pre>
+     * ключ
+     * </pre>
+     *
      * <code>string name = 1;</code>
      * @return The name.
      */
     java.lang.String getName();
     /**
+     * <pre>
+     * ключ
+     * </pre>
+     *
      * <code>string name = 1;</code>
      * @return The bytes for name.
      */
@@ -20547,11 +24948,19 @@ public final class CatalogApiV2 {
         getNameBytes();
 
     /**
+     * <pre>
+     * название
+     * </pre>
+     *
      * <code>string presentation = 2;</code>
      * @return The presentation.
      */
     java.lang.String getPresentation();
     /**
+     * <pre>
+     * название
+     * </pre>
+     *
      * <code>string presentation = 2;</code>
      * @return The bytes for presentation.
      */
@@ -20559,11 +24968,19 @@ public final class CatalogApiV2 {
         getPresentationBytes();
 
     /**
+     * <pre>
+     * значение
+     * </pre>
+     *
      * <code>string value = 3;</code>
      * @return The value.
      */
     java.lang.String getValue();
     /**
+     * <pre>
+     * значение
+     * </pre>
+     *
      * <code>string value = 3;</code>
      * @return The bytes for value.
      */
@@ -20571,6 +24988,11 @@ public final class CatalogApiV2 {
         getValueBytes();
   }
   /**
+   * <pre>
+   **
+   * Характеристики
+   * </pre>
+   *
    * Protobuf type {@code catalog_api_v2.Property}
    */
   public static final class Property extends
@@ -20671,6 +25093,10 @@ public final class CatalogApiV2 {
     public static final int NAME_FIELD_NUMBER = 1;
     private volatile java.lang.Object name_;
     /**
+     * <pre>
+     * ключ
+     * </pre>
+     *
      * <code>string name = 1;</code>
      * @return The name.
      */
@@ -20688,6 +25114,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * ключ
+     * </pre>
+     *
      * <code>string name = 1;</code>
      * @return The bytes for name.
      */
@@ -20709,6 +25139,10 @@ public final class CatalogApiV2 {
     public static final int PRESENTATION_FIELD_NUMBER = 2;
     private volatile java.lang.Object presentation_;
     /**
+     * <pre>
+     * название
+     * </pre>
+     *
      * <code>string presentation = 2;</code>
      * @return The presentation.
      */
@@ -20726,6 +25160,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * название
+     * </pre>
+     *
      * <code>string presentation = 2;</code>
      * @return The bytes for presentation.
      */
@@ -20747,6 +25185,10 @@ public final class CatalogApiV2 {
     public static final int VALUE_FIELD_NUMBER = 3;
     private volatile java.lang.Object value_;
     /**
+     * <pre>
+     * значение
+     * </pre>
+     *
      * <code>string value = 3;</code>
      * @return The value.
      */
@@ -20764,6 +25206,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * значение
+     * </pre>
+     *
      * <code>string value = 3;</code>
      * @return The bytes for value.
      */
@@ -20957,6 +25403,11 @@ public final class CatalogApiV2 {
       return builder;
     }
     /**
+     * <pre>
+     **
+     * Характеристики
+     * </pre>
+     *
      * Protobuf type {@code catalog_api_v2.Property}
      */
     public static final class Builder extends
@@ -21120,6 +25571,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object name_ = "";
       /**
+       * <pre>
+       * ключ
+       * </pre>
+       *
        * <code>string name = 1;</code>
        * @return The name.
        */
@@ -21136,6 +25591,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * ключ
+       * </pre>
+       *
        * <code>string name = 1;</code>
        * @return The bytes for name.
        */
@@ -21153,6 +25612,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * ключ
+       * </pre>
+       *
        * <code>string name = 1;</code>
        * @param value The name to set.
        * @return This builder for chaining.
@@ -21168,6 +25631,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * ключ
+       * </pre>
+       *
        * <code>string name = 1;</code>
        * @return This builder for chaining.
        */
@@ -21178,6 +25645,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * ключ
+       * </pre>
+       *
        * <code>string name = 1;</code>
        * @param value The bytes for name to set.
        * @return This builder for chaining.
@@ -21196,6 +25667,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object presentation_ = "";
       /**
+       * <pre>
+       * название
+       * </pre>
+       *
        * <code>string presentation = 2;</code>
        * @return The presentation.
        */
@@ -21212,6 +25687,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * название
+       * </pre>
+       *
        * <code>string presentation = 2;</code>
        * @return The bytes for presentation.
        */
@@ -21229,6 +25708,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * название
+       * </pre>
+       *
        * <code>string presentation = 2;</code>
        * @param value The presentation to set.
        * @return This builder for chaining.
@@ -21244,6 +25727,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * название
+       * </pre>
+       *
        * <code>string presentation = 2;</code>
        * @return This builder for chaining.
        */
@@ -21254,6 +25741,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * название
+       * </pre>
+       *
        * <code>string presentation = 2;</code>
        * @param value The bytes for presentation to set.
        * @return This builder for chaining.
@@ -21272,6 +25763,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object value_ = "";
       /**
+       * <pre>
+       * значение
+       * </pre>
+       *
        * <code>string value = 3;</code>
        * @return The value.
        */
@@ -21288,6 +25783,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * значение
+       * </pre>
+       *
        * <code>string value = 3;</code>
        * @return The bytes for value.
        */
@@ -21305,6 +25804,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * значение
+       * </pre>
+       *
        * <code>string value = 3;</code>
        * @param value The value to set.
        * @return This builder for chaining.
@@ -21320,6 +25823,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * значение
+       * </pre>
+       *
        * <code>string value = 3;</code>
        * @return This builder for chaining.
        */
@@ -21330,6 +25837,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * значение
+       * </pre>
+       *
        * <code>string value = 3;</code>
        * @param value The bytes for value to set.
        * @return This builder for chaining.
@@ -21403,17 +25914,29 @@ public final class CatalogApiV2 {
       com.google.protobuf.MessageOrBuilder {
 
     /**
+     * <pre>
+     * идентификатор
+     * </pre>
+     *
      * <code>double id = 1;</code>
      * @return The id.
      */
     double getId();
 
     /**
+     * <pre>
+     * тип
+     * </pre>
+     *
      * <code>string type = 2;</code>
      * @return The type.
      */
     java.lang.String getType();
     /**
+     * <pre>
+     * тип
+     * </pre>
+     *
      * <code>string type = 2;</code>
      * @return The bytes for type.
      */
@@ -21421,21 +25944,38 @@ public final class CatalogApiV2 {
         getTypeBytes();
 
     /**
+     * <pre>
+     * атрибуты
+     * </pre>
+     *
      * <code>.catalog_api_v2.PromoBadgeAttribute attributes = 3;</code>
      * @return Whether the attributes field is set.
      */
     boolean hasAttributes();
     /**
+     * <pre>
+     * атрибуты
+     * </pre>
+     *
      * <code>.catalog_api_v2.PromoBadgeAttribute attributes = 3;</code>
      * @return The attributes.
      */
     catalog_api_v2.CatalogApiV2.PromoBadgeAttribute getAttributes();
     /**
+     * <pre>
+     * атрибуты
+     * </pre>
+     *
      * <code>.catalog_api_v2.PromoBadgeAttribute attributes = 3;</code>
      */
     catalog_api_v2.CatalogApiV2.PromoBadgeAttributeOrBuilder getAttributesOrBuilder();
   }
   /**
+   * <pre>
+   **
+   * Промо бейджи
+   * </pre>
+   *
    * Protobuf type {@code catalog_api_v2.PromoBadge}
    */
   public static final class PromoBadge extends
@@ -21540,6 +26080,10 @@ public final class CatalogApiV2 {
     public static final int ID_FIELD_NUMBER = 1;
     private double id_;
     /**
+     * <pre>
+     * идентификатор
+     * </pre>
+     *
      * <code>double id = 1;</code>
      * @return The id.
      */
@@ -21551,6 +26095,10 @@ public final class CatalogApiV2 {
     public static final int TYPE_FIELD_NUMBER = 2;
     private volatile java.lang.Object type_;
     /**
+     * <pre>
+     * тип
+     * </pre>
+     *
      * <code>string type = 2;</code>
      * @return The type.
      */
@@ -21568,6 +26116,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * тип
+     * </pre>
+     *
      * <code>string type = 2;</code>
      * @return The bytes for type.
      */
@@ -21589,6 +26141,10 @@ public final class CatalogApiV2 {
     public static final int ATTRIBUTES_FIELD_NUMBER = 3;
     private catalog_api_v2.CatalogApiV2.PromoBadgeAttribute attributes_;
     /**
+     * <pre>
+     * атрибуты
+     * </pre>
+     *
      * <code>.catalog_api_v2.PromoBadgeAttribute attributes = 3;</code>
      * @return Whether the attributes field is set.
      */
@@ -21597,6 +26153,10 @@ public final class CatalogApiV2 {
       return attributes_ != null;
     }
     /**
+     * <pre>
+     * атрибуты
+     * </pre>
+     *
      * <code>.catalog_api_v2.PromoBadgeAttribute attributes = 3;</code>
      * @return The attributes.
      */
@@ -21605,6 +26165,10 @@ public final class CatalogApiV2 {
       return attributes_ == null ? catalog_api_v2.CatalogApiV2.PromoBadgeAttribute.getDefaultInstance() : attributes_;
     }
     /**
+     * <pre>
+     * атрибуты
+     * </pre>
+     *
      * <code>.catalog_api_v2.PromoBadgeAttribute attributes = 3;</code>
      */
     @java.lang.Override
@@ -21796,6 +26360,11 @@ public final class CatalogApiV2 {
       return builder;
     }
     /**
+     * <pre>
+     **
+     * Промо бейджи
+     * </pre>
+     *
      * Protobuf type {@code catalog_api_v2.PromoBadge}
      */
     public static final class Builder extends
@@ -21965,6 +26534,10 @@ public final class CatalogApiV2 {
 
       private double id_ ;
       /**
+       * <pre>
+       * идентификатор
+       * </pre>
+       *
        * <code>double id = 1;</code>
        * @return The id.
        */
@@ -21973,6 +26546,10 @@ public final class CatalogApiV2 {
         return id_;
       }
       /**
+       * <pre>
+       * идентификатор
+       * </pre>
+       *
        * <code>double id = 1;</code>
        * @param value The id to set.
        * @return This builder for chaining.
@@ -21984,6 +26561,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор
+       * </pre>
+       *
        * <code>double id = 1;</code>
        * @return This builder for chaining.
        */
@@ -21996,6 +26577,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object type_ = "";
       /**
+       * <pre>
+       * тип
+       * </pre>
+       *
        * <code>string type = 2;</code>
        * @return The type.
        */
@@ -22012,6 +26597,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * тип
+       * </pre>
+       *
        * <code>string type = 2;</code>
        * @return The bytes for type.
        */
@@ -22029,6 +26618,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * тип
+       * </pre>
+       *
        * <code>string type = 2;</code>
        * @param value The type to set.
        * @return This builder for chaining.
@@ -22044,6 +26637,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * тип
+       * </pre>
+       *
        * <code>string type = 2;</code>
        * @return This builder for chaining.
        */
@@ -22054,6 +26651,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * тип
+       * </pre>
+       *
        * <code>string type = 2;</code>
        * @param value The bytes for type to set.
        * @return This builder for chaining.
@@ -22074,6 +26675,10 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           catalog_api_v2.CatalogApiV2.PromoBadgeAttribute, catalog_api_v2.CatalogApiV2.PromoBadgeAttribute.Builder, catalog_api_v2.CatalogApiV2.PromoBadgeAttributeOrBuilder> attributesBuilder_;
       /**
+       * <pre>
+       * атрибуты
+       * </pre>
+       *
        * <code>.catalog_api_v2.PromoBadgeAttribute attributes = 3;</code>
        * @return Whether the attributes field is set.
        */
@@ -22081,6 +26686,10 @@ public final class CatalogApiV2 {
         return attributesBuilder_ != null || attributes_ != null;
       }
       /**
+       * <pre>
+       * атрибуты
+       * </pre>
+       *
        * <code>.catalog_api_v2.PromoBadgeAttribute attributes = 3;</code>
        * @return The attributes.
        */
@@ -22092,6 +26701,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * атрибуты
+       * </pre>
+       *
        * <code>.catalog_api_v2.PromoBadgeAttribute attributes = 3;</code>
        */
       public Builder setAttributes(catalog_api_v2.CatalogApiV2.PromoBadgeAttribute value) {
@@ -22108,6 +26721,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * атрибуты
+       * </pre>
+       *
        * <code>.catalog_api_v2.PromoBadgeAttribute attributes = 3;</code>
        */
       public Builder setAttributes(
@@ -22122,6 +26739,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * атрибуты
+       * </pre>
+       *
        * <code>.catalog_api_v2.PromoBadgeAttribute attributes = 3;</code>
        */
       public Builder mergeAttributes(catalog_api_v2.CatalogApiV2.PromoBadgeAttribute value) {
@@ -22140,6 +26761,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * атрибуты
+       * </pre>
+       *
        * <code>.catalog_api_v2.PromoBadgeAttribute attributes = 3;</code>
        */
       public Builder clearAttributes() {
@@ -22154,6 +26779,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * атрибуты
+       * </pre>
+       *
        * <code>.catalog_api_v2.PromoBadgeAttribute attributes = 3;</code>
        */
       public catalog_api_v2.CatalogApiV2.PromoBadgeAttribute.Builder getAttributesBuilder() {
@@ -22162,6 +26791,10 @@ public final class CatalogApiV2 {
         return getAttributesFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * атрибуты
+       * </pre>
+       *
        * <code>.catalog_api_v2.PromoBadgeAttribute attributes = 3;</code>
        */
       public catalog_api_v2.CatalogApiV2.PromoBadgeAttributeOrBuilder getAttributesOrBuilder() {
@@ -22173,6 +26806,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * атрибуты
+       * </pre>
+       *
        * <code>.catalog_api_v2.PromoBadgeAttribute attributes = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -22246,11 +26883,19 @@ public final class CatalogApiV2 {
       com.google.protobuf.MessageOrBuilder {
 
     /**
+     * <pre>
+     * название
+     * </pre>
+     *
      * <code>string name = 1;</code>
      * @return The name.
      */
     java.lang.String getName();
     /**
+     * <pre>
+     * название
+     * </pre>
+     *
      * <code>string name = 1;</code>
      * @return The bytes for name.
      */
@@ -22258,11 +26903,19 @@ public final class CatalogApiV2 {
         getNameBytes();
 
     /**
+     * <pre>
+     * текст кнопки
+     * </pre>
+     *
      * <code>string banner_button_text = 2 [json_name = "banner_button_text"];</code>
      * @return The bannerButtonText.
      */
     java.lang.String getBannerButtonText();
     /**
+     * <pre>
+     * текст кнопки
+     * </pre>
+     *
      * <code>string banner_button_text = 2 [json_name = "banner_button_text"];</code>
      * @return The bytes for bannerButtonText.
      */
@@ -22270,27 +26923,48 @@ public final class CatalogApiV2 {
         getBannerButtonTextBytes();
 
     /**
+     * <pre>
+     * идентификатор категории
+     * </pre>
+     *
      * <code>double taxon_id = 3 [json_name = "taxon_id"];</code>
      * @return The taxonId.
      */
     double getTaxonId();
 
     /**
+     * <pre>
+     * опции
+     * </pre>
+     *
      * <code>.catalog_api_v2.AttributeOption options = 4;</code>
      * @return Whether the options field is set.
      */
     boolean hasOptions();
     /**
+     * <pre>
+     * опции
+     * </pre>
+     *
      * <code>.catalog_api_v2.AttributeOption options = 4;</code>
      * @return The options.
      */
     catalog_api_v2.CatalogApiV2.AttributeOption getOptions();
     /**
+     * <pre>
+     * опции
+     * </pre>
+     *
      * <code>.catalog_api_v2.AttributeOption options = 4;</code>
      */
     catalog_api_v2.CatalogApiV2.AttributeOptionOrBuilder getOptionsOrBuilder();
   }
   /**
+   * <pre>
+   **
+   * Атрибуты промо бейджей
+   * </pre>
+   *
    * Protobuf type {@code catalog_api_v2.PromoBadgeAttribute}
    */
   public static final class PromoBadgeAttribute extends
@@ -22402,6 +27076,10 @@ public final class CatalogApiV2 {
     public static final int NAME_FIELD_NUMBER = 1;
     private volatile java.lang.Object name_;
     /**
+     * <pre>
+     * название
+     * </pre>
+     *
      * <code>string name = 1;</code>
      * @return The name.
      */
@@ -22419,6 +27097,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * название
+     * </pre>
+     *
      * <code>string name = 1;</code>
      * @return The bytes for name.
      */
@@ -22440,6 +27122,10 @@ public final class CatalogApiV2 {
     public static final int BANNER_BUTTON_TEXT_FIELD_NUMBER = 2;
     private volatile java.lang.Object bannerButtonText_;
     /**
+     * <pre>
+     * текст кнопки
+     * </pre>
+     *
      * <code>string banner_button_text = 2 [json_name = "banner_button_text"];</code>
      * @return The bannerButtonText.
      */
@@ -22457,6 +27143,10 @@ public final class CatalogApiV2 {
       }
     }
     /**
+     * <pre>
+     * текст кнопки
+     * </pre>
+     *
      * <code>string banner_button_text = 2 [json_name = "banner_button_text"];</code>
      * @return The bytes for bannerButtonText.
      */
@@ -22478,6 +27168,10 @@ public final class CatalogApiV2 {
     public static final int TAXON_ID_FIELD_NUMBER = 3;
     private double taxonId_;
     /**
+     * <pre>
+     * идентификатор категории
+     * </pre>
+     *
      * <code>double taxon_id = 3 [json_name = "taxon_id"];</code>
      * @return The taxonId.
      */
@@ -22489,6 +27183,10 @@ public final class CatalogApiV2 {
     public static final int OPTIONS_FIELD_NUMBER = 4;
     private catalog_api_v2.CatalogApiV2.AttributeOption options_;
     /**
+     * <pre>
+     * опции
+     * </pre>
+     *
      * <code>.catalog_api_v2.AttributeOption options = 4;</code>
      * @return Whether the options field is set.
      */
@@ -22497,6 +27195,10 @@ public final class CatalogApiV2 {
       return options_ != null;
     }
     /**
+     * <pre>
+     * опции
+     * </pre>
+     *
      * <code>.catalog_api_v2.AttributeOption options = 4;</code>
      * @return The options.
      */
@@ -22505,6 +27207,10 @@ public final class CatalogApiV2 {
       return options_ == null ? catalog_api_v2.CatalogApiV2.AttributeOption.getDefaultInstance() : options_;
     }
     /**
+     * <pre>
+     * опции
+     * </pre>
+     *
      * <code>.catalog_api_v2.AttributeOption options = 4;</code>
      */
     @java.lang.Override
@@ -22706,6 +27412,11 @@ public final class CatalogApiV2 {
       return builder;
     }
     /**
+     * <pre>
+     **
+     * Атрибуты промо бейджей
+     * </pre>
+     *
      * Protobuf type {@code catalog_api_v2.PromoBadgeAttribute}
      */
     public static final class Builder extends
@@ -22882,6 +27593,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object name_ = "";
       /**
+       * <pre>
+       * название
+       * </pre>
+       *
        * <code>string name = 1;</code>
        * @return The name.
        */
@@ -22898,6 +27613,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * название
+       * </pre>
+       *
        * <code>string name = 1;</code>
        * @return The bytes for name.
        */
@@ -22915,6 +27634,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * название
+       * </pre>
+       *
        * <code>string name = 1;</code>
        * @param value The name to set.
        * @return This builder for chaining.
@@ -22930,6 +27653,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * название
+       * </pre>
+       *
        * <code>string name = 1;</code>
        * @return This builder for chaining.
        */
@@ -22940,6 +27667,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * название
+       * </pre>
+       *
        * <code>string name = 1;</code>
        * @param value The bytes for name to set.
        * @return This builder for chaining.
@@ -22958,6 +27689,10 @@ public final class CatalogApiV2 {
 
       private java.lang.Object bannerButtonText_ = "";
       /**
+       * <pre>
+       * текст кнопки
+       * </pre>
+       *
        * <code>string banner_button_text = 2 [json_name = "banner_button_text"];</code>
        * @return The bannerButtonText.
        */
@@ -22974,6 +27709,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * текст кнопки
+       * </pre>
+       *
        * <code>string banner_button_text = 2 [json_name = "banner_button_text"];</code>
        * @return The bytes for bannerButtonText.
        */
@@ -22991,6 +27730,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * текст кнопки
+       * </pre>
+       *
        * <code>string banner_button_text = 2 [json_name = "banner_button_text"];</code>
        * @param value The bannerButtonText to set.
        * @return This builder for chaining.
@@ -23006,6 +27749,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * текст кнопки
+       * </pre>
+       *
        * <code>string banner_button_text = 2 [json_name = "banner_button_text"];</code>
        * @return This builder for chaining.
        */
@@ -23016,6 +27763,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * текст кнопки
+       * </pre>
+       *
        * <code>string banner_button_text = 2 [json_name = "banner_button_text"];</code>
        * @param value The bytes for bannerButtonText to set.
        * @return This builder for chaining.
@@ -23034,6 +27785,10 @@ public final class CatalogApiV2 {
 
       private double taxonId_ ;
       /**
+       * <pre>
+       * идентификатор категории
+       * </pre>
+       *
        * <code>double taxon_id = 3 [json_name = "taxon_id"];</code>
        * @return The taxonId.
        */
@@ -23042,6 +27797,10 @@ public final class CatalogApiV2 {
         return taxonId_;
       }
       /**
+       * <pre>
+       * идентификатор категории
+       * </pre>
+       *
        * <code>double taxon_id = 3 [json_name = "taxon_id"];</code>
        * @param value The taxonId to set.
        * @return This builder for chaining.
@@ -23053,6 +27812,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * идентификатор категории
+       * </pre>
+       *
        * <code>double taxon_id = 3 [json_name = "taxon_id"];</code>
        * @return This builder for chaining.
        */
@@ -23067,6 +27830,10 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           catalog_api_v2.CatalogApiV2.AttributeOption, catalog_api_v2.CatalogApiV2.AttributeOption.Builder, catalog_api_v2.CatalogApiV2.AttributeOptionOrBuilder> optionsBuilder_;
       /**
+       * <pre>
+       * опции
+       * </pre>
+       *
        * <code>.catalog_api_v2.AttributeOption options = 4;</code>
        * @return Whether the options field is set.
        */
@@ -23074,6 +27841,10 @@ public final class CatalogApiV2 {
         return optionsBuilder_ != null || options_ != null;
       }
       /**
+       * <pre>
+       * опции
+       * </pre>
+       *
        * <code>.catalog_api_v2.AttributeOption options = 4;</code>
        * @return The options.
        */
@@ -23085,6 +27856,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * опции
+       * </pre>
+       *
        * <code>.catalog_api_v2.AttributeOption options = 4;</code>
        */
       public Builder setOptions(catalog_api_v2.CatalogApiV2.AttributeOption value) {
@@ -23101,6 +27876,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * опции
+       * </pre>
+       *
        * <code>.catalog_api_v2.AttributeOption options = 4;</code>
        */
       public Builder setOptions(
@@ -23115,6 +27894,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * опции
+       * </pre>
+       *
        * <code>.catalog_api_v2.AttributeOption options = 4;</code>
        */
       public Builder mergeOptions(catalog_api_v2.CatalogApiV2.AttributeOption value) {
@@ -23133,6 +27916,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * опции
+       * </pre>
+       *
        * <code>.catalog_api_v2.AttributeOption options = 4;</code>
        */
       public Builder clearOptions() {
@@ -23147,6 +27934,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * опции
+       * </pre>
+       *
        * <code>.catalog_api_v2.AttributeOption options = 4;</code>
        */
       public catalog_api_v2.CatalogApiV2.AttributeOption.Builder getOptionsBuilder() {
@@ -23155,6 +27946,10 @@ public final class CatalogApiV2 {
         return getOptionsFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * опции
+       * </pre>
+       *
        * <code>.catalog_api_v2.AttributeOption options = 4;</code>
        */
       public catalog_api_v2.CatalogApiV2.AttributeOptionOrBuilder getOptionsOrBuilder() {
@@ -23166,6 +27961,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * опции
+       * </pre>
+       *
        * <code>.catalog_api_v2.AttributeOption options = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -23239,16 +28038,28 @@ public final class CatalogApiV2 {
       com.google.protobuf.MessageOrBuilder {
 
     /**
+     * <pre>
+     * активность
+     * </pre>
+     *
      * <code>.catalog_api_v2.Active active = 1;</code>
      * @return Whether the active field is set.
      */
     boolean hasActive();
     /**
+     * <pre>
+     * активность
+     * </pre>
+     *
      * <code>.catalog_api_v2.Active active = 1;</code>
      * @return The active.
      */
     catalog_api_v2.CatalogApiV2.Active getActive();
     /**
+     * <pre>
+     * активность
+     * </pre>
+     *
      * <code>.catalog_api_v2.Active active = 1;</code>
      */
     catalog_api_v2.CatalogApiV2.ActiveOrBuilder getActiveOrBuilder();
@@ -23269,6 +28080,11 @@ public final class CatalogApiV2 {
     catalog_api_v2.CatalogApiV2.InactiveOrBuilder getInactiveOrBuilder();
   }
   /**
+   * <pre>
+   **
+   * Опции
+   * </pre>
+   *
    * Protobuf type {@code catalog_api_v2.AttributeOption}
    */
   public static final class AttributeOption extends
@@ -23374,6 +28190,10 @@ public final class CatalogApiV2 {
     public static final int ACTIVE_FIELD_NUMBER = 1;
     private catalog_api_v2.CatalogApiV2.Active active_;
     /**
+     * <pre>
+     * активность
+     * </pre>
+     *
      * <code>.catalog_api_v2.Active active = 1;</code>
      * @return Whether the active field is set.
      */
@@ -23382,6 +28202,10 @@ public final class CatalogApiV2 {
       return active_ != null;
     }
     /**
+     * <pre>
+     * активность
+     * </pre>
+     *
      * <code>.catalog_api_v2.Active active = 1;</code>
      * @return The active.
      */
@@ -23390,6 +28214,10 @@ public final class CatalogApiV2 {
       return active_ == null ? catalog_api_v2.CatalogApiV2.Active.getDefaultInstance() : active_;
     }
     /**
+     * <pre>
+     * активность
+     * </pre>
+     *
      * <code>.catalog_api_v2.Active active = 1;</code>
      */
     @java.lang.Override
@@ -23600,6 +28428,11 @@ public final class CatalogApiV2 {
       return builder;
     }
     /**
+     * <pre>
+     **
+     * Опции
+     * </pre>
+     *
      * Protobuf type {@code catalog_api_v2.AttributeOption}
      */
     public static final class Builder extends
@@ -23772,6 +28605,10 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           catalog_api_v2.CatalogApiV2.Active, catalog_api_v2.CatalogApiV2.Active.Builder, catalog_api_v2.CatalogApiV2.ActiveOrBuilder> activeBuilder_;
       /**
+       * <pre>
+       * активность
+       * </pre>
+       *
        * <code>.catalog_api_v2.Active active = 1;</code>
        * @return Whether the active field is set.
        */
@@ -23779,6 +28616,10 @@ public final class CatalogApiV2 {
         return activeBuilder_ != null || active_ != null;
       }
       /**
+       * <pre>
+       * активность
+       * </pre>
+       *
        * <code>.catalog_api_v2.Active active = 1;</code>
        * @return The active.
        */
@@ -23790,6 +28631,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * активность
+       * </pre>
+       *
        * <code>.catalog_api_v2.Active active = 1;</code>
        */
       public Builder setActive(catalog_api_v2.CatalogApiV2.Active value) {
@@ -23806,6 +28651,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * активность
+       * </pre>
+       *
        * <code>.catalog_api_v2.Active active = 1;</code>
        */
       public Builder setActive(
@@ -23820,6 +28669,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * активность
+       * </pre>
+       *
        * <code>.catalog_api_v2.Active active = 1;</code>
        */
       public Builder mergeActive(catalog_api_v2.CatalogApiV2.Active value) {
@@ -23838,6 +28691,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * активность
+       * </pre>
+       *
        * <code>.catalog_api_v2.Active active = 1;</code>
        */
       public Builder clearActive() {
@@ -23852,6 +28709,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * активность
+       * </pre>
+       *
        * <code>.catalog_api_v2.Active active = 1;</code>
        */
       public catalog_api_v2.CatalogApiV2.Active.Builder getActiveBuilder() {
@@ -23860,6 +28721,10 @@ public final class CatalogApiV2 {
         return getActiveFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * активность
+       * </pre>
+       *
        * <code>.catalog_api_v2.Active active = 1;</code>
        */
       public catalog_api_v2.CatalogApiV2.ActiveOrBuilder getActiveOrBuilder() {
@@ -23871,6 +28736,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * активность
+       * </pre>
+       *
        * <code>.catalog_api_v2.Active active = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -24147,6 +29016,11 @@ public final class CatalogApiV2 {
         getTextBytes();
   }
   /**
+   * <pre>
+   **
+   * Для активной кнопки
+   * </pre>
+   *
    * Protobuf type {@code catalog_api_v2.Active}
    */
   public static final class Active extends
@@ -24753,6 +29627,11 @@ public final class CatalogApiV2 {
       return builder;
     }
     /**
+     * <pre>
+     **
+     * Для активной кнопки
+     * </pre>
+     *
      * Protobuf type {@code catalog_api_v2.Active}
      */
     public static final class Builder extends
@@ -25603,6 +30482,11 @@ public final class CatalogApiV2 {
         getTextBytes();
   }
   /**
+   * <pre>
+   **
+   * Для деактивированное кнопки
+   * </pre>
+   *
    * Protobuf type {@code catalog_api_v2.Inactive}
    */
   public static final class Inactive extends
@@ -26154,6 +31038,11 @@ public final class CatalogApiV2 {
       return builder;
     }
     /**
+     * <pre>
+     **
+     * Для деактивированное кнопки
+     * </pre>
+     *
      * Protobuf type {@code catalog_api_v2.Inactive}
      */
     public static final class Builder extends
@@ -26849,51 +31738,92 @@ public final class CatalogApiV2 {
       com.google.protobuf.MessageOrBuilder {
 
     /**
+     * <pre>
+     * кол-во отзывов
+     * </pre>
+     *
      * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
      * @return Whether the feedbackCount field is set.
      */
     boolean hasFeedbackCount();
     /**
+     * <pre>
+     * кол-во отзывов
+     * </pre>
+     *
      * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
      * @return The feedbackCount.
      */
     com.google.protobuf.DoubleValue getFeedbackCount();
     /**
+     * <pre>
+     * кол-во отзывов
+     * </pre>
+     *
      * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
      */
     com.google.protobuf.DoubleValueOrBuilder getFeedbackCountOrBuilder();
 
     /**
+     * <pre>
+     * имя ресурса
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
      * @return Whether the feedbackSource field is set.
      */
     boolean hasFeedbackSource();
     /**
+     * <pre>
+     * имя ресурса
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
      * @return The feedbackSource.
      */
     com.google.protobuf.StringValue getFeedbackSource();
     /**
+     * <pre>
+     * имя ресурса
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
      */
     com.google.protobuf.StringValueOrBuilder getFeedbackSourceOrBuilder();
 
     /**
+     * <pre>
+     * кол-во комментариев
+     * </pre>
+     *
      * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
      * @return Whether the commentCount field is set.
      */
     boolean hasCommentCount();
     /**
+     * <pre>
+     * кол-во комментариев
+     * </pre>
+     *
      * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
      * @return The commentCount.
      */
     com.google.protobuf.DoubleValue getCommentCount();
     /**
+     * <pre>
+     * кол-во комментариев
+     * </pre>
+     *
      * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
      */
     com.google.protobuf.DoubleValueOrBuilder getCommentCountOrBuilder();
   }
   /**
+   * <pre>
+   **
+   * Рейтинг товара
+   * </pre>
+   *
    * Protobuf type {@code catalog_api_v2.ScoreDetail}
    */
   public static final class ScoreDetail extends
@@ -27012,6 +31942,10 @@ public final class CatalogApiV2 {
     public static final int FEEDBACKCOUNT_FIELD_NUMBER = 1;
     private com.google.protobuf.DoubleValue feedbackCount_;
     /**
+     * <pre>
+     * кол-во отзывов
+     * </pre>
+     *
      * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
      * @return Whether the feedbackCount field is set.
      */
@@ -27020,6 +31954,10 @@ public final class CatalogApiV2 {
       return feedbackCount_ != null;
     }
     /**
+     * <pre>
+     * кол-во отзывов
+     * </pre>
+     *
      * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
      * @return The feedbackCount.
      */
@@ -27028,6 +31966,10 @@ public final class CatalogApiV2 {
       return feedbackCount_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : feedbackCount_;
     }
     /**
+     * <pre>
+     * кол-во отзывов
+     * </pre>
+     *
      * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
      */
     @java.lang.Override
@@ -27038,6 +31980,10 @@ public final class CatalogApiV2 {
     public static final int FEEDBACKSOURCE_FIELD_NUMBER = 2;
     private com.google.protobuf.StringValue feedbackSource_;
     /**
+     * <pre>
+     * имя ресурса
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
      * @return Whether the feedbackSource field is set.
      */
@@ -27046,6 +31992,10 @@ public final class CatalogApiV2 {
       return feedbackSource_ != null;
     }
     /**
+     * <pre>
+     * имя ресурса
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
      * @return The feedbackSource.
      */
@@ -27054,6 +32004,10 @@ public final class CatalogApiV2 {
       return feedbackSource_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : feedbackSource_;
     }
     /**
+     * <pre>
+     * имя ресурса
+     * </pre>
+     *
      * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
      */
     @java.lang.Override
@@ -27064,6 +32018,10 @@ public final class CatalogApiV2 {
     public static final int COMMENTCOUNT_FIELD_NUMBER = 3;
     private com.google.protobuf.DoubleValue commentCount_;
     /**
+     * <pre>
+     * кол-во комментариев
+     * </pre>
+     *
      * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
      * @return Whether the commentCount field is set.
      */
@@ -27072,6 +32030,10 @@ public final class CatalogApiV2 {
       return commentCount_ != null;
     }
     /**
+     * <pre>
+     * кол-во комментариев
+     * </pre>
+     *
      * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
      * @return The commentCount.
      */
@@ -27080,6 +32042,10 @@ public final class CatalogApiV2 {
       return commentCount_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : commentCount_;
     }
     /**
+     * <pre>
+     * кол-во комментариев
+     * </pre>
+     *
      * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
      */
     @java.lang.Override
@@ -27280,6 +32246,11 @@ public final class CatalogApiV2 {
       return builder;
     }
     /**
+     * <pre>
+     **
+     * Рейтинг товара
+     * </pre>
+     *
      * Protobuf type {@code catalog_api_v2.ScoreDetail}
      */
     public static final class Builder extends
@@ -27466,6 +32437,10 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> feedbackCountBuilder_;
       /**
+       * <pre>
+       * кол-во отзывов
+       * </pre>
+       *
        * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
        * @return Whether the feedbackCount field is set.
        */
@@ -27473,6 +32448,10 @@ public final class CatalogApiV2 {
         return feedbackCountBuilder_ != null || feedbackCount_ != null;
       }
       /**
+       * <pre>
+       * кол-во отзывов
+       * </pre>
+       *
        * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
        * @return The feedbackCount.
        */
@@ -27484,6 +32463,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * кол-во отзывов
+       * </pre>
+       *
        * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
        */
       public Builder setFeedbackCount(com.google.protobuf.DoubleValue value) {
@@ -27500,6 +32483,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * кол-во отзывов
+       * </pre>
+       *
        * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
        */
       public Builder setFeedbackCount(
@@ -27514,6 +32501,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * кол-во отзывов
+       * </pre>
+       *
        * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
        */
       public Builder mergeFeedbackCount(com.google.protobuf.DoubleValue value) {
@@ -27532,6 +32523,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * кол-во отзывов
+       * </pre>
+       *
        * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
        */
       public Builder clearFeedbackCount() {
@@ -27546,6 +32541,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * кол-во отзывов
+       * </pre>
+       *
        * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
        */
       public com.google.protobuf.DoubleValue.Builder getFeedbackCountBuilder() {
@@ -27554,6 +32553,10 @@ public final class CatalogApiV2 {
         return getFeedbackCountFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * кол-во отзывов
+       * </pre>
+       *
        * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
        */
       public com.google.protobuf.DoubleValueOrBuilder getFeedbackCountOrBuilder() {
@@ -27565,6 +32568,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * кол-во отзывов
+       * </pre>
+       *
        * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -27585,6 +32592,10 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> feedbackSourceBuilder_;
       /**
+       * <pre>
+       * имя ресурса
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
        * @return Whether the feedbackSource field is set.
        */
@@ -27592,6 +32603,10 @@ public final class CatalogApiV2 {
         return feedbackSourceBuilder_ != null || feedbackSource_ != null;
       }
       /**
+       * <pre>
+       * имя ресурса
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
        * @return The feedbackSource.
        */
@@ -27603,6 +32618,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * имя ресурса
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
        */
       public Builder setFeedbackSource(com.google.protobuf.StringValue value) {
@@ -27619,6 +32638,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * имя ресурса
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
        */
       public Builder setFeedbackSource(
@@ -27633,6 +32656,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * имя ресурса
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
        */
       public Builder mergeFeedbackSource(com.google.protobuf.StringValue value) {
@@ -27651,6 +32678,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * имя ресурса
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
        */
       public Builder clearFeedbackSource() {
@@ -27665,6 +32696,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * имя ресурса
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
        */
       public com.google.protobuf.StringValue.Builder getFeedbackSourceBuilder() {
@@ -27673,6 +32708,10 @@ public final class CatalogApiV2 {
         return getFeedbackSourceFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * имя ресурса
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
        */
       public com.google.protobuf.StringValueOrBuilder getFeedbackSourceOrBuilder() {
@@ -27684,6 +32723,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * имя ресурса
+       * </pre>
+       *
        * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -27704,6 +32747,10 @@ public final class CatalogApiV2 {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> commentCountBuilder_;
       /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
        * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
        * @return Whether the commentCount field is set.
        */
@@ -27711,6 +32758,10 @@ public final class CatalogApiV2 {
         return commentCountBuilder_ != null || commentCount_ != null;
       }
       /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
        * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
        * @return The commentCount.
        */
@@ -27722,6 +32773,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
        * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
        */
       public Builder setCommentCount(com.google.protobuf.DoubleValue value) {
@@ -27738,6 +32793,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
        * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
        */
       public Builder setCommentCount(
@@ -27752,6 +32811,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
        * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
        */
       public Builder mergeCommentCount(com.google.protobuf.DoubleValue value) {
@@ -27770,6 +32833,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
        * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
        */
       public Builder clearCommentCount() {
@@ -27784,6 +32851,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
        * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
        */
       public com.google.protobuf.DoubleValue.Builder getCommentCountBuilder() {
@@ -27792,6 +32863,10 @@ public final class CatalogApiV2 {
         return getCommentCountFieldBuilder().getBuilder();
       }
       /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
        * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
        */
       public com.google.protobuf.DoubleValueOrBuilder getCommentCountOrBuilder() {
@@ -27803,6 +32878,10 @@ public final class CatalogApiV2 {
         }
       }
       /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
        * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -28019,6 +33098,11 @@ public final class CatalogApiV2 {
         getRequirementsBytes(int index);
   }
   /**
+   * <pre>
+   **
+   * Главная категория
+   * </pre>
+   *
    * Protobuf type {@code catalog_api_v2.MainTaxon}
    */
   public static final class MainTaxon extends
@@ -28760,6 +33844,11 @@ public final class CatalogApiV2 {
       return builder;
     }
     /**
+     * <pre>
+     **
+     * Главная категория
+     * </pre>
+     *
      * Protobuf type {@code catalog_api_v2.MainTaxon}
      */
     public static final class Builder extends
@@ -29950,6 +35039,11 @@ public final class CatalogApiV2 {
         getNormalUrlBytes();
   }
   /**
+   * <pre>
+   **
+   * Иконка главной категории
+   * </pre>
+   *
    * Protobuf type {@code catalog_api_v2.Icon}
    */
   public static final class Icon extends
@@ -30281,6 +35375,11 @@ public final class CatalogApiV2 {
       return builder;
     }
     /**
+     * <pre>
+     **
+     * Иконка главной категории
+     * </pre>
+     *
      * Protobuf type {@code catalog_api_v2.Icon}
      */
     public static final class Builder extends
@@ -30639,1246 +35738,6 @@ public final class CatalogApiV2 {
 
   }
 
-  public interface ProtoPersonOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:catalog_api_v2.ProtoPerson)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>.google.protobuf.StringValue firstName = 1;</code>
-     * @return Whether the firstName field is set.
-     */
-    boolean hasFirstName();
-    /**
-     * <code>.google.protobuf.StringValue firstName = 1;</code>
-     * @return The firstName.
-     */
-    com.google.protobuf.StringValue getFirstName();
-    /**
-     * <code>.google.protobuf.StringValue firstName = 1;</code>
-     */
-    com.google.protobuf.StringValueOrBuilder getFirstNameOrBuilder();
-
-    /**
-     * <code>.google.protobuf.StringValue lastName = 2;</code>
-     * @return Whether the lastName field is set.
-     */
-    boolean hasLastName();
-    /**
-     * <code>.google.protobuf.StringValue lastName = 2;</code>
-     * @return The lastName.
-     */
-    com.google.protobuf.StringValue getLastName();
-    /**
-     * <code>.google.protobuf.StringValue lastName = 2;</code>
-     */
-    com.google.protobuf.StringValueOrBuilder getLastNameOrBuilder();
-
-    /**
-     * <code>.google.protobuf.StringValue address1 = 3;</code>
-     * @return Whether the address1 field is set.
-     */
-    boolean hasAddress1();
-    /**
-     * <code>.google.protobuf.StringValue address1 = 3;</code>
-     * @return The address1.
-     */
-    com.google.protobuf.StringValue getAddress1();
-    /**
-     * <code>.google.protobuf.StringValue address1 = 3;</code>
-     */
-    com.google.protobuf.StringValueOrBuilder getAddress1OrBuilder();
-
-    /**
-     * <code>.google.protobuf.Int32Value age = 4;</code>
-     * @return Whether the age field is set.
-     */
-    boolean hasAge();
-    /**
-     * <code>.google.protobuf.Int32Value age = 4;</code>
-     * @return The age.
-     */
-    com.google.protobuf.Int32Value getAge();
-    /**
-     * <code>.google.protobuf.Int32Value age = 4;</code>
-     */
-    com.google.protobuf.Int32ValueOrBuilder getAgeOrBuilder();
-  }
-  /**
-   * Protobuf type {@code catalog_api_v2.ProtoPerson}
-   */
-  public static final class ProtoPerson extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:catalog_api_v2.ProtoPerson)
-      ProtoPersonOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use ProtoPerson.newBuilder() to construct.
-    private ProtoPerson(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private ProtoPerson() {
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new ProtoPerson();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private ProtoPerson(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              com.google.protobuf.StringValue.Builder subBuilder = null;
-              if (firstName_ != null) {
-                subBuilder = firstName_.toBuilder();
-              }
-              firstName_ = input.readMessage(com.google.protobuf.StringValue.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(firstName_);
-                firstName_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            case 18: {
-              com.google.protobuf.StringValue.Builder subBuilder = null;
-              if (lastName_ != null) {
-                subBuilder = lastName_.toBuilder();
-              }
-              lastName_ = input.readMessage(com.google.protobuf.StringValue.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(lastName_);
-                lastName_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            case 26: {
-              com.google.protobuf.StringValue.Builder subBuilder = null;
-              if (address1_ != null) {
-                subBuilder = address1_.toBuilder();
-              }
-              address1_ = input.readMessage(com.google.protobuf.StringValue.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(address1_);
-                address1_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            case 34: {
-              com.google.protobuf.Int32Value.Builder subBuilder = null;
-              if (age_ != null) {
-                subBuilder = age_.toBuilder();
-              }
-              age_ = input.readMessage(com.google.protobuf.Int32Value.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(age_);
-                age_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ProtoPerson_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ProtoPerson_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              catalog_api_v2.CatalogApiV2.ProtoPerson.class, catalog_api_v2.CatalogApiV2.ProtoPerson.Builder.class);
-    }
-
-    public static final int FIRSTNAME_FIELD_NUMBER = 1;
-    private com.google.protobuf.StringValue firstName_;
-    /**
-     * <code>.google.protobuf.StringValue firstName = 1;</code>
-     * @return Whether the firstName field is set.
-     */
-    @java.lang.Override
-    public boolean hasFirstName() {
-      return firstName_ != null;
-    }
-    /**
-     * <code>.google.protobuf.StringValue firstName = 1;</code>
-     * @return The firstName.
-     */
-    @java.lang.Override
-    public com.google.protobuf.StringValue getFirstName() {
-      return firstName_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : firstName_;
-    }
-    /**
-     * <code>.google.protobuf.StringValue firstName = 1;</code>
-     */
-    @java.lang.Override
-    public com.google.protobuf.StringValueOrBuilder getFirstNameOrBuilder() {
-      return getFirstName();
-    }
-
-    public static final int LASTNAME_FIELD_NUMBER = 2;
-    private com.google.protobuf.StringValue lastName_;
-    /**
-     * <code>.google.protobuf.StringValue lastName = 2;</code>
-     * @return Whether the lastName field is set.
-     */
-    @java.lang.Override
-    public boolean hasLastName() {
-      return lastName_ != null;
-    }
-    /**
-     * <code>.google.protobuf.StringValue lastName = 2;</code>
-     * @return The lastName.
-     */
-    @java.lang.Override
-    public com.google.protobuf.StringValue getLastName() {
-      return lastName_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : lastName_;
-    }
-    /**
-     * <code>.google.protobuf.StringValue lastName = 2;</code>
-     */
-    @java.lang.Override
-    public com.google.protobuf.StringValueOrBuilder getLastNameOrBuilder() {
-      return getLastName();
-    }
-
-    public static final int ADDRESS1_FIELD_NUMBER = 3;
-    private com.google.protobuf.StringValue address1_;
-    /**
-     * <code>.google.protobuf.StringValue address1 = 3;</code>
-     * @return Whether the address1 field is set.
-     */
-    @java.lang.Override
-    public boolean hasAddress1() {
-      return address1_ != null;
-    }
-    /**
-     * <code>.google.protobuf.StringValue address1 = 3;</code>
-     * @return The address1.
-     */
-    @java.lang.Override
-    public com.google.protobuf.StringValue getAddress1() {
-      return address1_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : address1_;
-    }
-    /**
-     * <code>.google.protobuf.StringValue address1 = 3;</code>
-     */
-    @java.lang.Override
-    public com.google.protobuf.StringValueOrBuilder getAddress1OrBuilder() {
-      return getAddress1();
-    }
-
-    public static final int AGE_FIELD_NUMBER = 4;
-    private com.google.protobuf.Int32Value age_;
-    /**
-     * <code>.google.protobuf.Int32Value age = 4;</code>
-     * @return Whether the age field is set.
-     */
-    @java.lang.Override
-    public boolean hasAge() {
-      return age_ != null;
-    }
-    /**
-     * <code>.google.protobuf.Int32Value age = 4;</code>
-     * @return The age.
-     */
-    @java.lang.Override
-    public com.google.protobuf.Int32Value getAge() {
-      return age_ == null ? com.google.protobuf.Int32Value.getDefaultInstance() : age_;
-    }
-    /**
-     * <code>.google.protobuf.Int32Value age = 4;</code>
-     */
-    @java.lang.Override
-    public com.google.protobuf.Int32ValueOrBuilder getAgeOrBuilder() {
-      return getAge();
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (firstName_ != null) {
-        output.writeMessage(1, getFirstName());
-      }
-      if (lastName_ != null) {
-        output.writeMessage(2, getLastName());
-      }
-      if (address1_ != null) {
-        output.writeMessage(3, getAddress1());
-      }
-      if (age_ != null) {
-        output.writeMessage(4, getAge());
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (firstName_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getFirstName());
-      }
-      if (lastName_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getLastName());
-      }
-      if (address1_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, getAddress1());
-      }
-      if (age_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, getAge());
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof catalog_api_v2.CatalogApiV2.ProtoPerson)) {
-        return super.equals(obj);
-      }
-      catalog_api_v2.CatalogApiV2.ProtoPerson other = (catalog_api_v2.CatalogApiV2.ProtoPerson) obj;
-
-      if (hasFirstName() != other.hasFirstName()) return false;
-      if (hasFirstName()) {
-        if (!getFirstName()
-            .equals(other.getFirstName())) return false;
-      }
-      if (hasLastName() != other.hasLastName()) return false;
-      if (hasLastName()) {
-        if (!getLastName()
-            .equals(other.getLastName())) return false;
-      }
-      if (hasAddress1() != other.hasAddress1()) return false;
-      if (hasAddress1()) {
-        if (!getAddress1()
-            .equals(other.getAddress1())) return false;
-      }
-      if (hasAge() != other.hasAge()) return false;
-      if (hasAge()) {
-        if (!getAge()
-            .equals(other.getAge())) return false;
-      }
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasFirstName()) {
-        hash = (37 * hash) + FIRSTNAME_FIELD_NUMBER;
-        hash = (53 * hash) + getFirstName().hashCode();
-      }
-      if (hasLastName()) {
-        hash = (37 * hash) + LASTNAME_FIELD_NUMBER;
-        hash = (53 * hash) + getLastName().hashCode();
-      }
-      if (hasAddress1()) {
-        hash = (37 * hash) + ADDRESS1_FIELD_NUMBER;
-        hash = (53 * hash) + getAddress1().hashCode();
-      }
-      if (hasAge()) {
-        hash = (37 * hash) + AGE_FIELD_NUMBER;
-        hash = (53 * hash) + getAge().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static catalog_api_v2.CatalogApiV2.ProtoPerson parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProtoPerson parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProtoPerson parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProtoPerson parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProtoPerson parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProtoPerson parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProtoPerson parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProtoPerson parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProtoPerson parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProtoPerson parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProtoPerson parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static catalog_api_v2.CatalogApiV2.ProtoPerson parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(catalog_api_v2.CatalogApiV2.ProtoPerson prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code catalog_api_v2.ProtoPerson}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:catalog_api_v2.ProtoPerson)
-        catalog_api_v2.CatalogApiV2.ProtoPersonOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ProtoPerson_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ProtoPerson_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                catalog_api_v2.CatalogApiV2.ProtoPerson.class, catalog_api_v2.CatalogApiV2.ProtoPerson.Builder.class);
-      }
-
-      // Construct using catalog_api_v2.CatalogApiV2.ProtoPerson.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        if (firstNameBuilder_ == null) {
-          firstName_ = null;
-        } else {
-          firstName_ = null;
-          firstNameBuilder_ = null;
-        }
-        if (lastNameBuilder_ == null) {
-          lastName_ = null;
-        } else {
-          lastName_ = null;
-          lastNameBuilder_ = null;
-        }
-        if (address1Builder_ == null) {
-          address1_ = null;
-        } else {
-          address1_ = null;
-          address1Builder_ = null;
-        }
-        if (ageBuilder_ == null) {
-          age_ = null;
-        } else {
-          age_ = null;
-          ageBuilder_ = null;
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ProtoPerson_descriptor;
-      }
-
-      @java.lang.Override
-      public catalog_api_v2.CatalogApiV2.ProtoPerson getDefaultInstanceForType() {
-        return catalog_api_v2.CatalogApiV2.ProtoPerson.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public catalog_api_v2.CatalogApiV2.ProtoPerson build() {
-        catalog_api_v2.CatalogApiV2.ProtoPerson result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public catalog_api_v2.CatalogApiV2.ProtoPerson buildPartial() {
-        catalog_api_v2.CatalogApiV2.ProtoPerson result = new catalog_api_v2.CatalogApiV2.ProtoPerson(this);
-        if (firstNameBuilder_ == null) {
-          result.firstName_ = firstName_;
-        } else {
-          result.firstName_ = firstNameBuilder_.build();
-        }
-        if (lastNameBuilder_ == null) {
-          result.lastName_ = lastName_;
-        } else {
-          result.lastName_ = lastNameBuilder_.build();
-        }
-        if (address1Builder_ == null) {
-          result.address1_ = address1_;
-        } else {
-          result.address1_ = address1Builder_.build();
-        }
-        if (ageBuilder_ == null) {
-          result.age_ = age_;
-        } else {
-          result.age_ = ageBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof catalog_api_v2.CatalogApiV2.ProtoPerson) {
-          return mergeFrom((catalog_api_v2.CatalogApiV2.ProtoPerson)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(catalog_api_v2.CatalogApiV2.ProtoPerson other) {
-        if (other == catalog_api_v2.CatalogApiV2.ProtoPerson.getDefaultInstance()) return this;
-        if (other.hasFirstName()) {
-          mergeFirstName(other.getFirstName());
-        }
-        if (other.hasLastName()) {
-          mergeLastName(other.getLastName());
-        }
-        if (other.hasAddress1()) {
-          mergeAddress1(other.getAddress1());
-        }
-        if (other.hasAge()) {
-          mergeAge(other.getAge());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        catalog_api_v2.CatalogApiV2.ProtoPerson parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (catalog_api_v2.CatalogApiV2.ProtoPerson) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private com.google.protobuf.StringValue firstName_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> firstNameBuilder_;
-      /**
-       * <code>.google.protobuf.StringValue firstName = 1;</code>
-       * @return Whether the firstName field is set.
-       */
-      public boolean hasFirstName() {
-        return firstNameBuilder_ != null || firstName_ != null;
-      }
-      /**
-       * <code>.google.protobuf.StringValue firstName = 1;</code>
-       * @return The firstName.
-       */
-      public com.google.protobuf.StringValue getFirstName() {
-        if (firstNameBuilder_ == null) {
-          return firstName_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : firstName_;
-        } else {
-          return firstNameBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.google.protobuf.StringValue firstName = 1;</code>
-       */
-      public Builder setFirstName(com.google.protobuf.StringValue value) {
-        if (firstNameBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          firstName_ = value;
-          onChanged();
-        } else {
-          firstNameBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.StringValue firstName = 1;</code>
-       */
-      public Builder setFirstName(
-          com.google.protobuf.StringValue.Builder builderForValue) {
-        if (firstNameBuilder_ == null) {
-          firstName_ = builderForValue.build();
-          onChanged();
-        } else {
-          firstNameBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.StringValue firstName = 1;</code>
-       */
-      public Builder mergeFirstName(com.google.protobuf.StringValue value) {
-        if (firstNameBuilder_ == null) {
-          if (firstName_ != null) {
-            firstName_ =
-              com.google.protobuf.StringValue.newBuilder(firstName_).mergeFrom(value).buildPartial();
-          } else {
-            firstName_ = value;
-          }
-          onChanged();
-        } else {
-          firstNameBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.StringValue firstName = 1;</code>
-       */
-      public Builder clearFirstName() {
-        if (firstNameBuilder_ == null) {
-          firstName_ = null;
-          onChanged();
-        } else {
-          firstName_ = null;
-          firstNameBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.StringValue firstName = 1;</code>
-       */
-      public com.google.protobuf.StringValue.Builder getFirstNameBuilder() {
-        
-        onChanged();
-        return getFirstNameFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.google.protobuf.StringValue firstName = 1;</code>
-       */
-      public com.google.protobuf.StringValueOrBuilder getFirstNameOrBuilder() {
-        if (firstNameBuilder_ != null) {
-          return firstNameBuilder_.getMessageOrBuilder();
-        } else {
-          return firstName_ == null ?
-              com.google.protobuf.StringValue.getDefaultInstance() : firstName_;
-        }
-      }
-      /**
-       * <code>.google.protobuf.StringValue firstName = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> 
-          getFirstNameFieldBuilder() {
-        if (firstNameBuilder_ == null) {
-          firstNameBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder>(
-                  getFirstName(),
-                  getParentForChildren(),
-                  isClean());
-          firstName_ = null;
-        }
-        return firstNameBuilder_;
-      }
-
-      private com.google.protobuf.StringValue lastName_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> lastNameBuilder_;
-      /**
-       * <code>.google.protobuf.StringValue lastName = 2;</code>
-       * @return Whether the lastName field is set.
-       */
-      public boolean hasLastName() {
-        return lastNameBuilder_ != null || lastName_ != null;
-      }
-      /**
-       * <code>.google.protobuf.StringValue lastName = 2;</code>
-       * @return The lastName.
-       */
-      public com.google.protobuf.StringValue getLastName() {
-        if (lastNameBuilder_ == null) {
-          return lastName_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : lastName_;
-        } else {
-          return lastNameBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.google.protobuf.StringValue lastName = 2;</code>
-       */
-      public Builder setLastName(com.google.protobuf.StringValue value) {
-        if (lastNameBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          lastName_ = value;
-          onChanged();
-        } else {
-          lastNameBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.StringValue lastName = 2;</code>
-       */
-      public Builder setLastName(
-          com.google.protobuf.StringValue.Builder builderForValue) {
-        if (lastNameBuilder_ == null) {
-          lastName_ = builderForValue.build();
-          onChanged();
-        } else {
-          lastNameBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.StringValue lastName = 2;</code>
-       */
-      public Builder mergeLastName(com.google.protobuf.StringValue value) {
-        if (lastNameBuilder_ == null) {
-          if (lastName_ != null) {
-            lastName_ =
-              com.google.protobuf.StringValue.newBuilder(lastName_).mergeFrom(value).buildPartial();
-          } else {
-            lastName_ = value;
-          }
-          onChanged();
-        } else {
-          lastNameBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.StringValue lastName = 2;</code>
-       */
-      public Builder clearLastName() {
-        if (lastNameBuilder_ == null) {
-          lastName_ = null;
-          onChanged();
-        } else {
-          lastName_ = null;
-          lastNameBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.StringValue lastName = 2;</code>
-       */
-      public com.google.protobuf.StringValue.Builder getLastNameBuilder() {
-        
-        onChanged();
-        return getLastNameFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.google.protobuf.StringValue lastName = 2;</code>
-       */
-      public com.google.protobuf.StringValueOrBuilder getLastNameOrBuilder() {
-        if (lastNameBuilder_ != null) {
-          return lastNameBuilder_.getMessageOrBuilder();
-        } else {
-          return lastName_ == null ?
-              com.google.protobuf.StringValue.getDefaultInstance() : lastName_;
-        }
-      }
-      /**
-       * <code>.google.protobuf.StringValue lastName = 2;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> 
-          getLastNameFieldBuilder() {
-        if (lastNameBuilder_ == null) {
-          lastNameBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder>(
-                  getLastName(),
-                  getParentForChildren(),
-                  isClean());
-          lastName_ = null;
-        }
-        return lastNameBuilder_;
-      }
-
-      private com.google.protobuf.StringValue address1_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> address1Builder_;
-      /**
-       * <code>.google.protobuf.StringValue address1 = 3;</code>
-       * @return Whether the address1 field is set.
-       */
-      public boolean hasAddress1() {
-        return address1Builder_ != null || address1_ != null;
-      }
-      /**
-       * <code>.google.protobuf.StringValue address1 = 3;</code>
-       * @return The address1.
-       */
-      public com.google.protobuf.StringValue getAddress1() {
-        if (address1Builder_ == null) {
-          return address1_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : address1_;
-        } else {
-          return address1Builder_.getMessage();
-        }
-      }
-      /**
-       * <code>.google.protobuf.StringValue address1 = 3;</code>
-       */
-      public Builder setAddress1(com.google.protobuf.StringValue value) {
-        if (address1Builder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          address1_ = value;
-          onChanged();
-        } else {
-          address1Builder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.StringValue address1 = 3;</code>
-       */
-      public Builder setAddress1(
-          com.google.protobuf.StringValue.Builder builderForValue) {
-        if (address1Builder_ == null) {
-          address1_ = builderForValue.build();
-          onChanged();
-        } else {
-          address1Builder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.StringValue address1 = 3;</code>
-       */
-      public Builder mergeAddress1(com.google.protobuf.StringValue value) {
-        if (address1Builder_ == null) {
-          if (address1_ != null) {
-            address1_ =
-              com.google.protobuf.StringValue.newBuilder(address1_).mergeFrom(value).buildPartial();
-          } else {
-            address1_ = value;
-          }
-          onChanged();
-        } else {
-          address1Builder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.StringValue address1 = 3;</code>
-       */
-      public Builder clearAddress1() {
-        if (address1Builder_ == null) {
-          address1_ = null;
-          onChanged();
-        } else {
-          address1_ = null;
-          address1Builder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.StringValue address1 = 3;</code>
-       */
-      public com.google.protobuf.StringValue.Builder getAddress1Builder() {
-        
-        onChanged();
-        return getAddress1FieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.google.protobuf.StringValue address1 = 3;</code>
-       */
-      public com.google.protobuf.StringValueOrBuilder getAddress1OrBuilder() {
-        if (address1Builder_ != null) {
-          return address1Builder_.getMessageOrBuilder();
-        } else {
-          return address1_ == null ?
-              com.google.protobuf.StringValue.getDefaultInstance() : address1_;
-        }
-      }
-      /**
-       * <code>.google.protobuf.StringValue address1 = 3;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> 
-          getAddress1FieldBuilder() {
-        if (address1Builder_ == null) {
-          address1Builder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder>(
-                  getAddress1(),
-                  getParentForChildren(),
-                  isClean());
-          address1_ = null;
-        }
-        return address1Builder_;
-      }
-
-      private com.google.protobuf.Int32Value age_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Int32Value, com.google.protobuf.Int32Value.Builder, com.google.protobuf.Int32ValueOrBuilder> ageBuilder_;
-      /**
-       * <code>.google.protobuf.Int32Value age = 4;</code>
-       * @return Whether the age field is set.
-       */
-      public boolean hasAge() {
-        return ageBuilder_ != null || age_ != null;
-      }
-      /**
-       * <code>.google.protobuf.Int32Value age = 4;</code>
-       * @return The age.
-       */
-      public com.google.protobuf.Int32Value getAge() {
-        if (ageBuilder_ == null) {
-          return age_ == null ? com.google.protobuf.Int32Value.getDefaultInstance() : age_;
-        } else {
-          return ageBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>.google.protobuf.Int32Value age = 4;</code>
-       */
-      public Builder setAge(com.google.protobuf.Int32Value value) {
-        if (ageBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          age_ = value;
-          onChanged();
-        } else {
-          ageBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Int32Value age = 4;</code>
-       */
-      public Builder setAge(
-          com.google.protobuf.Int32Value.Builder builderForValue) {
-        if (ageBuilder_ == null) {
-          age_ = builderForValue.build();
-          onChanged();
-        } else {
-          ageBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Int32Value age = 4;</code>
-       */
-      public Builder mergeAge(com.google.protobuf.Int32Value value) {
-        if (ageBuilder_ == null) {
-          if (age_ != null) {
-            age_ =
-              com.google.protobuf.Int32Value.newBuilder(age_).mergeFrom(value).buildPartial();
-          } else {
-            age_ = value;
-          }
-          onChanged();
-        } else {
-          ageBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Int32Value age = 4;</code>
-       */
-      public Builder clearAge() {
-        if (ageBuilder_ == null) {
-          age_ = null;
-          onChanged();
-        } else {
-          age_ = null;
-          ageBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>.google.protobuf.Int32Value age = 4;</code>
-       */
-      public com.google.protobuf.Int32Value.Builder getAgeBuilder() {
-        
-        onChanged();
-        return getAgeFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.google.protobuf.Int32Value age = 4;</code>
-       */
-      public com.google.protobuf.Int32ValueOrBuilder getAgeOrBuilder() {
-        if (ageBuilder_ != null) {
-          return ageBuilder_.getMessageOrBuilder();
-        } else {
-          return age_ == null ?
-              com.google.protobuf.Int32Value.getDefaultInstance() : age_;
-        }
-      }
-      /**
-       * <code>.google.protobuf.Int32Value age = 4;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Int32Value, com.google.protobuf.Int32Value.Builder, com.google.protobuf.Int32ValueOrBuilder> 
-          getAgeFieldBuilder() {
-        if (ageBuilder_ == null) {
-          ageBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Int32Value, com.google.protobuf.Int32Value.Builder, com.google.protobuf.Int32ValueOrBuilder>(
-                  getAge(),
-                  getParentForChildren(),
-                  isClean());
-          age_ = null;
-        }
-        return ageBuilder_;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:catalog_api_v2.ProtoPerson)
-    }
-
-    // @@protoc_insertion_point(class_scope:catalog_api_v2.ProtoPerson)
-    private static final catalog_api_v2.CatalogApiV2.ProtoPerson DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new catalog_api_v2.CatalogApiV2.ProtoPerson();
-    }
-
-    public static catalog_api_v2.CatalogApiV2.ProtoPerson getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<ProtoPerson>
-        PARSER = new com.google.protobuf.AbstractParser<ProtoPerson>() {
-      @java.lang.Override
-      public ProtoPerson parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ProtoPerson(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<ProtoPerson> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ProtoPerson> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public catalog_api_v2.CatalogApiV2.ProtoPerson getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_catalog_api_v2_GetProductListRequest_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_catalog_api_v2_GetProductListRequest_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_catalog_api_v2_GetProductListResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_catalog_api_v2_GetProductListResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_catalog_api_v2_GetProductRequest_descriptor;
   private static final 
@@ -31889,6 +35748,16 @@ public final class CatalogApiV2 {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_catalog_api_v2_GetProductResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_catalog_api_v2_GetProductListRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_catalog_api_v2_GetProductListRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_catalog_api_v2_GetProductListResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_catalog_api_v2_GetProductListResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_catalog_api_v2_Product_descriptor;
   private static final 
@@ -31974,11 +35843,6 @@ public final class CatalogApiV2 {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_catalog_api_v2_Icon_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_catalog_api_v2_ProtoPerson_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_catalog_api_v2_ProtoPerson_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -31990,27 +35854,27 @@ public final class CatalogApiV2 {
     java.lang.String[] descriptorData = {
       "\n$content/catalog/catalog_api_v2.proto\022\016" +
       "catalog_api_v2\032\034google/api/annotations.p" +
-      "roto\032\036google/protobuf/wrappers.proto\"\345\001\n" +
-      "\025GetProductListRequest\022\013\n\003sid\030\001 \001(\t\022\013\n\003t" +
-      "id\030\002 \001(\t\022\t\n\001q\030\003 \001(\t\022\014\n\004page\030\004 \001(\003\022\032\n\010per" +
-      "_page\030\005 \001(\003R\010per_page\022\023\n\013filter_keys\030\006 \003" +
-      "(\t\022\025\n\rfilter_values\030\007 \003(\t\022\014\n\004sort\030\010 \001(\t\022" +
-      "\034\n\ttenant_id\030\t \001(\tR\ttenant_id\022\024\n\014anonymo" +
-      "us_id\030\n \001(\t\022\017\n\007user_id\030\013 \001(\t\"\307\002\n\026GetProd" +
-      "uctListResponse\022)\n\010products\030\001 \003(\0132\027.cata" +
-      "log_api_v2.Product\022%\n\006facets\030\002 \003(\0132\025.cat" +
-      "alog_api_v2.Facet\022\"\n\004meta\030\003 \001(\0132\024.catalo" +
-      "g_api_v2.Meta\022-\n\004sort\030\004 \003(\0132\037.catalog_ap" +
-      "i_v2.ProductListSort\022>\n\014promo_badges\030\005 \003" +
-      "(\0132\032.catalog_api_v2.PromoBadgeR\014promo_ba" +
-      "dges\022H\n\017root_categories\030\006 \001(\0132\036.catalog_" +
-      "api_v2.RootCategoriesR\017root_categories\"Q" +
-      "\n\021GetProductRequest\022\036\n\nproduct_id\030\001 \001(\tR" +
-      "\nproduct_id\022\034\n\ttenant_id\030\002 \001(\tR\ttenant_i" +
-      "d\"\214\001\n\022GetProductResponse\0226\n\007product\030\001 \001(" +
-      "\0132%.catalog_api_v2.ProductWithProperties" +
-      "\022>\n\014promo_badges\030\002 \003(\0132\032.catalog_api_v2." +
-      "PromoBadgeR\014promo_badges\"\345\006\n\007Product\022\n\n\002" +
+      "roto\032\036google/protobuf/wrappers.proto\"Q\n\021" +
+      "GetProductRequest\022\036\n\nproduct_id\030\001 \001(\tR\np" +
+      "roduct_id\022\034\n\ttenant_id\030\002 \001(\tR\ttenant_id\"" +
+      "\214\001\n\022GetProductResponse\0226\n\007product\030\001 \001(\0132" +
+      "%.catalog_api_v2.ProductWithProperties\022>" +
+      "\n\014promo_badges\030\002 \003(\0132\032.catalog_api_v2.Pr" +
+      "omoBadgeR\014promo_badges\"\345\001\n\025GetProductLis" +
+      "tRequest\022\013\n\003sid\030\001 \001(\t\022\013\n\003tid\030\002 \001(\t\022\t\n\001q\030" +
+      "\003 \001(\t\022\014\n\004page\030\004 \001(\003\022\032\n\010per_page\030\005 \001(\003R\010p" +
+      "er_page\022\023\n\013filter_keys\030\006 \003(\t\022\025\n\rfilter_v" +
+      "alues\030\007 \003(\t\022\014\n\004sort\030\010 \001(\t\022\034\n\ttenant_id\030\t" +
+      " \001(\tR\ttenant_id\022\024\n\014anonymous_id\030\n \001(\t\022\017\n" +
+      "\007user_id\030\013 \001(\t\"\307\002\n\026GetProductListRespons" +
+      "e\022)\n\010products\030\001 \003(\0132\027.catalog_api_v2.Pro" +
+      "duct\022%\n\006facets\030\002 \003(\0132\025.catalog_api_v2.Fa" +
+      "cet\022\"\n\004meta\030\003 \001(\0132\024.catalog_api_v2.Meta\022" +
+      "-\n\004sort\030\004 \003(\0132\037.catalog_api_v2.ProductLi" +
+      "stSort\022>\n\014promo_badges\030\005 \003(\0132\032.catalog_a" +
+      "pi_v2.PromoBadgeR\014promo_badges\022H\n\017root_c" +
+      "ategories\030\006 \001(\0132\036.catalog_api_v2.RootCat" +
+      "egoriesR\017root_categories\"\345\006\n\007Product\022\n\n\002" +
       "id\030\001 \001(\001\022(\n\003sku\030\002 \001(\0132\033.google.protobuf." +
       "Int64Value\022\016\n\006active\030\003 \001(\010\022@\n\014retailer_s" +
       "ku\030\004 \001(\0132\034.google.protobuf.StringValueR\014" +
@@ -32040,91 +35904,86 @@ public final class CatalogApiV2 {
       "\003key\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\014\n\004type\030\003 \001(\t\022," +
       "\n\007options\030\004 \003(\0132\033.catalog_api_v2.FacetOp" +
       "tion\"\230\001\n\013FacetOption\022*\n\004name\030\001 \001(\0132\034.goo" +
-      "gle.protobuf.StringValue\022\r\n\005value\030\002 \001(\003\022" +
-      "\r\n\005count\030\003 \001(\003\022/\n\tpermalink\030\004 \001(\0132\034.goog" +
+      "gle.protobuf.StringValue\022\r\n\005value\030\002 \001(\001\022" +
+      "\r\n\005count\030\003 \001(\001\022/\n\tpermalink\030\004 \001(\0132\034.goog" +
       "le.protobuf.StringValue\022\016\n\006active\030\005 \001(\010\"" +
-      "\210\002\n\004Meta\022\"\n\014current_page\030\001 \001(\003R\014current_" +
-      "page\0229\n\tnext_page\030\002 \001(\0132\033.google.protobu" +
-      "f.Int64ValueR\tnext_page\022A\n\rprevious_page" +
-      "\030\003 \001(\0132\033.google.protobuf.Int64ValueR\rpre" +
-      "vious_page\022 \n\013total_pages\030\004 \001(\003R\013total_p" +
-      "ages\022\032\n\010per_page\030\005 \001(\003R\010per_page\022 \n\013tota" +
-      "l_count\030\006 \001(\003R\013total_count\"\020\n\016RootCatego" +
-      "ries\"K\n\017ProductListSort\022\013\n\003key\030\001 \001(\t\022\014\n\004" +
-      "name\030\002 \001(\t\022\r\n\005order\030\003 \001(\t\022\016\n\006active\030\004 \001(" +
-      "\010\"\255\007\n\025ProductWithProperties\022\n\n\002id\030\001 \001(\001\022" +
-      "\013\n\003sku\030\002 \001(\003\022\016\n\006active\030\003 \001(\010\022\"\n\014retailer" +
-      "_sku\030\004 \001(\tR\014retailer_sku\022\014\n\004name\030\005 \001(\t\022\r" +
-      "\n\005price\030\006 \001(\001\022&\n\016original_price\030\007 \001(\001R\016o" +
-      "riginal_price\022\020\n\010discount\030\010 \001(\001\022\"\n\014human" +
-      "_volume\030\t \001(\tR\014human_volume\022\016\n\006volume\030\n " +
-      "\001(\001\022 \n\013volume_type\030\013 \001(\tR\013volume_type\022&\n" +
-      "\016items_per_pack\030\014 \001(\001R\016items_per_pack\022H\n" +
-      "\020discount_ends_at\030\r \001(\0132\034.google.protobu" +
-      "f.StringValueR\020discount_ends_at\022\036\n\nprice" +
-      "_type\030\016 \001(\tR\nprice_type\022&\n\016grams_per_uni" +
-      "t\030\017 \001(\001R\016grams_per_unit\022\036\n\nunit_price\030\020 " +
-      "\001(\001R\nunit_price\0220\n\023original_unit_price\030\021" +
-      " \001(\001R\023original_unit_price\022(\n\017promo_badge" +
-      "_ids\030\022 \003(\001R\017promo_badge_ids\022*\n\005score\030\023 \001" +
-      "(\0132\033.google.protobuf.FloatValue\022\016\n\006label" +
-      "s\030\024 \003(\t\022%\n\006images\030\025 \003(\0132\025.catalog_api_v2" +
-      ".Image\022,\n\nproperties\030\026 \003(\0132\030.catalog_api" +
-      "_v2.Property\022\023\n\013description\030\027 \001(\t\022A\n\rsco" +
-      "re_details\030\030 \001(\0132\033.catalog_api_v2.ScoreD" +
-      "etailR\rscore_details\022\024\n\014requirements\030\031 \003" +
-      "(\t\022*\n\020related_products\030\032 \003(\tR\020related_pr" +
-      "oducts\0229\n\nmain_taxon\030\033 \001(\0132\031.catalog_api" +
-      "_v2.MainTaxonR\nmain_taxon\"=\n\010Property\022\014\n" +
-      "\004name\030\001 \001(\t\022\024\n\014presentation\030\002 \001(\t\022\r\n\005val" +
-      "ue\030\003 \001(\t\"_\n\nPromoBadge\022\n\n\002id\030\001 \001(\001\022\014\n\004ty" +
-      "pe\030\002 \001(\t\0227\n\nattributes\030\003 \001(\0132#.catalog_a" +
-      "pi_v2.PromoBadgeAttribute\"\241\001\n\023PromoBadge" +
-      "Attribute\022\014\n\004name\030\001 \001(\t\022.\n\022banner_button" +
-      "_text\030\002 \001(\tR\022banner_button_text\022\032\n\010taxon" +
-      "_id\030\003 \001(\001R\010taxon_id\0220\n\007options\030\004 \001(\0132\037.c" +
-      "atalog_api_v2.AttributeOption\"e\n\017Attribu" +
-      "teOption\022&\n\006active\030\001 \001(\0132\026.catalog_api_v" +
-      "2.Active\022*\n\010inactive\030\002 \001(\0132\030.catalog_api" +
-      "_v2.Inactive\"\230\001\n\006Active\022\r\n\005title\030\001 \001(\t\022 " +
-      "\n\013title_short\030\002 \001(\tR\013title_short\022\013\n\003url\030" +
-      "\003 \001(\t\022\020\n\010deeplink\030\004 \001(\t\022 \n\013button_text\030\005" +
-      " \001(\tR\013button_text\022\016\n\006header\030\006 \001(\t\022\014\n\004tex" +
-      "t\030\007 \001(\t\"\210\001\n\010Inactive\022\r\n\005title\030\001 \001(\t\022 \n\013t" +
-      "itle_short\030\002 \001(\tR\013title_short\022\013\n\003url\030\003 \001" +
-      "(\t\022 \n\013button_text\030\005 \001(\tR\013button_text\022\016\n\006" +
-      "header\030\006 \001(\t\022\014\n\004text\030\007 \001(\t\"\334\001\n\013ScoreDeta" +
-      "il\022C\n\rfeedbackCount\030\001 \001(\0132\034.google.proto" +
-      "buf.DoubleValueR\016feedback_count\022E\n\016feedb" +
-      "ackSource\030\002 \001(\0132\034.google.protobuf.String" +
-      "ValueR\017feedback_source\022A\n\014commentCount\030\003" +
-      " \001(\0132\034.google.protobuf.DoubleValueR\rcomm" +
-      "ent_count\"\330\002\n\tMainTaxon\022\n\n\002id\030\001 \001(\001\022\014\n\004t" +
-      "ype\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022&\n\016products_coun" +
-      "t\030\004 \001(\001R\016products_count\022&\n\016promo_service" +
-      "s\030\005 \003(\tR\016promo_services\022\020\n\010position\030\006 \001(" +
-      "\001\022\r\n\005depth\030\007 \001(\005\022>\n\013description\030\010 \001(\0132\034." +
-      "google.protobuf.StringValueR\013description" +
-      "\022\"\n\004icon\030\t \001(\0132\024.catalog_api_v2.Icon\0228\n\010" +
-      "alt_icon\030\n \001(\0132\034.google.protobuf.StringV" +
-      "alueR\010alt_icon\022\024\n\014requirements\030\013 \003(\t\"B\n\004" +
-      "Icon\022\032\n\010mini_url\030\001 \001(\tR\010mini_url\022\036\n\nnorm" +
-      "al_url\030\002 \001(\tR\nnormal_url\"\310\001\n\013ProtoPerson" +
-      "\022/\n\tfirstName\030\001 \001(\0132\034.google.protobuf.St" +
-      "ringValue\022.\n\010lastName\030\002 \001(\0132\034.google.pro" +
-      "tobuf.StringValue\022.\n\010address1\030\003 \001(\0132\034.go" +
-      "ogle.protobuf.StringValue\022(\n\003age\030\004 \001(\0132\033" +
-      ".google.protobuf.Int32Value*5\n\tFacetType" +
-      "\022\n\n\006SELECT\020\000\022\020\n\014MULTI_SELECT\020\001\022\n\n\006TOGGLE" +
-      "\020\0022\214\002\n\023CatalogAPIV2Service\022y\n\016GetProduct" +
-      "List\022%.catalog_api_v2.GetProductListRequ" +
-      "est\032&.catalog_api_v2.GetProductListRespo" +
-      "nse\"\030\202\323\344\223\002\022\022\020/api/v2/products\022z\n\nGetProd" +
-      "uct\022!.catalog_api_v2.GetProductRequest\032\"" +
-      ".catalog_api_v2.GetProductResponse\"%\202\323\344\223" +
-      "\002\037\022\035/api/v2/products/{product_id}BEZCgit" +
-      "lab.sbermarket.tech/paas/content/catalog" +
-      "/pkg/server/grpc/catalogb\006proto3"
+      "\212\002\n\004Meta\022\"\n\014current_page\030\001 \001(\001R\014current_" +
+      "page\022:\n\tnext_page\030\002 \001(\0132\034.google.protobu" +
+      "f.DoubleValueR\tnext_page\022B\n\rprevious_pag" +
+      "e\030\003 \001(\0132\034.google.protobuf.DoubleValueR\rp" +
+      "revious_page\022 \n\013total_pages\030\004 \001(\001R\013total" +
+      "_pages\022\032\n\010per_page\030\005 \001(\001R\010per_page\022 \n\013to" +
+      "tal_count\030\006 \001(\001R\013total_count\"\020\n\016RootCate" +
+      "gories\"K\n\017ProductListSort\022\013\n\003key\030\001 \001(\t\022\014" +
+      "\n\004name\030\002 \001(\t\022\r\n\005order\030\003 \001(\t\022\016\n\006active\030\004 " +
+      "\001(\010\"\255\007\n\025ProductWithProperties\022\n\n\002id\030\001 \001(" +
+      "\001\022\013\n\003sku\030\002 \001(\003\022\016\n\006active\030\003 \001(\010\022\"\n\014retail" +
+      "er_sku\030\004 \001(\tR\014retailer_sku\022\014\n\004name\030\005 \001(\t" +
+      "\022\r\n\005price\030\006 \001(\001\022&\n\016original_price\030\007 \001(\001R" +
+      "\016original_price\022\020\n\010discount\030\010 \001(\001\022\"\n\014hum" +
+      "an_volume\030\t \001(\tR\014human_volume\022\016\n\006volume\030" +
+      "\n \001(\001\022 \n\013volume_type\030\013 \001(\tR\013volume_type\022" +
+      "&\n\016items_per_pack\030\014 \001(\001R\016items_per_pack\022" +
+      "H\n\020discount_ends_at\030\r \001(\0132\034.google.proto" +
+      "buf.StringValueR\020discount_ends_at\022\036\n\npri" +
+      "ce_type\030\016 \001(\tR\nprice_type\022&\n\016grams_per_u" +
+      "nit\030\017 \001(\001R\016grams_per_unit\022\036\n\nunit_price\030" +
+      "\020 \001(\001R\nunit_price\0220\n\023original_unit_price" +
+      "\030\021 \001(\001R\023original_unit_price\022(\n\017promo_bad" +
+      "ge_ids\030\022 \003(\001R\017promo_badge_ids\022*\n\005score\030\023" +
+      " \001(\0132\033.google.protobuf.FloatValue\022\016\n\006lab" +
+      "els\030\024 \003(\t\022%\n\006images\030\025 \003(\0132\025.catalog_api_" +
+      "v2.Image\022,\n\nproperties\030\026 \003(\0132\030.catalog_a" +
+      "pi_v2.Property\022\023\n\013description\030\027 \001(\t\022A\n\rs" +
+      "core_details\030\030 \001(\0132\033.catalog_api_v2.Scor" +
+      "eDetailR\rscore_details\022\024\n\014requirements\030\031" +
+      " \003(\t\022*\n\020related_products\030\032 \003(\tR\020related_" +
+      "products\0229\n\nmain_taxon\030\033 \001(\0132\031.catalog_a" +
+      "pi_v2.MainTaxonR\nmain_taxon\"=\n\010Property\022" +
+      "\014\n\004name\030\001 \001(\t\022\024\n\014presentation\030\002 \001(\t\022\r\n\005v" +
+      "alue\030\003 \001(\t\"_\n\nPromoBadge\022\n\n\002id\030\001 \001(\001\022\014\n\004" +
+      "type\030\002 \001(\t\0227\n\nattributes\030\003 \001(\0132#.catalog" +
+      "_api_v2.PromoBadgeAttribute\"\241\001\n\023PromoBad" +
+      "geAttribute\022\014\n\004name\030\001 \001(\t\022.\n\022banner_butt" +
+      "on_text\030\002 \001(\tR\022banner_button_text\022\032\n\010tax" +
+      "on_id\030\003 \001(\001R\010taxon_id\0220\n\007options\030\004 \001(\0132\037" +
+      ".catalog_api_v2.AttributeOption\"e\n\017Attri" +
+      "buteOption\022&\n\006active\030\001 \001(\0132\026.catalog_api" +
+      "_v2.Active\022*\n\010inactive\030\002 \001(\0132\030.catalog_a" +
+      "pi_v2.Inactive\"\230\001\n\006Active\022\r\n\005title\030\001 \001(\t" +
+      "\022 \n\013title_short\030\002 \001(\tR\013title_short\022\013\n\003ur" +
+      "l\030\003 \001(\t\022\020\n\010deeplink\030\004 \001(\t\022 \n\013button_text" +
+      "\030\005 \001(\tR\013button_text\022\016\n\006header\030\006 \001(\t\022\014\n\004t" +
+      "ext\030\007 \001(\t\"\210\001\n\010Inactive\022\r\n\005title\030\001 \001(\t\022 \n" +
+      "\013title_short\030\002 \001(\tR\013title_short\022\013\n\003url\030\003" +
+      " \001(\t\022 \n\013button_text\030\005 \001(\tR\013button_text\022\016" +
+      "\n\006header\030\006 \001(\t\022\014\n\004text\030\007 \001(\t\"\334\001\n\013ScoreDe" +
+      "tail\022C\n\rfeedbackCount\030\001 \001(\0132\034.google.pro" +
+      "tobuf.DoubleValueR\016feedback_count\022E\n\016fee" +
+      "dbackSource\030\002 \001(\0132\034.google.protobuf.Stri" +
+      "ngValueR\017feedback_source\022A\n\014commentCount" +
+      "\030\003 \001(\0132\034.google.protobuf.DoubleValueR\rco" +
+      "mment_count\"\330\002\n\tMainTaxon\022\n\n\002id\030\001 \001(\001\022\014\n" +
+      "\004type\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022&\n\016products_co" +
+      "unt\030\004 \001(\001R\016products_count\022&\n\016promo_servi" +
+      "ces\030\005 \003(\tR\016promo_services\022\020\n\010position\030\006 " +
+      "\001(\001\022\r\n\005depth\030\007 \001(\005\022>\n\013description\030\010 \001(\0132" +
+      "\034.google.protobuf.StringValueR\013descripti" +
+      "on\022\"\n\004icon\030\t \001(\0132\024.catalog_api_v2.Icon\0228" +
+      "\n\010alt_icon\030\n \001(\0132\034.google.protobuf.Strin" +
+      "gValueR\010alt_icon\022\024\n\014requirements\030\013 \003(\t\"B" +
+      "\n\004Icon\022\032\n\010mini_url\030\001 \001(\tR\010mini_url\022\036\n\nno" +
+      "rmal_url\030\002 \001(\tR\nnormal_url*5\n\tFacetType\022" +
+      "\n\n\006SELECT\020\000\022\020\n\014MULTI_SELECT\020\001\022\n\n\006TOGGLE\020" +
+      "\0022\214\002\n\023CatalogAPIV2Service\022z\n\nGetProduct\022" +
+      "!.catalog_api_v2.GetProductRequest\032\".cat" +
+      "alog_api_v2.GetProductResponse\"%\202\323\344\223\002\037\022\035" +
+      "/api/v2/products/{product_id}\022y\n\016GetProd" +
+      "uctList\022%.catalog_api_v2.GetProductListR" +
+      "equest\032&.catalog_api_v2.GetProductListRe" +
+      "sponse\"\030\202\323\344\223\002\022\022\020/api/v2/productsBEZCgitl" +
+      "ab.sbermarket.tech/paas/content/catalog/" +
+      "pkg/server/grpc/catalogb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -32132,30 +35991,30 @@ public final class CatalogApiV2 {
           com.google.api.AnnotationsProto.getDescriptor(),
           com.google.protobuf.WrappersProto.getDescriptor(),
         });
-    internal_static_catalog_api_v2_GetProductListRequest_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_catalog_api_v2_GetProductListRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_catalog_api_v2_GetProductListRequest_descriptor,
-        new java.lang.String[] { "Sid", "Tid", "Q", "Page", "PerPage", "FilterKeys", "FilterValues", "Sort", "TenantId", "AnonymousId", "UserId", });
-    internal_static_catalog_api_v2_GetProductListResponse_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_catalog_api_v2_GetProductListResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_catalog_api_v2_GetProductListResponse_descriptor,
-        new java.lang.String[] { "Products", "Facets", "Meta", "Sort", "PromoBadges", "RootCategories", });
     internal_static_catalog_api_v2_GetProductRequest_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(0);
     internal_static_catalog_api_v2_GetProductRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_GetProductRequest_descriptor,
         new java.lang.String[] { "ProductId", "TenantId", });
     internal_static_catalog_api_v2_GetProductResponse_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(1);
     internal_static_catalog_api_v2_GetProductResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_GetProductResponse_descriptor,
         new java.lang.String[] { "Product", "PromoBadges", });
+    internal_static_catalog_api_v2_GetProductListRequest_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_catalog_api_v2_GetProductListRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_catalog_api_v2_GetProductListRequest_descriptor,
+        new java.lang.String[] { "Sid", "Tid", "Q", "Page", "PerPage", "FilterKeys", "FilterValues", "Sort", "TenantId", "AnonymousId", "UserId", });
+    internal_static_catalog_api_v2_GetProductListResponse_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_catalog_api_v2_GetProductListResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_catalog_api_v2_GetProductListResponse_descriptor,
+        new java.lang.String[] { "Products", "Facets", "Meta", "Sort", "PromoBadges", "RootCategories", });
     internal_static_catalog_api_v2_Product_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_catalog_api_v2_Product_fieldAccessorTable = new
@@ -32258,12 +36117,6 @@ public final class CatalogApiV2 {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_Icon_descriptor,
         new java.lang.String[] { "MiniUrl", "NormalUrl", });
-    internal_static_catalog_api_v2_ProtoPerson_descriptor =
-      getDescriptor().getMessageTypes().get(21);
-    internal_static_catalog_api_v2_ProtoPerson_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_catalog_api_v2_ProtoPerson_descriptor,
-        new java.lang.String[] { "FirstName", "LastName", "Address1", "Age", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.google.api.AnnotationsProto.http);

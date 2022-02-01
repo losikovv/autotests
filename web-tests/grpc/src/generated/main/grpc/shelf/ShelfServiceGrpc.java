@@ -3,6 +3,22 @@ package shelf;
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 
 /**
+ * <pre>
+ **
+ * slack:
+ *    #product-hub
+ * swagger:
+ *     https://paas-content-catalog-shelf.sbmt.io/api
+ * public prod grpc uri:
+ *    paas-content-catalog-shelf.sbmt.io:443
+ * public stg grpc uri:
+ *    paas-content-catalog-shelf.gw-stage.sbmt.io:443
+ * kuber prod grpc uri:
+ *    base-product-hub.paas-content-catalog-shelf:3009
+ * description:
+ *    Фронтовый сервис catalog shelf возвращающий полки.
+ *    Предназначет для real-time нагрузки.
+ * </pre>
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.40.0)",
@@ -246,10 +262,42 @@ public final class ShelfServiceGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-catalog-shelf.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-catalog-shelf.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-catalog-shelf.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-catalog-shelf:3009
+   * description:
+   *    Фронтовый сервис catalog shelf возвращающий полки.
+   *    Предназначет для real-time нагрузки.
+   * </pre>
    */
   public static abstract class ShelfServiceImplBase implements io.grpc.BindableService {
 
     /**
+     * <pre>
+     **
+     * Возвращает полки по идентификатору монолитовской категории (mysql.taxons.id)
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     *    products_limit - кол-во продуктов в 1 полке
+     * Примеры:
+     *    Вернуть полки для рутовой категории:
+     *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "products_limit": 10}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryID
+     *    Вернуть полки для конкретной категории:
+     *        grpcurl -d '{"original_category_id": "6245", "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryID
+     *    Вернуть полки для конкретной категории с атрибутам товаров image, brand:
+     *        grpcurl -d '{"original_category_id": "6245", "display_attributes": [{"keys":["brand", "image"]}], "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryID
+     * </pre>
      */
     public void getShelfByOriginalCategoryID(shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest request,
         io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse> responseObserver) {
@@ -257,6 +305,24 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает полки по идентификатору монолитовской категории (mysql.taxons.id) с пагинацией
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     *    products_limit - кол-во продуктов в 1 полке
+     *	  limit - кол-во полок в ответе
+     *	  offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть полки для рутовой категории с пигинацией:
+     *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "products_limit": 10, "limit": 2, "offset": 0}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryIDWithPagination
+     *    Вернуть полки для конкретной категории с пигинацией:
+     *        grpcurl -d '{"original_category_id": "6245", "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10, "limit": 2, "offset": 0}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryIDWithPagination
+     *    Вернуть полки для конкретной категории с атрибутам товаров image, brand с пигинацией:
+     *        grpcurl -d '{"original_category_id": "6245", "display_attributes": [{"keys":["brand", "image"]}], "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10, "limit": 2, "offset": 0}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryIDWithPagination
+     * </pre>
      */
     public void getShelfByOriginalCategoryIDWithPagination(shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest request,
         io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse> responseObserver) {
@@ -264,6 +330,10 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Аналог GetShelfByOriginalCategoryID, но в качестве идентификатора категории принимает permalink ктаегории
+     * </pre>
      */
     public void getShelfByCategoryPermalink(shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest request,
         io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse> responseObserver) {
@@ -271,6 +341,10 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Аналог GetShelfByOriginalCategoryIDWithPagination, но в качестве идентификатора категории принимает permalink ктаегории
+     * </pre>
      */
     public void getShelfByCategoryPermalinkWithPagination(shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest request,
         io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse> responseObserver) {
@@ -278,6 +352,13 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * PRIVATE:Удаление кеша от product-filter
+     * Примеры:
+     *    Удалить кеш с пода:
+     *        grpcurl -d '{}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.FlushCategoryFacetsCache
+     * </pre>
      */
     public void flushCategoryFacetsCache(shelf.ShelfOuterClass.Empty request,
         io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.Empty> responseObserver) {
@@ -285,6 +366,13 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * PRIVATE:Форсированный импорт категорий из product-hub
+     * Примеры:
+     *    Обновить дерево в поде:
+     *        grpcurl -d '{}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.UpdateCategories
+     * </pre>
      */
     public void updateCategories(shelf.ShelfOuterClass.Empty request,
         io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.Empty> responseObserver) {
@@ -340,6 +428,22 @@ public final class ShelfServiceGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-catalog-shelf.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-catalog-shelf.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-catalog-shelf.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-catalog-shelf:3009
+   * description:
+   *    Фронтовый сервис catalog shelf возвращающий полки.
+   *    Предназначет для real-time нагрузки.
+   * </pre>
    */
   public static final class ShelfServiceStub extends io.grpc.stub.AbstractAsyncStub<ShelfServiceStub> {
     private ShelfServiceStub(
@@ -354,6 +458,22 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает полки по идентификатору монолитовской категории (mysql.taxons.id)
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     *    products_limit - кол-во продуктов в 1 полке
+     * Примеры:
+     *    Вернуть полки для рутовой категории:
+     *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "products_limit": 10}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryID
+     *    Вернуть полки для конкретной категории:
+     *        grpcurl -d '{"original_category_id": "6245", "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryID
+     *    Вернуть полки для конкретной категории с атрибутам товаров image, brand:
+     *        grpcurl -d '{"original_category_id": "6245", "display_attributes": [{"keys":["brand", "image"]}], "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryID
+     * </pre>
      */
     public void getShelfByOriginalCategoryID(shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest request,
         io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse> responseObserver) {
@@ -362,6 +482,24 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает полки по идентификатору монолитовской категории (mysql.taxons.id) с пагинацией
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     *    products_limit - кол-во продуктов в 1 полке
+     *	  limit - кол-во полок в ответе
+     *	  offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть полки для рутовой категории с пигинацией:
+     *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "products_limit": 10, "limit": 2, "offset": 0}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryIDWithPagination
+     *    Вернуть полки для конкретной категории с пигинацией:
+     *        grpcurl -d '{"original_category_id": "6245", "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10, "limit": 2, "offset": 0}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryIDWithPagination
+     *    Вернуть полки для конкретной категории с атрибутам товаров image, brand с пигинацией:
+     *        grpcurl -d '{"original_category_id": "6245", "display_attributes": [{"keys":["brand", "image"]}], "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10, "limit": 2, "offset": 0}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryIDWithPagination
+     * </pre>
      */
     public void getShelfByOriginalCategoryIDWithPagination(shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest request,
         io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse> responseObserver) {
@@ -370,6 +508,10 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Аналог GetShelfByOriginalCategoryID, но в качестве идентификатора категории принимает permalink ктаегории
+     * </pre>
      */
     public void getShelfByCategoryPermalink(shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest request,
         io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse> responseObserver) {
@@ -378,6 +520,10 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Аналог GetShelfByOriginalCategoryIDWithPagination, но в качестве идентификатора категории принимает permalink ктаегории
+     * </pre>
      */
     public void getShelfByCategoryPermalinkWithPagination(shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest request,
         io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse> responseObserver) {
@@ -386,6 +532,13 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * PRIVATE:Удаление кеша от product-filter
+     * Примеры:
+     *    Удалить кеш с пода:
+     *        grpcurl -d '{}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.FlushCategoryFacetsCache
+     * </pre>
      */
     public void flushCategoryFacetsCache(shelf.ShelfOuterClass.Empty request,
         io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.Empty> responseObserver) {
@@ -394,6 +547,13 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * PRIVATE:Форсированный импорт категорий из product-hub
+     * Примеры:
+     *    Обновить дерево в поде:
+     *        grpcurl -d '{}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.UpdateCategories
+     * </pre>
      */
     public void updateCategories(shelf.ShelfOuterClass.Empty request,
         io.grpc.stub.StreamObserver<shelf.ShelfOuterClass.Empty> responseObserver) {
@@ -403,6 +563,22 @@ public final class ShelfServiceGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-catalog-shelf.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-catalog-shelf.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-catalog-shelf.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-catalog-shelf:3009
+   * description:
+   *    Фронтовый сервис catalog shelf возвращающий полки.
+   *    Предназначет для real-time нагрузки.
+   * </pre>
    */
   public static final class ShelfServiceBlockingStub extends io.grpc.stub.AbstractBlockingStub<ShelfServiceBlockingStub> {
     private ShelfServiceBlockingStub(
@@ -417,6 +593,22 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает полки по идентификатору монолитовской категории (mysql.taxons.id)
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     *    products_limit - кол-во продуктов в 1 полке
+     * Примеры:
+     *    Вернуть полки для рутовой категории:
+     *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "products_limit": 10}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryID
+     *    Вернуть полки для конкретной категории:
+     *        grpcurl -d '{"original_category_id": "6245", "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryID
+     *    Вернуть полки для конкретной категории с атрибутам товаров image, brand:
+     *        grpcurl -d '{"original_category_id": "6245", "display_attributes": [{"keys":["brand", "image"]}], "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryID
+     * </pre>
      */
     public shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse getShelfByOriginalCategoryID(shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -424,6 +616,24 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает полки по идентификатору монолитовской категории (mysql.taxons.id) с пагинацией
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     *    products_limit - кол-во продуктов в 1 полке
+     *	  limit - кол-во полок в ответе
+     *	  offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть полки для рутовой категории с пигинацией:
+     *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "products_limit": 10, "limit": 2, "offset": 0}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryIDWithPagination
+     *    Вернуть полки для конкретной категории с пигинацией:
+     *        grpcurl -d '{"original_category_id": "6245", "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10, "limit": 2, "offset": 0}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryIDWithPagination
+     *    Вернуть полки для конкретной категории с атрибутам товаров image, brand с пигинацией:
+     *        grpcurl -d '{"original_category_id": "6245", "display_attributes": [{"keys":["brand", "image"]}], "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10, "limit": 2, "offset": 0}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryIDWithPagination
+     * </pre>
      */
     public shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse getShelfByOriginalCategoryIDWithPagination(shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -431,6 +641,10 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Аналог GetShelfByOriginalCategoryID, но в качестве идентификатора категории принимает permalink ктаегории
+     * </pre>
      */
     public shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse getShelfByCategoryPermalink(shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -438,6 +652,10 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Аналог GetShelfByOriginalCategoryIDWithPagination, но в качестве идентификатора категории принимает permalink ктаегории
+     * </pre>
      */
     public shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse getShelfByCategoryPermalinkWithPagination(shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -445,6 +663,13 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * PRIVATE:Удаление кеша от product-filter
+     * Примеры:
+     *    Удалить кеш с пода:
+     *        grpcurl -d '{}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.FlushCategoryFacetsCache
+     * </pre>
      */
     public shelf.ShelfOuterClass.Empty flushCategoryFacetsCache(shelf.ShelfOuterClass.Empty request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -452,6 +677,13 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * PRIVATE:Форсированный импорт категорий из product-hub
+     * Примеры:
+     *    Обновить дерево в поде:
+     *        grpcurl -d '{}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.UpdateCategories
+     * </pre>
      */
     public shelf.ShelfOuterClass.Empty updateCategories(shelf.ShelfOuterClass.Empty request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -460,6 +692,22 @@ public final class ShelfServiceGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-catalog-shelf.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-catalog-shelf.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-catalog-shelf.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-catalog-shelf:3009
+   * description:
+   *    Фронтовый сервис catalog shelf возвращающий полки.
+   *    Предназначет для real-time нагрузки.
+   * </pre>
    */
   public static final class ShelfServiceFutureStub extends io.grpc.stub.AbstractFutureStub<ShelfServiceFutureStub> {
     private ShelfServiceFutureStub(
@@ -474,6 +722,22 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает полки по идентификатору монолитовской категории (mysql.taxons.id)
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     *    products_limit - кол-во продуктов в 1 полке
+     * Примеры:
+     *    Вернуть полки для рутовой категории:
+     *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "products_limit": 10}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryID
+     *    Вернуть полки для конкретной категории:
+     *        grpcurl -d '{"original_category_id": "6245", "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryID
+     *    Вернуть полки для конкретной категории с атрибутам товаров image, brand:
+     *        grpcurl -d '{"original_category_id": "6245", "display_attributes": [{"keys":["brand", "image"]}], "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryID
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse> getShelfByOriginalCategoryID(
         shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDRequest request) {
@@ -482,6 +746,24 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает полки по идентификатору монолитовской категории (mysql.taxons.id) с пагинацией
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     *    products_limit - кол-во продуктов в 1 полке
+     *	  limit - кол-во полок в ответе
+     *	  offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть полки для рутовой категории с пигинацией:
+     *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "products_limit": 10, "limit": 2, "offset": 0}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryIDWithPagination
+     *    Вернуть полки для конкретной категории с пигинацией:
+     *        grpcurl -d '{"original_category_id": "6245", "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10, "limit": 2, "offset": 0}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryIDWithPagination
+     *    Вернуть полки для конкретной категории с атрибутам товаров image, brand с пигинацией:
+     *        grpcurl -d '{"original_category_id": "6245", "display_attributes": [{"keys":["brand", "image"]}], "store_id": "1", "tenant_id": "sbermarket", "products_limit": 10, "limit": 2, "offset": 0}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.GetShelfByOriginalCategoryIDWithPagination
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDResponse> getShelfByOriginalCategoryIDWithPagination(
         shelf.ShelfOuterClass.GetShelfByOriginalCategoryIDWithPaginationRequest request) {
@@ -490,6 +772,10 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Аналог GetShelfByOriginalCategoryID, но в качестве идентификатора категории принимает permalink ктаегории
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse> getShelfByCategoryPermalink(
         shelf.ShelfOuterClass.GetShelfByCategoryPermalinkRequest request) {
@@ -498,6 +784,10 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Аналог GetShelfByOriginalCategoryIDWithPagination, но в качестве идентификатора категории принимает permalink ктаегории
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<shelf.ShelfOuterClass.GetShelfByCategoryPermalinkResponse> getShelfByCategoryPermalinkWithPagination(
         shelf.ShelfOuterClass.GetShelfByCategoryPermalinkWithPaginationRequest request) {
@@ -506,6 +796,13 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * PRIVATE:Удаление кеша от product-filter
+     * Примеры:
+     *    Удалить кеш с пода:
+     *        grpcurl -d '{}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.FlushCategoryFacetsCache
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<shelf.ShelfOuterClass.Empty> flushCategoryFacetsCache(
         shelf.ShelfOuterClass.Empty request) {
@@ -514,6 +811,13 @@ public final class ShelfServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * PRIVATE:Форсированный импорт категорий из product-hub
+     * Примеры:
+     *    Обновить дерево в поде:
+     *        grpcurl -d '{}' paas-content-catalog-shelf.sbmt.io:443 shelf.ShelfService.UpdateCategories
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<shelf.ShelfOuterClass.Empty> updateCategories(
         shelf.ShelfOuterClass.Empty request) {
