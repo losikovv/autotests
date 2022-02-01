@@ -3,11 +3,11 @@ package ru.instamart.test.api.admin;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.testng.annotations.BeforeClass;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
@@ -34,9 +34,9 @@ public class CitiesAdminTest extends RestBase {
     private String lockedCityName;
     private String lockedCitySlug;
 
-    @BeforeMethod(alwaysRun = true, description = "Авторизация")
+    @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
+        admin.authAdmin();
     }
 
     @CaseId(1133)

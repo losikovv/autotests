@@ -5,6 +5,7 @@ package ru.instamart.api.endpoint;
  */
 public final class AdminEndpoints {
 
+    public static final String GENERAL_SETTINGS = "general_settings";
     public static final String CITIES = "cities";
     public static final String MANUFACTURERS = "manufacturers";
     public static final String PAGES = "pages";

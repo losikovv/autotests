@@ -4,7 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
@@ -23,14 +23,14 @@ public class ManufacturersTest extends RestBase {
     private String name = "AutoTest_" + Generate.string(10);
     private ManufacturersEntity manufacturers;
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeClass(alwaysRun = true)
     public void preconditions() {
         admin.authAdmin();
     }
 
     @CaseId(1824)
     @Story("Производители")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о производителях",
             priority = 1)
     public void getManufacturers200() {
