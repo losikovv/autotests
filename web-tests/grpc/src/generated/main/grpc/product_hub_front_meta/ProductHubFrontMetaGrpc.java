@@ -3,6 +3,22 @@ package product_hub_front_meta;
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 
 /**
+ * <pre>
+ **
+ * slack:
+ *    #product-hub
+ * swagger:
+ *     https://paas-content-product-hub.sbmt.io/api
+ * public prod grpc uri:
+ *    paas-content-product-hub.sbmt.io:443
+ * public stg grpc uri:
+ *    paas-content-product-hub.gw-stage.sbmt.io:443
+ * kuber prod grpc uri:
+ *    base-product-hub.paas-content-product-hub:3009
+ * description:
+ *    Мета сервис product-hub возвращающий мета данные (Category, Attribute, Dictionary, DictionaryValue).
+ *    Предназначет для real-time нагрузки.
+ * </pre>
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.40.0)",
@@ -432,10 +448,36 @@ public final class ProductHubFrontMetaGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-product-hub.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-product-hub.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-product-hub.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-product-hub:3009
+   * description:
+   *    Мета сервис product-hub возвращающий мета данные (Category, Attribute, Dictionary, DictionaryValue).
+   *    Предназначет для real-time нагрузки.
+   * </pre>
    */
   public static abstract class ProductHubFrontMetaImplBase implements io.grpc.BindableService {
 
     /**
+     * <pre>
+     **
+     * Возвращает плоский список всех категорий батчами (без спецпредложений).
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть все категории:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllCategories
+     * </pre>
      */
     public void getAllCategories(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesResponse> responseObserver) {
@@ -443,6 +485,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает плоский список всех категорий со списком идентификаторов магазинов батчами (без спецпредложений).
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть все категории:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllCategoriesWithStores
+     * </pre>
      */
     public void getAllCategoriesWithStores(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresResponse> responseObserver) {
@@ -450,6 +502,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает экземпляры категорий по идентификаторам.
+     * Обязательные параметры:
+     *    category_ids - идентификатор категории
+     * Примеры:
+     *    Вернуть категории по ид:
+     *        grpcurl -d '{"category_ids": ["175", "5440"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetCategoriesByCategoryIDs
+     * </pre>
      */
     public void getCategoriesByCategoryIDs(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetCategoriesByCategoryIDsRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetCategoriesByCategoryIDsResponse> responseObserver) {
@@ -457,6 +518,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список ключей атрибутов которые необходимо вывести в фасетах фильтров.
+     * Обязательные параметры:
+     *    category_ids - идентификатор категории
+     * Примеры:
+     *    Вернуть ключи атрибутов по ид категорий:
+     *        grpcurl -d '{"category_ids": ["175", "5440"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetCategoryFiltersByCategoryIDs
+     * </pre>
      */
     public void getCategoryFiltersByCategoryIDs(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetCategoryFiltersByCategoryIDsRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetCategoryFiltersByCategoryIDsResponse> responseObserver) {
@@ -464,6 +534,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает экземпляры атрибутов по ключам.
+     * Обязательные параметры:
+     *    attribute_keys - ключи атрибутов
+     * Примеры:
+     *    Вернуть экземпляры атрибутов:
+     *        grpcurl -d '{"attribute_keys": ["brand", "image"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAttributesByKeys
+     * </pre>
      */
     public void getAttributesByKeys(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAttributesByKeysRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAttributesByKeysResponse> responseObserver) {
@@ -471,6 +550,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список всех атрибутов.
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть все атрибуты:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllAttributes
+     * </pre>
      */
     public void getAllAttributes(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllAttributesRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllAttributesResponse> responseObserver) {
@@ -478,6 +567,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список всех словарей.
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть все словари:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllDictionaries
+     * </pre>
      */
     public void getAllDictionaries(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionariesRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionariesResponse> responseObserver) {
@@ -485,6 +584,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает экземпляры словарей по ключам.
+     * Обязательные параметры:
+     *    dictionary_keys - ключи словарей
+     * Примеры:
+     *    Вернуть экземпляры словарей:
+     *        grpcurl -d '{"dictionary_keys": ["brand"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetDictionariesByKeys
+     * </pre>
      */
     public void getDictionariesByKeys(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysResponse> responseObserver) {
@@ -492,6 +600,17 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает все словарные значения конкретного словаря.
+     * Обязательные параметры:
+     *    dictionary_key - ключ словаря
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть значения словарей:
+     *        grpcurl -d '{"dictionary_key": "brand", "limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllDictionaryValues
+     * </pre>
      */
     public void getAllDictionaryValues(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesResponse> responseObserver) {
@@ -499,6 +618,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons).
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть монолитовские категории:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllOriginalCategories
+     * </pre>
      */
     public void getAllOriginalCategories(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesResponse> responseObserver) {
@@ -506,6 +635,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список идентификаторов магазинов для конкретных ритейлеров.
+     * Обязательные параметры:
+     *    retailer_ids - идентификаторы ритейлеров
+     * Примеры:
+     *    Вернуть идентификаторы магазины:
+     *        grpcurl -d '{"retailer_ids": ["1", "3"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetRetailerStores
+     * </pre>
      */
     public void getRetailerStores(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse> responseObserver) {
@@ -513,6 +651,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список словарных значений по ключу атрибута и идентифиатору словарного значения
+     * Обязательные параметры:
+     *    attribute_key - ключ атрибута
+     *    dictionary_value_ids - идентификаторы словарных значений
+     * Примеры:
+     *    Вернуть словарные значения:
+     *        grpcurl -d '{"attributes": [{"attribute_key": "brand", "dictionary_value_ids": ["48739", "30248"]}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetDictionaryAttributesValues
+     * </pre>
      */
     public void getDictionaryAttributesValues(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse> responseObserver) {
@@ -610,6 +758,22 @@ public final class ProductHubFrontMetaGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-product-hub.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-product-hub.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-product-hub.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-product-hub:3009
+   * description:
+   *    Мета сервис product-hub возвращающий мета данные (Category, Attribute, Dictionary, DictionaryValue).
+   *    Предназначет для real-time нагрузки.
+   * </pre>
    */
   public static final class ProductHubFrontMetaStub extends io.grpc.stub.AbstractAsyncStub<ProductHubFrontMetaStub> {
     private ProductHubFrontMetaStub(
@@ -624,6 +788,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает плоский список всех категорий батчами (без спецпредложений).
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть все категории:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllCategories
+     * </pre>
      */
     public void getAllCategories(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesResponse> responseObserver) {
@@ -632,6 +806,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает плоский список всех категорий со списком идентификаторов магазинов батчами (без спецпредложений).
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть все категории:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllCategoriesWithStores
+     * </pre>
      */
     public void getAllCategoriesWithStores(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresResponse> responseObserver) {
@@ -640,6 +824,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает экземпляры категорий по идентификаторам.
+     * Обязательные параметры:
+     *    category_ids - идентификатор категории
+     * Примеры:
+     *    Вернуть категории по ид:
+     *        grpcurl -d '{"category_ids": ["175", "5440"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetCategoriesByCategoryIDs
+     * </pre>
      */
     public void getCategoriesByCategoryIDs(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetCategoriesByCategoryIDsRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetCategoriesByCategoryIDsResponse> responseObserver) {
@@ -648,6 +841,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список ключей атрибутов которые необходимо вывести в фасетах фильтров.
+     * Обязательные параметры:
+     *    category_ids - идентификатор категории
+     * Примеры:
+     *    Вернуть ключи атрибутов по ид категорий:
+     *        grpcurl -d '{"category_ids": ["175", "5440"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetCategoryFiltersByCategoryIDs
+     * </pre>
      */
     public void getCategoryFiltersByCategoryIDs(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetCategoryFiltersByCategoryIDsRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetCategoryFiltersByCategoryIDsResponse> responseObserver) {
@@ -656,6 +858,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает экземпляры атрибутов по ключам.
+     * Обязательные параметры:
+     *    attribute_keys - ключи атрибутов
+     * Примеры:
+     *    Вернуть экземпляры атрибутов:
+     *        grpcurl -d '{"attribute_keys": ["brand", "image"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAttributesByKeys
+     * </pre>
      */
     public void getAttributesByKeys(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAttributesByKeysRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAttributesByKeysResponse> responseObserver) {
@@ -664,6 +875,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список всех атрибутов.
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть все атрибуты:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllAttributes
+     * </pre>
      */
     public void getAllAttributes(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllAttributesRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllAttributesResponse> responseObserver) {
@@ -672,6 +893,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список всех словарей.
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть все словари:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllDictionaries
+     * </pre>
      */
     public void getAllDictionaries(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionariesRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionariesResponse> responseObserver) {
@@ -680,6 +911,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает экземпляры словарей по ключам.
+     * Обязательные параметры:
+     *    dictionary_keys - ключи словарей
+     * Примеры:
+     *    Вернуть экземпляры словарей:
+     *        grpcurl -d '{"dictionary_keys": ["brand"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetDictionariesByKeys
+     * </pre>
      */
     public void getDictionariesByKeys(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysResponse> responseObserver) {
@@ -688,6 +928,17 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает все словарные значения конкретного словаря.
+     * Обязательные параметры:
+     *    dictionary_key - ключ словаря
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть значения словарей:
+     *        grpcurl -d '{"dictionary_key": "brand", "limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllDictionaryValues
+     * </pre>
      */
     public void getAllDictionaryValues(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesResponse> responseObserver) {
@@ -696,6 +947,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons).
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть монолитовские категории:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllOriginalCategories
+     * </pre>
      */
     public void getAllOriginalCategories(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesResponse> responseObserver) {
@@ -704,6 +965,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список идентификаторов магазинов для конкретных ритейлеров.
+     * Обязательные параметры:
+     *    retailer_ids - идентификаторы ритейлеров
+     * Примеры:
+     *    Вернуть идентификаторы магазины:
+     *        grpcurl -d '{"retailer_ids": ["1", "3"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetRetailerStores
+     * </pre>
      */
     public void getRetailerStores(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse> responseObserver) {
@@ -712,6 +982,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список словарных значений по ключу атрибута и идентифиатору словарного значения
+     * Обязательные параметры:
+     *    attribute_key - ключ атрибута
+     *    dictionary_value_ids - идентификаторы словарных значений
+     * Примеры:
+     *    Вернуть словарные значения:
+     *        grpcurl -d '{"attributes": [{"attribute_key": "brand", "dictionary_value_ids": ["48739", "30248"]}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetDictionaryAttributesValues
+     * </pre>
      */
     public void getDictionaryAttributesValues(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse> responseObserver) {
@@ -721,6 +1001,22 @@ public final class ProductHubFrontMetaGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-product-hub.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-product-hub.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-product-hub.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-product-hub:3009
+   * description:
+   *    Мета сервис product-hub возвращающий мета данные (Category, Attribute, Dictionary, DictionaryValue).
+   *    Предназначет для real-time нагрузки.
+   * </pre>
    */
   public static final class ProductHubFrontMetaBlockingStub extends io.grpc.stub.AbstractBlockingStub<ProductHubFrontMetaBlockingStub> {
     private ProductHubFrontMetaBlockingStub(
@@ -735,6 +1031,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает плоский список всех категорий батчами (без спецпредложений).
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть все категории:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllCategories
+     * </pre>
      */
     public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesResponse getAllCategories(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -742,6 +1048,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает плоский список всех категорий со списком идентификаторов магазинов батчами (без спецпредложений).
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть все категории:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllCategoriesWithStores
+     * </pre>
      */
     public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresResponse getAllCategoriesWithStores(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -749,6 +1065,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает экземпляры категорий по идентификаторам.
+     * Обязательные параметры:
+     *    category_ids - идентификатор категории
+     * Примеры:
+     *    Вернуть категории по ид:
+     *        grpcurl -d '{"category_ids": ["175", "5440"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetCategoriesByCategoryIDs
+     * </pre>
      */
     public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetCategoriesByCategoryIDsResponse getCategoriesByCategoryIDs(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetCategoriesByCategoryIDsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -756,6 +1081,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список ключей атрибутов которые необходимо вывести в фасетах фильтров.
+     * Обязательные параметры:
+     *    category_ids - идентификатор категории
+     * Примеры:
+     *    Вернуть ключи атрибутов по ид категорий:
+     *        grpcurl -d '{"category_ids": ["175", "5440"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetCategoryFiltersByCategoryIDs
+     * </pre>
      */
     public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetCategoryFiltersByCategoryIDsResponse getCategoryFiltersByCategoryIDs(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetCategoryFiltersByCategoryIDsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -763,6 +1097,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает экземпляры атрибутов по ключам.
+     * Обязательные параметры:
+     *    attribute_keys - ключи атрибутов
+     * Примеры:
+     *    Вернуть экземпляры атрибутов:
+     *        grpcurl -d '{"attribute_keys": ["brand", "image"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAttributesByKeys
+     * </pre>
      */
     public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAttributesByKeysResponse getAttributesByKeys(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAttributesByKeysRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -770,6 +1113,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список всех атрибутов.
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть все атрибуты:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllAttributes
+     * </pre>
      */
     public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllAttributesResponse getAllAttributes(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllAttributesRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -777,6 +1130,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список всех словарей.
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть все словари:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllDictionaries
+     * </pre>
      */
     public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionariesResponse getAllDictionaries(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionariesRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -784,6 +1147,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает экземпляры словарей по ключам.
+     * Обязательные параметры:
+     *    dictionary_keys - ключи словарей
+     * Примеры:
+     *    Вернуть экземпляры словарей:
+     *        grpcurl -d '{"dictionary_keys": ["brand"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetDictionariesByKeys
+     * </pre>
      */
     public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysResponse getDictionariesByKeys(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -791,6 +1163,17 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает все словарные значения конкретного словаря.
+     * Обязательные параметры:
+     *    dictionary_key - ключ словаря
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть значения словарей:
+     *        grpcurl -d '{"dictionary_key": "brand", "limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllDictionaryValues
+     * </pre>
      */
     public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesResponse getAllDictionaryValues(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -798,6 +1181,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons).
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть монолитовские категории:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllOriginalCategories
+     * </pre>
      */
     public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesResponse getAllOriginalCategories(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -805,6 +1198,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список идентификаторов магазинов для конкретных ритейлеров.
+     * Обязательные параметры:
+     *    retailer_ids - идентификаторы ритейлеров
+     * Примеры:
+     *    Вернуть идентификаторы магазины:
+     *        grpcurl -d '{"retailer_ids": ["1", "3"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetRetailerStores
+     * </pre>
      */
     public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse getRetailerStores(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -812,6 +1214,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список словарных значений по ключу атрибута и идентифиатору словарного значения
+     * Обязательные параметры:
+     *    attribute_key - ключ атрибута
+     *    dictionary_value_ids - идентификаторы словарных значений
+     * Примеры:
+     *    Вернуть словарные значения:
+     *        grpcurl -d '{"attributes": [{"attribute_key": "brand", "dictionary_value_ids": ["48739", "30248"]}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetDictionaryAttributesValues
+     * </pre>
      */
     public product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse getDictionaryAttributesValues(product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -820,6 +1232,22 @@ public final class ProductHubFrontMetaGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-product-hub.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-product-hub.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-product-hub.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-product-hub:3009
+   * description:
+   *    Мета сервис product-hub возвращающий мета данные (Category, Attribute, Dictionary, DictionaryValue).
+   *    Предназначет для real-time нагрузки.
+   * </pre>
    */
   public static final class ProductHubFrontMetaFutureStub extends io.grpc.stub.AbstractFutureStub<ProductHubFrontMetaFutureStub> {
     private ProductHubFrontMetaFutureStub(
@@ -834,6 +1262,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает плоский список всех категорий батчами (без спецпредложений).
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть все категории:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllCategories
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesResponse> getAllCategories(
         product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesRequest request) {
@@ -842,6 +1280,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает плоский список всех категорий со списком идентификаторов магазинов батчами (без спецпредложений).
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть все категории:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllCategoriesWithStores
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresResponse> getAllCategoriesWithStores(
         product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllCategoriesWithStoresRequest request) {
@@ -850,6 +1298,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает экземпляры категорий по идентификаторам.
+     * Обязательные параметры:
+     *    category_ids - идентификатор категории
+     * Примеры:
+     *    Вернуть категории по ид:
+     *        grpcurl -d '{"category_ids": ["175", "5440"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetCategoriesByCategoryIDs
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetCategoriesByCategoryIDsResponse> getCategoriesByCategoryIDs(
         product_hub_front_meta.ProductHubFrontMetaOuterClass.GetCategoriesByCategoryIDsRequest request) {
@@ -858,6 +1315,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список ключей атрибутов которые необходимо вывести в фасетах фильтров.
+     * Обязательные параметры:
+     *    category_ids - идентификатор категории
+     * Примеры:
+     *    Вернуть ключи атрибутов по ид категорий:
+     *        grpcurl -d '{"category_ids": ["175", "5440"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetCategoryFiltersByCategoryIDs
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetCategoryFiltersByCategoryIDsResponse> getCategoryFiltersByCategoryIDs(
         product_hub_front_meta.ProductHubFrontMetaOuterClass.GetCategoryFiltersByCategoryIDsRequest request) {
@@ -866,6 +1332,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает экземпляры атрибутов по ключам.
+     * Обязательные параметры:
+     *    attribute_keys - ключи атрибутов
+     * Примеры:
+     *    Вернуть экземпляры атрибутов:
+     *        grpcurl -d '{"attribute_keys": ["brand", "image"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAttributesByKeys
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAttributesByKeysResponse> getAttributesByKeys(
         product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAttributesByKeysRequest request) {
@@ -874,6 +1349,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список всех атрибутов.
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть все атрибуты:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllAttributes
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllAttributesResponse> getAllAttributes(
         product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllAttributesRequest request) {
@@ -882,6 +1367,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список всех словарей.
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть все словари:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllDictionaries
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionariesResponse> getAllDictionaries(
         product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionariesRequest request) {
@@ -890,6 +1385,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает экземпляры словарей по ключам.
+     * Обязательные параметры:
+     *    dictionary_keys - ключи словарей
+     * Примеры:
+     *    Вернуть экземпляры словарей:
+     *        grpcurl -d '{"dictionary_keys": ["brand"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetDictionariesByKeys
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysResponse> getDictionariesByKeys(
         product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionariesByKeysRequest request) {
@@ -898,6 +1402,17 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает все словарные значения конкретного словаря.
+     * Обязательные параметры:
+     *    dictionary_key - ключ словаря
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть значения словарей:
+     *        grpcurl -d '{"dictionary_key": "brand", "limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllDictionaryValues
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesResponse> getAllDictionaryValues(
         product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllDictionaryValuesRequest request) {
@@ -906,6 +1421,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает полный список монолитовских категорий (табличка mysql.taxons).
+     * Обязательные параметры:
+     *    limit - кол-во запрашиваемых элементов
+     *    offset - сдвиг, начинать с 0
+     * Примеры:
+     *    Вернуть монолитовские категории:
+     *        grpcurl -d '{"limit": 10, "offset": 0}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetAllOriginalCategories
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesResponse> getAllOriginalCategories(
         product_hub_front_meta.ProductHubFrontMetaOuterClass.GetAllOriginalCategoriesRequest request) {
@@ -914,6 +1439,15 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список идентификаторов магазинов для конкретных ритейлеров.
+     * Обязательные параметры:
+     *    retailer_ids - идентификаторы ритейлеров
+     * Примеры:
+     *    Вернуть идентификаторы магазины:
+     *        grpcurl -d '{"retailer_ids": ["1", "3"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetRetailerStores
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresResponse> getRetailerStores(
         product_hub_front_meta.ProductHubFrontMetaOuterClass.GetRetailerStoresRequest request) {
@@ -922,6 +1456,16 @@ public final class ProductHubFrontMetaGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает список словарных значений по ключу атрибута и идентифиатору словарного значения
+     * Обязательные параметры:
+     *    attribute_key - ключ атрибута
+     *    dictionary_value_ids - идентификаторы словарных значений
+     * Примеры:
+     *    Вернуть словарные значения:
+     *        grpcurl -d '{"attributes": [{"attribute_key": "brand", "dictionary_value_ids": ["48739", "30248"]}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_meta.ProductHubFrontMeta.GetDictionaryAttributesValues
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesResponse> getDictionaryAttributesValues(
         product_hub_front_meta.ProductHubFrontMetaOuterClass.GetDictionaryAttributesValuesRequest request) {

@@ -3,6 +3,29 @@ package product_hub_front_data;
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 
 /**
+ * <pre>
+ **
+ * slack:
+ *    #product-hub
+ * swagger:
+ *     https://paas-content-product-hub.sbmt.io/api
+ * public prod grpc uri:
+ *    paas-content-product-hub.sbmt.io:443
+ * public stg grpc uri:
+ *    paas-content-product-hub.gw-stage.sbmt.io:443
+ * kuber prod grpc uri:
+ *    base-product-hub.paas-content-product-hub:3009
+ * description:
+ *    Фронтовый сервис product-hub возвращающий описание товаров (product+attribute),
+ *    товарное вредложение (offer), цену (price) и остатки (stock).
+ *    Предназначет для real-time нагрузки.
+ *    Основные параметры запроса:
+ *       sku - сбермартовский идентификатор описания товара
+ *       store_id - сбермартовский идентификатор магазина
+ *       tenant_id - сбермартовский идентификатор площадки
+ *       retailer_id - сбермартовский идентификатор ритейлера
+ *       retailer_sku - ритейлерский идентификатор товарного предложения
+ * </pre>
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.40.0)",
@@ -401,10 +424,47 @@ public final class ProductHubFrontDataGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-product-hub.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-product-hub.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-product-hub.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-product-hub:3009
+   * description:
+   *    Фронтовый сервис product-hub возвращающий описание товаров (product+attribute),
+   *    товарное вредложение (offer), цену (price) и остатки (stock).
+   *    Предназначет для real-time нагрузки.
+   *    Основные параметры запроса:
+   *       sku - сбермартовский идентификатор описания товара
+   *       store_id - сбермартовский идентификатор магазина
+   *       tenant_id - сбермартовский идентификатор площадки
+   *       retailer_id - сбермартовский идентификатор ритейлера
+   *       retailer_sku - ритейлерский идентификатор товарного предложения
+   * </pre>
    */
   public static abstract class ProductHubFrontDataImplBase implements io.grpc.BindableService {
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров по sku в виде атрибутов.
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     * Примеры:
+     *    Вернуть все атрибуты:
+     *        grpcurl -d '{"sku": ["16296"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsBySKU
+     *    Вернуть только определенные атрибуты:
+     *        grpcurl -d '{"sku": ["16296"], "display_attributes": [{"keys":["brand", "image"]}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsBySKU
+     *    Вернуть только определенную группу атрибутов размеченную флагом:
+     *        grpcurl -d '{"sku": ["16296"], "display_attributes": [{"flags":["show_as_characteristic"]}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsBySKU
+     * </pre>
      */
     public void getProductsBySKU(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsBySKURequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsBySKUResponse> responseObserver) {
@@ -412,6 +472,18 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров c ценой, стоком и товарным предложением по sku.
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     * Примеры:
+     *    Вернуть все атрибуты + сток + цену + оффер:
+     *        grpcurl -d '{"sku": ["16296"], "store_id": "1", "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferBySKU
+     * </pre>
      */
     public void getProductsWithOfferBySKU(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferBySKURequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferBySKUResponse> responseObserver) {
@@ -419,6 +491,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров c ценой, стоком и товарным предложением по offer_id (идентификатор базы mysql таблички offers).
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    offer_ids - идентификатор офера
+     *    tenant_id - идентификатор площадки
+     * Примеры:
+     *    Вернуть все атрибуты + сток + цену + оффер:
+     *        grpcurl -d '{"offer_ids": ["231461"], "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferByOfferIDs
+     * </pre>
      */
     public void getProductsWithOfferByOfferIDs(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsResponse> responseObserver) {
@@ -426,6 +509,16 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров по EAN.
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    EAN - штрихкод
+     * Примеры:
+     *    Вернуть все атрибуты:
+     *        grpcurl -d '{"ean": ["4000417048103"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsByEAN
+     * </pre>
      */
     public void getProductsByEAN(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANResponse> responseObserver) {
@@ -433,6 +526,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров c ценой, стоком и товарным предложением по EAN.
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    EAN - штрихкод
+     *    store_id - идентификатор магазина
+     * Примеры:
+     *    Вернуть все атрибуты + сток + цену + оффер:
+     *        grpcurl -d '{"ean": ["4000417048103"], "store_id": "1", "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferByEAN
+     * </pre>
      */
     public void getProductsWithOfferByEAN(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByEANRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByEANResponse> responseObserver) {
@@ -440,6 +544,16 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров по permalink товаров (атрибут описания permalink).
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    permalink - пермалинк товара
+     * Примеры:
+     *    Вернуть все атрибуты:
+     *        grpcurl -d '{"permalink": ["shokolad-ritter-sport-mini-bunter-mix-7-vkusov-16-67-g-h-84-sht-691a0cc"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsByPermalink
+     * </pre>
      */
     public void getProductsByPermalink(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkResponse> responseObserver) {
@@ -447,6 +561,18 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров c ценой, стоком и товарным предложением по permalink товаров (атрибут описания permalink).
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    permalink - пермалинк товара
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     * Примеры:
+     *    Вернуть все атрибуты + сток + цену + оффер:
+     *        grpcurl -d '{"permalink": ["shokolad-ritter-sport-mini-bunter-mix-7-vkusov-16-67-g-h-84-sht-691a0cc"], "store_id": "1", "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferByPermalink
+     * </pre>
      */
     public void getProductsWithOfferByPermalink(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkResponse> responseObserver) {
@@ -454,6 +580,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает товарные предложения по sku описания + store_id идентификатору магазина
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     *    store_id - идентификатор магазина
+     * Примеры:
+     *    Вернуть товарное предложение (offer):
+     *        grpcurl -d '{"offers": [{"sku": "16296", "store_id": "1"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetOffersBySKUANDStoreID
+     * </pre>
      */
     public void getOffersBySKUANDStoreID(product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDResponse> responseObserver) {
@@ -461,6 +598,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает остатки по по sku описания + store_id идентификатору магазина
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     *    store_id - идентификатор магазина
+     * Примеры:
+     *    Вернуть остатки (stock):
+     *        grpcurl -d '{"stocks": [{"sku": "16296", "store_id": "1"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetStocks
+     * </pre>
      */
     public void getStocks(product_hub_front_data.ProductHubFrontDataOuterClass.GetStocksRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetStocksResponse> responseObserver) {
@@ -468,6 +616,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает товарные предложения по retailer_sku идентификатор товарного предложения ритейлера + retailer_id идентификатору ритейлера
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    retailer_sku - идентификатор товарного предлоежния ритейлера
+     *    retailer_id - идентификатор ритейлера
+     * Примеры:
+     *    Вернуть товарное предложение (offer):
+     *        grpcurl -d '{"offers": [{"retailer_sku": "337582", "retailer_id": "1"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetOffers
+     * </pre>
      */
     public void getOffers(product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersResponse> responseObserver) {
@@ -475,6 +634,18 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает цены по sku + store_id + tenant_id
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     * Примеры:
+     *    Вернуть цены (price):
+     *        grpcurl -d '{"prices": [{"sku": ["16296"], "store_id": "1", "tenant_id": "sbermarket"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetPrices
+     * </pre>
      */
     public void getPrices(product_hub_front_data.ProductHubFrontDataOuterClass.GetPricesRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetPricesResponse> responseObserver) {
@@ -565,6 +736,29 @@ public final class ProductHubFrontDataGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-product-hub.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-product-hub.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-product-hub.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-product-hub:3009
+   * description:
+   *    Фронтовый сервис product-hub возвращающий описание товаров (product+attribute),
+   *    товарное вредложение (offer), цену (price) и остатки (stock).
+   *    Предназначет для real-time нагрузки.
+   *    Основные параметры запроса:
+   *       sku - сбермартовский идентификатор описания товара
+   *       store_id - сбермартовский идентификатор магазина
+   *       tenant_id - сбермартовский идентификатор площадки
+   *       retailer_id - сбермартовский идентификатор ритейлера
+   *       retailer_sku - ритейлерский идентификатор товарного предложения
+   * </pre>
    */
   public static final class ProductHubFrontDataStub extends io.grpc.stub.AbstractAsyncStub<ProductHubFrontDataStub> {
     private ProductHubFrontDataStub(
@@ -579,6 +773,20 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров по sku в виде атрибутов.
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     * Примеры:
+     *    Вернуть все атрибуты:
+     *        grpcurl -d '{"sku": ["16296"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsBySKU
+     *    Вернуть только определенные атрибуты:
+     *        grpcurl -d '{"sku": ["16296"], "display_attributes": [{"keys":["brand", "image"]}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsBySKU
+     *    Вернуть только определенную группу атрибутов размеченную флагом:
+     *        grpcurl -d '{"sku": ["16296"], "display_attributes": [{"flags":["show_as_characteristic"]}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsBySKU
+     * </pre>
      */
     public void getProductsBySKU(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsBySKURequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsBySKUResponse> responseObserver) {
@@ -587,6 +795,18 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров c ценой, стоком и товарным предложением по sku.
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     * Примеры:
+     *    Вернуть все атрибуты + сток + цену + оффер:
+     *        grpcurl -d '{"sku": ["16296"], "store_id": "1", "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferBySKU
+     * </pre>
      */
     public void getProductsWithOfferBySKU(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferBySKURequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferBySKUResponse> responseObserver) {
@@ -595,6 +815,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров c ценой, стоком и товарным предложением по offer_id (идентификатор базы mysql таблички offers).
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    offer_ids - идентификатор офера
+     *    tenant_id - идентификатор площадки
+     * Примеры:
+     *    Вернуть все атрибуты + сток + цену + оффер:
+     *        grpcurl -d '{"offer_ids": ["231461"], "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferByOfferIDs
+     * </pre>
      */
     public void getProductsWithOfferByOfferIDs(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsResponse> responseObserver) {
@@ -603,6 +834,16 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров по EAN.
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    EAN - штрихкод
+     * Примеры:
+     *    Вернуть все атрибуты:
+     *        grpcurl -d '{"ean": ["4000417048103"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsByEAN
+     * </pre>
      */
     public void getProductsByEAN(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANResponse> responseObserver) {
@@ -611,6 +852,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров c ценой, стоком и товарным предложением по EAN.
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    EAN - штрихкод
+     *    store_id - идентификатор магазина
+     * Примеры:
+     *    Вернуть все атрибуты + сток + цену + оффер:
+     *        grpcurl -d '{"ean": ["4000417048103"], "store_id": "1", "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferByEAN
+     * </pre>
      */
     public void getProductsWithOfferByEAN(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByEANRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByEANResponse> responseObserver) {
@@ -619,6 +871,16 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров по permalink товаров (атрибут описания permalink).
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    permalink - пермалинк товара
+     * Примеры:
+     *    Вернуть все атрибуты:
+     *        grpcurl -d '{"permalink": ["shokolad-ritter-sport-mini-bunter-mix-7-vkusov-16-67-g-h-84-sht-691a0cc"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsByPermalink
+     * </pre>
      */
     public void getProductsByPermalink(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkResponse> responseObserver) {
@@ -627,6 +889,18 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров c ценой, стоком и товарным предложением по permalink товаров (атрибут описания permalink).
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    permalink - пермалинк товара
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     * Примеры:
+     *    Вернуть все атрибуты + сток + цену + оффер:
+     *        grpcurl -d '{"permalink": ["shokolad-ritter-sport-mini-bunter-mix-7-vkusov-16-67-g-h-84-sht-691a0cc"], "store_id": "1", "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferByPermalink
+     * </pre>
      */
     public void getProductsWithOfferByPermalink(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkResponse> responseObserver) {
@@ -635,6 +909,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает товарные предложения по sku описания + store_id идентификатору магазина
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     *    store_id - идентификатор магазина
+     * Примеры:
+     *    Вернуть товарное предложение (offer):
+     *        grpcurl -d '{"offers": [{"sku": "16296", "store_id": "1"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetOffersBySKUANDStoreID
+     * </pre>
      */
     public void getOffersBySKUANDStoreID(product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDResponse> responseObserver) {
@@ -643,6 +928,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает остатки по по sku описания + store_id идентификатору магазина
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     *    store_id - идентификатор магазина
+     * Примеры:
+     *    Вернуть остатки (stock):
+     *        grpcurl -d '{"stocks": [{"sku": "16296", "store_id": "1"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetStocks
+     * </pre>
      */
     public void getStocks(product_hub_front_data.ProductHubFrontDataOuterClass.GetStocksRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetStocksResponse> responseObserver) {
@@ -651,6 +947,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает товарные предложения по retailer_sku идентификатор товарного предложения ритейлера + retailer_id идентификатору ритейлера
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    retailer_sku - идентификатор товарного предлоежния ритейлера
+     *    retailer_id - идентификатор ритейлера
+     * Примеры:
+     *    Вернуть товарное предложение (offer):
+     *        grpcurl -d '{"offers": [{"retailer_sku": "337582", "retailer_id": "1"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetOffers
+     * </pre>
      */
     public void getOffers(product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersResponse> responseObserver) {
@@ -659,6 +966,18 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает цены по sku + store_id + tenant_id
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     * Примеры:
+     *    Вернуть цены (price):
+     *        grpcurl -d '{"prices": [{"sku": ["16296"], "store_id": "1", "tenant_id": "sbermarket"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetPrices
+     * </pre>
      */
     public void getPrices(product_hub_front_data.ProductHubFrontDataOuterClass.GetPricesRequest request,
         io.grpc.stub.StreamObserver<product_hub_front_data.ProductHubFrontDataOuterClass.GetPricesResponse> responseObserver) {
@@ -668,6 +987,29 @@ public final class ProductHubFrontDataGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-product-hub.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-product-hub.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-product-hub.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-product-hub:3009
+   * description:
+   *    Фронтовый сервис product-hub возвращающий описание товаров (product+attribute),
+   *    товарное вредложение (offer), цену (price) и остатки (stock).
+   *    Предназначет для real-time нагрузки.
+   *    Основные параметры запроса:
+   *       sku - сбермартовский идентификатор описания товара
+   *       store_id - сбермартовский идентификатор магазина
+   *       tenant_id - сбермартовский идентификатор площадки
+   *       retailer_id - сбермартовский идентификатор ритейлера
+   *       retailer_sku - ритейлерский идентификатор товарного предложения
+   * </pre>
    */
   public static final class ProductHubFrontDataBlockingStub extends io.grpc.stub.AbstractBlockingStub<ProductHubFrontDataBlockingStub> {
     private ProductHubFrontDataBlockingStub(
@@ -682,6 +1024,20 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров по sku в виде атрибутов.
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     * Примеры:
+     *    Вернуть все атрибуты:
+     *        grpcurl -d '{"sku": ["16296"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsBySKU
+     *    Вернуть только определенные атрибуты:
+     *        grpcurl -d '{"sku": ["16296"], "display_attributes": [{"keys":["brand", "image"]}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsBySKU
+     *    Вернуть только определенную группу атрибутов размеченную флагом:
+     *        grpcurl -d '{"sku": ["16296"], "display_attributes": [{"flags":["show_as_characteristic"]}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsBySKU
+     * </pre>
      */
     public product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsBySKUResponse getProductsBySKU(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsBySKURequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -689,6 +1045,18 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров c ценой, стоком и товарным предложением по sku.
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     * Примеры:
+     *    Вернуть все атрибуты + сток + цену + оффер:
+     *        grpcurl -d '{"sku": ["16296"], "store_id": "1", "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferBySKU
+     * </pre>
      */
     public product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferBySKUResponse getProductsWithOfferBySKU(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferBySKURequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -696,6 +1064,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров c ценой, стоком и товарным предложением по offer_id (идентификатор базы mysql таблички offers).
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    offer_ids - идентификатор офера
+     *    tenant_id - идентификатор площадки
+     * Примеры:
+     *    Вернуть все атрибуты + сток + цену + оффер:
+     *        grpcurl -d '{"offer_ids": ["231461"], "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferByOfferIDs
+     * </pre>
      */
     public product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsResponse getProductsWithOfferByOfferIDs(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -703,6 +1082,16 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров по EAN.
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    EAN - штрихкод
+     * Примеры:
+     *    Вернуть все атрибуты:
+     *        grpcurl -d '{"ean": ["4000417048103"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsByEAN
+     * </pre>
      */
     public product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANResponse getProductsByEAN(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -710,6 +1099,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров c ценой, стоком и товарным предложением по EAN.
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    EAN - штрихкод
+     *    store_id - идентификатор магазина
+     * Примеры:
+     *    Вернуть все атрибуты + сток + цену + оффер:
+     *        grpcurl -d '{"ean": ["4000417048103"], "store_id": "1", "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferByEAN
+     * </pre>
      */
     public product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByEANResponse getProductsWithOfferByEAN(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByEANRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -717,6 +1117,16 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров по permalink товаров (атрибут описания permalink).
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    permalink - пермалинк товара
+     * Примеры:
+     *    Вернуть все атрибуты:
+     *        grpcurl -d '{"permalink": ["shokolad-ritter-sport-mini-bunter-mix-7-vkusov-16-67-g-h-84-sht-691a0cc"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsByPermalink
+     * </pre>
      */
     public product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkResponse getProductsByPermalink(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -724,6 +1134,18 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров c ценой, стоком и товарным предложением по permalink товаров (атрибут описания permalink).
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    permalink - пермалинк товара
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     * Примеры:
+     *    Вернуть все атрибуты + сток + цену + оффер:
+     *        grpcurl -d '{"permalink": ["shokolad-ritter-sport-mini-bunter-mix-7-vkusov-16-67-g-h-84-sht-691a0cc"], "store_id": "1", "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferByPermalink
+     * </pre>
      */
     public product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkResponse getProductsWithOfferByPermalink(product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -731,6 +1153,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает товарные предложения по sku описания + store_id идентификатору магазина
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     *    store_id - идентификатор магазина
+     * Примеры:
+     *    Вернуть товарное предложение (offer):
+     *        grpcurl -d '{"offers": [{"sku": "16296", "store_id": "1"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetOffersBySKUANDStoreID
+     * </pre>
      */
     public product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDResponse getOffersBySKUANDStoreID(product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -738,6 +1171,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает остатки по по sku описания + store_id идентификатору магазина
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     *    store_id - идентификатор магазина
+     * Примеры:
+     *    Вернуть остатки (stock):
+     *        grpcurl -d '{"stocks": [{"sku": "16296", "store_id": "1"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetStocks
+     * </pre>
      */
     public product_hub_front_data.ProductHubFrontDataOuterClass.GetStocksResponse getStocks(product_hub_front_data.ProductHubFrontDataOuterClass.GetStocksRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -745,6 +1189,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает товарные предложения по retailer_sku идентификатор товарного предложения ритейлера + retailer_id идентификатору ритейлера
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    retailer_sku - идентификатор товарного предлоежния ритейлера
+     *    retailer_id - идентификатор ритейлера
+     * Примеры:
+     *    Вернуть товарное предложение (offer):
+     *        grpcurl -d '{"offers": [{"retailer_sku": "337582", "retailer_id": "1"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetOffers
+     * </pre>
      */
     public product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersResponse getOffers(product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -752,6 +1207,18 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает цены по sku + store_id + tenant_id
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     * Примеры:
+     *    Вернуть цены (price):
+     *        grpcurl -d '{"prices": [{"sku": ["16296"], "store_id": "1", "tenant_id": "sbermarket"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetPrices
+     * </pre>
      */
     public product_hub_front_data.ProductHubFrontDataOuterClass.GetPricesResponse getPrices(product_hub_front_data.ProductHubFrontDataOuterClass.GetPricesRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -760,6 +1227,29 @@ public final class ProductHubFrontDataGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-product-hub.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-product-hub.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-product-hub.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-product-hub:3009
+   * description:
+   *    Фронтовый сервис product-hub возвращающий описание товаров (product+attribute),
+   *    товарное вредложение (offer), цену (price) и остатки (stock).
+   *    Предназначет для real-time нагрузки.
+   *    Основные параметры запроса:
+   *       sku - сбермартовский идентификатор описания товара
+   *       store_id - сбермартовский идентификатор магазина
+   *       tenant_id - сбермартовский идентификатор площадки
+   *       retailer_id - сбермартовский идентификатор ритейлера
+   *       retailer_sku - ритейлерский идентификатор товарного предложения
+   * </pre>
    */
   public static final class ProductHubFrontDataFutureStub extends io.grpc.stub.AbstractFutureStub<ProductHubFrontDataFutureStub> {
     private ProductHubFrontDataFutureStub(
@@ -774,6 +1264,20 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров по sku в виде атрибутов.
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     * Примеры:
+     *    Вернуть все атрибуты:
+     *        grpcurl -d '{"sku": ["16296"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsBySKU
+     *    Вернуть только определенные атрибуты:
+     *        grpcurl -d '{"sku": ["16296"], "display_attributes": [{"keys":["brand", "image"]}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsBySKU
+     *    Вернуть только определенную группу атрибутов размеченную флагом:
+     *        grpcurl -d '{"sku": ["16296"], "display_attributes": [{"flags":["show_as_characteristic"]}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsBySKU
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsBySKUResponse> getProductsBySKU(
         product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsBySKURequest request) {
@@ -782,6 +1286,18 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров c ценой, стоком и товарным предложением по sku.
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     * Примеры:
+     *    Вернуть все атрибуты + сток + цену + оффер:
+     *        grpcurl -d '{"sku": ["16296"], "store_id": "1", "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferBySKU
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferBySKUResponse> getProductsWithOfferBySKU(
         product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferBySKURequest request) {
@@ -790,6 +1306,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров c ценой, стоком и товарным предложением по offer_id (идентификатор базы mysql таблички offers).
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    offer_ids - идентификатор офера
+     *    tenant_id - идентификатор площадки
+     * Примеры:
+     *    Вернуть все атрибуты + сток + цену + оффер:
+     *        grpcurl -d '{"offer_ids": ["231461"], "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferByOfferIDs
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsResponse> getProductsWithOfferByOfferIDs(
         product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByOfferIDsRequest request) {
@@ -798,6 +1325,16 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров по EAN.
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    EAN - штрихкод
+     * Примеры:
+     *    Вернуть все атрибуты:
+     *        grpcurl -d '{"ean": ["4000417048103"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsByEAN
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANResponse> getProductsByEAN(
         product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByEANRequest request) {
@@ -806,6 +1343,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров c ценой, стоком и товарным предложением по EAN.
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    EAN - штрихкод
+     *    store_id - идентификатор магазина
+     * Примеры:
+     *    Вернуть все атрибуты + сток + цену + оффер:
+     *        grpcurl -d '{"ean": ["4000417048103"], "store_id": "1", "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferByEAN
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByEANResponse> getProductsWithOfferByEAN(
         product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByEANRequest request) {
@@ -814,6 +1362,16 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров по permalink товаров (атрибут описания permalink).
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    permalink - пермалинк товара
+     * Примеры:
+     *    Вернуть все атрибуты:
+     *        grpcurl -d '{"permalink": ["shokolad-ritter-sport-mini-bunter-mix-7-vkusov-16-67-g-h-84-sht-691a0cc"]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsByPermalink
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkResponse> getProductsByPermalink(
         product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsByPermalinkRequest request) {
@@ -822,6 +1380,18 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров c ценой, стоком и товарным предложением по permalink товаров (атрибут описания permalink).
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    permalink - пермалинк товара
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     * Примеры:
+     *    Вернуть все атрибуты + сток + цену + оффер:
+     *        grpcurl -d '{"permalink": ["shokolad-ritter-sport-mini-bunter-mix-7-vkusov-16-67-g-h-84-sht-691a0cc"], "store_id": "1", "tenant_id": "sbermarket"}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetProductsWithOfferByPermalink
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkResponse> getProductsWithOfferByPermalink(
         product_hub_front_data.ProductHubFrontDataOuterClass.GetProductsWithOfferByPermalinkRequest request) {
@@ -830,6 +1400,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает товарные предложения по sku описания + store_id идентификатору магазина
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     *    store_id - идентификатор магазина
+     * Примеры:
+     *    Вернуть товарное предложение (offer):
+     *        grpcurl -d '{"offers": [{"sku": "16296", "store_id": "1"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetOffersBySKUANDStoreID
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDResponse> getOffersBySKUANDStoreID(
         product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersBySKUANDStoreIDRequest request) {
@@ -838,6 +1419,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает остатки по по sku описания + store_id идентификатору магазина
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     *    store_id - идентификатор магазина
+     * Примеры:
+     *    Вернуть остатки (stock):
+     *        grpcurl -d '{"stocks": [{"sku": "16296", "store_id": "1"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetStocks
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_data.ProductHubFrontDataOuterClass.GetStocksResponse> getStocks(
         product_hub_front_data.ProductHubFrontDataOuterClass.GetStocksRequest request) {
@@ -846,6 +1438,17 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает товарные предложения по retailer_sku идентификатор товарного предложения ритейлера + retailer_id идентификатору ритейлера
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    retailer_sku - идентификатор товарного предлоежния ритейлера
+     *    retailer_id - идентификатор ритейлера
+     * Примеры:
+     *    Вернуть товарное предложение (offer):
+     *        grpcurl -d '{"offers": [{"retailer_sku": "337582", "retailer_id": "1"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetOffers
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersResponse> getOffers(
         product_hub_front_data.ProductHubFrontDataOuterClass.GetOffersRequest request) {
@@ -854,6 +1457,18 @@ public final class ProductHubFrontDataGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает цены по sku + store_id + tenant_id
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    sku - идентификатор описания
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     * Примеры:
+     *    Вернуть цены (price):
+     *        grpcurl -d '{"prices": [{"sku": ["16296"], "store_id": "1", "tenant_id": "sbermarket"}]}' paas-content-product-hub.sbmt.io:443 product_hub_front_data.ProductHubFrontData.GetPrices
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<product_hub_front_data.ProductHubFrontDataOuterClass.GetPricesResponse> getPrices(
         product_hub_front_data.ProductHubFrontDataOuterClass.GetPricesRequest request) {

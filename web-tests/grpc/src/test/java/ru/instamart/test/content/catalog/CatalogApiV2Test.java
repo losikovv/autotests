@@ -203,40 +203,43 @@ public class CatalogApiV2Test extends GrpcBase {
 
     @Story("Продукты")
     @CaseId(250)
-    @Test(description = "Получение списка товаров с пустым tenant_id",
-            groups = {"grpc-product-hub"},
-            expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty category_ids") //todo ждём актуализации в Qase
+    @Test(description = "Проверка ручки листинга продуктов с пустым значением поля \"tenant_id\"",
+            groups = {"grpc-product-hub"})
     public void getProductListWithEmptyTenantId() {
         var request = CatalogApiV2
                 .GetProductListRequest.newBuilder()
-                .setTid("0")
-                .setSid("1")
+                .setSid("57")
+                .setTid("43468")
                 .setPage(1)
-                .setPage(24)
-                .setSort("0")
+                .setPerPage(24)
+                .setSort("popularity")
                 .setTenantId("")
                 .build();
 
-        client.getProductList(request);
+        var response = client.getProductList(request);
+
+        Assert.assertFalse(response.getProductsList().isEmpty(), "Не вернулся список продуктов");
+        Assert.assertFalse(response.getSortList().isEmpty(), "Не вернулся список сортировок продуктов");
+        Assert.assertFalse(response.getFacetsList().isEmpty(), "Не вернулся список аспектов продуктов");
     }
 
     @Story("Продукты")
     @CaseId(251)
-    @Test(description = "Получение списка товаров без tenant_id",
-            groups = {"grpc-product-hub"},
-            expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty category_ids") //todo ждём актуализации в Qase
+    @Test(description = "Проверка ручки листинга продуктов без передачи поля \"tenant_id\"",
+            groups = {"grpc-product-hub"})
     public void getProductListWithoutTenantId() {
         var request = CatalogApiV2
                 .GetProductListRequest.newBuilder()
-                .setTid("0")
-                .setSid("1")
+                .setSid("57")
+                .setTid("43468")
                 .setPage(1)
-                .setPage(24)
-                .setSort("0")
+                .setPerPage(24)
+                .setSort("popularity")
                 .build();
 
-        client.getProductList(request);
-    }
+        var response = client.getProductList(request);
+
+        Assert.assertFalse(response.getProductsList().isEmpty(), "Не вернулся список продуктов");
+        Assert.assertFalse(response.getSortList().isEmpty(), "Не вернулся список сортировок продуктов");
+        Assert.assertFalse(response.getFacetsList().isEmpty(), "Не вернулся список аспектов продуктов");    }
 }

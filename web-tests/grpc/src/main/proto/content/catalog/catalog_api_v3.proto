@@ -1,0 +1,267 @@
+syntax = "proto3";
+
+package catalog_api_v3;
+
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+
+option go_package = "gitlab.sbermarket.tech/paas/content/catalog/pkg/server/grpc/catalog";
+
+service CatalogAPIV3Service {
+	rpc GetProductList(GetProductListRequestV3) returns (GetProductListResponseV3){
+		option (google.api.http) = {
+			get: "/api/v3/products"
+		};
+	}
+	rpc GetProduct(GetProductRequestV3) returns (GetProductResponseV3)
+	{
+		option (google.api.http) = {
+			get: "/api/v3/products/{product_id}"
+		};
+	}
+}
+
+message GetProductListRequestV3 {
+	string sid = 1;
+	string tid = 2;
+	string q = 3;
+	int64 page = 4;
+	int64 per_page = 5 [json_name = "per_page"];
+	map<string, ProductListAttributeFilterV3> filter = 6;
+	string sort = 7;
+	string tenant_id = 8 [json_name = "tenant_id"];
+}
+
+message GetProductListResponseV3{
+	repeated ProductV3 products = 1;
+	repeated FacetV3 facets = 2;
+	MetaV3 meta = 3;
+	repeated ProductListSortV3 sort = 4;
+	repeated PromoBadgeV3 promo_badges = 5 [json_name = "promo_badges"];
+	RootCategoriesV3 root_categories = 6 [json_name = "root_categories"];
+}
+
+message GetProductRequestV3 {
+	string product_id = 1 [json_name = "product_id"];
+	string tenant_id = 2 [json_name = "tenant_id"];
+}
+
+message GetProductResponseV3{
+	ProductWithPropertiesV3 product = 1;
+	repeated PromoBadgeV3 promo_badges = 2 [json_name = "promo_badges"];
+}
+
+message ProductV3 {
+	double id = 1;
+	google.protobuf.Int64Value sku = 2;
+	bool active = 3;
+	google.protobuf.StringValue retailer_sku = 4 [json_name = "retailer_sku"];
+	google.protobuf.StringValue name = 5;
+	double price = 6;
+	double original_price = 7 [json_name = "original_price"];
+	double discount = 8;
+	google.protobuf.StringValue human_volume = 9 [json_name = "human_volume"];
+	double volume = 10;
+	google.protobuf.StringValue volume_type = 11 [json_name = "volume_type"];
+	double items_per_pack = 12 [json_name = "items_per_pack"];
+	google.protobuf.StringValue discount_ends_at = 13 [json_name = "discount_ends_at"];
+	google.protobuf.StringValue price_type = 14 [json_name = "price_type"];
+	double grams_per_unit = 15 [json_name = "grams_per_unit"];
+	double unit_price = 16 [json_name = "unit_price"];
+	double original_unit_price = 17 [json_name = "original_unit_price"];
+	repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"];
+	google.protobuf.FloatValue score = 19;
+	repeated string labels = 20;
+	repeated ImageV3 images = 21;
+	repeated string requirements = 22;
+}
+
+message ImageV3 {
+	string mini_url = 1 [json_name = "mini_url"];
+	string small_url = 2 [json_name = "small_url"];
+	string product_url = 3 [json_name = "product_url"];
+	string preview_url = 4 [json_name = "preview_url"];
+	string original_url = 5 [json_name = "original_url"];
+}
+
+message FacetV3 {
+	string key = 1;
+	string name = 2;
+	string type = 3;
+	repeated FacetOptionV3 options = 4;
+}
+
+enum FacetTypeV3 {
+	SELECT = 0;
+	MULTI_SELECT = 1;
+	TOGGLE = 2;
+}
+
+message FacetOptionV3 {
+	google.protobuf.StringValue name = 1;
+	int64 value = 2;
+	int64 count = 3;
+	google.protobuf.StringValue permalink = 4;
+	bool active = 5;
+}
+
+message MetaV3 {
+	int64 current_page = 1 [json_name = "current_page"];
+	google.protobuf.Int64Value next_page = 2 [json_name = "next_page"];
+	google.protobuf.Int64Value previous_page = 3 [json_name = "previous_page"];
+	int64 total_pages = 4 [json_name = "total_pages"];
+	int64 per_page = 5 [json_name = "per_page"];
+	int64 total_count = 6 [json_name = "total_count"];
+}
+
+message RootCategoriesV3 {
+}
+
+message ProductListSortV3 {
+	string key = 1;
+	string name = 2;
+	string order = 3;
+	bool active = 4;
+}
+
+message BrandV3 {
+	double id = 1;
+	string name = 2;
+	google.protobuf.StringValue permalink = 3;
+}
+
+message ManufacturerV3 {
+	double id = 1;
+	string name = 2;
+}
+
+message ManufacturingCountryV3 {
+	double id = 1;
+	string name = 2;
+	google.protobuf.StringValue permalink = 3;
+}
+
+message ProductWithPropertiesV3 {
+	double id = 1;
+	int64 sku = 2;
+	bool active = 3;
+	string name = 4;
+	string human_volume = 5 [json_name = "human_volume"];
+	double volume = 6;
+	string volume_type = 7 [json_name = "volume_type"];
+	double items_per_pack = 8 [json_name = "items_per_pack"];
+	repeated double promo_badge_ids = 9 [json_name = "promo_badge_ids"];
+	google.protobuf.FloatValue score = 10;
+	repeated string labels = 11;
+	repeated ImageV3 images = 12;
+	repeated PropertyV3 properties = 13;
+	string description = 14;
+	ScoreDetailV3 score_details = 15 [json_name = "score_details"];
+	repeated string requirements = 16;
+	repeated string related_products = 17 [json_name = "related_products"];
+	repeated ProductTaxonV3 product_taxons = 18 [json_name = "product_taxons"];
+	BrandV3 brand = 19;
+	ManufacturerV3 manufacturer = 20;
+	ManufacturingCountryV3 manufacturing_country = 21;
+	OfferV3 offer = 22 [json_name = "offer"];
+}
+
+message OfferV3 {
+	double id = 1;
+	bool active = 2;
+	string uuid = 3;
+	string name = 4;
+	double price = 5;
+	double discount = 6;
+	bool discounted = 7;
+	double instamart_price = 8;
+	double items_per_pack = 9;
+	double product_id = 10;
+	double retailer_id = 11;
+	double store_id = 12;
+	google.protobuf.StringValue retailer_sku = 13 [json_name = "retailer_sku"];
+	google.protobuf.StringValue rsku = 14 [json_name = "rsku"];
+	double stock = 15 [json_name = "stock"];
+	double stock_rate = 16 [json_name = "stock_rate"];
+	double max_stock_rate = 17 [json_name = "max_stock_rate"];
+	google.protobuf.StringValue discount_ends_at = 18 [json_name = "discount_ends_at"];
+	google.protobuf.StringValue price_type = 19 [json_name = "price_type"];
+	double unit_price = 20 [json_name = "unit_price"];
+	double original_unit_price = 21 [json_name = "original_unit_price"];
+	double grams_per_unit = 22 [json_name = "grams_per_unit"];
+	string vat_info = 23 [json_name = "vat_info"];
+}
+
+message PropertyV3 {
+	string name = 1;
+	string presentation = 2;
+	string value = 3;
+}
+
+message ProductListAttributeFilterV3{
+	repeated string attribute_values = 1 [json_name = "attribute_values"];
+}
+
+message PromoBadgeV3 {
+	double id = 1;
+	string type = 2 ;
+	PromoBadgeAttributeV3 attributes = 3;
+}
+
+message PromoBadgeAttributeV3 {
+	string name = 1;
+	string banner_button_text = 2 [json_name = "banner_button_text"];
+	double taxon_id = 3 [json_name = "taxon_id"];
+	AttributeOptionV3 options = 4;
+}
+
+message AttributeOptionV3 {
+	ActiveV3 active = 1;
+	InactiveV3 inactive = 2;
+}
+
+message ActiveV3 {
+	string title = 1 ;
+	string title_short = 2 [json_name = "title_short"];
+	string url = 3;
+	string deeplink = 4;
+	string button_text = 5 [json_name = "button_text"];
+	string header = 6;
+	string text = 7;
+}
+
+message InactiveV3 {
+	string title = 1 ;
+	string title_short = 2 [json_name = "title_short"];
+	string url = 3;
+	string button_text = 5 [json_name = "button_text"];
+	string header = 6;
+	string text = 7;
+}
+
+message ScoreDetailV3 {
+	google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];
+	google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];
+	google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];
+}
+
+message ProductTaxonV3 {
+	double id = 1;
+	string name = 2;
+	google.protobuf.StringValue permalink = 3;
+	google.protobuf.StringValue description = 4 [json_name = "description"];
+	bool is_leaf = 5;
+	bool is_alcohol = 6;
+}
+
+message IconV3 {
+	string  mini_url = 1 [json_name = "mini_url"];
+	string  normal_url = 2 [json_name = "normal_url"];
+}
+
+message ProtoPersonV3 {
+	google.protobuf.StringValue firstName = 1;
+	google.protobuf.StringValue lastName = 2;
+	google.protobuf.StringValue address1 = 3;
+	google.protobuf.Int32Value age = 4;
+}

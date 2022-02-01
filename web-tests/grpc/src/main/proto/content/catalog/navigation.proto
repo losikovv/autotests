@@ -4,15 +4,169 @@ package navigation;
 
 option go_package = "gitlab.sbermarket.tech/paas/content/catalog/pkg/server/grpc/navigation";
 
+/**
+ * slack:
+ *    #product-hub
+ *
+ * swagger:
+ *     https://paas-content-catalog-navigation.sbmt.io/api
+ *
+ * public prod grpc uri:
+ *    paas-content-catalog-navigation.sbmt.io:443
+ *
+ * public stg grpc uri:
+ *    paas-content-catalog-navigation.gw-stage.sbmt.io:443
+ *
+ * kuber prod grpc uri:
+ *    base-product-hub.paas-content-catalog-navigation:3009
+ *
+ * description:
+ *    Фронтовый сервис catalog navigation возвращающий меню, хлебные крошки.
+ *    Предназначет для real-time нагрузки.
+ */
 service NavigationService {
+	/**
+	 * Возвращает дерево меню с категориями в которых есть в наличии товары
+	 * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	 *
+	 * Обязательные параметры:
+	 *    store_id - идентификатор магазина
+	 *    tenant_id - идентификатор площадки
+	 *    tree_depth - глубина возвращаемого дерева
+	 *
+	 * Примеры:
+	 *    Вернуть меню со всеми атрибутами категории:
+	 *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "tree_depth": 2}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetMenuTree
+	 *
+	 *    Вернуть меню только с определенными атрибутами категории:
+	 *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "tree_depth": 2, "category_data_keys": ["image"]}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetMenuTree
+	 *
+	 */
 	rpc GetMenuTree(GetMenuTreeRequest) returns (GetMenuTreeResponse);
+
+	/**
+	 * Возвращает дерево меню с категориями без учета наличия товаров
+	 * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	 *
+	 * Примеры:
+	 *    Вернуть дерево начиная с корня:
+	 *        grpcurl -d '{}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetCategoryTrees
+	 *
+	 *    Вернуть дерево начиная с категории 28090000:
+	 *        grpcurl -d '{"category_id": "28090000"}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetCategoryTrees
+	 *
+	 */
 	rpc GetCategoryTrees(GetCategoryTreesRequest) returns (GetCategoryTreesResponse);
+
+	/**
+	 * Возвращает хлебные крошки
+	 * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+	 *
+	 * Обязательные параметры:
+	 *    category_id - идентификатор категории
+	 *
+	 * Примеры:
+	 *    Вернуть крошки:
+	 *        grpcurl -d '{"category_id": "28090000"}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetBreadcrumbsByCategoryID
+	 *
+	 */
 	rpc GetBreadcrumbsByCategoryID(GetBreadcrumbsByCategoryIDRequest) returns(GetBreadcrumbsByCategoryIDResponse);
+
+	/**
+	 * PRIVATE:Удаление кеша от product-filter
+	 *
+	 * Примеры:
+	 *    Удалить кеш с пода:
+	 *        grpcurl -d '{}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.FlushCategoryFacetsCache
+	 *
+	 */
 	rpc FlushCategoryFacetsCache(Empty) returns (Empty);
+
+	/**
+	 * PRIVATE:Форсированный импорт категорий из product-hub
+	 *
+	 * Примеры:
+	 *    Обновить дерево в поде:
+	 *        grpcurl -d '{}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.UpdateCategories
+	 *
+	 */
 	rpc UpdateCategories(Empty) returns (Empty);
 }
 
-// GetBreadcrumbsByCategoryID
+/**
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *                    Основные сущности
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
+
+/**
+ * Статус любой сущности
+ */
+enum Status {
+	DISABLE = 0; // сущность не активна
+	ENABLE = 1; // сущность активна
+}
+
+/**
+ * Тип атрибута (message Attribute) или data атрибута (message Data)
+ */
+enum ValueType {
+	STRING = 0; // строка
+	INTEGER = 1; // число
+	DOUBLE = 2; // число с точкой
+	BOOL = 3; // флаг
+	DATETIME = 4; // время в формате ISO-8601 (YYYY-MM-DDThh:mm:ss)
+	IMAGE = 5; // uri на картинку в s3
+}
+
+/**
+ * Категория
+ */
+message Category {
+	string id = 1; // идентификатор категории 
+	string name = 2; // название категории
+	string discount_copy_root_id = 3; // ссылка на категорию спец. предложений
+	Status status = 4; // статус сущности
+	repeated Category children = 5; // дети
+}
+
+/**
+ * Дата атрибут.
+ */
+message Data {
+	string key = 1; // уникальный ключ атрибута
+	ValueType type = 2; // тип атрибута, см. ValueType
+	bool is_multi_value = 3; // флаг означающий 1 или n значений будет в values
+	repeated string values = 4; // значения атрибута
+}
+
+/**
+ * Узел меню
+ */
+message MenuCategory{
+	string id = 1; // идентификатор категории
+	string name = 2; // название категории
+	int64 product_count = 3; // кол-во продуктов в категории
+	repeated Data category_data = 4; // доп. данные
+	repeated MenuCategory children = 5; // дети
+	string original_category_id = 6; // идентификатор монолитовской категории (mysql.taxon.id)
+}
+
+/**
+ * Крошка
+ */
+message BreadCrumb {
+	string id = 1; // идентификатор категории
+	string name = 2; // название категории
+	string permalink = 3; // пермалинк
+}
+
+/**
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *                    Request && Response
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
+
 message GetBreadcrumbsByCategoryIDRequest {
 	string category_id = 1;
 }
@@ -21,13 +175,6 @@ message GetBreadcrumbsByCategoryIDResponse {
 	repeated BreadCrumb breadcrumbs = 1;
 }
 
-message BreadCrumb {
-	string id = 1;
-	string name = 2;
-	string permalink = 3;
-}
-
-// GetMenuTree
 message GetMenuTreeRequest {
 	string store_id = 1;
 	string tenant_id = 2;
@@ -39,51 +186,12 @@ message GetMenuTreeResponse{
 	repeated MenuCategory categories = 1;
 }
 
-message MenuCategory{
-	string id = 1;
-	string name = 2;
-	int64 product_count = 3;
-	repeated Data category_data = 4;
-	repeated MenuCategory children = 5;
-	string original_category_id = 6;
-}
-
-// GetCategoryTrees
 message GetCategoryTreesRequest{
 	string category_id = 1;
 }
 
 message GetCategoryTreesResponse{
 	repeated Category categories = 1;
-}
-
-message Category{
-	string id = 1;
-	string name = 2;
-	string discount_copy_root_id = 3;
-	Status status = 4;
-	repeated Category children = 5;
-}
-
-enum Status {
-	DISABLE = 0;
-	ENABLE = 1;
-}
-
-enum ValueType {
-	STRING = 0;
-	INTEGER = 1;
-	DOUBLE = 2;
-	BOOL = 3;
-	DATETIME = 4;
-	IMAGE = 5;
-}
-
-message Data {
-	string key = 1;
-	ValueType type = 2;
-	bool is_multi_value = 3;
-	repeated string values = 4;
 }
 
 message Empty{}

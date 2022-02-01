@@ -3,6 +3,22 @@ package navigation;
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 
 /**
+ * <pre>
+ **
+ * slack:
+ *    #product-hub
+ * swagger:
+ *     https://paas-content-catalog-navigation.sbmt.io/api
+ * public prod grpc uri:
+ *    paas-content-catalog-navigation.sbmt.io:443
+ * public stg grpc uri:
+ *    paas-content-catalog-navigation.gw-stage.sbmt.io:443
+ * kuber prod grpc uri:
+ *    base-product-hub.paas-content-catalog-navigation:3009
+ * description:
+ *    Фронтовый сервис catalog navigation возвращающий меню, хлебные крошки.
+ *    Предназначет для real-time нагрузки.
+ * </pre>
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.40.0)",
@@ -215,10 +231,40 @@ public final class NavigationServiceGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-catalog-navigation.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-catalog-navigation.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-catalog-navigation.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-catalog-navigation:3009
+   * description:
+   *    Фронтовый сервис catalog navigation возвращающий меню, хлебные крошки.
+   *    Предназначет для real-time нагрузки.
+   * </pre>
    */
   public static abstract class NavigationServiceImplBase implements io.grpc.BindableService {
 
     /**
+     * <pre>
+     **
+     * Возвращает дерево меню с категориями в которых есть в наличии товары
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     *    tree_depth - глубина возвращаемого дерева
+     * Примеры:
+     *    Вернуть меню со всеми атрибутами категории:
+     *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "tree_depth": 2}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetMenuTree
+     *    Вернуть меню только с определенными атрибутами категории:
+     *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "tree_depth": 2, "category_data_keys": ["image"]}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetMenuTree
+     * </pre>
      */
     public void getMenuTree(navigation.Navigation.GetMenuTreeRequest request,
         io.grpc.stub.StreamObserver<navigation.Navigation.GetMenuTreeResponse> responseObserver) {
@@ -226,6 +272,16 @@ public final class NavigationServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает дерево меню с категориями без учета наличия товаров
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Примеры:
+     *    Вернуть дерево начиная с корня:
+     *        grpcurl -d '{}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetCategoryTrees
+     *    Вернуть дерево начиная с категории 28090000:
+     *        grpcurl -d '{"category_id": "28090000"}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetCategoryTrees
+     * </pre>
      */
     public void getCategoryTrees(navigation.Navigation.GetCategoryTreesRequest request,
         io.grpc.stub.StreamObserver<navigation.Navigation.GetCategoryTreesResponse> responseObserver) {
@@ -233,6 +289,16 @@ public final class NavigationServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает хлебные крошки
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    category_id - идентификатор категории
+     * Примеры:
+     *    Вернуть крошки:
+     *        grpcurl -d '{"category_id": "28090000"}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetBreadcrumbsByCategoryID
+     * </pre>
      */
     public void getBreadcrumbsByCategoryID(navigation.Navigation.GetBreadcrumbsByCategoryIDRequest request,
         io.grpc.stub.StreamObserver<navigation.Navigation.GetBreadcrumbsByCategoryIDResponse> responseObserver) {
@@ -240,6 +306,13 @@ public final class NavigationServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * PRIVATE:Удаление кеша от product-filter
+     * Примеры:
+     *    Удалить кеш с пода:
+     *        grpcurl -d '{}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.FlushCategoryFacetsCache
+     * </pre>
      */
     public void flushCategoryFacetsCache(navigation.Navigation.Empty request,
         io.grpc.stub.StreamObserver<navigation.Navigation.Empty> responseObserver) {
@@ -247,6 +320,13 @@ public final class NavigationServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * PRIVATE:Форсированный импорт категорий из product-hub
+     * Примеры:
+     *    Обновить дерево в поде:
+     *        grpcurl -d '{}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.UpdateCategories
+     * </pre>
      */
     public void updateCategories(navigation.Navigation.Empty request,
         io.grpc.stub.StreamObserver<navigation.Navigation.Empty> responseObserver) {
@@ -295,6 +375,22 @@ public final class NavigationServiceGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-catalog-navigation.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-catalog-navigation.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-catalog-navigation.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-catalog-navigation:3009
+   * description:
+   *    Фронтовый сервис catalog navigation возвращающий меню, хлебные крошки.
+   *    Предназначет для real-time нагрузки.
+   * </pre>
    */
   public static final class NavigationServiceStub extends io.grpc.stub.AbstractAsyncStub<NavigationServiceStub> {
     private NavigationServiceStub(
@@ -309,6 +405,20 @@ public final class NavigationServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает дерево меню с категориями в которых есть в наличии товары
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     *    tree_depth - глубина возвращаемого дерева
+     * Примеры:
+     *    Вернуть меню со всеми атрибутами категории:
+     *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "tree_depth": 2}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetMenuTree
+     *    Вернуть меню только с определенными атрибутами категории:
+     *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "tree_depth": 2, "category_data_keys": ["image"]}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetMenuTree
+     * </pre>
      */
     public void getMenuTree(navigation.Navigation.GetMenuTreeRequest request,
         io.grpc.stub.StreamObserver<navigation.Navigation.GetMenuTreeResponse> responseObserver) {
@@ -317,6 +427,16 @@ public final class NavigationServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает дерево меню с категориями без учета наличия товаров
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Примеры:
+     *    Вернуть дерево начиная с корня:
+     *        grpcurl -d '{}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetCategoryTrees
+     *    Вернуть дерево начиная с категории 28090000:
+     *        grpcurl -d '{"category_id": "28090000"}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetCategoryTrees
+     * </pre>
      */
     public void getCategoryTrees(navigation.Navigation.GetCategoryTreesRequest request,
         io.grpc.stub.StreamObserver<navigation.Navigation.GetCategoryTreesResponse> responseObserver) {
@@ -325,6 +445,16 @@ public final class NavigationServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает хлебные крошки
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    category_id - идентификатор категории
+     * Примеры:
+     *    Вернуть крошки:
+     *        grpcurl -d '{"category_id": "28090000"}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetBreadcrumbsByCategoryID
+     * </pre>
      */
     public void getBreadcrumbsByCategoryID(navigation.Navigation.GetBreadcrumbsByCategoryIDRequest request,
         io.grpc.stub.StreamObserver<navigation.Navigation.GetBreadcrumbsByCategoryIDResponse> responseObserver) {
@@ -333,6 +463,13 @@ public final class NavigationServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * PRIVATE:Удаление кеша от product-filter
+     * Примеры:
+     *    Удалить кеш с пода:
+     *        grpcurl -d '{}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.FlushCategoryFacetsCache
+     * </pre>
      */
     public void flushCategoryFacetsCache(navigation.Navigation.Empty request,
         io.grpc.stub.StreamObserver<navigation.Navigation.Empty> responseObserver) {
@@ -341,6 +478,13 @@ public final class NavigationServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * PRIVATE:Форсированный импорт категорий из product-hub
+     * Примеры:
+     *    Обновить дерево в поде:
+     *        grpcurl -d '{}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.UpdateCategories
+     * </pre>
      */
     public void updateCategories(navigation.Navigation.Empty request,
         io.grpc.stub.StreamObserver<navigation.Navigation.Empty> responseObserver) {
@@ -350,6 +494,22 @@ public final class NavigationServiceGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-catalog-navigation.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-catalog-navigation.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-catalog-navigation.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-catalog-navigation:3009
+   * description:
+   *    Фронтовый сервис catalog navigation возвращающий меню, хлебные крошки.
+   *    Предназначет для real-time нагрузки.
+   * </pre>
    */
   public static final class NavigationServiceBlockingStub extends io.grpc.stub.AbstractBlockingStub<NavigationServiceBlockingStub> {
     private NavigationServiceBlockingStub(
@@ -364,6 +524,20 @@ public final class NavigationServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает дерево меню с категориями в которых есть в наличии товары
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     *    tree_depth - глубина возвращаемого дерева
+     * Примеры:
+     *    Вернуть меню со всеми атрибутами категории:
+     *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "tree_depth": 2}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetMenuTree
+     *    Вернуть меню только с определенными атрибутами категории:
+     *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "tree_depth": 2, "category_data_keys": ["image"]}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetMenuTree
+     * </pre>
      */
     public navigation.Navigation.GetMenuTreeResponse getMenuTree(navigation.Navigation.GetMenuTreeRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -371,6 +545,16 @@ public final class NavigationServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает дерево меню с категориями без учета наличия товаров
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Примеры:
+     *    Вернуть дерево начиная с корня:
+     *        grpcurl -d '{}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetCategoryTrees
+     *    Вернуть дерево начиная с категории 28090000:
+     *        grpcurl -d '{"category_id": "28090000"}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetCategoryTrees
+     * </pre>
      */
     public navigation.Navigation.GetCategoryTreesResponse getCategoryTrees(navigation.Navigation.GetCategoryTreesRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -378,6 +562,16 @@ public final class NavigationServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает хлебные крошки
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    category_id - идентификатор категории
+     * Примеры:
+     *    Вернуть крошки:
+     *        grpcurl -d '{"category_id": "28090000"}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetBreadcrumbsByCategoryID
+     * </pre>
      */
     public navigation.Navigation.GetBreadcrumbsByCategoryIDResponse getBreadcrumbsByCategoryID(navigation.Navigation.GetBreadcrumbsByCategoryIDRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -385,6 +579,13 @@ public final class NavigationServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * PRIVATE:Удаление кеша от product-filter
+     * Примеры:
+     *    Удалить кеш с пода:
+     *        grpcurl -d '{}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.FlushCategoryFacetsCache
+     * </pre>
      */
     public navigation.Navigation.Empty flushCategoryFacetsCache(navigation.Navigation.Empty request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -392,6 +593,13 @@ public final class NavigationServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * PRIVATE:Форсированный импорт категорий из product-hub
+     * Примеры:
+     *    Обновить дерево в поде:
+     *        grpcurl -d '{}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.UpdateCategories
+     * </pre>
      */
     public navigation.Navigation.Empty updateCategories(navigation.Navigation.Empty request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -400,6 +608,22 @@ public final class NavigationServiceGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-catalog-navigation.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-catalog-navigation.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-catalog-navigation.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-catalog-navigation:3009
+   * description:
+   *    Фронтовый сервис catalog navigation возвращающий меню, хлебные крошки.
+   *    Предназначет для real-time нагрузки.
+   * </pre>
    */
   public static final class NavigationServiceFutureStub extends io.grpc.stub.AbstractFutureStub<NavigationServiceFutureStub> {
     private NavigationServiceFutureStub(
@@ -414,6 +638,20 @@ public final class NavigationServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает дерево меню с категориями в которых есть в наличии товары
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    store_id - идентификатор магазина
+     *    tenant_id - идентификатор площадки
+     *    tree_depth - глубина возвращаемого дерева
+     * Примеры:
+     *    Вернуть меню со всеми атрибутами категории:
+     *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "tree_depth": 2}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetMenuTree
+     *    Вернуть меню только с определенными атрибутами категории:
+     *        grpcurl -d '{"store_id": "1", "tenant_id": "sbermarket", "tree_depth": 2, "category_data_keys": ["image"]}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetMenuTree
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<navigation.Navigation.GetMenuTreeResponse> getMenuTree(
         navigation.Navigation.GetMenuTreeRequest request) {
@@ -422,6 +660,16 @@ public final class NavigationServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает дерево меню с категориями без учета наличия товаров
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Примеры:
+     *    Вернуть дерево начиная с корня:
+     *        grpcurl -d '{}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetCategoryTrees
+     *    Вернуть дерево начиная с категории 28090000:
+     *        grpcurl -d '{"category_id": "28090000"}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetCategoryTrees
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<navigation.Navigation.GetCategoryTreesResponse> getCategoryTrees(
         navigation.Navigation.GetCategoryTreesRequest request) {
@@ -430,6 +678,16 @@ public final class NavigationServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает хлебные крошки
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Обязательные параметры:
+     *    category_id - идентификатор категории
+     * Примеры:
+     *    Вернуть крошки:
+     *        grpcurl -d '{"category_id": "28090000"}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.GetBreadcrumbsByCategoryID
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<navigation.Navigation.GetBreadcrumbsByCategoryIDResponse> getBreadcrumbsByCategoryID(
         navigation.Navigation.GetBreadcrumbsByCategoryIDRequest request) {
@@ -438,6 +696,13 @@ public final class NavigationServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * PRIVATE:Удаление кеша от product-filter
+     * Примеры:
+     *    Удалить кеш с пода:
+     *        grpcurl -d '{}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.FlushCategoryFacetsCache
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<navigation.Navigation.Empty> flushCategoryFacetsCache(
         navigation.Navigation.Empty request) {
@@ -446,6 +711,13 @@ public final class NavigationServiceGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * PRIVATE:Форсированный импорт категорий из product-hub
+     * Примеры:
+     *    Обновить дерево в поде:
+     *        grpcurl -d '{}' paas-content-catalog-navigation.sbmt.io:443 navigation.NavigationService.UpdateCategories
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<navigation.Navigation.Empty> updateCategories(
         navigation.Navigation.Empty request) {

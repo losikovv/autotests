@@ -3,6 +3,20 @@ package catalog_api_v2;
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 
 /**
+ * <pre>
+ **
+ * slack:
+ *    #product-hub
+ * swagger:
+ *     https://paas-content-catalog.sbmt.io/api
+ * public prod grpc uri:
+ *    paas-content-catalog.sbmt.io:443
+ * public stg grpc uri:
+ *    paas-content-catalog.gw-stage.sbmt.io:443
+ * description:
+ *    Карточка товара и листинг для мобильного приложения
+ *    Предназначет для real-time нагрузки.
+ * </pre>
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.40.0)",
@@ -15,37 +29,6 @@ public final class CatalogAPIV2ServiceGrpc {
   public static final String SERVICE_NAME = "catalog_api_v2.CatalogAPIV2Service";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<catalog_api_v2.CatalogApiV2.GetProductListRequest,
-      catalog_api_v2.CatalogApiV2.GetProductListResponse> getGetProductListMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "GetProductList",
-      requestType = catalog_api_v2.CatalogApiV2.GetProductListRequest.class,
-      responseType = catalog_api_v2.CatalogApiV2.GetProductListResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<catalog_api_v2.CatalogApiV2.GetProductListRequest,
-      catalog_api_v2.CatalogApiV2.GetProductListResponse> getGetProductListMethod() {
-    io.grpc.MethodDescriptor<catalog_api_v2.CatalogApiV2.GetProductListRequest, catalog_api_v2.CatalogApiV2.GetProductListResponse> getGetProductListMethod;
-    if ((getGetProductListMethod = CatalogAPIV2ServiceGrpc.getGetProductListMethod) == null) {
-      synchronized (CatalogAPIV2ServiceGrpc.class) {
-        if ((getGetProductListMethod = CatalogAPIV2ServiceGrpc.getGetProductListMethod) == null) {
-          CatalogAPIV2ServiceGrpc.getGetProductListMethod = getGetProductListMethod =
-              io.grpc.MethodDescriptor.<catalog_api_v2.CatalogApiV2.GetProductListRequest, catalog_api_v2.CatalogApiV2.GetProductListResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetProductList"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  catalog_api_v2.CatalogApiV2.GetProductListRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  catalog_api_v2.CatalogApiV2.GetProductListResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new CatalogAPIV2ServiceMethodDescriptorSupplier("GetProductList"))
-              .build();
-        }
-      }
-    }
-    return getGetProductListMethod;
-  }
-
   private static volatile io.grpc.MethodDescriptor<catalog_api_v2.CatalogApiV2.GetProductRequest,
       catalog_api_v2.CatalogApiV2.GetProductResponse> getGetProductMethod;
 
@@ -75,6 +58,37 @@ public final class CatalogAPIV2ServiceGrpc {
       }
     }
     return getGetProductMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<catalog_api_v2.CatalogApiV2.GetProductListRequest,
+      catalog_api_v2.CatalogApiV2.GetProductListResponse> getGetProductListMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetProductList",
+      requestType = catalog_api_v2.CatalogApiV2.GetProductListRequest.class,
+      responseType = catalog_api_v2.CatalogApiV2.GetProductListResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<catalog_api_v2.CatalogApiV2.GetProductListRequest,
+      catalog_api_v2.CatalogApiV2.GetProductListResponse> getGetProductListMethod() {
+    io.grpc.MethodDescriptor<catalog_api_v2.CatalogApiV2.GetProductListRequest, catalog_api_v2.CatalogApiV2.GetProductListResponse> getGetProductListMethod;
+    if ((getGetProductListMethod = CatalogAPIV2ServiceGrpc.getGetProductListMethod) == null) {
+      synchronized (CatalogAPIV2ServiceGrpc.class) {
+        if ((getGetProductListMethod = CatalogAPIV2ServiceGrpc.getGetProductListMethod) == null) {
+          CatalogAPIV2ServiceGrpc.getGetProductListMethod = getGetProductListMethod =
+              io.grpc.MethodDescriptor.<catalog_api_v2.CatalogApiV2.GetProductListRequest, catalog_api_v2.CatalogApiV2.GetProductListResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetProductList"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  catalog_api_v2.CatalogApiV2.GetProductListRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  catalog_api_v2.CatalogApiV2.GetProductListResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CatalogAPIV2ServiceMethodDescriptorSupplier("GetProductList"))
+              .build();
+        }
+      }
+    }
+    return getGetProductListMethod;
   }
 
   /**
@@ -122,32 +136,58 @@ public final class CatalogAPIV2ServiceGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-catalog.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-catalog.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-catalog.gw-stage.sbmt.io:443
+   * description:
+   *    Карточка товара и листинг для мобильного приложения
+   *    Предназначет для real-time нагрузки.
+   * </pre>
    */
   public static abstract class CatalogAPIV2ServiceImplBase implements io.grpc.BindableService {
 
     /**
-     */
-    public void getProductList(catalog_api_v2.CatalogApiV2.GetProductListRequest request,
-        io.grpc.stub.StreamObserver<catalog_api_v2.CatalogApiV2.GetProductListResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetProductListMethod(), responseObserver);
-    }
-
-    /**
+     * <pre>
+     **
+     * Возвращает карточку товаров
+     * Обязательные параметры:
+     *    product_id - идентификатор офера
+     * Примеры:
+     *    Вернуть карточку:
+     *        https://paas-content-catalog.sbmt.io/api/v2/products/11318962
+     * </pre>
      */
     public void getProduct(catalog_api_v2.CatalogApiV2.GetProductRequest request,
         io.grpc.stub.StreamObserver<catalog_api_v2.CatalogApiV2.GetProductResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetProductMethod(), responseObserver);
     }
 
+    /**
+     * <pre>
+     **
+     * Возвращает листинг товаров
+     * Обязательные параметры:
+     *    sid - идентификатор магазина
+     *	  tid - идентификатор категории (mysql.taxon)
+     * Примеры:
+     *    Вернуть листинг товаров:
+     *        https://paas-content-catalog.sbmt.io/api/v2/products?sid=63&amp;tid=43492
+     * </pre>
+     */
+    public void getProductList(catalog_api_v2.CatalogApiV2.GetProductListRequest request,
+        io.grpc.stub.StreamObserver<catalog_api_v2.CatalogApiV2.GetProductListResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetProductListMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
-          .addMethod(
-            getGetProductListMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                catalog_api_v2.CatalogApiV2.GetProductListRequest,
-                catalog_api_v2.CatalogApiV2.GetProductListResponse>(
-                  this, METHODID_GET_PRODUCT_LIST)))
           .addMethod(
             getGetProductMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -155,11 +195,32 @@ public final class CatalogAPIV2ServiceGrpc {
                 catalog_api_v2.CatalogApiV2.GetProductRequest,
                 catalog_api_v2.CatalogApiV2.GetProductResponse>(
                   this, METHODID_GET_PRODUCT)))
+          .addMethod(
+            getGetProductListMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                catalog_api_v2.CatalogApiV2.GetProductListRequest,
+                catalog_api_v2.CatalogApiV2.GetProductListResponse>(
+                  this, METHODID_GET_PRODUCT_LIST)))
           .build();
     }
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-catalog.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-catalog.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-catalog.gw-stage.sbmt.io:443
+   * description:
+   *    Карточка товара и листинг для мобильного приложения
+   *    Предназначет для real-time нагрузки.
+   * </pre>
    */
   public static final class CatalogAPIV2ServiceStub extends io.grpc.stub.AbstractAsyncStub<CatalogAPIV2ServiceStub> {
     private CatalogAPIV2ServiceStub(
@@ -174,23 +235,56 @@ public final class CatalogAPIV2ServiceGrpc {
     }
 
     /**
-     */
-    public void getProductList(catalog_api_v2.CatalogApiV2.GetProductListRequest request,
-        io.grpc.stub.StreamObserver<catalog_api_v2.CatalogApiV2.GetProductListResponse> responseObserver) {
-      io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getGetProductListMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
+     * <pre>
+     **
+     * Возвращает карточку товаров
+     * Обязательные параметры:
+     *    product_id - идентификатор офера
+     * Примеры:
+     *    Вернуть карточку:
+     *        https://paas-content-catalog.sbmt.io/api/v2/products/11318962
+     * </pre>
      */
     public void getProduct(catalog_api_v2.CatalogApiV2.GetProductRequest request,
         io.grpc.stub.StreamObserver<catalog_api_v2.CatalogApiV2.GetProductResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetProductMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     **
+     * Возвращает листинг товаров
+     * Обязательные параметры:
+     *    sid - идентификатор магазина
+     *	  tid - идентификатор категории (mysql.taxon)
+     * Примеры:
+     *    Вернуть листинг товаров:
+     *        https://paas-content-catalog.sbmt.io/api/v2/products?sid=63&amp;tid=43492
+     * </pre>
+     */
+    public void getProductList(catalog_api_v2.CatalogApiV2.GetProductListRequest request,
+        io.grpc.stub.StreamObserver<catalog_api_v2.CatalogApiV2.GetProductListResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetProductListMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-catalog.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-catalog.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-catalog.gw-stage.sbmt.io:443
+   * description:
+   *    Карточка товара и листинг для мобильного приложения
+   *    Предназначет для real-time нагрузки.
+   * </pre>
    */
   public static final class CatalogAPIV2ServiceBlockingStub extends io.grpc.stub.AbstractBlockingStub<CatalogAPIV2ServiceBlockingStub> {
     private CatalogAPIV2ServiceBlockingStub(
@@ -205,21 +299,54 @@ public final class CatalogAPIV2ServiceGrpc {
     }
 
     /**
-     */
-    public catalog_api_v2.CatalogApiV2.GetProductListResponse getProductList(catalog_api_v2.CatalogApiV2.GetProductListRequest request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getGetProductListMethod(), getCallOptions(), request);
-    }
-
-    /**
+     * <pre>
+     **
+     * Возвращает карточку товаров
+     * Обязательные параметры:
+     *    product_id - идентификатор офера
+     * Примеры:
+     *    Вернуть карточку:
+     *        https://paas-content-catalog.sbmt.io/api/v2/products/11318962
+     * </pre>
      */
     public catalog_api_v2.CatalogApiV2.GetProductResponse getProduct(catalog_api_v2.CatalogApiV2.GetProductRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetProductMethod(), getCallOptions(), request);
     }
+
+    /**
+     * <pre>
+     **
+     * Возвращает листинг товаров
+     * Обязательные параметры:
+     *    sid - идентификатор магазина
+     *	  tid - идентификатор категории (mysql.taxon)
+     * Примеры:
+     *    Вернуть листинг товаров:
+     *        https://paas-content-catalog.sbmt.io/api/v2/products?sid=63&amp;tid=43492
+     * </pre>
+     */
+    public catalog_api_v2.CatalogApiV2.GetProductListResponse getProductList(catalog_api_v2.CatalogApiV2.GetProductListRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetProductListMethod(), getCallOptions(), request);
+    }
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-catalog.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-catalog.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-catalog.gw-stage.sbmt.io:443
+   * description:
+   *    Карточка товара и листинг для мобильного приложения
+   *    Предназначет для real-time нагрузки.
+   * </pre>
    */
   public static final class CatalogAPIV2ServiceFutureStub extends io.grpc.stub.AbstractFutureStub<CatalogAPIV2ServiceFutureStub> {
     private CatalogAPIV2ServiceFutureStub(
@@ -234,24 +361,43 @@ public final class CatalogAPIV2ServiceGrpc {
     }
 
     /**
-     */
-    public com.google.common.util.concurrent.ListenableFuture<catalog_api_v2.CatalogApiV2.GetProductListResponse> getProductList(
-        catalog_api_v2.CatalogApiV2.GetProductListRequest request) {
-      return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getGetProductListMethod(), getCallOptions()), request);
-    }
-
-    /**
+     * <pre>
+     **
+     * Возвращает карточку товаров
+     * Обязательные параметры:
+     *    product_id - идентификатор офера
+     * Примеры:
+     *    Вернуть карточку:
+     *        https://paas-content-catalog.sbmt.io/api/v2/products/11318962
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<catalog_api_v2.CatalogApiV2.GetProductResponse> getProduct(
         catalog_api_v2.CatalogApiV2.GetProductRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetProductMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     **
+     * Возвращает листинг товаров
+     * Обязательные параметры:
+     *    sid - идентификатор магазина
+     *	  tid - идентификатор категории (mysql.taxon)
+     * Примеры:
+     *    Вернуть листинг товаров:
+     *        https://paas-content-catalog.sbmt.io/api/v2/products?sid=63&amp;tid=43492
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<catalog_api_v2.CatalogApiV2.GetProductListResponse> getProductList(
+        catalog_api_v2.CatalogApiV2.GetProductListRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetProductListMethod(), getCallOptions()), request);
+    }
   }
 
-  private static final int METHODID_GET_PRODUCT_LIST = 0;
-  private static final int METHODID_GET_PRODUCT = 1;
+  private static final int METHODID_GET_PRODUCT = 0;
+  private static final int METHODID_GET_PRODUCT_LIST = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -270,13 +416,13 @@ public final class CatalogAPIV2ServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_GET_PRODUCT_LIST:
-          serviceImpl.getProductList((catalog_api_v2.CatalogApiV2.GetProductListRequest) request,
-              (io.grpc.stub.StreamObserver<catalog_api_v2.CatalogApiV2.GetProductListResponse>) responseObserver);
-          break;
         case METHODID_GET_PRODUCT:
           serviceImpl.getProduct((catalog_api_v2.CatalogApiV2.GetProductRequest) request,
               (io.grpc.stub.StreamObserver<catalog_api_v2.CatalogApiV2.GetProductResponse>) responseObserver);
+          break;
+        case METHODID_GET_PRODUCT_LIST:
+          serviceImpl.getProductList((catalog_api_v2.CatalogApiV2.GetProductListRequest) request,
+              (io.grpc.stub.StreamObserver<catalog_api_v2.CatalogApiV2.GetProductListResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -339,8 +485,8 @@ public final class CatalogAPIV2ServiceGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new CatalogAPIV2ServiceFileDescriptorSupplier())
-              .addMethod(getGetProductListMethod())
               .addMethod(getGetProductMethod())
+              .addMethod(getGetProductListMethod())
               .build();
         }
       }

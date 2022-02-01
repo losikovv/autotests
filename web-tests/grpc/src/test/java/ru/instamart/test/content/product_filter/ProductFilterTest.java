@@ -23,6 +23,7 @@ import static product_filter.ProductFilterOuterClass.Sort.PRICE_ASC;
 @Slf4j
 public class ProductFilterTest extends GrpcBase {
     private ProductFilterGrpc.ProductFilterBlockingStub client;
+    private final String categoryId = "175";
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
@@ -40,14 +41,14 @@ public class ProductFilterTest extends GrpcBase {
                 .newBuilder()
                 .setStoreId("1")
                 .setTenantId("sbermarket")
-                .addCategoryIds("6120")
+                .addCategoryIds(categoryId)
                 .setAvailable(true)
                 .build();
 
         var response = client.getCategoryFacetsByCategoryIDs(request);
 
         response.getFacetsList().forEach(facet ->
-                assertEquals(facet.getCategoryId(), "6120", "Вернулась категория с другим ID"));
+                assertEquals(facet.getCategoryId(), categoryId, "Вернулась категория с другим ID"));
     }
 
     @Story("Фасеты")
@@ -61,7 +62,7 @@ public class ProductFilterTest extends GrpcBase {
                 .GetCategoryFacetsByCategoryIDsRequest
                 .newBuilder()
                 .setTenantId("sbermarket")
-                .addCategoryIds("6120")
+                .addCategoryIds(categoryId)
                 .setAvailable(true)
                 .build();
 
@@ -80,7 +81,7 @@ public class ProductFilterTest extends GrpcBase {
                 .newBuilder()
                 .setStoreId("")
                 .setTenantId("sbermarket")
-                .addCategoryIds("6120")
+                .addCategoryIds(categoryId)
                 .setAvailable(true)
                 .build();
 
@@ -99,7 +100,7 @@ public class ProductFilterTest extends GrpcBase {
                 .newBuilder()
                 .setStoreId("1")
                 .setTenantId("")
-                .addCategoryIds("6120")
+                .addCategoryIds(categoryId)
                 .setAvailable(true)
                 .build();
 
@@ -117,7 +118,7 @@ public class ProductFilterTest extends GrpcBase {
                 .GetCategoryFacetsByCategoryIDsRequest
                 .newBuilder()
                 .setStoreId("1")
-                .addCategoryIds("6120")
+                .addCategoryIds(categoryId)
                 .setAvailable(true)
                 .build();
 
@@ -172,7 +173,7 @@ public class ProductFilterTest extends GrpcBase {
                 .GetCategoryFacetsByCategoryIDsRequest
                 .newBuilder()
                 .setStoreId("1")
-                .addCategoryIds("6120")
+                .addCategoryIds(categoryId)
                 .setTenantId("sbermarket")
                 .setAvailable(false)
                 .build();
@@ -190,7 +191,7 @@ public class ProductFilterTest extends GrpcBase {
                 .GetPopularProductsSKUByCategoryIDsBatchesRequest
                 .newBuilder()
                 .addCategoryIdsBatches(ProductFilterOuterClass.CategoryIDsBatch.newBuilder()
-                        .addCategoryIds("6120")
+                        .addCategoryIds(categoryId)
                         .build())
                 .setStoreId("1")
                 .setTenantId("sbermarket")
@@ -213,7 +214,7 @@ public class ProductFilterTest extends GrpcBase {
                 .GetPopularProductsSKUByCategoryIDsBatchesRequest
                 .newBuilder()
                 .addCategoryIdsBatches(ProductFilterOuterClass.CategoryIDsBatch.newBuilder()
-                        .addCategoryIds("6120")
+                        .addCategoryIds(categoryId)
                         .build())
                 .setStoreId("1")
                 .setAvailable(true)
@@ -245,7 +246,7 @@ public class ProductFilterTest extends GrpcBase {
                 .GetPopularProductsSKUByCategoryIDsBatchesRequest
                 .newBuilder()
                 .addCategoryIdsBatches(ProductFilterOuterClass.CategoryIDsBatch.newBuilder()
-                        .addCategoryIds("6120")
+                        .addCategoryIds(categoryId)
                         .build())
                 .setStoreId("1")
                 .setTenantId("")
@@ -267,7 +268,7 @@ public class ProductFilterTest extends GrpcBase {
                 .GetPopularProductsSKUByCategoryIDsBatchesRequest
                 .newBuilder()
                 .addCategoryIdsBatches(ProductFilterOuterClass.CategoryIDsBatch.newBuilder()
-                        .addCategoryIds("6120")
+                        .addCategoryIds(categoryId)
                         .build())
                 .setStoreId("")
                 .setTenantId("sbermarket")
@@ -286,7 +287,7 @@ public class ProductFilterTest extends GrpcBase {
         var request = ProductFilterOuterClass
                 .GetProductsSKUByAttributesRequest
                 .newBuilder()
-                .addCategoryIds("6120")
+                .addCategoryIds(categoryId)
                 .setStoreId("1")
                 .setTenantId("sbermarket")
                 .setAvailable(true)

@@ -3,6 +3,21 @@ package product_hub_back_stream;
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 
 /**
+ * <pre>
+ **
+ * slack:
+ *    #product-hub
+ * swagger:
+ *     https://paas-content-product-hub-back.sbmt.io/api
+ * public prod grpc uri:
+ *    paas-content-product-hub-back.sbmt.io:443
+ * public stg grpc uri:
+ *    paas-content-product-hub-back.gw-stage.sbmt.io:443
+ * kuber prod grpc uri:
+ *    base-product-hub.paas-content-product-hub-back:3009
+ * description:
+ *    Stream сервис product-hub для полного экспорта данных другим потребителям, например, поиску.
+ * </pre>
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.40.0)",
@@ -91,10 +106,36 @@ public final class ProductHubBackStreamGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-product-hub-back.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-product-hub-back.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-product-hub-back.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-product-hub-back:3009
+   * description:
+   *    Stream сервис product-hub для полного экспорта данных другим потребителям, например, поиску.
+   * </pre>
    */
   public static abstract class ProductHubBackStreamImplBase implements io.grpc.BindableService {
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров.
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Параметры запроса:
+     *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из поледнего response до обрыва соединения.
+     *    display_attributes - возможность запрашивать только конкретные атрибуты описания, например, картинки
+     *      - фильтрация по key: {"keys":["brand", "image"]}
+     *      - филььрация по flag: {"flags":["show_as_characteristic"]}
+     *      - фильтрация по flag+key: {"keys":["brand", "image"], "flags":["show_as_characteristic"]}
+     * </pre>
      */
     public void getProducts(product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest request,
         io.grpc.stub.StreamObserver<product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse> responseObserver) {
@@ -115,6 +156,21 @@ public final class ProductHubBackStreamGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-product-hub-back.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-product-hub-back.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-product-hub-back.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-product-hub-back:3009
+   * description:
+   *    Stream сервис product-hub для полного экспорта данных другим потребителям, например, поиску.
+   * </pre>
    */
   public static final class ProductHubBackStreamStub extends io.grpc.stub.AbstractAsyncStub<ProductHubBackStreamStub> {
     private ProductHubBackStreamStub(
@@ -129,6 +185,17 @@ public final class ProductHubBackStreamGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров.
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Параметры запроса:
+     *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из поледнего response до обрыва соединения.
+     *    display_attributes - возможность запрашивать только конкретные атрибуты описания, например, картинки
+     *      - фильтрация по key: {"keys":["brand", "image"]}
+     *      - филььрация по flag: {"flags":["show_as_characteristic"]}
+     *      - фильтрация по flag+key: {"keys":["brand", "image"], "flags":["show_as_characteristic"]}
+     * </pre>
      */
     public void getProducts(product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest request,
         io.grpc.stub.StreamObserver<product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse> responseObserver) {
@@ -138,6 +205,21 @@ public final class ProductHubBackStreamGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-product-hub-back.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-product-hub-back.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-product-hub-back.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-product-hub-back:3009
+   * description:
+   *    Stream сервис product-hub для полного экспорта данных другим потребителям, например, поиску.
+   * </pre>
    */
   public static final class ProductHubBackStreamBlockingStub extends io.grpc.stub.AbstractBlockingStub<ProductHubBackStreamBlockingStub> {
     private ProductHubBackStreamBlockingStub(
@@ -152,6 +234,17 @@ public final class ProductHubBackStreamGrpc {
     }
 
     /**
+     * <pre>
+     **
+     * Возвращает описание товаров.
+     * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+     * Параметры запроса:
+     *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из поледнего response до обрыва соединения.
+     *    display_attributes - возможность запрашивать только конкретные атрибуты описания, например, картинки
+     *      - фильтрация по key: {"keys":["brand", "image"]}
+     *      - филььрация по flag: {"flags":["show_as_characteristic"]}
+     *      - фильтрация по flag+key: {"keys":["brand", "image"], "flags":["show_as_characteristic"]}
+     * </pre>
      */
     public java.util.Iterator<product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsResponse> getProducts(
         product_hub_back_stream.ProductHubBackStreamOuterClass.GetProductsRequest request) {
@@ -161,6 +254,21 @@ public final class ProductHubBackStreamGrpc {
   }
 
   /**
+   * <pre>
+   **
+   * slack:
+   *    #product-hub
+   * swagger:
+   *     https://paas-content-product-hub-back.sbmt.io/api
+   * public prod grpc uri:
+   *    paas-content-product-hub-back.sbmt.io:443
+   * public stg grpc uri:
+   *    paas-content-product-hub-back.gw-stage.sbmt.io:443
+   * kuber prod grpc uri:
+   *    base-product-hub.paas-content-product-hub-back:3009
+   * description:
+   *    Stream сервис product-hub для полного экспорта данных другим потребителям, например, поиску.
+   * </pre>
    */
   public static final class ProductHubBackStreamFutureStub extends io.grpc.stub.AbstractFutureStub<ProductHubBackStreamFutureStub> {
     private ProductHubBackStreamFutureStub(

@@ -4,7 +4,38 @@ package product_hub_back_stream;
 
 option go_package = "gitlab.sbermarket.tech/paas/content/product-hub/pkg/server/grpc/product-hub-back-stream";
 
+/**
+ * slack:
+ *    #product-hub
+ *
+ * swagger:
+ *     https://paas-content-product-hub-back.sbmt.io/api
+ *
+ * public prod grpc uri:
+ *    paas-content-product-hub-back.sbmt.io:443
+ *
+ * public stg grpc uri:
+ *    paas-content-product-hub-back.gw-stage.sbmt.io:443
+ *
+ * kuber prod grpc uri:
+ *    base-product-hub.paas-content-product-hub-back:3009
+ *
+ * description:
+ *    Stream сервис product-hub для полного экспорта данных другим потребителям, например, поиску.
+ */
 service ProductHubBackStream {
+  /**
+   * Возвращает описание товаров.
+   * Полный набор атрибутов и флагов для всех сущностей описан здесь https://instamart.atlassian.net/wiki/spaces/CP/pages/2951120403/product-hub
+   *
+   * Параметры запроса:
+   *    cursor_id - при обрыве соединения для продолжения выгрузки места разрыва необходимо передать cursor_id. cursor_id можно забрать из поледнего response до обрыва соединения.
+   *    display_attributes - возможность запрашивать только конкретные атрибуты описания, например, картинки
+   *      - фильтрация по key: {"keys":["brand", "image"]}
+   *      - филььрация по flag: {"flags":["show_as_characteristic"]}
+   *      - фильтрация по flag+key: {"keys":["brand", "image"], "flags":["show_as_characteristic"]}
+   *
+   */
   rpc GetProducts(GetProductsRequest) returns (stream GetProductsResponse) {}
 }
 

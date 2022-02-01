@@ -15,15 +15,28 @@ public final class Navigation {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   /**
+   * <pre>
+   **
+   * Статус любой сущности
+   * </pre>
+   *
    * Protobuf enum {@code navigation.Status}
    */
   public enum Status
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
+     * <pre>
+     * сущность не активна
+     * </pre>
+     *
      * <code>DISABLE = 0;</code>
      */
     DISABLE(0),
     /**
+     * <pre>
+     * сущность активна
+     * </pre>
+     *
      * <code>ENABLE = 1;</code>
      */
     ENABLE(1),
@@ -31,10 +44,18 @@ public final class Navigation {
     ;
 
     /**
+     * <pre>
+     * сущность не активна
+     * </pre>
+     *
      * <code>DISABLE = 0;</code>
      */
     public static final int DISABLE_VALUE = 0;
     /**
+     * <pre>
+     * сущность активна
+     * </pre>
+     *
      * <code>ENABLE = 1;</code>
      */
     public static final int ENABLE_VALUE = 1;
@@ -123,31 +144,60 @@ public final class Navigation {
   }
 
   /**
+   * <pre>
+   **
+   * Тип атрибута (message Attribute) или data атрибута (message Data)
+   * </pre>
+   *
    * Protobuf enum {@code navigation.ValueType}
    */
   public enum ValueType
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
+     * <pre>
+     * строка
+     * </pre>
+     *
      * <code>STRING = 0;</code>
      */
     STRING(0),
     /**
+     * <pre>
+     * число
+     * </pre>
+     *
      * <code>INTEGER = 1;</code>
      */
     INTEGER(1),
     /**
+     * <pre>
+     * число с точкой
+     * </pre>
+     *
      * <code>DOUBLE = 2;</code>
      */
     DOUBLE(2),
     /**
+     * <pre>
+     * флаг
+     * </pre>
+     *
      * <code>BOOL = 3;</code>
      */
     BOOL(3),
     /**
+     * <pre>
+     * время в формате ISO-8601 (YYYY-MM-DDThh:mm:ss)
+     * </pre>
+     *
      * <code>DATETIME = 4;</code>
      */
     DATETIME(4),
     /**
+     * <pre>
+     * uri на картинку в s3
+     * </pre>
+     *
      * <code>IMAGE = 5;</code>
      */
     IMAGE(5),
@@ -155,26 +205,50 @@ public final class Navigation {
     ;
 
     /**
+     * <pre>
+     * строка
+     * </pre>
+     *
      * <code>STRING = 0;</code>
      */
     public static final int STRING_VALUE = 0;
     /**
+     * <pre>
+     * число
+     * </pre>
+     *
      * <code>INTEGER = 1;</code>
      */
     public static final int INTEGER_VALUE = 1;
     /**
+     * <pre>
+     * число с точкой
+     * </pre>
+     *
      * <code>DOUBLE = 2;</code>
      */
     public static final int DOUBLE_VALUE = 2;
     /**
+     * <pre>
+     * флаг
+     * </pre>
+     *
      * <code>BOOL = 3;</code>
      */
     public static final int BOOL_VALUE = 3;
     /**
+     * <pre>
+     * время в формате ISO-8601 (YYYY-MM-DDThh:mm:ss)
+     * </pre>
+     *
      * <code>DATETIME = 4;</code>
      */
     public static final int DATETIME_VALUE = 4;
     /**
+     * <pre>
+     * uri на картинку в s3
+     * </pre>
+     *
      * <code>IMAGE = 5;</code>
      */
     public static final int IMAGE_VALUE = 5;
@@ -266,6 +340,5792 @@ public final class Navigation {
     // @@protoc_insertion_point(enum_scope:navigation.ValueType)
   }
 
+  public interface CategoryOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:navigation.Category)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * идентификатор категории 
+     * </pre>
+     *
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    java.lang.String getId();
+    /**
+     * <pre>
+     * идентификатор категории 
+     * </pre>
+     *
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+
+    /**
+     * <pre>
+     * название категории
+     * </pre>
+     *
+     * <code>string name = 2;</code>
+     * @return The name.
+     */
+    java.lang.String getName();
+    /**
+     * <pre>
+     * название категории
+     * </pre>
+     *
+     * <code>string name = 2;</code>
+     * @return The bytes for name.
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <pre>
+     * ссылка на категорию спец. предложений
+     * </pre>
+     *
+     * <code>string discount_copy_root_id = 3;</code>
+     * @return The discountCopyRootId.
+     */
+    java.lang.String getDiscountCopyRootId();
+    /**
+     * <pre>
+     * ссылка на категорию спец. предложений
+     * </pre>
+     *
+     * <code>string discount_copy_root_id = 3;</code>
+     * @return The bytes for discountCopyRootId.
+     */
+    com.google.protobuf.ByteString
+        getDiscountCopyRootIdBytes();
+
+    /**
+     * <pre>
+     * статус сущности
+     * </pre>
+     *
+     * <code>.navigation.Status status = 4;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    int getStatusValue();
+    /**
+     * <pre>
+     * статус сущности
+     * </pre>
+     *
+     * <code>.navigation.Status status = 4;</code>
+     * @return The status.
+     */
+    navigation.Navigation.Status getStatus();
+
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.Category children = 5;</code>
+     */
+    java.util.List<navigation.Navigation.Category> 
+        getChildrenList();
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.Category children = 5;</code>
+     */
+    navigation.Navigation.Category getChildren(int index);
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.Category children = 5;</code>
+     */
+    int getChildrenCount();
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.Category children = 5;</code>
+     */
+    java.util.List<? extends navigation.Navigation.CategoryOrBuilder> 
+        getChildrenOrBuilderList();
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.Category children = 5;</code>
+     */
+    navigation.Navigation.CategoryOrBuilder getChildrenOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   **
+   * Категория
+   * </pre>
+   *
+   * Protobuf type {@code navigation.Category}
+   */
+  public static final class Category extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:navigation.Category)
+      CategoryOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Category.newBuilder() to construct.
+    private Category(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Category() {
+      id_ = "";
+      name_ = "";
+      discountCopyRootId_ = "";
+      status_ = 0;
+      children_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Category();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Category(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              id_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              discountCopyRootId_ = s;
+              break;
+            }
+            case 32: {
+              int rawValue = input.readEnum();
+
+              status_ = rawValue;
+              break;
+            }
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                children_ = new java.util.ArrayList<navigation.Navigation.Category>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              children_.add(
+                  input.readMessage(navigation.Navigation.Category.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          children_ = java.util.Collections.unmodifiableList(children_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return navigation.Navigation.internal_static_navigation_Category_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return navigation.Navigation.internal_static_navigation_Category_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              navigation.Navigation.Category.class, navigation.Navigation.Category.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object id_;
+    /**
+     * <pre>
+     * идентификатор категории 
+     * </pre>
+     *
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * идентификатор категории 
+     * </pre>
+     *
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int NAME_FIELD_NUMBER = 2;
+    private volatile java.lang.Object name_;
+    /**
+     * <pre>
+     * название категории
+     * </pre>
+     *
+     * <code>string name = 2;</code>
+     * @return The name.
+     */
+    @java.lang.Override
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * название категории
+     * </pre>
+     *
+     * <code>string name = 2;</code>
+     * @return The bytes for name.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DISCOUNT_COPY_ROOT_ID_FIELD_NUMBER = 3;
+    private volatile java.lang.Object discountCopyRootId_;
+    /**
+     * <pre>
+     * ссылка на категорию спец. предложений
+     * </pre>
+     *
+     * <code>string discount_copy_root_id = 3;</code>
+     * @return The discountCopyRootId.
+     */
+    @java.lang.Override
+    public java.lang.String getDiscountCopyRootId() {
+      java.lang.Object ref = discountCopyRootId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        discountCopyRootId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * ссылка на категорию спец. предложений
+     * </pre>
+     *
+     * <code>string discount_copy_root_id = 3;</code>
+     * @return The bytes for discountCopyRootId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getDiscountCopyRootIdBytes() {
+      java.lang.Object ref = discountCopyRootId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        discountCopyRootId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 4;
+    private int status_;
+    /**
+     * <pre>
+     * статус сущности
+     * </pre>
+     *
+     * <code>.navigation.Status status = 4;</code>
+     * @return The enum numeric value on the wire for status.
+     */
+    @java.lang.Override public int getStatusValue() {
+      return status_;
+    }
+    /**
+     * <pre>
+     * статус сущности
+     * </pre>
+     *
+     * <code>.navigation.Status status = 4;</code>
+     * @return The status.
+     */
+    @java.lang.Override public navigation.Navigation.Status getStatus() {
+      @SuppressWarnings("deprecation")
+      navigation.Navigation.Status result = navigation.Navigation.Status.valueOf(status_);
+      return result == null ? navigation.Navigation.Status.UNRECOGNIZED : result;
+    }
+
+    public static final int CHILDREN_FIELD_NUMBER = 5;
+    private java.util.List<navigation.Navigation.Category> children_;
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.Category children = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<navigation.Navigation.Category> getChildrenList() {
+      return children_;
+    }
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.Category children = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends navigation.Navigation.CategoryOrBuilder> 
+        getChildrenOrBuilderList() {
+      return children_;
+    }
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.Category children = 5;</code>
+     */
+    @java.lang.Override
+    public int getChildrenCount() {
+      return children_.size();
+    }
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.Category children = 5;</code>
+     */
+    @java.lang.Override
+    public navigation.Navigation.Category getChildren(int index) {
+      return children_.get(index);
+    }
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.Category children = 5;</code>
+     */
+    @java.lang.Override
+    public navigation.Navigation.CategoryOrBuilder getChildrenOrBuilder(
+        int index) {
+      return children_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
+      }
+      if (!getDiscountCopyRootIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, discountCopyRootId_);
+      }
+      if (status_ != navigation.Navigation.Status.DISABLE.getNumber()) {
+        output.writeEnum(4, status_);
+      }
+      for (int i = 0; i < children_.size(); i++) {
+        output.writeMessage(5, children_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
+      }
+      if (!getDiscountCopyRootIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, discountCopyRootId_);
+      }
+      if (status_ != navigation.Navigation.Status.DISABLE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, status_);
+      }
+      for (int i = 0; i < children_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, children_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof navigation.Navigation.Category)) {
+        return super.equals(obj);
+      }
+      navigation.Navigation.Category other = (navigation.Navigation.Category) obj;
+
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!getDiscountCopyRootId()
+          .equals(other.getDiscountCopyRootId())) return false;
+      if (status_ != other.status_) return false;
+      if (!getChildrenList()
+          .equals(other.getChildrenList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + DISCOUNT_COPY_ROOT_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getDiscountCopyRootId().hashCode();
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + status_;
+      if (getChildrenCount() > 0) {
+        hash = (37 * hash) + CHILDREN_FIELD_NUMBER;
+        hash = (53 * hash) + getChildrenList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static navigation.Navigation.Category parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static navigation.Navigation.Category parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static navigation.Navigation.Category parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static navigation.Navigation.Category parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static navigation.Navigation.Category parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static navigation.Navigation.Category parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static navigation.Navigation.Category parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static navigation.Navigation.Category parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static navigation.Navigation.Category parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static navigation.Navigation.Category parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static navigation.Navigation.Category parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static navigation.Navigation.Category parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(navigation.Navigation.Category prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     **
+     * Категория
+     * </pre>
+     *
+     * Protobuf type {@code navigation.Category}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:navigation.Category)
+        navigation.Navigation.CategoryOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return navigation.Navigation.internal_static_navigation_Category_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return navigation.Navigation.internal_static_navigation_Category_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                navigation.Navigation.Category.class, navigation.Navigation.Category.Builder.class);
+      }
+
+      // Construct using navigation.Navigation.Category.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getChildrenFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = "";
+
+        name_ = "";
+
+        discountCopyRootId_ = "";
+
+        status_ = 0;
+
+        if (childrenBuilder_ == null) {
+          children_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          childrenBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return navigation.Navigation.internal_static_navigation_Category_descriptor;
+      }
+
+      @java.lang.Override
+      public navigation.Navigation.Category getDefaultInstanceForType() {
+        return navigation.Navigation.Category.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public navigation.Navigation.Category build() {
+        navigation.Navigation.Category result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public navigation.Navigation.Category buildPartial() {
+        navigation.Navigation.Category result = new navigation.Navigation.Category(this);
+        int from_bitField0_ = bitField0_;
+        result.id_ = id_;
+        result.name_ = name_;
+        result.discountCopyRootId_ = discountCopyRootId_;
+        result.status_ = status_;
+        if (childrenBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            children_ = java.util.Collections.unmodifiableList(children_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.children_ = children_;
+        } else {
+          result.children_ = childrenBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof navigation.Navigation.Category) {
+          return mergeFrom((navigation.Navigation.Category)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(navigation.Navigation.Category other) {
+        if (other == navigation.Navigation.Category.getDefaultInstance()) return this;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          onChanged();
+        }
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
+        if (!other.getDiscountCopyRootId().isEmpty()) {
+          discountCopyRootId_ = other.discountCopyRootId_;
+          onChanged();
+        }
+        if (other.status_ != 0) {
+          setStatusValue(other.getStatusValue());
+        }
+        if (childrenBuilder_ == null) {
+          if (!other.children_.isEmpty()) {
+            if (children_.isEmpty()) {
+              children_ = other.children_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureChildrenIsMutable();
+              children_.addAll(other.children_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.children_.isEmpty()) {
+            if (childrenBuilder_.isEmpty()) {
+              childrenBuilder_.dispose();
+              childrenBuilder_ = null;
+              children_ = other.children_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              childrenBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getChildrenFieldBuilder() : null;
+            } else {
+              childrenBuilder_.addAllMessages(other.children_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        navigation.Navigation.Category parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (navigation.Navigation.Category) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object id_ = "";
+      /**
+       * <pre>
+       * идентификатор категории 
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @return The id.
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор категории 
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @return The bytes for id.
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор категории 
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор категории 
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор категории 
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <pre>
+       * название категории
+       * </pre>
+       *
+       * <code>string name = 2;</code>
+       * @return The name.
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * название категории
+       * </pre>
+       *
+       * <code>string name = 2;</code>
+       * @return The bytes for name.
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * название категории
+       * </pre>
+       *
+       * <code>string name = 2;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * название категории
+       * </pre>
+       *
+       * <code>string name = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearName() {
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * название категории
+       * </pre>
+       *
+       * <code>string name = 2;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object discountCopyRootId_ = "";
+      /**
+       * <pre>
+       * ссылка на категорию спец. предложений
+       * </pre>
+       *
+       * <code>string discount_copy_root_id = 3;</code>
+       * @return The discountCopyRootId.
+       */
+      public java.lang.String getDiscountCopyRootId() {
+        java.lang.Object ref = discountCopyRootId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          discountCopyRootId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * ссылка на категорию спец. предложений
+       * </pre>
+       *
+       * <code>string discount_copy_root_id = 3;</code>
+       * @return The bytes for discountCopyRootId.
+       */
+      public com.google.protobuf.ByteString
+          getDiscountCopyRootIdBytes() {
+        java.lang.Object ref = discountCopyRootId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          discountCopyRootId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * ссылка на категорию спец. предложений
+       * </pre>
+       *
+       * <code>string discount_copy_root_id = 3;</code>
+       * @param value The discountCopyRootId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDiscountCopyRootId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        discountCopyRootId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ссылка на категорию спец. предложений
+       * </pre>
+       *
+       * <code>string discount_copy_root_id = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDiscountCopyRootId() {
+        
+        discountCopyRootId_ = getDefaultInstance().getDiscountCopyRootId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ссылка на категорию спец. предложений
+       * </pre>
+       *
+       * <code>string discount_copy_root_id = 3;</code>
+       * @param value The bytes for discountCopyRootId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDiscountCopyRootIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        discountCopyRootId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int status_ = 0;
+      /**
+       * <pre>
+       * статус сущности
+       * </pre>
+       *
+       * <code>.navigation.Status status = 4;</code>
+       * @return The enum numeric value on the wire for status.
+       */
+      @java.lang.Override public int getStatusValue() {
+        return status_;
+      }
+      /**
+       * <pre>
+       * статус сущности
+       * </pre>
+       *
+       * <code>.navigation.Status status = 4;</code>
+       * @param value The enum numeric value on the wire for status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatusValue(int value) {
+        
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * статус сущности
+       * </pre>
+       *
+       * <code>.navigation.Status status = 4;</code>
+       * @return The status.
+       */
+      @java.lang.Override
+      public navigation.Navigation.Status getStatus() {
+        @SuppressWarnings("deprecation")
+        navigation.Navigation.Status result = navigation.Navigation.Status.valueOf(status_);
+        return result == null ? navigation.Navigation.Status.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * статус сущности
+       * </pre>
+       *
+       * <code>.navigation.Status status = 4;</code>
+       * @param value The status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatus(navigation.Navigation.Status value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        status_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * статус сущности
+       * </pre>
+       *
+       * <code>.navigation.Status status = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStatus() {
+        
+        status_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<navigation.Navigation.Category> children_ =
+        java.util.Collections.emptyList();
+      private void ensureChildrenIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          children_ = new java.util.ArrayList<navigation.Navigation.Category>(children_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          navigation.Navigation.Category, navigation.Navigation.Category.Builder, navigation.Navigation.CategoryOrBuilder> childrenBuilder_;
+
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.Category children = 5;</code>
+       */
+      public java.util.List<navigation.Navigation.Category> getChildrenList() {
+        if (childrenBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(children_);
+        } else {
+          return childrenBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.Category children = 5;</code>
+       */
+      public int getChildrenCount() {
+        if (childrenBuilder_ == null) {
+          return children_.size();
+        } else {
+          return childrenBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.Category children = 5;</code>
+       */
+      public navigation.Navigation.Category getChildren(int index) {
+        if (childrenBuilder_ == null) {
+          return children_.get(index);
+        } else {
+          return childrenBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.Category children = 5;</code>
+       */
+      public Builder setChildren(
+          int index, navigation.Navigation.Category value) {
+        if (childrenBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureChildrenIsMutable();
+          children_.set(index, value);
+          onChanged();
+        } else {
+          childrenBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.Category children = 5;</code>
+       */
+      public Builder setChildren(
+          int index, navigation.Navigation.Category.Builder builderForValue) {
+        if (childrenBuilder_ == null) {
+          ensureChildrenIsMutable();
+          children_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          childrenBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.Category children = 5;</code>
+       */
+      public Builder addChildren(navigation.Navigation.Category value) {
+        if (childrenBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureChildrenIsMutable();
+          children_.add(value);
+          onChanged();
+        } else {
+          childrenBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.Category children = 5;</code>
+       */
+      public Builder addChildren(
+          int index, navigation.Navigation.Category value) {
+        if (childrenBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureChildrenIsMutable();
+          children_.add(index, value);
+          onChanged();
+        } else {
+          childrenBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.Category children = 5;</code>
+       */
+      public Builder addChildren(
+          navigation.Navigation.Category.Builder builderForValue) {
+        if (childrenBuilder_ == null) {
+          ensureChildrenIsMutable();
+          children_.add(builderForValue.build());
+          onChanged();
+        } else {
+          childrenBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.Category children = 5;</code>
+       */
+      public Builder addChildren(
+          int index, navigation.Navigation.Category.Builder builderForValue) {
+        if (childrenBuilder_ == null) {
+          ensureChildrenIsMutable();
+          children_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          childrenBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.Category children = 5;</code>
+       */
+      public Builder addAllChildren(
+          java.lang.Iterable<? extends navigation.Navigation.Category> values) {
+        if (childrenBuilder_ == null) {
+          ensureChildrenIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, children_);
+          onChanged();
+        } else {
+          childrenBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.Category children = 5;</code>
+       */
+      public Builder clearChildren() {
+        if (childrenBuilder_ == null) {
+          children_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          childrenBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.Category children = 5;</code>
+       */
+      public Builder removeChildren(int index) {
+        if (childrenBuilder_ == null) {
+          ensureChildrenIsMutable();
+          children_.remove(index);
+          onChanged();
+        } else {
+          childrenBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.Category children = 5;</code>
+       */
+      public navigation.Navigation.Category.Builder getChildrenBuilder(
+          int index) {
+        return getChildrenFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.Category children = 5;</code>
+       */
+      public navigation.Navigation.CategoryOrBuilder getChildrenOrBuilder(
+          int index) {
+        if (childrenBuilder_ == null) {
+          return children_.get(index);  } else {
+          return childrenBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.Category children = 5;</code>
+       */
+      public java.util.List<? extends navigation.Navigation.CategoryOrBuilder> 
+           getChildrenOrBuilderList() {
+        if (childrenBuilder_ != null) {
+          return childrenBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(children_);
+        }
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.Category children = 5;</code>
+       */
+      public navigation.Navigation.Category.Builder addChildrenBuilder() {
+        return getChildrenFieldBuilder().addBuilder(
+            navigation.Navigation.Category.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.Category children = 5;</code>
+       */
+      public navigation.Navigation.Category.Builder addChildrenBuilder(
+          int index) {
+        return getChildrenFieldBuilder().addBuilder(
+            index, navigation.Navigation.Category.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.Category children = 5;</code>
+       */
+      public java.util.List<navigation.Navigation.Category.Builder> 
+           getChildrenBuilderList() {
+        return getChildrenFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          navigation.Navigation.Category, navigation.Navigation.Category.Builder, navigation.Navigation.CategoryOrBuilder> 
+          getChildrenFieldBuilder() {
+        if (childrenBuilder_ == null) {
+          childrenBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              navigation.Navigation.Category, navigation.Navigation.Category.Builder, navigation.Navigation.CategoryOrBuilder>(
+                  children_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          children_ = null;
+        }
+        return childrenBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:navigation.Category)
+    }
+
+    // @@protoc_insertion_point(class_scope:navigation.Category)
+    private static final navigation.Navigation.Category DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new navigation.Navigation.Category();
+    }
+
+    public static navigation.Navigation.Category getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Category>
+        PARSER = new com.google.protobuf.AbstractParser<Category>() {
+      @java.lang.Override
+      public Category parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Category(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Category> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Category> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public navigation.Navigation.Category getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface DataOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:navigation.Data)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * уникальный ключ атрибута
+     * </pre>
+     *
+     * <code>string key = 1;</code>
+     * @return The key.
+     */
+    java.lang.String getKey();
+    /**
+     * <pre>
+     * уникальный ключ атрибута
+     * </pre>
+     *
+     * <code>string key = 1;</code>
+     * @return The bytes for key.
+     */
+    com.google.protobuf.ByteString
+        getKeyBytes();
+
+    /**
+     * <pre>
+     * тип атрибута, см. ValueType
+     * </pre>
+     *
+     * <code>.navigation.ValueType type = 2;</code>
+     * @return The enum numeric value on the wire for type.
+     */
+    int getTypeValue();
+    /**
+     * <pre>
+     * тип атрибута, см. ValueType
+     * </pre>
+     *
+     * <code>.navigation.ValueType type = 2;</code>
+     * @return The type.
+     */
+    navigation.Navigation.ValueType getType();
+
+    /**
+     * <pre>
+     * флаг означающий 1 или n значений будет в values
+     * </pre>
+     *
+     * <code>bool is_multi_value = 3;</code>
+     * @return The isMultiValue.
+     */
+    boolean getIsMultiValue();
+
+    /**
+     * <pre>
+     * значения атрибута
+     * </pre>
+     *
+     * <code>repeated string values = 4;</code>
+     * @return A list containing the values.
+     */
+    java.util.List<java.lang.String>
+        getValuesList();
+    /**
+     * <pre>
+     * значения атрибута
+     * </pre>
+     *
+     * <code>repeated string values = 4;</code>
+     * @return The count of values.
+     */
+    int getValuesCount();
+    /**
+     * <pre>
+     * значения атрибута
+     * </pre>
+     *
+     * <code>repeated string values = 4;</code>
+     * @param index The index of the element to return.
+     * @return The values at the given index.
+     */
+    java.lang.String getValues(int index);
+    /**
+     * <pre>
+     * значения атрибута
+     * </pre>
+     *
+     * <code>repeated string values = 4;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the values at the given index.
+     */
+    com.google.protobuf.ByteString
+        getValuesBytes(int index);
+  }
+  /**
+   * <pre>
+   **
+   * Дата атрибут.
+   * </pre>
+   *
+   * Protobuf type {@code navigation.Data}
+   */
+  public static final class Data extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:navigation.Data)
+      DataOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Data.newBuilder() to construct.
+    private Data(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Data() {
+      key_ = "";
+      type_ = 0;
+      values_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Data();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Data(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              key_ = s;
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+
+              type_ = rawValue;
+              break;
+            }
+            case 24: {
+
+              isMultiValue_ = input.readBool();
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                values_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              values_.add(s);
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          values_ = values_.getUnmodifiableView();
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return navigation.Navigation.internal_static_navigation_Data_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return navigation.Navigation.internal_static_navigation_Data_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              navigation.Navigation.Data.class, navigation.Navigation.Data.Builder.class);
+    }
+
+    public static final int KEY_FIELD_NUMBER = 1;
+    private volatile java.lang.Object key_;
+    /**
+     * <pre>
+     * уникальный ключ атрибута
+     * </pre>
+     *
+     * <code>string key = 1;</code>
+     * @return The key.
+     */
+    @java.lang.Override
+    public java.lang.String getKey() {
+      java.lang.Object ref = key_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        key_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * уникальный ключ атрибута
+     * </pre>
+     *
+     * <code>string key = 1;</code>
+     * @return The bytes for key.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getKeyBytes() {
+      java.lang.Object ref = key_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        key_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TYPE_FIELD_NUMBER = 2;
+    private int type_;
+    /**
+     * <pre>
+     * тип атрибута, см. ValueType
+     * </pre>
+     *
+     * <code>.navigation.ValueType type = 2;</code>
+     * @return The enum numeric value on the wire for type.
+     */
+    @java.lang.Override public int getTypeValue() {
+      return type_;
+    }
+    /**
+     * <pre>
+     * тип атрибута, см. ValueType
+     * </pre>
+     *
+     * <code>.navigation.ValueType type = 2;</code>
+     * @return The type.
+     */
+    @java.lang.Override public navigation.Navigation.ValueType getType() {
+      @SuppressWarnings("deprecation")
+      navigation.Navigation.ValueType result = navigation.Navigation.ValueType.valueOf(type_);
+      return result == null ? navigation.Navigation.ValueType.UNRECOGNIZED : result;
+    }
+
+    public static final int IS_MULTI_VALUE_FIELD_NUMBER = 3;
+    private boolean isMultiValue_;
+    /**
+     * <pre>
+     * флаг означающий 1 или n значений будет в values
+     * </pre>
+     *
+     * <code>bool is_multi_value = 3;</code>
+     * @return The isMultiValue.
+     */
+    @java.lang.Override
+    public boolean getIsMultiValue() {
+      return isMultiValue_;
+    }
+
+    public static final int VALUES_FIELD_NUMBER = 4;
+    private com.google.protobuf.LazyStringList values_;
+    /**
+     * <pre>
+     * значения атрибута
+     * </pre>
+     *
+     * <code>repeated string values = 4;</code>
+     * @return A list containing the values.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getValuesList() {
+      return values_;
+    }
+    /**
+     * <pre>
+     * значения атрибута
+     * </pre>
+     *
+     * <code>repeated string values = 4;</code>
+     * @return The count of values.
+     */
+    public int getValuesCount() {
+      return values_.size();
+    }
+    /**
+     * <pre>
+     * значения атрибута
+     * </pre>
+     *
+     * <code>repeated string values = 4;</code>
+     * @param index The index of the element to return.
+     * @return The values at the given index.
+     */
+    public java.lang.String getValues(int index) {
+      return values_.get(index);
+    }
+    /**
+     * <pre>
+     * значения атрибута
+     * </pre>
+     *
+     * <code>repeated string values = 4;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the values at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getValuesBytes(int index) {
+      return values_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getKeyBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, key_);
+      }
+      if (type_ != navigation.Navigation.ValueType.STRING.getNumber()) {
+        output.writeEnum(2, type_);
+      }
+      if (isMultiValue_ != false) {
+        output.writeBool(3, isMultiValue_);
+      }
+      for (int i = 0; i < values_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, values_.getRaw(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getKeyBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, key_);
+      }
+      if (type_ != navigation.Navigation.ValueType.STRING.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, type_);
+      }
+      if (isMultiValue_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, isMultiValue_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < values_.size(); i++) {
+          dataSize += computeStringSizeNoTag(values_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getValuesList().size();
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof navigation.Navigation.Data)) {
+        return super.equals(obj);
+      }
+      navigation.Navigation.Data other = (navigation.Navigation.Data) obj;
+
+      if (!getKey()
+          .equals(other.getKey())) return false;
+      if (type_ != other.type_) return false;
+      if (getIsMultiValue()
+          != other.getIsMultiValue()) return false;
+      if (!getValuesList()
+          .equals(other.getValuesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + KEY_FIELD_NUMBER;
+      hash = (53 * hash) + getKey().hashCode();
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + type_;
+      hash = (37 * hash) + IS_MULTI_VALUE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsMultiValue());
+      if (getValuesCount() > 0) {
+        hash = (37 * hash) + VALUES_FIELD_NUMBER;
+        hash = (53 * hash) + getValuesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static navigation.Navigation.Data parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static navigation.Navigation.Data parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static navigation.Navigation.Data parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static navigation.Navigation.Data parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static navigation.Navigation.Data parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static navigation.Navigation.Data parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static navigation.Navigation.Data parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static navigation.Navigation.Data parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static navigation.Navigation.Data parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static navigation.Navigation.Data parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static navigation.Navigation.Data parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static navigation.Navigation.Data parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(navigation.Navigation.Data prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     **
+     * Дата атрибут.
+     * </pre>
+     *
+     * Protobuf type {@code navigation.Data}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:navigation.Data)
+        navigation.Navigation.DataOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return navigation.Navigation.internal_static_navigation_Data_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return navigation.Navigation.internal_static_navigation_Data_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                navigation.Navigation.Data.class, navigation.Navigation.Data.Builder.class);
+      }
+
+      // Construct using navigation.Navigation.Data.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        key_ = "";
+
+        type_ = 0;
+
+        isMultiValue_ = false;
+
+        values_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return navigation.Navigation.internal_static_navigation_Data_descriptor;
+      }
+
+      @java.lang.Override
+      public navigation.Navigation.Data getDefaultInstanceForType() {
+        return navigation.Navigation.Data.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public navigation.Navigation.Data build() {
+        navigation.Navigation.Data result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public navigation.Navigation.Data buildPartial() {
+        navigation.Navigation.Data result = new navigation.Navigation.Data(this);
+        int from_bitField0_ = bitField0_;
+        result.key_ = key_;
+        result.type_ = type_;
+        result.isMultiValue_ = isMultiValue_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          values_ = values_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.values_ = values_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof navigation.Navigation.Data) {
+          return mergeFrom((navigation.Navigation.Data)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(navigation.Navigation.Data other) {
+        if (other == navigation.Navigation.Data.getDefaultInstance()) return this;
+        if (!other.getKey().isEmpty()) {
+          key_ = other.key_;
+          onChanged();
+        }
+        if (other.type_ != 0) {
+          setTypeValue(other.getTypeValue());
+        }
+        if (other.getIsMultiValue() != false) {
+          setIsMultiValue(other.getIsMultiValue());
+        }
+        if (!other.values_.isEmpty()) {
+          if (values_.isEmpty()) {
+            values_ = other.values_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureValuesIsMutable();
+            values_.addAll(other.values_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        navigation.Navigation.Data parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (navigation.Navigation.Data) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object key_ = "";
+      /**
+       * <pre>
+       * уникальный ключ атрибута
+       * </pre>
+       *
+       * <code>string key = 1;</code>
+       * @return The key.
+       */
+      public java.lang.String getKey() {
+        java.lang.Object ref = key_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          key_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * уникальный ключ атрибута
+       * </pre>
+       *
+       * <code>string key = 1;</code>
+       * @return The bytes for key.
+       */
+      public com.google.protobuf.ByteString
+          getKeyBytes() {
+        java.lang.Object ref = key_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          key_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * уникальный ключ атрибута
+       * </pre>
+       *
+       * <code>string key = 1;</code>
+       * @param value The key to set.
+       * @return This builder for chaining.
+       */
+      public Builder setKey(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        key_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * уникальный ключ атрибута
+       * </pre>
+       *
+       * <code>string key = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearKey() {
+        
+        key_ = getDefaultInstance().getKey();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * уникальный ключ атрибута
+       * </pre>
+       *
+       * <code>string key = 1;</code>
+       * @param value The bytes for key to set.
+       * @return This builder for chaining.
+       */
+      public Builder setKeyBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        key_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int type_ = 0;
+      /**
+       * <pre>
+       * тип атрибута, см. ValueType
+       * </pre>
+       *
+       * <code>.navigation.ValueType type = 2;</code>
+       * @return The enum numeric value on the wire for type.
+       */
+      @java.lang.Override public int getTypeValue() {
+        return type_;
+      }
+      /**
+       * <pre>
+       * тип атрибута, см. ValueType
+       * </pre>
+       *
+       * <code>.navigation.ValueType type = 2;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTypeValue(int value) {
+        
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * тип атрибута, см. ValueType
+       * </pre>
+       *
+       * <code>.navigation.ValueType type = 2;</code>
+       * @return The type.
+       */
+      @java.lang.Override
+      public navigation.Navigation.ValueType getType() {
+        @SuppressWarnings("deprecation")
+        navigation.Navigation.ValueType result = navigation.Navigation.ValueType.valueOf(type_);
+        return result == null ? navigation.Navigation.ValueType.UNRECOGNIZED : result;
+      }
+      /**
+       * <pre>
+       * тип атрибута, см. ValueType
+       * </pre>
+       *
+       * <code>.navigation.ValueType type = 2;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setType(navigation.Navigation.ValueType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        type_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * тип атрибута, см. ValueType
+       * </pre>
+       *
+       * <code>.navigation.ValueType type = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearType() {
+        
+        type_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private boolean isMultiValue_ ;
+      /**
+       * <pre>
+       * флаг означающий 1 или n значений будет в values
+       * </pre>
+       *
+       * <code>bool is_multi_value = 3;</code>
+       * @return The isMultiValue.
+       */
+      @java.lang.Override
+      public boolean getIsMultiValue() {
+        return isMultiValue_;
+      }
+      /**
+       * <pre>
+       * флаг означающий 1 или n значений будет в values
+       * </pre>
+       *
+       * <code>bool is_multi_value = 3;</code>
+       * @param value The isMultiValue to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIsMultiValue(boolean value) {
+        
+        isMultiValue_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * флаг означающий 1 или n значений будет в values
+       * </pre>
+       *
+       * <code>bool is_multi_value = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIsMultiValue() {
+        
+        isMultiValue_ = false;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringList values_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureValuesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          values_ = new com.google.protobuf.LazyStringArrayList(values_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <pre>
+       * значения атрибута
+       * </pre>
+       *
+       * <code>repeated string values = 4;</code>
+       * @return A list containing the values.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getValuesList() {
+        return values_.getUnmodifiableView();
+      }
+      /**
+       * <pre>
+       * значения атрибута
+       * </pre>
+       *
+       * <code>repeated string values = 4;</code>
+       * @return The count of values.
+       */
+      public int getValuesCount() {
+        return values_.size();
+      }
+      /**
+       * <pre>
+       * значения атрибута
+       * </pre>
+       *
+       * <code>repeated string values = 4;</code>
+       * @param index The index of the element to return.
+       * @return The values at the given index.
+       */
+      public java.lang.String getValues(int index) {
+        return values_.get(index);
+      }
+      /**
+       * <pre>
+       * значения атрибута
+       * </pre>
+       *
+       * <code>repeated string values = 4;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the values at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getValuesBytes(int index) {
+        return values_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * значения атрибута
+       * </pre>
+       *
+       * <code>repeated string values = 4;</code>
+       * @param index The index to set the value at.
+       * @param value The values to set.
+       * @return This builder for chaining.
+       */
+      public Builder setValues(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureValuesIsMutable();
+        values_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * значения атрибута
+       * </pre>
+       *
+       * <code>repeated string values = 4;</code>
+       * @param value The values to add.
+       * @return This builder for chaining.
+       */
+      public Builder addValues(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureValuesIsMutable();
+        values_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * значения атрибута
+       * </pre>
+       *
+       * <code>repeated string values = 4;</code>
+       * @param values The values to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllValues(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureValuesIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, values_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * значения атрибута
+       * </pre>
+       *
+       * <code>repeated string values = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearValues() {
+        values_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * значения атрибута
+       * </pre>
+       *
+       * <code>repeated string values = 4;</code>
+       * @param value The bytes of the values to add.
+       * @return This builder for chaining.
+       */
+      public Builder addValuesBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureValuesIsMutable();
+        values_.add(value);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:navigation.Data)
+    }
+
+    // @@protoc_insertion_point(class_scope:navigation.Data)
+    private static final navigation.Navigation.Data DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new navigation.Navigation.Data();
+    }
+
+    public static navigation.Navigation.Data getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Data>
+        PARSER = new com.google.protobuf.AbstractParser<Data>() {
+      @java.lang.Override
+      public Data parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Data(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Data> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Data> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public navigation.Navigation.Data getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MenuCategoryOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:navigation.MenuCategory)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * идентификатор категории
+     * </pre>
+     *
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    java.lang.String getId();
+    /**
+     * <pre>
+     * идентификатор категории
+     * </pre>
+     *
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+
+    /**
+     * <pre>
+     * название категории
+     * </pre>
+     *
+     * <code>string name = 2;</code>
+     * @return The name.
+     */
+    java.lang.String getName();
+    /**
+     * <pre>
+     * название категории
+     * </pre>
+     *
+     * <code>string name = 2;</code>
+     * @return The bytes for name.
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <pre>
+     * кол-во продуктов в категории
+     * </pre>
+     *
+     * <code>int64 product_count = 3;</code>
+     * @return The productCount.
+     */
+    long getProductCount();
+
+    /**
+     * <pre>
+     * доп. данные
+     * </pre>
+     *
+     * <code>repeated .navigation.Data category_data = 4;</code>
+     */
+    java.util.List<navigation.Navigation.Data> 
+        getCategoryDataList();
+    /**
+     * <pre>
+     * доп. данные
+     * </pre>
+     *
+     * <code>repeated .navigation.Data category_data = 4;</code>
+     */
+    navigation.Navigation.Data getCategoryData(int index);
+    /**
+     * <pre>
+     * доп. данные
+     * </pre>
+     *
+     * <code>repeated .navigation.Data category_data = 4;</code>
+     */
+    int getCategoryDataCount();
+    /**
+     * <pre>
+     * доп. данные
+     * </pre>
+     *
+     * <code>repeated .navigation.Data category_data = 4;</code>
+     */
+    java.util.List<? extends navigation.Navigation.DataOrBuilder> 
+        getCategoryDataOrBuilderList();
+    /**
+     * <pre>
+     * доп. данные
+     * </pre>
+     *
+     * <code>repeated .navigation.Data category_data = 4;</code>
+     */
+    navigation.Navigation.DataOrBuilder getCategoryDataOrBuilder(
+        int index);
+
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.MenuCategory children = 5;</code>
+     */
+    java.util.List<navigation.Navigation.MenuCategory> 
+        getChildrenList();
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.MenuCategory children = 5;</code>
+     */
+    navigation.Navigation.MenuCategory getChildren(int index);
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.MenuCategory children = 5;</code>
+     */
+    int getChildrenCount();
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.MenuCategory children = 5;</code>
+     */
+    java.util.List<? extends navigation.Navigation.MenuCategoryOrBuilder> 
+        getChildrenOrBuilderList();
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.MenuCategory children = 5;</code>
+     */
+    navigation.Navigation.MenuCategoryOrBuilder getChildrenOrBuilder(
+        int index);
+
+    /**
+     * <pre>
+     * идентификатор монолитовской категории (mysql.taxon.id)
+     * </pre>
+     *
+     * <code>string original_category_id = 6;</code>
+     * @return The originalCategoryId.
+     */
+    java.lang.String getOriginalCategoryId();
+    /**
+     * <pre>
+     * идентификатор монолитовской категории (mysql.taxon.id)
+     * </pre>
+     *
+     * <code>string original_category_id = 6;</code>
+     * @return The bytes for originalCategoryId.
+     */
+    com.google.protobuf.ByteString
+        getOriginalCategoryIdBytes();
+  }
+  /**
+   * <pre>
+   **
+   * Узел меню
+   * </pre>
+   *
+   * Protobuf type {@code navigation.MenuCategory}
+   */
+  public static final class MenuCategory extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:navigation.MenuCategory)
+      MenuCategoryOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MenuCategory.newBuilder() to construct.
+    private MenuCategory(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MenuCategory() {
+      id_ = "";
+      name_ = "";
+      categoryData_ = java.util.Collections.emptyList();
+      children_ = java.util.Collections.emptyList();
+      originalCategoryId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MenuCategory();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private MenuCategory(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              id_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
+              break;
+            }
+            case 24: {
+
+              productCount_ = input.readInt64();
+              break;
+            }
+            case 34: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                categoryData_ = new java.util.ArrayList<navigation.Navigation.Data>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              categoryData_.add(
+                  input.readMessage(navigation.Navigation.Data.parser(), extensionRegistry));
+              break;
+            }
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                children_ = new java.util.ArrayList<navigation.Navigation.MenuCategory>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              children_.add(
+                  input.readMessage(navigation.Navigation.MenuCategory.parser(), extensionRegistry));
+              break;
+            }
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              originalCategoryId_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          categoryData_ = java.util.Collections.unmodifiableList(categoryData_);
+        }
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          children_ = java.util.Collections.unmodifiableList(children_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return navigation.Navigation.internal_static_navigation_MenuCategory_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return navigation.Navigation.internal_static_navigation_MenuCategory_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              navigation.Navigation.MenuCategory.class, navigation.Navigation.MenuCategory.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object id_;
+    /**
+     * <pre>
+     * идентификатор категории
+     * </pre>
+     *
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * идентификатор категории
+     * </pre>
+     *
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int NAME_FIELD_NUMBER = 2;
+    private volatile java.lang.Object name_;
+    /**
+     * <pre>
+     * название категории
+     * </pre>
+     *
+     * <code>string name = 2;</code>
+     * @return The name.
+     */
+    @java.lang.Override
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * название категории
+     * </pre>
+     *
+     * <code>string name = 2;</code>
+     * @return The bytes for name.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PRODUCT_COUNT_FIELD_NUMBER = 3;
+    private long productCount_;
+    /**
+     * <pre>
+     * кол-во продуктов в категории
+     * </pre>
+     *
+     * <code>int64 product_count = 3;</code>
+     * @return The productCount.
+     */
+    @java.lang.Override
+    public long getProductCount() {
+      return productCount_;
+    }
+
+    public static final int CATEGORY_DATA_FIELD_NUMBER = 4;
+    private java.util.List<navigation.Navigation.Data> categoryData_;
+    /**
+     * <pre>
+     * доп. данные
+     * </pre>
+     *
+     * <code>repeated .navigation.Data category_data = 4;</code>
+     */
+    @java.lang.Override
+    public java.util.List<navigation.Navigation.Data> getCategoryDataList() {
+      return categoryData_;
+    }
+    /**
+     * <pre>
+     * доп. данные
+     * </pre>
+     *
+     * <code>repeated .navigation.Data category_data = 4;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends navigation.Navigation.DataOrBuilder> 
+        getCategoryDataOrBuilderList() {
+      return categoryData_;
+    }
+    /**
+     * <pre>
+     * доп. данные
+     * </pre>
+     *
+     * <code>repeated .navigation.Data category_data = 4;</code>
+     */
+    @java.lang.Override
+    public int getCategoryDataCount() {
+      return categoryData_.size();
+    }
+    /**
+     * <pre>
+     * доп. данные
+     * </pre>
+     *
+     * <code>repeated .navigation.Data category_data = 4;</code>
+     */
+    @java.lang.Override
+    public navigation.Navigation.Data getCategoryData(int index) {
+      return categoryData_.get(index);
+    }
+    /**
+     * <pre>
+     * доп. данные
+     * </pre>
+     *
+     * <code>repeated .navigation.Data category_data = 4;</code>
+     */
+    @java.lang.Override
+    public navigation.Navigation.DataOrBuilder getCategoryDataOrBuilder(
+        int index) {
+      return categoryData_.get(index);
+    }
+
+    public static final int CHILDREN_FIELD_NUMBER = 5;
+    private java.util.List<navigation.Navigation.MenuCategory> children_;
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.MenuCategory children = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<navigation.Navigation.MenuCategory> getChildrenList() {
+      return children_;
+    }
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.MenuCategory children = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends navigation.Navigation.MenuCategoryOrBuilder> 
+        getChildrenOrBuilderList() {
+      return children_;
+    }
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.MenuCategory children = 5;</code>
+     */
+    @java.lang.Override
+    public int getChildrenCount() {
+      return children_.size();
+    }
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.MenuCategory children = 5;</code>
+     */
+    @java.lang.Override
+    public navigation.Navigation.MenuCategory getChildren(int index) {
+      return children_.get(index);
+    }
+    /**
+     * <pre>
+     * дети
+     * </pre>
+     *
+     * <code>repeated .navigation.MenuCategory children = 5;</code>
+     */
+    @java.lang.Override
+    public navigation.Navigation.MenuCategoryOrBuilder getChildrenOrBuilder(
+        int index) {
+      return children_.get(index);
+    }
+
+    public static final int ORIGINAL_CATEGORY_ID_FIELD_NUMBER = 6;
+    private volatile java.lang.Object originalCategoryId_;
+    /**
+     * <pre>
+     * идентификатор монолитовской категории (mysql.taxon.id)
+     * </pre>
+     *
+     * <code>string original_category_id = 6;</code>
+     * @return The originalCategoryId.
+     */
+    @java.lang.Override
+    public java.lang.String getOriginalCategoryId() {
+      java.lang.Object ref = originalCategoryId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        originalCategoryId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * идентификатор монолитовской категории (mysql.taxon.id)
+     * </pre>
+     *
+     * <code>string original_category_id = 6;</code>
+     * @return The bytes for originalCategoryId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOriginalCategoryIdBytes() {
+      java.lang.Object ref = originalCategoryId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        originalCategoryId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
+      }
+      if (productCount_ != 0L) {
+        output.writeInt64(3, productCount_);
+      }
+      for (int i = 0; i < categoryData_.size(); i++) {
+        output.writeMessage(4, categoryData_.get(i));
+      }
+      for (int i = 0; i < children_.size(); i++) {
+        output.writeMessage(5, children_.get(i));
+      }
+      if (!getOriginalCategoryIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, originalCategoryId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
+      }
+      if (productCount_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(3, productCount_);
+      }
+      for (int i = 0; i < categoryData_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, categoryData_.get(i));
+      }
+      for (int i = 0; i < children_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, children_.get(i));
+      }
+      if (!getOriginalCategoryIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, originalCategoryId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof navigation.Navigation.MenuCategory)) {
+        return super.equals(obj);
+      }
+      navigation.Navigation.MenuCategory other = (navigation.Navigation.MenuCategory) obj;
+
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (getProductCount()
+          != other.getProductCount()) return false;
+      if (!getCategoryDataList()
+          .equals(other.getCategoryDataList())) return false;
+      if (!getChildrenList()
+          .equals(other.getChildrenList())) return false;
+      if (!getOriginalCategoryId()
+          .equals(other.getOriginalCategoryId())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + PRODUCT_COUNT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getProductCount());
+      if (getCategoryDataCount() > 0) {
+        hash = (37 * hash) + CATEGORY_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getCategoryDataList().hashCode();
+      }
+      if (getChildrenCount() > 0) {
+        hash = (37 * hash) + CHILDREN_FIELD_NUMBER;
+        hash = (53 * hash) + getChildrenList().hashCode();
+      }
+      hash = (37 * hash) + ORIGINAL_CATEGORY_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getOriginalCategoryId().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static navigation.Navigation.MenuCategory parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static navigation.Navigation.MenuCategory parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static navigation.Navigation.MenuCategory parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static navigation.Navigation.MenuCategory parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static navigation.Navigation.MenuCategory parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static navigation.Navigation.MenuCategory parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static navigation.Navigation.MenuCategory parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static navigation.Navigation.MenuCategory parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static navigation.Navigation.MenuCategory parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static navigation.Navigation.MenuCategory parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static navigation.Navigation.MenuCategory parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static navigation.Navigation.MenuCategory parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(navigation.Navigation.MenuCategory prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     **
+     * Узел меню
+     * </pre>
+     *
+     * Protobuf type {@code navigation.MenuCategory}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:navigation.MenuCategory)
+        navigation.Navigation.MenuCategoryOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return navigation.Navigation.internal_static_navigation_MenuCategory_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return navigation.Navigation.internal_static_navigation_MenuCategory_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                navigation.Navigation.MenuCategory.class, navigation.Navigation.MenuCategory.Builder.class);
+      }
+
+      // Construct using navigation.Navigation.MenuCategory.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getCategoryDataFieldBuilder();
+          getChildrenFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = "";
+
+        name_ = "";
+
+        productCount_ = 0L;
+
+        if (categoryDataBuilder_ == null) {
+          categoryData_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          categoryDataBuilder_.clear();
+        }
+        if (childrenBuilder_ == null) {
+          children_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          childrenBuilder_.clear();
+        }
+        originalCategoryId_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return navigation.Navigation.internal_static_navigation_MenuCategory_descriptor;
+      }
+
+      @java.lang.Override
+      public navigation.Navigation.MenuCategory getDefaultInstanceForType() {
+        return navigation.Navigation.MenuCategory.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public navigation.Navigation.MenuCategory build() {
+        navigation.Navigation.MenuCategory result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public navigation.Navigation.MenuCategory buildPartial() {
+        navigation.Navigation.MenuCategory result = new navigation.Navigation.MenuCategory(this);
+        int from_bitField0_ = bitField0_;
+        result.id_ = id_;
+        result.name_ = name_;
+        result.productCount_ = productCount_;
+        if (categoryDataBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            categoryData_ = java.util.Collections.unmodifiableList(categoryData_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.categoryData_ = categoryData_;
+        } else {
+          result.categoryData_ = categoryDataBuilder_.build();
+        }
+        if (childrenBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            children_ = java.util.Collections.unmodifiableList(children_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.children_ = children_;
+        } else {
+          result.children_ = childrenBuilder_.build();
+        }
+        result.originalCategoryId_ = originalCategoryId_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof navigation.Navigation.MenuCategory) {
+          return mergeFrom((navigation.Navigation.MenuCategory)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(navigation.Navigation.MenuCategory other) {
+        if (other == navigation.Navigation.MenuCategory.getDefaultInstance()) return this;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          onChanged();
+        }
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
+        if (other.getProductCount() != 0L) {
+          setProductCount(other.getProductCount());
+        }
+        if (categoryDataBuilder_ == null) {
+          if (!other.categoryData_.isEmpty()) {
+            if (categoryData_.isEmpty()) {
+              categoryData_ = other.categoryData_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureCategoryDataIsMutable();
+              categoryData_.addAll(other.categoryData_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.categoryData_.isEmpty()) {
+            if (categoryDataBuilder_.isEmpty()) {
+              categoryDataBuilder_.dispose();
+              categoryDataBuilder_ = null;
+              categoryData_ = other.categoryData_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              categoryDataBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getCategoryDataFieldBuilder() : null;
+            } else {
+              categoryDataBuilder_.addAllMessages(other.categoryData_);
+            }
+          }
+        }
+        if (childrenBuilder_ == null) {
+          if (!other.children_.isEmpty()) {
+            if (children_.isEmpty()) {
+              children_ = other.children_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureChildrenIsMutable();
+              children_.addAll(other.children_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.children_.isEmpty()) {
+            if (childrenBuilder_.isEmpty()) {
+              childrenBuilder_.dispose();
+              childrenBuilder_ = null;
+              children_ = other.children_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              childrenBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getChildrenFieldBuilder() : null;
+            } else {
+              childrenBuilder_.addAllMessages(other.children_);
+            }
+          }
+        }
+        if (!other.getOriginalCategoryId().isEmpty()) {
+          originalCategoryId_ = other.originalCategoryId_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        navigation.Navigation.MenuCategory parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (navigation.Navigation.MenuCategory) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object id_ = "";
+      /**
+       * <pre>
+       * идентификатор категории
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @return The id.
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор категории
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @return The bytes for id.
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор категории
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор категории
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор категории
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <pre>
+       * название категории
+       * </pre>
+       *
+       * <code>string name = 2;</code>
+       * @return The name.
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * название категории
+       * </pre>
+       *
+       * <code>string name = 2;</code>
+       * @return The bytes for name.
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * название категории
+       * </pre>
+       *
+       * <code>string name = 2;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * название категории
+       * </pre>
+       *
+       * <code>string name = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearName() {
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * название категории
+       * </pre>
+       *
+       * <code>string name = 2;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private long productCount_ ;
+      /**
+       * <pre>
+       * кол-во продуктов в категории
+       * </pre>
+       *
+       * <code>int64 product_count = 3;</code>
+       * @return The productCount.
+       */
+      @java.lang.Override
+      public long getProductCount() {
+        return productCount_;
+      }
+      /**
+       * <pre>
+       * кол-во продуктов в категории
+       * </pre>
+       *
+       * <code>int64 product_count = 3;</code>
+       * @param value The productCount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProductCount(long value) {
+        
+        productCount_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * кол-во продуктов в категории
+       * </pre>
+       *
+       * <code>int64 product_count = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearProductCount() {
+        
+        productCount_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<navigation.Navigation.Data> categoryData_ =
+        java.util.Collections.emptyList();
+      private void ensureCategoryDataIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          categoryData_ = new java.util.ArrayList<navigation.Navigation.Data>(categoryData_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          navigation.Navigation.Data, navigation.Navigation.Data.Builder, navigation.Navigation.DataOrBuilder> categoryDataBuilder_;
+
+      /**
+       * <pre>
+       * доп. данные
+       * </pre>
+       *
+       * <code>repeated .navigation.Data category_data = 4;</code>
+       */
+      public java.util.List<navigation.Navigation.Data> getCategoryDataList() {
+        if (categoryDataBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(categoryData_);
+        } else {
+          return categoryDataBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * доп. данные
+       * </pre>
+       *
+       * <code>repeated .navigation.Data category_data = 4;</code>
+       */
+      public int getCategoryDataCount() {
+        if (categoryDataBuilder_ == null) {
+          return categoryData_.size();
+        } else {
+          return categoryDataBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * доп. данные
+       * </pre>
+       *
+       * <code>repeated .navigation.Data category_data = 4;</code>
+       */
+      public navigation.Navigation.Data getCategoryData(int index) {
+        if (categoryDataBuilder_ == null) {
+          return categoryData_.get(index);
+        } else {
+          return categoryDataBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * доп. данные
+       * </pre>
+       *
+       * <code>repeated .navigation.Data category_data = 4;</code>
+       */
+      public Builder setCategoryData(
+          int index, navigation.Navigation.Data value) {
+        if (categoryDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCategoryDataIsMutable();
+          categoryData_.set(index, value);
+          onChanged();
+        } else {
+          categoryDataBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные
+       * </pre>
+       *
+       * <code>repeated .navigation.Data category_data = 4;</code>
+       */
+      public Builder setCategoryData(
+          int index, navigation.Navigation.Data.Builder builderForValue) {
+        if (categoryDataBuilder_ == null) {
+          ensureCategoryDataIsMutable();
+          categoryData_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          categoryDataBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные
+       * </pre>
+       *
+       * <code>repeated .navigation.Data category_data = 4;</code>
+       */
+      public Builder addCategoryData(navigation.Navigation.Data value) {
+        if (categoryDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCategoryDataIsMutable();
+          categoryData_.add(value);
+          onChanged();
+        } else {
+          categoryDataBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные
+       * </pre>
+       *
+       * <code>repeated .navigation.Data category_data = 4;</code>
+       */
+      public Builder addCategoryData(
+          int index, navigation.Navigation.Data value) {
+        if (categoryDataBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCategoryDataIsMutable();
+          categoryData_.add(index, value);
+          onChanged();
+        } else {
+          categoryDataBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные
+       * </pre>
+       *
+       * <code>repeated .navigation.Data category_data = 4;</code>
+       */
+      public Builder addCategoryData(
+          navigation.Navigation.Data.Builder builderForValue) {
+        if (categoryDataBuilder_ == null) {
+          ensureCategoryDataIsMutable();
+          categoryData_.add(builderForValue.build());
+          onChanged();
+        } else {
+          categoryDataBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные
+       * </pre>
+       *
+       * <code>repeated .navigation.Data category_data = 4;</code>
+       */
+      public Builder addCategoryData(
+          int index, navigation.Navigation.Data.Builder builderForValue) {
+        if (categoryDataBuilder_ == null) {
+          ensureCategoryDataIsMutable();
+          categoryData_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          categoryDataBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные
+       * </pre>
+       *
+       * <code>repeated .navigation.Data category_data = 4;</code>
+       */
+      public Builder addAllCategoryData(
+          java.lang.Iterable<? extends navigation.Navigation.Data> values) {
+        if (categoryDataBuilder_ == null) {
+          ensureCategoryDataIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, categoryData_);
+          onChanged();
+        } else {
+          categoryDataBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные
+       * </pre>
+       *
+       * <code>repeated .navigation.Data category_data = 4;</code>
+       */
+      public Builder clearCategoryData() {
+        if (categoryDataBuilder_ == null) {
+          categoryData_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          categoryDataBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные
+       * </pre>
+       *
+       * <code>repeated .navigation.Data category_data = 4;</code>
+       */
+      public Builder removeCategoryData(int index) {
+        if (categoryDataBuilder_ == null) {
+          ensureCategoryDataIsMutable();
+          categoryData_.remove(index);
+          onChanged();
+        } else {
+          categoryDataBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * доп. данные
+       * </pre>
+       *
+       * <code>repeated .navigation.Data category_data = 4;</code>
+       */
+      public navigation.Navigation.Data.Builder getCategoryDataBuilder(
+          int index) {
+        return getCategoryDataFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * доп. данные
+       * </pre>
+       *
+       * <code>repeated .navigation.Data category_data = 4;</code>
+       */
+      public navigation.Navigation.DataOrBuilder getCategoryDataOrBuilder(
+          int index) {
+        if (categoryDataBuilder_ == null) {
+          return categoryData_.get(index);  } else {
+          return categoryDataBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * доп. данные
+       * </pre>
+       *
+       * <code>repeated .navigation.Data category_data = 4;</code>
+       */
+      public java.util.List<? extends navigation.Navigation.DataOrBuilder> 
+           getCategoryDataOrBuilderList() {
+        if (categoryDataBuilder_ != null) {
+          return categoryDataBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(categoryData_);
+        }
+      }
+      /**
+       * <pre>
+       * доп. данные
+       * </pre>
+       *
+       * <code>repeated .navigation.Data category_data = 4;</code>
+       */
+      public navigation.Navigation.Data.Builder addCategoryDataBuilder() {
+        return getCategoryDataFieldBuilder().addBuilder(
+            navigation.Navigation.Data.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * доп. данные
+       * </pre>
+       *
+       * <code>repeated .navigation.Data category_data = 4;</code>
+       */
+      public navigation.Navigation.Data.Builder addCategoryDataBuilder(
+          int index) {
+        return getCategoryDataFieldBuilder().addBuilder(
+            index, navigation.Navigation.Data.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * доп. данные
+       * </pre>
+       *
+       * <code>repeated .navigation.Data category_data = 4;</code>
+       */
+      public java.util.List<navigation.Navigation.Data.Builder> 
+           getCategoryDataBuilderList() {
+        return getCategoryDataFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          navigation.Navigation.Data, navigation.Navigation.Data.Builder, navigation.Navigation.DataOrBuilder> 
+          getCategoryDataFieldBuilder() {
+        if (categoryDataBuilder_ == null) {
+          categoryDataBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              navigation.Navigation.Data, navigation.Navigation.Data.Builder, navigation.Navigation.DataOrBuilder>(
+                  categoryData_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          categoryData_ = null;
+        }
+        return categoryDataBuilder_;
+      }
+
+      private java.util.List<navigation.Navigation.MenuCategory> children_ =
+        java.util.Collections.emptyList();
+      private void ensureChildrenIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          children_ = new java.util.ArrayList<navigation.Navigation.MenuCategory>(children_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          navigation.Navigation.MenuCategory, navigation.Navigation.MenuCategory.Builder, navigation.Navigation.MenuCategoryOrBuilder> childrenBuilder_;
+
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.MenuCategory children = 5;</code>
+       */
+      public java.util.List<navigation.Navigation.MenuCategory> getChildrenList() {
+        if (childrenBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(children_);
+        } else {
+          return childrenBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.MenuCategory children = 5;</code>
+       */
+      public int getChildrenCount() {
+        if (childrenBuilder_ == null) {
+          return children_.size();
+        } else {
+          return childrenBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.MenuCategory children = 5;</code>
+       */
+      public navigation.Navigation.MenuCategory getChildren(int index) {
+        if (childrenBuilder_ == null) {
+          return children_.get(index);
+        } else {
+          return childrenBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.MenuCategory children = 5;</code>
+       */
+      public Builder setChildren(
+          int index, navigation.Navigation.MenuCategory value) {
+        if (childrenBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureChildrenIsMutable();
+          children_.set(index, value);
+          onChanged();
+        } else {
+          childrenBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.MenuCategory children = 5;</code>
+       */
+      public Builder setChildren(
+          int index, navigation.Navigation.MenuCategory.Builder builderForValue) {
+        if (childrenBuilder_ == null) {
+          ensureChildrenIsMutable();
+          children_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          childrenBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.MenuCategory children = 5;</code>
+       */
+      public Builder addChildren(navigation.Navigation.MenuCategory value) {
+        if (childrenBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureChildrenIsMutable();
+          children_.add(value);
+          onChanged();
+        } else {
+          childrenBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.MenuCategory children = 5;</code>
+       */
+      public Builder addChildren(
+          int index, navigation.Navigation.MenuCategory value) {
+        if (childrenBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureChildrenIsMutable();
+          children_.add(index, value);
+          onChanged();
+        } else {
+          childrenBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.MenuCategory children = 5;</code>
+       */
+      public Builder addChildren(
+          navigation.Navigation.MenuCategory.Builder builderForValue) {
+        if (childrenBuilder_ == null) {
+          ensureChildrenIsMutable();
+          children_.add(builderForValue.build());
+          onChanged();
+        } else {
+          childrenBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.MenuCategory children = 5;</code>
+       */
+      public Builder addChildren(
+          int index, navigation.Navigation.MenuCategory.Builder builderForValue) {
+        if (childrenBuilder_ == null) {
+          ensureChildrenIsMutable();
+          children_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          childrenBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.MenuCategory children = 5;</code>
+       */
+      public Builder addAllChildren(
+          java.lang.Iterable<? extends navigation.Navigation.MenuCategory> values) {
+        if (childrenBuilder_ == null) {
+          ensureChildrenIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, children_);
+          onChanged();
+        } else {
+          childrenBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.MenuCategory children = 5;</code>
+       */
+      public Builder clearChildren() {
+        if (childrenBuilder_ == null) {
+          children_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          childrenBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.MenuCategory children = 5;</code>
+       */
+      public Builder removeChildren(int index) {
+        if (childrenBuilder_ == null) {
+          ensureChildrenIsMutable();
+          children_.remove(index);
+          onChanged();
+        } else {
+          childrenBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.MenuCategory children = 5;</code>
+       */
+      public navigation.Navigation.MenuCategory.Builder getChildrenBuilder(
+          int index) {
+        return getChildrenFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.MenuCategory children = 5;</code>
+       */
+      public navigation.Navigation.MenuCategoryOrBuilder getChildrenOrBuilder(
+          int index) {
+        if (childrenBuilder_ == null) {
+          return children_.get(index);  } else {
+          return childrenBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.MenuCategory children = 5;</code>
+       */
+      public java.util.List<? extends navigation.Navigation.MenuCategoryOrBuilder> 
+           getChildrenOrBuilderList() {
+        if (childrenBuilder_ != null) {
+          return childrenBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(children_);
+        }
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.MenuCategory children = 5;</code>
+       */
+      public navigation.Navigation.MenuCategory.Builder addChildrenBuilder() {
+        return getChildrenFieldBuilder().addBuilder(
+            navigation.Navigation.MenuCategory.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.MenuCategory children = 5;</code>
+       */
+      public navigation.Navigation.MenuCategory.Builder addChildrenBuilder(
+          int index) {
+        return getChildrenFieldBuilder().addBuilder(
+            index, navigation.Navigation.MenuCategory.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * дети
+       * </pre>
+       *
+       * <code>repeated .navigation.MenuCategory children = 5;</code>
+       */
+      public java.util.List<navigation.Navigation.MenuCategory.Builder> 
+           getChildrenBuilderList() {
+        return getChildrenFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          navigation.Navigation.MenuCategory, navigation.Navigation.MenuCategory.Builder, navigation.Navigation.MenuCategoryOrBuilder> 
+          getChildrenFieldBuilder() {
+        if (childrenBuilder_ == null) {
+          childrenBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              navigation.Navigation.MenuCategory, navigation.Navigation.MenuCategory.Builder, navigation.Navigation.MenuCategoryOrBuilder>(
+                  children_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          children_ = null;
+        }
+        return childrenBuilder_;
+      }
+
+      private java.lang.Object originalCategoryId_ = "";
+      /**
+       * <pre>
+       * идентификатор монолитовской категории (mysql.taxon.id)
+       * </pre>
+       *
+       * <code>string original_category_id = 6;</code>
+       * @return The originalCategoryId.
+       */
+      public java.lang.String getOriginalCategoryId() {
+        java.lang.Object ref = originalCategoryId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          originalCategoryId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор монолитовской категории (mysql.taxon.id)
+       * </pre>
+       *
+       * <code>string original_category_id = 6;</code>
+       * @return The bytes for originalCategoryId.
+       */
+      public com.google.protobuf.ByteString
+          getOriginalCategoryIdBytes() {
+        java.lang.Object ref = originalCategoryId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          originalCategoryId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор монолитовской категории (mysql.taxon.id)
+       * </pre>
+       *
+       * <code>string original_category_id = 6;</code>
+       * @param value The originalCategoryId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOriginalCategoryId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        originalCategoryId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор монолитовской категории (mysql.taxon.id)
+       * </pre>
+       *
+       * <code>string original_category_id = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOriginalCategoryId() {
+        
+        originalCategoryId_ = getDefaultInstance().getOriginalCategoryId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор монолитовской категории (mysql.taxon.id)
+       * </pre>
+       *
+       * <code>string original_category_id = 6;</code>
+       * @param value The bytes for originalCategoryId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOriginalCategoryIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        originalCategoryId_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:navigation.MenuCategory)
+    }
+
+    // @@protoc_insertion_point(class_scope:navigation.MenuCategory)
+    private static final navigation.Navigation.MenuCategory DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new navigation.Navigation.MenuCategory();
+    }
+
+    public static navigation.Navigation.MenuCategory getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MenuCategory>
+        PARSER = new com.google.protobuf.AbstractParser<MenuCategory>() {
+      @java.lang.Override
+      public MenuCategory parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new MenuCategory(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<MenuCategory> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MenuCategory> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public navigation.Navigation.MenuCategory getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface BreadCrumbOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:navigation.BreadCrumb)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * идентификатор категории
+     * </pre>
+     *
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    java.lang.String getId();
+    /**
+     * <pre>
+     * идентификатор категории
+     * </pre>
+     *
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+
+    /**
+     * <pre>
+     * название категории
+     * </pre>
+     *
+     * <code>string name = 2;</code>
+     * @return The name.
+     */
+    java.lang.String getName();
+    /**
+     * <pre>
+     * название категории
+     * </pre>
+     *
+     * <code>string name = 2;</code>
+     * @return The bytes for name.
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <pre>
+     * пермалинк
+     * </pre>
+     *
+     * <code>string permalink = 3;</code>
+     * @return The permalink.
+     */
+    java.lang.String getPermalink();
+    /**
+     * <pre>
+     * пермалинк
+     * </pre>
+     *
+     * <code>string permalink = 3;</code>
+     * @return The bytes for permalink.
+     */
+    com.google.protobuf.ByteString
+        getPermalinkBytes();
+  }
+  /**
+   * <pre>
+   **
+   * Крошка
+   * </pre>
+   *
+   * Protobuf type {@code navigation.BreadCrumb}
+   */
+  public static final class BreadCrumb extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:navigation.BreadCrumb)
+      BreadCrumbOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use BreadCrumb.newBuilder() to construct.
+    private BreadCrumb(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BreadCrumb() {
+      id_ = "";
+      name_ = "";
+      permalink_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new BreadCrumb();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private BreadCrumb(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              id_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              permalink_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return navigation.Navigation.internal_static_navigation_BreadCrumb_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return navigation.Navigation.internal_static_navigation_BreadCrumb_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              navigation.Navigation.BreadCrumb.class, navigation.Navigation.BreadCrumb.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object id_;
+    /**
+     * <pre>
+     * идентификатор категории
+     * </pre>
+     *
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * идентификатор категории
+     * </pre>
+     *
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int NAME_FIELD_NUMBER = 2;
+    private volatile java.lang.Object name_;
+    /**
+     * <pre>
+     * название категории
+     * </pre>
+     *
+     * <code>string name = 2;</code>
+     * @return The name.
+     */
+    @java.lang.Override
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * название категории
+     * </pre>
+     *
+     * <code>string name = 2;</code>
+     * @return The bytes for name.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PERMALINK_FIELD_NUMBER = 3;
+    private volatile java.lang.Object permalink_;
+    /**
+     * <pre>
+     * пермалинк
+     * </pre>
+     *
+     * <code>string permalink = 3;</code>
+     * @return The permalink.
+     */
+    @java.lang.Override
+    public java.lang.String getPermalink() {
+      java.lang.Object ref = permalink_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        permalink_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * пермалинк
+     * </pre>
+     *
+     * <code>string permalink = 3;</code>
+     * @return The bytes for permalink.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPermalinkBytes() {
+      java.lang.Object ref = permalink_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        permalink_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
+      }
+      if (!getPermalinkBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, permalink_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
+      }
+      if (!getPermalinkBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, permalink_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof navigation.Navigation.BreadCrumb)) {
+        return super.equals(obj);
+      }
+      navigation.Navigation.BreadCrumb other = (navigation.Navigation.BreadCrumb) obj;
+
+      if (!getId()
+          .equals(other.getId())) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!getPermalink()
+          .equals(other.getPermalink())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + PERMALINK_FIELD_NUMBER;
+      hash = (53 * hash) + getPermalink().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static navigation.Navigation.BreadCrumb parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static navigation.Navigation.BreadCrumb parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static navigation.Navigation.BreadCrumb parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static navigation.Navigation.BreadCrumb parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static navigation.Navigation.BreadCrumb parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static navigation.Navigation.BreadCrumb parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static navigation.Navigation.BreadCrumb parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static navigation.Navigation.BreadCrumb parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static navigation.Navigation.BreadCrumb parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static navigation.Navigation.BreadCrumb parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static navigation.Navigation.BreadCrumb parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static navigation.Navigation.BreadCrumb parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(navigation.Navigation.BreadCrumb prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     **
+     * Крошка
+     * </pre>
+     *
+     * Protobuf type {@code navigation.BreadCrumb}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:navigation.BreadCrumb)
+        navigation.Navigation.BreadCrumbOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return navigation.Navigation.internal_static_navigation_BreadCrumb_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return navigation.Navigation.internal_static_navigation_BreadCrumb_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                navigation.Navigation.BreadCrumb.class, navigation.Navigation.BreadCrumb.Builder.class);
+      }
+
+      // Construct using navigation.Navigation.BreadCrumb.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = "";
+
+        name_ = "";
+
+        permalink_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return navigation.Navigation.internal_static_navigation_BreadCrumb_descriptor;
+      }
+
+      @java.lang.Override
+      public navigation.Navigation.BreadCrumb getDefaultInstanceForType() {
+        return navigation.Navigation.BreadCrumb.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public navigation.Navigation.BreadCrumb build() {
+        navigation.Navigation.BreadCrumb result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public navigation.Navigation.BreadCrumb buildPartial() {
+        navigation.Navigation.BreadCrumb result = new navigation.Navigation.BreadCrumb(this);
+        result.id_ = id_;
+        result.name_ = name_;
+        result.permalink_ = permalink_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof navigation.Navigation.BreadCrumb) {
+          return mergeFrom((navigation.Navigation.BreadCrumb)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(navigation.Navigation.BreadCrumb other) {
+        if (other == navigation.Navigation.BreadCrumb.getDefaultInstance()) return this;
+        if (!other.getId().isEmpty()) {
+          id_ = other.id_;
+          onChanged();
+        }
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
+        if (!other.getPermalink().isEmpty()) {
+          permalink_ = other.permalink_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        navigation.Navigation.BreadCrumb parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (navigation.Navigation.BreadCrumb) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object id_ = "";
+      /**
+       * <pre>
+       * идентификатор категории
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @return The id.
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          id_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор категории
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @return The bytes for id.
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * идентификатор категории
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор категории
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * идентификатор категории
+       * </pre>
+       *
+       * <code>string id = 1;</code>
+       * @param value The bytes for id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <pre>
+       * название категории
+       * </pre>
+       *
+       * <code>string name = 2;</code>
+       * @return The name.
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * название категории
+       * </pre>
+       *
+       * <code>string name = 2;</code>
+       * @return The bytes for name.
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * название категории
+       * </pre>
+       *
+       * <code>string name = 2;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * название категории
+       * </pre>
+       *
+       * <code>string name = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearName() {
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * название категории
+       * </pre>
+       *
+       * <code>string name = 2;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object permalink_ = "";
+      /**
+       * <pre>
+       * пермалинк
+       * </pre>
+       *
+       * <code>string permalink = 3;</code>
+       * @return The permalink.
+       */
+      public java.lang.String getPermalink() {
+        java.lang.Object ref = permalink_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          permalink_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * пермалинк
+       * </pre>
+       *
+       * <code>string permalink = 3;</code>
+       * @return The bytes for permalink.
+       */
+      public com.google.protobuf.ByteString
+          getPermalinkBytes() {
+        java.lang.Object ref = permalink_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          permalink_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * пермалинк
+       * </pre>
+       *
+       * <code>string permalink = 3;</code>
+       * @param value The permalink to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPermalink(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        permalink_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * пермалинк
+       * </pre>
+       *
+       * <code>string permalink = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPermalink() {
+        
+        permalink_ = getDefaultInstance().getPermalink();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * пермалинк
+       * </pre>
+       *
+       * <code>string permalink = 3;</code>
+       * @param value The bytes for permalink to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPermalinkBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        permalink_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:navigation.BreadCrumb)
+    }
+
+    // @@protoc_insertion_point(class_scope:navigation.BreadCrumb)
+    private static final navigation.Navigation.BreadCrumb DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new navigation.Navigation.BreadCrumb();
+    }
+
+    public static navigation.Navigation.BreadCrumb getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<BreadCrumb>
+        PARSER = new com.google.protobuf.AbstractParser<BreadCrumb>() {
+      @java.lang.Override
+      public BreadCrumb parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new BreadCrumb(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BreadCrumb> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BreadCrumb> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public navigation.Navigation.BreadCrumb getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface GetBreadcrumbsByCategoryIDRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:navigation.GetBreadcrumbsByCategoryIDRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -283,10 +6143,6 @@ public final class Navigation {
         getCategoryIdBytes();
   }
   /**
-   * <pre>
-   * GetBreadcrumbsByCategoryID
-   * </pre>
-   *
    * Protobuf type {@code navigation.GetBreadcrumbsByCategoryIDRequest}
    */
   public static final class GetBreadcrumbsByCategoryIDRequest extends
@@ -563,10 +6419,6 @@ public final class Navigation {
       return builder;
     }
     /**
-     * <pre>
-     * GetBreadcrumbsByCategoryID
-     * </pre>
-     *
      * Protobuf type {@code navigation.GetBreadcrumbsByCategoryIDRequest}
      */
     public static final class Builder extends
@@ -1635,874 +7487,6 @@ public final class Navigation {
 
   }
 
-  public interface BreadCrumbOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:navigation.BreadCrumb)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string id = 1;</code>
-     * @return The id.
-     */
-    java.lang.String getId();
-    /**
-     * <code>string id = 1;</code>
-     * @return The bytes for id.
-     */
-    com.google.protobuf.ByteString
-        getIdBytes();
-
-    /**
-     * <code>string name = 2;</code>
-     * @return The name.
-     */
-    java.lang.String getName();
-    /**
-     * <code>string name = 2;</code>
-     * @return The bytes for name.
-     */
-    com.google.protobuf.ByteString
-        getNameBytes();
-
-    /**
-     * <code>string permalink = 3;</code>
-     * @return The permalink.
-     */
-    java.lang.String getPermalink();
-    /**
-     * <code>string permalink = 3;</code>
-     * @return The bytes for permalink.
-     */
-    com.google.protobuf.ByteString
-        getPermalinkBytes();
-  }
-  /**
-   * Protobuf type {@code navigation.BreadCrumb}
-   */
-  public static final class BreadCrumb extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:navigation.BreadCrumb)
-      BreadCrumbOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use BreadCrumb.newBuilder() to construct.
-    private BreadCrumb(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private BreadCrumb() {
-      id_ = "";
-      name_ = "";
-      permalink_ = "";
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new BreadCrumb();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private BreadCrumb(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              id_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              name_ = s;
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              permalink_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return navigation.Navigation.internal_static_navigation_BreadCrumb_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return navigation.Navigation.internal_static_navigation_BreadCrumb_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              navigation.Navigation.BreadCrumb.class, navigation.Navigation.BreadCrumb.Builder.class);
-    }
-
-    public static final int ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object id_;
-    /**
-     * <code>string id = 1;</code>
-     * @return The id.
-     */
-    @java.lang.Override
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        id_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string id = 1;</code>
-     * @return The bytes for id.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getIdBytes() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        id_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int NAME_FIELD_NUMBER = 2;
-    private volatile java.lang.Object name_;
-    /**
-     * <code>string name = 2;</code>
-     * @return The name.
-     */
-    @java.lang.Override
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        name_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string name = 2;</code>
-     * @return The bytes for name.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getNameBytes() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int PERMALINK_FIELD_NUMBER = 3;
-    private volatile java.lang.Object permalink_;
-    /**
-     * <code>string permalink = 3;</code>
-     * @return The permalink.
-     */
-    @java.lang.Override
-    public java.lang.String getPermalink() {
-      java.lang.Object ref = permalink_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        permalink_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string permalink = 3;</code>
-     * @return The bytes for permalink.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getPermalinkBytes() {
-      java.lang.Object ref = permalink_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        permalink_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
-      }
-      if (!getNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
-      }
-      if (!getPermalinkBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, permalink_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
-      }
-      if (!getNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
-      }
-      if (!getPermalinkBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, permalink_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof navigation.Navigation.BreadCrumb)) {
-        return super.equals(obj);
-      }
-      navigation.Navigation.BreadCrumb other = (navigation.Navigation.BreadCrumb) obj;
-
-      if (!getId()
-          .equals(other.getId())) return false;
-      if (!getName()
-          .equals(other.getName())) return false;
-      if (!getPermalink()
-          .equals(other.getPermalink())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId().hashCode();
-      hash = (37 * hash) + NAME_FIELD_NUMBER;
-      hash = (53 * hash) + getName().hashCode();
-      hash = (37 * hash) + PERMALINK_FIELD_NUMBER;
-      hash = (53 * hash) + getPermalink().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static navigation.Navigation.BreadCrumb parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static navigation.Navigation.BreadCrumb parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static navigation.Navigation.BreadCrumb parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static navigation.Navigation.BreadCrumb parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static navigation.Navigation.BreadCrumb parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static navigation.Navigation.BreadCrumb parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static navigation.Navigation.BreadCrumb parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static navigation.Navigation.BreadCrumb parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static navigation.Navigation.BreadCrumb parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static navigation.Navigation.BreadCrumb parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static navigation.Navigation.BreadCrumb parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static navigation.Navigation.BreadCrumb parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(navigation.Navigation.BreadCrumb prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code navigation.BreadCrumb}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:navigation.BreadCrumb)
-        navigation.Navigation.BreadCrumbOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return navigation.Navigation.internal_static_navigation_BreadCrumb_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return navigation.Navigation.internal_static_navigation_BreadCrumb_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                navigation.Navigation.BreadCrumb.class, navigation.Navigation.BreadCrumb.Builder.class);
-      }
-
-      // Construct using navigation.Navigation.BreadCrumb.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        id_ = "";
-
-        name_ = "";
-
-        permalink_ = "";
-
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return navigation.Navigation.internal_static_navigation_BreadCrumb_descriptor;
-      }
-
-      @java.lang.Override
-      public navigation.Navigation.BreadCrumb getDefaultInstanceForType() {
-        return navigation.Navigation.BreadCrumb.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public navigation.Navigation.BreadCrumb build() {
-        navigation.Navigation.BreadCrumb result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public navigation.Navigation.BreadCrumb buildPartial() {
-        navigation.Navigation.BreadCrumb result = new navigation.Navigation.BreadCrumb(this);
-        result.id_ = id_;
-        result.name_ = name_;
-        result.permalink_ = permalink_;
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof navigation.Navigation.BreadCrumb) {
-          return mergeFrom((navigation.Navigation.BreadCrumb)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(navigation.Navigation.BreadCrumb other) {
-        if (other == navigation.Navigation.BreadCrumb.getDefaultInstance()) return this;
-        if (!other.getId().isEmpty()) {
-          id_ = other.id_;
-          onChanged();
-        }
-        if (!other.getName().isEmpty()) {
-          name_ = other.name_;
-          onChanged();
-        }
-        if (!other.getPermalink().isEmpty()) {
-          permalink_ = other.permalink_;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        navigation.Navigation.BreadCrumb parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (navigation.Navigation.BreadCrumb) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object id_ = "";
-      /**
-       * <code>string id = 1;</code>
-       * @return The id.
-       */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          id_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string id = 1;</code>
-       * @return The bytes for id.
-       */
-      public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          id_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string id = 1;</code>
-       * @param value The id to set.
-       * @return This builder for chaining.
-       */
-      public Builder setId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        id_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string id = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearId() {
-        
-        id_ = getDefaultInstance().getId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string id = 1;</code>
-       * @param value The bytes for id to set.
-       * @return This builder for chaining.
-       */
-      public Builder setIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        id_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object name_ = "";
-      /**
-       * <code>string name = 2;</code>
-       * @return The name.
-       */
-      public java.lang.String getName() {
-        java.lang.Object ref = name_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          name_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string name = 2;</code>
-       * @return The bytes for name.
-       */
-      public com.google.protobuf.ByteString
-          getNameBytes() {
-        java.lang.Object ref = name_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          name_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string name = 2;</code>
-       * @param value The name to set.
-       * @return This builder for chaining.
-       */
-      public Builder setName(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        name_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string name = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearName() {
-        
-        name_ = getDefaultInstance().getName();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string name = 2;</code>
-       * @param value The bytes for name to set.
-       * @return This builder for chaining.
-       */
-      public Builder setNameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        name_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object permalink_ = "";
-      /**
-       * <code>string permalink = 3;</code>
-       * @return The permalink.
-       */
-      public java.lang.String getPermalink() {
-        java.lang.Object ref = permalink_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          permalink_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string permalink = 3;</code>
-       * @return The bytes for permalink.
-       */
-      public com.google.protobuf.ByteString
-          getPermalinkBytes() {
-        java.lang.Object ref = permalink_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          permalink_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string permalink = 3;</code>
-       * @param value The permalink to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPermalink(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        permalink_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string permalink = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearPermalink() {
-        
-        permalink_ = getDefaultInstance().getPermalink();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string permalink = 3;</code>
-       * @param value The bytes for permalink to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPermalinkBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        permalink_ = value;
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:navigation.BreadCrumb)
-    }
-
-    // @@protoc_insertion_point(class_scope:navigation.BreadCrumb)
-    private static final navigation.Navigation.BreadCrumb DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new navigation.Navigation.BreadCrumb();
-    }
-
-    public static navigation.Navigation.BreadCrumb getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<BreadCrumb>
-        PARSER = new com.google.protobuf.AbstractParser<BreadCrumb>() {
-      @java.lang.Override
-      public BreadCrumb parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new BreadCrumb(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<BreadCrumb> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<BreadCrumb> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public navigation.Navigation.BreadCrumb getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface GetMenuTreeRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:navigation.GetMenuTreeRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -2563,10 +7547,6 @@ public final class Navigation {
         getCategoryDataKeysBytes(int index);
   }
   /**
-   * <pre>
-   * GetMenuTree
-   * </pre>
-   *
    * Protobuf type {@code navigation.GetMenuTreeRequest}
    */
   public static final class GetMenuTreeRequest extends
@@ -2992,10 +7972,6 @@ public final class Navigation {
       return builder;
     }
     /**
-     * <pre>
-     * GetMenuTree
-     * </pre>
-     *
      * Protobuf type {@code navigation.GetMenuTreeRequest}
      */
     public static final class Builder extends
@@ -4313,1692 +9289,6 @@ public final class Navigation {
 
   }
 
-  public interface MenuCategoryOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:navigation.MenuCategory)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string id = 1;</code>
-     * @return The id.
-     */
-    java.lang.String getId();
-    /**
-     * <code>string id = 1;</code>
-     * @return The bytes for id.
-     */
-    com.google.protobuf.ByteString
-        getIdBytes();
-
-    /**
-     * <code>string name = 2;</code>
-     * @return The name.
-     */
-    java.lang.String getName();
-    /**
-     * <code>string name = 2;</code>
-     * @return The bytes for name.
-     */
-    com.google.protobuf.ByteString
-        getNameBytes();
-
-    /**
-     * <code>int64 product_count = 3;</code>
-     * @return The productCount.
-     */
-    long getProductCount();
-
-    /**
-     * <code>repeated .navigation.Data category_data = 4;</code>
-     */
-    java.util.List<navigation.Navigation.Data> 
-        getCategoryDataList();
-    /**
-     * <code>repeated .navigation.Data category_data = 4;</code>
-     */
-    navigation.Navigation.Data getCategoryData(int index);
-    /**
-     * <code>repeated .navigation.Data category_data = 4;</code>
-     */
-    int getCategoryDataCount();
-    /**
-     * <code>repeated .navigation.Data category_data = 4;</code>
-     */
-    java.util.List<? extends navigation.Navigation.DataOrBuilder> 
-        getCategoryDataOrBuilderList();
-    /**
-     * <code>repeated .navigation.Data category_data = 4;</code>
-     */
-    navigation.Navigation.DataOrBuilder getCategoryDataOrBuilder(
-        int index);
-
-    /**
-     * <code>repeated .navigation.MenuCategory children = 5;</code>
-     */
-    java.util.List<navigation.Navigation.MenuCategory> 
-        getChildrenList();
-    /**
-     * <code>repeated .navigation.MenuCategory children = 5;</code>
-     */
-    navigation.Navigation.MenuCategory getChildren(int index);
-    /**
-     * <code>repeated .navigation.MenuCategory children = 5;</code>
-     */
-    int getChildrenCount();
-    /**
-     * <code>repeated .navigation.MenuCategory children = 5;</code>
-     */
-    java.util.List<? extends navigation.Navigation.MenuCategoryOrBuilder> 
-        getChildrenOrBuilderList();
-    /**
-     * <code>repeated .navigation.MenuCategory children = 5;</code>
-     */
-    navigation.Navigation.MenuCategoryOrBuilder getChildrenOrBuilder(
-        int index);
-
-    /**
-     * <code>string original_category_id = 6;</code>
-     * @return The originalCategoryId.
-     */
-    java.lang.String getOriginalCategoryId();
-    /**
-     * <code>string original_category_id = 6;</code>
-     * @return The bytes for originalCategoryId.
-     */
-    com.google.protobuf.ByteString
-        getOriginalCategoryIdBytes();
-  }
-  /**
-   * Protobuf type {@code navigation.MenuCategory}
-   */
-  public static final class MenuCategory extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:navigation.MenuCategory)
-      MenuCategoryOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use MenuCategory.newBuilder() to construct.
-    private MenuCategory(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private MenuCategory() {
-      id_ = "";
-      name_ = "";
-      categoryData_ = java.util.Collections.emptyList();
-      children_ = java.util.Collections.emptyList();
-      originalCategoryId_ = "";
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new MenuCategory();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private MenuCategory(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              id_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              name_ = s;
-              break;
-            }
-            case 24: {
-
-              productCount_ = input.readInt64();
-              break;
-            }
-            case 34: {
-              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                categoryData_ = new java.util.ArrayList<navigation.Navigation.Data>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              categoryData_.add(
-                  input.readMessage(navigation.Navigation.Data.parser(), extensionRegistry));
-              break;
-            }
-            case 42: {
-              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
-                children_ = new java.util.ArrayList<navigation.Navigation.MenuCategory>();
-                mutable_bitField0_ |= 0x00000002;
-              }
-              children_.add(
-                  input.readMessage(navigation.Navigation.MenuCategory.parser(), extensionRegistry));
-              break;
-            }
-            case 50: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              originalCategoryId_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000001) != 0)) {
-          categoryData_ = java.util.Collections.unmodifiableList(categoryData_);
-        }
-        if (((mutable_bitField0_ & 0x00000002) != 0)) {
-          children_ = java.util.Collections.unmodifiableList(children_);
-        }
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return navigation.Navigation.internal_static_navigation_MenuCategory_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return navigation.Navigation.internal_static_navigation_MenuCategory_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              navigation.Navigation.MenuCategory.class, navigation.Navigation.MenuCategory.Builder.class);
-    }
-
-    public static final int ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object id_;
-    /**
-     * <code>string id = 1;</code>
-     * @return The id.
-     */
-    @java.lang.Override
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        id_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string id = 1;</code>
-     * @return The bytes for id.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getIdBytes() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        id_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int NAME_FIELD_NUMBER = 2;
-    private volatile java.lang.Object name_;
-    /**
-     * <code>string name = 2;</code>
-     * @return The name.
-     */
-    @java.lang.Override
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        name_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string name = 2;</code>
-     * @return The bytes for name.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getNameBytes() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int PRODUCT_COUNT_FIELD_NUMBER = 3;
-    private long productCount_;
-    /**
-     * <code>int64 product_count = 3;</code>
-     * @return The productCount.
-     */
-    @java.lang.Override
-    public long getProductCount() {
-      return productCount_;
-    }
-
-    public static final int CATEGORY_DATA_FIELD_NUMBER = 4;
-    private java.util.List<navigation.Navigation.Data> categoryData_;
-    /**
-     * <code>repeated .navigation.Data category_data = 4;</code>
-     */
-    @java.lang.Override
-    public java.util.List<navigation.Navigation.Data> getCategoryDataList() {
-      return categoryData_;
-    }
-    /**
-     * <code>repeated .navigation.Data category_data = 4;</code>
-     */
-    @java.lang.Override
-    public java.util.List<? extends navigation.Navigation.DataOrBuilder> 
-        getCategoryDataOrBuilderList() {
-      return categoryData_;
-    }
-    /**
-     * <code>repeated .navigation.Data category_data = 4;</code>
-     */
-    @java.lang.Override
-    public int getCategoryDataCount() {
-      return categoryData_.size();
-    }
-    /**
-     * <code>repeated .navigation.Data category_data = 4;</code>
-     */
-    @java.lang.Override
-    public navigation.Navigation.Data getCategoryData(int index) {
-      return categoryData_.get(index);
-    }
-    /**
-     * <code>repeated .navigation.Data category_data = 4;</code>
-     */
-    @java.lang.Override
-    public navigation.Navigation.DataOrBuilder getCategoryDataOrBuilder(
-        int index) {
-      return categoryData_.get(index);
-    }
-
-    public static final int CHILDREN_FIELD_NUMBER = 5;
-    private java.util.List<navigation.Navigation.MenuCategory> children_;
-    /**
-     * <code>repeated .navigation.MenuCategory children = 5;</code>
-     */
-    @java.lang.Override
-    public java.util.List<navigation.Navigation.MenuCategory> getChildrenList() {
-      return children_;
-    }
-    /**
-     * <code>repeated .navigation.MenuCategory children = 5;</code>
-     */
-    @java.lang.Override
-    public java.util.List<? extends navigation.Navigation.MenuCategoryOrBuilder> 
-        getChildrenOrBuilderList() {
-      return children_;
-    }
-    /**
-     * <code>repeated .navigation.MenuCategory children = 5;</code>
-     */
-    @java.lang.Override
-    public int getChildrenCount() {
-      return children_.size();
-    }
-    /**
-     * <code>repeated .navigation.MenuCategory children = 5;</code>
-     */
-    @java.lang.Override
-    public navigation.Navigation.MenuCategory getChildren(int index) {
-      return children_.get(index);
-    }
-    /**
-     * <code>repeated .navigation.MenuCategory children = 5;</code>
-     */
-    @java.lang.Override
-    public navigation.Navigation.MenuCategoryOrBuilder getChildrenOrBuilder(
-        int index) {
-      return children_.get(index);
-    }
-
-    public static final int ORIGINAL_CATEGORY_ID_FIELD_NUMBER = 6;
-    private volatile java.lang.Object originalCategoryId_;
-    /**
-     * <code>string original_category_id = 6;</code>
-     * @return The originalCategoryId.
-     */
-    @java.lang.Override
-    public java.lang.String getOriginalCategoryId() {
-      java.lang.Object ref = originalCategoryId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        originalCategoryId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string original_category_id = 6;</code>
-     * @return The bytes for originalCategoryId.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getOriginalCategoryIdBytes() {
-      java.lang.Object ref = originalCategoryId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        originalCategoryId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
-      }
-      if (!getNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
-      }
-      if (productCount_ != 0L) {
-        output.writeInt64(3, productCount_);
-      }
-      for (int i = 0; i < categoryData_.size(); i++) {
-        output.writeMessage(4, categoryData_.get(i));
-      }
-      for (int i = 0; i < children_.size(); i++) {
-        output.writeMessage(5, children_.get(i));
-      }
-      if (!getOriginalCategoryIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, originalCategoryId_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
-      }
-      if (!getNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
-      }
-      if (productCount_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(3, productCount_);
-      }
-      for (int i = 0; i < categoryData_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, categoryData_.get(i));
-      }
-      for (int i = 0; i < children_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, children_.get(i));
-      }
-      if (!getOriginalCategoryIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, originalCategoryId_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof navigation.Navigation.MenuCategory)) {
-        return super.equals(obj);
-      }
-      navigation.Navigation.MenuCategory other = (navigation.Navigation.MenuCategory) obj;
-
-      if (!getId()
-          .equals(other.getId())) return false;
-      if (!getName()
-          .equals(other.getName())) return false;
-      if (getProductCount()
-          != other.getProductCount()) return false;
-      if (!getCategoryDataList()
-          .equals(other.getCategoryDataList())) return false;
-      if (!getChildrenList()
-          .equals(other.getChildrenList())) return false;
-      if (!getOriginalCategoryId()
-          .equals(other.getOriginalCategoryId())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId().hashCode();
-      hash = (37 * hash) + NAME_FIELD_NUMBER;
-      hash = (53 * hash) + getName().hashCode();
-      hash = (37 * hash) + PRODUCT_COUNT_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getProductCount());
-      if (getCategoryDataCount() > 0) {
-        hash = (37 * hash) + CATEGORY_DATA_FIELD_NUMBER;
-        hash = (53 * hash) + getCategoryDataList().hashCode();
-      }
-      if (getChildrenCount() > 0) {
-        hash = (37 * hash) + CHILDREN_FIELD_NUMBER;
-        hash = (53 * hash) + getChildrenList().hashCode();
-      }
-      hash = (37 * hash) + ORIGINAL_CATEGORY_ID_FIELD_NUMBER;
-      hash = (53 * hash) + getOriginalCategoryId().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static navigation.Navigation.MenuCategory parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static navigation.Navigation.MenuCategory parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static navigation.Navigation.MenuCategory parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static navigation.Navigation.MenuCategory parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static navigation.Navigation.MenuCategory parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static navigation.Navigation.MenuCategory parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static navigation.Navigation.MenuCategory parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static navigation.Navigation.MenuCategory parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static navigation.Navigation.MenuCategory parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static navigation.Navigation.MenuCategory parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static navigation.Navigation.MenuCategory parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static navigation.Navigation.MenuCategory parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(navigation.Navigation.MenuCategory prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code navigation.MenuCategory}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:navigation.MenuCategory)
-        navigation.Navigation.MenuCategoryOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return navigation.Navigation.internal_static_navigation_MenuCategory_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return navigation.Navigation.internal_static_navigation_MenuCategory_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                navigation.Navigation.MenuCategory.class, navigation.Navigation.MenuCategory.Builder.class);
-      }
-
-      // Construct using navigation.Navigation.MenuCategory.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-          getCategoryDataFieldBuilder();
-          getChildrenFieldBuilder();
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        id_ = "";
-
-        name_ = "";
-
-        productCount_ = 0L;
-
-        if (categoryDataBuilder_ == null) {
-          categoryData_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          categoryDataBuilder_.clear();
-        }
-        if (childrenBuilder_ == null) {
-          children_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
-        } else {
-          childrenBuilder_.clear();
-        }
-        originalCategoryId_ = "";
-
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return navigation.Navigation.internal_static_navigation_MenuCategory_descriptor;
-      }
-
-      @java.lang.Override
-      public navigation.Navigation.MenuCategory getDefaultInstanceForType() {
-        return navigation.Navigation.MenuCategory.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public navigation.Navigation.MenuCategory build() {
-        navigation.Navigation.MenuCategory result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public navigation.Navigation.MenuCategory buildPartial() {
-        navigation.Navigation.MenuCategory result = new navigation.Navigation.MenuCategory(this);
-        int from_bitField0_ = bitField0_;
-        result.id_ = id_;
-        result.name_ = name_;
-        result.productCount_ = productCount_;
-        if (categoryDataBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0)) {
-            categoryData_ = java.util.Collections.unmodifiableList(categoryData_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.categoryData_ = categoryData_;
-        } else {
-          result.categoryData_ = categoryDataBuilder_.build();
-        }
-        if (childrenBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) != 0)) {
-            children_ = java.util.Collections.unmodifiableList(children_);
-            bitField0_ = (bitField0_ & ~0x00000002);
-          }
-          result.children_ = children_;
-        } else {
-          result.children_ = childrenBuilder_.build();
-        }
-        result.originalCategoryId_ = originalCategoryId_;
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof navigation.Navigation.MenuCategory) {
-          return mergeFrom((navigation.Navigation.MenuCategory)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(navigation.Navigation.MenuCategory other) {
-        if (other == navigation.Navigation.MenuCategory.getDefaultInstance()) return this;
-        if (!other.getId().isEmpty()) {
-          id_ = other.id_;
-          onChanged();
-        }
-        if (!other.getName().isEmpty()) {
-          name_ = other.name_;
-          onChanged();
-        }
-        if (other.getProductCount() != 0L) {
-          setProductCount(other.getProductCount());
-        }
-        if (categoryDataBuilder_ == null) {
-          if (!other.categoryData_.isEmpty()) {
-            if (categoryData_.isEmpty()) {
-              categoryData_ = other.categoryData_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureCategoryDataIsMutable();
-              categoryData_.addAll(other.categoryData_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.categoryData_.isEmpty()) {
-            if (categoryDataBuilder_.isEmpty()) {
-              categoryDataBuilder_.dispose();
-              categoryDataBuilder_ = null;
-              categoryData_ = other.categoryData_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              categoryDataBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getCategoryDataFieldBuilder() : null;
-            } else {
-              categoryDataBuilder_.addAllMessages(other.categoryData_);
-            }
-          }
-        }
-        if (childrenBuilder_ == null) {
-          if (!other.children_.isEmpty()) {
-            if (children_.isEmpty()) {
-              children_ = other.children_;
-              bitField0_ = (bitField0_ & ~0x00000002);
-            } else {
-              ensureChildrenIsMutable();
-              children_.addAll(other.children_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.children_.isEmpty()) {
-            if (childrenBuilder_.isEmpty()) {
-              childrenBuilder_.dispose();
-              childrenBuilder_ = null;
-              children_ = other.children_;
-              bitField0_ = (bitField0_ & ~0x00000002);
-              childrenBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getChildrenFieldBuilder() : null;
-            } else {
-              childrenBuilder_.addAllMessages(other.children_);
-            }
-          }
-        }
-        if (!other.getOriginalCategoryId().isEmpty()) {
-          originalCategoryId_ = other.originalCategoryId_;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        navigation.Navigation.MenuCategory parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (navigation.Navigation.MenuCategory) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private java.lang.Object id_ = "";
-      /**
-       * <code>string id = 1;</code>
-       * @return The id.
-       */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          id_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string id = 1;</code>
-       * @return The bytes for id.
-       */
-      public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          id_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string id = 1;</code>
-       * @param value The id to set.
-       * @return This builder for chaining.
-       */
-      public Builder setId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        id_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string id = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearId() {
-        
-        id_ = getDefaultInstance().getId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string id = 1;</code>
-       * @param value The bytes for id to set.
-       * @return This builder for chaining.
-       */
-      public Builder setIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        id_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object name_ = "";
-      /**
-       * <code>string name = 2;</code>
-       * @return The name.
-       */
-      public java.lang.String getName() {
-        java.lang.Object ref = name_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          name_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string name = 2;</code>
-       * @return The bytes for name.
-       */
-      public com.google.protobuf.ByteString
-          getNameBytes() {
-        java.lang.Object ref = name_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          name_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string name = 2;</code>
-       * @param value The name to set.
-       * @return This builder for chaining.
-       */
-      public Builder setName(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        name_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string name = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearName() {
-        
-        name_ = getDefaultInstance().getName();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string name = 2;</code>
-       * @param value The bytes for name to set.
-       * @return This builder for chaining.
-       */
-      public Builder setNameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        name_ = value;
-        onChanged();
-        return this;
-      }
-
-      private long productCount_ ;
-      /**
-       * <code>int64 product_count = 3;</code>
-       * @return The productCount.
-       */
-      @java.lang.Override
-      public long getProductCount() {
-        return productCount_;
-      }
-      /**
-       * <code>int64 product_count = 3;</code>
-       * @param value The productCount to set.
-       * @return This builder for chaining.
-       */
-      public Builder setProductCount(long value) {
-        
-        productCount_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int64 product_count = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearProductCount() {
-        
-        productCount_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private java.util.List<navigation.Navigation.Data> categoryData_ =
-        java.util.Collections.emptyList();
-      private void ensureCategoryDataIsMutable() {
-        if (!((bitField0_ & 0x00000001) != 0)) {
-          categoryData_ = new java.util.ArrayList<navigation.Navigation.Data>(categoryData_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          navigation.Navigation.Data, navigation.Navigation.Data.Builder, navigation.Navigation.DataOrBuilder> categoryDataBuilder_;
-
-      /**
-       * <code>repeated .navigation.Data category_data = 4;</code>
-       */
-      public java.util.List<navigation.Navigation.Data> getCategoryDataList() {
-        if (categoryDataBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(categoryData_);
-        } else {
-          return categoryDataBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .navigation.Data category_data = 4;</code>
-       */
-      public int getCategoryDataCount() {
-        if (categoryDataBuilder_ == null) {
-          return categoryData_.size();
-        } else {
-          return categoryDataBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .navigation.Data category_data = 4;</code>
-       */
-      public navigation.Navigation.Data getCategoryData(int index) {
-        if (categoryDataBuilder_ == null) {
-          return categoryData_.get(index);
-        } else {
-          return categoryDataBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .navigation.Data category_data = 4;</code>
-       */
-      public Builder setCategoryData(
-          int index, navigation.Navigation.Data value) {
-        if (categoryDataBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureCategoryDataIsMutable();
-          categoryData_.set(index, value);
-          onChanged();
-        } else {
-          categoryDataBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.Data category_data = 4;</code>
-       */
-      public Builder setCategoryData(
-          int index, navigation.Navigation.Data.Builder builderForValue) {
-        if (categoryDataBuilder_ == null) {
-          ensureCategoryDataIsMutable();
-          categoryData_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          categoryDataBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.Data category_data = 4;</code>
-       */
-      public Builder addCategoryData(navigation.Navigation.Data value) {
-        if (categoryDataBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureCategoryDataIsMutable();
-          categoryData_.add(value);
-          onChanged();
-        } else {
-          categoryDataBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.Data category_data = 4;</code>
-       */
-      public Builder addCategoryData(
-          int index, navigation.Navigation.Data value) {
-        if (categoryDataBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureCategoryDataIsMutable();
-          categoryData_.add(index, value);
-          onChanged();
-        } else {
-          categoryDataBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.Data category_data = 4;</code>
-       */
-      public Builder addCategoryData(
-          navigation.Navigation.Data.Builder builderForValue) {
-        if (categoryDataBuilder_ == null) {
-          ensureCategoryDataIsMutable();
-          categoryData_.add(builderForValue.build());
-          onChanged();
-        } else {
-          categoryDataBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.Data category_data = 4;</code>
-       */
-      public Builder addCategoryData(
-          int index, navigation.Navigation.Data.Builder builderForValue) {
-        if (categoryDataBuilder_ == null) {
-          ensureCategoryDataIsMutable();
-          categoryData_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          categoryDataBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.Data category_data = 4;</code>
-       */
-      public Builder addAllCategoryData(
-          java.lang.Iterable<? extends navigation.Navigation.Data> values) {
-        if (categoryDataBuilder_ == null) {
-          ensureCategoryDataIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, categoryData_);
-          onChanged();
-        } else {
-          categoryDataBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.Data category_data = 4;</code>
-       */
-      public Builder clearCategoryData() {
-        if (categoryDataBuilder_ == null) {
-          categoryData_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-        } else {
-          categoryDataBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.Data category_data = 4;</code>
-       */
-      public Builder removeCategoryData(int index) {
-        if (categoryDataBuilder_ == null) {
-          ensureCategoryDataIsMutable();
-          categoryData_.remove(index);
-          onChanged();
-        } else {
-          categoryDataBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.Data category_data = 4;</code>
-       */
-      public navigation.Navigation.Data.Builder getCategoryDataBuilder(
-          int index) {
-        return getCategoryDataFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .navigation.Data category_data = 4;</code>
-       */
-      public navigation.Navigation.DataOrBuilder getCategoryDataOrBuilder(
-          int index) {
-        if (categoryDataBuilder_ == null) {
-          return categoryData_.get(index);  } else {
-          return categoryDataBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .navigation.Data category_data = 4;</code>
-       */
-      public java.util.List<? extends navigation.Navigation.DataOrBuilder> 
-           getCategoryDataOrBuilderList() {
-        if (categoryDataBuilder_ != null) {
-          return categoryDataBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(categoryData_);
-        }
-      }
-      /**
-       * <code>repeated .navigation.Data category_data = 4;</code>
-       */
-      public navigation.Navigation.Data.Builder addCategoryDataBuilder() {
-        return getCategoryDataFieldBuilder().addBuilder(
-            navigation.Navigation.Data.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .navigation.Data category_data = 4;</code>
-       */
-      public navigation.Navigation.Data.Builder addCategoryDataBuilder(
-          int index) {
-        return getCategoryDataFieldBuilder().addBuilder(
-            index, navigation.Navigation.Data.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .navigation.Data category_data = 4;</code>
-       */
-      public java.util.List<navigation.Navigation.Data.Builder> 
-           getCategoryDataBuilderList() {
-        return getCategoryDataFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          navigation.Navigation.Data, navigation.Navigation.Data.Builder, navigation.Navigation.DataOrBuilder> 
-          getCategoryDataFieldBuilder() {
-        if (categoryDataBuilder_ == null) {
-          categoryDataBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              navigation.Navigation.Data, navigation.Navigation.Data.Builder, navigation.Navigation.DataOrBuilder>(
-                  categoryData_,
-                  ((bitField0_ & 0x00000001) != 0),
-                  getParentForChildren(),
-                  isClean());
-          categoryData_ = null;
-        }
-        return categoryDataBuilder_;
-      }
-
-      private java.util.List<navigation.Navigation.MenuCategory> children_ =
-        java.util.Collections.emptyList();
-      private void ensureChildrenIsMutable() {
-        if (!((bitField0_ & 0x00000002) != 0)) {
-          children_ = new java.util.ArrayList<navigation.Navigation.MenuCategory>(children_);
-          bitField0_ |= 0x00000002;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          navigation.Navigation.MenuCategory, navigation.Navigation.MenuCategory.Builder, navigation.Navigation.MenuCategoryOrBuilder> childrenBuilder_;
-
-      /**
-       * <code>repeated .navigation.MenuCategory children = 5;</code>
-       */
-      public java.util.List<navigation.Navigation.MenuCategory> getChildrenList() {
-        if (childrenBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(children_);
-        } else {
-          return childrenBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .navigation.MenuCategory children = 5;</code>
-       */
-      public int getChildrenCount() {
-        if (childrenBuilder_ == null) {
-          return children_.size();
-        } else {
-          return childrenBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .navigation.MenuCategory children = 5;</code>
-       */
-      public navigation.Navigation.MenuCategory getChildren(int index) {
-        if (childrenBuilder_ == null) {
-          return children_.get(index);
-        } else {
-          return childrenBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .navigation.MenuCategory children = 5;</code>
-       */
-      public Builder setChildren(
-          int index, navigation.Navigation.MenuCategory value) {
-        if (childrenBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureChildrenIsMutable();
-          children_.set(index, value);
-          onChanged();
-        } else {
-          childrenBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.MenuCategory children = 5;</code>
-       */
-      public Builder setChildren(
-          int index, navigation.Navigation.MenuCategory.Builder builderForValue) {
-        if (childrenBuilder_ == null) {
-          ensureChildrenIsMutable();
-          children_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          childrenBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.MenuCategory children = 5;</code>
-       */
-      public Builder addChildren(navigation.Navigation.MenuCategory value) {
-        if (childrenBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureChildrenIsMutable();
-          children_.add(value);
-          onChanged();
-        } else {
-          childrenBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.MenuCategory children = 5;</code>
-       */
-      public Builder addChildren(
-          int index, navigation.Navigation.MenuCategory value) {
-        if (childrenBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureChildrenIsMutable();
-          children_.add(index, value);
-          onChanged();
-        } else {
-          childrenBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.MenuCategory children = 5;</code>
-       */
-      public Builder addChildren(
-          navigation.Navigation.MenuCategory.Builder builderForValue) {
-        if (childrenBuilder_ == null) {
-          ensureChildrenIsMutable();
-          children_.add(builderForValue.build());
-          onChanged();
-        } else {
-          childrenBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.MenuCategory children = 5;</code>
-       */
-      public Builder addChildren(
-          int index, navigation.Navigation.MenuCategory.Builder builderForValue) {
-        if (childrenBuilder_ == null) {
-          ensureChildrenIsMutable();
-          children_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          childrenBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.MenuCategory children = 5;</code>
-       */
-      public Builder addAllChildren(
-          java.lang.Iterable<? extends navigation.Navigation.MenuCategory> values) {
-        if (childrenBuilder_ == null) {
-          ensureChildrenIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, children_);
-          onChanged();
-        } else {
-          childrenBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.MenuCategory children = 5;</code>
-       */
-      public Builder clearChildren() {
-        if (childrenBuilder_ == null) {
-          children_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
-          onChanged();
-        } else {
-          childrenBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.MenuCategory children = 5;</code>
-       */
-      public Builder removeChildren(int index) {
-        if (childrenBuilder_ == null) {
-          ensureChildrenIsMutable();
-          children_.remove(index);
-          onChanged();
-        } else {
-          childrenBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.MenuCategory children = 5;</code>
-       */
-      public navigation.Navigation.MenuCategory.Builder getChildrenBuilder(
-          int index) {
-        return getChildrenFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .navigation.MenuCategory children = 5;</code>
-       */
-      public navigation.Navigation.MenuCategoryOrBuilder getChildrenOrBuilder(
-          int index) {
-        if (childrenBuilder_ == null) {
-          return children_.get(index);  } else {
-          return childrenBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .navigation.MenuCategory children = 5;</code>
-       */
-      public java.util.List<? extends navigation.Navigation.MenuCategoryOrBuilder> 
-           getChildrenOrBuilderList() {
-        if (childrenBuilder_ != null) {
-          return childrenBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(children_);
-        }
-      }
-      /**
-       * <code>repeated .navigation.MenuCategory children = 5;</code>
-       */
-      public navigation.Navigation.MenuCategory.Builder addChildrenBuilder() {
-        return getChildrenFieldBuilder().addBuilder(
-            navigation.Navigation.MenuCategory.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .navigation.MenuCategory children = 5;</code>
-       */
-      public navigation.Navigation.MenuCategory.Builder addChildrenBuilder(
-          int index) {
-        return getChildrenFieldBuilder().addBuilder(
-            index, navigation.Navigation.MenuCategory.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .navigation.MenuCategory children = 5;</code>
-       */
-      public java.util.List<navigation.Navigation.MenuCategory.Builder> 
-           getChildrenBuilderList() {
-        return getChildrenFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          navigation.Navigation.MenuCategory, navigation.Navigation.MenuCategory.Builder, navigation.Navigation.MenuCategoryOrBuilder> 
-          getChildrenFieldBuilder() {
-        if (childrenBuilder_ == null) {
-          childrenBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              navigation.Navigation.MenuCategory, navigation.Navigation.MenuCategory.Builder, navigation.Navigation.MenuCategoryOrBuilder>(
-                  children_,
-                  ((bitField0_ & 0x00000002) != 0),
-                  getParentForChildren(),
-                  isClean());
-          children_ = null;
-        }
-        return childrenBuilder_;
-      }
-
-      private java.lang.Object originalCategoryId_ = "";
-      /**
-       * <code>string original_category_id = 6;</code>
-       * @return The originalCategoryId.
-       */
-      public java.lang.String getOriginalCategoryId() {
-        java.lang.Object ref = originalCategoryId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          originalCategoryId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string original_category_id = 6;</code>
-       * @return The bytes for originalCategoryId.
-       */
-      public com.google.protobuf.ByteString
-          getOriginalCategoryIdBytes() {
-        java.lang.Object ref = originalCategoryId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          originalCategoryId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string original_category_id = 6;</code>
-       * @param value The originalCategoryId to set.
-       * @return This builder for chaining.
-       */
-      public Builder setOriginalCategoryId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        originalCategoryId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string original_category_id = 6;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearOriginalCategoryId() {
-        
-        originalCategoryId_ = getDefaultInstance().getOriginalCategoryId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string original_category_id = 6;</code>
-       * @param value The bytes for originalCategoryId to set.
-       * @return This builder for chaining.
-       */
-      public Builder setOriginalCategoryIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        originalCategoryId_ = value;
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:navigation.MenuCategory)
-    }
-
-    // @@protoc_insertion_point(class_scope:navigation.MenuCategory)
-    private static final navigation.Navigation.MenuCategory DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new navigation.Navigation.MenuCategory();
-    }
-
-    public static navigation.Navigation.MenuCategory getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<MenuCategory>
-        PARSER = new com.google.protobuf.AbstractParser<MenuCategory>() {
-      @java.lang.Override
-      public MenuCategory parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new MenuCategory(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<MenuCategory> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<MenuCategory> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public navigation.Navigation.MenuCategory getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface GetCategoryTreesRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:navigation.GetCategoryTreesRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -6016,10 +9306,6 @@ public final class Navigation {
         getCategoryIdBytes();
   }
   /**
-   * <pre>
-   * GetCategoryTrees
-   * </pre>
-   *
    * Protobuf type {@code navigation.GetCategoryTreesRequest}
    */
   public static final class GetCategoryTreesRequest extends
@@ -6296,10 +9582,6 @@ public final class Navigation {
       return builder;
     }
     /**
-     * <pre>
-     * GetCategoryTrees
-     * </pre>
-     *
      * Protobuf type {@code navigation.GetCategoryTreesRequest}
      */
     public static final class Builder extends
@@ -7368,2322 +10650,6 @@ public final class Navigation {
 
   }
 
-  public interface CategoryOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:navigation.Category)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string id = 1;</code>
-     * @return The id.
-     */
-    java.lang.String getId();
-    /**
-     * <code>string id = 1;</code>
-     * @return The bytes for id.
-     */
-    com.google.protobuf.ByteString
-        getIdBytes();
-
-    /**
-     * <code>string name = 2;</code>
-     * @return The name.
-     */
-    java.lang.String getName();
-    /**
-     * <code>string name = 2;</code>
-     * @return The bytes for name.
-     */
-    com.google.protobuf.ByteString
-        getNameBytes();
-
-    /**
-     * <code>string discount_copy_root_id = 3;</code>
-     * @return The discountCopyRootId.
-     */
-    java.lang.String getDiscountCopyRootId();
-    /**
-     * <code>string discount_copy_root_id = 3;</code>
-     * @return The bytes for discountCopyRootId.
-     */
-    com.google.protobuf.ByteString
-        getDiscountCopyRootIdBytes();
-
-    /**
-     * <code>.navigation.Status status = 4;</code>
-     * @return The enum numeric value on the wire for status.
-     */
-    int getStatusValue();
-    /**
-     * <code>.navigation.Status status = 4;</code>
-     * @return The status.
-     */
-    navigation.Navigation.Status getStatus();
-
-    /**
-     * <code>repeated .navigation.Category children = 5;</code>
-     */
-    java.util.List<navigation.Navigation.Category> 
-        getChildrenList();
-    /**
-     * <code>repeated .navigation.Category children = 5;</code>
-     */
-    navigation.Navigation.Category getChildren(int index);
-    /**
-     * <code>repeated .navigation.Category children = 5;</code>
-     */
-    int getChildrenCount();
-    /**
-     * <code>repeated .navigation.Category children = 5;</code>
-     */
-    java.util.List<? extends navigation.Navigation.CategoryOrBuilder> 
-        getChildrenOrBuilderList();
-    /**
-     * <code>repeated .navigation.Category children = 5;</code>
-     */
-    navigation.Navigation.CategoryOrBuilder getChildrenOrBuilder(
-        int index);
-  }
-  /**
-   * Protobuf type {@code navigation.Category}
-   */
-  public static final class Category extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:navigation.Category)
-      CategoryOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use Category.newBuilder() to construct.
-    private Category(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private Category() {
-      id_ = "";
-      name_ = "";
-      discountCopyRootId_ = "";
-      status_ = 0;
-      children_ = java.util.Collections.emptyList();
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new Category();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private Category(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              id_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              name_ = s;
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              discountCopyRootId_ = s;
-              break;
-            }
-            case 32: {
-              int rawValue = input.readEnum();
-
-              status_ = rawValue;
-              break;
-            }
-            case 42: {
-              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                children_ = new java.util.ArrayList<navigation.Navigation.Category>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              children_.add(
-                  input.readMessage(navigation.Navigation.Category.parser(), extensionRegistry));
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000001) != 0)) {
-          children_ = java.util.Collections.unmodifiableList(children_);
-        }
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return navigation.Navigation.internal_static_navigation_Category_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return navigation.Navigation.internal_static_navigation_Category_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              navigation.Navigation.Category.class, navigation.Navigation.Category.Builder.class);
-    }
-
-    public static final int ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object id_;
-    /**
-     * <code>string id = 1;</code>
-     * @return The id.
-     */
-    @java.lang.Override
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        id_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string id = 1;</code>
-     * @return The bytes for id.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getIdBytes() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        id_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int NAME_FIELD_NUMBER = 2;
-    private volatile java.lang.Object name_;
-    /**
-     * <code>string name = 2;</code>
-     * @return The name.
-     */
-    @java.lang.Override
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        name_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string name = 2;</code>
-     * @return The bytes for name.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getNameBytes() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int DISCOUNT_COPY_ROOT_ID_FIELD_NUMBER = 3;
-    private volatile java.lang.Object discountCopyRootId_;
-    /**
-     * <code>string discount_copy_root_id = 3;</code>
-     * @return The discountCopyRootId.
-     */
-    @java.lang.Override
-    public java.lang.String getDiscountCopyRootId() {
-      java.lang.Object ref = discountCopyRootId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        discountCopyRootId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string discount_copy_root_id = 3;</code>
-     * @return The bytes for discountCopyRootId.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getDiscountCopyRootIdBytes() {
-      java.lang.Object ref = discountCopyRootId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        discountCopyRootId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int STATUS_FIELD_NUMBER = 4;
-    private int status_;
-    /**
-     * <code>.navigation.Status status = 4;</code>
-     * @return The enum numeric value on the wire for status.
-     */
-    @java.lang.Override public int getStatusValue() {
-      return status_;
-    }
-    /**
-     * <code>.navigation.Status status = 4;</code>
-     * @return The status.
-     */
-    @java.lang.Override public navigation.Navigation.Status getStatus() {
-      @SuppressWarnings("deprecation")
-      navigation.Navigation.Status result = navigation.Navigation.Status.valueOf(status_);
-      return result == null ? navigation.Navigation.Status.UNRECOGNIZED : result;
-    }
-
-    public static final int CHILDREN_FIELD_NUMBER = 5;
-    private java.util.List<navigation.Navigation.Category> children_;
-    /**
-     * <code>repeated .navigation.Category children = 5;</code>
-     */
-    @java.lang.Override
-    public java.util.List<navigation.Navigation.Category> getChildrenList() {
-      return children_;
-    }
-    /**
-     * <code>repeated .navigation.Category children = 5;</code>
-     */
-    @java.lang.Override
-    public java.util.List<? extends navigation.Navigation.CategoryOrBuilder> 
-        getChildrenOrBuilderList() {
-      return children_;
-    }
-    /**
-     * <code>repeated .navigation.Category children = 5;</code>
-     */
-    @java.lang.Override
-    public int getChildrenCount() {
-      return children_.size();
-    }
-    /**
-     * <code>repeated .navigation.Category children = 5;</code>
-     */
-    @java.lang.Override
-    public navigation.Navigation.Category getChildren(int index) {
-      return children_.get(index);
-    }
-    /**
-     * <code>repeated .navigation.Category children = 5;</code>
-     */
-    @java.lang.Override
-    public navigation.Navigation.CategoryOrBuilder getChildrenOrBuilder(
-        int index) {
-      return children_.get(index);
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
-      }
-      if (!getNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
-      }
-      if (!getDiscountCopyRootIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, discountCopyRootId_);
-      }
-      if (status_ != navigation.Navigation.Status.DISABLE.getNumber()) {
-        output.writeEnum(4, status_);
-      }
-      for (int i = 0; i < children_.size(); i++) {
-        output.writeMessage(5, children_.get(i));
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
-      }
-      if (!getNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
-      }
-      if (!getDiscountCopyRootIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, discountCopyRootId_);
-      }
-      if (status_ != navigation.Navigation.Status.DISABLE.getNumber()) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(4, status_);
-      }
-      for (int i = 0; i < children_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, children_.get(i));
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof navigation.Navigation.Category)) {
-        return super.equals(obj);
-      }
-      navigation.Navigation.Category other = (navigation.Navigation.Category) obj;
-
-      if (!getId()
-          .equals(other.getId())) return false;
-      if (!getName()
-          .equals(other.getName())) return false;
-      if (!getDiscountCopyRootId()
-          .equals(other.getDiscountCopyRootId())) return false;
-      if (status_ != other.status_) return false;
-      if (!getChildrenList()
-          .equals(other.getChildrenList())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId().hashCode();
-      hash = (37 * hash) + NAME_FIELD_NUMBER;
-      hash = (53 * hash) + getName().hashCode();
-      hash = (37 * hash) + DISCOUNT_COPY_ROOT_ID_FIELD_NUMBER;
-      hash = (53 * hash) + getDiscountCopyRootId().hashCode();
-      hash = (37 * hash) + STATUS_FIELD_NUMBER;
-      hash = (53 * hash) + status_;
-      if (getChildrenCount() > 0) {
-        hash = (37 * hash) + CHILDREN_FIELD_NUMBER;
-        hash = (53 * hash) + getChildrenList().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static navigation.Navigation.Category parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static navigation.Navigation.Category parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static navigation.Navigation.Category parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static navigation.Navigation.Category parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static navigation.Navigation.Category parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static navigation.Navigation.Category parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static navigation.Navigation.Category parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static navigation.Navigation.Category parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static navigation.Navigation.Category parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static navigation.Navigation.Category parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static navigation.Navigation.Category parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static navigation.Navigation.Category parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(navigation.Navigation.Category prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code navigation.Category}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:navigation.Category)
-        navigation.Navigation.CategoryOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return navigation.Navigation.internal_static_navigation_Category_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return navigation.Navigation.internal_static_navigation_Category_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                navigation.Navigation.Category.class, navigation.Navigation.Category.Builder.class);
-      }
-
-      // Construct using navigation.Navigation.Category.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-          getChildrenFieldBuilder();
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        id_ = "";
-
-        name_ = "";
-
-        discountCopyRootId_ = "";
-
-        status_ = 0;
-
-        if (childrenBuilder_ == null) {
-          children_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          childrenBuilder_.clear();
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return navigation.Navigation.internal_static_navigation_Category_descriptor;
-      }
-
-      @java.lang.Override
-      public navigation.Navigation.Category getDefaultInstanceForType() {
-        return navigation.Navigation.Category.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public navigation.Navigation.Category build() {
-        navigation.Navigation.Category result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public navigation.Navigation.Category buildPartial() {
-        navigation.Navigation.Category result = new navigation.Navigation.Category(this);
-        int from_bitField0_ = bitField0_;
-        result.id_ = id_;
-        result.name_ = name_;
-        result.discountCopyRootId_ = discountCopyRootId_;
-        result.status_ = status_;
-        if (childrenBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0)) {
-            children_ = java.util.Collections.unmodifiableList(children_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.children_ = children_;
-        } else {
-          result.children_ = childrenBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof navigation.Navigation.Category) {
-          return mergeFrom((navigation.Navigation.Category)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(navigation.Navigation.Category other) {
-        if (other == navigation.Navigation.Category.getDefaultInstance()) return this;
-        if (!other.getId().isEmpty()) {
-          id_ = other.id_;
-          onChanged();
-        }
-        if (!other.getName().isEmpty()) {
-          name_ = other.name_;
-          onChanged();
-        }
-        if (!other.getDiscountCopyRootId().isEmpty()) {
-          discountCopyRootId_ = other.discountCopyRootId_;
-          onChanged();
-        }
-        if (other.status_ != 0) {
-          setStatusValue(other.getStatusValue());
-        }
-        if (childrenBuilder_ == null) {
-          if (!other.children_.isEmpty()) {
-            if (children_.isEmpty()) {
-              children_ = other.children_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureChildrenIsMutable();
-              children_.addAll(other.children_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.children_.isEmpty()) {
-            if (childrenBuilder_.isEmpty()) {
-              childrenBuilder_.dispose();
-              childrenBuilder_ = null;
-              children_ = other.children_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              childrenBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getChildrenFieldBuilder() : null;
-            } else {
-              childrenBuilder_.addAllMessages(other.children_);
-            }
-          }
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        navigation.Navigation.Category parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (navigation.Navigation.Category) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private java.lang.Object id_ = "";
-      /**
-       * <code>string id = 1;</code>
-       * @return The id.
-       */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          id_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string id = 1;</code>
-       * @return The bytes for id.
-       */
-      public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          id_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string id = 1;</code>
-       * @param value The id to set.
-       * @return This builder for chaining.
-       */
-      public Builder setId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        id_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string id = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearId() {
-        
-        id_ = getDefaultInstance().getId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string id = 1;</code>
-       * @param value The bytes for id to set.
-       * @return This builder for chaining.
-       */
-      public Builder setIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        id_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object name_ = "";
-      /**
-       * <code>string name = 2;</code>
-       * @return The name.
-       */
-      public java.lang.String getName() {
-        java.lang.Object ref = name_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          name_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string name = 2;</code>
-       * @return The bytes for name.
-       */
-      public com.google.protobuf.ByteString
-          getNameBytes() {
-        java.lang.Object ref = name_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          name_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string name = 2;</code>
-       * @param value The name to set.
-       * @return This builder for chaining.
-       */
-      public Builder setName(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        name_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string name = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearName() {
-        
-        name_ = getDefaultInstance().getName();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string name = 2;</code>
-       * @param value The bytes for name to set.
-       * @return This builder for chaining.
-       */
-      public Builder setNameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        name_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object discountCopyRootId_ = "";
-      /**
-       * <code>string discount_copy_root_id = 3;</code>
-       * @return The discountCopyRootId.
-       */
-      public java.lang.String getDiscountCopyRootId() {
-        java.lang.Object ref = discountCopyRootId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          discountCopyRootId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string discount_copy_root_id = 3;</code>
-       * @return The bytes for discountCopyRootId.
-       */
-      public com.google.protobuf.ByteString
-          getDiscountCopyRootIdBytes() {
-        java.lang.Object ref = discountCopyRootId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          discountCopyRootId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string discount_copy_root_id = 3;</code>
-       * @param value The discountCopyRootId to set.
-       * @return This builder for chaining.
-       */
-      public Builder setDiscountCopyRootId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        discountCopyRootId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string discount_copy_root_id = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearDiscountCopyRootId() {
-        
-        discountCopyRootId_ = getDefaultInstance().getDiscountCopyRootId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string discount_copy_root_id = 3;</code>
-       * @param value The bytes for discountCopyRootId to set.
-       * @return This builder for chaining.
-       */
-      public Builder setDiscountCopyRootIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        discountCopyRootId_ = value;
-        onChanged();
-        return this;
-      }
-
-      private int status_ = 0;
-      /**
-       * <code>.navigation.Status status = 4;</code>
-       * @return The enum numeric value on the wire for status.
-       */
-      @java.lang.Override public int getStatusValue() {
-        return status_;
-      }
-      /**
-       * <code>.navigation.Status status = 4;</code>
-       * @param value The enum numeric value on the wire for status to set.
-       * @return This builder for chaining.
-       */
-      public Builder setStatusValue(int value) {
-        
-        status_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.navigation.Status status = 4;</code>
-       * @return The status.
-       */
-      @java.lang.Override
-      public navigation.Navigation.Status getStatus() {
-        @SuppressWarnings("deprecation")
-        navigation.Navigation.Status result = navigation.Navigation.Status.valueOf(status_);
-        return result == null ? navigation.Navigation.Status.UNRECOGNIZED : result;
-      }
-      /**
-       * <code>.navigation.Status status = 4;</code>
-       * @param value The status to set.
-       * @return This builder for chaining.
-       */
-      public Builder setStatus(navigation.Navigation.Status value) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        
-        status_ = value.getNumber();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.navigation.Status status = 4;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearStatus() {
-        
-        status_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private java.util.List<navigation.Navigation.Category> children_ =
-        java.util.Collections.emptyList();
-      private void ensureChildrenIsMutable() {
-        if (!((bitField0_ & 0x00000001) != 0)) {
-          children_ = new java.util.ArrayList<navigation.Navigation.Category>(children_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          navigation.Navigation.Category, navigation.Navigation.Category.Builder, navigation.Navigation.CategoryOrBuilder> childrenBuilder_;
-
-      /**
-       * <code>repeated .navigation.Category children = 5;</code>
-       */
-      public java.util.List<navigation.Navigation.Category> getChildrenList() {
-        if (childrenBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(children_);
-        } else {
-          return childrenBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .navigation.Category children = 5;</code>
-       */
-      public int getChildrenCount() {
-        if (childrenBuilder_ == null) {
-          return children_.size();
-        } else {
-          return childrenBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .navigation.Category children = 5;</code>
-       */
-      public navigation.Navigation.Category getChildren(int index) {
-        if (childrenBuilder_ == null) {
-          return children_.get(index);
-        } else {
-          return childrenBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .navigation.Category children = 5;</code>
-       */
-      public Builder setChildren(
-          int index, navigation.Navigation.Category value) {
-        if (childrenBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureChildrenIsMutable();
-          children_.set(index, value);
-          onChanged();
-        } else {
-          childrenBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.Category children = 5;</code>
-       */
-      public Builder setChildren(
-          int index, navigation.Navigation.Category.Builder builderForValue) {
-        if (childrenBuilder_ == null) {
-          ensureChildrenIsMutable();
-          children_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          childrenBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.Category children = 5;</code>
-       */
-      public Builder addChildren(navigation.Navigation.Category value) {
-        if (childrenBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureChildrenIsMutable();
-          children_.add(value);
-          onChanged();
-        } else {
-          childrenBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.Category children = 5;</code>
-       */
-      public Builder addChildren(
-          int index, navigation.Navigation.Category value) {
-        if (childrenBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureChildrenIsMutable();
-          children_.add(index, value);
-          onChanged();
-        } else {
-          childrenBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.Category children = 5;</code>
-       */
-      public Builder addChildren(
-          navigation.Navigation.Category.Builder builderForValue) {
-        if (childrenBuilder_ == null) {
-          ensureChildrenIsMutable();
-          children_.add(builderForValue.build());
-          onChanged();
-        } else {
-          childrenBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.Category children = 5;</code>
-       */
-      public Builder addChildren(
-          int index, navigation.Navigation.Category.Builder builderForValue) {
-        if (childrenBuilder_ == null) {
-          ensureChildrenIsMutable();
-          children_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          childrenBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.Category children = 5;</code>
-       */
-      public Builder addAllChildren(
-          java.lang.Iterable<? extends navigation.Navigation.Category> values) {
-        if (childrenBuilder_ == null) {
-          ensureChildrenIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, children_);
-          onChanged();
-        } else {
-          childrenBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.Category children = 5;</code>
-       */
-      public Builder clearChildren() {
-        if (childrenBuilder_ == null) {
-          children_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-        } else {
-          childrenBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.Category children = 5;</code>
-       */
-      public Builder removeChildren(int index) {
-        if (childrenBuilder_ == null) {
-          ensureChildrenIsMutable();
-          children_.remove(index);
-          onChanged();
-        } else {
-          childrenBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .navigation.Category children = 5;</code>
-       */
-      public navigation.Navigation.Category.Builder getChildrenBuilder(
-          int index) {
-        return getChildrenFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .navigation.Category children = 5;</code>
-       */
-      public navigation.Navigation.CategoryOrBuilder getChildrenOrBuilder(
-          int index) {
-        if (childrenBuilder_ == null) {
-          return children_.get(index);  } else {
-          return childrenBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .navigation.Category children = 5;</code>
-       */
-      public java.util.List<? extends navigation.Navigation.CategoryOrBuilder> 
-           getChildrenOrBuilderList() {
-        if (childrenBuilder_ != null) {
-          return childrenBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(children_);
-        }
-      }
-      /**
-       * <code>repeated .navigation.Category children = 5;</code>
-       */
-      public navigation.Navigation.Category.Builder addChildrenBuilder() {
-        return getChildrenFieldBuilder().addBuilder(
-            navigation.Navigation.Category.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .navigation.Category children = 5;</code>
-       */
-      public navigation.Navigation.Category.Builder addChildrenBuilder(
-          int index) {
-        return getChildrenFieldBuilder().addBuilder(
-            index, navigation.Navigation.Category.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .navigation.Category children = 5;</code>
-       */
-      public java.util.List<navigation.Navigation.Category.Builder> 
-           getChildrenBuilderList() {
-        return getChildrenFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          navigation.Navigation.Category, navigation.Navigation.Category.Builder, navigation.Navigation.CategoryOrBuilder> 
-          getChildrenFieldBuilder() {
-        if (childrenBuilder_ == null) {
-          childrenBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              navigation.Navigation.Category, navigation.Navigation.Category.Builder, navigation.Navigation.CategoryOrBuilder>(
-                  children_,
-                  ((bitField0_ & 0x00000001) != 0),
-                  getParentForChildren(),
-                  isClean());
-          children_ = null;
-        }
-        return childrenBuilder_;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:navigation.Category)
-    }
-
-    // @@protoc_insertion_point(class_scope:navigation.Category)
-    private static final navigation.Navigation.Category DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new navigation.Navigation.Category();
-    }
-
-    public static navigation.Navigation.Category getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<Category>
-        PARSER = new com.google.protobuf.AbstractParser<Category>() {
-      @java.lang.Override
-      public Category parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Category(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<Category> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Category> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public navigation.Navigation.Category getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface DataOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:navigation.Data)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string key = 1;</code>
-     * @return The key.
-     */
-    java.lang.String getKey();
-    /**
-     * <code>string key = 1;</code>
-     * @return The bytes for key.
-     */
-    com.google.protobuf.ByteString
-        getKeyBytes();
-
-    /**
-     * <code>.navigation.ValueType type = 2;</code>
-     * @return The enum numeric value on the wire for type.
-     */
-    int getTypeValue();
-    /**
-     * <code>.navigation.ValueType type = 2;</code>
-     * @return The type.
-     */
-    navigation.Navigation.ValueType getType();
-
-    /**
-     * <code>bool is_multi_value = 3;</code>
-     * @return The isMultiValue.
-     */
-    boolean getIsMultiValue();
-
-    /**
-     * <code>repeated string values = 4;</code>
-     * @return A list containing the values.
-     */
-    java.util.List<java.lang.String>
-        getValuesList();
-    /**
-     * <code>repeated string values = 4;</code>
-     * @return The count of values.
-     */
-    int getValuesCount();
-    /**
-     * <code>repeated string values = 4;</code>
-     * @param index The index of the element to return.
-     * @return The values at the given index.
-     */
-    java.lang.String getValues(int index);
-    /**
-     * <code>repeated string values = 4;</code>
-     * @param index The index of the value to return.
-     * @return The bytes of the values at the given index.
-     */
-    com.google.protobuf.ByteString
-        getValuesBytes(int index);
-  }
-  /**
-   * Protobuf type {@code navigation.Data}
-   */
-  public static final class Data extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:navigation.Data)
-      DataOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use Data.newBuilder() to construct.
-    private Data(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private Data() {
-      key_ = "";
-      type_ = 0;
-      values_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new Data();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private Data(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              key_ = s;
-              break;
-            }
-            case 16: {
-              int rawValue = input.readEnum();
-
-              type_ = rawValue;
-              break;
-            }
-            case 24: {
-
-              isMultiValue_ = input.readBool();
-              break;
-            }
-            case 34: {
-              java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                values_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              values_.add(s);
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000001) != 0)) {
-          values_ = values_.getUnmodifiableView();
-        }
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return navigation.Navigation.internal_static_navigation_Data_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return navigation.Navigation.internal_static_navigation_Data_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              navigation.Navigation.Data.class, navigation.Navigation.Data.Builder.class);
-    }
-
-    public static final int KEY_FIELD_NUMBER = 1;
-    private volatile java.lang.Object key_;
-    /**
-     * <code>string key = 1;</code>
-     * @return The key.
-     */
-    @java.lang.Override
-    public java.lang.String getKey() {
-      java.lang.Object ref = key_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        key_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string key = 1;</code>
-     * @return The bytes for key.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getKeyBytes() {
-      java.lang.Object ref = key_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        key_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int TYPE_FIELD_NUMBER = 2;
-    private int type_;
-    /**
-     * <code>.navigation.ValueType type = 2;</code>
-     * @return The enum numeric value on the wire for type.
-     */
-    @java.lang.Override public int getTypeValue() {
-      return type_;
-    }
-    /**
-     * <code>.navigation.ValueType type = 2;</code>
-     * @return The type.
-     */
-    @java.lang.Override public navigation.Navigation.ValueType getType() {
-      @SuppressWarnings("deprecation")
-      navigation.Navigation.ValueType result = navigation.Navigation.ValueType.valueOf(type_);
-      return result == null ? navigation.Navigation.ValueType.UNRECOGNIZED : result;
-    }
-
-    public static final int IS_MULTI_VALUE_FIELD_NUMBER = 3;
-    private boolean isMultiValue_;
-    /**
-     * <code>bool is_multi_value = 3;</code>
-     * @return The isMultiValue.
-     */
-    @java.lang.Override
-    public boolean getIsMultiValue() {
-      return isMultiValue_;
-    }
-
-    public static final int VALUES_FIELD_NUMBER = 4;
-    private com.google.protobuf.LazyStringList values_;
-    /**
-     * <code>repeated string values = 4;</code>
-     * @return A list containing the values.
-     */
-    public com.google.protobuf.ProtocolStringList
-        getValuesList() {
-      return values_;
-    }
-    /**
-     * <code>repeated string values = 4;</code>
-     * @return The count of values.
-     */
-    public int getValuesCount() {
-      return values_.size();
-    }
-    /**
-     * <code>repeated string values = 4;</code>
-     * @param index The index of the element to return.
-     * @return The values at the given index.
-     */
-    public java.lang.String getValues(int index) {
-      return values_.get(index);
-    }
-    /**
-     * <code>repeated string values = 4;</code>
-     * @param index The index of the value to return.
-     * @return The bytes of the values at the given index.
-     */
-    public com.google.protobuf.ByteString
-        getValuesBytes(int index) {
-      return values_.getByteString(index);
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getKeyBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, key_);
-      }
-      if (type_ != navigation.Navigation.ValueType.STRING.getNumber()) {
-        output.writeEnum(2, type_);
-      }
-      if (isMultiValue_ != false) {
-        output.writeBool(3, isMultiValue_);
-      }
-      for (int i = 0; i < values_.size(); i++) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, values_.getRaw(i));
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getKeyBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, key_);
-      }
-      if (type_ != navigation.Navigation.ValueType.STRING.getNumber()) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(2, type_);
-      }
-      if (isMultiValue_ != false) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(3, isMultiValue_);
-      }
-      {
-        int dataSize = 0;
-        for (int i = 0; i < values_.size(); i++) {
-          dataSize += computeStringSizeNoTag(values_.getRaw(i));
-        }
-        size += dataSize;
-        size += 1 * getValuesList().size();
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof navigation.Navigation.Data)) {
-        return super.equals(obj);
-      }
-      navigation.Navigation.Data other = (navigation.Navigation.Data) obj;
-
-      if (!getKey()
-          .equals(other.getKey())) return false;
-      if (type_ != other.type_) return false;
-      if (getIsMultiValue()
-          != other.getIsMultiValue()) return false;
-      if (!getValuesList()
-          .equals(other.getValuesList())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + KEY_FIELD_NUMBER;
-      hash = (53 * hash) + getKey().hashCode();
-      hash = (37 * hash) + TYPE_FIELD_NUMBER;
-      hash = (53 * hash) + type_;
-      hash = (37 * hash) + IS_MULTI_VALUE_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getIsMultiValue());
-      if (getValuesCount() > 0) {
-        hash = (37 * hash) + VALUES_FIELD_NUMBER;
-        hash = (53 * hash) + getValuesList().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static navigation.Navigation.Data parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static navigation.Navigation.Data parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static navigation.Navigation.Data parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static navigation.Navigation.Data parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static navigation.Navigation.Data parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static navigation.Navigation.Data parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static navigation.Navigation.Data parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static navigation.Navigation.Data parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static navigation.Navigation.Data parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static navigation.Navigation.Data parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static navigation.Navigation.Data parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static navigation.Navigation.Data parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(navigation.Navigation.Data prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code navigation.Data}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:navigation.Data)
-        navigation.Navigation.DataOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return navigation.Navigation.internal_static_navigation_Data_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return navigation.Navigation.internal_static_navigation_Data_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                navigation.Navigation.Data.class, navigation.Navigation.Data.Builder.class);
-      }
-
-      // Construct using navigation.Navigation.Data.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        key_ = "";
-
-        type_ = 0;
-
-        isMultiValue_ = false;
-
-        values_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return navigation.Navigation.internal_static_navigation_Data_descriptor;
-      }
-
-      @java.lang.Override
-      public navigation.Navigation.Data getDefaultInstanceForType() {
-        return navigation.Navigation.Data.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public navigation.Navigation.Data build() {
-        navigation.Navigation.Data result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public navigation.Navigation.Data buildPartial() {
-        navigation.Navigation.Data result = new navigation.Navigation.Data(this);
-        int from_bitField0_ = bitField0_;
-        result.key_ = key_;
-        result.type_ = type_;
-        result.isMultiValue_ = isMultiValue_;
-        if (((bitField0_ & 0x00000001) != 0)) {
-          values_ = values_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        }
-        result.values_ = values_;
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof navigation.Navigation.Data) {
-          return mergeFrom((navigation.Navigation.Data)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(navigation.Navigation.Data other) {
-        if (other == navigation.Navigation.Data.getDefaultInstance()) return this;
-        if (!other.getKey().isEmpty()) {
-          key_ = other.key_;
-          onChanged();
-        }
-        if (other.type_ != 0) {
-          setTypeValue(other.getTypeValue());
-        }
-        if (other.getIsMultiValue() != false) {
-          setIsMultiValue(other.getIsMultiValue());
-        }
-        if (!other.values_.isEmpty()) {
-          if (values_.isEmpty()) {
-            values_ = other.values_;
-            bitField0_ = (bitField0_ & ~0x00000001);
-          } else {
-            ensureValuesIsMutable();
-            values_.addAll(other.values_);
-          }
-          onChanged();
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        navigation.Navigation.Data parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (navigation.Navigation.Data) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private java.lang.Object key_ = "";
-      /**
-       * <code>string key = 1;</code>
-       * @return The key.
-       */
-      public java.lang.String getKey() {
-        java.lang.Object ref = key_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          key_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string key = 1;</code>
-       * @return The bytes for key.
-       */
-      public com.google.protobuf.ByteString
-          getKeyBytes() {
-        java.lang.Object ref = key_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          key_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string key = 1;</code>
-       * @param value The key to set.
-       * @return This builder for chaining.
-       */
-      public Builder setKey(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        key_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string key = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearKey() {
-        
-        key_ = getDefaultInstance().getKey();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string key = 1;</code>
-       * @param value The bytes for key to set.
-       * @return This builder for chaining.
-       */
-      public Builder setKeyBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        key_ = value;
-        onChanged();
-        return this;
-      }
-
-      private int type_ = 0;
-      /**
-       * <code>.navigation.ValueType type = 2;</code>
-       * @return The enum numeric value on the wire for type.
-       */
-      @java.lang.Override public int getTypeValue() {
-        return type_;
-      }
-      /**
-       * <code>.navigation.ValueType type = 2;</code>
-       * @param value The enum numeric value on the wire for type to set.
-       * @return This builder for chaining.
-       */
-      public Builder setTypeValue(int value) {
-        
-        type_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.navigation.ValueType type = 2;</code>
-       * @return The type.
-       */
-      @java.lang.Override
-      public navigation.Navigation.ValueType getType() {
-        @SuppressWarnings("deprecation")
-        navigation.Navigation.ValueType result = navigation.Navigation.ValueType.valueOf(type_);
-        return result == null ? navigation.Navigation.ValueType.UNRECOGNIZED : result;
-      }
-      /**
-       * <code>.navigation.ValueType type = 2;</code>
-       * @param value The type to set.
-       * @return This builder for chaining.
-       */
-      public Builder setType(navigation.Navigation.ValueType value) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        
-        type_ = value.getNumber();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>.navigation.ValueType type = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearType() {
-        
-        type_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private boolean isMultiValue_ ;
-      /**
-       * <code>bool is_multi_value = 3;</code>
-       * @return The isMultiValue.
-       */
-      @java.lang.Override
-      public boolean getIsMultiValue() {
-        return isMultiValue_;
-      }
-      /**
-       * <code>bool is_multi_value = 3;</code>
-       * @param value The isMultiValue to set.
-       * @return This builder for chaining.
-       */
-      public Builder setIsMultiValue(boolean value) {
-        
-        isMultiValue_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>bool is_multi_value = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearIsMultiValue() {
-        
-        isMultiValue_ = false;
-        onChanged();
-        return this;
-      }
-
-      private com.google.protobuf.LazyStringList values_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      private void ensureValuesIsMutable() {
-        if (!((bitField0_ & 0x00000001) != 0)) {
-          values_ = new com.google.protobuf.LazyStringArrayList(values_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-      /**
-       * <code>repeated string values = 4;</code>
-       * @return A list containing the values.
-       */
-      public com.google.protobuf.ProtocolStringList
-          getValuesList() {
-        return values_.getUnmodifiableView();
-      }
-      /**
-       * <code>repeated string values = 4;</code>
-       * @return The count of values.
-       */
-      public int getValuesCount() {
-        return values_.size();
-      }
-      /**
-       * <code>repeated string values = 4;</code>
-       * @param index The index of the element to return.
-       * @return The values at the given index.
-       */
-      public java.lang.String getValues(int index) {
-        return values_.get(index);
-      }
-      /**
-       * <code>repeated string values = 4;</code>
-       * @param index The index of the value to return.
-       * @return The bytes of the values at the given index.
-       */
-      public com.google.protobuf.ByteString
-          getValuesBytes(int index) {
-        return values_.getByteString(index);
-      }
-      /**
-       * <code>repeated string values = 4;</code>
-       * @param index The index to set the value at.
-       * @param value The values to set.
-       * @return This builder for chaining.
-       */
-      public Builder setValues(
-          int index, java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureValuesIsMutable();
-        values_.set(index, value);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string values = 4;</code>
-       * @param value The values to add.
-       * @return This builder for chaining.
-       */
-      public Builder addValues(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureValuesIsMutable();
-        values_.add(value);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string values = 4;</code>
-       * @param values The values to add.
-       * @return This builder for chaining.
-       */
-      public Builder addAllValues(
-          java.lang.Iterable<java.lang.String> values) {
-        ensureValuesIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, values_);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string values = 4;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearValues() {
-        values_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string values = 4;</code>
-       * @param value The bytes of the values to add.
-       * @return This builder for chaining.
-       */
-      public Builder addValuesBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        ensureValuesIsMutable();
-        values_.add(value);
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:navigation.Data)
-    }
-
-    // @@protoc_insertion_point(class_scope:navigation.Data)
-    private static final navigation.Navigation.Data DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new navigation.Navigation.Data();
-    }
-
-    public static navigation.Navigation.Data getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<Data>
-        PARSER = new com.google.protobuf.AbstractParser<Data>() {
-      @java.lang.Override
-      public Data parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Data(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<Data> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Data> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public navigation.Navigation.Data getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface EmptyOrBuilder extends
       // @@protoc_insertion_point(interface_extends:navigation.Empty)
       com.google.protobuf.MessageOrBuilder {
@@ -10103,6 +11069,26 @@ public final class Navigation {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_navigation_Category_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_navigation_Category_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_navigation_Data_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_navigation_Data_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_navigation_MenuCategory_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_navigation_MenuCategory_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_navigation_BreadCrumb_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_navigation_BreadCrumb_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_navigation_GetBreadcrumbsByCategoryIDRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -10112,11 +11098,6 @@ public final class Navigation {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_navigation_GetBreadcrumbsByCategoryIDResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_navigation_BreadCrumb_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_navigation_BreadCrumb_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_navigation_GetMenuTreeRequest_descriptor;
   private static final 
@@ -10128,11 +11109,6 @@ public final class Navigation {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_navigation_GetMenuTreeResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_navigation_MenuCategory_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_navigation_MenuCategory_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_navigation_GetCategoryTreesRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -10142,16 +11118,6 @@ public final class Navigation {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_navigation_GetCategoryTreesResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_navigation_Category_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_navigation_Category_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_navigation_Data_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_navigation_Data_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_navigation_Empty_descriptor;
   private static final 
@@ -10167,30 +11133,30 @@ public final class Navigation {
   static {
     java.lang.String[] descriptorData = {
       "\n content/catalog/navigation.proto\022\nnavi" +
-      "gation\"8\n!GetBreadcrumbsByCategoryIDRequ" +
-      "est\022\023\n\013category_id\030\001 \001(\t\"Q\n\"GetBreadcrum" +
-      "bsByCategoryIDResponse\022+\n\013breadcrumbs\030\001 " +
-      "\003(\0132\026.navigation.BreadCrumb\"9\n\nBreadCrum" +
-      "b\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\021\n\tpermalink" +
-      "\030\003 \001(\t\"i\n\022GetMenuTreeRequest\022\020\n\010store_id" +
-      "\030\001 \001(\t\022\021\n\ttenant_id\030\002 \001(\t\022\022\n\ntree_depth\030" +
-      "\003 \001(\003\022\032\n\022category_data_keys\030\004 \003(\t\"C\n\023Get" +
-      "MenuTreeResponse\022,\n\ncategories\030\001 \003(\0132\030.n" +
-      "avigation.MenuCategory\"\262\001\n\014MenuCategory\022" +
-      "\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\025\n\rproduct_cou" +
-      "nt\030\003 \001(\003\022\'\n\rcategory_data\030\004 \003(\0132\020.naviga" +
-      "tion.Data\022*\n\010children\030\005 \003(\0132\030.navigation" +
-      ".MenuCategory\022\034\n\024original_category_id\030\006 " +
-      "\001(\t\".\n\027GetCategoryTreesRequest\022\023\n\013catego" +
-      "ry_id\030\001 \001(\t\"D\n\030GetCategoryTreesResponse\022" +
-      "(\n\ncategories\030\001 \003(\0132\024.navigation.Categor" +
-      "y\"\217\001\n\010Category\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t" +
-      "\022\035\n\025discount_copy_root_id\030\003 \001(\t\022\"\n\006statu" +
-      "s\030\004 \001(\0162\022.navigation.Status\022&\n\010children\030" +
-      "\005 \003(\0132\024.navigation.Category\"`\n\004Data\022\013\n\003k" +
-      "ey\030\001 \001(\t\022#\n\004type\030\002 \001(\0162\025.navigation.Valu" +
-      "eType\022\026\n\016is_multi_value\030\003 \001(\010\022\016\n\006values\030" +
-      "\004 \003(\t\"\007\n\005Empty*!\n\006Status\022\013\n\007DISABLE\020\000\022\n\n" +
+      "gation\"\217\001\n\010Category\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030" +
+      "\002 \001(\t\022\035\n\025discount_copy_root_id\030\003 \001(\t\022\"\n\006" +
+      "status\030\004 \001(\0162\022.navigation.Status\022&\n\010chil" +
+      "dren\030\005 \003(\0132\024.navigation.Category\"`\n\004Data" +
+      "\022\013\n\003key\030\001 \001(\t\022#\n\004type\030\002 \001(\0162\025.navigation" +
+      ".ValueType\022\026\n\016is_multi_value\030\003 \001(\010\022\016\n\006va" +
+      "lues\030\004 \003(\t\"\262\001\n\014MenuCategory\022\n\n\002id\030\001 \001(\t\022" +
+      "\014\n\004name\030\002 \001(\t\022\025\n\rproduct_count\030\003 \001(\003\022\'\n\r" +
+      "category_data\030\004 \003(\0132\020.navigation.Data\022*\n" +
+      "\010children\030\005 \003(\0132\030.navigation.MenuCategor" +
+      "y\022\034\n\024original_category_id\030\006 \001(\t\"9\n\nBread" +
+      "Crumb\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\021\n\tperma" +
+      "link\030\003 \001(\t\"8\n!GetBreadcrumbsByCategoryID" +
+      "Request\022\023\n\013category_id\030\001 \001(\t\"Q\n\"GetBread" +
+      "crumbsByCategoryIDResponse\022+\n\013breadcrumb" +
+      "s\030\001 \003(\0132\026.navigation.BreadCrumb\"i\n\022GetMe" +
+      "nuTreeRequest\022\020\n\010store_id\030\001 \001(\t\022\021\n\ttenan" +
+      "t_id\030\002 \001(\t\022\022\n\ntree_depth\030\003 \001(\003\022\032\n\022catego" +
+      "ry_data_keys\030\004 \003(\t\"C\n\023GetMenuTreeRespons" +
+      "e\022,\n\ncategories\030\001 \003(\0132\030.navigation.MenuC" +
+      "ategory\".\n\027GetCategoryTreesRequest\022\023\n\013ca" +
+      "tegory_id\030\001 \001(\t\"D\n\030GetCategoryTreesRespo" +
+      "nse\022(\n\ncategories\030\001 \003(\0132\024.navigation.Cat" +
+      "egory\"\007\n\005Empty*!\n\006Status\022\013\n\007DISABLE\020\000\022\n\n" +
       "\006ENABLE\020\001*S\n\tValueType\022\n\n\006STRING\020\000\022\013\n\007IN" +
       "TEGER\020\001\022\n\n\006DOUBLE\020\002\022\010\n\004BOOL\020\003\022\014\n\010DATETIM" +
       "E\020\004\022\t\n\005IMAGE\020\0052\273\003\n\021NavigationService\022N\n\013" +
@@ -10212,66 +11178,66 @@ public final class Navigation {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         });
-    internal_static_navigation_GetBreadcrumbsByCategoryIDRequest_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_navigation_GetBreadcrumbsByCategoryIDRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_navigation_GetBreadcrumbsByCategoryIDRequest_descriptor,
-        new java.lang.String[] { "CategoryId", });
-    internal_static_navigation_GetBreadcrumbsByCategoryIDResponse_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_navigation_GetBreadcrumbsByCategoryIDResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_navigation_GetBreadcrumbsByCategoryIDResponse_descriptor,
-        new java.lang.String[] { "Breadcrumbs", });
-    internal_static_navigation_BreadCrumb_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_navigation_BreadCrumb_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_navigation_BreadCrumb_descriptor,
-        new java.lang.String[] { "Id", "Name", "Permalink", });
-    internal_static_navigation_GetMenuTreeRequest_descriptor =
-      getDescriptor().getMessageTypes().get(3);
-    internal_static_navigation_GetMenuTreeRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_navigation_GetMenuTreeRequest_descriptor,
-        new java.lang.String[] { "StoreId", "TenantId", "TreeDepth", "CategoryDataKeys", });
-    internal_static_navigation_GetMenuTreeResponse_descriptor =
-      getDescriptor().getMessageTypes().get(4);
-    internal_static_navigation_GetMenuTreeResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_navigation_GetMenuTreeResponse_descriptor,
-        new java.lang.String[] { "Categories", });
-    internal_static_navigation_MenuCategory_descriptor =
-      getDescriptor().getMessageTypes().get(5);
-    internal_static_navigation_MenuCategory_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_navigation_MenuCategory_descriptor,
-        new java.lang.String[] { "Id", "Name", "ProductCount", "CategoryData", "Children", "OriginalCategoryId", });
-    internal_static_navigation_GetCategoryTreesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(6);
-    internal_static_navigation_GetCategoryTreesRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_navigation_GetCategoryTreesRequest_descriptor,
-        new java.lang.String[] { "CategoryId", });
-    internal_static_navigation_GetCategoryTreesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(7);
-    internal_static_navigation_GetCategoryTreesResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_navigation_GetCategoryTreesResponse_descriptor,
-        new java.lang.String[] { "Categories", });
     internal_static_navigation_Category_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(0);
     internal_static_navigation_Category_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_navigation_Category_descriptor,
         new java.lang.String[] { "Id", "Name", "DiscountCopyRootId", "Status", "Children", });
     internal_static_navigation_Data_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(1);
     internal_static_navigation_Data_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_navigation_Data_descriptor,
         new java.lang.String[] { "Key", "Type", "IsMultiValue", "Values", });
+    internal_static_navigation_MenuCategory_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_navigation_MenuCategory_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_navigation_MenuCategory_descriptor,
+        new java.lang.String[] { "Id", "Name", "ProductCount", "CategoryData", "Children", "OriginalCategoryId", });
+    internal_static_navigation_BreadCrumb_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_navigation_BreadCrumb_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_navigation_BreadCrumb_descriptor,
+        new java.lang.String[] { "Id", "Name", "Permalink", });
+    internal_static_navigation_GetBreadcrumbsByCategoryIDRequest_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_navigation_GetBreadcrumbsByCategoryIDRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_navigation_GetBreadcrumbsByCategoryIDRequest_descriptor,
+        new java.lang.String[] { "CategoryId", });
+    internal_static_navigation_GetBreadcrumbsByCategoryIDResponse_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_navigation_GetBreadcrumbsByCategoryIDResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_navigation_GetBreadcrumbsByCategoryIDResponse_descriptor,
+        new java.lang.String[] { "Breadcrumbs", });
+    internal_static_navigation_GetMenuTreeRequest_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_navigation_GetMenuTreeRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_navigation_GetMenuTreeRequest_descriptor,
+        new java.lang.String[] { "StoreId", "TenantId", "TreeDepth", "CategoryDataKeys", });
+    internal_static_navigation_GetMenuTreeResponse_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_navigation_GetMenuTreeResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_navigation_GetMenuTreeResponse_descriptor,
+        new java.lang.String[] { "Categories", });
+    internal_static_navigation_GetCategoryTreesRequest_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_navigation_GetCategoryTreesRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_navigation_GetCategoryTreesRequest_descriptor,
+        new java.lang.String[] { "CategoryId", });
+    internal_static_navigation_GetCategoryTreesResponse_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_navigation_GetCategoryTreesResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_navigation_GetCategoryTreesResponse_descriptor,
+        new java.lang.String[] { "Categories", });
     internal_static_navigation_Empty_descriptor =
       getDescriptor().getMessageTypes().get(10);
     internal_static_navigation_Empty_fieldAccessorTable = new
