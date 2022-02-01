@@ -3,6 +3,7 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.testng.Assert;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
@@ -35,8 +36,9 @@ public class UserReferralProgramV2Test extends RestBase {
         final Response response = UsersV2Request.ReferralProgram.GET(id, token);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, UserReferralProgramV2Response.class);
-        UserReferralProgramV2 userReferralProgram = response.as(UserReferralProgramV2Response.class).getUserReferralProgram();
-        compareTwoObjects(userReferralProgram.getCode(), promotionCode.toUpperCase());
+        UserReferralProgramV2Response userReferralProgramResponse = response.as(UserReferralProgramV2Response.class);
+        Assert.assertNull(userReferralProgramResponse.getUserReferralProgram());
+        compareTwoObjects(userReferralProgramResponse.getShortTutorial(), "С 31 января баллы не начисляются. Потратить накопленные баллы можно до 28 февраля включительно.");
     }
 
     @CaseIDs(value = {@CaseId(553), @CaseId(554)})
