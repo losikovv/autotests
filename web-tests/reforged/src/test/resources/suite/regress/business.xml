@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Web business UI smoke" data-provider-thread-count="5">
+<suite name="Web business UI regression" data-provider-thread-count="5">
     <listeners>
         <listener class-name="ru.instamart.reforged.core.listener.UiExecutionListener"/>
         <listener class-name="ru.instamart.reforged.core.listener.UiListener"/>
@@ -13,6 +13,7 @@
     <test verbose="1" name="Web business UI tests" parallel="classes" thread-count="3">
         <classes>
             <class name="ru.instamart.test.reforged.business.UserAuthorisationBusinessTests"/>
+            <class name="ru.instamart.test.reforged.business.CheckoutTests"/>
         </classes>
     </test>
 </suite>
