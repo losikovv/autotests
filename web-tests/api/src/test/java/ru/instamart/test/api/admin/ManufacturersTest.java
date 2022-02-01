@@ -17,7 +17,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 
-@Epic("ApiV1")
+@Epic("Admin")
 @Feature("Производители")
 public class ManufacturersTest extends RestBase {
     private String name = "AutoTest_" + Generate.string(10);
@@ -53,7 +53,7 @@ public class ManufacturersTest extends RestBase {
             description = "Редактирование производителя", dependsOnMethods = "postManufacturers302")
     public void patchManufacturers302() {
         name = "AutoTest_" + Generate.string(10);
-        final Response response = ManufacturersRequest.ById.POST("patch", manufacturers.getId().toString(), name);
+        final Response response = ManufacturersRequest.POST("patch", manufacturers.getId().toString(), name);
         checkStatusCode(response, 302, "text/html");
         ManufacturersEntity manufacturersPatch = ManufacturersDao.INSTANCE.getIdByName(name);
         assertNotNull(manufacturers, "Производитель не создался в БД");
@@ -65,9 +65,9 @@ public class ManufacturersTest extends RestBase {
 
     @CaseId(1827)
     @Test(groups = {"api-instamart-regress"},
-            description = "Создание производителя", dependsOnMethods = "patchManufacturers302")
+            description = "Удаление производителя", dependsOnMethods = "patchManufacturers302")
     public void delManufacturers302() {
-        final Response response = ManufacturersRequest.ById.POST("delete", manufacturers.getId().toString());
+        final Response response = ManufacturersRequest.POST("delete", manufacturers.getId().toString());
         checkStatusCode(response, 302, "text/html");
     }
 }

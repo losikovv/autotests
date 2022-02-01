@@ -25,23 +25,23 @@ public class ManufacturersRequest extends AdminRequestBase {
                 .post(AdminEndpoints.MANUFACTURERS);
     }
 
-    public static class ById{
-        @Step("{method} /" + AdminEndpoints.Manufacturers.BY_ID)
-        public static Response POST(String method, String id, String name) {
-            Map<String, String> params = new HashMap<>();
-            params.put("_method", method);
-            if(Objects.nonNull(name)) {
-                params.put("manufacturer[name]", name);
-            }
-            return givenWithAuth()
-                    .formParams(params)
-                    .post(AdminEndpoints.Manufacturers.BY_ID, id);
-        }
 
-
-        @Step("{method} /" + AdminEndpoints.Manufacturers.BY_ID)
-        public static Response POST(String method, String id) {
-            return POST(method, id, null);
+    @Step("{method} /" + AdminEndpoints.Manufacturers.BY_ID)
+    public static Response POST(String method, String id, String name) {
+        Map<String, String> params = new HashMap<>();
+        params.put("_method", method);
+        if (Objects.nonNull(name)) {
+            params.put("manufacturer[name]", name);
         }
+        return givenWithAuth()
+                .formParams(params)
+                .post(AdminEndpoints.Manufacturers.BY_ID, id);
     }
+
+
+    @Step("{method} /" + AdminEndpoints.Manufacturers.BY_ID)
+    public static Response POST(String method, String id) {
+        return POST(method, id, null);
+    }
+
 }
