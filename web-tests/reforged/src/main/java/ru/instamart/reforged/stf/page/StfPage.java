@@ -29,11 +29,12 @@ public interface StfPage extends Page {
     /**
      * Проверяет наличие нескольких кук и подменяет их на нужные
      */
-    default void cookiesChange() {
+    default void cookiesChange(final boolean isFixedUUID) {
+        final var abCookie = isFixedUUID ? CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE : CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID;
         Kraken.waitAction()
                 .cookiesShouldBeExist(
-                        Set.of(CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID.getName(), CookieFactory.RETAILERS_REMINDER_MODAL.getName())
+                        Set.of(abCookie.getName(), CookieFactory.RETAILERS_REMINDER_MODAL.getName())
                 );
-        Kraken.addCookiesIfNotExist(Set.of(CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID, CookieFactory.RETAILERS_REMINDER_MODAL));
+        Kraken.addCookiesIfNotExist(Set.of(abCookie, CookieFactory.RETAILERS_REMINDER_MODAL));
     }
 }

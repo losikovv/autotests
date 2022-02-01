@@ -23,7 +23,7 @@ public final class ShoppingSearchTests extends BaseTest {
     @Story("Проверка наличия элементов")
     @Test(description = "Тест валидации элементов поиска", groups = "regression")
     public void successValidateSearch() {
-        shop().goToPage();
+        shop().goToPage(true);
         shop().interactHeader().checkSearchContainerVisible();
         shop().interactHeader().checkSearchInputVisible();
         shop().interactHeader().checkSearchButtonVisible();
@@ -33,7 +33,7 @@ public final class ShoppingSearchTests extends BaseTest {
     @Story("Негативные сценарии")
     @Test(description = "Тест поиска по запросу, не возвращающему результатов", groups = "regression")
     public void successSearchForNonExistingItem() {
-        shop().goToPage();
+        shop().goToPage(true);
         shop().interactHeader().fillSearch("смысл жизни");
         shop().interactHeader().clickSearchButton();
         search().checkEmptySearchPlaceholderVisible();
@@ -43,7 +43,7 @@ public final class ShoppingSearchTests extends BaseTest {
     @Story("Позитивные сценарии")
     @Test(description = "Тест успешного поиска товаров", groups = "regression")
     public void successSearchItem() {
-        shop().goToPage();
+        shop().goToPage(true);
         shop().interactHeader().fillSearch("молоко");
         shop().interactHeader().clickSearchButton();
         search().checkPageIsAvailable();
@@ -55,7 +55,7 @@ public final class ShoppingSearchTests extends BaseTest {
     @Story("Позитивные сценарии")
     @Test(description = "Тест успешного поиска товаров c использованием категорийных саджестов", groups = {"smoke", "regression"})
     public void successSearchItemUsingCategorySuggests() {
-        shop().goToPage();
+        shop().goToPage(true);
         shop().interactHeader().fillSearch("сыры");
         shop().interactHeader().checkSuggesterVisible();
         shop().interactHeader().clickShowAllSearchResults();
@@ -67,7 +67,7 @@ public final class ShoppingSearchTests extends BaseTest {
     @Story("Позитивные сценарии")
     @Test(description = "Тест успешного поиска товаров c использованием товарных саджестов", groups = {"regression"})
     public void successSearchItemUsingSuggests() {
-        shop().goToPage();
+        shop().goToPage(true);
         shop().interactHeader().fillSearch("шоколад");
         shop().interactHeader().checkSearchSuggestsVisible();
         shop().interactHeader().clickOnFirstSuggesterSearchResult();
@@ -78,7 +78,7 @@ public final class ShoppingSearchTests extends BaseTest {
     @Story("Негативные сценарии")
     @Test(description = "Тест поиска по очень длинному запросу, не возвращающему результатов", groups = "regression")
     public void successSearchItemWithLongQuery() {
-        shop().goToPage();
+        shop().goToPage(true);
         shop().interactHeader().fillSearch(Generate.string(1000));
         shop().interactHeader().clickSearchButton();
         search().checkEmptySearchPlaceholderVisible();
@@ -87,7 +87,7 @@ public final class ShoppingSearchTests extends BaseTest {
     @CaseId(1581)
     @Test(description = "Добавление товара в корзину из поиска товаров", groups = "regression")
     public void successAddItemToCartFromSearchResults() {
-        shop().goToPage();
+        shop().goToPage(true);
         shop().interactHeader().clickToSelectAddressFirstTime();
         shop().interactAddress().checkYmapsReady();
         shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
@@ -97,7 +97,7 @@ public final class ShoppingSearchTests extends BaseTest {
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().goToPage();
+        shop().goToPage(true);
         shop().interactHeader().fillSearch("сыры");
         shop().interactHeader().clickSearchButton();
         search().checkSearchImgLoaded();
@@ -108,12 +108,11 @@ public final class ShoppingSearchTests extends BaseTest {
         search().interactCart().checkCartNotEmpty();
     }
 
-    //TODO: Переписать и поставить баги ATST-873
-
+    //TODO: Переписать и поставить баги
     @CaseId(2589)
-    @Test(description = "Работоспособность сортировки товаров", groups = {"regression"})
+    @Test(enabled = false, description = "Работоспособность сортировки товаров", groups = {"regression"})
     public void successApplySort() {
-        shop().goToPage(ShopUrl.OKEY);
+        shop().goToPage(ShopUrl.OKEY, true);
         shop().checkSpinnerIsNotVisible();
         shop().addCookie(CookieFactory.COOKIE_ALERT);
         shop().interactHeader().fillSearch("кофе");
@@ -193,10 +192,9 @@ public final class ShoppingSearchTests extends BaseTest {
         search().checkPageScrolled();
     }
 
-    //TODO: Переписать и поставить баги ATST-873
-
+    //TODO: Переписать и поставить баги
     @CaseId(2591)
-    @Test(description = "Сортировка + фильтрация товаров: сначала дорогие, скидки + убывание, конкретный бренд", groups = {"regression"})
+    @Test(enabled = false, description = "Сортировка + фильтрация товаров: сначала дорогие, скидки + убывание, конкретный бренд", groups = {"regression"})
     public void successApplyFiltersAndSortExpensiveDesc() {
         shop().openSitePage("okey/search?keywords=чай&sid=128");
 

@@ -127,21 +127,6 @@ public final class ShopPage implements StfPage, ShopCheck {
         firstProductCard.click();
     }
 
-    @Override
-    public void goToPage() {
-        goToPage(ShopUrl.DEFAULT);
-    }
-
-    public void goToPage(final ShopUrl shop) {
-        goToPage(shop.getUrl());
-        cookiesChange();
-    }
-
-    @Override
-    public String pageUrl() {
-        return "";
-    }
-
     @Step("Получаем цену товара")
     public String getPrice() {
         return StringUtil.getLastLine(priceInFirstItemWithoutDiscount.getText());
@@ -165,5 +150,34 @@ public final class ShopPage implements StfPage, ShopCheck {
     @Step("Открыть карточку первого товара без скидки")
     public void openFirstProductCardWithDiscount() {
         fullPriceInFirstItemWithDiscount.hoverAndClick();
+    }
+
+    @Override
+    public void goToPage() {
+        goToPage(ShopUrl.DEFAULT);
+    }
+
+    public void goToPage(final ShopUrl shop) {
+        goToPage(shop.getUrl());
+        cookiesChange(false);
+    }
+
+    /**
+     * Метод создан для того, что бы в куках указывать фиксированный UUID пользователя, который заранее добавлен в нужную АБ группу
+     * @param isFixedUUID - служит идентификатором для UUID
+     */
+    public void goToPage(final boolean isFixedUUID) {
+        goToPage(ShopUrl.DEFAULT, isFixedUUID);
+        cookiesChange(isFixedUUID);
+    }
+
+    public void goToPage(final ShopUrl shop, final boolean isFixedUUID) {
+        goToPage(shop.getUrl());
+        cookiesChange(isFixedUUID);
+    }
+
+    @Override
+    public String pageUrl() {
+        return "";
     }
 }
