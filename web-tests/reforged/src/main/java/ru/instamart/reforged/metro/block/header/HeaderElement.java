@@ -23,7 +23,7 @@ public interface HeaderElement {
     Button searchButton = new Button(By.xpath("//div[@data-qa='search']/form/button"), "Кнопка поиска в инпуте товара");
 
     Button cart = new Button(By.xpath("//button[@data-qa='open-cart-button']"), "Кнопка корзины");
-    Button login = new Button(By.xpath("//button[@data-qa='login-button']"), "Кнопка логина");
+    Button login = new Button(By.xpath("//button[@data-qa='login-button_button']"), "Кнопка логина");
 
     Element partnershipLabel = new Element(By.xpath("//div[@class='partnership']"), "Лейбл 'О сотрудничестве'");
     Element nearestDeliveryLabel = new Element(By.xpath("//span[text()='Ближайшая доставка']"), "Лейбл 'Ближайшая доставка (день) чч:мм-чч:мм'");

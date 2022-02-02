@@ -77,11 +77,6 @@ public interface HeaderCheck extends HeaderElement, Check {
         waitAction().shouldBeVisible(login);
     }
 
-    @Step("Проверяем, что отображается лейбл сотрудничества со сбермаркетом")
-    default void checkPartnershipLabelVisible() {
-        waitAction().shouldBeVisible(partnershipLabel);
-    }
-
     @Step("Проверяем, что отображается лейбл с инфо о ближайшей доставке и часами")
     default void checkNearestDeliveryLabelVisible() {
         waitAction().shouldBeVisible(nearestDeliveryLabel);

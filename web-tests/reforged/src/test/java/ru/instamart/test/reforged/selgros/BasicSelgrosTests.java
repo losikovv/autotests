@@ -40,7 +40,6 @@ public final class BasicSelgrosTests extends BaseTest {
         selgros().interactHeader().checkSearchInputVisible();
         selgros().interactHeader().checkSearchButtonVisible();
         selgros().interactHeader().checkCartVisible();
-        selgros().interactHeader().checkPartnershipLabelVisible();
         selgros().interactHeader().checkLoginIsVisible();
         selgros().interactHeader().checkNearestDeliveryLabelVisible();
     }

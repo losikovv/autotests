@@ -6,16 +6,22 @@ import ru.instamart.reforged.metro.page.MetroPage;
 
 public final class MetroHomePage implements MetroPage, MetroHomeCheck {
 
-    @Override
-    public String pageUrl() {
-        return "metro";
-    }
-
     public Header interactHeader() {
         return header;
     }
 
     public Footer interactFooter() {
         return footer;
+    }
+
+    @Override
+    public void goToPage() {
+        goToPage(pageUrl());
+        cookiesChange(false);
+    }
+
+    @Override
+    public String pageUrl() {
+        return "metro";
     }
 }
