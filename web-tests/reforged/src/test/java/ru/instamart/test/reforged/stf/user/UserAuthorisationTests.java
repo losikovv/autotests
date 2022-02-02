@@ -68,7 +68,7 @@ public final class UserAuthorisationTests extends BaseTest {
      */
     @CaseId(1459)
     @Story("Авторизация через Facebook")
-    @Test(enabled = false, description = "Тест успешной авторизация через Facebook", groups = {"smoke", "regression"})
+    @Test(description = "Тест успешной авторизация через Facebook", groups = {"smoke", "regression"})
     public void successRegWithFacebook() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();

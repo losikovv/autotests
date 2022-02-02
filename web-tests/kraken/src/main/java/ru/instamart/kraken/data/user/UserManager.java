@@ -167,8 +167,8 @@ public final class UserManager {
     public static UserData getDefaultFbUser() {
         if (isNull(defaultFbUser)) {
             defaultFbUser = UserData.builder()
-                    .email(Crypt.INSTANCE.decrypt("6zWHFoRF1JgL9dmADTKTpQm7X0OkZzcK7JlvmU7dlLo="))
-                    .password(PASSWD_1)
+                    .email(Crypt.INSTANCE.decrypt("zXTDlp8g3Rux0gMsR8Lo0wOJ8bsCTtxnRe3fYkdLcFI="))
+                    .password(Crypt.INSTANCE.decrypt("1/Ymjco2v4WNEveaGfP7dw8mJpQ+3pszBu9i9Datm98="))
                     .build();
         }
         return defaultFbUser;
