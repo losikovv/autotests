@@ -108,3 +108,15 @@ tests:ris:exporter:schedule:
     - gradle clean build apiRisExporter -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - bash ./report.sh api api-ris-exporter
+
+tests:api:v3:notifications:
+  resource_group: testApiV3Notifications
+  only:
+    variables:
+      - $API_V3_NOTIFICATIONS == 'true' && $CI_RUN_ALL_JOBS == 'false'
+  extends:
+    - ".template_api_tests"
+  script:
+    - gradle clean build apiV3Notifications -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - bash ./report.sh api api-v3-notifications
