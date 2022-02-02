@@ -6,16 +6,22 @@ import ru.instamart.reforged.selgros.page.SelgrosPage;
 
 public final class SelgrosHomePage implements SelgrosPage, SelgrosHomeCheck {
 
-    @Override
-    public String pageUrl() {
-        return "selgros";
-    }
-
     public Header interactHeader() {
         return header;
     }
 
     public Footer interactFooter() {
         return footer;
+    }
+
+    @Override
+    public void goToPage() {
+        goToPage(pageUrl());
+        cookiesChange(false);
+    }
+
+    @Override
+    public String pageUrl() {
+        return "selgros";
     }
 }
