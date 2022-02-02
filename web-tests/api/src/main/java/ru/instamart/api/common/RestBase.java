@@ -24,7 +24,7 @@ public class RestBase {
 
     @AfterSuite(alwaysRun = true)
     public void clearData() {
-        if (EnvironmentProperties.SERVER.equals("preprod")) {
+        if (!EnvironmentProperties.SERVER.equals("production")) {
             SpreeUsersDao.INSTANCE.deleteQAUsers();
         }
     }
