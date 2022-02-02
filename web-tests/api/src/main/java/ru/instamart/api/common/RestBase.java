@@ -6,7 +6,6 @@ import io.restassured.response.Response;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import ru.instamart.api.helper.*;
-import ru.instamart.jdbc.dao.PhoneTokensDao;
 import ru.instamart.jdbc.dao.SpreeUsersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 

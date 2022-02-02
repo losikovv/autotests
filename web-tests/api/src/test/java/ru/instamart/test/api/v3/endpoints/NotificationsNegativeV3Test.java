@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.ApiV3DataProvider;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
@@ -29,7 +30,7 @@ public class NotificationsNegativeV3Test extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        SessionFactory.makeSession(SessionType.API_V2);
+        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         orderShopper = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         orderForAccounting = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 7);
     }
@@ -75,5 +76,4 @@ public class NotificationsNegativeV3Test extends RestBase {
         OrderV2 readyOrder = apiV2.getOrder(orderShopper.getNumber());
         Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY.getStatus());
     }
-
 }

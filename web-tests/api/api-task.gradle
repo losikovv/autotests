@@ -56,6 +56,17 @@ task apiv3Smoke(type: Test) {
     systemProperty 'qase.Title', 'Smoke endpoints Api v3'
 }
 
+task apiV3Notifications(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/api-v3-notifications.xml'
+        includeGroups 'api-instamart-smoke', 'api-instamart-regress'
+        systemProperty 'env',"sbermarket-staging_mannschaft"
+    }
+
+    systemProperty 'qase.Project', 'INAPI'
+    systemProperty 'qase.Title', 'API v3 Notifications'
+}
+
 task apiRetailerE2E(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/api-retailers.xml'

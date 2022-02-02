@@ -3,6 +3,7 @@ package ru.instamart.api.dataprovider;
 import lombok.Data;
 import org.testng.annotations.DataProvider;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
@@ -46,7 +47,7 @@ public class ApiV3DataProvider extends RestBase {
 
     @DataProvider(name = "ordersWithDifferentPricers")
     public static Object[][] getOrdersWithDifferentPricers() {
-        SessionFactory.makeSession(SessionType.API_V2);
+        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         return new Object[][]{
                 {apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_ITEM)},
                 //{apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_KILO)},

@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
@@ -25,7 +26,7 @@ public class NotificationsPositiveV3Test extends RestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
-        SessionFactory.makeSession(SessionType.API_V2);
+        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58);
     }
 
