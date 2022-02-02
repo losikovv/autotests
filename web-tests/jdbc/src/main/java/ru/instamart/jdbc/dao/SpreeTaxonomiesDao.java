@@ -14,7 +14,7 @@ import static org.testng.Assert.fail;
 public class SpreeTaxonomiesDao extends AbstractDao<Long, SpreeTaxonomiesEntity> {
 
     public static final SpreeTaxonomiesDao INSTANCE = new SpreeTaxonomiesDao();
-    private final String SELECT_SQL = "SELECT * FROM spree_taxonomies";
+    private final String SELECT_SQL = "SELECT %s FROM spree_taxonomies";
 
     public Long getIdByName(String name) {
         Long id = null;
@@ -22,7 +22,7 @@ public class SpreeTaxonomiesDao extends AbstractDao<Long, SpreeTaxonomiesEntity>
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE name = ?")) {
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 id = resultSet.getLong("id");
             }
         } catch (SQLException e) {
@@ -34,9 +34,8 @@ public class SpreeTaxonomiesDao extends AbstractDao<Long, SpreeTaxonomiesEntity>
     @Override
     public Optional<SpreeTaxonomiesEntity> findById(Long id) {
         SpreeTaxonomiesEntity spreeTaxonomiesEntity = null;
-        var sql = String.format(SELECT_SQL, "*") + " WHERE id = ?";
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
             preparedStatement.setObject(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
