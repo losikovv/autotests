@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'io.qameta.allure' version '2.8.1'
+    id 'com.adarshr.test-logger' version '3.1.0'
 }
 
 apply from: 'stf-task.gradle'
@@ -24,4 +25,23 @@ configurations.all {
     resolutionStrategy {
         force 'com.google.guava:guava:23.0'
     }
+}
+
+testlogger {
+    theme 'mocha-parallel'
+    showExceptions true
+    showStackTraces false
+    showFullStackTraces false
+    showCauses true
+    slowThreshold 2000
+    showSummary true
+    showSimpleNames true
+    showPassed true
+    showSkipped false
+    showFailed true
+    showStandardStreams false
+    showPassedStandardStreams false
+    showSkippedStandardStreams false
+    showFailedStandardStreams true
+    logLevel 'lifecycle'
 }
