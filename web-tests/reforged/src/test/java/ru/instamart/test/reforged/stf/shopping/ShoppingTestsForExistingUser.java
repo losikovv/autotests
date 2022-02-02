@@ -57,7 +57,7 @@ public class ShoppingTestsForExistingUser extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().goToPage();
+        shop().goToPage(true);
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().interactHeader().fillSearch("молоко");
         shop().interactHeader().clickSearchButton();
