@@ -7,6 +7,7 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
+import ru.instamart.api.request.admin.ManufacturingCountriesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.ShippingMethodsRequest;
 import ru.instamart.api.request.v1.OperationalZonesV1Request;
@@ -142,5 +143,10 @@ public class AdminHelper {
     @Step("Авторизация администратором для API")
     public void authAdminApi() {
         SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdminAllRoles());
+    }
+    @Step("Удаляем страну производства")
+    public static void deleteManufacturingCountries(String permalink) {
+        final Response response = ManufacturingCountriesAdminRequest.DELETE(permalink);
+        checkStatusCode302(response);
     }
 }

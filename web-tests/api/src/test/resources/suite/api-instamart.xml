@@ -121,10 +121,12 @@
     <test verbose="1" name="API Admin Tests" parallel="classes" thread-count="1">
         <classes>
             <class name="ru.instamart.test.api.admin.CitiesAdminTest"/>
+            <class name="ru.instamart.test.api.admin.GeneralSettingsAdminTest"/>
             <class name="ru.instamart.test.api.admin.ManufacturersTest"/>
+            <class name="ru.instamart.test.api.admin.ManufacturingCountriesAdminTest"/>
             <class name="ru.instamart.test.api.admin.PagesAdminTest"/>
             <class name="ru.instamart.test.api.admin.StoresAdminTest"/>
-            <class name="ru.instamart.test.api.admin.GeneralSettingsAdminTest"/>
+
         </classes>
     </test>
 
