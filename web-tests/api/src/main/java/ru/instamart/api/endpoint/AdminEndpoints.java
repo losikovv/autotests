@@ -12,6 +12,7 @@ public final class AdminEndpoints {
     public static final String PAGES = "pages";
     public static final String STORES = "stores";
     public static final String SHIPPING_METHODS = "shipping_methods";
+    public static final String TAXONOMIES = "taxonomies";
 
     public static final class Cities {
         public static final String BY_SLUG = "cities/{citySlug}";
@@ -31,5 +32,9 @@ public final class AdminEndpoints {
 
     public static final class Stores {
         public static final String BY_ID = "stores/{storeId}";
+    }
+
+    public static final class Taxonomies {
+        public static final String BY_ID = "taxonomies/{id}";
     }
 }

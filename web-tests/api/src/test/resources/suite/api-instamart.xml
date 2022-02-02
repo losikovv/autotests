@@ -126,7 +126,7 @@
             <class name="ru.instamart.test.api.admin.ManufacturingCountriesAdminTest"/>
             <class name="ru.instamart.test.api.admin.PagesAdminTest"/>
             <class name="ru.instamart.test.api.admin.StoresAdminTest"/>
-
+            <class name="ru.instamart.test.api.admin.TaxonomiesAdminTest"/>
         </classes>
     </test>
 
