@@ -1,6 +1,8 @@
 package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.*;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 
 import ru.sbermarket.qase.annotation.CaseId;
@@ -87,6 +89,8 @@ public final class SimpleRecsV2Test extends RestBase {
         Assert.assertTrue(response.asString().contains(testData.getErrorMessage()), "Текст ошибки неверный");
     }
 
+    @Issue("INFRADEV-12226")
+    @Skip(onServer = Server.PRODUCTION)
     @CaseIDs(value = {@CaseId(288), @CaseId(1102)})
     @Story("Упрощенные рекомендации (simple-recs)")
     @JsonDataProvider(path = "data/json_v2/api_v2_invalid_simple_recs_data.json", type = RestDataProvider.SimpleRecsV2TestDataRoot.class)
