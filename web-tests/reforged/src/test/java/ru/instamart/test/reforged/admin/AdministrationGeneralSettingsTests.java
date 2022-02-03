@@ -2,10 +2,10 @@ package ru.instamart.test.reforged.admin;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
@@ -237,33 +237,22 @@ public final class AdministrationGeneralSettingsTests extends BaseTest {
         smsSettings().goToPage();
         smsSettings().checkPageTitleVisible();
         smsSettings().checkSendSmsVisible();
-        smsSettings().checkSendSmsLabelVisible();
         smsSettings().checkSendSmsStartVisible();
-        smsSettings().checkSendSmsStartLabelVisible();
         smsSettings().checkSendSmsApologiesVisible();
-        smsSettings().checkSendSmsApologiesLabelVisible();
 
         smsSettings().checkSendSmsTipsHeaderVisible();
         smsSettings().checkSendSmsTipsVisible();
-        smsSettings().checkSendSmsTipsLabelVisible();
         smsSettings().checkStoreIdForTestVisible();
-        smsSettings().checkStoreIdForTestLabelVisible();
         smsSettings().checkSendSmsTipsTemplateVisible();
-        smsSettings().checkSendSmsTipsTemplateLabelVisible();
 
         smsSettings().checkSmsimpleHeaderVisible();
         smsSettings().checkSmsLoginVisible();
-        smsSettings().checkSmsLoginLabelVisible();
         smsSettings().checkSmsPasswordVisible();
-        smsSettings().checkSmsPasswordLabelVisible();
         smsSettings().checkSmsNumberVisible();
-        smsSettings().checkSmsNumberLabelVisible();
 
         smsSettings().checkInfobipHeaderVisible();
         smsSettings().checkInfobipTokenVisible();
-        smsSettings().checkInfobitTokenLabelVisible();
         smsSettings().checkInfobitNumberVisible();
-        smsSettings().checkInfobitNumberLabelVisible();
         smsSettings().checkSaveButtonVisible();
     }
 }
