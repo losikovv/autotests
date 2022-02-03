@@ -40,14 +40,14 @@ public final class ApiV3Helper {
         return stores.get(0);
     }
 
-    public OrderOptionsV3Response getOrderOptionsPickup(StoreV3 store, ApiV3TestData testData) {
+    /*public OrderOptionsV3Response getOrderOptionsPickup(StoreV3 store, ApiV3TestData testData) {
         // StoreV3 store = getStore("METRO, Ленинградское шоссе");
         log.debug("Получаем список опций заказа дла магазинов с самовывозом");
         return OrderOptionsV3Request.PickupFromStore.PUT(
                 testData,
                 store.getId())
                 .as(OrderOptionsV3Response.class);
-    }
+    }*/
 
     public OrderOptionsV3Response getOrderOptionsDelivery(ApiV3TestData testData) {
         Response response = OrderOptionsV3Request.Delivery.PUT(testData);
@@ -160,7 +160,7 @@ public final class ApiV3Helper {
 
     public OrderV3 createOrderPickupFromStore(ApiV3TestData testData) {
 
-        Response response = OrderOptionsV3Request.PickupFromStore.PUT(testData, "d1106342-817f-4c3e-8c18-0005295f641a");
+        Response response = OrderOptionsV3Request.PickupFromStore.PUT(testData);
         checkStatusCode200(response);
         OrderOptionsV3Response orderOptionsV3Response = response.as(OrderOptionsV3Response.class);
 
@@ -175,7 +175,7 @@ public final class ApiV3Helper {
         response = OrderV3Request.PickupFromStore.POST(paymentOptionId, shippingMethodOptions, replacementOptionId, testData);
 
         if (response.statusCode() == 422 && response.body().toString().contains("Выбранный интервал стал недоступен")) {
-            shippingMethodOptions = OrderOptionsV3Request.PickupFromStore.PUT(testData, "d1106342-817f-4c3e-8c18-0005295f641a")
+            shippingMethodOptions = OrderOptionsV3Request.PickupFromStore.PUT(testData)
                     .as(OrderOptionsV3Response.class)
                     .getShipping_methods()
                     .get(0)

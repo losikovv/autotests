@@ -2,9 +2,7 @@ package ru.instamart.test.api.v3.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -12,8 +10,7 @@ import ru.instamart.api.dataprovider.ApiV3DataProvider;
 import ru.instamart.api.model.testdata.ApiV3TestData;
 import ru.instamart.api.model.v3.OrderV3;
 import ru.instamart.api.request.v3.OrderV3Request;
-import ru.instamart.kraken.data_provider.JsonDataProvider;
-import ru.instamart.kraken.data_provider.JsonProvider;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
@@ -42,11 +39,11 @@ public class GetOrderV3Test extends RestBase {
 
     @CaseId(862)
     @Story("Заказ на доставку")
-    @JsonDataProvider(path = "data/json_v3/api_v3_test_data_goods.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
+    //@JsonDataProvider(path = "data/json_v3/api_v3_test_data_goods.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
-            dataProvider = "json",
-            dataProviderClass = JsonProvider.class,
-            description = "Показать заказ по uuid доставке Goods")
+            dataProvider = "goods",
+            dataProviderClass = ApiV3DataProvider.class,
+            description = "Опции заказа доставки Goods")
     public void getOrder(ApiV3TestData testData) {
         order = apiV3.createOrderDelivery(testData);
         Response response = OrderV3Request.GET(order.getId(), testData.getClientToken());
@@ -55,13 +52,13 @@ public class GetOrderV3Test extends RestBase {
 
     @CaseId(863)
     @Story("Заказ на самовывоз")
-    @JsonDataProvider(path = "data/json_v3/api_v3_test_data_metro_marketplace.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
+   // @JsonDataProvider(path = "data/json_v3/api_v3_test_data_metro_marketplace.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
-            dataProvider = "json",
-            dataProviderClass = JsonProvider.class,
+            dataProvider = "metro_marketplace",
+            dataProviderClass = ApiV3DataProvider.class,
             description = "Показать заказ по uuid самовывоз Metro_Marketplace")
 
-    public void getOrderq(ApiV3TestData testData) {
+    public void getOrders(ApiV3TestData testData) {
         order = apiV3.createOrderPickupFromStore(testData);
         Response response = OrderV3Request.GET(order.getId(), testData.getClientToken());
         checkStatusCode200(response);

@@ -51,6 +51,32 @@ public final class OrderOptionsV3Test extends RestBase {
         checkStatusCode200(response);
     }
 
+    @CaseId(1898)
+    @Story("Опции доставки")
+    //@JsonDataProvider(path = "data/json_v3/api_v3_test_data_goods.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
+    @Test(groups = {"api-instamart-regress"},
+            dataProvider = "Aliexpress",
+            dataProviderClass = ApiV3DataProvider.class,
+            description = "Опции заказа доставки Aliexpress")
+    public void putOrderOptionsDeliveryAliexpress(ApiV3TestData testData) {
+        Response response = OrderOptionsV3Request.Delivery.PUT(testData);
+        checkStatusCode200(response);
+        response.prettyPrint();
+    }
+
+    @CaseId(1900)
+    @Story("Опции доставки")
+    //@JsonDataProvider(path = "data/json_v3/api_v3_test_data_goods.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
+    @Test(groups = {"api-instamart-regress"},
+            dataProvider = "Auchan",
+            dataProviderClass = ApiV3DataProvider.class,
+            description = "Опции заказа доставки Auchan")
+    public void putOrderOptionsDeliveryAuchan(ApiV3TestData testData) {
+        Response response = OrderOptionsV3Request.Delivery.PUT(testData);
+        checkStatusCode200(response);
+        response.prettyPrint();
+    }
+
     @CaseId(854)
     @Story("Опции доставки")
     //@JsonDataProvider(path = "data/json_v3/api_v3_test_data_metro_marketplace.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
@@ -60,8 +86,9 @@ public final class OrderOptionsV3Test extends RestBase {
             description = "Опции заказа доставки Metro_Marketplace")
     public void putOrderOptionsDeliveryMetroMarketplace(ApiV3TestData testData){
         Response response = OrderOptionsV3Request.Delivery.PUT(testData);
-        checkStatusCode200(response);
         response.prettyPrint();
+        checkStatusCode200(response);
+
     }
 
     @CaseId(677)
@@ -72,8 +99,21 @@ public final class OrderOptionsV3Test extends RestBase {
             dataProviderClass = ApiV3DataProvider.class,
             description = "Опции заказа на самовывоз Metro_Marketplace")
     public void putOrderOptionsPickupFromStoreMetroMarketplace(ApiV3TestData testData) {
-        Response response = OrderOptionsV3Request.PickupFromStore.PUT(testData, store.getId());
+        Response response = OrderOptionsV3Request.PickupFromStore.PUT(testData);
         checkStatusCode200(response);
+    }
+
+    @CaseId(1902)
+    @Story("Опции доставки")
+    //@JsonDataProvider(path = "data/json_v3/api_v3_test_data_goods.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
+    @Test(groups = {"api-instamart-regress"},
+            dataProvider = "Auchan",
+            dataProviderClass = ApiV3DataProvider.class,
+            description = "Опции заказа на самовывоз Auchan")
+    public void putOrderOptionsPickupFromStoreAuchan(ApiV3TestData testData) {
+        Response response = OrderOptionsV3Request.PickupFromStore.PUT(testData);
+        checkStatusCode200(response);
+        response.prettyPrint();
     }
 
 }

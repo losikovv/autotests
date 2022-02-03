@@ -61,66 +61,118 @@ public class ApiV3DataProvider extends RestBase {
 
     @DataProvider(name = "goods")
     public static Object[][] getItemIdsGoods() {
-        OfferResponse pricerPerItem = getPricerPerItem(1,8, OfferResponse.class);
-        String productSkuPerItem = pricerPerItem.getOffer().getProductSku();
+        OfferResponse pricerPerItem = getPricerPerItemProductFilter(1, 8, 2, OfferResponse.class);
+        String retailerSkuPerItem = pricerPerItem.getOffer().getProductSku();
 
-        OfferResponse pricerPerKilo = getPricerPerKilo(1,8, OfferResponse.class);
-        String productSkuPerKilo = pricerPerKilo.getOffer().getProductSku();
+        OfferResponse pricerPerKilo = getPricerPerKiloProductFilter(1, 8, 2, OfferResponse.class);
+        String retailerSkuPerKilo = pricerPerKilo.getOffer().getProductSku();
 
-        OfferResponse pricerPerPackage = getPricerPerPackage(1,8,OfferResponse.class);
-        String productSkuPerPackage = pricerPerPackage.getOffer().getRetailerSku();
+        OfferResponse pricerPerPackage = getPricerPerPackageProductFilter(1, 8, 2, OfferResponse.class);
+        String retailerSkuPerPackage = pricerPerPackage.getOffer().getProductSku();
 
-        OfferResponse pricerPerPack = getPricerPerPack(1,8,OfferResponse.class);
-        String productSkuPerPack = pricerPerPack.getOffer().getRetailerSku();
+        OfferResponse pricerPerPack = getPricerPerPackProductFilter(1, 8, 2, OfferResponse.class);
+        String retailerSkuPerPack = pricerPerPack.getOffer().getProductSku();
 
-        Object[][] idsArray = new Object[1][4];
-        idsArray[0] = new Object[]{ productSkuPerItem, 200, "sku продукта", "6fae9cd2b268be84e2ab394b6fd0d599", "goods", "15000", 10, 53453, 10000};
-        idsArray[1] = new Object[]{ productSkuPerKilo, 200, "sku продукта", "6fae9cd2b268be84e2ab394b6fd0d599", "goods", "15000", 10, 53453, 10000};
-        idsArray[1] = new Object[]{ productSkuPerPackage, 200, "sku продукта", "6fae9cd2b268be84e2ab394b6fd0d599", "goods", "15000", 10, 53453, 10000};
-        idsArray[1] = new Object[]{ productSkuPerPack, 200, "sku продукта", "6fae9cd2b268be84e2ab394b6fd0d599", "goods", "15000", 10, 53453, 10000};
+        Object[][] idsArray = new Object[4][1];
+        idsArray[0] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerItem).shipTotal("1299").itemIdName("PerItem").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("6fae9cd2b268be84e2ab394b6fd0d599").retailer_id("metro").clientTokenName("Goods").storeId("d1106342-817f-4c3e-8c18-0005295f641a").build()};
+        idsArray[1] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerKilo).shipTotal("1299").itemIdName("PerKilo").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("6fae9cd2b268be84e2ab394b6fd0d599").retailer_id("metro").clientTokenName("Goods").storeId("d1106342-817f-4c3e-8c18-0005295f641a").build()};
+        idsArray[2] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerPackage).shipTotal("1299").itemIdName("PerPackage").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("6fae9cd2b268be84e2ab394b6fd0d599").retailer_id("metro").clientTokenName("Goods").storeId("d1106342-817f-4c3e-8c18-0005295f641a").build()};
+        idsArray[3] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerPack).shipTotal("1299").itemIdName("PerPack").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("6fae9cd2b268be84e2ab394b6fd0d599").retailer_id("metro").clientTokenName("Goods").storeId("d1106342-817f-4c3e-8c18-0005295f641a").build()};
         return idsArray;
+
     }
 
     @DataProvider(name = "sber_devices")
     public static Object[][] getItemIdsSberDevices() {
-        OfferResponse pricerPerItem = getPricerPerItem(1,8, OfferResponse.class);
-        String productSkuPerItem = pricerPerItem.getOffer().getProductSku();
+        OfferResponse pricerPerItem = getPricerPerItemProductFilter(1, 8, 2, OfferResponse.class);
+        String retailerSkuPerItem = pricerPerItem.getOffer().getProductSku();
 
-        OfferResponse pricerPerKilo = getPricerPerKilo(1,8, OfferResponse.class);
-        String productSkuPerKilo = pricerPerKilo.getOffer().getProductSku();
+        OfferResponse pricerPerKilo = getPricerPerKiloProductFilter(1, 8, 2, OfferResponse.class);
+        String retailerSkuPerKilo = pricerPerKilo.getOffer().getProductSku();
 
-        OfferResponse pricerPerPackage = getPricerPerPackage(1,8,OfferResponse.class);
-        String productSkuPerPackage = pricerPerPackage.getOffer().getRetailerSku();
+        OfferResponse pricerPerPackage = getPricerPerPackageProductFilter(1, 8, 2, OfferResponse.class);
+        String retailerSkuPerPackage = pricerPerPackage.getOffer().getProductSku();
 
-        OfferResponse pricerPerPack = getPricerPerPack(1,8,OfferResponse.class);
-        String productSkuPerPack = pricerPerPack.getOffer().getRetailerSku();
+        OfferResponse pricerPerPack = getPricerPerPackProductFilter(1, 8, 2, OfferResponse.class);
+        String retailerSkuPerPack = pricerPerPack.getOffer().getProductSku();
 
-        Object[][] idsArray = new Object[1][4];
-        idsArray[0] = new Object[]{ productSkuPerItem, 200, "sku продукта", "14cd5d341d768bd4926fc9f5ce262094", "sber_devices", "15000", 10, 53453, 10000};
-        idsArray[1] = new Object[]{ productSkuPerKilo, 200, "sku продукта", "14cd5d341d768bd4926fc9f5ce262094", "sber_devices", "15000", 10, 53453, 10000};
-        idsArray[1] = new Object[]{ productSkuPerPackage, 200, "sku продукта", "14cd5d341d768bd4926fc9f5ce262094", "sber_devices", "15000", 10, 53453, 10000};
-        idsArray[1] = new Object[]{ productSkuPerPack, 200, "sku продукта", "14cd5d341d768bd4926fc9f5ce262094", "sber_devices", "15000", 10, 53453, 10000};
+        Object[][] idsArray = new Object[4][1];
+        idsArray[0] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerItem).shipTotal("1299").itemIdName("PerItem").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("14cd5d341d768bd4926fc9f5ce262094").retailer_id("metro").clientTokenName("SberDevices").storeId("d1106342-817f-4c3e-8c18-0005295f641a").build()};
+        idsArray[1] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerKilo).shipTotal("1299").itemIdName("PerKilo").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("14cd5d341d768bd4926fc9f5ce262094").retailer_id("metro").clientTokenName("SberDevices").storeId("d1106342-817f-4c3e-8c18-0005295f641a").build()};
+        idsArray[2] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerPackage).shipTotal("1299").itemIdName("PerPackage").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("14cd5d341d768bd4926fc9f5ce262094").retailer_id("metro").clientTokenName("SberDevices").storeId("d1106342-817f-4c3e-8c18-0005295f641a").build()};
+        idsArray[3] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerPack).shipTotal("1299").itemIdName("PerPack").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("14cd5d341d768bd4926fc9f5ce262094").retailer_id("metro").clientTokenName("SberDevices").storeId("d1106342-817f-4c3e-8c18-0005295f641a").build()};
         return idsArray;
+
     }
+
     @DataProvider(name = "metro_marketplace")
     public static Object[][] getItemIdsMetroMarketplace() {
-        OfferResponse pricerPerItem = getPricerPerItem(1,8, OfferResponse.class);
+        OfferResponse pricerPerItem = getPricerPerItemProductFilter(1, 8, 2, OfferResponse.class);
         String retailerSkuPerItem = pricerPerItem.getOffer().getRetailerSku();
 
-        OfferResponse pricerPerKilo = getPricerPerKilo(1,8, OfferResponse.class);
+        OfferResponse pricerPerKilo = getPricerPerKiloProductFilter(1, 8, 2, OfferResponse.class);
         String retailerSkuPerKilo = pricerPerKilo.getOffer().getRetailerSku();
 
-        OfferResponse pricerPerPackage = getPricerPerPackage(1,8,OfferResponse.class);
+        OfferResponse pricerPerPackage = getPricerPerPackageProductFilter(1, 8, 2, OfferResponse.class);
         String retailerSkuPerPackage = pricerPerPackage.getOffer().getRetailerSku();
 
-        OfferResponse pricerPerPack = getPricerPerPack(1,8,OfferResponse.class);
+        OfferResponse pricerPerPack = getPricerPerPackProductFilter(1, 8, 2, OfferResponse.class);
         String retailerSkuPerPack = pricerPerPack.getOffer().getRetailerSku();
 
-        Object[][] idsArray = new Object[1][4];
-        idsArray[0] = new Object[]{ retailerSkuPerItem, 200, "sku ритейлера", "8055cfd11c887f2887dcd109e66dd166", "metro_marketplace", "15000", 10, 53453, 10000};
-        idsArray[1] = new Object[]{ retailerSkuPerKilo, 200, "sku ритейлера", "8055cfd11c887f2887dcd109e66dd166", "metro_marketplace", "15000", 10, 53453, 10000};
-        idsArray[2] = new Object[]{ retailerSkuPerPackage, 200, "sku ритейлера", "8055cfd11c887f2887dcd109e66dd166", "metro_marketplace", "15000", 10, 53453, 10000};
-        idsArray[3] = new Object[]{ retailerSkuPerPack, 200, "sku ритейлера", "8055cfd11c887f2887dcd109e66dd166", "metro_marketplace", "15000", 10, 53453, 10000};
+
+        Object[][] idsArray = new Object[4][1];
+        idsArray[0] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerItem).itemIdName("PerItem").shipTotal("1299").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("8055cfd11c887f2887dcd109e66dd166").retailer_id("metro").clientTokenName("MetroMarketplace").storeId("d1106342-817f-4c3e-8c18-0005295f641a").build()};
+        idsArray[1] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerKilo).itemIdName("PerKilo").shipTotal("1299").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("8055cfd11c887f2887dcd109e66dd166").retailer_id("metro").clientTokenName("MetroMarketplace").storeId("d1106342-817f-4c3e-8c18-0005295f641a").build()};
+        idsArray[2] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerPackage).itemIdName("PerPackage").shipTotal("1299").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("8055cfd11c887f2887dcd109e66dd166").retailer_id("metro").clientTokenName("MetroMarketplace").storeId("d1106342-817f-4c3e-8c18-0005295f641a").build()};
+        idsArray[3] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerPack).itemIdName("PerPack").shipTotal("1299").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("8055cfd11c887f2887dcd109e66dd166").retailer_id("metro").clientTokenName("MetroMarketplace").storeId("d1106342-817f-4c3e-8c18-0005295f641a").build()};
         return idsArray;
+    }
+
+    @DataProvider(name = "Aliexpress")
+    public static Object[][] getItemIdsAliexpress() {
+        OfferResponse pricerPerItem = getPricerPerItemProductFilter(15, 72, 2, OfferResponse.class);
+        String retailerSkuPerItem = pricerPerItem.getOffer().getRetailerSku();
+
+        OfferResponse pricerPerKilo = getPricerPerKiloProductFilter(15, 72, 2, OfferResponse.class);
+        String retailerSkuPerKilo = pricerPerKilo.getOffer().getRetailerSku();
+
+        OfferResponse pricerPerPackage = getPricerPerPackageProductFilter(15, 72, 2, OfferResponse.class);
+        String retailerSkuPerPackage = pricerPerPackage.getOffer().getRetailerSku();
+
+        OfferResponse pricerPerPack = getPricerPerPackProductFilter(15, 72, 2, OfferResponse.class);
+        String retailerSkuPerPack = pricerPerPack.getOffer().getRetailerSku();
+
+        Object[][] idsArray = new Object[4][1];
+        idsArray[0] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerItem).shipTotal("1299").itemIdName("PerItem").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("0282828d-75c2-4d9d-abaa-03db92f89c47").retailer_id("auchan").clientTokenName("Aliexpress").storeId("4872ead0-274b-49a2-955e-a5101a7de9cb").build()};
+        idsArray[1] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerKilo).shipTotal("1299").itemIdName("PerKilo").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("0282828d-75c2-4d9d-abaa-03db92f89c47").retailer_id("auchan").clientTokenName("Aliexpress").storeId("4872ead0-274b-49a2-955e-a5101a7de9cb").build()};
+        idsArray[2] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerPackage).shipTotal("1299").itemIdName("PerPackage").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("0282828d-75c2-4d9d-abaa-03db92f89c47").retailer_id("auchan").clientTokenName("Aliexpress").storeId("4872ead0-274b-49a2-955e-a5101a7de9cb").build()};
+        idsArray[3] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerPack).shipTotal("1299").itemIdName("PerPack").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("0282828d-75c2-4d9d-abaa-03db92f89c47").retailer_id("auchan").clientTokenName("Aliexpress").storeId("4872ead0-274b-49a2-955e-a5101a7de9cb").build()};
+        return idsArray;
+
+    }
+
+    @DataProvider(name = "Auchan")
+    public static Object[][] getItemIdsAuchan() {
+        OfferResponse pricerPerItem = getPricerPerItemProductFilter(15, 72, 2, OfferResponse.class);
+        String retailerSkuPerItem = pricerPerItem.getOffer().getRetailerSku();
+
+        OfferResponse pricerPerKilo = getPricerPerKiloProductFilter(15, 72, 2, OfferResponse.class);
+        String retailerSkuPerKilo = pricerPerKilo.getOffer().getRetailerSku();
+
+        OfferResponse pricerPerPackage = getPricerPerPackageProductFilter(15, 72, 2, OfferResponse.class);
+        String retailerSkuPerPackage = pricerPerPackage.getOffer().getRetailerSku();
+
+        OfferResponse pricerPerPack = getPricerPerPackProductFilter(15, 72, 2, OfferResponse.class);
+        String retailerSkuPerPack = pricerPerPack.getOffer().getRetailerSku();
+
+        Object[][] idsArray = new Object[4][1];
+
+        idsArray[0] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerItem).shipTotal("1299").itemIdName("PerItem").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("9d89792b-1341-45de-974f-3632e9896909").retailer_id("auchan").clientTokenName("Auchan").storeId("4872ead0-274b-49a2-955e-a5101a7de9cb").build()};
+        idsArray[1] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerKilo).shipTotal("1299").itemIdName("PerKilo").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("9d89792b-1341-45de-974f-3632e9896909").retailer_id("auchan").clientTokenName("Auchan").storeId("4872ead0-274b-49a2-955e-a5101a7de9cb").build()};
+        idsArray[2] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerPackage).shipTotal("1299").itemIdName("PerPackage").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("9d89792b-1341-45de-974f-3632e9896909").retailer_id("auchan").clientTokenName("Auchan").storeId("4872ead0-274b-49a2-955e-a5101a7de9cb").build()};
+        idsArray[3] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerPack).shipTotal("1299").itemIdName("PerPack").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken("9d89792b-1341-45de-974f-3632e9896909").retailer_id("auchan").clientTokenName("Auchan").storeId("4872ead0-274b-49a2-955e-a5101a7de9cb").build()};
+
+        return idsArray;
+
     }
 }
