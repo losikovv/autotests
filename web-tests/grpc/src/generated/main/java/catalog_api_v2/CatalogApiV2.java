@@ -16,8 +16,7 @@ public final class CatalogApiV2 {
   }
   /**
    * <pre>
-   **
-   * Тип отображения фильтра
+   * FacetType - тип отображения фильтра
    * </pre>
    *
    * Protobuf enum {@code catalog_api_v2.FacetType}
@@ -206,8 +205,7 @@ public final class CatalogApiV2 {
   }
   /**
    * <pre>
-   **
-   * Запрос карточки товара
+   * GetProductRequest - запрос карточки товара
    * </pre>
    *
    * Protobuf type {@code catalog_api_v2.GetProductRequest}
@@ -558,8 +556,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     **
-     * Запрос карточки товара
+     * GetProductRequest - запрос карточки товара
      * </pre>
      *
      * Protobuf type {@code catalog_api_v2.GetProductRequest}
@@ -1037,8 +1034,7 @@ public final class CatalogApiV2 {
   }
   /**
    * <pre>
-   **
-   * Ответ карточки товара
+   * GetProductResponse - ответ карточки товара
    * </pre>
    *
    * Protobuf type {@code catalog_api_v2.GetProductResponse}
@@ -1417,8 +1413,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     **
-     * Ответ карточки товара
+     * GetProductResponse - ответ карточки товара
      * </pre>
      *
      * Protobuf type {@code catalog_api_v2.GetProductResponse}
@@ -2366,28 +2361,27 @@ public final class CatalogApiV2 {
 
     /**
      * <pre>
-     * идентификатор авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
+     * идентификатор пользователя. При хттп запросе этот параметр должен передаваться как header
      * </pre>
      *
-     * <code>string user_id = 11;</code>
-     * @return The userId.
+     * <code>string uuid = 11;</code>
+     * @return The uuid.
      */
-    java.lang.String getUserId();
+    java.lang.String getUuid();
     /**
      * <pre>
-     * идентификатор авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
+     * идентификатор пользователя. При хттп запросе этот параметр должен передаваться как header
      * </pre>
      *
-     * <code>string user_id = 11;</code>
-     * @return The bytes for userId.
+     * <code>string uuid = 11;</code>
+     * @return The bytes for uuid.
      */
     com.google.protobuf.ByteString
-        getUserIdBytes();
+        getUuidBytes();
   }
   /**
    * <pre>
-   **
-   * Запрос листинга товаров
+   * GetProductListRequest - запрос листинга товаров
    * </pre>
    *
    * Protobuf type {@code catalog_api_v2.GetProductListRequest}
@@ -2410,7 +2404,7 @@ public final class CatalogApiV2 {
       sort_ = "";
       tenantId_ = "";
       anonymousId_ = "";
-      userId_ = "";
+      uuid_ = "";
     }
 
     @java.lang.Override
@@ -2511,7 +2505,7 @@ public final class CatalogApiV2 {
             case 90: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              userId_ = s;
+              uuid_ = s;
               break;
             }
             default: {
@@ -2960,46 +2954,46 @@ public final class CatalogApiV2 {
       }
     }
 
-    public static final int USER_ID_FIELD_NUMBER = 11;
-    private volatile java.lang.Object userId_;
+    public static final int UUID_FIELD_NUMBER = 11;
+    private volatile java.lang.Object uuid_;
     /**
      * <pre>
-     * идентификатор авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
+     * идентификатор пользователя. При хттп запросе этот параметр должен передаваться как header
      * </pre>
      *
-     * <code>string user_id = 11;</code>
-     * @return The userId.
+     * <code>string uuid = 11;</code>
+     * @return The uuid.
      */
     @java.lang.Override
-    public java.lang.String getUserId() {
-      java.lang.Object ref = userId_;
+    public java.lang.String getUuid() {
+      java.lang.Object ref = uuid_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        userId_ = s;
+        uuid_ = s;
         return s;
       }
     }
     /**
      * <pre>
-     * идентификатор авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
+     * идентификатор пользователя. При хттп запросе этот параметр должен передаваться как header
      * </pre>
      *
-     * <code>string user_id = 11;</code>
-     * @return The bytes for userId.
+     * <code>string uuid = 11;</code>
+     * @return The bytes for uuid.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getUserIdBytes() {
-      java.lang.Object ref = userId_;
+        getUuidBytes() {
+      java.lang.Object ref = uuid_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        userId_ = b;
+        uuid_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -3050,8 +3044,8 @@ public final class CatalogApiV2 {
       if (!getAnonymousIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 10, anonymousId_);
       }
-      if (!getUserIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 11, userId_);
+      if (!getUuidBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 11, uuid_);
       }
       unknownFields.writeTo(output);
     }
@@ -3104,8 +3098,8 @@ public final class CatalogApiV2 {
       if (!getAnonymousIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, anonymousId_);
       }
-      if (!getUserIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, userId_);
+      if (!getUuidBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, uuid_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -3142,8 +3136,8 @@ public final class CatalogApiV2 {
           .equals(other.getTenantId())) return false;
       if (!getAnonymousId()
           .equals(other.getAnonymousId())) return false;
-      if (!getUserId()
-          .equals(other.getUserId())) return false;
+      if (!getUuid()
+          .equals(other.getUuid())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -3181,8 +3175,8 @@ public final class CatalogApiV2 {
       hash = (53 * hash) + getTenantId().hashCode();
       hash = (37 * hash) + ANONYMOUS_ID_FIELD_NUMBER;
       hash = (53 * hash) + getAnonymousId().hashCode();
-      hash = (37 * hash) + USER_ID_FIELD_NUMBER;
-      hash = (53 * hash) + getUserId().hashCode();
+      hash = (37 * hash) + UUID_FIELD_NUMBER;
+      hash = (53 * hash) + getUuid().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3280,8 +3274,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     **
-     * Запрос листинга товаров
+     * GetProductListRequest - запрос листинга товаров
      * </pre>
      *
      * Protobuf type {@code catalog_api_v2.GetProductListRequest}
@@ -3341,7 +3334,7 @@ public final class CatalogApiV2 {
 
         anonymousId_ = "";
 
-        userId_ = "";
+        uuid_ = "";
 
         return this;
       }
@@ -3388,7 +3381,7 @@ public final class CatalogApiV2 {
         result.sort_ = sort_;
         result.tenantId_ = tenantId_;
         result.anonymousId_ = anonymousId_;
-        result.userId_ = userId_;
+        result.uuid_ = uuid_;
         onBuilt();
         return result;
       }
@@ -3487,8 +3480,8 @@ public final class CatalogApiV2 {
           anonymousId_ = other.anonymousId_;
           onChanged();
         }
-        if (!other.getUserId().isEmpty()) {
-          userId_ = other.userId_;
+        if (!other.getUuid().isEmpty()) {
+          uuid_ = other.uuid_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -4475,22 +4468,22 @@ public final class CatalogApiV2 {
         return this;
       }
 
-      private java.lang.Object userId_ = "";
+      private java.lang.Object uuid_ = "";
       /**
        * <pre>
-       * идентификатор авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
+       * идентификатор пользователя. При хттп запросе этот параметр должен передаваться как header
        * </pre>
        *
-       * <code>string user_id = 11;</code>
-       * @return The userId.
+       * <code>string uuid = 11;</code>
+       * @return The uuid.
        */
-      public java.lang.String getUserId() {
-        java.lang.Object ref = userId_;
+      public java.lang.String getUuid() {
+        java.lang.Object ref = uuid_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          userId_ = s;
+          uuid_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -4498,20 +4491,20 @@ public final class CatalogApiV2 {
       }
       /**
        * <pre>
-       * идентификатор авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
+       * идентификатор пользователя. При хттп запросе этот параметр должен передаваться как header
        * </pre>
        *
-       * <code>string user_id = 11;</code>
-       * @return The bytes for userId.
+       * <code>string uuid = 11;</code>
+       * @return The bytes for uuid.
        */
       public com.google.protobuf.ByteString
-          getUserIdBytes() {
-        java.lang.Object ref = userId_;
+          getUuidBytes() {
+        java.lang.Object ref = uuid_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          userId_ = b;
+          uuid_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
@@ -4519,54 +4512,54 @@ public final class CatalogApiV2 {
       }
       /**
        * <pre>
-       * идентификатор авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
+       * идентификатор пользователя. При хттп запросе этот параметр должен передаваться как header
        * </pre>
        *
-       * <code>string user_id = 11;</code>
-       * @param value The userId to set.
+       * <code>string uuid = 11;</code>
+       * @param value The uuid to set.
        * @return This builder for chaining.
        */
-      public Builder setUserId(
+      public Builder setUuid(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        userId_ = value;
+        uuid_ = value;
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * идентификатор авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
+       * идентификатор пользователя. При хттп запросе этот параметр должен передаваться как header
        * </pre>
        *
-       * <code>string user_id = 11;</code>
+       * <code>string uuid = 11;</code>
        * @return This builder for chaining.
        */
-      public Builder clearUserId() {
+      public Builder clearUuid() {
         
-        userId_ = getDefaultInstance().getUserId();
+        uuid_ = getDefaultInstance().getUuid();
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * идентификатор авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
+       * идентификатор пользователя. При хттп запросе этот параметр должен передаваться как header
        * </pre>
        *
-       * <code>string user_id = 11;</code>
-       * @param value The bytes for userId to set.
+       * <code>string uuid = 11;</code>
+       * @param value The bytes for uuid to set.
        * @return This builder for chaining.
        */
-      public Builder setUserIdBytes(
+      public Builder setUuidBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        userId_ = value;
+        uuid_ = value;
         onChanged();
         return this;
       }
@@ -4859,8 +4852,7 @@ public final class CatalogApiV2 {
   }
   /**
    * <pre>
-   **
-   * Ответ листинга товаров
+   * GetProductListResponse - Ответ листинга товаров
    * </pre>
    *
    * Protobuf type {@code catalog_api_v2.GetProductListResponse}
@@ -5564,8 +5556,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     **
-     * Ответ листинга товаров
+     * GetProductListResponse - Ответ листинга товаров
      * </pre>
      *
      * Protobuf type {@code catalog_api_v2.GetProductListResponse}
@@ -7904,11 +7895,26 @@ public final class CatalogApiV2 {
     com.google.protobuf.FloatValueOrBuilder getScoreOrBuilder();
 
     /**
+     * <code>.catalog_api_v2.Product.ScoreDetail score_details = 20 [json_name = "score_details"];</code>
+     * @return Whether the scoreDetails field is set.
+     */
+    boolean hasScoreDetails();
+    /**
+     * <code>.catalog_api_v2.Product.ScoreDetail score_details = 20 [json_name = "score_details"];</code>
+     * @return The scoreDetails.
+     */
+    catalog_api_v2.CatalogApiV2.Product.ScoreDetail getScoreDetails();
+    /**
+     * <code>.catalog_api_v2.Product.ScoreDetail score_details = 20 [json_name = "score_details"];</code>
+     */
+    catalog_api_v2.CatalogApiV2.Product.ScoreDetailOrBuilder getScoreDetailsOrBuilder();
+
+    /**
      * <pre>
      * лейблы товара
      * </pre>
      *
-     * <code>repeated string labels = 20;</code>
+     * <code>repeated string labels = 21;</code>
      * @return A list containing the labels.
      */
     java.util.List<java.lang.String>
@@ -7918,7 +7924,7 @@ public final class CatalogApiV2 {
      * лейблы товара
      * </pre>
      *
-     * <code>repeated string labels = 20;</code>
+     * <code>repeated string labels = 21;</code>
      * @return The count of labels.
      */
     int getLabelsCount();
@@ -7927,7 +7933,7 @@ public final class CatalogApiV2 {
      * лейблы товара
      * </pre>
      *
-     * <code>repeated string labels = 20;</code>
+     * <code>repeated string labels = 21;</code>
      * @param index The index of the element to return.
      * @return The labels at the given index.
      */
@@ -7937,7 +7943,7 @@ public final class CatalogApiV2 {
      * лейблы товара
      * </pre>
      *
-     * <code>repeated string labels = 20;</code>
+     * <code>repeated string labels = 21;</code>
      * @param index The index of the value to return.
      * @return The bytes of the labels at the given index.
      */
@@ -7949,7 +7955,7 @@ public final class CatalogApiV2 {
      * картинки
      * </pre>
      *
-     * <code>repeated .catalog_api_v2.Image images = 21;</code>
+     * <code>repeated .catalog_api_v2.Image images = 22;</code>
      */
     java.util.List<catalog_api_v2.CatalogApiV2.Image> 
         getImagesList();
@@ -7958,7 +7964,7 @@ public final class CatalogApiV2 {
      * картинки
      * </pre>
      *
-     * <code>repeated .catalog_api_v2.Image images = 21;</code>
+     * <code>repeated .catalog_api_v2.Image images = 22;</code>
      */
     catalog_api_v2.CatalogApiV2.Image getImages(int index);
     /**
@@ -7966,7 +7972,7 @@ public final class CatalogApiV2 {
      * картинки
      * </pre>
      *
-     * <code>repeated .catalog_api_v2.Image images = 21;</code>
+     * <code>repeated .catalog_api_v2.Image images = 22;</code>
      */
     int getImagesCount();
     /**
@@ -7974,7 +7980,7 @@ public final class CatalogApiV2 {
      * картинки
      * </pre>
      *
-     * <code>repeated .catalog_api_v2.Image images = 21;</code>
+     * <code>repeated .catalog_api_v2.Image images = 22;</code>
      */
     java.util.List<? extends catalog_api_v2.CatalogApiV2.ImageOrBuilder> 
         getImagesOrBuilderList();
@@ -7983,7 +7989,7 @@ public final class CatalogApiV2 {
      * картинки
      * </pre>
      *
-     * <code>repeated .catalog_api_v2.Image images = 21;</code>
+     * <code>repeated .catalog_api_v2.Image images = 22;</code>
      */
     catalog_api_v2.CatalogApiV2.ImageOrBuilder getImagesOrBuilder(
         int index);
@@ -7993,7 +7999,7 @@ public final class CatalogApiV2 {
      * не используется
      * </pre>
      *
-     * <code>repeated string requirements = 22;</code>
+     * <code>repeated string requirements = 23;</code>
      * @return A list containing the requirements.
      */
     java.util.List<java.lang.String>
@@ -8003,7 +8009,7 @@ public final class CatalogApiV2 {
      * не используется
      * </pre>
      *
-     * <code>repeated string requirements = 22;</code>
+     * <code>repeated string requirements = 23;</code>
      * @return The count of requirements.
      */
     int getRequirementsCount();
@@ -8012,7 +8018,7 @@ public final class CatalogApiV2 {
      * не используется
      * </pre>
      *
-     * <code>repeated string requirements = 22;</code>
+     * <code>repeated string requirements = 23;</code>
      * @param index The index of the element to return.
      * @return The requirements at the given index.
      */
@@ -8022,7 +8028,7 @@ public final class CatalogApiV2 {
      * не используется
      * </pre>
      *
-     * <code>repeated string requirements = 22;</code>
+     * <code>repeated string requirements = 23;</code>
      * @param index The index of the value to return.
      * @return The bytes of the requirements at the given index.
      */
@@ -8030,6 +8036,10 @@ public final class CatalogApiV2 {
         getRequirementsBytes(int index);
   }
   /**
+   * <pre>
+   * Product - продукт
+   * </pre>
+   *
    * Protobuf type {@code catalog_api_v2.Product}
    */
   public static final class Product extends
@@ -8255,6 +8265,19 @@ public final class CatalogApiV2 {
               break;
             }
             case 162: {
+              catalog_api_v2.CatalogApiV2.Product.ScoreDetail.Builder subBuilder = null;
+              if (scoreDetails_ != null) {
+                subBuilder = scoreDetails_.toBuilder();
+              }
+              scoreDetails_ = input.readMessage(catalog_api_v2.CatalogApiV2.Product.ScoreDetail.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(scoreDetails_);
+                scoreDetails_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 170: {
               java.lang.String s = input.readStringRequireUtf8();
               if (!((mutable_bitField0_ & 0x00000002) != 0)) {
                 labels_ = new com.google.protobuf.LazyStringArrayList();
@@ -8263,7 +8286,7 @@ public final class CatalogApiV2 {
               labels_.add(s);
               break;
             }
-            case 170: {
+            case 178: {
               if (!((mutable_bitField0_ & 0x00000004) != 0)) {
                 images_ = new java.util.ArrayList<catalog_api_v2.CatalogApiV2.Image>();
                 mutable_bitField0_ |= 0x00000004;
@@ -8272,7 +8295,7 @@ public final class CatalogApiV2 {
                   input.readMessage(catalog_api_v2.CatalogApiV2.Image.parser(), extensionRegistry));
               break;
             }
-            case 178: {
+            case 186: {
               java.lang.String s = input.readStringRequireUtf8();
               if (!((mutable_bitField0_ & 0x00000008) != 0)) {
                 requirements_ = new com.google.protobuf.LazyStringArrayList();
@@ -8323,6 +8346,695 @@ public final class CatalogApiV2 {
       return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_Product_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               catalog_api_v2.CatalogApiV2.Product.class, catalog_api_v2.CatalogApiV2.Product.Builder.class);
+    }
+
+    public interface ScoreDetailOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:catalog_api_v2.Product.ScoreDetail)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue commentCount = 1 [json_name = "comment_count"];</code>
+       * @return Whether the commentCount field is set.
+       */
+      boolean hasCommentCount();
+      /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue commentCount = 1 [json_name = "comment_count"];</code>
+       * @return The commentCount.
+       */
+      com.google.protobuf.DoubleValue getCommentCount();
+      /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue commentCount = 1 [json_name = "comment_count"];</code>
+       */
+      com.google.protobuf.DoubleValueOrBuilder getCommentCountOrBuilder();
+    }
+    /**
+     * <pre>
+     * ScoreDetail - рейтинг товара
+     * </pre>
+     *
+     * Protobuf type {@code catalog_api_v2.Product.ScoreDetail}
+     */
+    public static final class ScoreDetail extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:catalog_api_v2.Product.ScoreDetail)
+        ScoreDetailOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use ScoreDetail.newBuilder() to construct.
+      private ScoreDetail(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private ScoreDetail() {
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new ScoreDetail();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private ScoreDetail(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                com.google.protobuf.DoubleValue.Builder subBuilder = null;
+                if (commentCount_ != null) {
+                  subBuilder = commentCount_.toBuilder();
+                }
+                commentCount_ = input.readMessage(com.google.protobuf.DoubleValue.parser(), extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(commentCount_);
+                  commentCount_ = subBuilder.buildPartial();
+                }
+
+                break;
+              }
+              default: {
+                if (!parseUnknownField(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_Product_ScoreDetail_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_Product_ScoreDetail_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                catalog_api_v2.CatalogApiV2.Product.ScoreDetail.class, catalog_api_v2.CatalogApiV2.Product.ScoreDetail.Builder.class);
+      }
+
+      public static final int COMMENTCOUNT_FIELD_NUMBER = 1;
+      private com.google.protobuf.DoubleValue commentCount_;
+      /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue commentCount = 1 [json_name = "comment_count"];</code>
+       * @return Whether the commentCount field is set.
+       */
+      @java.lang.Override
+      public boolean hasCommentCount() {
+        return commentCount_ != null;
+      }
+      /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue commentCount = 1 [json_name = "comment_count"];</code>
+       * @return The commentCount.
+       */
+      @java.lang.Override
+      public com.google.protobuf.DoubleValue getCommentCount() {
+        return commentCount_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : commentCount_;
+      }
+      /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue commentCount = 1 [json_name = "comment_count"];</code>
+       */
+      @java.lang.Override
+      public com.google.protobuf.DoubleValueOrBuilder getCommentCountOrBuilder() {
+        return getCommentCount();
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (commentCount_ != null) {
+          output.writeMessage(1, getCommentCount());
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (commentCount_ != null) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(1, getCommentCount());
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof catalog_api_v2.CatalogApiV2.Product.ScoreDetail)) {
+          return super.equals(obj);
+        }
+        catalog_api_v2.CatalogApiV2.Product.ScoreDetail other = (catalog_api_v2.CatalogApiV2.Product.ScoreDetail) obj;
+
+        if (hasCommentCount() != other.hasCommentCount()) return false;
+        if (hasCommentCount()) {
+          if (!getCommentCount()
+              .equals(other.getCommentCount())) return false;
+        }
+        if (!unknownFields.equals(other.unknownFields)) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        if (hasCommentCount()) {
+          hash = (37 * hash) + COMMENTCOUNT_FIELD_NUMBER;
+          hash = (53 * hash) + getCommentCount().hashCode();
+        }
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static catalog_api_v2.CatalogApiV2.Product.ScoreDetail parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static catalog_api_v2.CatalogApiV2.Product.ScoreDetail parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static catalog_api_v2.CatalogApiV2.Product.ScoreDetail parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static catalog_api_v2.CatalogApiV2.Product.ScoreDetail parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static catalog_api_v2.CatalogApiV2.Product.ScoreDetail parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static catalog_api_v2.CatalogApiV2.Product.ScoreDetail parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static catalog_api_v2.CatalogApiV2.Product.ScoreDetail parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static catalog_api_v2.CatalogApiV2.Product.ScoreDetail parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static catalog_api_v2.CatalogApiV2.Product.ScoreDetail parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static catalog_api_v2.CatalogApiV2.Product.ScoreDetail parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static catalog_api_v2.CatalogApiV2.Product.ScoreDetail parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static catalog_api_v2.CatalogApiV2.Product.ScoreDetail parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(catalog_api_v2.CatalogApiV2.Product.ScoreDetail prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * <pre>
+       * ScoreDetail - рейтинг товара
+       * </pre>
+       *
+       * Protobuf type {@code catalog_api_v2.Product.ScoreDetail}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:catalog_api_v2.Product.ScoreDetail)
+          catalog_api_v2.CatalogApiV2.Product.ScoreDetailOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_Product_ScoreDetail_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_Product_ScoreDetail_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  catalog_api_v2.CatalogApiV2.Product.ScoreDetail.class, catalog_api_v2.CatalogApiV2.Product.ScoreDetail.Builder.class);
+        }
+
+        // Construct using catalog_api_v2.CatalogApiV2.Product.ScoreDetail.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          if (commentCountBuilder_ == null) {
+            commentCount_ = null;
+          } else {
+            commentCount_ = null;
+            commentCountBuilder_ = null;
+          }
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_Product_ScoreDetail_descriptor;
+        }
+
+        @java.lang.Override
+        public catalog_api_v2.CatalogApiV2.Product.ScoreDetail getDefaultInstanceForType() {
+          return catalog_api_v2.CatalogApiV2.Product.ScoreDetail.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public catalog_api_v2.CatalogApiV2.Product.ScoreDetail build() {
+          catalog_api_v2.CatalogApiV2.Product.ScoreDetail result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public catalog_api_v2.CatalogApiV2.Product.ScoreDetail buildPartial() {
+          catalog_api_v2.CatalogApiV2.Product.ScoreDetail result = new catalog_api_v2.CatalogApiV2.Product.ScoreDetail(this);
+          if (commentCountBuilder_ == null) {
+            result.commentCount_ = commentCount_;
+          } else {
+            result.commentCount_ = commentCountBuilder_.build();
+          }
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof catalog_api_v2.CatalogApiV2.Product.ScoreDetail) {
+            return mergeFrom((catalog_api_v2.CatalogApiV2.Product.ScoreDetail)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(catalog_api_v2.CatalogApiV2.Product.ScoreDetail other) {
+          if (other == catalog_api_v2.CatalogApiV2.Product.ScoreDetail.getDefaultInstance()) return this;
+          if (other.hasCommentCount()) {
+            mergeCommentCount(other.getCommentCount());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          catalog_api_v2.CatalogApiV2.Product.ScoreDetail parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (catalog_api_v2.CatalogApiV2.Product.ScoreDetail) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+
+        private com.google.protobuf.DoubleValue commentCount_;
+        private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> commentCountBuilder_;
+        /**
+         * <pre>
+         * кол-во комментариев
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue commentCount = 1 [json_name = "comment_count"];</code>
+         * @return Whether the commentCount field is set.
+         */
+        public boolean hasCommentCount() {
+          return commentCountBuilder_ != null || commentCount_ != null;
+        }
+        /**
+         * <pre>
+         * кол-во комментариев
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue commentCount = 1 [json_name = "comment_count"];</code>
+         * @return The commentCount.
+         */
+        public com.google.protobuf.DoubleValue getCommentCount() {
+          if (commentCountBuilder_ == null) {
+            return commentCount_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : commentCount_;
+          } else {
+            return commentCountBuilder_.getMessage();
+          }
+        }
+        /**
+         * <pre>
+         * кол-во комментариев
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue commentCount = 1 [json_name = "comment_count"];</code>
+         */
+        public Builder setCommentCount(com.google.protobuf.DoubleValue value) {
+          if (commentCountBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            commentCount_ = value;
+            onChanged();
+          } else {
+            commentCountBuilder_.setMessage(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * кол-во комментариев
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue commentCount = 1 [json_name = "comment_count"];</code>
+         */
+        public Builder setCommentCount(
+            com.google.protobuf.DoubleValue.Builder builderForValue) {
+          if (commentCountBuilder_ == null) {
+            commentCount_ = builderForValue.build();
+            onChanged();
+          } else {
+            commentCountBuilder_.setMessage(builderForValue.build());
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * кол-во комментариев
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue commentCount = 1 [json_name = "comment_count"];</code>
+         */
+        public Builder mergeCommentCount(com.google.protobuf.DoubleValue value) {
+          if (commentCountBuilder_ == null) {
+            if (commentCount_ != null) {
+              commentCount_ =
+                com.google.protobuf.DoubleValue.newBuilder(commentCount_).mergeFrom(value).buildPartial();
+            } else {
+              commentCount_ = value;
+            }
+            onChanged();
+          } else {
+            commentCountBuilder_.mergeFrom(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * кол-во комментариев
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue commentCount = 1 [json_name = "comment_count"];</code>
+         */
+        public Builder clearCommentCount() {
+          if (commentCountBuilder_ == null) {
+            commentCount_ = null;
+            onChanged();
+          } else {
+            commentCount_ = null;
+            commentCountBuilder_ = null;
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * кол-во комментариев
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue commentCount = 1 [json_name = "comment_count"];</code>
+         */
+        public com.google.protobuf.DoubleValue.Builder getCommentCountBuilder() {
+          
+          onChanged();
+          return getCommentCountFieldBuilder().getBuilder();
+        }
+        /**
+         * <pre>
+         * кол-во комментариев
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue commentCount = 1 [json_name = "comment_count"];</code>
+         */
+        public com.google.protobuf.DoubleValueOrBuilder getCommentCountOrBuilder() {
+          if (commentCountBuilder_ != null) {
+            return commentCountBuilder_.getMessageOrBuilder();
+          } else {
+            return commentCount_ == null ?
+                com.google.protobuf.DoubleValue.getDefaultInstance() : commentCount_;
+          }
+        }
+        /**
+         * <pre>
+         * кол-во комментариев
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue commentCount = 1 [json_name = "comment_count"];</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> 
+            getCommentCountFieldBuilder() {
+          if (commentCountBuilder_ == null) {
+            commentCountBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder>(
+                    getCommentCount(),
+                    getParentForChildren(),
+                    isClean());
+            commentCount_ = null;
+          }
+          return commentCountBuilder_;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:catalog_api_v2.Product.ScoreDetail)
+      }
+
+      // @@protoc_insertion_point(class_scope:catalog_api_v2.Product.ScoreDetail)
+      private static final catalog_api_v2.CatalogApiV2.Product.ScoreDetail DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new catalog_api_v2.CatalogApiV2.Product.ScoreDetail();
+      }
+
+      public static catalog_api_v2.CatalogApiV2.Product.ScoreDetail getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<ScoreDetail>
+          PARSER = new com.google.protobuf.AbstractParser<ScoreDetail>() {
+        @java.lang.Override
+        public ScoreDetail parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new ScoreDetail(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<ScoreDetail> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<ScoreDetail> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public catalog_api_v2.CatalogApiV2.Product.ScoreDetail getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
     }
 
     public static final int ID_FIELD_NUMBER = 1;
@@ -8857,14 +9569,40 @@ public final class CatalogApiV2 {
       return getScore();
     }
 
-    public static final int LABELS_FIELD_NUMBER = 20;
+    public static final int SCORE_DETAILS_FIELD_NUMBER = 20;
+    private catalog_api_v2.CatalogApiV2.Product.ScoreDetail scoreDetails_;
+    /**
+     * <code>.catalog_api_v2.Product.ScoreDetail score_details = 20 [json_name = "score_details"];</code>
+     * @return Whether the scoreDetails field is set.
+     */
+    @java.lang.Override
+    public boolean hasScoreDetails() {
+      return scoreDetails_ != null;
+    }
+    /**
+     * <code>.catalog_api_v2.Product.ScoreDetail score_details = 20 [json_name = "score_details"];</code>
+     * @return The scoreDetails.
+     */
+    @java.lang.Override
+    public catalog_api_v2.CatalogApiV2.Product.ScoreDetail getScoreDetails() {
+      return scoreDetails_ == null ? catalog_api_v2.CatalogApiV2.Product.ScoreDetail.getDefaultInstance() : scoreDetails_;
+    }
+    /**
+     * <code>.catalog_api_v2.Product.ScoreDetail score_details = 20 [json_name = "score_details"];</code>
+     */
+    @java.lang.Override
+    public catalog_api_v2.CatalogApiV2.Product.ScoreDetailOrBuilder getScoreDetailsOrBuilder() {
+      return getScoreDetails();
+    }
+
+    public static final int LABELS_FIELD_NUMBER = 21;
     private com.google.protobuf.LazyStringList labels_;
     /**
      * <pre>
      * лейблы товара
      * </pre>
      *
-     * <code>repeated string labels = 20;</code>
+     * <code>repeated string labels = 21;</code>
      * @return A list containing the labels.
      */
     public com.google.protobuf.ProtocolStringList
@@ -8876,7 +9614,7 @@ public final class CatalogApiV2 {
      * лейблы товара
      * </pre>
      *
-     * <code>repeated string labels = 20;</code>
+     * <code>repeated string labels = 21;</code>
      * @return The count of labels.
      */
     public int getLabelsCount() {
@@ -8887,7 +9625,7 @@ public final class CatalogApiV2 {
      * лейблы товара
      * </pre>
      *
-     * <code>repeated string labels = 20;</code>
+     * <code>repeated string labels = 21;</code>
      * @param index The index of the element to return.
      * @return The labels at the given index.
      */
@@ -8899,7 +9637,7 @@ public final class CatalogApiV2 {
      * лейблы товара
      * </pre>
      *
-     * <code>repeated string labels = 20;</code>
+     * <code>repeated string labels = 21;</code>
      * @param index The index of the value to return.
      * @return The bytes of the labels at the given index.
      */
@@ -8908,14 +9646,14 @@ public final class CatalogApiV2 {
       return labels_.getByteString(index);
     }
 
-    public static final int IMAGES_FIELD_NUMBER = 21;
+    public static final int IMAGES_FIELD_NUMBER = 22;
     private java.util.List<catalog_api_v2.CatalogApiV2.Image> images_;
     /**
      * <pre>
      * картинки
      * </pre>
      *
-     * <code>repeated .catalog_api_v2.Image images = 21;</code>
+     * <code>repeated .catalog_api_v2.Image images = 22;</code>
      */
     @java.lang.Override
     public java.util.List<catalog_api_v2.CatalogApiV2.Image> getImagesList() {
@@ -8926,7 +9664,7 @@ public final class CatalogApiV2 {
      * картинки
      * </pre>
      *
-     * <code>repeated .catalog_api_v2.Image images = 21;</code>
+     * <code>repeated .catalog_api_v2.Image images = 22;</code>
      */
     @java.lang.Override
     public java.util.List<? extends catalog_api_v2.CatalogApiV2.ImageOrBuilder> 
@@ -8938,7 +9676,7 @@ public final class CatalogApiV2 {
      * картинки
      * </pre>
      *
-     * <code>repeated .catalog_api_v2.Image images = 21;</code>
+     * <code>repeated .catalog_api_v2.Image images = 22;</code>
      */
     @java.lang.Override
     public int getImagesCount() {
@@ -8949,7 +9687,7 @@ public final class CatalogApiV2 {
      * картинки
      * </pre>
      *
-     * <code>repeated .catalog_api_v2.Image images = 21;</code>
+     * <code>repeated .catalog_api_v2.Image images = 22;</code>
      */
     @java.lang.Override
     public catalog_api_v2.CatalogApiV2.Image getImages(int index) {
@@ -8960,7 +9698,7 @@ public final class CatalogApiV2 {
      * картинки
      * </pre>
      *
-     * <code>repeated .catalog_api_v2.Image images = 21;</code>
+     * <code>repeated .catalog_api_v2.Image images = 22;</code>
      */
     @java.lang.Override
     public catalog_api_v2.CatalogApiV2.ImageOrBuilder getImagesOrBuilder(
@@ -8968,14 +9706,14 @@ public final class CatalogApiV2 {
       return images_.get(index);
     }
 
-    public static final int REQUIREMENTS_FIELD_NUMBER = 22;
+    public static final int REQUIREMENTS_FIELD_NUMBER = 23;
     private com.google.protobuf.LazyStringList requirements_;
     /**
      * <pre>
      * не используется
      * </pre>
      *
-     * <code>repeated string requirements = 22;</code>
+     * <code>repeated string requirements = 23;</code>
      * @return A list containing the requirements.
      */
     public com.google.protobuf.ProtocolStringList
@@ -8987,7 +9725,7 @@ public final class CatalogApiV2 {
      * не используется
      * </pre>
      *
-     * <code>repeated string requirements = 22;</code>
+     * <code>repeated string requirements = 23;</code>
      * @return The count of requirements.
      */
     public int getRequirementsCount() {
@@ -8998,7 +9736,7 @@ public final class CatalogApiV2 {
      * не используется
      * </pre>
      *
-     * <code>repeated string requirements = 22;</code>
+     * <code>repeated string requirements = 23;</code>
      * @param index The index of the element to return.
      * @return The requirements at the given index.
      */
@@ -9010,7 +9748,7 @@ public final class CatalogApiV2 {
      * не используется
      * </pre>
      *
-     * <code>repeated string requirements = 22;</code>
+     * <code>repeated string requirements = 23;</code>
      * @param index The index of the value to return.
      * @return The bytes of the requirements at the given index.
      */
@@ -9095,14 +9833,17 @@ public final class CatalogApiV2 {
       if (score_ != null) {
         output.writeMessage(19, getScore());
       }
+      if (scoreDetails_ != null) {
+        output.writeMessage(20, getScoreDetails());
+      }
       for (int i = 0; i < labels_.size(); i++) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 20, labels_.getRaw(i));
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 21, labels_.getRaw(i));
       }
       for (int i = 0; i < images_.size(); i++) {
-        output.writeMessage(21, images_.get(i));
+        output.writeMessage(22, images_.get(i));
       }
       for (int i = 0; i < requirements_.size(); i++) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 22, requirements_.getRaw(i));
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 23, requirements_.getRaw(i));
       }
       unknownFields.writeTo(output);
     }
@@ -9196,6 +9937,10 @@ public final class CatalogApiV2 {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(19, getScore());
       }
+      if (scoreDetails_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(20, getScoreDetails());
+      }
       {
         int dataSize = 0;
         for (int i = 0; i < labels_.size(); i++) {
@@ -9206,7 +9951,7 @@ public final class CatalogApiV2 {
       }
       for (int i = 0; i < images_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(21, images_.get(i));
+          .computeMessageSize(22, images_.get(i));
       }
       {
         int dataSize = 0;
@@ -9302,6 +10047,11 @@ public final class CatalogApiV2 {
         if (!getScore()
             .equals(other.getScore())) return false;
       }
+      if (hasScoreDetails() != other.hasScoreDetails()) return false;
+      if (hasScoreDetails()) {
+        if (!getScoreDetails()
+            .equals(other.getScoreDetails())) return false;
+      }
       if (!getLabelsList()
           .equals(other.getLabelsList())) return false;
       if (!getImagesList()
@@ -9384,6 +10134,10 @@ public final class CatalogApiV2 {
       if (hasScore()) {
         hash = (37 * hash) + SCORE_FIELD_NUMBER;
         hash = (53 * hash) + getScore().hashCode();
+      }
+      if (hasScoreDetails()) {
+        hash = (37 * hash) + SCORE_DETAILS_FIELD_NUMBER;
+        hash = (53 * hash) + getScoreDetails().hashCode();
       }
       if (getLabelsCount() > 0) {
         hash = (37 * hash) + LABELS_FIELD_NUMBER;
@@ -9493,6 +10247,10 @@ public final class CatalogApiV2 {
       return builder;
     }
     /**
+     * <pre>
+     * Product - продукт
+     * </pre>
+     *
      * Protobuf type {@code catalog_api_v2.Product}
      */
     public static final class Builder extends
@@ -9601,6 +10359,12 @@ public final class CatalogApiV2 {
           score_ = null;
           scoreBuilder_ = null;
         }
+        if (scoreDetailsBuilder_ == null) {
+          scoreDetails_ = null;
+        } else {
+          scoreDetails_ = null;
+          scoreDetailsBuilder_ = null;
+        }
         labels_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000002);
         if (imagesBuilder_ == null) {
@@ -9692,6 +10456,11 @@ public final class CatalogApiV2 {
           result.score_ = score_;
         } else {
           result.score_ = scoreBuilder_.build();
+        }
+        if (scoreDetailsBuilder_ == null) {
+          result.scoreDetails_ = scoreDetails_;
+        } else {
+          result.scoreDetails_ = scoreDetailsBuilder_.build();
         }
         if (((bitField0_ & 0x00000002) != 0)) {
           labels_ = labels_.getUnmodifiableView();
@@ -9823,6 +10592,9 @@ public final class CatalogApiV2 {
         }
         if (other.hasScore()) {
           mergeScore(other.getScore());
+        }
+        if (other.hasScoreDetails()) {
+          mergeScoreDetails(other.getScoreDetails());
         }
         if (!other.labels_.isEmpty()) {
           if (labels_.isEmpty()) {
@@ -11791,6 +12563,125 @@ public final class CatalogApiV2 {
         return scoreBuilder_;
       }
 
+      private catalog_api_v2.CatalogApiV2.Product.ScoreDetail scoreDetails_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          catalog_api_v2.CatalogApiV2.Product.ScoreDetail, catalog_api_v2.CatalogApiV2.Product.ScoreDetail.Builder, catalog_api_v2.CatalogApiV2.Product.ScoreDetailOrBuilder> scoreDetailsBuilder_;
+      /**
+       * <code>.catalog_api_v2.Product.ScoreDetail score_details = 20 [json_name = "score_details"];</code>
+       * @return Whether the scoreDetails field is set.
+       */
+      public boolean hasScoreDetails() {
+        return scoreDetailsBuilder_ != null || scoreDetails_ != null;
+      }
+      /**
+       * <code>.catalog_api_v2.Product.ScoreDetail score_details = 20 [json_name = "score_details"];</code>
+       * @return The scoreDetails.
+       */
+      public catalog_api_v2.CatalogApiV2.Product.ScoreDetail getScoreDetails() {
+        if (scoreDetailsBuilder_ == null) {
+          return scoreDetails_ == null ? catalog_api_v2.CatalogApiV2.Product.ScoreDetail.getDefaultInstance() : scoreDetails_;
+        } else {
+          return scoreDetailsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.catalog_api_v2.Product.ScoreDetail score_details = 20 [json_name = "score_details"];</code>
+       */
+      public Builder setScoreDetails(catalog_api_v2.CatalogApiV2.Product.ScoreDetail value) {
+        if (scoreDetailsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          scoreDetails_ = value;
+          onChanged();
+        } else {
+          scoreDetailsBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.catalog_api_v2.Product.ScoreDetail score_details = 20 [json_name = "score_details"];</code>
+       */
+      public Builder setScoreDetails(
+          catalog_api_v2.CatalogApiV2.Product.ScoreDetail.Builder builderForValue) {
+        if (scoreDetailsBuilder_ == null) {
+          scoreDetails_ = builderForValue.build();
+          onChanged();
+        } else {
+          scoreDetailsBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.catalog_api_v2.Product.ScoreDetail score_details = 20 [json_name = "score_details"];</code>
+       */
+      public Builder mergeScoreDetails(catalog_api_v2.CatalogApiV2.Product.ScoreDetail value) {
+        if (scoreDetailsBuilder_ == null) {
+          if (scoreDetails_ != null) {
+            scoreDetails_ =
+              catalog_api_v2.CatalogApiV2.Product.ScoreDetail.newBuilder(scoreDetails_).mergeFrom(value).buildPartial();
+          } else {
+            scoreDetails_ = value;
+          }
+          onChanged();
+        } else {
+          scoreDetailsBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.catalog_api_v2.Product.ScoreDetail score_details = 20 [json_name = "score_details"];</code>
+       */
+      public Builder clearScoreDetails() {
+        if (scoreDetailsBuilder_ == null) {
+          scoreDetails_ = null;
+          onChanged();
+        } else {
+          scoreDetails_ = null;
+          scoreDetailsBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.catalog_api_v2.Product.ScoreDetail score_details = 20 [json_name = "score_details"];</code>
+       */
+      public catalog_api_v2.CatalogApiV2.Product.ScoreDetail.Builder getScoreDetailsBuilder() {
+        
+        onChanged();
+        return getScoreDetailsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.catalog_api_v2.Product.ScoreDetail score_details = 20 [json_name = "score_details"];</code>
+       */
+      public catalog_api_v2.CatalogApiV2.Product.ScoreDetailOrBuilder getScoreDetailsOrBuilder() {
+        if (scoreDetailsBuilder_ != null) {
+          return scoreDetailsBuilder_.getMessageOrBuilder();
+        } else {
+          return scoreDetails_ == null ?
+              catalog_api_v2.CatalogApiV2.Product.ScoreDetail.getDefaultInstance() : scoreDetails_;
+        }
+      }
+      /**
+       * <code>.catalog_api_v2.Product.ScoreDetail score_details = 20 [json_name = "score_details"];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          catalog_api_v2.CatalogApiV2.Product.ScoreDetail, catalog_api_v2.CatalogApiV2.Product.ScoreDetail.Builder, catalog_api_v2.CatalogApiV2.Product.ScoreDetailOrBuilder> 
+          getScoreDetailsFieldBuilder() {
+        if (scoreDetailsBuilder_ == null) {
+          scoreDetailsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              catalog_api_v2.CatalogApiV2.Product.ScoreDetail, catalog_api_v2.CatalogApiV2.Product.ScoreDetail.Builder, catalog_api_v2.CatalogApiV2.Product.ScoreDetailOrBuilder>(
+                  getScoreDetails(),
+                  getParentForChildren(),
+                  isClean());
+          scoreDetails_ = null;
+        }
+        return scoreDetailsBuilder_;
+      }
+
       private com.google.protobuf.LazyStringList labels_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureLabelsIsMutable() {
         if (!((bitField0_ & 0x00000002) != 0)) {
@@ -11803,7 +12694,7 @@ public final class CatalogApiV2 {
        * лейблы товара
        * </pre>
        *
-       * <code>repeated string labels = 20;</code>
+       * <code>repeated string labels = 21;</code>
        * @return A list containing the labels.
        */
       public com.google.protobuf.ProtocolStringList
@@ -11815,7 +12706,7 @@ public final class CatalogApiV2 {
        * лейблы товара
        * </pre>
        *
-       * <code>repeated string labels = 20;</code>
+       * <code>repeated string labels = 21;</code>
        * @return The count of labels.
        */
       public int getLabelsCount() {
@@ -11826,7 +12717,7 @@ public final class CatalogApiV2 {
        * лейблы товара
        * </pre>
        *
-       * <code>repeated string labels = 20;</code>
+       * <code>repeated string labels = 21;</code>
        * @param index The index of the element to return.
        * @return The labels at the given index.
        */
@@ -11838,7 +12729,7 @@ public final class CatalogApiV2 {
        * лейблы товара
        * </pre>
        *
-       * <code>repeated string labels = 20;</code>
+       * <code>repeated string labels = 21;</code>
        * @param index The index of the value to return.
        * @return The bytes of the labels at the given index.
        */
@@ -11851,7 +12742,7 @@ public final class CatalogApiV2 {
        * лейблы товара
        * </pre>
        *
-       * <code>repeated string labels = 20;</code>
+       * <code>repeated string labels = 21;</code>
        * @param index The index to set the value at.
        * @param value The labels to set.
        * @return This builder for chaining.
@@ -11871,7 +12762,7 @@ public final class CatalogApiV2 {
        * лейблы товара
        * </pre>
        *
-       * <code>repeated string labels = 20;</code>
+       * <code>repeated string labels = 21;</code>
        * @param value The labels to add.
        * @return This builder for chaining.
        */
@@ -11890,7 +12781,7 @@ public final class CatalogApiV2 {
        * лейблы товара
        * </pre>
        *
-       * <code>repeated string labels = 20;</code>
+       * <code>repeated string labels = 21;</code>
        * @param values The labels to add.
        * @return This builder for chaining.
        */
@@ -11907,7 +12798,7 @@ public final class CatalogApiV2 {
        * лейблы товара
        * </pre>
        *
-       * <code>repeated string labels = 20;</code>
+       * <code>repeated string labels = 21;</code>
        * @return This builder for chaining.
        */
       public Builder clearLabels() {
@@ -11921,7 +12812,7 @@ public final class CatalogApiV2 {
        * лейблы товара
        * </pre>
        *
-       * <code>repeated string labels = 20;</code>
+       * <code>repeated string labels = 21;</code>
        * @param value The bytes of the labels to add.
        * @return This builder for chaining.
        */
@@ -11954,7 +12845,7 @@ public final class CatalogApiV2 {
        * картинки
        * </pre>
        *
-       * <code>repeated .catalog_api_v2.Image images = 21;</code>
+       * <code>repeated .catalog_api_v2.Image images = 22;</code>
        */
       public java.util.List<catalog_api_v2.CatalogApiV2.Image> getImagesList() {
         if (imagesBuilder_ == null) {
@@ -11968,7 +12859,7 @@ public final class CatalogApiV2 {
        * картинки
        * </pre>
        *
-       * <code>repeated .catalog_api_v2.Image images = 21;</code>
+       * <code>repeated .catalog_api_v2.Image images = 22;</code>
        */
       public int getImagesCount() {
         if (imagesBuilder_ == null) {
@@ -11982,7 +12873,7 @@ public final class CatalogApiV2 {
        * картинки
        * </pre>
        *
-       * <code>repeated .catalog_api_v2.Image images = 21;</code>
+       * <code>repeated .catalog_api_v2.Image images = 22;</code>
        */
       public catalog_api_v2.CatalogApiV2.Image getImages(int index) {
         if (imagesBuilder_ == null) {
@@ -11996,7 +12887,7 @@ public final class CatalogApiV2 {
        * картинки
        * </pre>
        *
-       * <code>repeated .catalog_api_v2.Image images = 21;</code>
+       * <code>repeated .catalog_api_v2.Image images = 22;</code>
        */
       public Builder setImages(
           int index, catalog_api_v2.CatalogApiV2.Image value) {
@@ -12017,7 +12908,7 @@ public final class CatalogApiV2 {
        * картинки
        * </pre>
        *
-       * <code>repeated .catalog_api_v2.Image images = 21;</code>
+       * <code>repeated .catalog_api_v2.Image images = 22;</code>
        */
       public Builder setImages(
           int index, catalog_api_v2.CatalogApiV2.Image.Builder builderForValue) {
@@ -12035,7 +12926,7 @@ public final class CatalogApiV2 {
        * картинки
        * </pre>
        *
-       * <code>repeated .catalog_api_v2.Image images = 21;</code>
+       * <code>repeated .catalog_api_v2.Image images = 22;</code>
        */
       public Builder addImages(catalog_api_v2.CatalogApiV2.Image value) {
         if (imagesBuilder_ == null) {
@@ -12055,7 +12946,7 @@ public final class CatalogApiV2 {
        * картинки
        * </pre>
        *
-       * <code>repeated .catalog_api_v2.Image images = 21;</code>
+       * <code>repeated .catalog_api_v2.Image images = 22;</code>
        */
       public Builder addImages(
           int index, catalog_api_v2.CatalogApiV2.Image value) {
@@ -12076,7 +12967,7 @@ public final class CatalogApiV2 {
        * картинки
        * </pre>
        *
-       * <code>repeated .catalog_api_v2.Image images = 21;</code>
+       * <code>repeated .catalog_api_v2.Image images = 22;</code>
        */
       public Builder addImages(
           catalog_api_v2.CatalogApiV2.Image.Builder builderForValue) {
@@ -12094,7 +12985,7 @@ public final class CatalogApiV2 {
        * картинки
        * </pre>
        *
-       * <code>repeated .catalog_api_v2.Image images = 21;</code>
+       * <code>repeated .catalog_api_v2.Image images = 22;</code>
        */
       public Builder addImages(
           int index, catalog_api_v2.CatalogApiV2.Image.Builder builderForValue) {
@@ -12112,7 +13003,7 @@ public final class CatalogApiV2 {
        * картинки
        * </pre>
        *
-       * <code>repeated .catalog_api_v2.Image images = 21;</code>
+       * <code>repeated .catalog_api_v2.Image images = 22;</code>
        */
       public Builder addAllImages(
           java.lang.Iterable<? extends catalog_api_v2.CatalogApiV2.Image> values) {
@@ -12131,7 +13022,7 @@ public final class CatalogApiV2 {
        * картинки
        * </pre>
        *
-       * <code>repeated .catalog_api_v2.Image images = 21;</code>
+       * <code>repeated .catalog_api_v2.Image images = 22;</code>
        */
       public Builder clearImages() {
         if (imagesBuilder_ == null) {
@@ -12148,7 +13039,7 @@ public final class CatalogApiV2 {
        * картинки
        * </pre>
        *
-       * <code>repeated .catalog_api_v2.Image images = 21;</code>
+       * <code>repeated .catalog_api_v2.Image images = 22;</code>
        */
       public Builder removeImages(int index) {
         if (imagesBuilder_ == null) {
@@ -12165,7 +13056,7 @@ public final class CatalogApiV2 {
        * картинки
        * </pre>
        *
-       * <code>repeated .catalog_api_v2.Image images = 21;</code>
+       * <code>repeated .catalog_api_v2.Image images = 22;</code>
        */
       public catalog_api_v2.CatalogApiV2.Image.Builder getImagesBuilder(
           int index) {
@@ -12176,7 +13067,7 @@ public final class CatalogApiV2 {
        * картинки
        * </pre>
        *
-       * <code>repeated .catalog_api_v2.Image images = 21;</code>
+       * <code>repeated .catalog_api_v2.Image images = 22;</code>
        */
       public catalog_api_v2.CatalogApiV2.ImageOrBuilder getImagesOrBuilder(
           int index) {
@@ -12190,7 +13081,7 @@ public final class CatalogApiV2 {
        * картинки
        * </pre>
        *
-       * <code>repeated .catalog_api_v2.Image images = 21;</code>
+       * <code>repeated .catalog_api_v2.Image images = 22;</code>
        */
       public java.util.List<? extends catalog_api_v2.CatalogApiV2.ImageOrBuilder> 
            getImagesOrBuilderList() {
@@ -12205,7 +13096,7 @@ public final class CatalogApiV2 {
        * картинки
        * </pre>
        *
-       * <code>repeated .catalog_api_v2.Image images = 21;</code>
+       * <code>repeated .catalog_api_v2.Image images = 22;</code>
        */
       public catalog_api_v2.CatalogApiV2.Image.Builder addImagesBuilder() {
         return getImagesFieldBuilder().addBuilder(
@@ -12216,7 +13107,7 @@ public final class CatalogApiV2 {
        * картинки
        * </pre>
        *
-       * <code>repeated .catalog_api_v2.Image images = 21;</code>
+       * <code>repeated .catalog_api_v2.Image images = 22;</code>
        */
       public catalog_api_v2.CatalogApiV2.Image.Builder addImagesBuilder(
           int index) {
@@ -12228,7 +13119,7 @@ public final class CatalogApiV2 {
        * картинки
        * </pre>
        *
-       * <code>repeated .catalog_api_v2.Image images = 21;</code>
+       * <code>repeated .catalog_api_v2.Image images = 22;</code>
        */
       public java.util.List<catalog_api_v2.CatalogApiV2.Image.Builder> 
            getImagesBuilderList() {
@@ -12261,7 +13152,7 @@ public final class CatalogApiV2 {
        * не используется
        * </pre>
        *
-       * <code>repeated string requirements = 22;</code>
+       * <code>repeated string requirements = 23;</code>
        * @return A list containing the requirements.
        */
       public com.google.protobuf.ProtocolStringList
@@ -12273,7 +13164,7 @@ public final class CatalogApiV2 {
        * не используется
        * </pre>
        *
-       * <code>repeated string requirements = 22;</code>
+       * <code>repeated string requirements = 23;</code>
        * @return The count of requirements.
        */
       public int getRequirementsCount() {
@@ -12284,7 +13175,7 @@ public final class CatalogApiV2 {
        * не используется
        * </pre>
        *
-       * <code>repeated string requirements = 22;</code>
+       * <code>repeated string requirements = 23;</code>
        * @param index The index of the element to return.
        * @return The requirements at the given index.
        */
@@ -12296,7 +13187,7 @@ public final class CatalogApiV2 {
        * не используется
        * </pre>
        *
-       * <code>repeated string requirements = 22;</code>
+       * <code>repeated string requirements = 23;</code>
        * @param index The index of the value to return.
        * @return The bytes of the requirements at the given index.
        */
@@ -12309,7 +13200,7 @@ public final class CatalogApiV2 {
        * не используется
        * </pre>
        *
-       * <code>repeated string requirements = 22;</code>
+       * <code>repeated string requirements = 23;</code>
        * @param index The index to set the value at.
        * @param value The requirements to set.
        * @return This builder for chaining.
@@ -12329,7 +13220,7 @@ public final class CatalogApiV2 {
        * не используется
        * </pre>
        *
-       * <code>repeated string requirements = 22;</code>
+       * <code>repeated string requirements = 23;</code>
        * @param value The requirements to add.
        * @return This builder for chaining.
        */
@@ -12348,7 +13239,7 @@ public final class CatalogApiV2 {
        * не используется
        * </pre>
        *
-       * <code>repeated string requirements = 22;</code>
+       * <code>repeated string requirements = 23;</code>
        * @param values The requirements to add.
        * @return This builder for chaining.
        */
@@ -12365,7 +13256,7 @@ public final class CatalogApiV2 {
        * не используется
        * </pre>
        *
-       * <code>repeated string requirements = 22;</code>
+       * <code>repeated string requirements = 23;</code>
        * @return This builder for chaining.
        */
       public Builder clearRequirements() {
@@ -12379,7 +13270,7 @@ public final class CatalogApiV2 {
        * не используется
        * </pre>
        *
-       * <code>repeated string requirements = 22;</code>
+       * <code>repeated string requirements = 23;</code>
        * @param value The bytes of the requirements to add.
        * @return This builder for chaining.
        */
@@ -13737,8 +14628,7 @@ public final class CatalogApiV2 {
   }
   /**
    * <pre>
-   **
-   * Фильтр
+   * Facet - фильтр
    * </pre>
    *
    * Protobuf type {@code catalog_api_v2.Facet}
@@ -14239,8 +15129,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     **
-     * Фильтр
+     * Facet - фильтр
      * </pre>
      *
      * Protobuf type {@code catalog_api_v2.Facet}
@@ -15109,27 +15998,20 @@ public final class CatalogApiV2 {
      * название значения
      * </pre>
      *
-     * <code>.google.protobuf.StringValue name = 1;</code>
-     * @return Whether the name field is set.
-     */
-    boolean hasName();
-    /**
-     * <pre>
-     * название значения
-     * </pre>
-     *
-     * <code>.google.protobuf.StringValue name = 1;</code>
+     * <code>string name = 1;</code>
      * @return The name.
      */
-    com.google.protobuf.StringValue getName();
+    java.lang.String getName();
     /**
      * <pre>
      * название значения
      * </pre>
      *
-     * <code>.google.protobuf.StringValue name = 1;</code>
+     * <code>string name = 1;</code>
+     * @return The bytes for name.
      */
-    com.google.protobuf.StringValueOrBuilder getNameOrBuilder();
+    com.google.protobuf.ByteString
+        getNameBytes();
 
     /**
      * <pre>
@@ -15190,8 +16072,7 @@ public final class CatalogApiV2 {
   }
   /**
    * <pre>
-   **
-   * Значение фильтра
+   * FacetOption - значение фильтра
    * </pre>
    *
    * Protobuf type {@code catalog_api_v2.FacetOption}
@@ -15206,6 +16087,7 @@ public final class CatalogApiV2 {
       super(builder);
     }
     private FacetOption() {
+      name_ = "";
     }
 
     @java.lang.Override
@@ -15239,16 +16121,9 @@ public final class CatalogApiV2 {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.StringValue.Builder subBuilder = null;
-              if (name_ != null) {
-                subBuilder = name_.toBuilder();
-              }
-              name_ = input.readMessage(com.google.protobuf.StringValue.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(name_);
-                name_ = subBuilder.buildPartial();
-              }
+              java.lang.String s = input.readStringRequireUtf8();
 
+              name_ = s;
               break;
             }
             case 17: {
@@ -15312,41 +16187,49 @@ public final class CatalogApiV2 {
     }
 
     public static final int NAME_FIELD_NUMBER = 1;
-    private com.google.protobuf.StringValue name_;
+    private volatile java.lang.Object name_;
     /**
      * <pre>
      * название значения
      * </pre>
      *
-     * <code>.google.protobuf.StringValue name = 1;</code>
-     * @return Whether the name field is set.
-     */
-    @java.lang.Override
-    public boolean hasName() {
-      return name_ != null;
-    }
-    /**
-     * <pre>
-     * название значения
-     * </pre>
-     *
-     * <code>.google.protobuf.StringValue name = 1;</code>
+     * <code>string name = 1;</code>
      * @return The name.
      */
     @java.lang.Override
-    public com.google.protobuf.StringValue getName() {
-      return name_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : name_;
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
     }
     /**
      * <pre>
      * название значения
      * </pre>
      *
-     * <code>.google.protobuf.StringValue name = 1;</code>
+     * <code>string name = 1;</code>
+     * @return The bytes for name.
      */
     @java.lang.Override
-    public com.google.protobuf.StringValueOrBuilder getNameOrBuilder() {
-      return getName();
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int VALUE_FIELD_NUMBER = 2;
@@ -15446,8 +16329,8 @@ public final class CatalogApiV2 {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (name_ != null) {
-        output.writeMessage(1, getName());
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
       }
       if (value_ != 0D) {
         output.writeDouble(2, value_);
@@ -15470,9 +16353,8 @@ public final class CatalogApiV2 {
       if (size != -1) return size;
 
       size = 0;
-      if (name_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getName());
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
       }
       if (value_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
@@ -15505,11 +16387,8 @@ public final class CatalogApiV2 {
       }
       catalog_api_v2.CatalogApiV2.FacetOption other = (catalog_api_v2.CatalogApiV2.FacetOption) obj;
 
-      if (hasName() != other.hasName()) return false;
-      if (hasName()) {
-        if (!getName()
-            .equals(other.getName())) return false;
-      }
+      if (!getName()
+          .equals(other.getName())) return false;
       if (java.lang.Double.doubleToLongBits(getValue())
           != java.lang.Double.doubleToLongBits(
               other.getValue())) return false;
@@ -15534,10 +16413,8 @@ public final class CatalogApiV2 {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasName()) {
-        hash = (37 * hash) + NAME_FIELD_NUMBER;
-        hash = (53 * hash) + getName().hashCode();
-      }
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
       hash = (37 * hash) + VALUE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           java.lang.Double.doubleToLongBits(getValue()));
@@ -15648,8 +16525,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     **
-     * Значение фильтра
+     * FacetOption - значение фильтра
      * </pre>
      *
      * Protobuf type {@code catalog_api_v2.FacetOption}
@@ -15689,12 +16565,8 @@ public final class CatalogApiV2 {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        if (nameBuilder_ == null) {
-          name_ = null;
-        } else {
-          name_ = null;
-          nameBuilder_ = null;
-        }
+        name_ = "";
+
         value_ = 0D;
 
         count_ = 0D;
@@ -15733,11 +16605,7 @@ public final class CatalogApiV2 {
       @java.lang.Override
       public catalog_api_v2.CatalogApiV2.FacetOption buildPartial() {
         catalog_api_v2.CatalogApiV2.FacetOption result = new catalog_api_v2.CatalogApiV2.FacetOption(this);
-        if (nameBuilder_ == null) {
-          result.name_ = name_;
-        } else {
-          result.name_ = nameBuilder_.build();
-        }
+        result.name_ = name_;
         result.value_ = value_;
         result.count_ = count_;
         if (permalinkBuilder_ == null) {
@@ -15794,8 +16662,9 @@ public final class CatalogApiV2 {
 
       public Builder mergeFrom(catalog_api_v2.CatalogApiV2.FacetOption other) {
         if (other == catalog_api_v2.CatalogApiV2.FacetOption.getDefaultInstance()) return this;
-        if (other.hasName()) {
-          mergeName(other.getName());
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
         }
         if (other.getValue() != 0D) {
           setValue(other.getValue());
@@ -15838,33 +16707,25 @@ public final class CatalogApiV2 {
         return this;
       }
 
-      private com.google.protobuf.StringValue name_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> nameBuilder_;
+      private java.lang.Object name_ = "";
       /**
        * <pre>
        * название значения
        * </pre>
        *
-       * <code>.google.protobuf.StringValue name = 1;</code>
-       * @return Whether the name field is set.
-       */
-      public boolean hasName() {
-        return nameBuilder_ != null || name_ != null;
-      }
-      /**
-       * <pre>
-       * название значения
-       * </pre>
-       *
-       * <code>.google.protobuf.StringValue name = 1;</code>
+       * <code>string name = 1;</code>
        * @return The name.
        */
-      public com.google.protobuf.StringValue getName() {
-        if (nameBuilder_ == null) {
-          return name_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : name_;
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
         } else {
-          return nameBuilder_.getMessage();
+          return (java.lang.String) ref;
         }
       }
       /**
@@ -15872,37 +16733,39 @@ public final class CatalogApiV2 {
        * название значения
        * </pre>
        *
-       * <code>.google.protobuf.StringValue name = 1;</code>
+       * <code>string name = 1;</code>
+       * @return The bytes for name.
        */
-      public Builder setName(com.google.protobuf.StringValue value) {
-        if (nameBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          name_ = value;
-          onChanged();
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
         } else {
-          nameBuilder_.setMessage(value);
+          return (com.google.protobuf.ByteString) ref;
         }
-
-        return this;
       }
       /**
        * <pre>
        * название значения
        * </pre>
        *
-       * <code>.google.protobuf.StringValue name = 1;</code>
+       * <code>string name = 1;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
        */
       public Builder setName(
-          com.google.protobuf.StringValue.Builder builderForValue) {
-        if (nameBuilder_ == null) {
-          name_ = builderForValue.build();
-          onChanged();
-        } else {
-          nameBuilder_.setMessage(builderForValue.build());
-        }
-
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -15910,39 +16773,13 @@ public final class CatalogApiV2 {
        * название значения
        * </pre>
        *
-       * <code>.google.protobuf.StringValue name = 1;</code>
-       */
-      public Builder mergeName(com.google.protobuf.StringValue value) {
-        if (nameBuilder_ == null) {
-          if (name_ != null) {
-            name_ =
-              com.google.protobuf.StringValue.newBuilder(name_).mergeFrom(value).buildPartial();
-          } else {
-            name_ = value;
-          }
-          onChanged();
-        } else {
-          nameBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * название значения
-       * </pre>
-       *
-       * <code>.google.protobuf.StringValue name = 1;</code>
+       * <code>string name = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearName() {
-        if (nameBuilder_ == null) {
-          name_ = null;
-          onChanged();
-        } else {
-          name_ = null;
-          nameBuilder_ = null;
-        }
-
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
         return this;
       }
       /**
@@ -15950,47 +16787,20 @@ public final class CatalogApiV2 {
        * название значения
        * </pre>
        *
-       * <code>.google.protobuf.StringValue name = 1;</code>
+       * <code>string name = 1;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
        */
-      public com.google.protobuf.StringValue.Builder getNameBuilder() {
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
         
+        name_ = value;
         onChanged();
-        return getNameFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * название значения
-       * </pre>
-       *
-       * <code>.google.protobuf.StringValue name = 1;</code>
-       */
-      public com.google.protobuf.StringValueOrBuilder getNameOrBuilder() {
-        if (nameBuilder_ != null) {
-          return nameBuilder_.getMessageOrBuilder();
-        } else {
-          return name_ == null ?
-              com.google.protobuf.StringValue.getDefaultInstance() : name_;
-        }
-      }
-      /**
-       * <pre>
-       * название значения
-       * </pre>
-       *
-       * <code>.google.protobuf.StringValue name = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> 
-          getNameFieldBuilder() {
-        if (nameBuilder_ == null) {
-          nameBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder>(
-                  getName(),
-                  getParentForChildren(),
-                  isClean());
-          name_ = null;
-        }
-        return nameBuilder_;
+        return this;
       }
 
       private double value_ ;
@@ -16429,8 +17239,7 @@ public final class CatalogApiV2 {
   }
   /**
    * <pre>
-   **
-   * Мета страницы
+   * Meta - мета страницы
    * </pre>
    *
    * Protobuf type {@code catalog_api_v2.Meta}
@@ -16921,8 +17730,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     **
-     * Мета страницы
+     * Meta - мета страницы
      * </pre>
      *
      * Protobuf type {@code catalog_api_v2.Meta}
@@ -17654,6 +18462,66 @@ public final class CatalogApiV2 {
   public interface RootCategoriesOrBuilder extends
       // @@protoc_insertion_point(interface_extends:catalog_api_v2.RootCategories)
       com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string key = 1;</code>
+     * @return The key.
+     */
+    java.lang.String getKey();
+    /**
+     * <code>string key = 1;</code>
+     * @return The bytes for key.
+     */
+    com.google.protobuf.ByteString
+        getKeyBytes();
+
+    /**
+     * <code>string name = 2;</code>
+     * @return The name.
+     */
+    java.lang.String getName();
+    /**
+     * <code>string name = 2;</code>
+     * @return The bytes for name.
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>string type = 3;</code>
+     * @return The type.
+     */
+    java.lang.String getType();
+    /**
+     * <code>string type = 3;</code>
+     * @return The bytes for type.
+     */
+    com.google.protobuf.ByteString
+        getTypeBytes();
+
+    /**
+     * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+     */
+    java.util.List<catalog_api_v2.CatalogApiV2.RootCategories.Option> 
+        getOptionsList();
+    /**
+     * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+     */
+    catalog_api_v2.CatalogApiV2.RootCategories.Option getOptions(int index);
+    /**
+     * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+     */
+    int getOptionsCount();
+    /**
+     * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+     */
+    java.util.List<? extends catalog_api_v2.CatalogApiV2.RootCategories.OptionOrBuilder> 
+        getOptionsOrBuilderList();
+    /**
+     * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+     */
+    catalog_api_v2.CatalogApiV2.RootCategories.OptionOrBuilder getOptionsOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code catalog_api_v2.RootCategories}
@@ -17668,6 +18536,10 @@ public final class CatalogApiV2 {
       super(builder);
     }
     private RootCategories() {
+      key_ = "";
+      name_ = "";
+      type_ = "";
+      options_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -17690,6 +18562,7 @@ public final class CatalogApiV2 {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -17700,6 +18573,33 @@ public final class CatalogApiV2 {
             case 0:
               done = true;
               break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              key_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              type_ = s;
+              break;
+            }
+            case 34: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                options_ = new java.util.ArrayList<catalog_api_v2.CatalogApiV2.RootCategories.Option>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              options_.add(
+                  input.readMessage(catalog_api_v2.CatalogApiV2.RootCategories.Option.parser(), extensionRegistry));
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -17715,6 +18615,9 @@ public final class CatalogApiV2 {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          options_ = java.util.Collections.unmodifiableList(options_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -17732,6 +18635,1093 @@ public final class CatalogApiV2 {
               catalog_api_v2.CatalogApiV2.RootCategories.class, catalog_api_v2.CatalogApiV2.RootCategories.Builder.class);
     }
 
+    public interface OptionOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:catalog_api_v2.RootCategories.Option)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>string key = 1;</code>
+       * @return The key.
+       */
+      java.lang.String getKey();
+      /**
+       * <code>string key = 1;</code>
+       * @return The bytes for key.
+       */
+      com.google.protobuf.ByteString
+          getKeyBytes();
+
+      /**
+       * <code>string permalink = 2;</code>
+       * @return The permalink.
+       */
+      java.lang.String getPermalink();
+      /**
+       * <code>string permalink = 2;</code>
+       * @return The bytes for permalink.
+       */
+      com.google.protobuf.ByteString
+          getPermalinkBytes();
+
+      /**
+       * <code>double value = 3;</code>
+       * @return The value.
+       */
+      double getValue();
+
+      /**
+       * <code>double count = 4;</code>
+       * @return The count.
+       */
+      double getCount();
+
+      /**
+       * <code>bool active = 5;</code>
+       * @return The active.
+       */
+      boolean getActive();
+    }
+    /**
+     * Protobuf type {@code catalog_api_v2.RootCategories.Option}
+     */
+    public static final class Option extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:catalog_api_v2.RootCategories.Option)
+        OptionOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use Option.newBuilder() to construct.
+      private Option(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private Option() {
+        key_ = "";
+        permalink_ = "";
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new Option();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private Option(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                key_ = s;
+                break;
+              }
+              case 18: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                permalink_ = s;
+                break;
+              }
+              case 25: {
+
+                value_ = input.readDouble();
+                break;
+              }
+              case 33: {
+
+                count_ = input.readDouble();
+                break;
+              }
+              case 40: {
+
+                active_ = input.readBool();
+                break;
+              }
+              default: {
+                if (!parseUnknownField(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_RootCategories_Option_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_RootCategories_Option_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                catalog_api_v2.CatalogApiV2.RootCategories.Option.class, catalog_api_v2.CatalogApiV2.RootCategories.Option.Builder.class);
+      }
+
+      public static final int KEY_FIELD_NUMBER = 1;
+      private volatile java.lang.Object key_;
+      /**
+       * <code>string key = 1;</code>
+       * @return The key.
+       */
+      @java.lang.Override
+      public java.lang.String getKey() {
+        java.lang.Object ref = key_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          key_ = s;
+          return s;
+        }
+      }
+      /**
+       * <code>string key = 1;</code>
+       * @return The bytes for key.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getKeyBytes() {
+        java.lang.Object ref = key_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          key_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int PERMALINK_FIELD_NUMBER = 2;
+      private volatile java.lang.Object permalink_;
+      /**
+       * <code>string permalink = 2;</code>
+       * @return The permalink.
+       */
+      @java.lang.Override
+      public java.lang.String getPermalink() {
+        java.lang.Object ref = permalink_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          permalink_ = s;
+          return s;
+        }
+      }
+      /**
+       * <code>string permalink = 2;</code>
+       * @return The bytes for permalink.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString
+          getPermalinkBytes() {
+        java.lang.Object ref = permalink_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          permalink_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int VALUE_FIELD_NUMBER = 3;
+      private double value_;
+      /**
+       * <code>double value = 3;</code>
+       * @return The value.
+       */
+      @java.lang.Override
+      public double getValue() {
+        return value_;
+      }
+
+      public static final int COUNT_FIELD_NUMBER = 4;
+      private double count_;
+      /**
+       * <code>double count = 4;</code>
+       * @return The count.
+       */
+      @java.lang.Override
+      public double getCount() {
+        return count_;
+      }
+
+      public static final int ACTIVE_FIELD_NUMBER = 5;
+      private boolean active_;
+      /**
+       * <code>bool active = 5;</code>
+       * @return The active.
+       */
+      @java.lang.Override
+      public boolean getActive() {
+        return active_;
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (!getKeyBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 1, key_);
+        }
+        if (!getPermalinkBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 2, permalink_);
+        }
+        if (value_ != 0D) {
+          output.writeDouble(3, value_);
+        }
+        if (count_ != 0D) {
+          output.writeDouble(4, count_);
+        }
+        if (active_ != false) {
+          output.writeBool(5, active_);
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (!getKeyBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, key_);
+        }
+        if (!getPermalinkBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, permalink_);
+        }
+        if (value_ != 0D) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeDoubleSize(3, value_);
+        }
+        if (count_ != 0D) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeDoubleSize(4, count_);
+        }
+        if (active_ != false) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBoolSize(5, active_);
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof catalog_api_v2.CatalogApiV2.RootCategories.Option)) {
+          return super.equals(obj);
+        }
+        catalog_api_v2.CatalogApiV2.RootCategories.Option other = (catalog_api_v2.CatalogApiV2.RootCategories.Option) obj;
+
+        if (!getKey()
+            .equals(other.getKey())) return false;
+        if (!getPermalink()
+            .equals(other.getPermalink())) return false;
+        if (java.lang.Double.doubleToLongBits(getValue())
+            != java.lang.Double.doubleToLongBits(
+                other.getValue())) return false;
+        if (java.lang.Double.doubleToLongBits(getCount())
+            != java.lang.Double.doubleToLongBits(
+                other.getCount())) return false;
+        if (getActive()
+            != other.getActive()) return false;
+        if (!unknownFields.equals(other.unknownFields)) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        hash = (37 * hash) + KEY_FIELD_NUMBER;
+        hash = (53 * hash) + getKey().hashCode();
+        hash = (37 * hash) + PERMALINK_FIELD_NUMBER;
+        hash = (53 * hash) + getPermalink().hashCode();
+        hash = (37 * hash) + VALUE_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            java.lang.Double.doubleToLongBits(getValue()));
+        hash = (37 * hash) + COUNT_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            java.lang.Double.doubleToLongBits(getCount()));
+        hash = (37 * hash) + ACTIVE_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getActive());
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static catalog_api_v2.CatalogApiV2.RootCategories.Option parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static catalog_api_v2.CatalogApiV2.RootCategories.Option parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static catalog_api_v2.CatalogApiV2.RootCategories.Option parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static catalog_api_v2.CatalogApiV2.RootCategories.Option parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static catalog_api_v2.CatalogApiV2.RootCategories.Option parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static catalog_api_v2.CatalogApiV2.RootCategories.Option parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static catalog_api_v2.CatalogApiV2.RootCategories.Option parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static catalog_api_v2.CatalogApiV2.RootCategories.Option parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static catalog_api_v2.CatalogApiV2.RootCategories.Option parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static catalog_api_v2.CatalogApiV2.RootCategories.Option parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static catalog_api_v2.CatalogApiV2.RootCategories.Option parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static catalog_api_v2.CatalogApiV2.RootCategories.Option parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(catalog_api_v2.CatalogApiV2.RootCategories.Option prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code catalog_api_v2.RootCategories.Option}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:catalog_api_v2.RootCategories.Option)
+          catalog_api_v2.CatalogApiV2.RootCategories.OptionOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_RootCategories_Option_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_RootCategories_Option_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  catalog_api_v2.CatalogApiV2.RootCategories.Option.class, catalog_api_v2.CatalogApiV2.RootCategories.Option.Builder.class);
+        }
+
+        // Construct using catalog_api_v2.CatalogApiV2.RootCategories.Option.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          key_ = "";
+
+          permalink_ = "";
+
+          value_ = 0D;
+
+          count_ = 0D;
+
+          active_ = false;
+
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_RootCategories_Option_descriptor;
+        }
+
+        @java.lang.Override
+        public catalog_api_v2.CatalogApiV2.RootCategories.Option getDefaultInstanceForType() {
+          return catalog_api_v2.CatalogApiV2.RootCategories.Option.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public catalog_api_v2.CatalogApiV2.RootCategories.Option build() {
+          catalog_api_v2.CatalogApiV2.RootCategories.Option result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public catalog_api_v2.CatalogApiV2.RootCategories.Option buildPartial() {
+          catalog_api_v2.CatalogApiV2.RootCategories.Option result = new catalog_api_v2.CatalogApiV2.RootCategories.Option(this);
+          result.key_ = key_;
+          result.permalink_ = permalink_;
+          result.value_ = value_;
+          result.count_ = count_;
+          result.active_ = active_;
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof catalog_api_v2.CatalogApiV2.RootCategories.Option) {
+            return mergeFrom((catalog_api_v2.CatalogApiV2.RootCategories.Option)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(catalog_api_v2.CatalogApiV2.RootCategories.Option other) {
+          if (other == catalog_api_v2.CatalogApiV2.RootCategories.Option.getDefaultInstance()) return this;
+          if (!other.getKey().isEmpty()) {
+            key_ = other.key_;
+            onChanged();
+          }
+          if (!other.getPermalink().isEmpty()) {
+            permalink_ = other.permalink_;
+            onChanged();
+          }
+          if (other.getValue() != 0D) {
+            setValue(other.getValue());
+          }
+          if (other.getCount() != 0D) {
+            setCount(other.getCount());
+          }
+          if (other.getActive() != false) {
+            setActive(other.getActive());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          catalog_api_v2.CatalogApiV2.RootCategories.Option parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (catalog_api_v2.CatalogApiV2.RootCategories.Option) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+
+        private java.lang.Object key_ = "";
+        /**
+         * <code>string key = 1;</code>
+         * @return The key.
+         */
+        public java.lang.String getKey() {
+          java.lang.Object ref = key_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            key_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>string key = 1;</code>
+         * @return The bytes for key.
+         */
+        public com.google.protobuf.ByteString
+            getKeyBytes() {
+          java.lang.Object ref = key_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            key_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>string key = 1;</code>
+         * @param value The key to set.
+         * @return This builder for chaining.
+         */
+        public Builder setKey(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          key_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string key = 1;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearKey() {
+          
+          key_ = getDefaultInstance().getKey();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string key = 1;</code>
+         * @param value The bytes for key to set.
+         * @return This builder for chaining.
+         */
+        public Builder setKeyBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          key_ = value;
+          onChanged();
+          return this;
+        }
+
+        private java.lang.Object permalink_ = "";
+        /**
+         * <code>string permalink = 2;</code>
+         * @return The permalink.
+         */
+        public java.lang.String getPermalink() {
+          java.lang.Object ref = permalink_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            permalink_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>string permalink = 2;</code>
+         * @return The bytes for permalink.
+         */
+        public com.google.protobuf.ByteString
+            getPermalinkBytes() {
+          java.lang.Object ref = permalink_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            permalink_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>string permalink = 2;</code>
+         * @param value The permalink to set.
+         * @return This builder for chaining.
+         */
+        public Builder setPermalink(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          permalink_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string permalink = 2;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearPermalink() {
+          
+          permalink_ = getDefaultInstance().getPermalink();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>string permalink = 2;</code>
+         * @param value The bytes for permalink to set.
+         * @return This builder for chaining.
+         */
+        public Builder setPermalinkBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          permalink_ = value;
+          onChanged();
+          return this;
+        }
+
+        private double value_ ;
+        /**
+         * <code>double value = 3;</code>
+         * @return The value.
+         */
+        @java.lang.Override
+        public double getValue() {
+          return value_;
+        }
+        /**
+         * <code>double value = 3;</code>
+         * @param value The value to set.
+         * @return This builder for chaining.
+         */
+        public Builder setValue(double value) {
+          
+          value_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>double value = 3;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearValue() {
+          
+          value_ = 0D;
+          onChanged();
+          return this;
+        }
+
+        private double count_ ;
+        /**
+         * <code>double count = 4;</code>
+         * @return The count.
+         */
+        @java.lang.Override
+        public double getCount() {
+          return count_;
+        }
+        /**
+         * <code>double count = 4;</code>
+         * @param value The count to set.
+         * @return This builder for chaining.
+         */
+        public Builder setCount(double value) {
+          
+          count_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>double count = 4;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearCount() {
+          
+          count_ = 0D;
+          onChanged();
+          return this;
+        }
+
+        private boolean active_ ;
+        /**
+         * <code>bool active = 5;</code>
+         * @return The active.
+         */
+        @java.lang.Override
+        public boolean getActive() {
+          return active_;
+        }
+        /**
+         * <code>bool active = 5;</code>
+         * @param value The active to set.
+         * @return This builder for chaining.
+         */
+        public Builder setActive(boolean value) {
+          
+          active_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>bool active = 5;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearActive() {
+          
+          active_ = false;
+          onChanged();
+          return this;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:catalog_api_v2.RootCategories.Option)
+      }
+
+      // @@protoc_insertion_point(class_scope:catalog_api_v2.RootCategories.Option)
+      private static final catalog_api_v2.CatalogApiV2.RootCategories.Option DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new catalog_api_v2.CatalogApiV2.RootCategories.Option();
+      }
+
+      public static catalog_api_v2.CatalogApiV2.RootCategories.Option getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<Option>
+          PARSER = new com.google.protobuf.AbstractParser<Option>() {
+        @java.lang.Override
+        public Option parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Option(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<Option> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<Option> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public catalog_api_v2.CatalogApiV2.RootCategories.Option getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    public static final int KEY_FIELD_NUMBER = 1;
+    private volatile java.lang.Object key_;
+    /**
+     * <code>string key = 1;</code>
+     * @return The key.
+     */
+    @java.lang.Override
+    public java.lang.String getKey() {
+      java.lang.Object ref = key_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        key_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string key = 1;</code>
+     * @return The bytes for key.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getKeyBytes() {
+      java.lang.Object ref = key_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        key_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int NAME_FIELD_NUMBER = 2;
+    private volatile java.lang.Object name_;
+    /**
+     * <code>string name = 2;</code>
+     * @return The name.
+     */
+    @java.lang.Override
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string name = 2;</code>
+     * @return The bytes for name.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TYPE_FIELD_NUMBER = 3;
+    private volatile java.lang.Object type_;
+    /**
+     * <code>string type = 3;</code>
+     * @return The type.
+     */
+    @java.lang.Override
+    public java.lang.String getType() {
+      java.lang.Object ref = type_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        type_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string type = 3;</code>
+     * @return The bytes for type.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTypeBytes() {
+      java.lang.Object ref = type_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        type_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int OPTIONS_FIELD_NUMBER = 4;
+    private java.util.List<catalog_api_v2.CatalogApiV2.RootCategories.Option> options_;
+    /**
+     * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+     */
+    @java.lang.Override
+    public java.util.List<catalog_api_v2.CatalogApiV2.RootCategories.Option> getOptionsList() {
+      return options_;
+    }
+    /**
+     * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends catalog_api_v2.CatalogApiV2.RootCategories.OptionOrBuilder> 
+        getOptionsOrBuilderList() {
+      return options_;
+    }
+    /**
+     * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+     */
+    @java.lang.Override
+    public int getOptionsCount() {
+      return options_.size();
+    }
+    /**
+     * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+     */
+    @java.lang.Override
+    public catalog_api_v2.CatalogApiV2.RootCategories.Option getOptions(int index) {
+      return options_.get(index);
+    }
+    /**
+     * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+     */
+    @java.lang.Override
+    public catalog_api_v2.CatalogApiV2.RootCategories.OptionOrBuilder getOptionsOrBuilder(
+        int index) {
+      return options_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -17746,6 +19736,18 @@ public final class CatalogApiV2 {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (!getKeyBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, key_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
+      }
+      if (!getTypeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, type_);
+      }
+      for (int i = 0; i < options_.size(); i++) {
+        output.writeMessage(4, options_.get(i));
+      }
       unknownFields.writeTo(output);
     }
 
@@ -17755,6 +19757,19 @@ public final class CatalogApiV2 {
       if (size != -1) return size;
 
       size = 0;
+      if (!getKeyBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, key_);
+      }
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
+      }
+      if (!getTypeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, type_);
+      }
+      for (int i = 0; i < options_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, options_.get(i));
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -17770,6 +19785,14 @@ public final class CatalogApiV2 {
       }
       catalog_api_v2.CatalogApiV2.RootCategories other = (catalog_api_v2.CatalogApiV2.RootCategories) obj;
 
+      if (!getKey()
+          .equals(other.getKey())) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!getType()
+          .equals(other.getType())) return false;
+      if (!getOptionsList()
+          .equals(other.getOptionsList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -17781,6 +19804,16 @@ public final class CatalogApiV2 {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + KEY_FIELD_NUMBER;
+      hash = (53 * hash) + getKey().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getType().hashCode();
+      if (getOptionsCount() > 0) {
+        hash = (37 * hash) + OPTIONS_FIELD_NUMBER;
+        hash = (53 * hash) + getOptionsList().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -17909,11 +19942,24 @@ public final class CatalogApiV2 {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getOptionsFieldBuilder();
         }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        key_ = "";
+
+        name_ = "";
+
+        type_ = "";
+
+        if (optionsBuilder_ == null) {
+          options_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          optionsBuilder_.clear();
+        }
         return this;
       }
 
@@ -17940,6 +19986,19 @@ public final class CatalogApiV2 {
       @java.lang.Override
       public catalog_api_v2.CatalogApiV2.RootCategories buildPartial() {
         catalog_api_v2.CatalogApiV2.RootCategories result = new catalog_api_v2.CatalogApiV2.RootCategories(this);
+        int from_bitField0_ = bitField0_;
+        result.key_ = key_;
+        result.name_ = name_;
+        result.type_ = type_;
+        if (optionsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            options_ = java.util.Collections.unmodifiableList(options_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.options_ = options_;
+        } else {
+          result.options_ = optionsBuilder_.build();
+        }
         onBuilt();
         return result;
       }
@@ -17988,6 +20047,44 @@ public final class CatalogApiV2 {
 
       public Builder mergeFrom(catalog_api_v2.CatalogApiV2.RootCategories other) {
         if (other == catalog_api_v2.CatalogApiV2.RootCategories.getDefaultInstance()) return this;
+        if (!other.getKey().isEmpty()) {
+          key_ = other.key_;
+          onChanged();
+        }
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
+        if (!other.getType().isEmpty()) {
+          type_ = other.type_;
+          onChanged();
+        }
+        if (optionsBuilder_ == null) {
+          if (!other.options_.isEmpty()) {
+            if (options_.isEmpty()) {
+              options_ = other.options_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureOptionsIsMutable();
+              options_.addAll(other.options_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.options_.isEmpty()) {
+            if (optionsBuilder_.isEmpty()) {
+              optionsBuilder_.dispose();
+              optionsBuilder_ = null;
+              options_ = other.options_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              optionsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getOptionsFieldBuilder() : null;
+            } else {
+              optionsBuilder_.addAllMessages(other.options_);
+            }
+          }
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -18015,6 +20112,475 @@ public final class CatalogApiV2 {
           }
         }
         return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object key_ = "";
+      /**
+       * <code>string key = 1;</code>
+       * @return The key.
+       */
+      public java.lang.String getKey() {
+        java.lang.Object ref = key_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          key_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string key = 1;</code>
+       * @return The bytes for key.
+       */
+      public com.google.protobuf.ByteString
+          getKeyBytes() {
+        java.lang.Object ref = key_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          key_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string key = 1;</code>
+       * @param value The key to set.
+       * @return This builder for chaining.
+       */
+      public Builder setKey(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        key_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string key = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearKey() {
+        
+        key_ = getDefaultInstance().getKey();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string key = 1;</code>
+       * @param value The bytes for key to set.
+       * @return This builder for chaining.
+       */
+      public Builder setKeyBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        key_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <code>string name = 2;</code>
+       * @return The name.
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string name = 2;</code>
+       * @return The bytes for name.
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string name = 2;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string name = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearName() {
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string name = 2;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object type_ = "";
+      /**
+       * <code>string type = 3;</code>
+       * @return The type.
+       */
+      public java.lang.String getType() {
+        java.lang.Object ref = type_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          type_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string type = 3;</code>
+       * @return The bytes for type.
+       */
+      public com.google.protobuf.ByteString
+          getTypeBytes() {
+        java.lang.Object ref = type_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          type_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string type = 3;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setType(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string type = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearType() {
+        
+        type_ = getDefaultInstance().getType();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string type = 3;</code>
+       * @param value The bytes for type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTypeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        type_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<catalog_api_v2.CatalogApiV2.RootCategories.Option> options_ =
+        java.util.Collections.emptyList();
+      private void ensureOptionsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          options_ = new java.util.ArrayList<catalog_api_v2.CatalogApiV2.RootCategories.Option>(options_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          catalog_api_v2.CatalogApiV2.RootCategories.Option, catalog_api_v2.CatalogApiV2.RootCategories.Option.Builder, catalog_api_v2.CatalogApiV2.RootCategories.OptionOrBuilder> optionsBuilder_;
+
+      /**
+       * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+       */
+      public java.util.List<catalog_api_v2.CatalogApiV2.RootCategories.Option> getOptionsList() {
+        if (optionsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(options_);
+        } else {
+          return optionsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+       */
+      public int getOptionsCount() {
+        if (optionsBuilder_ == null) {
+          return options_.size();
+        } else {
+          return optionsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+       */
+      public catalog_api_v2.CatalogApiV2.RootCategories.Option getOptions(int index) {
+        if (optionsBuilder_ == null) {
+          return options_.get(index);
+        } else {
+          return optionsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+       */
+      public Builder setOptions(
+          int index, catalog_api_v2.CatalogApiV2.RootCategories.Option value) {
+        if (optionsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOptionsIsMutable();
+          options_.set(index, value);
+          onChanged();
+        } else {
+          optionsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+       */
+      public Builder setOptions(
+          int index, catalog_api_v2.CatalogApiV2.RootCategories.Option.Builder builderForValue) {
+        if (optionsBuilder_ == null) {
+          ensureOptionsIsMutable();
+          options_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          optionsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+       */
+      public Builder addOptions(catalog_api_v2.CatalogApiV2.RootCategories.Option value) {
+        if (optionsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOptionsIsMutable();
+          options_.add(value);
+          onChanged();
+        } else {
+          optionsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+       */
+      public Builder addOptions(
+          int index, catalog_api_v2.CatalogApiV2.RootCategories.Option value) {
+        if (optionsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureOptionsIsMutable();
+          options_.add(index, value);
+          onChanged();
+        } else {
+          optionsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+       */
+      public Builder addOptions(
+          catalog_api_v2.CatalogApiV2.RootCategories.Option.Builder builderForValue) {
+        if (optionsBuilder_ == null) {
+          ensureOptionsIsMutable();
+          options_.add(builderForValue.build());
+          onChanged();
+        } else {
+          optionsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+       */
+      public Builder addOptions(
+          int index, catalog_api_v2.CatalogApiV2.RootCategories.Option.Builder builderForValue) {
+        if (optionsBuilder_ == null) {
+          ensureOptionsIsMutable();
+          options_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          optionsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+       */
+      public Builder addAllOptions(
+          java.lang.Iterable<? extends catalog_api_v2.CatalogApiV2.RootCategories.Option> values) {
+        if (optionsBuilder_ == null) {
+          ensureOptionsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, options_);
+          onChanged();
+        } else {
+          optionsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+       */
+      public Builder clearOptions() {
+        if (optionsBuilder_ == null) {
+          options_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          optionsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+       */
+      public Builder removeOptions(int index) {
+        if (optionsBuilder_ == null) {
+          ensureOptionsIsMutable();
+          options_.remove(index);
+          onChanged();
+        } else {
+          optionsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+       */
+      public catalog_api_v2.CatalogApiV2.RootCategories.Option.Builder getOptionsBuilder(
+          int index) {
+        return getOptionsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+       */
+      public catalog_api_v2.CatalogApiV2.RootCategories.OptionOrBuilder getOptionsOrBuilder(
+          int index) {
+        if (optionsBuilder_ == null) {
+          return options_.get(index);  } else {
+          return optionsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+       */
+      public java.util.List<? extends catalog_api_v2.CatalogApiV2.RootCategories.OptionOrBuilder> 
+           getOptionsOrBuilderList() {
+        if (optionsBuilder_ != null) {
+          return optionsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(options_);
+        }
+      }
+      /**
+       * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+       */
+      public catalog_api_v2.CatalogApiV2.RootCategories.Option.Builder addOptionsBuilder() {
+        return getOptionsFieldBuilder().addBuilder(
+            catalog_api_v2.CatalogApiV2.RootCategories.Option.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+       */
+      public catalog_api_v2.CatalogApiV2.RootCategories.Option.Builder addOptionsBuilder(
+          int index) {
+        return getOptionsFieldBuilder().addBuilder(
+            index, catalog_api_v2.CatalogApiV2.RootCategories.Option.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .catalog_api_v2.RootCategories.Option options = 4;</code>
+       */
+      public java.util.List<catalog_api_v2.CatalogApiV2.RootCategories.Option.Builder> 
+           getOptionsBuilderList() {
+        return getOptionsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          catalog_api_v2.CatalogApiV2.RootCategories.Option, catalog_api_v2.CatalogApiV2.RootCategories.Option.Builder, catalog_api_v2.CatalogApiV2.RootCategories.OptionOrBuilder> 
+          getOptionsFieldBuilder() {
+        if (optionsBuilder_ == null) {
+          optionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              catalog_api_v2.CatalogApiV2.RootCategories.Option, catalog_api_v2.CatalogApiV2.RootCategories.Option.Builder, catalog_api_v2.CatalogApiV2.RootCategories.OptionOrBuilder>(
+                  options_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          options_ = null;
+        }
+        return optionsBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -18145,8 +20711,7 @@ public final class CatalogApiV2 {
   }
   /**
    * <pre>
-   **
-   * Сортировка листинга
+   * ProductListSort - Сортировка листинга
    * </pre>
    *
    * Protobuf type {@code catalog_api_v2.ProductListSort}
@@ -18592,8 +21157,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     **
-     * Сортировка листинга
+     * ProductListSort - Сортировка листинга
      * </pre>
      *
      * Protobuf type {@code catalog_api_v2.ProductListSort}
@@ -19626,19 +22190,19 @@ public final class CatalogApiV2 {
         getDescriptionBytes();
 
     /**
-     * <code>.catalog_api_v2.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
+     * <code>.catalog_api_v2.ProductWithProperties.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
      * @return Whether the scoreDetails field is set.
      */
     boolean hasScoreDetails();
     /**
-     * <code>.catalog_api_v2.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
+     * <code>.catalog_api_v2.ProductWithProperties.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
      * @return The scoreDetails.
      */
-    catalog_api_v2.CatalogApiV2.ScoreDetail getScoreDetails();
+    catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail getScoreDetails();
     /**
-     * <code>.catalog_api_v2.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
+     * <code>.catalog_api_v2.ProductWithProperties.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
      */
-    catalog_api_v2.CatalogApiV2.ScoreDetailOrBuilder getScoreDetailsOrBuilder();
+    catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetailOrBuilder getScoreDetailsOrBuilder();
 
     /**
      * <pre>
@@ -19751,8 +22315,7 @@ public final class CatalogApiV2 {
   }
   /**
    * <pre>
-   **
-   * Ответ карточки товара
+   * ProductWithProperties - ответ карточки товара
    * &#64;see Product
    * </pre>
    *
@@ -19979,11 +22542,11 @@ public final class CatalogApiV2 {
               break;
             }
             case 194: {
-              catalog_api_v2.CatalogApiV2.ScoreDetail.Builder subBuilder = null;
+              catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail.Builder subBuilder = null;
               if (scoreDetails_ != null) {
                 subBuilder = scoreDetails_.toBuilder();
               }
-              scoreDetails_ = input.readMessage(catalog_api_v2.CatalogApiV2.ScoreDetail.parser(), extensionRegistry);
+              scoreDetails_ = input.readMessage(catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(scoreDetails_);
                 scoreDetails_ = subBuilder.buildPartial();
@@ -20070,6 +22633,1221 @@ public final class CatalogApiV2 {
       return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ProductWithProperties_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               catalog_api_v2.CatalogApiV2.ProductWithProperties.class, catalog_api_v2.CatalogApiV2.ProductWithProperties.Builder.class);
+    }
+
+    public interface ScoreDetailOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:catalog_api_v2.ProductWithProperties.ScoreDetail)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <pre>
+       * кол-во отзывов
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
+       * @return Whether the feedbackCount field is set.
+       */
+      boolean hasFeedbackCount();
+      /**
+       * <pre>
+       * кол-во отзывов
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
+       * @return The feedbackCount.
+       */
+      com.google.protobuf.DoubleValue getFeedbackCount();
+      /**
+       * <pre>
+       * кол-во отзывов
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
+       */
+      com.google.protobuf.DoubleValueOrBuilder getFeedbackCountOrBuilder();
+
+      /**
+       * <pre>
+       * имя ресурса
+       * </pre>
+       *
+       * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
+       * @return Whether the feedbackSource field is set.
+       */
+      boolean hasFeedbackSource();
+      /**
+       * <pre>
+       * имя ресурса
+       * </pre>
+       *
+       * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
+       * @return The feedbackSource.
+       */
+      com.google.protobuf.StringValue getFeedbackSource();
+      /**
+       * <pre>
+       * имя ресурса
+       * </pre>
+       *
+       * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
+       */
+      com.google.protobuf.StringValueOrBuilder getFeedbackSourceOrBuilder();
+
+      /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+       * @return Whether the commentCount field is set.
+       */
+      boolean hasCommentCount();
+      /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+       * @return The commentCount.
+       */
+      com.google.protobuf.DoubleValue getCommentCount();
+      /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+       */
+      com.google.protobuf.DoubleValueOrBuilder getCommentCountOrBuilder();
+    }
+    /**
+     * <pre>
+     * ScoreDetail - рейтинг товара
+     * </pre>
+     *
+     * Protobuf type {@code catalog_api_v2.ProductWithProperties.ScoreDetail}
+     */
+    public static final class ScoreDetail extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:catalog_api_v2.ProductWithProperties.ScoreDetail)
+        ScoreDetailOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use ScoreDetail.newBuilder() to construct.
+      private ScoreDetail(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private ScoreDetail() {
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new ScoreDetail();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      private ScoreDetail(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        this();
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                com.google.protobuf.DoubleValue.Builder subBuilder = null;
+                if (feedbackCount_ != null) {
+                  subBuilder = feedbackCount_.toBuilder();
+                }
+                feedbackCount_ = input.readMessage(com.google.protobuf.DoubleValue.parser(), extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(feedbackCount_);
+                  feedbackCount_ = subBuilder.buildPartial();
+                }
+
+                break;
+              }
+              case 18: {
+                com.google.protobuf.StringValue.Builder subBuilder = null;
+                if (feedbackSource_ != null) {
+                  subBuilder = feedbackSource_.toBuilder();
+                }
+                feedbackSource_ = input.readMessage(com.google.protobuf.StringValue.parser(), extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(feedbackSource_);
+                  feedbackSource_ = subBuilder.buildPartial();
+                }
+
+                break;
+              }
+              case 26: {
+                com.google.protobuf.DoubleValue.Builder subBuilder = null;
+                if (commentCount_ != null) {
+                  subBuilder = commentCount_.toBuilder();
+                }
+                commentCount_ = input.readMessage(com.google.protobuf.DoubleValue.parser(), extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(commentCount_);
+                  commentCount_ = subBuilder.buildPartial();
+                }
+
+                break;
+              }
+              default: {
+                if (!parseUnknownField(
+                    input, unknownFields, extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ProductWithProperties_ScoreDetail_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ProductWithProperties_ScoreDetail_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail.class, catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail.Builder.class);
+      }
+
+      public static final int FEEDBACKCOUNT_FIELD_NUMBER = 1;
+      private com.google.protobuf.DoubleValue feedbackCount_;
+      /**
+       * <pre>
+       * кол-во отзывов
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
+       * @return Whether the feedbackCount field is set.
+       */
+      @java.lang.Override
+      public boolean hasFeedbackCount() {
+        return feedbackCount_ != null;
+      }
+      /**
+       * <pre>
+       * кол-во отзывов
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
+       * @return The feedbackCount.
+       */
+      @java.lang.Override
+      public com.google.protobuf.DoubleValue getFeedbackCount() {
+        return feedbackCount_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : feedbackCount_;
+      }
+      /**
+       * <pre>
+       * кол-во отзывов
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
+       */
+      @java.lang.Override
+      public com.google.protobuf.DoubleValueOrBuilder getFeedbackCountOrBuilder() {
+        return getFeedbackCount();
+      }
+
+      public static final int FEEDBACKSOURCE_FIELD_NUMBER = 2;
+      private com.google.protobuf.StringValue feedbackSource_;
+      /**
+       * <pre>
+       * имя ресурса
+       * </pre>
+       *
+       * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
+       * @return Whether the feedbackSource field is set.
+       */
+      @java.lang.Override
+      public boolean hasFeedbackSource() {
+        return feedbackSource_ != null;
+      }
+      /**
+       * <pre>
+       * имя ресурса
+       * </pre>
+       *
+       * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
+       * @return The feedbackSource.
+       */
+      @java.lang.Override
+      public com.google.protobuf.StringValue getFeedbackSource() {
+        return feedbackSource_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : feedbackSource_;
+      }
+      /**
+       * <pre>
+       * имя ресурса
+       * </pre>
+       *
+       * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
+       */
+      @java.lang.Override
+      public com.google.protobuf.StringValueOrBuilder getFeedbackSourceOrBuilder() {
+        return getFeedbackSource();
+      }
+
+      public static final int COMMENTCOUNT_FIELD_NUMBER = 3;
+      private com.google.protobuf.DoubleValue commentCount_;
+      /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+       * @return Whether the commentCount field is set.
+       */
+      @java.lang.Override
+      public boolean hasCommentCount() {
+        return commentCount_ != null;
+      }
+      /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+       * @return The commentCount.
+       */
+      @java.lang.Override
+      public com.google.protobuf.DoubleValue getCommentCount() {
+        return commentCount_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : commentCount_;
+      }
+      /**
+       * <pre>
+       * кол-во комментариев
+       * </pre>
+       *
+       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+       */
+      @java.lang.Override
+      public com.google.protobuf.DoubleValueOrBuilder getCommentCountOrBuilder() {
+        return getCommentCount();
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (feedbackCount_ != null) {
+          output.writeMessage(1, getFeedbackCount());
+        }
+        if (feedbackSource_ != null) {
+          output.writeMessage(2, getFeedbackSource());
+        }
+        if (commentCount_ != null) {
+          output.writeMessage(3, getCommentCount());
+        }
+        unknownFields.writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (feedbackCount_ != null) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(1, getFeedbackCount());
+        }
+        if (feedbackSource_ != null) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(2, getFeedbackSource());
+        }
+        if (commentCount_ != null) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(3, getCommentCount());
+        }
+        size += unknownFields.getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail)) {
+          return super.equals(obj);
+        }
+        catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail other = (catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail) obj;
+
+        if (hasFeedbackCount() != other.hasFeedbackCount()) return false;
+        if (hasFeedbackCount()) {
+          if (!getFeedbackCount()
+              .equals(other.getFeedbackCount())) return false;
+        }
+        if (hasFeedbackSource() != other.hasFeedbackSource()) return false;
+        if (hasFeedbackSource()) {
+          if (!getFeedbackSource()
+              .equals(other.getFeedbackSource())) return false;
+        }
+        if (hasCommentCount() != other.hasCommentCount()) return false;
+        if (hasCommentCount()) {
+          if (!getCommentCount()
+              .equals(other.getCommentCount())) return false;
+        }
+        if (!unknownFields.equals(other.unknownFields)) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        if (hasFeedbackCount()) {
+          hash = (37 * hash) + FEEDBACKCOUNT_FIELD_NUMBER;
+          hash = (53 * hash) + getFeedbackCount().hashCode();
+        }
+        if (hasFeedbackSource()) {
+          hash = (37 * hash) + FEEDBACKSOURCE_FIELD_NUMBER;
+          hash = (53 * hash) + getFeedbackSource().hashCode();
+        }
+        if (hasCommentCount()) {
+          hash = (37 * hash) + COMMENTCOUNT_FIELD_NUMBER;
+          hash = (53 * hash) + getCommentCount().hashCode();
+        }
+        hash = (29 * hash) + unknownFields.hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * <pre>
+       * ScoreDetail - рейтинг товара
+       * </pre>
+       *
+       * Protobuf type {@code catalog_api_v2.ProductWithProperties.ScoreDetail}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:catalog_api_v2.ProductWithProperties.ScoreDetail)
+          catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetailOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ProductWithProperties_ScoreDetail_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ProductWithProperties_ScoreDetail_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail.class, catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail.Builder.class);
+        }
+
+        // Construct using catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessageV3
+                  .alwaysUseFieldBuilders) {
+          }
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          if (feedbackCountBuilder_ == null) {
+            feedbackCount_ = null;
+          } else {
+            feedbackCount_ = null;
+            feedbackCountBuilder_ = null;
+          }
+          if (feedbackSourceBuilder_ == null) {
+            feedbackSource_ = null;
+          } else {
+            feedbackSource_ = null;
+            feedbackSourceBuilder_ = null;
+          }
+          if (commentCountBuilder_ == null) {
+            commentCount_ = null;
+          } else {
+            commentCount_ = null;
+            commentCountBuilder_ = null;
+          }
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ProductWithProperties_ScoreDetail_descriptor;
+        }
+
+        @java.lang.Override
+        public catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail getDefaultInstanceForType() {
+          return catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail build() {
+          catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail buildPartial() {
+          catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail result = new catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail(this);
+          if (feedbackCountBuilder_ == null) {
+            result.feedbackCount_ = feedbackCount_;
+          } else {
+            result.feedbackCount_ = feedbackCountBuilder_.build();
+          }
+          if (feedbackSourceBuilder_ == null) {
+            result.feedbackSource_ = feedbackSource_;
+          } else {
+            result.feedbackSource_ = feedbackSourceBuilder_.build();
+          }
+          if (commentCountBuilder_ == null) {
+            result.commentCount_ = commentCount_;
+          } else {
+            result.commentCount_ = commentCountBuilder_.build();
+          }
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail) {
+            return mergeFrom((catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail other) {
+          if (other == catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail.getDefaultInstance()) return this;
+          if (other.hasFeedbackCount()) {
+            mergeFeedbackCount(other.getFeedbackCount());
+          }
+          if (other.hasFeedbackSource()) {
+            mergeFeedbackSource(other.getFeedbackSource());
+          }
+          if (other.hasCommentCount()) {
+            mergeCommentCount(other.getCommentCount());
+          }
+          this.mergeUnknownFields(other.unknownFields);
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail) e.getUnfinishedMessage();
+            throw e.unwrapIOException();
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+
+        private com.google.protobuf.DoubleValue feedbackCount_;
+        private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> feedbackCountBuilder_;
+        /**
+         * <pre>
+         * кол-во отзывов
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
+         * @return Whether the feedbackCount field is set.
+         */
+        public boolean hasFeedbackCount() {
+          return feedbackCountBuilder_ != null || feedbackCount_ != null;
+        }
+        /**
+         * <pre>
+         * кол-во отзывов
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
+         * @return The feedbackCount.
+         */
+        public com.google.protobuf.DoubleValue getFeedbackCount() {
+          if (feedbackCountBuilder_ == null) {
+            return feedbackCount_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : feedbackCount_;
+          } else {
+            return feedbackCountBuilder_.getMessage();
+          }
+        }
+        /**
+         * <pre>
+         * кол-во отзывов
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
+         */
+        public Builder setFeedbackCount(com.google.protobuf.DoubleValue value) {
+          if (feedbackCountBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            feedbackCount_ = value;
+            onChanged();
+          } else {
+            feedbackCountBuilder_.setMessage(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * кол-во отзывов
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
+         */
+        public Builder setFeedbackCount(
+            com.google.protobuf.DoubleValue.Builder builderForValue) {
+          if (feedbackCountBuilder_ == null) {
+            feedbackCount_ = builderForValue.build();
+            onChanged();
+          } else {
+            feedbackCountBuilder_.setMessage(builderForValue.build());
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * кол-во отзывов
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
+         */
+        public Builder mergeFeedbackCount(com.google.protobuf.DoubleValue value) {
+          if (feedbackCountBuilder_ == null) {
+            if (feedbackCount_ != null) {
+              feedbackCount_ =
+                com.google.protobuf.DoubleValue.newBuilder(feedbackCount_).mergeFrom(value).buildPartial();
+            } else {
+              feedbackCount_ = value;
+            }
+            onChanged();
+          } else {
+            feedbackCountBuilder_.mergeFrom(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * кол-во отзывов
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
+         */
+        public Builder clearFeedbackCount() {
+          if (feedbackCountBuilder_ == null) {
+            feedbackCount_ = null;
+            onChanged();
+          } else {
+            feedbackCount_ = null;
+            feedbackCountBuilder_ = null;
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * кол-во отзывов
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
+         */
+        public com.google.protobuf.DoubleValue.Builder getFeedbackCountBuilder() {
+          
+          onChanged();
+          return getFeedbackCountFieldBuilder().getBuilder();
+        }
+        /**
+         * <pre>
+         * кол-во отзывов
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
+         */
+        public com.google.protobuf.DoubleValueOrBuilder getFeedbackCountOrBuilder() {
+          if (feedbackCountBuilder_ != null) {
+            return feedbackCountBuilder_.getMessageOrBuilder();
+          } else {
+            return feedbackCount_ == null ?
+                com.google.protobuf.DoubleValue.getDefaultInstance() : feedbackCount_;
+          }
+        }
+        /**
+         * <pre>
+         * кол-во отзывов
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> 
+            getFeedbackCountFieldBuilder() {
+          if (feedbackCountBuilder_ == null) {
+            feedbackCountBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder>(
+                    getFeedbackCount(),
+                    getParentForChildren(),
+                    isClean());
+            feedbackCount_ = null;
+          }
+          return feedbackCountBuilder_;
+        }
+
+        private com.google.protobuf.StringValue feedbackSource_;
+        private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> feedbackSourceBuilder_;
+        /**
+         * <pre>
+         * имя ресурса
+         * </pre>
+         *
+         * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
+         * @return Whether the feedbackSource field is set.
+         */
+        public boolean hasFeedbackSource() {
+          return feedbackSourceBuilder_ != null || feedbackSource_ != null;
+        }
+        /**
+         * <pre>
+         * имя ресурса
+         * </pre>
+         *
+         * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
+         * @return The feedbackSource.
+         */
+        public com.google.protobuf.StringValue getFeedbackSource() {
+          if (feedbackSourceBuilder_ == null) {
+            return feedbackSource_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : feedbackSource_;
+          } else {
+            return feedbackSourceBuilder_.getMessage();
+          }
+        }
+        /**
+         * <pre>
+         * имя ресурса
+         * </pre>
+         *
+         * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
+         */
+        public Builder setFeedbackSource(com.google.protobuf.StringValue value) {
+          if (feedbackSourceBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            feedbackSource_ = value;
+            onChanged();
+          } else {
+            feedbackSourceBuilder_.setMessage(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * имя ресурса
+         * </pre>
+         *
+         * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
+         */
+        public Builder setFeedbackSource(
+            com.google.protobuf.StringValue.Builder builderForValue) {
+          if (feedbackSourceBuilder_ == null) {
+            feedbackSource_ = builderForValue.build();
+            onChanged();
+          } else {
+            feedbackSourceBuilder_.setMessage(builderForValue.build());
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * имя ресурса
+         * </pre>
+         *
+         * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
+         */
+        public Builder mergeFeedbackSource(com.google.protobuf.StringValue value) {
+          if (feedbackSourceBuilder_ == null) {
+            if (feedbackSource_ != null) {
+              feedbackSource_ =
+                com.google.protobuf.StringValue.newBuilder(feedbackSource_).mergeFrom(value).buildPartial();
+            } else {
+              feedbackSource_ = value;
+            }
+            onChanged();
+          } else {
+            feedbackSourceBuilder_.mergeFrom(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * имя ресурса
+         * </pre>
+         *
+         * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
+         */
+        public Builder clearFeedbackSource() {
+          if (feedbackSourceBuilder_ == null) {
+            feedbackSource_ = null;
+            onChanged();
+          } else {
+            feedbackSource_ = null;
+            feedbackSourceBuilder_ = null;
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * имя ресурса
+         * </pre>
+         *
+         * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
+         */
+        public com.google.protobuf.StringValue.Builder getFeedbackSourceBuilder() {
+          
+          onChanged();
+          return getFeedbackSourceFieldBuilder().getBuilder();
+        }
+        /**
+         * <pre>
+         * имя ресурса
+         * </pre>
+         *
+         * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
+         */
+        public com.google.protobuf.StringValueOrBuilder getFeedbackSourceOrBuilder() {
+          if (feedbackSourceBuilder_ != null) {
+            return feedbackSourceBuilder_.getMessageOrBuilder();
+          } else {
+            return feedbackSource_ == null ?
+                com.google.protobuf.StringValue.getDefaultInstance() : feedbackSource_;
+          }
+        }
+        /**
+         * <pre>
+         * имя ресурса
+         * </pre>
+         *
+         * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> 
+            getFeedbackSourceFieldBuilder() {
+          if (feedbackSourceBuilder_ == null) {
+            feedbackSourceBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder>(
+                    getFeedbackSource(),
+                    getParentForChildren(),
+                    isClean());
+            feedbackSource_ = null;
+          }
+          return feedbackSourceBuilder_;
+        }
+
+        private com.google.protobuf.DoubleValue commentCount_;
+        private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> commentCountBuilder_;
+        /**
+         * <pre>
+         * кол-во комментариев
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+         * @return Whether the commentCount field is set.
+         */
+        public boolean hasCommentCount() {
+          return commentCountBuilder_ != null || commentCount_ != null;
+        }
+        /**
+         * <pre>
+         * кол-во комментариев
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+         * @return The commentCount.
+         */
+        public com.google.protobuf.DoubleValue getCommentCount() {
+          if (commentCountBuilder_ == null) {
+            return commentCount_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : commentCount_;
+          } else {
+            return commentCountBuilder_.getMessage();
+          }
+        }
+        /**
+         * <pre>
+         * кол-во комментариев
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+         */
+        public Builder setCommentCount(com.google.protobuf.DoubleValue value) {
+          if (commentCountBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            commentCount_ = value;
+            onChanged();
+          } else {
+            commentCountBuilder_.setMessage(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * кол-во комментариев
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+         */
+        public Builder setCommentCount(
+            com.google.protobuf.DoubleValue.Builder builderForValue) {
+          if (commentCountBuilder_ == null) {
+            commentCount_ = builderForValue.build();
+            onChanged();
+          } else {
+            commentCountBuilder_.setMessage(builderForValue.build());
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * кол-во комментариев
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+         */
+        public Builder mergeCommentCount(com.google.protobuf.DoubleValue value) {
+          if (commentCountBuilder_ == null) {
+            if (commentCount_ != null) {
+              commentCount_ =
+                com.google.protobuf.DoubleValue.newBuilder(commentCount_).mergeFrom(value).buildPartial();
+            } else {
+              commentCount_ = value;
+            }
+            onChanged();
+          } else {
+            commentCountBuilder_.mergeFrom(value);
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * кол-во комментариев
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+         */
+        public Builder clearCommentCount() {
+          if (commentCountBuilder_ == null) {
+            commentCount_ = null;
+            onChanged();
+          } else {
+            commentCount_ = null;
+            commentCountBuilder_ = null;
+          }
+
+          return this;
+        }
+        /**
+         * <pre>
+         * кол-во комментариев
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+         */
+        public com.google.protobuf.DoubleValue.Builder getCommentCountBuilder() {
+          
+          onChanged();
+          return getCommentCountFieldBuilder().getBuilder();
+        }
+        /**
+         * <pre>
+         * кол-во комментариев
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+         */
+        public com.google.protobuf.DoubleValueOrBuilder getCommentCountOrBuilder() {
+          if (commentCountBuilder_ != null) {
+            return commentCountBuilder_.getMessageOrBuilder();
+          } else {
+            return commentCount_ == null ?
+                com.google.protobuf.DoubleValue.getDefaultInstance() : commentCount_;
+          }
+        }
+        /**
+         * <pre>
+         * кол-во комментариев
+         * </pre>
+         *
+         * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
+         */
+        private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> 
+            getCommentCountFieldBuilder() {
+          if (commentCountBuilder_ == null) {
+            commentCountBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+                com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder>(
+                    getCommentCount(),
+                    getParentForChildren(),
+                    isClean());
+            commentCount_ = null;
+          }
+          return commentCountBuilder_;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:catalog_api_v2.ProductWithProperties.ScoreDetail)
+      }
+
+      // @@protoc_insertion_point(class_scope:catalog_api_v2.ProductWithProperties.ScoreDetail)
+      private static final catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail();
+      }
+
+      public static catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<ScoreDetail>
+          PARSER = new com.google.protobuf.AbstractParser<ScoreDetail>() {
+        @java.lang.Override
+        public ScoreDetail parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new ScoreDetail(input, extensionRegistry);
+        }
+      };
+
+      public static com.google.protobuf.Parser<ScoreDetail> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<ScoreDetail> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
     }
 
     public static final int ID_FIELD_NUMBER = 1;
@@ -20834,9 +24612,9 @@ public final class CatalogApiV2 {
     }
 
     public static final int SCORE_DETAILS_FIELD_NUMBER = 24;
-    private catalog_api_v2.CatalogApiV2.ScoreDetail scoreDetails_;
+    private catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail scoreDetails_;
     /**
-     * <code>.catalog_api_v2.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
+     * <code>.catalog_api_v2.ProductWithProperties.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
      * @return Whether the scoreDetails field is set.
      */
     @java.lang.Override
@@ -20844,18 +24622,18 @@ public final class CatalogApiV2 {
       return scoreDetails_ != null;
     }
     /**
-     * <code>.catalog_api_v2.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
+     * <code>.catalog_api_v2.ProductWithProperties.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
      * @return The scoreDetails.
      */
     @java.lang.Override
-    public catalog_api_v2.CatalogApiV2.ScoreDetail getScoreDetails() {
-      return scoreDetails_ == null ? catalog_api_v2.CatalogApiV2.ScoreDetail.getDefaultInstance() : scoreDetails_;
+    public catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail getScoreDetails() {
+      return scoreDetails_ == null ? catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail.getDefaultInstance() : scoreDetails_;
     }
     /**
-     * <code>.catalog_api_v2.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
+     * <code>.catalog_api_v2.ProductWithProperties.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
      */
     @java.lang.Override
-    public catalog_api_v2.CatalogApiV2.ScoreDetailOrBuilder getScoreDetailsOrBuilder() {
+    public catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetailOrBuilder getScoreDetailsOrBuilder() {
       return getScoreDetails();
     }
 
@@ -21512,8 +25290,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     **
-     * Ответ карточки товара
+     * ProductWithProperties - ответ карточки товара
      * &#64;see Product
      * </pre>
      *
@@ -24305,31 +28082,31 @@ public final class CatalogApiV2 {
         return this;
       }
 
-      private catalog_api_v2.CatalogApiV2.ScoreDetail scoreDetails_;
+      private catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail scoreDetails_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          catalog_api_v2.CatalogApiV2.ScoreDetail, catalog_api_v2.CatalogApiV2.ScoreDetail.Builder, catalog_api_v2.CatalogApiV2.ScoreDetailOrBuilder> scoreDetailsBuilder_;
+          catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail, catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail.Builder, catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetailOrBuilder> scoreDetailsBuilder_;
       /**
-       * <code>.catalog_api_v2.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
+       * <code>.catalog_api_v2.ProductWithProperties.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
        * @return Whether the scoreDetails field is set.
        */
       public boolean hasScoreDetails() {
         return scoreDetailsBuilder_ != null || scoreDetails_ != null;
       }
       /**
-       * <code>.catalog_api_v2.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
+       * <code>.catalog_api_v2.ProductWithProperties.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
        * @return The scoreDetails.
        */
-      public catalog_api_v2.CatalogApiV2.ScoreDetail getScoreDetails() {
+      public catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail getScoreDetails() {
         if (scoreDetailsBuilder_ == null) {
-          return scoreDetails_ == null ? catalog_api_v2.CatalogApiV2.ScoreDetail.getDefaultInstance() : scoreDetails_;
+          return scoreDetails_ == null ? catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail.getDefaultInstance() : scoreDetails_;
         } else {
           return scoreDetailsBuilder_.getMessage();
         }
       }
       /**
-       * <code>.catalog_api_v2.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
+       * <code>.catalog_api_v2.ProductWithProperties.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
        */
-      public Builder setScoreDetails(catalog_api_v2.CatalogApiV2.ScoreDetail value) {
+      public Builder setScoreDetails(catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail value) {
         if (scoreDetailsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -24343,10 +28120,10 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.catalog_api_v2.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
+       * <code>.catalog_api_v2.ProductWithProperties.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
        */
       public Builder setScoreDetails(
-          catalog_api_v2.CatalogApiV2.ScoreDetail.Builder builderForValue) {
+          catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail.Builder builderForValue) {
         if (scoreDetailsBuilder_ == null) {
           scoreDetails_ = builderForValue.build();
           onChanged();
@@ -24357,13 +28134,13 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.catalog_api_v2.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
+       * <code>.catalog_api_v2.ProductWithProperties.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
        */
-      public Builder mergeScoreDetails(catalog_api_v2.CatalogApiV2.ScoreDetail value) {
+      public Builder mergeScoreDetails(catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail value) {
         if (scoreDetailsBuilder_ == null) {
           if (scoreDetails_ != null) {
             scoreDetails_ =
-              catalog_api_v2.CatalogApiV2.ScoreDetail.newBuilder(scoreDetails_).mergeFrom(value).buildPartial();
+              catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail.newBuilder(scoreDetails_).mergeFrom(value).buildPartial();
           } else {
             scoreDetails_ = value;
           }
@@ -24375,7 +28152,7 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.catalog_api_v2.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
+       * <code>.catalog_api_v2.ProductWithProperties.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
        */
       public Builder clearScoreDetails() {
         if (scoreDetailsBuilder_ == null) {
@@ -24389,33 +28166,33 @@ public final class CatalogApiV2 {
         return this;
       }
       /**
-       * <code>.catalog_api_v2.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
+       * <code>.catalog_api_v2.ProductWithProperties.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
        */
-      public catalog_api_v2.CatalogApiV2.ScoreDetail.Builder getScoreDetailsBuilder() {
+      public catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail.Builder getScoreDetailsBuilder() {
         
         onChanged();
         return getScoreDetailsFieldBuilder().getBuilder();
       }
       /**
-       * <code>.catalog_api_v2.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
+       * <code>.catalog_api_v2.ProductWithProperties.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
        */
-      public catalog_api_v2.CatalogApiV2.ScoreDetailOrBuilder getScoreDetailsOrBuilder() {
+      public catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetailOrBuilder getScoreDetailsOrBuilder() {
         if (scoreDetailsBuilder_ != null) {
           return scoreDetailsBuilder_.getMessageOrBuilder();
         } else {
           return scoreDetails_ == null ?
-              catalog_api_v2.CatalogApiV2.ScoreDetail.getDefaultInstance() : scoreDetails_;
+              catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail.getDefaultInstance() : scoreDetails_;
         }
       }
       /**
-       * <code>.catalog_api_v2.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
+       * <code>.catalog_api_v2.ProductWithProperties.ScoreDetail score_details = 24 [json_name = "score_details"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          catalog_api_v2.CatalogApiV2.ScoreDetail, catalog_api_v2.CatalogApiV2.ScoreDetail.Builder, catalog_api_v2.CatalogApiV2.ScoreDetailOrBuilder> 
+          catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail, catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail.Builder, catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetailOrBuilder> 
           getScoreDetailsFieldBuilder() {
         if (scoreDetailsBuilder_ == null) {
           scoreDetailsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              catalog_api_v2.CatalogApiV2.ScoreDetail, catalog_api_v2.CatalogApiV2.ScoreDetail.Builder, catalog_api_v2.CatalogApiV2.ScoreDetailOrBuilder>(
+              catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail, catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetail.Builder, catalog_api_v2.CatalogApiV2.ProductWithProperties.ScoreDetailOrBuilder>(
                   getScoreDetails(),
                   getParentForChildren(),
                   isClean());
@@ -24989,8 +28766,7 @@ public final class CatalogApiV2 {
   }
   /**
    * <pre>
-   **
-   * Характеристики
+   * Property - характеристики
    * </pre>
    *
    * Protobuf type {@code catalog_api_v2.Property}
@@ -25404,8 +29180,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     **
-     * Характеристики
+     * Property - характеристики
      * </pre>
      *
      * Protobuf type {@code catalog_api_v2.Property}
@@ -25972,8 +29747,7 @@ public final class CatalogApiV2 {
   }
   /**
    * <pre>
-   **
-   * Промо бейджи
+   * PromoBadge - промо бейджи
    * </pre>
    *
    * Protobuf type {@code catalog_api_v2.PromoBadge}
@@ -26361,8 +30135,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     **
-     * Промо бейджи
+     * PromoBadge - промо бейджи
      * </pre>
      *
      * Protobuf type {@code catalog_api_v2.PromoBadge}
@@ -26961,8 +30734,7 @@ public final class CatalogApiV2 {
   }
   /**
    * <pre>
-   **
-   * Атрибуты промо бейджей
+   * PromoBadgeAttribute - атрибуты промо бейджей
    * </pre>
    *
    * Protobuf type {@code catalog_api_v2.PromoBadgeAttribute}
@@ -27413,8 +31185,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     **
-     * Атрибуты промо бейджей
+     * PromoBadgeAttribute - атрибуты промо бейджей
      * </pre>
      *
      * Protobuf type {@code catalog_api_v2.PromoBadgeAttribute}
@@ -28081,8 +31852,7 @@ public final class CatalogApiV2 {
   }
   /**
    * <pre>
-   **
-   * Опции
+   * AttributeOption - опции
    * </pre>
    *
    * Protobuf type {@code catalog_api_v2.AttributeOption}
@@ -28429,8 +32199,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     **
-     * Опции
+     * AttributeOption - опции
      * </pre>
      *
      * Protobuf type {@code catalog_api_v2.AttributeOption}
@@ -29017,8 +32786,7 @@ public final class CatalogApiV2 {
   }
   /**
    * <pre>
-   **
-   * Для активной кнопки
+   * Active - для активной кнопки
    * </pre>
    *
    * Protobuf type {@code catalog_api_v2.Active}
@@ -29628,8 +33396,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     **
-     * Для активной кнопки
+     * Active - для активной кнопки
      * </pre>
      *
      * Protobuf type {@code catalog_api_v2.Active}
@@ -30483,8 +34250,7 @@ public final class CatalogApiV2 {
   }
   /**
    * <pre>
-   **
-   * Для деактивированное кнопки
+   * Inactive - для деактивированное кнопки
    * </pre>
    *
    * Protobuf type {@code catalog_api_v2.Inactive}
@@ -31039,8 +34805,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     **
-     * Для деактивированное кнопки
+     * Inactive - для деактивированное кнопки
      * </pre>
      *
      * Protobuf type {@code catalog_api_v2.Inactive}
@@ -31733,1223 +35498,6 @@ public final class CatalogApiV2 {
 
   }
 
-  public interface ScoreDetailOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:catalog_api_v2.ScoreDetail)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * кол-во отзывов
-     * </pre>
-     *
-     * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
-     * @return Whether the feedbackCount field is set.
-     */
-    boolean hasFeedbackCount();
-    /**
-     * <pre>
-     * кол-во отзывов
-     * </pre>
-     *
-     * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
-     * @return The feedbackCount.
-     */
-    com.google.protobuf.DoubleValue getFeedbackCount();
-    /**
-     * <pre>
-     * кол-во отзывов
-     * </pre>
-     *
-     * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
-     */
-    com.google.protobuf.DoubleValueOrBuilder getFeedbackCountOrBuilder();
-
-    /**
-     * <pre>
-     * имя ресурса
-     * </pre>
-     *
-     * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
-     * @return Whether the feedbackSource field is set.
-     */
-    boolean hasFeedbackSource();
-    /**
-     * <pre>
-     * имя ресурса
-     * </pre>
-     *
-     * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
-     * @return The feedbackSource.
-     */
-    com.google.protobuf.StringValue getFeedbackSource();
-    /**
-     * <pre>
-     * имя ресурса
-     * </pre>
-     *
-     * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
-     */
-    com.google.protobuf.StringValueOrBuilder getFeedbackSourceOrBuilder();
-
-    /**
-     * <pre>
-     * кол-во комментариев
-     * </pre>
-     *
-     * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
-     * @return Whether the commentCount field is set.
-     */
-    boolean hasCommentCount();
-    /**
-     * <pre>
-     * кол-во комментариев
-     * </pre>
-     *
-     * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
-     * @return The commentCount.
-     */
-    com.google.protobuf.DoubleValue getCommentCount();
-    /**
-     * <pre>
-     * кол-во комментариев
-     * </pre>
-     *
-     * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
-     */
-    com.google.protobuf.DoubleValueOrBuilder getCommentCountOrBuilder();
-  }
-  /**
-   * <pre>
-   **
-   * Рейтинг товара
-   * </pre>
-   *
-   * Protobuf type {@code catalog_api_v2.ScoreDetail}
-   */
-  public static final class ScoreDetail extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:catalog_api_v2.ScoreDetail)
-      ScoreDetailOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use ScoreDetail.newBuilder() to construct.
-    private ScoreDetail(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private ScoreDetail() {
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new ScoreDetail();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private ScoreDetail(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              com.google.protobuf.DoubleValue.Builder subBuilder = null;
-              if (feedbackCount_ != null) {
-                subBuilder = feedbackCount_.toBuilder();
-              }
-              feedbackCount_ = input.readMessage(com.google.protobuf.DoubleValue.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(feedbackCount_);
-                feedbackCount_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            case 18: {
-              com.google.protobuf.StringValue.Builder subBuilder = null;
-              if (feedbackSource_ != null) {
-                subBuilder = feedbackSource_.toBuilder();
-              }
-              feedbackSource_ = input.readMessage(com.google.protobuf.StringValue.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(feedbackSource_);
-                feedbackSource_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            case 26: {
-              com.google.protobuf.DoubleValue.Builder subBuilder = null;
-              if (commentCount_ != null) {
-                subBuilder = commentCount_.toBuilder();
-              }
-              commentCount_ = input.readMessage(com.google.protobuf.DoubleValue.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(commentCount_);
-                commentCount_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ScoreDetail_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ScoreDetail_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              catalog_api_v2.CatalogApiV2.ScoreDetail.class, catalog_api_v2.CatalogApiV2.ScoreDetail.Builder.class);
-    }
-
-    public static final int FEEDBACKCOUNT_FIELD_NUMBER = 1;
-    private com.google.protobuf.DoubleValue feedbackCount_;
-    /**
-     * <pre>
-     * кол-во отзывов
-     * </pre>
-     *
-     * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
-     * @return Whether the feedbackCount field is set.
-     */
-    @java.lang.Override
-    public boolean hasFeedbackCount() {
-      return feedbackCount_ != null;
-    }
-    /**
-     * <pre>
-     * кол-во отзывов
-     * </pre>
-     *
-     * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
-     * @return The feedbackCount.
-     */
-    @java.lang.Override
-    public com.google.protobuf.DoubleValue getFeedbackCount() {
-      return feedbackCount_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : feedbackCount_;
-    }
-    /**
-     * <pre>
-     * кол-во отзывов
-     * </pre>
-     *
-     * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
-     */
-    @java.lang.Override
-    public com.google.protobuf.DoubleValueOrBuilder getFeedbackCountOrBuilder() {
-      return getFeedbackCount();
-    }
-
-    public static final int FEEDBACKSOURCE_FIELD_NUMBER = 2;
-    private com.google.protobuf.StringValue feedbackSource_;
-    /**
-     * <pre>
-     * имя ресурса
-     * </pre>
-     *
-     * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
-     * @return Whether the feedbackSource field is set.
-     */
-    @java.lang.Override
-    public boolean hasFeedbackSource() {
-      return feedbackSource_ != null;
-    }
-    /**
-     * <pre>
-     * имя ресурса
-     * </pre>
-     *
-     * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
-     * @return The feedbackSource.
-     */
-    @java.lang.Override
-    public com.google.protobuf.StringValue getFeedbackSource() {
-      return feedbackSource_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : feedbackSource_;
-    }
-    /**
-     * <pre>
-     * имя ресурса
-     * </pre>
-     *
-     * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
-     */
-    @java.lang.Override
-    public com.google.protobuf.StringValueOrBuilder getFeedbackSourceOrBuilder() {
-      return getFeedbackSource();
-    }
-
-    public static final int COMMENTCOUNT_FIELD_NUMBER = 3;
-    private com.google.protobuf.DoubleValue commentCount_;
-    /**
-     * <pre>
-     * кол-во комментариев
-     * </pre>
-     *
-     * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
-     * @return Whether the commentCount field is set.
-     */
-    @java.lang.Override
-    public boolean hasCommentCount() {
-      return commentCount_ != null;
-    }
-    /**
-     * <pre>
-     * кол-во комментариев
-     * </pre>
-     *
-     * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
-     * @return The commentCount.
-     */
-    @java.lang.Override
-    public com.google.protobuf.DoubleValue getCommentCount() {
-      return commentCount_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : commentCount_;
-    }
-    /**
-     * <pre>
-     * кол-во комментариев
-     * </pre>
-     *
-     * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
-     */
-    @java.lang.Override
-    public com.google.protobuf.DoubleValueOrBuilder getCommentCountOrBuilder() {
-      return getCommentCount();
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (feedbackCount_ != null) {
-        output.writeMessage(1, getFeedbackCount());
-      }
-      if (feedbackSource_ != null) {
-        output.writeMessage(2, getFeedbackSource());
-      }
-      if (commentCount_ != null) {
-        output.writeMessage(3, getCommentCount());
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (feedbackCount_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getFeedbackCount());
-      }
-      if (feedbackSource_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getFeedbackSource());
-      }
-      if (commentCount_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, getCommentCount());
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof catalog_api_v2.CatalogApiV2.ScoreDetail)) {
-        return super.equals(obj);
-      }
-      catalog_api_v2.CatalogApiV2.ScoreDetail other = (catalog_api_v2.CatalogApiV2.ScoreDetail) obj;
-
-      if (hasFeedbackCount() != other.hasFeedbackCount()) return false;
-      if (hasFeedbackCount()) {
-        if (!getFeedbackCount()
-            .equals(other.getFeedbackCount())) return false;
-      }
-      if (hasFeedbackSource() != other.hasFeedbackSource()) return false;
-      if (hasFeedbackSource()) {
-        if (!getFeedbackSource()
-            .equals(other.getFeedbackSource())) return false;
-      }
-      if (hasCommentCount() != other.hasCommentCount()) return false;
-      if (hasCommentCount()) {
-        if (!getCommentCount()
-            .equals(other.getCommentCount())) return false;
-      }
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasFeedbackCount()) {
-        hash = (37 * hash) + FEEDBACKCOUNT_FIELD_NUMBER;
-        hash = (53 * hash) + getFeedbackCount().hashCode();
-      }
-      if (hasFeedbackSource()) {
-        hash = (37 * hash) + FEEDBACKSOURCE_FIELD_NUMBER;
-        hash = (53 * hash) + getFeedbackSource().hashCode();
-      }
-      if (hasCommentCount()) {
-        hash = (37 * hash) + COMMENTCOUNT_FIELD_NUMBER;
-        hash = (53 * hash) + getCommentCount().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static catalog_api_v2.CatalogApiV2.ScoreDetail parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static catalog_api_v2.CatalogApiV2.ScoreDetail parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.ScoreDetail parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static catalog_api_v2.CatalogApiV2.ScoreDetail parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.ScoreDetail parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static catalog_api_v2.CatalogApiV2.ScoreDetail parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.ScoreDetail parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static catalog_api_v2.CatalogApiV2.ScoreDetail parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.ScoreDetail parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static catalog_api_v2.CatalogApiV2.ScoreDetail parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static catalog_api_v2.CatalogApiV2.ScoreDetail parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static catalog_api_v2.CatalogApiV2.ScoreDetail parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(catalog_api_v2.CatalogApiV2.ScoreDetail prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     **
-     * Рейтинг товара
-     * </pre>
-     *
-     * Protobuf type {@code catalog_api_v2.ScoreDetail}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:catalog_api_v2.ScoreDetail)
-        catalog_api_v2.CatalogApiV2.ScoreDetailOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ScoreDetail_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ScoreDetail_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                catalog_api_v2.CatalogApiV2.ScoreDetail.class, catalog_api_v2.CatalogApiV2.ScoreDetail.Builder.class);
-      }
-
-      // Construct using catalog_api_v2.CatalogApiV2.ScoreDetail.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        if (feedbackCountBuilder_ == null) {
-          feedbackCount_ = null;
-        } else {
-          feedbackCount_ = null;
-          feedbackCountBuilder_ = null;
-        }
-        if (feedbackSourceBuilder_ == null) {
-          feedbackSource_ = null;
-        } else {
-          feedbackSource_ = null;
-          feedbackSourceBuilder_ = null;
-        }
-        if (commentCountBuilder_ == null) {
-          commentCount_ = null;
-        } else {
-          commentCount_ = null;
-          commentCountBuilder_ = null;
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return catalog_api_v2.CatalogApiV2.internal_static_catalog_api_v2_ScoreDetail_descriptor;
-      }
-
-      @java.lang.Override
-      public catalog_api_v2.CatalogApiV2.ScoreDetail getDefaultInstanceForType() {
-        return catalog_api_v2.CatalogApiV2.ScoreDetail.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public catalog_api_v2.CatalogApiV2.ScoreDetail build() {
-        catalog_api_v2.CatalogApiV2.ScoreDetail result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public catalog_api_v2.CatalogApiV2.ScoreDetail buildPartial() {
-        catalog_api_v2.CatalogApiV2.ScoreDetail result = new catalog_api_v2.CatalogApiV2.ScoreDetail(this);
-        if (feedbackCountBuilder_ == null) {
-          result.feedbackCount_ = feedbackCount_;
-        } else {
-          result.feedbackCount_ = feedbackCountBuilder_.build();
-        }
-        if (feedbackSourceBuilder_ == null) {
-          result.feedbackSource_ = feedbackSource_;
-        } else {
-          result.feedbackSource_ = feedbackSourceBuilder_.build();
-        }
-        if (commentCountBuilder_ == null) {
-          result.commentCount_ = commentCount_;
-        } else {
-          result.commentCount_ = commentCountBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof catalog_api_v2.CatalogApiV2.ScoreDetail) {
-          return mergeFrom((catalog_api_v2.CatalogApiV2.ScoreDetail)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(catalog_api_v2.CatalogApiV2.ScoreDetail other) {
-        if (other == catalog_api_v2.CatalogApiV2.ScoreDetail.getDefaultInstance()) return this;
-        if (other.hasFeedbackCount()) {
-          mergeFeedbackCount(other.getFeedbackCount());
-        }
-        if (other.hasFeedbackSource()) {
-          mergeFeedbackSource(other.getFeedbackSource());
-        }
-        if (other.hasCommentCount()) {
-          mergeCommentCount(other.getCommentCount());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        catalog_api_v2.CatalogApiV2.ScoreDetail parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (catalog_api_v2.CatalogApiV2.ScoreDetail) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private com.google.protobuf.DoubleValue feedbackCount_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> feedbackCountBuilder_;
-      /**
-       * <pre>
-       * кол-во отзывов
-       * </pre>
-       *
-       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
-       * @return Whether the feedbackCount field is set.
-       */
-      public boolean hasFeedbackCount() {
-        return feedbackCountBuilder_ != null || feedbackCount_ != null;
-      }
-      /**
-       * <pre>
-       * кол-во отзывов
-       * </pre>
-       *
-       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
-       * @return The feedbackCount.
-       */
-      public com.google.protobuf.DoubleValue getFeedbackCount() {
-        if (feedbackCountBuilder_ == null) {
-          return feedbackCount_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : feedbackCount_;
-        } else {
-          return feedbackCountBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * кол-во отзывов
-       * </pre>
-       *
-       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
-       */
-      public Builder setFeedbackCount(com.google.protobuf.DoubleValue value) {
-        if (feedbackCountBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          feedbackCount_ = value;
-          onChanged();
-        } else {
-          feedbackCountBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * кол-во отзывов
-       * </pre>
-       *
-       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
-       */
-      public Builder setFeedbackCount(
-          com.google.protobuf.DoubleValue.Builder builderForValue) {
-        if (feedbackCountBuilder_ == null) {
-          feedbackCount_ = builderForValue.build();
-          onChanged();
-        } else {
-          feedbackCountBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * кол-во отзывов
-       * </pre>
-       *
-       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
-       */
-      public Builder mergeFeedbackCount(com.google.protobuf.DoubleValue value) {
-        if (feedbackCountBuilder_ == null) {
-          if (feedbackCount_ != null) {
-            feedbackCount_ =
-              com.google.protobuf.DoubleValue.newBuilder(feedbackCount_).mergeFrom(value).buildPartial();
-          } else {
-            feedbackCount_ = value;
-          }
-          onChanged();
-        } else {
-          feedbackCountBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * кол-во отзывов
-       * </pre>
-       *
-       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
-       */
-      public Builder clearFeedbackCount() {
-        if (feedbackCountBuilder_ == null) {
-          feedbackCount_ = null;
-          onChanged();
-        } else {
-          feedbackCount_ = null;
-          feedbackCountBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * кол-во отзывов
-       * </pre>
-       *
-       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
-       */
-      public com.google.protobuf.DoubleValue.Builder getFeedbackCountBuilder() {
-        
-        onChanged();
-        return getFeedbackCountFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * кол-во отзывов
-       * </pre>
-       *
-       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
-       */
-      public com.google.protobuf.DoubleValueOrBuilder getFeedbackCountOrBuilder() {
-        if (feedbackCountBuilder_ != null) {
-          return feedbackCountBuilder_.getMessageOrBuilder();
-        } else {
-          return feedbackCount_ == null ?
-              com.google.protobuf.DoubleValue.getDefaultInstance() : feedbackCount_;
-        }
-      }
-      /**
-       * <pre>
-       * кол-во отзывов
-       * </pre>
-       *
-       * <code>.google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"];</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> 
-          getFeedbackCountFieldBuilder() {
-        if (feedbackCountBuilder_ == null) {
-          feedbackCountBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder>(
-                  getFeedbackCount(),
-                  getParentForChildren(),
-                  isClean());
-          feedbackCount_ = null;
-        }
-        return feedbackCountBuilder_;
-      }
-
-      private com.google.protobuf.StringValue feedbackSource_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> feedbackSourceBuilder_;
-      /**
-       * <pre>
-       * имя ресурса
-       * </pre>
-       *
-       * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
-       * @return Whether the feedbackSource field is set.
-       */
-      public boolean hasFeedbackSource() {
-        return feedbackSourceBuilder_ != null || feedbackSource_ != null;
-      }
-      /**
-       * <pre>
-       * имя ресурса
-       * </pre>
-       *
-       * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
-       * @return The feedbackSource.
-       */
-      public com.google.protobuf.StringValue getFeedbackSource() {
-        if (feedbackSourceBuilder_ == null) {
-          return feedbackSource_ == null ? com.google.protobuf.StringValue.getDefaultInstance() : feedbackSource_;
-        } else {
-          return feedbackSourceBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * имя ресурса
-       * </pre>
-       *
-       * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
-       */
-      public Builder setFeedbackSource(com.google.protobuf.StringValue value) {
-        if (feedbackSourceBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          feedbackSource_ = value;
-          onChanged();
-        } else {
-          feedbackSourceBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * имя ресурса
-       * </pre>
-       *
-       * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
-       */
-      public Builder setFeedbackSource(
-          com.google.protobuf.StringValue.Builder builderForValue) {
-        if (feedbackSourceBuilder_ == null) {
-          feedbackSource_ = builderForValue.build();
-          onChanged();
-        } else {
-          feedbackSourceBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * имя ресурса
-       * </pre>
-       *
-       * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
-       */
-      public Builder mergeFeedbackSource(com.google.protobuf.StringValue value) {
-        if (feedbackSourceBuilder_ == null) {
-          if (feedbackSource_ != null) {
-            feedbackSource_ =
-              com.google.protobuf.StringValue.newBuilder(feedbackSource_).mergeFrom(value).buildPartial();
-          } else {
-            feedbackSource_ = value;
-          }
-          onChanged();
-        } else {
-          feedbackSourceBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * имя ресурса
-       * </pre>
-       *
-       * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
-       */
-      public Builder clearFeedbackSource() {
-        if (feedbackSourceBuilder_ == null) {
-          feedbackSource_ = null;
-          onChanged();
-        } else {
-          feedbackSource_ = null;
-          feedbackSourceBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * имя ресурса
-       * </pre>
-       *
-       * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
-       */
-      public com.google.protobuf.StringValue.Builder getFeedbackSourceBuilder() {
-        
-        onChanged();
-        return getFeedbackSourceFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * имя ресурса
-       * </pre>
-       *
-       * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
-       */
-      public com.google.protobuf.StringValueOrBuilder getFeedbackSourceOrBuilder() {
-        if (feedbackSourceBuilder_ != null) {
-          return feedbackSourceBuilder_.getMessageOrBuilder();
-        } else {
-          return feedbackSource_ == null ?
-              com.google.protobuf.StringValue.getDefaultInstance() : feedbackSource_;
-        }
-      }
-      /**
-       * <pre>
-       * имя ресурса
-       * </pre>
-       *
-       * <code>.google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"];</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder> 
-          getFeedbackSourceFieldBuilder() {
-        if (feedbackSourceBuilder_ == null) {
-          feedbackSourceBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.StringValue, com.google.protobuf.StringValue.Builder, com.google.protobuf.StringValueOrBuilder>(
-                  getFeedbackSource(),
-                  getParentForChildren(),
-                  isClean());
-          feedbackSource_ = null;
-        }
-        return feedbackSourceBuilder_;
-      }
-
-      private com.google.protobuf.DoubleValue commentCount_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> commentCountBuilder_;
-      /**
-       * <pre>
-       * кол-во комментариев
-       * </pre>
-       *
-       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
-       * @return Whether the commentCount field is set.
-       */
-      public boolean hasCommentCount() {
-        return commentCountBuilder_ != null || commentCount_ != null;
-      }
-      /**
-       * <pre>
-       * кол-во комментариев
-       * </pre>
-       *
-       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
-       * @return The commentCount.
-       */
-      public com.google.protobuf.DoubleValue getCommentCount() {
-        if (commentCountBuilder_ == null) {
-          return commentCount_ == null ? com.google.protobuf.DoubleValue.getDefaultInstance() : commentCount_;
-        } else {
-          return commentCountBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * кол-во комментариев
-       * </pre>
-       *
-       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
-       */
-      public Builder setCommentCount(com.google.protobuf.DoubleValue value) {
-        if (commentCountBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          commentCount_ = value;
-          onChanged();
-        } else {
-          commentCountBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * кол-во комментариев
-       * </pre>
-       *
-       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
-       */
-      public Builder setCommentCount(
-          com.google.protobuf.DoubleValue.Builder builderForValue) {
-        if (commentCountBuilder_ == null) {
-          commentCount_ = builderForValue.build();
-          onChanged();
-        } else {
-          commentCountBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * кол-во комментариев
-       * </pre>
-       *
-       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
-       */
-      public Builder mergeCommentCount(com.google.protobuf.DoubleValue value) {
-        if (commentCountBuilder_ == null) {
-          if (commentCount_ != null) {
-            commentCount_ =
-              com.google.protobuf.DoubleValue.newBuilder(commentCount_).mergeFrom(value).buildPartial();
-          } else {
-            commentCount_ = value;
-          }
-          onChanged();
-        } else {
-          commentCountBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * кол-во комментариев
-       * </pre>
-       *
-       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
-       */
-      public Builder clearCommentCount() {
-        if (commentCountBuilder_ == null) {
-          commentCount_ = null;
-          onChanged();
-        } else {
-          commentCount_ = null;
-          commentCountBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <pre>
-       * кол-во комментариев
-       * </pre>
-       *
-       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
-       */
-      public com.google.protobuf.DoubleValue.Builder getCommentCountBuilder() {
-        
-        onChanged();
-        return getCommentCountFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * кол-во комментариев
-       * </pre>
-       *
-       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
-       */
-      public com.google.protobuf.DoubleValueOrBuilder getCommentCountOrBuilder() {
-        if (commentCountBuilder_ != null) {
-          return commentCountBuilder_.getMessageOrBuilder();
-        } else {
-          return commentCount_ == null ?
-              com.google.protobuf.DoubleValue.getDefaultInstance() : commentCount_;
-        }
-      }
-      /**
-       * <pre>
-       * кол-во комментариев
-       * </pre>
-       *
-       * <code>.google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"];</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder> 
-          getCommentCountFieldBuilder() {
-        if (commentCountBuilder_ == null) {
-          commentCountBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.DoubleValue, com.google.protobuf.DoubleValue.Builder, com.google.protobuf.DoubleValueOrBuilder>(
-                  getCommentCount(),
-                  getParentForChildren(),
-                  isClean());
-          commentCount_ = null;
-        }
-        return commentCountBuilder_;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:catalog_api_v2.ScoreDetail)
-    }
-
-    // @@protoc_insertion_point(class_scope:catalog_api_v2.ScoreDetail)
-    private static final catalog_api_v2.CatalogApiV2.ScoreDetail DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new catalog_api_v2.CatalogApiV2.ScoreDetail();
-    }
-
-    public static catalog_api_v2.CatalogApiV2.ScoreDetail getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<ScoreDetail>
-        PARSER = new com.google.protobuf.AbstractParser<ScoreDetail>() {
-      @java.lang.Override
-      public ScoreDetail parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ScoreDetail(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<ScoreDetail> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ScoreDetail> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public catalog_api_v2.CatalogApiV2.ScoreDetail getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface MainTaxonOrBuilder extends
       // @@protoc_insertion_point(interface_extends:catalog_api_v2.MainTaxon)
       com.google.protobuf.MessageOrBuilder {
@@ -33099,8 +35647,7 @@ public final class CatalogApiV2 {
   }
   /**
    * <pre>
-   **
-   * Главная категория
+   * MainTaxon - главная категория
    * </pre>
    *
    * Protobuf type {@code catalog_api_v2.MainTaxon}
@@ -33845,8 +36392,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     **
-     * Главная категория
+     * MainTaxon - главная категория
      * </pre>
      *
      * Protobuf type {@code catalog_api_v2.MainTaxon}
@@ -35040,8 +37586,7 @@ public final class CatalogApiV2 {
   }
   /**
    * <pre>
-   **
-   * Иконка главной категории
+   * Icon - иконка главной категории
    * </pre>
    *
    * Protobuf type {@code catalog_api_v2.Icon}
@@ -35376,8 +37921,7 @@ public final class CatalogApiV2 {
     }
     /**
      * <pre>
-     **
-     * Иконка главной категории
+     * Icon - иконка главной категории
      * </pre>
      *
      * Protobuf type {@code catalog_api_v2.Icon}
@@ -35764,6 +38308,11 @@ public final class CatalogApiV2 {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_catalog_api_v2_Product_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_catalog_api_v2_Product_ScoreDetail_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_catalog_api_v2_Product_ScoreDetail_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_catalog_api_v2_Image_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -35789,6 +38338,11 @@ public final class CatalogApiV2 {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_catalog_api_v2_RootCategories_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_catalog_api_v2_RootCategories_Option_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_catalog_api_v2_RootCategories_Option_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_catalog_api_v2_ProductListSort_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -35798,6 +38352,11 @@ public final class CatalogApiV2 {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_catalog_api_v2_ProductWithProperties_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_catalog_api_v2_ProductWithProperties_ScoreDetail_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_catalog_api_v2_ProductWithProperties_ScoreDetail_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_catalog_api_v2_Property_descriptor;
   private static final 
@@ -35829,11 +38388,6 @@ public final class CatalogApiV2 {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_catalog_api_v2_Inactive_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_catalog_api_v2_ScoreDetail_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_catalog_api_v2_ScoreDetail_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_catalog_api_v2_MainTaxon_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -35860,130 +38414,139 @@ public final class CatalogApiV2 {
       "\214\001\n\022GetProductResponse\0226\n\007product\030\001 \001(\0132" +
       "%.catalog_api_v2.ProductWithProperties\022>" +
       "\n\014promo_badges\030\002 \003(\0132\032.catalog_api_v2.Pr" +
-      "omoBadgeR\014promo_badges\"\345\001\n\025GetProductLis" +
+      "omoBadgeR\014promo_badges\"\342\001\n\025GetProductLis" +
       "tRequest\022\013\n\003sid\030\001 \001(\t\022\013\n\003tid\030\002 \001(\t\022\t\n\001q\030" +
       "\003 \001(\t\022\014\n\004page\030\004 \001(\003\022\032\n\010per_page\030\005 \001(\003R\010p" +
       "er_page\022\023\n\013filter_keys\030\006 \003(\t\022\025\n\rfilter_v" +
       "alues\030\007 \003(\t\022\014\n\004sort\030\010 \001(\t\022\034\n\ttenant_id\030\t" +
-      " \001(\tR\ttenant_id\022\024\n\014anonymous_id\030\n \001(\t\022\017\n" +
-      "\007user_id\030\013 \001(\t\"\307\002\n\026GetProductListRespons" +
-      "e\022)\n\010products\030\001 \003(\0132\027.catalog_api_v2.Pro" +
-      "duct\022%\n\006facets\030\002 \003(\0132\025.catalog_api_v2.Fa" +
-      "cet\022\"\n\004meta\030\003 \001(\0132\024.catalog_api_v2.Meta\022" +
-      "-\n\004sort\030\004 \003(\0132\037.catalog_api_v2.ProductLi" +
-      "stSort\022>\n\014promo_badges\030\005 \003(\0132\032.catalog_a" +
-      "pi_v2.PromoBadgeR\014promo_badges\022H\n\017root_c" +
-      "ategories\030\006 \001(\0132\036.catalog_api_v2.RootCat" +
-      "egoriesR\017root_categories\"\345\006\n\007Product\022\n\n\002" +
-      "id\030\001 \001(\001\022(\n\003sku\030\002 \001(\0132\033.google.protobuf." +
-      "Int64Value\022\016\n\006active\030\003 \001(\010\022@\n\014retailer_s" +
-      "ku\030\004 \001(\0132\034.google.protobuf.StringValueR\014" +
-      "retailer_sku\022*\n\004name\030\005 \001(\0132\034.google.prot" +
-      "obuf.StringValue\022\r\n\005price\030\006 \001(\001\022&\n\016origi" +
-      "nal_price\030\007 \001(\001R\016original_price\022\020\n\010disco" +
-      "unt\030\010 \001(\001\022@\n\014human_volume\030\t \001(\0132\034.google" +
-      ".protobuf.StringValueR\014human_volume\022\016\n\006v" +
-      "olume\030\n \001(\001\022>\n\013volume_type\030\013 \001(\0132\034.googl" +
-      "e.protobuf.StringValueR\013volume_type\022&\n\016i" +
-      "tems_per_pack\030\014 \001(\001R\016items_per_pack\022H\n\020d" +
-      "iscount_ends_at\030\r \001(\0132\034.google.protobuf." +
-      "StringValueR\020discount_ends_at\022<\n\nprice_t" +
-      "ype\030\016 \001(\0132\034.google.protobuf.StringValueR" +
-      "\nprice_type\022&\n\016grams_per_unit\030\017 \001(\001R\016gra" +
-      "ms_per_unit\022\036\n\nunit_price\030\020 \001(\001R\nunit_pr" +
-      "ice\0220\n\023original_unit_price\030\021 \001(\001R\023origin" +
-      "al_unit_price\022(\n\017promo_badge_ids\030\022 \003(\001R\017" +
-      "promo_badge_ids\022*\n\005score\030\023 \001(\0132\033.google." +
-      "protobuf.FloatValue\022\016\n\006labels\030\024 \003(\t\022%\n\006i" +
-      "mages\030\025 \003(\0132\025.catalog_api_v2.Image\022\024\n\014re" +
-      "quirements\030\026 \003(\t\"\251\001\n\005Image\022\032\n\010mini_url\030\001" +
-      " \001(\tR\010mini_url\022\034\n\tsmall_url\030\002 \001(\tR\tsmall" +
-      "_url\022 \n\013product_url\030\003 \001(\tR\013product_url\022 " +
-      "\n\013preview_url\030\004 \001(\tR\013preview_url\022\"\n\014orig" +
-      "inal_url\030\005 \001(\tR\014original_url\"^\n\005Facet\022\013\n" +
-      "\003key\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\014\n\004type\030\003 \001(\t\022," +
-      "\n\007options\030\004 \003(\0132\033.catalog_api_v2.FacetOp" +
-      "tion\"\230\001\n\013FacetOption\022*\n\004name\030\001 \001(\0132\034.goo" +
-      "gle.protobuf.StringValue\022\r\n\005value\030\002 \001(\001\022" +
-      "\r\n\005count\030\003 \001(\001\022/\n\tpermalink\030\004 \001(\0132\034.goog" +
-      "le.protobuf.StringValue\022\016\n\006active\030\005 \001(\010\"" +
-      "\212\002\n\004Meta\022\"\n\014current_page\030\001 \001(\001R\014current_" +
-      "page\022:\n\tnext_page\030\002 \001(\0132\034.google.protobu" +
-      "f.DoubleValueR\tnext_page\022B\n\rprevious_pag" +
-      "e\030\003 \001(\0132\034.google.protobuf.DoubleValueR\rp" +
-      "revious_page\022 \n\013total_pages\030\004 \001(\001R\013total" +
-      "_pages\022\032\n\010per_page\030\005 \001(\001R\010per_page\022 \n\013to" +
-      "tal_count\030\006 \001(\001R\013total_count\"\020\n\016RootCate" +
-      "gories\"K\n\017ProductListSort\022\013\n\003key\030\001 \001(\t\022\014" +
-      "\n\004name\030\002 \001(\t\022\r\n\005order\030\003 \001(\t\022\016\n\006active\030\004 " +
-      "\001(\010\"\255\007\n\025ProductWithProperties\022\n\n\002id\030\001 \001(" +
-      "\001\022\013\n\003sku\030\002 \001(\003\022\016\n\006active\030\003 \001(\010\022\"\n\014retail" +
-      "er_sku\030\004 \001(\tR\014retailer_sku\022\014\n\004name\030\005 \001(\t" +
-      "\022\r\n\005price\030\006 \001(\001\022&\n\016original_price\030\007 \001(\001R" +
-      "\016original_price\022\020\n\010discount\030\010 \001(\001\022\"\n\014hum" +
-      "an_volume\030\t \001(\tR\014human_volume\022\016\n\006volume\030" +
-      "\n \001(\001\022 \n\013volume_type\030\013 \001(\tR\013volume_type\022" +
-      "&\n\016items_per_pack\030\014 \001(\001R\016items_per_pack\022" +
-      "H\n\020discount_ends_at\030\r \001(\0132\034.google.proto" +
-      "buf.StringValueR\020discount_ends_at\022\036\n\npri" +
-      "ce_type\030\016 \001(\tR\nprice_type\022&\n\016grams_per_u" +
-      "nit\030\017 \001(\001R\016grams_per_unit\022\036\n\nunit_price\030" +
-      "\020 \001(\001R\nunit_price\0220\n\023original_unit_price" +
-      "\030\021 \001(\001R\023original_unit_price\022(\n\017promo_bad" +
-      "ge_ids\030\022 \003(\001R\017promo_badge_ids\022*\n\005score\030\023" +
-      " \001(\0132\033.google.protobuf.FloatValue\022\016\n\006lab" +
-      "els\030\024 \003(\t\022%\n\006images\030\025 \003(\0132\025.catalog_api_" +
-      "v2.Image\022,\n\nproperties\030\026 \003(\0132\030.catalog_a" +
-      "pi_v2.Property\022\023\n\013description\030\027 \001(\t\022A\n\rs" +
-      "core_details\030\030 \001(\0132\033.catalog_api_v2.Scor" +
-      "eDetailR\rscore_details\022\024\n\014requirements\030\031" +
-      " \003(\t\022*\n\020related_products\030\032 \003(\tR\020related_" +
-      "products\0229\n\nmain_taxon\030\033 \001(\0132\031.catalog_a" +
-      "pi_v2.MainTaxonR\nmain_taxon\"=\n\010Property\022" +
-      "\014\n\004name\030\001 \001(\t\022\024\n\014presentation\030\002 \001(\t\022\r\n\005v" +
-      "alue\030\003 \001(\t\"_\n\nPromoBadge\022\n\n\002id\030\001 \001(\001\022\014\n\004" +
-      "type\030\002 \001(\t\0227\n\nattributes\030\003 \001(\0132#.catalog" +
-      "_api_v2.PromoBadgeAttribute\"\241\001\n\023PromoBad" +
-      "geAttribute\022\014\n\004name\030\001 \001(\t\022.\n\022banner_butt" +
-      "on_text\030\002 \001(\tR\022banner_button_text\022\032\n\010tax" +
-      "on_id\030\003 \001(\001R\010taxon_id\0220\n\007options\030\004 \001(\0132\037" +
-      ".catalog_api_v2.AttributeOption\"e\n\017Attri" +
-      "buteOption\022&\n\006active\030\001 \001(\0132\026.catalog_api" +
-      "_v2.Active\022*\n\010inactive\030\002 \001(\0132\030.catalog_a" +
-      "pi_v2.Inactive\"\230\001\n\006Active\022\r\n\005title\030\001 \001(\t" +
-      "\022 \n\013title_short\030\002 \001(\tR\013title_short\022\013\n\003ur" +
-      "l\030\003 \001(\t\022\020\n\010deeplink\030\004 \001(\t\022 \n\013button_text" +
-      "\030\005 \001(\tR\013button_text\022\016\n\006header\030\006 \001(\t\022\014\n\004t" +
-      "ext\030\007 \001(\t\"\210\001\n\010Inactive\022\r\n\005title\030\001 \001(\t\022 \n" +
-      "\013title_short\030\002 \001(\tR\013title_short\022\013\n\003url\030\003" +
-      " \001(\t\022 \n\013button_text\030\005 \001(\tR\013button_text\022\016" +
-      "\n\006header\030\006 \001(\t\022\014\n\004text\030\007 \001(\t\"\334\001\n\013ScoreDe" +
-      "tail\022C\n\rfeedbackCount\030\001 \001(\0132\034.google.pro" +
-      "tobuf.DoubleValueR\016feedback_count\022E\n\016fee" +
-      "dbackSource\030\002 \001(\0132\034.google.protobuf.Stri" +
-      "ngValueR\017feedback_source\022A\n\014commentCount" +
-      "\030\003 \001(\0132\034.google.protobuf.DoubleValueR\rco" +
-      "mment_count\"\330\002\n\tMainTaxon\022\n\n\002id\030\001 \001(\001\022\014\n" +
-      "\004type\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022&\n\016products_co" +
-      "unt\030\004 \001(\001R\016products_count\022&\n\016promo_servi" +
-      "ces\030\005 \003(\tR\016promo_services\022\020\n\010position\030\006 " +
-      "\001(\001\022\r\n\005depth\030\007 \001(\005\022>\n\013description\030\010 \001(\0132" +
-      "\034.google.protobuf.StringValueR\013descripti" +
-      "on\022\"\n\004icon\030\t \001(\0132\024.catalog_api_v2.Icon\0228" +
-      "\n\010alt_icon\030\n \001(\0132\034.google.protobuf.Strin" +
-      "gValueR\010alt_icon\022\024\n\014requirements\030\013 \003(\t\"B" +
-      "\n\004Icon\022\032\n\010mini_url\030\001 \001(\tR\010mini_url\022\036\n\nno" +
-      "rmal_url\030\002 \001(\tR\nnormal_url*5\n\tFacetType\022" +
-      "\n\n\006SELECT\020\000\022\020\n\014MULTI_SELECT\020\001\022\n\n\006TOGGLE\020" +
-      "\0022\214\002\n\023CatalogAPIV2Service\022z\n\nGetProduct\022" +
-      "!.catalog_api_v2.GetProductRequest\032\".cat" +
-      "alog_api_v2.GetProductResponse\"%\202\323\344\223\002\037\022\035" +
-      "/api/v2/products/{product_id}\022y\n\016GetProd" +
-      "uctList\022%.catalog_api_v2.GetProductListR" +
-      "equest\032&.catalog_api_v2.GetProductListRe" +
-      "sponse\"\030\202\323\344\223\002\022\022\020/api/v2/productsBEZCgitl" +
-      "ab.sbermarket.tech/paas/content/catalog/" +
-      "pkg/server/grpc/catalogb\006proto3"
+      " \001(\tR\ttenant_id\022\024\n\014anonymous_id\030\n \001(\t\022\014\n" +
+      "\004uuid\030\013 \001(\t\"\307\002\n\026GetProductListResponse\022)" +
+      "\n\010products\030\001 \003(\0132\027.catalog_api_v2.Produc" +
+      "t\022%\n\006facets\030\002 \003(\0132\025.catalog_api_v2.Facet" +
+      "\022\"\n\004meta\030\003 \001(\0132\024.catalog_api_v2.Meta\022-\n\004" +
+      "sort\030\004 \003(\0132\037.catalog_api_v2.ProductListS" +
+      "ort\022>\n\014promo_badges\030\005 \003(\0132\032.catalog_api_" +
+      "v2.PromoBadgeR\014promo_badges\022H\n\017root_cate" +
+      "gories\030\006 \001(\0132\036.catalog_api_v2.RootCatego" +
+      "riesR\017root_categories\"\202\010\n\007Product\022\n\n\002id\030" +
+      "\001 \001(\001\022(\n\003sku\030\002 \001(\0132\033.google.protobuf.Int" +
+      "64Value\022\016\n\006active\030\003 \001(\010\022@\n\014retailer_sku\030" +
+      "\004 \001(\0132\034.google.protobuf.StringValueR\014ret" +
+      "ailer_sku\022*\n\004name\030\005 \001(\0132\034.google.protobu" +
+      "f.StringValue\022\r\n\005price\030\006 \001(\001\022&\n\016original" +
+      "_price\030\007 \001(\001R\016original_price\022\020\n\010discount" +
+      "\030\010 \001(\001\022@\n\014human_volume\030\t \001(\0132\034.google.pr" +
+      "otobuf.StringValueR\014human_volume\022\016\n\006volu" +
+      "me\030\n \001(\001\022>\n\013volume_type\030\013 \001(\0132\034.google.p" +
+      "rotobuf.StringValueR\013volume_type\022&\n\016item" +
+      "s_per_pack\030\014 \001(\001R\016items_per_pack\022H\n\020disc" +
+      "ount_ends_at\030\r \001(\0132\034.google.protobuf.Str" +
+      "ingValueR\020discount_ends_at\022<\n\nprice_type" +
+      "\030\016 \001(\0132\034.google.protobuf.StringValueR\npr" +
+      "ice_type\022&\n\016grams_per_unit\030\017 \001(\001R\016grams_" +
+      "per_unit\022\036\n\nunit_price\030\020 \001(\001R\nunit_price" +
+      "\0220\n\023original_unit_price\030\021 \001(\001R\023original_" +
+      "unit_price\022(\n\017promo_badge_ids\030\022 \003(\001R\017pro" +
+      "mo_badge_ids\022*\n\005score\030\023 \001(\0132\033.google.pro" +
+      "tobuf.FloatValue\022I\n\rscore_details\030\024 \001(\0132" +
+      "#.catalog_api_v2.Product.ScoreDetailR\rsc" +
+      "ore_details\022\016\n\006labels\030\025 \003(\t\022%\n\006images\030\026 " +
+      "\003(\0132\025.catalog_api_v2.Image\022\024\n\014requiremen" +
+      "ts\030\027 \003(\t\032P\n\013ScoreDetail\022A\n\014commentCount\030" +
+      "\001 \001(\0132\034.google.protobuf.DoubleValueR\rcom" +
+      "ment_count\"\251\001\n\005Image\022\032\n\010mini_url\030\001 \001(\tR\010" +
+      "mini_url\022\034\n\tsmall_url\030\002 \001(\tR\tsmall_url\022 " +
+      "\n\013product_url\030\003 \001(\tR\013product_url\022 \n\013prev" +
+      "iew_url\030\004 \001(\tR\013preview_url\022\"\n\014original_u" +
+      "rl\030\005 \001(\tR\014original_url\"^\n\005Facet\022\013\n\003key\030\001" +
+      " \001(\t\022\014\n\004name\030\002 \001(\t\022\014\n\004type\030\003 \001(\t\022,\n\007opti" +
+      "ons\030\004 \003(\0132\033.catalog_api_v2.FacetOption\"z" +
+      "\n\013FacetOption\022\014\n\004name\030\001 \001(\t\022\r\n\005value\030\002 \001" +
+      "(\001\022\r\n\005count\030\003 \001(\001\022/\n\tpermalink\030\004 \001(\0132\034.g" +
+      "oogle.protobuf.StringValue\022\016\n\006active\030\005 \001" +
+      "(\010\"\212\002\n\004Meta\022\"\n\014current_page\030\001 \001(\001R\014curre" +
+      "nt_page\022:\n\tnext_page\030\002 \001(\0132\034.google.prot" +
+      "obuf.DoubleValueR\tnext_page\022B\n\rprevious_" +
+      "page\030\003 \001(\0132\034.google.protobuf.DoubleValue" +
+      "R\rprevious_page\022 \n\013total_pages\030\004 \001(\001R\013to" +
+      "tal_pages\022\032\n\010per_page\030\005 \001(\001R\010per_page\022 \n" +
+      "\013total_count\030\006 \001(\001R\013total_count\"\311\001\n\016Root" +
+      "Categories\022\013\n\003key\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\014\n" +
+      "\004type\030\003 \001(\t\0226\n\007options\030\004 \003(\0132%.catalog_a" +
+      "pi_v2.RootCategories.Option\032V\n\006Option\022\013\n" +
+      "\003key\030\001 \001(\t\022\021\n\tpermalink\030\002 \001(\t\022\r\n\005value\030\003" +
+      " \001(\001\022\r\n\005count\030\004 \001(\001\022\016\n\006active\030\005 \001(\010\"K\n\017P" +
+      "roductListSort\022\013\n\003key\030\001 \001(\t\022\014\n\004name\030\002 \001(" +
+      "\t\022\r\n\005order\030\003 \001(\t\022\016\n\006active\030\004 \001(\010\"\242\t\n\025Pro" +
+      "ductWithProperties\022\n\n\002id\030\001 \001(\001\022\013\n\003sku\030\002 " +
+      "\001(\003\022\016\n\006active\030\003 \001(\010\022\"\n\014retailer_sku\030\004 \001(" +
+      "\tR\014retailer_sku\022\014\n\004name\030\005 \001(\t\022\r\n\005price\030\006" +
+      " \001(\001\022&\n\016original_price\030\007 \001(\001R\016original_p" +
+      "rice\022\020\n\010discount\030\010 \001(\001\022\"\n\014human_volume\030\t" +
+      " \001(\tR\014human_volume\022\016\n\006volume\030\n \001(\001\022 \n\013vo" +
+      "lume_type\030\013 \001(\tR\013volume_type\022&\n\016items_pe" +
+      "r_pack\030\014 \001(\001R\016items_per_pack\022H\n\020discount" +
+      "_ends_at\030\r \001(\0132\034.google.protobuf.StringV" +
+      "alueR\020discount_ends_at\022\036\n\nprice_type\030\016 \001" +
+      "(\tR\nprice_type\022&\n\016grams_per_unit\030\017 \001(\001R\016" +
+      "grams_per_unit\022\036\n\nunit_price\030\020 \001(\001R\nunit" +
+      "_price\0220\n\023original_unit_price\030\021 \001(\001R\023ori" +
+      "ginal_unit_price\022(\n\017promo_badge_ids\030\022 \003(" +
+      "\001R\017promo_badge_ids\022*\n\005score\030\023 \001(\0132\033.goog" +
+      "le.protobuf.FloatValue\022\016\n\006labels\030\024 \003(\t\022%" +
+      "\n\006images\030\025 \003(\0132\025.catalog_api_v2.Image\022,\n" +
+      "\nproperties\030\026 \003(\0132\030.catalog_api_v2.Prope" +
+      "rty\022\023\n\013description\030\027 \001(\t\022W\n\rscore_detail" +
+      "s\030\030 \001(\01321.catalog_api_v2.ProductWithProp" +
+      "erties.ScoreDetailR\rscore_details\022\024\n\014req" +
+      "uirements\030\031 \003(\t\022*\n\020related_products\030\032 \003(" +
+      "\tR\020related_products\0229\n\nmain_taxon\030\033 \001(\0132" +
+      "\031.catalog_api_v2.MainTaxonR\nmain_taxon\032\334" +
+      "\001\n\013ScoreDetail\022C\n\rfeedbackCount\030\001 \001(\0132\034." +
+      "google.protobuf.DoubleValueR\016feedback_co" +
+      "unt\022E\n\016feedbackSource\030\002 \001(\0132\034.google.pro" +
+      "tobuf.StringValueR\017feedback_source\022A\n\014co" +
+      "mmentCount\030\003 \001(\0132\034.google.protobuf.Doubl" +
+      "eValueR\rcomment_count\"=\n\010Property\022\014\n\004nam" +
+      "e\030\001 \001(\t\022\024\n\014presentation\030\002 \001(\t\022\r\n\005value\030\003" +
+      " \001(\t\"_\n\nPromoBadge\022\n\n\002id\030\001 \001(\001\022\014\n\004type\030\002" +
+      " \001(\t\0227\n\nattributes\030\003 \001(\0132#.catalog_api_v" +
+      "2.PromoBadgeAttribute\"\241\001\n\023PromoBadgeAttr" +
+      "ibute\022\014\n\004name\030\001 \001(\t\022.\n\022banner_button_tex" +
+      "t\030\002 \001(\tR\022banner_button_text\022\032\n\010taxon_id\030" +
+      "\003 \001(\001R\010taxon_id\0220\n\007options\030\004 \001(\0132\037.catal" +
+      "og_api_v2.AttributeOption\"e\n\017AttributeOp" +
+      "tion\022&\n\006active\030\001 \001(\0132\026.catalog_api_v2.Ac" +
+      "tive\022*\n\010inactive\030\002 \001(\0132\030.catalog_api_v2." +
+      "Inactive\"\230\001\n\006Active\022\r\n\005title\030\001 \001(\t\022 \n\013ti" +
+      "tle_short\030\002 \001(\tR\013title_short\022\013\n\003url\030\003 \001(" +
+      "\t\022\020\n\010deeplink\030\004 \001(\t\022 \n\013button_text\030\005 \001(\t" +
+      "R\013button_text\022\016\n\006header\030\006 \001(\t\022\014\n\004text\030\007 " +
+      "\001(\t\"\210\001\n\010Inactive\022\r\n\005title\030\001 \001(\t\022 \n\013title" +
+      "_short\030\002 \001(\tR\013title_short\022\013\n\003url\030\003 \001(\t\022 " +
+      "\n\013button_text\030\005 \001(\tR\013button_text\022\016\n\006head" +
+      "er\030\006 \001(\t\022\014\n\004text\030\007 \001(\t\"\330\002\n\tMainTaxon\022\n\n\002" +
+      "id\030\001 \001(\001\022\014\n\004type\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\022&\n\016" +
+      "products_count\030\004 \001(\001R\016products_count\022&\n\016" +
+      "promo_services\030\005 \003(\tR\016promo_services\022\020\n\010" +
+      "position\030\006 \001(\001\022\r\n\005depth\030\007 \001(\005\022>\n\013descrip" +
+      "tion\030\010 \001(\0132\034.google.protobuf.StringValue" +
+      "R\013description\022\"\n\004icon\030\t \001(\0132\024.catalog_ap" +
+      "i_v2.Icon\0228\n\010alt_icon\030\n \001(\0132\034.google.pro" +
+      "tobuf.StringValueR\010alt_icon\022\024\n\014requireme" +
+      "nts\030\013 \003(\t\"B\n\004Icon\022\032\n\010mini_url\030\001 \001(\tR\010min" +
+      "i_url\022\036\n\nnormal_url\030\002 \001(\tR\nnormal_url*5\n" +
+      "\tFacetType\022\n\n\006SELECT\020\000\022\020\n\014MULTI_SELECT\020\001" +
+      "\022\n\n\006TOGGLE\020\0022\214\002\n\023CatalogAPIV2Service\022z\n\n" +
+      "GetProduct\022!.catalog_api_v2.GetProductRe" +
+      "quest\032\".catalog_api_v2.GetProductRespons" +
+      "e\"%\202\323\344\223\002\037\022\035/api/v2/products/{product_id}" +
+      "\022y\n\016GetProductList\022%.catalog_api_v2.GetP" +
+      "roductListRequest\032&.catalog_api_v2.GetPr" +
+      "oductListResponse\"\030\202\323\344\223\002\022\022\020/api/v2/produ" +
+      "ctsBEZCgitlab.sbermarket.tech/paas/conte" +
+      "nt/catalog/pkg/server/grpc/catalogb\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -36008,7 +38571,7 @@ public final class CatalogApiV2 {
     internal_static_catalog_api_v2_GetProductListRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_GetProductListRequest_descriptor,
-        new java.lang.String[] { "Sid", "Tid", "Q", "Page", "PerPage", "FilterKeys", "FilterValues", "Sort", "TenantId", "AnonymousId", "UserId", });
+        new java.lang.String[] { "Sid", "Tid", "Q", "Page", "PerPage", "FilterKeys", "FilterValues", "Sort", "TenantId", "AnonymousId", "Uuid", });
     internal_static_catalog_api_v2_GetProductListResponse_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_catalog_api_v2_GetProductListResponse_fieldAccessorTable = new
@@ -36020,7 +38583,13 @@ public final class CatalogApiV2 {
     internal_static_catalog_api_v2_Product_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_Product_descriptor,
-        new java.lang.String[] { "Id", "Sku", "Active", "RetailerSku", "Name", "Price", "OriginalPrice", "Discount", "HumanVolume", "Volume", "VolumeType", "ItemsPerPack", "DiscountEndsAt", "PriceType", "GramsPerUnit", "UnitPrice", "OriginalUnitPrice", "PromoBadgeIds", "Score", "Labels", "Images", "Requirements", });
+        new java.lang.String[] { "Id", "Sku", "Active", "RetailerSku", "Name", "Price", "OriginalPrice", "Discount", "HumanVolume", "Volume", "VolumeType", "ItemsPerPack", "DiscountEndsAt", "PriceType", "GramsPerUnit", "UnitPrice", "OriginalUnitPrice", "PromoBadgeIds", "Score", "ScoreDetails", "Labels", "Images", "Requirements", });
+    internal_static_catalog_api_v2_Product_ScoreDetail_descriptor =
+      internal_static_catalog_api_v2_Product_descriptor.getNestedTypes().get(0);
+    internal_static_catalog_api_v2_Product_ScoreDetail_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_catalog_api_v2_Product_ScoreDetail_descriptor,
+        new java.lang.String[] { "CommentCount", });
     internal_static_catalog_api_v2_Image_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_catalog_api_v2_Image_fieldAccessorTable = new
@@ -36050,7 +38619,13 @@ public final class CatalogApiV2 {
     internal_static_catalog_api_v2_RootCategories_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_RootCategories_descriptor,
-        new java.lang.String[] { });
+        new java.lang.String[] { "Key", "Name", "Type", "Options", });
+    internal_static_catalog_api_v2_RootCategories_Option_descriptor =
+      internal_static_catalog_api_v2_RootCategories_descriptor.getNestedTypes().get(0);
+    internal_static_catalog_api_v2_RootCategories_Option_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_catalog_api_v2_RootCategories_Option_descriptor,
+        new java.lang.String[] { "Key", "Permalink", "Value", "Count", "Active", });
     internal_static_catalog_api_v2_ProductListSort_descriptor =
       getDescriptor().getMessageTypes().get(10);
     internal_static_catalog_api_v2_ProductListSort_fieldAccessorTable = new
@@ -36063,6 +38638,12 @@ public final class CatalogApiV2 {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_ProductWithProperties_descriptor,
         new java.lang.String[] { "Id", "Sku", "Active", "RetailerSku", "Name", "Price", "OriginalPrice", "Discount", "HumanVolume", "Volume", "VolumeType", "ItemsPerPack", "DiscountEndsAt", "PriceType", "GramsPerUnit", "UnitPrice", "OriginalUnitPrice", "PromoBadgeIds", "Score", "Labels", "Images", "Properties", "Description", "ScoreDetails", "Requirements", "RelatedProducts", "MainTaxon", });
+    internal_static_catalog_api_v2_ProductWithProperties_ScoreDetail_descriptor =
+      internal_static_catalog_api_v2_ProductWithProperties_descriptor.getNestedTypes().get(0);
+    internal_static_catalog_api_v2_ProductWithProperties_ScoreDetail_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_catalog_api_v2_ProductWithProperties_ScoreDetail_descriptor,
+        new java.lang.String[] { "FeedbackCount", "FeedbackSource", "CommentCount", });
     internal_static_catalog_api_v2_Property_descriptor =
       getDescriptor().getMessageTypes().get(12);
     internal_static_catalog_api_v2_Property_fieldAccessorTable = new
@@ -36099,20 +38680,14 @@ public final class CatalogApiV2 {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_Inactive_descriptor,
         new java.lang.String[] { "Title", "TitleShort", "Url", "ButtonText", "Header", "Text", });
-    internal_static_catalog_api_v2_ScoreDetail_descriptor =
-      getDescriptor().getMessageTypes().get(18);
-    internal_static_catalog_api_v2_ScoreDetail_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_catalog_api_v2_ScoreDetail_descriptor,
-        new java.lang.String[] { "FeedbackCount", "FeedbackSource", "CommentCount", });
     internal_static_catalog_api_v2_MainTaxon_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_catalog_api_v2_MainTaxon_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_MainTaxon_descriptor,
         new java.lang.String[] { "Id", "Type", "Name", "ProductsCount", "PromoServices", "Position", "Depth", "Description", "Icon", "AltIcon", "Requirements", });
     internal_static_catalog_api_v2_Icon_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_catalog_api_v2_Icon_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_catalog_api_v2_Icon_descriptor,

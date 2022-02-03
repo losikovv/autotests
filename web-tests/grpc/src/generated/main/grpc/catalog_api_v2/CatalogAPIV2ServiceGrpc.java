@@ -4,11 +4,12 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 
 /**
  * <pre>
- **
  * slack:
  *    #product-hub
- * swagger:
+ * swagger prod:
  *     https://paas-content-catalog.sbmt.io/api
+ * swagger stg:
+ *     https://paas-content-catalog.gw-stage.sbmt.io/api
  * public prod grpc uri:
  *    paas-content-catalog.sbmt.io:443
  * public stg grpc uri:
@@ -137,11 +138,12 @@ public final class CatalogAPIV2ServiceGrpc {
 
   /**
    * <pre>
-   **
    * slack:
    *    #product-hub
-   * swagger:
+   * swagger prod:
    *     https://paas-content-catalog.sbmt.io/api
+   * swagger stg:
+   *     https://paas-content-catalog.gw-stage.sbmt.io/api
    * public prod grpc uri:
    *    paas-content-catalog.sbmt.io:443
    * public stg grpc uri:
@@ -155,7 +157,6 @@ public final class CatalogAPIV2ServiceGrpc {
 
     /**
      * <pre>
-     **
      * Возвращает карточку товаров
      * Обязательные параметры:
      *    product_id - идентификатор офера
@@ -171,7 +172,6 @@ public final class CatalogAPIV2ServiceGrpc {
 
     /**
      * <pre>
-     **
      * Возвращает листинг товаров
      * Обязательные параметры:
      *    sid - идентификатор магазина
@@ -208,11 +208,12 @@ public final class CatalogAPIV2ServiceGrpc {
 
   /**
    * <pre>
-   **
    * slack:
    *    #product-hub
-   * swagger:
+   * swagger prod:
    *     https://paas-content-catalog.sbmt.io/api
+   * swagger stg:
+   *     https://paas-content-catalog.gw-stage.sbmt.io/api
    * public prod grpc uri:
    *    paas-content-catalog.sbmt.io:443
    * public stg grpc uri:
@@ -236,7 +237,6 @@ public final class CatalogAPIV2ServiceGrpc {
 
     /**
      * <pre>
-     **
      * Возвращает карточку товаров
      * Обязательные параметры:
      *    product_id - идентификатор офера
@@ -253,7 +253,6 @@ public final class CatalogAPIV2ServiceGrpc {
 
     /**
      * <pre>
-     **
      * Возвращает листинг товаров
      * Обязательные параметры:
      *    sid - идентификатор магазина
@@ -272,11 +271,12 @@ public final class CatalogAPIV2ServiceGrpc {
 
   /**
    * <pre>
-   **
    * slack:
    *    #product-hub
-   * swagger:
+   * swagger prod:
    *     https://paas-content-catalog.sbmt.io/api
+   * swagger stg:
+   *     https://paas-content-catalog.gw-stage.sbmt.io/api
    * public prod grpc uri:
    *    paas-content-catalog.sbmt.io:443
    * public stg grpc uri:
@@ -300,7 +300,6 @@ public final class CatalogAPIV2ServiceGrpc {
 
     /**
      * <pre>
-     **
      * Возвращает карточку товаров
      * Обязательные параметры:
      *    product_id - идентификатор офера
@@ -316,7 +315,6 @@ public final class CatalogAPIV2ServiceGrpc {
 
     /**
      * <pre>
-     **
      * Возвращает листинг товаров
      * Обязательные параметры:
      *    sid - идентификатор магазина
@@ -334,11 +332,12 @@ public final class CatalogAPIV2ServiceGrpc {
 
   /**
    * <pre>
-   **
    * slack:
    *    #product-hub
-   * swagger:
+   * swagger prod:
    *     https://paas-content-catalog.sbmt.io/api
+   * swagger stg:
+   *     https://paas-content-catalog.gw-stage.sbmt.io/api
    * public prod grpc uri:
    *    paas-content-catalog.sbmt.io:443
    * public stg grpc uri:
@@ -362,7 +361,6 @@ public final class CatalogAPIV2ServiceGrpc {
 
     /**
      * <pre>
-     **
      * Возвращает карточку товаров
      * Обязательные параметры:
      *    product_id - идентификатор офера
@@ -379,7 +377,6 @@ public final class CatalogAPIV2ServiceGrpc {
 
     /**
      * <pre>
-     **
      * Возвращает листинг товаров
      * Обязательные параметры:
      *    sid - идентификатор магазина

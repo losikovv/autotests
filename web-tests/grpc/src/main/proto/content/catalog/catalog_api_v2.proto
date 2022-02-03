@@ -7,12 +7,15 @@ import "google/protobuf/wrappers.proto";
 
 option go_package = "gitlab.sbermarket.tech/paas/content/catalog/pkg/server/grpc/catalog";
 
-/**
+/*
  * slack:
  *    #product-hub
  *
- * swagger:
+ * swagger prod:
  *     https://paas-content-catalog.sbmt.io/api
+ *
+ * swagger stg:
+ *     https://paas-content-catalog.gw-stage.sbmt.io/api
  *
  * public prod grpc uri:
  *    paas-content-catalog.sbmt.io:443
@@ -25,7 +28,7 @@ option go_package = "gitlab.sbermarket.tech/paas/content/catalog/pkg/server/grpc
  *    Предназначет для real-time нагрузки.
  */
 service CatalogAPIV2Service {
-	/**
+	/*
 	 * Возвращает карточку товаров
 	 *
 	 * Обязательные параметры:
@@ -42,7 +45,7 @@ service CatalogAPIV2Service {
 		};
 	}
 
-	/**
+	/*
 	 * Возвращает листинг товаров
 	 *
 	 * Обязательные параметры:
@@ -60,24 +63,24 @@ service CatalogAPIV2Service {
 	}
 }
 
-/**
- * Запрос карточки товара
+/*
+ * GetProductRequest - запрос карточки товара
  */
 message GetProductRequest {
 	string product_id = 1 [json_name = "product_id"]; // идентификатор офера, в монолите табилчка offers
 	string tenant_id = 2 [json_name = "tenant_id"]; // идентификатор площадки
 }
 
-/**
- * Ответ карточки товара
+/*
+ * GetProductResponse - ответ карточки товара
  */
 message GetProductResponse{
 	ProductWithProperties product = 1; // продукт
 	repeated PromoBadge promo_badges = 2 [json_name = "promo_badges"]; // бейджи
 }
 
-/**
- * Запрос листинга товаров
+/*
+ * GetProductListRequest - запрос листинга товаров
  */
 message GetProductListRequest {
 	string sid = 1; // идентификатор магазина
@@ -90,11 +93,11 @@ message GetProductListRequest {
 	string sort = 8; // сортировка
 	string tenant_id = 9 [json_name = "tenant_id"]; // идентификатор площадки
 	string anonymous_id = 10; // идентификатор не авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
-	string user_id = 11; // идентификатор авторизованного пользователя. При хттп запросе этот параметр должен передаваться как header
+	string uuid = 11; // идентификатор пользователя. При хттп запросе этот параметр должен передаваться как header
 }
 
-/**
- * Ответ листинга товаров
+/*
+ * GetProductListResponse - Ответ листинга товаров
  */
 message GetProductListResponse{
 	repeated Product products = 1; // продукты
@@ -105,6 +108,9 @@ message GetProductListResponse{
 	RootCategories root_categories = 6 [json_name = "root_categories"]; // корневые категории
 }
 
+/*
+ * Product - продукт
+ */
 message Product {
 	double id = 1; // идентификатор офера, в монолите табилчка offers
 	google.protobuf.Int64Value sku = 2; // идентификатор описания
@@ -178,13 +184,21 @@ message Product {
 	double original_unit_price = 17 [json_name = "original_unit_price"];
 	repeated double promo_badge_ids = 18 [json_name = "promo_badge_ids"]; // идентификаторы бейджей
 	google.protobuf.FloatValue score = 19; // рейтинг товара
-	repeated string labels = 20; // лейблы товара
-	repeated Image images = 21; // картинки
-	repeated string requirements = 22; // не используется
+	/*
+ 	 * ScoreDetail - рейтинг товара
+	 */
+	message ScoreDetail {
+		google.protobuf.DoubleValue commentCount = 1 [json_name = "comment_count"]; // кол-во комментариев
+	}
+	ScoreDetail score_details = 20 [json_name = "score_details"];
+	repeated string labels = 21; // лейблы товара
+	repeated Image images = 22; // картинки
+	repeated string requirements = 23; // не используется
 }
 
 /*
  * Картинки, приходят в формате url 
+ *
  * ph.attr[main_image]
  * ph.attr[image]
  */
@@ -196,8 +210,8 @@ message Image {
 	string original_url = 5 [json_name = "original_url"];
 }
 
-/**
- * Фильтр
+/*
+ * Facet - фильтр
  */
 message Facet {
 	string key = 1; // ключ фильтра
@@ -206,8 +220,8 @@ message Facet {
 	repeated FacetOption options = 4; // значения фильтра
 }
 
-/**
- * Тип отображения фильтра
+/*
+ * FacetType - тип отображения фильтра
  */
 enum FacetType {
 	SELECT = 0; // выбор
@@ -215,19 +229,19 @@ enum FacetType {
 	TOGGLE = 2; // переключатель
 }
 
-/**
- * Значение фильтра
+/*
+ * FacetOption - значение фильтра
  */
 message FacetOption {
-	google.protobuf.StringValue name = 1; // название значения
+	string name = 1; // название значения
 	double value = 2; // идентификатор значения
 	double count = 3; // кол-во продуктов 
 	google.protobuf.StringValue permalink = 4; // пермалинк значения
 	bool active = 5; // участвует ли значения в фильтрации
 }
 
-/**
- * Мета страницы
+/*
+ * Meta - мета страницы
  */
 message Meta {
 	double current_page = 1 [json_name = "current_page"]; // текущая страница
@@ -239,10 +253,21 @@ message Meta {
 }
 
 message RootCategories {
+	message Option {
+		string key = 1;
+		string permalink = 2;
+		double value = 3;
+		double count = 4;
+		bool active = 5;
+	}
+	string key = 1;
+	string name = 2;
+	string type = 3;
+	repeated Option options = 4;
 }
 
-/**
- * Сортировка листинга
+/*
+ * ProductListSort - Сортировка листинга
  */
 message ProductListSort {
 	string key = 1; // ключ сортировки
@@ -251,8 +276,8 @@ message ProductListSort {
 	bool active = 4; // активность
 }
 
-/**
- * Ответ карточки товара
+/*
+ * ProductWithProperties - ответ карточки товара
  * @see Product
  */
 message ProductWithProperties {
@@ -331,14 +356,23 @@ message ProductWithProperties {
 	repeated Image images = 21; // картинки
 	repeated Property properties = 22; // свойства товара
 	string description = 23; // описание товара ph.attr[description]
+	/*
+ 	 * ScoreDetail - рейтинг товара
+	 */
+	message ScoreDetail {
+		google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"]; // кол-во отзывов
+		google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"]; // имя ресурса
+		google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"]; // кол-во комментариев
+	}
+
 	ScoreDetail score_details = 24 [json_name = "score_details"];
 	repeated string requirements = 25; // не используется
 	repeated string related_products = 26 [json_name = "related_products"]; // не используется
 	MainTaxon main_taxon = 27 [json_name = "main_taxon"]; // таксон
 }
 
-/**
- * Характеристики
+/*
+ * Property - характеристики
  */
 message Property {
 	string name = 1; // ключ
@@ -346,8 +380,8 @@ message Property {
 	string value = 3; // значение
 }
 
-/**
- * Промо бейджи
+/*
+ * PromoBadge - промо бейджи
  */
 message PromoBadge {
 	double id = 1; // идентификатор
@@ -355,8 +389,8 @@ message PromoBadge {
 	PromoBadgeAttribute attributes = 3; // атрибуты
 }
 
-/**
- * Атрибуты промо бейджей
+/*
+ * PromoBadgeAttribute - атрибуты промо бейджей
  */
 message PromoBadgeAttribute {
 	string name = 1; // название
@@ -365,16 +399,16 @@ message PromoBadgeAttribute {
 	AttributeOption options = 4; // опции
 }
 
-/**
- * Опции
+/*
+ * AttributeOption - опции
  */
 message AttributeOption {
 	Active active = 1; // активность
 	Inactive inactive = 2;
 }
 
-/**
- * Для активной кнопки
+/*
+ * Active - для активной кнопки
  */
 message Active {
 	string title = 1 ;
@@ -386,8 +420,8 @@ message Active {
 	string text = 7;
 }
 
-/**
- * Для деактивированное кнопки
+/*
+ * Inactive - для деактивированное кнопки
  */
 message Inactive {
 	string title = 1 ;
@@ -398,17 +432,8 @@ message Inactive {
 	string text = 7;
 }
 
-/**
- * Рейтинг товара
- */
-message ScoreDetail {
-	google.protobuf.DoubleValue feedbackCount = 1 [json_name = "feedback_count"]; // кол-во отзывов
-	google.protobuf.StringValue feedbackSource = 2 [json_name = "feedback_source"]; // имя ресурса
-	google.protobuf.DoubleValue commentCount = 3 [json_name = "comment_count"]; // кол-во комментариев
-}
-
-/**
- * Главная категория
+/*
+ * MainTaxon - главная категория
  */
 message MainTaxon {
 	double id = 1;
@@ -424,8 +449,8 @@ message MainTaxon {
 	repeated string requirements = 11;
 }
 
-/**
- * Иконка главной категории
+/*
+ * Icon - иконка главной категории
  */
 message Icon {
 	string  mini_url = 1 [json_name = "mini_url"];
