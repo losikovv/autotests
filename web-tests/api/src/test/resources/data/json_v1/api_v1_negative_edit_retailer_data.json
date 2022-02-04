@@ -13,7 +13,7 @@
         "retailer[contract_type]": "agent",
         "retailer[phone]": "9328621714",
         "retailer[short_name]": "autotest-viuztl",
-        "retailer[name]": "METRO"
+        "retailer[name]": "TestIO"
       },
       "errorMessage": "\"name\":[\"уже существует\"]"
     },

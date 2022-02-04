@@ -189,8 +189,8 @@ public class RetailersV1Tests extends RestBase {
         List<RetailerV2> retailersFromResponse = response.as(RetailersV2Response.class).getRetailers();
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(retailersFromResponse.size(), 2, softAssert);
-        compareTwoObjects(retailersFromResponse.get(0).getName(), "Ашан", softAssert);
-        compareTwoObjects(retailersFromResponse.get(1).getName(), "METRO", softAssert);
+        compareTwoObjects(retailersFromResponse.get(1).getName(), "Ашан", softAssert);
+        compareTwoObjects(retailersFromResponse.get(0).getName(), "METRO", softAssert);
         softAssert.assertAll();
     }
 
