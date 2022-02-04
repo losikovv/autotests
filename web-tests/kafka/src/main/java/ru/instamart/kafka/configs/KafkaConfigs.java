@@ -1,34 +1,37 @@
 package ru.instamart.kafka.configs;
 
 import ru.instamart.kafka.KafkaConfig;
+import ru.sbermarket.common.Crypt;
 
 public class KafkaConfigs {
 
-    public static KafkaConfig configFctOrder() {
+    public static KafkaConfig configFctOrderStf() {
         return KafkaConfig.builder()
                 .clientId("stf-app")
                 .topic("yc.operations-order-service.fct.order.0")
                 .groupName("stf_dispatch_consumer6")
-                .login("paas-content-operations-order-service")
-                .password("8RIuP7Gc4s")
+                .login(Crypt.INSTANCE.decrypt("W8t2xfaWNDbOiygPZb58sw=="))
+                .password(Crypt.INSTANCE.decrypt("qDEePBkZyGVm909bb9boEA=="))
                 .build();
     }
+
     public static KafkaConfig configCmdStatusOrderRequest() {
         return KafkaConfig.builder()
                 .clientId("stf-app")
                 .topic("yc.operations-order-service.cmd.status-order-request.0")
                 .groupName("stf_dispatch_consumer6")
-                .login("paas-content-operations-order-service")
-                .password("8RIuP7Gc4s")
+                .login(Crypt.INSTANCE.decrypt("W8t2xfaWNDbOiygPZb58sw=="))
+                .password(Crypt.INSTANCE.decrypt("qDEePBkZyGVm909bb9boEA=="))
                 .build();
     }
+
     public static KafkaConfig configCmdOrderEnrichment() {
         return KafkaConfig.builder()
-                .clientId("stf-app")
+                .clientId("order-service")
                 .topic("yc.operations-order-service.fct.order-enrichment.0")
                 .groupName("dispatch_2b4a0c6a")
-                .login("paas-content-operations-order-service")
-                .password("8RIuP7Gc4s")
+                .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lFFIilsK0XE3QDBBJ5Mp5mLg7qqzpEpt9aWM7PuwzRaD"))
+                .password(Crypt.INSTANCE.decrypt("oxtATtB9KZVs9w97BTNtYg=="))
                 .build();
     }
 }

@@ -2,8 +2,10 @@ package ru.instamart.kafka.helper;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
+import lombok.Cleanup;
 import order.Order;
 import order_enrichment.OrderEnrichment;
+import order_status.OrderStatus;
 import ru.instamart.kafka.KafkaConfig;
 import ru.instamart.kafka.consumer.KafkaConsumers;
 import ru.instamart.kafka.emum.StatusOrder;
@@ -13,14 +15,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.kafka.configs.KafkaConfigs.configCmdOrderEnrichment;
+import static ru.instamart.kafka.configs.KafkaConfigs.configCmdStatusOrderRequest;
 
 public class KafkaHelper {
 
     @Step("Получаем данных кафки по orderUUID: {orderUUID}")
     public List<Order.EventOrder> waitDataInKafkaTopicFtcOrder(KafkaConfig config, String orderUUID, StatusOrder postponed) {
+        @Cleanup
         var kafkaConsumers = new KafkaConsumers(config);
         List<Order.EventOrder> longEventOrderHashMap = kafkaConsumers.consumeEventOrder(orderUUID, postponed);
-        assertTrue(longEventOrderHashMap.size()>0, "Logs is empty");
+        kafkaConsumers.close();
+        assertTrue(longEventOrderHashMap.size() > 0, "Logs is empty");
         return longEventOrderHashMap;
     }
 
@@ -47,17 +53,34 @@ public class KafkaHelper {
         assertTrue(collect.size() > 0, "Нет данных по смене статуса");
     }
 
-    public void publish(KafkaConfig config, byte[] msg){
+    public void publish(KafkaConfig config, byte[] msg) {
         KafkaProducers producer = new KafkaProducers();
         producer.publish(config, msg);
-
+        producer.shutdown();
     }
 
-    @Step("Получаем данных кафки по orderUUID: {shipmentUuid}")
-    public List<OrderEnrichment.EventOrderEnrichment> waitDataInKafkaTopicStatusOrderRequest(KafkaConfig configCmdStatusOrderRequest, String shipmentUuid, StatusOrder automaticRouting) {
-        var kafkaConsumers = new KafkaConsumers(configCmdStatusOrderRequest);
-        List<OrderEnrichment.EventOrderEnrichment> longEventOrderHashMap = kafkaConsumers.consumeOrderEnrichment(shipmentUuid, automaticRouting);
-        assertTrue(longEventOrderHashMap.size()>0, "Logs is empty");
+    public void publish(KafkaConfig config, List<byte[]> msgs) {
+        KafkaProducers producer = new KafkaProducers();
+        msgs.stream().forEach(
+                msg -> producer.publish(config, msg)
+        );
+        producer.shutdown();
+    }
+
+    @Step("Получаем данных кафки по shipmentUUID: {shipmentUuid}")
+    public List<OrderEnrichment.EventOrderEnrichment> waitDataInKafkaTopicConsumeOrderEnrichment(String shipmentUuid, StatusOrder automaticRouting) {
+        var kafkaConsumers = new KafkaConsumers(configCmdOrderEnrichment(), 10L);
+        var longEventOrderHashMap = kafkaConsumers.consumeOrderEnrichment(shipmentUuid, automaticRouting);
+        assertTrue(longEventOrderHashMap.size() > 0, "Logs is empty");
+        return longEventOrderHashMap;
+    }
+
+    @Step("Получаем данных кафки по shipmentUUID: {shipmentUuid}")
+    public List<OrderStatus.EventStatusRequest> waitDataInKafkaTopicStatusOrderRequest(String shipmentUuid, StatusOrder automaticRouting) {
+        var kafkaConsumers = new KafkaConsumers(configCmdStatusOrderRequest(), 10L);
+        List<OrderStatus.EventStatusRequest> longEventOrderHashMap = kafkaConsumers.consumeOrderStatus(shipmentUuid, automaticRouting);
+        kafkaConsumers.close();
+        assertTrue(longEventOrderHashMap.size() > 0, "Logs is empty");
         return longEventOrderHashMap;
     }
 }

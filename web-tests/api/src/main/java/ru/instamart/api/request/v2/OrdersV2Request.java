@@ -16,6 +16,7 @@ import ru.sbermarket.common.Mapper;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public final class OrdersV2Request extends ApiV2RequestBase {
 
@@ -83,6 +84,20 @@ public final class OrdersV2Request extends ApiV2RequestBase {
                                int deliveryWindowId,
                                int shipmentMethodId,
                                String orderNumber) {
+        return PUT(replacementPolicyId, phoneNumber, instructions, paymentToolId, shipmentId, deliveryWindowId, null, shipmentMethodId, orderNumber);
+    }
+
+    @Step("{method} /" + ApiV2EndPoints.Orders.BY_NUMBER)
+    public static Response PUT(//int addressId, //параметр ломает оформление заказа в некоторых магазинах
+                               int replacementPolicyId,
+                               String phoneNumber,
+                               String instructions,
+                               int paymentToolId,
+                               int shipmentId,
+                               Integer deliveryWindowId,
+                               String deliveryWindowKind,
+                               int shipmentMethodId,
+                               String orderNumber) {
         Map<String, Object> data = new HashMap<>();
         //data.put("order[address_attributes][id]", addressId);
         data.put("order[replacement_policy_id]", replacementPolicyId);
@@ -91,6 +106,9 @@ public final class OrdersV2Request extends ApiV2RequestBase {
         data.put("order[payment_attributes][payment_tool_id]", paymentToolId);
         data.put("order[shipments_attributes][][id]", shipmentId);
         data.put("order[shipments_attributes][][delivery_window_id]", deliveryWindowId);
+        if(Objects.nonNull(deliveryWindowKind)) {
+            data.put("order[shipments_attributes][][delivery_window_kind]", deliveryWindowKind);
+        }
         data.put("order[shipments_attributes][][shipping_method_id]", shipmentMethodId);
 
         return givenWithAuth()

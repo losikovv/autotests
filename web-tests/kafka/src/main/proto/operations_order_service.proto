@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package operations_order_service;
+
+message EventOrder {
+    enum RequestOrderType {
+        ON_DEMAND = 0;
+        PLANNED = 1;
+    }
+    message ClientLocation {
+        double latitude = 1;
+        double longitude = 2;
+    }
+    string shipment_uuid = 1;
+    string order_uuid = 2;
+    string shipment_status = 3;
+    RequestOrderType shipment_type = 4;
+    google.protobuf.Timestamp delivery_promise_upper_dttm_ends_at = 5;
+    ClientLocation client_location = 6;
+    string place_uuid = 7;
+    uint64 number_of_positions_in_order = 8;
+    uint64 order_weight_gramms = 9;
+    google.protobuf.Timestamp create_time = 10;
+    google.protobuf.Timestamp delivery_promise_upper_dttm_starts_at = 11;
+}

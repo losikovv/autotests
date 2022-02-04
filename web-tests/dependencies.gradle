@@ -23,6 +23,7 @@ ext.versions = [
         imifouJsonSchema: '1.2.1',
         truthPproto: '1.1.3',
         guava:'31.0.1-jre',
+        commonsLang3:'3.12.0',
 
         common:'1.0.2',
         ab:'1.1.0',
@@ -64,6 +65,7 @@ ext.lib = [
         victoolsSchemaModuleJavaxValidation:"com.github.victools:jsonschema-module-javax-validation:$versions.victoolsSchemaGenerator",
         truthPproto:"com.google.truth.extensions:truth-proto-extension:$versions.truthPproto",
         guava:"com.google.guava:guava:$versions.guava",
+        commonsLang3: "org.apache.commons:commons-lang3:$versions.commonsLang3",
 
         common:"ru.sbermarket.common:common:$versions.common",
         ab:"ru.sbermarket.ab:ab:$versions.ab",
