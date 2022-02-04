@@ -19,7 +19,6 @@ public class OrdersDeliveryV3Test extends RestBase {
 
     @CaseId(858)
     @Story("Доставка")
-    //@JsonDataProvider(path = "data/json_v3/api_v3_test_data_goods.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
             dataProvider = "goods",
             dataProviderClass = ApiV3DataProvider.class,
@@ -37,7 +36,6 @@ public class OrdersDeliveryV3Test extends RestBase {
 
     @CaseId(860)
     @Story("Доставка")
-    //@JsonDataProvider(path = "data/json_v3/api_v3_test_data_sber_devices.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
             dataProvider = "sber_devices",
             dataProviderClass = ApiV3DataProvider.class,
@@ -56,7 +54,6 @@ public class OrdersDeliveryV3Test extends RestBase {
 
     @CaseId(859)
     @Story("Доставка")
-    //@JsonDataProvider(path = "data/json_v3/api_v3_test_data_metro_marketplace.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
             dataProvider = "metro_marketplace",
             dataProviderClass = ApiV3DataProvider.class,
@@ -74,7 +71,6 @@ public class OrdersDeliveryV3Test extends RestBase {
 
     @CaseId(1916)
     @Story("Доставка")
-    //@JsonDataProvider(path = "data/json_v3/api_v3_test_data_goods.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
             dataProvider = "Aliexpress",
             dataProviderClass = ApiV3DataProvider.class,
@@ -92,7 +88,6 @@ public class OrdersDeliveryV3Test extends RestBase {
 
     @CaseId(1917)
     @Story("Доставка")
-    //@JsonDataProvider(path = "data/json_v3/api_v3_test_data_goods.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
             dataProvider = "Auchan",
             dataProviderClass = ApiV3DataProvider.class,

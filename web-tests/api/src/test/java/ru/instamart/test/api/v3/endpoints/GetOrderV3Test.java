@@ -20,26 +20,8 @@ public class GetOrderV3Test extends RestBase {
 
     OrderV3 order;
 
-   /* @BeforeMethod(alwaysRun = true)
-    public void createOrder() {
-        order = apiV3.createDefaultOrder();
-        ApiV3TestData testData = ApiV3TestData
-                .builder()
-                .shipTotal("15000")
-                .itemId("15879")
-                .itemQuantity(1)
-                .itemPrice(10000)
-                .itemDiscount(1000)
-                .itemPromoTotal(1000)
-                .clientToken("6fae9cd2b268be84e2ab394b6fd0d599")
-                .build();
-
-        order = apiV3.createOrderDelivery(testData);
-    }*/
-
     @CaseId(862)
     @Story("Заказ на доставку")
-    //@JsonDataProvider(path = "data/json_v3/api_v3_test_data_goods.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
             dataProvider = "goods",
             dataProviderClass = ApiV3DataProvider.class,
@@ -52,7 +34,6 @@ public class GetOrderV3Test extends RestBase {
 
     @CaseId(863)
     @Story("Заказ на самовывоз")
-   // @JsonDataProvider(path = "data/json_v3/api_v3_test_data_metro_marketplace.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
             dataProvider = "metro_marketplace",
             dataProviderClass = ApiV3DataProvider.class,

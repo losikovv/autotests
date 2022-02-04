@@ -61,7 +61,6 @@ public class OrderOptionsV3Request extends ApiV3RequestBase {
             itemParams.put("discount", testData.getItemDiscount());
             itemParams.put("promo_total", testData.getItemPromoTotal());
             return givenWithSpec()
-                    .log().all()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .header("Api-Version","3.0")

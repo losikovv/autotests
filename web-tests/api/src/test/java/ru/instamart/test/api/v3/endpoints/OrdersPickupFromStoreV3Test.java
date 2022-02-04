@@ -17,19 +17,11 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 @Feature("Заказы")
 public class OrdersPickupFromStoreV3Test extends RestBase {
 
-    //StoreV3 store;
     OrderV3 orderMetroMarketplace;
     OrderV3 orderAuchan;
 
-   // @BeforeClass(alwaysRun = true)
-    //public void preconditions() {
-      //  store = apiV3.getStore("METRO, Щелковская");
-    //}
-
-
     @CaseId(861)
     @Story("Самовывоз")
-    //@JsonDataProvider(path = "data/json_v3/api_v3_test_data_metro_marketplace.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
             dataProvider = "metro_marketplace",
             dataProviderClass = ApiV3DataProvider.class,
@@ -47,7 +39,6 @@ public class OrdersPickupFromStoreV3Test extends RestBase {
 
     @CaseId(1918)
     @Story("Самовывоз")
-    //@JsonDataProvider(path = "data/json_v3/api_v3_test_data_metro_marketplace.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
             dataProvider = "Auchan",
             dataProviderClass = ApiV3DataProvider.class,

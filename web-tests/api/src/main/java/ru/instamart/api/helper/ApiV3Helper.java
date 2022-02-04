@@ -40,15 +40,6 @@ public final class ApiV3Helper {
         return stores.get(0);
     }
 
-    /*public OrderOptionsV3Response getOrderOptionsPickup(StoreV3 store, ApiV3TestData testData) {
-        // StoreV3 store = getStore("METRO, Ленинградское шоссе");
-        log.debug("Получаем список опций заказа дла магазинов с самовывозом");
-        return OrderOptionsV3Request.PickupFromStore.PUT(
-                testData,
-                store.getId())
-                .as(OrderOptionsV3Response.class);
-    }*/
-
     public OrderOptionsV3Response getOrderOptionsDelivery(ApiV3TestData testData) {
         Response response = OrderOptionsV3Request.Delivery.PUT(testData);
         checkStatusCode200(response);
