@@ -76,30 +76,6 @@
       },
       "description": "Отсутствует ext",
       "errorMessage": "\"ext\":\"cannot be blank\""
-    },
-    {
-      "simpleRec": {
-        "ext": {
-          "place": "main"
-        },
-        "context": {
-          "app": {
-            "ext": {
-              "store_id": 1,
-              "tenant_id": 0
-            },
-            "domain": "ru.sbermarket.new-app"
-          },
-          "user": {
-            "geo": {
-              "lon": 37.680517,
-              "lat": 55.790448
-            }
-          }
-        }
-      },
-      "description": "Отсутствует context.user.ext",
-      "errorMessage": "\"user\":\"Need AnonymousId or User.ID\""
     }
   ]
 }

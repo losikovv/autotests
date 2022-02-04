@@ -73,7 +73,38 @@ public final class SimpleRecsV2Test extends RestBase {
         checkResponseJsonSchema(response, SimpleRecsV2Response.class);
     }
 
-    @CaseIDs(value = {@CaseId(289), @CaseId(1099), @CaseId(1100), @CaseId(1101)})
+    @CaseId(1921)
+    @Story("Упрощенные рекомендации (simple-recs)")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Упрощенный запрос блока рекомендаций без context.user.ext")
+    public void testSimpleRecsWithoutUserId() {
+        SimpleRecsV2Request.SimpleRecsV2 allRequiredParameters = SimpleRecsV2Request.SimpleRecsV2.builder()
+                .context(SimpleRecsV2Request.Context.builder()
+                        .app(SimpleRecsV2Request.App.builder()
+                                .ext(SimpleRecsV2Request.AppExt.builder()
+                                        .storeId(EnvironmentProperties.DEFAULT_SID)
+                                        .tenantId(0)
+                                        .build())
+                                .domain("ru.sbermarket.new-app")
+                                .build())
+                        .user(SimpleRecsV2Request.User.builder()
+                                .geo(SimpleRecsV2Request.Geo.builder()
+                                        .lat(55.790447999999998D)
+                                        .lon(37.680517000000002D)
+                                        .build())
+                                .build())
+                        .build())
+                .ext(
+                        SimpleRecsV2Request.Ext.builder()
+                                .place("main").build()
+                )
+                .build();
+        final Response response = SimpleRecsV2Request.Personal.POST(allRequiredParameters);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, SimpleRecsV2Response.class);
+    }
+
+    @CaseIDs(value = {@CaseId(289), @CaseId(1099), @CaseId(1100)})
     @Story("Упрощенные рекомендации (simple-recs)")
     @JsonDataProvider(path = "data/json_v2/api_v2_blank_simple_recs_data.json", type = RestDataProvider.SimpleRecsV2TestDataRoot.class)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},

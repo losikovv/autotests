@@ -13,7 +13,6 @@ import ru.instamart.kraken.data_provider.JsonProvider;
 
 import java.util.UUID;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode400;
@@ -26,41 +25,10 @@ public final class RecsV2Test extends RestBase {
     @Story("Полные рекомендации (recs)")
     @CaseId(974)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
-            description = "Запрос рекомендаций с обязательными параметрами")
-    public void testRecsTest() {
-        PersonalV2Request.RecsV2 recsV2 = PersonalV2Request.RecsV2.builder()
-                .reqId(UUID.randomUUID().toString())
-                .tmax(5000)
-                .placement(
-                        PersonalV2Request.PlacementsItem.builder()
-                                .placementId(UUID.randomUUID().toString())
-                                .ext(PersonalV2Request.PlacementsExt.builder()
-                                        .componentId(2)
-                                        .order(1)
-                                        .build())
-                                .build()
-                )
-                .context(
-                        PersonalV2Request.Context.builder()
-                                .app(
-                                        PersonalV2Request.App.builder()
-                                                .domain("ru.sbermarket.new-app")
-                                                .ver("1.0.0.1")
-                                                .ext(PersonalV2Request.SiteAndAppExt.builder()
-                                                        .categoryId(1)
-                                                        .storeId("1")
-                                                        .build())
-                                                .build()
-                                )
-                                .user(PersonalV2Request.User.builder()
-                                        .ext(PersonalV2Request.UserExt.builder()
-                                                .anonymousId(UUID.randomUUID().toString())
-                                                .build())
-                                        .build())
-                                .build()
-                )
-                .build();
-
+            description = "Запрос рекомендаций с обязательными параметрами",
+            dataProvider = "recsData",
+            dataProviderClass = RestDataProvider.class)
+    public void testRecsTest(PersonalV2Request.RecsV2 recsV2) {
         final Response response = PersonalV2Request.POST(recsV2);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, RecsV2Response.class);
