@@ -163,33 +163,6 @@
         ]
       },
       "description": "Отсутствует context.app.ext"
-    },
-    {
-      "rec": {
-        "reqId": "92974390-24f3-4e77-99a9-b3b6ea4d5492",
-        "tmax": 5000,
-        "context": {
-          "app": {
-            "ext": {
-              "category_id": 1,
-              "store_id": "1",
-              "tenant_id": 0
-            },
-            "ver": "1.0.0.1",
-            "domain": "ru.sbermarket.new-app"
-          }
-        },
-        "placements": [
-          {
-            "ext": {
-              "componentId": 2,
-              "order": 1
-            },
-            "placementId": "8691b4f6-e734-4a88-8960-7c1d88ea4e51"
-          }
-        ]
-      },
-      "description": "Отсутствует context.user"
     }
   ]
 }
