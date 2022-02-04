@@ -61,6 +61,9 @@ project(":kraken") {
         implementation lib.allureJavaCommons
         implementation lib.pgsqlJDBC
         implementation lib.logback
+        implementation lib.commonsLang3
+        implementation lib.grpcProtobuf
+        implementation lib.grpcStub
 
         compileOnly lib.lombok
         annotationProcessor lib.lombok

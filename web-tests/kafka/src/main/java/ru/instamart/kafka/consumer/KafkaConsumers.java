@@ -6,10 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import order.Order;
 import order_enrichment.OrderEnrichment;
 import order_status.OrderStatus;
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.consumer.*;
+import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.config.SaslConfigs;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -19,10 +17,10 @@ import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.util.ThreadUtil;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
+
+import static ru.instamart.kraken.util.TimeUtil.getDbDateMinusMinutes;
+import static ru.instamart.kraken.util.TimeUtil.getZonedDate;
 
 @Slf4j
 public class KafkaConsumers {
@@ -30,8 +28,11 @@ public class KafkaConsumers {
     private KafkaConsumer<String, byte[]> consumer;
 
     public KafkaConsumers(KafkaConfig config) {
-        this.consumer = createConsumer(config);
+        this.consumer = createConsumer(config, null);
+    }
 
+    public KafkaConsumers(KafkaConfig config, Long time) {
+        this.consumer = createConsumer(config, time);
     }
 
     private Properties consumerProperties(KafkaConfig config) {
@@ -40,9 +41,9 @@ public class KafkaConsumers {
         props.put(ConsumerConfig.CLIENT_ID_CONFIG, config.clientId);
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, CoreProperties.KAFKA_SERVER);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, config.groupName);
-        props.put("session.timeout.ms", "30000");
+//        props.put("session.timeout.ms", "30000");
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
+//        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
 
         //protobuf
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
@@ -55,31 +56,49 @@ public class KafkaConsumers {
         return props;
     }
 
-    private KafkaConsumer<String, byte[]> createConsumer(final KafkaConfig config) {
+    private KafkaConsumer<String, byte[]> createConsumer(final KafkaConfig config, Long time) {
         Properties props = consumerProperties(config);
         KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<>(props);
-        consumer.subscribe(Collections.singleton(config.topic));
+        if (Objects.nonNull(time)) {
+            log.info("time not null");
+            TopicPartition topicPartition0 = new TopicPartition(config.topic, 0);
+            consumer.assign(Collections.singletonList(topicPartition0));
+            Map<TopicPartition, Long> startOffsetsMap = new HashMap<>();
+            startOffsetsMap.put(topicPartition0, getDbDateMinusMinutes(time));
+            Map<TopicPartition, OffsetAndTimestamp> startPartitionOffsetsMap = consumer
+                    .offsetsForTimes(startOffsetsMap);
+            long partition0StartOffset = 0;
+            if (startOffsetsMap.get(topicPartition0) != null) {
+                partition0StartOffset = startPartitionOffsetsMap.get(topicPartition0).offset();
+            }
+
+            log.info("Начальное смещение раздела:{}", partition0StartOffset);
+            consumer.seek(topicPartition0, partition0StartOffset);
+        } else {
+            log.info("time null");
+            consumer.subscribe(Collections.singleton(config.topic));
+        }
         return consumer;
     }
 
     public List<Order.EventOrder> consumeEventOrder(String filter, StatusOrder postponed) {
-        List<Order.EventOrder> allLogs = new ArrayList<>();
+        final List<Order.EventOrder> allLogs = new ArrayList<>();
         final int giveUp = 100;
         int noRecordsCount = 0;
         List<Order.EventOrder> result = new ArrayList<>();
         while (true) {
-            ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(10000));
+            ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(50));
             for (ConsumerRecord<String, byte[]> record : records) {
                 Order.EventOrder parseEventOrder = null;
                 try {
                     if (record.value() != null) {
-                        log.info("record: {}", record.value().toString());
                         parseEventOrder = Order.EventOrder.parseFrom(record.value());
+                        log.debug("record: {}", parseEventOrder.toString());
                         allLogs.add(parseEventOrder);
                         if (parseEventOrder != null && parseEventOrder.getOrderUuid().equals(filter)) {
                             if (postponed != null && parseEventOrder.getShipmentStatus().name().equals(postponed.name())) {
                                 result.add(parseEventOrder);
-                            }else if(postponed==null){
+                            } else if (postponed == null) {
                                 result.add(parseEventOrder);
                             }
                         }
@@ -98,6 +117,7 @@ public class KafkaConsumers {
             consumer.commitAsync();
             break;
         }
+        consumer.close();
         log.debug("Kafka get data");
         Allure.addAttachment("Filter logs", result.toString());
         Allure.addAttachment("All logs", allLogs.toString());
@@ -155,13 +175,13 @@ public class KafkaConsumers {
                 OrderEnrichment.EventOrderEnrichment parseEventOrder = null;
                 try {
                     if (record.value() != null) {
-                        log.info("record: {}", record.value().toString());
-                        parseEventOrder =OrderEnrichment.EventOrderEnrichment.parseFrom(record.value());
+                        parseEventOrder = OrderEnrichment.EventOrderEnrichment.parseFrom(record.value());
+                        log.info("record: {}", parseEventOrder.toString());
                         allLogs.add(parseEventOrder);
-                        if (parseEventOrder != null && parseEventOrder.getOrderUuid().equals(shipmentUuid)) {
+                        if (parseEventOrder != null && parseEventOrder.getShipmentUuid().equals(shipmentUuid)) {
                             if (automaticRouting != null && parseEventOrder.getShipmentStatus().name().equals(automaticRouting.name())) {
                                 result.add(parseEventOrder);
-                            }else if(automaticRouting==null){
+                            } else if (automaticRouting == null) {
                                 result.add(parseEventOrder);
                             }
                         }
@@ -171,6 +191,7 @@ public class KafkaConsumers {
                 }
             }
             if (records.count() == 0) {
+                ThreadUtil.simplyAwait(1);
                 noRecordsCount++;
                 if (noRecordsCount > giveUp) {
                     log.debug("No records noRecordsCount: {}, giveUp: {}", noRecordsCount, giveUp);
@@ -184,5 +205,58 @@ public class KafkaConsumers {
         Allure.addAttachment("Filter logs", result.toString());
         Allure.addAttachment("All logs", allLogs.toString());
         return result;
+    }
+
+
+    public List<OrderStatus.EventStatusRequest> consumeOrderStatus(String shipmentUuid, StatusOrder automaticRouting) {
+        List<String> allLogs = new ArrayList<>();
+        final int giveUp = 100;
+        int noRecordsCount = 0;
+        List<OrderStatus.EventStatusRequest> result = new ArrayList<>();
+        while (true) {
+            ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofSeconds(50));
+            for (ConsumerRecord<String, byte[]> record : records) {
+                OrderStatus.EventStatusRequest parseEventOrder = null;
+                try {
+                    if (record.value() != null) {
+                        parseEventOrder = OrderStatus.EventStatusRequest.parseFrom(record.value());
+                        log.debug("record: {}", parseEventOrder.toString());
+                        allLogs.add("Time: " + getZonedDate() + "\n Message: \n" + parseEventOrder.toString());
+                        log.info("parseEventOrder.shipmentUuid: {}", parseEventOrder.getShipmentUuid());
+                        log.info("parseEventOrder.status: {}", parseEventOrder.getStatus());
+
+                        if (parseEventOrder != null && parseEventOrder.getShipmentUuid().equalsIgnoreCase(shipmentUuid)) {
+                            if (automaticRouting != null && parseEventOrder.getStatus().name().equalsIgnoreCase(automaticRouting.name())) {
+                                result.add(parseEventOrder);
+                            } else if (automaticRouting.getValue() == null) {
+                                result.add(parseEventOrder);
+                            }
+                        }
+
+                    }
+                } catch (InvalidProtocolBufferException e) {
+                    log.debug("Fail parsing kafka message. offset: {}, error: {}", record.offset(), e.getMessage());
+                }
+            }
+            if (records.count() == 0) {
+                ThreadUtil.simplyAwait(1);
+                noRecordsCount++;
+                if (noRecordsCount > giveUp) {
+                    log.debug("No records noRecordsCount: {}, giveUp: {}", noRecordsCount, giveUp);
+                    break;
+                } else continue;
+            }
+            consumer.commitAsync();
+            break;
+        }
+        log.debug("Kafka get data");
+        consumer.close();
+        Allure.addAttachment("Filter logs", result.toString());
+        Allure.addAttachment("All logs", allLogs.toString());
+        return result;
+    }
+
+    public void close() {
+        consumer.close();
     }
 }

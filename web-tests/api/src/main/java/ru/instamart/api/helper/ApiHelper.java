@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.model.v2.AddressV2;
+import ru.instamart.api.model.v2.DeliveryWindowV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.SessionV2;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
@@ -252,7 +253,7 @@ public final class ApiHelper {
         apiV2.getAvailableShippingMethod();
         apiV2.getAvailableDeliveryWindowOnDemand();
 
-        apiV2.setDefaultOrderAttributes();
+        apiV2.setDefaultOrderAttributesOnDemand();
         return apiV2.completeOrder();
     }
 
@@ -436,4 +437,20 @@ public final class ApiHelper {
         admin.authAdminApi();
         admin.updateCalculator(ruleId, data);
     }
+
+    @Step("Получаем первый доступный слот ON_DEMAND")
+    public DeliveryWindowV2 getAvailableDeliveryWindowOnDemand(final UserData user, final Integer sid) {
+        apiV2.auth(user);
+
+        apiV2.getCurrentOrderNumber();
+        //apiV2.deleteAllShipments();
+
+        apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
+        apiV2.fillCartOnSid(sid, 1);
+
+        //apiV2.getAvailablePaymentTool();
+        //apiV2.getAvailableShippingMethod();
+        return apiV2.getAvailableDeliveryWindowOnDemand();
+    }
+
 }

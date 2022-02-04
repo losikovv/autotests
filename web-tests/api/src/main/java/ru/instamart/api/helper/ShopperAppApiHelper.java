@@ -161,6 +161,26 @@ public class ShopperAppApiHelper {
     }
 
     /**
+     * Создаем смену сборщику
+     */
+    @Step("Создаем смену сборщику")
+    public void createShopperShift(int roleId,
+                                   String planStartsAt,
+                                   String planEndsAt,
+                                   double lat,
+                                   double lon) {
+        final Response response = ShopperSHPRequest.OperationShifts.POST(
+                roleId,
+                true,
+                planStartsAt,
+                planEndsAt,
+                lat,
+                lon);
+        checkStatusCode200(response);
+
+    }
+
+    /**
      * Простая сборка заказа с генерацией фискального номера чека
      */
     public void simpleCollect(String shipmentNumber) {
@@ -506,7 +526,7 @@ public class ShopperAppApiHelper {
                 AssemblyStateSHP.ON_CASH_DESK.getState());
     }
 
-    public void createReceipts(){
+    public void createReceipts() {
         createReceipts(Generate.digitalString(10));
     }
 

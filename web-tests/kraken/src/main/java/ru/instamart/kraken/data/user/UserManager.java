@@ -32,6 +32,7 @@ public final class UserManager {
     private static UserData defaultAdmin;
     private static UserData defaultAdminAllRoles;
     private static UserData defaultShopper;
+    private static UserData stf6Shopper;
     private static UserData defaultGmailUser;
     private static UserData defaultVkUser;
     private static UserData defaultFbUser;
@@ -39,6 +40,7 @@ public final class UserManager {
     private static UserData defaultSberIdUser;
     private static UserData defaultSberBusinessIdUser;
     private static UserData defaultApiUser;
+    private static UserData getStf6ApiUser;
     private static UserData defaultDcUser;
     private static UserData defaultRisUser;
     private static UserData defaultUserWithoutPermission;
@@ -83,6 +85,16 @@ public final class UserManager {
                     .build();
         }
         return defaultAdminAllRoles;
+    }
+
+    public static UserData getShp6Shopper() {
+        if (isNull(stf6Shopper)) {
+            defaultShopper = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("DNzBqyrPJQuc1LP0FzyiiQ=="))
+                    .phone(Crypt.INSTANCE.decrypt("VKxPCYWxtW47hpCL/Qj43Q=="))
+                    .build();
+        }
+        return stf6Shopper;
     }
 
     public static UserData getDefaultShopper() {
@@ -214,6 +226,18 @@ public final class UserManager {
                     .build();
         }
         return defaultApiUser;
+    }
+
+    public static UserData getStf6ApiUser() {
+        if (isNull(getStf6ApiUser)) {
+            getStf6ApiUser = UserData.builder()
+                    .role("user")
+                    .email(Crypt.INSTANCE.decrypt("vgmGFDo8Onbhu9KH6UJjPtk4Q4LBcZh8xoLhogVWI9k="))
+                    .phone("9879871212")
+                    .name("autotest user")
+                    .build();
+        }
+        return getStf6ApiUser;
     }
 
     public static UserData getDeliveryClubUser() {

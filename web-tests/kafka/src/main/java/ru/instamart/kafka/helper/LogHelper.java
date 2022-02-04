@@ -63,7 +63,7 @@ public class LogHelper {
     @Step("Ожидание появления из пода nameSpace: {pods.nameSpace} логов с {idMsg} и {waitString}")
     public List<String> awaitLogsPod(Pods pods, String idMsg, String waitString) {
         List<String> collect = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             var logsList = getLogsPods(pods.getNameSpace(), pods.getLabel(), idMsg);
             collect = logsList.stream()
                     .filter(str -> str.contains(waitString))
