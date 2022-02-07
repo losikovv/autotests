@@ -190,8 +190,8 @@ public class RetailersV1Tests extends RestBase {
         compareTwoObjects(retailersFromResponse.size(), 2);
         List<String> retailersNames = Stream.of(retailersFromResponse.get(0).getName(), retailersFromResponse.get(1).getName()).collect(Collectors.toList());
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue((retailersNames.contains("Ашан")));
-        softAssert.assertTrue((retailersNames.contains("METRO")));
+        softAssert.assertTrue(retailersNames.contains("Ашан"), "Не вернулся ретейлер Ашан");
+        softAssert.assertTrue(retailersNames.contains("METRO"), "Не вернулся ретейлер METRO");
         softAssert.assertAll();
     }
 
