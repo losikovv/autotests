@@ -46,6 +46,12 @@ public final class ElementCollection extends CollectionComponent {
         webElement.click();
     }
 
+    public void clickOnLast() {
+        log.debug("Click last {} with locator {}", getDescription(), getBy());
+        final WebElement webElement = getComponents().stream().reduce((first, second) -> second).orElseThrow();
+        webElement.click();
+    }
+
     public void clickOnAll() {
         for (final WebElement we : getComponents()) {
             log.debug("Click on element {} with", we);

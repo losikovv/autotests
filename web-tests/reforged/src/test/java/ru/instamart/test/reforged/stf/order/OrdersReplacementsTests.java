@@ -60,7 +60,7 @@ public class OrdersReplacementsTests extends BaseTest {
         checkout().setReplacementPolicy().clickToPolicy(replacementPolicy);
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardToCourier();
 

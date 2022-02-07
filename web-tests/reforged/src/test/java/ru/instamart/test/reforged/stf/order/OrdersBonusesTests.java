@@ -56,7 +56,7 @@ public final class OrdersBonusesTests extends BaseTest {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().clickToAddLoyaltyCard(loyaltiesData.getName());
         checkout().interactEditLoyaltyCardModal()
