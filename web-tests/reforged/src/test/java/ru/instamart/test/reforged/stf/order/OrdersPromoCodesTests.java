@@ -68,7 +68,7 @@ public final class OrdersPromoCodesTests extends BaseTest {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardToCourier();
 
@@ -121,7 +121,7 @@ public final class OrdersPromoCodesTests extends BaseTest {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardToCourier();
 
@@ -175,7 +175,7 @@ public final class OrdersPromoCodesTests extends BaseTest {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardToCourier();
 
@@ -218,7 +218,7 @@ public final class OrdersPromoCodesTests extends BaseTest {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardToCourier();
 

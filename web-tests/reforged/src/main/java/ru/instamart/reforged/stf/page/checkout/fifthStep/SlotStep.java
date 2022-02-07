@@ -6,7 +6,12 @@ public class SlotStep implements SlotStepCheck {
 
     @Step("Выбрать первый активный слот")
     public void setFirstActiveSlot() {
-        firstActiveSlot.click();
+        activeSlots.clickOnFirst();
+    }
+
+    @Step("Выбрать последний активный слот")
+    public void setLastActiveSlot() {
+        activeSlots.clickOnLast();
     }
 
     @Step("Выбрать первый активный слот")

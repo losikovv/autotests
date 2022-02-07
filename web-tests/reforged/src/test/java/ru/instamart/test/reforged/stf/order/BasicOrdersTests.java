@@ -64,7 +64,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardToCourier();
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
@@ -105,7 +105,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardOnline();
         checkout().setPayment().clickToAddNewPaymentCard();
@@ -150,7 +150,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardOnline();
         checkout().setPayment().clickToAddNewPaymentCard();
@@ -195,7 +195,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardToCourier();
 
@@ -235,7 +235,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardToCourier();
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
@@ -273,7 +273,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardToCourier();
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
@@ -378,7 +378,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setSlot().checkSlotsSpinnerIsVisible();
         checkout().setSlot().checkSlotsSpinnerIsNotVisible();
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().setSlot().checkSlotsSpinnerIsVisible();
         checkout().setSlot().checkSlotsSpinnerIsNotVisible();
@@ -453,7 +453,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardOnline();
         checkout().setPayment().clickToAddNewPaymentCard();
@@ -488,7 +488,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardOnline();
 

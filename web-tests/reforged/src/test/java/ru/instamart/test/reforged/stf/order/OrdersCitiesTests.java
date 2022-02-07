@@ -51,7 +51,7 @@ public final class OrdersCitiesTests extends BaseTest {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 

@@ -57,7 +57,7 @@ public final class OrdersRetailerCardsTests extends BaseTest {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().clickToAddRetailerCard();
         checkout().interactEditRetailerCardModal()
@@ -90,7 +90,7 @@ public final class OrdersRetailerCardsTests extends BaseTest {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().clickToAddRetailerCard();
         checkout().interactEditRetailerCardModal()

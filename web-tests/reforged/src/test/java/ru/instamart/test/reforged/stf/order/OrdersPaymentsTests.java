@@ -65,7 +65,7 @@ public final class OrdersPaymentsTests extends BaseTest {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardOnline();
         checkout().setPayment().clickToAddNewPaymentCard();
@@ -106,7 +106,7 @@ public final class OrdersPaymentsTests extends BaseTest {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardToCourier();
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
@@ -142,7 +142,7 @@ public final class OrdersPaymentsTests extends BaseTest {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().setFirstActiveSlot();
+        checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByBusinessAccount();
 
