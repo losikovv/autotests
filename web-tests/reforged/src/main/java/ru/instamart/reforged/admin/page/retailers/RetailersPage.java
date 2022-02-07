@@ -2,8 +2,14 @@ package ru.instamart.reforged.admin.page.retailers;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.admin.AdminPage;
+import ru.instamart.reforged.admin.page.retailers.activate_store_modal.ActivateStoreModal;
+import ru.instamart.reforged.core.Kraken;
 
 public final class RetailersPage implements AdminPage, RetailersPageCheck {
+
+    public ActivateStoreModal interactActivateStoreModal() {
+        return activateStoreModal;
+    }
 
     @Step("Вернуть количество ретейлеров на странице ретейлеров")
     public Integer retailerQuantityReturn() {
@@ -20,14 +26,44 @@ public final class RetailersPage implements AdminPage, RetailersPageCheck {
         retailerPlusIconInTable.click(retailer);
     }
 
+    @Step("Нажать на плюс у первого ретейлера")
+    public void clickOnPlusForFirstRetailer() {
+        retailerPlusIconInTable.click(retailersInTable.getElementText(0));
+    }
+
+    @Step("Нажать на плюс у города {0}")
+    public void clickOnPlusForCity(final String city) {
+        cityPlusIconInTable.click(city);
+    }
+
+    @Step("Нажать 'активировать' у магазина по адресу {0}")
+    public void clickOnActivateStoreViaAddress(final String address) {
+        storeActivateInTable.click(address);
+    }
+
+    @Step("Нажать 'Деактивировать' у магазина по адресу {0}")
+    public void clickOnDeactivateStoreViaAddress(final String address) {
+        storeDeactivateInTable.click(address);
+    }
+
     @Step("Ввести название ретейлера '{0}' в поиск")
     public void searchRetailerFill(final String retailer) {
         retailerSearchInput.fillField(retailer);
     }
 
+    @Step("Ввести название региона '{0}' в поиск")
+    public void searchRegionFill(final String region) {
+        regionsSearchInput.fill(region);
+    }
+
     @Step("Кликнуть на поиск ретейлера")
     public void clickOnRetailerSearchElement() {
         retailerSearchElement.click();
+    }
+
+    @Step("Кликнуть на поиск региона")
+    public void clickOnRegionsSearchElement() {
+        regionsSearchElement.click();
     }
 
     @Step("Кликнуть на сортировку ретейлеров по имени")
@@ -43,6 +79,11 @@ public final class RetailersPage implements AdminPage, RetailersPageCheck {
     @Step("Выбрать первый ретейлер из подсказок результатов поиска")
     public void clickOnFirstRetailerInSearchSuggest() {
         retailerSearchOptions.clickOnFirst();
+    }
+
+    @Step("Выбрать первый регион из подсказок результатов поиска")
+    public void clickOnFirstRegionInSearchSuggest() {
+        regionSearchOptions.clickOnFirst();
     }
 
     @Step("Нажать на магазин {0}")
@@ -65,6 +106,30 @@ public final class RetailersPage implements AdminPage, RetailersPageCheck {
         addNewStoreForRetailer.click(retailer);
     }
 
+    @Step("Нажать 'Ok' в попапе деактивации магазина")
+    public void clickOkOnDeactivateStorePopup() {
+        okButtonOnDeactivateStorePopup.click();
+    }
+
+    @Step("Нажать на фильтр доступности для выбора опций")
+    public void clickOnAccessibilityFilter() {
+        Kraken.action().moveToElement(accessibilityFilterButton.getElement()).click().perform();
+    }
+
+    @Step("Выбрать доступные ретейлеры в выпадающем списке фильтра доступности")
+    public void selectAccessibleRetailers() {
+        accessibleRetailersOption.click();
+    }
+
+    @Step("Выбрать недоступные ретейлеры в выпадающем списке фильтра доступности")
+    public void selectInaccessibleRetailers() {
+        inaccessibleRetailersOption.click();
+    }
+
+    @Step("Нажать кнопку 'Ok' в выпадающем списке фильтра доступности")
+    public void clickOnOkRetailersFilterButton() {
+        accessibilityFilterDropdownOkButton.click();
+    }
 
     @Override
     public String pageUrl() {

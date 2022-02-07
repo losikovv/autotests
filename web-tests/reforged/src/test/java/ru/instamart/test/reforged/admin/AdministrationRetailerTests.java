@@ -6,10 +6,13 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Run;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
+import static ru.instamart.reforged.admin.AdminRout.retailers;
 
 @Epic("Админка STF")
 @Feature("Управление ретейлерами")
@@ -168,7 +171,7 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().checkAddNewRetailerButtonVisible();
 
         retailers().clickOnRetailerSearchElement();
-        retailers().checkOptionsInSearchVisible();
+        retailers().checkOptionsInRetailerSearchVisible();
 
         retailers().clickOnRetailerSearchElement();
         retailers().searchRetailerFill("METRO");
@@ -291,5 +294,106 @@ public final class AdministrationRetailerTests extends BaseTest {
 
         shopAdd().checkPageContains("retailers/flora/stores/new");
         shopAdd().checkRegionDropdownVisible();
+    }
+
+    @Run(onServer = Server.PREPROD)
+    @CaseId(541)
+    @Story("Страница ретейлеров")
+    @Test(description = "Активация магазина", groups = {"acceptance", "regression"})
+    public void shopActivate() {
+        final Long storeId = 18L;
+        apiHelper.updateStore(storeId, null);
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        retailers().goToPage();
+        retailers().checkAddNewRetailerButtonVisible();
+
+        retailers().clickOnPlusForRetailer("METRO");
+        retailers().clickOnPlusForCity("тест-352519385 (17)");
+
+        retailers().clickOnActivateStoreViaAddress("Москва, Обучение, 1 ");
+
+        retailers().interactActivateStoreModal().checkActivateStoreModalVisible();
+        retailers().interactActivateStoreModal().clickOnOkButton();
+        retailers().interactActivateStoreModal().checkActivateStoreModalNotVisible();
+
+        retailers().checkStoreActiveViaAddress("Москва, Обучение, 1 ");
+    }
+
+    @Run(onServer = Server.PREPROD)
+    @CaseId(542)
+    @Story("Страница ретейлеров")
+    @Test(description = "Деактивация магазина", groups = {"acceptance", "regression"})
+    public void shopInactivate() {
+        final Long storeId = 18L;
+        apiHelper.updateStore(storeId, "2020-04-08 10:27:00");
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        retailers().goToPage();
+        retailers().checkAddNewRetailerButtonVisible();
+
+        retailers().clickOnPlusForRetailer("METRO");
+        retailers().clickOnPlusForCity("тест-352519385 (17)");
+
+        retailers().clickOnDeactivateStoreViaAddress("Москва, Обучение, 1 ");
+        retailers().checkDeactivateStorePopupVisible();
+        retailers().clickOkOnDeactivateStorePopup();
+        retailers().checkDeactivateStorePopupNotVisible();
+        retailers().checkStoreInativeViaAddress("Москва, Обучение, 1 ");
+    }
+
+    @CaseId(580)
+    @Story("Страница ретейлеров")
+    @Test(description = "Фильтрация ритейлеров по доступности", groups = {"acceptance", "regression"})
+    public void retailerFilterViaAvailability() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        retailers().goToPage();
+        retailers().checkAddNewRetailerButtonVisible();
+        retailers().waitPageLoad();
+
+        retailers().checkAccessibilityFilterButtonNotAnimated();
+        retailers().clickOnAccessibilityFilter();
+        retailers().checkAccessibilityFilterDropdownVisible();
+
+        retailers().selectAccessibleRetailers();
+        retailers().clickOnOkRetailersFilterButton();
+        retailers().checkAccessibilityFilterDropdownNotVisible();
+
+        retailers().checkOnlyAccessibleRetailersVisible();
+
+        retailers().clickOnAccessibilityFilter();
+        retailers().checkAccessibilityFilterDropdownVisible();
+
+        retailers().selectInaccessibleRetailers();
+        retailers().clickOnOkRetailersFilterButton();
+        retailers().checkAccessibilityFilterDropdownNotVisible();
+
+        retailers().checkOnlyInaccessibleRetailersVisible();
+        retailers().assertAll();
+    }
+
+    @CaseId(581)
+    @Story("Страница ретейлеров")
+    @Test(description = "Фильтрация ритейлеров и магазинов по региону", groups = {"acceptance", "regression"})
+    public void retailerFilterViaRegion() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        retailers().goToPage();
+        retailers().checkAddNewRetailerButtonVisible();
+
+        retailers().searchRegionFill("Казань");
+        retailers().checkOptionsInRegionSearchVisible();
+        retailers().clickOnFirstRegionInSearchSuggest();
+
+        retailers().clickOnPlusForFirstRetailer();
+        retailers().checkRetailerRegionCorrect("Казань");
+
     }
 }

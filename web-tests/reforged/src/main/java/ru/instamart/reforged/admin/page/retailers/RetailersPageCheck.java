@@ -20,6 +20,26 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
         waitAction().shouldBeVisible(addNewRetailerButton);
     }
 
+    @Step("Проверяем, что попап удаления магазина отображается")
+    default void checkDeactivateStorePopupVisible() {
+        waitAction().shouldBeVisible(deactivateStorePopup);
+    }
+
+    @Step("Проверяем, что попап удаления магазина не отображается")
+    default void checkDeactivateStorePopupNotVisible() {
+        waitAction().shouldNotBeVisible(deactivateStorePopup);
+    }
+
+    @Step("Проверяем, что попап фильтра ретейлеров по доступности отображается")
+    default void checkAccessibilityFilterDropdownVisible() {
+        waitAction().shouldBeVisible(accessibilityFilterDropdown);
+    }
+
+    @Step("Проверяем, что попап фильтра ретейлеров по доступности не отображается")
+    default void checkAccessibilityFilterDropdownNotVisible() {
+        waitAction().shouldNotBeVisible(accessibilityFilterDropdown);
+    }
+
     @Step("Сравнение количества ретейлеров с количеством надписей о доступности/недоступности {0}")
     default void retailerAccessibilityCompare(final int quantity) {
         Assert.assertEquals(retailersAccessibilityInTable.elementCount(), quantity,
@@ -42,9 +62,25 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
         waitAction().shouldBeVisible(retailerAccessibilityInTable, retailer);
     }
 
-    @Step("Проверка ретейлера {0} в поисковой выдаче")
+    @Step("Проверка доступности магазина по адресу {0}")
+    default void checkStoreActiveViaAddress(final String address) {
+        waitAction().shouldBeVisible(storeAccessibilityInTable, address);
+    }
+
+    @Step("Проверка недоступности магазина по адресу {0}")
+    default void checkStoreInativeViaAddress(final String address) {
+        waitAction().shouldBeVisible(storeInaccesubilityInTable, address);
+    }
+
+
+    @Step("Проверка доступности магазина по адресу {0}")
     default void checkRetailerSearchCorrect(final String retailer) {
         waitAction().shouldBeVisible(retailerInSearchResultTable, retailer);
+    }
+
+    @Step("Проверка определенного региона {0} у ретейлера")
+    default void checkRetailerRegionCorrect(final String region) {
+        waitAction().shouldBeVisible(regionNameInTable, region);
     }
 
     @Step("Проверяем, что сортировка городов магазинов по количеству отображается корректно")
@@ -76,9 +112,14 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
         Assert.assertEquals(mapNotUnique, mapSorted, "Список городов отсортирован некорректно");
     }
 
-    @Step("Проверяем, что результаты поиска показаны")
-    default void checkOptionsInSearchVisible() {
+    @Step("Проверяем, что результаты поиска ретейлера показаны")
+    default void checkOptionsInRetailerSearchVisible() {
         waitAction().shouldBeVisible(retailerSearchOptions);
+    }
+
+    @Step("Проверяем, что результаты поиска региона показаны")
+    default void checkOptionsInRegionSearchVisible() {
+        waitAction().shouldBeVisible(regionSearchOptions);
     }
 
     @Step("Проверяем, что спиннер показан")
@@ -89,6 +130,16 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
     @Step("Проверяем, что спиннер скрыт")
     default void checkSpinnerNotVisible() {
         waitAction().shouldNotBeVisible(spinner);
+    }
+
+    @Step("Проверяем, что спиннер показан")
+    default void checkRegionSearchSpinnerVisible() {
+        waitAction().shouldBeVisible(spinnerRegionSearch);
+    }
+
+    @Step("Проверяем, что спиннер скрыт")
+    default void checkRegionSearchSpinnerNotVisible() {
+        waitAction().shouldNotBeVisible(spinnerRegionSearch);
     }
 
     @Step("Проверяем, что лейбл с именем ретейлера {0} появился в строке поиска")
@@ -151,4 +202,21 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
         krakenAssert.assertEquals(retailersCreationDateConverted, retailersCreationDateSorted,
                 "Ретейлеры по дате создания DESC отсортированы некорректно");
     }
+
+    @Step("Проверяем, что все отображаемые ретейлеры доступны")
+    default void checkOnlyAccessibleRetailersVisible() {
+        krakenAssert.assertEquals(retailersInTable.elementCount(), accessibleRetailerInTable.elementCount());
+    }
+
+    @Step("Проверяем, что все отображаемые ретейлеры недоступны")
+    default void checkOnlyInaccessibleRetailersVisible() {
+        krakenAssert.assertEquals(retailersInTable.elementCount(), inaccessibleRetailerInTable.elementCount());
+    }
+
+    @Step("Проверяем, что кнопка фильтра доступности ретейлеров отображается и не анимирована")
+    default void checkAccessibilityFilterButtonNotAnimated() {
+        waitAction().shouldNotBeAnimated(accessibilityFilterButton);
+    }
+
+
 }
