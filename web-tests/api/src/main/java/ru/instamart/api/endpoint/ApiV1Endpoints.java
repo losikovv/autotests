@@ -92,6 +92,22 @@ public final class ApiV1Endpoints {
 
     }
 
+    public static final class Imports {
+        public static final String BRAND_FILES = "imports/brands_files";
+        public static final String EANS_FILES = "imports/eans_files";
+        public static final String FILTERS_FILES = "imports/filters_files";
+        public static final String MASTER_CATEGORIES_FILES = "imports/master_categories_files";
+        public static final String MASTER_CATEGORY_ATTRIBUTES_FILES = "imports/master_category_attributes_files";
+        public static final String OFFERS_FILES = "imports/offers_files";
+        public static final String OFFERS_STOCKS_FILES = "imports/offers_stocks_files";
+        public static final String PAGE_METAS_FILES = "imports/page_metas_files";
+        public static final String PRICES_FILES = "imports/prices_files";
+        public static final String PRODUCTS_IMAGES_ARCHIVES = "imports/products_images_archives";
+        public static final String PRODUCTS_FILES = "imports/products_files";
+        public static final String TAXONS_FILES = "imports/taxons_files";
+        public static final String TAXONS_IMAGES_FILES = "imports/taxons_images_files";
+    }
+
     public static final class LineItems {
         public static final String BY_ID = "line_items/{lineItemId}";
     }

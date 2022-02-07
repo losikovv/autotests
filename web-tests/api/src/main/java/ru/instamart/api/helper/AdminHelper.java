@@ -6,10 +6,8 @@ import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OperationalZoneV1;
-import ru.instamart.api.request.admin.CitiesAdminRequest;
-import ru.instamart.api.request.admin.ManufacturingCountriesAdminRequest;
-import ru.instamart.api.request.admin.PagesAdminRequest;
-import ru.instamart.api.request.admin.ShippingMethodsRequest;
+import ru.instamart.api.request.admin.*;
+import ru.instamart.api.request.v1.ImportsV1Request;
 import ru.instamart.api.request.v1.OperationalZonesV1Request;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.MarketingPricers;
@@ -17,6 +15,7 @@ import ru.instamart.api.request.v1.ShippingMethodsV1Request.NominalPricers;
 import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
 import ru.instamart.api.response.v1.*;
+import ru.instamart.api.response.v1.imports.OffersFilesV1Response;
 import ru.instamart.kraken.data.user.UserManager;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -148,5 +147,18 @@ public class AdminHelper {
     public static void deleteManufacturingCountries(String permalink) {
         final Response response = ManufacturingCountriesAdminRequest.DELETE(permalink);
         checkStatusCode302(response);
+    }
+
+    @Step("Создаем магазин")
+    public static void createStoreInAdmin(StoresAdminRequest.Store store) {
+        final Response storeResponse = StoresAdminRequest.POST(store);
+        checkStatusCode302(storeResponse);
+    }
+
+    @Step("Получаем список импортов офферов")
+    public static OffersFilesV1Response getOfferFiles() {
+        final Response response = ImportsV1Request.OffersFiles.GET();
+        checkStatusCode200(response);
+        return response.as(OffersFilesV1Response.class);
     }
 }

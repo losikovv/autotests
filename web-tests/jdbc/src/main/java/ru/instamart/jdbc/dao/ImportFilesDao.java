@@ -1,0 +1,32 @@
+package ru.instamart.jdbc.dao;
+
+import ru.instamart.jdbc.entity.ImportFilesEntity;
+import ru.instamart.jdbc.util.ConnectionMySQLManager;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import static org.testng.Assert.fail;
+
+public class ImportFilesDao extends AbstractDao<Long, ImportFilesEntity> {
+
+    public static final ImportFilesDao INSTANCE = new ImportFilesDao();
+    private final String SELECT_SQL = "SELECT %s FROM import_files";
+
+
+    public int getCount(String type) {
+        int resultCount = 0;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total") + " WHERE type LIKE ?")) {
+            preparedStatement.setString(1, String.format("%%%s%%", type));
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            resultCount = resultSet.getInt("total");
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return resultCount;
+    }
+}

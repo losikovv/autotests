@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import static org.testng.Assert.fail;
 
@@ -84,5 +85,28 @@ public class SpreeRetailersDao extends AbstractDao<Long, SpreeRetailersEntity> {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return result == 2;
+    }
+
+    @Override
+    public Optional<SpreeRetailersEntity> findById(Long id) {
+        SpreeRetailersEntity retailer = new SpreeRetailersEntity();
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                retailer.setId(resultSet.getLong("id"));
+                retailer.setName(resultSet.getString("name"));
+                retailer.setKey(resultSet.getString("key"));
+                retailer.setSlug(resultSet.getString("slug"));
+                retailer.setShortName(resultSet.getString("short_name"));
+                retailer.setPosition(resultSet.getInt("position"));
+                retailer.setPosition(resultSet.getInt("position"));
+                retailer.setUuid(resultSet.getString("uuid"));
+            }
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return Optional.of(retailer);
     }
 }

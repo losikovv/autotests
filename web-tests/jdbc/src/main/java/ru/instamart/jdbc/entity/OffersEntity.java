@@ -31,5 +31,5 @@ public final class OffersEntity {
     private String quantityType;
     private Integer stock;
     private Integer maxStock;
-    private Byte published;
+    private Integer published;
 }

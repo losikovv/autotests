@@ -14,6 +14,7 @@ public class SpreeProductsDao extends AbstractDao<Long, SpreeProductsEntity> {
 
     public static final SpreeProductsDao INSTANCE = new SpreeProductsDao();
     private final String SELECT_SQL = "SELECT %s FROM spree_products";
+    private final String DELETE_SQL = "DELETE FROM spree_products";
 
     public Long getOfferIdBySku(String sku, Integer storeId) {
         Long id = null;
@@ -64,5 +65,40 @@ public class SpreeProductsDao extends AbstractDao<Long, SpreeProductsEntity> {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return spreeProductsEntity;
+    }
+
+    public SpreeProductsEntity getProductBySku(String sku) {
+        SpreeProductsEntity spreeProductsEntity = new SpreeProductsEntity();
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
+                     " WHERE sku = ?")) {
+            preparedStatement.setString(1, sku);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()) {
+                spreeProductsEntity.setId(resultSet.getLong("id"));
+                spreeProductsEntity.setName(resultSet.getString("name"));
+                spreeProductsEntity.setPermalink(resultSet.getString("permalink"));
+                spreeProductsEntity.setShippingCategoryId(resultSet.getInt("shipping_category_id"));
+                spreeProductsEntity.setBrandId(resultSet.getLong("brand_id"));
+                spreeProductsEntity.setEan(resultSet.getString("ean"));
+                spreeProductsEntity.setSku(resultSet.getString("sku"));
+            } else return null;
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return spreeProductsEntity;
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        int result = 0;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE id = ?")) {
+            preparedStatement.setLong(1, id);
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return result == 1;
     }
 }

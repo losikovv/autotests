@@ -31,6 +31,7 @@ public class UserV1 extends BaseObject {
     private String lastName;
     @Null
     private String fullname;
+    @Null
     @JsonSchema(required = true)
     private String phone;
     @JsonProperty(value = "is_admin")
@@ -39,8 +40,10 @@ public class UserV1 extends BaseObject {
     private String uuid;
     @JsonProperty(value = "external_uuid")
     private String externalUuid;
+    @Null
     @JsonProperty(value = "promo_terms_accepted")
     private Boolean promoTermsAccepted;
+    @Null
     @JsonProperty(value = "promo_terms_changed_at")
     private String promoTermsChangedAt;
     @JsonProperty(value = "privacy_terms")
