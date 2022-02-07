@@ -29,7 +29,7 @@ public final class KrakenAssert extends Assertion {
 
     public void assertAll() {
         if (isNotEmpty()) {
-            var joiner = new StringJoiner(",", DEFAULT_KRAKEN_ASSERT_MESSAGE, "");
+            var joiner = new StringJoiner(", \n", DEFAULT_KRAKEN_ASSERT_MESSAGE, "");
             assertError.forEach(assertError -> {
                 if (assertError.getThreadId() == Thread.currentThread().getId()) {
                     joiner.add(getErrorDetails(assertError.getAssertionError()));
