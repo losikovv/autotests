@@ -187,10 +187,11 @@ public class RetailersV1Tests extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, RetailersV2Response.class);
         List<RetailerV2> retailersFromResponse = response.as(RetailersV2Response.class).getRetailers();
+        compareTwoObjects(retailersFromResponse.size(), 2);
+        List<String> retailersNames = Stream.of(retailersFromResponse.get(0).getName(), retailersFromResponse.get(1).getName()).collect(Collectors.toList());
         final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(retailersFromResponse.size(), 2, softAssert);
-        compareTwoObjects(retailersFromResponse.get(1).getName(), "Ашан", softAssert);
-        compareTwoObjects(retailersFromResponse.get(0).getName(), "METRO", softAssert);
+        softAssert.assertTrue((retailersNames.contains("Ашан")));
+        softAssert.assertTrue((retailersNames.contains("METRO")));
         softAssert.assertAll();
     }
 
