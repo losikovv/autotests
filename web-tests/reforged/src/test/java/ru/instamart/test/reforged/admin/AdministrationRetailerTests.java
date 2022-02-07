@@ -174,7 +174,7 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().checkOptionsInRetailerSearchVisible();
 
         retailers().clickOnRetailerSearchElement();
-        retailers().searchRetailerFill("METRO");
+        retailers().fillRetailerSearch("METRO");
         retailers().clickOnFirstRetailerInSearchSuggest();
 
         retailers().checkRetailerLabelInSearchFieldVisible("METRO");
@@ -301,8 +301,7 @@ public final class AdministrationRetailerTests extends BaseTest {
     @Story("Страница ретейлеров")
     @Test(description = "Активация магазина", groups = {"acceptance", "regression"})
     public void shopActivate() {
-        final Long storeId = 18L;
-        apiHelper.updateStore(storeId, null);
+        apiHelper.updateStore(18L, null);
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -327,8 +326,7 @@ public final class AdministrationRetailerTests extends BaseTest {
     @Story("Страница ретейлеров")
     @Test(description = "Деактивация магазина", groups = {"acceptance", "regression"})
     public void shopInactivate() {
-        final Long storeId = 18L;
-        apiHelper.updateStore(storeId, "2020-04-08 10:27:00");
+        apiHelper.updateStore(18L, "2020-04-08 10:27:00");
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -343,7 +341,7 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().checkDeactivateStorePopupVisible();
         retailers().clickOkOnDeactivateStorePopup();
         retailers().checkDeactivateStorePopupNotVisible();
-        retailers().checkStoreInativeViaAddress("Москва, Обучение, 1 ");
+        retailers().checkStoreInactiveViaAddress("Москва, Обучение, 1 ");
     }
 
     @CaseId(580)
@@ -388,7 +386,7 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().goToPage();
         retailers().checkAddNewRetailerButtonVisible();
 
-        retailers().searchRegionFill("Казань");
+        retailers().fillRegionSearch("Казань");
         retailers().checkOptionsInRegionSearchVisible();
         retailers().clickOnFirstRegionInSearchSuggest();
 

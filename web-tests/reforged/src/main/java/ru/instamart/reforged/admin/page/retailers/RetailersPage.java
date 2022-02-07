@@ -3,7 +3,6 @@ package ru.instamart.reforged.admin.page.retailers;
 import io.qameta.allure.Step;
 import ru.instamart.reforged.admin.AdminPage;
 import ru.instamart.reforged.admin.page.retailers.activate_store_modal.ActivateStoreModal;
-import ru.instamart.reforged.core.Kraken;
 
 public final class RetailersPage implements AdminPage, RetailersPageCheck {
 
@@ -47,12 +46,12 @@ public final class RetailersPage implements AdminPage, RetailersPageCheck {
     }
 
     @Step("Ввести название ретейлера '{0}' в поиск")
-    public void searchRetailerFill(final String retailer) {
+    public void fillRetailerSearch(final String retailer) {
         retailerSearchInput.fillField(retailer);
     }
 
     @Step("Ввести название региона '{0}' в поиск")
-    public void searchRegionFill(final String region) {
+    public void fillRegionSearch(final String region) {
         regionsSearchInput.fill(region);
     }
 
@@ -113,7 +112,7 @@ public final class RetailersPage implements AdminPage, RetailersPageCheck {
 
     @Step("Нажать на фильтр доступности для выбора опций")
     public void clickOnAccessibilityFilter() {
-        Kraken.action().moveToElement(accessibilityFilterButton.getElement()).click().perform();
+        accessibilityFilterButton.moveToElementAndClick();
     }
 
     @Step("Выбрать доступные ретейлеры в выпадающем списке фильтра доступности")

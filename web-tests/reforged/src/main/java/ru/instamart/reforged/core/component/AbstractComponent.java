@@ -66,6 +66,14 @@ public abstract class AbstractComponent implements Component {
         Kraken.jsAction().hoverAndClick(getLocator());
     }
 
+    /**
+     * Наведение на элемент и клик через механизм Actions.MoveToElement()
+     */
+    public void moveToElementAndClick() {
+        log.debug("Move to element and click {} '{}'", description, by);
+        Kraken.action().moveToElement(getComponent()).click().perform();
+    }
+
     public void jsClick() {
         log.debug("JS Click on {} with locator {} '{}'", getClass().getSimpleName(), description, by);
         Kraken.jsAction().click(component);

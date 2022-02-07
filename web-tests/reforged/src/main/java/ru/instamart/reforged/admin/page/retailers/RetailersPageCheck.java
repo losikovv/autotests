@@ -68,7 +68,7 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
     }
 
     @Step("Проверка недоступности магазина по адресу {0}")
-    default void checkStoreInativeViaAddress(final String address) {
+    default void checkStoreInactiveViaAddress(final String address) {
         waitAction().shouldBeVisible(storeInaccesubilityInTable, address);
     }
 
@@ -205,12 +205,14 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
 
     @Step("Проверяем, что все отображаемые ретейлеры доступны")
     default void checkOnlyAccessibleRetailersVisible() {
-        krakenAssert.assertEquals(retailersInTable.elementCount(), accessibleRetailerInTable.elementCount());
+        krakenAssert.assertEquals(retailersInTable.elementCount(), accessibleRetailerInTable.elementCount(),
+                            "Среди отображаемых ретейлеров есть недоступные");
     }
 
     @Step("Проверяем, что все отображаемые ретейлеры недоступны")
     default void checkOnlyInaccessibleRetailersVisible() {
-        krakenAssert.assertEquals(retailersInTable.elementCount(), inaccessibleRetailerInTable.elementCount());
+        krakenAssert.assertEquals(retailersInTable.elementCount(), inaccessibleRetailerInTable.elementCount(),
+                            "Среди отображаемых ретейлеров есть доступные");
     }
 
     @Step("Проверяем, что кнопка фильтра доступности ретейлеров отображается и не анимирована")

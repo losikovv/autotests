@@ -30,12 +30,12 @@ public class StoresDao extends AbstractDao<Long, StoresEntity> {
         return result == 2;
     }
 
-    public boolean updateWithSetAvailability(Long id, final String availability) {
+    public boolean updateWithSetAvailability(Long storeId, final String availabilityDate) {
         int result = 0;
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement("UPDATE stores SET available_on = ? WHERE id = ?")) {
-            preparedStatement.setString(1, availability);
-            preparedStatement.setLong(2, id);
+            preparedStatement.setString(1, availabilityDate);
+            preparedStatement.setLong(2, storeId);
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
