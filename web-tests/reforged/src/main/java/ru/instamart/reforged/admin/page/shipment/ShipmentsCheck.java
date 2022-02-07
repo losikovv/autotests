@@ -48,7 +48,7 @@ public interface ShipmentsCheck extends Check, ShipmentsElement {
     @Step("Проверяем, что был совершен переход на {0} страницу пейджера заказов")
     default void checkCurrentPageNumber(final String expectedPage) {
         assertEquals(currentPage.getText(), expectedPage,
-                "Номер страницы не соответсвует ожидаемому значению");
+                "Номер страницы не соответствует ожидаемому значению");
     }
 
     @Step("Проверяем, что открылась последняя страница пейджера с заказами")
@@ -64,7 +64,10 @@ public interface ShipmentsCheck extends Check, ShipmentsElement {
     @Step("Проверяем, что колонка Дата и Время содержит только отфильтрованные значения: {0}")
     default void checkDateAndTimeShipmentsColumn(final String deliveryDate) {
         dateAndTimeColumn.getElements().forEach(element -> {
-            krakenAssert.assertTrue(element.getText().contains(deliveryDate), "В колонке присутствует дата отличная от примененного фильтра");
+            var actual = element.getText();
+            krakenAssert.assertTrue(actual.contains(deliveryDate),
+                    String.format("В колонке присутствует дата %s отличная от примененного фильтра %s", actual, deliveryDate)
+            );
         });
         krakenAssert.assertAll();
     }
@@ -72,8 +75,9 @@ public interface ShipmentsCheck extends Check, ShipmentsElement {
     @Step("Проверяем, что колонка Куда содержит только отфильтрованные значения: {0}")
     default void checkPhoneShipmentsColumn(final String phone) {
         phoneColumn.getElements().forEach(element -> {
-            krakenAssert.assertTrue(element.getText().contains(phone),
-                    String.format("В колонке присутствует телефон отличный от примененного фильтра: %s", element.getText()));
+            var actual = element.getText();
+            krakenAssert.assertTrue(actual.contains(phone),
+                    String.format("В колонке присутствует телефон %s отличный от примененного фильтра %s", actual, phone));
         });
         krakenAssert.assertAll();
     }
