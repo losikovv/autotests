@@ -17,6 +17,8 @@ public final class OffersDao extends AbstractDao<Long, OffersEntity> {
     public static final OffersDao INSTANCE = new OffersDao();
 
     private static final String SELECT_SQL = "SELECT %s FROM offers ";
+    private final String DELETE_SQL = "DELETE FROM offers ";
+    private final String UPDATE_SQL = "UPDATE offers ";
 
     public int getSoldProduct() {
         try (final var connect = ConnectionMySQLManager.get();
@@ -43,9 +45,36 @@ public final class OffersDao extends AbstractDao<Long, OffersEntity> {
             offer.setProductSku(resultSet.getString("product_sku"));
             offer.setRetailerSku(resultSet.getString("retailer_sku"));
             offer.setRetailerId(resultSet.getInt("retailer_id"));
+            offer.setName(resultSet.getString("name"));
+            offer.setPublished(resultSet.getInt("published"));
+            offer.setStock(resultSet.getInt("stock"));
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return offer;
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        int result = 0;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE id = ?")) {
+            preparedStatement.setLong(1, id);
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return result == 1;
+    }
+
+    public void updateOfferStock(Long offerId, Integer stock) {
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + "SET stock = ? WHERE id = ?")) {
+            preparedStatement.setInt(1, stock);
+            preparedStatement.setLong(2, offerId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
     }
 }

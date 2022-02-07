@@ -40,6 +40,7 @@
             <class name="ru.instamart.test.api.v1.endpoints.ShoppingContextV1Tests"/>
             <class name="ru.instamart.test.api.admin_api.MainNavigationV1Test"/>
             <class name="ru.instamart.test.api.admin_api.UserPermissionsV1Test"/>
+            <class name="ru.instamart.test.api.v1.endpoints.ImportsV1Tests"/>
         </classes>
     </test>
     <!-- api-v2-tests -->

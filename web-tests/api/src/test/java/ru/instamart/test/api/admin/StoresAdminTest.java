@@ -13,14 +13,11 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.jdbc.dao.StoreConfigsDao;
 import ru.instamart.jdbc.dao.StoresDao;
 import ru.instamart.jdbc.entity.StoreConfigsEntity;
 import ru.instamart.jdbc.entity.StoresEntity;
-import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.data_provider.JsonDataProvider;
 import ru.instamart.kraken.data_provider.JsonProvider;
 
@@ -28,6 +25,7 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpt
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStoreInDb;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
+import static ru.instamart.api.helper.AdminHelper.createStoreInAdmin;
 import static ru.instamart.api.request.admin.StoresAdminRequest.getStore;
 
 @Epic("Admin")
@@ -47,8 +45,7 @@ public class StoresAdminTest extends RestBase {
             description = "Создание нового магазина")
     public void createStore() {
         StoresAdminRequest.Store store = getStore();
-        final Response response = StoresAdminRequest.POST(store);
-        checkStatusCode302(response);
+        createStoreInAdmin(store);
         StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
         checkFieldIsNotEmpty(storeFromDb, "магазин в БД");
         id = storeFromDb.getId();

@@ -42,6 +42,7 @@ import java.util.stream.Collectors;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.common.RestAddresses.Moscow;
 import static ru.instamart.api.common.RestAddresses.getDefaultAllAddress;
+import static ru.instamart.api.enums.v1.FiltersFilesModeV1.*;
 import static ru.instamart.api.enums.v2.RecsPlaceV2.*;
 import static ru.instamart.kraken.helper.LegalEntityHelper.*;
 
@@ -1134,6 +1135,15 @@ public class RestDataProvider extends RestBase {
                                         .build()
                         )
                         .build()}
+        };
+    }
+
+    @DataProvider(name = "filtersImportModes")
+    public static Object[][] getFiltersImportModes() {
+        return new Object[][]{
+                {REPLACE_FOR_FILTER_GROUPS},
+                {UPDATE_ONLY},
+                {REPLACE_FOR_CATEGORY},
         };
     }
 

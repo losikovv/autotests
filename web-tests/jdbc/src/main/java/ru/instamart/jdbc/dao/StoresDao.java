@@ -47,7 +47,7 @@ public class StoresDao extends AbstractDao<Long, StoresEntity> {
         StoresEntity store = new StoresEntity();
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "s.*") + " s JOIN store_locations sl ON s.id = sl.store_id" +
-                     " WHERE sl.lat = ? AND sl.lon = ?")) {
+                     " WHERE sl.lat = ? AND sl.lon = ? ORDER by sl.id DESC LIMIT 1")) {
             preparedStatement.setDouble(1, lat);
             preparedStatement.setDouble(2, lon);
             ResultSet resultSet = preparedStatement.executeQuery();

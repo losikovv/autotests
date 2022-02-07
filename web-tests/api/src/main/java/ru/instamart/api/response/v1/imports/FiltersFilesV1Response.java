@@ -1,0 +1,27 @@
+
+package ru.instamart.api.response.v1.imports;
+
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import ru.instamart.api.model.v1.ImportsFileV1;
+import ru.instamart.api.model.v1.MetaV1;
+import ru.instamart.api.response.BaseResponseObject;
+
+import javax.validation.constraints.NotEmpty;
+
+@Data
+@EqualsAndHashCode(callSuper=false)
+public class FiltersFilesV1Response extends BaseResponseObject {
+
+    @NotEmpty
+    @JsonSchema(required = true)
+    @JsonProperty("filters_files")
+    private List<ImportsFileV1> filtersFiles;
+
+    @JsonSchema(required = true)
+    private MetaV1 meta;
+}
