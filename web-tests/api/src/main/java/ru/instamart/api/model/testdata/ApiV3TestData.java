@@ -10,11 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApiV3TestData {
-    //private Integer statusCode;
+    private Integer statusCode;
     private String clientTokenName;
     private String clientToken;
-    private String retailer_id;
-    private String storeId;
     private String shipTotal;
     private String itemId;
     private String itemIdName;
