@@ -4,6 +4,7 @@ import com.google.protobuf.Timestamp;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import operations_order_service.OperationsOrderService;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -11,33 +12,31 @@ import ru.instamart.api.model.v2.DeliveryWindowV2;
 import ru.instamart.kafka.common.KafkaBase;
 import ru.instamart.kafka.emum.Pods;
 import ru.instamart.kafka.emum.StatusOrder;
+import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.kafka.configs.KafkaConfigs.configFctOrderStf;
-import static ru.instamart.kraken.util.TimeUtil.getTimestampIsString;
+import static ru.instamart.kraken.util.TimeUtil.getTimestampFromString;
 
 @Epic("Dispatch")
 public class KafkaDispatchTest extends KafkaBase {
 
+    private UserData user = UserManager.getShp6Shopper1();
     private long epochCurrentTime = Instant.now().getEpochSecond();
     private String placeUUID = "684609ad-6360-4bae-9556-03918c1e41c1";
     private String orderUuid, shipmentUuid;
-    private int roleId = 5;
 
-    //TODO ATST-1027
-//    @BeforeClass(alwaysRun = true)
-//    public void beforeClass(){
-//        shopperApp.authorisation(UserManager.getShp6Shopper());
-//        shopperApp.createShopperShift(roleId,
-//                String.valueOf(LocalDateTime.now()),
-//                String.valueOf(LocalDateTime.now().plus(1, ChronoUnit.DAYS)),
-//                55.700289, 37.727431
-//                );
-//    }
+    @BeforeClass(alwaysRun = true)
+    public void beforeClass() {
+        shopperApp.authorisation(user);
+        shopperApp.sendCurrentLocator(55.700289, 37.727431, 0D);
+    }
 
     @BeforeMethod(alwaysRun = true)
     public void before() {
@@ -48,9 +47,8 @@ public class KafkaDispatchTest extends KafkaBase {
         Allure.step("orderUuid: " + orderUuid);
         Allure.step("shipmentUuid: " + shipmentUuid);
         Allure.step("placeUUID: " + placeUUID);
-        Timestamp deliveryPromiseUpperDttmStartsAt = getTimestampIsString(availableDeliveryWindowOnDemand.getStartsAt());
-        Timestamp deliveryPromiseUpperDttmEndsAt = getTimestampIsString(availableDeliveryWindowOnDemand.getEndsAt());
-
+        Timestamp deliveryPromiseUpperDttmStartsAt = getTimestampFromString(availableDeliveryWindowOnDemand.getStartsAt());
+        Timestamp deliveryPromiseUpperDttmEndsAt = getTimestampFromString(availableDeliveryWindowOnDemand.getEndsAt());
 
         //Step 1
         OperationsOrderService.EventOrder orderEvent = OperationsOrderService.EventOrder.newBuilder()
@@ -70,15 +68,15 @@ public class KafkaDispatchTest extends KafkaBase {
                 .build();
         //Отправка данных в топик yc.operations-order-service.fct.order.0
         kafka.publish(configFctOrderStf(), orderEvent.toByteArray());
-
     }
 
+    @CaseId(99)
     @Test(groups = {"kafka-instamart-regress"},
             description = "Полный флоу (order + dispatch+сервис кандидатов+сервис оценки маршрутов) 1 исполнитель (универсал)")
     public void fullFlowTest() {
-        kafka.waitDataInKafkaTopicFtcOrder(configFctOrderStf(), orderUuid);
         //Step 2
-         var statusOrderRequestList = kafka.waitDataInKafkaTopicStatusOrderRequest(shipmentUuid, StatusOrder.AUTOMATIC_ROUTING);
+        kafka.waitDataInKafkaTopicFtcOrder(configFctOrderStf(), orderUuid);
+        kafka.waitDataInKafkaTopicStatusOrderRequest(shipmentUuid, StatusOrder.AUTOMATIC_ROUTING);
 
         //Step 3
         var orderEnrichmentList = kafka.waitDataInKafkaTopicConsumeOrderEnrichment(shipmentUuid, StatusOrder.AUTOMATIC_ROUTING);
@@ -114,11 +112,10 @@ public class KafkaDispatchTest extends KafkaBase {
         var logs2 = kubeLog.awaitLogsPod(Pods.DISPATCH, orderEnrichment.getPlaceUuid(), "\"grpc.service\":\"estimator.RouteEstimator\",\"method\":\"GetRouteEstimation\"");
         assertTrue(logs2.size() > 0, "Логи отправки в сервис оценки маршрутов для доступных исполнителей нет");
 
-        //TODO: ATST-1027
-//        List<String> performersUUID = kubeLog.getPerformersUUID(logs2);
-//        assertTrue(performersUUID.size() > 0, "Сервис кандидатов вернул пустым исполнителей");
-//
-//        var logs3 = kubeLog.awaitLogsPod(Pods.DISPATCH, shipmentUuid, "\"grpc.service\":\"dispatch_shoppers.WorkAssignments\",\"method\":\"Assign\"");
-//        assertTrue(logs3.size() > 0, "Логи отправки в сервис оценки маршрутов для доступных исполнителей нет");
+        List<String> performersUUID = kubeLog.getPerformersUUID(logs2);
+        assertTrue(performersUUID.size() > 0, "Сервис кандидатов вернул пустым исполнителей");
+
+        var logs3 = kubeLog.awaitLogsPod(Pods.DISPATCH, shipmentUuid, "\"grpc.service\":\"dispatch_shoppers.WorkAssignments\",\"method\":\"Assign\"");
+        assertTrue(logs3.size() > 0, "Логи отправки в сервис оценки маршрутов для доступных исполнителей нет");
     }
 }
