@@ -7,7 +7,7 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface RegionsAddCheck extends Check, RegionsAddElements {
 
-    @Step("Проверяем, что кнопка добавления нового региона отображается")
+    @Step("Проверяем, что кнопка добавления нового региона отображается и не анимирована")
     default void checkAddNewRegionModalNotAnimated() {
         waitAction().shouldNotBeAnimated(newRegionName);
     }

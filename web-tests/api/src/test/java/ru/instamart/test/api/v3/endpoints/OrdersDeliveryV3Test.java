@@ -2,17 +2,14 @@ package ru.instamart.test.api.v3.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.ApiV3DataProvider;
 import ru.instamart.api.model.testdata.ApiV3TestData;
 import ru.instamart.api.model.v3.OrderV3;
 import ru.instamart.api.request.v3.OrderV3Request;
-import ru.instamart.kraken.data_provider.JsonDataProvider;
-import ru.instamart.kraken.data_provider.JsonProvider;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
@@ -22,10 +19,9 @@ public class OrdersDeliveryV3Test extends RestBase {
 
     @CaseId(858)
     @Story("Доставка")
-    @JsonDataProvider(path = "data/json_v3/api_v3_test_data_goods.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
-            dataProvider = "jsonWithoutParallel",
-            dataProviderClass = JsonProvider.class,
+            dataProvider = "goods",
+            dataProviderClass = ApiV3DataProvider.class,
             description = "Создание заказа на доставку Goods")
     public void postOrderDeliveryGoods(ApiV3TestData testData) {
 
@@ -40,10 +36,9 @@ public class OrdersDeliveryV3Test extends RestBase {
 
     @CaseId(860)
     @Story("Доставка")
-    @JsonDataProvider(path = "data/json_v3/api_v3_test_data_sber_devices.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
-            dataProvider = "jsonWithoutParallel",
-            dataProviderClass = JsonProvider.class,
+            dataProvider = "sber_devices",
+            dataProviderClass = ApiV3DataProvider.class,
             description = "Создание на доставку заказа Sber_devices")
     public void postOrderDeliverySberDevices(ApiV3TestData testData) {
 
@@ -59,10 +54,9 @@ public class OrdersDeliveryV3Test extends RestBase {
 
     @CaseId(859)
     @Story("Доставка")
-    @JsonDataProvider(path = "data/json_v3/api_v3_test_data_metro_marketplace.json", type = ApiV3DataProvider.ApiV3TestDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
-            dataProvider = "jsonWithoutParallel",
-            dataProviderClass = JsonProvider.class,
+            dataProvider = "metro_marketplace",
+            dataProviderClass = ApiV3DataProvider.class,
             description = "Создание заказа на доставку Metro_Marketplace")
     public void postOrderDeliveryMetroMarketplace(ApiV3TestData testData) {
 
@@ -72,6 +66,40 @@ public class OrdersDeliveryV3Test extends RestBase {
         checkStatusCode200(response);
 
         response = OrderV3Request.Cancel.PUT(orderMetroMarketplace.getId(), testData.getClientToken());
+        checkStatusCode200(response);
+    }
+
+    @CaseId(1916)
+    @Story("Доставка")
+    @Test(groups = {"api-instamart-regress"},
+            dataProvider = "Aliexpress",
+            dataProviderClass = ApiV3DataProvider.class,
+            description = "Создание заказа на доставку Aliexpress")
+    public void postOrderDeliveryAliexpress(ApiV3TestData testData) {
+
+        OrderV3 orderAliexpress = apiV3.createOrderDelivery(testData);
+
+        response = OrderV3Request.GET(orderAliexpress.getId(), testData.getClientToken());
+        checkStatusCode200(response);
+
+        response = OrderV3Request.Cancel.PUT(orderAliexpress.getId(), testData.getClientToken());
+        checkStatusCode200(response);
+    }
+
+    @CaseId(1917)
+    @Story("Доставка")
+    @Test(groups = {"api-instamart-regress"},
+            dataProvider = "Auchan",
+            dataProviderClass = ApiV3DataProvider.class,
+            description = "Создание заказа на доставку Auchan")
+    public void postOrderDeliveryAuchan(ApiV3TestData testData) {
+
+        OrderV3 orderAuchan = apiV3.createOrderDelivery(testData);
+
+        response = OrderV3Request.GET(orderAuchan.getId(), testData.getClientToken());
+        checkStatusCode200(response);
+
+        response = OrderV3Request.Cancel.PUT(orderAuchan.getId(), testData.getClientToken());
         checkStatusCode200(response);
     }
 }

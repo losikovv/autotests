@@ -317,7 +317,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().openFirstProductCardProd();
+        shop().openFirstProductCard();
         shop().interactProductCard().increaseItemCount();
         shop().interactProductCard().close();
 
