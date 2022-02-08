@@ -18,6 +18,7 @@ import ru.instamart.api.response.v1.ShippingMethodsResponse;
 import ru.instamart.jdbc.dao.OffersDao;
 import ru.instamart.jdbc.dao.OperationalZonesDao;
 import ru.instamart.jdbc.dao.PromotionCodesDao;
+import ru.instamart.jdbc.dao.StoresDao;
 import ru.instamart.jdbc.dao.shopper.OperationalZonesShopperDao;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.user.UserData;
@@ -453,4 +454,7 @@ public final class ApiHelper {
         return apiV2.getAvailableDeliveryWindowOnDemand();
     }
 
+    public void updateStore(final Long storeId, final String availabilityDate) {
+        StoresDao.INSTANCE.updateWithSetAvailability(storeId, availabilityDate);
+    }
 }

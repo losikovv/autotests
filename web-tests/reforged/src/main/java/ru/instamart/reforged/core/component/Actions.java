@@ -15,6 +15,7 @@ public final class Actions {
 
     private final AbstractComponent component;
     private final Consumer<WebElement> hover = (we) -> Kraken.action().moveToElement(we).perform();
+    private final Consumer<WebElement> moveToElementAndClick = (we) -> Kraken.action().moveToElement(we).click().perform();
     private final Consumer<Keys> sendKeys = (key) -> Kraken.action().sendKeys(key).perform();
     private final TriConsumer<WebElement, Integer, Integer> clickWithOffset = (we, xOffset, yOffset) -> Kraken.action().moveToElement(we, xOffset, yOffset).click().perform();
 
@@ -32,4 +33,13 @@ public final class Actions {
         log.debug("Click to element '{}' with offset x={}, y={}", component.getDescription(), xOffset, yOffset);
         clickWithOffset.accept(component.getComponent(), xOffset, yOffset);
     }
+
+    /**
+     * Наведение на элемент и клик через механизм Actions.MoveToElement()
+     */
+    public void moveToElementAndClick() {
+        log.debug("Move to element and click {} '{}'", component.getDescription(), component.getBy());
+        moveToElementAndClick.accept(component.getComponent());
+    }
+
 }
