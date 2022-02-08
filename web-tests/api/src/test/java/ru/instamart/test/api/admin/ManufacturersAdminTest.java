@@ -19,7 +19,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 
 @Epic("Admin")
 @Feature("Производители")
-public class ManufacturersTest extends RestBase {
+public class ManufacturersAdminTest extends RestBase {
     private String name = "AutoTest_" + Generate.string(10);
     private ManufacturersEntity manufacturers;
 
