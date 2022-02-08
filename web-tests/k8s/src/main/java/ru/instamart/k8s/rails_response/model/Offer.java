@@ -37,7 +37,7 @@ public class Offer extends BaseObject {
     private String quantityAffix;
 
     @JsonProperty("product_sku")
-    private Object productSku;
+    private String productSku;
 
     @JsonProperty("pickup_order")
     private Integer pickupOrder;
