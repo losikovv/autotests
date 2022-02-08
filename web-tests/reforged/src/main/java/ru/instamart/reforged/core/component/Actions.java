@@ -32,4 +32,13 @@ public final class Actions {
         log.debug("Click to element '{}' with offset x={}, y={}", component.getDescription(), xOffset, yOffset);
         clickWithOffset.accept(component.getComponent(), xOffset, yOffset);
     }
+
+    /**
+     * Наведение на элемент и клик через механизм Actions.MoveToElement()
+     */
+    public void moveToElementAndClick() {
+        log.debug("Move to element and click {} '{}'", component.getDescription(), component.getBy());
+        Kraken.action().moveToElement(component.getComponent()).click().perform();
+    }
+
 }

@@ -112,7 +112,7 @@ public final class RetailersPage implements AdminPage, RetailersPageCheck {
 
     @Step("Нажать на фильтр доступности для выбора опций")
     public void clickOnAccessibilityFilter() {
-        accessibilityFilterButton.moveToElementAndClick();
+        accessibilityFilterButton.getActions().moveToElementAndClick();
     }
 
     @Step("Выбрать доступные ретейлеры в выпадающем списке фильтра доступности")
