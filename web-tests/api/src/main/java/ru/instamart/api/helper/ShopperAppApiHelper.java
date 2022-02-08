@@ -1,5 +1,6 @@
 package ru.instamart.api.helper;
 
+import com.google.protobuf.Timestamp;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
@@ -14,6 +15,7 @@ import ru.instamart.api.model.shopper.admin.ShipmentsItemSHP;
 import ru.instamart.api.model.shopper.app.*;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.request.shopper.app.*;
+import ru.instamart.api.request.shopper.localtor.LocatorRequest;
 import ru.instamart.api.response.shopper.app.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
@@ -30,9 +32,11 @@ import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
+import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
 
 @Slf4j
 public class ShopperAppApiHelper {
@@ -626,5 +630,13 @@ public class ShopperAppApiHelper {
         checkStatusCode200(response);
         Assert.assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
                 AssemblyStateSHP.SHIPPED.getState());
+    }
+
+    @Step("Отправляем координаты универсала")
+    public void sendCurrentLocator(final Double latitude,
+                            final Double longitude,
+                            final Double speed){
+        final Response response = LocatorRequest.Location.POST(latitude, longitude, speed, getTimestamp());
+        checkStatusCode(response, 200, "");
     }
 }

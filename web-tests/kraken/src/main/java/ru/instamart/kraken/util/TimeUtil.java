@@ -76,18 +76,23 @@ public final class TimeUtil {
 //    }
 
     /**
-     *Парсит строку типа "15 ноября 2016" в (ZoneDateTime) 2016-11-15T00:00+07:00[Asia/Novosibirsk]
+     * Парсит строку типа "15 ноября 2016" в (ZoneDateTime) 2016-11-15T00:00+07:00[Asia/Novosibirsk]
      */
     public static ZonedDateTime convertStringToDate(final String str) {
         return LocalDate.parse(str, formatter).atStartOfDay(ZoneId.systemDefault());
     }
 
-    public static Timestamp getTimestampIsString(String dateTime){
+    public static Timestamp getTimestampFromString(String dateTime) {
         ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateTime, zdtz);
         Instant instant = zonedDateTime.toInstant();
         return Timestamp.newBuilder()
                 .setSeconds(instant.getEpochSecond())
                 .setNanos(instant.getNano())
                 .build();
+    }
+
+    public static Long getTimestamp() {
+        Instant instant = Instant.now();
+        return instant.toEpochMilli();
     }
 }

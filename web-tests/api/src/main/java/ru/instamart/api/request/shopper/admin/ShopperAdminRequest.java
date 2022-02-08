@@ -12,9 +12,7 @@ import lombok.ToString;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ShopperAdminEndpoints;
-import ru.instamart.api.endpoint.ShopperAppEndpoints;
 import ru.instamart.api.request.ShopperAdminRequestBase;
-import ru.instamart.api.request.shopper.app.ShopperSHPRequest;
 import ru.sbermarket.common.Mapper;
 
 import java.util.UUID;
@@ -78,16 +76,16 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
 
         @Step("{method} /" + ShopperAdminEndpoints.Shoppers.BY_ID)
         public static Response PATCH(final int shopperId,
-                                    final String status) {
+                                     final String status) {
             JSONObject requestParams = new JSONObject();
             requestParams.put("status", status);
             return givenWithAuth()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .patch(ShopperAdminEndpoints.Shoppers.BY_ID, shopperId);
-            }
+        }
     }
-    
+
     public static class Stores {
         @Step("{method} /" + ShopperAdminEndpoints.STORES)
         public static Response GET() {
@@ -111,8 +109,8 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
 
         @Step("{method} /" + ShopperAdminEndpoints.ROUTE_SCHEDULES)
         public static Response POST(final int sid,
-                                   final String date,
-                                   final String status) {
+                                    final String date,
+                                    final String status) {
             JSONObject requestParams = new JSONObject();
             requestParams.put("store_id", sid);
             requestParams.put("date", date);
@@ -161,6 +159,7 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
             return givenWithAuth()
                     .get(ShopperAdminEndpoints.OPERATIONAL_ZONES);
         }
+
         public static class DispatchSettings {
             @Step("{method} /" + ShopperAdminEndpoints.OperationalZones.DISPATCH_SETTINGS)
             public static Response GET(Integer zoneId) {
@@ -287,7 +286,7 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
         }
 
         @Step("{method} /" + ShopperAdminEndpoints.ROUTE)
-        public static Response DELETE(final  int routeId) {
+        public static Response DELETE(final int routeId) {
             return givenWithAuth()
                     .delete(ShopperAdminEndpoints.ROUTE, routeId);
         }
@@ -299,7 +298,7 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
                         .post(ShopperAdminEndpoints.Routes.LOCK, routeId);
             }
 
-            @Step ("{method} /" + ShopperAdminEndpoints.Routes.LOCK)
+            @Step("{method} /" + ShopperAdminEndpoints.Routes.LOCK)
             public static Response DELETE(final int routeId) {
                 return givenWithAuth()
                         .delete(ShopperAdminEndpoints.Routes.LOCK, routeId);
@@ -307,13 +306,13 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
         }
 
         public static class Visibility {
-            @Step ("{method} /" + ShopperAdminEndpoints.Routes.VISIBILITY)
+            @Step("{method} /" + ShopperAdminEndpoints.Routes.VISIBILITY)
             public static Response POST(final int routeId) {
                 return givenWithAuth()
                         .post(ShopperAdminEndpoints.Routes.VISIBILITY, routeId);
             }
 
-            @Step ("{method} /" + ShopperAdminEndpoints.Routes.VISIBILITY)
+            @Step("{method} /" + ShopperAdminEndpoints.Routes.VISIBILITY)
             public static Response DELETE(final int routeId) {
                 return givenWithAuth()
                         .delete(ShopperAdminEndpoints.Routes.VISIBILITY, routeId);
@@ -331,7 +330,7 @@ public class ShopperAdminRequest extends ShopperAdminRequestBase {
 
     public static class Scango {
         @Step("{method} /" + ShopperAdminEndpoints.Scango.ENGINES)
-        public static Response GET(){
+        public static Response GET() {
             return givenWithAuth()
                     .get(ShopperAdminEndpoints.Scango.ENGINES);
         }
