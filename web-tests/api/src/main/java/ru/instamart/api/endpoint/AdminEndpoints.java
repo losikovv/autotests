@@ -9,6 +9,7 @@ public final class AdminEndpoints {
     public static final String CITIES = "cities";
     public static final String MANUFACTURERS = "manufacturers";
     public static final String MANUFACTURING_COUNTRIES = "manufacturing_countries";
+    public static final String OPTION_TYPES = "option_types";
     public static final String PAGES = "pages";
     public static final String STORES = "stores";
     public static final String SHIPPING_METHODS = "shipping_methods";
@@ -24,6 +25,14 @@ public final class AdminEndpoints {
 
     public static final class ManufacturingCountries {
         public static final String BY_PERMALINK = "manufacturing_countries/{permalink}";
+    }
+
+    public static final class OptionTypes {
+        public static final String BY_ID = "option_types/{optionTypeId}";
+    }
+
+    public static final class OptionValues {
+        public static final String BY_ID = "option_values/{optionValueId}";
     }
 
     public static final class Pages {
