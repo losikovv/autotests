@@ -211,17 +211,16 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     @Story("Тест поиска B2B заказа после снятия признака B2B")
     @Test(description = "Тест поиска B2B заказа после снятия признака B2B", groups = {"acceptance", "regression"})
     public void successSearchB2BOrderAfterRevokeB2BRole() {
-        final UserData userData = UserManager.forB2BUser();
-        final UsersEditPage usersEdit = new UsersEditPage();
-
+        final var userData = UserManager.forB2BUser();
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
         shipments().goToPage();
         shipments().setB2BOrders();
         shipments().search();
+        shipments().waitPageLoad();
         //вместо создания заказа получаю первый любой b2b заказ
-        String shipmentNumber = shipments().getShipmentNumber();
+        final var shipmentNumber = shipments().getShipmentNumber();
 
         main().doLogout();
 
@@ -232,7 +231,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().setB2BOrders();
         shipments().setShipmentOrOrderNumber(shipmentNumber);
         shipments().search();
-
+        shipments().waitPageLoad();
         shipments().checkOrderOrShipmentNumber(shipments().getShipmentNumber(), shipmentNumber);
     }
 }
