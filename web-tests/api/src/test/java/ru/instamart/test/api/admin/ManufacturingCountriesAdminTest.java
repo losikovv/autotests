@@ -3,6 +3,7 @@ package ru.instamart.test.api.admin;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -35,7 +36,7 @@ public class ManufacturingCountriesAdminTest extends RestBase {
     @Test(groups = {"api-instamart-regress"}, description = "Получение списка всех стран производства")
     public void getAllManufacturingCountries() {
         final Response response = ManufacturingCountriesAdminRequest.GET();
-        checkStatusCode(response, 200, "text/html");
+        checkStatusCode(response, 200, ContentType.HTML);
     }
 
     @CaseId(1879)

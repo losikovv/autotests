@@ -24,21 +24,21 @@ public class CitiesAdminRequest extends AdminRequestBase {
                 .post(AdminEndpoints.CITIES);
     }
 
-    @Step("{method} /" + AdminEndpoints.Cities.BY_SLUG)
+    @Step("{method} /" + AdminEndpoints.CITY)
     public static Response DELETE(String citySlug) {
         return givenWithAuth()
                 .formParam("_method", "delete")
-                .delete(AdminEndpoints.Cities.BY_SLUG, citySlug);
+                .delete(AdminEndpoints.CITY, citySlug);
     }
 
-    @Step("{method} /" + AdminEndpoints.Cities.BY_SLUG)
+    @Step("{method} /" + AdminEndpoints.CITY)
     public static Response PATCH(City city, String citySlug) {
         Map<String, Object> params = new HashMap<>();
         params.put("_method", "patch");
         params.putAll(Mapper.INSTANCE.objectToMap(city));
         return givenWithAuth()
                 .formParams(params)
-                .patch(AdminEndpoints.Cities.BY_SLUG, citySlug);
+                .patch(AdminEndpoints.CITY, citySlug);
     }
 
     @Step("{method} /" + AdminEndpoints.CITIES)
