@@ -86,23 +86,27 @@ public final class ShopPage implements StfPage, ShopCheck {
     }
 
     @Step("Вернуть значение имени первого товара")
-    public String returnFirstProductTitle() {
-        return firstProductTitle.getAttribute("title");
+    public String getFirstProductTitle() {
+        //Если текст длиннее 59 символов, то он обрезается и появляется title
+        return firstProductTitle.getTitleOrText();
     }
 
     @Step("Вернуть значение имени второго товара")
-    public String returnSecondProductTitle() {
-        return secondProductTitle.getText();
+    public String getSecondProductTitle() {
+        //Если текст длиннее 59 символов, то он обрезается и появляется title
+        return secondProductTitle.getTitleOrText();
     }
 
     @Step("Вернуть значение имени первого товара")
-    public String returnFirstProductTitleNonLogin() {
-        return firstProductTitleNonLogin.getAttribute("title");
+    public String getFirstProductTitleNonLogin() {
+        //Если текст длиннее 59 символов, то он обрезается и появляется title
+        return firstProductTitleNonLogin.getTitleOrText();
     }
 
     @Step("Вернуть значение имени второго товара")
-    public String returnSecondProductTitleNonLogin() {
-        return secondProductTitleNonLogin.getText();
+    public String getSecondProductTitleNonLogin() {
+        //Если текст длиннее 59 символов, то он обрезается и появляется title
+        return secondProductTitleNonLogin.getTitleOrText();
     }
 
     @Step("Нажать на минус у первого товара")

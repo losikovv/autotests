@@ -111,7 +111,6 @@ public final class ElementCollection extends CollectionComponent {
         return getElements().stream().map(WebElement::getText).collect(Collectors.toList());
     }
 
-
     public int elementCount() {
         return getComponents().size();
     }

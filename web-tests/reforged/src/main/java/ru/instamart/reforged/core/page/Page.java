@@ -8,6 +8,7 @@ import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.Kraken;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public interface Page extends PageCheck {
 
@@ -64,19 +65,27 @@ public interface Page extends PageCheck {
      * после чего пытается её обновить на куку с исключённым из всех АБ тестов anonymousId
      */
     default void excludeGuestFromAllAb() {
-        Kraken.waitAction().cookieShouldBeExist(CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID.getName());
-        Kraken.addCookieIfNotExist(CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID);
+        cookieChange(CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID);
+    }
+
+    default void cookiesChange(final boolean isFixedUUID) {
+        final var abCookie = isFixedUUID ? CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE : CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID;
+        cookiesChange(Set.of(abCookie, CookieFactory.RETAILERS_REMINDER_MODAL));
+    }
+
+    /**
+     * Проверяет наличие куки и подменяет ее на нужную
+     */
+    default void cookieChange(final Cookie cookie) {
+        Kraken.waitAction().cookieShouldBeExist(cookie.getName());
+        Kraken.addCookieIfNotExist(cookie);
     }
 
     /**
      * Проверяет наличие нескольких кук и подменяет их на нужные
      */
-    default void cookiesChange(final boolean isFixedUUID) {
-        final var abCookie = isFixedUUID ? CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID_REFERENCE : CookieFactory.EXTERNAL_ANALYTICS_ANONYMOUS_ID;
-        Kraken.waitAction()
-                .cookiesShouldBeExist(
-                        Set.of(abCookie.getName(), CookieFactory.RETAILERS_REMINDER_MODAL.getName())
-                );
-        Kraken.addCookiesIfNotExist(Set.of(abCookie, CookieFactory.RETAILERS_REMINDER_MODAL));
+    default void cookiesChange(final Set<Cookie> cookies) {
+        Kraken.waitAction().cookiesShouldBeExist(cookies.stream().map(Cookie::getName).collect(Collectors.toSet()));
+        Kraken.addCookiesIfNotExist(cookies);
     }
 }

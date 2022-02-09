@@ -132,7 +132,7 @@ public final class ShoppingSearchTests extends BaseTest {
         search().waitPageLoad();
         search().checkSearchImgLoaded();
 
-        final double startProductsQuantity = search().returnSearchProductsQuantity();
+        final int startProductsQuantity = search().returnSearchProductsQuantity();
 
         search().clickToDiscountFilter();
         search().waitPageLoad();
@@ -142,7 +142,7 @@ public final class ShoppingSearchTests extends BaseTest {
         search().waitPageLoad();
         search().checkSearchImgLoaded();
 
-        final double discountFilterProductsQuantity = search().returnSearchProductsQuantity();
+        final int discountFilterProductsQuantity = search().returnSearchProductsQuantity();
 
         search().checkQuantitiesNotEquals(startProductsQuantity, discountFilterProductsQuantity);
 
@@ -157,7 +157,7 @@ public final class ShoppingSearchTests extends BaseTest {
         search().waitPageLoad();
         search().checkSearchImgLoaded();
 
-        final double someFilterProductsQuantity = search().returnSearchProductsQuantity();
+        final int someFilterProductsQuantity = search().returnSearchProductsQuantity();
         search().checkQuantitiesNotEquals(discountFilterProductsQuantity, someFilterProductsQuantity);
 
         search().assertAll();

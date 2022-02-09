@@ -46,7 +46,7 @@ public final class KrakenCondition {
 
             @Override
             public String toString() {
-                return String.format("element found by %s", element);
+                return String.format("key condition not equivalent to %s", data);
             }
         };
     }
@@ -61,9 +61,9 @@ public final class KrakenCondition {
         return new ExpectedCondition<>() {
             @Override
             public Boolean apply(WebDriver driver) {
-                WebElement element = ExpectedConditions.visibilityOfElementLocated(locator).apply(driver);
+                final var element = ExpectedConditions.visibilityOfElementLocated(locator).apply(driver);
                 try {
-                    return element != null && !element.isEnabled();
+                    return nonNull(element) && !element.isEnabled();
                 } catch (StaleElementReferenceException e) {
                     return false;
                 }
@@ -101,7 +101,7 @@ public final class KrakenCondition {
 
             @Override
             public String toString() {
-                return String.format("element found by %s to %sbe selected", element, (selected ? "" : "not "));
+                return String.format("element found by %s to %s be selected", element, (selected ? "" : "not "));
             }
         };
     }
@@ -224,7 +224,7 @@ public final class KrakenCondition {
 
             @Override
             public String toString() {
-                return "element to be clickable: " + locator;
+                return "element not to be clickable: " + locator;
             }
         };
     }

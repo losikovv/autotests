@@ -6,11 +6,6 @@ public final class BrowserProperties {
 
     public static final String NAME = "browser";
 
-    @Config(configName = NAME, fieldName = "useJsClick", defaultValue = "false")
-    public static boolean USE_JS_CLICK;
-    @Config(configName = NAME, fieldName = "useJsFill", defaultValue = "false")
-    public static boolean USE_JS_FILL;
-
     @Config(configName = NAME, fieldName = "defaultBrowser", defaultValue = "chrome_remote", args = "browser")
     public static String BROWSER;
     @Config(configName = NAME, fieldName = "browserVersion", defaultValue = "latest", args = "version")

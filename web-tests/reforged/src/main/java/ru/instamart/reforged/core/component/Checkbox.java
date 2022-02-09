@@ -45,7 +45,7 @@ public final class Checkbox extends AbstractComponent {
         Kraken.waitAction().elementSelectCheckboxState(getComponent(), false);
     }
 
-    public Boolean checkboxState() {
+    public boolean checkboxState() {
         log.debug("Get {} state", getDescription());
         return getComponent().isSelected();
     }

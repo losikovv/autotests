@@ -15,24 +15,24 @@ public final class ChromeProvider extends AbstractBrowserProvider {
 
     @Override
     public void createDriver(final String version) {
-        var capabilities = new DesiredCapabilities();
-        var jsonObject = new JSONObject();
-        var options = new ChromeOptions();
+        final var capabilities = new DesiredCapabilities();
+        final var jsonObject = new JSONObject();
+        final var options = new ChromeOptions();
 
         jsonObject.put("profile.default_content_settings.geolocation", 2);
         jsonObject.put("profile.managed_default_content_settings.geolocation", 2);
         jsonObject.put("credentials_enable_service", false);
         jsonObject.put("profile.password_manager_enabled", false);
 
-        options.addArguments("--disable-extensions");
-        options.addArguments("--disable-geolocation");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-notifications");
-
         if (BrowserProperties.ENABLE_PROFILE) {
             options.addArguments("--user-data-dir=" + BrowserProperties.PROFILE_PATH);
             options.addArguments("--profile-directory=" + BrowserProperties.PROFILE_NAME);
         }
+
+        options.addArguments("--disable-extensions");
+        options.addArguments("--disable-geolocation");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-notifications");
 
         options.setExperimentalOption("prefs", jsonObject);
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});

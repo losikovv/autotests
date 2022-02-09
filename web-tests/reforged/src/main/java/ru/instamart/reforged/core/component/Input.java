@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.core.config.BrowserProperties;
 
 import static java.util.Objects.isNull;
 
@@ -47,13 +46,8 @@ public final class Input extends AbstractComponent {
 
     public void fill(final String data) {
         clear();
-
-        if (BrowserProperties.USE_JS_FILL) {
-            jsFill(data);
-        } else {
-            log.debug("Fill {} with locator {} and data {}", getDescription(), getBy(), data);
-            getComponent().sendKeys(data);
-        }
+        log.debug("Fill {} with locator {} and data {}", getDescription(), getBy(), data);
+        getComponent().sendKeys(data);
     }
 
     public void fillField(final String data, final boolean isPhone) {

@@ -373,7 +373,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
 
         shop().plusFirstItemToCart();
-        final var shopProductName = shop().returnFirstProductTitle();
+        final var shopProductName = shop().getFirstProductTitle();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();
@@ -426,7 +426,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        final var shopProductName = shop().returnSecondProductTitleNonLogin();
+        final var shopProductName = shop().getSecondProductTitleNonLogin();
         shop().plusSecondItemToCartNonLogin();
         shop().interactHeader().checkCartNotificationIsVisible();
 
@@ -491,7 +491,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().plusFirstItemToCartNonLogin();
-        final var shopProductName = shop().returnFirstProductTitleNonLogin();
+        final var shopProductName = shop().getFirstProductTitleNonLogin();
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();

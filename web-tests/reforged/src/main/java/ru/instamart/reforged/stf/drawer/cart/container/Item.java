@@ -32,8 +32,8 @@ public final class Item extends Container {
 
     @Step("Удаляем товар")
     public void deleteItem() {
-        itemName.hoverAction();
-        buttonDeleteItem.clickAction();
+        itemName.getActions().mouseOver();
+        buttonDeleteItem.getActions().moveToElementAndClick();
     }
 
     @Step("Открываем продуктовую карту")
@@ -68,14 +68,14 @@ public final class Item extends Container {
 
     @Step("Кликаем на кнопку 'Уменьшить' количество товара")
     public void increaseCount() {
-        itemCountInput.hoverAction(); //кнопка становится видимой только после того, как наводимся на поле
-        buttonIncreaseItemsCount.clickAction();
+        itemCountInput.getActions().mouseOver(); //кнопка становится видимой только после того, как наводимся на поле
+        buttonIncreaseItemsCount.getActions().moveToElementAndClick();
     }
 
     @Step("Кликаем на кнопку 'Увеличить' количество товара")
     public void decreaseCount() {
-        itemCountInput.hoverAction(); //кнопка становится видимой только после того, как наводимся на поле
-        buttonDecreaseItemsCount.clickAction();
+        itemCountInput.getActions().mouseOver(); //кнопка становится видимой только после того, как наводимся на поле
+        buttonDecreaseItemsCount.getActions().moveToElementAndClick();
     }
 
     @Step("Получаем размер упаковки продукта")
