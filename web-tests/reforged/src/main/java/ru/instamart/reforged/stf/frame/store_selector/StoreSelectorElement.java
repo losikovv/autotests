@@ -8,6 +8,7 @@ import ru.instamart.reforged.core.component.Link;
 public interface StoreSelectorElement {
 
     Element storeSelector = new Element(By.xpath("//div[@data-qa= 'store-selector']"), "окно выбора магазинов");
-    Link storeCard = new Link(By.xpath("//a[@data-qa='store-card']"), "карточка магазина");
+    Link firstStoreCard = new Link(By.xpath("(//a[@data-qa='store-card'])[1]"), "карточка первого магазина");
+    Link secondStoreCard = new Link(By.xpath("(//a[@data-qa='store-card'])[2]"), "карточка второго магазина");
     Button editAddress = new Button(By.xpath("//button[@data-qa='editable_info_change_button']"), "кнопка Изменить адрес");
 }

@@ -59,7 +59,7 @@ public interface HeaderElement {
     Button cart = new Button(By.xpath("//button[@data-qa='open-cart-button']"), "кнопка корзины");
     Link favorite = new Link(By.xpath("//a[@data-qa='favorites-link']"), "empty");
     Link favoriteWithOutAuth = new Link(By.xpath("//button[@data-qa='favorites-link']"), "кнопка избранного для неавторизованных");
-    Link orders = new Link(By.xpath("//a[@data-qa='shipments-link']"), "empty");
+    Link orders = new Link(By.xpath("//a[@data-qa='shipments-link']"), "Кнопка 'Заказы'");
     Button login = new Button(By.xpath("//button[@data-qa='login-button_button']"), "empty"); // кнопка в хедере, но без авторизации
 
     Element cartNotification = new Element(By.xpath("//div[@class='notification']"), "Алерт добавления товара в корзину");

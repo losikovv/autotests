@@ -84,4 +84,9 @@ public final class CollectionUtil {
     public static <K> List<K> reverseListOrderCaseInsensitive(List<K> list) {
         return list.stream().sorted((Comparator<? super K>) Collections.reverseOrder(String.CASE_INSENSITIVE_ORDER)).collect(Collectors.toList());
     }
+
+    // Обрезка элементов списка (String) по длине и сортировка
+    public static List<String> cropItemsByLengthAndSort(List<String> list, int maxLength) {
+        return list.stream().map(text -> text.substring(0, Math.min(text.length(), maxLength))).sorted().collect(Collectors.toList());
+    }
 }
