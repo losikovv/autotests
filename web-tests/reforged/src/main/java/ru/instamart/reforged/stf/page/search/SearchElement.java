@@ -2,10 +2,7 @@ package ru.instamart.reforged.stf.page.search;
 
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.ByKraken;
-import ru.instamart.reforged.core.component.Button;
-import ru.instamart.reforged.core.component.Element;
-import ru.instamart.reforged.core.component.ElementCollection;
-import ru.instamart.reforged.core.component.Selector;
+import ru.instamart.reforged.core.component.*;
 import ru.instamart.reforged.stf.block.header.Header;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.disclaimer.Disclaimer;
@@ -50,7 +47,7 @@ public interface SearchElement {
 
     Element productsStub = new Element(By.xpath("//div[@data-qa='search_result_products_products_grid']//ul[@aria-hidden='true']"), "Заглушка загрузки товаров");
 
-    Element productImg = new Element(ByKraken.xpath("//img[contains(@src, '%s')]"), "Конкретное отдельное изображение на странице");
+    Image productImg = new Image(ByKraken.xpath("//img[contains(@src, '%s')]"), "Конкретное отдельное изображение на странице");
 
     Element filterActivePin = new Element(By.xpath("//span[contains(text(), 'фильтр активен')]"), "Пин активного фильтра с текстом");
 }

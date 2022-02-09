@@ -36,8 +36,8 @@ public interface ShipmentsCheck extends Check, ShipmentsElement {
     }
 
     @Step("Проверяем что количество найденных товаров={actualCount} равно ожидаемому={expectedCount}")
-    default void checkFoundOrderOrShipmentCount(final String actualCount, final int expectedCount) {
-        assertEquals(StringUtil.extractNumberFromString(actualCount), expectedCount, "Найдено больше или меньше заказов");
+    default void checkFoundOrderOrShipmentCount(final int actualCount, final int expectedCount) {
+        assertEquals(actualCount, expectedCount, "Найдено больше или меньше заказов");
     }
 
     @Step("Проверяем что найденный заказ={0} соответствует ожидаемому={1}")

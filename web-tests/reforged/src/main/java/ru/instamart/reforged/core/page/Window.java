@@ -1,6 +1,5 @@
 package ru.instamart.reforged.core.page;
 
-import org.openqa.selenium.WebDriver;
 import ru.instamart.reforged.core.Kraken;
 
 import java.util.List;
@@ -11,7 +10,7 @@ import static ru.instamart.reforged.core.Kraken.getWebDriver;
 public interface Window {
 
     default void switchToNextWindow() {
-        final WebDriver driver = getWebDriver();
+        final var driver = getWebDriver();
         final String currentHandle = driver.getWindowHandle();
         final Optional<String> newTabHandle = driver.getWindowHandles()
                 .stream()
@@ -21,8 +20,8 @@ public interface Window {
     }
 
     default void switchToFirstWindow() {
-        final WebDriver driver = getWebDriver();
-        final List<String> windowHandles = List.copyOf(driver.getWindowHandles());
+        final var driver = getWebDriver();
+        final var windowHandles = List.copyOf(driver.getWindowHandles());
         driver.switchTo().window(windowHandles.get(0));
     }
 

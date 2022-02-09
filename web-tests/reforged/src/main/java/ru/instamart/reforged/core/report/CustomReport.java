@@ -28,7 +28,7 @@ public final class CustomReport {
 
     @Attachment(value = "Браузерный лог", type = "text/plain")
     public static String addBrowserLog() {
-        final StringJoiner joiner = new StringJoiner("\n");
+        final var joiner = new StringJoiner("\n");
         Kraken.getLogs(LogType.BROWSER)
                 .forEach(log -> joiner.add(log.getMessage()));
 
@@ -42,7 +42,7 @@ public final class CustomReport {
 
     @Attachment(value = "LocalStorage", type = "text/plain")
     public static String addLocalStorage() {
-        final StringJoiner joiner = new StringJoiner("\n");
+        final var joiner = new StringJoiner("\n");
         final String[] storage = Kraken.jsAction().getLocalStorage().split(",");
         Arrays.stream(storage).forEach(joiner::add);
 
@@ -69,7 +69,7 @@ public final class CustomReport {
                 .mapToInt(String::length)
                 .max().orElse(0);
         final int count = maxLineLength >= 20 ? Math.min(maxLineLength + 1, 120) : 20;
-        final StringBuilder sb = new StringBuilder();
+        final var sb = new StringBuilder();
         final String delimiter = '+' + Joiner
                 .on('+')
                 .join(joinLine(40),

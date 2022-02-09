@@ -4,9 +4,9 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.core.config.BrowserProperties;
 
 import static java.util.Objects.isNull;
 
@@ -49,12 +49,8 @@ public final class Element extends AbstractComponent {
     }
 
     public void click() {
-        if (BrowserProperties.USE_JS_CLICK) {
-            jsClick();
-        } else {
-            log.debug("Click {} with locator {}", getDescription(), getBy());
-            getComponent().click();
-        }
+        log.debug("Click {} with locator {}", getDescription(), getBy());
+        getComponent().click();
     }
 
     public void getText(final Object... args) {
@@ -62,31 +58,31 @@ public final class Element extends AbstractComponent {
         getText();
     }
 
+    public int getNumericValue() {
+        log.debug("Получить численное значение");
+        return StringUtil.extractNumberFromString(getText());
+    }
+
     public String getText() {
-        final String text = getComponent().getText();
+        final var text = getComponent().getText();
         log.debug("Get text '{}' for {} with locator {}", text, getDescription(), getBy());
         return text;
     }
 
     public String getAttribute(final String attr) {
-        final String attributeValue = getComponent().getAttribute(attr);
+        final var attributeValue = getComponent().getAttribute(attr);
         log.debug("Get text '{}' for {} with locator {}", attributeValue, getDescription(), getBy());
         return attributeValue;
     }
 
-    /**
-     * ожидание загрузки элемента
-     */
-    public void waitImgLoad(final Object... args) {
-        setBy(ByKraken.xpath(((ByKraken) getBy()).getDefaultXpathExpression(), args));
-        waitImgLoad();
-    }
-
-    /**
-     * ожидание загрузки элемента
-     */
-    public void waitImgLoad() {
-        log.debug("Get img '{}' with locator {}", getDescription(), getBy());
-        Kraken.jsAction().waitImgLoad(getLocator());
+    public String getTitleOrText() {
+        final var component = getComponent();
+        final var title = component.getAttribute("title");
+        if (isNull(title) || title.isEmpty()) {
+            log.debug("Title is empty or null for '{}' get text", getDescription());
+            return component.getText();
+        }
+        log.debug("Get title '{}' for {} with locator {}", title, getDescription(), getBy());
+        return title;
     }
 }
