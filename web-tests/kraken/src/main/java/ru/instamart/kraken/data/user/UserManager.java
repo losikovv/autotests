@@ -32,7 +32,9 @@ public final class UserManager {
     private static UserData defaultAdmin;
     private static UserData defaultAdminAllRoles;
     private static UserData defaultShopper;
-    private static UserData stf6Shopper;
+    private static UserData stf6Shopper1;
+    private static UserData stf6Shopper2;
+    private static UserData stf6Shopper3;
     private static UserData defaultGmailUser;
     private static UserData defaultVkUser;
     private static UserData defaultFbUser;
@@ -87,14 +89,37 @@ public final class UserManager {
         return defaultAdminAllRoles;
     }
 
-    public static UserData getShp6Shopper() {
-        if (isNull(stf6Shopper)) {
-            defaultShopper = UserData.builder()
-                    .email(Crypt.INSTANCE.decrypt("DNzBqyrPJQuc1LP0FzyiiQ=="))
-                    .phone(Crypt.INSTANCE.decrypt("VKxPCYWxtW47hpCL/Qj43Q=="))
+    public static UserData getShp6Shopper1() {
+        if (isNull(stf6Shopper1)) {
+            stf6Shopper1 = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("K0wOsUQv9wDe1F4a6TtDKg=="))
+                    .phone(Crypt.INSTANCE.decrypt("jxOmxwn6oEjf1UXw2RvhBQ=="))
+                    .uuid("42156460-73c1-49f7-a876-09a7b07da746")
                     .build();
         }
-        return stf6Shopper;
+        return stf6Shopper1;
+    }
+
+    public static UserData getShp6Shopper2() {
+        if (isNull(stf6Shopper2)) {
+            stf6Shopper2 = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("C4fgAi97cuuXHMKobHn9Yw=="))
+                    .phone(Crypt.INSTANCE.decrypt("FGFd7w34cv5nELIUCqZK7A=="))
+                    .uuid("e8f561c7-cfcb-432f-93c4-022bb438d04b")
+                    .build();
+        }
+        return stf6Shopper2;
+    }
+
+    public static UserData getShp6Shopper3() {
+        if (isNull(stf6Shopper3)) {
+            stf6Shopper3 = UserData.builder()
+                    .email(Crypt.INSTANCE.decrypt("xhH38k1XpJGpdk8/7LkCcw=="))
+                    .phone(Crypt.INSTANCE.decrypt("PiT1RtL2CnL62ogGmVm3eQ=="))
+                    .uuid("2b9c1d4b-4660-479e-b6d9-81c8420d684e")
+                    .build();
+        }
+        return stf6Shopper3;
     }
 
     public static UserData getDefaultShopper() {

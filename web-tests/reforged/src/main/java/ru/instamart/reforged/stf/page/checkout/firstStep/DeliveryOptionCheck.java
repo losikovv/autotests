@@ -8,12 +8,12 @@ import static ru.instamart.reforged.core.Check.krakenAssert;
 public interface DeliveryOptionCheck extends Check, DeliveryOptionElement {
 
     @Step("Проверяем, что радиобаттон 'Для себя' выбран")
-    default void checkForSelfIsSelected(Boolean state) {
+    default void checkForSelfIsSelected(boolean state) {
         krakenAssert.assertTrue(state, "радиобаттон 'Для себя' не выбран");
     }
 
     @Step("Проверяем, что радиобаттон 'Для бизнеса' выбран")
-    default void checkForBusinessIsSelected(Boolean state) {
+    default void checkForBusinessIsSelected(boolean state) {
         krakenAssert.assertTrue(state, "радионбаттон 'Для бизнеса' не выбран");
     }
 
@@ -28,12 +28,12 @@ public interface DeliveryOptionCheck extends Check, DeliveryOptionElement {
     }
 
     @Step("Проверяем, что выбран чекбокс 'Есть лифт'")
-    default void checkElevatorIsSelected(Boolean state) {
+    default void checkElevatorIsSelected(boolean state) {
         krakenAssert.assertTrue(state, "чекбокс 'Есть лифт' не выбран");
     }
 
     @Step("Проверяем, что не выбран чекбокс 'Есть лифт'")
-    default void checkElevatorIsNotSelected(Boolean state) {
+    default void checkElevatorIsNotSelected(boolean state) {
         krakenAssert.assertFalse(state, "чекбокс 'Есть лифт' выбран");
     }
 
@@ -48,12 +48,12 @@ public interface DeliveryOptionCheck extends Check, DeliveryOptionElement {
     }
 
     @Step("Проверяем, что выбран чекбокс 'Бесконтактная доставка'")
-    default void checkContactlessDeliveryIsSelected(Boolean state) {
+    default void checkContactlessDeliveryIsSelected(boolean state) {
         krakenAssert.assertTrue(state, "чекбокс 'Бесконтактная доставка' не выбран");
     }
 
     @Step("Проверяем, что не выбран чекбокс 'Бесконтактная доставка'")
-    default void checkContactlessDeliveryIsNotSelected(Boolean state) {
+    default void checkContactlessDeliveryIsNotSelected(boolean state) {
         krakenAssert.assertFalse(state, "чекбокс Бесконтактная доставка не выбран");
     }
 

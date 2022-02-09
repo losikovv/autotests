@@ -16,6 +16,7 @@ import static java.util.Objects.nonNull;
 public final class UserData {
 
     private String id;
+    private String uuid;
     private String role;
     private String email;
     private String phone;
@@ -50,6 +51,7 @@ public final class UserData {
     @ToString
     public static final class UserDataBuilder {
         private String id;
+        private String uuid;
         private String role;
         private String email;
         private String phone;
@@ -59,11 +61,17 @@ public final class UserData {
         private String anonymousId;
         private String qaSessionId;
 
+
         UserDataBuilder() {
         }
 
         public UserDataBuilder id(final String id) {
             this.id = id;
+            return this;
+        }
+
+        public UserDataBuilder uuid(final String uuid) {
+            this.uuid = uuid;
             return this;
         }
 
@@ -108,7 +116,7 @@ public final class UserData {
         }
 
         public UserData build() {
-            return new UserData(id, role, email, phone, getSmsCode(), password, name, token, generateEncryptedPhone(), anonymousId, qaSessionId);
+            return new UserData(id, uuid, role, email, phone, getSmsCode(), password, name, token, generateEncryptedPhone(), anonymousId, qaSessionId);
         }
 
         /**

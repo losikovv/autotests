@@ -17,21 +17,21 @@ public class TaxonomiesAdminRequest extends AdminRequestBase {
                 .post(AdminEndpoints.TAXONOMIES);
     }
 
-    @Step("{method} /" + AdminEndpoints.Taxonomies.BY_ID)
+    @Step("{method} /" + AdminEndpoints.TAXONOMY)
     public static Response DELETE(Long taxonomyId) {
         return givenWithAuth()
                 .formParam("_method", "delete")
-                .post(AdminEndpoints.Taxonomies.BY_ID, taxonomyId);
+                .post(AdminEndpoints.TAXONOMY, taxonomyId);
     }
 
-    @Step("{method} /" + AdminEndpoints.Taxonomies.BY_ID)
+    @Step("{method} /" + AdminEndpoints.TAXONOMY)
     public static Response PATCH(String taxonomyName, Long taxonomyId) {
         Map<String, Object> params = new HashMap<>();
         params.put("_method", "patch");
         params.put("taxonomy[name]", taxonomyName);
         return givenWithAuth()
                 .formParams(params)
-                .post(AdminEndpoints.Taxonomies.BY_ID, taxonomyId);
+                .post(AdminEndpoints.TAXONOMY, taxonomyId);
     }
 
     @Step("{method} /" + AdminEndpoints.TAXONOMIES)

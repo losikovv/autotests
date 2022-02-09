@@ -31,7 +31,7 @@ public class OptionTypesAdminRequest extends AdminRequestBase {
         return PATCH(optionTypeId, name, presentation, null, null, null, null, null);
     }
 
-    @Step("{method} /" + AdminEndpoints.OptionTypes.BY_ID)
+    @Step("{method} /" + AdminEndpoints.OPTION_TYPE)
     public static Response PATCH(String optionTypeId, String optionName, String optionPresentation, String localValueId,
                                 String valueId, String valueName, String valuePresentation, Boolean valueDestroy) {
         final Map<String, Object> formParams = new HashMap<>();
@@ -45,21 +45,21 @@ public class OptionTypesAdminRequest extends AdminRequestBase {
         }
         return givenWithAuth()
                 .formParams(formParams)
-                .patch(AdminEndpoints.OptionTypes.BY_ID, optionTypeId);
+                .patch(AdminEndpoints.OPTION_TYPE, optionTypeId);
     }
 
-    @Step("{method} /" + AdminEndpoints.OptionTypes.BY_ID)
+    @Step("{method} /" + AdminEndpoints.OPTION_TYPE)
     public static Response DELETE(String optionTypeId) {
         return givenWithAuth()
-                .delete(AdminEndpoints.OptionTypes.BY_ID, optionTypeId);
+                .delete(AdminEndpoints.OPTION_TYPE, optionTypeId);
     }
 
     public static class OptionValue {
 
-        @Step("{method} /" + AdminEndpoints.OptionValues.BY_ID)
+        @Step("{method} /" + AdminEndpoints.OPTION_VALUE)
         public static Response DELETE(String optionValueId) {
             return givenWithAuth()
-                    .delete(AdminEndpoints.OptionValues.BY_ID, optionValueId);
+                    .delete(AdminEndpoints.OPTION_VALUE, optionValueId);
         }
     }
 }

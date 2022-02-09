@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.Kraken;
-import ru.instamart.reforged.core.config.BrowserProperties;
 
 import static java.util.Objects.isNull;
 
@@ -45,12 +44,8 @@ public final class Link extends AbstractComponent {
     }
 
     public void click() {
-        if (BrowserProperties.USE_JS_CLICK) {
-            jsClick();
-        } else {
-            log.debug("Click {} with locator {}", getDescription(), getBy());
-            getComponent().click();
-        }
+        log.debug("Click {} with locator {}", getDescription(), getBy());
+        getComponent().click();
     }
 
     public String getText() {

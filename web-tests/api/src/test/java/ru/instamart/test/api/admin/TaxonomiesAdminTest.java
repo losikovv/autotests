@@ -2,6 +2,7 @@ package ru.instamart.test.api.admin;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -33,7 +34,7 @@ public class TaxonomiesAdminTest extends RestBase {
     @Test(groups = {"api-instamart-regress"}, description = "Получение списка категорий")
     public void getAllTaxonomies() {
         final Response response = TaxonomiesAdminRequest.GET();
-        checkStatusCode(response, 200, "text/html");
+        checkStatusCode(response, 200, ContentType.HTML);
     }
 
     @CaseId(1888)
@@ -52,7 +53,7 @@ public class TaxonomiesAdminTest extends RestBase {
             description = "Создание новой категорий с пустым названием")
     public void createTaxonomyWithEmptyName() {
         final Response response = TaxonomiesAdminRequest.POST("");
-        checkStatusCode(response, 200, "text/html");
+        checkStatusCode(response, 200, ContentType.HTML);
         Long taxonomyId = SpreeTaxonomiesDao.INSTANCE.getIdByName("");
         Assert.assertNull(taxonomyId);
     }
@@ -75,7 +76,7 @@ public class TaxonomiesAdminTest extends RestBase {
             dependsOnMethods = "editTaxonomy")
     public void editTaxonomyWithEmptyName() {
         final Response response = TaxonomiesAdminRequest.PATCH(" ", taxonomyId);
-        checkStatusCode(response, 200, "text/html");
+        checkStatusCode(response, 200, ContentType.HTML);
         SpreeTaxonomiesEntity taxonomyFromDb = SpreeTaxonomiesDao.INSTANCE.findById(taxonomyId).get();
         compareTwoObjects(taxonomyFromDb.getName(), name);
     }

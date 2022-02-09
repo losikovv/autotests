@@ -111,12 +111,12 @@ public class DeliveryOptionStep implements DeliveryOptionCheck {
     }
 
     @Step("Получить состояние радиобаттона 'Для себя'")
-    public Boolean getForSelfState() {
+    public boolean getForSelfState() {
         return forSelf.radioButtonState();
     }
 
     @Step("Получить состояние радиобаттона 'Для бизнеса'")
-    public Boolean getForBusinessState() {
+    public boolean getForBusinessState() {
         return forBusiness.radioButtonState();
     }
 
@@ -131,7 +131,7 @@ public class DeliveryOptionStep implements DeliveryOptionCheck {
     }
 
     @Step("Получить состояние чекбокса 'Есть лифт'")
-    public Boolean getElevatorState() {
+    public boolean getElevatorState() {
         return elevator.checkboxState();
     }
 
@@ -146,7 +146,7 @@ public class DeliveryOptionStep implements DeliveryOptionCheck {
     }
 
     @Step("Получить значение поля 'Бесконтактная доставка'")
-    public Boolean getContactlessDeliveryState() {
+    public boolean getContactlessDeliveryState() {
         return contactlessDelivery.checkboxState();
     }
 

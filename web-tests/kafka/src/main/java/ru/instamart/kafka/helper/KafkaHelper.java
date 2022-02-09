@@ -20,10 +20,10 @@ import static ru.instamart.kafka.configs.KafkaConfigs.configCmdStatusOrderReques
 
 public class KafkaHelper {
 
-    @Step("Получаем данных кафки по orderUUID: {orderUUID}")
+    @Step("Получаем данные из топика {config.topic} кафки по orderUUID: {orderUUID}")
     public List<Order.EventOrder> waitDataInKafkaTopicFtcOrder(KafkaConfig config, String orderUUID, StatusOrder postponed) {
         @Cleanup
-        var kafkaConsumers = new KafkaConsumers(config);
+        var kafkaConsumers = new KafkaConsumers(config, 10L);
         List<Order.EventOrder> longEventOrderHashMap = kafkaConsumers.consumeEventOrder(orderUUID, postponed);
         kafkaConsumers.close();
         assertTrue(longEventOrderHashMap.size() > 0, "Logs is empty");
@@ -53,12 +53,14 @@ public class KafkaHelper {
         assertTrue(collect.size() > 0, "Нет данных по смене статуса");
     }
 
+    @Step("Отправка сообщения в топик {config.topic}")
     public void publish(KafkaConfig config, byte[] msg) {
         KafkaProducers producer = new KafkaProducers();
         producer.publish(config, msg);
         producer.shutdown();
     }
 
+    @Step("Отправка сообщения в топик {config.topic}")
     public void publish(KafkaConfig config, List<byte[]> msgs) {
         KafkaProducers producer = new KafkaProducers();
         msgs.stream().forEach(

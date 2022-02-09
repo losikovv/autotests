@@ -4,6 +4,7 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.restassured.http.ContentType;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
@@ -72,13 +73,13 @@ public class StoresAdminTest extends RestBase {
     @Story("Магазины ритейлеров")
     @JsonDataProvider(path = "data/json_admin/admin_negative_stores_data.json", type = RestDataProvider.StoresAdminTestDataRoot.class)
     @Test(groups = {"api-instamart-regress"},
-            description = "Создание нового магазина с отсутствющим обязательным парамтером",
+            description = "Создание нового магазина с отсутствующим обязательным параметром",
             dataProvider = "jsonWithoutParallel",
             dataProviderClass = JsonProvider.class)
     public void createStoreWithoutRequiredParams(RestDataProvider.StoresAdminTestData testData) {
         Allure.step(testData.getDescription());
         final Response response = StoresAdminRequest.POST(testData.getStore());
-        checkStatusCode(response, testData.getStatusCode(), "text/html; charset=utf-8");
+        checkStatusCode(response, testData.getStatusCode(), ContentType.HTML);
         StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(testData.getStore().getLat(), testData.getStore().getLon());
         Assert.assertNull(storeFromDb);
     }

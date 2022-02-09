@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
+import ru.instamart.reforged.core.component.Link;
 import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.block.header.Header;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
@@ -56,4 +57,8 @@ public interface ShopElement {
     Element priceInFirstItemWithoutDiscount = new Element(By.xpath("//div[contains(@data-qa,'_product_item_')][not(.//li[.//span[contains(.,'Скидка')]])]//div[./span[contains(.,'Цена за')]]"), "Цена товара (для первого товара без скидки)");
     Element fullPriceInFirstItemWithDiscount = new Element(By.xpath("//div[contains(@data-qa,'_product_item_')][.//li[.//span[contains(.,'Скидка')]]]//h3/following-sibling::div[2]/div[contains(.,'Цена без скидки')]"), "Цена товара без скидки (для первого товара со скидкой)");
     Element discountPriceInFirstItemWithDiscount = new Element(By.xpath("//div[contains(@data-qa,'_product_item_')][.//li[.//span[contains(.,'Скидка')]]]//h3/following-sibling::div[2]/div[contains(.,'Цена со скидкой')]"), "Цена товара со скидкой (для первого товара со скидкой)");
+
+    Link firstProductsCategoryTitle = new Link(By.xpath("//a[@data-qa='catalog_page_taxons_list_taxon_item_0_title_link']"), "Заголовок первой категории товаров");
+    ElementCollection firstCategoryProductNames = new ElementCollection(By.xpath("//div[contains(@data-qa,'catalog_page_taxons_list_taxon_item_0_product_item_')]//h3"), "Названия продуктов первой категории в списке");
+    Link youBoughtBeforeCategory = new Link(By.xpath("//a[contains(@data-qa, '_title_link')][contains(.,'Вы покупали ранее')]"), "Категория 'Вы покупали ранее'");
 }

@@ -325,7 +325,7 @@ public final class BasicOrdersTests extends BaseTest {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        final var itemName = shop().returnSecondProductTitle();
+        final var itemName = shop().getSecondProductTitle();
         shop().plusSecondItemToCart();
         shop().interactHeader().checkCartNotificationIsVisible();
 
@@ -334,7 +334,7 @@ public final class BasicOrdersTests extends BaseTest {
         shop().interactCart().getFirstRetailer().mergeProducts();
         shop().interactCart().clickToViewOrder();
 
-        userShipments().compareProductNameInOrder(itemName);
+        userShipments().checkProductListContains(itemName);
     }
 
     @CaseId(2625)

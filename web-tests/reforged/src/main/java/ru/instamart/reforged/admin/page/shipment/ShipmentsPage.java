@@ -18,8 +18,8 @@ public final class ShipmentsPage implements AdminPage, ShipmentsCheck {
     }
 
     @Step("Получить количество найденных товаров")
-    public String getFoundCount() {
-        return foundCount.getText();
+    public int getFoundCount() {
+        return foundCount.getNumericValue();
     }
 
     @Step("Вставить номер отправки или заказа {0} в поле для поиска")

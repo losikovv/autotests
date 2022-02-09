@@ -41,5 +41,4 @@ public final class Actions {
         log.debug("Move to element and click {} '{}'", component.getDescription(), component.getBy());
         moveToElementAndClick.accept(component.getComponent());
     }
-
 }

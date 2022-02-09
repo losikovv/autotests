@@ -40,6 +40,7 @@ public enum Specification {
     @Getter private RequestSpecification prodWebRequestSpec;
     @Getter private RequestSpecification prodAdminRequestSpec;
     @Getter private RequestSpecification shopperAdminRequestSpec;
+    @Getter private RequestSpecification locatorRequestSpec;
 
     public void initSpec() {
         final String apiV1FullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH;
@@ -136,12 +137,25 @@ public enum Specification {
                 .build();
 
         shopperAdminRequestSpec = new RequestSpecBuilder()
-                .setBaseUri(shopperFullAdminUrl.substring(0, shopperFullAdminUrl.length() - 1))
+                .setBaseUri(shopperFullAdminUrl)
                 .setBasePath("")
                 .setAccept(ContentType.JSON)
                 .addHeader(
                         "Client-Ver",
                         "99.9.9")
+                .addFilter(new AllureRestAssuredCustom())
+                .build();
+
+        locatorRequestSpec = new RequestSpecBuilder()
+                .setBaseUri(shopperFullBaseUrl)
+                .setBasePath("locator/v1/")
+                .addHeader(
+                        "Client-Ver",
+                        "99.9.9")
+                .addHeader("x-testing-otp","true")
+                .addHeader("x-testing-nosms","true")
+                .addHeader("x-testing-nolimiter","true")
+                .addHeader("sbm-forward-feature-version-shp", shopperStage)
                 .addFilter(new AllureRestAssuredCustom())
                 .build();
 

@@ -2,8 +2,11 @@ package ru.instamart.reforged.stf.page.user.shipments;
 
 import io.qameta.allure.Step;
 import org.testng.Assert;
+import ru.instamart.kraken.util.CollectionUtil;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
+
+import java.util.List;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
@@ -34,9 +37,16 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
         Assert.assertEquals(summ, StringUtil.stringToDouble(discountSumm.getText()));
     }
 
-    @Step("Проверяем, что среди названий товара в заказе есть искомое {0}")
-    default void compareProductNameInOrder(final String productNameExpected) {
-        Assert.assertTrue(productsInOrderNames.isElementWithTextPresent(productNameExpected));
+    @Step("Проверяем, что среди товаров в заказе есть искомое {0}")
+    default void checkProductListContains(final String productNameExpected) {
+        Assert.assertTrue(productsInOrder.isElementWithTextPresent(productNameExpected),
+                String.format("Среди списка товаров в заказе не найдено '%s'", productNameExpected));
+    }
+
+    @Step("Проверяем, что список продуктов соответствует ожидаемому {0}")
+    default void checkProductListsEquals(final List<String> expectedProductListNames) {
+        Assert.assertEquals(CollectionUtil.cropItemsByLengthAndSort(productInOrderNames.getTextFromAllElements(), 59), expectedProductListNames,
+                "Список продуктов не соответствует ожидаемому");
     }
 
     @Step("Проверка метода оплаты 'Картой онлайн'")

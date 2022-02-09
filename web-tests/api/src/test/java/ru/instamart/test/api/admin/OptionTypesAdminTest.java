@@ -2,6 +2,7 @@ package ru.instamart.test.api.admin;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -10,8 +11,8 @@ import ru.instamart.api.request.admin.OptionTypesAdminRequest;
 import ru.instamart.kraken.data.Generate;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static org.testng.Assert.assertNotNull;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
 
 @Epic("Admin")
 @Feature("Товарные опции")
@@ -28,7 +29,7 @@ public class OptionTypesAdminTest extends RestBase {
             description = "Получение всех товарных опций")
     public void getAllOptionTypes() {
         final Response response = OptionTypesAdminRequest.GET();
-        checkStatusCode(response, 200, "text/html");
+        checkStatusCode(response, 200, ContentType.HTML);
     }
 
     @CaseId(1937)
@@ -37,14 +38,11 @@ public class OptionTypesAdminTest extends RestBase {
     public void createOptionType() {
         String postfix = Generate.literalString(6);
         final Response response = OptionTypesAdminRequest.POST("name-" + postfix, "presentation-" + postfix);
-        checkStatusCode(response, 302, "text/html");
+        checkStatusCode302(response);
         //todo добавить проверку через базу
 
-        String location = response.getHeader("location");
-        assertNotNull(location, "Нет хедера location со ссылкой для редиректа");
-
-        String[] split = location.split("/");
-        optionTypeId = split[split.length - 2];
+        String[] location = response.getHeader("location").split("/");
+        optionTypeId = location[location.length - 2];
     }
 
     @CaseId(1938)
@@ -57,7 +55,7 @@ public class OptionTypesAdminTest extends RestBase {
                 optionTypeId,
                 "name-" + postfix,
                 "presentation-" + postfix);
-        checkStatusCode(response, 302, "text/html");
+        checkStatusCode302(response);
         //todo добавить проверку через базу
     }
 
@@ -76,7 +74,7 @@ public class OptionTypesAdminTest extends RestBase {
                 "value-name-" + postfix,
                 "value-presentation-" + postfix,
                 false);
-        checkStatusCode(response, 302, "text/html");
+        checkStatusCode302(response);
         //todo добавить проверку через базу
     }
 
@@ -86,7 +84,7 @@ public class OptionTypesAdminTest extends RestBase {
             dependsOnMethods = {"updateOptionType", "createOptionValue"})
     public void deleteOptionType() {
         Response response = OptionTypesAdminRequest.DELETE(optionTypeId);
-        checkStatusCode(response, 302, "text/html");
+        checkStatusCode302(response);
         //todo добавить проверку через базу
     }
 }

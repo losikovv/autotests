@@ -10,7 +10,6 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.listener.Skip;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.test.reforged.BaseTest;
@@ -144,7 +143,7 @@ public final class UserShippingAddressTests extends BaseTest {
     @CaseId(1569)
     @Story("Зона доставки")
     @Test(description = "Тест на успешный выбор нового адреса в модалке феникса, после ввода адреса," +
-                    " по которому нет доставки текущего ритейлера", groups = "regression")
+            " по которому нет доставки текущего ритейлера", groups = "regression")
     public void successSetNewAddressAfterOutOfRetailerZoneAddressChange() {
         shop().goToPage(ShopUrl.LENTA);
         shop().interactHeader().clickToSelectAddressFirstTime();
@@ -458,7 +457,7 @@ public final class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().interactAddress().fillAddress(Addresses.Kazan.defaultAddress());
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
-        shop().interactHeader().interactStoreSelector().clickToStoreCard();
+        shop().interactHeader().interactStoreSelector().clickToFirstStoreCard();
         shop().plusFirstItemToCart();
         shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsNotOpen();
     }

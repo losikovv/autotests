@@ -47,8 +47,8 @@ public class SearchPage implements StfPage, SearchCheck {
     }
 
     @Step("Вернуть значение кол-ва товаров на странице поиска")
-    public double returnSearchProductsQuantity() {
-        return StringUtil.extractNumberFromString(searchProductsQuantity.getText());
+    public int returnSearchProductsQuantity() {
+        return searchProductsQuantity.getNumericValue();
     }
 
     @Step("Выбрать сортировку {0}")
