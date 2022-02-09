@@ -18,10 +18,7 @@ import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v1.ImportsV1Request;
 import ru.instamart.api.response.v1.imports.*;
 import ru.instamart.jdbc.dao.*;
-import ru.instamart.jdbc.entity.OffersEntity;
-import ru.instamart.jdbc.entity.SpreeProductFiltersEntity;
-import ru.instamart.jdbc.entity.SpreeProductsEntity;
-import ru.instamart.jdbc.entity.StoresEntity;
+import ru.instamart.jdbc.entity.*;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -41,6 +38,7 @@ public class ImportsV1Tests extends RestBase {
     private Long offerId;
     private Long storeId;
     private byte[] fileBytes;
+    private String importKey;
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
@@ -69,7 +67,7 @@ public class ImportsV1Tests extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, PricesFilesV1Response.class);
         List<ImportsFileV1> files = response.as(PricesFilesV1Response.class).getPricesFiles();
-        int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("PriceFile");
+        int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("PricesFile");
         compareTwoObjects(files.size(), filesFromDbCount);
     }
 
@@ -255,9 +253,10 @@ public class ImportsV1Tests extends RestBase {
         createStoreInAdmin(store);
         StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
         storeId = storeFromDb.getId();
-        String retailerKey = SpreeRetailersDao.INSTANCE.findById(storeFromDb.getRetailerId()).get().getKey();
+        StoresTenantsDao.INSTANCE.addStoreTenant(storeId, "sbermarket");
+        importKey = SpreeRetailersDao.INSTANCE.findById(storeFromDb.getRetailerId()).get().getKey() + "-" + store.getImportKeyPostFix();
 
-        fileBytes = changeXlsFileSheetName("src/test/resources/data/offers.xlsx", retailerKey + "-" + store.getImportKeyPostFix(), 0);
+        fileBytes = changeXlsFileSheetName("src/test/resources/data/offers.xlsx", importKey, 0);
 
         final Response response = ImportsV1Request.OffersFiles.POST(fileBytes);
         checkStatusCode200(response);
@@ -347,10 +346,228 @@ public class ImportsV1Tests extends RestBase {
         SpreeProductFiltersDao.INSTANCE.delete(productsFilterFromDb.getId());
     }
 
+    @CaseId(1949)
+    @Story("Цены")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Импорт цен",
+            dependsOnMethods = "importOffers")
+    public void importPrices() throws InterruptedException {
+        final Response response = ImportsV1Request.PricesFiles.POST(String.format("product_price__%s.xlsx", importKey), "src/test/resources/data/product_price___5-10.xlsx");
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, PricesFileV1Response.class);
+
+        int count = 0;
+        String status = null;
+        while (count < 20) {
+            final Response responseWithList = ImportsV1Request.PricesFiles.GET();
+            checkStatusCode200(responseWithList);
+            status = responseWithList.as(PricesFilesV1Response.class).getPricesFiles().get(0).getStatus();
+            if (status.equals(ImportStatusV1.DONE.getValue()))
+                break;
+            Thread.sleep(1000);
+            count++;
+        }
+        compareTwoObjects(status, ImportStatusV1.DONE.getValue());
+        PricesEntity priceFromDb = PricesDao.INSTANCE.getPriceByOfferId(offerId);
+        checkFieldIsNotEmpty(priceFromDb, "цена в БД");
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(priceFromDb.getStoreId(), storeId, softAssert);
+        compareTwoObjects(priceFromDb.getCostPrice(), 1840.57, softAssert);
+        compareTwoObjects(priceFromDb.getRetailerPrice(), 2045.0, softAssert);
+        compareTwoObjects(priceFromDb.getOfferRetailerPrice(), 2045.0, softAssert);
+        softAssert.assertAll();
+    }
+
+    @CaseId(1950)
+    @Story("Штрихкоды")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Импорт штрихкодов",
+            dependsOnMethods = "importOffers")
+    public void importEans() throws InterruptedException {
+        final Response response = ImportsV1Request.EansFiles.POST("src/test/resources/data/export_ean.xml");
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, EansFileV1Response.class);
+
+        int count = 0;
+        String status = null;
+        while (count < 20) {
+            final Response responseWithList = ImportsV1Request.EansFiles.GET();
+            checkStatusCode200(responseWithList);
+            status = responseWithList.as(EansFilesV1Response.class).getEansFiles().get(0).getStatus();
+            if (status.equals(ImportStatusV1.DONE.getValue()))
+                break;
+            Thread.sleep(1000);
+            count++;
+        }
+        compareTwoObjects(status, ImportStatusV1.DONE.getValue());
+        EansEntity eanFromDb = EansDao.INSTANCE.getEanByRetailerSku("6654414444");
+        checkFieldIsNotEmpty(eanFromDb, "штрихкод в БД");
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(eanFromDb.getRetailerId(), 32L, softAssert);
+        compareTwoObjects(eanFromDb.getValue(), "2999820000022", softAssert);
+        softAssert.assertAll();
+        EansDao.INSTANCE.delete(eanFromDb.getId());
+    }
+
+    @CaseId(1951)
+    @Story("Бренды")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Импорт брендов")
+    public void importBrands() throws InterruptedException {
+        final Response response = ImportsV1Request.BrandFiles.POST("src/test/resources/data/brands_import.xlsx");
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, BrandsFileV1Response.class);
+
+        int count = 0;
+        String status = null;
+        while (count < 20) {
+            final Response responseWithList = ImportsV1Request.BrandFiles.GET();
+            checkStatusCode200(responseWithList);
+            status = responseWithList.as(BrandsFilesV1Response.class).getBrandsFiles().get(0).getStatus();
+            if (status.equals(ImportStatusV1.DONE.getValue()))
+                break;
+            Thread.sleep(1000);
+            count++;
+        }
+        compareTwoObjects(status, ImportStatusV1.DONE.getValue());
+        SpreeBrandsEntity brandFromDb = SpreeBrandsDao.INSTANCE.getBrandByName("Автотест");
+        checkFieldIsNotEmpty(brandFromDb, "бренд в БД");
+        compareTwoObjects(brandFromDb.getKeywords(), "Автотест");
+        SpreeBrandsDao.INSTANCE.delete(brandFromDb.getId());
+    }
+
+    @CaseId(1952)
+    @Story("Изображения продуктов")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Импорт изображений продуктов")
+    public void importProductsImages() throws InterruptedException {
+        final Response response = ImportsV1Request.ProductsImagesArchives.POST("src/test/resources/data/product_image.zip");
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ProductsImagesArchiveV1Response.class);
+
+        int count = 0;
+        String status = null;
+        while (count < 20) {
+            final Response responseWithList = ImportsV1Request.ProductsImagesArchives.GET();
+            checkStatusCode200(responseWithList);
+            status = responseWithList.as(ProductsImagesArchivesV1Response.class).getProductsImagesArchives().get(0).getStatus();
+            if (status.equals(ImportStatusV1.ARCHIVE_PROCESSED.getValue()))
+                break;
+            Thread.sleep(2000);
+            count++;
+        }
+        compareTwoObjects(status, ImportStatusV1.ARCHIVE_PROCESSED.getValue());
+        compareTwoObjects(ImagesDraftsDao.INSTANCE.getCount("13626"), 2);
+        ImagesDraftsDao.INSTANCE.deleteImagesByName("13626");
+    }
+
+    @CaseId(1953)
+    @Story("Иконки категорий")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Импорт иконок категорий")
+    public void importTaxonsImages() throws InterruptedException {
+        final Response response = ImportsV1Request.TaxonsImagesFiles.POST("src/test/resources/data/taxon_icons.zip");
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, TaxonsImagesFileV1Response.class);
+
+        int count = 0;
+        String status = null;
+        while (count < 20) {
+            final Response responseWithList = ImportsV1Request.TaxonsImagesFiles.GET();
+            checkStatusCode200(responseWithList);
+            status = responseWithList.as(TaxonsImagesFilesV1Response.class).getTaxonsImagesFiles().get(0).getStatus();
+            if (status.equals(ImportStatusV1.DONE.getValue()))
+                break;
+            Thread.sleep(2000);
+            count++;
+        }
+        compareTwoObjects(status, ImportStatusV1.DONE.getValue());
+        SpreeTaxonsEntity taxonFromDb = SpreeTaxonsDao.INSTANCE.getTaxonByInstamartId(66080700);
+        checkFieldIsNotEmpty(taxonFromDb, "категория в БД");
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(taxonFromDb.getIconFileName(), "66080700.jpg", softAssert);
+        compareTwoObjects(taxonFromDb.getIconContentType(), "image/jpeg", softAssert);
+        checkFieldIsNotEmpty(taxonFromDb.getIconFileSize(), "размер иконки");
+        softAssert.assertAll();
+        SpreeTaxonsDao.INSTANCE.updateTaxonIcon(null, null, null);
+    }
+
+    @CaseId(1954)
+    @Story("Категории")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Импорт категорий с неверным файлом")
+    public void importTaxons() throws InterruptedException {
+        final Response response = ImportsV1Request.TaxonsFiles.POST("src/test/resources/data/brands_import.xlsx");
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, TaxonsFileV1Response.class);
+
+        int count = 0;
+        String status = null;
+        while (count < 20) {
+            final Response responseWithList = ImportsV1Request.TaxonsFiles.GET();
+            checkStatusCode200(responseWithList);
+            status = responseWithList.as(TaxonsFilesV1Response.class).getTaxonsFiles().get(0).getStatus();
+            if (status.equals(ImportStatusV1.FAILED.getValue()))
+                break;
+            Thread.sleep(1000);
+            count++;
+        }
+        compareTwoObjects(status, ImportStatusV1.FAILED.getValue());
+    }
+
+    @CaseId(1955)
+    @Story("Мастер каталог")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Импорт мастер каталога с неверным файлом")
+    public void importMasterCategories() throws InterruptedException {
+        final Response response = ImportsV1Request.MasterCategoriesFiles.POST("src/test/resources/data/brands_import.xlsx");
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, MasterCategoriesFileV1Response.class);
+
+        int count = 0;
+        String status = null;
+        while (count < 20) {
+            final Response responseWithList = ImportsV1Request.MasterCategoriesFiles.GET();
+            checkStatusCode200(responseWithList);
+            status = responseWithList.as(MasterCategoriesFilesV1Response.class).getMasterCategoriesFiles().get(0).getStatus();
+            if (status.equals(ImportStatusV1.FAILED.getValue()))
+                break;
+            Thread.sleep(1000);
+            count++;
+        }
+        compareTwoObjects(status, ImportStatusV1.FAILED.getValue());
+    }
+
+    @CaseId(1956)
+    @Story("Мастер каталог")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Импорт аттрибутов мастер каталога с неверным файлом")
+    public void importMasterCategoryAttributes() throws InterruptedException {
+        final Response response = ImportsV1Request.MasterCategoryAttributesFiles.POST("src/test/resources/data/brands_import.xlsx");
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, MasterCategoryAttributesFileV1Response.class);
+
+        int count = 0;
+        String status = null;
+        while (count < 20) {
+            final Response responseWithList = ImportsV1Request.MasterCategoryAttributesFiles.GET();
+            checkStatusCode200(responseWithList);
+            status = responseWithList.as(MasterCategoryAttributesFilesV1Response.class).getMasterCategoryAttributesFiles().get(0).getStatus();
+            if (status.equals(ImportStatusV1.FAILED.getValue()))
+                break;
+            Thread.sleep(1000);
+            count++;
+        }
+        compareTwoObjects(status, ImportStatusV1.FAILED.getValue());
+    }
+
+
     @AfterClass(alwaysRun = true)
-    public void deleteOffer() {
+    public void clearData() {
         OffersDao.INSTANCE.delete(offerId);
+        PricesDao.INSTANCE.deletePriceByOfferId(offerId);
         StoresDao.INSTANCE.delete(storeId);
         StoreConfigsDao.INSTANCE.deleteByStoreId(storeId);
+        StoresTenantsDao.INSTANCE.deleteStoreTenantByStoreId(storeId);
     }
 }
