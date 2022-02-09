@@ -214,6 +214,8 @@ public class StoresAdminRequest extends AdminRequestBase {
                 .mondayDayOff(0)
                 .shippingMethodId(SpreeShippingMethodsDao.INSTANCE.getShippingMethodId(ShippingMethodV2.BY_COURIER.getMethod()))
                 .tenantId("instamart")
+                .openingTime("11:00")
+                .closingTime("23:00")
                 .availableOn(getDeliveryDateFrom())
                 .paymentMethodInstamart1(paymentMethodIds.get(0))
                 .paymentMethodInstamart2(paymentMethodIds.get(1))
