@@ -24,21 +24,21 @@ public class PagesAdminRequest extends AdminRequestBase {
                 .post(AdminEndpoints.PAGES);
     }
 
-    @Step("{method} /" + AdminEndpoints.Pages.BY_ID)
+    @Step("{method} /" + AdminEndpoints.PAGE)
     public static Response DELETE(Long pageId) {
         return givenWithAuth()
                 .formParam("_method", "delete")
-                .delete(AdminEndpoints.Pages.BY_ID, pageId);
+                .delete(AdminEndpoints.PAGE, pageId);
     }
 
-    @Step("{method} /" + AdminEndpoints.Pages.BY_ID)
+    @Step("{method} /" + AdminEndpoints.PAGE)
     public static Response PATCH(Page page, Long pageId) {
         Map<String, Object> params = new HashMap<>();
         params.put("_method", "patch");
         params.putAll(Mapper.INSTANCE.objectToMap(page));
         return givenWithAuth()
                 .formParams(params)
-                .patch(AdminEndpoints.Pages.BY_ID, pageId);
+                .patch(AdminEndpoints.PAGE, pageId);
     }
 
     @Step("{method} /" + AdminEndpoints.PAGES)

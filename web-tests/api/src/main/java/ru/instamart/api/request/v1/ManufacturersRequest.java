@@ -26,8 +26,8 @@ public class ManufacturersRequest extends AdminRequestBase {
     }
 
 
-    @Step("{method} /" + AdminEndpoints.Manufacturers.BY_ID)
-    public static Response POST(String method, String id, String name) {
+    @Step("{method} /" + AdminEndpoints.MANUFACTURER)
+    public static Response POST(String method, String manufacturerId, String name) {
         Map<String, String> params = new HashMap<>();
         params.put("_method", method);
         if (Objects.nonNull(name)) {
@@ -35,13 +35,13 @@ public class ManufacturersRequest extends AdminRequestBase {
         }
         return givenWithAuth()
                 .formParams(params)
-                .post(AdminEndpoints.Manufacturers.BY_ID, id);
+                .post(AdminEndpoints.MANUFACTURER, manufacturerId);
     }
 
 
-    @Step("{method} /" + AdminEndpoints.Manufacturers.BY_ID)
-    public static Response POST(String method, String id) {
-        return POST(method, id, null);
+    @Step("{method} /" + AdminEndpoints.MANUFACTURER)
+    public static Response POST(String method, String manufacturerId) {
+        return POST(method, manufacturerId, null);
     }
 
 }

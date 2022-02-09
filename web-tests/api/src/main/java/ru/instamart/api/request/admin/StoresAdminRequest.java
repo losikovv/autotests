@@ -30,14 +30,14 @@ public class StoresAdminRequest extends AdminRequestBase {
                 .post(AdminEndpoints.STORES);
     }
 
-    @Step("{method} /" + AdminEndpoints.Stores.BY_ID)
+    @Step("{method} /" + AdminEndpoints.STORE)
     public static Response PATCH(Store store, Long storeId) {
         Map<String, Object> params = new HashMap<>();
         params.put("_method", "patch");
         params.putAll(Mapper.INSTANCE.objectToMap(store));
         return givenWithAuth()
                 .formParams(Mapper.INSTANCE.objectToMap(params))
-                .patch(AdminEndpoints.Stores.BY_ID, storeId);
+                .patch(AdminEndpoints.STORE, storeId);
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)

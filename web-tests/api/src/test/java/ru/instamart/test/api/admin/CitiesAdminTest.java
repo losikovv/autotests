@@ -3,21 +3,19 @@ package ru.instamart.test.api.admin;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.testng.annotations.BeforeClass;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.jdbc.dao.CitiesDao;
 import ru.instamart.jdbc.entity.CitiesEntity;
 import ru.instamart.kraken.data.Generate;
-import ru.instamart.kraken.data.user.UserManager;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
@@ -44,7 +42,7 @@ public class CitiesAdminTest extends RestBase {
     @Test(groups = {"api-instamart-regress"}, description = "Получение списка всех городов")
     public void getAllCities() {
         final Response response = CitiesAdminRequest.GET();
-        checkStatusCode(response, 200, "text/html");
+        checkStatusCode(response, 200, ContentType.HTML);
     }
 
     @CaseId(1124)

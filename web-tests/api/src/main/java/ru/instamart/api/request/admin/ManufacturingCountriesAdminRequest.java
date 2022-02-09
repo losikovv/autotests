@@ -24,21 +24,21 @@ public class ManufacturingCountriesAdminRequest extends AdminRequestBase {
                 .post(AdminEndpoints.MANUFACTURING_COUNTRIES);
     }
 
-    @Step("{method} /" + AdminEndpoints.ManufacturingCountries.BY_PERMALINK)
+    @Step("{method} /" + AdminEndpoints.MANUFACTURING_COUNTRY)
     public static Response DELETE(String countryPermalink) {
         return givenWithAuth()
                 .formParam("_method", "delete")
-                .post(AdminEndpoints.ManufacturingCountries.BY_PERMALINK, countryPermalink);
+                .post(AdminEndpoints.MANUFACTURING_COUNTRY, countryPermalink);
     }
 
-    @Step("{method} /" + AdminEndpoints.ManufacturingCountries.BY_PERMALINK)
+    @Step("{method} /" + AdminEndpoints.MANUFACTURING_COUNTRY)
     public static Response PATCH(ManufacturingCountry country, String countryPermalink) {
         Map<String, Object> params = new HashMap<>();
         params.put("_method", "patch");
         params.putAll(Mapper.INSTANCE.objectToMap(country));
         return givenWithAuth()
                 .formParams(params)
-                .post(AdminEndpoints.ManufacturingCountries.BY_PERMALINK, countryPermalink);
+                .post(AdminEndpoints.MANUFACTURING_COUNTRY, countryPermalink);
     }
 
     @Step("{method} /" + AdminEndpoints.MANUFACTURING_COUNTRIES)

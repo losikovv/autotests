@@ -3,6 +3,7 @@ package ru.instamart.test.api.admin;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import io.restassured.http.ContentType;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
@@ -39,7 +40,7 @@ public class PagesAdminTest extends RestBase {
     @Test(groups = {"api-instamart-regress"}, description = "Получение всех страниц")
     public void getAllPage() {
         final Response response = PagesAdminRequest.GET();
-        checkStatusCode(response, 200, "text/html");
+        checkStatusCode(response, 200, ContentType.HTML);
     }
 
     @CaseIDs(value = {@CaseId(1135), @CaseId(1140)})
