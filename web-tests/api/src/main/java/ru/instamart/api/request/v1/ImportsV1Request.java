@@ -6,6 +6,11 @@ import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.request.ApiV1RequestBase;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import static org.testng.Assert.fail;
 
 public class ImportsV1Request extends ApiV1RequestBase {
 
@@ -33,6 +38,19 @@ public class ImportsV1Request extends ApiV1RequestBase {
                     .queryParam("per_page", 10000)
                     .get(ApiV1Endpoints.Imports.PRICES_FILES);
         }
+
+        @Step("{method} /" + ApiV1Endpoints.Imports.PRICES_FILES)
+        public static Response POST(String fileName, String filePath) {
+            byte[] fileBytes = null;
+            try {
+                fileBytes = Files.readAllBytes(Paths.get(filePath));
+            } catch (IOException e) {
+                fail("Can't read a file. Error: " + e.getMessage());
+            }
+            return givenWithAuth()
+                    .multiPart("payload", fileName, fileBytes,  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                    .post(ApiV1Endpoints.Imports.PRICES_FILES);
+        }
     }
 
     public static class ProductsImagesArchives {
@@ -42,6 +60,13 @@ public class ImportsV1Request extends ApiV1RequestBase {
                     .queryParam("per_page", 10000)
                     .get(ApiV1Endpoints.Imports.PRODUCTS_IMAGES_ARCHIVES);
         }
+
+        @Step("{method} /" + ApiV1Endpoints.Imports.PRODUCTS_IMAGES_ARCHIVES)
+        public static Response POST(String filePath) {
+            return givenWithAuth()
+                    .multiPart("payload", new File(filePath), "application/zip")
+                    .post(ApiV1Endpoints.Imports.PRODUCTS_IMAGES_ARCHIVES);
+        }
     }
 
     public static class EansFiles {
@@ -50,6 +75,13 @@ public class ImportsV1Request extends ApiV1RequestBase {
             return givenWithAuth()
                     .queryParam("per_page", 10000)
                     .get(ApiV1Endpoints.Imports.EANS_FILES);
+        }
+
+        @Step("{method} /" + ApiV1Endpoints.Imports.EANS_FILES)
+        public static Response POST(String filePath) {
+            return givenWithAuth()
+                    .multiPart("payload", new File(filePath), "text/xml")
+                    .post(ApiV1Endpoints.Imports.EANS_FILES);
         }
     }
 
@@ -85,7 +117,6 @@ public class ImportsV1Request extends ApiV1RequestBase {
         }
     }
 
-
     public static class OffersStocksFiles {
         @Step("{method} /" + ApiV1Endpoints.Imports.OFFERS_STOCKS_FILES)
         public static Response GET() {
@@ -109,6 +140,13 @@ public class ImportsV1Request extends ApiV1RequestBase {
                     .queryParam("per_page", 10000)
                     .get(ApiV1Endpoints.Imports.MASTER_CATEGORIES_FILES);
         }
+
+        @Step("{method} /" + ApiV1Endpoints.Imports.MASTER_CATEGORIES_FILES)
+        public static Response POST(String filePath) {
+            return givenWithAuth()
+                    .multiPart("payload", new File(filePath), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                    .post(ApiV1Endpoints.Imports.MASTER_CATEGORIES_FILES);
+        }
     }
 
     public static class MasterCategoryAttributesFiles {
@@ -117,6 +155,13 @@ public class ImportsV1Request extends ApiV1RequestBase {
             return givenWithAuth()
                     .queryParam("per_page", 10000)
                     .get(ApiV1Endpoints.Imports.MASTER_CATEGORY_ATTRIBUTES_FILES);
+        }
+
+        @Step("{method} /" + ApiV1Endpoints.Imports.MASTER_CATEGORY_ATTRIBUTES_FILES)
+        public static Response POST(String filePath) {
+            return givenWithAuth()
+                    .multiPart("payload", new File(filePath), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                    .post(ApiV1Endpoints.Imports.MASTER_CATEGORY_ATTRIBUTES_FILES);
         }
     }
 
@@ -127,6 +172,13 @@ public class ImportsV1Request extends ApiV1RequestBase {
                     .queryParam("per_page", 10000)
                     .get(ApiV1Endpoints.Imports.BRAND_FILES);
         }
+
+        @Step("{method} /" + ApiV1Endpoints.Imports.BRAND_FILES)
+        public static Response POST(String filePath) {
+            return givenWithAuth()
+                    .multiPart("payload", new File(filePath), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                    .post(ApiV1Endpoints.Imports.BRAND_FILES);
+        }
     }
 
     public static class TaxonsFiles {
@@ -136,6 +188,13 @@ public class ImportsV1Request extends ApiV1RequestBase {
                     .queryParam("per_page", 10000)
                     .get(ApiV1Endpoints.Imports.TAXONS_FILES);
         }
+
+        @Step("{method} /" + ApiV1Endpoints.Imports.TAXONS_FILES)
+        public static Response POST(String filePath) {
+            return givenWithAuth()
+                    .multiPart("payload", new File(filePath), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                    .post(ApiV1Endpoints.Imports.TAXONS_FILES);
+        }
     }
 
     public static class TaxonsImagesFiles {
@@ -144,6 +203,13 @@ public class ImportsV1Request extends ApiV1RequestBase {
             return givenWithAuth()
                     .queryParam("per_page", 10000)
                     .get(ApiV1Endpoints.Imports.TAXONS_IMAGES_FILES);
+        }
+
+        @Step("{method} /" + ApiV1Endpoints.Imports.TAXONS_IMAGES_FILES)
+        public static Response POST(String filePath) {
+            return givenWithAuth()
+                    .multiPart("payload", new File(filePath), "application/zip")
+                    .post(ApiV1Endpoints.Imports.TAXONS_IMAGES_FILES);
         }
     }
 
