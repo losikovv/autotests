@@ -43,13 +43,14 @@ public class SpreeTaxonsDao extends AbstractDao<Long, SpreeTaxonsEntity> {
         return taxon;
     }
 
-    public void updateTaxonIcon(String iconFileName, String iconContentType, Integer iconFileSize) {
+    public void updateTaxonIcon(String iconFileName, String iconContentType, Integer iconFileSize, Integer instamartId) {
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " SET icon_file_name = ?, icon_content_type = ?, " +
-                     "icon_file_size = ?")) {
+                     "icon_file_size = ? WHERE instamart_id = ?")) {
             preparedStatement.setObject(1, iconFileName);
             preparedStatement.setObject(2, iconContentType);
             preparedStatement.setObject(3, iconFileSize);
+            preparedStatement.setInt(4, instamartId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());

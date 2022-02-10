@@ -489,7 +489,7 @@ public class ImportsV1Tests extends RestBase {
         compareTwoObjects(taxonFromDb.getIconContentType(), "image/jpeg", softAssert);
         checkFieldIsNotEmpty(taxonFromDb.getIconFileSize(), "размер иконки");
         softAssert.assertAll();
-        SpreeTaxonsDao.INSTANCE.updateTaxonIcon(null, null, null);
+        SpreeTaxonsDao.INSTANCE.updateTaxonIcon(null, null, null, 66080700);
     }
 
     @CaseId(1954)
