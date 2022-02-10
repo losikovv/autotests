@@ -7,13 +7,11 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.request.admin.*;
-import ru.instamart.api.request.v1.ImportsV1Request;
-import ru.instamart.api.request.v1.OperationalZonesV1Request;
-import ru.instamart.api.request.v1.ShippingMethodsV1Request;
+import ru.instamart.api.request.v1.*;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.MarketingPricers;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.NominalPricers;
-import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
+import ru.instamart.api.response.admin.ShipmentsAdminResponse;
 import ru.instamart.api.response.v1.*;
 import ru.instamart.api.response.v1.imports.OffersFilesV1Response;
 import ru.instamart.kraken.data.user.UserManager;
@@ -135,14 +133,22 @@ public class AdminHelper {
         checkStatusCode200(response);
     }
 
+    public ShipmentsAdminResponse getShipments(final ShipmentsAdminRequest.ShipmentsData shipmentsData) {
+        final var response = ShipmentsAdminRequest.GET(shipmentsData);
+        checkStatusCode200(response);
+        return response.as(ShipmentsAdminResponse.class);
+    }
+
     @Step("Авторизация администратором")
     public void authAdmin() {
         SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
     }
+
     @Step("Авторизация администратором для API")
     public void authAdminApi() {
         SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdminAllRoles());
     }
+
     @Step("Удаляем страну производства")
     public static void deleteManufacturingCountries(String permalink) {
         final Response response = ManufacturingCountriesAdminRequest.DELETE(permalink);
