@@ -11,7 +11,9 @@ public enum ImportStatusV1 {
 
     PENDING("pending"),
     PROCESSING("processing"),
-    DONE("done");
+    DONE("done"),
+    ARCHIVE_PROCESSED("archive_processed"),
+    FAILED("failed");
 
     private final String value;
 }

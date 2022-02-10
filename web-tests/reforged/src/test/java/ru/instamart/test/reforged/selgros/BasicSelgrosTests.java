@@ -3,7 +3,6 @@ package ru.instamart.test.reforged.selgros;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -12,6 +11,7 @@ import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.data_provider.StaticPage;
 import ru.instamart.reforged.core.service.Curl;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.reforged.selgros.page.SelgrosRouter.selgros;
@@ -40,6 +40,7 @@ public final class BasicSelgrosTests extends BaseTest {
         selgros().interactHeader().checkSearchInputVisible();
         selgros().interactHeader().checkSearchButtonVisible();
         selgros().interactHeader().checkCartVisible();
+        selgros().interactHeader().checkPartnershipLabelVisible();
         selgros().interactHeader().checkLoginIsVisible();
         selgros().interactHeader().checkNearestDeliveryLabelVisible();
     }

@@ -35,11 +35,13 @@ public final class BasicMetroTests extends BaseTest {
         metro().interactHeader().checkDeliveryButtonVisible();
         metro().interactHeader().checkPickupButtonVisible();
         metro().interactHeader().checkShopLogoButtonVisible();
+        metro().interactHeader().checkForB2bVisible();
         metro().interactHeader().checkHelpVisible();
         metro().interactHeader().checkCategoryMenuVisible();
         metro().interactHeader().checkSearchInputVisible();
         metro().interactHeader().checkSearchButtonVisible();
         metro().interactHeader().checkCartVisible();
+        metro().interactHeader().checkPartnershipLabelVisible();
         metro().interactHeader().checkLoginIsVisible();
         metro().interactHeader().checkNearestDeliveryLabelVisible();
     }
