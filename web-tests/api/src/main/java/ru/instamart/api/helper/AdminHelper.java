@@ -6,6 +6,8 @@ import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OperationalZoneV1;
+import ru.instamart.api.model.v1.b2b.ManagerV1;
+import ru.instamart.api.model.v1.b2b.UserV1;
 import ru.instamart.api.request.admin.*;
 import ru.instamart.api.request.v1.ImportsV1Request;
 import ru.instamart.api.request.v1.OperationalZonesV1Request;
@@ -14,13 +16,13 @@ import ru.instamart.api.request.v1.ShippingMethodsV1Request.MarketingPricers;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.NominalPricers;
 import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
+import ru.instamart.api.request.v1.b2b.CompanyManagersV1Request;
 import ru.instamart.api.response.v1.*;
 import ru.instamart.api.response.v1.imports.OffersFilesV1Response;
 import ru.instamart.kraken.data.user.UserManager;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
-
 
 public class AdminHelper {
 
@@ -46,6 +48,15 @@ public class AdminHelper {
 
     public void addCompany(final String inn, final String companyName, final String ownerEmail) {
         final Response response = CompaniesV1Request.POST(inn, companyName, ownerEmail);
+        checkStatusCode200(response);
+    }
+
+    public void addManager(final Integer companyId, final String userId) {
+        final ManagerV1 manager = new ManagerV1();
+        UserV1 managerAsUser = new UserV1();
+        managerAsUser.setId(Integer.parseInt(userId));
+        manager.setUser(managerAsUser);
+        final Response response = CompanyManagersV1Request.POST(companyId, manager);
         checkStatusCode200(response);
     }
 
@@ -139,10 +150,12 @@ public class AdminHelper {
     public void authAdmin() {
         SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
     }
+
     @Step("Авторизация администратором для API")
     public void authAdminApi() {
         SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdminAllRoles());
     }
+
     @Step("Удаляем страну производства")
     public static void deleteManufacturingCountries(String permalink) {
         final Response response = ManufacturingCountriesAdminRequest.DELETE(permalink);

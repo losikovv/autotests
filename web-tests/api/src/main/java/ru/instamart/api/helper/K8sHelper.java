@@ -10,6 +10,8 @@ import java.util.List;
 import static ru.instamart.api.enums.BashCommands.Instacoins.ADD_USER_INSTACOIN;
 import static ru.instamart.api.enums.RailsConsole.ExternalPartners.SUBSCRIPTION;
 import static ru.instamart.api.enums.RailsConsole.Order.*;
+import static ru.instamart.api.enums.RailsConsole.User.ADD_ALL_ROLES;
+import static ru.instamart.api.enums.RailsConsole.User.ADD_ROLE;
 import static ru.instamart.api.enums.RailsConsole.apiV3.*;
 import static ru.instamart.k8s.K8sConsumer.*;
 
@@ -112,6 +114,7 @@ public class K8sHelper {
         String toJson = OFFER_JOIN_PRODUCT.get(command) + ".to_json(:except => [:pricer])";//исключаем pricer. Иначе получим ошибку
         return getClassWithExecRailsCommand(toJson, clazz);
     }
+
     @Step("Поиск товарного предложения по фасованном товару в {tenant} и storeId = {storeId}")
     public static <T> T getPricerPerPackageProductFilter(Integer tenantId, Integer storeId, Integer shippingCategoryId, Class<T> clazz) {
         String command = String.format("retailer_id: %d, store_id: %d, pricer: \"Pricer::PerPackage\", deleted_at: nil, published: true, spree_products: { shipping_category_id: %d }",
@@ -119,11 +122,24 @@ public class K8sHelper {
         String toJson = OFFER_JOIN_PRODUCT.get(command) + ".to_json(:except => [:pricer])";//исключаем pricer. Иначе получим ошибку
         return getClassWithExecRailsCommand(toJson, clazz);
     }
+
     @Step("Поиск товарного предложения по упакованному товару в {tenant} и storeId = {storeId}")
     public static <T> T getPricerPerPackProductFilter(Integer tenantId, Integer storeId, Integer shippingCategoryId, Class<T> clazz) {
         String command = String.format("retailer_id: %d, store_id: %d, pricer: \"Pricer::PerPack\", deleted_at: nil, published: true, spree_products: { shipping_category_id: %d }",
                 tenantId, storeId, shippingCategoryId);
         String toJson = OFFER_JOIN_PRODUCT.get(command) + ".to_json(:except => [:pricer])";//исключаем pricer. Иначе получим ошибку
         return getClassWithExecRailsCommand(toJson, clazz);
+    }
+
+    @Step("Добавление роли '{roleName}' пользователю '{userId}'")
+    public static void addRoleToUser(String userId, String roleName) {
+        List<String> strings = execRailsCommandWithPod(ADD_ROLE.get(userId, roleName));
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
+
+    @Step("Добавление всех ролей пользователю '{userId}'")
+    public static void addAllRolesToUser(String userData) {
+        List<String> strings = execRailsCommandWithPod(ADD_ALL_ROLES.get(userData));
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
     }
 }

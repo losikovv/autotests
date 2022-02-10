@@ -15,6 +15,7 @@
             <class name="ru.instamart.test.reforged.business.UserAuthorisationBusinessTests"/>
             <class name="ru.instamart.test.reforged.business.CheckoutTests"/>
             <class name="ru.instamart.test.reforged.business.ShoppingCatalogTests"/>
+            <class name="ru.instamart.test.reforged.business.CompaniesTests"/>
         </classes>
     </test>
 </suite>
