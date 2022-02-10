@@ -94,6 +94,8 @@ public class StoresAdminRequest extends AdminRequestBase {
         private Integer externalAssemblyEnabled;
         @JsonProperty("store[config_attributes][external_assembly_kind]")
         private String externalAssemblyKind;
+        @JsonProperty("store[config_attributes][send_created_hook]")
+        private String sendCreatedHook;
         @JsonProperty("store[on_demand]")
         private Integer onDemand;
         @JsonProperty("store[opening_time]")
@@ -102,6 +104,16 @@ public class StoresAdminRequest extends AdminRequestBase {
         private String closingTime;
         @JsonProperty("store[on_demand_closing_delta]")
         private Integer onDemandClosingDelta;
+        @JsonProperty("store[is_ml_enabled]")
+        private Integer isMlEnabled;
+        @JsonProperty("store[avg_positions_per_place]")
+        private Integer avgPositionsPerPlace;
+        @JsonProperty("store[to_place_sec]")
+        private Integer toPlaceSec;
+        @JsonProperty("store[collection_speed_sec_per_pos]")
+        private Integer collectionSpeedSecPerPos;
+        @JsonProperty("store[is_sigma_enabled]")
+        private Integer isSigmaEnabled;
         @JsonProperty("store[has_conveyor]")
         private Integer hasConveyor;
         @JsonProperty("store[auto_routing]")
@@ -202,7 +214,13 @@ public class StoresAdminRequest extends AdminRequestBase {
                 .hoursOrderEditLocked(0)
                 .externalAssemblyEnabled(0)
                 .externalAssemblyKind("shopper")
+                .sendCreatedHook("immediately")
                 .onDemand(0)
+                .isMlEnabled(0)
+                .avgPositionsPerPlace(10)
+                .toPlaceSec(40)
+                .collectionSpeedSecPerPos(20)
+                .isSigmaEnabled(0)
                 .hasConveyor(0)
                 .autoRouting(0)
                 .expressDelivery(0)
