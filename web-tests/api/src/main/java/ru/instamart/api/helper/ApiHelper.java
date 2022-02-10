@@ -11,10 +11,12 @@ import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.ShippingMethodsRequest;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request;
+import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
 import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
 import ru.instamart.api.response.v1.PricerV1Response;
 import ru.instamart.api.response.v1.PricersV1Response;
 import ru.instamart.api.response.v1.ShippingMethodsResponse;
+import ru.instamart.api.response.v1.b2b.CompaniesV1Response;
 import ru.instamart.jdbc.dao.OffersDao;
 import ru.instamart.jdbc.dao.OperationalZonesDao;
 import ru.instamart.jdbc.dao.PromotionCodesDao;
@@ -22,6 +24,8 @@ import ru.instamart.jdbc.dao.StoresDao;
 import ru.instamart.jdbc.dao.shopper.OperationalZonesShopperDao;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.user.UserData;
+
+import static ru.instamart.kraken.data.user.UserRoles.B2B_MANAGER;
 
 public final class ApiHelper {
 
@@ -314,6 +318,14 @@ public final class ApiHelper {
     public void addCompanyForUser(final String inn, final String companyName, final String ownerEmail) {
         admin.authAdminApi();
         admin.addCompany(inn, companyName, ownerEmail);
+    }
+
+    @Step("Добавляем менеджера '{userData}' компании '{inn}'")
+    public void addManagerForCompany(String inn, UserData userData) {
+        admin.authAdminApi();
+        K8sHelper.addRoleToUser(userData.getId(), B2B_MANAGER.getRole());
+        int companyId = CompaniesV1Request.GET(inn).as(CompaniesV1Response.class).getCompanies().get(0).getId();
+        admin.addManager(companyId, userData.getId());
     }
 
     @Step("Добавляем новую статичную страницу {data} в админке")
