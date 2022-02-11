@@ -19,10 +19,14 @@ import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
 import ru.instamart.api.request.v1.b2b.CompanyManagersV1Request;
 import ru.instamart.api.response.v1.*;
 import ru.instamart.api.response.v1.imports.OffersFilesV1Response;
+import ru.instamart.jdbc.dao.SpreeUsersDao;
+import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
+import static ru.instamart.api.helper.K8sHelper.createAdmin;
 
 public class AdminHelper {
 
@@ -148,12 +152,24 @@ public class AdminHelper {
 
     @Step("Авторизация администратором")
     public void authAdmin() {
-        SessionFactory.createSessionToken(SessionType.ADMIN, UserManager.getDefaultAdminAllRoles());
+        UserData user = UserManager.getDefaultAdmin();
+        if(!EnvironmentProperties.SERVER.equals("production")) {
+            if(SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()) == null) {
+                createAdmin(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword());
+            }
+        }
+        SessionFactory.createSessionToken(SessionType.ADMIN, user);
     }
 
     @Step("Авторизация администратором для API")
     public void authAdminApi() {
-        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdminAllRoles());
+        UserData user = UserManager.getDefaultAdmin();
+        if(!EnvironmentProperties.SERVER.equals("production")) {
+            if(SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()) == null) {
+                createAdmin(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword());
+            }
+        }
+        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, user);
     }
 
     @Step("Удаляем страну производства")

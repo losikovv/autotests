@@ -54,7 +54,7 @@ public final class SessionsV2Test extends RestBase {
         final Response response = SessionsV2Request.User.GET(SessionFactory.getSession(SessionType.API_V2).getToken());
         checkStatusCode200(response);
         final UserDataV2Response userDataResponse = response.as(UserDataV2Response.class);
-        compareTwoObjects(userDataResponse.getUser().getEmail(), SpreeUsersDao.INSTANCE.getEmailByLogin(userData.getEmail()));
+        compareTwoObjects(userDataResponse.getUser().getEmail(), SpreeUsersDao.INSTANCE.getEmailByPhone(userData.getPhone()));
     }
 
     @CaseId(1437)

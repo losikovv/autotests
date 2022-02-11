@@ -46,7 +46,7 @@ public class ShipmentsV2Test extends RestBase {
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         if (!EnvironmentProperties.SERVER.equals("production")) {
-            SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdminAllRoles());
+            admin.authAdminApi();
             admin.checkDeliveryWindows(EnvironmentProperties.DEFAULT_SID);
         }
         SessionFactory.makeSession(SessionType.API_V2);

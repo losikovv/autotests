@@ -26,7 +26,7 @@ public class PromotionsV1Tests extends RestBase {
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение информации о бесплатной доставке")
     public void getFreeDeliveryPromotionsInfo() {
-        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdmin());
+        admin.authAdminApi();
         final Response response = PromotionsV1Request.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, FreeDeliveryV1Response.class);

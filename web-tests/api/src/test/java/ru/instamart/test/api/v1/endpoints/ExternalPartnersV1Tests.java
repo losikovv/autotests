@@ -36,7 +36,7 @@ public class ExternalPartnersV1Tests extends RestBase {
     @Story("Получение списка подписок для пользователя")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Подписка SberPrime неактивна")
     public void getInactiveSubscription() {
-        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdmin());
+        admin.authAdminApi();
         final Response response = ExternalPartnersV1Request.Services.GET();
         checkStatusCode200(response);
         List<ServicesV2> services = response.as(ExternalPartnersServicesV2Response.class).getServices();
@@ -49,8 +49,8 @@ public class ExternalPartnersV1Tests extends RestBase {
             description = "Подписка SberPrime активна",
             dependsOnMethods = "getInactiveSubscription")
     public void getActiveSubscription() {
-        UserData user = UserManager.getDefaultAdminAllRoles();
-        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, user);
+        UserData user = UserManager.getQaUser();
+        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.PHONE, user);
         addSberPrime(user.getEmail());
         final Response response = ExternalPartnersV1Request.Services.GET();
         checkStatusCode200(response);

@@ -67,7 +67,7 @@ public class ImportsV1Tests extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, PricesFilesV1Response.class);
         List<ImportsFileV1> files = response.as(PricesFilesV1Response.class).getPricesFiles();
-        int filesFromDbCount = ImportFilesDao.INSTANCE.getCount("PricesFile");
+        int filesFromDbCount = ImportFilesDao.INSTANCE.getCount(":PricesFile");
         compareTwoObjects(files.size(), filesFromDbCount);
     }
 
