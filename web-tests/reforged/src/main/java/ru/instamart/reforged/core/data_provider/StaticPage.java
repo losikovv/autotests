@@ -81,7 +81,6 @@ public final class StaticPage {
     @DataProvider(name = "landingPage", parallel = true)
     public static Object[][] getLandingPage() {
         return new Object[][] {
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + mnogory().pageUrl()},
                 {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + aeroflot().pageUrl()}
         };
     }

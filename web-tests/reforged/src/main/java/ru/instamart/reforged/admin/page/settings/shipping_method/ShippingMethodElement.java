@@ -30,7 +30,7 @@ public interface ShippingMethodElement {
 
     Input dayFromLastShipment = new Input(By.xpath("//div/span[text()='Правила маркетинговой стоимости доставки']/following::div[2]//div[text()='Дней с последнего заказа']//input"),
             "инпут дней с последнего маркетингова заказа 'Периодический заказ'");
-    Input minShipmentSum = new Input(By.xpath("//div/span[text()='Правила маркетинговой стоимости доставки']/following::div[2]//div[text()='Дней с последнего заказа']/following::div[1]//input"),
+    Input minShipmentSum = new Input(By.xpath("//div/span[text()='Правила маркетинговой стоимости доставки']/following::div[2]//div[text()='Мин-ая сумма товаров в заказе']//input"),
             "инпут минимальной суммы маркетингова заказа 'Периодический заказ'");
 
     Element intervalError = new Element(By.xpath("//p[text()='Недопустимый интервал']"), "ошибка недопустимого интервала");

@@ -1,12 +1,11 @@
 package ru.instamart.reforged.stf.page;
 
 import ru.instamart.reforged.core.page.Router;
-import ru.instamart.reforged.stf.page.checkout.CheckoutPage;
 import ru.instamart.reforged.stf.page.business.BusinessPage;
+import ru.instamart.reforged.stf.page.checkout.CheckoutPage;
 import ru.instamart.reforged.stf.page.faq.*;
 import ru.instamart.reforged.stf.page.home.HomePage;
 import ru.instamart.reforged.stf.page.landings.AeroflotPage;
-import ru.instamart.reforged.stf.page.landings.MnogoruPage;
 import ru.instamart.reforged.stf.page.landings.drivers_hiring.DriversHiringPage;
 import ru.instamart.reforged.stf.page.landings.gift.CertificatePage;
 import ru.instamart.reforged.stf.page.landings.job.JobPage;
@@ -16,8 +15,8 @@ import ru.instamart.reforged.stf.page.seo.SeoCatalogPage;
 import ru.instamart.reforged.stf.page.seo_incognito.SeoIncognitoPage;
 import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.reforged.stf.page.user.favorites.UserFavoritesPage;
-import ru.instamart.reforged.stf.page.user.shipments.UserShipmentsPage;
 import ru.instamart.reforged.stf.page.user.profile.UserProfilePage;
+import ru.instamart.reforged.stf.page.user.shipments.UserShipmentsPage;
 
 public final class StfRouter extends Router {
 
@@ -92,10 +91,6 @@ public final class StfRouter extends Router {
 
     public static DriversHiringPage driversHiring() {
         return (DriversHiringPage) getPage(DriversHiringPage.class);
-    }
-
-    public static MnogoruPage mnogory() {
-        return (MnogoruPage) getPage(MnogoruPage.class);
     }
 
     public static AeroflotPage aeroflot() {

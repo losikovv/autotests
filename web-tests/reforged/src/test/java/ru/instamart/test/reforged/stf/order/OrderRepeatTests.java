@@ -40,7 +40,7 @@ public final class OrderRepeatTests extends BaseTest {
         userShipments().interactRepeatModal().checkModalWindowVisible();
         userShipments().interactRepeatModal().clickToAccept();
 
-        shop().checkPageContains(shop().pageUrl());
+        shop().interactHeader().checkProfileButtonVisible();
         shop().interactCart().checkCartOpen();
         shop().interactCart().checkCartNotEmpty();
         shop().interactCart().getFirstRetailer().compareItemsInCart(2);
