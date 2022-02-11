@@ -3,6 +3,8 @@ package ru.instamart.test.reforged.admin;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import ru.instamart.api.request.admin.ShipmentsAdminRequest;
+import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
@@ -21,7 +23,14 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 @Feature("Управление заказами")
 public final class AdministrationShipmentsSectionTests extends BaseTest {
 
+    private final ApiHelper helper = new ApiHelper();
     //TODO продумать функцию предусловие для заполнения бд заказами
+
+    @DoNotOpenBrowser
+    @Test
+    public void foo() {
+        System.out.println(helper.getShipments(ShipmentsAdminRequest.ShipmentsData.builder().page(1).perPage(1).build()));
+    }
 
     @Skip
     @CaseId(175)

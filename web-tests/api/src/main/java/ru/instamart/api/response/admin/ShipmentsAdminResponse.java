@@ -61,6 +61,78 @@ public final class ShipmentsAdminResponse extends BaseResponseObject {
     }
 
     @Data
+    public static class RecentPayment {
+        @JsonProperty(value = "method_name")
+        public String methodName;
+        @JsonProperty(value = "hold_acquired")
+        public boolean holdAcquired;
+    }
+
+    @Data
+    public static class Urls {
+        @JsonProperty(value = "edit_admin_order")
+        public String editAdminOrder;
+        @JsonProperty(value = "admin_order_payments")
+        public String adminOrderPayments;
+        @JsonProperty(value = "admin_order_customer")
+        public String adminOrderCustomer;
+        @JsonProperty(value = "admin_order_delivery_windows")
+        public String adminOrderDeliveryWindows;
+        @JsonProperty(value = "xlsx_document_order")
+        public String xlsxDocumentOrder;
+        public String store;
+    }
+
+    @Data
+    public static class Shopper {
+        public String login;
+        public String name;
+        public String phone;
+    }
+
+    @Data
+    public static class Driver {
+        public String login;
+        public String name;
+        public String phone;
+    }
+
+    @Data
+    public static class Order {
+        public int id;
+        public String number;
+        public String name;
+        public String email;
+        @JsonProperty(value = "payment_state")
+        public String paymentState;
+        @JsonProperty(value = "payment_state_name")
+        public String paymentStateName;
+        public boolean promo;
+        public String platform;
+        @JsonProperty(value = "company_document")
+        public CompanyDocument companyDocument;
+        @JsonProperty(value = "ship_address")
+        public ShipAddress shipAddress;
+        @JsonProperty(value = "order_promotions")
+        public List<Object> orderPromotions;
+    }
+
+    @Data
+    public static class CompanyDocument {
+        public String inn;
+        public String name;
+    }
+
+    @Data
+    public static class ShipAddress {
+        public String city;
+        public String fullname;
+        @JsonProperty(value = "phone_number")
+        public String phoneNumber;
+        public String address;
+    }
+
+    @Data
     public static class Retailer {
         public int id;
         public String name;
