@@ -12,6 +12,8 @@ import static ru.instamart.api.enums.RailsConsole.ExternalPartners.SUBSCRIPTION;
 import static ru.instamart.api.enums.RailsConsole.Order.*;
 import static ru.instamart.api.enums.RailsConsole.User.ADD_ALL_ROLES;
 import static ru.instamart.api.enums.RailsConsole.User.ADD_ROLE;
+import static ru.instamart.api.enums.RailsConsole.User.CREATE_ADMIN;
+
 import static ru.instamart.api.enums.RailsConsole.apiV3.*;
 import static ru.instamart.k8s.K8sConsumer.*;
 
@@ -140,6 +142,12 @@ public class K8sHelper {
     @Step("Добавление всех ролей пользователю '{userId}'")
     public static void addAllRolesToUser(String userData) {
         List<String> strings = execRailsCommandWithPod(ADD_ALL_ROLES.get(userData));
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
+
+    @Step("Создание администратора через консоль")
+    public static void createAdmin(String firstName, String lastName, String email, String password) {
+        List<String> strings = execRailsCommandWithPod(CREATE_ADMIN.get(firstName, lastName, email, password));
         Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
     }
 }

@@ -26,7 +26,7 @@ public class MainNavigationV1Test extends RestBase {
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение информации о страницах в админке")
     public void getMainNavigation() {
-        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdmin());
+        admin.authAdminApi();
         final Response response = MainNavigationV1Request.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, MainNavigationV1Response.class);

@@ -13,12 +13,14 @@ import ru.instamart.api.endpoint.AdminEndpoints;
 import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.request.AdminRequestBase;
 import ru.instamart.jdbc.dao.*;
+import ru.instamart.kraken.data.Generate;
 import ru.sbermarket.common.Mapper;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static ru.instamart.kraken.helper.LegalEntityHelper.generateInnUL;
 import static ru.instamart.kraken.util.TimeUtil.getDeliveryDateFrom;
 
 public class StoresAdminRequest extends AdminRequestBase {
@@ -203,6 +205,8 @@ public class StoresAdminRequest extends AdminRequestBase {
                 .operationalZoneId(OperationalZonesDao.INSTANCE.getIdByName("Москва"))
                 .cityId(CitiesDao.INSTANCE.getCityByName("Москва").getId())
                 .timeZone("Europe/Moscow")
+                .inn(generateInnUL())
+                .legalName("Autotest-" + Generate.literalString(6))
                 .importKeyPostFix(RandomUtils.nextInt(1, 1000000))
                 .shipmentBaseKilos((double) RandomUtils.nextInt(10, 1000))
                 .shipmentBaseItemsCount(RandomUtils.nextInt(1, 100))

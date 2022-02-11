@@ -91,6 +91,7 @@ public final class EnvironmentProperties {
                 STAGE = BASIC_URL.replace("stf-", "").replace(".k-stage.sbermarket.tech", "");
                 DB_URL = DB_URL.replace("kraken", STAGE);
                 DB_PGSQL_URL = DB_PGSQL_URL.replace("kraken", STAGE);
+                QA_URL = QA_URL.replace("kraken", STAGE);
 
                 log.debug("Кастомные данные при ручном запуске на стейджах");
                 log.debug("BASIC_URL: {}", BASIC_URL);
@@ -98,6 +99,7 @@ public final class EnvironmentProperties {
                 log.debug("Stage: {}", STAGE);
                 log.debug("DB_URL: {}", DB_URL);
                 log.debug("DB_PGSQL_URL: {}", DB_PGSQL_URL);
+                log.debug("QA_URL: {}", QA_URL);
 
                 if (nonNull(customShopperUrl) && !customShopperUrl.isBlank()) {
                     SHOPPER_URL = getDomainName(customShopperUrl);

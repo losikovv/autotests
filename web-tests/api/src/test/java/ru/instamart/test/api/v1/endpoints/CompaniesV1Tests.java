@@ -44,7 +44,7 @@ public class CompaniesV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdmin());
+        admin.authAdminApi();
         final Response response = UserCompaniesV1Request.POST(companyData);
         checkStatusCode200(response);
         company = response.as(CompanyV1Response.class).getCompany();

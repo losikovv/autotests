@@ -1,9 +1,8 @@
 package ru.instamart.test.api.v1.contracts;
 
-import io.qameta.allure.*;
-import ru.instamart.api.enums.SessionProvider;
-import ru.instamart.api.request.v1.*;
-import ru.sbermarket.qase.annotation.CaseId;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
@@ -14,11 +13,15 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OrderV1;
 import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.api.request.v1.LineItemsV1Request;
+import ru.instamart.api.request.v1.OrdersV1Request;
+import ru.instamart.api.request.v1.ShipmentsV1Request;
+import ru.instamart.api.request.v1.ShoppersV1Request;
 import ru.instamart.api.response.v1.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
-import ru.instamart.kraken.data.user.UserManager;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -38,7 +41,7 @@ public class OrdersV1ContractTests extends RestBase {
         if (order == null) throw new SkipException("Заказ не удалось оплатить");
         orderNumber = order.getNumber();
         shipmentNumber = order.getShipments().get(0).getNumber();
-        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdmin());
+        admin.authAdminApi();
     }
 
     @AfterClass(alwaysRun = true)

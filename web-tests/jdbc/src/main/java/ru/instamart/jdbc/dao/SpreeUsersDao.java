@@ -18,18 +18,23 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
     private final String SELECT_SQL = "SELECT %s FROM spree_users";
     private final String DELETE_SQL = "DELETE FROM spree_users";
 
-    public Long getIdByEmail(String email) {
-        Long id = null;
+    public SpreeUsersEntity getUserByEmail(String email) {
+        SpreeUsersEntity user = new SpreeUsersEntity();
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE email = ?")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE email = ?")) {
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            id = resultSet.getLong("id");
+            if(resultSet.next()) {
+                user.setId(resultSet.getLong("id"));
+                user.setLogin(resultSet.getString("login"));
+                user.setSpreeApiKey(resultSet.getString("spree_api_key"));
+                user.setFirstname(resultSet.getString("firstname"));
+                user.setLastname(resultSet.getString("lastname"));
+            } else return null;
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
-        return id;
+        return user;
     }
 
     public void deleteUserByEmail(String email) {
@@ -63,5 +68,18 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
         } catch (SQLException e) {
             log.error("Error init ConnectionMySQLManager. Error: {}", e.getMessage());
         }
+    }
+
+    public String getEmailByPhone(String phone) {
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "email") + " su JOIN phone_tokens pt ON su.id = pt.user_id WHERE pt.value = ?")) {
+            preparedStatement.setString(1, phone);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            return resultSet.getString("email");
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return null;
     }
 }

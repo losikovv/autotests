@@ -61,9 +61,7 @@ public class RetailersV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        if(!EnvironmentProperties.SERVER.equals("production")) {
-            SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdminAllRoles());
-        }
+        admin.authAdminApi();
     }
 
     @Story("Ритейлеры")

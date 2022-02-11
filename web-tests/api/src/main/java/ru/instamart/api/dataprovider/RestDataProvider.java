@@ -700,7 +700,7 @@ public class RestDataProvider extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2);
         String token = SessionFactory.getSession(SessionType.API_V2).getToken();
         UserV2 user = apiV2.getProfile().getUser();
-        Long userId = SpreeUsersDao.INSTANCE.getIdByEmail(user.getEmail());
+        Long userId = SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()).getId();
         PromotionCodesFilters filters = PromotionCodesFilters.builder()
                 .value("auto%")
                 .usageLimit(5000)

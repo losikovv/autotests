@@ -70,7 +70,7 @@ public final class UserManager {
                     .phone(Crypt.INSTANCE.decrypt("WnA112EejZXmMlMlnVFwgQ=="))
                     .password(PASSWD_1)
                     .name("autotest superadmin")
-                    .token(Crypt.INSTANCE.decrypt("etIbXhyM1zqCCpiTObFcm0Bb5vTw6rAFrB5Ir9/shcQ="))
+                    .token(Crypt.INSTANCE.decrypt("fOirPL+gZMmUegHv1749gumS6q0SJpPUPtjMwaVPTvv3fF6EoM9AZBSUACS5kY9E"))
                     .build();
         }
         return defaultAdmin;

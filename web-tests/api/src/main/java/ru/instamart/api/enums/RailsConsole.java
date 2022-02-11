@@ -108,7 +108,9 @@ public interface RailsConsole {
     enum User implements RailsConsole {
         FIND_BY_PHONE("Spree::User.find_by_sql('SELECT * FROM spree_users INNER JOIN phone_tokens ON spree_users.id = phone_tokens.user_id WHERE phone_tokens.value=%s').last().id"),
         ADD_ROLE("Spree::User.find(%s).roles << Spree::Role.find_by_name('%s')"),
-        ADD_ALL_ROLES("Spree::User.find(%s).roles = Spree::Role.all");
+        ADD_ALL_ROLES("Spree::User.find(%s).roles = Spree::Role.all"),
+        CREATE_ADMIN("Spree::User.create(first_name: '%s', last_name: '%s', email: '%s', password: '%s', spree_api_key: SecureRandom.hex, roles: Spree::Role.all)");
+
 
         private String command;
 
