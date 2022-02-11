@@ -133,7 +133,7 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(marketingSampleFromResponse.getStartsAt().substring(0, 10), getDateWithoutTime(), softAssert);
         compareTwoObjects(marketingSampleFromResponse.getStores().get(0).getId(), EnvironmentProperties.DEFAULT_SID, softAssert);
         compareTwoObjects(marketingSampleFromResponse.getStores().get(0).getRetailer().getName(), "METRO", softAssert);
-        compareTwoObjects(marketingSamplesEntity.get().getUserId(), SpreeUsersDao.INSTANCE.getIdByEmail(email), softAssert);
+        compareTwoObjects(marketingSamplesEntity.get().getUserId(), SpreeUsersDao.INSTANCE.getUserByEmail(email).getId(), softAssert);
         softAssert.assertAll();
     }
     @Step("Проверяем информацию о подписке, пришедшую в ответе")

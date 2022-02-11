@@ -26,7 +26,7 @@ public class UserPermissionsV1Test extends RestBase {
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение информации о страницах в админке")
     public void getUserPermissions() {
-        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdmin());
+        admin.authAdminApi();
         final Response response = UserPermissionsV1Request.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, UserPermissionsV1Response.class);

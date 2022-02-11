@@ -90,8 +90,7 @@ public interface RailsConsole {
          * #Получить id магазина по uuid из адресной строки в админке
          * get(UUID)
          */
-        SID_FIND_BY_UUID("Store.find_by(uuid: '%s')")
-        ;
+        SID_FIND_BY_UUID("Store.find_by(uuid: '%s')");
 
 
         private String command;
@@ -106,8 +105,12 @@ public interface RailsConsole {
     }
 
     @AllArgsConstructor
-    enum User implements RailsConsole{
-        FIND_BY_PHONE("Spree::User.find_by_sql('SELECT * FROM spree_users INNER JOIN phone_tokens ON spree_users.id = phone_tokens.user_id WHERE phone_tokens.value=%s').last().id");
+    enum User implements RailsConsole {
+        FIND_BY_PHONE("Spree::User.find_by_sql('SELECT * FROM spree_users INNER JOIN phone_tokens ON spree_users.id = phone_tokens.user_id WHERE phone_tokens.value=%s').last().id"),
+        ADD_ROLE("Spree::User.find(%s).roles << Spree::Role.find_by_name('%s')"),
+        ADD_ALL_ROLES("Spree::User.find(%s).roles = Spree::Role.all"),
+        CREATE_ADMIN("Spree::User.create(first_name: '%s', last_name: '%s', email: '%s', password: '%s', spree_api_key: SecureRandom.hex, roles: Spree::Role.all)");
+
 
         private String command;
 
@@ -117,7 +120,7 @@ public interface RailsConsole {
     }
 
     @AllArgsConstructor
-    enum ExternalPartners implements RailsConsole{
+    enum ExternalPartners implements RailsConsole {
         SUBSCRIPTION("ExternalPartners::Subscription.create(service_id: 1, user_id: Spree::User.find_by_email('%s').id, expired_date: 10.years.from_now, client_key_type: 'SUB', client_key: '1', begins_date: 1.day.ago, external_id: SecureRandom.uuid, packet_id: '1')");
 
         private String command;
@@ -129,7 +132,7 @@ public interface RailsConsole {
 
 
     @AllArgsConstructor
-    enum apiV3 implements RailsConsole{
+    enum apiV3 implements RailsConsole {
         GET_RETAILER("Spree::Retailer.where(slug: :%s)"),
         OFFER_WHERE_LAST("Offer.where(%s).last"),
         OFFER_JOIN_PRODUCT("Offer.joins(:product).where(%s).last");

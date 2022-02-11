@@ -100,7 +100,7 @@ public class PaymentToolsV2Test extends RestBase {
         softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(0).getType(), "sber_bank_invoice", "Способ оплаты пустой");
 
         softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(1).getName(), "Картой онлайн", "Способ оплаты пустой");
-        softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(1).getDescription(), "После оформления заказа мы спишем и вернем один рубль для проверки карты. \r\nПолная стоимость будет списана после сборки заказа в магазине.", "Способ оплаты пустой");
+        softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(1).getDescription(), "После оформления заказа мы спишем и вернём 11 рублей для проверки карты. Полная стоимость будет списана после сборки заказа в магазине.", "Способ оплаты пустой");
         softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(1).getType(), "cloud_payments_gateway", "Способ оплаты пустой");
 
         softAssert.assertEquals(paymentToolsV2Response.getPaymentToolTypes().get(2).getName(), "Apple Pay", "Способ оплаты пустой");

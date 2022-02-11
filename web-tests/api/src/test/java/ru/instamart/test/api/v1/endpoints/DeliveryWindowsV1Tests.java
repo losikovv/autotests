@@ -3,7 +3,7 @@ package ru.instamart.test.api.v1.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.instamart.api.enums.SessionProvider;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomUtils;
@@ -38,7 +38,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdminAllRoles());
+        admin.authAdminApi();
     }
 
 
@@ -48,7 +48,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
             groups = {"api-instamart-regress"},
             dependsOnMethods = "generateDeliveryWindows")
     public void getDeliveryWindows() {
-        final Response response = StoresV1Request.DeliveryWindows.GET(1);
+        final Response response = StoresV1Request.DeliveryWindows.GET(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, DeliveryWindowsV1Response.class);
         List<DeliveryWindowV1> deliveryWindowsFromResponse = response.as(DeliveryWindowsV1Response.class).getDeliveryWindows();
@@ -71,7 +71,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
     @Test(description = "Генерация окон доставки",
             groups = {"api-instamart-regress"})
     public void generateDeliveryWindows() {
-        final Response response = StoresV1Request.DeliveryWindows.POST(1);
+        final Response response = StoresV1Request.DeliveryWindows.POST(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         checkStatusCode200(response);
     }
 

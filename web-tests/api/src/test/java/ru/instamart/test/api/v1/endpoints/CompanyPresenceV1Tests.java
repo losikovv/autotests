@@ -30,7 +30,7 @@ public class CompanyPresenceV1Tests extends RestBase {
     @Test(description = "Статус регистрации компании (незарегистрирована)",
             groups = {"api-instamart-regress"})
     public void getCompanyNotPresence() {
-        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdmin());
+        admin.authAdminApi();
 
         final Response response = CompanyPresenceV1Request.GET("123456789");
         checkStatusCode404(response);

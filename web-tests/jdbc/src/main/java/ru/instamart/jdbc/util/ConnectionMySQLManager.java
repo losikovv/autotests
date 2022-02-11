@@ -88,7 +88,7 @@ public class ConnectionMySQLManager {
                 sourceConnection.close();
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            log.error("Ошибка получения пула соединения с БД");
         }
     }
 }
