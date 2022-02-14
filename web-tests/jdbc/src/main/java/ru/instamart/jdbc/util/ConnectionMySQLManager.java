@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -84,8 +85,10 @@ public class ConnectionMySQLManager {
 
     public static void closePool() {
         try {
-            for (Connection sourceConnection : sourceConnections) {
-                sourceConnection.close();
+            if(Objects.nonNull(sourceConnections) || !sourceConnections.isEmpty()) {
+                for (Connection sourceConnection : sourceConnections) {
+                    sourceConnection.close();
+                }
             }
         } catch (SQLException e) {
             log.error("Ошибка получения пула соединения с БД");

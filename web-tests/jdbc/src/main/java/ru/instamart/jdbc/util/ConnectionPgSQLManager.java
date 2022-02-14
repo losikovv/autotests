@@ -3,7 +3,6 @@ package ru.instamart.jdbc.util;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.k8s.K8sPortForward;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.sbermarket.common.Crypt;
 
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
@@ -11,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -36,7 +36,7 @@ public class ConnectionPgSQLManager {
 
     protected static void portForward() {
         //TODO: костыль для локального запуска. Нет доступа по vpn до бд
-        if(CI_PIPELINE_SOURCE.equals("local")) {
+        if (CI_PIPELINE_SOURCE.equals("local")) {
             K8sPortForward.getInstance().portForwardPgSQL();
         }
     }
@@ -76,7 +76,7 @@ public class ConnectionPgSQLManager {
         try {
             return DriverManager.getConnection(
                     //TODO: костыль для локального запуска. Нет доступа по vpn до бд
-                    CI_PIPELINE_SOURCE.equals("local")?"jdbc:postgresql://localhost:6432/shopper_staging_kraken":EnvironmentProperties.DB_PGSQL_URL,
+                    CI_PIPELINE_SOURCE.equals("local") ? "jdbc:postgresql://localhost:6432/shopper_staging_kraken" : EnvironmentProperties.DB_PGSQL_URL,
                     EnvironmentProperties.DB_PGSQL_USERNAME,
                     EnvironmentProperties.DB_PGSQL_PASSWORD
             );
@@ -91,11 +91,13 @@ public class ConnectionPgSQLManager {
 
     public static void closePool() {
         try {
-            for (Connection sourceConnection : sourceConnections) {
-                sourceConnection.close();
+            if (Objects.nonNull(sourceConnections) || !sourceConnections.isEmpty()) {
+                for (Connection sourceConnection : sourceConnections) {
+                    sourceConnection.close();
+                }
             }
         } catch (SQLException e) {
-             log.error("Ошибка получения пула соединения с БД");
+            log.error("Ошибка получения пула соединения с БД");
         }
     }
 }
