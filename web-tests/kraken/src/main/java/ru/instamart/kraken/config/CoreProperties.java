@@ -31,6 +31,6 @@ public final class CoreProperties {
     @Config(configName = NAME, fieldName = "mySqlPoolSize", defaultValue = "1")
     public static int DEFAULT_MYSQL_POOL_SIZE;
 
-    @Config(configName = NAME, fieldName = "pgSqlPoolSize", defaultValue = "5")
+    @Config(configName = NAME, fieldName = "pgSqlPoolSize", defaultValue = "10")
     public static int DEFAULT_PGSQL_POOL_SIZE;
 }
