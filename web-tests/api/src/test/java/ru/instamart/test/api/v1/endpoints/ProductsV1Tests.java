@@ -30,7 +30,7 @@ public class ProductsV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdmin());
+        admin.authAdminApi();
     }
 
     @CaseId(45)

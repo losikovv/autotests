@@ -17,7 +17,7 @@ public final class ChromeLocalProvider extends AbstractBrowserProvider {
     public void createDriver(final String version) {
         final var options = new ChromeOptions();
         final var jsonObject = new JSONObject();
-        WebDriverManager.chromedriver().setup();
+        WebDriverManager.chromedriver().browserVersion(BrowserProperties.BROWSER_LOCAL_VERSION).setup();
 
         jsonObject.put("profile.default_content_settings.geolocation", 2);
         jsonObject.put("profile.managed_default_content_settings.geolocation", 2);

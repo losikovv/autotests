@@ -3,6 +3,8 @@ package ru.instamart.api.listener;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.api.common.Specification;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.jdbc.util.ConnectionMySQLManager;
+import ru.instamart.jdbc.util.ConnectionPgSQLManager;
 import ru.instamart.kraken.listener.ExecutionListener;
 
 @Slf4j
@@ -23,6 +25,8 @@ public class ApiExecutionListener extends ExecutionListener {
     @Override
     public void onExecutionFinish() {
         super.onExecutionFinish();
+        ConnectionPgSQLManager.closePool();
+        ConnectionMySQLManager.closePool();
         log.debug("We have {} open sessions", SessionFactory.getSessionMap().size());
     }
 }

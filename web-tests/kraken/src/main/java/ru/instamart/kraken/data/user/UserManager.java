@@ -22,7 +22,7 @@ public final class UserManager {
     private static final String API_SHOPPER_ALONE = System.getenv("API_SHOPPER_ALONE");
     private static final String CI_RUN_ALL_JOBS = System.getenv("CI_RUN_ALL_JOBS");
 
-    private static final List<UserData> USER_DATA_LIST = new ArrayList<>();
+    private static final List<UserData> USER_DATA_LIST = Collections.synchronizedList(new ArrayList<>());
 
     private static final String PASSWD_1 = Crypt.INSTANCE.decrypt("pPOEBSnWKrokeN1dNasL0g==");
     private static final String PASSWD_2 = Crypt.INSTANCE.decrypt("y3Brgz0jBmYYkmXSkdw5Jw==");
@@ -70,7 +70,7 @@ public final class UserManager {
                     .phone(Crypt.INSTANCE.decrypt("WnA112EejZXmMlMlnVFwgQ=="))
                     .password(PASSWD_1)
                     .name("autotest superadmin")
-                    .token(Crypt.INSTANCE.decrypt("etIbXhyM1zqCCpiTObFcm0Bb5vTw6rAFrB5Ir9/shcQ="))
+                    .token(Crypt.INSTANCE.decrypt("fOirPL+gZMmUegHv1749gumS6q0SJpPUPtjMwaVPTvv3fF6EoM9AZBSUACS5kY9E"))
                     .build();
         }
         return defaultAdmin;

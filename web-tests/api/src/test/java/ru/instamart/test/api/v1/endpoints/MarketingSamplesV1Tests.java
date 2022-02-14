@@ -38,7 +38,7 @@ public class MarketingSamplesV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, UserManager.getDefaultAdminAllRoles());
+        admin.authAdminApi();
     }
 
     @Story("Маркетинговые сэмплы")
