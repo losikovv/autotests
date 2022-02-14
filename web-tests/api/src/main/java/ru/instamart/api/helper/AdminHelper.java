@@ -12,8 +12,9 @@ import ru.instamart.api.request.admin.*;
 import ru.instamart.api.request.v1.*;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.MarketingPricers;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.NominalPricers;
+import ru.instamart.api.request.v1.admin.ShipmentsAdminV1Request;
 import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
-import ru.instamart.api.response.admin.ShipmentsAdminResponse;
+import ru.instamart.api.response.v1.admin.ShipmentsAdminV1Response;
 import ru.instamart.api.request.v1.b2b.CompanyManagersV1Request;
 import ru.instamart.api.response.v1.*;
 import ru.instamart.api.response.v1.imports.OffersFilesV1Response;
@@ -148,10 +149,10 @@ public class AdminHelper {
         checkStatusCode200(response);
     }
 
-    public ShipmentsAdminResponse getShipments(final ShipmentsV1AdminRequest.ShipmentsData shipmentsData) {
-        final var response = ShipmentsV1AdminRequest.GET(shipmentsData);
+    public ShipmentsAdminV1Response getShipments(final ShipmentsAdminV1Request.ShipmentsData shipmentsData) {
+        final var response = ShipmentsAdminV1Request.GET(shipmentsData);
         checkStatusCode200(response);
-        return response.as(ShipmentsAdminResponse.class);
+        return response.as(ShipmentsAdminV1Response.class);
     }
 
     @Step("Авторизация администратором")

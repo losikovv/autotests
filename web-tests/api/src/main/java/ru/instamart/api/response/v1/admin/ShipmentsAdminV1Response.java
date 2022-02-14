@@ -1,4 +1,4 @@
-package ru.instamart.api.response.admin;
+package ru.instamart.api.response.v1.admin;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public final class ShipmentsAdminResponse extends BaseResponseObject {
+public final class ShipmentsAdminV1Response extends BaseResponseObject {
 
     public List<Shipment> shipments;
     public MetaV1 meta;

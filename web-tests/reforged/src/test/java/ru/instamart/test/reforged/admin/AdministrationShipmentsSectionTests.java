@@ -8,15 +8,14 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.model.v2.OrderV2;
-import ru.instamart.api.request.v1.ShipmentsV1AdminRequest;
-import ru.instamart.api.response.admin.ShipmentsAdminResponse;
+import ru.instamart.api.request.v1.admin.ShipmentsAdminV1Request;
+import ru.instamart.api.response.v1.admin.ShipmentsAdminV1Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.TimeUtil;
-import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -27,11 +26,11 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 public final class AdministrationShipmentsSectionTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
-    private ShipmentsAdminResponse.Shipment shipment;
+    private ShipmentsAdminV1Response.Shipment shipment;
 
     @BeforeClass(alwaysRun = true)
     public void beforeClass() {
-        var shipments = helper.getShipments(ShipmentsV1AdminRequest.ShipmentsData
+        var shipments = helper.getShipments(ShipmentsAdminV1Request.ShipmentsData
                 .builder()
                 .page(1)
                 .perPage(1)

@@ -1,4 +1,4 @@
-package ru.instamart.api.request.v1;
+package ru.instamart.api.request.v1.admin;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.qameta.allure.Step;
@@ -9,7 +9,7 @@ import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.request.ApiV1RequestBase;
 import ru.sbermarket.common.Mapper;
 
-public final class ShipmentsV1AdminRequest extends ApiV1RequestBase {
+public final class ShipmentsAdminV1Request extends ApiV1RequestBase {
 
     @Step("{method} /" + ApiV1Endpoints.Admin.SHIPMENTS)
     public static Response GET(final ShipmentsData shipmentsData) {
