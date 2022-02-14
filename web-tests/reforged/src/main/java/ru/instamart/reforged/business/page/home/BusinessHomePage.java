@@ -4,6 +4,8 @@ import ru.instamart.reforged.business.block.header.Header;
 import ru.instamart.reforged.business.frame.auth.auth_modal.AuthModal;
 import ru.instamart.reforged.business.page.BusinessPage;
 
+import static ru.instamart.reforged.CookieFactory.RETAILERS_REMINDER_MODAL;
+
 public final class BusinessHomePage implements BusinessPage, BusinessHomeCheck {
 
     public AuthModal interactAuthModal() {
@@ -17,6 +19,12 @@ public final class BusinessHomePage implements BusinessPage, BusinessHomeCheck {
     @Override
     public String pageUrl() {
         return "";
+    }
+
+    @Override
+    public void goToPage() {
+        goToPage(pageUrl());
+        addCookie(RETAILERS_REMINDER_MODAL);
     }
 
 }

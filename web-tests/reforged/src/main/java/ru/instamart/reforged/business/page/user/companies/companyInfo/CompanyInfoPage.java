@@ -1,8 +1,29 @@
 package ru.instamart.reforged.business.page.user.companies.companyInfo;
 
+import io.qameta.allure.Step;
+import ru.instamart.reforged.business.block.header.Header;
 import ru.instamart.reforged.business.page.BusinessPage;
 
 public final class CompanyInfoPage implements BusinessPage, CompanyInfoCheck {
+
+    public Header interactHeader() {
+        return header;
+    }
+
+    @Step("Наводим курсор мыши на кнопку обновления информации о балансе на счёте")
+    public void hoverAccountAmountRefreshButton() {
+        refreshAccountInfo.getActions().mouseOver();
+    }
+
+    @Step("Наводим курсор мыши на иконку дополнительной информации о состоянии счёта")
+    public void hoverAccountAmountAdditionalInfo() {
+        accountAbout.getActions().mouseOver();
+    }
+
+    @Step("Нажимаем на кнопку обновления информации о состоянии счёта")
+    public void clickAccountAmountRefreshButton() {
+        refreshAccountInfo.click();
+    }
 
     @Override
     public String pageUrl() {

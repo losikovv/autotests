@@ -31,5 +31,10 @@ public interface HeaderCheck extends HeaderElement, Check {
     default void checkCartItemsCountSpoilerIsNotVisible() {
         waitAction().shouldNotBeVisible(itemsCountSpoilerOnCartButton);
     }
+
+    @Step("Проверяем, что отображается сообщение об ошибке")
+    default void checkErrorAlertDisplayed() {
+        waitAction().shouldBeVisible(alert);
+    }
 }
 

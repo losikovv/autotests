@@ -15,6 +15,11 @@ public final class UserCompaniesPage implements BusinessPage, UserCompaniesCheck
         addCompany.click();
     }
 
+    @Step("Нажимаем кнопку 'Личный профиль'")
+    public void clickProfile() {
+        profileEdit.click();
+    }
+
     @Step("Нажимаем на название первой компании в списке")
     public void clickOnFirstCompanyName() {
         companiesList.clickOnFirst();
