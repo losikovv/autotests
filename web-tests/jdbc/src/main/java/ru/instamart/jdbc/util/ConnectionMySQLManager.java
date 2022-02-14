@@ -14,11 +14,11 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import static org.testng.Assert.fail;
+import static ru.instamart.kraken.config.CoreProperties.DEFAULT_MYSQL_POOL_SIZE;
 
 @Slf4j
 public class ConnectionMySQLManager {
 
-    private static final Integer DEFAULT_POOL_SIZE = 1;
     private static BlockingQueue<Connection> pool;
     private static List<Connection> sourceConnections;
 
@@ -44,9 +44,9 @@ public class ConnectionMySQLManager {
     }
 
     private static void initConnectionPool() {
-        pool = new ArrayBlockingQueue<>(DEFAULT_POOL_SIZE);
-        sourceConnections = new ArrayList<>(DEFAULT_POOL_SIZE);
-        for (int i = 0; i < DEFAULT_POOL_SIZE; i++) {
+        pool = new ArrayBlockingQueue<>(DEFAULT_MYSQL_POOL_SIZE);
+        sourceConnections = new ArrayList<>(DEFAULT_MYSQL_POOL_SIZE);
+        for (int i = 0; i < DEFAULT_MYSQL_POOL_SIZE; i++) {
             var connection = open();
             var proxyConnection = (Connection)
                     Proxy.newProxyInstance(ConnectionMySQLManager.class.getClassLoader(), new Class[]{Connection.class},

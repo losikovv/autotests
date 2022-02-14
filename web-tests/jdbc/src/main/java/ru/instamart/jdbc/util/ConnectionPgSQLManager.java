@@ -15,12 +15,12 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import static org.testng.Assert.fail;
+import static ru.instamart.kraken.config.CoreProperties.DEFAULT_PGSQL_POOL_SIZE;
 
 @Slf4j
 public class ConnectionPgSQLManager {
 
     private static final String CI_PIPELINE_SOURCE = Optional.ofNullable(System.getenv("CI_PIPELINE_SOURCE")).orElse("local");
-    private static final Integer DEFAULT_POOL_SIZE = 5;
     private static BlockingQueue<Connection> pool;
     private static List<Connection> sourceConnections;
 
@@ -49,9 +49,9 @@ public class ConnectionPgSQLManager {
     }
 
     protected static void initConnectionPool() {
-        pool = new ArrayBlockingQueue<>(DEFAULT_POOL_SIZE);
-        sourceConnections = new ArrayList<>(DEFAULT_POOL_SIZE);
-        for (int i = 0; i < DEFAULT_POOL_SIZE; i++) {
+        pool = new ArrayBlockingQueue<>(DEFAULT_PGSQL_POOL_SIZE);
+        sourceConnections = new ArrayList<>(DEFAULT_PGSQL_POOL_SIZE);
+        for (int i = 0; i < DEFAULT_PGSQL_POOL_SIZE; i++) {
             var connection = open();
             var proxyConnection = (Connection)
                     Proxy.newProxyInstance(ConnectionPgSQLManager.class.getClassLoader(), new Class[]{Connection.class},
