@@ -3,7 +3,6 @@ package ru.instamart.jdbc.util;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.k8s.K8sPortForward;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.sbermarket.common.Crypt;
 
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
@@ -16,12 +15,12 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import static org.testng.Assert.fail;
+import static ru.instamart.kraken.config.CoreProperties.DEFAULT_PGSQL_POOL_SIZE;
 
 @Slf4j
 public class ConnectionPgSQLManager {
 
     private static final String CI_PIPELINE_SOURCE = Optional.ofNullable(System.getenv("CI_PIPELINE_SOURCE")).orElse("local");
-    private static final Integer DEFAULT_POOL_SIZE = 5;
     private static BlockingQueue<Connection> pool;
     private static List<Connection> sourceConnections;
 
@@ -36,7 +35,7 @@ public class ConnectionPgSQLManager {
 
     protected static void portForward() {
         //TODO: костыль для локального запуска. Нет доступа по vpn до бд
-        if(CI_PIPELINE_SOURCE.equals("local")) {
+        if (CI_PIPELINE_SOURCE.equals("local")) {
             K8sPortForward.getInstance().portForwardPgSQL();
         }
     }
@@ -50,9 +49,9 @@ public class ConnectionPgSQLManager {
     }
 
     protected static void initConnectionPool() {
-        pool = new ArrayBlockingQueue<>(DEFAULT_POOL_SIZE);
-        sourceConnections = new ArrayList<>(DEFAULT_POOL_SIZE);
-        for (int i = 0; i < DEFAULT_POOL_SIZE; i++) {
+        pool = new ArrayBlockingQueue<>(DEFAULT_PGSQL_POOL_SIZE);
+        sourceConnections = new ArrayList<>(DEFAULT_PGSQL_POOL_SIZE);
+        for (int i = 0; i < DEFAULT_PGSQL_POOL_SIZE; i++) {
             var connection = open();
             var proxyConnection = (Connection)
                     Proxy.newProxyInstance(ConnectionPgSQLManager.class.getClassLoader(), new Class[]{Connection.class},
@@ -76,7 +75,7 @@ public class ConnectionPgSQLManager {
         try {
             return DriverManager.getConnection(
                     //TODO: костыль для локального запуска. Нет доступа по vpn до бд
-                    CI_PIPELINE_SOURCE.equals("local")?"jdbc:postgresql://localhost:6432/shopper_staging_kraken":EnvironmentProperties.DB_PGSQL_URL,
+                    CI_PIPELINE_SOURCE.equals("local") ? "jdbc:postgresql://localhost:6432/shopper_staging_kraken" : EnvironmentProperties.DB_PGSQL_URL,
                     EnvironmentProperties.DB_PGSQL_USERNAME,
                     EnvironmentProperties.DB_PGSQL_PASSWORD
             );
@@ -87,15 +86,5 @@ public class ConnectionPgSQLManager {
             fail("SQLException: " + ex.getMessage());
         }
         return null;
-    }
-
-    public static void closePool() {
-        try {
-            for (Connection sourceConnection : sourceConnections) {
-                sourceConnection.close();
-            }
-        } catch (SQLException e) {
-             log.error("Ошибка получения пула соединения с БД");
-        }
     }
 }
