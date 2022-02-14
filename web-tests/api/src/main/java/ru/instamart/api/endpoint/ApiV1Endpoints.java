@@ -35,6 +35,7 @@ public final class ApiV1Endpoints {
         public static final String MAIN_NAVIGATION = "admin/main_navigation";
         public static final String OPERATIONAL_ZONES = "admin/operational_zones";
         public static final String USER_PERMISSIONS = "admin/user_permissions";
+        public static final String SHIPMENTS = "admin/shipments.json";
 
         public static final class Dictionaries {
             public static final String API_CLIENTS = "admin/dictionaries/api_clients";

@@ -148,8 +148,8 @@ public class AdminHelper {
         checkStatusCode200(response);
     }
 
-    public ShipmentsAdminResponse getShipments(final ShipmentsAdminRequest.ShipmentsData shipmentsData) {
-        final var response = ShipmentsAdminRequest.GET(shipmentsData);
+    public ShipmentsAdminResponse getShipments(final ShipmentsV1AdminRequest.ShipmentsData shipmentsData) {
+        final var response = ShipmentsV1AdminRequest.GET(shipmentsData);
         checkStatusCode200(response);
         return response.as(ShipmentsAdminResponse.class);
     }

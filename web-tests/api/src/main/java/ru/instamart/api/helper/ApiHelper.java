@@ -9,8 +9,8 @@ import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.SessionV2;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
-import ru.instamart.api.request.admin.ShipmentsAdminRequest;
 import ru.instamart.api.request.admin.ShippingMethodsRequest;
+import ru.instamart.api.request.v1.ShipmentsV1AdminRequest;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request;
 import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
 import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
@@ -454,8 +454,8 @@ public final class ApiHelper {
     }
 
     @Step("Получить данные по заказам {0}")
-    public ShipmentsAdminResponse getShipments(final ShipmentsAdminRequest.ShipmentsData shipmentsData) {
-        admin.authAdmin();
+    public ShipmentsAdminResponse getShipments(final ShipmentsV1AdminRequest.ShipmentsData shipmentsData) {
+        admin.authAdminApi();
         return admin.getShipments(shipmentsData);
     }
 

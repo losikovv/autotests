@@ -29,7 +29,6 @@ public final class AdminEndpoints {
     public static final String PROPERTIES = "properties";
     public static final String PROPERTY = "properties/{propertyId}";
 
-    public static final String SHIPMENTS = "shipments.json";
     public static final String SHIPPING_METHODS = "shipping_methods";
 
     public static final String STORE = "stores/{storeId}";

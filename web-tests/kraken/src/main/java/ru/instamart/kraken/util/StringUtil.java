@@ -44,7 +44,11 @@ public final class StringUtil {
     }
 
     public static String getPhone(final String phone) {
-        return phone.replaceAll("[^0-9]", "").substring(1);
+        return getPhoneNumber(phone).substring(1);
+    }
+
+    public static String getPhoneNumber(final String phone) {
+        return phone.replaceAll("[^0-9]", "");
     }
 
     public static String getSMSCode(final String phone) {
