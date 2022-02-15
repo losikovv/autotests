@@ -19,8 +19,8 @@ public interface HeaderElement {
     Link help = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Помощь')]"), "Кнопка открытия раздела помощи");
 
     Button categoryMenu = new Button(By.xpath("//button[@data-qa='catalog-button']"), "Кнопка открытия меню категорий");
-    Input searchInput = new Input(By.xpath("//div[@data-qa='search']/form/input"), "Инпут поиска товара");
-    Button searchButton = new Button(By.xpath("//div[@data-qa='search']/form/button"), "Кнопка поиска в инпуте товара");
+    Input searchInput = new Input(By.xpath("//input[@data-qa='suggester_header_form_input']"), "Инпут поиска товара");
+    Button searchButton = new Button(By.xpath("//button[@data-qa='suggester_header_form_search_button']"), "Кнопка поиска в инпуте товара");
 
     Button cart = new Button(By.xpath("//button[@data-qa='open-cart-button']"), "Кнопка корзины");
     Button login = new Button(By.xpath("//button[@data-qa='login-button']"), "Кнопка логина");

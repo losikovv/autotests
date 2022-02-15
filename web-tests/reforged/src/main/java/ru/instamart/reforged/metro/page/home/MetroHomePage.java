@@ -14,6 +14,11 @@ public final class MetroHomePage implements MetroPage, MetroHomeCheck {
         return footer;
     }
 
+    public void goToPage(final boolean isFixedUUID) {
+        goToPage(pageUrl());
+        cookiesChange(true);
+    }
+
     @Override
     public void goToPage() {
         goToPage(pageUrl());
