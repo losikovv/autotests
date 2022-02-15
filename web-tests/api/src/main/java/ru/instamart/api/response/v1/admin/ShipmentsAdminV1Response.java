@@ -31,7 +31,7 @@ public final class ShipmentsAdminV1Response extends BaseResponseObject {
         @JsonProperty(value = "express_delivery")
         public boolean expressDelivery;
         @JsonProperty(value = "assembly_comment")
-        public Object assemblyComment;
+        public String assemblyComment;
         @JsonProperty(value = "vehicle_number")
         public Object vehicleNumber;
         @JsonProperty(value = "display_total_weight")
@@ -60,16 +60,18 @@ public final class ShipmentsAdminV1Response extends BaseResponseObject {
         public Object assignedDriver;
     }
 
+    @EqualsAndHashCode(callSuper = true)
     @Data
-    public static class RecentPayment {
+    public static class RecentPayment extends BaseResponseObject {
         @JsonProperty(value = "method_name")
         public String methodName;
         @JsonProperty(value = "hold_acquired")
         public boolean holdAcquired;
     }
 
+    @EqualsAndHashCode(callSuper = true)
     @Data
-    public static class Urls {
+    public static class Urls extends BaseResponseObject {
         @JsonProperty(value = "edit_admin_order")
         public String editAdminOrder;
         @JsonProperty(value = "admin_order_payments")
@@ -83,22 +85,25 @@ public final class ShipmentsAdminV1Response extends BaseResponseObject {
         public String store;
     }
 
+    @EqualsAndHashCode(callSuper = true)
     @Data
-    public static class Shopper {
+    public static class Shopper extends BaseResponseObject {
         public String login;
         public String name;
         public String phone;
     }
 
+    @EqualsAndHashCode(callSuper = true)
     @Data
-    public static class Driver {
+    public static class Driver extends BaseResponseObject {
         public String login;
         public String name;
         public String phone;
     }
 
+    @EqualsAndHashCode(callSuper = true)
     @Data
-    public static class Order {
+    public static class Order extends BaseResponseObject {
         public int id;
         public String number;
         public String name;
@@ -117,14 +122,16 @@ public final class ShipmentsAdminV1Response extends BaseResponseObject {
         public List<Object> orderPromotions;
     }
 
+    @EqualsAndHashCode(callSuper = true)
     @Data
-    public static class CompanyDocument {
+    public static class CompanyDocument extends BaseResponseObject {
         public String inn;
         public String name;
     }
 
+    @EqualsAndHashCode(callSuper = true)
     @Data
-    public static class ShipAddress {
+    public static class ShipAddress extends BaseResponseObject {
         public String city;
         public String fullname;
         @JsonProperty(value = "phone_number")
@@ -132,8 +139,9 @@ public final class ShipmentsAdminV1Response extends BaseResponseObject {
         public String address;
     }
 
+    @EqualsAndHashCode(callSuper = true)
     @Data
-    public static class Retailer {
+    public static class Retailer extends BaseResponseObject {
         public int id;
         public String name;
         public String short_name;
@@ -144,8 +152,9 @@ public final class ShipmentsAdminV1Response extends BaseResponseObject {
         public Appearance appearance;
     }
 
+    @EqualsAndHashCode(callSuper = true)
     @Data
-    public static class Appearance {
+    public static class Appearance extends BaseResponseObject {
         @JsonProperty(value = "background_color")
         public String backgroundColor;
         @JsonProperty(value = "image_color")
@@ -160,29 +169,33 @@ public final class ShipmentsAdminV1Response extends BaseResponseObject {
         public String miniLogoImage;
     }
 
+    @EqualsAndHashCode(callSuper = true)
     @Data
-    public static class Store {
+    public static class Store extends BaseResponseObject {
         public String uuid;
         public Location location;
     }
 
+    @EqualsAndHashCode(callSuper = true)
     @Data
-    public static class Location{
+    public static class Location extends BaseResponseObject {
         public StoreLocation store_location;
         public String city;
         public String street;
         public String building;
     }
 
+    @EqualsAndHashCode(callSuper = true)
     @Data
-    public static class StoreLocation {
+    public static class StoreLocation extends BaseResponseObject {
         public String city;
         public String street;
         public String building;
     }
 
+    @EqualsAndHashCode(callSuper = true)
     @Data
-    public static class Payment {
+    public static class Payment extends BaseResponseObject {
         public double amount;
         @JsonProperty(value = "hold_acquired")
         public boolean holdAcquired;
@@ -190,10 +203,10 @@ public final class ShipmentsAdminV1Response extends BaseResponseObject {
         public PaymentMethod paymentMethod;
     }
 
+    @EqualsAndHashCode(callSuper = true)
     @Data
-    public static class PaymentMethod {
+    public static class PaymentMethod extends BaseResponseObject {
         public String name;
         public String description;
     }
-
 }
