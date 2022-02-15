@@ -24,7 +24,7 @@ public final class BasicMetroTests extends BaseTest {
     @Story("Валидация элементов")
     @Test(description = "Тест валидности элементов и ссылок в шапке METRO Delivery", groups = {"acceptance", "regression"})
     public void successValidateMetroTenantHeader() {
-        metro().goToPage();
+        metro().goToPage(true);
         metro().checkPageIsAvailable();
 
         metro().interactHeader().checkHeaderVisible();

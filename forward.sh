@@ -1,14 +1,28 @@
 #!/bin/bash
 
 # SHP Forward
-shp_forward () {
-  echo "Please enter stage number or name: "
-  read -r stage
-  kubectl -n s-sh-shp$stage port-forward pod/$(kubectl get pods -n s-sh-shp$stage | awk '{print $1}' | grep shopper-backend | head -1) 6432:6432
+shp () {
+  local PS3='Select SHP option: '
+    local options=("Forward" "Back")
+    local opt
+    select opt in "${options[@]}"
+    do
+        case $opt in
+        "Forward")
+            while [ -z $stage ]; do
+                echo "Please enter stage number or name: "
+                read -r stage
+            done
+              kubectl -n s-sh-shp$stage port-forward pod/$(kubectl get pods -n s-sh-shp$stage | awk '{print $1}' | grep shopper-backend | head -1) 6432:6432
+            ;;
+        "Back") return;;
+        *) echo "invalid option $REPLY";;
+        esac
+    done
 }
 
 # STF Forward
-stf_forward () {
+stf () {
   local PS3='Select STF option: '
   local options=("Forward" "Rake" "Back")
   local opt
@@ -18,7 +32,7 @@ stf_forward () {
       "Forward")
           while [ -z $stage ]; do
               echo "Please enter stage number or name: "
-              read -r stage task
+              read -r stage
           done
           kubectl -n s-sb-stf$stage port-forward pod/$(kubectl get pods -n s-sb-stf$stage | awk '{print $1}' | grep app-stf-sbermarket | head -1) 3306:3306
           ;;
@@ -29,29 +43,21 @@ stf_forward () {
           done
           kubectl exec -n s-sb-stf$stage -i -t -c puma $(kubectl get pods -n s-sb-stf$stage | awk '{print $1}' | grep app-stf-sbermarket | head -1) -- /vault/vault-env rake $task
           ;;
-      "Back")
-          return
-          ;;
+      "Back") return;;
       *) echo "invalid option $REPLY";;
       esac
   done
 }
 
 # Main menu
-PS3='Please enter option: '
-options=("STF Forward" "SHP Forward" "Exit")
+PS3='Please select option: '
+options=("STF" "SHP" "Exit")
 select opt in "${options[@]}"
 do
     case $opt in
-        "STF Forward")
-            stf_forward
-            ;;
-        "SHP Forward")
-            shp_forward
-            ;;
-        "Exit")
-            exit
-            ;;
+        "STF") stf;;
+        "SHP") shp;;
+        "Exit") exit;;
         *) echo "invalid option $REPLY";;
     esac
 done

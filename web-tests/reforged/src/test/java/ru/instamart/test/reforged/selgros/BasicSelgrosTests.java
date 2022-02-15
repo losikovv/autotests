@@ -24,7 +24,7 @@ public final class BasicSelgrosTests extends BaseTest {
     @Story("Валидация элементов")
     @Test(description = "Тест валидности элементов и ссылок в шапке Selgros", groups = {"acceptance", "regression"})
     public void successValidateSelgrosTenantHeader() {
-        selgros().goToPage();
+        selgros().goToPage(true);
         selgros().checkPageIsAvailable();
 
         selgros().interactHeader().checkHeaderVisible();
