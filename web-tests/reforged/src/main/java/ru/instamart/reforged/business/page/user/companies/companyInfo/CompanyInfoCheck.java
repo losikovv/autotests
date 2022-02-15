@@ -29,4 +29,20 @@ public interface CompanyInfoCheck extends Check, CompanyInfoElement {
         assertTrue(managerInfo.getText().contains(expectedText),
                 String.format("В блоке информации о персональном менеджере компании '%s' не найден текст '%s'", managerInfo.getText(), expectedText));
     }
+
+    @Step("Проверяем, что отображается всплывающая подсказка о времени обновления данных по счёту")
+    default void checkPaymentAccountUpdateInfoDisplayed() {
+        waitAction().shouldBeVisible(accountUpdateInfo);
+    }
+
+    @Step("Проверяем, что отображается всплывающая подсказка о возможной задержке обновления информации о счёте")
+    default void checkPaymentAccountWarningDisplayed() {
+        waitAction().shouldBeVisible(accountUpdateWarning);
+    }
+
+    @Step("Проверяем, что сумма на счёте содержит текст {expectedText}")
+    default void checkPaymentAccountAmountContainsText(String expectedText) {
+        assertTrue(paymentAccountAmount.getText().contains(expectedText),
+                String.format("Отображаемая сумма на счёте: '%s' не содержит ожидаемый текст: '%s'", paymentAccountAmount.getText(), expectedText));
+    }
 }

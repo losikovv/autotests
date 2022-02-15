@@ -17,6 +17,45 @@ public class CompaniesTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
 
+    @CaseId(21)
+    @Test(description = "Переход в раздел 'Компании'", groups = {"smoke", "regression"})
+    public void gotoCompaniesFromHeader() {
+        var user = UserManager.getQaUser();
+
+        business().goToPage();
+        business().interactHeader().clickToLogin();
+        business().interactAuthModal().authViaPhone(user);
+        business().interactHeader().checkProfileButtonVisible();
+
+        business().interactHeader().clickToProfile();
+        business().interactHeader().interactAccountMenu().checkAccountMenuVisible();
+        business().interactHeader().interactAccountMenu().clickToCompanies();
+
+        companies().checkCompaniesListIsNotEmpty();
+        companies().checkProfileButtonVisible();
+        companies().checkAddCompanyButtonVisible();
+    }
+
+    @CaseId(22)
+    @Test(description = "Переход в профиль из раздела 'Компании'", groups = {"smoke", "regression"})
+    public void gotoProfileFromCompanies() {
+        var user = UserManager.getQaUser();
+
+        business().goToPage();
+        business().interactHeader().clickToLogin();
+        business().interactAuthModal().authViaPhone(user);
+        business().interactHeader().checkProfileButtonVisible();
+
+        business().interactHeader().clickToProfile();
+        business().interactHeader().interactAccountMenu().checkAccountMenuVisible();
+        business().interactHeader().interactAccountMenu().clickToCompanies();
+
+        companies().checkProfileButtonVisible();
+        companies().clickProfile();
+
+        userEdit().checkUserInfoBlockVisible();
+    }
+
     @CaseId(23)
     @Test(description = "Добавление новой компании из раздела 'Компании' / ввод корректного ИНН", groups = {"smoke", "regression"})
     public void addCompanyFromCompaniesPagePositive() {
@@ -109,5 +148,51 @@ public class CompaniesTests extends BaseTest {
         companies().clickOnFirstCompanyName();
         companyInfoPage().checkCompanyInfoIsVisible();
         companyInfoPage().checkCompanyInfoContainsText(company.getJuridicalName());
+    }
+
+    @CaseId(39)
+    @Test(description = "Кнопка 'обновления баланса' и 'подсказка'", groups = {"smoke", "regression"})
+    public void testCompanyBalance() {
+        var company = JuridicalData.juridical();
+        var userData = UserManager.getQaUser();
+        helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
+        var companyId = helper.getCompanyId(company.getInn());
+
+        business().goToPage();
+        business().interactHeader().clickToLogin();
+        business().interactAuthModal().authViaPhone(userData);
+        business().interactHeader().checkProfileButtonVisible();
+
+        companies().goToPage();
+        companies().checkCompaniesListIsNotEmpty();
+        companies().clickOnFirstCompanyName();
+        companyInfoPage().checkCompanyInfoIsVisible();
+
+        companyInfoPage().checkPaymentAccountAmountContainsText("нет данных");
+        companyInfoPage().hoverAccountAmountAdditionalInfo();
+        companyInfoPage().checkPaymentAccountWarningDisplayed();
+        companyInfoPage().clickAccountAmountRefreshButton();
+        companyInfoPage().interactHeader().checkErrorAlertDisplayed();
+
+        helper.addPaymentAccountForCompany(companyId, 1000);
+        companyInfoPage().refresh();
+        companyInfoPage().checkCompanyInfoIsVisible();
+
+        companyInfoPage().checkPaymentAccountAmountContainsText("1 000,00 ₽");
+        companyInfoPage().hoverAccountAmountRefreshButton();
+        companyInfoPage().checkPaymentAccountUpdateInfoDisplayed();
+        companyInfoPage().hoverAccountAmountAdditionalInfo();
+        companyInfoPage().checkPaymentAccountWarningDisplayed();
+
+        helper.setPaymentAccountBalance(companyId, -1000);
+        companyInfoPage().refresh();
+        companyInfoPage().checkCompanyInfoIsVisible();
+
+        companyInfoPage().checkPaymentAccountAmountContainsText("-1 000,00 ₽");
+        companyInfoPage().hoverAccountAmountRefreshButton();
+        companyInfoPage().checkPaymentAccountUpdateInfoDisplayed();
+        companyInfoPage().hoverAccountAmountAdditionalInfo();
+        companyInfoPage().checkPaymentAccountWarningDisplayed();
+
     }
 }

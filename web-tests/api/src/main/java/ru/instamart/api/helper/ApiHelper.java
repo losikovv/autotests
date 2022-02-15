@@ -17,10 +17,7 @@ import ru.instamart.api.response.v1.PricerV1Response;
 import ru.instamart.api.response.v1.PricersV1Response;
 import ru.instamart.api.response.v1.ShippingMethodsResponse;
 import ru.instamart.api.response.v1.b2b.CompaniesV1Response;
-import ru.instamart.jdbc.dao.OffersDao;
-import ru.instamart.jdbc.dao.OperationalZonesDao;
-import ru.instamart.jdbc.dao.PromotionCodesDao;
-import ru.instamart.jdbc.dao.StoresDao;
+import ru.instamart.jdbc.dao.*;
 import ru.instamart.jdbc.dao.shopper.OperationalZonesShopperDao;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.user.UserData;
@@ -468,5 +465,20 @@ public final class ApiHelper {
 
     public void updateStore(final Long storeId, final String availabilityDate) {
         StoresDao.INSTANCE.updateWithSetAvailability(storeId, availabilityDate);
+    }
+
+    @Step("Получаем Id компании по ИНН: {inn}")
+    public int getCompanyId(final String inn) {
+        return CompaniesV1Request.GET(inn).as(CompaniesV1Response.class).getCompanies().get(0).getId();
+    }
+
+    @Step("Добавляем для компании Id: {companyId} счёт с балансом: {balance}")
+    public void addPaymentAccountForCompany(Integer companyId, Integer balance) {
+        CompanyPaymentAccountsDao.INSTANCE.createCompanyAccount(companyId, balance);
+    }
+
+    @Step("Устанавливаем на счёте компании с Id: {companyId} сумму: {balance}")
+    public void setPaymentAccountBalance(Integer companyId, Integer balance) {
+        CompanyPaymentAccountsDao.INSTANCE.updateBalance(companyId, balance);
     }
 }

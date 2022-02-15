@@ -1,10 +1,13 @@
 package ru.instamart.reforged.business.block.header;
 
 import org.openqa.selenium.By;
+import ru.instamart.reforged.business.drawer.cart.account_menu.AccountMenu;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 
 public interface HeaderElement {
+
+    AccountMenu accountMenu = new AccountMenu();
 
     Element header = new Element(By.xpath("//header"), "Контейнер для хедера");
 
@@ -15,4 +18,5 @@ public interface HeaderElement {
     Element cartNotification = new Element(By.xpath("//div[@class='notification']"), "Алерт добавления товара в корзину");
     Button cart = new Button(By.xpath("//button[@data-qa='open-cart-button']"), "Кнопка 'Корзина'");
     Element itemsCountSpoilerOnCartButton = new Element(By.xpath("//button[@data-qa='open-cart-button']/following-sibling::span"), "Значок о количестве товаров в корзине над кнопкой");
+    Element alert = new Element(By.xpath("//div[@class='alert alert--error']"), "Тултип-сообщение об ошибке");
 }
