@@ -50,7 +50,7 @@ public class ExternalPartnersV2Test extends RestBase {
     public void getInactiveSubscription() {
         final Response response = ExternalPartnersV2Request.Services.GET();
         checkStatusCode200(response);
-        checkExternalPartnersServices(response, false);
+        checkExternalPartnersServices(response, false, "Бесплатная доставка");
     }
 
     @CaseId(1086)
@@ -61,6 +61,6 @@ public class ExternalPartnersV2Test extends RestBase {
         addSberPrime(apiV2.getProfile().getUser().getEmail());
         final Response response = ExternalPartnersV2Request.Services.GET();
         checkStatusCode200(response);
-        checkExternalPartnersServices(response, true);
+        checkExternalPartnersServices(response, true, "3 бесплатные доставки");
     }
 }

@@ -137,13 +137,13 @@ public class InstamartApiCheckpoints {
         softAssert.assertAll();
     }
     @Step("Проверяем информацию о подписке, пришедшую в ответе")
-    public static void checkExternalPartnersServices(Response response, Boolean isActive) {
+    public static void checkExternalPartnersServices(Response response, Boolean isActive, String text) {
         ServicesV2 service = response.as(ExternalPartnersServicesV2Response.class).getServices().get(0);
         checkFieldIsNotEmpty(service, "сервис");
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(service.getName(), "SberPrime", softAssert);
         compareTwoObjects(service.getKind(), "sber_prime", softAssert);
-        compareTwoObjects(service.getText(), "Бесплатная доставка", softAssert);
+        compareTwoObjects(service.getText(), text, softAssert);
         compareTwoObjects(service.getDiscountType(), "free_delivery", softAssert);
         compareTwoObjects(service.getSubscription().getActive(), isActive, softAssert);
         softAssert.assertAll();

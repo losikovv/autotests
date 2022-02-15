@@ -55,11 +55,9 @@ public class StoresV3Request extends ApiV3RequestBase {
             JSONObject requestParams = new JSONObject();
             requestParams.put("lat", 55.747581);
             requestParams.put("lon", 37.797110);
-            return givenWithSpec()
+            return givenWithAuth()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
-                    .header("Api-Version", "3.0")
-                    .header("Client-Token", "14cd5d341d768bd4926fc9f5ce262094")
                     .get(ApiV3Endpoints.Stores.PICKUP_FROM_STORE);
         }
     }

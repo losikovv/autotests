@@ -150,4 +150,10 @@ public class K8sHelper {
         List<String> strings = execRailsCommandWithPod(CREATE_ADMIN.get(firstName, lastName, email, password));
         Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
     }
+
+    @Step("Создание api-клиента через консоль")
+    public static void createApiClient(String clientId, String tenantId) {
+        List<String> strings = execRailsCommandWithPod(CREATE_API_CLIENT.get(clientId, tenantId));
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
 }

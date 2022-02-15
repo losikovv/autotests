@@ -1,5 +1,6 @@
 package ru.instamart.api.helper;
 
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
@@ -9,11 +10,13 @@ import ru.instamart.api.request.v3.OrderOptionsV3Request;
 import ru.instamart.api.request.v3.OrderV3Request;
 import ru.instamart.api.request.v3.StoresV3Request;
 import ru.instamart.api.response.v3.OrderOptionsV3Response;
+import ru.instamart.jdbc.dao.ApiClientsDao;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.helper.K8sHelper.createApiClient;
 
 @Slf4j
 public final class ApiV3Helper {
@@ -177,5 +180,18 @@ public final class ApiV3Helper {
         }
         checkStatusCode200(response);
         return response.as(OrderV3.class);
+    }
+
+    @Step("Получаем токен api-клиента")
+    public static String getApiClienToken(String clientName) {
+        String token;
+        String tokenFromDb = ApiClientsDao.INSTANCE.getClientTokenByName(clientName);
+        if (tokenFromDb != null) {
+            token = tokenFromDb;
+        } else {
+            createApiClient(clientName, "sbermarket");
+            token = ApiClientsDao.INSTANCE.getClientTokenByName(clientName);
+        }
+        return token;
     }
 }

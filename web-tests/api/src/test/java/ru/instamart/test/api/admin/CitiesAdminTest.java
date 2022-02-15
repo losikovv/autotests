@@ -2,6 +2,7 @@ package ru.instamart.test.api.admin;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -15,6 +16,8 @@ import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.jdbc.dao.CitiesDao;
 import ru.instamart.jdbc.entity.CitiesEntity;
 import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
@@ -45,6 +48,8 @@ public class CitiesAdminTest extends RestBase {
         checkStatusCode(response, 200, ContentType.HTML);
     }
 
+    @Issue("B2C-6444")
+    @Skip(onServer = Server.STAGING)
     @CaseId(1124)
     @Story("Список городов в настройках")
     @Test(groups = {"api-instamart-regress"}, description = "Создание города c обязательными параметрами")
@@ -59,6 +64,8 @@ public class CitiesAdminTest extends RestBase {
         softAssert.assertAll();
     }
 
+    @Issue("B2C-6444")
+    @Skip(onServer = Server.STAGING)
     @CaseId(1125)
     @Story("Список городов в настройках")
     @Test(groups = {"api-instamart-regress"}, description = "Создание города со всеми возможными параметрами")
@@ -86,6 +93,8 @@ public class CitiesAdminTest extends RestBase {
         checkStatusCode400(response);
     }
 
+    @Issue("B2C-6444")
+    @Skip(onServer = Server.STAGING)
     @CaseId(1127)
     @Story("Список городов в настройках")
     @Test(groups = {"api-instamart-regress"},
@@ -99,6 +108,8 @@ public class CitiesAdminTest extends RestBase {
         checkFieldIsNotEmpty(cityFromDb, "город в БД");
     }
 
+    @Issue("B2C-6444")
+    @Skip(onServer = Server.STAGING)
     @CaseId(1128)
     @Story("Список городов в настройках")
     @Test(groups = {"api-instamart-regress"},
@@ -109,6 +120,8 @@ public class CitiesAdminTest extends RestBase {
         checkStatusCode400(response);
     }
 
+    @Issue("B2C-6444")
+    @Skip(onServer = Server.STAGING)
     @CaseId(1129)
     @Story("Список городов в настройках")
     @Test(groups = {"api-instamart-regress"},
@@ -131,6 +144,8 @@ public class CitiesAdminTest extends RestBase {
         checkCityInDb(city, cityFromDb);
     }
 
+    @Issue("B2C-6444")
+    @Skip(onServer = Server.STAGING)
     @CaseId(1130)
     @Story("Список городов в настройках")
     @Test(groups = {"api-instamart-regress"},
@@ -144,6 +159,8 @@ public class CitiesAdminTest extends RestBase {
         Assert.assertNull(cityFromDb, "Заблокированный для редактирования город обновился");
     }
 
+    @Issue("B2C-6444")
+    @Skip(onServer = Server.STAGING)
     @CaseId(1131)
     @Story("Список городов в настройках")
     @Test(groups = {"api-instamart-regress"},
@@ -155,6 +172,8 @@ public class CitiesAdminTest extends RestBase {
         Assert.assertNull(cityFromDb, "Город не удалился");
     }
 
+    @Issue("B2C-6444")
+    @Skip(onServer = Server.STAGING)
     @CaseId(1132)
     @Story("Список городов в настройках")
     @Test(groups = {"api-instamart-regress"},
@@ -166,6 +185,8 @@ public class CitiesAdminTest extends RestBase {
         checkFieldIsNotEmpty(cityFromDb, "город в БД");
     }
 
+    @Issue("B2C-6444")
+    @Skip(onServer = Server.STAGING)
     @AfterClass(alwaysRun = true)
     public void clearData() {
         CitiesDao.INSTANCE.deleteCityByName(lockedCityName);

@@ -32,6 +32,7 @@ public class ImportsFileV1 extends BaseObject {
     @JsonProperty("payload_file_url")
     private String payloadFileUrl;
 
+    @Null
     @JsonSchema(required = true)
     private String status;
 

@@ -32,11 +32,9 @@ public class SetupInfoV3Request extends ApiV3RequestBase {
         public static Response GET() {
 
             JSONObject requestParams = new JSONObject();
-            return givenWithSpec()
+            return givenWithAuth()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
-                    .header("Api-Version","3.0")
-                    .header("Client-Token","14cd5d341d768bd4926fc9f5ce262094")
                     .get(ApiV3Endpoints.SetupInfo.STORES);
         }
     }
