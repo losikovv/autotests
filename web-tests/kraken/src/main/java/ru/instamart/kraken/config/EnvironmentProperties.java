@@ -8,6 +8,7 @@ import ru.sbermarket.common.config.Env;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Optional;
 
 import static java.util.Objects.nonNull;
 
@@ -89,10 +90,19 @@ public final class EnvironmentProperties {
                         ? Server.STAGING.name().toLowerCase() : Server.PRODUCTION.name().toLowerCase();
                 BASIC_URL = customBasicUrl;
                 STAGE = BASIC_URL.replace("stf-", "").replace(".k-stage.sbermarket.tech", "");
+
                 DB_URL = DB_URL.replace("kraken", STAGE);
                 DB_PGSQL_URL = DB_PGSQL_URL.replace("kraken", STAGE);
                 QA_URL = QA_URL.replace("kraken", STAGE);
 
+
+                if (BASIC_URL.contains("stf-")) {
+                    K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("kraken", STAGE);
+                    K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("kraken", STAGE);
+                } else {
+                    K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("stfkraken", STAGE);
+                    K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("shpkraken", STAGE);
+                }
                 log.debug("Кастомные данные при ручном запуске на стейджах");
                 log.debug("BASIC_URL: {}", BASIC_URL);
                 log.debug("Server: {}", SERVER);
@@ -100,6 +110,8 @@ public final class EnvironmentProperties {
                 log.debug("DB_URL: {}", DB_URL);
                 log.debug("DB_PGSQL_URL: {}", DB_PGSQL_URL);
                 log.debug("QA_URL: {}", QA_URL);
+                log.debug("K8S_NAME_STF_SPACE: {}", K8S_NAME_STF_SPACE);
+                log.debug("K8S_NAME_SHP_SPACE: {}", K8S_NAME_SHP_SPACE);
 
                 if (nonNull(customShopperUrl) && !customShopperUrl.isBlank()) {
                     SHOPPER_URL = getDomainName(customShopperUrl);
