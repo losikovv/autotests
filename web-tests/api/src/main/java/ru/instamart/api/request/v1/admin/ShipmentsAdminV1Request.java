@@ -32,5 +32,8 @@ public final class ShipmentsAdminV1Request extends ApiV1RequestBase {
          * business=3
          */
         private int paymentMethodId;
+        private String completedAtEnd;
+        @JsonProperty(value = "only_b2b")
+        private boolean onlyB2b;
     }
 }

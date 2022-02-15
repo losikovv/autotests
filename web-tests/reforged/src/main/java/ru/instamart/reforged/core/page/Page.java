@@ -77,6 +77,7 @@ public interface Page extends PageCheck {
      * Проверяет наличие куки и подменяет ее на нужную
      */
     default void cookieChange(final Cookie cookie) {
+        checkPageIsAvailable();
         Kraken.waitAction().cookieShouldBeExist(cookie.getName());
         Kraken.addCookieIfNotExist(cookie);
     }
@@ -85,6 +86,7 @@ public interface Page extends PageCheck {
      * Проверяет наличие нескольких кук и подменяет их на нужные
      */
     default void cookiesChange(final Set<Cookie> cookies) {
+        checkPageIsAvailable();
         Kraken.waitAction().cookiesShouldBeExist(cookies.stream().map(Cookie::getName).collect(Collectors.toSet()));
         Kraken.addCookiesIfNotExist(cookies);
     }

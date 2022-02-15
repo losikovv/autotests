@@ -19,7 +19,8 @@ import ru.instamart.kraken.util.TimeUtil;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.admin.AdminRout.*;
+import static ru.instamart.reforged.admin.AdminRout.login;
+import static ru.instamart.reforged.admin.AdminRout.shipments;
 
 @Epic("Админка STF")
 @Feature("Управление заказами")
@@ -36,6 +37,8 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
                 .perPage(1)
                 .completedShipments(true)
                 .paymentMethodId(3)
+                .onlyB2b(true)
+                .completedAtEnd(TimeUtil.getPastDateWithoutTime(2L))
                 .build());
         shipment = shipments.getShipments().stream().findFirst().orElseThrow(NotFoundException::new);
     }
@@ -228,6 +231,8 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().checkOrderOrShipmentNumber(shipments().getShipmentNumber(), shipmentNumber);
     }
 
+    //Нет четких требований к кейсу
+    @Skip
     @Story("Тест поиска B2B заказа после снятия признака B2B")
     @Test(description = "Тест поиска B2B заказа после снятия признака B2B", groups = {"acceptance", "regression"})
     public void successSearchB2BOrderAfterRevokeB2BRole() {
