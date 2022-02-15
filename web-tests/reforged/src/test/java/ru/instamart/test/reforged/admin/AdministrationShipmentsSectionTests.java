@@ -3,17 +3,21 @@ package ru.instamart.test.reforged.admin;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
+import org.openqa.selenium.NotFoundException;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.api.request.v1.admin.ShipmentsAdminV1Request;
+import ru.instamart.api.response.v1.admin.ShipmentsAdminV1Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.TimeUtil;
-import ru.instamart.reforged.admin.page.usersEdit.UsersEditPage;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
@@ -21,7 +25,20 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 @Feature("Управление заказами")
 public final class AdministrationShipmentsSectionTests extends BaseTest {
 
-    //TODO продумать функцию предусловие для заполнения бд заказами
+    private final ApiHelper helper = new ApiHelper();
+    private ShipmentsAdminV1Response.Shipment shipment;
+
+    @BeforeClass(alwaysRun = true)
+    public void beforeClass() {
+        var shipments = helper.getShipments(ShipmentsAdminV1Request.ShipmentsData
+                .builder()
+                .page(1)
+                .perPage(1)
+                .completedShipments(true)
+                .paymentMethodId(3)
+                .build());
+        shipment = shipments.getShipments().stream().findFirst().orElseThrow(NotFoundException::new);
+    }
 
     @Skip
     @CaseId(175)
@@ -78,7 +95,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     @Story("Тест на работоспособность фильтра ТЕЛЕФОН СОДЕРЖИТ")
     @Test(description = "Тест на работоспособность фильтра ТЕЛЕФОН СОДЕРЖИТ", groups = {"acceptance", "regression", "smoke"})
     public void validateFilterPhoneShipmentsPage() {
-        var phone = "79268202951";
+        var phone = StringUtil.getPhoneNumber(shipment.order.shipAddress.phoneNumber);
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
         shipments().goToPage();
@@ -93,7 +110,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     @Story("Тест на работоспособность мультифильтра")
     @Test(description = "Тест на работоспособность мультифильтра", groups = {"acceptance", "regression", "smoke"})
     public void validateMultiFiltersShipmentsPage() {
-        var phone = "79268202951";
+        var phone = StringUtil.getPhoneNumber(shipment.order.shipAddress.phoneNumber);
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
@@ -118,8 +135,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().goToPage();
         shipments().checkPageTitle();
         String shipmentsBeforeFiltration = shipments().getNumberOfShipments();
-        String shipment = shipments().getShipmentNumber();
-        shipments().setShipmentOrOrderNumber(shipment);
+        shipments().setShipmentOrOrderNumber(shipment.order.number);
         shipments().search();
         String shipmentsAfterFiltration = shipments().getNumberOfShipments();
         shipments().checkNumberOfShipmentsAfterFiltration(shipmentsBeforeFiltration, shipmentsAfterFiltration);
@@ -137,7 +153,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().goToPage();
         shipments().checkPageTitle();
         String shipmentsBeforeFiltration = shipments().getNumberOfShipments();
-        shipments().setPhoneFilterFromTableDefault("79268202951");
+        shipments().setPhoneFilterFromTableDefault(shipment.order.shipAddress.phoneNumber);
         shipments().search();
         String shipmentsAfterFiltration = shipments().getNumberOfShipments();
         String pages = shipments().getNumberOfPagesAfterFiltration(shipmentsAfterFiltration);
@@ -159,7 +175,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
         shipments().goToPage();
         shipments().waitPageLoad();
-        final String orderNumber = shipments().getOrderNumber();
+        final String orderNumber = shipment.order.number;
         shipments().setShipmentOrOrderNumber(orderNumber);
         shipments().search();
         shipments().checkFoundOrderOrShipmentCount(shipments().getFoundCount(), 1);
@@ -175,7 +191,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
         shipments().goToPage();
         shipments().waitPageLoad();
-        final String shipmentNumber = shipments().getShipmentNumber();
+        final String shipmentNumber = shipment.number;
         shipments().setShipmentOrOrderNumber(shipmentNumber);
         shipments().search();
         shipments().checkFoundOrderOrShipmentCount(shipments().getFoundCount(), 1);
@@ -185,7 +201,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     // TODO тест можно ускорить - использовать тестовый заказ из конфига
     // TODO поправить тест после того как починб тест заказа
     @Story("Тест возобновления и отмены заказа через админку")
-    @Test(description = "Тест возобновления и отмены заказа через админку", groups = {"acceptance", "regression"})
+    @Test(enabled = false, description = "Тест возобновления и отмены заказа через админку", groups = {"acceptance", "regression"})
     public void successResumeAndCancelOrder() {
         final ApiHelper helper = new ApiHelper();
         final UserData userData = UserManager.getQaUser();
@@ -195,37 +211,31 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         //TODO: Заказ появляется в админке с задержкой рандомной
     }
 
-    // Нужен юзер
     @CaseId(183)
-    @Skip
     @Story("Тест поиска B2B заказа в админке")
     @Test(description = "Тест поиска B2B заказа в админке", groups = {"acceptance", "regression"})
     public void successSearchB2BOrder() {
-        final ApiHelper helper = new ApiHelper();
-        final UserData userData = UserManager.getQaUser();
-        final OrderV2 orderV2 = helper.makeOrder(userData, EnvironmentProperties.DEFAULT_SID, 3);
+        final var shipmentNumber = shipment.number;
 
-        //TODO: Заказ появляется в админке с задержкой рандомной
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdminAllRoles());
+
+        shipments().goToPage();
+        shipments().setB2BOrders();
+        shipments().setShipmentOrOrderNumber(shipmentNumber);
+        shipments().search();
+        shipments().waitPageLoad();
+        shipments().checkOrderOrShipmentNumber(shipments().getShipmentNumber(), shipmentNumber);
     }
 
     @Story("Тест поиска B2B заказа после снятия признака B2B")
     @Test(description = "Тест поиска B2B заказа после снятия признака B2B", groups = {"acceptance", "regression"})
     public void successSearchB2BOrderAfterRevokeB2BRole() {
-        final var userData = UserManager.forB2BUser();
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
-
-        shipments().goToPage();
-        shipments().setB2BOrders();
-        shipments().search();
-        shipments().waitPageLoad();
         //вместо создания заказа получаю первый любой b2b заказ
-        final var shipmentNumber = shipments().getShipmentNumber();
-
-        main().doLogout();
+        final var shipmentNumber = shipment.number;
 
         login().goToPage();
-        login().auth(userData);
+        login().auth(UserManager.forB2BUser());
 
         shipments().goToPage();
         shipments().setB2BOrders();

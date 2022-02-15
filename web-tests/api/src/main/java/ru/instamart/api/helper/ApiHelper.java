@@ -10,9 +10,11 @@ import ru.instamart.api.model.v2.SessionV2;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.ShippingMethodsRequest;
+import ru.instamart.api.request.v1.admin.ShipmentsAdminV1Request;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request;
 import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
 import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
+import ru.instamart.api.response.v1.admin.ShipmentsAdminV1Response;
 import ru.instamart.api.response.v1.PricerV1Response;
 import ru.instamart.api.response.v1.PricersV1Response;
 import ru.instamart.api.response.v1.ShippingMethodsResponse;
@@ -446,6 +448,12 @@ public final class ApiHelper {
     public void updateCalculator(final int ruleId, final ShippingMethodsV1Request.Calculators data) {
         admin.authAdminApi();
         admin.updateCalculator(ruleId, data);
+    }
+
+    @Step("Получить данные по заказам {0}")
+    public ShipmentsAdminV1Response getShipments(final ShipmentsAdminV1Request.ShipmentsData shipmentsData) {
+        admin.authAdminApi();
+        return admin.getShipments(shipmentsData);
     }
 
     @Step("Получаем первый доступный слот ON_DEMAND")
