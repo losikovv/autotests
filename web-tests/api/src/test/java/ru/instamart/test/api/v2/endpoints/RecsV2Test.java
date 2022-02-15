@@ -24,7 +24,6 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 @Feature("Рекомендации")
 public final class RecsV2Test extends RestBase {
 
-    @Skip(onServer = Server.PREPROD) //TODO:убрать после выяснения, почему на стейдже не приходят реки
     @Story("Полные рекомендации (recs)")
     @CaseId(974)
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
@@ -37,7 +36,6 @@ public final class RecsV2Test extends RestBase {
         checkResponseJsonSchema(response, RecsV2Response.class);
     }
 
-    @Skip(onServer = Server.PREPROD) //TODO:убрать после выяснения, почему на стейдже не приходят реки
     @Story("Полные рекомендации (recs)")
     @CaseId(975)
     @JsonDataProvider(path = "data/json_v2/api_v2_negative_recs_data.json", type = RestDataProvider.RecsV2TestDataRoot.class)

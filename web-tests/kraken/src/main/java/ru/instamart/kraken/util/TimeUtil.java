@@ -52,11 +52,12 @@ public final class TimeUtil {
     }
 
     public static String getDbDeliveryDateFrom(Long days) {
-        return dtdb.format(ZonedDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT, ZONE_ID).plusDays(days));
+
+        return dtdb.format(ZonedDateTime.ofInstant(LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT).atZone(ZONE_ID).toInstant(), ZoneId.of("UTC")).plusDays(days));
     }
 
     public static String getDbDeliveryDateTo(Long days) {
-        return dtdb.format(ZonedDateTime.of(LocalDate.now(), LocalTime.MAX, ZONE_ID).plusDays(days));
+        return dtdb.format(ZonedDateTime.ofInstant(LocalDateTime.of(LocalDate.now(), LocalTime.MAX).atZone(ZONE_ID).toInstant(), ZoneId.of("UTC")).plusDays(days));
     }
 
     public static String getPastZoneDbDate(Long days) {

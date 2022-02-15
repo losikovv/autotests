@@ -34,6 +34,10 @@ public final class EnvironmentProperties {
     public static int DEFAULT_AUCHAN_SID;
     @Config(configName = NAME, fieldName = "defaultTid", defaultValue = "")
     public static int DEFAULT_TID;
+    @Config(configName = NAME, fieldName = "defaultBrandId", defaultValue = "4")
+    public static int DEFAULT_BRAND_ID;
+    @Config(configName = NAME, fieldName = "defaultProductCountryId", defaultValue = "1")
+    public static int DEFAULT_PRODUCT_COUNTRY_ID;
     @Config(configName = NAME, fieldName = "defaultIdZone", defaultValue = "")
     public static int DEFAULT_ID_ZONE;
     @Config(configName = NAME, fieldName = "defaultShopperSid", defaultValue = "")
@@ -93,15 +97,16 @@ public final class EnvironmentProperties {
 
                 DB_URL = DB_URL.replace("kraken", STAGE);
                 DB_PGSQL_URL = DB_PGSQL_URL.replace("kraken", STAGE);
-                QA_URL = QA_URL.replace("kraken", STAGE);
 
 
                 if (BASIC_URL.contains("stf-")) {
                     K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("kraken", STAGE);
                     K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("kraken", STAGE);
+                    QA_URL = QA_URL.replace("kraken", STAGE);
                 } else {
                     K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("stfkraken", STAGE);
                     K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("shpkraken", STAGE);
+                    QA_URL = QA_URL.replace("stf-kraken", STAGE);
                 }
                 log.debug("Кастомные данные при ручном запуске на стейджах");
                 log.debug("BASIC_URL: {}", BASIC_URL);

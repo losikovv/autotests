@@ -135,8 +135,8 @@ public interface RailsConsole {
     enum apiV3 implements RailsConsole {
         GET_RETAILER("Spree::Retailer.where(slug: :%s)"),
         OFFER_WHERE_LAST("Offer.where(%s).last"),
-        OFFER_JOIN_PRODUCT("Offer.joins(:product).where(%s).last");
-
+        OFFER_JOIN_PRODUCT("Offer.joins(:product).where(%s).last"),
+        CREATE_API_CLIENT("ApiClient.create(client_id: '%s', verifiable: false, custom_prices: true, tenant_id: '%s', custom_promo: false,  sku_kind: 'sku_kind_internal', basic_auth: nil, webhook_auth_token: nil, card_payment_method: nil, notifiable_by_sms: true,  notifiable_by_email: true).tokens.create(value: SecureRandom.base64(64))");
         private String command;
 
         public String get(String... values) {

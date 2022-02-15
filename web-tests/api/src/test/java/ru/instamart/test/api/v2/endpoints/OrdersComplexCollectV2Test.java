@@ -4,7 +4,6 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.BeforeClass;
-import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.response.v2.*;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
@@ -17,7 +16,6 @@ import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.data.user.UserManager;
 
 import static org.testng.Assert.assertFalse;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
@@ -49,7 +47,6 @@ public class OrdersComplexCollectV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Получение истории заказов (1-ая страница)")
     public void getPreviousOrder200() {
-        SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.PHONE, UserManager.getDefaultApiUser());
         final Response response = OrdersV2Request.GET(1);
         checkStatusCode200(response);
         OrdersV2Response ordersV2Response = response.as(OrdersV2Response.class);
@@ -68,7 +65,6 @@ public class OrdersComplexCollectV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о предыдущем заказе")
     public void getPreviousOrder() {
-        SessionFactory.makeSession(SessionType.API_V2);
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         final Response response = OrdersV2Request.Previous.GET();
         checkStatusCode200(response);
@@ -81,7 +77,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
     @Story("История заказов")
     @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о предыдущем заказе. Нет предыдущих заказов",
-            dependsOnMethods = "getPreviousOrder")
+            dependsOnMethods = {"getPreviousOrder", "getPreviousOrder200"})
     public void getPreviousNonExistentOrder() {
         SessionFactory.makeSession(SessionType.API_V2);
         final Response response = OrdersV2Request.Previous.GET();
