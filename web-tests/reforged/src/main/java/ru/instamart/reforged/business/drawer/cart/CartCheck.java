@@ -28,4 +28,9 @@ public interface CartCheck extends Check, CartElement {
     default void checkCartNotEmpty() {
         waitAction().shouldNotBeVisible(cartIsEmptyPlaceholder);
     }
+
+    @Step("Проверяем, что отображается 'НДС к возврату'")
+    default void checkTotalVatDisplayed() {
+        waitAction().shouldBeVisible(totalVat);
+    }
 }

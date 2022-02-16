@@ -71,6 +71,9 @@ public final class EnvironmentProperties {
     private static String BASIC_URL;
     @Config(configName = NAME, fieldName = "shopperUrl", defaultValue = "")
     private static String SHOPPER_URL;
+    //Для кейсов бизнес-витрины в связке с stf
+    @Config(configName = NAME, fieldName = "b2cUrl", defaultValue = "")
+    private static String B2C_URL;
     @Config(configName = NAME, fieldName = "protocol", defaultValue = "https", args = "protocol")
     private static String PROTOCOL;
     @Config(configName = NAME, fieldName = "qaUrl", defaultValue = "")
@@ -130,6 +133,7 @@ public final class EnvironmentProperties {
         public static String ENV_NAME = TENANT + "-" + SERVER;
         public static String FULL_SITE_URL = PROTOCOL + "://" + BASIC_URL + "/";
         public static String FULL_SITE_URL_WITH_BASIC_AUTH = PROTOCOL + "://" + HTTP_AUTH + BASIC_URL + "/";
+        public static String FULL_B2C_URL_WITH_BASIC_AUTH = PROTOCOL + "://" + HTTP_AUTH + B2C_URL + "/";
         public static String FULL_ADMIN_URL = FULL_SITE_URL + "admin/";
         public static String FULL_ADMIN_URL_WITH_BASIC_AUTH = FULL_SITE_URL_WITH_BASIC_AUTH + "admin/";
         public static String FULL_SHOPPER_URL = PROTOCOL + "://" + SHOPPER_URL + "/";

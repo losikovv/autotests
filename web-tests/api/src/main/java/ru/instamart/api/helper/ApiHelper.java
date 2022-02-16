@@ -1,6 +1,7 @@
 package ru.instamart.api.helper;
 
 import io.qameta.allure.Step;
+import io.restassured.response.Response;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.model.v2.AddressV2;
@@ -24,6 +25,7 @@ import ru.instamart.jdbc.dao.shopper.OperationalZonesShopperDao;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.user.UserData;
 
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.data.user.UserRoles.B2B_MANAGER;
 
 public final class ApiHelper {
@@ -477,7 +479,9 @@ public final class ApiHelper {
 
     @Step("Получаем Id компании по ИНН: {inn}")
     public int getCompanyId(final String inn) {
-        return CompaniesV1Request.GET(inn).as(CompaniesV1Response.class).getCompanies().get(0).getId();
+        final Response response = CompaniesV1Request.GET(inn);
+        checkStatusCode200(response);
+        return response.as(CompaniesV1Response.class).getCompanies().get(0).getId();
     }
 
     @Step("Добавляем для компании Id: {companyId} счёт с балансом: {balance}")

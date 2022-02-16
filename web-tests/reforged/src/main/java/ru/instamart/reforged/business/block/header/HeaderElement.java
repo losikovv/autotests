@@ -2,12 +2,14 @@ package ru.instamart.reforged.business.block.header;
 
 import org.openqa.selenium.By;
 import ru.instamart.reforged.business.drawer.cart.account_menu.AccountMenu;
+import ru.instamart.reforged.business.frame.TransferCartModal;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 
 public interface HeaderElement {
 
     AccountMenu accountMenu = new AccountMenu();
+    TransferCartModal transferCartModal = new TransferCartModal();
 
     Element header = new Element(By.xpath("//header"), "Контейнер для хедера");
 
