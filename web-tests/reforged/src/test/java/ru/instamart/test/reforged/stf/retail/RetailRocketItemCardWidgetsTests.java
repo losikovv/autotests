@@ -22,7 +22,7 @@ public final class RetailRocketItemCardWidgetsTests extends BaseTest {
     private final ApiHelper helper = new ApiHelper();
     private final UserData userData = UserManager.getQaUser();
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void precondition() {
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
     }

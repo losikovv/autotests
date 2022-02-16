@@ -2,6 +2,7 @@ package ru.instamart.test.reforged.admin;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.test.reforged.BaseTest;
@@ -228,8 +229,10 @@ public final class AdministrationGeneralSettingsTests extends BaseTest {
         companySettings().checkSaveChangesVisible();
     }
 
+    //Ролевая модель переделывается и временами сильно меняется
+    @Issue("B2C-6444")
     @CaseId(394)
-    @Test(description = "Корректное отображение страницы настроек смс", groups = {"acceptance", "regression"})
+    @Test(enabled = false, description = "Корректное отображение страницы настроек смс", groups = {"acceptance", "regression"})
     public void smsSettingsPageValidate() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());

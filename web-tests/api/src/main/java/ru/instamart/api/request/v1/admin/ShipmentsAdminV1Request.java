@@ -24,16 +24,20 @@ public final class ShipmentsAdminV1Request extends ApiV1RequestBase {
         private int page;
         @JsonProperty(value = "per_page")
         private int perPage;
-        @JsonProperty(value = "completed_shipments")
+        @JsonProperty(value = "search[completed_shipments]")
         private boolean completedShipments;
         /**
          * online card=1
          * cash=2
          * business=3
          */
+        @JsonProperty(value = "search[payment_method_id][]")
         private int paymentMethodId;
+        @JsonProperty(value = "search[completed_at_st]")
+        private String completedAtSt;
+        @JsonProperty(value = "search[completed_at_end]")
         private String completedAtEnd;
-        @JsonProperty(value = "only_b2b")
+        @JsonProperty(value = "search[only_b2b]")
         private boolean onlyB2b;
     }
 }
