@@ -18,4 +18,5 @@ public class DepartmentV2 extends BaseObject {
     @JsonProperty(value = "products_count")
     private int productsCount;
     private List<ProductV2> products = null;
+    private List<AisleV2> aisles;
 }

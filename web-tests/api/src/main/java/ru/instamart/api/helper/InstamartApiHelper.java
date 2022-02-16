@@ -266,7 +266,8 @@ public final class InstamartApiHelper {
                                                                  SoftAssert softAssert) {
         Response response = DepartmentsV2Request.GET(sid, numberOfProductsFromEachDepartment);
         checkStatusCode200(response);
-        List<DepartmentV2> departments = response.as(DepartmentsV2Response.class).getDepartments();
+        List<DepartmentV2> departments = response.as(DepartmentsV2Response.class).getDepartments().stream()
+                .filter(d -> !d.getName().equals("Алкоголь")).collect(Collectors.toList());
 
         String storeUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + "?sid=" + sid;
 
