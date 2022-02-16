@@ -24,6 +24,11 @@ public interface Page extends PageCheck {
         Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + page);
     }
 
+    @Step("Открыть страницу {0} на B2C сайте")
+    default void openStfPage(final String page) {
+        Kraken.open(EnvironmentProperties.Env.FULL_B2C_URL_WITH_BASIC_AUTH + page);
+    }
+
     @Step("Обновить страницу")
     default void refresh() {
         Kraken.refresh();
@@ -32,7 +37,14 @@ public interface Page extends PageCheck {
     @Step("Обновить страницу, обрезав basic auth - костыльный шаг от разлогина и ошибок бейсика")
     default void refreshWithoutBasicAuth() {
         final var currentUrl = Kraken.getWebDriver().getCurrentUrl();
-        Kraken.getWebDriver().get(StringUtil.cutBasicAuthFromUrl(currentUrl));
+        Kraken.open(StringUtil.cutBasicAuthFromUrl(currentUrl));
+    }
+
+    //TODO при открытии бизнес-витрины по клику "Покупать для бизнеса" на stf мешает базовая авторизация
+    @Step("Обновить страницу, добавив basic auth")
+    default void refreshWithBasicAuth() {
+        final var currentUrl = Kraken.getWebDriver().getCurrentUrl();
+        Kraken.open(StringUtil.addBasicAuthToUrl(currentUrl));
     }
 
     @Step("Добавить куки {0}")

@@ -2,11 +2,16 @@ package ru.instamart.reforged.business.block.header;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.business.drawer.cart.account_menu.AccountMenu;
+import ru.instamart.reforged.business.frame.TransferCartModal;
 
 public class Header implements HeaderCheck {
 
     public AccountMenu interactAccountMenu() {
         return accountMenu;
+    }
+
+    public TransferCartModal interactTransferCartModal() {
+        return transferCartModal;
     }
 
     @Step("Нажимаем кнопку 'Указать адрес'")
