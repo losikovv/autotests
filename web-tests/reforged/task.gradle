@@ -8,7 +8,7 @@ task autoMr(type: Test) {
 task debug(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/debug.xml'
-        includeGroups 'admin-ui-smoke'
+        includeGroups 'debug'
     }
 }
 

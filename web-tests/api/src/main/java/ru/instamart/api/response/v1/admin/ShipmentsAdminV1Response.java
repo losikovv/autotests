@@ -1,5 +1,6 @@
 package ru.instamart.api.response.v1.admin;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -39,8 +40,10 @@ public final class ShipmentsAdminV1Response extends BaseResponseObject {
         @JsonProperty(value = "delivery_window_date")
         public String deliveryWindowDate;
         @JsonProperty(value = "delivery_window_local_starts_at")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
         public Date deliveryWindowLocalStartsAt;
         @JsonProperty(value = "delivery_window_local_ends_at")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
         public Date deliveryWindowLocalEndsAt;
         @JsonProperty(value = "delivery_window_time_zone")
         public String deliveryWindowTimeZone;

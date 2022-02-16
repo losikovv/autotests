@@ -93,7 +93,7 @@ public final class TimeUtil {
     }
 
     public static String convertFullDateToDt(final String date) {
-        return dt.format(ZonedDateTime.parse(date, formatterFullDate));
+        return dt.format(ZonedDateTime.parse(date, formatterFullDate).withZoneSameInstant(ZONE_ID));
     }
 
     public static Timestamp getTimestampFromString(String dateTime) {

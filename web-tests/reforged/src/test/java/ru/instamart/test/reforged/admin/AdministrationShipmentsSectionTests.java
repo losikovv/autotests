@@ -104,7 +104,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
     @CaseId(174)
     @Story("Тест на работоспособность мультифильтра")
-    @Test(description = "Тест на работоспособность мультифильтра", groups = {"acceptance", "regression", "smoke"})
+    @Test(description = "Тест на работоспособность мультифильтра", groups = {"acceptance", "regression", "smoke", "debug"})
     public void validateMultiFiltersShipmentsPage() {
         final var shipments = helper.getShipments(ShipmentsAdminV1Request.ShipmentsData
                 .builder()
@@ -118,7 +118,6 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         final var phone = StringUtil.getPhoneNumber(shipment.order.shipAddress.phoneNumber);
         final var deliveryStartDateDt = TimeUtil.convertFullDateToDt(shipment.deliveryWindowLocalStartsAt.toString());
         final var deliveryEndDateDt = TimeUtil.convertFullDateToDt(shipment.deliveryWindowLocalEndsAt.toString());
-        final var deliveryDateDtd = TimeUtil.convertFullDateToDtd(shipment.deliveryWindowLocalStartsAt.toString());
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -130,7 +129,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().search();
         shipments().waitPageLoad();
         shipments().checkPhoneShipmentsColumn(phone);
-        shipments().checkDateAndTimeShipmentsColumn(deliveryDateDtd);
+        shipments().checkDateAndTimeShipmentsColumn(shipment.deliveryWindowDate);
     }
 
     @CaseId(1224)
