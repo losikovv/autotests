@@ -4,9 +4,9 @@ public final class StaticPages {
 
     public static StaticPageData newStaticPage() {
         return new StaticPageData(
-                "AAA_" + Generate.literalString(6),
-                "testUrl_" + Generate.literalString(6),
-                "textAAA",
+                "Auto_AAA_" + Generate.literalString(6),
+                "Auto_testUrl_" + Generate.literalString(6),
+                "Auto_textAAA",
                 "1",
                 "я маленькая тестовая страничка, которую должен видеть только селен"
         );
@@ -14,9 +14,9 @@ public final class StaticPages {
 
     public static StaticPageData editedStaticPage() {
         return new StaticPageData(
-                "BBB_" + Generate.literalString(6),
-                "testUrlEdited_" + Generate.literalString(6),
-                "textBBB",
+                "Auto_BBB_" + Generate.literalString(6),
+                "Auto_testUrlEdited_" + Generate.literalString(6),
+                "Auto_textBBB",
                 "2",
                 "я большая тестовая страничка, очень очень большая и отредактированная"
         );

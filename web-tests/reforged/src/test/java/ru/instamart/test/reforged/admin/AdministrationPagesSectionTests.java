@@ -3,13 +3,15 @@ package ru.instamart.test.reforged.admin;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.jdbc.dao.SpreePagesDao;
+import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.StaticPages;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
@@ -67,18 +69,18 @@ public final class AdministrationPagesSectionTests extends BaseTest {
         helper.createStaticPageInAdmin(staticPage);
 
         pages().goToPage();
+        pages().checkTable();
         pages().editEntry(staticPage.getPageName());
         newPages().fillPageData(staticPageEdited);
         newPages().submit();
+        pages().waitPageLoad();
         pages().openSitePage(staticPageEdited.getPageURL());
+        pages().waitPageLoad();
         pages().checkPageIsAvailable();
+    }
 
-        pages().goToPage();
-        pages().checkTable();
-        final var id = pages().returnPageId(staticPageEdited);
-        helper.deleteStaticPageInAdmin(id);
-
-        pages().goToPage();
-        pages().checkSpecificEntryNotVisible(id);
+    @AfterClass(alwaysRun = true)
+    public void clearData() {
+        SpreePagesDao.INSTANCE.deletePageBySlug("Auto_");
     }
 }
