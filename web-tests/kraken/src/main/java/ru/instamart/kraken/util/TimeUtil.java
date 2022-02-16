@@ -19,6 +19,11 @@ public final class TimeUtil {
             .parseCaseInsensitive()
             .appendPattern("dd MMMM yyyy")
             .toFormatter(new Locale("ru"));
+    //Mon Feb 14 22:55:00 MSK 2022
+    private static final DateTimeFormatter formatterFullDate = new DateTimeFormatterBuilder()
+            .parseCaseInsensitive()
+            .appendPattern("EEE MMM dd HH:mm:ss zzz yyyy")
+            .toFormatter(Locale.ENGLISH);
 
     private TimeUtil() {
     }
@@ -81,6 +86,14 @@ public final class TimeUtil {
      */
     public static ZonedDateTime convertStringToDate(final String str) {
         return LocalDate.parse(str, formatter).atStartOfDay(ZoneId.systemDefault());
+    }
+
+    public static String convertFullDateToDtd(final String date) {
+        return dtd.format(LocalDate.parse(date, formatterFullDate).atStartOfDay(ZONE_ID));
+    }
+
+    public static String convertFullDateToDt(final String date) {
+        return dt.format(ZonedDateTime.parse(date, formatterFullDate));
     }
 
     public static Timestamp getTimestampFromString(String dateTime) {
