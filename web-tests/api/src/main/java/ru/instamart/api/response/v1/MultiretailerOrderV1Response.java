@@ -6,6 +6,7 @@ import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.v1.AddressV1;
+import ru.instamart.api.model.v1.MultiretailerOrderShipmentV1;
 import ru.instamart.api.model.v1.UserV1;
 import ru.instamart.api.response.BaseResponseObject;
 
@@ -72,7 +73,7 @@ public class MultiretailerOrderV1Response extends BaseResponseObject  {
     private Double shipTotal;
 
     @JsonSchema(required = true)
-    private List<Object> shipments;
+    private List<MultiretailerOrderShipmentV1> shipments;
 
     @JsonSchema(required = true)
     @JsonProperty("shipping_method_kind")

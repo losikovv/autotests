@@ -19,6 +19,7 @@ import ru.instamart.api.request.v1.ImportsV1Request;
 import ru.instamart.api.response.v1.imports.*;
 import ru.instamart.jdbc.dao.*;
 import ru.instamart.jdbc.entity.*;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -218,7 +219,7 @@ public class ImportsV1Tests extends RestBase {
     @Story("Продукты")
     @Test(groups = {"api-instamart-regress"},
             description = "Импорт нового продукта")
-    public void importProducts() throws InterruptedException {
+    public void importProducts() {
         final Response response = ImportsV1Request.ProductsFiles.POST("src/test/resources/data/products.xlsx");
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsFileV1Response.class);
@@ -231,7 +232,7 @@ public class ImportsV1Tests extends RestBase {
             status = responseWithList.as(ProductsFilesV1Response.class).getProductsFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.DONE.getValue()))
                 break;
-            Thread.sleep(2000);
+            ThreadUtil.simplyAwait(2);
             count++;
         }
 
@@ -245,7 +246,7 @@ public class ImportsV1Tests extends RestBase {
     @Story("Офферы")
     @Test(groups = {"api-instamart-regress"},
             description = "Импорт нового оффера")
-    public void importOffers() throws InterruptedException {
+    public void importOffers() {
         admin.authAdmin();
         StoresAdminRequest.Store store = getStore();
         store.setLat(55.763584);
@@ -268,7 +269,7 @@ public class ImportsV1Tests extends RestBase {
             status = getOfferFiles().getOffersFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.DONE.getValue()))
                 break;
-            Thread.sleep(1000);
+            ThreadUtil.simplyAwait(1);
             count++;
         }
         compareTwoObjects(status, ImportStatusV1.DONE.getValue());
@@ -286,7 +287,7 @@ public class ImportsV1Tests extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Импорт стоков оффера",
             dependsOnMethods = "importOffers")
-    public void importOffersStocks() throws InterruptedException {
+    public void importOffersStocks() {
         OffersDao.INSTANCE.updateOfferStock(offerId, 1);
         final Response response = ImportsV1Request.OffersStocksFiles.POST(fileBytes);
         checkStatusCode200(response);
@@ -300,7 +301,7 @@ public class ImportsV1Tests extends RestBase {
             status = responseWithList.as(StocksFilesV1Response.class).getOffersStocksFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.DONE.getValue()))
                 break;
-            Thread.sleep(1000);
+            ThreadUtil.simplyAwait(1);
             count++;
         }
         compareTwoObjects(status, ImportStatusV1.DONE.getValue());
@@ -319,7 +320,7 @@ public class ImportsV1Tests extends RestBase {
             description = "Импорт фильтров",
             dataProvider = "filtersImportModes",
             dataProviderClass = RestDataProvider.class)
-    public void importFilters(FiltersFilesModeV1 mode) throws InterruptedException {
+    public void importFilters(FiltersFilesModeV1 mode) {
         final Response response = ImportsV1Request.FilterFiles.POST("src/test/resources/data/filters_import.xlsx", mode.getValue());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, FiltersFileV1Response.class);
@@ -332,7 +333,7 @@ public class ImportsV1Tests extends RestBase {
             status = responseWithList.as(FiltersFilesV1Response.class).getFiltersFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.DONE.getValue()))
                 break;
-            Thread.sleep(1000);
+            ThreadUtil.simplyAwait(1);
             count++;
         }
         compareTwoObjects(status, ImportStatusV1.DONE.getValue());
@@ -351,7 +352,7 @@ public class ImportsV1Tests extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Импорт цен",
             dependsOnMethods = "importOffers")
-    public void importPrices() throws InterruptedException {
+    public void importPrices() {
         final Response response = ImportsV1Request.PricesFiles.POST(String.format("product_price__%s.xlsx", importKey), "src/test/resources/data/product_price___5-10.xlsx");
         checkStatusCode200(response);
         checkResponseJsonSchema(response, PricesFileV1Response.class);
@@ -364,7 +365,7 @@ public class ImportsV1Tests extends RestBase {
             status = responseWithList.as(PricesFilesV1Response.class).getPricesFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.DONE.getValue()))
                 break;
-            Thread.sleep(1000);
+            ThreadUtil.simplyAwait(1);
             count++;
         }
         compareTwoObjects(status, ImportStatusV1.DONE.getValue());
@@ -383,7 +384,7 @@ public class ImportsV1Tests extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Импорт штрихкодов",
             dependsOnMethods = "importOffers")
-    public void importEans() throws InterruptedException {
+    public void importEans() {
         final Response response = ImportsV1Request.EansFiles.POST("src/test/resources/data/export_ean.xml");
         checkStatusCode200(response);
         checkResponseJsonSchema(response, EansFileV1Response.class);
@@ -396,7 +397,7 @@ public class ImportsV1Tests extends RestBase {
             status = responseWithList.as(EansFilesV1Response.class).getEansFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.DONE.getValue()))
                 break;
-            Thread.sleep(1000);
+            ThreadUtil.simplyAwait(1);
             count++;
         }
         compareTwoObjects(status, ImportStatusV1.DONE.getValue());
@@ -413,7 +414,7 @@ public class ImportsV1Tests extends RestBase {
     @Story("Бренды")
     @Test(groups = {"api-instamart-regress"},
             description = "Импорт брендов")
-    public void importBrands() throws InterruptedException {
+    public void importBrands() {
         final Response response = ImportsV1Request.BrandFiles.POST("src/test/resources/data/brands_import.xlsx");
         checkStatusCode200(response);
         checkResponseJsonSchema(response, BrandsFileV1Response.class);
@@ -426,7 +427,7 @@ public class ImportsV1Tests extends RestBase {
             status = responseWithList.as(BrandsFilesV1Response.class).getBrandsFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.DONE.getValue()))
                 break;
-            Thread.sleep(1000);
+            ThreadUtil.simplyAwait(1);
             count++;
         }
         compareTwoObjects(status, ImportStatusV1.DONE.getValue());
@@ -440,7 +441,7 @@ public class ImportsV1Tests extends RestBase {
     @Story("Изображения продуктов")
     @Test(groups = {"api-instamart-regress"},
             description = "Импорт изображений продуктов")
-    public void importProductsImages() throws InterruptedException {
+    public void importProductsImages() {
         final Response response = ImportsV1Request.ProductsImagesArchives.POST("src/test/resources/data/product_image.zip");
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsImagesArchiveV1Response.class);
@@ -453,7 +454,7 @@ public class ImportsV1Tests extends RestBase {
             status = responseWithList.as(ProductsImagesArchivesV1Response.class).getProductsImagesArchives().get(0).getStatus();
             if (status.equals(ImportStatusV1.ARCHIVE_PROCESSED.getValue()))
                 break;
-            Thread.sleep(2000);
+            ThreadUtil.simplyAwait(2);
             count++;
         }
         compareTwoObjects(status, ImportStatusV1.ARCHIVE_PROCESSED.getValue());
@@ -465,7 +466,7 @@ public class ImportsV1Tests extends RestBase {
     @Story("Иконки категорий")
     @Test(groups = {"api-instamart-regress"},
             description = "Импорт иконок категорий")
-    public void importTaxonsImages() throws InterruptedException {
+    public void importTaxonsImages() {
         final Response response = ImportsV1Request.TaxonsImagesFiles.POST("src/test/resources/data/taxon_icons.zip");
         checkStatusCode200(response);
         checkResponseJsonSchema(response, TaxonsImagesFileV1Response.class);
@@ -478,7 +479,7 @@ public class ImportsV1Tests extends RestBase {
             status = responseWithList.as(TaxonsImagesFilesV1Response.class).getTaxonsImagesFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.DONE.getValue()))
                 break;
-            Thread.sleep(2000);
+            ThreadUtil.simplyAwait(2);
             count++;
         }
         compareTwoObjects(status, ImportStatusV1.DONE.getValue());
@@ -496,7 +497,7 @@ public class ImportsV1Tests extends RestBase {
     @Story("Категории")
     @Test(groups = {"api-instamart-regress"},
             description = "Импорт категорий с неверным файлом")
-    public void importTaxons() throws InterruptedException {
+    public void importTaxons() {
         final Response response = ImportsV1Request.TaxonsFiles.POST("src/test/resources/data/brands_import.xlsx");
         checkStatusCode200(response);
         checkResponseJsonSchema(response, TaxonsFileV1Response.class);
@@ -509,7 +510,7 @@ public class ImportsV1Tests extends RestBase {
             status = responseWithList.as(TaxonsFilesV1Response.class).getTaxonsFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.FAILED.getValue()))
                 break;
-            Thread.sleep(1000);
+            ThreadUtil.simplyAwait(1);
             count++;
         }
         compareTwoObjects(status, ImportStatusV1.FAILED.getValue());
@@ -519,7 +520,7 @@ public class ImportsV1Tests extends RestBase {
     @Story("Мастер каталог")
     @Test(groups = {"api-instamart-regress"},
             description = "Импорт мастер каталога с неверным файлом")
-    public void importMasterCategories() throws InterruptedException {
+    public void importMasterCategories() {
         final Response response = ImportsV1Request.MasterCategoriesFiles.POST("src/test/resources/data/brands_import.xlsx");
         checkStatusCode200(response);
         checkResponseJsonSchema(response, MasterCategoriesFileV1Response.class);
@@ -532,7 +533,7 @@ public class ImportsV1Tests extends RestBase {
             status = responseWithList.as(MasterCategoriesFilesV1Response.class).getMasterCategoriesFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.FAILED.getValue()))
                 break;
-            Thread.sleep(1000);
+            ThreadUtil.simplyAwait(1);
             count++;
         }
         compareTwoObjects(status, ImportStatusV1.FAILED.getValue());
@@ -542,7 +543,7 @@ public class ImportsV1Tests extends RestBase {
     @Story("Мастер каталог")
     @Test(groups = {"api-instamart-regress"},
             description = "Импорт аттрибутов мастер каталога с неверным файлом")
-    public void importMasterCategoryAttributes() throws InterruptedException {
+    public void importMasterCategoryAttributes() {
         final Response response = ImportsV1Request.MasterCategoryAttributesFiles.POST("src/test/resources/data/brands_import.xlsx");
         checkStatusCode200(response);
         checkResponseJsonSchema(response, MasterCategoryAttributesFileV1Response.class);
@@ -555,7 +556,7 @@ public class ImportsV1Tests extends RestBase {
             status = responseWithList.as(MasterCategoryAttributesFilesV1Response.class).getMasterCategoryAttributesFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.FAILED.getValue()))
                 break;
-            Thread.sleep(1000);
+            ThreadUtil.simplyAwait(1);
             count++;
         }
         compareTwoObjects(status, ImportStatusV1.FAILED.getValue());

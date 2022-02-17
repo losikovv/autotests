@@ -6,6 +6,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import ru.instamart.jdbc.dao.StoresDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.BeforeClass;
@@ -335,7 +336,7 @@ public class ProductHubBackTest extends GrpcBase {
     @Test(description = "Добавление стоков к созданному новому продукту",
             groups = {"grpc-product-hub"},
             dependsOnMethods = "saveProducts")
-    public void saveStocks() throws InterruptedException {
+    public void saveStocks() {
         SaveStocksRequest request = SaveStocksRequest.newBuilder()
                 .addStocks(Stock.newBuilder()
                         .setSku(productSku)
@@ -369,7 +370,7 @@ public class ProductHubBackTest extends GrpcBase {
             responseForCheck = clientFrontDataGrpc.getStocks(requestForCheck);
             if (responseForCheck.getStocksCount() > 0)
                 break;
-            Thread.sleep(1000);
+            ThreadUtil.simplyAwait(1);
             count++;
         }
 
@@ -409,7 +410,7 @@ public class ProductHubBackTest extends GrpcBase {
     @Test(description = "Добавление стоимости продукту",
             groups = {"grpc-product-hub"},
             dependsOnMethods = "saveProducts")
-    public void savePrices() throws InterruptedException {
+    public void savePrices() {
         SavePricesRequest request = SavePricesRequest.newBuilder()
                 .addPrices(Price.newBuilder()
                         .setSku(productSku)
@@ -476,7 +477,7 @@ public class ProductHubBackTest extends GrpcBase {
             responseForCheck = clientFrontDataGrpc.getPrices(requestForCheck);
             if (responseForCheck.getPricesCount() > 0)
                 break;
-            Thread.sleep(1000);
+            ThreadUtil.simplyAwait(1);
             count++;
         }
 

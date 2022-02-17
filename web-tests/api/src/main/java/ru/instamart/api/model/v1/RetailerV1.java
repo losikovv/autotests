@@ -22,7 +22,6 @@ public class RetailerV1 extends BaseObject {
     @Null
     private String description;
 
-    @JsonSchema(required = true)
     private String icon;
 
     @JsonSchema(required = true)
