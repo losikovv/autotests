@@ -21,6 +21,8 @@ import ru.instamart.jdbc.dao.SpreeOrdersDao;
 import ru.instamart.jdbc.dao.SpreeProductsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -192,6 +194,7 @@ public class TransferMethodLossesV2Test extends RestBase {
     }
 
     @CaseIDs(value = {@CaseId(1653), @CaseId(1654), @CaseId(1655)})
+    @Skip(onServer = Server.STAGING)
     @Story("Трансфер доставка-самовывоз")
     @Test(groups = {"api-instamart-regress"},
             description = "Проверяем потери для магазина, где доступны и доставка, и самовывоз",
@@ -291,6 +294,7 @@ public class TransferMethodLossesV2Test extends RestBase {
     }
 
     @CaseIDs(value = {@CaseId(1665), @CaseId(1666), @CaseId(1667)})
+    @Skip(onServer = Server.STAGING)
     @Story("Трансфер самовывоз-самовывоз")
     @Test(groups = {"api-instamart-regress"},
             description = "Проверяем потери для магазина, где доступны и доставка, и самовывоз",
@@ -395,6 +399,7 @@ public class TransferMethodLossesV2Test extends RestBase {
     }
 
     @CaseIDs(value = {@CaseId(1676), @CaseId(1677), @CaseId(1678)})
+    @Skip(onServer = Server.STAGING)
     @Story("Трансфер самовывоз-самовывоз")
     @Test(groups = {"api-instamart-regress"},
             description = "Проверяем потери для магазина, где доступен только самовывоз",
@@ -492,6 +497,7 @@ public class TransferMethodLossesV2Test extends RestBase {
     }
 
     @CaseIDs(value = {@CaseId(1691), @CaseId(1692)})
+    @Skip(onServer = Server.STAGING)
     @Story("Трансфер самовывоз, алкоголь")
     @Test(groups = {"api-instamart-regress"},
             description = "Проверяем потери для магазина c разными способами доставки",
@@ -508,6 +514,7 @@ public class TransferMethodLossesV2Test extends RestBase {
     }
 
     @CaseId(1693)
+    @Skip(onServer = Server.STAGING)
     @Story("Трансфер самовывоз, алкоголь")
     @Test(groups = {"api-instamart-regress"},
             description = "Проверяем потери для магазина c разными способами доставки (другой ритейлер)",
