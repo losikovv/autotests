@@ -45,12 +45,12 @@ public class SearchSuggestionsV1Tests extends RestBase {
     @Test(description = "Получение поисковых подсказок с неверной раскладкой",
             groups = {"api-instamart-regress", "api-instamart-prod"})
     public void getSearchSuggestionsWithWrongKeyboardLayout() {
-        final Response response = StoresV1Request.SearchSuggestions.GET(EnvironmentProperties.DEFAULT_SID, "сщдф");
+        final Response response = StoresV1Request.SearchSuggestions.GET(EnvironmentProperties.DEFAULT_SID, "мфдшщ");
         checkStatusCode200(response);
         checkResponseJsonSchema(response, SearchSuggestionsV1Response.class);
         List<SuggestionOfferV1> offersFromResponse = response.as(SearchSuggestionsV1Response.class).getSuggestion().getOffers();
         final SoftAssert softAssert = new SoftAssert();
-        offersFromResponse.forEach(o -> softAssert.assertTrue(o.getProduct().getName().toLowerCase().contains("cola"), "Пришли неверные подсказки"));
+        offersFromResponse.forEach(o -> softAssert.assertTrue(o.getProduct().getName().toLowerCase().contains("valio"), "Пришли неверные подсказки"));
         softAssert.assertAll();
     }
 

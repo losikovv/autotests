@@ -8,8 +8,9 @@ import ru.instamart.reforged.business.frame.auth.auth_modal.AuthModal;
 import ru.instamart.reforged.business.frame.product_card.ProductCard;
 import ru.instamart.reforged.business.page.BusinessPage;
 import ru.instamart.reforged.core.enums.ShopUrl;
+import ru.instamart.reforged.core.page.Window;
 
-public final class ShopPage implements BusinessPage, ShopCheck {
+public final class ShopPage implements BusinessPage, ShopCheck, Window {
 
     public AuthModal interactAuthModal() {
         return authModal;

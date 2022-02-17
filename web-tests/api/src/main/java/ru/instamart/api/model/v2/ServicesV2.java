@@ -6,11 +6,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 
+import javax.validation.constraints.Null;
+
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class ServicesV2 extends BaseObject {
 
-    private DescriptionV2 description;
+    @Null
+    private String description;
     @JsonProperty("discount_type")
     private String discountType;
     private Long id;

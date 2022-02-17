@@ -3,6 +3,8 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
@@ -140,6 +142,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
     }
 
     @CaseIDs(value = {@CaseId(1042), @CaseId(1043), @CaseId(1045), @CaseId(1046)})
+    @Skip(onServer = Server.STAGING)
     @Story("Трансфер доставка-самовывоз")
     @Test(groups = {"api-instamart-regress"},
             description = "Проверяем потери для магазина, где доступны и доставка, и самовывоз",
@@ -205,6 +208,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
     }
 
     @CaseIDs(value = {@CaseId(1065), @CaseId(1066), @CaseId(1068), @CaseId(1069)})
+    @Skip(onServer = Server.STAGING)
     @Story("Трансфер самовывоз-самовывоз")
     @Test(groups = {"api-instamart-regress"},
             description = "Проверяем потери для магазина, где доступны и доставка, и самовывоз",
@@ -276,6 +280,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
     }
 
     @CaseIDs(value = {@CaseId(1070), @CaseId(1074), @CaseId(1071), @CaseId(1073)})
+    @Skip(onServer = Server.STAGING)
     @Story("Трансфер самовывоз-самовывоз")
     @Test(groups = {"api-instamart-regress"},
             description = "Проверяем потери для магазина, где доступен только самовывоз",

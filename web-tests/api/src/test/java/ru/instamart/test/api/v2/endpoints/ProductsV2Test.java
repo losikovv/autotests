@@ -198,14 +198,14 @@ public final class ProductsV2Test extends RestBase {
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
                         .sid(EnvironmentProperties.DEFAULT_SID)
                         .query("сыр")
-                        .brandFilter(3661)
+                        .brandFilter(EnvironmentProperties.DEFAULT_BRAND_ID)
                         .page(1)
                         .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV2Response.class);
         final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
         final List<ProductV2> products = productsV2Response.getProducts();
-        products.forEach(product -> assertTrue(product.getName().contains("Heidi"), "Пришел неверный бренд"));
+        products.forEach(product -> assertTrue(product.getName().contains("Valio"), "Пришел неверный бренд"));
     }
 
     @CaseId(808)
@@ -216,7 +216,7 @@ public final class ProductsV2Test extends RestBase {
         final Response response = ProductsV2Request.GET(ProductsFilterParams.builder()
                         .sid(EnvironmentProperties.DEFAULT_SID)
                         .query("сыр")
-                        .countryFilter(36)
+                        .countryFilter(EnvironmentProperties.DEFAULT_PRODUCT_COUNTRY_ID)
                         .page(1)
                         .build());
         checkStatusCode200(response);
@@ -227,7 +227,7 @@ public final class ProductsV2Test extends RestBase {
             final List<FacetV2> facets = productsV2Response.getFacets().stream().filter(facet -> facet.getKey().equals(ProductFilterTypeV2.COUNTRY.getValue())).collect(Collectors.toList());
             Assert.assertFalse(facets.isEmpty());
             final List<OptionV2> countries = facets.get(0).getOptions();
-            countries.stream().filter(country -> country.getValue() == 36).forEach(country -> assertTrue(country.getActive(), "Выбранная страна неактивна"));
+            countries.stream().filter(country -> country.getValue() == EnvironmentProperties.DEFAULT_PRODUCT_COUNTRY_ID).forEach(country -> assertTrue(country.getActive(), "Выбранная страна неактивна"));
         });
     }
 

@@ -77,7 +77,7 @@ public interface ShipmentsCheck extends Check, ShipmentsElement {
         phoneColumn.getElements().forEach(element -> {
             var actual = element.getText();
             krakenAssert.assertTrue(actual.contains(phone),
-                    String.format("В колонке присутствует телефон %s отличный от примененного фильтра %s", actual, phone));
+                    String.format("В колонке присутствует телефон '%s' отличный от примененного фильтра '%s'", actual, phone));
         });
         krakenAssert.assertAll();
     }

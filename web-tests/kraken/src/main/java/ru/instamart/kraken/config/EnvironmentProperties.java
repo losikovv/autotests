@@ -8,6 +8,7 @@ import ru.sbermarket.common.config.Env;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Optional;
 
 import static java.util.Objects.nonNull;
 
@@ -31,8 +32,14 @@ public final class EnvironmentProperties {
     public static int DEFAULT_METRO_MOSCOW_SID;
     @Config(configName = NAME, fieldName = "defaultAuchanSid", defaultValue = "72")
     public static int DEFAULT_AUCHAN_SID;
+    @Config(configName = NAME, fieldName = "defaultOnDemandSid", defaultValue = "94")
+    public static int DEFAULT_ON_DEMAND_SID;
     @Config(configName = NAME, fieldName = "defaultTid", defaultValue = "")
     public static int DEFAULT_TID;
+    @Config(configName = NAME, fieldName = "defaultBrandId", defaultValue = "4")
+    public static int DEFAULT_BRAND_ID;
+    @Config(configName = NAME, fieldName = "defaultProductCountryId", defaultValue = "1")
+    public static int DEFAULT_PRODUCT_COUNTRY_ID;
     @Config(configName = NAME, fieldName = "defaultIdZone", defaultValue = "")
     public static int DEFAULT_ID_ZONE;
     @Config(configName = NAME, fieldName = "defaultShopperSid", defaultValue = "")
@@ -66,6 +73,9 @@ public final class EnvironmentProperties {
     private static String BASIC_URL;
     @Config(configName = NAME, fieldName = "shopperUrl", defaultValue = "")
     private static String SHOPPER_URL;
+    //Для кейсов бизнес-витрины в связке с stf
+    @Config(configName = NAME, fieldName = "b2cUrl", defaultValue = "")
+    private static String B2C_URL;
     @Config(configName = NAME, fieldName = "protocol", defaultValue = "https", args = "protocol")
     private static String PROTOCOL;
     @Config(configName = NAME, fieldName = "qaUrl", defaultValue = "")
@@ -89,10 +99,25 @@ public final class EnvironmentProperties {
                         ? Server.STAGING.name().toLowerCase() : Server.PRODUCTION.name().toLowerCase();
                 BASIC_URL = customBasicUrl;
                 STAGE = BASIC_URL.replace("stf-", "").replace(".k-stage.sbermarket.tech", "");
-                DB_URL = DB_URL.replace("kraken", STAGE);
-                DB_PGSQL_URL = DB_PGSQL_URL.replace("kraken", STAGE);
-                QA_URL = QA_URL.replace("kraken", STAGE);
 
+                if (BASIC_URL.contains("dex-")) {
+                    DB_URL = DB_URL.replace("_kraken", "");
+                    DB_PGSQL_URL = DB_PGSQL_URL.replace("_kraken", "");
+                } else {
+                    DB_URL = DB_URL.replace("kraken", STAGE);
+                    DB_PGSQL_URL = DB_PGSQL_URL.replace("kraken", STAGE);
+                }
+
+
+                if (BASIC_URL.contains("stf-")) {
+                    K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("kraken", STAGE);
+                    K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("kraken", STAGE);
+                    QA_URL = QA_URL.replace("kraken", STAGE);
+                } else {
+                    K8S_NAME_STF_SPACE = K8S_NAME_STF_SPACE.replace("stfkraken", STAGE);
+                    K8S_NAME_SHP_SPACE = K8S_NAME_SHP_SPACE.replace("shpkraken", STAGE);
+                    QA_URL = QA_URL.replace("stf-kraken", STAGE);
+                }
                 log.debug("Кастомные данные при ручном запуске на стейджах");
                 log.debug("BASIC_URL: {}", BASIC_URL);
                 log.debug("Server: {}", SERVER);
@@ -100,6 +125,8 @@ public final class EnvironmentProperties {
                 log.debug("DB_URL: {}", DB_URL);
                 log.debug("DB_PGSQL_URL: {}", DB_PGSQL_URL);
                 log.debug("QA_URL: {}", QA_URL);
+                log.debug("K8S_NAME_STF_SPACE: {}", K8S_NAME_STF_SPACE);
+                log.debug("K8S_NAME_SHP_SPACE: {}", K8S_NAME_SHP_SPACE);
 
                 if (nonNull(customShopperUrl) && !customShopperUrl.isBlank()) {
                     SHOPPER_URL = getDomainName(customShopperUrl);
@@ -113,6 +140,7 @@ public final class EnvironmentProperties {
         public static String ENV_NAME = TENANT + "-" + SERVER;
         public static String FULL_SITE_URL = PROTOCOL + "://" + BASIC_URL + "/";
         public static String FULL_SITE_URL_WITH_BASIC_AUTH = PROTOCOL + "://" + HTTP_AUTH + BASIC_URL + "/";
+        public static String FULL_B2C_URL_WITH_BASIC_AUTH = PROTOCOL + "://" + HTTP_AUTH + B2C_URL + "/";
         public static String FULL_ADMIN_URL = FULL_SITE_URL + "admin/";
         public static String FULL_ADMIN_URL_WITH_BASIC_AUTH = FULL_SITE_URL_WITH_BASIC_AUTH + "admin/";
         public static String FULL_SHOPPER_URL = PROTOCOL + "://" + SHOPPER_URL + "/";

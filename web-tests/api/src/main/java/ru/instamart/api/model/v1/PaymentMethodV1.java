@@ -10,7 +10,6 @@ import ru.instamart.api.model.BaseObject;
 @EqualsAndHashCode(callSuper=false)
 public class PaymentMethodV1 extends BaseObject {
 
-    @JsonSchema(required = true)
     private String environment;
     @JsonSchema(required = true)
     private Long id;

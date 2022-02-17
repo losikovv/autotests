@@ -63,7 +63,7 @@ tests:UiRegressManual:
   script:
     - gradle clean build sberRegression -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
-    - bash ./report.sh reforged ui-stf-regress
+    - bash ./report.sh reforged ui-stf-staging-regress
 
 tests:AdminUiRegressManual:
   extends:
@@ -72,4 +72,4 @@ tests:AdminUiRegressManual:
   script:
     - gradle clean build adminUiRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
-    - bash ./report.sh reforged ui-admin-regress
+    - bash ./report.sh reforged ui-admin-staging-regress

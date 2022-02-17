@@ -14,14 +14,20 @@ import static org.testng.Assert.fail;
 public class StoresDao extends AbstractDao<Long, StoresEntity> {
 
     public static final StoresDao INSTANCE = new StoresDao();
-    private final String SELECT_SQL = "SELECT %s FROM stores";
+    private final String SELECT_SQL = "SELECT * FROM stores ";
+    private final String SELECT_COUNT_SQL = "SELECT COUNT(*) AS total FROM stores ";
+    private final String SELECT_JOIN_STORE_LOCATIONS = "SELECT s.* FROM stores s JOIN store_locations sl ON s.id = sl.store_id ";
+    private final String SELECT_JOIN_STORE_SHIPPING_METHODS = "SELECT COUNT(DISTINCT s.city_id) AS total FROM stores s " +
+            "JOIN store_shipping_methods ssm ON s.id = ssm.store_id JOIN spree_shipping_methods sm ON sm.id = ssm.shipping_method_id";
+    private final String DELETE_SQL = "DELETE FROM stores, store_locations USING stores, store_locations ";
+    private final String UPDATE_SQL = "UPDATE stores SET ";
 
     @Override
     public boolean delete(Long id) {
         int result = 0;
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM stores, store_locations USING stores, store_locations" +
-                     " WHERE stores.id  = store_locations.store_id AND stores.id = ?")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL +
+                     "WHERE stores.id  = store_locations.store_id AND stores.id = ?")) {
             preparedStatement.setLong(1, id);
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -33,7 +39,7 @@ public class StoresDao extends AbstractDao<Long, StoresEntity> {
     public boolean updateWithSetAvailability(Long storeId, final String availabilityDate) {
         int result = 0;
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement("UPDATE stores SET available_on = ? WHERE id = ?")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + "available_on = ? WHERE id = ?")) {
             preparedStatement.setString(1, availabilityDate);
             preparedStatement.setLong(2, storeId);
             result = preparedStatement.executeUpdate();
@@ -46,7 +52,7 @@ public class StoresDao extends AbstractDao<Long, StoresEntity> {
     public int getCount() {
         int resultCount = 0;
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"))) {
+             PreparedStatement preparedStatement = connect.prepareStatement(SELECT_COUNT_SQL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             resultCount = resultSet.getInt("total");
@@ -59,7 +65,7 @@ public class StoresDao extends AbstractDao<Long, StoresEntity> {
     public StoresEntity getStoreByCoordinates(Double lat, Double lon) {
         StoresEntity store = new StoresEntity();
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "s.*") + " s JOIN store_locations sl ON s.id = sl.store_id" +
+             PreparedStatement preparedStatement = connect.prepareStatement(SELECT_JOIN_STORE_LOCATIONS +
                      " WHERE sl.lat = ? AND sl.lon = ? ORDER by sl.id DESC LIMIT 1")) {
             preparedStatement.setDouble(1, lat);
             preparedStatement.setDouble(2, lon);
@@ -79,8 +85,7 @@ public class StoresDao extends AbstractDao<Long, StoresEntity> {
     public int getUniqueCitiesCountByShippingMethod(String shippingMethod) {
         int resultCount = 0;
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(DISTINCT s.city_id) AS total") +
-                     " s JOIN store_shipping_methods ssm ON s.id = ssm.store_id JOIN spree_shipping_methods sm ON sm.id = ssm.shipping_method_id" +
+             PreparedStatement preparedStatement = connect.prepareStatement(SELECT_JOIN_STORE_SHIPPING_METHODS +
                      " WHERE sm.kind = ? AND s.available_on IS NOT NULL")) {
             preparedStatement.setString(1, shippingMethod);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -95,7 +100,7 @@ public class StoresDao extends AbstractDao<Long, StoresEntity> {
     @Override
     public Optional<StoresEntity> findById(Long id) {
         StoresEntity store = new StoresEntity();
-        var sql = String.format(SELECT_SQL, "*") + " WHERE id = ?";
+        var sql = SELECT_SQL + " WHERE id = ?";
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
             preparedStatement.setLong(1, id);

@@ -54,7 +54,7 @@ public class ExternalPartnersV1Tests extends RestBase {
         addSberPrime(user.getEmail());
         final Response response = ExternalPartnersV1Request.Services.GET();
         checkStatusCode200(response);
-        checkExternalPartnersServices(response, true);
+        checkExternalPartnersServices(response, true, "Бесплатная доставка");
     }
 
     @CaseId(1493)

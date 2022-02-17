@@ -19,10 +19,6 @@ public final class HomePage implements StfPage, Window, HomeCheck {
         return addressModal;
     }
 
-    public HelpDesk interactHelpDesk() {
-        return helpDesk;
-    }
-
     public Footer interactFooter() {
         return footer;
     }
@@ -36,69 +32,14 @@ public final class HomePage implements StfPage, Window, HomeCheck {
         loginButton.click();
     }
 
-    @Step("Нажать Для себя")
-    public void clickForYourself() {
-        forYourself.click();
-    }
-
-    @Step("Нажать Для бизнеса")
-    public void clickForBusiness() {
-        forBusiness.click();
-    }
-
-    @Step("Открыть модалку ввода адреса доставки")
+    @Step("Нажать на кнопку выбора адреса")
     public void clickToSetAddress() {
-        setAddress.click();
+        addressBlockAddressButton.click();
     }
 
-    @Step("Выбрать первый магазин в списке")
-    public void clickToFirstStoreCard() {
-        firstStoreCard.click();
-    }
-
-    @Step("Выбираем второй магазин в списке")
-    public void clickToSecondStoreCard() {
-        secondStoreCard.click();
-    }
-
-    @Step("Нажать Показать всех ритейлеров")
-    public void clickToShowAllRetailers() {
-        showAllRetailers.click();
-    }
-
-    @Step("Нажать на ретейлер ашан")
-    public void clickStoreAuchanButton() {
-        storesButtonAuchan.click();
-    }
-
-    @Step("Нажать на первого ретейлера")
-    public void clickToFirstRetailer() {
-        retailers.clickOnFirst();
-    }
-
-    @Step("Нажать Показать все города")
-    public void clickToShowAllCities() {
-        showAllCities.click();
-    }
-
-    @Step("Нажать Скрыть все города")
-    public void clickToHideCities() {
-        hideCities.click();
-    }
-
-    @Step("Перейти в GooglePlay")
-    public void clickToGooglePlay() {
-        googlePlay.click();
-    }
-
-    @Step("Перейти в AppStore")
-    public void clickToAppStore() {
-        appStore.click();
-    }
-
-    @Step("Перейти в AppGallery")
-    public void clickToAppGallery() {
-        appGallery.click();
+    @Step("Нажать на первый магазин")
+    public void clickOnFirstStore() {
+        deliveryStores.clickOnFirst();
     }
 
     @Override

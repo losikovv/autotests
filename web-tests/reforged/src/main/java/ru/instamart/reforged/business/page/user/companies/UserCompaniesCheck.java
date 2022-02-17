@@ -2,21 +2,31 @@ package ru.instamart.reforged.business.page.user.companies;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
-import ru.instamart.reforged.core.Kraken;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface UserCompaniesCheck extends Check, UserCompaniesElement {
 
+    @Step("Проверяем, что отображается кнопка 'Личный профиль'")
+    default void checkProfileButtonVisible() {
+        waitAction().shouldBeVisible(profileEdit);
+    }
+
+    @Step("Проверяем, что отображается кнопка 'Добавить компанию'")
+    default void checkAddCompanyButtonVisible() {
+        waitAction().shouldBeVisible(addCompany);
+    }
+
     @Step("Проверяем, что список компаний пуст")
     default void checkCompaniesListIsEmpty() {
-        Kraken.waitAction().shouldBeVisible(emptyCompaniesListPlaceholder);
+        waitAction().shouldBeVisible(emptyCompaniesListPlaceholder);
     }
 
     @Step("Проверяем, что список компаний не пуст")
     default void checkCompaniesListIsNotEmpty() {
-        Kraken.waitAction().shouldNotBeVisible(emptyCompaniesListPlaceholder);
+        waitAction().shouldNotBeVisible(emptyCompaniesListPlaceholder);
     }
 
     @Step("Проверяем, что количество компаний в списке: {expectedCount}")

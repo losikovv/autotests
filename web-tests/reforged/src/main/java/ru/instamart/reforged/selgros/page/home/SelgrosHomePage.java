@@ -14,6 +14,11 @@ public final class SelgrosHomePage implements SelgrosPage, SelgrosHomeCheck {
         return footer;
     }
 
+    public void goToPage(final boolean isFixedUUID) {
+        goToPage(pageUrl());
+        cookiesChange(true);
+    }
+
     @Override
     public void goToPage() {
         goToPage(pageUrl());

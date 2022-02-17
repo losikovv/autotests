@@ -3,25 +3,28 @@ package ru.instamart.test.reforged.admin;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
+import org.openqa.selenium.NotFoundException;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.api.request.v1.admin.ShipmentsAdminV1Request;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.listener.Skip;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.kraken.util.TimeUtil;
-import ru.instamart.reforged.admin.page.usersEdit.UsersEditPage;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.admin.AdminRout.*;
+import static ru.instamart.reforged.admin.AdminRout.login;
+import static ru.instamart.reforged.admin.AdminRout.shipments;
 
 @Epic("Админка STF")
 @Feature("Управление заказами")
 public final class AdministrationShipmentsSectionTests extends BaseTest {
 
-    //TODO продумать функцию предусловие для заполнения бд заказами
+    private final ApiHelper helper = new ApiHelper();
 
     @Skip
     @CaseId(175)
@@ -78,7 +81,17 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     @Story("Тест на работоспособность фильтра ТЕЛЕФОН СОДЕРЖИТ")
     @Test(description = "Тест на работоспособность фильтра ТЕЛЕФОН СОДЕРЖИТ", groups = {"acceptance", "regression", "smoke"})
     public void validateFilterPhoneShipmentsPage() {
-        var phone = "79268202951";
+        final var shipments = helper.getShipments(ShipmentsAdminV1Request.ShipmentsData
+                .builder()
+                .page(1)
+                .perPage(1)
+                .completedShipments(true)
+                .paymentMethodId(3)
+                .completedAtEnd(TimeUtil.getPastDateWithoutTime(2L))
+                .build());
+        final var shipment = shipments.getShipments().stream().findFirst().orElseThrow(NotFoundException::new);
+        final var phone = StringUtil.getPhoneNumber(shipment.order.shipAddress.phoneNumber);
+
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
         shipments().goToPage();
@@ -91,20 +104,32 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
     @CaseId(174)
     @Story("Тест на работоспособность мультифильтра")
-    @Test(description = "Тест на работоспособность мультифильтра", groups = {"acceptance", "regression", "smoke"})
+    @Test(description = "Тест на работоспособность мультифильтра", groups = {"acceptance", "regression", "smoke", "debug"})
     public void validateMultiFiltersShipmentsPage() {
-        var phone = "79268202951";
+        final var shipments = helper.getShipments(ShipmentsAdminV1Request.ShipmentsData
+                .builder()
+                .page(1)
+                .perPage(1)
+                .completedShipments(true)
+                .paymentMethodId(3)
+                .completedAtEnd(TimeUtil.getPastDateWithoutTime(2L))
+                .build());
+        final var shipment = shipments.getShipments().stream().findFirst().orElseThrow(NotFoundException::new);
+        final var phone = StringUtil.getPhoneNumber(shipment.order.shipAddress.phoneNumber);
+        final var deliveryStartDateDt = TimeUtil.convertFullDateToDt(shipment.deliveryWindowLocalStartsAt.toString());
+        final var deliveryEndDateDt = TimeUtil.convertFullDateToDt(shipment.deliveryWindowLocalEndsAt.toString());
+
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
         shipments().goToPage();
         shipments().checkPageTitle();
-        shipments().setPhoneAndDateFilterDefault(phone, TimeUtil.getDeliveryDateFrom());
-        shipments().setDateAndTimeFilterToTableDefault(TimeUtil.getDeliveryDateTo());
+        shipments().setPhoneAndDateFilterDefault(phone, deliveryStartDateDt);
+        shipments().setDateAndTimeFilterToTableDefault(deliveryEndDateDt);
         shipments().search();
         shipments().waitPageLoad();
         shipments().checkPhoneShipmentsColumn(phone);
-        shipments().checkDateAndTimeShipmentsColumn(TimeUtil.getDateWithoutTime());
+        shipments().checkDateAndTimeShipmentsColumn(shipment.deliveryWindowDate);
     }
 
     @CaseId(1224)
@@ -112,16 +137,25 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     @Test(  description = "Тест на проверку изменения количества заказов после применения фильтра, без пейджера",
             groups = {"acceptance", "regression", "smoke"})
     public void validateShipmentsAfterFiltrationWOTPager() {
+        final var shipments = helper.getShipments(ShipmentsAdminV1Request.ShipmentsData
+                .builder()
+                .page(1)
+                .perPage(1)
+                .completedShipments(true)
+                .paymentMethodId(3)
+                .completedAtEnd(TimeUtil.getPastDateWithoutTime(2L))
+                .build());
+        final var shipment = shipments.getShipments().stream().findFirst().orElseThrow(NotFoundException::new);
+
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
         shipments().goToPage();
         shipments().checkPageTitle();
-        String shipmentsBeforeFiltration = shipments().getNumberOfShipments();
-        String shipment = shipments().getShipmentNumber();
-        shipments().setShipmentOrOrderNumber(shipment);
+        final var shipmentsBeforeFiltration = shipments().getNumberOfShipments();
+        shipments().setShipmentOrOrderNumber(shipment.order.number);
         shipments().search();
-        String shipmentsAfterFiltration = shipments().getNumberOfShipments();
+        final var shipmentsAfterFiltration = shipments().getNumberOfShipments();
         shipments().checkNumberOfShipmentsAfterFiltration(shipmentsBeforeFiltration, shipmentsAfterFiltration);
         shipments().checkLastPagePager();
     }
@@ -136,11 +170,11 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
         shipments().goToPage();
         shipments().checkPageTitle();
-        String shipmentsBeforeFiltration = shipments().getNumberOfShipments();
-        shipments().setPhoneFilterFromTableDefault("79268202951");
+        final var shipmentsBeforeFiltration = shipments().getNumberOfShipments();
+        shipments().setPhoneFilterFromTableDefault("+7 990");
         shipments().search();
-        String shipmentsAfterFiltration = shipments().getNumberOfShipments();
-        String pages = shipments().getNumberOfPagesAfterFiltration(shipmentsAfterFiltration);
+        final var shipmentsAfterFiltration = shipments().getNumberOfShipments();
+        final var pages = shipments().getNumberOfPagesAfterFiltration(shipmentsAfterFiltration);
         shipments().checkNumberOfShipmentsAfterFiltration(shipmentsBeforeFiltration, shipmentsAfterFiltration);
         shipments().lastPageClick();
         shipments().checkCurrentPageNumber(pages);
@@ -154,12 +188,22 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     @Story("Тест поиска заказа по номеру заказа в админке")
     @Test(description = "Тест поиска заказа по номеру заказа в админке", groups = {"acceptance", "regression", "smoke"})
     public void successSearchOrderByOrderNumber() {
+        final var shipments = helper.getShipments(ShipmentsAdminV1Request.ShipmentsData
+                .builder()
+                .page(1)
+                .perPage(1)
+                .completedShipments(true)
+                .paymentMethodId(3)
+                .completedAtEnd(TimeUtil.getPastDateWithoutTime(2L))
+                .build());
+        final var shipment = shipments.getShipments().stream().findFirst().orElseThrow(NotFoundException::new);
+        final var orderNumber = shipment.order.number;
+
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
         shipments().goToPage();
         shipments().waitPageLoad();
-        final String orderNumber = shipments().getOrderNumber();
         shipments().setShipmentOrOrderNumber(orderNumber);
         shipments().search();
         shipments().checkFoundOrderOrShipmentCount(shipments().getFoundCount(), 1);
@@ -170,12 +214,22 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     @Story("Тест поиска заказа по номеру шипмента в админке")
     @Test(description = "Тест поиска заказа по номеру шипмента в админке", groups = {"acceptance", "regression", "smoke"})
     public void successSearchOrderByShipmentNumber() {
+        final var shipments = helper.getShipments(ShipmentsAdminV1Request.ShipmentsData
+                .builder()
+                .page(1)
+                .perPage(1)
+                .completedShipments(true)
+                .paymentMethodId(3)
+                .completedAtEnd(TimeUtil.getPastDateWithoutTime(2L))
+                .build());
+        final var shipment = shipments.getShipments().stream().findFirst().orElseThrow(NotFoundException::new);
+        final var shipmentNumber = shipment.number;
+
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
         shipments().goToPage();
         shipments().waitPageLoad();
-        final String shipmentNumber = shipments().getShipmentNumber();
         shipments().setShipmentOrOrderNumber(shipmentNumber);
         shipments().search();
         shipments().checkFoundOrderOrShipmentCount(shipments().getFoundCount(), 1);
@@ -185,7 +239,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
     // TODO тест можно ускорить - использовать тестовый заказ из конфига
     // TODO поправить тест после того как починб тест заказа
     @Story("Тест возобновления и отмены заказа через админку")
-    @Test(description = "Тест возобновления и отмены заказа через админку", groups = {"acceptance", "regression"})
+    @Test(enabled = false, description = "Тест возобновления и отмены заказа через админку", groups = {"acceptance", "regression"})
     public void successResumeAndCancelOrder() {
         final ApiHelper helper = new ApiHelper();
         final UserData userData = UserManager.getQaUser();
@@ -195,37 +249,52 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         //TODO: Заказ появляется в админке с задержкой рандомной
     }
 
-    // Нужен юзер
     @CaseId(183)
-    @Skip
     @Story("Тест поиска B2B заказа в админке")
     @Test(description = "Тест поиска B2B заказа в админке", groups = {"acceptance", "regression"})
     public void successSearchB2BOrder() {
-        final ApiHelper helper = new ApiHelper();
-        final UserData userData = UserManager.getQaUser();
-        final OrderV2 orderV2 = helper.makeOrder(userData, EnvironmentProperties.DEFAULT_SID, 3);
+        final var shipments = helper.getShipments(ShipmentsAdminV1Request.ShipmentsData
+                .builder()
+                .page(1)
+                .perPage(1)
+                .completedShipments(true)
+                .paymentMethodId(3)
+                .onlyB2b(true)
+                .completedAtEnd(TimeUtil.getPastDateWithoutTime(2L))
+                .build());
+        final var shipmentB2b = shipments.getShipments().stream().findFirst().orElseThrow(NotFoundException::new);
+        final var shipmentNumber = shipmentB2b.number;
 
-        //TODO: Заказ появляется в админке с задержкой рандомной
-    }
-
-    @Story("Тест поиска B2B заказа после снятия признака B2B")
-    @Test(description = "Тест поиска B2B заказа после снятия признака B2B", groups = {"acceptance", "regression"})
-    public void successSearchB2BOrderAfterRevokeB2BRole() {
-        final var userData = UserManager.forB2BUser();
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().auth(UserManager.getDefaultAdminAllRoles());
 
         shipments().goToPage();
         shipments().setB2BOrders();
+        shipments().setShipmentOrOrderNumber(shipmentNumber);
         shipments().search();
         shipments().waitPageLoad();
-        //вместо создания заказа получаю первый любой b2b заказ
-        final var shipmentNumber = shipments().getShipmentNumber();
+        shipments().checkOrderOrShipmentNumber(shipments().getShipmentNumber(), shipmentNumber);
+    }
 
-        main().doLogout();
+    //Нет четких требований к кейсу
+    @Skip
+    @Story("Тест поиска B2B заказа после снятия признака B2B")
+    @Test(description = "Тест поиска B2B заказа после снятия признака B2B", groups = {"acceptance", "regression"})
+    public void successSearchB2BOrderAfterRevokeB2BRole() {
+        final var shipments = helper.getShipments(ShipmentsAdminV1Request.ShipmentsData
+                .builder()
+                .page(1)
+                .perPage(1)
+                .completedShipments(true)
+                .paymentMethodId(3)
+                .onlyB2b(true)
+                .completedAtEnd(TimeUtil.getPastDateWithoutTime(2L))
+                .build());
+        final var shipmentB2b = shipments.getShipments().stream().findFirst().orElseThrow(NotFoundException::new);
+        final var shipmentNumber = shipmentB2b.number;
 
         login().goToPage();
-        login().auth(userData);
+        login().auth(UserManager.forB2BUser());
 
         shipments().goToPage();
         shipments().setB2BOrders();

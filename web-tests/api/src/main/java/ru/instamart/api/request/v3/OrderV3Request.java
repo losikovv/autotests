@@ -11,6 +11,8 @@ import ru.instamart.api.request.ApiV3RequestBase;
 
 import java.util.UUID;
 
+import static ru.instamart.api.helper.ApiV3Helper.getApiClienToken;
+
 @SuppressWarnings("unchecked")
 public class OrderV3Request extends ApiV3RequestBase {
     /**
@@ -28,7 +30,7 @@ public class OrderV3Request extends ApiV3RequestBase {
 
     public static Response GET(String UUID)
     {
-        return GET(UUID, "6fae9cd2b268be84e2ab394b6fd0d599");
+        return GET(UUID, getApiClienToken("goods"));
     }
 
     public static class PickupFromStore {
@@ -91,7 +93,7 @@ public class OrderV3Request extends ApiV3RequestBase {
 
         public static Response PUT(String UUID)
         {
-            return PUT(UUID, "14cd5d341d768bd4926fc9f5ce262094");
+            return PUT(UUID, getApiClienToken("sber_devices"));
         }
     }
 

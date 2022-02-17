@@ -2,8 +2,10 @@ package ru.instamart.test.api.v1.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
-import ru.instamart.api.enums.SessionProvider;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
@@ -99,9 +101,11 @@ public class MarketingSamplesV1Tests extends RestBase {
         compareMarketingSamples(profile.getUser().getEmail(), marketingSampleFromResponse, marketingSamplesEntity, "Updated Test marketing sample");
     }
 
+    @Issue("B2C-6444")
+    @Skip(onServer = Server.STAGING)
     @Story("Маркетинговые сэмплы")
     @CaseId(980)
-    @Test(description = "Изменение маркетингового сэмпла",
+    @Test(description = "Удаление маркетингового сэмпла",
             groups = {"api-instamart-regress"},
             dependsOnMethods = {"createMarketingSample", "getMarketingSample", "editMarketingSample"})
     public void deleteMarketingSample() {
@@ -120,6 +124,8 @@ public class MarketingSamplesV1Tests extends RestBase {
         checkStatusCode404(response);
     }
 
+    @Issue("B2C-6444")
+    @Skip(onServer = Server.STAGING)
     @Story("Маркетинговые сэмплы")
     @CaseId(982)
     @Test(description = "Удаление несуществующего маркетингового сэмпла",

@@ -37,6 +37,7 @@ public class OrderV1 extends BaseObject {
     @JsonProperty(value = "adjustment_total")
     private Double adjustmentTotal;
 
+    @Null
     @JsonSchema(required = true)
     @JsonProperty(value = "user_id")
     private Long userId;
@@ -98,6 +99,7 @@ public class OrderV1 extends BaseObject {
     @JsonProperty(value = "dispatcher_comment")
     private Object dispatcherComment;
 
+    @Null
     @JsonSchema(required = true)
     @JsonProperty(value = "ship_address")
     private AddressV1 shipAddress;

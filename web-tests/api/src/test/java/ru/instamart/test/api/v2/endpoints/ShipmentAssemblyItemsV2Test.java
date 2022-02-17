@@ -19,6 +19,8 @@ import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.response.v2.ShipmentAssemblyItemsV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.enums.Server;
+import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -98,6 +100,7 @@ public class ShipmentAssemblyItemsV2Test extends RestBase {
         checkAssemblyItem(shipment, assemblyItem, StateV2.CANCELED);
     }
 
+    @Skip(onServer = Server.STAGING) // на stf-0 нет офферов с Pricer::PerPack
     @CaseIDs(value = {@CaseId(534), @CaseId(535)})
     @Story("Детали по сборке подзаказа")
     @Test(groups = {"api-instamart-regress"},

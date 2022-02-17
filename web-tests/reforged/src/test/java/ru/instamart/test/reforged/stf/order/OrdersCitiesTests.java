@@ -57,9 +57,4 @@ public final class OrdersCitiesTests extends BaseTest {
 
         userShipments().checkPageContains(userShipments().pageUrl());
     }
-
-    @AfterMethod(description = "Отмена активных заказов")
-    public void cancelOrder() {
-        helper.cancelAllActiveOrders(userData);
-    }
 }

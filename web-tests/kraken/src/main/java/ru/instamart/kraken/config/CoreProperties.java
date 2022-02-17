@@ -27,4 +27,10 @@ public final class CoreProperties {
 
     @Config(configName = NAME, fieldName = "defaultQaServiceTimeout", defaultValue = "15")
     public static int DEFAULT_QA_SERVICE_TIMEOUT;
+
+    @Config(configName = NAME, fieldName = "mySqlPoolSize", defaultValue = "1")
+    public static int DEFAULT_MYSQL_POOL_SIZE;
+
+    @Config(configName = NAME, fieldName = "pgSqlPoolSize", defaultValue = "10")
+    public static int DEFAULT_PGSQL_POOL_SIZE;
 }

@@ -5,8 +5,9 @@ import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.reforged.core.component.*;
 import ru.instamart.reforged.stf.drawer.account_menu.AccountMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
-import ru.instamart.reforged.stf.frame.store_selector.StoreSelector;
+import ru.instamart.reforged.stf.frame.TransferCartModal;
 import ru.instamart.reforged.stf.frame.address.Address;
+import ru.instamart.reforged.stf.frame.store_selector.StoreSelector;
 
 public interface HeaderElement {
 
@@ -14,6 +15,7 @@ public interface HeaderElement {
     Cart cartFrame = new Cart();
     AccountMenu accountMenu = new AccountMenu();
     StoreSelector storeSelectorDrawer = new StoreSelector();
+    TransferCartModal transferCartModal = new TransferCartModal();
 
     Element header = new Element(By.xpath("//header"), "контейнер для шапки");
 
@@ -27,6 +29,7 @@ public interface HeaderElement {
     Element enteredAddress = new Element(By.xpath("//span[@data-qa='current-ship-address']"), "Лэйбл отображающий введенный адрес в шапке");
 
     Link forB2B = new Link(By.xpath("//a[contains(@href, '/transfer/to_b2b')]"), "empty");
+    Link buyForBusiness = new Link(By.xpath("//div[contains(@class,'header-navbar__b2b-showcase-button')]/button"), "Ссылка 'Покупайте для бизнеса'");
     Link forBrands = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Для производителей')]"), "empty");
     Link howWeWork = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Как мы работаем')]"), "empty");
     Link contacts = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Контакты')]"), "empty");

@@ -8,16 +8,6 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface HomeCheck extends Check, HomeElement {
 
-    @Step("Проверяем, что находимся на странице главного лендинга сбермаркета")
-    default void checkHomePageOpen() {
-        waitAction().urlEquals(EnvironmentProperties.Env.FULL_SITE_URL);
-    }
-
-    @Step("Проверяем, что кнопка логина видима")
-    default void checkLoginButtonIsVisible() {
-        waitAction().shouldBeVisible(loginButton);
-    }
-
     @Step("Проверяем, что отображается шапка лендинга Сбермаркета")
     default void checkHeaderContainerIsVisible() {
         waitAction().shouldBeVisible(headerContainer);
@@ -28,139 +18,88 @@ public interface HomeCheck extends Check, HomeElement {
         waitAction().shouldBeVisible(headerLogo);
     }
 
-    @Step("Проверяем, что отображается главный блок лендинга Сбермаркета")
-    default void checkMainBlockContainerIsVisible() {
-        waitAction().shouldBeVisible(mainBlockContainer);
+    @Step("Проверяем, что кнопка логина видима")
+    default void checkLoginButtonIsVisible() {
+        waitAction().shouldBeVisible(loginButton);
     }
 
-    @Step("Проверяем, что отображается главный блок лендинга Сбермаркета")
-    default void checkMainBlockContainerNotVisible() {
-        waitAction().shouldNotBeVisible(mainBlockContainer);
-    }
-
-    @Step("Проверяем, что отображается главная иллюстрация лендинга Сбермаркета")
-    default void checkMainBlockIllustrationIsVisible() {
-        waitAction().shouldBeVisible(mainBlockIllustration);
+    @Step("Проверяем, что отображается блок адреса доставки лендинга Сбермаркета")
+    default void checkAddressBlockContainerIsVisible() {
+        waitAction().shouldBeVisible(addressBlockContainer);
     }
 
     @Step("Проверяем, что отображается кнопка с указанием адреса доставки на лендинге")
-    default void checkMainBlockAddressButtonIsVisible() {
-        waitAction().shouldBeVisible(mainBlockAddressButton);
+    default void checkAddressBlockAddressButtonIsVisible() {
+        waitAction().shouldBeVisible(addressBlockAddressButton);
     }
 
     @Step("Проверяем, что отображается текст лендинга Сбермаркета")
-    default void checkMainBlockTextIsVisible() {
-        waitAction().shouldBeVisible(mainBlockText);
+    default void checkAddressBlockTextIsVisible() {
+        waitAction().shouldBeVisible(addressBlockText);
     }
 
-    @Step("Проверяем, что отображается блок со списком магазинов на лендинге Сбермаркета")
-    default void checkStoresListIsVisible() {
-        waitAction().shouldBeVisible(storesList);
+    @Step("Проверяем, что отображается блок магазинов лендинга Сбермаркета")
+    default void checkDeliveryContainerVisible() {
+        waitAction().shouldBeVisible(deliveryBlockContainer);
     }
 
-    @Step("Проверяем, что отображается кнопка первого магазина на лендинге Сбермаркета")
-    default void checkStoresButtonIsVisible() {
-        waitAction().shouldBeVisible(storesButton);
+    @Step("Проверяем, что отображается заголовок доставки магазинов лендинга Сбермаркета")
+    default void checkDeliveryTitleVisible() {
+        waitAction().shouldBeVisible(deliveryBlockTitle);
     }
 
-    @Step("Проверяем, что отображается кнопка выбора магазина Ашан")
-    default void checkStoresButtonAuchanIsVisible() {
-        waitAction().shouldBeVisible(storesButtonAuchan);
+    @Step("Проверяем, что отображается суб заголовок доставки магазинов лендинга Сбермаркета")
+    default void checkDeliverySubTitleVisible() {
+        waitAction().shouldBeVisible(deliveryBlockSubTitle);
     }
 
-    @Step("Проверяем, что отображается кнопка выбора магазина Метро")
-    default void checkStoresButtonMetroIsVisible() {
-        waitAction().shouldBeVisible(storesButtonMetro);
-    }
-
-    @Step("Проверяем, что отображается кнопка выбора магазина Лента")
-    default void checkStoresButtonLentaIsVisible() {
-        waitAction().shouldBeVisible(storesButtonLenta);
-    }
-
-    @Step("Проверяем, что отображается кнопка показать все магазины")
-    default void checkShowAllRetailerslIsVisible() {
-        waitAction().shouldBeVisible(showAllRetailers);
-    }
-
-    @Step("Проверяем, что отображается блок преимуществ на лендинге Сбермаркета")
-    default void checkAdvantagesBlockContainerIsVisible() {
+    @Step("Проверяем, что отображается блок advantages лендинга Сбермаркета")
+    default void checkAdvantagesContainerVisible() {
         waitAction().shouldBeVisible(advantagesBlockContainer);
     }
 
-    @Step("Проверяем, что отображается блок преимуществ быстрой доставки")
-    default void checkDeliveryAdvIsVisible() {
-        waitAction().shouldBeVisible(deliveryAdv);
+    @Step("Проверяем, что отображается блок info лендинга Сбермаркета")
+    default void checkInfoContainerVisible() {
+        waitAction().shouldBeVisible(infoBlockContainer);
     }
 
-    @Step("Проверяем, что отображается преимущество доставки тяжелых товаров до двери")
-    default void checkHeavyToDoorAdvIsVisible() {
-        waitAction().shouldBeVisible(heavyToDoorAdv);
+    @Step("Проверяем, что отображается блок cities лендинга Сбермаркета")
+    default void checkCitiesContainerVisible() {
+        waitAction().shouldBeVisible(citiesBlockContainer);
     }
 
-    @Step("Проверяем, что отображается преимущество доставки товаров высокого качества")
-    default void checkGoodQualityAdvIsVisible() {
-        waitAction().shouldBeVisible(goodQualityAdv);
+    @Step("Проверяем, что отображается блок b2b лендинга Сбермаркета")
+    default void checkB2bContainerVisible() {
+        waitAction().shouldBeVisible(b2bBannerBlockContainer);
     }
 
-    @Step("Проверяем, что отображается преимущество получения скидок от партнеров на большое количество товаров")
-    default void checkSaleAdvIsVisible() {
-        waitAction().shouldBeVisible(saleAdv);
+    @Step("Проверяем, что отображается кнопка блока b2b лендинга Сбермаркета")
+    default void checkB2bButtonContainerVisible() {
+        waitAction().shouldBeVisible(b2bBannerBlockButton);
     }
 
-    @Step("Проверяем, что отображается блок зон доставки на лендинге Сбермаркета")
-    default void checkZonesBlockContainerIsVisible() {
-        waitAction().shouldBeVisible(zonesBlockContainer);
+    @Step("Проверяем, что отображается блок steps лендинга Сбермаркета")
+    default void checkStepsContainerVisible() {
+        waitAction().shouldBeVisible(stepsBlockContainer);
     }
 
-    @Step("Проверяем, что отображается кнопка показать все города, где работает сбермаркет")
-    default void checkZonesBlockShowAllButtonIsVisible() {
-        waitAction().shouldBeVisible(zonesBlockShowAllButton);
+    @Step("Проверяем, что отображается блок app лендинга Сбермаркета")
+    default void checkAppContainerVisible() {
+        waitAction().shouldBeVisible(appBlockContainer);
     }
 
-    @Step("Проверяем, что отображается блок механики заказа на лендинге Сбермаркета")
-    default void checkOrderBlockContainerIsVisible() {
-        waitAction().shouldBeVisible(orderBlockContainer);
-    }
-
-    @Step("Проверяем, что отображается первый шаг заказа на лендинге Сбермаркета")
-    default void checkOrderBlockStepFirstIsVisible() {
-        waitAction().shouldBeVisible(orderBlockStepFirst);
-    }
-
-    @Step("Проверяем, что отображается второй шага заказа на лендинге Сбермаркета")
-    default void checkOrderBlockStepSecondIsVisible() {
-        waitAction().shouldBeVisible(orderBlockStepSecond);
-    }
-
-    @Step("Проверяем, что отображается третий шаг заказа на лендинге Сбермаркета")
-    default void checkOrderBlockStepThirdIsVisible() {
-        waitAction().shouldBeVisible(orderBlockStepThird);
-    }
-
-    @Step("Проверяем, что отображается блок моб. приложений на лендинге Сбермаркета")
-    default void checkAppsBlockContainerIsVisible() {
-        waitAction().shouldBeVisible(appsBlockContainer);
-    }
-
-    @Step("Проверяем, что отображается кнопка скачивания приложения сбермаркет в google play")
-    default void checkGooglePlayIsVisible() {
+    @Step("Проверяем, что отображается кнопка google play лендинга Сбермаркета")
+    default void checkGooglePlayButtonVisible() {
         waitAction().shouldBeVisible(googlePlay);
     }
 
-    @Step("Проверяем, что отображается кнопка скачивания приложения сбермаркет в app store")
-    default void checkAppStoreIsVisible() {
+    @Step("Проверяем, что отображается кнопка appstore лендинга Сбермаркета")
+    default void checkAppStoreButtonVisible() {
         waitAction().shouldBeVisible(appStore);
     }
 
-    @Step("Проверяем, что отображается кнопка скачивания приложения сбермаркет в app gallery")
-    default void checkAppGalleryContainerIsVisible() {
+    @Step("Проверяем, что отображается кнопка huawei play лендинга Сбермаркета")
+    default void checkHuaweiPlayButtonVisible() {
         waitAction().shouldBeVisible(appGallery);
     }
-
-    @Step("Проверяем, что отображается подвал лендинга Сбермаркета")
-    default void checkFooterContainerIsVisible() {
-        waitAction().shouldBeVisible(footerContainer);
-    }
-
 }

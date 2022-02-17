@@ -19,6 +19,11 @@ public final class TimeUtil {
             .parseCaseInsensitive()
             .appendPattern("dd MMMM yyyy")
             .toFormatter(new Locale("ru"));
+    //Mon Feb 14 22:55:00 MSK 2022
+    private static final DateTimeFormatter formatterFullDate = new DateTimeFormatterBuilder()
+            .parseCaseInsensitive()
+            .appendPattern("EEE MMM dd HH:mm:ss zzz yyyy")
+            .toFormatter(Locale.ENGLISH);
 
     private TimeUtil() {
     }
@@ -52,11 +57,16 @@ public final class TimeUtil {
     }
 
     public static String getDbDeliveryDateFrom(Long days) {
-        return dtdb.format(ZonedDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT, ZONE_ID).plusDays(days));
+
+        return dtdb.format(ZonedDateTime.ofInstant(LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT).atZone(ZONE_ID).toInstant(), ZoneId.of("UTC")).plusDays(days));
     }
 
     public static String getDbDeliveryDateTo(Long days) {
-        return dtdb.format(ZonedDateTime.of(LocalDate.now(), LocalTime.MAX, ZONE_ID).plusDays(days));
+        return dtdb.format(ZonedDateTime.ofInstant(LocalDateTime.of(LocalDate.now(), LocalTime.MAX).atZone(ZONE_ID).toInstant(), ZoneId.of("UTC")).plusDays(days));
+    }
+
+    public static String getDbDate(LocalDateTime date) {
+        return dtdb.format(ZonedDateTime.ofInstant(date.atZone(ZONE_ID).toInstant(), ZoneId.of("UTC")));
     }
 
     public static String getPastZoneDbDate(Long days) {
@@ -80,6 +90,14 @@ public final class TimeUtil {
      */
     public static ZonedDateTime convertStringToDate(final String str) {
         return LocalDate.parse(str, formatter).atStartOfDay(ZoneId.systemDefault());
+    }
+
+    public static String convertFullDateToDtd(final String date) {
+        return dtd.format(LocalDate.parse(date, formatterFullDate).atStartOfDay(ZONE_ID));
+    }
+
+    public static String convertFullDateToDt(final String date) {
+        return dt.format(ZonedDateTime.parse(date, formatterFullDate).withZoneSameInstant(ZONE_ID));
     }
 
     public static Timestamp getTimestampFromString(String dateTime) {

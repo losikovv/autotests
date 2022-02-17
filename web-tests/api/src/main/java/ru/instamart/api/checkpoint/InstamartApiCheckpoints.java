@@ -8,11 +8,14 @@ import ru.instamart.api.enums.v2.ProductSortTypeV2;
 import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.model.v1.MarketingSampleV1;
 import ru.instamart.api.model.v1.ShippingPolicyV1;
+import ru.instamart.api.model.v1.UserShipmentV1;
 import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v1.ShippingPoliciesV1Request;
+import ru.instamart.api.response.v1.MultiretailerOrderV1Response;
+import ru.instamart.api.response.v1.UserShipmentV1Response;
 import ru.instamart.api.response.v2.ExternalPartnersServicesV2Response;
 import ru.instamart.api.response.v2.ReviewIssuesV2Response;
 import ru.instamart.api.response.v2.TransferMethodLossesV2Response;
@@ -137,13 +140,13 @@ public class InstamartApiCheckpoints {
         softAssert.assertAll();
     }
     @Step("Проверяем информацию о подписке, пришедшую в ответе")
-    public static void checkExternalPartnersServices(Response response, Boolean isActive) {
+    public static void checkExternalPartnersServices(Response response, Boolean isActive, String text) {
         ServicesV2 service = response.as(ExternalPartnersServicesV2Response.class).getServices().get(0);
         checkFieldIsNotEmpty(service, "сервис");
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(service.getName(), "SberPrime", softAssert);
         compareTwoObjects(service.getKind(), "sber_prime", softAssert);
-        compareTwoObjects(service.getText(), "Бесплатная доставка", softAssert);
+        compareTwoObjects(service.getText(), text, softAssert);
         compareTwoObjects(service.getDiscountType(), "free_delivery", softAssert);
         compareTwoObjects(service.getSubscription().getActive(), isActive, softAssert);
         softAssert.assertAll();
@@ -279,6 +282,42 @@ public class InstamartApiCheckpoints {
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(reviewIssues, sortedReviewIssues, softAssert);
         compareTwoObjects(reviewIssues.size(), ShipmentReviewIssuesDao.INSTANCE.getCount(), softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем пришедший заказ пользователя {user.email}")
+    public static void checkUserShipmentFromResponse(Response response, MultiretailerOrderV1Response order, UserData user, String state, String delayText) {
+        checkResponseJsonSchema(response, UserShipmentV1Response.class);
+        UserShipmentV1 shipmentFromResponse = response.as(UserShipmentV1Response.class).getShipment();
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(shipmentFromResponse.getNumber(),order.getShipments().get(0).getNumber(), softAssert);
+        compareTwoObjects(shipmentFromResponse.getOrderNumber(), order.getNumber(), softAssert);
+        compareTwoObjects(shipmentFromResponse.getState(), state, softAssert);
+        compareTwoObjects(shipmentFromResponse.getEmail(),user.getEmail(), softAssert);
+        compareTwoObjects(shipmentFromResponse.getStoreId(),(long) EnvironmentProperties.DEFAULT_SID, softAssert);
+        if (delayText == null) {
+            compareTwoObjects(shipmentFromResponse.getDelay(), null, softAssert);
+        } else {
+            compareTwoObjects(shipmentFromResponse.getDelay().getText(), "Задерживаемся, но очень торопимся", softAssert);
+        }
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем пришедший заказ пользователя {user.email}")
+    public static void checkUserShipmentFromResponse(Response response, OrderV2 order, UserData user, String state, String delayText) {
+        checkResponseJsonSchema(response, UserShipmentV1Response.class);
+        UserShipmentV1 shipmentFromResponse = response.as(UserShipmentV1Response.class).getShipment();
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(shipmentFromResponse.getNumber(),order.getShipments().get(0).getNumber(), softAssert);
+        compareTwoObjects(shipmentFromResponse.getOrderNumber(), order.getNumber(), softAssert);
+        compareTwoObjects(shipmentFromResponse.getState(), state, softAssert);
+        compareTwoObjects(shipmentFromResponse.getEmail(),user.getEmail(), softAssert);
+        compareTwoObjects(shipmentFromResponse.getStoreId(), order.getShipments().get(0).getStore().getId(), softAssert);
+        if (delayText == null) {
+            compareTwoObjects(shipmentFromResponse.getDelay(), null, softAssert);
+        } else {
+            compareTwoObjects(shipmentFromResponse.getDelay().getText(), "Задерживаемся, но очень торопимся", softAssert);
+        }
         softAssert.assertAll();
     }
 }

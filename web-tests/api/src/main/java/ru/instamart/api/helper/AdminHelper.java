@@ -9,13 +9,12 @@ import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.model.v1.b2b.ManagerV1;
 import ru.instamart.api.model.v1.b2b.UserV1;
 import ru.instamart.api.request.admin.*;
-import ru.instamart.api.request.v1.ImportsV1Request;
-import ru.instamart.api.request.v1.OperationalZonesV1Request;
-import ru.instamart.api.request.v1.ShippingMethodsV1Request;
+import ru.instamart.api.request.v1.*;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.MarketingPricers;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.NominalPricers;
-import ru.instamart.api.request.v1.StoresV1Request;
+import ru.instamart.api.request.v1.admin.ShipmentsAdminV1Request;
 import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
+import ru.instamart.api.response.v1.admin.ShipmentsAdminV1Response;
 import ru.instamart.api.request.v1.b2b.CompanyManagersV1Request;
 import ru.instamart.api.response.v1.*;
 import ru.instamart.api.response.v1.imports.OffersFilesV1Response;
@@ -148,6 +147,12 @@ public class AdminHelper {
     public void updateCalculator(final int ruleId, final ShippingMethodsV1Request.Calculators calculators) {
         final var response = ShippingMethodsV1Request.Calculators.PUT(ruleId, calculators);
         checkStatusCode200(response);
+    }
+
+    public ShipmentsAdminV1Response getShipments(final ShipmentsAdminV1Request.ShipmentsData shipmentsData) {
+        final var response = ShipmentsAdminV1Request.GET(shipmentsData);
+        checkStatusCode200(response);
+        return response.as(ShipmentsAdminV1Response.class);
     }
 
     @Step("Авторизация администратором")

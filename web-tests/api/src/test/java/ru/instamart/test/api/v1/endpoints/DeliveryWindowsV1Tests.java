@@ -3,24 +3,21 @@ package ru.instamart.test.api.v1.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.ShippingMethodV2;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.DeliveryWindowV1;
 import ru.instamart.api.request.v1.DeliveryWindowsV1Request;
 import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.response.v1.DeliveryWindowV1Response;
 import ru.instamart.api.response.v1.DeliveryWindowsV1Response;
 import ru.instamart.jdbc.dao.DeliveryWindowsDao;
-import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 

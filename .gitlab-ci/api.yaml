@@ -35,6 +35,9 @@ tests:ApiInstamartRegress:manual:
     - ".template_api_tests"
     - ".template_web"
   resource_group: apiInstamart:$URL_STF
+  except:
+    variables:
+      - $URL_STF =~ /next-stf-preprod.*/ # Исключаем из прогона на стейдже. Только фронт
   when: manual
   script:
     - echo $P_ENV

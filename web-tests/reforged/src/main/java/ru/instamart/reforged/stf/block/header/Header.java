@@ -5,8 +5,9 @@ import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.core.action.JsAction;
 import ru.instamart.reforged.stf.drawer.account_menu.AccountMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
-import ru.instamart.reforged.stf.frame.store_selector.StoreSelector;
+import ru.instamart.reforged.stf.frame.TransferCartModal;
 import ru.instamart.reforged.stf.frame.address.Address;
+import ru.instamart.reforged.stf.frame.store_selector.StoreSelector;
 
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -26,6 +27,10 @@ public final class Header implements HeaderCheck {
 
     public StoreSelector interactStoreSelector() {
         return storeSelectorDrawer;
+    }
+
+    public TransferCartModal interactTransferCartModal() {
+        return transferCartModal;
     }
 
     @Step("Нажать на лого")
@@ -49,7 +54,7 @@ public final class Header implements HeaderCheck {
     }
 
     @Step("Выбрать первую найденную категорию в саджесторе")
-    public void clickOnFirstSuggesterCategory(){
+    public void clickOnFirstSuggesterCategory() {
         suggesterTabHeaders.clickOnFirst();
     }
 
@@ -165,5 +170,10 @@ public final class Header implements HeaderCheck {
     @Step("Вернуть текущий адрес")
     public String returnCurrentAddress() {
         return enteredAddress.getText();
+    }
+
+    @Step("Нажимаем на ссылку 'Покупайте для бизнеса'")
+    public void clickBuyForBusiness() {
+        buyForBusiness.click();
     }
 }

@@ -43,8 +43,16 @@ public final class StringUtil {
         return url.replace(EnvironmentProperties.HTTP_AUTH, "");
     }
 
+    public static String addBasicAuthToUrl(final String url) {
+        return url.replace("://", "://" + EnvironmentProperties.HTTP_AUTH);
+    }
+
     public static String getPhone(final String phone) {
-        return phone.replaceAll("[^0-9]", "").substring(1);
+        return getPhoneNumber(phone).substring(1);
+    }
+
+    public static String getPhoneNumber(final String phone) {
+        return phone.replaceAll("[^0-9]", "");
     }
 
     public static String getSMSCode(final String phone) {
@@ -59,7 +67,7 @@ public final class StringUtil {
     }
 
     /**
-     *Парсит строку типа "Екатеринбург (17)" в (Integer)17, или "тест-375756123 (13)" в (Integer)13
+     * Парсит строку типа "Екатеринбург (17)" в (Integer)17, или "тест-375756123 (13)" в (Integer)13
      */
     public static int parseNumberCitiesFromString(final String text) {
         Matcher matcher = citiesPattern.matcher(text);

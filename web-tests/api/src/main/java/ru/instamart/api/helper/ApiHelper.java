@@ -1,6 +1,7 @@
 package ru.instamart.api.helper;
 
 import io.qameta.allure.Step;
+import io.restassured.response.Response;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.model.v2.AddressV2;
@@ -11,20 +12,20 @@ import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.ShippingMethodsRequest;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request;
+import ru.instamart.api.request.v1.admin.ShipmentsAdminV1Request;
 import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
 import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
 import ru.instamart.api.response.v1.PricerV1Response;
 import ru.instamart.api.response.v1.PricersV1Response;
 import ru.instamart.api.response.v1.ShippingMethodsResponse;
+import ru.instamart.api.response.v1.admin.ShipmentsAdminV1Response;
 import ru.instamart.api.response.v1.b2b.CompaniesV1Response;
-import ru.instamart.jdbc.dao.OffersDao;
-import ru.instamart.jdbc.dao.OperationalZonesDao;
-import ru.instamart.jdbc.dao.PromotionCodesDao;
-import ru.instamart.jdbc.dao.StoresDao;
+import ru.instamart.jdbc.dao.*;
 import ru.instamart.jdbc.dao.shopper.OperationalZonesShopperDao;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.user.UserData;
 
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.data.user.UserRoles.B2B_MANAGER;
 
 public final class ApiHelper {
@@ -451,6 +452,12 @@ public final class ApiHelper {
         admin.updateCalculator(ruleId, data);
     }
 
+    @Step("Получить данные по заказам {0}")
+    public ShipmentsAdminV1Response getShipments(final ShipmentsAdminV1Request.ShipmentsData shipmentsData) {
+        admin.authAdminApi();
+        return admin.getShipments(shipmentsData);
+    }
+
     @Step("Получаем первый доступный слот ON_DEMAND")
     public DeliveryWindowV2 getAvailableDeliveryWindowOnDemand(final UserData user, final Integer sid) {
         apiV2.auth(user);
@@ -468,5 +475,22 @@ public final class ApiHelper {
 
     public void updateStore(final Long storeId, final String availabilityDate) {
         StoresDao.INSTANCE.updateWithSetAvailability(storeId, availabilityDate);
+    }
+
+    @Step("Получаем Id компании по ИНН: {inn}")
+    public int getCompanyId(final String inn) {
+        final Response response = CompaniesV1Request.GET(inn);
+        checkStatusCode200(response);
+        return response.as(CompaniesV1Response.class).getCompanies().get(0).getId();
+    }
+
+    @Step("Добавляем для компании Id: {companyId} счёт с балансом: {balance}")
+    public void addPaymentAccountForCompany(Integer companyId, Integer balance) {
+        CompanyPaymentAccountsDao.INSTANCE.createCompanyAccount(companyId, balance);
+    }
+
+    @Step("Устанавливаем на счёте компании с Id: {companyId} сумму: {balance}")
+    public void setPaymentAccountBalance(Integer companyId, Integer balance) {
+        CompanyPaymentAccountsDao.INSTANCE.updateBalance(companyId, balance);
     }
 }

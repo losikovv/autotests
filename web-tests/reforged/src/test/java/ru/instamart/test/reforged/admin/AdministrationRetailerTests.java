@@ -192,15 +192,15 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().checkAddNewRetailerButtonVisible();
 
         retailers().clickOnSortViaName();
-        retailers().checkSpinnerVisible();
-        retailers().checkSpinnerNotVisible();
+        retailers().refresh();
+        retailers().checkAddNewRetailerButtonVisible();
 
         retailers().checkSortViaNameAscEnabled();
         retailers().checkSortViaNameAsc();
 
         retailers().clickOnSortViaName();
-        retailers().checkSpinnerVisible();
-        retailers().checkSpinnerNotVisible();
+        retailers().refresh();
+        retailers().checkAddNewRetailerButtonVisible();
 
         retailers().checkSortViaNameDescEnabled();
         retailers().checkSortViaNameDesc();
@@ -218,15 +218,15 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().checkAddNewRetailerButtonVisible();
 
         retailers().clickOnSortViaCreationDate();
-        retailers().checkSpinnerVisible();
-        retailers().checkSpinnerNotVisible();
+        retailers().refresh();
+        retailers().checkAddNewRetailerButtonVisible();
 
         retailers().checkSortViaCreationDateAscEnabled();
         retailers().checkSortViaCreationDateAsc();
 
         retailers().clickOnSortViaCreationDate();
-        retailers().checkSpinnerVisible();
-        retailers().checkSpinnerNotVisible();
+        retailers().refresh();
+        retailers().checkAddNewRetailerButtonVisible();
 
         retailers().checkSortViaCreationDateDescEnabled();
         retailers().checkSortViaCreationDateDesc();
@@ -244,8 +244,8 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().checkAddNewRetailerButtonVisible();
 
         retailers().clickOnSortViaCreationDate();
-        retailers().checkSpinnerVisible();
-        retailers().checkSpinnerNotVisible();
+        retailers().refresh();
+        retailers().checkAddNewRetailerButtonVisible();
 
         retailers().checkSortViaCreationDateAscEnabled();
         retailers().checkSortViaCreationDateAsc();

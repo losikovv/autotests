@@ -17,4 +17,17 @@ public interface BashCommands {
             return format(command, (Object[]) values);
         }
     }
+
+    @AllArgsConstructor
+    enum ShipmentDelays implements BashCommands {
+        /**
+         * Обновление информации о задержках доставки
+         */
+        COMPUTE_EXPECTED_DATES("/vault/vault-env bundle exec rake shipment_delays:compute_expected_dates"),
+        SEND_NOTIFICATIONS("/vault/vault-env bundle exec rake shipment_delays:send_notifications");
+        private String command;
+        public String get() {
+            return command;
+        }
+    }
 }
