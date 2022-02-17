@@ -12,7 +12,11 @@ public enum StateV2 {
     ASSEMBLED("assembled"),
     CANCELED("canceled"),
     REPLACED("replaced"),
-    READY("ready");
+    READY("ready"),
+    COLLECTING("collecting"),
+    READY_TO_SHIP("ready_to_ship"),
+    SHIPPING("shipping"),
+    SHIPPED("shipped");
 
     private final String value;
 }

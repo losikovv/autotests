@@ -8,13 +8,12 @@ import ru.instamart.api.model.BaseObject;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class PaymentMethodV1 extends BaseObject {
+public class UserShipmentStoreV1 extends BaseObject {
 
-    private String environment;
     @JsonSchema(required = true)
     private Long id;
     @JsonSchema(required = true)
-    private String key;
-    @JsonSchema(required = true)
     private String name;
+    @JsonSchema(required = true)
+    private RetailerV1 retailer;
 }

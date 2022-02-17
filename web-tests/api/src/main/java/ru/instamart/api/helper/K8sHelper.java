@@ -8,6 +8,8 @@ import ru.instamart.kraken.enums.Tenant;
 import java.util.List;
 
 import static ru.instamart.api.enums.BashCommands.Instacoins.ADD_USER_INSTACOIN;
+import static ru.instamart.api.enums.BashCommands.ShipmentDelays.COMPUTE_EXPECTED_DATES;
+import static ru.instamart.api.enums.BashCommands.ShipmentDelays.SEND_NOTIFICATIONS;
 import static ru.instamart.api.enums.RailsConsole.ExternalPartners.SUBSCRIPTION;
 import static ru.instamart.api.enums.RailsConsole.Order.*;
 import static ru.instamart.api.enums.RailsConsole.User.ADD_ALL_ROLES;
@@ -27,6 +29,18 @@ public class K8sHelper {
     @Step("Перевод через консоль заказ {shipmentNumber} в статус \"Собирается\"")
     public static void changeToCollecting(String shipmentNumber) {
         List<String> strings = execRailsCommandWithPod(START_COLLECTING.get(shipmentNumber));
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
+
+    @Step("Перевод через консоль заказ {shipmentNumber} в статус \"Готов к отправке\"")
+    public static void changeToReadyToShip(String shipmentNumber) {
+        List<String> strings = execRailsCommandWithPod(FINISH_COLLECTING.get(shipmentNumber));
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
+
+    @Step("Перевод через консоль заказ {shipmentNumber} в статус \"Доставляется\"")
+    public static void changeToShipping(String shipmentNumber) {
+        List<String> strings = execRailsCommandWithPod(START_SHIPPING.get(shipmentNumber));
         Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
     }
 
@@ -155,5 +169,17 @@ public class K8sHelper {
     public static void createApiClient(String clientId, String tenantId) {
         List<String> strings = execRailsCommandWithPod(CREATE_API_CLIENT.get(clientId, tenantId));
         Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
+
+    @Step("Установка ожидаемых дат сборки и доставки")
+    public static void computeExpectedDates() {
+        List<String> consoleLog = execBashCommandWithPod(COMPUTE_EXPECTED_DATES.get());
+        Allure.addAttachment("Логи консоли", String.join("\n", consoleLog));
+    }
+
+    @Step("Отправка уведомления о задержке доставки")
+    public static void sendNotifications() {
+        List<String> consoleLog = execBashCommandWithPod(SEND_NOTIFICATIONS.get());
+        Allure.addAttachment("Логи консоли", String.join("\n", consoleLog));
     }
 }

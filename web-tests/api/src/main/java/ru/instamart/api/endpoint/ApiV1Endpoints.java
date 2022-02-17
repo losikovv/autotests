@@ -244,4 +244,11 @@ public final class ApiV1Endpoints {
             }
         }
     }
+
+    public static final class Users {
+
+        public static final class Shipments {
+            public static final String BY_NUMBER = "users/{userId}/shipments/{shipmentNumber}";
+        }
+    }
 }

@@ -32,6 +32,8 @@ public final class EnvironmentProperties {
     public static int DEFAULT_METRO_MOSCOW_SID;
     @Config(configName = NAME, fieldName = "defaultAuchanSid", defaultValue = "72")
     public static int DEFAULT_AUCHAN_SID;
+    @Config(configName = NAME, fieldName = "defaultOnDemandSid", defaultValue = "94")
+    public static int DEFAULT_ON_DEMAND_SID;
     @Config(configName = NAME, fieldName = "defaultTid", defaultValue = "")
     public static int DEFAULT_TID;
     @Config(configName = NAME, fieldName = "defaultBrandId", defaultValue = "4")

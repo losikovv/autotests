@@ -65,6 +65,10 @@ public final class TimeUtil {
         return dtdb.format(ZonedDateTime.ofInstant(LocalDateTime.of(LocalDate.now(), LocalTime.MAX).atZone(ZONE_ID).toInstant(), ZoneId.of("UTC")).plusDays(days));
     }
 
+    public static String getDbDate(LocalDateTime date) {
+        return dtdb.format(ZonedDateTime.ofInstant(date.atZone(ZONE_ID).toInstant(), ZoneId.of("UTC")));
+    }
+
     public static String getPastZoneDbDate(Long days) {
         return dtdb.format(ZonedDateTime.now(ZONE_ID).minusDays(days));
     }
