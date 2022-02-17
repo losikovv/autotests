@@ -218,7 +218,6 @@ public final class UserShippingAddressTests extends BaseTest {
     }
 
     @CaseIDs({@CaseId(2568), @CaseId(2570)})
-    @CaseId(2570)
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Адрес сохраняется при регистрации нового пользователя", groups = "regression")
     public void testSuccessSaveAddressAfterRegistration() {
@@ -228,7 +227,7 @@ public final class UserShippingAddressTests extends BaseTest {
         home().interactAddressModal().fillAddressTmp(defaultAddress);
         home().interactAddressModal().selectFirstAddressTmp();
         home().interactAddressModal().clickFindStores();
-        home().clickToFirstRetailer();
+        home().clickOnFirstStore();
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().interactHeader().checkIsSetAddressEqualToInput(defaultAddress,
                 shop().interactHeader().getShippingAddressFromHeader());

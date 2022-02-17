@@ -13,9 +13,8 @@ import static ru.instamart.reforged.stf.page.StfRouter.home;
 @Feature("Проверка лендингов")
 public class SbermarketLandingTests extends BaseTest {
 
-    //АБ по главной отключили, нужно переписать ATST-872
     @CaseId(1687)
-    @Test(enabled = false, description = "Тест валидности и наличия элементов лендинга Сбермаркета", groups = "regression")
+    @Test(description = "Тест валидности и наличия элементов лендинга Сбермаркета", groups = "regression")
     public void successValidateSbermarketLanding() {
         home().goToPage();
         home().addCookie(CookieFactory.COOKIE_ALERT);
@@ -24,38 +23,26 @@ public class SbermarketLandingTests extends BaseTest {
         home().checkHeaderLogoIsVisible();
         home().checkLoginButtonIsVisible();
 
-        home().checkMainBlockContainerIsVisible();
-        home().checkMainBlockAddressButtonIsVisible();
-        home().checkMainBlockTextIsVisible();
+        home().checkAddressBlockContainerIsVisible();
+        home().checkAddressBlockTextIsVisible();
+        home().checkAddressBlockAddressButtonIsVisible();
 
-        home().checkStoresListIsVisible();
-        home().checkStoresButtonIsVisible();
-        home().checkShowAllRetailerslIsVisible();
-        home().clickToShowAllRetailers();
-        home().checkStoresButtonAuchanIsVisible();
-        home().checkStoresButtonMetroIsVisible();
-        home().checkStoresButtonLentaIsVisible();
+        home().checkDeliveryContainerVisible();
+        home().checkDeliveryTitleVisible();
+        home().checkDeliverySubTitleVisible();
 
-        home().checkAdvantagesBlockContainerIsVisible();
-        home().checkDeliveryAdvIsVisible();
-        home().checkHeavyToDoorAdvIsVisible();
-        home().checkGoodQualityAdvIsVisible();
-        home().checkSaleAdvIsVisible();
+        home().checkAdvantagesContainerVisible();
+        home().checkInfoContainerVisible();
+        home().checkCitiesContainerVisible();
 
-        home().checkZonesBlockContainerIsVisible();
-        home().checkZonesBlockShowAllButtonIsVisible();
+        home().checkB2bButtonContainerVisible();
+        home().checkB2bButtonContainerVisible();
+        home().checkStepsContainerVisible();
 
-        home().checkOrderBlockContainerIsVisible();
-        home().checkOrderBlockStepFirstIsVisible();
-        home().checkOrderBlockStepSecondIsVisible();
-        home().checkOrderBlockStepThirdIsVisible();
-
-        home().checkAppsBlockContainerIsVisible();
-        home().checkAppStoreIsVisible();
-        home().checkGooglePlayIsVisible();
-        home().checkAppGalleryContainerIsVisible();
-
-        home().checkFooterContainerIsVisible();
+        home().checkAppContainerVisible();
+        home().checkGooglePlayButtonVisible();
+        home().checkAppStoreButtonVisible();
+        home().checkHuaweiPlayButtonVisible();
     }
 
     @CaseId(2042)
