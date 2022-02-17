@@ -6,6 +6,7 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.data_provider.StaticPage;
@@ -20,12 +21,11 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 @Feature("Лэндинг")
 public final class BasicSbermarketTests extends BaseTest {
 
-    //TODO: АБ тест checkStoreSelectorVisible()
     @CaseId(1438)
     @Story("Валидация элементов")
-    @Test(enabled = false, description = "Тест валидности элементов и ссылок в шапке Сбермаркета", groups = {"regression", "MRAutoCheck"})
+    @Test(description = "Тест валидности элементов и ссылок в шапке Сбермаркета", groups = {"regression", "MRAutoCheck"})
     public void successValidateHeader() {
-        shop().goToPage();
+        shop().goToPage(true);
         shop().checkPageIsAvailable();
 
         shop().interactHeader().checkHeaderVisible();
@@ -38,7 +38,6 @@ public final class BasicSbermarketTests extends BaseTest {
         shop().interactHeader().checkHelpVisible();
         shop().interactHeader().checkDeliveryAndPaymentVisible();
         shop().interactHeader().checkCategoryMenuVisible();
-        shop().interactHeader().checkStoreSelectorVisible();
         shop().interactHeader().checkSearchInputVisible();
         shop().interactHeader().checkSearchButtonVisible();
         shop().interactHeader().checkCartVisible();
