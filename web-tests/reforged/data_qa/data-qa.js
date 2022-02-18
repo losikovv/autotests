@@ -33,22 +33,20 @@ function getSize(element) {
 }
 
 function getPosition(element) {
-    let _x = 0;
-    let _y = 0;
-    while (element && !isNaN(element.offsetLeft) && !isNaN(element.offsetTop) ) {
-        _x += element.offsetLeft - element.scrollLeft;
-        _y += element.offsetTop - element.scrollTop;
-        element = element.offsetParent;
-    }
-    return { y: _y, x: _x };
-}
+    let box = element.getBoundingClientRect();
+    let body = document.body;
+    let docEl = document.documentElement;
 
-function getPosition2( element ) {
-    let rect = element.getBoundingClientRect();
-    return {
-        x: rect.left + document.body.scrollLeft,
-        y: rect.top + document.body.scrollTop
-    };
+    let scrollTop = window.scrollY || docEl.scrollTop || body.scrollTop;
+    let scrollLeft = window.scrollX || docEl.scrollLeft || body.scrollLeft;
+
+    let clientTop = docEl.clientTop || body.clientTop || 0;
+    let clientLeft = docEl.clientLeft || body.clientLeft || 0;
+
+    let top  = box.top +  scrollTop - clientTop;
+    let left = box.left + scrollLeft - clientLeft;
+
+    return { y: Math.round(top), x: Math.round(left) };
 }
 
 function draw(element) {
@@ -60,12 +58,20 @@ function draw(element) {
 }
 
 function prepareAndDraw() {
-    console.log("ReDraw")
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     dataQaAttributes = document.querySelectorAll('[data-qa]');
     dataQaAttributes.forEach(function(item) {
         draw(item);
     });
+}
+
+function getXPathForElement(element) {
+    let xpath;
+    if (element.hasAttribute("data-qa")) {
+        xpath = '//' + element.localName.toLowerCase() + '[@data-qa="' + element.getAttribute('data-qa') + '"]';
+    }
+
+    return xpath;
 }
 
 function getRndColor() {
@@ -94,10 +100,16 @@ function isVisible(elem) {
     if (elemCenter.y < 0) return false;
     if (elemCenter.y > (document.documentElement.clientHeight || window.innerHeight)) return false;
     let pointContainer = document.elementFromPoint(elemCenter.x, elemCenter.y);
+    if (!pointContainer) return false;
     do {
         if (pointContainer === elem) return true;
     } while (pointContainer = pointContainer.parentNode);
     return false;
+}
+
+function resizeCanvas() {
+    canvas.width = document.body.scrollWidth;
+    canvas.height = document.body.scrollHeight;
 }
 
 function init() {
@@ -109,11 +121,9 @@ function init() {
         window.addEventListener(e, prepareAndDraw,false);
     });
 
-    window.addEventListener("resize", function () {
-        canvas.width = document.body.scrollWidth;
-        canvas.height = document.body.scrollHeight;
-    }, false);
-    //setInterval(prepareAndDraw, 2000);
+    "scroll resize".split(" ").forEach(function (e) {
+        window.addEventListener(e, resizeCanvas, false);
+    });
 }
 
 init();

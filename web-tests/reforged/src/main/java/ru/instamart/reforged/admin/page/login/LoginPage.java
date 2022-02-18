@@ -18,12 +18,12 @@ public final class LoginPage implements AdminPage, LoginCheck {
 
     @Step("Заполнить поле email {0}")
     public void setUsername(final String text) {
-        username.fill(text);
+        username.fillField(text);
     }
 
     @Step("Заполнить поле пароль {0}")
     public void setPassword(final String text) {
-        password.fill(text);
+        password.fillField(text);
     }
 
     @Step("Отправить форму")

@@ -9,14 +9,10 @@
     "default_popup": "popup.html"
   },
 
-  "content_scripts": [
-    {
-      "matches": [
-        "<all_urls>"
-      ],
+  "content_scripts": [{
+      "matches": ["https://*.sbermarket.tech/*", "https://sbermarket.ru/*"],
       "js": ["data-qa.js"]
-    }
-  ],
+  }],
 
   "permissions": [
     "activeTab"
