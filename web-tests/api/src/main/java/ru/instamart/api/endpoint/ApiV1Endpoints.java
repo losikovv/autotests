@@ -49,6 +49,10 @@ public final class ApiV1Endpoints {
             public static final String BY_ID = "admin/operational_zones/{operationalZoneID}";
             public static final String DISPATCH_SETTING = "admin/operational_zones/{operationalZoneID}/dispatch_setting";
         }
+
+        public static final class Shipments {
+            public static final String LEFTOVERS = "admin/shipments/{shipmentUUID}/leftovers";
+        }
     }
 
     /**
