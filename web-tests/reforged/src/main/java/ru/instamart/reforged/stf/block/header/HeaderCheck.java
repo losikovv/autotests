@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotEquals;
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface HeaderCheck extends Check, HeaderElement {
@@ -143,6 +144,26 @@ public interface HeaderCheck extends Check, HeaderElement {
     @Step("Проверяем, товарные подсказки в поиске отображаются")
     default void checkSearchSuggestsVisible() {
         waitAction().shouldBeVisible(suggesterFirstTabItems);
+    }
+
+    @Step("Проверяем что текст в кнопке поиска в саджесторе '{0}' изменился при переключении категории на текст '{1}'")
+    default void checkTextSearchButton(final String textWithAllCategory, final String textWithSmthCategory) {
+        assertNotEquals(textWithAllCategory, textWithSmthCategory, "Текст кнопки поиска не изменился");
+    }
+
+    @Step("Проверяем, что категория 'все сразу' отображается в саджесторе")
+    default void checkCategoryAllVisible() {
+        waitAction().shouldBeVisible(suggesterTabHeaders);
+    }
+
+    @Step("Проверяем, что категория 'все сразу' не отображается в саджесторе")
+    default void checkCategoryAllInvisible() {
+        waitAction().shouldNotBeVisible(suggesterTabHeaders);
+    }
+
+    @Step("Проверяем, что инпут поиска пустой")
+    default void checkSearchBarEmpty() {
+        assertEquals(searchInput.getValue(), "", "Инпут поиска не пустой");
     }
 
     @Step("Проверяем, что выбран адрес доставки")

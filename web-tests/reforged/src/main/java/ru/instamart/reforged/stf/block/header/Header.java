@@ -53,9 +53,24 @@ public final class Header implements HeaderCheck {
         searchInputResetButton.click();
     }
 
+    @Step("Свайп списка категорий в саджесторе вправо")
+    public void swipeScrollTabHeadersRight() {
+        scrollTabHeadersRight.click();
+    }
+
+    @Step("Свайп списка категорий в саджесторе влево")
+    public void swipeScrollTabHeadersLeft() {
+        scrollTabHeadersLeft.click();
+    }
+
     @Step("Выбрать первую найденную категорию в саджесторе")
     public void clickOnFirstSuggesterCategory() {
         suggesterTabHeaders.clickOnFirst();
+    }
+
+    @Step("Выбрать последнюю категорию в саджесторе")
+    public void clickOnLastSuggesterCategory() {
+        suggesterTabHeaders.clickOnAll();
     }
 
     @Step("Выбрать первый результат поиска в саджесторе")
@@ -66,6 +81,11 @@ public final class Header implements HeaderCheck {
     @Step("Нажимаем кнопку 'Показать все *** результаты' поиска в саджесторе")
     public void clickShowAllSearchResults() {
         showAllResults.click();
+    }
+
+    @Step("Получаем текст из кнопки 'Показать все N результатов' в саджесторе")
+    public String getTextOnButtonSearchSuggester() {
+        return showAllResults.getText();
     }
 
     @Step("Нажать кнопку поиска")

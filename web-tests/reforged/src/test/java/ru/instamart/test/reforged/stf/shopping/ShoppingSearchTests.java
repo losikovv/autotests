@@ -74,6 +74,47 @@ public final class ShoppingSearchTests extends BaseTest {
         search().interactProductCard().checkProductCardVisible();
     }
 
+    @CaseId(2989)
+    @Story("Позитивные сценарии")
+    @Test(description = "Изменение кнопки показать результат от выбранной категории", groups = {"regression"})
+    public void changeAmountOnButtonSearchResult() {
+        shop().goToPage(true);
+        shop().interactHeader().fillSearch("шоколад");
+        shop().interactHeader().checkSearchSuggestsVisible();
+        final String textOnButtonAllCategory = shop().interactHeader().getTextOnButtonSearchSuggester();
+        shop().interactHeader().clickOnLastSuggesterCategory();
+        final String textOnButtonSmthCategory = shop().interactHeader().getTextOnButtonSearchSuggester();
+        shop().interactHeader().checkTextSearchButton(textOnButtonAllCategory, textOnButtonSmthCategory);
+    }
+
+    // В этом тесте выполняется по два раза swipeScrollTabHeadersRight/swipeScrollTabHeadersLeft
+    //    // Потому что при одиночном скроле категория "Все сразу" не скрывается
+    @CaseId(2991)
+    @Story("Позитивные сценарии")
+    @Test(description = "Работоспособность стрелочки пролистывающей категории", groups = {"regression"})
+    public void swipeCategoryItemInSuggester() {
+        shop().goToPage(true);
+        shop().interactHeader().fillSearch("шоколад");
+        shop().interactHeader().checkSearchSuggestsVisible();
+        shop().interactHeader().swipeScrollTabHeadersRight();
+        shop().interactHeader().swipeScrollTabHeadersRight();
+        shop().interactHeader().checkCategoryAllInvisible();
+        shop().interactHeader().swipeScrollTabHeadersLeft();
+        shop().interactHeader().swipeScrollTabHeadersLeft();
+        shop().interactHeader().checkCategoryAllVisible();
+    }
+
+    @CaseId(3105)
+    @Story("Позитивные сценарии")
+    @Test(description = "Удаление поискового запроса по крестику в поиске", groups = {"regression"})
+    public void clearSearchBar() {
+        shop().goToPage(true);
+        shop().interactHeader().fillSearch("шоколад");
+        shop().interactHeader().checkSearchSuggestsVisible();
+        shop().interactHeader().clearSearchInput();
+        shop().interactHeader().checkSearchBarEmpty();
+    }
+
     @CaseId(1615)
     @Story("Негативные сценарии")
     @Test(description = "Тест поиска по очень длинному запросу, не возвращающему результатов", groups = "regression")
