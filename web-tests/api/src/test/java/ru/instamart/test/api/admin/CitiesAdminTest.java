@@ -20,6 +20,8 @@ import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import java.util.Objects;
+
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkCityInDb;
@@ -189,6 +191,6 @@ public class CitiesAdminTest extends RestBase {
     @Skip(onServer = Server.STAGING)
     @AfterClass(alwaysRun = true)
     public void clearData() {
-        CitiesDao.INSTANCE.deleteCityByName(lockedCityName);
+        if(Objects.nonNull(lockedCityName)) CitiesDao.INSTANCE.deleteCityByName(lockedCityName);
     }
 }

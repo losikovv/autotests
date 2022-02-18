@@ -1,5 +1,7 @@
 package ru.instamart.test.api.v1.endpoints;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
@@ -30,6 +32,8 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 import static ru.instamart.api.helper.K8sHelper.*;
 import static ru.instamart.kraken.util.TimeUtil.getDbDate;
 
+@Epic("ApiV1")
+@Feature("Заказы")
 public class UsersShipmentsV1Tests extends RestBase {
 
     private MultiretailerOrderV1Response order;
@@ -46,7 +50,7 @@ public class UsersShipmentsV1Tests extends RestBase {
         shipmentNumber = order.getShipments().get(0).getNumber();
     }
 
-    @Story("Заказы")
+    @Story("Заказы пользователя")
     @CaseId(1333)
     @Test(description = "Получение информации о заказе пользователя в статусе pending",
             groups = {"api-instamart-regress"})
@@ -56,7 +60,7 @@ public class UsersShipmentsV1Tests extends RestBase {
         checkErrorText(response, "Объект не найден");
     }
 
-    @Story("Заказы")
+    @Story("Заказы пользователя")
     @CaseId(1333)
     @Test(description = "Получение информации о заказе пользователя в статусе ready",
             groups = {"api-instamart-regress"},
@@ -68,22 +72,23 @@ public class UsersShipmentsV1Tests extends RestBase {
         checkUserShipmentFromResponse(response, order, user, StateV2.READY.getValue(), null);
     }
 
-    @Story("Заказы")
+    @Story("Заказы пользователя")
     @CaseId(1338)
     @Test(description = "Получение информации о заказе пользователя в статусе ready - заказ задерживается",
             groups = {"api-instamart-regress"},
             dependsOnMethods = "getReadyUserShipment")
     public void getReadyUserShipmentWithDelay()  {
-        LocalDateTime date = LocalDateTime.of(LocalDate.now(), LocalTime.now().minusMinutes(30));
+        LocalDateTime date = LocalDateTime.of(LocalDate.now(), LocalTime.now().minusHours(1));
         ShipmentDelaysDao.INSTANCE.updateDeadlineDate(getDbDate(date), order.getShipments().get(0).getId());
-        computeExpectedDates();
-        sendNotifications();
+        //computeExpectedDates(); - Поле notification_sent_at может обновляться в БД до 10 минут
+        //sendNotifications(); TODO: после выполнения таски - проверить после добавления крон-джобы на стейдж
+        ShipmentDelaysDao.INSTANCE.updateNotificationDate(getDbDate(date), order.getShipments().get(0).getId());
         final Response response = UsersV1Request.GET(user.getId(), shipmentNumber);
         checkStatusCode200(response);
         checkUserShipmentFromResponse(response, order, user, StateV2.READY.getValue(), "Задерживаемся, но очень торопимся");
     }
 
-    @Story("Заказы")
+    @Story("Заказы пользователя")
     @CaseIDs(value = {@CaseId(1299), @CaseId(1339)})
     @Test(description = "Получение информации о заказе пользователя в статусе collecting",
             groups = {"api-instamart-regress"},
@@ -95,7 +100,7 @@ public class UsersShipmentsV1Tests extends RestBase {
         checkUserShipmentFromResponse(response, order, user, StateV2.COLLECTING.getValue(), "Задерживаемся, но очень торопимся");
     }
 
-    @Story("Заказы")
+    @Story("Заказы пользователя")
     @CaseIDs(value = {@CaseId(1300), @CaseId(1339)})
     @Test(description = "Получение информации о заказе пользователя в статусе ready_to_ship",
             groups = {"api-instamart-regress"},
@@ -107,7 +112,7 @@ public class UsersShipmentsV1Tests extends RestBase {
         checkUserShipmentFromResponse(response, order, user, StateV2.READY_TO_SHIP.getValue(), "Задерживаемся, но очень торопимся");
     }
 
-    @Story("Заказы")
+    @Story("Заказы пользователя")
     @CaseIDs(value = {@CaseId(1301), @CaseId(1340)})
     @Test(description = "Получение информации о заказе пользователя в статусе shipping",
             groups = {"api-instamart-regress"},
@@ -119,7 +124,7 @@ public class UsersShipmentsV1Tests extends RestBase {
         checkUserShipmentFromResponse(response, order, user, StateV2.SHIPPING.getValue(), "Задерживаемся, но очень торопимся");
     }
 
-    @Story("Заказы")
+    @Story("Заказы пользователя")
     @CaseId(1335)
     @Test(description = "Получение информации о заказе пользователя в статусе shipped",
             groups = {"api-instamart-regress"},
@@ -128,10 +133,10 @@ public class UsersShipmentsV1Tests extends RestBase {
         changeToShip(shipmentNumber);
         final Response response = UsersV1Request.GET(user.getId(), shipmentNumber);
         checkStatusCode200(response);
-        checkUserShipmentFromResponse(response, order, user, StateV2.SHIPPED.getValue(), null);
+        checkUserShipmentFromResponse(response, order, user, StateV2.SHIPPED.getValue(), "Задерживаемся, но очень торопимся");
     }
 
-    @Story("Заказы")
+    @Story("Заказы пользователя")
     @CaseId(1302)
     @Test(description = "Получение информации о заказе пользователя в статусе canceled",
             groups = {"api-instamart-regress"},
@@ -144,7 +149,7 @@ public class UsersShipmentsV1Tests extends RestBase {
         checkUserShipmentFromResponse(response, order, user, StateV2.CANCELED.getValue(), null);
     }
 
-    @Story("Заказы")
+    @Story("Заказы пользователя")
     @CaseId(1334)
     @Test(description = "Получение информации о несуществующем заказе пользователя",
             groups = {"api-instamart-regress"})
