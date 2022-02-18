@@ -22,6 +22,8 @@ import ru.instamart.jdbc.entity.StoresEntity;
 import ru.instamart.kraken.data_provider.JsonDataProvider;
 import ru.instamart.kraken.data_provider.JsonProvider;
 
+import java.util.Objects;
+
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStoreInDb;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
@@ -86,7 +88,9 @@ public class StoresAdminTest extends RestBase {
 
     @AfterClass(alwaysRun = true)
     public void deleteStore() {
-        StoresDao.INSTANCE.delete(id);
-        StoreConfigsDao.INSTANCE.deleteByStoreId(id);
+        if(Objects.nonNull(id)) {
+            StoresDao.INSTANCE.delete(id);
+            StoreConfigsDao.INSTANCE.deleteByStoreId(id);
+        }
     }
 }

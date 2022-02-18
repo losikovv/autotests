@@ -42,6 +42,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -607,7 +608,7 @@ public class RetailersV1Tests extends RestBase {
 
     @AfterClass(alwaysRun = true)
     public void clearData() {
-        if(!EnvironmentProperties.SERVER.equals("production")) {
+        if(!EnvironmentProperties.SERVER.equals("production") && Objects.nonNull(retailerFromResponse)) {
             SpreeRetailersDao.INSTANCE.delete(Long.valueOf(retailerFromResponse.getId()));
         }
     }

@@ -6,6 +6,7 @@ import ru.instamart.kraken.util.ThreadUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -15,10 +16,11 @@ public class ShipmentDelaysDao extends AbstractDao<Long, ShipmentDelaysEntity> {
 
     public static final ShipmentDelaysDao INSTANCE = new ShipmentDelaysDao();
     private final String UPDATE_SQL = "UPDATE shipment_delays";
+    private static final String SELECT_SQL = "SELECT %s FROM shipment_delays";
 
     public void updateDeadlineDate(String deadlineAt, Long shipmentId) {
         AtomicInteger count = new AtomicInteger(0);
-        while (count.get() < 20) {
+        while (count.get() < 30) {
             boolean result = updateDeadlineDateData(deadlineAt, shipmentId);
             if (result)
                 break;
@@ -29,7 +31,7 @@ public class ShipmentDelaysDao extends AbstractDao<Long, ShipmentDelaysEntity> {
 
     public void updateNotificationDate(String notificationSentAt, Long shipmentId) {
         AtomicInteger count = new AtomicInteger(0);
-        while (count.getAndIncrement() < 20) {
+        while (count.getAndIncrement() < 40) {
             boolean result = updateNotificationDateData(notificationSentAt, shipmentId);
             if (result)
                 break;
@@ -60,5 +62,21 @@ public class ShipmentDelaysDao extends AbstractDao<Long, ShipmentDelaysEntity> {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return false;
+    }
+
+    public String getNotificationTimeByShipmentId(Long shipmentId) {
+        String notificationSentAt = null;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "notification_sent_at") +
+                     " WHERE shipment_id = ?")) {
+            preparedStatement.setLong(1, shipmentId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()) {
+                notificationSentAt = resultSet.getString("notification_sent_at");
+            }
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return notificationSentAt;
     }
 }
