@@ -146,9 +146,9 @@ public interface HeaderCheck extends Check, HeaderElement {
         waitAction().shouldBeVisible(suggesterFirstTabItems);
     }
 
-    @Step("Проверяем что текст в кнопке поиска в саджесторе изменился при переключении категории")
+    @Step("Проверяем что текст в кнопке поиска в саджесторе '{0}' изменился при переключении категории на текст '{1}'")
     default void checkTextSearchButton(final String textWithAllCategory, final String textWithSmthCategory) {
-        assertNotEquals(textWithAllCategory, textWithSmthCategory);
+        assertNotEquals(textWithAllCategory, textWithSmthCategory, "Текст кнопки поиска не изменился");
     }
 
     @Step("Проверяем, что категория 'все сразу' отображается в саджесторе")
@@ -163,7 +163,7 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем, что инпут поиска пустой")
     default void checkSearchBarEmpty() {
-        assertEquals(searchInput.getValue(), "");
+        assertEquals(searchInput.getValue(), "", "Инпут поиска не пустой");
     }
 
     @Step("Проверяем, что выбран адрес доставки")

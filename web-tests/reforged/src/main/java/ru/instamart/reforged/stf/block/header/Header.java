@@ -64,7 +64,7 @@ public final class Header implements HeaderCheck {
     }
 
     @Step("Выбрать последнюю категорию в саджесторе")
-    public void clickOnLastSuggesterCategory(){
+    public void clickOnLastSuggesterCategory() {
         suggesterTabHeaders.clickOnAll();
     }
 
