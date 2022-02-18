@@ -22,6 +22,11 @@ public interface HeaderCheck extends HeaderElement, Check {
         waitAction().shouldBeVisible(cartNotification);
     }
 
+    @Step("Проверяем, что нотификация после добавления нового товара в корзину исчезла")
+    default void checkCartNotificationIsNotVisible() {
+        waitAction().shouldNotBeVisible(cartNotification);
+    }
+
     @Step("Проверяем, что отображается значок с количеством товаров в корзине над кнопкой")
     default void checkCartItemsCountSpoilerIsVisible() {
         waitAction().shouldBeVisible(itemsCountSpoilerOnCartButton);
