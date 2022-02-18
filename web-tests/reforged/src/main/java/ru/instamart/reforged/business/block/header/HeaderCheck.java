@@ -41,5 +41,10 @@ public interface HeaderCheck extends HeaderElement, Check {
     default void checkErrorAlertDisplayed() {
         waitAction().shouldBeVisible(alert);
     }
+
+    @Step("Проверяем, что отображается сообщение об успешной отправке заявки на обратный звонок")
+    default void checkCallbackConfirmDisplayed() {
+        waitAction().shouldBeVisible(alertCallback);
+    }
 }
 

@@ -24,4 +24,5 @@ public interface HeaderElement {
     Button cart = new Button(By.xpath("//button[@data-qa='open-cart-button']"), "Кнопка 'Корзина'");
     Element itemsCountSpoilerOnCartButton = new Element(By.xpath("//button[@data-qa='open-cart-button']/following-sibling::span"), "Значок о количестве товаров в корзине над кнопкой");
     Element alert = new Element(By.xpath("//div[@class='alert alert--error']"), "Тултип-сообщение об ошибке");
+    Element alertCallback = new Element(By.xpath("//div[@class='alert alert--notice'][contains(.,'Ваша заявка отправлена')]"), "Тултип-сообщение об отправке заявки на обратный звонок");
 }
