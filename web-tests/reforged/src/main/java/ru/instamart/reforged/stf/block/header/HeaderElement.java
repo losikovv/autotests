@@ -46,7 +46,7 @@ public interface HeaderElement {
     ElementCollection suggesterTabHeaders = new ElementCollection(By.xpath("//button[contains(@data-qa,'suggester_header_tab_')]"), "Вкладки категорий в саджесторе");
     ElementCollection suggesterFirstTabItems = new ElementCollection(By.xpath("//div[@data-qa='suggester_header_tab_panel_0']/div[contains(@data-qa,'suggester_header_item_')]"), "Результаты поиска на первой вкладке саджестора");
     ElementCollection suggesterSecondTabItems = new ElementCollection(By.xpath("//div[@data-qa='suggester_header_tab_panel_1']/div[contains(@data-qa,'suggester_header_item_')]"), "Результаты поиска на второй вкладке саджестора");
-    Button showAllResults = new Button(By.xpath("//a[@data-qa='suggester_header_show_all_link']"), "Кнопка 'Показать все ХХ результаты'");
+    Link showAllResults = new Link(By.xpath("//a[@data-qa='suggester_header_show_all_link']"), "Кнопка 'Показать все ХХ результаты'");
 
     Element minAmountAlert = new Element(By.xpath("//div[@class='alerts']//div[contains(@class, 'alert--error')]"), "Алерт минимальной суммы заказа в шапке");
     Element authOrRegAlert = new Element(By.xpath("//div[@class='alerts']//span[contains(text(), 'войти или зарегистрироваться')]"), "Алерт регистрации или авторизации в шапке");
