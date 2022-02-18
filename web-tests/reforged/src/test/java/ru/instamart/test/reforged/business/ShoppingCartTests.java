@@ -3,14 +3,16 @@ package ru.instamart.test.reforged.business;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
-import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
+import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.kraken.config.EnvironmentProperties.*;
+import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID;
+import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_SID;
 import static ru.instamart.reforged.business.page.BusinessRouter.b2cShop;
 import static ru.instamart.reforged.business.page.BusinessRouter.shop;
 
@@ -40,12 +42,10 @@ public final class ShoppingCartTests extends BaseTest {
     @CaseId(263)
     @Test(description = "Отображение TOTAL НДС мультизаказ", groups = {"smoke", "regression"})
     public void testTotalVatDisplayedMultiply() {
+        var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
-        helper.dropAndFillCartMultiple(
-                userData,
-                RestAddresses.Moscow.defaultAddress(),
-                DEFAULT_METRO_MOSCOW_SID,
-                DEFAULT_AUCHAN_SID);
+        helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
+        helper.dropAndFillCart(userData, DEFAULT_METRO_MOSCOW_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -53,12 +53,21 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
 
+        shop().interactHeader().clickToStoreSelector();
+        shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsOpen();
+        shop().interactHeader().interactStoreSelector().clickToSecondStoreCard();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+
+        shop().plusFirstItemToCart();
+        shop().interactHeader().checkCartNotificationIsVisible();
+        shop().interactHeader().checkCartNotificationIsNotVisible();
+
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
         shop().interactCart().checkTotalVatDisplayed();
     }
 
-    @CaseId(726)
+    @CaseIDs({@CaseId(726), @CaseId(729)})
     @Test(description = "Перенос корзины с B2C на B2B витрину", groups = {"smoke", "regression"})
     public void testTransferCartB2CToB2B() {
         var userData = UserManager.getQaUser();
@@ -89,36 +98,8 @@ public final class ShoppingCartTests extends BaseTest {
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartNotEmpty();
-    }
 
-    @CaseId(729)
-    @Test(description = "Перенос корзины при заполненной корзине на B2B", groups = {"smoke", "regression"})
-    public void testTransferCartB2CToB2BNegative() {
-        var userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, DEFAULT_SID);
-
-        //Для инициализации наполненной корзины на B2B витрине необходимо залогиниться
-        shop().goToPage();
-        shop().interactHeader().clickToLogin();
-        shop().interactAuthModal().authViaPhone(userData);
-        shop().interactAuthModal().checkModalIsNotVisible();
-        shop().interactHeader().checkProfileButtonVisible();
-
-        b2cShop().goToPage();
-        b2cShop().interactHeader().clickToLogin();
-        b2cShop().interactAuthModal().authViaPhone(userData);
-        b2cShop().interactHeader().checkProfileButtonVisible();
-        b2cShop().interactHeader().clickToSelectAddress();
-        b2cShop().interactAddress().checkYmapsReady();
-        b2cShop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        b2cShop().interactAddress().selectFirstAddress();
-        b2cShop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        b2cShop().interactAddress().clickOnSave();
-        b2cShop().interactAddress().checkAddressModalIsNotVisible();
-        b2cShop().interactHeader().checkEnteredAddressIsVisible();
-
-        b2cShop().plusFirstItemToCart();
-        b2cShop().interactHeader().checkCartNotificationIsVisible();
+        shop().closeAndSwitchToPrevWindow();
         b2cShop().interactHeader().clickBuyForBusiness();
         b2cShop().interactHeader().interactTransferCartModal().checkTransferCartModalDisplayed();
         b2cShop().interactHeader().interactTransferCartModal().confirm();

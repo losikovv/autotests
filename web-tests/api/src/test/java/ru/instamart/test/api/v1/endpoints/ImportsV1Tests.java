@@ -24,6 +24,7 @@ import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
+import java.util.Objects;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -565,10 +566,14 @@ public class ImportsV1Tests extends RestBase {
 
     @AfterClass(alwaysRun = true)
     public void clearData() {
-        OffersDao.INSTANCE.delete(offerId);
-        PricesDao.INSTANCE.deletePriceByOfferId(offerId);
-        StoresDao.INSTANCE.delete(storeId);
-        StoreConfigsDao.INSTANCE.deleteByStoreId(storeId);
-        StoresTenantsDao.INSTANCE.deleteStoreTenantByStoreId(storeId);
+        if (Objects.nonNull(offerId)) {
+            OffersDao.INSTANCE.delete(offerId);
+            PricesDao.INSTANCE.deletePriceByOfferId(offerId);
+        }
+        if (Objects.nonNull(storeId)) {
+            StoresDao.INSTANCE.delete(storeId);
+            StoreConfigsDao.INSTANCE.deleteByStoreId(storeId);
+            StoresTenantsDao.INSTANCE.deleteStoreTenantByStoreId(storeId);
+        }
     }
 }

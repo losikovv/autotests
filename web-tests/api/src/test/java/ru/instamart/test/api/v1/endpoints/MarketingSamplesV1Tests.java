@@ -20,7 +20,6 @@ import ru.instamart.api.response.v1.MarketingSamplesV1Response;
 import ru.instamart.api.response.v2.ProfileV2Response;
 import ru.instamart.jdbc.dao.MarketingSamplesDao;
 import ru.instamart.jdbc.entity.MarketingSamplesEntity;
-import ru.instamart.kraken.data.user.UserManager;
 
 import java.util.List;
 import java.util.Optional;
@@ -67,7 +66,7 @@ public class MarketingSamplesV1Tests extends RestBase {
         checkStatusCode200(response);
         MarketingSampleV1 marketingSampleFromResponse = response.as(MarketingSampleV1Response.class).getMarketingSample();
         sampleId = marketingSampleFromResponse.getId();
-        Optional<MarketingSamplesEntity> marketingSamplesEntity = MarketingSamplesDao.INSTANCE.findById(sampleId);
+        Optional<MarketingSamplesEntity> marketingSamplesEntity = MarketingSamplesDao.INSTANCE.findByIdWithUser(sampleId);
         compareMarketingSamples(profile.getUser().getEmail(), marketingSampleFromResponse, marketingSamplesEntity, "Test marketing sample");
     }
 
@@ -80,7 +79,7 @@ public class MarketingSamplesV1Tests extends RestBase {
         final Response response = MarketingSamplesV1Request.GET(sampleId);
         checkStatusCode200(response);
         MarketingSampleV1 marketingSampleFromResponse = response.as(MarketingSampleV1Response.class).getMarketingSample();
-        Optional<MarketingSamplesEntity> marketingSamplesEntity = MarketingSamplesDao.INSTANCE.findById(sampleId);
+        Optional<MarketingSamplesEntity> marketingSamplesEntity = MarketingSamplesDao.INSTANCE.findByIdWithUser(sampleId);
         compareMarketingSamples(profile.getUser().getEmail(), marketingSampleFromResponse, marketingSamplesEntity, "Test marketing sample");
     }
 
@@ -97,7 +96,7 @@ public class MarketingSamplesV1Tests extends RestBase {
         final Response response = MarketingSamplesV1Request.PUT(sampleId, profile.getUser().getId());
         checkStatusCode200(response);
         MarketingSampleV1 marketingSampleFromResponse = response.as(MarketingSampleV1Response.class).getMarketingSample();
-        Optional<MarketingSamplesEntity> marketingSamplesEntity = MarketingSamplesDao.INSTANCE.findById(sampleId);
+        Optional<MarketingSamplesEntity> marketingSamplesEntity = MarketingSamplesDao.INSTANCE.findByIdWithUser(sampleId);
         compareMarketingSamples(profile.getUser().getEmail(), marketingSampleFromResponse, marketingSamplesEntity, "Updated Test marketing sample");
     }
 

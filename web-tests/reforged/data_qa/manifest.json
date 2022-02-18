@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+
+  "name": "Data QA Plugin",
+  "description": "This extension will analyze a page and show rectangle",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+
+  "content_scripts": [{
+      "matches": ["https://*.sbermarket.tech/*", "https://sbermarket.ru/*"],
+      "js": ["data-qa.js"]
+  }],
+
+  "permissions": [
+    "activeTab"
+  ]
+}

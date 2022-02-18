@@ -3,6 +3,7 @@ package ru.instamart.reforged.business.block.header;
 import io.qameta.allure.Step;
 import ru.instamart.reforged.business.drawer.cart.account_menu.AccountMenu;
 import ru.instamart.reforged.business.frame.TransferCartModal;
+import ru.instamart.reforged.business.frame.store_selector.StoreSelector;
 
 public class Header implements HeaderCheck {
 
@@ -12,6 +13,10 @@ public class Header implements HeaderCheck {
 
     public TransferCartModal interactTransferCartModal() {
         return transferCartModal;
+    }
+
+    public StoreSelector interactStoreSelector() {
+        return storeSelectorDrawer;
     }
 
     @Step("Нажимаем кнопку 'Указать адрес'")
@@ -32,5 +37,10 @@ public class Header implements HeaderCheck {
     @Step("Нажимаем на кнопку 'Профиль'")
     public void clickToProfile() {
         profile.click();
+    }
+
+    @Step("Открываем попап выбора магазина")
+    public void clickToStoreSelector() {
+        storeSelector.click();
     }
 }

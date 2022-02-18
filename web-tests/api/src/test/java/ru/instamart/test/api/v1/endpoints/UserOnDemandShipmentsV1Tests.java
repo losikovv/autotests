@@ -1,5 +1,7 @@
 package ru.instamart.test.api.v1.endpoints;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
@@ -26,6 +28,8 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 import static ru.instamart.api.helper.K8sHelper.*;
 import static ru.instamart.kraken.util.TimeUtil.getDbDate;
 
+@Epic("ApiV1")
+@Feature("Заказы")
 public class UserOnDemandShipmentsV1Tests extends RestBase {
 
     private OrderV2 order;
@@ -41,7 +45,7 @@ public class UserOnDemandShipmentsV1Tests extends RestBase {
         shipmentNumber = order.getShipments().get(0).getNumber();
     }
 
-    @Story("Заказы")
+    @Story("Заказы пользователя")
     @CaseId(1303)
     @Test(description = "Получение информации о заказе пользователя с быстрой доставкой в статусе ready - заказ задерживается",
             groups = {"api-instamart-regress"})
@@ -53,7 +57,7 @@ public class UserOnDemandShipmentsV1Tests extends RestBase {
         checkUserShipmentFromResponse(response, order, user, StateV2.READY.getValue(), "Задерживаемся, но очень торопимся");
     }
 
-    @Story("Заказы")
+    @Story("Заказы пользователя")
     @CaseId(1336)
     @Test(description = "Получение информации о заказе пользователя с быстрой доставкой в статусе collecting - заказ задерживается",
             groups = {"api-instamart-regress"},
@@ -65,7 +69,7 @@ public class UserOnDemandShipmentsV1Tests extends RestBase {
         checkUserShipmentFromResponse(response, order, user, StateV2.COLLECTING.getValue(), "Задерживаемся, но очень торопимся");
     }
 
-    @Story("Заказы")
+    @Story("Заказы пользователя")
     @CaseId(1337)
     @Test(description = "Получение информации о заказе пользователя с быстрой доставкой в статусе shipping - заказ задерживается",
             groups = {"api-instamart-regress"},
