@@ -16,7 +16,7 @@ public class StoreScheduleV1 extends BaseObject {
 
     @JsonSchema(required = true)
     @JsonProperty("store_id")
-    private Long storeId;
+    private Integer storeId;
 
     @JsonSchema(required = true)
     private TemplateV1 template;

@@ -13,7 +13,7 @@ public class DeliveryWindowsEntity {
     private Integer active;
     private String createdAt;
     private String updatedAt;
-    private Long storeId;
+    private Integer storeId;
     private String timeZone;
     private Integer surgeAmount;
     private Integer shipmentBaseWeight;

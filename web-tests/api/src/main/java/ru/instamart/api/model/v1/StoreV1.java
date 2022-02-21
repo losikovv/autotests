@@ -66,7 +66,7 @@ public class StoreV1 extends BaseObject {
     private Boolean hasConveyor;
 
     @JsonSchema(required = true)
-    private Long id;
+    private Integer id;
 
     @JsonProperty("import_key_postfix")
     private String importKeyPostfix;

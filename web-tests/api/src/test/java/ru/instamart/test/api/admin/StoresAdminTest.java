@@ -35,7 +35,7 @@ import static ru.instamart.api.request.admin.StoresAdminRequest.getStore;
 @Feature("Магазины")
 public class StoresAdminTest extends RestBase {
 
-    private Long id;
+    private Integer id;
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {

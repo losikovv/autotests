@@ -9,7 +9,7 @@ import ru.instamart.api.model.BaseObject;
 @EqualsAndHashCode(callSuper=false)
 public class ShipmentStoreV2 extends BaseObject {
     @JsonSchema(required = true)
-    private Long id;
+    private Integer id;
 
     @JsonSchema(required = true)
     private String name;

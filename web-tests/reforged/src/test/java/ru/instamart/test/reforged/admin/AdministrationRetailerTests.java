@@ -301,7 +301,7 @@ public final class AdministrationRetailerTests extends BaseTest {
     @Story("Страница ретейлеров")
     @Test(description = "Активация магазина", groups = {"acceptance", "regression"})
     public void shopActivate() {
-        apiHelper.updateStore(18L, null);
+        apiHelper.updateStore(18, null);
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -326,7 +326,7 @@ public final class AdministrationRetailerTests extends BaseTest {
     @Story("Страница ретейлеров")
     @Test(description = "Деактивация магазина", groups = {"acceptance", "regression"})
     public void shopInactivate() {
-        apiHelper.updateStore(18L, "2020-04-08 10:27:00");
+        apiHelper.updateStore(18, "2020-04-08 10:27:00");
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());

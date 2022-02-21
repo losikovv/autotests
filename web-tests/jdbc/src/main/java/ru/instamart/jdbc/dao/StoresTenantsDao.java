@@ -15,18 +15,18 @@ public class StoresTenantsDao extends AbstractDao<Long, StoresTenantsEntity> {
     private final String DELETE_SQL = "DELETE FROM stores_tenants";
     private final String INSERT_SQL = "INSERT INTO stores_tenants";
 
-    public void addStoreTenant(Long storeId, String tenant) {
+    public void addStoreTenant(Integer storeId, String tenant) {
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL + " (tenant_id, store_id) VALUES(?, ?)")) {
             preparedStatement.setString(1, tenant);
-            preparedStatement.setLong(2, storeId);
+            preparedStatement.setInt(2, storeId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
     }
 
-    public void deleteStoreTenantByStoreId(Long storeId) {
+    public void deleteStoreTenantByStoreId(Integer storeId) {
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE store_id = ?")) {
             preparedStatement.setLong(1, storeId);

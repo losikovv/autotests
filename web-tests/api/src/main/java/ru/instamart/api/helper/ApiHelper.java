@@ -492,7 +492,7 @@ public final class ApiHelper {
         return apiV2.getAvailableDeliveryWindowOnDemand();
     }
 
-    public void updateStore(final Long storeId, final String availabilityDate) {
+    public void updateStore(final int storeId, final String availabilityDate) {
         StoresDao.INSTANCE.updateWithSetAvailability(storeId, availabilityDate);
     }
 

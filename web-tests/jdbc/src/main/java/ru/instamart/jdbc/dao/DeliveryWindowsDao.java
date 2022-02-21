@@ -16,11 +16,11 @@ public class DeliveryWindowsDao extends AbstractDao<Long, DeliveryWindowsEntity>
     private final String SELECT_SQL = "SELECT %s FROM delivery_windows";
 
 
-    public int getCount(Long storeId, String start, String end) {
+    public int getCount(Integer storeId, String start, String end) {
         int resultCount = 0;
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total") + " WHERE store_id = ? AND kind != 'on_demand' AND starts_at BETWEEN ? AND ?")) {
-            preparedStatement.setLong(1, storeId);
+            preparedStatement.setInt(1, storeId);
             preparedStatement.setString(2, start);
             preparedStatement.setString(3, end);
             ResultSet resultSet = preparedStatement.executeQuery();
