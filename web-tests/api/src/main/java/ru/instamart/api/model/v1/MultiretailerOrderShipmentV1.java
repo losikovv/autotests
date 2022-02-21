@@ -33,7 +33,7 @@ public class MultiretailerOrderShipmentV1 extends BaseObject {
 
     @Null
     @JsonProperty("delivery_window")
-    private DeliveryWindowV1 deliveryWindow;
+    private OrderDeliveryWindowV1 deliveryWindow;
 
     @Null
     @JsonSchema(required = true)

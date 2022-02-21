@@ -460,7 +460,6 @@ public class ImportsV1Tests extends RestBase {
         }
         compareTwoObjects(status, ImportStatusV1.ARCHIVE_PROCESSED.getValue());
         compareTwoObjects(ImagesDraftsDao.INSTANCE.getCount("13626"), 2);
-        ImagesDraftsDao.INSTANCE.deleteImagesByName("13626");
     }
 
     @CaseId(1953)
@@ -575,5 +574,6 @@ public class ImportsV1Tests extends RestBase {
             StoreConfigsDao.INSTANCE.deleteByStoreId(storeId);
             StoresTenantsDao.INSTANCE.deleteStoreTenantByStoreId(storeId);
         }
+        ImagesDraftsDao.INSTANCE.deleteImagesByName("13626");
     }
 }

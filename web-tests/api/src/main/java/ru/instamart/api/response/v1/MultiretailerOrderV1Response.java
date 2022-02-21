@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import ru.instamart.api.model.v1.AddressV1;
-import ru.instamart.api.model.v1.MultiretailerOrderShipmentV1;
-import ru.instamart.api.model.v1.UserV1;
+import ru.instamart.api.model.v1.*;
 import ru.instamart.api.response.BaseResponseObject;
 
 import javax.validation.constraints.Null;
@@ -34,7 +32,7 @@ public class MultiretailerOrderV1Response extends BaseResponseObject  {
     @Null
     @JsonSchema(required = true)
     @JsonProperty("deliveries_info")
-    private Object deliveriesInfo;
+    private DeliveriesInfoV1 deliveriesInfo;
 
     @JsonSchema(required = true)
     private Long id;
@@ -51,7 +49,6 @@ public class MultiretailerOrderV1Response extends BaseResponseObject  {
     @JsonProperty("mnogoru_bonuses_text")
     private String mnogoruBonusesText;
 
-
     @JsonSchema(required = true)
     private String number;
 
@@ -62,7 +59,7 @@ public class MultiretailerOrderV1Response extends BaseResponseObject  {
     @Null
     @JsonSchema(required = true)
     @JsonProperty("replacement_policy")
-    private Object replacementPolicy;
+    private ReplacementPolicyV1 replacementPolicy;
 
     @JsonSchema(required = true)
     @JsonProperty("ship_address")
