@@ -75,6 +75,27 @@ public class StoresDao extends AbstractDao<Long, StoresEntity> {
                 store.setRetailerId(resultSet.getLong("retailer_id"));
                 store.setTimeZone(resultSet.getString("time_zone"));
                 store.setOperationalZoneId(resultSet.getLong("operational_zone_id"));
+                store.setUuid(resultSet.getString("uuid"));
+
+            } else return null;
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return store;
+    }
+
+    public StoresEntity getStoreByRetailerId(final Long retailerId) {
+        StoresEntity store = new StoresEntity();
+        var sql = String.format(SELECT_SQL, "*") + " WHERE retailer_id = ?";
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
+            preparedStatement.setLong(1, retailerId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                store.setId(resultSet.getLong("id"));
+                store.setRetailerId(resultSet.getLong("retailer_id"));
+                store.setTimeZone(resultSet.getString("time_zone"));
+                store.setOperationalZoneId(resultSet.getLong("operational_zone_id"));
             } else return null;
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());

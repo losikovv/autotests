@@ -5,10 +5,11 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
+import ru.instamart.api.request.admin.StoresAdminRequest;
+import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.enums.Server;
-import ru.instamart.kraken.listener.Run;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -296,12 +297,16 @@ public final class AdministrationRetailerTests extends BaseTest {
         shopAdd().checkRegionDropdownVisible();
     }
 
-    @Run(onServer = Server.PREPROD)
-    @CaseId(541)
+    @CaseIDs(value = {@CaseId(541), @CaseId(542)})
     @Story("Страница ретейлеров")
-    @Test(description = "Активация магазина", groups = {"acceptance", "regression"})
-    public void shopActivate() {
-        apiHelper.updateStore(18L, null);
+    @Test(description = "Активация, деактивация магазина", groups = {"acceptance", "regression"})
+    public void shopActivateAndDeactivate() {
+        final String retailerName = "Retailer_" + Generate.literalString(6);
+        final StoresAdminRequest.Store store;
+
+        apiHelper.createRetailerInAdmin(retailerName);
+        store = apiHelper.createStoreInAdmin(retailerName);
+        apiHelper.setupStoreForActivation(store);
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
@@ -309,39 +314,27 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().goToPage();
         retailers().checkAddNewRetailerButtonVisible();
 
-        retailers().clickOnPlusForRetailer("METRO");
-        retailers().clickOnPlusForCity("тест-352519385 (17)");
+        retailers().clickOnPlusForRetailer(retailerName);
+        retailers().clickOnPlusForCity("москва (1)");
 
-        retailers().clickOnActivateStoreViaAddress("Москва, Обучение, 1 ");
+        retailers().clickOnActivateStoreViaAddress("Moscow, Mira, 211 ");
 
         retailers().interactActivateStoreModal().checkActivateStoreModalVisible();
         retailers().interactActivateStoreModal().clickOnOkButton();
         retailers().interactActivateStoreModal().checkActivateStoreModalNotVisible();
 
-        retailers().checkStoreActiveViaAddress("Москва, Обучение, 1 ");
-    }
+        retailers().checkStoreActiveViaAddress("Moscow, Mira, 211 ");
 
-    @Run(onServer = Server.PREPROD)
-    @CaseId(542)
-    @Story("Страница ретейлеров")
-    @Test(description = "Деактивация магазина", groups = {"acceptance", "regression"})
-    public void shopInactivate() {
-        apiHelper.updateStore(18L, "2020-04-08 10:27:00");
+        retailers().clickOnDeactivateStoreViaAddress("Moscow, Mira, 211 ");
 
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdminAllRoles());
-
-        retailers().goToPage();
-        retailers().checkAddNewRetailerButtonVisible();
-
-        retailers().clickOnPlusForRetailer("METRO");
-        retailers().clickOnPlusForCity("тест-352519385 (17)");
-
-        retailers().clickOnDeactivateStoreViaAddress("Москва, Обучение, 1 ");
         retailers().checkDeactivateStorePopupVisible();
         retailers().clickOkOnDeactivateStorePopup();
         retailers().checkDeactivateStorePopupNotVisible();
-        retailers().checkStoreInactiveViaAddress("Москва, Обучение, 1 ");
+
+        retailers().checkStoreInactiveViaAddress("Moscow, Mira, 211 ");
+
+        apiHelper.deleteRetailerByNameInAdmin(retailerName);
+        apiHelper.deleteStoreInAdmin(store);
     }
 
     @CaseId(580)
@@ -392,6 +385,5 @@ public final class AdministrationRetailerTests extends BaseTest {
 
         retailers().clickOnPlusForFirstRetailer();
         retailers().checkRetailerRegionCorrect("Казань");
-
     }
 }

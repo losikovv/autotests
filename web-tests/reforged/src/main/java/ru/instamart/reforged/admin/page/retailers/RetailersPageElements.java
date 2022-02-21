@@ -39,9 +39,10 @@ public interface RetailersPageElements {
     ElementCollection storesInTable = new ElementCollection(By.xpath("//td//span[@class='ant-btn-link']"), "Строки магазинов в таблице");
     ElementCollection addressDatesInTable = new ElementCollection(By.xpath("//tr[@class='ant-table-row ant-table-row-level-1']//td[3]"), "Коллекция элементов дат создания адресов магазинов");
 
-    ElementCollection addressesInTable = new ElementCollection(By.xpath("//span[contains(@class,'anticon-right')]/preceding-sibling::span"), "Коллекция элементов адресов магазинов");
+    ElementCollection addressesInTable = new ElementCollection(By.xpath("//span[contains(@class,'anticon-right')]/preceding-sibling::span/parent::a"), "Коллекция элементов адресов магазинов");
     Element sortRetailersViaNameInTable = new Element(By.xpath("//span[text()='Название']/ancestor::div[@class='ant-table-column-sorters-with-tooltip']"), "Кнопка сортировки по имени ретейлеров в таблице");
     Element sortRetailersViaCreationDateInTable = new Element(By.xpath("//span[text()='Дата создания']/ancestor::div[@class='ant-table-column-sorters-with-tooltip']"), "Кнопка сортировки по дате создания ретейлеров в таблице");
+    Element addressInTable = new Element(ByKraken.xpath("//a[contains(@href,'stores')]//span[text()='%s']"), "Коллекция элементов адресов магазинов");
 
     Element regionNameInTable = new Element(ByKraken.xpath("//tr[@data-row-key='%s']"), "Название конкретного города в таблице");
     Element sortRetailersViaNameAscInTable = new Element(By.xpath("//span[text()='Название']/ancestor::div[@class='ant-table-column-sorters']//span[contains(@class, 'sorter-up active')]"), "Иконка сортировки по имени ретейлеров в таблице ASC");

@@ -10,6 +10,7 @@ public interface ActivateStoreModalCheck extends Check, ActivateStoreModalElemen
     @Step("Проверяем, что модальное окно активации магазина показано")
     default void checkActivateStoreModalVisible() {
         waitAction().shouldBeVisible(activateStoreModal);
+        waitAction().shouldNotBeAnimated(activateStoreModal);
     }
 
     @Step("Проверяем, что модальное окно активации магазина скрыто")

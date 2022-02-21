@@ -48,4 +48,14 @@ public class PricesDao extends AbstractDao<Long, PricesEntity> {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
     }
+
+    public void deletePriceByStoreId(Long storeId) {
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE store_id = ?")) {
+            preparedStatement.setLong(1, storeId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+    }
 }
