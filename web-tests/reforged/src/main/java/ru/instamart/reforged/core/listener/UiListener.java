@@ -1,11 +1,12 @@
 package ru.instamart.reforged.core.listener;
 
-import ru.sbermarket.qase.enums.RunResultStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.*;
+import ru.instamart.kraken.retry.RetryAnalyzer;
 import ru.instamart.kraken.service.QaseService;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.report.CustomReport;
+import ru.sbermarket.qase.enums.RunResultStatus;
 
 @Slf4j
 public final class UiListener implements ITestListener, ISuiteListener {
@@ -41,6 +42,7 @@ public final class UiListener implements ITestListener, ISuiteListener {
         if (result.getMethod().getConstructorOrMethod().getMethod().isAnnotationPresent(DoNotOpenBrowser.class)) {
             return;
         }
+        fireRetryTest(result);
         this.qaseService.sendResult(result, RunResultStatus.failed, qaseService.uploadScreenshot(CustomReport.takeScreenshotFile()));
     }
 
@@ -63,6 +65,15 @@ public final class UiListener implements ITestListener, ISuiteListener {
             this.qaseService.completeTestRun();
         } catch (Exception e) {
             log.error("FATAL: something wrong when try to finish test run", e);
+        }
+    }
+
+    private void fireRetryTest(final ITestResult result) {
+        final var retryAnalyzer = result.getMethod().getRetryAnalyzer(result);
+        //TODO: Wait Pattern Matching for instanceof Java 14++
+        if (retryAnalyzer instanceof RetryAnalyzer) {
+            final var retry = (RetryAnalyzer) retryAnalyzer;
+            retry.retry(result);
         }
     }
 }
