@@ -36,7 +36,7 @@ public class StoreZonesV1Request extends ApiV1RequestBase {
         }
 
         @Step("{method} /" + ApiV1Endpoints.Stores.StoreId.Zones.ZONES)
-        public static Response POST(Long storeId, String area) {
+        public static Response POST(Integer storeId, String area) {
             JSONObject body = new JSONObject();
             body.put("name", "polygon");
             body.put("area", area);

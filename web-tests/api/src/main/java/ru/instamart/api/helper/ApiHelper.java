@@ -575,7 +575,7 @@ public final class ApiHelper {
     @Step("Удаляем магазин из админки")
     public void deleteStoreInAdmin(StoresAdminRequest.Store store) {
         StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
-        Long storeId = storeFromDb.getId();
+        Integer storeId = storeFromDb.getId();
 
         StoresDao.INSTANCE.delete(storeId);
         StoreConfigsDao.INSTANCE.deleteByStoreId(storeId);
@@ -595,7 +595,7 @@ public final class ApiHelper {
 
         admin.authAdmin();
         StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
-        Long storeId = storeFromDb.getId();
+        Integer storeId = storeFromDb.getId();
         StoresTenantsDao.INSTANCE.addStoreTenant(storeId, "sbermarket");
         importKey = SpreeRetailersDao.INSTANCE.findById(storeFromDb.getRetailerId()).get().getKey() + "-" + store.getImportKeyPostFix();
 
@@ -614,7 +614,7 @@ public final class ApiHelper {
             count++;
         }
         compareTwoObjects(status, ImportStatusV1.DONE.getValue());
-        OffersEntity offerFromDb = OffersDao.INSTANCE.getOfferByStoreId(Math.toIntExact(storeId));
+        OffersEntity offerFromDb = OffersDao.INSTANCE.getOfferByStoreId(storeId);
         offerId = offerFromDb.getId();
         return offerId;
     }
@@ -622,7 +622,7 @@ public final class ApiHelper {
     @Step("Импорт зон магазина из файла")
     public void importStoreZonesFile(StoresAdminRequest.Store store) {
         StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
-        Integer storeId = Math.toIntExact(storeFromDb.getId());
+        Integer storeId = storeFromDb.getId();
 
         final Response response = StoreZonesV1Request.ZoneFiles.POST("src/test/resources/data/zone.kml", storeId);
         checkStatusCode200(response);
@@ -631,7 +631,7 @@ public final class ApiHelper {
     @Step("Импорт зон магазина запрос")
     public void importStoreZonesBody(StoresAdminRequest.Store store) {
         StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
-        Long storeId = storeFromDb.getId();
+        Integer storeId = storeFromDb.getId();
 
         final Response response = StoreZonesV1Request.Zones.POST(storeId, StoreZonesCoordinates.testMoscowZoneCoordinates());
         checkStatusCode200(response);
@@ -661,12 +661,12 @@ public final class ApiHelper {
     @Step("Получение списка окон доставки")
     public Long getAvailableDeliveryWindowsV1(StoresAdminRequest.Store store) {
         StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
-        Long storeId = storeFromDb.getId();
+        Integer storeId = storeFromDb.getId();
 
-        final Response responsePost = StoresV1Request.DeliveryWindows.POST(Math.toIntExact(storeId));
+        final Response responsePost = StoresV1Request.DeliveryWindows.POST(storeId);
         checkStatusCode200(responsePost);
 
-        final Response responseGet = StoresV1Request.DeliveryWindows.GET(Math.toIntExact(storeId));
+        final Response responseGet = StoresV1Request.DeliveryWindows.GET(storeId);
         checkStatusCode200(responseGet);
 
         List<DeliveryWindowV1> deliveryWindowsFromResponse = responseGet.as(DeliveryWindowsV1Response.class).getDeliveryWindows();

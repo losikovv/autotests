@@ -49,7 +49,7 @@ public class PricesDao extends AbstractDao<Long, PricesEntity> {
         }
     }
 
-    public void deletePriceByStoreId(Long storeId) {
+    public void deletePriceByStoreId(Integer storeId) {
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE store_id = ?")) {
             preparedStatement.setLong(1, storeId);

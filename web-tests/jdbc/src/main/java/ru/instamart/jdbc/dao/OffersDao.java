@@ -68,7 +68,7 @@ public final class OffersDao extends AbstractDao<Long, OffersEntity> {
     }
 
 
-    public boolean deleteByStoreId(Long storeId) {
+    public boolean deleteByStoreId(Integer storeId) {
         int result = 0;
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE store_id = ?")) {

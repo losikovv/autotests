@@ -14,7 +14,7 @@ public class StoreZonesDao extends AbstractDao<Long, StoreZonesEntity> {
     public static final StoreZonesDao INSTANCE = new StoreZonesDao();
     private final String DELETE_SQL = "DELETE FROM store_zones";
 
-    public void deleteStoreZoneByStoreId(Long storeId) {
+    public void deleteStoreZoneByStoreId(Integer storeId) {
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE store_id = ?")) {
             preparedStatement.setLong(1, storeId);
