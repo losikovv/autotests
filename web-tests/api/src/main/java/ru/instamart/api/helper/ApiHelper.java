@@ -25,6 +25,8 @@ import ru.instamart.jdbc.dao.shopper.OperationalZonesShopperDao;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.user.UserData;
 
+import java.util.List;
+
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.data.user.UserRoles.B2B_MANAGER;
 
@@ -325,8 +327,25 @@ public final class ApiHelper {
     public void addManagerForCompany(String inn, UserData userData) {
         admin.authAdminApi();
         K8sHelper.addRoleToUser(userData.getId(), B2B_MANAGER.getRole());
-        int companyId = CompaniesV1Request.GET(inn).as(CompaniesV1Response.class).getCompanies().get(0).getId();
+        Response response = CompaniesV1Request.GET(inn);
+        checkStatusCode200(response);
+        int companyId = response.as(CompaniesV1Response.class).getCompanies().get(0).getId();
         admin.addManager(companyId, userData.getId());
+    }
+
+
+    @Step("Добавить сотрудника {userData} в компанию {inn}")
+    public void addEmployeeForCompany(final String inn, UserData userData) {
+        admin.authAdminApi();
+        Response response = CompaniesV1Request.GET(inn);
+        checkStatusCode200(response);
+        int companyId = response.as(CompaniesV1Response.class).getCompanies().get(0).getId();
+        admin.addEmployee(companyId, userData.getId());
+    }
+
+    @Step("Добавить сотрудников в компанию {inn}")
+    public void addEmployeesForCompany(final String inn, List<UserData> usersData) {
+        usersData.forEach(userData -> addEmployeeForCompany(inn, userData));
     }
 
     @Step("Добавляем новую статичную страницу {data} в админке")

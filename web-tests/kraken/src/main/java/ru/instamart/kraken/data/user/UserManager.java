@@ -390,6 +390,20 @@ public final class UserManager {
      * При создании пользователь добавляется в список со всеми созданными пользователями,
      * для того что бы по завершению прогона можно было получить всех пользователей участвовавших в прогоне и удалить их
      *
+     * @return - {@link List<UserData>}
+     */
+    public static List<UserData> getQaUsers(final int usersCount) {
+        List<UserData> usersData = new ArrayList<>();
+        for (int i = 0; i < usersCount; i++) {
+            usersData.add(getQaUser());
+        }
+        return usersData;
+    }
+
+    /**
+     * При создании пользователь добавляется в список со всеми созданными пользователями,
+     * для того что бы по завершению прогона можно было получить всех пользователей участвовавших в прогоне и удалить их
+     *
      * @return - {@link UserData}
      */
     public static UserData getQaUserWithoutAb() {

@@ -13,6 +13,11 @@ public interface CompanyInfoCheck extends Check, CompanyInfoElement {
         waitAction().shouldBeVisible(companyInfo);
     }
 
+    @Step("Проверяем, что виден список пользователей")
+    default void checkCompanyUsersDisplayed() {
+        waitAction().shouldBeVisible(companyUserInfo);
+    }
+
     @Step("Проверяем что в блоке информации о компании присутствует текст '{expectedText}'")
     default void checkCompanyInfoContainsText(final String expectedText) {
         assertTrue(companyInfo.getText().contains(expectedText),
@@ -44,5 +49,15 @@ public interface CompanyInfoCheck extends Check, CompanyInfoElement {
     default void checkPaymentAccountAmountContainsText(String expectedText) {
         assertTrue(paymentAccountAmount.getText().contains(expectedText),
                 String.format("Отображаемая сумма на счёте: '%s' не содержит ожидаемый текст: '%s'", paymentAccountAmount.getText(), expectedText));
+    }
+
+    @Step("Проверяем, что отображается блок 'Код безопасности'")
+    default void checkSecurityBlockDisplayed() {
+        waitAction().shouldBeVisible(companySecurityInfo);
+    }
+
+    @Step("Проверяем, что не отображается блок 'Код безопасности'")
+    default void checkSecurityBlockNotDisplayed() {
+        waitAction().shouldNotBeVisible(companySecurityInfo);
     }
 }
