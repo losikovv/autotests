@@ -1147,6 +1147,13 @@ public class RestDataProvider extends RestBase {
         };
     }
 
+    @DataProvider(name = "replacementPolicies")
+    public static Object[][] getReplacementPolicies() {
+        return apiV1.getReplacementPolicies().stream()
+                .map(list -> new Object[]{list})
+                .toArray(Object[][]::new);
+    }
+
     @DataProvider(name = "postCompanyDocuments")
     public static Object[][] postCompanyDocuments() {
         String name = "ООО \"Ромашка_" + (int) (Math.random() * 9999) + "\"";

@@ -218,7 +218,9 @@ public final class SessionFactory {
                 checkStatusCode200(response);
                 log.debug("Авторизуемся: {} / {}", userData.getEmail(), userData.getPassword());
                 log.debug("cookies: {}", response.getCookies());
-                return new SessionInfo(userData, response.getCookies());
+                UserV2Response userV2Response = response.as(UserV2Response.class);
+                userData.setId(userV2Response.getUser().getId());
+                return new SessionInfo(userData, userV2Response.getCsrfToken(), response.getCookies());
             case PHONE:
                 final Response postResponse = PhoneConfirmationsV1Request.POST(userData.getEncryptedPhone());
                 checkStatusCode200(postResponse);

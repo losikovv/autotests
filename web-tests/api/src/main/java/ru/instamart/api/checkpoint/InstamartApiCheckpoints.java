@@ -7,6 +7,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.api.enums.v2.ProductSortTypeV2;
 import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.model.v1.MarketingSampleV1;
+import ru.instamart.api.model.v1.PaymentToolV1;
 import ru.instamart.api.model.v1.ShippingPolicyV1;
 import ru.instamart.api.model.v1.UserShipmentV1;
 import ru.instamart.api.model.v2.*;
@@ -14,6 +15,7 @@ import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v1.ShippingPoliciesV1Request;
+import ru.instamart.api.response.v1.CompleteOrderV1Response;
 import ru.instamart.api.response.v1.MultiretailerOrderV1Response;
 import ru.instamart.api.response.v1.UserShipmentV1Response;
 import ru.instamart.api.response.v2.ExternalPartnersServicesV2Response;
@@ -298,6 +300,7 @@ public class InstamartApiCheckpoints {
         if (delayText == null) {
             compareTwoObjects(shipmentFromResponse.getDelay(), null, softAssert);
         } else {
+            checkFieldIsNotEmpty(shipmentFromResponse.getDelay(), "текст опоздания");
             compareTwoObjects(shipmentFromResponse.getDelay().getText(), "Задерживаемся, но очень торопимся", softAssert);
         }
         softAssert.assertAll();
@@ -316,8 +319,18 @@ public class InstamartApiCheckpoints {
         if (delayText == null) {
             compareTwoObjects(shipmentFromResponse.getDelay(), null, softAssert);
         } else {
+            checkFieldIsNotEmpty(shipmentFromResponse.getDelay(), "текст опоздания");
             compareTwoObjects(shipmentFromResponse.getDelay().getText(), "Задерживаемся, но очень торопимся", softAssert);
         }
         softAssert.assertAll();
+    }
+
+    @Step("Проверяем информацию в созданном заказе {completedOrder.shipmentNumber}")
+    public static void compareWithUserShipment(UserShipmentV1 userShipment, UserData user, PaymentToolV1 paymentTool, CompleteOrderV1Response completedOrder) {
+        final SoftAssert nextSoftAssert = new SoftAssert();
+        compareTwoObjects(userShipment.getState(), StateV2.READY.getValue(), nextSoftAssert);
+        compareTwoObjects(userShipment.getPaymentMethod().getId(), paymentTool.getPaymentMethod().getId(), nextSoftAssert);
+        compareTwoObjects(userShipment.getEmail(), user.getEmail(), nextSoftAssert);
+        nextSoftAssert.assertAll();
     }
 }

@@ -5,6 +5,8 @@ package ru.instamart.api.endpoint;
  */
 public final class ApiV1Endpoints {
 
+    public static final String AVAILABLE_PAYMENT_TOOLS = "available_payment_tools";
+    public static final String CHECKOUT = "checkout";
     public static final String COMPANIES = "companies";
     public static final String COMPANY_EMPLOYEES = "company_employees";
     public static final String COMPANY_MANAGERS = "company_managers";
@@ -17,6 +19,7 @@ public final class ApiV1Endpoints {
     public static final String OPERATIONAL_ZONES = "operational_zones";
     public static final String ORDERS = "orders?page={pageNumber}";
     public static final String PHONE_CONFIRMATIONS = "phone_confirmations";
+    public static final String REPLACEMENT_POLICIES = "replacement_policies";
     public static final String RETAILERS = "retailers";
     public static final String RETAILER_POSITIONS = "retailer_positions";
     public static final String SHIPPING_METHODS = "shipping_methods";
@@ -53,6 +56,10 @@ public final class ApiV1Endpoints {
         public static final class Shipments {
             public static final String LEFTOVERS = "admin/shipments/{shipmentUUID}/leftovers";
         }
+    }
+
+    public static final class Checkout {
+        public static final String COMPLETE = "checkout/complete";
     }
 
     /**
