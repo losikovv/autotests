@@ -13,9 +13,9 @@ public class StoreZonesV1Request extends ApiV1RequestBase {
 
     public static class ZoneFiles {
         @Step("{method} /" + ApiV1Endpoints.Stores.StoreId.ZoneFiles.ZONE_FILES)
-        public static Response GET() {
+        public static Response GET(Integer value) {
             return givenWithAuth()
-                    .queryParam("per_page", 10000)
+                    .queryParam("per_page", value)
                     .get(ApiV1Endpoints.Stores.StoreId.ZoneFiles.ZONE_FILES);
         }
 
@@ -29,9 +29,9 @@ public class StoreZonesV1Request extends ApiV1RequestBase {
 
     public static class Zones {
         @Step("{method} /" + ApiV1Endpoints.Stores.StoreId.Zones.ZONES)
-        public static Response GET() {
+        public static Response GET(Integer value) {
             return givenWithAuth()
-                    .queryParam("per_page", 10000)
+                    .queryParam("per_page", value)
                     .get(ApiV1Endpoints.Stores.StoreId.Zones.ZONES);
         }
 

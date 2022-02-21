@@ -12,15 +12,14 @@ public class StoreSchedulesV1Request extends ApiV1RequestBase {
 
     public static class Schedules {
         @Step("{method} /" + ApiV1Endpoints.Stores.SCHEDULE)
-        public static Response GET(String storeUuid) {
+        public static Response GET(String storeUuid, Integer value) {
             return givenWithAuth()
-                    .queryParam("per_page", 10000)
+                    .queryParam("per_page", value)
                     .get(ApiV1Endpoints.Stores.SCHEDULE, storeUuid);
         }
 
         @Step("{method} /" + ApiV1Endpoints.Stores.SCHEDULE)
         public static Response POST(String storeUuid) {
-
             JSONObject name = new JSONObject();
             JSONObject template = new JSONObject();
             JSONObject delivery_times = new JSONObject();

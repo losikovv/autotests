@@ -58,9 +58,6 @@ public final class ApiHelper {
     private final InstamartApiHelper apiV2 = new InstamartApiHelper();
     private final AdminHelper admin = new AdminHelper();
 
-    private byte[] fileBytes;
-    private String importKey;
-
     @Step("Подтверждение кода с помощью API")
     public SessionV2 confirmPhone(final String phone, final String code, final boolean promoTermsAccepted) {
         return apiV2.confirmPhone(phone, code, promoTermsAccepted);
@@ -580,6 +577,8 @@ public final class ApiHelper {
     @Step("Импорт оффера для магазина")
     public Long importOffersInStore(StoresAdminRequest.Store store) {
         Long offerId;
+        byte[] fileBytes;
+        String importKey;
 
         admin.authAdmin();
         StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
@@ -591,7 +590,6 @@ public final class ApiHelper {
 
         final Response response = ImportsV1Request.OffersFiles.POST(fileBytes);
         checkStatusCode200(response);
-        checkResponseJsonSchema(response, OffersFileV1Response.class);
 
         int count = 0;
         String status = null;
@@ -658,7 +656,6 @@ public final class ApiHelper {
         final Response responseGet = StoresV1Request.DeliveryWindows.GET(Math.toIntExact(storeId));
         checkStatusCode200(responseGet);
 
-        checkResponseJsonSchema(responseGet, DeliveryWindowsV1Response.class);
         List<DeliveryWindowV1> deliveryWindowsFromResponse = responseGet.as(DeliveryWindowsV1Response.class).getDeliveryWindows();
         int deliveryWindowsFromDbCount = DeliveryWindowsDao.INSTANCE.getCount(storeId, getDbDeliveryDateFrom(1L), getDbDeliveryDateTo(1L));
         compareTwoObjects(deliveryWindowsFromResponse.size(), deliveryWindowsFromDbCount);

@@ -1,5 +1,7 @@
 package ru.instamart.jdbc.dao.shopper;
 
+import ru.instamart.jdbc.dao.AbstractDao;
+import ru.instamart.jdbc.entity.shopper.RetailersShopperEntity;
 import ru.instamart.jdbc.util.ConnectionPgSQLManager;
 
 import java.sql.Connection;
@@ -8,7 +10,7 @@ import java.sql.SQLException;
 
 import static org.testng.Assert.fail;
 
-public class RetailersShopperDao {
+public class RetailersShopperDao extends AbstractDao<Long, RetailersShopperEntity> {
     public static final RetailersShopperDao INSTANCE = new RetailersShopperDao();
     private final String DELETE_SQL = "DELETE FROM retailers ";
 
