@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -193,6 +194,45 @@ public class CompaniesTests extends BaseTest {
         companyInfoPage().checkPaymentAccountUpdateInfoDisplayed();
         companyInfoPage().hoverAccountAmountAdditionalInfo();
         companyInfoPage().checkPaymentAccountWarningDisplayed();
+    }
 
+    @CaseId(42)
+    @Test(description = "Блок 'Код безопасности'", groups = {"smoke", "regression"})
+    public void testSecurityCodeBlock() {
+        var company = JuridicalData.juridical();
+        var companyHeadUser = UserManager.getQaUser();
+        var otherUsers = UserManager.getQaUsers(10);
+        helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), companyHeadUser.getEmail());
+        helper.addEmployeesForCompany(company.getInn(), otherUsers);
+
+        business().goToPage();
+        business().interactHeader().clickToLogin();
+        business().interactAuthModal().authViaPhone(companyHeadUser);
+        business().interactHeader().checkProfileButtonVisible();
+        business().addCookie(CookieFactory.COOKIE_ALERT);
+
+        companies().goToPage();
+        companies().clickOnFirstCompanyName();
+        companyInfoPage().checkSecurityBlockDisplayed();
+
+        companyInfoPage().clickGoForwardButton();
+        companyInfoPage().checkSecurityBlockDisplayed();
+
+        business().interactHeader().clickToProfile();
+        business().interactHeader().interactAccountMenu().checkAccountMenuVisible();
+        business().interactHeader().interactAccountMenu().clickToLogout();
+
+        business().interactHeader().clickToLogin();
+        business().interactAuthModal().authViaPhone(otherUsers.get(9));
+        business().interactHeader().checkProfileButtonVisible();
+
+        companies().goToPage();
+        companies().clickOnFirstCompanyName();
+        companyInfoPage().checkCompanyUsersDisplayed();
+        companyInfoPage().checkSecurityBlockNotDisplayed();
+
+        companyInfoPage().clickGoForwardButton();
+        companyInfoPage().checkCompanyUsersDisplayed();
+        companyInfoPage().checkSecurityBlockNotDisplayed();
     }
 }

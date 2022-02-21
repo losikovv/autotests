@@ -4,7 +4,6 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.api.enums.v1.ImportStatusV1;
-import io.restassured.response.Response;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.model.v1.DeliveryWindowV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
@@ -28,8 +27,6 @@ import ru.instamart.api.response.v1.PricersV1Response;
 import ru.instamart.api.response.v1.ShippingMethodsResponse;
 import ru.instamart.api.response.v1.admin.ShipmentsAdminV1Response;
 import ru.instamart.api.response.v1.b2b.CompaniesV1Response;
-import ru.instamart.api.response.v1.imports.OffersFileV1Response;
-import ru.instamart.jdbc.dao.*;
 import ru.instamart.jdbc.dao.*;
 import ru.instamart.jdbc.dao.shopper.OperationalZonesShopperDao;
 import ru.instamart.jdbc.dao.shopper.RetailersShopperDao;
@@ -46,7 +43,6 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.helper.AdminHelper.getOfferFiles;
 import static ru.instamart.api.request.admin.StoresAdminRequest.getStoreForRetailerTests;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.data.user.UserRoles.B2B_MANAGER;
 import static ru.instamart.kraken.util.TimeUtil.getDbDeliveryDateFrom;
 import static ru.instamart.kraken.util.TimeUtil.getDbDeliveryDateTo;
@@ -350,8 +346,25 @@ public final class ApiHelper {
     public void addManagerForCompany(String inn, UserData userData) {
         admin.authAdminApi();
         K8sHelper.addRoleToUser(userData.getId(), B2B_MANAGER.getRole());
-        int companyId = CompaniesV1Request.GET(inn).as(CompaniesV1Response.class).getCompanies().get(0).getId();
+        Response response = CompaniesV1Request.GET(inn);
+        checkStatusCode200(response);
+        int companyId = response.as(CompaniesV1Response.class).getCompanies().get(0).getId();
         admin.addManager(companyId, userData.getId());
+    }
+
+
+    @Step("Добавить сотрудника {userData} в компанию {inn}")
+    public void addEmployeeForCompany(final String inn, UserData userData) {
+        admin.authAdminApi();
+        Response response = CompaniesV1Request.GET(inn);
+        checkStatusCode200(response);
+        int companyId = response.as(CompaniesV1Response.class).getCompanies().get(0).getId();
+        admin.addEmployee(companyId, userData.getId());
+    }
+
+    @Step("Добавить сотрудников в компанию {inn}")
+    public void addEmployeesForCompany(final String inn, List<UserData> usersData) {
+        usersData.forEach(userData -> addEmployeeForCompany(inn, userData));
     }
 
     @Step("Добавляем новую статичную страницу {data} в админке")

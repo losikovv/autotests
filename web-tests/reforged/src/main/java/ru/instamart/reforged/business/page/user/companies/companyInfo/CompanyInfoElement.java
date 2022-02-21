@@ -26,5 +26,7 @@ public interface CompanyInfoElement {
 
     Element managerInfo = new Element(By.xpath("//div[@class='ui-content-wrapper']//nav/following-sibling::div[contains(.,'Ваш персональный менеджер')]"), "Блок 'Ваш персональный менеджер'");
 
+
+    Button goForward = new Button(By.xpath("//a[@class='ui-pagination__link'][contains(.,'Вперед')]"), "Кнопка 'Вперёд'");
     Button changeSecurityCode = new Button(By.xpath("//button[@data-qa='company_account_change__security_code_button']"), "Кнопка 'Изменить' (код безопасности)");
 }

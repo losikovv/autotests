@@ -10,14 +10,18 @@ import ru.instamart.api.model.v1.RetailerV1;
 import ru.instamart.api.model.v1.b2b.ManagerV1;
 import ru.instamart.api.model.v1.b2b.UserV1;
 import ru.instamart.api.request.admin.*;
-import ru.instamart.api.request.v1.*;
+import ru.instamart.api.request.v1.ImportsV1Request;
+import ru.instamart.api.request.v1.OperationalZonesV1Request;
+import ru.instamart.api.request.v1.ShippingMethodsV1Request;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.MarketingPricers;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.NominalPricers;
+import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.request.v1.admin.ShipmentsAdminV1Request;
 import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
-import ru.instamart.api.response.v1.admin.ShipmentsAdminV1Response;
+import ru.instamart.api.request.v1.b2b.CompanyEmployeesV1Request;
 import ru.instamart.api.request.v1.b2b.CompanyManagersV1Request;
 import ru.instamart.api.response.v1.*;
+import ru.instamart.api.response.v1.admin.ShipmentsAdminV1Response;
 import ru.instamart.api.response.v1.imports.OffersFilesV1Response;
 import ru.instamart.jdbc.dao.SpreeUsersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -52,6 +56,14 @@ public class AdminHelper {
 
     public void addCompany(final String inn, final String companyName, final String ownerEmail) {
         final Response response = CompaniesV1Request.POST(inn, companyName, ownerEmail);
+        checkStatusCode200(response);
+    }
+
+    @Step("Добавляем сотрудника в компанию")
+    public void addEmployee(final Integer companyId, final String userId) {
+        UserV1 userV1 = new UserV1();
+        userV1.setId(Integer.parseInt(userId));
+        final Response response = CompanyEmployeesV1Request.POST(companyId, userV1);
         checkStatusCode200(response);
     }
 
@@ -159,8 +171,8 @@ public class AdminHelper {
     @Step("Авторизация администратором")
     public void authAdmin() {
         UserData user = UserManager.getDefaultAdmin();
-        if(!EnvironmentProperties.SERVER.equals("production")) {
-            if(SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()) == null) {
+        if (!EnvironmentProperties.SERVER.equals("production")) {
+            if (SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()) == null) {
                 createAdmin(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword());
             }
         }
@@ -170,8 +182,8 @@ public class AdminHelper {
     @Step("Авторизация администратором для API")
     public void authAdminApi() {
         UserData user = UserManager.getDefaultAdmin();
-        if(!EnvironmentProperties.SERVER.equals("production")) {
-            if(SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()) == null) {
+        if (!EnvironmentProperties.SERVER.equals("production")) {
+            if (SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()) == null) {
                 createAdmin(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword());
             }
         }
