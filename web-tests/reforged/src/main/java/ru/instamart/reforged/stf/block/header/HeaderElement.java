@@ -29,7 +29,7 @@ public interface HeaderElement {
     Element enteredAddress = new Element(By.xpath("//span[@data-qa='current-ship-address']"), "Лэйбл отображающий введенный адрес в шапке");
 
     Link forB2B = new Link(By.xpath("//a[contains(@href, '/transfer/to_b2b')]"), "empty");
-    Link buyForBusiness = new Link(By.xpath("//div[contains(@class,'header-navbar__b2b-showcase-button')]/button"), "Ссылка 'Покупайте для бизнеса'");
+    Link buyForBusiness = new Link(By.xpath("//div[contains(@class,'header-navbar__b2b-showcase-button')]/*"), "Ссылка 'Покупайте для бизнеса'");
     Link forBrands = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Для производителей')]"), "empty");
     Link howWeWork = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Как мы работаем')]"), "empty");
     Link contacts = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Контакты')]"), "empty");
