@@ -92,6 +92,7 @@ public class ProductV2 extends BaseObject {
     private Double originalUnitPrice;
 
     @Null
+    @EqualsAndHashCode.Exclude
     private Double score;
 
     @EqualsAndHashCode.Exclude

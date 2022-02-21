@@ -296,7 +296,7 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(shipmentFromResponse.getOrderNumber(), order.getNumber(), softAssert);
         compareTwoObjects(shipmentFromResponse.getState(), state, softAssert);
         compareTwoObjects(shipmentFromResponse.getEmail(),user.getEmail(), softAssert);
-        compareTwoObjects(shipmentFromResponse.getStoreId(),(long) EnvironmentProperties.DEFAULT_SID, softAssert);
+        compareTwoObjects(shipmentFromResponse.getStoreId(), EnvironmentProperties.DEFAULT_SID, softAssert);
         if (delayText == null) {
             compareTwoObjects(shipmentFromResponse.getDelay(), null, softAssert);
         } else {

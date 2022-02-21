@@ -10,7 +10,7 @@ public class PricesEntity {
     private String productSku;
     private String tenantId;
     private Long offerId;
-    private Long storeId;
+    private Integer storeId;
     private Integer published;
     private String createdAt;
     private String updatedAt;

@@ -38,7 +38,7 @@ import static ru.sbermarket.common.FileUtils.changeXlsFileSheetName;
 public class ImportsV1Tests extends RestBase {
 
     private Long offerId;
-    private Long storeId;
+    private Integer storeId;
     private byte[] fileBytes;
     private String importKey;
 

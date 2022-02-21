@@ -49,7 +49,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, DeliveryWindowsV1Response.class);
         List<DeliveryWindowV1> deliveryWindowsFromResponse = response.as(DeliveryWindowsV1Response.class).getDeliveryWindows();
-        int deliveryWindowsFromDbCount = DeliveryWindowsDao.INSTANCE.getCount(1L, getDbDeliveryDateFrom(1L), getDbDeliveryDateTo(1L));
+        int deliveryWindowsFromDbCount = DeliveryWindowsDao.INSTANCE.getCount(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, getDbDeliveryDateFrom(1L), getDbDeliveryDateTo(1L));
         compareTwoObjects(deliveryWindowsFromResponse.size(), deliveryWindowsFromDbCount);
         deliveryWindowId = deliveryWindowsFromResponse.get(0).getId();
     }

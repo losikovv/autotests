@@ -6,5 +6,5 @@ import lombok.Data;
 public class StoresTenantsEntity {
     private Long id;
     private String tenantId;
-    private Long storeId;
+    private Integer storeId;
 }
