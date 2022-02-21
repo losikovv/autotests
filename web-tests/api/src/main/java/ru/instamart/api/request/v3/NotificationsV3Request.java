@@ -22,15 +22,18 @@ public class NotificationsV3Request extends ApiV3RequestBase {
         return POST(orderId, type, "5548", 1, 1);
     }
 
-    public static Response POST(String orderId, String type, String positionId, Integer originalQuantity, Integer quantity) {
-        return POST(orderId, type, positionId, originalQuantity, quantity, "700", "+799911111111",
-                "2021-05-24T13:00:00+03:00", "2021-05-24T16:00:00+03:00");
+    public static Response POST(String orderId, String type, String retailerSku, Integer originalQuantity, Integer quantity) {
+        return POST(orderId, type, retailerSku, originalQuantity, quantity, "");
     }
 
+    public static Response POST(String orderId, String type, String retailerSku, Integer originalQuantity, Integer quantity, String weight) {
+        return POST(orderId, type, retailerSku, originalQuantity, quantity, weight, "+799911111111",
+                "2021-05-24T13:00:00+03:00", "2021-05-24T16:00:00+03:00");
+    }
     @Step("{method} /" + ApiV3Endpoints.NOTIFICATIONS)
     public static Response POST(String orderId,
                                 String type,
-                                String positionId,
+                                String retailerSku,
                                 Integer originalQuantity,
                                 Integer quantity,
                                 String weight,
@@ -65,7 +68,7 @@ public class NotificationsV3Request extends ApiV3RequestBase {
         if (Objects.nonNull(expectedTo)) delivery.put("expectedTo", expectedTo);
 
         positions.add(position);
-        if (Objects.nonNull(positionId)) position.put("id", positionId);
+        if (Objects.nonNull(retailerSku)) position.put("id", retailerSku);
         if (Objects.nonNull(originalQuantity)) position.put("originalQuantity", originalQuantity);
         if (Objects.nonNull(quantity)) position.put("quantity", quantity);
         if (Objects.nonNull(weight)) position.put("weight", weight);
