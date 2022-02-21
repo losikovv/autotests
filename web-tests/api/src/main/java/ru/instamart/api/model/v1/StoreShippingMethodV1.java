@@ -25,7 +25,7 @@ public class StoreShippingMethodV1 extends BaseObject {
 
     @JsonSchema(required = true)
     @JsonProperty("store_id")
-    private Long storeId;
+    private Integer storeId;
 
     @JsonSchema(required = true)
     @JsonProperty("tenant_id")

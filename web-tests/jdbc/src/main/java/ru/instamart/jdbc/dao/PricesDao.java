@@ -26,7 +26,7 @@ public class PricesDao extends AbstractDao<Long, PricesEntity> {
             if(resultSet.next()) {
                 price.setId(resultSet.getLong("id"));
                 price.setProductSku(resultSet.getString("product_sku"));
-                price.setStoreId(resultSet.getLong("store_id"));
+                price.setStoreId(resultSet.getInt("store_id"));
                 price.setTenantId(resultSet.getString("tenant_id"));
                 price.setRetailerPrice(resultSet.getDouble("retailer_price"));
                 price.setOfferPrice(resultSet.getDouble("offer_price"));

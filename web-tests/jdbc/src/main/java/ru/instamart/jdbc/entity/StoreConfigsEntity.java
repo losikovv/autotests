@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class StoreConfigsEntity {
     private Long id;
-    private Long storeId;
+    private Integer storeId;
     private String lifepayIdentifier;
     private String importKey;
     private Double shipmentBaseWeight;

@@ -33,7 +33,7 @@ public class StoresAdminRequest extends AdminRequestBase {
     }
 
     @Step("{method} /" + AdminEndpoints.STORE)
-    public static Response PATCH(Store store, Long storeId) {
+    public static Response PATCH(Store store, Integer storeId) {
         Map<String, Object> params = new HashMap<>();
         params.put("_method", "patch");
         params.putAll(Mapper.INSTANCE.objectToMap(store));

@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class StoresEntity {
-    private Long id;
+    private Integer id;
     private String uuid;
     private Long locationId;
     private String createdAt;

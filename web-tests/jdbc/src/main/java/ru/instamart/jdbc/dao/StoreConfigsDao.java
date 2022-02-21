@@ -28,7 +28,7 @@ public class StoreConfigsDao extends AbstractDao<Long, StoreConfigsEntity> {
         }
     }
 
-    public StoreConfigsEntity getConfigsByStoreId(Long storeId) {
+    public StoreConfigsEntity getConfigsByStoreId(Integer storeId) {
         StoreConfigsEntity storeConfigs = new StoreConfigsEntity();
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE store_id = ?")) {
@@ -49,7 +49,7 @@ public class StoreConfigsDao extends AbstractDao<Long, StoreConfigsEntity> {
         return storeConfigs;
     }
 
-    public void deleteByStoreId(Long storeId) {
+    public void deleteByStoreId(Integer storeId) {
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + "WHERE store_id = ?")) {
             preparedStatement.setLong(1, storeId);

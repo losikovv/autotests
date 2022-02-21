@@ -7,11 +7,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 import static org.testng.Assert.fail;
 
-public class StoresDao extends AbstractDao<Long, StoresEntity> {
+public class StoresDao implements Dao<Integer, StoresEntity> {
 
     public static final StoresDao INSTANCE = new StoresDao();
     private final String SELECT_SQL = "SELECT * FROM stores ";
@@ -23,7 +24,7 @@ public class StoresDao extends AbstractDao<Long, StoresEntity> {
     private final String UPDATE_SQL = "UPDATE stores SET ";
 
     @Override
-    public boolean delete(Long id) {
+    public boolean delete(Integer id) {
         int result = 0;
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL +
@@ -36,7 +37,17 @@ public class StoresDao extends AbstractDao<Long, StoresEntity> {
         return result == 2;
     }
 
-    public boolean updateWithSetAvailability(Long storeId, final String availabilityDate) {
+    @Override
+    public StoresEntity save(StoresEntity ticket) {
+        return null;
+    }
+
+    @Override
+    public void update(StoresEntity ticket) {
+
+    }
+
+    public boolean updateWithSetAvailability(Integer storeId, final String availabilityDate) {
         int result = 0;
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + "available_on = ? WHERE id = ?")) {
@@ -71,7 +82,7 @@ public class StoresDao extends AbstractDao<Long, StoresEntity> {
             preparedStatement.setDouble(2, lon);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                store.setId(resultSet.getLong("id"));
+                store.setId(resultSet.getInt("id"));
                 store.setRetailerId(resultSet.getLong("retailer_id"));
                 store.setTimeZone(resultSet.getString("time_zone"));
                 store.setOperationalZoneId(resultSet.getLong("operational_zone_id"));
@@ -119,7 +130,7 @@ public class StoresDao extends AbstractDao<Long, StoresEntity> {
     }
 
     @Override
-    public Optional<StoresEntity> findById(Long id) {
+    public Optional<StoresEntity> findById(Integer id) {
         StoresEntity store = new StoresEntity();
         var sql = SELECT_SQL + " WHERE id = ?";
         try (Connection connect = ConnectionMySQLManager.get();
@@ -127,7 +138,7 @@ public class StoresDao extends AbstractDao<Long, StoresEntity> {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                store.setId(resultSet.getLong("id"));
+                store.setId(resultSet.getInt("id"));
                 store.setRetailerId(resultSet.getLong("retailer_id"));
                 store.setTimeZone(resultSet.getString("time_zone"));
                 store.setOperationalZoneId(resultSet.getLong("operational_zone_id"));
@@ -136,5 +147,10 @@ public class StoresDao extends AbstractDao<Long, StoresEntity> {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return Optional.of(store);
+    }
+
+    @Override
+    public List<StoresEntity> findAll() {
+        return null;
     }
 }
