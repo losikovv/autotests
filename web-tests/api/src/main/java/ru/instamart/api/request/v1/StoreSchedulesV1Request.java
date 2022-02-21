@@ -12,9 +12,9 @@ public class StoreSchedulesV1Request extends ApiV1RequestBase {
 
     public static class Schedules {
         @Step("{method} /" + ApiV1Endpoints.Stores.SCHEDULE)
-        public static Response GET(String storeUuid, Integer value) {
+        public static Response GET(String storeUuid, Integer perPage) {
             return givenWithAuth()
-                    .queryParam("per_page", value)
+                    .queryParam("per_page", perPage)
                     .get(ApiV1Endpoints.Stores.SCHEDULE, storeUuid);
         }
 

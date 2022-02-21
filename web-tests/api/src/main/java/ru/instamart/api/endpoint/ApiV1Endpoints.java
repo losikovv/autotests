@@ -225,6 +225,8 @@ public final class ApiV1Endpoints {
 
             public static final String NEXT_DELIVERIES = "stores/{storeId}/next_deliveries";
             public static final String SEARCH_SUGGESTIONS = "stores/{storeId}/search_suggestions";
+            public static final String ZONE_FILES = "stores/{storeId}/zone_files";
+            public static final String ZONES = "stores/{storeId}/zones";
 
             public static final class DeliveryWindows {
                 public static final String BY_DATE = "stores/{storeId}/delivery_windows?date={date}";
@@ -237,14 +239,6 @@ public final class ApiV1Endpoints {
 
             public static final class Products {
                 public static final String BY_PERMALINK = "stores/{storeId}/products/{permalink}";
-            }
-
-            public static final class ZoneFiles {
-                public static final String ZONE_FILES = "stores/{storeId}/zone_files";
-            }
-
-            public static final class Zones {
-                public static final String ZONES = "stores/{storeId}/zones";
             }
         }
     }
