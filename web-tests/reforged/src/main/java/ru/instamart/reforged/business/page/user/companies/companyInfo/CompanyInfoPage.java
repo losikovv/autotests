@@ -25,6 +25,11 @@ public final class CompanyInfoPage implements BusinessPage, CompanyInfoCheck {
         refreshAccountInfo.click();
     }
 
+    @Step("Нажимаем на кнопку 'Вперёд' списка пользователей компании")
+    public void clickGoForwardButton() {
+        goForward.click();
+    }
+
     @Override
     public String pageUrl() {
         return "";
