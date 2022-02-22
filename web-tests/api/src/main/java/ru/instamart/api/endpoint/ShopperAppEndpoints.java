@@ -104,6 +104,10 @@ public final class ShopperAppEndpoints {
             public static final String LOGIN = "auth/partners/login";
             public static final String REFRESH = "auth/partners/refresh";
         }
+
+        public static class Testing {
+            public static final String OTP = "api/v1/auth/testing/otp";
+        }
     }
 
     public static class Otps {

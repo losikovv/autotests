@@ -28,6 +28,8 @@ tests:prodApiShopper:
   extends:
     - ".template_api_tests"
     - ".template_prod"
+  tags:
+    - k8s-prod
   resource_group: apiShopperProd
   script:
     - gradle clean build apiShopperProduction -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL

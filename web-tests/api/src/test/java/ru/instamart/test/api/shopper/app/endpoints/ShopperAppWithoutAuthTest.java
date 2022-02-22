@@ -271,8 +271,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     @Story("Авторизация")
     @CaseId(73)
     @Test(description = "Авторизация по незарегистрированному номеру телефона и коду из смс",
-            groups = {"api-shopper-regress" //, "api-shopper-prod" - ожидает B2C-7772
-            })
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void postOtpsAuthorizations422WrongPhone() {
         response = AuthSHPRequest.Code.POST("79991119911", CoreProperties.DEFAULT_SMS);
         checkStatusCode422(response);
@@ -290,8 +289,7 @@ public class ShopperAppWithoutAuthTest extends RestBase {
     @Story("Интеграция shp -> stf")
     @CaseId(4)
     @Test(description = "Тест на импорт заказов из stf с filed order number",
-            groups = {"api-shopper-regress" //, "api-shopper-prod" - ожидает B2C-7772
-            })
+            groups = {"api-shopper-regress", "api-shopper-prod"})
     public void orderImport401() {
         final Response response = OrderSHPRequest.Import.POST("failedNumber");
         checkStatusCode401(response);

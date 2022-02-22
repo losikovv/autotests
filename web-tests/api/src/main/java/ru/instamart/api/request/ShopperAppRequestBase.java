@@ -14,9 +14,7 @@ public class ShopperAppRequestBase {
      * Добавляем спеки к запросу
      */
     public static RequestSpecification givenWithSpec() {
-        return EnvironmentProperties.SERVER.equals("production") ?
-                given().spec(Specification.INSTANCE.getShopperAdminRequestSpec()) : //TODO: Убрать условие после B2C-7772
-                given().spec(Specification.INSTANCE.getShopperRequestSpec());
+        return given().spec(Specification.INSTANCE.getShopperRequestSpec());
 
     }
 
@@ -25,9 +23,9 @@ public class ShopperAppRequestBase {
      */
     public static RequestSpecification givenWithAuth() {
         return givenWithSpec()
-                        .basePath(EnvironmentProperties.SERVER.equals("production") ?"":"shp-back/") //TODO: Убрать условие после B2C-7772
-                        .header("Authorization",
-                                "Bearer " + SessionFactory.getSession(SessionType.SHOPPER_APP).getToken());
+                .basePath("shp-back/")
+                .header("Authorization",
+                        "Bearer " + SessionFactory.getSession(SessionType.SHOPPER_APP).getToken());
 
     }
 }

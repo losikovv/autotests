@@ -7,17 +7,13 @@ import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.shopper.app.ScangoSHPRequest;
-import ru.instamart.api.request.shopper.app.ShopperDriverSHPRequest;
 import ru.instamart.api.request.shopper.app.ShopperSHPRequest;
-import ru.instamart.api.response.shopper.app.ActiveShipmentsSHPResponse;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode403;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
 
 @Epic("Shopper Mobile API")
@@ -25,27 +21,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 public class ShopperAppAuthTest extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        SessionFactory.createSessionToken(SessionType.SHOPPER_APP, UserManager.getDefaultShopper());
-    }
-
-    @Story("Сборки/отгрузки")
-    @CaseId(73)
-    @Test(description = "Список активных отгрузок магазина текущего партнёра",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
-    public void activeShipments200() {
-        final Response response = ShopperSHPRequest.Shipments.Active.GET();
-        checkStatusCode200(response);
-        checkResponseJsonSchema(response, ActiveShipmentsSHPResponse.class);
-    }
-
-    @Story("Сборки/отгрузки")
-    @CaseId(108)
-    @Test(description = "Список активных сборок/отгрузок магазина текущего партнёра для универсалов",
-            groups = {"api-shopper-regress", "api-shopper-prod"})
-    public void shopperDriverActive200() {
-        final Response response = ShopperDriverSHPRequest.Shipments.Active.GET();
-        checkStatusCode200(response);
-        checkResponseJsonSchema(response, ActiveShipmentsSHPResponse.class);
+        shopperApp.authorisation(UserManager.getDefaultShopper());
     }
 
     @Story("Notifications")
