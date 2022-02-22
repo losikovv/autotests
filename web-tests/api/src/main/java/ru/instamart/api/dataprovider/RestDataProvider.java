@@ -18,15 +18,13 @@ import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.StoresAdminRequest;
+import ru.instamart.api.request.admin.ZonesAdminRequest;
 import ru.instamart.api.request.v1.RetailersV1Request;
 import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
 import ru.instamart.api.request.v2.*;
 import ru.instamart.api.response.v2.*;
-import ru.instamart.jdbc.dao.InstacoinAccountsDao;
-import ru.instamart.jdbc.dao.PromotionCodesDao;
-import ru.instamart.jdbc.dao.SpreeProductsDao;
-import ru.instamart.jdbc.dao.SpreeUsersDao;
+import ru.instamart.jdbc.dao.*;
 import ru.instamart.jdbc.dto.PromotionCodesFilters;
 import ru.instamart.jdbc.entity.PromotionCodesEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -1152,6 +1150,22 @@ public class RestDataProvider extends RestBase {
         return apiV1.getReplacementPolicies().stream()
                 .map(list -> new Object[]{list})
                 .toArray(Object[][]::new);
+    }
+
+    @DataProvider(name = "adminZones")
+    public static Object[][] getZones() {
+        return new Object[][]{
+                {ZonesAdminRequest.Zone.builder()
+                        .zoneName("Autotest-" + Generate.literalString(6))
+                        .zoneDescription("Autotest-" + Generate.literalString(6))
+                        .zoneStateId(OperationalZonesDao.INSTANCE.getIdByName("Москва"))
+                        .build()},
+                {ZonesAdminRequest.Zone.builder()
+                        .zoneName("Autotest-" + Generate.literalString(6))
+                        .zoneDescription("Autotest-" + Generate.literalString(6))
+                        .zoneCountryId(1L)
+                        .build()}
+        };
     }
 
     @DataProvider(name = "postCompanyDocuments")
