@@ -94,6 +94,7 @@ task apiShopperProduction(type: Test) {
     }
     systemProperty 'qase.Project', 'SHAPI'
     systemProperty 'qase.Title', 'Shopper API Regress'
+    systemProperty 'one_session', 'true'
 }
 
 task autoMr(type: Test) {

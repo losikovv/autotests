@@ -13,6 +13,7 @@ import ru.instamart.api.model.v1.ShoppersBackendV1;
 import ru.instamart.api.request.delivery_club.AuthenticationDCRequest;
 import ru.instamart.api.request.ris_exporter.AuthenticationRisRequest;
 import ru.instamart.api.request.shopper.app.AuthSHPRequest;
+import ru.instamart.api.request.shopper.app.OtpCodeSHPRequest;
 import ru.instamart.api.request.v1.PhoneConfirmationsV1Request;
 import ru.instamart.api.request.v1.TokensV1Request;
 import ru.instamart.api.request.v1.UserSessionsV1Request;
@@ -20,6 +21,7 @@ import ru.instamart.api.request.v2.AuthProvidersV2Request;
 import ru.instamart.api.request.v2.PhoneConfirmationsV2Request;
 import ru.instamart.api.response.delivery_club.TokenDCResponse;
 import ru.instamart.api.response.ris_exporter.TokenRisResponse;
+import ru.instamart.api.response.shopper.app.OtpCodeSHPResponse;
 import ru.instamart.api.response.shopper.app.SessionsSHPResponse;
 import ru.instamart.api.response.v1.PhoneConfirmationsV1Response;
 import ru.instamart.api.response.v1.TokensV1Response;
@@ -41,6 +43,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200or422;
 
@@ -48,7 +51,6 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode2
 public final class SessionFactory {
 
     private static final SessionProvider provider = SessionProvider.QA;
-    private static final String shopperProdToken = Crypt.INSTANCE.decrypt("11MOExb6pr9bosetxjZXFuqHmRskBvVHb4x60Yw+V6PNxqe6jJAn2qGLH6WpcT3OmpWK0L0WEQp9zw89h0pX5HXer396LV27hikGvi5VLxAOu+eQPiJVTrZptaVL7YMWuTNVOWhsOZt33QnKHt7cgBRofzPHmKqKTkYVEfYqUnw5ZVUT3DYzGGpkf8p755ULSlMVl0UcpTX8wnJfeS/YI651cTWvvj/WPPar89WVT1tb+AbmJXRd/pG7DU4FMchz2zr6KX3H18gc/+QtnKneyBosIQ0/GDdpDhCegz4KhhES+5cYRv5TqmV++ep4A5S5b6d+M3mnATojrrIb/Ug29E6qr+L1BpnSy/0LXkDPnZF9x/3pz/2SodfSL09LUtrmSFY3aZInrUqtP85OHy4kVXCPU4RcOVQxufKPLrI6rIWEsBIbuD1PLRJiLvVV4YRCpaRcXQIVhlQoWubalZqUb7bulhsaZwJZBXjoxDpG8GF85nIu7N5cWFhdp1cfHjQAvlQfLdfL6+05CZRhBNLY5Vq2XbswjRAVn1LgwQTtr4Si0orkrq97/4YaL2jonytAoSGsi4VAk/QynLt0m7SMQlZFD/QkxhPWpzRB4+fAtNC3Vwb0r9h9lUuE6x0wkDzGWyLwUkXva5BYQ7OS2x6HELjf2NcHUsprumkd+kzVxy7947tIxB0+h65SAMw899DpcDmvAVP/JedqDKplwzRLZSlNOTtO72NwUT+htsAxqWSbnv1MgdNdaTuQCPHI+cQeBi4ttm3IlhQYc4rGdCndhQ==");
 
     @Getter
     private static final Map<SessionId, SessionInfo> sessionMap = new ConcurrentHashMap<>();
@@ -259,19 +261,22 @@ public final class SessionFactory {
     }
 
     private static SessionInfo createShopperAppSession(final UserData userData) {
-        if(EnvironmentProperties.SERVER.equals("production")) {
-            return new SessionInfo(userData, shopperProdToken, shopperProdToken); //TODO: Убрать условие после B2C-7772
-        } else {
-            final Response sendCodeResponse = AuthSHPRequest.Login.POST(userData.getPhone());
-            checkStatusCode200or422(sendCodeResponse); // 422 ошибка - если отп-код еще не протух
-            final Response response = AuthSHPRequest.Code.POST(userData.getPhone(), CoreProperties.DEFAULT_SMS);
-            checkStatusCode200(response);
-            final SessionSHP.Data.Attributes sessionAttributes = response.as(SessionsSHPResponse.class).getData().getAttributes();
-            log.debug("Авторизуемся: {}", userData.getPhone());
-            log.debug("access_token: {}", sessionAttributes.getAccessToken());
-            log.debug("refresh_token: {}", sessionAttributes.getRefreshToken());
-            return new SessionInfo(userData, sessionAttributes.getAccessToken(), sessionAttributes.getRefreshToken());
+        String prodOtp = null;
+        final Response sendCodeResponse = AuthSHPRequest.Login.POST(userData.getPhone());
+        checkStatusCode200or422(sendCodeResponse); // 422 ошибка - если отп-код еще не протух
+        if (EnvironmentProperties.SERVER.equals("production")) {
+            final Response otpCodeResponse = OtpCodeSHPRequest.GET(userData.getPhone());
+            checkStatusCode200(otpCodeResponse);
+            prodOtp = otpCodeResponse.as(OtpCodeSHPResponse.class).getCode();
+            checkFieldIsNotEmpty(prodOtp, "OTP-код");
         }
+        final Response response = AuthSHPRequest.Code.POST(userData.getPhone(), EnvironmentProperties.SERVER.equals("production") ? prodOtp : CoreProperties.DEFAULT_SMS);
+        checkStatusCode200(response);
+        final SessionSHP.Data.Attributes sessionAttributes = response.as(SessionsSHPResponse.class).getData().getAttributes();
+        log.debug("Авторизуемся: {}", userData.getPhone());
+        log.debug("access_token: {}", sessionAttributes.getAccessToken());
+        log.debug("refresh_token: {}", sessionAttributes.getRefreshToken());
+        return new SessionInfo(userData, sessionAttributes.getAccessToken(), sessionAttributes.getRefreshToken());
     }
 
     private static SessionInfo createShopperAdminSession(final UserData userData) {

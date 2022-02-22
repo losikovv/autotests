@@ -4,7 +4,6 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -35,10 +34,6 @@ public class ShipmentlessShopperAppTest extends RestBase {
         shopperApp.authorisation(UserManager.getDefaultShopper());
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void after() {
-        SessionFactory.clearSession(SessionType.SHOPPER_APP);
-    }
 
     @Story("Получение информации о сотруднике")
     @CaseId(10)
@@ -166,8 +161,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Авторизация")
     @CaseId(43)
     @Test(description = "Обновление авторизации",
-            groups = {"api-shopper-smoke"//, "api-shopper-prod" //на проде почему-то не приходит рефреш токен
-            })
+            groups = {"api-shopper-smoke"})
     public void postAuthRefresh200() {
         response = AuthSHPRequest.Refresh.POST();
         checkStatusCode200(response);
@@ -179,8 +173,7 @@ public class ShipmentlessShopperAppTest extends RestBase {
     @Story("Авторизация")
     @CaseId(46)
     @Test(description = "Отправка запроса для получения смс кодом для авторизации",
-            groups = {"api-shopper-smoke"//, "api-shopper-prod" - ожидает B2C-7772
-            })
+            groups = {"api-shopper-smoke", "api-shopper-prod"})
     public void postOtpsTokens200() {
         response = AuthSHPRequest.Login.POST(phone);
         checkStatusCode200(response);

@@ -238,4 +238,24 @@ public class ShipmentfulShopperAppTest extends RestBase {
         assertNotNull(response.as(MarketingSampleItemsSHPResponse.class).getMarketingSampleItems(),
                 "Не вернулся массив маркетинговых пробников"); //ATST-804
     }
+
+    @Story("Сборки/отгрузки")
+    @CaseId(73)
+    @Test(description = "Список активных отгрузок магазина текущего партнёра",
+            groups = {"api-shopper-regress", "api-shopper-prod"})
+    public void activeShipments200() {
+        final Response response = ShopperSHPRequest.Shipments.Active.GET();
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ActiveShipmentsSHPResponse.class);
+    }
+
+    @Story("Сборки/отгрузки")
+    @CaseId(108)
+    @Test(description = "Список активных сборок/отгрузок магазина текущего партнёра для универсалов",
+            groups = {"api-shopper-regress", "api-shopper-prod"})
+    public void shopperDriverActive200() {
+        final Response response = ShopperDriverSHPRequest.Shipments.Active.GET();
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ActiveShipmentsSHPResponse.class);
+    }
 }
