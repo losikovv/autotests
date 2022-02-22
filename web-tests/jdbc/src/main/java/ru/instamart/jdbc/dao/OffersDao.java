@@ -67,6 +67,19 @@ public final class OffersDao extends AbstractDao<Long, OffersEntity> {
         return result == 1;
     }
 
+
+    public boolean deleteByStoreId(Integer storeId) {
+        int result = 0;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE store_id = ?")) {
+            preparedStatement.setLong(1, storeId);
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return result == 1;
+    }
+
     public void updateOfferStock(Long offerId, Integer stock) {
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + "SET stock = ? WHERE id = ?")) {

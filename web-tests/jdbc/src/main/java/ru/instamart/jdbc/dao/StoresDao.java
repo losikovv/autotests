@@ -86,6 +86,8 @@ public class StoresDao implements Dao<Integer, StoresEntity> {
                 store.setRetailerId(resultSet.getLong("retailer_id"));
                 store.setTimeZone(resultSet.getString("time_zone"));
                 store.setOperationalZoneId(resultSet.getLong("operational_zone_id"));
+                store.setUuid(resultSet.getString("uuid"));
+
             } else return null;
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());

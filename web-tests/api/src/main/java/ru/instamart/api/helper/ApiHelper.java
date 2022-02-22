@@ -2,12 +2,18 @@ package ru.instamart.api.helper;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import lombok.extern.slf4j.Slf4j;
+import ru.instamart.api.enums.v1.ImportStatusV1;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
+import ru.instamart.api.model.v1.DeliveryWindowV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
+import ru.instamart.api.model.v1.RetailerV1;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.DeliveryWindowV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.SessionV2;
+import ru.instamart.api.request.admin.*;
+import ru.instamart.api.request.v1.*;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.ShippingMethodsRequest;
@@ -15,6 +21,7 @@ import ru.instamart.api.request.v1.ShippingMethodsV1Request;
 import ru.instamart.api.request.v1.admin.ShipmentsAdminV1Request;
 import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
 import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
+import ru.instamart.api.response.v1.DeliveryWindowsV1Response;
 import ru.instamart.api.response.v1.PricerV1Response;
 import ru.instamart.api.response.v1.PricersV1Response;
 import ru.instamart.api.response.v1.ShippingMethodsResponse;
@@ -22,14 +29,26 @@ import ru.instamart.api.response.v1.admin.ShipmentsAdminV1Response;
 import ru.instamart.api.response.v1.b2b.CompaniesV1Response;
 import ru.instamart.jdbc.dao.*;
 import ru.instamart.jdbc.dao.shopper.OperationalZonesShopperDao;
+import ru.instamart.jdbc.dao.shopper.RetailersShopperDao;
+import ru.instamart.jdbc.entity.OffersEntity;
+import ru.instamart.jdbc.entity.StoresEntity;
 import ru.instamart.kraken.data.StaticPageData;
+import ru.instamart.kraken.data.StoreZonesCoordinates;
 import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.util.ThreadUtil;
 
 import java.util.List;
 
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.helper.AdminHelper.getOfferFiles;
+import static ru.instamart.api.request.admin.StoresAdminRequest.getStoreForRetailerTests;
 import static ru.instamart.kraken.data.user.UserRoles.B2B_MANAGER;
+import static ru.instamart.kraken.util.TimeUtil.getDbDeliveryDateFrom;
+import static ru.instamart.kraken.util.TimeUtil.getDbDeliveryDateTo;
+import static ru.sbermarket.common.FileUtils.changeXlsFileSheetName;
 
+@Slf4j
 public final class ApiHelper {
 
     private final InstamartApiHelper apiV2 = new InstamartApiHelper();
@@ -511,5 +530,148 @@ public final class ApiHelper {
     @Step("Устанавливаем на счёте компании с Id: {companyId} сумму: {balance}")
     public void setPaymentAccountBalance(Integer companyId, Integer balance) {
         CompanyPaymentAccountsDao.INSTANCE.updateBalance(companyId, balance);
+    }
+
+    @Step("Добавляем нового ретейлера {retailerName} в админке")
+    public RetailerV1 createRetailerInAdmin(String retailerName) {
+        admin.authAdminApi();
+        RetailersV1Request.Retailer retailer = RetailersV1Request.getRetailer();
+        retailer.setName(retailerName);
+        retailer.setSlug(retailerName);
+        return admin.createRetailer(retailer);
+    }
+
+    @Step("Удаляем ретейлера {retailerName} из шоппера")
+    public void deleteRetailerInShopper(String retailerName) {
+        RetailersShopperDao.INSTANCE.deleteRetailerByNameFromShopper(retailerName);
+    }
+
+    @Step("Удаляем ретейлера c id {retailerId} из админки")
+    public void deleteRetailerByIdInAdmin(Long retailerId) {
+        SpreeRetailersDao.INSTANCE.delete(retailerId);
+    }
+
+    @Step("Удаляем ретейлера c именем {retailerName} из админки")
+    public void deleteRetailerByNameInAdmin(final String retailerName) {
+        SpreeRetailersDao.INSTANCE.deleteRetailerByName(retailerName);
+    }
+
+    @Step("Создаем магазин для ретейлера {retailerName}")
+    public StoresAdminRequest.Store createStoreInAdmin(String retailerName) {
+        admin.authAdmin();
+        StoresAdminRequest.Store store = getStoreForRetailerTests(retailerName);
+        AdminHelper.createStoreInAdmin(store);
+        return store;
+    }
+
+    @Step("Настройка магазина для включения в админке")
+    public void setupStoreForActivation(StoresAdminRequest.Store store) {
+        importOffersInStore(store);
+        importStoreZones(store);
+        createScheduleMockup(store);
+        createStoreSchedule(store);
+    }
+
+    @Step("Удаляем магазин из админки")
+    public void deleteStoreInAdmin(StoresAdminRequest.Store store) {
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+        Integer storeId = storeFromDb.getId();
+
+        StoresDao.INSTANCE.delete(storeId);
+        StoreConfigsDao.INSTANCE.deleteByStoreId(storeId);
+        StoresTenantsDao.INSTANCE.deleteStoreTenantByStoreId(storeId);
+
+        StoreZonesDao.INSTANCE.deleteStoreZoneByStoreId(storeId);
+
+        OffersDao.INSTANCE.deleteByStoreId(storeId);
+        PricesDao.INSTANCE.deletePriceByStoreId(storeId);
+    }
+
+    @Step("Импорт оффера для магазина")
+    public Long importOffersInStore(StoresAdminRequest.Store store) {
+        Long offerId;
+        byte[] fileBytes;
+        String importKey;
+
+        admin.authAdmin();
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+        Integer storeId = storeFromDb.getId();
+        StoresTenantsDao.INSTANCE.addStoreTenant(storeId, "sbermarket");
+        importKey = SpreeRetailersDao.INSTANCE.findById(storeFromDb.getRetailerId()).get().getKey() + "-" + store.getImportKeyPostFix();
+
+        fileBytes = changeXlsFileSheetName("src/test/resources/data/offers.xlsx", importKey, 0);
+
+        final Response response = ImportsV1Request.OffersFiles.POST(fileBytes);
+        checkStatusCode200(response);
+
+        int count = 0;
+        String status = null;
+        while (count < 20) {
+            status = getOfferFiles().getOffersFiles().get(0).getStatus();
+            if (status.equals(ImportStatusV1.DONE.getValue()))
+                break;
+            ThreadUtil.simplyAwait(1);
+            count++;
+        }
+        compareTwoObjects(status, ImportStatusV1.DONE.getValue());
+        OffersEntity offerFromDb = OffersDao.INSTANCE.getOfferByStoreId(storeId);
+        offerId = offerFromDb.getId();
+        return offerId;
+    }
+
+    @Step("Импорт зон магазина из файла")
+    public void importStoreZonesFile(StoresAdminRequest.Store store) {
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+        Integer storeId = storeFromDb.getId();
+
+        final Response response = StoreZonesV1Request.ZoneFiles.POST("src/test/resources/data/zone.kml", storeId);
+        checkStatusCode200(response);
+    }
+
+    @Step("Импорт зон магазина запрос")
+    public void importStoreZonesBody(StoresAdminRequest.Store store) {
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+        Integer storeId = storeFromDb.getId();
+
+        final Response response = StoreZonesV1Request.Zones.POST(storeId, StoreZonesCoordinates.testMoscowZoneCoordinates());
+        checkStatusCode200(response);
+    }
+
+    @Step("Импорт зон магазина")
+    public void importStoreZones(StoresAdminRequest.Store store) {
+       importStoreZonesFile(store);
+       importStoreZonesBody(store);
+    }
+
+    @Step("Создание шаблона расписания магазина")
+    public void createScheduleMockup(StoresAdminRequest.Store store) {
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+        String storeUuid = storeFromDb.getUuid();
+        final Response response = StoreSchedulesV1Request.Schedules.POST(storeUuid);
+        checkStatusCode200(response);
+    }
+
+    @Step("Создание расписания магазина")
+    public void createStoreSchedule(StoresAdminRequest.Store store) {
+        Long deliveryWindowId = getAvailableDeliveryWindowsV1(store);
+        final Response response = DeliveryWindowsV1Request.PUT(deliveryWindowId, 1);
+        checkStatusCode200(response);
+    }
+
+    @Step("Получение списка окон доставки")
+    public Long getAvailableDeliveryWindowsV1(StoresAdminRequest.Store store) {
+        StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
+        Integer storeId = storeFromDb.getId();
+
+        final Response responsePost = StoresV1Request.DeliveryWindows.POST(storeId);
+        checkStatusCode200(responsePost);
+
+        final Response responseGet = StoresV1Request.DeliveryWindows.GET(storeId);
+        checkStatusCode200(responseGet);
+
+        List<DeliveryWindowV1> deliveryWindowsFromResponse = responseGet.as(DeliveryWindowsV1Response.class).getDeliveryWindows();
+        int deliveryWindowsFromDbCount = DeliveryWindowsDao.INSTANCE.getCount(storeId, getDbDeliveryDateFrom(1L), getDbDeliveryDateTo(1L));
+        compareTwoObjects(deliveryWindowsFromResponse.size(), deliveryWindowsFromDbCount);
+        return deliveryWindowsFromResponse.get(0).getId();
     }
 }

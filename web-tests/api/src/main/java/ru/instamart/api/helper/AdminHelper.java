@@ -6,15 +6,13 @@ import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.OperationalZoneV1;
+import ru.instamart.api.model.v1.RetailerV1;
 import ru.instamart.api.model.v1.b2b.ManagerV1;
 import ru.instamart.api.model.v1.b2b.UserV1;
 import ru.instamart.api.request.admin.*;
-import ru.instamart.api.request.v1.ImportsV1Request;
-import ru.instamart.api.request.v1.OperationalZonesV1Request;
-import ru.instamart.api.request.v1.ShippingMethodsV1Request;
+import ru.instamart.api.request.v1.*;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.MarketingPricers;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.NominalPricers;
-import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.request.v1.admin.ShipmentsAdminV1Request;
 import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
 import ru.instamart.api.request.v1.b2b.CompanyEmployeesV1Request;
@@ -206,5 +204,11 @@ public class AdminHelper {
         final Response response = ImportsV1Request.OffersFiles.GET();
         checkStatusCode200(response);
         return response.as(OffersFilesV1Response.class);
+    }
+
+    public RetailerV1 createRetailer(RetailersV1Request.Retailer retailer) {
+        final Response response = RetailersV1Request.POST(retailer);
+        checkStatusCode200(response);
+        return response.as(RetailerV1Response.class).getRetailer();
     }
 }

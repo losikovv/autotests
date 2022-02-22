@@ -219,11 +219,14 @@ public final class ApiV1Endpoints {
     public static final class Stores {
         public static final String OFFERS = "stores/{storeUuid}/offers?q[name]={offerName}&q[retailer_sku]={offerRetailerSku}";
         public static final String UUID = "stores/{storeUuid}";
+        public static final String SCHEDULE = "stores/{storeUuid}/store_schedule";
 
         public static final class StoreId {
 
             public static final String NEXT_DELIVERIES = "stores/{storeId}/next_deliveries";
             public static final String SEARCH_SUGGESTIONS = "stores/{storeId}/search_suggestions";
+            public static final String ZONE_FILES = "stores/{storeId}/zone_files";
+            public static final String ZONES = "stores/{storeId}/zones";
 
             public static final class DeliveryWindows {
                 public static final String BY_DATE = "stores/{storeId}/delivery_windows?date={date}";
@@ -239,6 +242,7 @@ public final class ApiV1Endpoints {
             }
         }
     }
+
 
     public static final class User {
         public static final String COMPANIES = "user/companies";

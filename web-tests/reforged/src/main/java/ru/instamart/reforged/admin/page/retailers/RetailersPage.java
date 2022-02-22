@@ -91,8 +91,8 @@ public final class RetailersPage implements AdminPage, RetailersPageCheck {
     }
 
     @Step("Нажать на адрес {0}")
-    public void clickOnAddress(final String store) {
-        addressesInTable.clickOnElementWithText(store);
+    public void clickOnAddress(final String address) {
+        addressInTable.click(address);
     }
 
     @Step("Кликнуть на кнопку 'Добавить ритейлера'")

@@ -44,6 +44,20 @@ public class SpreeRetailersDao extends AbstractDao<Long, SpreeRetailersEntity> {
         return id;
     }
 
+    public Long getIdByName(String name) {
+        Long id = null;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE name = ?")) {
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            id = resultSet.getLong("id");
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return id;
+    }
+
     public int getCountByOperationalZoneId(Long operationalZoneId) {
         int resultCount = 0;
         try (Connection connect = ConnectionMySQLManager.get();
@@ -108,5 +122,15 @@ public class SpreeRetailersDao extends AbstractDao<Long, SpreeRetailersEntity> {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return Optional.of(retailer);
+    }
+
+    public void deleteRetailerByName(String retailerName) {
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE name = ?")) {
+            preparedStatement.setString(1, retailerName);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionPgSQLManager. Error: " + e.getMessage());
+        }
     }
 }
