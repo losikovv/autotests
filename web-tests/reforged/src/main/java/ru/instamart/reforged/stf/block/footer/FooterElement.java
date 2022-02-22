@@ -21,7 +21,8 @@ public interface FooterElement {
             "ссылка 'Вакансии' в футере");
     Link documentsLink = new Link(By.xpath("//footer//a[@href='/terms-sbermarket']"),
             "ссылка 'Документы' в футере");
-    Link partnersLink = new Link(By.xpath("//footer//a[@href='/landings/partnership']"),
+    //Изменили в рамках https://instamart.atlassian.net/browse/STF-9748
+    Link partnersLink = new Link(By.xpath("//a[text()='Стать партнером']"),
             "ссылка 'Стать партнером' в футере");
 
 

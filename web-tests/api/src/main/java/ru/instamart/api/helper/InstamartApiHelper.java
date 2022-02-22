@@ -539,24 +539,10 @@ public final class InstamartApiHelper {
         return shippingMethod;
     }
 
-    /**
-     * Получаем первый доступный способ доставки для мультизаказа
-     */
     @Step("Получаем первый доступный способ доставки")
-    ShippingMethodV2 getAvailableShippingMethodForMultiOrder(int sid) {
+    ShippingMethodV2 getAvailableShippingMethod(final int sid) {
         currentSid.set(sid);
-        Response response = ShippingMethodsV2Request.GET(currentSid.get());
-        checkStatusCode200(response);
-        List<ShippingMethodV2> shippingMethods = response.as(ShippingMethodsV2Response.class).getShippingMethods();
-
-        assertFalse(shippingMethods.isEmpty(), "Нет способов доставки в магазине admin/stores/" + currentSid.get());
-
-        ShippingMethodV2 shippingMethod = shippingMethods.get(0);
-
-        currentShipmentMethodId.set(shippingMethod.getId());
-
-        log.debug(shippingMethod.toString());
-        return shippingMethod;
+        return getAvailableShippingMethod();
     }
 
     /**
@@ -808,7 +794,7 @@ public final class InstamartApiHelper {
     /**
      * Получить адрес доставки, зная только sid
      */
-    @Step("Получаем адрес доставки по sid = {sid} магазина ")
+    @Step("Получаем адрес доставки по sid = {sid} магазина")
     public AddressV2 getAddressBySidMy(int sid) {
         currentSid.set(sid);
         Response response = StoresV2Request.GET(sid);

@@ -18,6 +18,11 @@ public interface HomeCheck extends Check, HomeElement {
         waitAction().shouldBeVisible(headerLogo);
     }
 
+    @Step("Отображается блок для авторизованного пользователя")
+    default void checkAuthoredBlockVisible() {
+        waitAction().shouldBeVisible(headerAuthBlockContainer);
+    }
+
     @Step("Проверяем, что кнопка логина видима")
     default void checkLoginButtonIsVisible() {
         waitAction().shouldBeVisible(loginButton);

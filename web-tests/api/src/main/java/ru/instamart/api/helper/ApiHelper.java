@@ -12,12 +12,11 @@ import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.DeliveryWindowV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.model.v2.SessionV2;
-import ru.instamart.api.request.admin.*;
-import ru.instamart.api.request.v1.*;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.ShippingMethodsRequest;
-import ru.instamart.api.request.v1.ShippingMethodsV1Request;
+import ru.instamart.api.request.admin.StoresAdminRequest;
+import ru.instamart.api.request.v1.*;
 import ru.instamart.api.request.v1.admin.ShipmentsAdminV1Request;
 import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
 import ru.instamart.api.request.v2.CreditCardsV2Request.CreditCard;
@@ -39,9 +38,10 @@ import ru.instamart.kraken.util.ThreadUtil;
 
 import java.util.List;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.helper.AdminHelper.getOfferFiles;
+import static ru.instamart.api.helper.K8sHelper.changeToShip;
 import static ru.instamart.api.request.admin.StoresAdminRequest.getStoreForRetailerTests;
 import static ru.instamart.kraken.data.user.UserRoles.B2B_MANAGER;
 import static ru.instamart.kraken.util.TimeUtil.getDbDeliveryDateFrom;
@@ -194,16 +194,20 @@ public final class ApiHelper {
      */
     @Step("Оформляем заказ с помощью API")
     public OrderV2 makeOrder(final UserData user, final Integer sid, final Integer itemsNumber) {
+        return makeOrder(user, sid, itemsNumber, apiV2.getAddressBySid(sid));
+    }
+
+    public OrderV2 makeOrder(final UserData user, final int sid, final int itemsNumber, final AddressV2 address) {
         apiV2.auth(user);
 
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
 
-        apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
+        apiV2.setAddressAttributes(user, address);
         apiV2.fillCartOnSid(sid, itemsNumber);
 
         apiV2.getAvailablePaymentTool();
-        apiV2.getAvailableShippingMethod();
+        apiV2.getAvailableShippingMethod(sid);
         apiV2.getAvailableDeliveryWindow();
 
         apiV2.setDefaultOrderAttributes();
@@ -215,8 +219,9 @@ public final class ApiHelper {
      *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
     @Step("Оформляем мульти заказ с помощью API")
-    public OrderV2 makeMultipleOrder(final UserData user, AddressV2 address, final Integer sid, final Integer sid2) {
+    public void makeMultipleOrder(final UserData user, AddressV2 address, final Integer sid, final Integer sid2) {
         apiV2.auth(user);
+
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
 
@@ -225,7 +230,7 @@ public final class ApiHelper {
         apiV2.fillCartOnSid(sid);
 
         apiV2.getAvailablePaymentTool();
-        apiV2.getAvailableShippingMethodForMultiOrder(sid);
+        apiV2.getAvailableShippingMethod(sid);
         apiV2.getAvailableDeliveryWindow();
 
         apiV2.setDefaultOrderAttributes();
@@ -233,11 +238,10 @@ public final class ApiHelper {
         apiV2.fillCartOnSid(sid2);
 
         apiV2.getAvailablePaymentTool();
-        apiV2.getAvailableShippingMethodForMultiOrder(sid2);
+        apiV2.getAvailableShippingMethod(sid2);
         apiV2.getAvailableDeliveryWindow();
 
         apiV2.setDefaultOrderAttributes();
-        return apiV2.completeOrder();
     }
 
     /**
@@ -245,7 +249,7 @@ public final class ApiHelper {
      *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
     @Step("Оформляем заказ с помощью API на завтра")
-    public OrderV2 makeOrderOnTomorrow(final UserData user, final Integer sid, final Integer itemsNumber) {
+    public void makeOrderOnTomorrow(final UserData user, final Integer sid, final Integer itemsNumber) {
         apiV2.auth(user);
 
         apiV2.getCurrentOrderNumber();
@@ -259,7 +263,6 @@ public final class ApiHelper {
         apiV2.getAvailableDeliveryWindowOnTomorrow();
 
         apiV2.setDefaultOrderAttributes();
-        return apiV2.completeOrder();
     }
 
     /**
@@ -267,7 +270,7 @@ public final class ApiHelper {
      *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
     @Step("Оформляем заказ ON_DEMAND с помощью API")
-    public OrderV2 makeOnDemandOrder(final UserData user, final Integer sid, final Integer itemsNumber) {
+    public void makeOnDemandOrder(final UserData user, final Integer sid, final Integer itemsNumber) {
         apiV2.auth(user);
 
         apiV2.getCurrentOrderNumber();
@@ -281,47 +284,34 @@ public final class ApiHelper {
         apiV2.getAvailableDeliveryWindowOnDemand();
 
         apiV2.setDefaultOrderAttributesOnDemand();
-        return apiV2.completeOrder();
     }
 
+    public void makeAndCancelOrder(final UserData user, final Integer sid, final Integer itemsNumber) {
+        makeAndCancelOrder(user, sid, itemsNumber, apiV2.getAddressBySidMy(sid));
+    }
 
-    /**
-     * @param user должен иметь phone и encryptedPhone
-     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
-     */
+    @Step("Оформляем и отменяем заказ с выбранным адресом {address} при помощи API")
+    public void makeAndCancelOrder(final UserData user, final int sid, final int itemsNumber, final AddressV2 address) {
+        final var order = makeOrder(user, sid, itemsNumber, address);
+        apiV2.cancelOrder(order.getNumber());
+    }
+
+    public void makeAndCompleteOrder(final UserData user, final int sid, final int itemsNumber) {
+        final var order = makeOrder(user, sid, itemsNumber);
+        final var shipmentNumber = order.getShipments().get(0).getNumber();
+        changeToShip(shipmentNumber);
+    }
+
     @Step("Отменяем заказ с помощью API")
-    public OrderV2 cancelOrder(final UserData user, final String orderNumber) {
+    public void cancelOrder(final UserData user, final String orderNumber) {
         apiV2.auth(user);
-        return apiV2.cancelOrder(orderNumber);
+        apiV2.cancelOrder(orderNumber);
     }
 
     @Step("Отменяем все заказы с помощью API")
     public void cancelAllActiveOrders(final UserData userData) {
         apiV2.auth(userData);
         apiV2.cancelActiveOrders();
-    }
-
-    /**
-     * @param user должен иметь phone и encryptedPhone
-     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
-     */
-    @Step("Оформляем и отменяем заказ с помощью API")
-    public void makeAndCancelOrder(final UserData user, final Integer sid, final Integer itemsNumber) {
-        apiV2.auth(user);
-
-        apiV2.getCurrentOrderNumber();
-        apiV2.deleteAllShipments();
-
-        apiV2.setAddressAttributes(user, apiV2.getAddressBySidMy(sid));
-        apiV2.fillCartOnSid(sid, itemsNumber);
-
-        apiV2.getAvailablePaymentTool();
-        apiV2.getAvailableShippingMethod();
-        apiV2.getAvailableDeliveryWindow();
-
-        apiV2.setDefaultOrderAttributes();
-        OrderV2 orderInfo = apiV2.completeOrder();
-        apiV2.cancelOrder(orderInfo.getNumber());
     }
 
     @Step("Добавляем новый город {cityName} в админке")

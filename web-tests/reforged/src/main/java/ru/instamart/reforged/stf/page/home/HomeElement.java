@@ -19,6 +19,11 @@ public interface HomeElement {
     Element headerLogo = new Element(By.xpath("//div[@data-qa='b2c_home_landing_header_block_logo']"), "логотип Сбермаркета в шапке лендинга");
     Button loginButton = new Button(By.xpath("//button[@data-qa='b2c_home_landing_header_block_user_panel_login_button']"), "кнопка 'Войти'");
 
+    Element headerAuthBlockContainer = new Element(By.xpath("//button[@data-qa='b2c_home_landing_header_block_user_panel']"), "блок для авторизованного пользователя");
+    Element headerAuthIcon = new Element(By.xpath("//button[@data-qa='b2c_home_landing_header_block_user_panel_account_button']"), "иконка для авторизованного пользователя");
+    Element headerAuthCredential = new Element(By.xpath("//span[@data-qa='b2c_home_landing_header_block_user_panel_user_name']"), "фио для авторизованного пользователя");
+    Element headerAuthLogoutButton = new Element(By.xpath("//button[@data-qa='b2c_home_landing_header_block_user_panel_logout_button']"), "кнопка деавторизации для авторизованного пользователя");
+
     Element addressBlockContainer = new Element(By.xpath("//div[@data-qa='b2c_home_landing_address_block']"), "блок адреса доставки лендинга Сбермаркета");
     Element addressBlockText = new Element(By.xpath("//div[@data-qa='b2c_home_landing_address_block']/div/p"), "текст баннера Сбермаркета");
     Input addressBlockAddressInput = new Input(By.xpath("//div[@data-qa='b2c_home_landing_address_block']/div/div/div/div/input"), "инпут с указанием адреса доставки на лендинге");

@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
+import static org.testng.Assert.assertTrue;
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface CartCheck extends Check, CartElement {
@@ -13,9 +14,11 @@ public interface CartCheck extends Check, CartElement {
         Assert.assertEquals(productNameActual, productNameExpected, "Название товара в корзине не соответствует ожидаемому");
     }
 
-    @Step("Проверяем, что минимальная сумма первого заказа {0} больше повторного {1}")
-    default void checkFirstMinAmountMoreThanRepeated(double first, double repeated) {
-        krakenAssert.assertTrue(first > repeated);
+    @Step("Проверяем, что минимальная сумма первого заказа {0} меньше повторного {1}")
+    default void checkFirstMinAmountLessThanRepeated(final double first, final double repeated) {
+        assertTrue(first < repeated,
+                String.format("Минимальная сумма первого заказа %s больше чем сумма второго %s", first, repeated)
+        );
     }
 
     @Step("Проверяем, что корзина открыта")

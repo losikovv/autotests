@@ -15,7 +15,7 @@ public class BaseTest {
     @AfterMethod(alwaysRun = true, description = "Завершение теста")
     public void tearDown(final Method method, final ITestResult result) {
         CustomReport.addSystemLog();
-        if (method.isAnnotationPresent(DoNotOpenBrowser.class)) {
+        if (method.isAnnotationPresent(DoNotOpenBrowser.class) || !Kraken.isAlive()) {
             return;
         }
         if (!result.isSuccess()) {

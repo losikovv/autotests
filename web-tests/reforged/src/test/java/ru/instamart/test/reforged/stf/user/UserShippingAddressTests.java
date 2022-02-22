@@ -180,13 +180,12 @@ public final class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().checkIsSetAddressEqualToInput(defaultAddress, shop().interactHeader().getShippingAddressFromHeader());
     }
 
-    //Какие то непонятки с адресами
     @CaseId(35)
     @Story("Сохранение и изменение адреса доставки")
-    @Test(enabled = false, description = "Тест изменения адреса на предыдущий из списка адресной модалки", groups = "regression")
+    @Test(description = "Тест изменения адреса на предыдущий из списка адресной модалки", groups = "regression")
     public void successChangeShippingAddressToRecent() {
         final var user = UserManager.getQaUser();
-        this.helper.makeAndCancelOrder(user, EnvironmentProperties.DEFAULT_SID, 1);
+        this.helper.makeAndCancelOrder(user, EnvironmentProperties.DEFAULT_SID, 1, RestAddresses.NizhnyNovgorod.defaultAddress());
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
