@@ -28,6 +28,7 @@ public class ApiV1RequestBase {
 
     public static RequestSpecification givenWithAuth() {
         return givenWithSpec()
+                .header("x-csrf-token", SessionFactory.getSession(SessionType.API_V1).getToken())
                 .cookies(SessionFactory
                         .getSession(SessionType.API_V1)
                         .getCookies());
