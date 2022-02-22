@@ -36,4 +36,7 @@ public final class AdminEndpoints {
 
     public static final String TAXONOMIES = "taxonomies";
     public static final String TAXONOMY = "taxonomies/{taxonomyId}";
+
+    public static final String ZONES = "zones";
+    public static final String ZONE = "zones/{zoneId}";
 }
