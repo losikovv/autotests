@@ -8,6 +8,7 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -220,17 +221,13 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactCart().checkCartEmpty();
     }
 
-    //TODO: Требует уточнения, сейчас если не отменить\завершить первый заказ, возможен дозаказ.
-    // После успешного первого заказа, минималка не меняется, для метро
-    // ATST-872
     @CaseId(1578)
-    @Test(enabled = false, description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером", groups = "regression")
+    @Test(description = "Тест на изменение суммы минимального заказа после первого заказ новым юзером", groups = "regression")
     public void successChangeMinOrderSum() {
-        final UserData shoppingCartUser = UserManager.getQaUser();
-        helper.dropCart(shoppingCartUser);
+        final var shoppingCartUser = UserManager.getQaUser();
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
 
-        shop().goToPage();
+        shop().goToPage(ShopUrl.AUCHAN);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(shoppingCartUser);
         shop().interactAuthModal().checkModalIsNotVisible();
@@ -240,15 +237,14 @@ public final class ShoppingCartTests extends BaseTest {
         shop().plusFirstItemToCart();
         shop().interactHeader().checkCartNotificationIsVisible();
 
-        shop().goToPage();
+        shop().goToPage(ShopUrl.AUCHAN);
         shop().interactHeader().clickToCart();
-        final double firstOrderMinAmount = shop().interactCart().getFirstRetailer().returnMinOrderAmount();
+        final var firstOrderMinAmount = shop().interactCart().getFirstRetailer().getMinOrderAmount();
 
-        helper.makeOrder(shoppingCartUser, DEFAULT_SID, 3);
+        helper.makeAndCompleteOrder(shoppingCartUser, DEFAULT_AUCHAN_SID, 3);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
 
-        shop().goToPage();
-        shop().interactHeader().checkEnteredAddressIsVisible();
+        shop().goToPage(ShopUrl.AUCHAN);
         shop().interactHeader().fillSearch("молоко");
         shop().interactHeader().clickSearchButton();
         shop().interactHeader().checkEnteredAddressIsVisible();
@@ -256,12 +252,11 @@ public final class ShoppingCartTests extends BaseTest {
         search().clickAddToCartFirstSearchResult();
         shop().interactHeader().checkCartNotificationIsVisible();
 
-        shop().goToPage();
+        shop().goToPage(ShopUrl.AUCHAN);
         shop().interactHeader().clickToCart();
-        final double repeatedOrderMinAmount = shop().interactCart().getFirstRetailer().returnMinOrderAmount();
+        final var repeatedOrderMinAmount = shop().interactCart().getFirstRetailer().getMinOrderAmount();
 
-        shop().interactCart().checkFirstMinAmountMoreThanRepeated(firstOrderMinAmount, repeatedOrderMinAmount);
-        shop().assertAll();
+        shop().interactCart().checkFirstMinAmountLessThanRepeated(firstOrderMinAmount, repeatedOrderMinAmount);
     }
 
     @CaseId(2616)

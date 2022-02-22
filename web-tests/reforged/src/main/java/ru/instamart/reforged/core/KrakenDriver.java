@@ -45,6 +45,10 @@ class KrakenDriver {
         return CONTAINER.createOrGetDriver();
     }
 
+    public static boolean isAlive() {
+        return CONTAINER.isStillAlive();
+    }
+
     public static void closeWebDriver() {
         CONTAINER.closeDriver();
     }

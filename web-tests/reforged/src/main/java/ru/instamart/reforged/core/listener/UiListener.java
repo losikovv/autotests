@@ -1,12 +1,13 @@
 package ru.instamart.reforged.core.listener;
 
+import ru.instamart.reforged.core.Kraken;
+import ru.sbermarket.qase.enums.RunResultStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.*;
 import ru.instamart.kraken.retry.RetryAnalyzer;
 import ru.instamart.kraken.service.QaseService;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.report.CustomReport;
-import ru.sbermarket.qase.enums.RunResultStatus;
 
 @Slf4j
 public final class UiListener implements ITestListener, ISuiteListener {
@@ -39,7 +40,7 @@ public final class UiListener implements ITestListener, ISuiteListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
-        if (result.getMethod().getConstructorOrMethod().getMethod().isAnnotationPresent(DoNotOpenBrowser.class)) {
+        if (result.getMethod().getConstructorOrMethod().getMethod().isAnnotationPresent(DoNotOpenBrowser.class) || !Kraken.isAlive()) {
             return;
         }
         fireRetryTest(result);

@@ -53,23 +53,8 @@ public final class WebDriverContainer {
         }
     }
 
-    public boolean isStillAlive(final WebDriver webDriver) {
-        try {
-            webDriver.getTitle();
-            return true;
-        }
-        catch (UnreachableBrowserException e) {
-            log.error("Browser is unreachable");
-            return false;
-        }
-        catch (NoSuchWindowException e) {
-            log.error( "Browser window is not found");
-            return false;
-        }
-        catch (NoSuchSessionException e) {
-            log.error("Browser session is not found");
-            return false;
-        }
+    public boolean isStillAlive() {
+        return nonNull(webDriverMap.get(Thread.currentThread().getId()));
     }
 
     private WebDriver makeAutoClosable(final Thread thread, final WebDriver webDriver) {

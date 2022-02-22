@@ -32,6 +32,11 @@ public final class HomePage implements StfPage, Window, HomeCheck {
         loginButton.click();
     }
 
+    @Step("Нажать на кнопку деавторизации")
+    public void clickOnLogout() {
+        headerAuthLogoutButton.click();
+    }
+
     @Step("Нажать на кнопку выбора адреса")
     public void clickToSetAddress() {
         addressBlockAddressButton.click();
