@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.ApiV3DataProvider;
@@ -13,8 +14,10 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.helper.K8sHelper;
 import ru.instamart.api.model.v2.LineItemV2;
 import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v3.NotificationsV3Request;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -24,6 +27,14 @@ import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 @Epic("ApiV3")
 @Feature("Нотификации")
 public class NotificationsPositionsV3Test extends RestBase {
+
+    @BeforeClass(alwaysRun = true)
+    public void preconditions() {
+        K8sHelper.allowExportToExternalServices(true);
+        K8sHelper.exportToExternalServicesByWebhook(true);
+        admin.authAdmin();
+        admin.editStore(58, StoresAdminRequest.getStoreLentaOrekhoviyBulvar());
+    }
 
     @Story("Позиции заказа")
     @CaseId(945)

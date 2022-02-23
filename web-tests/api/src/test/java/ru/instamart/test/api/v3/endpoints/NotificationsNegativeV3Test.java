@@ -15,6 +15,7 @@ import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v3.NotificationsV3Request;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -27,12 +28,16 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 public class NotificationsNegativeV3Test extends RestBase {
     private OrderV2 orderShopper;
     private OrderV2 orderForAccounting;
+    private final Integer sid = 7;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
+        admin.authAdmin();
+        admin.editStore(sid, StoresAdminRequest.getStoreLentaElino());
+
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         orderShopper = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
-        orderForAccounting = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 7);
+        orderForAccounting = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sid);
     }
 
     @Story("Негативные тесты")

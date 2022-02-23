@@ -40,7 +40,6 @@ import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
-import static ru.instamart.api.helper.AdminHelper.getOfferFiles;
 import static ru.instamart.api.helper.K8sHelper.changeToShip;
 import static ru.instamart.api.request.admin.StoresAdminRequest.getStoreForRetailerTests;
 import static ru.instamart.kraken.data.user.UserRoles.B2B_MANAGER;
@@ -550,7 +549,7 @@ public final class ApiHelper {
     public StoresAdminRequest.Store createStoreInAdmin(String retailerName) {
         admin.authAdmin();
         StoresAdminRequest.Store store = getStoreForRetailerTests(retailerName);
-        AdminHelper.createStoreInAdmin(store);
+        admin.createStore(store);
         return store;
     }
 
@@ -597,7 +596,7 @@ public final class ApiHelper {
         int count = 0;
         String status = null;
         while (count < 20) {
-            status = getOfferFiles().getOffersFiles().get(0).getStatus();
+            status = admin.getOfferFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.DONE.getValue()))
                 break;
             ThreadUtil.simplyAwait(1);

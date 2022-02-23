@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
@@ -13,7 +14,9 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.helper.K8sHelper;
 import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -23,11 +26,20 @@ import static ru.instamart.api.request.v3.NotificationsV3Request.POST;
 @Feature("Нотификации")
 public class NotificationsPositiveV3Test extends RestBase {
     private OrderV2 order;
+    private final Integer sid = 58;
+
+    @BeforeClass(alwaysRun = true)
+    public void preconditionsBeforeClass() {
+        K8sHelper.allowExportToExternalServices(true);
+        K8sHelper.exportToExternalServicesByWebhook(true);
+        admin.authAdmin();
+        admin.editStore(sid, StoresAdminRequest.getStoreLentaOrekhoviyBulvar());
+    }
 
     @BeforeMethod(alwaysRun = true)
-    public void preconditions() {
+    public void preconditionsBeforeMethod() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
-        order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58);
+        order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), sid);
     }
 
 //    @CaseId(1461)

@@ -688,7 +688,7 @@ public final class InstamartApiHelper {
             String notAvailablePaymentMethod = "Заказ не может быть оплачен указанным способом";
             if (errors.getPayments().contains(notAvailablePaymentMethod)) {
                 Allure.step(notAvailablePaymentMethod + " " + currentPaymentTool.get());
-                log.error("{} {}", notAvailablePaymentMethod, currentPaymentTool.get());
+                fail(notAvailablePaymentMethod + " " + currentPaymentTool.get());
                 //ToDo помечать тест желтым, если заказ не может быть оплачен указанным способом
                 return null;
             } else fail(response.body().toString());
@@ -779,8 +779,11 @@ public final class InstamartApiHelper {
         if (store == null) fail(response.body().asString());
 
         AddressV2 address = store.getLocation();
-        log.debug("Получен адрес {}", address.getFullAddress());
-        Allure.step("Получен адрес " + address.getFullAddress());
+
+        if (Objects.nonNull(address.getFullAddress())) {
+            log.debug("Получен адрес {}", address.getFullAddress());
+            Allure.step("Получен адрес " + address.getFullAddress());
+        } else log.error("Пустое поле full address");
 
         List<List<ZoneV2>> zones = store.getZones();
         ZoneV2 zone = getInnerPoint(zones.get(zones.size() - 1));

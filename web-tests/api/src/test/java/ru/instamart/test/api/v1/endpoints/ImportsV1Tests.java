@@ -28,9 +28,7 @@ import java.util.Objects;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
-import static ru.instamart.api.helper.AdminHelper.createStoreInAdmin;
-import static ru.instamart.api.helper.AdminHelper.getOfferFiles;
-import static ru.instamart.api.request.admin.StoresAdminRequest.getStore;
+import static ru.instamart.api.request.admin.StoresAdminRequest.getStoreSelgrosMiklouhoMaclay;
 import static ru.sbermarket.common.FileUtils.changeXlsFileSheetName;
 
 @Epic("ApiV1")
@@ -249,10 +247,10 @@ public class ImportsV1Tests extends RestBase {
             description = "Импорт нового оффера")
     public void importOffers() {
         admin.authAdmin();
-        StoresAdminRequest.Store store = getStore();
+        StoresAdminRequest.Store store = getStoreSelgrosMiklouhoMaclay();
         store.setLat(55.763584);
         store.setLon(37.625585);
-        createStoreInAdmin(store);
+        admin.createStore(store);
         StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
         storeId = storeFromDb.getId();
         StoresTenantsDao.INSTANCE.addStoreTenant(storeId, "sbermarket");
@@ -267,7 +265,7 @@ public class ImportsV1Tests extends RestBase {
         int count = 0;
         String status = null;
         while (count < 20) {
-            status = getOfferFiles().getOffersFiles().get(0).getStatus();
+            status = admin.getOfferFiles().get(0).getStatus();
             if (status.equals(ImportStatusV1.DONE.getValue()))
                 break;
             ThreadUtil.simplyAwait(1);

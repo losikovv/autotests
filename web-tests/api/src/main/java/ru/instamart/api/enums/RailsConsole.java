@@ -79,7 +79,7 @@ public interface RailsConsole {
          * все методы оплаты
          * без параметров
          */
-        PaymentMethod("Spree::PaymentMethod.all"),
+        PAYMENT_METHOD("Spree::PaymentMethod.all"),
         /**
          * поиск X-Spree-Token
          * Spree::RolesUser.find_by(role_id: 1).user.spree_api_key (role_id: 1 - это admin (посмотреть можно так, например: Spree::Role.all))
@@ -132,11 +132,23 @@ public interface RailsConsole {
 
 
     @AllArgsConstructor
-    enum apiV3 implements RailsConsole {
+    enum ApiV3 implements RailsConsole {
         GET_RETAILER("Spree::Retailer.where(slug: :%s)"),
         OFFER_WHERE_LAST("Offer.where(%s).last"),
         OFFER_JOIN_PRODUCT("Offer.joins(:product).where(%s).last"),
         CREATE_API_CLIENT("ApiClient.create(client_id: '%s', verifiable: false, custom_prices: true, tenant_id: '%s', custom_promo: false,  sku_kind: 'sku_kind_internal', basic_auth: nil, webhook_auth_token: nil, card_payment_method: nil, notifiable_by_sms: true,  notifiable_by_email: true).tokens.create(value: SecureRandom.base64(64))");
+        private String command;
+
+        public String get(String... values) {
+            return format(command, (Object[]) values);
+        }
+    }
+
+    @AllArgsConstructor
+    enum Flipper implements RailsConsole {
+        ALLOW_EXPORT_TO_EXTERNAL_SERVICES("Flipper[:allow_export_to_external_services].%s"),
+        EXPORT_TO_EXTERNAL_SERVICES_BY_WEBHOOK("Flipper[:export_to_external_services_by_webhook].%s");
+
         private String command;
 
         public String get(String... values) {
