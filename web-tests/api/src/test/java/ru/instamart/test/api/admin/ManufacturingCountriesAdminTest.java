@@ -17,7 +17,6 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
-import static ru.instamart.api.helper.AdminHelper.deleteManufacturingCountries;
 
 @Epic("Admin")
 @Feature("Страны производства")
@@ -50,7 +49,7 @@ public class ManufacturingCountriesAdminTest extends RestBase {
         checkStatusCode302(response);
         SpreeManufacturingCountriesEntity manufacturingCountryFromDb = SpreeManufacturingCountriesDao.INSTANCE.getManufacturingCountryByName(name);
         compareTwoObjects(manufacturingCountryFromDb.getPermalink(), name.toLowerCase());
-        deleteManufacturingCountries(name.toLowerCase());
+        admin.deleteManufacturingCountries(name.toLowerCase());
     }
 
     @CaseId(1880)
@@ -113,7 +112,7 @@ public class ManufacturingCountriesAdminTest extends RestBase {
             description = "Удаление страны производства",
             dependsOnMethods = "editManufacturingCountryWithRequiredParams")
     public void deleteManufacturingCountry() {
-        deleteManufacturingCountries(permalink);
+        admin.deleteManufacturingCountries(permalink);
         SpreeManufacturingCountriesEntity manufacturingCountryFromDb = SpreeManufacturingCountriesDao.INSTANCE.getManufacturingCountryByName(name);
         Assert.assertNull(manufacturingCountryFromDb);
     }

@@ -5,6 +5,7 @@ import io.restassured.response.Response;
 import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.v1.ImportsFileV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.model.v1.RetailerV1;
 import ru.instamart.api.model.v1.b2b.ManagerV1;
@@ -24,6 +25,8 @@ import ru.instamart.jdbc.dao.SpreeUsersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+
+import java.util.List;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
@@ -188,22 +191,28 @@ public class AdminHelper {
     }
 
     @Step("Удаляем страну производства")
-    public static void deleteManufacturingCountries(String permalink) {
+    public void deleteManufacturingCountries(String permalink) {
         final Response response = ManufacturingCountriesAdminRequest.DELETE(permalink);
         checkStatusCode302(response);
     }
 
     @Step("Создаем магазин")
-    public static void createStoreInAdmin(StoresAdminRequest.Store store) {
+    public void createStore(StoresAdminRequest.Store store) {
         final Response storeResponse = StoresAdminRequest.POST(store);
         checkStatusCode302(storeResponse);
     }
 
+    @Step("Редактируем магазин")
+    public void editStore(Integer sid, StoresAdminRequest.Store store) {
+        final Response storeResponse = StoresAdminRequest.PATCH(store, sid);
+        checkStatusCode302(storeResponse);
+    }
+
     @Step("Получаем список импортов офферов")
-    public static OffersFilesV1Response getOfferFiles() {
+    public List<ImportsFileV1> getOfferFiles() {
         final Response response = ImportsV1Request.OffersFiles.GET();
         checkStatusCode200(response);
-        return response.as(OffersFilesV1Response.class);
+        return response.as(OffersFilesV1Response.class).getOffersFiles();
     }
 
     public RetailerV1 createRetailer(RetailersV1Request.Retailer retailer) {

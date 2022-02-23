@@ -5,8 +5,6 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.http.ContentType;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -21,6 +19,8 @@ import ru.instamart.jdbc.entity.StoreConfigsEntity;
 import ru.instamart.jdbc.entity.StoresEntity;
 import ru.instamart.kraken.data_provider.JsonDataProvider;
 import ru.instamart.kraken.data_provider.JsonProvider;
+import ru.sbermarket.qase.annotation.CaseIDs;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Objects;
 
@@ -28,8 +28,7 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpt
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkStoreInDb;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
-import static ru.instamart.api.helper.AdminHelper.createStoreInAdmin;
-import static ru.instamart.api.request.admin.StoresAdminRequest.getStore;
+import static ru.instamart.api.request.admin.StoresAdminRequest.getStoreSelgrosMiklouhoMaclay;
 
 @Epic("Admin")
 @Feature("Магазины")
@@ -47,8 +46,8 @@ public class StoresAdminTest extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Создание нового магазина")
     public void createStore() {
-        StoresAdminRequest.Store store = getStore();
-        createStoreInAdmin(store);
+        StoresAdminRequest.Store store = getStoreSelgrosMiklouhoMaclay();
+        admin.createStore(store);
         StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
         checkFieldIsNotEmpty(storeFromDb, "магазин в БД");
         id = storeFromDb.getId();
@@ -62,7 +61,7 @@ public class StoresAdminTest extends RestBase {
             description = "Редактирование нового магазина",
             dependsOnMethods = "createStore")
     public void editStore() {
-        StoresAdminRequest.Store store = getStore();
+        StoresAdminRequest.Store store = getStoreSelgrosMiklouhoMaclay();
         final Response response = StoresAdminRequest.PATCH(store, id);
         checkStatusCode302(response);
         StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
