@@ -66,18 +66,25 @@ public class CatalogApiV2Test extends GrpcBase {
         client.getProduct(request);
     }
 
-    @Deprecated
+    @Story("Продукты")
+    @CaseId(241)
     @Test(description = "Получение карточки товара без tenant_id",
-            groups = {},
-            expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty tenant_id")
+            groups = {"grpc-product-hub"})
+    //       expectedExceptions = StatusRuntimeException.class,
+    //       expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty tenant_id")
     public void getProductWithoutTenantId() {
+       OffersEntity offer = OffersDao.INSTANCE.getOfferByStoreId(1);
         var request = CatalogApiV2
                 .GetProductRequest.newBuilder()
-                .setProductId("241454")
+                .setProductId(offer.getId().toString())
                 .build();
 
-        client.getProduct(request);
+        var response = client.getProduct(request);
+
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(response.getProduct().getSku(), Long.parseLong(offer.getProductSku()), "SKU продуктов не совпадают");
+        softAssert.assertEquals(response.getProduct().getRetailerSku(), offer.getRetailerSku(), "SKU ретейлеров не совпадают");
+        softAssert.assertAll();
     }
 
     @Story("Продукты")
@@ -96,23 +103,30 @@ public class CatalogApiV2Test extends GrpcBase {
         client.getProduct(request);
     }
 
-    @Deprecated
-    @Test(description = "Получение карточки товара с пустым tenant_id",
-            groups = {},
-            expectedExceptions = StatusRuntimeException.class,
-            expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty tenant_id")
+    @Story("Продукты")
+    @CaseId(244)
+    @Test(description = "Получение карточки товара с пустой строкой tenant_id",
+            groups = {"grpc-product-hub"})
+    //        expectedExceptions = StatusRuntimeException.class,
+    //        expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty tenant_id")
     public void getProductWitEmptyTenantId() {
+        OffersEntity offer = OffersDao.INSTANCE.getOfferByStoreId(1);
         var request = CatalogApiV2
                 .GetProductRequest.newBuilder()
                 .setTenantId("")
-                .setProductId("241454")
+                .setProductId(offer.getId().toString())
                 .build();
 
-        client.getProduct(request);
+        var response = client.getProduct(request);
+
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(response.getProduct().getSku(), Long.parseLong(offer.getProductSku()), "SKU продуктов не совпадают");
+        softAssert.assertEquals(response.getProduct().getRetailerSku(), offer.getRetailerSku(), "SKU ретейлеров не совпадают");
+        softAssert.assertAll();
     }
 
     @Story("Продукты")
-    @CaseIDs(value = {@CaseId(178), @CaseId(248), @CaseId(249)})
+    @CaseIDs(value = {@CaseId(248), @CaseId(249)})
     @Test(description = "Получение списка товаров", enabled = false, //ждет обновления от Дмитрия Дьячкова после изменения логики
             groups = {"grpc-product-hub"},
             dataProvider = "catalogProductListData",
@@ -122,6 +136,7 @@ public class CatalogApiV2Test extends GrpcBase {
 
         Assert.assertFalse(response.getProductsList().isEmpty(), "Не вернулись продукты");
     }
+
 
     @Story("Продукты")
     @CaseId(179)
@@ -144,6 +159,29 @@ public class CatalogApiV2Test extends GrpcBase {
     }
 
     @Story("Продукты")
+    @CaseId(178)
+    @Test(description = "Проверка ручки листинга продуктов",
+            groups = {"grpc-product-hub"})
+    public void getProductList() {
+        var request = CatalogApiV2
+                .GetProductListRequest.newBuilder()
+                .setSid("57")
+                .setTid("41329")
+                .setPage(1)
+                .setPerPage(24)
+                .setSort("popularity")
+                .setTenantId("sbermarket")
+                .build();
+
+        var response = client.getProductList(request);
+
+        Assert.assertFalse(response.getProductsList().isEmpty(), "Не вернулся список продуктов");
+        Assert.assertFalse(response.getSortList().isEmpty(), "Не вернулся список сортировок продуктов");
+        Assert.assertFalse(response.getFacetsList().isEmpty(), "Не вернулся список аспектов продуктов");
+    }
+
+
+    @Story("Продукты")
     @CaseId(245)
     @Test(description = "Получение списка товаров без sid",
             groups = {"grpc-product-hub"},
@@ -164,7 +202,7 @@ public class CatalogApiV2Test extends GrpcBase {
 
     @Story("Продукты")
     @CaseId(246)
-    @Test(description = "Получение списка товаров c пустым tid",
+    @Test(description = "Проверка ручки листинга продуктов с пустой строкой поля tid",
             groups = {"grpc-product-hub"},
             expectedExceptions = StatusRuntimeException.class,
             expectedExceptionsMessageRegExp = "INVALID_ARGUMENT: empty tid")
