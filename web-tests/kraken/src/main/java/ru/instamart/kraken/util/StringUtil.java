@@ -14,6 +14,7 @@ public final class StringUtil {
 
     private static final Pattern pattern = Pattern.compile("\\d+\\.\\d+");
     private static final Pattern citiesPattern = Pattern.compile("\\(([^\\D+]+)\\)");
+    private static final String PHONE_PATTERN = "(\\d{3})(\\d{3})(\\d{2})(\\d+)";
 
     private StringUtil() {
     }
@@ -86,25 +87,13 @@ public final class StringUtil {
      * Парсит строку типа "9000000000" в "+7 900 000-00-00 для проверки номера на странице заказов пользователя"
      */
     public static String convertDigitsStringToPhoneNumber(final String text) {
-        try {
-            return ("+7 "+ text.substring(0, 3) + " " + text.substring(3, 6) + "-" +text.substring(6, 8) + "-" + text.substring(8, 10));
-        }
-        catch (IndexOutOfBoundsException e) {
-            log.debug("Convert phone number error: {}", e.getMessage());
-            return "";
-        }
+        return text.replaceFirst(PHONE_PATTERN, "+7 $1 $2-$3-$4");
     }
 
     /**
      * Парсит строку типа "9000000000" в "+7 (900) 000-00-00 для проверки номера на странице корзины
      */
     public static String convertDigitsStringToPhoneNumberWithBrackets(final String text) {
-        try {
-            return ("+7 ("+ text.substring(0, 3) + ") " + text.substring(3, 6) + "-" +text.substring(6, 8) + "-" + text.substring(8, 10));
-        }
-        catch (IndexOutOfBoundsException e) {
-            log.debug("Convert phone number error: {}", e.getMessage());
-            return "";
-        }
+        return text.replaceFirst(PHONE_PATTERN, "+7 ($1) $2-$3-$4");
     }
 }
