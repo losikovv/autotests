@@ -17,7 +17,6 @@ public final class AdministrationRetailerRegionsTests extends BaseTest {
     private final ApiHelper apiHelper = new ApiHelper();
 
     @CaseId(469)
-    @Issue("INFRADEV-12788")
     @Story("Тест добавления нового региона для магазинов в админке")
     @Test(description = "Тест добавления нового региона для магазинов в админке", groups = {"acceptance", "regression", "smoke"})
     public void successCreateNewRetailerRegion() {
