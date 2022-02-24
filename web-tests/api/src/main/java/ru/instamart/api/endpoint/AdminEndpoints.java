@@ -11,6 +11,11 @@ public final class AdminEndpoints {
     public static final String CITIES = "cities";
     public static final String CITY = "cities/{citySlug}";
 
+    public static final class Countries {
+        public static final String STATES = "countries/{countryId}/states";
+        public static final String STATE = "countries/{countryId}/states/{stateId}";
+    }
+
     public static final String GENERAL_SETTINGS = "general_settings";
 
     public static final String MANUFACTURER = "manufacturers/{manufacturerId}";
