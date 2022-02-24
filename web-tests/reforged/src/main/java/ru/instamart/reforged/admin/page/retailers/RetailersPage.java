@@ -27,7 +27,7 @@ public final class RetailersPage implements AdminPage, RetailersPageCheck {
 
     @Step("Нажать на плюс у первого ретейлера")
     public void clickOnPlusForFirstRetailer() {
-        retailerPlusIconInTable.click(retailersInTable.getElementText(0));
+        firstRetailerPlusIconInTable.click();
     }
 
     @Step("Нажать на плюс у города {0}")
