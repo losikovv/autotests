@@ -10,13 +10,19 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.model.v2.DeliveryWindowV2;
 import ru.instamart.kafka.common.KafkaBase;
+import ru.instamart.kafka.dataprovider.DispatchDataProvider;
 import ru.instamart.kafka.emum.Pods;
 import ru.instamart.kafka.emum.StatusOrder;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.util.ThreadUtil;
+import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,16 +33,9 @@ import static ru.instamart.kraken.util.TimeUtil.getTimestampFromString;
 @Epic("Dispatch")
 public class KafkaDispatchTest extends KafkaBase {
 
-    private UserData user = UserManager.getShp6Shopper1();
     private long epochCurrentTime = Instant.now().getEpochSecond();
     private String placeUUID = "684609ad-6360-4bae-9556-03918c1e41c1";
     private String orderUuid, shipmentUuid;
-
-    @BeforeClass(alwaysRun = true)
-    public void beforeClass() {
-        shopperApp.authorisation(user);
-        shopperApp.sendCurrentLocator(55.700289, 37.727431, 0D);
-    }
 
     @BeforeMethod(alwaysRun = true)
     public void before() {
@@ -70,10 +69,28 @@ public class KafkaDispatchTest extends KafkaBase {
         kafka.publish(configFctOrderStf(), orderEvent.toByteArray());
     }
 
-    @CaseId(99)
+    @CaseIDs({
+            @CaseId(99),
+            @CaseId(109)
+    })
     @Test(groups = {"kafka-instamart-regress"},
+            dataProvider = "shopperUniversal",
+            dataProviderClass = DispatchDataProvider.class,
             description = "Полный флоу (order + dispatch+сервис кандидатов+сервис оценки маршрутов) 1 исполнитель (универсал)")
-    public void fullFlowTest() {
+    public void fullFlowTest(UserData[] userData) {
+        //авторизация универсалов
+        Arrays.stream(userData).forEach(
+                user->{
+                    shopperApp.authorisation(user);
+                    shopperApp.createShopperShift(
+                            5,
+                            String.valueOf(LocalDateTime.now()),
+                            String.valueOf(LocalDateTime.now().plus(1, ChronoUnit.DAYS)),
+                            55.700289, 37.727431);
+                    shopperApp.sendCurrentLocator(55.700289, 37.727431, 0D);
+                }
+        );
+
         //Step 2
         kafka.waitDataInKafkaTopicFtcOrder(configFctOrderStf(), orderUuid);
         kafka.waitDataInKafkaTopicStatusOrderRequest(shipmentUuid, StatusOrder.AUTOMATIC_ROUTING);
@@ -107,15 +124,16 @@ public class KafkaDispatchTest extends KafkaBase {
         softAssert.assertAll();
 
         //Step5
-        var logs1 = kubeLog.awaitLogsPod(Pods.DISPATCH, orderEnrichment.getPlaceUuid(), "\"grpc.service\":\"candidates.Candidates\",\"method\":\"SelectCandidates\"");
+        var logs1 = kubeLog.awaitLogsPod(Pods.DISPATCH, placeUUID, "\"grpc.service\":\"candidates.Candidates\",\"method\":\"SelectCandidates\"");
         assertTrue(logs1.size() > 0, "Логов по отправке запроса в сервис кандидатов для получения списка доступных исполнителей нет");
-        var logs2 = kubeLog.awaitLogsPod(Pods.DISPATCH, orderEnrichment.getPlaceUuid(), "\"grpc.service\":\"estimator.RouteEstimator\",\"method\":\"GetRouteEstimation\"");
+        //ThreadUtil.simplyAwait(30);
+        var logs2 = kubeLog.awaitLogsPod(Pods.DISPATCH, placeUUID, "\"grpc.service\":\"estimator.RouteEstimator\",\"method\":\"GetRouteEstimation\"");
         assertTrue(logs2.size() > 0, "Логи отправки в сервис оценки маршрутов для доступных исполнителей нет");
 
         List<String> performersUUID = kubeLog.getPerformersUUID(logs2);
         assertTrue(performersUUID.size() > 0, "Сервис кандидатов вернул пустым исполнителей");
 
-        var logs3 = kubeLog.awaitLogsPod(Pods.DISPATCH, shipmentUuid, "\"grpc.service\":\"dispatch_shoppers.WorkAssignments\",\"method\":\"Assign\"");
-        assertTrue(logs3.size() > 0, "Логи отправки в сервис оценки маршрутов для доступных исполнителей нет");
+//        var logs3 = kubeLog.awaitLogsPod(Pods.DISPATCH, performersUUID.get(0), "\"grpc.service\":\"dispatch_shoppers.WorkAssignments\",\"method\":\"Assign\"");
+//        assertTrue(logs3.size() > 0, "Логи отправки в сервис оценки маршрутов для доступных исполнителей нет");
     }
 }

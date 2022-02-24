@@ -10,13 +10,13 @@ tests:Dispatch:
     - gradle clean build kafkaDispatch -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
   after_script:
     - bash ./report.sh kafka dispatch
-#
-#tests:DispatchRegress:
-#  resource_group: kafkaDispatch
-#  extends:
-#    - ".template_dispatch_tests"
-#    - ".template_schedule"
-#  script:
-#    - gradle clean build kafkaDispatch -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
-#  after_script:
-#    - bash ./report.sh kafka dispatch
+
+tests:DispatchRegress:
+  resource_group: kafkaDispatch
+  extends:
+    - ".template_dispatch_tests"
+    - ".template_schedule"
+  script:
+    - gradle clean build kafkaDispatch -Penv=$P_ENV -Pqase=false -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL
+  after_script:
+    - bash ./report.sh kafka dispatch
