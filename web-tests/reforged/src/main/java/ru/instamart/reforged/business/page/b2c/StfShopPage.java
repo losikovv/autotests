@@ -6,6 +6,7 @@ import ru.instamart.reforged.core.page.Page;
 import ru.instamart.reforged.stf.block.header.Header;
 import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
+import ru.instamart.reforged.stf.frame.product_card.ProductCard;
 
 public final class StfShopPage implements Page, StfShopCheck {
 
@@ -21,6 +22,10 @@ public final class StfShopPage implements Page, StfShopCheck {
         return address;
     }
 
+    public ProductCard interactProductCard() {
+        return productCard;
+    }
+
     public void goToPage() {
         goToPage(ShopUrl.DEFAULT);
     }
@@ -32,6 +37,11 @@ public final class StfShopPage implements Page, StfShopCheck {
     public void goToPage(final String url) {
         openStfPage(url);
         cookiesChange(false);
+    }
+
+    @Step("Открываем карточку продукта '{productUrl}' магазина '{shopUrl}'")
+    public void openProductCard(final String shopUrl, final String productUrl) {
+        openStfPage(shopUrl + "/" + productUrl);
     }
 
     @Step("Нажать на плюс у первого товара")
