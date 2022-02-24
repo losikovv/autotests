@@ -1,14 +1,24 @@
 package ru.instamart.api.helper;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
+import ru.instamart.api.enums.SessionProvider;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.*;
 import ru.instamart.api.model.v2.AddressV2;
+import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.api.request.v1.*;
 import ru.instamart.api.response.v1.*;
+import ru.instamart.api.response.v2.RetailersV2Response;
+import ru.instamart.kraken.data.user.UserData;
 
 import java.util.List;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
@@ -18,6 +28,56 @@ public class ApiV1Helper {
     private final ThreadLocal<LineItemV1> currentLineItem = new ThreadLocal<>();
     private final ThreadLocal<Long> currentReplacementPolicyId = new ThreadLocal<>();
     private final ThreadLocal<MultiretailerOrderShipmentV1> currentShipment = new ThreadLocal<>();
+
+    public void authByPhone(UserData user) {
+        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.PHONE, user);
+    }
+
+    public void authByEmail(UserData user) {
+        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, user);
+    }
+
+    public List<OfferV1> getActiveOffers(String storeUuid) {
+        Response response = StoresV1Request.Offers.GET(
+                storeUuid,
+                "вода",
+                "");
+        checkStatusCode200(response);
+        return response.as(OffersV1Response.class)
+                .getOffers()
+                .stream()
+                .filter(OfferV1::getActive)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Получить список активных ритейлеров как список объектов Retailer
+     */
+    @Step("Получаем список активных ритейлеров: ")
+    public List<RetailerV2> getAvailableRetailers() {
+        Response response = RetailersV1Request.GET(new RetailersV1Request.RetailerParams());
+        checkStatusCode200(response);
+        List<RetailerV2> retailers = response.as(RetailersV2Response.class).getRetailers();
+
+        StringJoiner availableRetailers = new StringJoiner(
+                "\n• ",
+                "Список активных ретейлеров:\n• ",
+                "\n");
+        for (RetailerV2 retailer : retailers)
+            if (retailer.getAvailable()) availableRetailers.add(retailer.toString());
+        log.debug(availableRetailers.toString());
+        Allure.addAttachment("Активные ритейлеры:", ContentType.TEXT.toString(), availableRetailers.toString());
+        StringJoiner notAvailableRetailers = new StringJoiner(
+                "\n• ",
+                "Список неактивных ретейлеров:\n• ",
+                "\n");
+        for (RetailerV2 retailer : retailers)
+            if (!retailer.getAvailable()) notAvailableRetailers.add(retailer.toString());
+        log.debug(notAvailableRetailers.toString());
+        Allure.addAttachment("Неактивные ритейлеры:", ContentType.TEXT.toString(), notAvailableRetailers.toString());
+
+        return retailers;
+    }
 
     @Step("Получаем список всех операционных зон")
     public List<OperationalZoneV1> getAllOperationalZones() {

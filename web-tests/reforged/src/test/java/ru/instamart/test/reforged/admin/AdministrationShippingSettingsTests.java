@@ -39,7 +39,6 @@ public final class AdministrationShippingSettingsTests extends BaseTest {
     @BeforeClass(alwaysRun = true)
     public void beforeClass() {
         shippingMethod = helper.getShippingMethod()
-                .getShippingMethods()
                 .stream()
                 .filter(m -> m.getName().equals("Autotest"))
                 .findAny().orElseGet(() -> {
@@ -52,9 +51,9 @@ public final class AdministrationShippingSettingsTests extends BaseTest {
 
     @BeforeMethod(alwaysRun = true)
     public void beforeMethod() {
-        helper.getNominalRule(shippingMethod.getId()).getPricers()
+        helper.getNominalRule(shippingMethod.getId())
                 .forEach(rule -> helper.deleteNominalRule(rule.getId()));
-        helper.getMarketingRule(shippingMethod.getId()).getPricers()
+        helper.getMarketingRule(shippingMethod.getId())
                 .forEach(rule -> helper.deleteMarketingRule(rule.getId()));
 
         login().goToPage();
@@ -97,10 +96,10 @@ public final class AdministrationShippingSettingsTests extends BaseTest {
     @CaseId(530)
     @Test(description = "Выбор калькулятора 'Цена с учётом сложности'", groups = {"acceptance", "regression"})
     public void testSelectCalculatorPriceWithDifficulty() {
-        final var marketingPricer = helper.createMarketingRule(shippingMethod.getId()).getPricer();
+        final var marketingPricer = helper.createMarketingRule(shippingMethod.getId());
         helper.createPricerRules(marketingPricer.getId(), firstOrderRule);
         helper.createPricerCalculator(marketingPricer.getId(), flatCalculator);
-        final var nominalPricer = helper.createNominalRule(shippingMethod.getId()).getPricer();
+        final var nominalPricer = helper.createNominalRule(shippingMethod.getId());
         helper.createPricerRules(nominalPricer.getId(), firstOrderRule);
         shippingMethod().goToPage();
         shippingMethod().clickToEditShipmentMethod("Autotest");
@@ -218,9 +217,9 @@ public final class AdministrationShippingSettingsTests extends BaseTest {
     @CaseId(517)
     @Test(description = "Выбор правила 'Интервал стоимости заказа' и установка интервала", groups = {"acceptance", "regression"})
     public void testInterval() {
-        final var marketingPricer = helper.createMarketingRule(shippingMethod.getId()).getPricer();
+        final var marketingPricer = helper.createMarketingRule(shippingMethod.getId());
         helper.createPricerCalculator(marketingPricer.getId(), flatCalculator);
-        final var nominalPricer = helper.createNominalRule(shippingMethod.getId()).getPricer();
+        final var nominalPricer = helper.createNominalRule(shippingMethod.getId());
         helper.createPricerRules(nominalPricer.getId(), firstOrderRule);
         helper.createPricerCalculator(nominalPricer.getId(), flatCalculator);
 
@@ -236,9 +235,9 @@ public final class AdministrationShippingSettingsTests extends BaseTest {
     @CaseId(520)
     @Test(description = "Выбор правила 'Периодический заказ' и заполнение полей с днями и суммой", groups = {"acceptance", "regression"})
     public void testPeriodic() {
-        final var marketingPricer = helper.createMarketingRule(shippingMethod.getId()).getPricer();
+        final var marketingPricer = helper.createMarketingRule(shippingMethod.getId());
         helper.createPricerCalculator(marketingPricer.getId(), flatCalculator);
-        final var nominalPricer = helper.createNominalRule(shippingMethod.getId()).getPricer();
+        final var nominalPricer = helper.createNominalRule(shippingMethod.getId());
         helper.createPricerRules(nominalPricer.getId(), firstOrderRule);
         helper.createPricerCalculator(nominalPricer.getId(), flatCalculator);
 
@@ -254,9 +253,9 @@ public final class AdministrationShippingSettingsTests extends BaseTest {
     @CaseId(526)
     @Test(description = "Валидация полей интервала стоимости заказа", groups = {"acceptance", "regression"})
     public void testValidateInterval() {
-        final var marketingPricer = helper.createMarketingRule(shippingMethod.getId()).getPricer();
+        final var marketingPricer = helper.createMarketingRule(shippingMethod.getId());
         helper.createPricerCalculator(marketingPricer.getId(), flatCalculator);
-        final var nominalPricer = helper.createNominalRule(shippingMethod.getId()).getPricer();
+        final var nominalPricer = helper.createNominalRule(shippingMethod.getId());
         helper.createPricerRules(nominalPricer.getId(), firstOrderRule);
         helper.createPricerCalculator(nominalPricer.getId(), flatCalculator);
 

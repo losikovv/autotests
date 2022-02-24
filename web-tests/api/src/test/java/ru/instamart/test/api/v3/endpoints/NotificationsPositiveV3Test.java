@@ -32,7 +32,7 @@ public class NotificationsPositiveV3Test extends RestBase {
     public void preconditionsBeforeClass() {
         K8sHelper.allowExportToExternalServices(true);
         K8sHelper.exportToExternalServicesByWebhook(true);
-        admin.authAdmin();
+        admin.auth();
         admin.editStore(sid, StoresAdminRequest.getStoreLentaOrekhoviyBulvar());
     }
 

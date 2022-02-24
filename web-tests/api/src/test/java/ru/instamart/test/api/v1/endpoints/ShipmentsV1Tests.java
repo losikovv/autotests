@@ -8,10 +8,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
-import ru.instamart.api.enums.SessionProvider;
-import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.ShippingMethodV2;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.LineItemV1;
 import ru.instamart.api.model.v1.MergeShipmentV1;
 import ru.instamart.api.request.v1.MultiretailerOrderV1Request;
@@ -45,9 +42,9 @@ public class ShipmentsV1Tests extends RestBase {
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         if (EnvironmentProperties.SERVER.equals("production")) {
-            admin.authAdminApi();
+            admin.authApi();
         } else {
-            SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.PHONE, UserManager.getQaUser());
+            apiV1.authByPhone(UserManager.getQaUser());
         }
         apiV1.changeAddress(apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_SID), ShippingMethodV2.BY_COURIER.getMethod());
         lineItem = apiV1.addItemToCart(apiV2.getProductFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_SID).get(0).getId());

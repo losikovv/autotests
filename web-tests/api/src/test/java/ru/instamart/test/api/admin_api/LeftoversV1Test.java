@@ -16,7 +16,7 @@ public class LeftoversV1Test extends RestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
-        admin.authAdminApi();
+        admin.authApi();
     }
 
     //@CaseId() todo ожидает создание тест-кейса

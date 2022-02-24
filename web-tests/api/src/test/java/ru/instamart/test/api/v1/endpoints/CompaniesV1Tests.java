@@ -3,15 +3,12 @@ package ru.instamart.test.api.v1.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.instamart.api.enums.SessionProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.b2b.CompanyV1;
 import ru.instamart.api.model.v1.b2b.ManagerV1;
 import ru.instamart.api.model.v1.b2b.SalesContractV1;
@@ -24,7 +21,6 @@ import ru.instamart.api.response.v1.b2b.CompanyV1Response;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.JuridicalData;
-import ru.instamart.kraken.data.user.UserManager;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -44,7 +40,7 @@ public class CompaniesV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        admin.authAdminApi();
+        admin.authApi();
         final Response response = UserCompaniesV1Request.POST(companyData);
         checkStatusCode200(response);
         company = response.as(CompanyV1Response.class).getCompany();

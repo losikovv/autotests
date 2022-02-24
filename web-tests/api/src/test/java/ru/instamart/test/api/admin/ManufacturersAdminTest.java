@@ -27,7 +27,7 @@ public class ManufacturersAdminTest extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        admin.authAdmin();
+        admin.auth();
     }
 
     @CaseId(1824)

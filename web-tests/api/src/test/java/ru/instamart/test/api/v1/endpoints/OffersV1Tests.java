@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
+import ru.instamart.api.helper.ApiV1Helper;
 import ru.instamart.api.model.v1.OfferV1;
 import ru.instamart.api.request.v1.OffersV1Request;
 import ru.instamart.api.request.v1.StoresV1Request;
@@ -61,7 +62,7 @@ public class OffersV1Tests extends RestBase {
             groups = {"api-instamart-regress", "api-instamart-prod"},
             dependsOnMethods = "getOffer")
     public void getOfferBySkus() {
-        List<OfferV1> offersFromStore = apiV2.getActiveOffers(offerForRequest.getStore().getUuid()).stream().sorted(Comparator.comparing(OfferV1::getId)).collect(Collectors.toList());
+        List<OfferV1> offersFromStore = apiV1.getActiveOffers(offerForRequest.getStore().getUuid()).stream().sorted(Comparator.comparing(OfferV1::getId)).collect(Collectors.toList());
         OfferV1 firstOffer = offersFromStore.get(0);
         OfferV1 secondOffer = offersFromStore.get(1);
         final Response response = StoresV1Request.Offers.GET(firstOffer.getStoreId(), firstOffer.getProductSku() + ";" + secondOffer.getProductSku());

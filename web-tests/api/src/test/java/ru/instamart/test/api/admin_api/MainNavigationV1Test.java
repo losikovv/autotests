@@ -5,12 +5,10 @@ import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v1.MainNavigationV1Request;
 import ru.instamart.api.response.v1.MainNavigationV1Response;
-import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkErrorText;
@@ -26,7 +24,7 @@ public class MainNavigationV1Test extends RestBase {
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение информации о страницах в админке")
     public void getMainNavigation() {
-        admin.authAdminApi();
+        admin.authApi();
         final Response response = MainNavigationV1Request.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, MainNavigationV1Response.class);

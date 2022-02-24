@@ -5,12 +5,10 @@ import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v1.UserPermissionsV1Request;
 import ru.instamart.api.response.v1.UserPermissionsV1Response;
-import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkErrorText;
@@ -26,7 +24,7 @@ public class UserPermissionsV1Test extends RestBase {
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение информации о страницах в админке")
     public void getUserPermissions() {
-        admin.authAdminApi();
+        admin.authApi();
         final Response response = UserPermissionsV1Request.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, UserPermissionsV1Response.class);

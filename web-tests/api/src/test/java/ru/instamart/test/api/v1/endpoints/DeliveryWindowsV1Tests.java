@@ -35,7 +35,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        admin.authAdminApi();
+        admin.authApi();
     }
 
 
@@ -87,8 +87,14 @@ public class DeliveryWindowsV1Tests extends RestBase {
             groups = {"api-instamart-regress"},
             dependsOnMethods = "getDeliveryWindows")
     public void editDeliveryWindow() {
-        long number = RandomUtils.nextInt(1, 100);
-        final Response response = DeliveryWindowsV1Request.PUT(deliveryWindowId, number);
+        Integer number = RandomUtils.nextInt(1, 100);
+        final Response response = DeliveryWindowsV1Request.PUT(
+                deliveryWindowId,
+                number,
+                number,
+                number,
+                number,
+                ShippingMethodV2.PICKUP.getMethod());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, DeliveryWindowV1Response.class);
         DeliveryWindowV1 deliveryWindowFromResponse = response.as(DeliveryWindowV1Response.class).getDeliveryWindow();
@@ -106,7 +112,13 @@ public class DeliveryWindowsV1Tests extends RestBase {
     @Test(description = "Редактирование несуществующего окна доставки",
             groups = {"api-instamart-regress"})
     public void editNonExistingDeliveryWindow() {
-        final Response response = DeliveryWindowsV1Request.PUT(0L, 11);
+        final Response response = DeliveryWindowsV1Request.PUT(
+                0L,
+                11,
+                11,
+                11,
+                11,
+                ShippingMethodV2.PICKUP.getMethod());
         checkStatusCode404(response);
     }
 
@@ -116,7 +128,13 @@ public class DeliveryWindowsV1Tests extends RestBase {
             groups = {"api-instamart-regress"},
             dependsOnMethods = "getDeliveryWindows")
     public void editDeliveryWindowWithInvalidValues() {
-        final Response response = DeliveryWindowsV1Request.PUT(deliveryWindowId, -1);
+        final Response response = DeliveryWindowsV1Request.PUT(
+                deliveryWindowId,
+                -1,
+                -1,
+                -1,
+                -1,
+                ShippingMethodV2.PICKUP.getMethod());
         checkStatusCode422(response);
         String responseAsString = response.asString();
         final SoftAssert softAssert = new SoftAssert();

@@ -21,12 +21,8 @@ import static ru.instamart.api.helper.K8sHelper.createApiClient;
 @Slf4j
 public final class ApiV3Helper {
 
-    //  PaymentMethodOptionV3 paymentMethod;
-    //  OrderOptionsPickupV3Response orderOptionsPickupV3;
-
-
     public List<StoreV3> getPickupStores() {
-        log.debug("Получаем список магазинов с самовызом");
+        log.debug("Получаем список магазинов с самовывозом");
         return Arrays.asList(StoresV3Request.PickupFromStore.GET().as(StoreV3[].class));
     }
 
@@ -90,14 +86,6 @@ public final class ApiV3Helper {
         log.error("Метод не найден");
         return replacementMethods.get(0);
     }
-
-/* public OrderV3 getOrderMethod (OrderV3 orderV3) {
-    log.debug("Получаем ордер");
-    return CreateOrderV3Request.PickupFromStore.POST(
-            paymentMethod.getOptions().get(0).getId(),
-            shippingMethod.getId(),
-            replacementMethod.getId()).as(OrderV3.class);
-} */
 
     public int getPackagesTotal(OrderV3 order) {
         int packagesTotal = 0;
@@ -183,7 +171,7 @@ public final class ApiV3Helper {
     }
 
     @Step("Получаем токен api-клиента")
-    public static String getApiClienToken(String clientName) {
+    public static String getApiClientToken(String clientName) {
         String token;
         String tokenFromDb = ApiClientsDao.INSTANCE.getClientTokenByName(clientName);
         if (tokenFromDb != null) {

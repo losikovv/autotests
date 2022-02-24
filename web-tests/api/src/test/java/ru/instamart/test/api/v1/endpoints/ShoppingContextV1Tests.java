@@ -8,10 +8,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
-import ru.instamart.api.enums.SessionProvider;
-import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.ShippingMethodV2;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.request.v1.ShoppingContextV1Request;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -31,8 +28,7 @@ public class ShoppingContextV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        user = UserManager.getQaUser();
-        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.PHONE, user);
+        apiV1.authByPhone(UserManager.getQaUser());
     }
 
     @CaseIDs(value = {@CaseId(1554), @CaseId(1555)})

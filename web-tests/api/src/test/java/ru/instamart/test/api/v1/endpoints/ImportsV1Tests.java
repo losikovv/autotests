@@ -42,7 +42,7 @@ public class ImportsV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        admin.authAdminApi();
+        admin.authApi();
     }
 
     @CaseId(1903)
@@ -246,7 +246,7 @@ public class ImportsV1Tests extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Импорт нового оффера")
     public void importOffers() {
-        admin.authAdmin();
+        admin.auth();
         StoresAdminRequest.Store store = getStoreSelgrosMiklouhoMaclay();
         store.setLat(55.763584);
         store.setLon(37.625585);

@@ -3,7 +3,6 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.instamart.api.enums.SessionProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
@@ -21,7 +20,6 @@ import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.request.v2.StoresV2Request;
 import ru.instamart.api.response.v2.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.data.user.UserManager;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -46,7 +44,7 @@ public class ShipmentsV2Test extends RestBase {
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         if (!EnvironmentProperties.SERVER.equals("production")) {
-            admin.authAdminApi();
+            admin.authApi();
             admin.checkDeliveryWindows(EnvironmentProperties.DEFAULT_SID);
         }
         SessionFactory.makeSession(SessionType.API_V2);

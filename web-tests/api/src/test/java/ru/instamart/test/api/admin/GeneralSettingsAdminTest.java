@@ -22,7 +22,7 @@ public class GeneralSettingsAdminTest extends RestBase {
     @CaseId(1829)
     @Test(groups = {"api-instamart-regress"}, description = "Изменение основных настроек")
     public void updateGeneralSettings() {
-        admin.authAdmin();
+        admin.auth();
         GeneralSettingsAdminRequest.Settings  settings = GeneralSettingsAdminRequest.Settings.builder()
                 .feedbackEmail(String.format("hello+%s@sbermarket.ru", RandomUtils.nextInt(1, 10)))
                 .linkFaq("https://sbermarket.ru/" + RandomUtils.nextInt(1, 10))

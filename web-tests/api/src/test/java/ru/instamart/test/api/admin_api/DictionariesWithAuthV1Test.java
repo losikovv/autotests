@@ -20,7 +20,7 @@ public class DictionariesWithAuthV1Test extends RestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void preconditions() {
-        admin.authAdminApi();
+        admin.authApi();
     }
 
     @CaseId(1813)

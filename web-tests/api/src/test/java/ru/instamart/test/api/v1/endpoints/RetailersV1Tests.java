@@ -11,10 +11,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
-import ru.instamart.api.enums.SessionProvider;
-import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v1.RetailerSortTypeV1;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.EtaV1;
 import ru.instamart.api.model.v1.ShippingPolicyV1;
 import ru.instamart.api.model.v2.RetailerV2;
@@ -34,7 +31,6 @@ import ru.instamart.jdbc.dao.ShippingPolicyRulesDao;
 import ru.instamart.jdbc.dao.SpreeRetailersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
-import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.data_provider.JsonDataProvider;
 import ru.instamart.kraken.data_provider.JsonProvider;
 import ru.sbermarket.qase.annotation.CaseIDs;
@@ -62,7 +58,7 @@ public class RetailersV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        admin.authAdminApi();
+        admin.authApi();
     }
 
     @Story("Ритейлеры")

@@ -4,10 +4,13 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.v1.DeliveryWindowV1;
 import ru.instamart.api.model.v1.ImportsFileV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.model.v1.RetailerV1;
+import ru.instamart.api.model.v1.b2b.CompanyV1;
 import ru.instamart.api.model.v1.b2b.ManagerV1;
 import ru.instamart.api.model.v1.b2b.UserV1;
 import ru.instamart.api.request.admin.*;
@@ -20,6 +23,7 @@ import ru.instamart.api.request.v1.b2b.CompanyEmployeesV1Request;
 import ru.instamart.api.request.v1.b2b.CompanyManagersV1Request;
 import ru.instamart.api.response.v1.*;
 import ru.instamart.api.response.v1.admin.ShipmentsAdminV1Response;
+import ru.instamart.api.response.v1.b2b.CompaniesV1Response;
 import ru.instamart.api.response.v1.imports.OffersFilesV1Response;
 import ru.instamart.jdbc.dao.SpreeUsersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -92,11 +96,11 @@ public class AdminHelper {
         return response.as(OperationalZoneV1Response.class).getOperationalZone();
     }
 
-    public ShippingMethodsResponse getShippingMethods() {
+    public List<ShippingMethodsResponse.ShippingMethods> getShippingMethods() {
         final var response = ShippingMethodsV1Request.GET();
         checkStatusCode200(response);
 
-        return response.as(ShippingMethodsResponse.class);
+        return response.as(ShippingMethodsResponse.class).getShippingMethods();
     }
 
     public void createShippingMethod(final ShippingMethodsRequest.ShippingMethod shippingMethod) {
@@ -104,18 +108,18 @@ public class AdminHelper {
         checkStatusCode302(response);
     }
 
-    public PricersV1Response getMarketingRule(final int methodId) {
+    public List<PricersV1Response.Pricer> getMarketingRule(final int methodId) {
         final var response = MarketingPricers.GET(methodId);
         checkStatusCode200(response);
 
-        return response.as(PricersV1Response.class);
+        return response.as(PricersV1Response.class).getPricers();
     }
 
-    public PricerV1Response createMarketingRule(final int id) {
+    public PricersV1Response.Pricer createMarketingRule(final int id) {
         final var response = MarketingPricers.POST(id);
         checkStatusCode200(response);
 
-        return response.as(PricerV1Response.class);
+        return response.as(PricerV1Response.class).getPricer();
     }
 
     public void deleteMarketingRule(final int id) {
@@ -123,18 +127,18 @@ public class AdminHelper {
         checkStatusCode200(response);
     }
 
-    public PricersV1Response getNominalRule(final int methodId) {
+    public List<PricersV1Response.Pricer> getNominalRule(final int methodId) {
         final var response = NominalPricers.GET(methodId);
         checkStatusCode200(response);
 
-        return response.as(PricersV1Response.class);
+        return response.as(PricersV1Response.class).getPricers();
     }
 
-    public PricerV1Response createNominalRule(final int id) {
+    public PricersV1Response.Pricer createNominalRule(final int id) {
         final var response = NominalPricers.POST(id);
         checkStatusCode200(response);
 
-        return response.as(PricerV1Response.class);
+        return response.as(PricerV1Response.class).getPricer();
     }
 
     public void deleteNominalRule(final int id) {
@@ -162,14 +166,14 @@ public class AdminHelper {
         checkStatusCode200(response);
     }
 
-    public ShipmentsAdminV1Response getShipments(final ShipmentsAdminV1Request.ShipmentsData shipmentsData) {
+    public List<ShipmentsAdminV1Response.Shipment> getShipments(final ShipmentsAdminV1Request.ShipmentsData shipmentsData) {
         final var response = ShipmentsAdminV1Request.GET(shipmentsData);
         checkStatusCode200(response);
-        return response.as(ShipmentsAdminV1Response.class);
+        return response.as(ShipmentsAdminV1Response.class).getShipments();
     }
 
     @Step("Авторизация администратором")
-    public void authAdmin() {
+    public void auth() {
         UserData user = UserManager.getDefaultAdmin();
         if (!EnvironmentProperties.SERVER.equals("production")) {
             if (SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()) == null) {
@@ -180,7 +184,7 @@ public class AdminHelper {
     }
 
     @Step("Авторизация администратором для API")
-    public void authAdminApi() {
+    public void authApi() {
         UserData user = UserManager.getDefaultAdmin();
         if (!EnvironmentProperties.SERVER.equals("production")) {
             if (SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()) == null) {
@@ -219,5 +223,53 @@ public class AdminHelper {
         final Response response = RetailersV1Request.POST(retailer);
         checkStatusCode200(response);
         return response.as(RetailerV1Response.class).getRetailer();
+    }
+
+    public List<CompanyV1> getCompanies(String inn) {
+        final Response response = CompaniesV1Request.GET(inn);
+        checkStatusCode200(response);
+        return response.as(CompaniesV1Response.class).getCompanies();
+    }
+
+    public void importOffers(byte[] fileBytes) {
+        final Response response = ImportsV1Request.OffersFiles.POST(fileBytes);
+        checkStatusCode200(response);
+    }
+
+    public void importStoreZoneFile(Integer storeId, String filePath) {
+        final Response response = StoreZonesV1Request.ZoneFiles.POST(storeId, filePath);
+        checkStatusCode200(response);
+    }
+
+    public void importStoreZone(Integer storeId, String area) {
+        final Response response = StoreZonesV1Request.Zones.POST(storeId, area);
+        checkStatusCode200(response);
+    }
+
+    public void createStoreSchedule(String storeUuid) {
+        final Response response = StoreSchedulesV1Request.Schedules.POST(storeUuid);
+        checkStatusCode200(response);
+    }
+
+    public void updateDeliveryWindowWithDefaultValues(Long deliveryWindowId) {
+        final Response response = DeliveryWindowsV1Request.PUT(
+                deliveryWindowId,
+                1,
+                1,
+                1,
+                1,
+                ShippingMethodV2.PICKUP.getMethod());
+        checkStatusCode200(response);
+    }
+
+    public void createDeliveryWindow(Integer storeId) {
+        final Response responsePost = StoresV1Request.DeliveryWindows.POST(storeId);
+        checkStatusCode200(responsePost);
+    }
+
+    public List<DeliveryWindowV1> getDeliveryWindows(Integer storeId) {
+        final Response responseGet = StoresV1Request.DeliveryWindows.GET(storeId);
+        checkStatusCode200(responseGet);
+        return responseGet.as(DeliveryWindowsV1Response.class).getDeliveryWindows();
     }
 }

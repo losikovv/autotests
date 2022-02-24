@@ -2,7 +2,7 @@ package ru.instamart.reforged.core.data_provider;
 
 import org.testng.annotations.DataProvider;
 import ru.instamart.api.common.Specification;
-import ru.instamart.api.helper.InstamartApiHelper;
+import ru.instamart.api.helper.ApiV1Helper;
 import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
@@ -15,7 +15,7 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 public final class StaticPage {
 
-    private static final InstamartApiHelper apiV2 = new InstamartApiHelper();
+    private static final ApiV1Helper apiV1 = new ApiV1Helper();
 
     @DataProvider(name = "faqPage", parallel = true)
     public static Object[][] getFaqPage() {
@@ -110,7 +110,7 @@ public final class StaticPage {
     public static Object[][] getFilteredAvailableRetailersSpree() {
         Specification.setResponseSpecDataProvider();
 
-        List<RetailerV2> retailerList = apiV2.getAvailableRetailersSpree();
+        List<RetailerV2> retailerList = apiV1.getAvailableRetailers();
 
         Specification.setResponseSpecDefault();
 
@@ -124,7 +124,7 @@ public final class StaticPage {
     public static Object[][] getFilteredUnavailableRetailersSpree() {
         Specification.setResponseSpecDataProvider();
 
-        final List<RetailerV2> retailerList = apiV2.getAvailableRetailersSpree();
+        final List<RetailerV2> retailerList = apiV1.getAvailableRetailers();
 
         Specification.setResponseSpecDefault();
 
