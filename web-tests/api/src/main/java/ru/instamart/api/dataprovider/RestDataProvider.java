@@ -13,6 +13,7 @@ import ru.instamart.api.enums.v2.AuthProviderV2;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.helper.ApiV1Helper;
 import ru.instamart.api.model.v1.OfferV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.model.v2.*;
@@ -203,7 +204,7 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getAvailableRetailersSpree() {
         Specification.setResponseSpecDataProvider();
 
-        List<RetailerV2> retailerList = apiV2.getAvailableRetailersSpree().stream().filter(RetailerV2::getAvailable).collect(Collectors.toList());
+        List<RetailerV2> retailerList = apiV1.getAvailableRetailers().stream().filter(RetailerV2::getAvailable).collect(Collectors.toList());
 
         Specification.setResponseSpecDefault();
 
@@ -352,7 +353,7 @@ public class RestDataProvider extends RestBase {
             Response response = RetailersV1Request.Stores.GET(apiV2.getAvailableRetailers().get(0).getId());
             checkStatusCode200(response);
             List<StoreV2> retailerStores = response.as(StoresV2Response.class).getStores();
-            List<OfferV1> offerList = apiV2.getActiveOffers(retailerStores.get(0).getUuid());
+            List<OfferV1> offerList = apiV1.getActiveOffers(retailerStores.get(0).getUuid());
             return new Object[][] {
                     {offerList.get(0)},
                     {offerList.get(1)}
@@ -367,7 +368,7 @@ public class RestDataProvider extends RestBase {
 
             List<OfferV1> offerList = storeList
                     .stream().parallel()
-                    .map(store -> apiV2.getActiveOffers(store.getUuid()))
+                    .map(store -> apiV1.getActiveOffers(store.getUuid()))
                     .filter(storeOffers -> !storeOffers.isEmpty())
                     .map(storeOffers -> storeOffers.get(0))
                     .collect(Collectors.toList());

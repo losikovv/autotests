@@ -3,7 +3,6 @@ package ru.instamart.test.api.v1.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.instamart.api.enums.SessionProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
@@ -11,8 +10,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.b2b.CompanyV1;
 import ru.instamart.api.request.v1.b2b.CompanyPresenceV1Request;
 import ru.instamart.api.request.v1.b2b.UserCompaniesV1Request;
@@ -20,7 +17,6 @@ import ru.instamart.api.request.v1.b2b.UserCompanyEmployeesV1Request;
 import ru.instamart.api.response.v1.b2b.*;
 import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.JuridicalData;
-import ru.instamart.kraken.data.user.UserManager;
 
 import static org.testng.Assert.*;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
@@ -36,7 +32,7 @@ public class UserCompaniesV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        admin.authAdminApi();
+        admin.authApi();
         final Response response = UserCompaniesV1Request.POST(companyData);
         checkStatusCode200(response);
         company = response.as(CompanyV1Response.class).getCompany();

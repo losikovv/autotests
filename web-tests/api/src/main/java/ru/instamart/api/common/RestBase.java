@@ -14,7 +14,7 @@ import static ru.instamart.kraken.helper.LogbackLogBuffer.getLogbackBufferLog;
 
 public class RestBase {
     protected static final ApiV1Helper apiV1 = new ApiV1Helper();
-    protected static final InstamartApiHelper apiV2 = new InstamartApiHelper();
+    protected static final ApiV2Helper apiV2 = new ApiV2Helper();
     protected static final ShopperAppApiHelper shopperApp = new ShopperAppApiHelper();
     protected static final ApiV3Helper apiV3 = new ApiV3Helper();
     protected static final DeliveryClubHelper dc = new DeliveryClubHelper();

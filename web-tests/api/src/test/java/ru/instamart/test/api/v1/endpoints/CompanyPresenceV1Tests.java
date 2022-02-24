@@ -3,17 +3,13 @@ package ru.instamart.test.api.v1.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.instamart.api.enums.SessionProvider;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v1.b2b.CompanyPresenceV1Request;
 import ru.instamart.api.response.ErrorResponse;
-import ru.instamart.kraken.data.user.UserManager;
 
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
@@ -30,7 +26,7 @@ public class CompanyPresenceV1Tests extends RestBase {
     @Test(description = "Статус регистрации компании (незарегистрирована)",
             groups = {"api-instamart-regress"})
     public void getCompanyNotPresence() {
-        admin.authAdminApi();
+        admin.authApi();
 
         final Response response = CompanyPresenceV1Request.GET("123456789");
         checkStatusCode404(response);

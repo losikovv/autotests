@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
-import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v1.OrderKindV1;
 import ru.instamart.api.enums.v2.ShippingMethodV2;
@@ -44,9 +43,9 @@ public class CheckoutV1Tests extends RestBase {
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         if (EnvironmentProperties.SERVER.equals("production")) {
-            admin.authAdminApi();
+            admin.authApi();
         } else {
-            SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.PHONE, UserManager.getQaUser());
+            apiV1.authByPhone(UserManager.getQaUser());
         }
         address = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_SID);
         offerId = apiV2.getProductFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_SID).get(0).getId();

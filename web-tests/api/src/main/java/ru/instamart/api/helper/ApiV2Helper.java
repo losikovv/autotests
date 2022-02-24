@@ -12,13 +12,10 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.model.v1.OfferV1;
 import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.v1.RetailersV1Request;
-import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.request.v2.*;
 import ru.instamart.api.response.ErrorResponse;
-import ru.instamart.api.response.v1.OffersV1Response;
 import ru.instamart.api.response.v2.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
@@ -41,7 +38,7 @@ import static ru.instamart.api.common.RestStaticTestData.userPhone;
 import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 
 @Slf4j
-public final class InstamartApiHelper {
+public final class ApiV2Helper {
 
     private final ThreadLocal<Integer> currentSid = new ThreadLocal<>();
     private final ThreadLocal<Integer> currentAddressId = new ThreadLocal<>();
@@ -842,35 +839,6 @@ public final class InstamartApiHelper {
     }
 
     /**
-     * Получить список активных ритейлеров как список объектов Retailer
-     */
-    @Step("Получаем список активных ритейлеров: ")
-    public List<RetailerV2> getAvailableRetailersSpree() {
-        Response response = RetailersV1Request.GET(new RetailersV1Request.RetailerParams());
-        checkStatusCode200(response);
-        List<RetailerV2> retailers = response.as(RetailersV2Response.class).getRetailers();
-
-        StringJoiner availableRetailers = new StringJoiner(
-                "\n• ",
-                "Список активных ретейлеров:\n• ",
-                "\n");
-        for (RetailerV2 retailer : retailers)
-            if (retailer.getAvailable()) availableRetailers.add(retailer.toString());
-        log.debug(availableRetailers.toString());
-        Allure.addAttachment("Активные ритейлеры:", ContentType.TEXT.toString(), availableRetailers.toString());
-        StringJoiner notAvailableRetailers = new StringJoiner(
-                "\n• ",
-                "Список неактивных ретейлеров:\n• ",
-                "\n");
-        for (RetailerV2 retailer : retailers)
-            if (!retailer.getAvailable()) notAvailableRetailers.add(retailer.toString());
-        log.debug(notAvailableRetailers.toString());
-        Allure.addAttachment("Неактивные ритейлеры:", ContentType.TEXT.toString(), notAvailableRetailers.toString());
-
-        return retailers;
-    }
-
-    /**
      * Получить список активных магазинов как список объектов Store (без зон доставки)
      */
     @Step("Получить список активных магазинов как список объектов Store (без зон доставки)")
@@ -1069,19 +1037,6 @@ public final class InstamartApiHelper {
             orders.forEach(order -> log.debug(order.getNumber()));
         }
         return orders;
-    }
-
-    public List<OfferV1> getActiveOffers(String storeUuid) {
-        Response response = StoresV1Request.Offers.GET(
-                storeUuid,
-                "вода",
-                "");
-        checkStatusCode200(response);
-        return response.as(OffersV1Response.class)
-                .getOffers()
-                .stream()
-                .filter(OfferV1::getActive)
-                .collect(Collectors.toList());
     }
 
     /*
@@ -1436,8 +1391,12 @@ public final class InstamartApiHelper {
      *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
     @Step("Регистрация/авторизация по номеру телефона с помощью API")
-    public void auth(final UserData user) {
+    public void authByPhone(final UserData user) {
         SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.PHONE, user);
+    }
+
+    public void authByQA(final UserData user) {
+        SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.QA, user);
     }
 
     @Step("Меняем адрес пользователя и добавляем товар в корзину")

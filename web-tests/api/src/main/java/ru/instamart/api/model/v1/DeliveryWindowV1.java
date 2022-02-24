@@ -60,7 +60,7 @@ public class DeliveryWindowV1 extends BaseObject {
 
     @JsonSchema(required = true)
     @JsonProperty("shipments_excess_items_count")
-    private Long shipmentsExcessItemsCount;
+    private Integer shipmentsExcessItemsCount;
 
     @JsonSchema(required = true)
     @JsonProperty("shipments_excess_kilos")
@@ -76,7 +76,7 @@ public class DeliveryWindowV1 extends BaseObject {
 
     @JsonSchema(required = true)
     @JsonProperty("shipments_limit")
-    private Long shipmentsLimit;
+    private Integer shipmentsLimit;
 
     @JsonSchema(required = true)
     @JsonProperty("shipments_total_items_count")

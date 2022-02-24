@@ -89,7 +89,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
                 .paymentMethodId(3)
                 .completedAtEnd(TimeUtil.getPastDateWithoutTime(2L))
                 .build());
-        final var shipment = shipments.getShipments().stream().findFirst().orElseThrow(NotFoundException::new);
+        final var shipment = shipments.stream().findFirst().orElseThrow(NotFoundException::new);
         final var phone = StringUtil.getPhoneNumber(shipment.order.shipAddress.phoneNumber);
 
         login().goToPage();
@@ -114,7 +114,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
                 .paymentMethodId(3)
                 .completedAtEnd(TimeUtil.getPastDateWithoutTime(2L))
                 .build());
-        final var shipment = shipments.getShipments().stream().findFirst().orElseThrow(NotFoundException::new);
+        final var shipment = shipments.stream().findFirst().orElseThrow(NotFoundException::new);
         final var phone = StringUtil.getPhoneNumber(shipment.order.shipAddress.phoneNumber);
         final var deliveryStartDateDt = TimeUtil.convertFullDateToDt(shipment.deliveryWindowLocalStartsAt.toString());
         final var deliveryEndDateDt = TimeUtil.convertFullDateToDt(shipment.deliveryWindowLocalEndsAt.toString());
@@ -145,7 +145,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
                 .paymentMethodId(3)
                 .completedAtEnd(TimeUtil.getPastDateWithoutTime(2L))
                 .build());
-        final var shipment = shipments.getShipments().stream().findFirst().orElseThrow(NotFoundException::new);
+        final var shipment = shipments.stream().findFirst().orElseThrow(NotFoundException::new);
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
@@ -196,7 +196,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
                 .paymentMethodId(3)
                 .completedAtEnd(TimeUtil.getPastDateWithoutTime(2L))
                 .build());
-        final var shipment = shipments.getShipments().stream().findFirst().orElseThrow(NotFoundException::new);
+        final var shipment = shipments.stream().findFirst().orElseThrow(NotFoundException::new);
         final var orderNumber = shipment.order.number;
 
         login().goToPage();
@@ -222,7 +222,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
                 .paymentMethodId(3)
                 .completedAtEnd(TimeUtil.getPastDateWithoutTime(2L))
                 .build());
-        final var shipment = shipments.getShipments().stream().findFirst().orElseThrow(NotFoundException::new);
+        final var shipment = shipments.stream().findFirst().orElseThrow(NotFoundException::new);
         final var shipmentNumber = shipment.number;
 
         login().goToPage();
@@ -262,7 +262,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
                 .onlyB2b(true)
                 .completedAtEnd(TimeUtil.getPastDateWithoutTime(2L))
                 .build());
-        final var shipmentB2b = shipments.getShipments().stream().findFirst().orElseThrow(NotFoundException::new);
+        final var shipmentB2b = shipments.stream().findFirst().orElseThrow(NotFoundException::new);
         final var shipmentNumber = shipmentB2b.number;
 
         login().goToPage();
@@ -290,7 +290,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
                 .onlyB2b(true)
                 .completedAtEnd(TimeUtil.getPastDateWithoutTime(2L))
                 .build());
-        final var shipmentB2b = shipments.getShipments().stream().findFirst().orElseThrow(NotFoundException::new);
+        final var shipmentB2b = shipments.stream().findFirst().orElseThrow(NotFoundException::new);
         final var shipmentNumber = shipmentB2b.number;
 
         login().goToPage();

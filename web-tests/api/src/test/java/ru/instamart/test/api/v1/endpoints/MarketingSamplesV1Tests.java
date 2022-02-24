@@ -39,7 +39,7 @@ public class MarketingSamplesV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        admin.authAdminApi();
+        admin.authApi();
     }
 
     @Story("Маркетинговые сэмплы")

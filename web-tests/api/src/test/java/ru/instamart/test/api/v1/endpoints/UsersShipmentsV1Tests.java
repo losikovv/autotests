@@ -7,10 +7,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionProvider;
-import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.StateV2;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v1.UsersV1Request;
 import ru.instamart.api.response.v1.MultiretailerOrderV1Response;
@@ -43,8 +40,8 @@ public class UsersShipmentsV1Tests extends RestBase {
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
         user = UserManager.getQaUser();
-        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.PHONE, user);
-        SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.QA, user);
+        apiV1.authByPhone(user);
+        apiV2.authByQA(user);
         apiV2.fillCart(user, EnvironmentProperties.DEFAULT_SID);
         order = apiV1.getMultiRetailerOrder();
         shipmentNumber = order.getShipments().get(0).getNumber();

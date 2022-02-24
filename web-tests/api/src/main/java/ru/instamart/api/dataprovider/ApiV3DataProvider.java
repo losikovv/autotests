@@ -14,7 +14,7 @@ import ru.instamart.kraken.data_provider.DataList;
 
 import java.util.List;
 
-import static ru.instamart.api.helper.ApiV3Helper.getApiClienToken;
+import static ru.instamart.api.helper.ApiV3Helper.getApiClientToken;
 import static ru.instamart.api.helper.K8sHelper.*;
 
 public class ApiV3DataProvider extends RestBase {
@@ -62,7 +62,7 @@ public class ApiV3DataProvider extends RestBase {
 
     @DataProvider(name = "goods")
     public static Object[][] getItemIdsGoods() {
-        String token = getApiClienToken("goods");
+        String token = getApiClientToken("goods");
         OfferResponse pricerPerItem = getPricerPerItemProductFilter(1, 8, 2, OfferResponse.class);
         String retailerSkuPerItem = pricerPerItem.getOffer().getProductSku();
 
@@ -86,7 +86,7 @@ public class ApiV3DataProvider extends RestBase {
 
     @DataProvider(name = "sber_devices")
     public static Object[][] getItemIdsSberDevices() {
-        String token = getApiClienToken("sber_devices");
+        String token = getApiClientToken("sber_devices");
         OfferResponse pricerPerItem = getPricerPerItemProductFilter(1, 8, 2, OfferResponse.class);
         String retailerSkuPerItem = pricerPerItem.getOffer().getProductSku();
 
@@ -110,7 +110,7 @@ public class ApiV3DataProvider extends RestBase {
 
     @DataProvider(name = "metro_marketplace")
     public static Object[][] getItemIdsMetroMarketplace() {
-        String token = getApiClienToken("metro_marketplace");
+        String token = getApiClientToken("metro_marketplace");
         OfferResponse pricerPerItem = getPricerPerItemProductFilter(1, 8, 2, OfferResponse.class);
         String retailerSkuPerItem = pricerPerItem.getOffer().getRetailerSku();
 
@@ -134,7 +134,7 @@ public class ApiV3DataProvider extends RestBase {
 
     @DataProvider(name = "Aliexpress")
     public static Object[][] getItemIdsAliexpress() {
-        String token = getApiClienToken("aliexpress");
+        String token = getApiClientToken("aliexpress");
         OfferResponse pricerPerItem = getPricerPerItemProductFilter(15, 72, 2, OfferResponse.class);
         String retailerSkuPerItem = pricerPerItem.getOffer().getRetailerSku();
 
@@ -158,7 +158,7 @@ public class ApiV3DataProvider extends RestBase {
 
     @DataProvider(name = "Auchan")
     public static Object[][] getItemIdsAuchan() {
-        String token = getApiClienToken("auchan");
+        String token = getApiClientToken("auchan");
         OfferResponse pricerPerItem = getPricerPerItemProductFilter(15, 72, 2, OfferResponse.class);
         String retailerSkuPerItem = pricerPerItem.getOffer().getRetailerSku();
 

@@ -8,16 +8,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionProvider;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.ProductV1;
 import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.response.v1.ProductV1Response;
 import ru.instamart.jdbc.dao.SpreeProductsDao;
 import ru.instamart.jdbc.entity.SpreeProductsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
@@ -30,7 +26,7 @@ public class ProductsV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        admin.authAdminApi();
+        admin.authApi();
     }
 
     @CaseId(45)

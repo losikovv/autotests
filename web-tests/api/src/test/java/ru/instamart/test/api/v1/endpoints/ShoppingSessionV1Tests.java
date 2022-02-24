@@ -7,11 +7,10 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.request.v1.ShoppingSessionV1Request;
 import ru.instamart.api.model.v1.ShoppingSessionV1;
+import ru.instamart.api.request.v1.ShoppingSessionV1Request;
 import ru.instamart.api.response.v1.ShoppingSessionV1Response;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -32,7 +31,7 @@ public class ShoppingSessionV1Tests extends RestBase {
             description = "Получение сессии для авторизованного пользователя")
     public void getShoppingSessionWithAuth() {
         UserData user = UserManager.getDefaultAdmin();
-        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, user);
+        apiV1.authByEmail(user);
         final Response response = ShoppingSessionV1Request.GET();
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShoppingSessionV1Response.class);

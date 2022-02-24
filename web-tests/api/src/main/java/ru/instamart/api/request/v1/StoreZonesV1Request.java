@@ -12,30 +12,30 @@ import java.io.File;
 public class StoreZonesV1Request extends ApiV1RequestBase {
 
     public static class ZoneFiles {
-        @Step("{method} /" + ApiV1Endpoints.Stores.StoreId.ZONE_FILES)
+        @Step("{method} /" + ApiV1Endpoints.Stores.ZONE_FILES)
         public static Response GET(Integer perPage) {
             return givenWithAuth()
                     .queryParam("per_page", perPage)
-                    .get(ApiV1Endpoints.Stores.StoreId.ZONE_FILES);
+                    .get(ApiV1Endpoints.Stores.ZONE_FILES);
         }
 
-        @Step("{method} /" + ApiV1Endpoints.Stores.StoreId.ZONE_FILES)
-        public static Response POST(String filePath, Integer storeId) {
+        @Step("{method} /" + ApiV1Endpoints.Stores.ZONE_FILES)
+        public static Response POST(Integer storeId, String filePath) {
             return givenWithAuth()
                     .multiPart("file", new File(filePath), "application/vnd.google-earth.kml+xml")
-                    .post(ApiV1Endpoints.Stores.StoreId.ZONE_FILES, storeId);
+                    .post(ApiV1Endpoints.Stores.ZONE_FILES, storeId);
         }
     }
 
     public static class Zones {
-        @Step("{method} /" + ApiV1Endpoints.Stores.StoreId.ZONES)
+        @Step("{method} /" + ApiV1Endpoints.Stores.ZONES)
         public static Response GET(Integer perPage) {
             return givenWithAuth()
                     .queryParam("per_page", perPage)
-                    .get(ApiV1Endpoints.Stores.StoreId.ZONES);
+                    .get(ApiV1Endpoints.Stores.ZONES);
         }
 
-        @Step("{method} /" + ApiV1Endpoints.Stores.StoreId.ZONES)
+        @Step("{method} /" + ApiV1Endpoints.Stores.ZONES)
         public static Response POST(Integer storeId, String area) {
             JSONObject body = new JSONObject();
             body.put("name", "polygon");
@@ -43,7 +43,7 @@ public class StoreZonesV1Request extends ApiV1RequestBase {
             return givenWithAuth()
                     .contentType(ContentType.JSON)
                     .body(body)
-                    .post(ApiV1Endpoints.Stores.StoreId.ZONES, storeId);
+                    .post(ApiV1Endpoints.Stores.ZONES, storeId);
         }
     }
 }

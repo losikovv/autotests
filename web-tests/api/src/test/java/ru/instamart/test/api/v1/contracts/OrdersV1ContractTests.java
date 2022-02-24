@@ -41,7 +41,7 @@ public class OrdersV1ContractTests extends RestBase {
         if (order == null) throw new SkipException("Заказ не удалось оплатить");
         orderNumber = order.getNumber();
         shipmentNumber = order.getShipments().get(0).getNumber();
-        admin.authAdminApi();
+        admin.authApi();
     }
 
     @AfterClass(alwaysRun = true)

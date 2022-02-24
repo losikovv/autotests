@@ -6,7 +6,6 @@ import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.helper.RegistrationHelper;
@@ -50,7 +49,7 @@ public final class SessionsV2Test extends RestBase {
             description = "Токен существующего пользователя")
     public void testUserData() {
         final UserData userData = UserManager.getDefaultApiUser();
-        SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.PHONE, userData);
+        apiV2.authByPhone(userData);
         final Response response = SessionsV2Request.User.GET(SessionFactory.getSession(SessionType.API_V2).getToken());
         checkStatusCode200(response);
         final UserDataV2Response userDataResponse = response.as(UserDataV2Response.class);

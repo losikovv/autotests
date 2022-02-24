@@ -9,9 +9,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionProvider;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.LineItemV1;
 import ru.instamart.api.request.v1.LineItemsV1Request;
 import ru.instamart.api.request.v1.OrdersV1Request;
@@ -36,9 +33,8 @@ public class LineItemsV1Test extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-       SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.PHONE, UserManager.getQaUser());
+        apiV1.authByPhone(UserManager.getQaUser());
     }
-
 
     @CaseId(57)
     @Story("Товары в заказе")

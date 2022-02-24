@@ -31,24 +31,24 @@ public class StoresV1Request extends ApiV1RequestBase {
             return givenWithSpec().get(ApiV1Endpoints.Stores.OFFERS, storeUuid, offerName, offerRetailerSku);
         }
 
-        @Step("{method} /" + ApiV1Endpoints.Stores.StoreId.Offers.SEARCH)
+        @Step("{method} /" + ApiV1Endpoints.Stores.Offers.SEARCH)
         public static Response GET(Integer storeId, String skus) {
             RequestSpecification req = givenWithSpec();
             if (skus != null) req.queryParams("skus", skus);
-            return req.get(ApiV1Endpoints.Stores.StoreId.Offers.SEARCH, storeId);
+            return req.get(ApiV1Endpoints.Stores.Offers.SEARCH, storeId);
         }
     }
 
     public static class DeliveryWindows {
-        @Step("{method} /" + ApiV1Endpoints.Stores.StoreId.DeliveryWindows.BY_DATE)
+        @Step("{method} /" + ApiV1Endpoints.Stores.DeliveryWindows.BY_DATE)
         public static Response GET(Integer storeId) {
             String date = getFutureDateWithoutTime(1L);
             return givenWithAuth()
-                    .get(ApiV1Endpoints.Stores.StoreId.DeliveryWindows.BY_DATE, storeId, date);
+                    .get(ApiV1Endpoints.Stores.DeliveryWindows.BY_DATE, storeId, date);
         }
 
 
-        @Step("{method} /" + ApiV1Endpoints.Stores.StoreId.DeliveryWindows.GENERATE)
+        @Step("{method} /" + ApiV1Endpoints.Stores.DeliveryWindows.GENERATE)
         public static Response POST(Integer storeId) {
             JSONObject body = new JSONObject();
             body.put("starting_date", getZonedDate());
@@ -56,33 +56,33 @@ public class StoresV1Request extends ApiV1RequestBase {
             return givenWithAuth()
                     .contentType(ContentType.JSON)
                     .body(body)
-                    .post(ApiV1Endpoints.Stores.StoreId.DeliveryWindows.GENERATE, storeId);
+                    .post(ApiV1Endpoints.Stores.DeliveryWindows.GENERATE, storeId);
         }
     }
 
     public static class Products {
-        @Step("{method} /" + ApiV1Endpoints.Stores.StoreId.Products.BY_PERMALINK)
+        @Step("{method} /" + ApiV1Endpoints.Stores.Products.BY_PERMALINK)
         public static Response GET(Integer storeId, String permalink) {
             return givenWithAuth()
-                    .get(ApiV1Endpoints.Stores.StoreId.Products.BY_PERMALINK, storeId, permalink);
+                    .get(ApiV1Endpoints.Stores.Products.BY_PERMALINK, storeId, permalink);
         }
     }
 
     public static class NextDeliveries {
-        @Step("{method} /" + ApiV1Endpoints.Stores.StoreId.NEXT_DELIVERIES)
+        @Step("{method} /" + ApiV1Endpoints.Stores.NEXT_DELIVERIES)
         public static Response GET(Integer storeId, NextDeliveriesParams params){
             return givenWithAuth()
                     .queryParams(Mapper.INSTANCE.objectToMap(params))
-                    .get(ApiV1Endpoints.Stores.StoreId.NEXT_DELIVERIES, storeId);
+                    .get(ApiV1Endpoints.Stores.NEXT_DELIVERIES, storeId);
         }
     }
 
     public static class SearchSuggestions {
-        @Step("{method} /" + ApiV1Endpoints.Stores.StoreId.SEARCH_SUGGESTIONS)
+        @Step("{method} /" + ApiV1Endpoints.Stores.SEARCH_SUGGESTIONS)
         public static Response GET(Integer storeId, String query){
             return givenWithSpec()
                     .queryParam("q", query)
-                    .get(ApiV1Endpoints.Stores.StoreId.SEARCH_SUGGESTIONS, storeId);
+                    .get(ApiV1Endpoints.Stores.SEARCH_SUGGESTIONS, storeId);
         }
     }
 

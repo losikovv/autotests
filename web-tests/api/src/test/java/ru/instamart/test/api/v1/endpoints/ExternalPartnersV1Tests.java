@@ -7,7 +7,6 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.ServicesV2;
@@ -36,7 +35,7 @@ public class ExternalPartnersV1Tests extends RestBase {
     @Story("Получение списка подписок для пользователя")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Подписка SberPrime неактивна")
     public void getInactiveSubscription() {
-        admin.authAdminApi();
+        admin.authApi();
         final Response response = ExternalPartnersV1Request.Services.GET();
         checkStatusCode200(response);
         List<ServicesV2> services = response.as(ExternalPartnersServicesV2Response.class).getServices();
@@ -50,7 +49,7 @@ public class ExternalPartnersV1Tests extends RestBase {
             dependsOnMethods = "getInactiveSubscription")
     public void getActiveSubscription() {
         UserData user = UserManager.getQaUser();
-        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.PHONE, user);
+        apiV1.authByPhone(user);
         addSberPrime(user.getEmail());
         final Response response = ExternalPartnersV1Request.Services.GET();
         checkStatusCode200(response);
