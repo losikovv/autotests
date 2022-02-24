@@ -176,7 +176,7 @@ public class CompaniesV1Tests extends RestBase {
     @Test(description = "Добавление договора купли-продажи",
             groups = {"api-instamart-regress"})
     public void postSalesContract() {
-        String number = company.getId().toString() + Generate.digitalString(5); // создаём уникальный номер
+        String number = company.getId().toString() + Generate.digitalString(2); // создаём уникальный номер
         salesContract.setNumber(Integer.valueOf(number));
         salesContract.setSigningDate(new SimpleDateFormat("yyyy-MM-dd").format(Instant.now().toEpochMilli()));
         final Response response = CompanySalesContractV1Request.POST(company.getId(), salesContract.getNumber(), salesContract.getSigningDate());
