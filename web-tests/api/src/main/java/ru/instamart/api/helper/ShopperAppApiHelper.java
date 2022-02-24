@@ -1,6 +1,5 @@
 package ru.instamart.api.helper;
 
-import com.google.protobuf.Timestamp;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
@@ -32,8 +31,7 @@ import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
 import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
@@ -180,8 +178,7 @@ public class ShopperAppApiHelper {
                 planEndsAt,
                 lat,
                 lon);
-        checkStatusCode200(response);
-
+        checkStatusCode200or422(response);
     }
 
     /**
