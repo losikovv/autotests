@@ -84,14 +84,14 @@ public final class StringUtil {
     }
 
     /**
-     * Парсит строку типа "9000000000" в "+7 900 000-00-00 для проверки номера на странице заказов пользователя"
+     * Парсит строку типа "9000000000" в "+7 900 000-00-00" для проверки номера на странице заказов пользователя
      */
     public static String convertDigitsStringToPhoneNumber(final String text) {
         return text.replaceFirst(PHONE_PATTERN, "+7 $1 $2-$3-$4");
     }
 
     /**
-     * Парсит строку типа "9000000000" в "+7 (900) 000-00-00 для проверки номера на странице корзины
+     * Парсит строку типа "9000000000" в "+7 (900) 000-00-00" для проверки номера на странице корзины
      */
     public static String convertDigitsStringToPhoneNumberWithBrackets(final String text) {
         return text.replaceFirst(PHONE_PATTERN, "+7 ($1) $2-$3-$4");
