@@ -2,18 +2,18 @@ package ru.instamart.reforged.stf.page.checkout;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
-import ru.instamart.reforged.stf.frame.checkout.subsections.EditPaymentCard;
-import ru.instamart.reforged.stf.frame.checkout.subsections.EditPhoneNumber;
+import ru.instamart.reforged.stf.frame.checkout.subsections.edit_payment_card.EditPaymentCard;
+import ru.instamart.reforged.stf.frame.checkout.subsections.edit_phone_number.EditPhoneNumber;
 import ru.instamart.reforged.stf.frame.checkout.subsections.EditRequisites;
 import ru.instamart.reforged.stf.frame.checkout.subsections.create_company.AddCompany;
 import ru.instamart.reforged.stf.frame.checkout.subsections.loyaltycard_modal.EditLoyaltyCard;
 import ru.instamart.reforged.stf.frame.checkout.subsections.promocode_modal.EditPromoCode;
 import ru.instamart.reforged.stf.frame.checkout.subsections.retailer_card.EditRetailerCard;
 import ru.instamart.reforged.stf.page.StfPage;
-import ru.instamart.reforged.stf.page.checkout.fifthStep.SlotStep;
+import ru.instamart.reforged.stf.page.checkout.fourthStep.SlotStep;
 import ru.instamart.reforged.stf.page.checkout.fifthStep.edit_company.EditCompany;
 import ru.instamart.reforged.stf.page.checkout.firstStep.DeliveryOptionStep;
-import ru.instamart.reforged.stf.page.checkout.fourthStep.PaymentStep;
+import ru.instamart.reforged.stf.page.checkout.fifthStep.PaymentStep;
 import ru.instamart.reforged.stf.page.checkout.secondStep.ContactsStep;
 import ru.instamart.reforged.stf.page.checkout.thirdStep.ReplacementPolicyStep;
 

@@ -1,5 +1,6 @@
 package ru.instamart.kraken.util;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
@@ -8,6 +9,7 @@ import java.util.regex.Pattern;
 
 import static java.util.Objects.isNull;
 
+@Slf4j
 public final class StringUtil {
 
     private static final Pattern pattern = Pattern.compile("\\d+\\.\\d+");
@@ -74,5 +76,35 @@ public final class StringUtil {
         if (matcher.find()) {
             return Integer.parseInt(matcher.group(1));
         } else return 0;
+    }
+
+    public static String cutLastFourSymbolsFromString(final String text) {
+        return text.substring(text.length() - 4);
+    }
+
+    /**
+     * Парсит строку типа "9000000000" в "+7 900 000-00-00 для проверки номера на странице заказов пользователя"
+     */
+    public static String convertDigitsStringToPhoneNumber(final String text) {
+        try {
+            return ("+7 "+ text.substring(0, 3) + " " + text.substring(3, 6) + "-" +text.substring(6, 8) + "-" + text.substring(8, 10));
+        }
+        catch (IndexOutOfBoundsException e) {
+            log.debug("Convert phone number error: {}", e.getMessage());
+            return "";
+        }
+    }
+
+    /**
+     * Парсит строку типа "9000000000" в "+7 (900) 000-00-00 для проверки номера на странице корзины
+     */
+    public static String convertDigitsStringToPhoneNumberWithBrackets(final String text) {
+        try {
+            return ("+7 ("+ text.substring(0, 3) + ") " + text.substring(3, 6) + "-" +text.substring(6, 8) + "-" + text.substring(8, 10));
+        }
+        catch (IndexOutOfBoundsException e) {
+            log.debug("Convert phone number error: {}", e.getMessage());
+            return "";
+        }
     }
 }

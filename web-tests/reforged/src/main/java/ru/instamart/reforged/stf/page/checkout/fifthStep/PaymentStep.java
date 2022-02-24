@@ -1,8 +1,10 @@
-package ru.instamart.reforged.stf.page.checkout.fourthStep;
+package ru.instamart.reforged.stf.page.checkout.fifthStep;
 
 import io.qameta.allure.Step;
+import ru.instamart.kraken.data.PaymentCardData;
+import ru.instamart.kraken.util.StringUtil;
 
-public class PaymentStep implements PaymentStepElement {
+public class PaymentStep implements PaymentStepCheck {
 
     @Step("Выбрать метод оплаты Картой при получении")
     public void clickToByCardToCourier() {
@@ -71,8 +73,10 @@ public class PaymentStep implements PaymentStepElement {
         selectPaymentCard.clickOnElementWithText(data);
     }
 
-    @Step("Изменить карту {0}")
-    public void clickToChangePaymentCard(String data) {
-        changeFirstPaymentCard.clickOnElementWithText(data);
+    @Step("Изменить карту")
+    public void clickToChangePaymentCard(PaymentCardData card) {
+        changeButtonOnCardWithNumber.click(StringUtil.cutLastFourSymbolsFromString(card.getCardNumber()));
     }
+
+
 }
