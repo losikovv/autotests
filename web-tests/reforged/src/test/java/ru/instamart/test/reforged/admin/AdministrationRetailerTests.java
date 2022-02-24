@@ -383,6 +383,7 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().checkOptionsInRegionSearchVisible();
         retailers().clickOnFirstRegionInSearchSuggest();
 
+        retailers().refresh();
         retailers().clickOnPlusForFirstRetailer();
         retailers().checkRetailerRegionCorrect("Казань");
     }
