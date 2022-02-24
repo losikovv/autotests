@@ -8,6 +8,7 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -62,9 +63,10 @@ public final class UserAuthorisationTests extends BaseTest {
         checkout().checkCheckoutButtonIsVisible();
     }
 
+    //Короче FB опять заблокировал наш ip
     @CaseId(1459)
     @Story("Авторизация через Facebook")
-    @Test(description = "Тест успешной авторизация через Facebook", groups = {"smoke", "regression"})
+    @Test(enabled = false, description = "Тест успешной авторизация через Facebook", groups = {"smoke", "regression"})
     public void successRegWithFacebook() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
