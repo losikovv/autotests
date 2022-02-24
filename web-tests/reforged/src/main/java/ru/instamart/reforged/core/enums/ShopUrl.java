@@ -16,6 +16,5 @@ public enum ShopUrl {
     AZBUKAVKUSA("azbukavkusa"),
     OKEY("okey");
 
-
     private final String url;
 }
