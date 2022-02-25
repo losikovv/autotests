@@ -110,8 +110,8 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().setPayment().clickToByCardOnline();
         checkout().setPayment().clickToAddNewPaymentCard();
 
-        checkout().interactEditPaymentCardModal().fillCardData(card);
-        checkout().interactEditPaymentCardModal().clickToSaveModal();
+        checkout().interactAddPaymentCardModal().fillCardData(card);
+        checkout().interactAddPaymentCardModal().clickToSaveModal();
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
@@ -155,8 +155,8 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().setPayment().clickToByCardOnline();
         checkout().setPayment().clickToAddNewPaymentCard();
 
-        checkout().interactEditPaymentCardModal().fillCardData(card);
-        checkout().interactEditPaymentCardModal().clickToSaveModal();
+        checkout().interactAddPaymentCardModal().fillCardData(card);
+        checkout().interactAddPaymentCardModal().clickToSaveModal();
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
@@ -387,8 +387,8 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().setPayment().clickToByCardOnline();
         checkout().setPayment().clickToAddNewPaymentCard();
 
-        checkout().interactEditPaymentCardModal().fillCardData(card);
-        checkout().interactEditPaymentCardModal().clickToSaveModal();
+        checkout().interactAddPaymentCardModal().fillCardData(card);
+        checkout().interactAddPaymentCardModal().clickToSaveModal();
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
@@ -458,8 +458,8 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().setPayment().clickToByCardOnline();
         checkout().setPayment().clickToAddNewPaymentCard();
 
-        checkout().interactEditPaymentCardModal().fillCardData(card);
-        checkout().interactEditPaymentCardModal().clickToSaveModal();
+        checkout().interactAddPaymentCardModal().fillCardData(card);
+        checkout().interactAddPaymentCardModal().clickToSaveModal();
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 

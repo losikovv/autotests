@@ -1,5 +1,6 @@
 package ru.instamart.kraken.util;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
@@ -8,10 +9,12 @@ import java.util.regex.Pattern;
 
 import static java.util.Objects.isNull;
 
+@Slf4j
 public final class StringUtil {
 
     private static final Pattern pattern = Pattern.compile("\\d+\\.\\d+");
     private static final Pattern citiesPattern = Pattern.compile("\\(([^\\D+]+)\\)");
+    private static final String PHONE_PATTERN = "(\\d{3})(\\d{3})(\\d{2})(\\d+)";
 
     private StringUtil() {
     }
@@ -74,5 +77,23 @@ public final class StringUtil {
         if (matcher.find()) {
             return Integer.parseInt(matcher.group(1));
         } else return 0;
+    }
+
+    public static String cutLastFourSymbolsFromString(final String text) {
+        return text.substring(text.length() - 4);
+    }
+
+    /**
+     * Парсит строку типа "9000000000" в "+7 900 000-00-00" для проверки номера на странице заказов пользователя
+     */
+    public static String convertDigitsStringToPhoneNumber(final String text) {
+        return text.replaceFirst(PHONE_PATTERN, "+7 $1 $2-$3-$4");
+    }
+
+    /**
+     * Парсит строку типа "9000000000" в "+7 (900) 000-00-00" для проверки номера на странице корзины
+     */
+    public static String convertDigitsStringToPhoneNumberWithBrackets(final String text) {
+        return text.replaceFirst(PHONE_PATTERN, "+7 ($1) $2-$3-$4");
     }
 }

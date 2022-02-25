@@ -1,17 +1,10 @@
-package ru.instamart.reforged.stf.frame.checkout.subsections;
+package ru.instamart.reforged.stf.frame.checkout.subsections.add_payment_card;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 import ru.instamart.kraken.data.PaymentCardData;
-import ru.instamart.reforged.core.component.Input;
+import ru.instamart.reforged.stf.frame.checkout.subsections.CommonFrameButtons;
 
-public class EditPaymentCard implements CommonFrameButtons {
-
-    private final Input cardNumber = new Input(By.xpath("//input[@data-cp='cardNumber']"), "empty");
-    private final Input expMonth = new Input(By.xpath("//input[@data-cp='expDateMonth']"), "empty");
-    private final Input expYear = new Input(By.xpath("//input[@data-cp='expDateYear']"), "empty");
-    private final Input cvv = new Input(By.xpath("//input[@data-cp='cvv']"), "empty");
-    private final Input holderName = new Input(By.xpath("//input[@data-cp='name']"), "empty");
+public class AddPaymentCard implements CommonFrameButtons, AddPaymentCardCheck {
 
     @Step("Заполнить данные карты {0}")
     public void fillCardData(final PaymentCardData data) {

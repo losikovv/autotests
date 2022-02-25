@@ -1,4 +1,4 @@
-package ru.instamart.reforged.stf.page.checkout.fifthStep;
+package ru.instamart.reforged.stf.page.checkout.fourthStep;
 
 import io.qameta.allure.Step;
 
@@ -7,6 +7,11 @@ public class SlotStep implements SlotStepCheck {
     @Step("Выбрать первый активный слот")
     public void setFirstActiveSlot() {
         activeSlots.clickOnFirst();
+    }
+
+    @Step("Выбрать следующий день")
+    public void setNextDay() {
+        nextDayTab.click();
     }
 
     @Step("Выбрать последний активный слот")

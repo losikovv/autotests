@@ -1,4 +1,4 @@
-package ru.instamart.reforged.stf.page.checkout.fifthStep;
+package ru.instamart.reforged.stf.page.checkout.fourthStep;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
@@ -15,6 +15,11 @@ public interface SlotStepCheck extends Check, SlotStepElement {
     @Step("Проверяем не виден спиннер в разделе слотов")
     default void checkSlotsSpinnerIsNotVisible() {
         waitAction().shouldNotBeVisible(slotsSpinner);
+    }
+
+    @Step("Проверяем, что первый слот кликабелен")
+    default void checkFirstSlotClickable() {
+        waitAction().shouldBeClickable(firstActiveSlotTime);
     }
 
 }

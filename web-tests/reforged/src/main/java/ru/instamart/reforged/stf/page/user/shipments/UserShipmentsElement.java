@@ -41,4 +41,7 @@ public interface UserShipmentsElement {
     ElementCollection productsInOrder = new ElementCollection(By.xpath("//div[@data-qa='user-shipment-assembly-items']"), "Коллекция элементов продуктов в заказе");
     ElementCollection productInOrderNames = new ElementCollection(By.xpath("//div[@data-qa='user-shipment-assembly-items']//div[./picture]/following-sibling::div/div[1]"), "Названия продуктов в заказе");
     ElementCollection orderCancelStatuses = new ElementCollection(By.xpath("//div[@data-qa='user-shipment-list-shipment-state' and text() = 'Отменен']"), "Коллекция элементов статусов 'Отменено' у заказов");
+
+    Element userPhone = new Element(By.xpath("//span[@data-qa='user-shipment-phone']"), "Лейбл телефона пользователя");
+    Element userEmail = new Element(By.xpath("//span[@data-qa='user-shipment-email']"), "Лейбл емейла пользователя");
 }

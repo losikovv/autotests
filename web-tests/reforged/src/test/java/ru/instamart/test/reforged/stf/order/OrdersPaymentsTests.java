@@ -70,8 +70,8 @@ public final class OrdersPaymentsTests extends BaseTest {
         checkout().setPayment().clickToByCardOnline();
         checkout().setPayment().clickToAddNewPaymentCard();
 
-        checkout().interactEditPaymentCardModal().fillCardData(PaymentCards.testCardNo3ds());
-        checkout().interactEditPaymentCardModal().clickToSaveModal();
+        checkout().interactAddPaymentCardModal().fillCardData(PaymentCards.testCardNo3ds());
+        checkout().interactAddPaymentCardModal().clickToSaveModal();
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 

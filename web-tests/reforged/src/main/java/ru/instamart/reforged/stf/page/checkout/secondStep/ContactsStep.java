@@ -3,6 +3,7 @@ package ru.instamart.reforged.stf.page.checkout.secondStep;
 import io.qameta.allure.Step;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.util.StringUtil;
 
 public class ContactsStep implements ContactsStepElement {
 
@@ -53,6 +54,11 @@ public class ContactsStep implements ContactsStepElement {
     @Step("Нажать Изменить")
     public void clickToChangePhone() {
         changePhone.click();
+    }
+
+    @Step("Нажать Изменить у определенного номера телефона {0}")
+    public void clickToChangePhoneWithText(final String phone) {
+        changePhoneWithText.click(StringUtil.convertDigitsStringToPhoneNumberWithBrackets(phone));
     }
 
     @Step("Нажать Продолжить")
