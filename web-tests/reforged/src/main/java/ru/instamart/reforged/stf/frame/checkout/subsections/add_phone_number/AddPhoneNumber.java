@@ -5,7 +5,7 @@ import ru.instamart.reforged.stf.frame.checkout.subsections.CommonFrameButtons;
 
 public class AddPhoneNumber implements CommonFrameButtons, AddPhoneNumberCheck {
 
-    @Step("Заполнить номер телефона")
+    @Step("Заполнить номер телефона {0}")
     public void fillPhoneNumber(String data) {
         phoneNumber.fill(data);
     }

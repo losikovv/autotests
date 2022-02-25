@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -23,7 +24,6 @@ public class CheckoutContactsStepTests {
 
     private final ApiHelper helper = new ApiHelper();
     private UserData userData;
-    private UserData changedUserData;
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
@@ -60,14 +60,16 @@ public class CheckoutContactsStepTests {
 
         checkout().checkCheckoutLoaderNotVisible();
 
-        changedUserData = UserManager.getQaUser();
+        userData.setEmail(Generate.email());
 
-        checkout().setContacts().fillContactInfo(changedUserData);
+        checkout().setContacts().fillContactInfo(userData);
 
         checkout().setContacts().clickToChangePhoneWithText(userData.getPhone());
 
+        userData.setPhone(Generate.phoneNumber());
+
         checkout().interactEditPhoneNumberModal().clearPhoneNumber();
-        checkout().interactEditPhoneNumberModal().fillPhoneNumber(changedUserData.getPhone());
+        checkout().interactEditPhoneNumberModal().fillPhoneNumber(userData.getPhone());
         checkout().interactEditPhoneNumberModal().clickToSaveModal();
         checkout().interactEditPhoneNumberModal().checkPhoneEditModalClosed();
 
@@ -88,8 +90,8 @@ public class CheckoutContactsStepTests {
 
         userShipments().checkPageContains(userShipments().pageUrl());
         userShipments().clickToDetails();
-        userShipments().checkUserPhoneCorrect(changedUserData.getPhone());
-        userShipments().checkUserEmailCorrect(changedUserData.getEmail());
+        userShipments().checkUserPhoneCorrect(userData.getPhone());
+        userShipments().checkUserEmailCorrect(userData.getEmail());
         userShipments().assertAll();
     }
 }

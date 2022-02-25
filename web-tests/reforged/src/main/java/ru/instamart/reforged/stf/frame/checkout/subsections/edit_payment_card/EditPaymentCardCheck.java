@@ -1,4 +1,14 @@
 package ru.instamart.reforged.stf.frame.checkout.subsections.edit_payment_card;
 
-public interface EditPaymentCardCheck {
+import io.qameta.allure.Step;
+import ru.instamart.reforged.core.Check;
+
+import static ru.instamart.reforged.core.Kraken.waitAction;
+
+public interface EditPaymentCardCheck extends Check, EditPaymentCardElement {
+
+    @Step("Проверяем, что модальное окно не анимировано")
+    default void checkModalNotAnimated() {
+        waitAction().shouldNotBeAnimated(editPaymentCardModal);
+    }
 }

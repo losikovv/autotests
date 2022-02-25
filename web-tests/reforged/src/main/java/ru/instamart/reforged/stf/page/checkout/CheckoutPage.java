@@ -2,6 +2,7 @@ package ru.instamart.reforged.stf.page.checkout;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
+import ru.instamart.reforged.stf.frame.checkout.subsections.add_payment_card.AddPaymentCard;
 import ru.instamart.reforged.stf.frame.checkout.subsections.edit_payment_card.EditPaymentCard;
 import ru.instamart.reforged.stf.frame.checkout.subsections.edit_phone_number.EditPhoneNumber;
 import ru.instamart.reforged.stf.frame.checkout.subsections.EditRequisites;
@@ -57,6 +58,10 @@ public final class CheckoutPage implements StfPage, CheckoutCheck {
 
     public EditRequisites interactEditRequisitesModal() {
         return requisitesModal;
+    }
+
+    public AddPaymentCard interactAddPaymentCardModal() {
+        return addPaymentCardModal;
     }
 
     public EditPaymentCard interactEditPaymentCardModal() {

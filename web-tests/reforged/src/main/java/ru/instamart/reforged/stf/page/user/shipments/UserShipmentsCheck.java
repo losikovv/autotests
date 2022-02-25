@@ -34,12 +34,14 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
 
     @Step("Проверка соответствия телефона юзера ожидаемому {0}")
     default void checkUserPhoneCorrect(final String phone) {
-        krakenAssert.assertEquals(userPhone.getText(), StringUtil.convertDigitsStringToPhoneNumber(phone));
+        krakenAssert.assertEquals(userPhone.getText(), StringUtil.convertDigitsStringToPhoneNumber(phone),
+                "Номер телефона пользователя не соответствует ожидаемому");
     }
 
     @Step("Проверка соответствия емейла юзера ожидаемому {0}")
     default void checkUserEmailCorrect(final String email) {
-        krakenAssert.assertEquals(userEmail.getText(), email);
+        krakenAssert.assertEquals(userEmail.getText(), email,
+                "Емейл пользователя не соответствует ожидаемому");
     }
 
     @Step("Проверка суммы скидки: {0}")

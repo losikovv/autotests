@@ -1,11 +1,11 @@
 package ru.instamart.reforged.cloud_payments.page.cloud_payments;
 
 import io.qameta.allure.Step;
-import ru.instamart.reforged.core.page.Page;
+import ru.instamart.reforged.cloud_payments.page.CloudPaymentsPage;
 
-public class DemoCloudPaymentsPage implements Page, DemoCloudPaymentsCheck {
+public class DemoCloudPaymentsPage implements CloudPaymentsPage, DemoCloudPaymentsCheck {
 
-    @Step("Заполнить ответ на вопрос капчи")
+    @Step("Заполнить ответ на вопрос капчи {0}")
     public void fillAnswer(final String data) {
         captchaAnswerInput.fill(data);
     }

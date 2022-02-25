@@ -75,8 +75,8 @@ public class CheckoutPaymentStepTests {
         checkout().setPayment().clickToByCardOnline();
         checkout().setPayment().clickToAddNewPaymentCard();
 
-        checkout().interactEditPaymentCardModal().fillCardData(card);
-        checkout().interactEditPaymentCardModal().clickToSaveModal();
+        checkout().interactAddPaymentCardModal().fillCardData(card);
+        checkout().interactAddPaymentCardModal().clickToSaveModal();
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
@@ -90,10 +90,10 @@ public class CheckoutPaymentStepTests {
 
         company = JuridicalData.juridical();
 
-        shop().goToPage();
-
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForBusiness();
+
+        checkout().waitPageLoad();
         checkout().setDeliveryOptions().clickToAddCompany();
 
         checkout().interactAddCompanyModal().fillCompany(company);
@@ -120,6 +120,8 @@ public class CheckoutPaymentStepTests {
         checkout().setPayment().clickToByCardOnline();
 
         checkout().setPayment().clickToChangePaymentCard(card);
+
+        checkout().interactEditPaymentCardModal().checkModalNotAnimated();
         checkout().interactEditPaymentCardModal().clickToDeleteModal();
         checkout().setPayment().checkSubmitOrderButtonNotClickable();
     }

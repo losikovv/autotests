@@ -56,7 +56,7 @@ public class ContactsStep implements ContactsStepElement {
         changePhone.click();
     }
 
-    @Step("Нажать Изменить у определенного номера телефона")
+    @Step("Нажать Изменить у определенного номера телефона {0}")
     public void clickToChangePhoneWithText(final String phone) {
         changePhoneWithText.click(StringUtil.convertDigitsStringToPhoneNumberWithBrackets(phone));
     }

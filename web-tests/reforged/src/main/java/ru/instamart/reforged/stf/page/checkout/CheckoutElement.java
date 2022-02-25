@@ -8,6 +8,7 @@ import ru.instamart.reforged.core.component.ElementCollection;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
 import ru.instamart.reforged.stf.frame.checkout.subsections.*;
 import ru.instamart.reforged.stf.frame.checkout.subsections.create_company.AddCompany;
+import ru.instamart.reforged.stf.frame.checkout.subsections.add_payment_card.AddPaymentCard;
 import ru.instamart.reforged.stf.frame.checkout.subsections.edit_payment_card.EditPaymentCard;
 import ru.instamart.reforged.stf.frame.checkout.subsections.edit_phone_number.EditPhoneNumber;
 import ru.instamart.reforged.stf.frame.checkout.subsections.loyaltycard_modal.EditLoyaltyCard;
@@ -31,6 +32,7 @@ public interface CheckoutElement {
     SlotStep slot = new SlotStep();
     PaymentStep payment = new PaymentStep();
     EditRequisites requisitesModal = new EditRequisites();
+    AddPaymentCard addPaymentCardModal = new AddPaymentCard();
     EditPaymentCard editPaymentCardModal = new EditPaymentCard();
     EditLoyaltyCard editLoyaltyCardModal = new EditLoyaltyCard();
     EditRetailerCard editRetailerCardModal = new EditRetailerCard();
