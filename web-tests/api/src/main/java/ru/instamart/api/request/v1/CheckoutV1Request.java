@@ -16,6 +16,7 @@ import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.MultiretailerOrderShipmentV1;
+import ru.instamart.api.model.v2.NextDeliveryV2;
 import ru.instamart.api.request.ApiV1RequestBase;
 import ru.instamart.kraken.data.user.UserData;
 import ru.sbermarket.common.Mapper;
@@ -38,13 +39,13 @@ public class CheckoutV1Request extends ApiV1RequestBase {
     }
 
     @Step("{method} /" + ApiV1Endpoints.CHECKOUT)
-    public static Response PUT(MultiretailerOrderShipmentV1 shipment) {
+    public static Response PUT(MultiretailerOrderShipmentV1 shipment, NextDeliveryV2 nextDelivery) {
         JSONObject body = new JSONObject();
         JSONObject order = new JSONObject();
         JSONArray shipmentsAttributes = new JSONArray();
         JSONObject shipmentsAttribute = new JSONObject();
         shipmentsAttribute.put("id", shipment.getId());
-        shipmentsAttribute.put("delivery_window_id", shipment.getNextDeliveries().get(0).getId());
+        shipmentsAttribute.put("delivery_window_id", nextDelivery.getId());
         shipmentsAttribute.put("express_delivery", Objects.nonNull(shipment.getOnDemandEstimate()));
         shipmentsAttributes.add(shipmentsAttribute);
         order.put("shipments_attributes", shipmentsAttributes);
