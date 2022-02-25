@@ -42,13 +42,13 @@ public final class PromotionLimitV2Test extends RestBase {
         apiV2.deleteAllShipments();
         final PromotionLimitV2 promotionLimit = response.as(PromotionLimitV2Response.class).getPromotionLimits().get(0);
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(promotionLimit.getType(), "instacoins_value");
-        softAssert.assertEquals(promotionLimit.getMaxValue(), 0);
-        softAssert.assertEquals(promotionLimit.getStep(), 50);
-        softAssert.assertEquals(promotionLimit.getMaxPaymentPercentage(), 50.0D);
-        softAssert.assertEquals(promotionLimit.getMaxPaymentAmount(), 5000.0D);
-        softAssert.assertEquals(promotionLimit.getDescriptionHtml(), "<center><b>Оплата бонусами</b> не может превышать 50% от общей суммы заказа, и не более 5000&nbsp;₽</center>");
-        softAssert.assertEquals(promotionLimit.getAccountAmount(), 0.0D);
+        softAssert.assertEquals(promotionLimit.getType(), "instacoins_value", "type оплаты бонусами не совпадает с ожидаемым");
+        softAssert.assertEquals(promotionLimit.getMaxValue(), 0, "max_value оплаты бонусами не совпадает с ожидаемым");
+        softAssert.assertEquals(promotionLimit.getStep(), 50, "step оплаты бонусами не совпадает с ожидаемым");
+        softAssert.assertEquals(promotionLimit.getMaxPaymentPercentage(), 50.0D, "max_payment_percentage оплаты бонусами не совпадает с ожидаемым");
+        softAssert.assertEquals(promotionLimit.getMaxPaymentAmount(), 5000.0D, "max_payment_amount оплаты бонусами не совпадает с ожидаемым");
+        softAssert.assertEquals(promotionLimit.getDescriptionHtml(), "<center><b>Оплата бонусами</b> не может превышать 50% от общей суммы заказа, и не более 5000&nbsp;₽</center>", "description_html оплаты бонусами не совпадает с ожидаемым");
+        softAssert.assertEquals(promotionLimit.getAccountAmount(), 0.0D, "account_amount оплаты бонусами не совпадает с ожидаемым");
         softAssert.assertAll();
     }
 

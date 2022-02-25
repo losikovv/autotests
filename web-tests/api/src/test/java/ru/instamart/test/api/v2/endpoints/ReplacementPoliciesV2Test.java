@@ -28,10 +28,10 @@ public class ReplacementPoliciesV2Test extends RestBase {
         checkStatusCode200(response);
         List<ReplacementPolicyV2> replacementPolicies = response.as(ReplacementPoliciesV2Response.class).getReplacementPolicies();
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(replacementPolicies.get(0).getDescription(), REPLACEMENT_1.getDescription());
-        softAssert.assertEquals(replacementPolicies.get(1).getDescription(), REPLACEMENT_2.getDescription());
-        softAssert.assertEquals(replacementPolicies.get(2).getDescription(), REPLACEMENT_3.getDescription());
-        softAssert.assertEquals(replacementPolicies.get(3).getDescription(), REPLACEMENT_4.getDescription());
+        softAssert.assertEquals(replacementPolicies.get(0).getDescription(), REPLACEMENT_1.getDescription(), "Ожидался иной способ замены");
+        softAssert.assertEquals(replacementPolicies.get(1).getDescription(), REPLACEMENT_2.getDescription(), "Ожидался иной способ замены");
+        softAssert.assertEquals(replacementPolicies.get(2).getDescription(), REPLACEMENT_3.getDescription(), "Ожидался иной способ замены");
+        softAssert.assertEquals(replacementPolicies.get(3).getDescription(), REPLACEMENT_4.getDescription(), "Ожидался иной способ замены");
         softAssert.assertAll();
     }
 }
