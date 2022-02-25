@@ -40,7 +40,7 @@ public final class Input extends AbstractComponent {
     }
 
     public void fill(final String data, final Object... args) {
-        setBy(ByKraken.xpath(((ByKraken)getBy()).getDefaultXpathExpression(), args));
+        setBy(ByKraken.xpath(((ByKraken) getBy()).getDefaultXpathExpression(), args));
         fill(data);
     }
 
@@ -57,6 +57,7 @@ public final class Input extends AbstractComponent {
 
     /**
      * Заполнение поле с очисткой и ожиданием, что введенный текст точно совпадает с ожидаемым
+     *
      * @param data - текст который необходимо ввести
      */
     public void fillField(final String data) {
@@ -93,6 +94,11 @@ public final class Input extends AbstractComponent {
     public String getValue() {
         log.debug("Get value");
         return getComponent().getAttribute("value");
+    }
+
+    public String getText() {
+        log.debug("Get text");
+        return getComponent().getText();
     }
 
     public int getNumericValue() {
