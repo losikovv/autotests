@@ -43,7 +43,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
     @CaseId(1145)
     @Test(description = "Получение списка окон доставки для магазина на конкретную дату",
             groups = {"api-instamart-regress"})
-           // dependsOnMethods = "generateDeliveryWindows" enabled = false, //TODO разобраться с новыми ролями у админа
+           // dependsOnMethods = "generateDeliveryWindows") //TODO разобраться с новыми ролями у админа
     public void getDeliveryWindows() {
         final Response response = StoresV1Request.DeliveryWindows.GET(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         checkStatusCode200(response);
