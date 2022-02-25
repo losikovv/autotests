@@ -28,7 +28,8 @@ public class ShoppingContextV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        apiV1.authByPhone(UserManager.getQaUser());
+        user = UserManager.getQaUser();
+        apiV1.authByPhone(user);
     }
 
     @CaseIDs(value = {@CaseId(1554), @CaseId(1555)})
