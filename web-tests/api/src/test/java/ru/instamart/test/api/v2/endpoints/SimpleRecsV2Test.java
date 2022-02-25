@@ -73,6 +73,7 @@ public final class SimpleRecsV2Test extends RestBase {
         checkResponseJsonSchema(response, SimpleRecsV2Response.class);
     }
 
+    @Skip(onServer = Server.PRODUCTION)//баг - https://sbermarket.slack.com/archives/C019EM4EFNK/p1645693894111519
     @CaseId(1921)
     @Story("Упрощенные рекомендации (simple-recs)")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},

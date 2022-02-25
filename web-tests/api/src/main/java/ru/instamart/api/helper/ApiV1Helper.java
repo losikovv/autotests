@@ -10,6 +10,7 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.*;
 import ru.instamart.api.model.v2.AddressV2;
+import ru.instamart.api.model.v2.NextDeliveryV2;
 import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.api.request.v1.*;
 import ru.instamart.api.response.v1.*;
@@ -132,10 +133,15 @@ public class ApiV1Helper {
     }
 
     @Step("Наполняем корзину")
-    public void fillCart(AddressV2 address, String shippingMethod, Long offerId, int count) {
+    public void fillCart(AddressV2 address, String shippingMethod, Long offerId) {
         changeAddress(address, shippingMethod);
         addItemToCart(offerId);
-        changeItemCountInCart(count);
+        MultiretailerOrderShipmentV1 shipment = getMultiRetailerOrder().getShipments().get(0);
+        double minOrderAmount = shipment.getStore().getMinOrderAmount();
+        double price = shipment.getLineItems().get(0).getPrice();
+        if (price < minOrderAmount) {
+            changeItemCountInCart((int) Math.ceil(minOrderAmount / price));
+        }
     }
 
     @Step("Получаем доставку пользователя")
@@ -156,7 +162,8 @@ public class ApiV1Helper {
 
     @Step("Добавляем окно доставки")
     public void addDeliveryWindow() {
-        final Response response = CheckoutV1Request.PUT(currentShipment.get());
+        List<NextDeliveryV2> filteredNextDeliveries = currentShipment.get().getNextDeliveries().stream().filter(d -> d.getId() >= 0).collect(Collectors.toList());
+        final Response response = CheckoutV1Request.PUT(currentShipment.get(), filteredNextDeliveries.get(0));
         checkStatusCode200(response);
     }
 }

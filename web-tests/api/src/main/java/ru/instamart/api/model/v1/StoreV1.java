@@ -134,4 +134,7 @@ public class StoreV1 extends BaseObject {
 
     @JsonSchema(required = true)
     private String uuid;
+
+    @JsonProperty("min_order_amount")
+    private Double minOrderAmount;
 }

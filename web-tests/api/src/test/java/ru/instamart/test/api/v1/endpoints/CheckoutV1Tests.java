@@ -18,6 +18,7 @@ import ru.instamart.api.model.v1.PaymentToolV1;
 import ru.instamart.api.model.v1.ReplacementPolicyV1;
 import ru.instamart.api.model.v1.UserShipmentV1;
 import ru.instamart.api.model.v2.AddressV2;
+import ru.instamart.api.model.v2.NextDeliveryV2;
 import ru.instamart.api.request.v1.CheckoutV1Request;
 import ru.instamart.api.response.v1.CompleteOrderV1Response;
 import ru.instamart.api.response.v1.MultiretailerOrderV1Response;
@@ -25,6 +26,9 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.compareWithUserShipment;
@@ -49,7 +53,7 @@ public class CheckoutV1Tests extends RestBase {
         }
         address = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_SID);
         offerId = apiV2.getProductFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_SID).get(0).getId();
-        apiV1.fillCart(address, ShippingMethodV2.BY_COURIER.getMethod(),offerId, 8);
+        apiV1.fillCart(address, ShippingMethodV2.BY_COURIER.getMethod(),offerId);
     }
 
     @Story("Checkout")
@@ -85,8 +89,10 @@ public class CheckoutV1Tests extends RestBase {
             dependsOnMethods = {"addReplacementPolicies", "addNonExistentReplacementPolicies"})
     public void addNonExistentDeliveryWindow() {
         MultiretailerOrderShipmentV1 shipment = order.getShipments().get(0);
-        shipment.getNextDeliveries().get(0).setId(0);
-        final Response response = CheckoutV1Request.PUT(shipment);
+        List<NextDeliveryV2> filteredNextDeliveries = shipment.getNextDeliveries().stream().filter(d -> d.getId() >= 0).collect(Collectors.toList());
+        NextDeliveryV2 nextDelivery = filteredNextDeliveries.get(0);
+        nextDelivery.setId(0);
+        final Response response = CheckoutV1Request.PUT(shipment, nextDelivery);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, MultiretailerOrderV1Response.class);
         order = response.as(MultiretailerOrderV1Response.class);
@@ -101,14 +107,17 @@ public class CheckoutV1Tests extends RestBase {
             dependsOnMethods = "addNonExistentDeliveryWindow")
     public void addDeliveryWindow() {
         MultiretailerOrderShipmentV1 shipment = order.getShipments().get(0);
-        final Response response = CheckoutV1Request.PUT(shipment);
+        List<NextDeliveryV2> nextDeliveries = shipment.getNextDeliveries();
+        List<NextDeliveryV2> filteredNextDeliveries = shipment.getNextDeliveries().stream().filter(d -> d.getId() >= 0).collect(Collectors.toList());
+        final Response response = CheckoutV1Request.PUT(shipment, filteredNextDeliveries.get(0));
         checkStatusCode200(response);
         checkResponseJsonSchema(response, MultiretailerOrderV1Response.class);
         MultiretailerOrderShipmentV1 shipmentFromResponse = response.as(MultiretailerOrderV1Response.class).getShipments().get(0);
         final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(shipmentFromResponse.getDeliveryWindowId(), (long) shipment.getNextDeliveries().get(0).getId(), softAssert);
-        compareTwoObjects(shipmentFromResponse.getDeliveryWindow().getId(), (long) shipment.getNextDeliveries().get(0).getId(), softAssert);
-        compareTwoObjects(shipmentFromResponse.getDeliveryWindow().getKind(), shipment.getNextDeliveries().get(0).getKind(), softAssert);
+        int windowNumber = nextDeliveries.size() - filteredNextDeliveries.size();
+        compareTwoObjects(shipmentFromResponse.getDeliveryWindowId(), (long) shipment.getNextDeliveries().get(windowNumber).getId(), softAssert);
+        compareTwoObjects(shipmentFromResponse.getDeliveryWindow().getId(), (long) shipment.getNextDeliveries().get(windowNumber).getId(), softAssert);
+        compareTwoObjects(shipmentFromResponse.getDeliveryWindow().getKind(), shipment.getNextDeliveries().get(windowNumber).getKind(), softAssert);
         softAssert.assertAll();
     }
 
@@ -157,7 +166,7 @@ public class CheckoutV1Tests extends RestBase {
             dependsOnMethods = "completeOrderForPerson")
     public void completeOrderForBusiness() {
         UserData user = SessionFactory.getSession(SessionType.API_V1).getUserData();
-        apiV1.fillCart(address, ShippingMethodV2.BY_COURIER.getMethod(),offerId, 8);
+        apiV1.fillCart(address, ShippingMethodV2.BY_COURIER.getMethod(),offerId);
         MultiretailerOrderShipmentV1 shipment = apiV1.addReplacementPolicy();
         apiV1.addDeliveryWindow();
         PaymentToolV1 paymentTool = apiV1.getPaymentTools().get(0);
