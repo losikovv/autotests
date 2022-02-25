@@ -44,6 +44,10 @@ public final class WaitAction {
                 .until(ExpectedConditions.visibilityOfElementLocated(component.getBy(args)));
     }
 
+    public WebElement shouldExist(final Component component) {
+        return createWait(component).until(ExpectedConditions.presenceOfElementLocated(component.getBy()));
+    }
+
     public void shouldNotBeAnimated(final Component component) {
         createWait(component)
                 .until(KrakenCondition.steadinessOfElementLocated(component.getBy()));

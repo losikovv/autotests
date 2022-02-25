@@ -13,6 +13,7 @@ import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.drawer.category_menu.CategoryMenu;
 import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
+import ru.instamart.reforged.stf.frame.order_evaluation_modal.OrderEvaluationModal;
 import ru.instamart.reforged.stf.frame.product_card.ProductCard;
 import ru.instamart.reforged.stf.frame.store_modal.StoreModal;
 
@@ -28,6 +29,7 @@ public interface ShopElement {
     Footer footer = new Footer();
     AuthModal authModal = new AuthModal();
     HelpDesk helpDesk = new HelpDesk();
+    OrderEvaluationModal orderEvaluationModal = new OrderEvaluationModal();
 
     Button openAddress = new Button(By.xpath("//button[@data-qa='select-button']"), "empty");
     Element firstProductCardProd = new Element(By.xpath("//div[@data-qa='catalog_page_taxons_list_taxon_item_0_product_item_0']"), "Карточка первого товара в каталоге на проде");

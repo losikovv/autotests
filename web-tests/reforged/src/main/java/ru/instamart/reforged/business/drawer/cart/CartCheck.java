@@ -45,7 +45,7 @@ public interface CartCheck extends Check, CartElement {
         waitAction().shouldBeVisible(totalVat);
     }
 
-    @Step("Проверяем, что количестов единиц товара равно: {itemCount}")
+    @Step("Проверяем, что количество единиц товара равно: {itemCount}")
     default void checkDisplayedItemCount(final String itemCount) {
         //Максимальное количество товаров при заказе через сайт - 199 шт, при вводе большего значения должно сбрасываться до 199
         Assert.assertEquals(itemCounter.getText(), itemCount, "Количество единиц товара в корзине отличается от ожидаемого");

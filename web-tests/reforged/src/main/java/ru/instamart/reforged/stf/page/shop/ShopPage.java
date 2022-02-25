@@ -12,6 +12,7 @@ import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.drawer.category_menu.CategoryMenu;
 import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
+import ru.instamart.reforged.stf.frame.order_evaluation_modal.OrderEvaluationModal;
 import ru.instamart.reforged.stf.frame.product_card.ProductCard;
 import ru.instamart.reforged.stf.frame.store_modal.StoreModal;
 import ru.instamart.reforged.stf.page.StfPage;
@@ -58,6 +59,10 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     public HelpDesk interactHelpDesk() {
         return helpDesk;
+    }
+
+    public OrderEvaluationModal interactOrderEvaluation() {
+        return orderEvaluationModal;
     }
 
     @Step("Открыть окно ввода адреса доставки")
