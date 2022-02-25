@@ -64,12 +64,6 @@ public class CheckoutPaymentStepTests {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().checkFirstSlotClickable();
-
-        checkout().waitPageLoad();
-        checkout().setSlot().setNextDay();
-
-        checkout().waitPageLoad();
         checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardOnline();
@@ -109,12 +103,6 @@ public class CheckoutPaymentStepTests {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().checkFirstSlotClickable();
-
-        checkout().waitPageLoad();
-        checkout().setSlot().setNextDay();
-
-        checkout().waitPageLoad();
         checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardOnline();

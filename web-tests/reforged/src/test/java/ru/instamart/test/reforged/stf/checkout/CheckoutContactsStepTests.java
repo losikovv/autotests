@@ -68,7 +68,6 @@ public class CheckoutContactsStepTests {
 
         userData.setPhone(Generate.phoneNumber());
 
-        checkout().interactEditPhoneNumberModal().clearPhoneNumber();
         checkout().interactEditPhoneNumberModal().fillPhoneNumber(userData.getPhone());
         checkout().interactEditPhoneNumberModal().clickToSaveModal();
         checkout().interactEditPhoneNumberModal().checkPhoneEditModalClosed();
@@ -77,12 +76,6 @@ public class CheckoutContactsStepTests {
 
         checkout().setReplacementPolicy().clickToSubmit();
 
-        checkout().setSlot().checkFirstSlotClickable();
-
-        checkout().waitPageLoad();
-        checkout().setSlot().setNextDay();
-
-        checkout().waitPageLoad();
         checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardToCourier();
