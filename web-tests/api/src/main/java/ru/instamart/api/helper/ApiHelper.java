@@ -369,7 +369,6 @@ public final class ApiHelper {
 
     @Step("Добавляем новый регион {zoneName} для магазина в админке")
     public OperationalZoneV1 createOperationalZonesInAdmin(String zoneName) {
-        admin.authApi();
         return admin.addOperationalZones(zoneName);
     }
 
@@ -514,7 +513,7 @@ public final class ApiHelper {
         admin.authApi();
         RetailersV1Request.Retailer retailer = RetailersV1Request.getRetailer();
         retailer.setName(retailerName);
-        retailer.setSlug(retailerName);
+        retailer.setSlug(retailerName + "_slug");
         return admin.createRetailer(retailer);
     }
 
@@ -534,11 +533,18 @@ public final class ApiHelper {
     }
 
     @Step("Создаем магазин для ретейлера {retailerName}")
-    public StoresAdminRequest.Store createStoreInAdmin(String retailerName) {
+    public StoresAdminRequest.Store createStoreInAdmin(String retailerName, String city) {
         admin.auth();
-        StoresAdminRequest.Store store = getStoreForRetailerTests(retailerName);
+        StoresAdminRequest.Store store = getStoreForRetailerTests(retailerName, city);
         admin.createStore(store);
         return store;
+    }
+
+    @Step("Настройка города для привязки магазинов")
+    public void setupCity(String city) {
+        admin.auth();
+        createCityInAdmin(city);
+        createOperationalZonesInAdmin(city);
     }
 
     @Step("Настройка магазина для включения в админке")
@@ -565,7 +571,7 @@ public final class ApiHelper {
     }
 
     @Step("Импорт оффера для магазина")
-    public Long importOffersInStore(StoresAdminRequest.Store store) {
+    public void importOffersInStore(StoresAdminRequest.Store store) {
         admin.auth();
         StoresEntity storeFromDb = StoresDao.INSTANCE.getStoreByCoordinates(store.getLat(), store.getLon());
         Integer storeId = storeFromDb.getId();
@@ -585,8 +591,6 @@ public final class ApiHelper {
             count++;
         }
         compareTwoObjects(status, ImportStatusV1.DONE.getValue());
-        OffersEntity offerFromDb = OffersDao.INSTANCE.getOfferByStoreId(storeId);
-        return offerFromDb.getId();
     }
 
     @Step("Импорт зон магазина")

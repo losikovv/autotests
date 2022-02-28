@@ -18,10 +18,13 @@ public interface RetailersPageElements {
     Element retailerInaccessibilityInTable = new Element(ByKraken.xpath("//span[text()='%s']/ancestor::tr//span[text() = 'Недоступен']"), "Недоступность определенного ретейлера в таблице");
     Element retailerAccessibilityInTable = new Element(ByKraken.xpath("//span[text()='%s']/ancestor::tr//span[text() = 'Доступен']"), "Доступность определенного ретейлера в таблице");
     Element retailerPlusIconInTable = new Element(ByKraken.xpath("//span[text()='%s']/ancestor::td/preceding-sibling::td[contains(@class, 'icon')]"), "Кнопка плюс возле конкретного ретейлера");
-    Element firstRetailerPlusIconInTable = new Element(ByKraken.xpath("//td[contains(@class,'expand-icon-cell')]/button[contains(@class, 'row-expand-icon-collapsed')]"), "Кнопка плюс возле первого ретейлера");
-    Element cityPlusIconInTable = new Element(ByKraken.xpath("//span[text()='%s']/preceding-sibling::button[@aria-label='Развернуть строку']"), "Кнопка плюс возле конкретного города");
+    Element firstRetailerPlusIconInTable = new Element(By.xpath("//td[contains(@class,'expand-icon-cell')]/button[contains(@class, 'row-expand-icon-collapsed')]"), "Кнопка плюс возле первого ретейлера");
+
+    Element cityPlusIconInTable = new Element(ByKraken.xpath("//span[contains(text(), '%s')]/preceding-sibling::button[@aria-label='Развернуть строку']"), "Кнопка плюс возле конкретного города");
+    Element firstCityPlusIconInTable = new Element(By.xpath("//tr[@class='ant-table-expanded-row ant-table-expanded-row-level-1']//button[@aria-label='Развернуть строку']"), "Кнопка плюс возле первого города");
 
     Element storeActivateInTable = new Element(ByKraken.xpath("//span[text()='%s']/ancestor::tr[contains(@class,'table-row-level-1')]//button[@aria-label='Активация магазина']"), "Кнопка активации магазина");
+    Element firstStoreActivateInTable = new Element(ByKraken.xpath("//tr[contains(@class,'table-row-level-1')]//button[@aria-label='Активация магазина']"), "Кнопка активации первого магазина");
     Element storeDeactivateInTable = new Element(ByKraken.xpath("//span[text()='%s']/ancestor::tr[contains(@class,'table-row-level-1')]//button[@aria-label='Деактивация магазина']"), "Кнопка деактивации магазина");
     Element storeAccessibilityInTable = new Element(ByKraken.xpath("//span[text()='%s']/ancestor::tr[contains(@class,'table-row-level-1')]//span[text() = 'Доступен']"), "Доступность определенного магазина в таблице");
     Element storeInaccesubilityInTable = new Element(ByKraken.xpath("//span[text()='%s']/ancestor::tr[contains(@class,'table-row-level-1')]//span[text() = 'Недоступен']"), "Недоступность определенного магазина в таблице");
@@ -43,7 +46,8 @@ public interface RetailersPageElements {
     ElementCollection addressesInTable = new ElementCollection(By.xpath("//span[contains(@class,'anticon-right')]/preceding-sibling::span/parent::a"), "Коллекция элементов адресов магазинов");
     Element sortRetailersViaNameInTable = new Element(By.xpath("//span[text()='Название']/ancestor::div[@class='ant-table-column-sorters-with-tooltip']"), "Кнопка сортировки по имени ретейлеров в таблице");
     Element sortRetailersViaCreationDateInTable = new Element(By.xpath("//span[text()='Дата создания']/ancestor::div[@class='ant-table-column-sorters-with-tooltip']"), "Кнопка сортировки по дате создания ретейлеров в таблице");
-    Element addressInTable = new Element(ByKraken.xpath("//a[contains(@href,'stores')]//span[text()='%s ']"), "Коллекция элементов адресов магазинов");
+    Element addressInTableWithText = new Element(ByKraken.xpath("//a[contains(@href,'stores')]//span[text()='%s ']"), "Элемент адреса магазина с определенным текстом");
+    Element addressInTable = new Element(ByKraken.xpath("//a[contains(@href,'stores')]//span[@role='img']/preceding-sibling::span"), "Первый адрес магазина");
 
     Element regionNameInTable = new Element(ByKraken.xpath("//tr[@data-row-key='%s']"), "Название конкретного города в таблице");
     Element sortRetailersViaNameAscInTable = new Element(By.xpath("//span[text()='Название']/ancestor::div[@class='ant-table-column-sorters']//span[contains(@class, 'sorter-up active')]"), "Иконка сортировки по имени ретейлеров в таблице ASC");

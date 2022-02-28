@@ -10,9 +10,24 @@ public final class RetailerPage implements AdminPage, RetailerPageCheck{
         storesInTable.clickOnElementWithText(store);
     }
 
-    @Step("Нажать на адрес магазина {0}")
+    @Step("Нажать на первый магазин")
+    public void clickOnFirstStore() {
+        storesInTable.clickOnFirst();
+    }
+
+    @Step("Нажать на адрес {0}")
     public void clickOnAddress(final String address) {
-        addressesInTable.clickOnElementWithText(address);
+        addressInTableWithText.click(address);
+    }
+
+    @Step("Нажать на первый адрес")
+    public void clickOnFirstAddress() {
+        addressInTable.click();
+    }
+
+    @Step("Вернуть текст первого адреса")
+    public String returnFirstAddressFromTable() {
+        return addressesInTable.getElementText(0);
     }
 
     @Override
