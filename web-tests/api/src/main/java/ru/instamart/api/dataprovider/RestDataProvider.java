@@ -689,7 +689,7 @@ public class RestDataProvider extends RestBase {
                 {NOT_FOUND.name(), null, null},
                 {EMPTY_SEARCH.name(), null, null},
                 {CART.name(), orderNumber, null},
-                {CARD_COMPLEMENTARY.name(), null, "26331"},
+                {CARD_COMPLEMENTARY.name(), null, "12191"},
                 {CARD_SUBSTITUTE.name(), null, "12191"},
         };
     }
