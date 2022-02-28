@@ -13,11 +13,9 @@ public final class Cart implements CartCheck {
         closeButton.click();
     }
 
-    //TODO инпут скрыт, пока не кликнуть - не виден + кракеновский clear() не работает. Удалось работать с ним так
     @Step("Вводим количество единиц товара: {itemCount}")
     public void setItemCount(final String itemCount) {
         itemCounter.click();
-        itemCounterInput.getActions().sendKeys(Keys.BACK_SPACE);
         itemCounterInput.fill(itemCount);
         itemCounterInput.getActions().sendKeys(Keys.ENTER);
     }

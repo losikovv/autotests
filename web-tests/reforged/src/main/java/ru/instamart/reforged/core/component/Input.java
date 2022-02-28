@@ -44,12 +44,25 @@ public final class Input extends AbstractComponent {
         fill(data);
     }
 
+    /**
+     * Очистка может не работать с полями у которых атрибут autocomplete
+     * @param data - заполняемое значение
+     */
     public void fill(final String data) {
-        clear();
+        final var component = getComponent();
+        component.clear();
         log.debug("Fill {} with locator {} and data {}", getDescription(), getBy(), data);
-        getComponent().sendKeys(data);
+        component.sendKeys(data);
     }
 
+    /**
+     * Чаще всего используется там где есть атрибут autocomplete или происходит форматирование введенного текста js'ом
+     * под капотом через ожидания заполняет и сверяет, что введенный текст соответствует,
+     * тому что введено, если ввод оказывается ошибочным, то стирает все в инпуте и пытается заполнить снова
+     * @param data - заполняемое значение
+     * @param isPhone - из-за того что в форме авторизации js форматируется инпут, нужно передавать этот флаг в true,
+     *                для всего остального false
+     */
     public void fillField(final String data, final boolean isPhone) {
         log.debug("Fill with wait and check {} with locator {} and data {}", getDescription(), getBy(), data);
         Kraken.waitAction().fillField(getComponent(), data, isPhone);
