@@ -1,5 +1,6 @@
 package ru.instamart.api.common;
 
+import com.github.viclovsky.swagger.coverage.SwaggerCoverageV3RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.config.RedirectConfig;
@@ -99,6 +100,7 @@ public enum Specification {
                 .setBasePath("api/")
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
+                .addFilter(new SwaggerCoverageV3RestAssured())
                 .build();
 
         apiAdminRequestSpec = new RequestSpecBuilder()
@@ -112,6 +114,7 @@ public enum Specification {
                 .setBasePath("api/")
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
+                .addFilter(new SwaggerCoverageV3RestAssured())
                 .build();
 
         apiV3RequestSpec = new RequestSpecBuilder()
@@ -121,6 +124,7 @@ public enum Specification {
                 .setAccept(ContentType.JSON)
                 .addHeader("Api-Version", "3.0")
                 .addFilter(new AllureRestAssuredCustom())
+                .addFilter(new SwaggerCoverageV3RestAssured())
                 .build();
 
         shopperRequestSpec = new RequestSpecBuilder()

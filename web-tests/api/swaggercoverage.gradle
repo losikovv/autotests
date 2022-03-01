@@ -1,0 +1,49 @@
+ext.swaggerlib = [
+        coverageDownloadUrl: "https://github.com/viclovsky/swagger-coverage/releases/download/$versions.swaggerCoverage/swagger-coverage-${versions.swaggerCoverage}.zip",
+        coverageCommandline: "./.coverage/swagger-coverage-commandline-${versions.swaggerCoverage}/bin/swagger-coverage-commandline",
+        swaggerApiV2DownloadUrl:  "https://gitlab.sbermarket.tech/nstmrt/instamart/-/raw/master/swagger/v2/swagger.json",
+
+        coverageConfiguration: './.coverage/configuration%s.json',
+        coverageOutput: './swagger-coverage-output',
+        coverageSwagger: './.coverage/swaggerApi%s.json',
+        coverageDir: './.coverage'
+]
+
+// TODO: Скачивание выключено. Пока надо редактировать swagger файл
+//task swaggerDownload(type: Download) {
+//    src "${swaggerlib.swaggerApiV2DownloadUrl}"
+//    dest "${swaggerlib.coverageSwagger}"
+//}
+
+task swaggerDownloadCommandline(type: Download) {
+    src "$swaggerlib.coverageDownloadUrl"
+    dest file("$swaggerlib.coverageDir/commandline.zip")
+    doFirst {
+        mkdir file("$swaggerlib.coverageDir")
+    }
+}
+
+task swaggerUnzipCommandline(type: Copy) {
+    dependsOn("swaggerDownloadCommandline")
+    def zipFile = file("$swaggerlib.coverageDir/commandline.zip")
+    from zipTree(zipFile)
+    into file("$swaggerlib.coverageDir")
+}
+
+task apiV1SwaggerCoverageReport(type: Exec) {
+    dependsOn('swaggerUnzipCommandline')
+    commandLine "$swaggerlib.coverageCommandline", "-s", sprintf("$swaggerlib.coverageSwagger","V1"), "-i", "$swaggerlib.coverageOutput", '-c', sprintf("$swaggerlib.coverageConfiguration","V1")
+    workingDir '.'
+}
+
+task apiV2SwaggerCoverageReport(type: Exec) {
+    dependsOn('swaggerUnzipCommandline')
+    commandLine "$swaggerlib.coverageCommandline", "-s",  sprintf("$swaggerlib.coverageSwagger","V2"), "-i", "$swaggerlib.coverageOutput", '-c', sprintf("$swaggerlib.coverageConfiguration","V2")
+    workingDir '.'
+}
+
+task apiV3SwaggerCoverageReport(type: Exec) {
+    dependsOn('swaggerUnzipCommandline')
+    commandLine "$swaggerlib.coverageCommandline", "-s",  sprintf("$swaggerlib.coverageSwagger","V3"), "-i", "$swaggerlib.coverageOutput", '-c', sprintf("$swaggerlib.coverageConfiguration","V3")
+    workingDir '.'
+}
