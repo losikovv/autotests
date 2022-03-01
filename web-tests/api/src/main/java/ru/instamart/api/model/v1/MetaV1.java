@@ -16,7 +16,6 @@ public class MetaV1 extends BaseObject {
 	private Integer currentPage;
 
 	@Null
-	@JsonSchema(required = true)
 	@JsonProperty(value = "next_page")
 	private Integer nextPage;
 
@@ -27,6 +26,7 @@ public class MetaV1 extends BaseObject {
 	@JsonProperty(value = "total_pages")
 	private Integer totalPages;
 
+	@Null
 	@JsonSchema(required = true)
 	@JsonProperty(value = "per_page")
 	private Integer perPage;

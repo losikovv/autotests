@@ -33,7 +33,6 @@ public class RetailerV1 extends BaseObject {
     @JsonProperty("is_alcohol")
     private Boolean isAlcohol;
 
-    @JsonSchema(required = true)
     private String logo;
 
     @JsonSchema(required = true)
@@ -48,6 +47,5 @@ public class RetailerV1 extends BaseObject {
 
     private List<Object> services;
 
-    @JsonSchema(required = true)
     private String slug;
 }

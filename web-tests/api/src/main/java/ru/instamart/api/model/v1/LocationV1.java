@@ -9,21 +9,18 @@ import ru.instamart.api.model.BaseObject;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class OrderPaymentMethodV1 extends BaseObject {
+public class LocationV1 extends BaseObject {
 
     @JsonSchema(required = true)
-    private String description;
+    private String building;
 
     @JsonSchema(required = true)
-    @JsonProperty("display_admin_name")
-    private String displayAdminName;
+    private String city;
 
     @JsonSchema(required = true)
-    private Integer id;
+    @JsonProperty("store_location")
+    private AdminShipmentStoreLocationV1 storeLocation;
 
     @JsonSchema(required = true)
-    private String name;
-
-    @JsonSchema(required = true)
-    private String type;
+    private String street;
 }

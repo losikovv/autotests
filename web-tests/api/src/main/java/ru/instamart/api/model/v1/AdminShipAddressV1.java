@@ -1,4 +1,3 @@
-
 package ru.instamart.api.model.v1;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,23 +6,23 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 
+import javax.validation.constraints.Null;
+
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class OrderPaymentMethodV1 extends BaseObject {
+public class AdminShipAddressV1 extends BaseObject {
 
     @JsonSchema(required = true)
-    private String description;
+    private String city;
 
     @JsonSchema(required = true)
-    @JsonProperty("display_admin_name")
-    private String displayAdminName;
+    private String fullname;
+
+    @Null
+    @JsonSchema(required = true)
+    @JsonProperty("phone_number")
+    private String phoneNumber;
 
     @JsonSchema(required = true)
-    private Integer id;
-
-    @JsonSchema(required = true)
-    private String name;
-
-    @JsonSchema(required = true)
-    private String type;
+    private String address;
 }

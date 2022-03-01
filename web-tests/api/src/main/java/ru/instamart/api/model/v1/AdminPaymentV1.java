@@ -9,21 +9,16 @@ import ru.instamart.api.model.BaseObject;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class OrderPaymentMethodV1 extends BaseObject {
+public class AdminPaymentV1 extends BaseObject {
 
     @JsonSchema(required = true)
-    private String description;
+    private Double amount;
 
     @JsonSchema(required = true)
-    @JsonProperty("display_admin_name")
-    private String displayAdminName;
+    @JsonProperty("hold_acquired")
+    private Boolean holdAcquired;
 
     @JsonSchema(required = true)
-    private Integer id;
-
-    @JsonSchema(required = true)
-    private String name;
-
-    @JsonSchema(required = true)
-    private String type;
+    @JsonProperty("payment_method")
+    private AdminPaymentMethodV1 paymentMethod;
 }
