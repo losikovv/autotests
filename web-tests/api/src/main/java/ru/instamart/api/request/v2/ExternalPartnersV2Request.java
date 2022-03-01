@@ -12,7 +12,8 @@ public final class ExternalPartnersV2Request extends ApiV2RequestBase {
             @Step("{method} /" + ApiV2EndPoints.ExternalPartners.Banners.SBER_PRIME)
             public static Response GET(final String sid) {
                 return givenWithAuth()
-                        .get(ApiV2EndPoints.ExternalPartners.Banners.SBER_PRIME, sid);
+                        .queryParam("store_id", sid)
+                        .get(ApiV2EndPoints.ExternalPartners.Banners.SBER_PRIME);
             }
         }
     }

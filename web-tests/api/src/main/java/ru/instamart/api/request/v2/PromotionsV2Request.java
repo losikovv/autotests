@@ -11,7 +11,8 @@ public final class PromotionsV2Request extends ApiV2RequestBase {
         @Step("{method} /" + ApiV2EndPoints.Promotions.PROMO_PRODUCTS)
         public static Response GET(final int promoId, final int sid) {
             return givenWithSpec()
-                    .get(ApiV2EndPoints.Promotions.PROMO_PRODUCTS, promoId, sid);
+                    .queryParam("sid", sid)
+                    .get(ApiV2EndPoints.Promotions.PROMO_PRODUCTS, promoId);
         }
     }
 

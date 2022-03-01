@@ -2,8 +2,13 @@ package ru.instamart.api.request.v2;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
+import ru.sbermarket.common.Mapper;
+
+import java.util.Map;
+import java.util.Objects;
 
 public final class SearchesV2Request extends ApiV2RequestBase {
 
@@ -13,14 +18,20 @@ public final class SearchesV2Request extends ApiV2RequestBase {
          */
         @Step("{method} /" + ApiV2EndPoints.Searches.SUGGESTIONS)
         public static Response GET(int sid) {
-            return givenWithSpec().get(ApiV2EndPoints.Searches.SUGGESTIONS, sid);
+            return GET(sid, null);
         }
+
         /**
          * Получение поисковых подсказок по слову
          */
-        @Step("{method} /" + ApiV2EndPoints.Searches.Suggestions.BY_QUERY)
+        @Step("{method} /" + ApiV2EndPoints.Searches.SUGGESTIONS)
         public static Response GET(int sid, String query) {
-            return givenWithSpec().get(ApiV2EndPoints.Searches.Suggestions.BY_QUERY, sid, query);
+            final JSONObject jsonObject = new JSONObject();
+            if (Objects.nonNull(sid)) jsonObject.put("sid", sid);
+            if (Objects.nonNull(query)) jsonObject.put("sid", query);
+            return givenWithSpec()
+                    .queryParams(Mapper.INSTANCE.objectToMap(jsonObject))
+                    .get(ApiV2EndPoints.Searches.SUGGESTIONS);
         }
     }
 }

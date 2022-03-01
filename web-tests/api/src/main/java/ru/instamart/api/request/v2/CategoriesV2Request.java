@@ -10,6 +10,7 @@ public final class CategoriesV2Request extends ApiV2RequestBase {
     @Step("{method} /" + ApiV2EndPoints.CATEGORIES)
     public static Response GET(final int sid) {
         return givenWithSpec()
-                .get(ApiV2EndPoints.CATEGORIES, sid);
+                .queryParam("sid", sid)
+                .get(ApiV2EndPoints.CATEGORIES);
     }
 }

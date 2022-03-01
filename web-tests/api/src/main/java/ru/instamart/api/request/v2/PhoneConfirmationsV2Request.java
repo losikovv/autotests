@@ -15,6 +15,7 @@ import ru.instamart.api.request.ApiV2RequestBase;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.sbermarket.common.Mapper;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class PhoneConfirmationsV2Request extends ApiV2RequestBase {
@@ -41,19 +42,21 @@ public class PhoneConfirmationsV2Request extends ApiV2RequestBase {
         return PUT(phoneNumber, phoneConfirmations);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.PhoneConfirmations.PHONE_NUMBER_WITH_PARAM)
-    public static Response PUT(String phoneNumber,
-                               String phoneConfirmationCode,
-                               boolean promoTermsAccepted) {
+    @Step("{method} /" + ApiV2EndPoints.PhoneConfirmations.PHONE_NUMBER)
+    public static Response PUT(final String phoneNumber,
+                               final String phoneConfirmationCode,
+                               final boolean promoTermsAccepted) {
+        final JSONObject jsonObject = new JSONObject();
+        if(Objects.nonNull(phoneConfirmationCode)) jsonObject.put("phone_confirmation_code", phoneConfirmationCode);
+        if(Objects.nonNull(promoTermsAccepted)) jsonObject.put("promo_terms_accepted", promoTermsAccepted);
+
         return givenWithSpec()
-                .put(ApiV2EndPoints.PhoneConfirmations.PHONE_NUMBER_WITH_PARAM,
-                        phoneNumber,
-                        phoneConfirmationCode,
-                        promoTermsAccepted);
+                .queryParams(Mapper.INSTANCE.objectToMap(jsonObject))
+                .put(ApiV2EndPoints.PhoneConfirmations.PHONE_NUMBER, phoneNumber);
     }
 
     @Step("{method} /" + ApiV2EndPoints.PhoneConfirmations.PHONE_NUMBER)
-    public static Response PUT(String phoneNumber, PhoneConfirmations phoneConfirmations) {
+    public static Response PUT(final String phoneNumber, final PhoneConfirmations phoneConfirmations) {
         return givenWithSpec()
                 .formParams(Mapper.INSTANCE.objectToMap(phoneConfirmations))
                 .put(ApiV2EndPoints.PhoneConfirmations.PHONE_NUMBER, phoneNumber);
