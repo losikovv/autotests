@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.ToString;
 import ru.instamart.api.model.BaseObject;
 
+import javax.validation.constraints.Null;
+
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class TenantV1 extends BaseObject {
@@ -55,7 +57,7 @@ public class TenantV1 extends BaseObject {
     @JsonProperty("smart_banner_app_link")
     private String smartBannerAppLink;
 
-    @JsonSchema(required = true)
+    @Null
     @JsonProperty("with_home_page")
     private Boolean withHomePage;
 
