@@ -23,8 +23,6 @@ public class ProfileV2Request extends ApiV2RequestBase {
     @Step("{method} /" + ApiV2EndPoints.PROFILE)
     public static Response PUT(Profile profile){
         return givenWithAuth()
-                .log()
-                .all()
                 .formParams(Mapper.INSTANCE.objectToMap(profile))
                 .put(ApiV2EndPoints.PROFILE);
     }

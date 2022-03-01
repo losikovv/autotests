@@ -19,14 +19,14 @@ public final class FavoritesV2Request extends ApiV2RequestBase {
     public static Response GET(final String sid) {
         return givenWithAuth()
                 .queryParam("sid", sid)
-                .get(ApiV2EndPoints.FavoritesList.ITEMS, sid);
+                .get(ApiV2EndPoints.FavoritesList.ITEMS);
     }
 
     @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS)
     public static Response GET(final int sid) {
         return givenWithAuth()
                 .queryParam("sid", sid)
-                .get(ApiV2EndPoints.FavoritesList.ITEMS, sid);
+                .get(ApiV2EndPoints.FavoritesList.ITEMS);
     }
 
     @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS)

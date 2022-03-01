@@ -14,7 +14,7 @@ public final class TaxonsV2Request extends ApiV2RequestBase {
     public static Response GET(final int sid) {
         return givenWithSpec()
                 .queryParam("sid", sid)
-                .get(ApiV2EndPoints.TAXONS, sid);
+                .get(ApiV2EndPoints.TAXONS);
     }
 
     /**

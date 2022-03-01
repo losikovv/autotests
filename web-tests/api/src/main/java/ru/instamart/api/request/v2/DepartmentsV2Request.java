@@ -16,7 +16,7 @@ public final class DepartmentsV2Request extends ApiV2RequestBase {
         return givenWithSpec()
                 .queryParam("sid", sid)
                 .queryParam("offers_limit", numberOfProductsFromEachDepartment)
-                .get(ApiV2EndPoints.DEPARTMENTS, sid, numberOfProductsFromEachDepartment);
+                .get(ApiV2EndPoints.DEPARTMENTS);
     }
 
     public static final class Id {

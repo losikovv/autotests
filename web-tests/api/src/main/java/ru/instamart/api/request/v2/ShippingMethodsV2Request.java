@@ -14,6 +14,6 @@ public final class ShippingMethodsV2Request extends ApiV2RequestBase {
     public static Response GET(int sid) {
         return givenWithSpec()
                 .queryParam("sid", sid)
-                .get(ApiV2EndPoints.SHIPPING_METHODS, sid);
+                .get(ApiV2EndPoints.SHIPPING_METHODS);
     }
 }
