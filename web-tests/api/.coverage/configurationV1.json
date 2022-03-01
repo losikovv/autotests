@@ -1,0 +1,17 @@
+{
+  "rules": {
+    "status": {
+      "enable": true
+    },
+    "only-declared-status" : {
+      "enable" : true
+    }
+  },
+  "writers": {
+    "html": {
+      "locale": "ru",
+      "filename":"build/reportV1.html",
+      "numberFormat": "0.##"
+    }
+  }
+}

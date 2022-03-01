@@ -5,6 +5,7 @@
 **/allure-results
 **/logs
 **/out
+**/swagger-coverage-output
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -23,3 +24,6 @@ gradle-app.setting
 
 # Ignore key
 **/key_*
+# Ignore swagger coverage temporary files
+**/.coverage/swagger-coverage-commandline-*/
+**/.coverage/commandline.zip

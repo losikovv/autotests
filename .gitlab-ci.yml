@@ -91,6 +91,8 @@ stages:
       - web-tests/api/build/allure-results/
       - web-tests/api/logs/
       - web-tests/api/build/reports/tests/
+      - web-tests/api/swagger-coverage-output
+      - web-tests/api/build/report.html
     expire_in: 1 week
   allow_failure: false
 
