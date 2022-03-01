@@ -2,6 +2,9 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import ru.instamart.api.enums.shopper.ItemStateSHP;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterMethod;
@@ -20,6 +23,7 @@ import ru.instamart.kraken.data.Generate;
 import java.util.UUID;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.kraken.helper.PhoneNumberHelper.getHumanPhoneNumber;
 import static ru.instamart.kraken.helper.UUIDHelper.isValidUUID;
@@ -28,18 +32,25 @@ import static ru.instamart.kraken.helper.UUIDHelper.isValidUUID;
 @Feature("Профиль пользователя")
 public class ProfileV2Test extends RestBase {
 
-    @AfterMethod(alwaysRun = true)
+    @AfterClass(alwaysRun = true)
     public void after(){
         SessionFactory.clearSession(SessionType.API_V2);
+    }
+
+    @BeforeClass(alwaysRun = true)
+    public void before(){
+        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
     }
 
     @CaseId(159)
     @Test(description = "Получение данных профиля пользователя. Запрос с токеном",
             groups = {"api-instamart-smoke"})
     public void getProfile200() {
-        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         final SessionFactory.SessionInfo session = SessionFactory.getSession(SessionType.API_V2);
-        UserV2 user = apiV2.getProfile().getUser();
+        final Response response = ProfileV2Request.GET();
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ProfileV2Response.class);
+        UserV2 user = response.as(ProfileV2Response.class).getUser();
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(user.getCurrentPhone(), getHumanPhoneNumber(session.getUserData().getPhone()),
                 "Current phone не совпадает с введенным");
@@ -53,15 +64,6 @@ public class ProfileV2Test extends RestBase {
         softAssert.assertTrue(user.getConfig().getSendPush(), "send push is not TRUE");
 
         softAssert.assertAll();
-    }
-
-    @CaseId(160)
-    @Test(description = "Получение данных профиля пользователя. Запрос без токена",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
-    public void getProfile401() {
-        final Response response = ProfileV2Request.GET();
-        checkStatusCode401(response);
-        checkError(response, "Ключ доступа невалиден или отсутствует");
     }
 
     @CaseId(150)
@@ -93,7 +95,6 @@ public class ProfileV2Test extends RestBase {
     @Test(description = "Обновление профиля пользователя",
             groups = {"api-instamart-regress"})
     public void putProfile422() {
-        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         final String newEmail = "test###autotestmail.dev";
         final String newFirstName = "!@#$%";
         final String newLastName = "9&%^&%#@&^#@*&^*&@";

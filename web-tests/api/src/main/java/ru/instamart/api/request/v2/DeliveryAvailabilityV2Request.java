@@ -10,6 +10,8 @@ public class DeliveryAvailabilityV2Request extends ApiV2RequestBase {
     @Step("{method} /" + ApiV2EndPoints.DELIVERY_AVAILABILITY)
     public static Response GET(final String lat, final String lon) {
         return givenWithSpec()
+                .queryParam("lat", lat)
+                .queryParam("lon", lon)
                 .get(ApiV2EndPoints.DELIVERY_AVAILABILITY, lat, lon);
     }
 }

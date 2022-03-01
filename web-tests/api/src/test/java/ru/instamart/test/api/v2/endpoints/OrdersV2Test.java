@@ -424,7 +424,7 @@ public class OrdersV2Test extends RestBase {
                                              int deliveryWindowId,
                                              int shipmentMethodId,
                                              String orderNumber) {
-        response = OrdersV2Request.PUT(replacementPolicyId,
+        response = OrdersV2Request. PUT(replacementPolicyId,
                 phoneNumber, instructions, paymentToolId,
                 shipmentId, deliveryWindowId, shipmentMethodId,
                 orderNumber
