@@ -3,6 +3,7 @@ package ru.instamart.test.reforged.business;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
+import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.JuridicalData;
@@ -12,8 +13,7 @@ import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID;
-import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_SID;
+import static ru.instamart.kraken.config.EnvironmentProperties.*;
 import static ru.instamart.reforged.business.page.BusinessRouter.b2cShop;
 import static ru.instamart.reforged.business.page.BusinessRouter.shop;
 
@@ -46,22 +46,17 @@ public final class ShoppingCartTests extends BaseTest {
         var company = JuridicalData.juridical();
         var userData = UserManager.getQaUser();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
-        helper.dropAndFillCart(userData, DEFAULT_METRO_MOSCOW_SID);
+        helper.dropAndFillCartMultiple(
+                userData,
+                RestAddresses.Moscow.defaultAddress(),
+                DEFAULT_METRO_MOSCOW_SID,
+                DEFAULT_AUCHAN_SID);
 
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
-
-        shop().interactHeader().clickToStoreSelector();
-        shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsOpen();
-        shop().interactHeader().interactStoreSelector().clickToSecondStoreCard();
-        shop().interactHeader().checkEnteredAddressIsVisible();
-
-        shop().plusFirstItemToCart();
-        shop().interactHeader().checkCartNotificationIsVisible();
-        shop().interactHeader().checkCartNotificationIsNotVisible();
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
@@ -138,7 +133,6 @@ public final class ShoppingCartTests extends BaseTest {
     @CaseId(730)
     @Test(description = "Перенос мультиритейлерной корзины с B2C на B2B витрину", groups = {"smoke", "regression"})
     public void testTransferCartB2CToB2BMultiply() {
-        var auchanProductLink = "kasha-nestle-bystrov-prebio1-momentalnaya-ovsyanaya-assorti-chernika-klubnika-persik";
         var userData = UserManager.getQaUser();
 
         b2cShop().goToPage();
@@ -156,9 +150,14 @@ public final class ShoppingCartTests extends BaseTest {
 
         b2cShop().plusFirstItemToCart();
         b2cShop().interactHeader().checkCartNotificationIsVisible();
-        b2cShop().openProductCard(ShopUrl.AUCHAN.getUrl(), auchanProductLink);
-        b2cShop().interactProductCard().clickOnBuy();
-        b2cShop().interactProductCard().close();
+        b2cShop().interactHeader().checkCartNotificationIsNotVisible();
+
+        b2cShop().interactHeader().clickToStoreSelector();
+        b2cShop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsOpen();
+        b2cShop().interactHeader().interactStoreSelector().clickToSecondStoreCard();
+        b2cShop().interactHeader().checkEnteredAddressIsVisible();
+
+        b2cShop().plusFirstItemToCart();
         b2cShop().interactHeader().checkCartNotificationIsVisible();
         b2cShop().interactHeader().checkCartNotificationIsNotVisible();
 
