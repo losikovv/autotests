@@ -13,9 +13,9 @@ import ru.instamart.api.enums.v2.AuthProviderV2;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.helper.ApiV1Helper;
 import ru.instamart.api.model.v1.OfferV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
+import ru.instamart.api.model.v1.OrderPaymentMethodV1;
 import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.StoresAdminRequest;
@@ -41,7 +41,10 @@ import java.util.stream.Collectors;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.common.RestAddresses.Moscow;
 import static ru.instamart.api.common.RestAddresses.getDefaultAllAddress;
+import static ru.instamart.api.enums.v1.CombinedStateV1.SHIPMENT_PENDING;
+import static ru.instamart.api.enums.v1.CombinedStateV1.SHIPMENT_READY;
 import static ru.instamart.api.enums.v1.FiltersFilesModeV1.*;
+import static ru.instamart.api.enums.v1.PaymentStatusV1.*;
 import static ru.instamart.api.enums.v2.RecsPlaceV2.*;
 import static ru.instamart.kraken.helper.LegalEntityHelper.*;
 
@@ -1146,6 +1149,25 @@ public class RestDataProvider extends RestBase {
         };
     }
 
+    @DataProvider(name = "shipmentStatuses")
+    public static Object[][] getShipmentStatuses() {
+        return new Object[][]{
+                {SHIPMENT_READY},
+                {SHIPMENT_PENDING}
+        };
+    }
+
+    @DataProvider(name = "paymentStatuses")
+    public static Object[][] getPaymentStatuses() {
+        return new Object[][]{
+                {PAID},
+                {NOT_PAID},
+                {BALANCE_DUE},
+                {OVERPAID},
+                {FAILED}
+        };
+    }
+
     @DataProvider(name = "replacementPolicies")
     public static Object[][] getReplacementPolicies() {
         return apiV1.getReplacementPolicies().stream()
@@ -1168,6 +1190,16 @@ public class RestDataProvider extends RestBase {
                         .build()}
         };
     }
+
+    @DataProvider(name = "paymentTools")
+    public static Object[][] getPaymentTools() {
+        List<OrderPaymentMethodV1> paymentMethods = new ArrayList<>();
+        apiV1.getPaymentTools().forEach(tool ->  paymentMethods.add(tool.getPaymentMethod()));
+        return  paymentMethods.stream()
+                .map(list -> new Object[]{list})
+                .toArray(Object[][]::new);
+    }
+
 
     @DataProvider(name = "postCompanyDocuments")
     public static Object[][] postCompanyDocuments() {

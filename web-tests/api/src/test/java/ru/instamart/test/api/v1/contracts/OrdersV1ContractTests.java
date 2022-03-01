@@ -93,10 +93,12 @@ public class OrdersV1ContractTests extends RestBase {
 
     @Story("Заказы")
     @CaseId(118)
-    @Test(description = "Контрактный тест списка лайн айтемов в шимпенте",
+    @Test(description = "Контрактный тест списка лайн айтемов в шимпенте по его номеру",
             groups = {"api-instamart-regress", "api-instamart-prod"})
-    public void getLineItems() {
-        final Response response = LineItemsV1Request.GET(shipmentNumber);
+    public void getLineItemsByShipmentNumber() {
+        final Response response = LineItemsV1Request.GET(LineItemsV1Request.Number.builder()
+                .shipmentNumber(shipmentNumber)
+                .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, LineItemsV1Response.class);
         productSku = response.as(LineItemsV1Response.class)
@@ -107,10 +109,22 @@ public class OrdersV1ContractTests extends RestBase {
     }
 
     @Story("Заказы")
+    @CaseId(2073)
+    @Test(description = "Контрактный тест списка лайн айтемов в шимпенте по номеру заказа",
+            groups = {"api-instamart-regress"})
+    public void getLineItemsByOrderNumber() {
+        final Response response = LineItemsV1Request.GET(LineItemsV1Request.Number.builder()
+                .orderNumber(orderNumber)
+                .build());
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, LineItemsV1Response.class);
+    }
+
+    @Story("Заказы")
     @CaseId(119)
     @Test(description = "Контрактный тест списка предзамен для товара из шипмента",
             groups = "api-instamart-regress",
-            dependsOnMethods = "getLineItems")
+            dependsOnMethods = "getLineItemsByShipmentNumber")
     public void getShipmentProductsPrereplacements() {
         final Response response = ShipmentsV1Request.Products.Prereplacements.GET(shipmentNumber, Long.parseLong(productSku));
         checkStatusCode200(response);

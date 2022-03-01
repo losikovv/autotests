@@ -30,4 +30,19 @@ public class ApiClientsDao extends AbstractDao<Long, ApiClientsEntity> {
         }
         return token;
     }
+
+    public Long getClientIdByName(String clientName) {
+        Long id = null;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "id") + " WHERE client_id = ?")) {
+            preparedStatement.setString(1, clientName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()) {
+                id = resultSet.getLong("id");
+            } else return null;
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return id;
+    }
 }

@@ -7,23 +7,19 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 
+import javax.validation.constraints.Null;
+
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class OrderPaymentMethodV1 extends BaseObject {
+public class RecentPaymentV1 extends BaseObject {
 
+    @Null
     @JsonSchema(required = true)
-    private String description;
+    @JsonProperty("hold_acquired")
+    private Boolean holdAcquired;
 
+    @Null
     @JsonSchema(required = true)
-    @JsonProperty("display_admin_name")
-    private String displayAdminName;
-
-    @JsonSchema(required = true)
-    private Integer id;
-
-    @JsonSchema(required = true)
-    private String name;
-
-    @JsonSchema(required = true)
-    private String type;
+    @JsonProperty("method_name")
+    private String methodName;
 }

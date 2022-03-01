@@ -3,27 +3,22 @@ package ru.instamart.api.model.v1;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
+import com.google.gson.annotations.Expose;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class OrderPaymentMethodV1 extends BaseObject {
+public class AdminShipmentStoreV1 extends BaseObject {
+
+    @Expose
+    private LocationV1 location;
 
     @JsonSchema(required = true)
-    private String description;
+    @JsonProperty("time_zone")
+    private String timeZone;
 
     @JsonSchema(required = true)
-    @JsonProperty("display_admin_name")
-    private String displayAdminName;
-
-    @JsonSchema(required = true)
-    private Integer id;
-
-    @JsonSchema(required = true)
-    private String name;
-
-    @JsonSchema(required = true)
-    private String type;
+    private String uuid;
 }

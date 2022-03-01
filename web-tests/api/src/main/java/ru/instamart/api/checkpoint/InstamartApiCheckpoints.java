@@ -329,7 +329,7 @@ public class InstamartApiCheckpoints {
     public static void compareWithUserShipment(UserShipmentV1 userShipment, UserData user, PaymentToolV1 paymentTool, CompleteOrderV1Response completedOrder) {
         final SoftAssert nextSoftAssert = new SoftAssert();
         compareTwoObjects(userShipment.getState(), StateV2.READY.getValue(), nextSoftAssert);
-        compareTwoObjects(userShipment.getPaymentMethod().getId(), paymentTool.getPaymentMethod().getId(), nextSoftAssert);
+        compareTwoObjects(userShipment.getPaymentMethod().getId(), (long) paymentTool.getPaymentMethod().getId(), nextSoftAssert);
         compareTwoObjects(userShipment.getEmail(), user.getEmail(), nextSoftAssert);
         nextSoftAssert.assertAll();
     }
