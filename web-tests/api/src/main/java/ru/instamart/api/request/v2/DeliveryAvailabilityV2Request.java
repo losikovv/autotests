@@ -12,6 +12,6 @@ public class DeliveryAvailabilityV2Request extends ApiV2RequestBase {
         return givenWithSpec()
                 .queryParam("lat", lat)
                 .queryParam("lon", lon)
-                .get(ApiV2EndPoints.DELIVERY_AVAILABILITY, lat, lon);
+                .get(ApiV2EndPoints.DELIVERY_AVAILABILITY);
     }
 }

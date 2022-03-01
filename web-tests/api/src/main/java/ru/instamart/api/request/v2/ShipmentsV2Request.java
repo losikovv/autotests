@@ -110,7 +110,7 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
             }
             return givenWithAuth()
                     .queryParams(Mapper.INSTANCE.objectToMap(query))
-                    .get(ApiV2EndPoints.Shipments.SHIPPING_RATES, shipmentNumber, date);
+                    .get(ApiV2EndPoints.Shipments.SHIPPING_RATES, shipmentNumber);
         }
     }
 

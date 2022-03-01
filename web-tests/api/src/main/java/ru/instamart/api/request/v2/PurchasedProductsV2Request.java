@@ -11,6 +11,6 @@ public final class PurchasedProductsV2Request extends ApiV2RequestBase {
     public static Response GET(final String token, final int sid) {
         return givenCustomToken(token)
                 .queryParam("sid", sid)
-                .get(ApiV2EndPoints.PURCHASED_PRODUCTS, sid);
+                .get(ApiV2EndPoints.PURCHASED_PRODUCTS);
     }
 }
