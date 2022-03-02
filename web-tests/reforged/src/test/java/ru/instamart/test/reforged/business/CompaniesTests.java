@@ -202,6 +202,28 @@ public class CompaniesTests extends BaseTest {
         companyInfoPage().checkManagerInfoContainsText(managerData.getEmail());
     }
 
+    @CaseId(754)
+    @Test(description = "Отображение  блока 'менеджер' в кабинете компании (B2C-витрина)", groups = {"smoke", "regression"})
+    public void testCompanyManagerInfoB2C() {
+        var userData = UserManager.getQaUser();
+        var managerData = UserManager.getQaUser();
+        var company = JuridicalData.juridical();
+        helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
+        helper.addManagerForCompany(company.getInn(), managerData);
+
+        b2cShop().goToPageFromTenant();
+        b2cShop().interactHeader().clickToLogin();
+        b2cShop().interactAuthModal().authViaPhone(userData);
+        b2cShop().interactHeader().checkProfileButtonVisible();
+
+        b2cCompanies().goToPageFromTenant();
+        b2cCompanies().checkCompaniesListIsNotEmpty();
+        b2cCompanies().clickOnFirstCompanyName();
+        b2cCompanyInfo().checkCompanyInfoIsVisible();
+        b2cCompanyInfo().checkManagerInfoDisplayed();
+        b2cCompanyInfo().checkManagerInfoContainsText(managerData.getEmail());
+    }
+
     @CaseId(38)
     @Test(description = "Переход в профиль компании", groups = {"smoke", "regression"})
     public void testCompanyInfo() {
@@ -219,6 +241,25 @@ public class CompaniesTests extends BaseTest {
         companies().clickOnFirstCompanyName();
         companyInfoPage().checkCompanyInfoIsVisible();
         companyInfoPage().checkCompanyInfoContainsText(company.getJuridicalName());
+    }
+
+    @CaseId(755)
+    @Test(description = "Переход в профиль компании (B2C-витрина)", groups = {"smoke", "regression"})
+    public void testCompanyInfoB2C() {
+        var company = JuridicalData.juridical();
+        var userData = UserManager.getQaUser();
+        helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
+
+        b2cShop().goToPageFromTenant();
+        b2cShop().interactHeader().clickToLogin();
+        b2cShop().interactAuthModal().authViaPhone(userData);
+        b2cShop().interactHeader().checkProfileButtonVisible();
+
+        b2cCompanies().goToPageFromTenant();
+        b2cCompanies().checkCompaniesListIsNotEmpty();
+        b2cCompanies().clickOnFirstCompanyName();
+        b2cCompanyInfo().checkCompanyInfoIsVisible();
+        b2cCompanyInfo().checkCompanyInfoContainsText(company.getJuridicalName());
     }
 
     @CaseId(39)
@@ -264,6 +305,51 @@ public class CompaniesTests extends BaseTest {
         companyInfoPage().checkPaymentAccountUpdateInfoDisplayed();
         companyInfoPage().hoverAccountAmountAdditionalInfo();
         companyInfoPage().checkPaymentAccountWarningDisplayed();
+    }
+
+    @CaseId(756)
+    @Test(description = "Кнопка 'обновления баланса' и 'подсказка' (B2C-витрина)", groups = {"smoke", "regression"})
+    public void testCompanyBalanceB2C() {
+        var company = JuridicalData.juridical();
+        var userData = UserManager.getQaUser();
+        helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
+        var companyId = helper.getCompanyId(company.getInn());
+
+        b2cShop().goToPageFromTenant();
+        b2cShop().interactHeader().clickToLogin();
+        b2cShop().interactAuthModal().authViaPhone(userData);
+        b2cShop().interactHeader().checkProfileButtonVisible();
+
+        b2cCompanies().goToPageFromTenant();
+        b2cCompanies().checkCompaniesListIsNotEmpty();
+        b2cCompanies().clickOnFirstCompanyName();
+        b2cCompanyInfo().checkCompanyInfoIsVisible();
+
+        b2cCompanyInfo().checkPaymentAccountAmountContainsText("нет данных");
+        b2cCompanyInfo().hoverAccountAmountAdditionalInfo();
+        b2cCompanyInfo().checkPaymentAccountWarningDisplayed();
+        b2cCompanyInfo().clickAccountAmountRefreshButton();
+        b2cCompanyInfo().interactHeader().checkErrorAlertDisplayed();
+
+        helper.addPaymentAccountForCompany(companyId, 1000);
+        b2cCompanyInfo().refresh();
+        b2cCompanyInfo().checkCompanyInfoIsVisible();
+
+        b2cCompanyInfo().checkPaymentAccountAmountContainsText("1 000,00 ₽");
+        b2cCompanyInfo().hoverAccountAmountRefreshButton();
+        b2cCompanyInfo().checkPaymentAccountUpdateInfoDisplayed();
+        b2cCompanyInfo().hoverAccountAmountAdditionalInfo();
+        b2cCompanyInfo().checkPaymentAccountWarningDisplayed();
+
+        helper.setPaymentAccountBalance(companyId, -1000);
+        b2cCompanyInfo().refresh();
+        b2cCompanyInfo().checkCompanyInfoIsVisible();
+
+        b2cCompanyInfo().checkPaymentAccountAmountContainsText("-1 000,00 ₽");
+        b2cCompanyInfo().hoverAccountAmountRefreshButton();
+        b2cCompanyInfo().checkPaymentAccountUpdateInfoDisplayed();
+        b2cCompanyInfo().hoverAccountAmountAdditionalInfo();
+        b2cCompanyInfo().checkPaymentAccountWarningDisplayed();
     }
 
     @CaseId(42)

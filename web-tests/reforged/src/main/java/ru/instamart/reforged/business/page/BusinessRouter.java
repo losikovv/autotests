@@ -9,6 +9,7 @@ import ru.instamart.reforged.business.page.user.profile.B2BUserProfilePage;
 import ru.instamart.reforged.core.page.Router;
 import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.reforged.stf.page.user.companies.UserCompaniesPage;
+import ru.instamart.reforged.stf.page.user.companies.companyInfo.CompanyInfoPage;
 import ru.instamart.reforged.stf.page.user.profile.UserProfilePage;
 
 public class BusinessRouter extends Router {
@@ -47,6 +48,10 @@ public class BusinessRouter extends Router {
 
     public static UserProfilePage b2cUserEdit() {
         return (UserProfilePage) getPage(UserProfilePage.class);
+    }
+
+    public static CompanyInfoPage b2cCompanyInfo() {
+        return (CompanyInfoPage) getPage(CompanyInfoPage.class);
     }
 
     private BusinessRouter() {

@@ -226,4 +226,9 @@ public interface HeaderCheck extends Check, HeaderElement {
     default void checkEnteredAddressNotVisible() {
         waitAction().shouldNotBeVisible(enteredAddress);
     }
+
+    @Step("Проверяем, что отображается сообщение об ошибке")
+    default void checkErrorAlertDisplayed() {
+        waitAction().shouldBeVisible(alert);
+    }
 }
