@@ -24,6 +24,7 @@ import ru.instamart.kraken.data.Generate;
 import java.time.LocalDateTime;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.fail;
 import static product_hub_back.ProductHubBackOuterClass.*;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -373,6 +374,7 @@ public class ProductHubBackTest extends GrpcBase {
             ThreadUtil.simplyAwait(1);
             count++;
         }
+        if (responseForCheck.getStocksCount() == 0) fail("Не возвращаются данные о продукте");
 
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(responseForCheck.getStocks(0).getSku(), request.getStocks(0).getSku(), "SKU не совпадают");
@@ -480,6 +482,7 @@ public class ProductHubBackTest extends GrpcBase {
             ThreadUtil.simplyAwait(1);
             count++;
         }
+        if (responseForCheck.getPricesCount() == 0) fail("Не возвращаются данные о продукте");
 
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(responseForCheck.getPrices(0).getSku(), request.getPrices(0).getSku(), "SKU не совпадают");

@@ -224,7 +224,7 @@ public class ProductHubFrontDataTest extends GrpcBase {
 
     @Story("Продукты c офферами")
     @CaseId(216)
-    @Test(description = "Получение продуктов с офферами по id оффера",
+    @Test(description = "Получение продуктов с офферами по id оффера", enabled = false, //todo использовать продукт с оффером
             groups = {"grpc-product-hub"})
     public void getProductsWithOfferByOfferId() {
         var request = ProductHubFrontDataOuterClass

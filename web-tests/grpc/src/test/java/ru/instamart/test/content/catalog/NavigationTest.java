@@ -21,6 +21,7 @@ import static org.testng.Assert.assertTrue;
 @Slf4j
 public class NavigationTest extends GrpcBase {
     private NavigationServiceGrpc.NavigationServiceBlockingStub client;
+    private Navigation.MenuCategory category;
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
@@ -29,7 +30,7 @@ public class NavigationTest extends GrpcBase {
     }
 
     @CaseId(150)
-    @Test(groups = {"grpc-product-hub"}, enabled = false, //ждет обновления от Дмитрия Дьячкова после изменения логики
+    @Test(groups = {"grpc-product-hub"},
             description = "Проверка построения дерева продуктов")
     public void getMenuTree() {
         var request = Navigation.GetMenuTreeRequest
@@ -43,7 +44,7 @@ public class NavigationTest extends GrpcBase {
 
         assertTrue(response.getCategoriesCount() > 0, "Вернулся пустой массив категорий");
 
-        var categories = response.getCategoriesList();
+        category = response.getCategories(0);
     }
 
 
@@ -63,16 +64,16 @@ public class NavigationTest extends GrpcBase {
 
     @CaseId(152)
     @Test(groups = {"grpc-product-hub"},
-            description = "Получение хлебных крошек по ID категории")
+            description = "Получение хлебных крошек по ID категории",
+            dependsOnMethods = "getMenuTree")
     public void getBreadcrumbsCategoryID() {
         var request = Navigation.GetBreadcrumbsByCategoryIDRequest.newBuilder()
-                .setCategoryId("131")
+                .setCategoryId(category.getId())
                 .build();
         var response = client.getBreadcrumbsByCategoryID(request);
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(response.getBreadcrumbs(0).getId(), "131", "Категория отличается");
-        softAssert.assertEquals(response.getBreadcrumbs(0).getName(), "Вода, соки, напитки", "Наименование категории не совпадает");
-        softAssert.assertEquals(response.getBreadcrumbs(0).getPermalink(), "voda-soki-napitki-new", "Permalink не совпадает");
+        softAssert.assertEquals(response.getBreadcrumbs(0).getId(), category.getId(), "Категория отличается");
+        softAssert.assertEquals(response.getBreadcrumbs(0).getName(), category.getName(), "Наименование категории не совпадает");
         softAssert.assertAll();
     }
 
@@ -91,16 +92,16 @@ public class NavigationTest extends GrpcBase {
 
     @CaseId(154)
     @Test(groups = {"grpc-product-hub"},
-            description = "Проверка построения дерева категорий")
+            description = "Проверка построения дерева категорий",
+            dependsOnMethods = "getMenuTree")
     public void getCategoryTree() {
         var request = Navigation.GetCategoryTreesRequest.newBuilder()
-                .setCategoryId("131")
+                .setCategoryId(category.getId())
                 .build();
         var response = client.getCategoryTrees(request);
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(response.getCategories(0).getId(), "131", "Категория отличается");
-        softAssert.assertEquals(response.getCategories(0).getName(), "Вода, соки, напитки", "Наименование категории не совпадает");
-        softAssert.assertEquals(response.getCategories(0).getStatus(), Navigation.Status.ENABLE, "status не совпадает");
+        softAssert.assertEquals(response.getCategories(0).getId(), category.getId(), "Категория отличается");
+        softAssert.assertEquals(response.getCategories(0).getName(), category.getName(), "Наименование категории не совпадает");
         softAssert.assertTrue(response.getCategories(0).getChildrenList().size() > 0, "Children null");
         softAssert.assertAll();
     }

@@ -247,7 +247,7 @@ public class ShopperAppApiHelper {
             simplyAwait(10);
         } while (filterCollect.size() > 0 || i > retryCount);
         if (filterCollect.size() == 0) {
-            System.out.println("count: " + filterCollect.size());
+            log.debug("count: " + filterCollect.size());
             throw new SkipException("Оформленный заказ не пришел на шопер");
         }
     }
