@@ -1,6 +1,5 @@
 package ru.instamart.reforged.business.page;
 
-import ru.instamart.reforged.business.page.b2c.StfShopPage;
 import ru.instamart.reforged.business.page.checkout.CheckoutPage;
 import ru.instamart.reforged.business.page.home.BusinessHomePage;
 import ru.instamart.reforged.business.page.shop.ShopPage;
@@ -35,8 +34,16 @@ public class BusinessRouter extends Router {
         return (UserProfilePage) getPage(UserProfilePage.class);
     }
 
-    public static StfShopPage b2cShop() {
-        return (StfShopPage) getPage(StfShopPage.class);
+    public static ru.instamart.reforged.stf.page.shop.ShopPage b2cShop() {
+        return (ru.instamart.reforged.stf.page.shop.ShopPage) getPage(ru.instamart.reforged.stf.page.shop.ShopPage.class);
+    }
+
+    public static ru.instamart.reforged.stf.page.user.companies.UserCompaniesPage b2cCompanies() {
+        return (ru.instamart.reforged.stf.page.user.companies.UserCompaniesPage) getPage(ru.instamart.reforged.stf.page.user.companies.UserCompaniesPage.class);
+    }
+
+    public static ru.instamart.reforged.stf.page.user.profile.UserProfilePage b2cUserEdit() {
+        return (ru.instamart.reforged.stf.page.user.profile.UserProfilePage) getPage(ru.instamart.reforged.stf.page.user.profile.UserProfilePage.class);
     }
 
     private BusinessRouter() {

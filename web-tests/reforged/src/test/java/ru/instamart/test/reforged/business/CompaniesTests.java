@@ -32,9 +32,28 @@ public class CompaniesTests extends BaseTest {
         business().interactHeader().interactAccountMenu().checkAccountMenuVisible();
         business().interactHeader().interactAccountMenu().clickToCompanies();
 
-        companies().checkCompaniesListIsNotEmpty();
+        companies().checkCompaniesListIsEmpty();
         companies().checkProfileButtonVisible();
         companies().checkAddCompanyButtonVisible();
+    }
+
+    @CaseId(750)
+    @Test(description = "Переход в раздел 'Компании' (B2C-витрина)", groups = {"smoke", "regression"})
+    public void gotoCompaniesFromHeaderB2C() {
+        var user = UserManager.getQaUser();
+
+        b2cShop().goToPageFromTenant();
+        b2cShop().interactHeader().clickToLogin();
+        b2cShop().interactAuthModal().authViaPhone(user);
+        b2cShop().interactHeader().checkProfileButtonVisible();
+
+        b2cShop().interactHeader().clickToProfile();
+        b2cShop().interactHeader().interactAccountMenu().checkAccountMenuVisible();
+        b2cShop().interactHeader().interactAccountMenu().clickToCompanies();
+
+        b2cCompanies().checkCompaniesListIsEmpty();
+        b2cCompanies().checkProfileButtonVisible();
+        b2cCompanies().checkAddCompanyButtonVisible();
     }
 
     @CaseId(22)
@@ -55,6 +74,26 @@ public class CompaniesTests extends BaseTest {
         companies().clickProfile();
 
         userEdit().checkUserInfoBlockVisible();
+    }
+
+    @CaseId(751)
+    @Test(description = "Переход в профиль из раздела 'Компании' (B2C-витрина)", groups = {"smoke", "regression"})
+    public void gotoProfileFromCompaniesB2C() {
+        var user = UserManager.getQaUser();
+
+        b2cShop().goToPageFromTenant();
+        b2cShop().interactHeader().clickToLogin();
+        b2cShop().interactAuthModal().authViaPhone(user);
+        b2cShop().interactHeader().checkProfileButtonVisible();
+
+        b2cShop().interactHeader().clickToProfile();
+        b2cShop().interactHeader().interactAccountMenu().checkAccountMenuVisible();
+        b2cShop().interactHeader().interactAccountMenu().clickToCompanies();
+
+        b2cCompanies().checkProfileButtonVisible();
+        b2cCompanies().clickProfile();
+
+        b2cUserEdit().checkUserInfoBlockVisible();
     }
 
     @CaseId(23)
@@ -83,6 +122,37 @@ public class CompaniesTests extends BaseTest {
         companies().checkCompaniesListIsNotEmpty();
         companies().checkCompaniesCount(1);
         companies().checkCompaniesListContains(company.getJuridicalName());
+    }
+
+    @CaseId(752)
+    @Test(description = "Добавление новой компании из раздела 'Компании' / ввод корректного ИНН  (B2C-витрина)", groups = {"smoke", "regression"})
+    public void addCompanyFromCompaniesPagePositiveB2C() {
+        var company = JuridicalData.juridical();
+        var user = UserManager.getQaUser();
+
+        b2cShop().goToPageFromTenant();
+        b2cShop().interactHeader().clickToLogin();
+        b2cShop().interactAuthModal().authViaPhone(user);
+        b2cShop().interactHeader().checkProfileButtonVisible();
+
+        b2cShop().interactHeader().clickToProfile();
+        b2cShop().interactHeader().interactAccountMenu().checkAccountMenuVisible();
+        b2cShop().interactHeader().interactAccountMenu().clickToCompanies();
+
+        b2cCompanies().checkCompaniesListIsEmpty();
+
+        b2cCompanies().clickAddCompany();
+        b2cCompanies().interactAddCompany().checkAddCompanyModalVisible();
+        b2cCompanies().interactAddCompany().fillInn(company.getInn());
+        b2cCompanies().interactAddCompany().clickAddCompany();
+        b2cCompanies().interactAddCompany().fillName(company.getJuridicalName());
+        b2cCompanies().interactAddCompany().clickAddCompany();
+        b2cCompanies().interactAddCompany().checkAddCompanyModalNotVisible();
+
+        b2cCompanies().goToPageFromTenant();
+        b2cCompanies().checkCompaniesListIsNotEmpty();
+        b2cCompanies().checkCompaniesCount(1);
+        b2cCompanies().checkCompaniesListContains(company.getJuridicalName());
     }
 
     @CaseId(43)
