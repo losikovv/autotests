@@ -1,5 +1,6 @@
 package ru.instamart.test.content.catalog;
 
+import catalog.Catalog;
 import catalog_api_v2.CatalogAPIV2ServiceGrpc;
 import catalog_api_v2.CatalogApiV2;
 import io.grpc.StatusRuntimeException;
@@ -16,6 +17,7 @@ import ru.instamart.grpc.data_provider.GrpcDataProvider;
 import ru.instamart.jdbc.dao.OffersDao;
 import ru.instamart.jdbc.entity.OffersEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.enums.Tenant;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -24,11 +26,15 @@ import ru.sbermarket.qase.annotation.CaseId;
 @Feature("Catalog Api V2")
 public class CatalogApiV2Test extends GrpcBase {
     private CatalogAPIV2ServiceGrpc.CatalogAPIV2ServiceBlockingStub client;
+    private final String sid = "57";
+    private String tid;
 
     @BeforeClass(alwaysRun = true)
     public void createClient() {
         channel = grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_CATALOG);
         client = CatalogAPIV2ServiceGrpc.newBlockingStub(channel);
+
+        tid = grpc.getCategories(sid, Tenant.SBERMARKET.getId()).get(0).getOriginalCategoryId();
     }
 
     @Story("Продукты")
@@ -40,7 +46,7 @@ public class CatalogApiV2Test extends GrpcBase {
         var request = CatalogApiV2
                 .GetProductRequest.newBuilder()
                 .setProductId(offer.getId().toString())
-                .setTenantId("sbermarket")
+                .setTenantId(Tenant.SBERMARKET.getId())
                 .build();
 
         var response = client.getProduct(request);
@@ -60,7 +66,7 @@ public class CatalogApiV2Test extends GrpcBase {
     public void getProductWithoutProductId() {
         var request = CatalogApiV2
                 .GetProductRequest.newBuilder()
-                .setTenantId("sbermarket")
+                .setTenantId(Tenant.SBERMARKET.getId())
                 .build();
 
         client.getProduct(request);
@@ -96,7 +102,7 @@ public class CatalogApiV2Test extends GrpcBase {
     public void getProductWitEmptyProductId() {
         var request = CatalogApiV2
                 .GetProductRequest.newBuilder()
-                .setTenantId("sbermarket")
+                .setTenantId(Tenant.SBERMARKET.getId())
                 .setProductId("")
                 .build();
 
@@ -148,11 +154,11 @@ public class CatalogApiV2Test extends GrpcBase {
         var request = CatalogApiV2
                 .GetProductListRequest.newBuilder()
                 .setSid("")
-                .setTid("22238")
+                .setTid(tid)
                 .setPage(1)
                 .setPage(24)
-                .setSort("0")
-                .setTenantId("sbermarket")
+                .setSort(Catalog.Sort.POPULARITY.name())
+                .setTenantId(Tenant.SBERMARKET.getId())
                 .build();
 
         client.getProductList(request);
@@ -165,12 +171,12 @@ public class CatalogApiV2Test extends GrpcBase {
     public void getProductList() {
         var request = CatalogApiV2
                 .GetProductListRequest.newBuilder()
-                .setSid("57")
-                .setTid("41329")
+                .setSid(sid)
+                .setTid(tid)
                 .setPage(1)
                 .setPerPage(24)
-                .setSort("popularity")
-                .setTenantId("sbermarket")
+                .setSort(Catalog.Sort.POPULARITY.name())
+                .setTenantId(Tenant.SBERMARKET.getId())
                 .build();
 
         var response = client.getProductList(request);
@@ -190,11 +196,11 @@ public class CatalogApiV2Test extends GrpcBase {
     public void getProductListWithoutSid() {
         var request = CatalogApiV2
                 .GetProductListRequest.newBuilder()
-                .setTid("22238")
+                .setTid(tid)
                 .setPage(1)
                 .setPage(24)
-                .setSort("0")
-                .setTenantId("sbermarket")
+                .setSort(Catalog.Sort.POPULARITY.name())
+                .setTenantId(Tenant.SBERMARKET.getId())
                 .build();
 
         client.getProductList(request);
@@ -213,8 +219,8 @@ public class CatalogApiV2Test extends GrpcBase {
                 .setTid("")
                 .setPage(1)
                 .setPage(24)
-                .setSort("0")
-                .setTenantId("sbermarket")
+                .setSort(Catalog.Sort.POPULARITY.name())
+                .setTenantId(Tenant.SBERMARKET.getId())
                 .build();
 
         client.getProductList(request);
@@ -232,8 +238,8 @@ public class CatalogApiV2Test extends GrpcBase {
                 .setSid(String.valueOf(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID))
                 .setPage(1)
                 .setPage(24)
-                .setSort("0")
-                .setTenantId("sbermarket")
+                .setSort(Catalog.Sort.POPULARITY.name())
+                .setTenantId(Tenant.SBERMARKET.getId())
                 .build();
 
         client.getProductList(request);
@@ -246,11 +252,11 @@ public class CatalogApiV2Test extends GrpcBase {
     public void getProductListWithEmptyTenantId() {
         var request = CatalogApiV2
                 .GetProductListRequest.newBuilder()
-                .setSid("57")
-                .setTid("43468")
+                .setSid(sid)
+                .setTid(tid)
                 .setPage(1)
                 .setPerPage(24)
-                .setSort("popularity")
+                .setSort(Catalog.Sort.POPULARITY.name())
                 .setTenantId("")
                 .build();
 
@@ -268,11 +274,11 @@ public class CatalogApiV2Test extends GrpcBase {
     public void getProductListWithoutTenantId() {
         var request = CatalogApiV2
                 .GetProductListRequest.newBuilder()
-                .setSid("57")
-                .setTid("43468")
+                .setSid(sid)
+                .setTid(tid)
                 .setPage(1)
                 .setPerPage(24)
-                .setSort("popularity")
+                .setSort(Catalog.Sort.POPULARITY.name())
                 .build();
 
         var response = client.getProductList(request);
