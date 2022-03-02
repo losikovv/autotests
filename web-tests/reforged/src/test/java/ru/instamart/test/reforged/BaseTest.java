@@ -5,6 +5,7 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.core.KrakenParams;
 import ru.instamart.reforged.core.report.CustomReport;
 
 import java.lang.reflect.Method;
@@ -22,9 +23,16 @@ public class BaseTest {
             CustomReport.addSourcePage();
             CustomReport.addBrowserLog();
             CustomReport.addCookieLog();
-            CustomReport.takeScreenshot();
+            CustomReport.takeScreenshot(getParamsOrNull(method));
             CustomReport.addLocalStorage();
         }
         Kraken.closeBrowser();
+    }
+
+    private KrakenParams getParamsOrNull(final Method method) {
+        if (method.isAnnotationPresent(KrakenParams.class)) {
+            return method.getAnnotation(KrakenParams.class);
+        }
+        return null;
     }
 }
