@@ -18,7 +18,7 @@ public final class LandingTests extends BaseTest {
     @CaseId(25)
     @Test(description = "Ссылка на лендинг для неавторизованного юзера", groups = {"smoke", "regression"})
     public void fromB2CToB2BNotAuthorized() {
-        b2cShop().goToPage();
+        b2cShop().goToPageFromTenant();
         b2cShop().interactHeader().clickBuyForBusiness();
 
         business().switchToNextWindow();

@@ -32,4 +32,10 @@ public interface UserProfileCheck extends UserProfileElement, Check {
     default void checkSaveAlertHide() {
         waitAction().shouldNotBeVisible(alert);
     }
+
+
+    @Step("Проверяем, что отображается информация об аккаунте")
+    default void checkUserInfoBlockVisible() {
+        waitAction().shouldBeVisible(userPhone);
+    }
 }
