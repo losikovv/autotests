@@ -13,6 +13,7 @@ public enum OrderStatusV2 {
     COLLECTING("collecting"),
     READY_TO_SHIP("ready_to_ship"),
     COMPLETE("complete"),
+    SHIPPED("shipped"),
     CANCELED("canceled");
 
     @Getter
