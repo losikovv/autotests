@@ -1,9 +1,9 @@
 package ru.instamart.reforged.core.provider;
 
+import com.google.common.collect.ImmutableMap;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -11,12 +11,15 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
+import org.openqa.selenium.remote.CommandInfo;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.http.HttpMethod;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 import ru.instamart.reforged.core.config.BrowserProperties;
+import ru.instamart.reforged.core.provider.chrome.ChromeDriverExtension;
 
 import java.net.URI;
 import java.util.Optional;
@@ -27,6 +30,10 @@ import static ru.instamart.reforged.core.config.BrowserProperties.FULL_SCREEN_MO
 @Slf4j
 public abstract class AbstractBrowserProvider {
 
+    private static final ImmutableMap<String, CommandInfo> CHROME_COMMAND_NAME_TO_URL = ImmutableMap.of(
+            "sendCommand",
+            new CommandInfo("/session/:sessionId/chromium/send_command_and_get_result", HttpMethod.POST));
+
     @Getter
     protected WebDriver driver;
 
@@ -34,8 +41,8 @@ public abstract class AbstractBrowserProvider {
 
     protected void createRemoteDriver(final DesiredCapabilities capabilities) {
         try {
-            this.driver = new RemoteWebDriver(
-                    URI.create(BrowserProperties.REMOTE_URL).toURL(),
+            this.driver = new RemoteWebDriverExtension(
+                    new HttpCommandExecutorExtension(CHROME_COMMAND_NAME_TO_URL, URI.create(BrowserProperties.REMOTE_URL).toURL()),
                     capabilities);
             ((RemoteWebDriver)driver).setFileDetector(new LocalFileDetector());
             applyOptions();
@@ -45,7 +52,7 @@ public abstract class AbstractBrowserProvider {
     }
 
     protected void createLocalChromeDriver(final Optional<ChromeOptions> capabilities) {
-        this.driver = capabilities.map(ChromeDriver::new).orElseGet(ChromeDriver::new);
+        this.driver = capabilities.map(ChromeDriverExtension::new).orElseGet(ChromeDriverExtension::new);
         applyOptions();
     }
 

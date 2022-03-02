@@ -7,6 +7,9 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.logging.LogType;
 import ru.instamart.reforged.core.Kraken;
+import ru.instamart.reforged.core.KrakenParams;
+import ru.instamart.reforged.core.provider.RemoteWebDriverExtension;
+import ru.instamart.reforged.core.provider.chrome.ChromeDriverExtension;
 
 import java.io.File;
 import java.util.Arrays;
@@ -14,6 +17,7 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.StringJoiner;
 
+import static java.util.Objects.nonNull;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.clearLogbackLogBuffer;
 import static ru.instamart.kraken.helper.LogbackLogBuffer.getLogbackBufferLog;
 
@@ -49,14 +53,29 @@ public final class CustomReport {
         return joiner.toString();
     }
 
-    /** Создаем скриншот и добавляем его в Allure */
+    /**
+     * Создаём скриншот и добавляем его в Allure
+     */
     @Attachment(value = "Скриншот с веб страницы", type = "image/jpg")
-    public static byte[] takeScreenshot() {
-        return ((TakesScreenshot) Kraken.getWebDriver()).getScreenshotAs(OutputType.BYTES);
+    public static byte[] takeScreenshot(final KrakenParams params) {
+        final var driver = Kraken.getWebDriver();
+        if (nonNull(params) && params.takeFullPageScreen()) {
+            //TODO: Wait Pattern Matching for instanceof Java 14++
+            if (driver instanceof ChromeDriverExtension) {
+                final ChromeDriverExtension chromeDriver = (ChromeDriverExtension) driver;
+                return chromeDriver.getFullScreenshotAs(OutputType.BYTES);
+            } else if (driver instanceof RemoteWebDriverExtension) {
+                final RemoteWebDriverExtension remoteDriver = (RemoteWebDriverExtension) driver;
+                return remoteDriver.getFullScreenshotAs(OutputType.BYTES);
+            }
+        }
+        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }
 
-    /** Создаем скриншот для добавления его в Qase */
-    public static File takeScreenshotFile () {
+    /**
+     * Создаем скриншот для добавления его в Qase
+     */
+    public static File takeScreenshotFile() {
         return ((TakesScreenshot) Kraken.getWebDriver()).getScreenshotAs(OutputType.FILE);
     }
 
@@ -101,7 +120,7 @@ public final class CustomReport {
         return sb.toString();
     }
 
-    private static String[] splitString(String str){
+    private static String[] splitString(String str) {
         return str.split("\r\n|\r|\n");
     }
 
