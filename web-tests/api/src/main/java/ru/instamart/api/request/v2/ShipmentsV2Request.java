@@ -10,6 +10,7 @@ import lombok.*;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
+import ru.sbermarket.common.Mapper;
 
 import java.io.File;
 import java.util.Collections;
@@ -19,41 +20,41 @@ import java.util.Objects;
 public final class ShipmentsV2Request extends ApiV2RequestBase {
 
     @Step("{method} /" + ApiV2EndPoints.Shipments.SHIPMENTS)
-    public static Response DELETE(String shipmentNumber) {
+    public static Response DELETE(final String shipmentNumber) {
         return givenWithAuth()
                 .delete(ApiV2EndPoints.Shipments.SHIPMENTS, shipmentNumber);
     }
 
     @Step("{method} /" + ApiV2EndPoints.Shipments.ACTIVE)
-    public static Response GET(Integer storeId) {
+    public static Response GET(final Integer storeId) {
         RequestSpecification req = givenWithAuth();
-        if (storeId != null) req.queryParams("store_id", storeId);
+        if (Objects.nonNull(storeId)) req.queryParams("store_id", storeId);
         return req.get(ApiV2EndPoints.Shipments.ACTIVE);
     }
 
     public static class DeliveryWindows {
 
         @Step("{method} /" + ApiV2EndPoints.Shipments.DELIVERY_WINDOWS)
-        public static Response GET(String shipmentId, String date) {
+        public static Response GET(final String shipmentId, final String date) {
+            JSONObject query = new JSONObject();
             if (Objects.nonNull(date))
-                date = "date=" + date;
-            else
-                date = "";
+                query.put("date", date);
             return givenWithAuth()
-                    .get(ApiV2EndPoints.Shipments.DELIVERY_WINDOWS, shipmentId, date);
+                    .queryParams(Mapper.INSTANCE.objectToMap(query))
+                    .get(ApiV2EndPoints.Shipments.DELIVERY_WINDOWS, shipmentId);
         }
     }
 
     public static class LineItems {
 
         @Step("{method} /" + ApiV2EndPoints.Shipments.LINE_ITEMS)
-        public static Response GET(String shipmentNumber) {
+        public static Response GET(final String shipmentNumber) {
             return givenWithAuth()
                     .get(ApiV2EndPoints.Shipments.LINE_ITEMS, shipmentNumber);
         }
 
         @Step("{method} /" + ApiV2EndPoints.Shipments.LineItems.MERGE)
-        public static Response POST(String shipmentNumber, Long productId, Integer quantity) {
+        public static Response POST(final String shipmentNumber, final Long productId, final Integer quantity) {
             JSONObject body = new JSONObject();
             JSONObject lineItem = new JSONObject();
             lineItem.put("product_id", productId);
@@ -70,7 +71,7 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
     public static class LineItemCancellations {
 
         @Step("{method} /" + ApiV2EndPoints.Shipments.LINE_ITEM_CANCELLATIONS)
-        public static Response GET(String shipmentNumber) {
+        public static Response GET(final String shipmentNumber) {
             return givenWithAuth()
                     .get(ApiV2EndPoints.Shipments.LINE_ITEM_CANCELLATIONS, shipmentNumber);
         }
@@ -79,7 +80,7 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
     public static class LineItemReplacements {
 
         @Step("{method} /" + ApiV2EndPoints.Shipments.LINE_ITEM_REPLACEMENTS)
-        public static Response GET(String shipmentNumber) {
+        public static Response GET(final String shipmentNumber) {
             return givenWithAuth()
                     .get(ApiV2EndPoints.Shipments.LINE_ITEM_REPLACEMENTS, shipmentNumber);
         }
@@ -87,13 +88,13 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
 
     public static class ServiceRate {
 
-        public static Response GET(String shipmentNumber, String deliveryWindowId) {
+        public static Response GET(final String shipmentNumber, final String deliveryWindowId) {
+            JSONObject query = new JSONObject();
             if (Objects.nonNull(deliveryWindowId))
-                deliveryWindowId = "delivery_window_id=" + deliveryWindowId;
-            else
-                deliveryWindowId = "";
+                query.put("delivery_window_id", deliveryWindowId);
             return givenWithAuth()
-                    .get(ApiV2EndPoints.Shipments.SERVICE_RATE, shipmentNumber, deliveryWindowId);
+                    .queryParams(Mapper.INSTANCE.objectToMap(query))
+                    .get(ApiV2EndPoints.Shipments.SERVICE_RATE, shipmentNumber);
         }
     }
 
@@ -102,20 +103,21 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
          * Получаем доступные слоты
          */
         @Step("{method} /" + ApiV2EndPoints.Shipments.SHIPPING_RATES)
-        public static Response GET(String shipmentNumber, String date) {
-            if (Objects.nonNull(date))
-                date = "date=" + date;
-            else
-                date = "";
+        public static Response GET(final String shipmentNumber, final String date) {
+            JSONObject query = new JSONObject();
+            if (Objects.nonNull(date)) {
+                query.put("date", date);
+            }
             return givenWithAuth()
-                    .get(ApiV2EndPoints.Shipments.SHIPPING_RATES, shipmentNumber, date);
+                    .queryParams(Mapper.INSTANCE.objectToMap(query))
+                    .get(ApiV2EndPoints.Shipments.SHIPPING_RATES, shipmentNumber);
         }
     }
 
     public static class State {
 
         @Step("{method} /" + ApiV2EndPoints.Shipments.STATE)
-        public static Response GET(String shipmentNumber) {
+        public static Response GET(final String shipmentNumber) {
             return givenWithAuth()
                     .get(ApiV2EndPoints.Shipments.STATE, shipmentNumber);
         }
@@ -124,7 +126,7 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
     public static class ReviewIssues {
 
         @Step("{method} /" + ApiV2EndPoints.Shipments.REVIEW_ISSUES)
-        public static Response GET(String shipmentNumber) {
+        public static Response GET(final String shipmentNumber) {
             return givenWithAuth()
                     .get(ApiV2EndPoints.Shipments.REVIEW_ISSUES, shipmentNumber);
         }
@@ -133,7 +135,7 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
     public static class Reviews {
 
         @Step("{method} /" + ApiV2EndPoints.Shipments.REVIEWS)
-        public static Response POST(String shipmentNumber, Review review) {
+        public static Response POST(final String shipmentNumber, final Review review) {
             return givenWithAuth()
                     .contentType(ContentType.JSON)
                     .body(ReviewRequest.builder().review(review).build())
@@ -141,7 +143,7 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
         }
 
         @Step("{method} /" + ApiV2EndPoints.Shipments.REVIEWS)
-        public static Response POST(String shipmentNumber) {
+        public static Response POST(final String shipmentNumber) {
             return givenWithAuth()
                     .formParam("review[rate]", 5)
                     .multiPart("review[images_attributes][][attachment]", new File("src/test/resources/data/sample.jpg"), "image/jpeg")
@@ -152,7 +154,7 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
     public static class ReviewWindowClose {
 
         @Step("{method} /" + ApiV2EndPoints.Shipments.REVIEW_WINDOW_CLOSE)
-        public static Response PUT(String shipmentNumber) {
+        public static Response PUT(final String shipmentNumber) {
             return givenWithAuth()
                     .put(ApiV2EndPoints.Shipments.REVIEW_WINDOW_CLOSE, shipmentNumber);
         }
@@ -161,7 +163,7 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
     public static class Clones {
 
         @Step("{method} /" + ApiV2EndPoints.Shipments.CLONES)
-        public static Response POST(String shipmentNumber) {
+        public static Response POST(final String shipmentNumber) {
             return givenWithAuth()
                     .post(ApiV2EndPoints.Shipments.CLONES, shipmentNumber);
         }
@@ -170,7 +172,7 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
     public static class AssemblyItems {
 
         @Step("{method} /" + ApiV2EndPoints.Shipments.ASSEMBLY_ITEMS)
-        public static Response GET(String shipmentNumber) {
+        public static Response GET(final String shipmentNumber) {
             return givenWithAuth()
                     .get(ApiV2EndPoints.Shipments.ASSEMBLY_ITEMS, shipmentNumber);
         }
@@ -179,7 +181,7 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
     public static class Cancellations {
 
         @Step("{method} /" + ApiV2EndPoints.Shipments.CANCELLATIONS)
-        public static Response POST(String shipmentNumber, String reason) {
+        public static Response POST(final String shipmentNumber, final String reason) {
             return givenWithAuth()
                     .queryParam("reason", reason)
                     .post(ApiV2EndPoints.Shipments.CANCELLATIONS, shipmentNumber);
@@ -189,7 +191,7 @@ public final class ShipmentsV2Request extends ApiV2RequestBase {
     public static class Merge {
 
         @Step("{method} /" + ApiV2EndPoints.Shipments.MERGE)
-        public static Response POST(String shipmentNumber, String targetShipmentNumber) {
+        public static Response POST(final String shipmentNumber, final String targetShipmentNumber) {
             return givenWithAuth()
                     .contentType(ContentType.JSON)
                     .body(Collections.singletonMap("target_shipment_number", targetShipmentNumber))

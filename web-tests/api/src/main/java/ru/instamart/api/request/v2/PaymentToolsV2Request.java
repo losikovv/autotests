@@ -20,9 +20,10 @@ public final class PaymentToolsV2Request extends ApiV2RequestBase {
                 .get(ApiV2EndPoints.PAYMENT_TOOLS);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.PAYMENT_TOOL_TYPES_WITH_ORDER_NUMBER)
+    @Step("{method} /" + ApiV2EndPoints.PAYMENT_TOOL_TYPES)
     public static Response GET(String orderNumber){
         return givenWithAuth()
-                .get(ApiV2EndPoints.PAYMENT_TOOL_TYPES_WITH_ORDER_NUMBER, orderNumber);
+                .queryParam("order_number", orderNumber)
+                .get(ApiV2EndPoints.PAYMENT_TOOL_TYPES);
     }
 }

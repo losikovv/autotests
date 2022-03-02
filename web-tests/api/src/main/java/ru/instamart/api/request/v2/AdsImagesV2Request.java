@@ -9,14 +9,16 @@ public class AdsImagesV2Request extends ApiV2RequestBase {
 
 
     @Step("{method} /" + ApiV2EndPoints.ADS_IMAGES)
-    public static Response GET(String image) {
+    public static Response GET(final String image) {
         return givenWithAuth()
-                .get(ApiV2EndPoints.ADS_IMAGES, image);
+                .queryParam("image_path", image)
+                .get(ApiV2EndPoints.ADS_IMAGES);
     }
 
     @Step("{method} /" + ApiV2EndPoints.ADS_IMAGES)
-    public static Response HEAD(String image) {
+    public static Response HEAD(final String image) {
         return givenWithAuth()
-                .head(ApiV2EndPoints.ADS_IMAGES, image);
+                .queryParam("image_path", image)
+                .head(ApiV2EndPoints.ADS_IMAGES);
     }
 }

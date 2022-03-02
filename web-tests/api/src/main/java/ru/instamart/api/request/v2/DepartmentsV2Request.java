@@ -9,17 +9,22 @@ public final class DepartmentsV2Request extends ApiV2RequestBase {
 
     /**
      * Получение продуктов в выбранном магазине
+     * ?sid={sid}&offers_limit={numberOfProductsFromEachDepartment}
      */
     @Step("{method} /" + ApiV2EndPoints.DEPARTMENTS)
     public static Response GET(final int sid, final int numberOfProductsFromEachDepartment) {
-        return givenWithSpec().get(ApiV2EndPoints.DEPARTMENTS, sid, numberOfProductsFromEachDepartment);
+        return givenWithSpec()
+                .queryParam("sid", sid)
+                .queryParam("offers_limit", numberOfProductsFromEachDepartment)
+                .get(ApiV2EndPoints.DEPARTMENTS);
     }
 
     public static final class Id {
         @Step("{method} /" + ApiV2EndPoints.Departments.BY_ID)
         public static Response GET(final int id, final int sid) {
             return givenWithSpec()
-                    .get(ApiV2EndPoints.Departments.BY_ID, id, sid);
+                    .queryParam("sid", sid)
+                    .get(ApiV2EndPoints.Departments.BY_ID, id);
         }
     }
 }

@@ -15,16 +15,18 @@ public final class FavoritesV2Request extends ApiV2RequestBase {
                 .get(ApiV2EndPoints.FavoritesList.ITEMS);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.FavoritesList.Items.BY_SID)
+    @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS)
     public static Response GET(final String sid) {
         return givenWithAuth()
-                .get(ApiV2EndPoints.FavoritesList.Items.BY_SID, sid);
+                .queryParam("sid", sid)
+                .get(ApiV2EndPoints.FavoritesList.ITEMS);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.FavoritesList.Items.BY_SID)
+    @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS)
     public static Response GET(final int sid) {
         return givenWithAuth()
-                .get(ApiV2EndPoints.FavoritesList.Items.BY_SID, sid);
+                .queryParam("sid", sid)
+                .get(ApiV2EndPoints.FavoritesList.ITEMS);
     }
 
     @Step("{method} /" + ApiV2EndPoints.FavoritesList.ITEMS)

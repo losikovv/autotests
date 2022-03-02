@@ -5,10 +5,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
 
+import javax.validation.constraints.Null;
+
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class ProfileConfigV2 extends BaseObject {
 
+	@Null
 	@JsonProperty("default_bonus_card_id")
 	private String defaultBonusCardId;
 

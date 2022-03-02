@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.model.v2.AddressV2;
@@ -30,16 +31,19 @@ public final class OrdersV2Request extends ApiV2RequestBase {
     /**
      * Получаем активные (принят, собирается, в пути) заказы с указанием страницы
      */
-    @Step("{method} /" + ApiV2EndPoints.Orders.STATUS)
+    @Step("{method} /" + ApiV2EndPoints.ORDERS)
     public static Response GET(OrderStatusV2 status, int page) {
         return givenWithAuth()
-                .get(ApiV2EndPoints.Orders.STATUS, status.getStatus(), page);
+                .queryParam("status", status.getStatus())
+                .queryParam("page", page)
+                .get(ApiV2EndPoints.ORDERS);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Orders.PAGE)
+    @Step("{method} /" + ApiV2EndPoints.ORDERS)
     public static Response GET(int page) {
         return givenWithAuth()
-                .get(ApiV2EndPoints.Orders.PAGE, page);
+                .queryParam("page", page)
+                .get(ApiV2EndPoints.ORDERS);
     }
 
     /**
@@ -255,7 +259,8 @@ public final class OrdersV2Request extends ApiV2RequestBase {
         @Step("{method} /" + ApiV2EndPoints.Orders.CANCELLATIONS)
         public static Response POST(String orderNumber, String reason) {
             return givenWithAuth()
-                    .post(ApiV2EndPoints.Orders.CANCELLATIONS, orderNumber, reason);
+                    .queryParam("reason", reason)
+                    .post(ApiV2EndPoints.Orders.CANCELLATIONS, orderNumber);
         }
     }
 
@@ -397,8 +402,18 @@ public final class OrdersV2Request extends ApiV2RequestBase {
     @Builder
     @Data
     public static class TransferMethodParams {
+        @JsonProperty("order_id")
+        Integer orderId;
         @JsonProperty("shipping_method_kind")
         String shippingMethod;
+        @JsonProperty("pickup_store_id")
+        Integer pickupStoreId;
+        @JsonProperty("address_params[address_id]")
+        Integer addressId;
+        @JsonProperty("address_params[first_name]")
+        String firstName;
+        @JsonProperty("address_params[last_name]")
+        String lastName;
         @JsonProperty("address_params[lat]")
         Double lat;
         @JsonProperty("address_params[lon]")
@@ -407,9 +422,37 @@ public final class OrdersV2Request extends ApiV2RequestBase {
         String city;
         @JsonProperty("address_params[street]")
         String street;
+        @JsonProperty("address_params[floor]")
+        String floor;
+        @JsonProperty("address_params[business_center]")
+        String businessCenter;
+        @JsonProperty("address_params[elevator]")
+        Boolean elevator;
+        @JsonProperty("address_params[region]")
+        String region;
+        @JsonProperty("address_params[pass]")
+        String pass;
+        @JsonProperty("address_params[shipment_comment]")
+        String shipmentComment;
         @JsonProperty("address_params[building]")
         String building;
-        @JsonProperty("pickup_store_id")
-        Integer pickupStoreId;
+        @JsonProperty("address_params[block]")
+        String block;
+        @JsonProperty("address_params[settlement]")
+        String settlement;
+        @JsonProperty("address_params[area]")
+        String area;
+        @JsonProperty("address_params[apartment]")
+        String apartment;
+        @JsonProperty("address_params[comments]")
+        String comments;
+        @JsonProperty("address_params[city_kladr_id]")
+        String cityKladrId;
+        @JsonProperty("address_params[street_kladr_id]")
+        String streetKladrId;
+        @JsonProperty("address_params[entrance]")
+        String entrance;
+        @JsonProperty("address_params[door_phone]")
+        String doorPhone;
     }
 }

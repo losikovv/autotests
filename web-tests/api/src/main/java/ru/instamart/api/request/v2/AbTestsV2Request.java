@@ -13,10 +13,11 @@ public class AbTestsV2Request extends ApiV2RequestBase {
                 .get(ApiV2EndPoints.AB_TESTS);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.AbTests.DEVICE_ID)
+    @Step("{method} /" + ApiV2EndPoints.AB_TESTS)
     public static Response GET(final String deviceId){
         return givenWithAuth()
-                .get(ApiV2EndPoints.AbTests.DEVICE_ID, deviceId);
+                .queryParam("device_id", deviceId)
+                .get(ApiV2EndPoints.AB_TESTS);
     }
 
 }

@@ -13,10 +13,12 @@ public final class BonusCardsV2Request extends ApiV2RequestBase {
                 .get(ApiV2EndPoints.BONUS_CARDS);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.BonusCards.WITH_PARAMS)
+    @Step("{method} /" + ApiV2EndPoints.BONUS_CARDS)
     public static Response POST(final int bonusProgramId, final String bonusCardNumber) {
         return givenWithAuth()
-                .post(ApiV2EndPoints.BonusCards.WITH_PARAMS, bonusProgramId, bonusCardNumber);
+                .queryParam("bonus_card[bonus_program_id]", bonusProgramId)
+                .queryParam("bonus_card[number]", bonusCardNumber)
+                .post(ApiV2EndPoints.BONUS_CARDS);
     }
 
     @Step("{method} /" + ApiV2EndPoints.BonusCards.BY_ID)

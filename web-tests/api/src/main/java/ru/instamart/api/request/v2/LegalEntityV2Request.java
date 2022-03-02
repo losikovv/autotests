@@ -15,10 +15,11 @@ public final class LegalEntityV2Request extends ApiV2RequestBase {
 
     public final static class ByINN {
 
-        @Step("{method} /" + ApiV2EndPoints.LegalEntity.BY_INN)
+        @Step("{method} /" + ApiV2EndPoints.LEGAL_ENTITY)
         public static Response GET(String inn) {
             return givenWithSpec()
-                    .get(ApiV2EndPoints.LegalEntity.BY_INN, inn);
+                    .queryParam("inn", inn)
+                    .get(ApiV2EndPoints.LEGAL_ENTITY);
         }
     }
 }

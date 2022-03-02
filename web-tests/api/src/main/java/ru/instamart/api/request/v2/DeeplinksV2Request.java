@@ -13,10 +13,11 @@ public final class DeeplinksV2Request extends ApiV2RequestBase {
                 .get(ApiV2EndPoints.DEEPLINKS);
     }
 
-    @Step("{method} /" + ApiV2EndPoints.Deeplinks.BY_URL)
+    @Step("{method} /" + ApiV2EndPoints.DEEPLINKS)
     public static Response GET(final String webUrl) {
         return givenWithSpec()
-                .get(ApiV2EndPoints.Deeplinks.BY_URL, webUrl);
+                .queryParam("web_url", webUrl)
+                .get(ApiV2EndPoints.DEEPLINKS);
     }
 
 }
