@@ -28,7 +28,7 @@ public final class SearchesV2Request extends ApiV2RequestBase {
         public static Response GET(int sid, String query) {
             final JSONObject jsonObject = new JSONObject();
             if (Objects.nonNull(sid)) jsonObject.put("sid", sid);
-            if (Objects.nonNull(query)) jsonObject.put("sid", query);
+            if (Objects.nonNull(query)) jsonObject.put("q", query);
             return givenWithSpec()
                     .queryParams(Mapper.INSTANCE.objectToMap(jsonObject))
                     .get(ApiV2EndPoints.Searches.SUGGESTIONS);
