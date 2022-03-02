@@ -6,6 +6,8 @@ import io.qameta.allure.Step;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import navigation.Navigation;
+import navigation.NavigationServiceGrpc;
+import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.grpc.interceptor.GrpcInterceptor;
 import ru.instamart.kraken.config.CoreProperties;
 
@@ -37,5 +39,22 @@ public class GrpcHelper {
             }
         }
         return false;
+    }
+
+    @Step("Получение категорий в {storeId} магазине, в {tenantId} тенанте")
+    public List<Navigation.MenuCategory> getCategories(String storeId, String tenantId) {
+        var channel = createChannel(GrpcContentHosts.PAAS_CONTENT_CATALOG_NAVIGATION);
+        var client = NavigationServiceGrpc.newBlockingStub(channel);
+
+        var request = Navigation.GetMenuTreeRequest
+                .newBuilder()
+                .setStoreId(storeId)
+                .setTenantId(tenantId)
+                .setTreeDepth(5)
+                .build();
+
+        var categories = client.getMenuTree(request).getCategoriesList();
+        channel.shutdown();
+        return categories;
     }
 }
