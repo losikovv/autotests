@@ -68,7 +68,7 @@ public final class ShoppingCartTests extends BaseTest {
     public void testTransferCartNoSuchRetailer() {
         var userData = UserManager.getQaUser();
 
-        b2cShop().goToPageFromTenant(ShopUrl.AZBUKAVKUSA.getUrl());
+        b2cShop().goToPageFromTenant(ShopUrl.AZBUKAVKUSA);
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(userData);
         b2cShop().interactHeader().checkProfileButtonVisible();

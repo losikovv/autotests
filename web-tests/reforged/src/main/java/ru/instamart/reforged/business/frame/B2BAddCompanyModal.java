@@ -1,4 +1,4 @@
-package ru.instamart.reforged.stf.frame;
+package ru.instamart.reforged.business.frame;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
@@ -9,7 +9,7 @@ import ru.instamart.reforged.core.component.Input;
 import static org.testng.Assert.assertEquals;
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
-public class AddCompanyModal implements Close {
+public class B2BAddCompanyModal implements B2BClose {
 
     private final Input inn = new Input(By.xpath("//input[@id='FormGroup_inn']"), "Поле ввода ИНН");
     private final Element innError = new Element(By.xpath("//input[@id='FormGroup_inn']/following-sibling::label[2]"), "Ошибка ввода в поле 'ИНН'");
