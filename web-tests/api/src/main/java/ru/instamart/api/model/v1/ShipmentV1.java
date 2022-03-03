@@ -67,6 +67,7 @@ public class ShipmentV1 extends BaseObject {
     @JsonProperty(value = "adjustment_total")
     private Double adjustmentTotal;
 
+    @Null
     @JsonSchema(required = true)
     @JsonProperty(value = "payment_state")
     private String paymentState;

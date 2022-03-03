@@ -32,7 +32,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(509), @CaseId(510)})
     @Story("Начало авторизации")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, enabled = false, // проблема на стороне сбера https://sbermarket.slack.com/archives/C01M76U7WT1/p1646301134269719?thread_ts=1646113076.981539&cid=C01M76U7WT1
             description = "Получение номера транзакции для заказа",
             dataProvider = "orderNumbers",
             dataProviderClass = RestDataProvider.class)
@@ -46,7 +46,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(512), @CaseId(1033)})
     @Story("Продолжение авторизации")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, enabled = false, // проблема на стороне сбера
             description = "Продолжение авторизации с невалидными данными",
             dataProvider = "transactionNumbers",
             dataProviderClass = RestDataProvider.class)
@@ -58,7 +58,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
 
     @CaseId(513)
     @Story("Продолжение авторизации")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, enabled = false, // проблема на стороне сбера
             description = "Продолжение авторизации с невалидным токеном авторизации",
             dependsOnMethods = "getTransactionNumber")
     public void authorizeCardWithInvalidToken() {
@@ -70,7 +70,7 @@ public class SberCardAuthorizationV2Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(515), @CaseId(1041)})
     @Story("Финальный шаг авторизации карты")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, enabled = false, // проблема на стороне сбера
             description = "Завершение авторизации карты с невалидными данными",
             dataProvider = "invalidTransactionData",
             dataProviderClass = RestDataProvider.class)

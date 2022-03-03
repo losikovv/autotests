@@ -17,9 +17,11 @@ import ru.instamart.api.request.v1.ShipmentsV1Request;
 import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.response.v1.MergeStatusV1Response;
 import ru.instamart.api.response.v1.MultiretailerOrderV1Response;
+import ru.instamart.api.response.v1.ShipmentV1Response;
 import ru.instamart.api.response.v1.ShippingRatesV1Response;
 import ru.instamart.api.response.v2.NextDeliveriesV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -116,6 +118,24 @@ public class ShipmentsV1Tests extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, MultiretailerOrderV1Response.class);
         order = response.as(MultiretailerOrderV1Response.class);
+    }
+
+    @Story("Заказы")
+    @CaseId(2133)
+    @Test(description = "Изменение подзаказа",
+            groups = {"api-instamart-regress"},
+            dependsOnMethods = "getMultireteilerOrder")
+    public void changeOrder() {
+        OrdersV1Request.Shipment shipment = OrdersV1Request.Shipment.builder()
+                .shipment(OrdersV1Request.ShipmentParams.builder()
+                        .storeId(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID)
+                        .assemblyComment("Autotest-" + Generate.literalString(6))
+                        .build())
+                .build();
+        final Response response = OrdersV1Request.PUT(order.getNumber(), order.getShipments().get(0).getNumber(), shipment);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ShipmentV1Response.class);
+        compareTwoObjects(response.as(ShipmentV1Response.class).getShipment().getStoreId(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
     }
 
     @CaseId(1557)

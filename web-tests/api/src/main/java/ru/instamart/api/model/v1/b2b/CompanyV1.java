@@ -28,7 +28,7 @@ public class CompanyV1 extends BaseObject {
     @JsonProperty(value = "manager_comment")
     private String managerComment;
     @JsonProperty(value = "payment_account")
-    private String paymentAccount;
+    private PaymentAccountV1 paymentAccount;
     @JsonProperty(value = "link_to_crm")
     private String linkToCrm;
     private List<EmployeeV1> employees;

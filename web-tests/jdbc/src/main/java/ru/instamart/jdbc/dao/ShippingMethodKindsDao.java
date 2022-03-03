@@ -1,0 +1,32 @@
+package ru.instamart.jdbc.dao;
+
+import ru.instamart.jdbc.entity.ShippingMethodKindsEntity;
+import ru.instamart.jdbc.util.ConnectionMySQLManager;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import static org.testng.Assert.fail;
+
+public class ShippingMethodKindsDao extends AbstractDao<Long, ShippingMethodKindsEntity> {
+
+    public static final ShippingMethodKindsDao INSTANCE = new ShippingMethodKindsDao();
+    private final String SELECT_SQL = "SELECT %s FROM shipping_method_kinds";
+
+    public int getCount() {
+        int resultCount = 0;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"))) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            resultCount = resultSet.getInt("total");
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return resultCount;
+    }
+}
+
+

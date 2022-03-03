@@ -49,6 +49,13 @@ public class CompaniesV1Request extends ApiV1RequestBase {
 
     }
 
+    @Step("{method} /" + ApiV1Endpoints.Company.PaymentAccount.REFRESH)
+    public static Response POST(Integer companyID) {
+        return givenWithAuth()
+                .post(ApiV1Endpoints.Company.PaymentAccount.REFRESH, companyID);
+
+    }
+
     private static JSONObject formJsonBodyForPUT(Integer companyID, CompanyV1 companyV1){
         JSONObject requestParams = new JSONObject();
         requestParams.put("id", companyID);
