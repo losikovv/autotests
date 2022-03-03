@@ -9,12 +9,19 @@ import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.*;
+import ru.instamart.api.model.v1.b2b.CompanyV1;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.model.v2.NextDeliveryV2;
 import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.api.request.v1.*;
+import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
+import ru.instamart.api.request.v1.b2b.UserCompaniesV1Request;
 import ru.instamart.api.response.v1.*;
+import ru.instamart.api.response.v1.b2b.CompaniesV1Response;
+import ru.instamart.api.response.v1.b2b.CompanyV1Response;
 import ru.instamart.api.response.v2.RetailersV2Response;
+import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.user.UserData;
 
 import java.util.List;
@@ -165,5 +172,36 @@ public class ApiV1Helper {
         List<NextDeliveryV2> filteredNextDeliveries = currentShipment.get().getNextDeliveries().stream().filter(d -> d.getId() >= 0).collect(Collectors.toList());
         final Response response = CheckoutV1Request.PUT(currentShipment.get(), filteredNextDeliveries.get(0));
         checkStatusCode200(response);
+    }
+
+    @Step("Получаем компанию по ИНН {inn}")
+    public List<CompanyV1> getCompanyByInn(String inn) {
+        final Response response = CompaniesV1Request.GET(inn);
+        checkStatusCode200(response);
+        return response.as(CompaniesV1Response.class).getCompanies();
+    }
+
+    @Step("Получаем компанию c существующим балансом по ИНН {inn}")
+    public CompanyV1 getCompanyWithBalanceByInn(String inn) {
+        List<CompanyV1> companies = getCompanyByInn(inn);
+        CompanyV1 company;
+        if(companies.size() == 0) {
+            Juridical companyData = new Juridical(
+                    "ЗАО \"Лидер-" + Generate.digitalString(4) + "\"",
+                    Generate.string(8),
+                    inn,
+                    Generate.digitalString(9),
+                    Generate.digitalString(20),
+                    Generate.digitalString(9),
+                    Generate.string(8),
+                    Generate.digitalString(20)
+            );
+            final Response response = UserCompaniesV1Request.POST(companyData);
+            checkStatusCode200(response);
+            company = response.as(CompanyV1Response.class).getCompany();
+        } else {
+            company = companies.get(0);
+        }
+        return company;
     }
 }

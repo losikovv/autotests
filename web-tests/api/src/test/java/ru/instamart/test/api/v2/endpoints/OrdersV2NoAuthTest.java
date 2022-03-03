@@ -6,13 +6,14 @@ import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.OrdersV2Request;
-import ru.instamart.api.response.v2.OrdersV2Response;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode401;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
 @Epic("ApiV2")
 @Feature("Заказы (orders)")
@@ -23,6 +24,7 @@ public class OrdersV2NoAuthTest extends RestBase {
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получаем заказы без авторизации")
     public void getOrders401() {
+        SessionFactory.clearSession(SessionType.API_V2);
         final Response response = OrdersV2Request.GET();
         checkStatusCode401(response);
         checkError(response, "Ключ доступа невалиден или отсутствует");

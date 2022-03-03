@@ -3,8 +3,8 @@ package ru.instamart.test.api.v1.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -14,6 +14,7 @@ import ru.instamart.api.model.v1.b2b.ManagerV1;
 import ru.instamart.api.model.v1.b2b.SalesContractV1;
 import ru.instamart.api.model.v1.b2b.UserV1;
 import ru.instamart.api.request.v1.b2b.*;
+import ru.instamart.api.response.v1.PaymentAccountV1Response;
 import ru.instamart.api.response.v1.b2b.CompaniesV1Response;
 import ru.instamart.api.response.v1.b2b.CompanyManagerV1Response;
 import ru.instamart.api.response.v1.b2b.CompanySalesContractV1Response;
@@ -21,12 +22,14 @@ import ru.instamart.api.response.v1.b2b.CompanyV1Response;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.JuridicalData;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
 import static org.testng.Assert.*;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 
@@ -239,6 +242,39 @@ public class CompaniesV1Tests extends RestBase {
         checkStatusCode422(response);
         assertEquals("уже существует",
                 response.as(CompanySalesContractV1Response.class).getSalesContract().getErrors().getNumber().get(0), "Невалидная ошибка при добавлении договора");
+    }
+
+    @Story("Admin Web")
+    @CaseId(2122)
+    @Test(description = "Обновление счета компании - нет контрагентов",
+            groups = {"api-instamart-regress"},
+    dependsOnMethods = "postArchiveSalesContract")
+    public void refreshPaymentAccountWithoutPartners() {
+        final Response response = CompaniesV1Request.POST(company.getId());
+        checkStatusCode422(response);
+        Assert.assertTrue(response.asString().contains("Не найдено ни одного контрагента по ИНН"), "Вернулись контрагенты");
+    }
+
+    @Story("Admin Web")
+    @CaseId(2123)
+    @Test(description = "Обновление счета компании - баланс больше нуля",
+            groups = {"api-instamart-regress"})
+    public void refreshPaymentAccountWithBalance() {
+        final Response response = CompaniesV1Request.POST(apiV1.getCompanyWithBalanceByInn("8733270179").getId());
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, PaymentAccountV1Response.class);
+        Assert.assertTrue(response.as(PaymentAccountV1Response.class).getPaymentAccount().getBalance() > 0, "Баланс равен или меньше 0");
+    }
+
+    @Story("Admin Web")
+    @CaseId(2124)
+    @Test(description = "Обновление счета компании - баланс меньше нуля",
+            groups = {"api-instamart-regress"})
+    public void refreshPaymentAccountWithoutBalance() {
+        final Response response = CompaniesV1Request.POST(apiV1.getCompanyWithBalanceByInn("4727666224").getId());
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, PaymentAccountV1Response.class);
+        Assert.assertTrue(response.as(PaymentAccountV1Response.class).getPaymentAccount().getBalance() < 0, "Баланс больше 0");
     }
 
     @AfterClass(alwaysRun = true)

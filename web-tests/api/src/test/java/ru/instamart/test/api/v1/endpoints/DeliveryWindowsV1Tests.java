@@ -11,8 +11,10 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.model.v1.DeliveryWindowV1;
+import ru.instamart.api.request.v1.DeliveryWindowKindsV1Request;
 import ru.instamart.api.request.v1.DeliveryWindowsV1Request;
 import ru.instamart.api.request.v1.StoresV1Request;
+import ru.instamart.api.response.v1.DeliveryWindowKindsV1Response;
 import ru.instamart.api.response.v1.DeliveryWindowV1Response;
 import ru.instamart.api.response.v1.DeliveryWindowsV1Response;
 import ru.instamart.jdbc.dao.DeliveryWindowsDao;
@@ -147,5 +149,15 @@ public class DeliveryWindowsV1Tests extends RestBase {
         softAssert.assertTrue(responseAsString.contains("\"shipments_items_count_limit\":[\"может иметь лишь значение большее или равное 0\"]"));
         softAssert.assertTrue(responseAsString.contains("\"shipments_limit\":[\"может иметь лишь значение большее 0\"]"));
         softAssert.assertAll();
+    }
+
+    @Story("Окна доставки")
+    @CaseId(2135)
+    @Test(description = "Получение списка типов окон доставки",
+            groups = {"api-instamart-regress"})
+    public void getDeliveryWindowKinds() {
+        final Response response = DeliveryWindowKindsV1Request.GET();
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, DeliveryWindowKindsV1Response.class);
     }
 }

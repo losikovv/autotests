@@ -13,10 +13,13 @@ import ru.instamart.api.enums.v1.CombinedStateV1;
 import ru.instamart.api.enums.v1.PaymentStatusV1;
 import ru.instamart.api.model.v1.AdminShipmentV1;
 import ru.instamart.api.model.v1.OrderPaymentMethodV1;
+import ru.instamart.api.request.v1.DocumentsV1Request;
 import ru.instamart.api.request.v1.admin.ShipmentsAdminV1Request;
+import ru.instamart.api.response.v1.AdminShipmentV1Response;
 import ru.instamart.api.response.v1.AdminShipmentsV1Response;
 import ru.instamart.jdbc.dao.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
@@ -24,9 +27,9 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 import static ru.instamart.kraken.util.TimeUtil.getDbDeliveryDateFrom;
 import static ru.instamart.kraken.util.TimeUtil.getPastZoneDbDate;
 
@@ -35,6 +38,7 @@ import static ru.instamart.kraken.util.TimeUtil.getPastZoneDbDate;
 public class ShipmentsV1Test extends RestBase {
 
     private String orderNumber;
+    private AdminShipmentV1 shipment;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
@@ -107,6 +111,7 @@ public class ShipmentsV1Test extends RestBase {
         checkResponseJsonSchema(response, AdminShipmentsV1Response.class);
         List<AdminShipmentV1> shipments = response.as(AdminShipmentsV1Response.class).getShipments();
         orderNumber = shipments.get(0).getOrder().getNumber();
+        shipment = shipments.get(0);
         final SoftAssert softAssert = new SoftAssert();
         shipments.forEach(s -> softAssert.assertTrue(List.of("Moscow", "Elino").contains(s.getOrder().getShipAddress().getCity()), "Пришел неверный город"));
         softAssert.assertAll();
@@ -271,5 +276,57 @@ public class ShipmentsV1Test extends RestBase {
                 .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, AdminShipmentsV1Response.class);
+    }
+
+    @CaseId(2128)
+    @Story("Заказы")
+    @Test(description = "Редактирование комментария к заказу",
+            groups = {"api-instamart-regress"},
+            dependsOnMethods = "getShipmentsByOperationalZoneId")
+    public void editShipmentsComment() {
+        String comment = "Autotest" + Generate.literalString(6);
+        final Response response = ShipmentsAdminV1Request.PUT(shipment.getUuid(), comment);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, AdminShipmentV1Response.class);
+        compareTwoObjects(response.as(AdminShipmentV1Response.class).getShipment().getAssemblyComment(), comment);
+    }
+
+    @CaseId(2129)
+    @Story("Заказы")
+    @Test(description = "Возврат на диспетчеризацию",
+            groups = {"api-instamart-regress"},
+            dependsOnMethods = "getShipmentsByOperationalZoneId")
+    public void returnToDispatch() {
+        final Response response = ShipmentsAdminV1Request.POST(shipment.getUuid(), "Autotest" + Generate.literalString(6));
+        checkStatusCode200(response);
+    }
+
+    @CaseId(2130)
+    @Story("Заказы")
+    @Test(description = "Редактирование комментария к несуществующему заказу",
+            groups = {"api-instamart-regress"})
+    public void editNonExistentShipmentsComment() {
+        final Response response = ShipmentsAdminV1Request.PUT("failedUuid", "Autotest" + Generate.literalString(6));
+        checkStatusCode404(response);
+        checkErrorText(response, "Объект не найден");
+    }
+
+    @CaseId(2131)
+    @Story("Заказы")
+    @Test(description = "Возврат на диспетчеризацию несуществующего заказа",
+            groups = {"api-instamart-regress"})
+    public void returnNonexistentShipmentToDispatch() {
+        final Response response = ShipmentsAdminV1Request.POST("failedUuid", "Autotest" + Generate.literalString(6));
+        checkStatusCode404(response);
+        checkErrorText(response, "Объект не найден");
+    }
+
+    @CaseId(2134)
+    @Story("Заказы")
+    @Test(description = "Получение документов для несуществующего заказа", //TODO:Добавить позитивные тесты, когда станут понятны предусловия
+            groups = {"api-instamart-regress"})
+    public void getNonExistentShipmentDocument() {
+        final Response response = DocumentsV1Request.GET("failedNumber", "consignment_note");
+        checkStatusCode404(response);
     }
 }

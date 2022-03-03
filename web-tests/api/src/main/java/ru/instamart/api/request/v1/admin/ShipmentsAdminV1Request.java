@@ -3,9 +3,11 @@ package ru.instamart.api.request.v1.admin;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.qameta.allure.Step;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.Builder;
 import lombok.Data;
+import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.request.ApiV1RequestBase;
 import ru.sbermarket.common.Mapper;
@@ -17,6 +19,30 @@ public final class ShipmentsAdminV1Request extends ApiV1RequestBase {
         return givenWithAuth()
                 .queryParams(Mapper.INSTANCE.objectToMap(shipmentsData))
                 .get(ApiV1Endpoints.Admin.SHIPMENTS);
+    }
+
+    @Step("{method} /" + ApiV1Endpoints.Admin.SHIPMENT)
+    public static Response PUT(String shipmentUuid, String comment) {
+        JSONObject body = new JSONObject();
+        JSONObject assemblyComment = new JSONObject();
+        assemblyComment.put("assembly_comment", comment);
+        body.put("shipment", assemblyComment);
+        return givenWithAuth()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .put(ApiV1Endpoints.Admin.SHIPMENT, shipmentUuid);
+    }
+
+    @Step("{method} /" + ApiV1Endpoints.Admin.Shipments.REDISPATCH)
+    public static Response POST(String shipmentUuid, String comment) {
+        JSONObject body = new JSONObject();
+        JSONObject assemblyComment = new JSONObject();
+        assemblyComment.put("dispatch_status", comment);
+        body.put("shipment", assemblyComment);
+        return givenWithAuth()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .post(ApiV1Endpoints.Admin.Shipments.REDISPATCH, shipmentUuid);
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)

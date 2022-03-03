@@ -1195,7 +1195,7 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getPaymentTools() {
         List<OrderPaymentMethodV1> paymentMethods = new ArrayList<>();
         apiV1.getPaymentTools().forEach(tool ->  paymentMethods.add(tool.getPaymentMethod()));
-        return  paymentMethods.stream()
+        return  paymentMethods.stream().filter(p -> !p.getType().equals("sber_pay"))
                 .map(list -> new Object[]{list})
                 .toArray(Object[][]::new);
     }

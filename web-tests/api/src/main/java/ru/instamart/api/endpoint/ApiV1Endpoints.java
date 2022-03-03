@@ -12,6 +12,7 @@ public final class ApiV1Endpoints {
     public static final String COMPANY_MANAGERS = "company_managers";
     public static final String COMPANY_PRESENCE = "company_presence?inn={inn}";
     public static final String COMPANY_SALES_CONTRACT = "company_sales_contracts";
+    public static final String DELIVERY_WINDOW_KINDS = "delivery_window_kinds";
     public static final String LEGAL_ENTITY = "legal_entity?inn={inn}";
     public static final String LINE_ITEMS = "line_items";
     public static final String MARKETING_SAMPLES = "marketing_samples";
@@ -19,9 +20,11 @@ public final class ApiV1Endpoints {
     public static final String OPERATIONAL_ZONES = "operational_zones";
     public static final String ORDERS = "orders?page={pageNumber}";
     public static final String PHONE_CONFIRMATIONS = "phone_confirmations";
+    public static final String PROMOTION_CARD_CATEGORIES = "promotion_card_categories";
     public static final String REPLACEMENT_POLICIES = "replacement_policies";
     public static final String RETAILERS = "retailers";
     public static final String RETAILER_POSITIONS = "retailer_positions";
+    public static final String SHIPPING_METHOD_KINDS = "shipping_method_kinds";
     public static final String SHIPPING_METHODS = "shipping_methods";
     public static final String SHIPPING_POLICIES = "shipping_policies";
     public static final String SHOPPING_CONTEXT = "shopping_context";
@@ -39,6 +42,7 @@ public final class ApiV1Endpoints {
         public static final String OPERATIONAL_ZONES = "admin/operational_zones";
         public static final String USER_PERMISSIONS = "admin/user_permissions";
         public static final String SHIPMENTS = "admin/shipments.json";
+        public static final String SHIPMENT = "admin/shipments/{uuid}";
 
         public static final class Dictionaries {
             public static final String API_CLIENTS = "admin/dictionaries/api_clients";
@@ -54,7 +58,9 @@ public final class ApiV1Endpoints {
         }
 
         public static final class Shipments {
+            public static final String DOCUMENTS = "admin/shipments/{shipmentNumber}/documents/{document}.pdf";
             public static final String LEFTOVERS = "admin/shipments/{shipmentUUID}/leftovers";
+            public static final String REDISPATCH = "admin/shipments/{shipmentUUID}/redispatch";
         }
     }
 
@@ -142,6 +148,7 @@ public final class ApiV1Endpoints {
         public static final class Number {
             public static final String LINE_ITEMS = "orders/{orderNumber}/line_items";
             public static final String MERGE_STATUS = "orders/{orderNumber}/merge_status";
+            public static final String SHIPMENT = "orders/{orderNumber}/shipments/{shipmentNumber}";
         }
     }
 
