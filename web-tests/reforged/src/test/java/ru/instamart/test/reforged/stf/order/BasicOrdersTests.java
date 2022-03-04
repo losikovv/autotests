@@ -19,6 +19,7 @@ import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.cloud_payments.page.CloudPaymentsPageRouter.cloudPayments;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -463,7 +464,11 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        checkout().checkPageContains("https://demo.cloudpayments.ru/acs");
+        cloudPayments().checkPageContains(EnvironmentProperties.CLOUD_PAYMENTS_URL + "/acs");
+        cloudPayments().fillAnswer("4");
+        cloudPayments().clickOnConfirmPaymentButton();
+
+        userShipments().checkPageContains(userShipments().pageUrl());
 
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
