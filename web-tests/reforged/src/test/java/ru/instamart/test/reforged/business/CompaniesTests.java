@@ -180,6 +180,31 @@ public class CompaniesTests extends BaseTest {
         companies().checkCompaniesListIsEmpty();
     }
 
+    @CaseId(758)
+    @Test(description = "Добавление новой компании из ЛК / ввод некорректного ИНН (B2c-витрина)", groups = {"smoke", "regression"})
+    public void addCompanyFromCompaniesPageIncorrectINNB2C() {
+        var user = UserManager.getQaUser();
+
+        b2cShop().goToPageFromTenant();
+        b2cShop().interactHeader().clickToLogin();
+        b2cShop().interactAuthModal().authViaPhone(user);
+        b2cShop().interactHeader().checkProfileButtonVisible();
+
+        b2cCompanies().goToPageFromTenant();
+        b2cCompanies().checkCompaniesListIsEmpty();
+
+        b2cCompanies().clickAddCompany();
+        b2cCompanies().interactAddCompany().checkAddCompanyModalVisible();
+        b2cCompanies().interactAddCompany().fillInn("000000000000");
+        b2cCompanies().interactAddCompany().clickAddCompany();
+        b2cCompanies().interactAddCompany().checkInnInputErrorIsVisible();
+        b2cCompanies().interactAddCompany().checkErrorTextEquals("Введите корректный ИНН");
+
+        b2cCompanies().interactAddCompany().close();
+        b2cCompanies().interactAddCompany().checkAddCompanyModalNotVisible();
+        b2cCompanies().checkCompaniesListIsEmpty();
+    }
+
     @CaseId(37)
     @Test(description = "Отображение  блока 'менеджер' в кабинете компании", groups = {"smoke", "regression"})
     public void testCompanyManagerInfo() {
@@ -390,5 +415,47 @@ public class CompaniesTests extends BaseTest {
         companyInfoPage().clickGoForwardButton();
         companyInfoPage().checkCompanyUsersDisplayed();
         companyInfoPage().checkSecurityBlockNotDisplayed();
+    }
+
+    @CaseId(757)
+    @Test(description = "Блок 'Код безопасности' (B2C-витрина)", groups = {"smoke", "regression"})
+    public void testSecurityCodeBlockB2C() {
+        var company = JuridicalData.juridical();
+        var companyHeadUser = UserManager.getQaUser();
+        var otherUsers = UserManager.getQaUsers(10);
+        helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), companyHeadUser.getEmail());
+        helper.addEmployeesForCompany(company.getInn(), otherUsers);
+
+        b2cShop().goToPageFromTenant();
+        b2cShop().interactHeader().clickToLogin();
+        b2cShop().interactAuthModal().authViaPhone(companyHeadUser);
+        b2cShop().interactHeader().checkProfileButtonVisible();
+        b2cShop().addCookie(CookieFactory.COOKIE_ALERT);
+
+        b2cCompanies().goToPageFromTenant();
+        b2cCompanies().clickOnFirstCompanyName();
+        b2cCompanyInfo().checkSecurityBlockDisplayed();
+
+        b2cCompanyInfo().clickGoForwardButton();
+        b2cCompanyInfo().checkSecurityBlockDisplayed();
+
+        b2cCompanyInfo().interactHeader().clickToProfile();
+        b2cCompanyInfo().interactHeader().interactAccountMenu().checkAccountMenuVisible();
+        b2cCompanyInfo().interactHeader().interactAccountMenu().clickToLogout();
+        b2cCompanyInfo().interactHeader().checkProfileButtonNotVisible();
+
+        b2cShop().goToPageFromTenant();
+        b2cShop().interactHeader().clickToLogin();
+        b2cShop().interactAuthModal().authViaPhone(otherUsers.get(9));
+        b2cShop().interactHeader().checkProfileButtonVisible();
+
+        b2cCompanies().goToPageFromTenant();
+        b2cCompanies().clickOnFirstCompanyName();
+        b2cCompanyInfo().checkCompanyUsersDisplayed();
+        b2cCompanyInfo().checkSecurityBlockNotDisplayed();
+
+        b2cCompanyInfo().clickGoForwardButton();
+        b2cCompanyInfo().checkCompanyUsersDisplayed();
+        b2cCompanyInfo().checkSecurityBlockNotDisplayed();
     }
 }
