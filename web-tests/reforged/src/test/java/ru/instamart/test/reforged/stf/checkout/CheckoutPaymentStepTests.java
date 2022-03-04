@@ -74,7 +74,7 @@ public class CheckoutPaymentStepTests {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        cloudPayments().checkPageContains(EnvironmentProperties.CLOUD_PAYMENTS_URL + "/acs");
+        cloudPayments().checkPageContains(EnvironmentProperties.CLOUD_PAYMENTS_URL + "acs");
         cloudPayments().fillAnswer("4");
         cloudPayments().clickOnConfirmPaymentButton();
 

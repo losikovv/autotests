@@ -464,7 +464,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        cloudPayments().checkPageContains(EnvironmentProperties.CLOUD_PAYMENTS_URL + "/acs");
+        cloudPayments().checkPageContains(EnvironmentProperties.CLOUD_PAYMENTS_URL + "acs");
         cloudPayments().fillAnswer("4");
         cloudPayments().clickOnConfirmPaymentButton();
 
@@ -499,6 +499,10 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        checkout().checkPageContains("https://demo.cloudpayments.ru/acs");
+        cloudPayments().checkPageContains(EnvironmentProperties.CLOUD_PAYMENTS_URL + "acs");
+        cloudPayments().fillAnswer("4");
+        cloudPayments().clickOnConfirmPaymentButton();
+
+        userShipments().checkPageContains(userShipments().pageUrl());
     }
 }
