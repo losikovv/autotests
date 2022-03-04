@@ -89,7 +89,7 @@ public class PaymentToolsV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Существующий номер заказа")
     public void getPaymentToolsWithOrder200() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         String orderNumber = apiV2.getCurrentOrderNumber();
         final Response response = PaymentToolsV2Request.GET(orderNumber);
         checkStatusCode200(response);

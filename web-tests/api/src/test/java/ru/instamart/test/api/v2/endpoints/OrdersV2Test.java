@@ -93,7 +93,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-smoke"},
             description = "Существующий id")
     public void orderWithPromoCode() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), promoCode);
         checkStatusCode200(response);
@@ -120,7 +120,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Несуществующий промокод")
     public void orderWithInvalidPromoCode() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         final Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), "failCode");
         checkError(response, "Промокод не существует");
@@ -131,7 +131,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Истекший промокод")
     public void orderWithExpiredPromoCode() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         final Response response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), getExpiredPromotionCode());
         checkError(response, "Данный промокод истек");
     }
@@ -153,7 +153,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Существующий id")
     public void deletePromoCodeForOrder() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), promoCode);
         checkStatusCode200(response);
@@ -172,7 +172,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Несуществующий id заказа")
     public void deletePromoCodeForInvalidOrder() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), promoCode);
         checkStatusCode200(response);
@@ -189,7 +189,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Несуществующий promoCode")
     public void deleteInvalidPromoCode() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
 
         response = OrdersV2Request.Promotions.POST(apiV2.getCurrentOrderNumber(), promoCode);
         checkStatusCode200(response);
@@ -206,7 +206,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {},
             description = "Получение списка позиций по заказу. Существующий id")
     public void getingListOfItemsForOrder() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         response = OrdersV2Request.LineItems.GET(apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
         LineItemsV2Response lineItemsV2Response = response.as(LineItemsV2Response.class);
@@ -234,7 +234,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {},
             description = "Получение line_items для shipments с существующим id")
     public void getShipmentLineItems200() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         response = ShipmentsV2Request.LineItems.GET(apiV2.getShipmentsNumber());
         assertNotNull(response.as(LineItemsV2Response.class).getLineItems(), "Не вернулись товары заказа");
     }
@@ -254,7 +254,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {},
             description = "Получение списка отмененных позиций по заказу с существующим id")
     public void getLineItemCancellations200() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         response = OrdersV2Request.LineItemCancellations.GET(apiV2.getCurrentOrderNumber());
         checkStatusCode200(response);
         assertTrue(response.as(LineItemCancellationsV2Response.class).getLineItemCancellations().isEmpty(), "Невалидная ошибка");
@@ -333,7 +333,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Редактирование позиции заказа с существующим id")
     public void changeLineItems200() {
-        List<LineItemV2> cart = apiV2.fillCart(
+        List<LineItemV2> cart = apiV2.dropAndFillCart(
                 SessionFactory.getSession(SessionType.API_V2).getUserData(),
                 EnvironmentProperties.DEFAULT_SID
         );
@@ -366,7 +366,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Успешное удаление позиции заказа")
     public void deleteLineItems200() {
-        Integer productId = apiV2.fillCart(
+        Integer productId = apiV2.dropAndFillCart(
                 SessionFactory.getSession(SessionType.API_V2).getUserData(),
                 EnvironmentProperties.DEFAULT_SID
         ).get(0).getId();
@@ -391,7 +391,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Заполнение информации о заказе с существующим id")
     public void fillingInOrderInformation200() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         Integer paymentsId = apiV2.getPaymentTools().get(0).getId();
         Integer shipmentId = apiV2.getShippingWithOrder().getId();
         Integer deliveryWindow = apiV2.getAvailableDeliveryWindow().getId();
@@ -511,7 +511,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {},
             description = "Очистка заказа с существующим id")
     public void clearOrder200() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         String orderNumber = apiV2.getCurrentOrderNumber();
         response = OrdersV2Request.Shipments.DELETE(orderNumber);
         OrderV2 order = response.as(OrderV2Response.class).getOrder();
@@ -543,7 +543,7 @@ public class OrdersV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Очистка подзаказа с существующим id")
     public void clearShipments200() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         String shipmentNumber = apiV2.getShipmentsNumber();
         String orderNumber = apiV2.getCurrentOrderNumber();
         final Response response = ShipmentsV2Request.DELETE(shipmentNumber);
@@ -669,7 +669,7 @@ public class OrdersV2Test extends RestBase {
         SessionFactory.clearSession(SessionType.API_V2);
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         final UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
-        apiV2.fillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
         String userId = UserIdDao.INSTANCE.findUserId(userData.getPhone());
 
         execRakeTaskAddBonus(userData.getEmail(), "100", userId);

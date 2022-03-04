@@ -48,7 +48,7 @@ public class ShipmentsV2Test extends RestBase {
             admin.checkDeliveryWindows(EnvironmentProperties.DEFAULT_SID);
         }
         SessionFactory.makeSession(SessionType.API_V2);
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
     }
 
     @CaseId(339)

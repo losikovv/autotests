@@ -63,7 +63,7 @@ public class MergedShipmentsV2Test extends RestBase {
             description = "Добавление в подзаказ подзаказа из другого магазина",
             dependsOnMethods = "mergeShipments")
     public void mergeShipmentWithShipmentFromAnotherStore() {
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         OrderV2 newOrder = apiV2.getOpenOrder();
         final Response response = ShipmentsV2Request.Merge.POST(newOrder.getShipments().get(0).getNumber(), order.getShipments().get(0).getNumber());
         checkStatusCode422(response);

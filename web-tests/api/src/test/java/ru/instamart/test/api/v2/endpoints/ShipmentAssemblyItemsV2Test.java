@@ -44,7 +44,7 @@ public class ShipmentAssemblyItemsV2Test extends RestBase {
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
         UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
-        apiV2.fillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
         OrderV2 order = apiV2.getOpenOrder();
         shipment = order.getShipments().get(0);
     }
@@ -110,7 +110,7 @@ public class ShipmentAssemblyItemsV2Test extends RestBase {
             dependsOnMethods = "getCancelledAssemblyItemsOfShipment")
     public void getAssemblyItemsWithPriceType(ProductPriceTypeV2 priceType) {
         UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
-        apiV2.fillCart(userData, EnvironmentProperties.DEFAULT_SID, priceType);
+        apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID, priceType);
         ShipmentV2 shipment = apiV2.getOpenOrder().getShipments().get(0);
         final Response response = ShipmentsV2Request.AssemblyItems.GET(shipment.getNumber());
         checkStatusCode200(response);

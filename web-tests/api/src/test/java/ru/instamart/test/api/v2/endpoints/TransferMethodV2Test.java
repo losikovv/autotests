@@ -49,7 +49,7 @@ public class TransferMethodV2Test extends RestBase {
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
         userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
-        lineItem = apiV2.fillCart(userData, EnvironmentProperties.DEFAULT_SID).get(0);
+        lineItem = apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID).get(0);
         currentOrderNumber = apiV2.getOpenOrder().getNumber();
         addressDefaultSid = apiV2.getAddressBySid(EnvironmentProperties.DEFAULT_SID);
         offerIdDefaultSid = OffersDao.INSTANCE.getOfferByStoreId(EnvironmentProperties.DEFAULT_SID).getId();

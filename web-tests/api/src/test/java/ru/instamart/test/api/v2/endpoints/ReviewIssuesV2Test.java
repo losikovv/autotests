@@ -29,7 +29,7 @@ public class ReviewIssuesV2Test extends RestBase {
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         OrderV2 order = apiV2.getCurrentOrder();
         orderNumber = order.getNumber();
         shipmentNumber = order.getShipments().get(0).getNumber();
