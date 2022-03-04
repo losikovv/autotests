@@ -46,7 +46,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         var sid = EnvironmentProperties.DEFAULT_SID;
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
-        apiV2.fillCart(userData, sid);
+        apiV2.dropAndFillCart(userData, sid);
         order = apiV2.getOpenOrder();
         if (order == null) throw new SkipException("Заказ не удалось оплатить");
         shipmentNumber = order.getShipments().get(0).getNumber();

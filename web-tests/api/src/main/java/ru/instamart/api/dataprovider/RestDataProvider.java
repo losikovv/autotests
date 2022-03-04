@@ -543,7 +543,7 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "ordersLineItems", parallel = true)
     public static Object[][] ordersLineItems() {
-        List<ProductV2> products = apiV2.getProductFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_SID);
+        List<ProductV2> products = apiV2.getProducts(EnvironmentProperties.DEFAULT_SID);
         Long product = products.get(0).getId();
         return new Object[][]{
                 {0, 0, "failedOrderNumbers"},
@@ -556,7 +556,7 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "changeLineItems")
     public static Object[][] changeLineItems() {
-        Integer productId = apiV2.fillCart(
+        Integer productId = apiV2.dropAndFillCart(
                 SessionFactory.getSession(SessionType.API_V2).getUserData(),
                 EnvironmentProperties.DEFAULT_SID
         ).get(0).getId();
@@ -572,7 +572,7 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "fillingInOrderInformationDp")
     public static Object[][] fillingInOrderInformationDp() {
 
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         Integer paymentsId = apiV2.getPaymentTools().get(0).getId();
         Integer shipmentId = apiV2.getShippingWithOrder().getId();
         Integer shipmentMethodId = apiV2.getShippingMethods().get(0).getId();

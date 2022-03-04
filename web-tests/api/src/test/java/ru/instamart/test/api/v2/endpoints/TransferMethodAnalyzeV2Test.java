@@ -42,7 +42,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
-        apiV2.fillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
         currentOrderNumber = apiV2.getOpenOrder().getNumber();
     }
 

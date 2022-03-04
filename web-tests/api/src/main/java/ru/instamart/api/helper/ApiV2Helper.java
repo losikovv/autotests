@@ -12,6 +12,7 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.OrderStatusV2;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.common.ProductsFilterParams;
 import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.v1.RetailersV1Request;
 import ru.instamart.api.request.v2.*;
@@ -131,10 +132,6 @@ public final class ApiV2Helper {
         skipTestIfOnlyPickupIsAvailable(store, null);
     }
 
-    /*
-      МЕТОДЫ ОБРАБОТКИ ОТВЕТОВ API V2
-     */
-
     @Step("Отправляем запрос на получение смс с кодом")
     public PhoneTokenV2 sendSMS(String encryptedPhone) {
         log.debug("Отправляем запрос на получение смс с кодом");
@@ -229,9 +226,55 @@ public final class ApiV2Helper {
         return addressFromResponse;
     }
 
+    @Step("Получение лайн айтемов в заказе {orderNumber}")
+    public List<LineItemV2> getLineItems(String orderNumber) {
+        Response response = OrdersV2Request.LineItems.GET(orderNumber);
+        checkStatusCode200(response);
+        return response.as(LineItemsV2Response.class).getLineItems();
+    }
+
+    public List<ProductV2> getProducts(int sid) {
+        return getProducts(sid, "");
+    }
+
+    @Step("Поиск продуктов {query} в {sid} магазине")
+    public List<ProductV2> getProducts(int sid, String query) {
+        Response response = ProductsV2Request.GET(ProductsFilterParams.builder().sid(sid).query(query).build());
+        checkStatusCode200(response);
+        return response.as(ProductsV2Response.class).getProducts();
+    }
+
+    @Step("Поиск продуктов {priceType.value} в {sid} магазине")
+    public List<ProductV2> getProducts(int sid, ProductPriceTypeV2 priceType) {
+        switch (priceType) {
+            case PER_ITEM:
+                return getProducts(sid, "хлеб")
+                        .stream()
+                        .filter(product -> product.getPriceType().equals(ProductPriceTypeV2.PER_ITEM.getValue()))
+                        .collect(Collectors.toList());
+            case PER_KILO:
+                return getProducts(sid, "яблоки")
+                        .stream()
+                        .filter(product -> product.getPriceType().equals(ProductPriceTypeV2.PER_KILO.getValue()))
+                        .collect(Collectors.toList());
+            case PER_PACK:
+                return getProducts(sid, "вода")
+                        .stream()
+                        .filter(product -> product.getPriceType().equals(ProductPriceTypeV2.PER_PACK.getValue()))
+                        .collect(Collectors.toList());
+            case PER_PACKAGE:
+                return getProducts(sid, "колбаса")
+                        .stream()
+                        .filter(product -> product.getPriceType().equals(ProductPriceTypeV2.PER_PACKAGE.getValue()))
+                        .collect(Collectors.toList());
+            default: throw new SkipException("Указанный price_type не поддерживается");
+        }
+    }
+
     /**
      * Получаем список продуктов: по одному из каждой категории
      */
+    @Deprecated
     @Step("Получаем список продуктов: по одному из каждой категории для магазина sid = {sid}")
     public List<ProductV2> getProductFromEachDepartmentInStore(int sid) {
         return getProductsFromEachDepartmentInStore(sid, 1, new SoftAssert());
@@ -240,6 +283,7 @@ public final class ApiV2Helper {
     /**
      * Получаем список продуктов: максимум (6) из каждой категории
      */
+    @Deprecated
     @Step("Получаем список продуктов: максимум (6) из каждой категории для магазина sid = {sid}")
     public List<ProductV2> getProductsFromEachDepartmentInStore(int sid) {
         return getProductsFromEachDepartmentInStore(sid, 6, new SoftAssert());
@@ -248,6 +292,7 @@ public final class ApiV2Helper {
     /**
      * Получаем список продуктов: максимум (6) из каждой категории и проверяем корректность категорий
      */
+    @Deprecated
     public List<ProductV2> getProductsFromEachDepartmentInStore(int sid, SoftAssert softAssert) {
         return getProductsFromEachDepartmentInStore(sid, 6, softAssert);
     }
@@ -258,6 +303,7 @@ public final class ApiV2Helper {
      * @param sid                                сид магазина
      * @param numberOfProductsFromEachDepartment количество продуктов из каждой категории (не больше 6)
      */
+    @Deprecated
     private List<ProductV2> getProductsFromEachDepartmentInStore(int sid,
                                                                  int numberOfProductsFromEachDepartment,
                                                                  SoftAssert softAssert) {
@@ -298,31 +344,14 @@ public final class ApiV2Helper {
     }
 
     @Step("Получаем список избранных продуктов: для магазина sid = {sid}")
-    private List<ItemV2> getProductsFromFavorites(final int sid) {
+    public List<ProductV2> getProductsFromFavorites(final int sid) {
         var response = FavoritesV2Request.GET(sid);
         checkStatusCode200(response);
 
-        return response.as(FavoritesListItemsV2Response.class).getItems();
-    }
-
-    public ProductV2 getProductByPriceType(Integer sid, String priceType) {
-        List<ProductV2> products = getProductsFromEachDepartmentInStore(sid);
-        for (ProductV2 product : products) {
-            if (product.getPriceType().equals(priceType)) {
-                return product;
-            }
-        }
-        throw new SkipException("Нет продукта с price_type: " + priceType);
-    }
-
-    /**
-     * Добавляем список товаров в корзину
-     */
-    @Step("Добавляем список товаров в корзину")
-    private List<LineItemV2> addItemsToCart(List<ProductV2> products, int quantity) {
-        return products
+        return response.as(FavoritesListItemsV2Response.class)
+                .getItems()
                 .stream()
-                .map(product -> addItemToCart(product.getId(), quantity))
+                .map(ItemV2::getProduct)
                 .collect(Collectors.toList());
     }
 
@@ -1039,29 +1068,12 @@ public final class ApiV2Helper {
         return orders;
     }
 
-    /*
-      МЕТОДЫ ИЗ НЕСКОЛЬКИХ ЗАПРОСОВ
-     */
+    public void fillCart(List<ProductV2> products) {
+        fillCart(products, 1);
+    }
 
-    /**
-     * Наполняем корзину разными товарами до минимальной суммы заказа в конкретном магазине
-     */
-    void fillCartOnSid(int sid, int itemsNumber, final boolean addFavorites, ProductPriceTypeV2 priceType) {
-        List<ProductV2> products;
-
-        if (addFavorites) {
-            products = getProductsFromFavorites(sid)
-                    .stream()
-                    .limit(itemsNumber)
-                    .map(ItemV2::getProduct)
-                    .collect(Collectors.toList());
-        } else {
-            products = getProductFromEachDepartmentInStore(sid)
-                    .stream()
-                    .filter(product -> product.getPriceType().equals(priceType.getValue()))
-                    .limit(itemsNumber)
-                    .collect(Collectors.toList());
-        }
+    public void fillCart(List<ProductV2> products, int limit) {
+        products = products.stream().limit(limit).collect(Collectors.toList());
         double initialCartWeight = 0;
 
         for (final ProductV2 product : products) {
@@ -1077,8 +1089,7 @@ public final class ApiV2Helper {
                 quantity = (int) Math.ceil(minSum.get() / (product.getPrice() * product.getItemsPerPack()));
             }
 
-            var finalCartWeight = roundBigDecimal(
-                    (getProductWeight(product) * quantity) + initialCartWeight, 3);
+            var finalCartWeight = roundBigDecimal((getProductWeight(product) * quantity) + initialCartWeight, 3);
 
             var cartWeightText = "Вес корзины: " + finalCartWeight + " кг.\n";
             var anotherProductText = "Выбираем другой товар\n";
@@ -1129,24 +1140,6 @@ public final class ApiV2Helper {
         log.debug("Product '{}' was added with status = {}", id, response.statusCode());
     }
 
-    /**
-     * Наполняем корзину до минимальной суммы заказа в конкретном магазине
-     */
-    public void fillCartOnSid(int sid) {
-        fillCartOnSid(sid, 1, false, ProductPriceTypeV2.PER_ITEM);
-    }
-
-    /**
-     * Наполняем корзину до минимальной суммы заказа в конкретном магазине с выбором типа цены
-     */
-    public void fillCartOnSid(int sid, ProductPriceTypeV2 priceType) {
-        fillCartOnSid(sid, 1, false, priceType);
-    }
-
-    public void fillCartOnSid(final int sid, final int itemsNumber) {
-        fillCartOnSid(sid, itemsNumber, false, ProductPriceTypeV2.PER_ITEM);
-    }
-
     public OrderV2 setDefaultAttributesAndCompleteOrder() {
         return setDefaultAttributesAndCompleteOrder("test");
     }
@@ -1175,58 +1168,54 @@ public final class ApiV2Helper {
     /**
      * Наполнить корзину и выбрать адрес по умолчанию у юзера по определенному адресу
      */
-    public void fillCart(UserData user, AddressV2 address) {
+    public void dropAndFillCart(UserData user, AddressV2 address) {
         dropCart(user, address);
 
         getCurrentStore(address);
-        fillCartOnSid(currentSid.get());
+        fillCart(getProducts(currentSid.get()));
     }
 
     /**
      * Наполнить корзину и выбрать адрес у юзера по определенному адресу у определенного ритейлера
      */
-    public void fillCart(UserData user, AddressV2 address, String retailer) {
+    public void dropAndFillCart(UserData user, AddressV2 address, String retailer) {
         dropCart(user, address);
 
         getCurrentStore(address, retailer);
-        fillCartOnSid(currentSid.get());
+        fillCart(getProducts(currentSid.get()));
     }
 
     /**
      * Наполнить корзину и выбрать адрес у юзера в определенном магазине
      */
     @Step("Наполнение корзины для пользователя {user.email} в магазине с sid={sid}")
-    public List<LineItemV2> fillCart(UserData user, int sid) {
+    public List<LineItemV2> dropAndFillCart(UserData user, int sid) {
         dropCart(user, getAddressBySid(sid));
-        fillCartOnSid(sid);
-        Response response = OrdersV2Request.LineItems.GET(getCurrentOrderNumber());
-        checkStatusCode200(response);
-        return response.as(LineItemsV2Response.class).getLineItems();
+        fillCart(getProducts(sid));
+        return getLineItems(getCurrentOrderNumber());
     }
 
     /**
      * Наполнить корзину товарами с определенным типом цены и выбрать адрес у юзера в определенном магазине
      */
     @Step("Наполнение корзины для пользователя {user.email} в магазине с sid={sid} товарами с типом цены {priceType}")
-    public List<LineItemV2> fillCart(UserData user, int sid, ProductPriceTypeV2 priceType) {
+    public List<LineItemV2> dropAndFillCart(UserData user, int sid, ProductPriceTypeV2 priceType) {
         dropCart(user, getAddressBySid(sid));
-        fillCartOnSid(sid, priceType);
-        Response response = OrdersV2Request.LineItems.GET(getCurrentOrderNumber());
-        checkStatusCode200(response);
-        return response.as(LineItemsV2Response.class).getLineItems();
+        fillCart(getProducts(sid, priceType));
+        return getLineItems(getCurrentOrderNumber());
     }
 
     /**
      * Наполнить корзину и выбрать адрес у юзера в определенном магазине по определенным координатам
      */
     @Step("Наполнение корзины для пользователя {user.email} в магазине с sid={sid} по определенным координатам {coordinates.lat}/{coordinates.lon} ")
-    public void fillCart(UserData user, int sid, ZoneV2 coordinates) {
+    public void dropAndFillCart(UserData user, int sid, ZoneV2 coordinates) {
         AddressV2 address = getAddressBySid(sid);
         address.setCoordinates(coordinates);
 
         dropCart(user, address);
 
-        fillCartOnSid(sid);
+        fillCart(getProducts(sid));
     }
 
     /**
@@ -1243,7 +1232,7 @@ public final class ApiV2Helper {
 
     @Step("Заполнение корзины и аттрибутов заказа без оформления")
     public void fillingCartAndOrderAttributesWithoutCompletion(UserData user, int sid) {
-        fillCart(user, sid);
+        dropAndFillCart(user, sid);
         getAvailablePaymentTool();
         getAvailableShippingMethod();
         getAvailableDeliveryWindow();
@@ -1252,7 +1241,7 @@ public final class ApiV2Helper {
 
     @Step("Заполнение корзины и аттрибутов заказа без оформления")
     public void fillingCartAndOrderAttributesWithoutCompletion(UserData user, AddressV2 address) {
-        fillCart(user, address);
+        dropAndFillCart(user, address);
         getAvailablePaymentTool();
         getAvailableShippingMethod();
         getAvailableDeliveryWindow();
@@ -1265,7 +1254,7 @@ public final class ApiV2Helper {
      */
     @Step("Оформляем заказ у юзера {user.email} по адресу {address.fullAddress} для ритейлера {retailer}")
     public OrderV2 order(UserData user, AddressV2 address, String retailer) {
-        fillCart(user, address, retailer);
+        dropAndFillCart(user, address, retailer);
         return setDefaultAttributesAndCompleteOrder();
     }
 
@@ -1274,7 +1263,7 @@ public final class ApiV2Helper {
      */
     @Step("Оформляем заказ у юзера {user.email} в магазине с sid = {sid}")
     public OrderV2 order(UserData user, int sid) {
-        fillCart(user, sid);
+        dropAndFillCart(user, sid);
         return setDefaultAttributesAndCompleteOrder();
     }
 
@@ -1283,7 +1272,8 @@ public final class ApiV2Helper {
      */
     @Step("Оформляем заказ у юзера {user.email} в магазине с sid = {sid} с типом оплаты {priceType}")
     public OrderV2 order(UserData user, int sid, ProductPriceTypeV2 priceType) {
-        fillCart(user, sid, priceType);
+        dropCart(user, getAddressBySid(sid));
+        fillCart(getProducts(sid, priceType));
         return setDefaultAttributesAndCompleteOrder();
     }
 
@@ -1293,7 +1283,7 @@ public final class ApiV2Helper {
     @Step("Оформляем заказ у юзера {user.email} в магазине с sid = {sid} c количеством товаров в корзине = {itemsNumber}")
     public OrderV2 order(UserData user, int sid, int itemsNumber, String comment) {
         dropCart(user, getAddressBySid(sid));
-        fillCartOnSid(sid, itemsNumber, false, ProductPriceTypeV2.PER_ITEM);
+        fillCart(getProducts(sid), itemsNumber);
         return setDefaultAttributesAndCompleteOrder(comment);
     }
 
@@ -1302,7 +1292,7 @@ public final class ApiV2Helper {
      */
     @Step("Оформляем заказ у юзера {user.email} в магазине с sid = {sid} c координатами lat/lon = {coordinates.lat}/{coordinates.lon}")
     public OrderV2 order(UserData user, int sid, ZoneV2 coordinates) {
-        fillCart(user, sid, coordinates);
+        dropAndFillCart(user, sid, coordinates);
         return setDefaultAttributesAndCompleteOrder();
     }
 

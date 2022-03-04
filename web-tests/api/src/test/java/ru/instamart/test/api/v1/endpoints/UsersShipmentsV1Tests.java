@@ -42,7 +42,7 @@ public class UsersShipmentsV1Tests extends RestBase {
         user = UserManager.getQaUser();
         apiV1.authByPhone(user);
         apiV2.authByQA(user);
-        apiV2.fillCart(user, EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(user, EnvironmentProperties.DEFAULT_SID);
         order = apiV1.getMultiRetailerOrder();
         shipmentNumber = order.getShipments().get(0).getNumber();
     }

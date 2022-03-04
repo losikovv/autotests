@@ -80,7 +80,7 @@ public class ReviewableShipmentWithoutFinishedOrderV2Test extends RestBase {
             description = "Закрытие окна заказа для недоставленного заказа")
     public void closeReviewableWindowForNotShippedOrder() {
         SessionFactory.makeSession(SessionType.API_V2);
-        apiV2.fillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         final Response response = ShipmentsV2Request.ReviewWindowClose.PUT(apiV2.getShipmentsNumber());
         checkStatusCode422(response);
         ErrorResponse error = response.as(ErrorResponse.class);

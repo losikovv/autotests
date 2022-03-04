@@ -32,7 +32,7 @@ public final class PromotionLimitV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Проверка условий оплаты бонусами")
     public void bonusPaymentTermsTest() {
-        apiV2.fillCart(
+        apiV2.dropAndFillCart(
                 SessionFactory.getSession(SessionType.API_V2).getUserData(),
                 EnvironmentProperties.DEFAULT_SID
         );

@@ -37,24 +37,6 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 public final class ProductsV2Test extends RestBase {
     private ProductV2 product;
 
-    @Deprecated
-    @Story("Получить список доступных продуктов (Поиск)")
-    @Test(description = "Получаем продукты",
-            groups = {})
-    public void getProducts() {
-        response = ProductsV2Request.GET(ProductsFilterParams.builder()
-                .sid(EnvironmentProperties.DEFAULT_SID)
-                .query("")
-                .build());
-        checkStatusCode200(response);
-
-        final ProductsV2Response productsV2Response = response.as(ProductsV2Response.class);
-        final List<ProductV2> products = productsV2Response.getProducts();
-        assertFalse(products.isEmpty(), "Не вернулись продукты");
-
-        checkSort(ProductSortTypeV2.POPULARITY, productsV2Response.getSort());
-    }
-
     @CaseIDs(value = {@CaseId(265), @CaseId(869)})
     @Story("Получить данные о продукте")
     @Test(description = "Получаем данные о продукте",

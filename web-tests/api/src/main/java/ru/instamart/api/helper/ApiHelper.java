@@ -3,7 +3,6 @@ package ru.instamart.api.helper;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.api.enums.v1.ImportStatusV1;
-import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.model.v1.DeliveryWindowV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.model.v1.RetailerV1;
@@ -69,7 +68,8 @@ public final class ApiHelper {
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(userData, apiV2.getAddressBySid(sid));
-        apiV2.fillCartOnSid(sid, 1, true, ProductPriceTypeV2.PER_ITEM);
+        var products = apiV2.getProductsFromFavorites(sid);
+        apiV2.fillCart(products);
     }
 
     /**
@@ -93,7 +93,7 @@ public final class ApiHelper {
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
-        apiV2.fillCartOnSid(sid);
+        apiV2.fillCart(apiV2.getProducts(sid));
     }
 
     /**
@@ -106,7 +106,7 @@ public final class ApiHelper {
         apiV2.authByPhone(user);
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
-        apiV2.fillCartOnSid(sid);
+        apiV2.fillCart(apiV2.getProducts(sid));
     }
 
     @Step("Наполняем корзину с помощью API")
@@ -115,8 +115,8 @@ public final class ApiHelper {
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, address);
-        apiV2.fillCartOnSid(firstShopSid);
-        apiV2.fillCartOnSid(secondShopSid);
+        apiV2.fillCart(apiV2.getProducts(firstShopSid));
+        apiV2.fillCart(apiV2.getProducts(secondShopSid));
     }
 
     @Step("Наполняем корзину с помощью API")
@@ -125,8 +125,8 @@ public final class ApiHelper {
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, address);
-        apiV2.fillCartOnSid(firstShopSid, firstShopItemCount);
-        apiV2.fillCartOnSid(secondShopSid, secondShopItemCount);
+        apiV2.fillCart(apiV2.getProducts(firstShopSid), firstShopItemCount);
+        apiV2.fillCart(apiV2.getProducts(secondShopSid), secondShopItemCount);
     }
 
     /**
@@ -139,7 +139,7 @@ public final class ApiHelper {
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
-        apiV2.fillCartOnSid(sid, itemsNumber);
+        apiV2.fillCart(apiV2.getProducts(sid), itemsNumber);
     }
 
     /**
@@ -151,7 +151,7 @@ public final class ApiHelper {
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, address);
-        apiV2.fillCartOnSid(sid);
+        apiV2.fillCart(apiV2.getProducts(sid));
     }
 
     @Step("Наполняем корзину с помощью API")
@@ -160,7 +160,7 @@ public final class ApiHelper {
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, address);
-        apiV2.fillCartOnSid(apiV2.getCurrentStore(address, retailerName).getId());
+        apiV2.fillCart(apiV2.getProducts(apiV2.getCurrentStore(address, retailerName).getId()));
     }
 
     /**
@@ -196,7 +196,7 @@ public final class ApiHelper {
         apiV2.deleteAllShipments();
 
         apiV2.setAddressAttributes(user, address);
-        apiV2.fillCartOnSid(sid, itemsNumber);
+        apiV2.fillCart(apiV2.getProducts(sid), itemsNumber);
 
         apiV2.getAvailablePaymentTool();
         apiV2.getAvailableShippingMethod(sid);
@@ -219,7 +219,7 @@ public final class ApiHelper {
 
         apiV2.setAddressAttributes(user, address);
 
-        apiV2.fillCartOnSid(sid);
+        apiV2.fillCart(apiV2.getProducts(sid));
 
         apiV2.getAvailablePaymentTool();
         apiV2.getAvailableShippingMethod(sid);
@@ -227,7 +227,7 @@ public final class ApiHelper {
 
         apiV2.setDefaultOrderAttributes();
 
-        apiV2.fillCartOnSid(sid2);
+        apiV2.fillCart(apiV2.getProducts(sid2));
 
         apiV2.getAvailablePaymentTool();
         apiV2.getAvailableShippingMethod(sid2);
@@ -248,7 +248,7 @@ public final class ApiHelper {
         apiV2.deleteAllShipments();
 
         apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
-        apiV2.fillCartOnSid(sid, itemsNumber);
+        apiV2.fillCart(apiV2.getProducts(sid), itemsNumber);
 
         apiV2.getAvailablePaymentTool();
         apiV2.getAvailableShippingMethod();
@@ -269,7 +269,7 @@ public final class ApiHelper {
         apiV2.deleteAllShipments();
 
         apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
-        apiV2.fillCartOnSid(sid, itemsNumber);
+        apiV2.fillCart(apiV2.getProducts(sid), itemsNumber);
 
         apiV2.getAvailablePaymentTool();
         apiV2.getAvailableShippingMethod();
@@ -482,7 +482,7 @@ public final class ApiHelper {
         //apiV2.deleteAllShipments();
 
         apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
-        apiV2.fillCartOnSid(sid, 1);
+        apiV2.fillCart(apiV2.getProducts(sid));
 
         //apiV2.getAvailablePaymentTool();
         //apiV2.getAvailableShippingMethod();
