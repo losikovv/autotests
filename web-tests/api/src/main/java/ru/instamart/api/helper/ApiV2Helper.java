@@ -438,22 +438,38 @@ public final class ApiV2Helper {
         }
     }
 
+    @Step("Получаем доступные дни для доставки")
+    private List<String> getAvailableDays() {
+        Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), null);
+        checkStatusCode200(response);
+
+        List<String> availableDays = response.as(ShippingRatesV2Response.class).getMeta().getAvailableDays();
+        assertFalse(availableDays.isEmpty(),
+                "Пустой список available_days в магазине " + currentSid.get() + "\n" + response.body().asString());
+
+        return availableDays;
+    }
+
+    @Step("Получаем доступные слоты для доставки")
+    private List<ShippingRateV2> getShippingRates(String availableDay) {
+        Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), availableDay);
+        checkStatusCode200(response);
+
+        List<ShippingRateV2> shippingRates = response.as(ShippingRatesV2Response.class).getShippingRates();
+        assertFalse(shippingRates.isEmpty(),
+                "Нет слотов в магазине " + currentSid.get() + "\n" + response.body().asString());
+
+        return shippingRates;
+    }
+
     /**
      * Получаем первый доступный слот
      */
     @Step("Получаем первый доступный слот")
     public DeliveryWindowV2 getAvailableDeliveryWindow() {
-        Response responseDeliveryWindow = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), null);
-        checkStatusCode200(responseDeliveryWindow);
-        String availableDays = responseDeliveryWindow.as(ShippingRatesV2Response.class).getMeta().getAvailableDays().get(0);
+        List<String> availableDays = getAvailableDays();
 
-        Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), availableDays);
-        checkStatusCode200(response);
-
-        List<ShippingRateV2> shippingRates = response.as(ShippingRatesV2Response.class).getShippingRates();
-
-        assertFalse(shippingRates.isEmpty(),
-                "Нет слотов в магазине admin/stores/" + currentSid.get());
+        List<ShippingRateV2> shippingRates = getShippingRates(availableDays.get(0));
 
         DeliveryWindowV2 deliveryWindow = shippingRates.get(0).getDeliveryWindow();
 
@@ -469,16 +485,10 @@ public final class ApiV2Helper {
      */
     @Step("Получаем первый доступный слот ON_DEMAND")
     public DeliveryWindowV2 getAvailableDeliveryWindowOnDemand() {
-        Response responseDeliveryWindow = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), null);
-        checkStatusCode200(responseDeliveryWindow);
-        String availableDays = responseDeliveryWindow.as(ShippingRatesV2Response.class).getMeta().getAvailableDays().get(0);
+        List<String> availableDays = getAvailableDays();
 
-        Response response = ShipmentsV2Request.ShippingRates.GET(currentShipmentNumber.get(), availableDays);
-        checkStatusCode200(response);
+        List<ShippingRateV2> shippingRates = getShippingRates(availableDays.get(0));
 
-        List<ShippingRateV2> shippingRates = response.as(ShippingRatesV2Response.class).getShippingRates();
-        assertFalse(shippingRates.isEmpty(),
-                "Нет слотов в магазине admin/stores/" + currentSid.get());
         List<ShippingRateV2> shippingRatesOnDemand = shippingRates.stream()
                 .filter(item -> item.getIsExpressDelivery() == true)
                 .collect(Collectors.toList());
