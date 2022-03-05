@@ -120,16 +120,10 @@ public final class UserData {
         }
 
         /**
-         * @return - id не null, только когда пользователь создается через qa ручку.
-         * Такие пользователи требуют что бы sms code состоял из последних 6 цифр номера телефона,
-         * во всех остальных случаях нужна {@link CoreProperties#DEFAULT_SMS}
+         * @return - дефолтное значение кода из смс {@link CoreProperties#DEFAULT_SMS}
          */
         private String getSmsCode() {
-            if (nonNull(id) && EnvironmentProperties.SERVER.equalsIgnoreCase("preprod")) {
-                return StringUtil.getSMSCode(phone);
-            } else {
                 return CoreProperties.DEFAULT_SMS;
-            }
         }
 
         private String generateEncryptedPhone() {
