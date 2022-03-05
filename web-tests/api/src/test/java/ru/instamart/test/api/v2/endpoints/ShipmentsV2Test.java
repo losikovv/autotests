@@ -313,6 +313,15 @@ public class ShipmentsV2Test extends RestBase {
         checkError(response, "Доставка не существует");
     }
 
+    @CaseId(787)
+    @Story("Получения статуса шипмента")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Получения статуса шипмента с пустым shipmentNumber")
+    public void getShipmentState4041() {
+        final Response response = ShipmentsV2Request.State.GET("");
+        checkStatusCode404(response);
+    }
+
     @CaseId(298)
     @Story("Повтор подзаказа")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},

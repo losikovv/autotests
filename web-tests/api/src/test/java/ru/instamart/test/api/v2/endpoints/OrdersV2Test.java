@@ -646,6 +646,7 @@ public class OrdersV2Test extends RestBase {
         SessionFactory.makeSession(SessionType.API_V2);
 
         final Response responseForCurrentOrder = OrdersV2Request.Current.PUT(unauthorizedOrder.getUuid());
+        checkStatusCode200(responseForCurrentOrder);
         checkResponseJsonSchema(responseForCurrentOrder, OrderV2Response.class);
         OrderV2Response orderFromResponse = responseForCurrentOrder.as(OrderV2Response.class);
         compareTwoObjects(unauthorizedOrder, orderFromResponse.getOrder());
@@ -657,6 +658,16 @@ public class OrdersV2Test extends RestBase {
             description = "Мердж несуществующего заказа без авторизации с текущим заказом пользователя")
     public void mergeCurrentOrderWithNonExistingOrder() {
         final Response response = OrdersV2Request.Current.PUT("failedUuid");
+        checkStatusCode404(response);
+        checkError(response, "Заказ не существует");
+    }
+
+    @CaseId(305)
+    @Story("Мердж заказа без авторизации с текущим заказом пользователя")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Мердж несуществующего заказа без авторизации с текущим заказом пользователя")
+    public void mergeCurrentOrderWithNullOrder() {
+        final Response response = OrdersV2Request.Current.PUT("");
         checkStatusCode404(response);
         checkError(response, "Заказ не существует");
     }
@@ -696,5 +707,18 @@ public class OrdersV2Test extends RestBase {
         final Response response = OrdersV2Request.SpasiboInfo.GET("failedOrderNumber");
         checkStatusCode404(response);
         checkError(response, "Заказ не существует");
+    }
+
+    @CaseId(2142)
+    @Story("Бонусы спасибо")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Получение информации о возможности оплатить бонусами для чужого заказа")
+    public void getSpasiboInfoForSomeoneElsesOrder() {
+        String currentOrderNumber = apiV2.getCurrentOrderNumber();
+        SessionFactory.clearSession(SessionType.API_V2);
+        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
+        final Response response = OrdersV2Request.SpasiboInfo.GET(currentOrderNumber);
+        checkStatusCode403(response);
+        checkError(response, "Пользователь не может выполнить это действие");
     }
 }
