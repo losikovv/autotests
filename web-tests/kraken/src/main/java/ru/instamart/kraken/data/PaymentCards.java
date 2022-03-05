@@ -3,32 +3,24 @@ package ru.instamart.kraken.data;
 public class PaymentCards {
 
     public static PaymentCardData testCard() {
-        return new PaymentCardData(
-                "4242424242424242",
-                "12",
-                "49",
-                "IVAN IVANOV",
-                "404",
-                true);
+        return PaymentCardData.builder()
+                .cardNumber("4242424242424242")
+                .expiryMonth("12")
+                .expiryYear("49")
+                .cardholderName("IVAN IVANOV")
+                .cvvNumber("404")
+                .secure(true)
+                .build();
     }
 
-    public static PaymentCardData testCardNo3ds(){
-        return new PaymentCardData(
-                "5200 8282 8282 8210",
-                "12",
-                "49",
-                "NO SECURE",
-                "404",
-                false);
-    }
-
-    public static PaymentCardData realCard() {
-        return new PaymentCardData(
-                "fill your card requisites here",
-                "fill your card requisites here",
-                "fill your card requisites here",
-                "fill your card requisites here",
-                "fill your card requisites here",
-                false);
+    public static PaymentCardData testCardNo3ds() {
+        return PaymentCardData.builder()
+                .cardNumber("5200 8282 8282 8210")
+                .expiryMonth("12")
+                .expiryYear("49")
+                .cardholderName("NO SECURE")
+                .cvvNumber("404")
+                .secure(false)
+                .build();
     }
 }
