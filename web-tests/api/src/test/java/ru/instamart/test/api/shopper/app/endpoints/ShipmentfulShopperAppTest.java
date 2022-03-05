@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
+import org.apache.commons.lang3.RandomUtils;
 import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -40,7 +41,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
     public void preconditions() {
         shopperApp.authorisation(UserManager.getDefaultShopper());
         shopperApp.deleteCurrentAssembly();
-        String COMMENT = "SHP-TEST-SINGLE";
+        String COMMENT = EnvironmentProperties.SERVER.equals("production") ? "SHP-TEST-SINGLE" + RandomUtils.nextInt(1, 50) : "SHP-TEST-SINGLE";
         shipment = shopperApp.getShipmentByComment(COMMENT);
 
         if (Objects.isNull(shipment)) {

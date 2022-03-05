@@ -24,6 +24,7 @@ import ru.instamart.jdbc.dao.DeliveryWindowsDao;
 import ru.instamart.jdbc.dao.StoreConfigsDao;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
@@ -187,6 +188,6 @@ public class ShipmentLineItemsV2Test extends RestBase {
     @AfterClass(alwaysRun = true)
     public void restoreData() {
         StoreConfigsDao.INSTANCE.updateEditingSettings(1, 1, 0);
-        DeliveryWindowsDao.INSTANCE.updateDeliveryWindowSettings(deliveryWindowId, 999, 0, 999, 0);
+        if(Objects.nonNull(deliveryWindowId)) DeliveryWindowsDao.INSTANCE.updateDeliveryWindowSettings(deliveryWindowId, 999, 0, 999, 0);
     }
 }

@@ -44,7 +44,7 @@ public class ShipmentAssemblyItemsV2Test extends RestBase {
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
         UserData userData = SessionFactory.getSession(SessionType.API_V2).getUserData();
-        apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+        apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID, ProductPriceTypeV2.PER_ITEM);
         OrderV2 order = apiV2.getOpenOrder();
         shipment = order.getShipments().get(0);
     }
