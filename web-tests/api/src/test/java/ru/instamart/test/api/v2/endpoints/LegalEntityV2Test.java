@@ -3,6 +3,9 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import ru.instamart.api.enums.SessionProvider;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.Parameters;
@@ -142,6 +145,19 @@ public class LegalEntityV2Test extends RestBase {
         softAssert.assertEquals(companyDocument.getPaymentTool().getName(), name + ", ИНН: " + inn, "Наименование платежа не совпадает");
         softAssert.assertEquals(companyDocument.getPaymentTool().getType(), "sber_bank_invoice", "Тип платежа не совпадает");
         softAssert.assertAll();
+    }
+
+
+    @CaseId(482)
+    @Story("Создание нового реквизита для юр лица")
+    @Test(enabled = false, //TODO разобраться с данными по компаниям
+            groups = {"api-instamart-regress"},
+            description = "Создание нового реквизита для юр лица с заполнением обязательных полей")
+    public void postCompanyAllDocuments200_1() {
+        UserData defaultApiUser = UserManager.getDefaultApiUser();
+        SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.PHONE, defaultApiUser);
+        final Response response = LegalEntityV2Request.ByINN.GET("2453252070");
+        checkStatusCode200(response);
     }
 
 

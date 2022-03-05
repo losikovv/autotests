@@ -20,13 +20,25 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode400;
 
 @Epic("ApiV2")
 @Feature("Города")
 public class CitiesV2Test extends RestBase {
+
+    @CaseId(2141)
+    @Story("Получение городов")
+    @Test(description = "Получаем города без параметров с 1 символом в запросе",
+            groups = {"api-instamart-regress", "api-instamart-smoke", "api-instamart-prod"})
+    public void getCities400() {
+        final Response response = CitiesV2Request.GET(CitiesV2Request.CitiesParams.builder()
+                .keyword("м")
+                .build());
+        checkStatusCode400(response);
+        checkError(response, "keyword должен состоять из 2 или более символов");
+    }
 
     @CaseId(1407)
     @Story("Получение городов")

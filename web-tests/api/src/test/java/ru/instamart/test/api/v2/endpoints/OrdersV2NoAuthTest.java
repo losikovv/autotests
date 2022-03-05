@@ -30,7 +30,7 @@ public class OrdersV2NoAuthTest extends RestBase {
         checkError(response, "Ключ доступа невалиден или отсутствует");
     }
 
-    @CaseId(1419)
+    @CaseId(2132)
     @Story("Получение заказов")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получаем заказы без авторизации")
