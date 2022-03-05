@@ -1293,7 +1293,7 @@ public final class ApiV2Helper {
     @Step("Оформляем заказ у юзера {user.email} в магазине с sid = {sid} c количеством товаров в корзине = {itemsNumber}")
     public OrderV2 order(UserData user, int sid, int itemsNumber, String comment) {
         dropCart(user, getAddressBySid(sid));
-        fillCart(getProducts(sid), itemsNumber);
+        fillCart(getProducts(sid, ProductPriceTypeV2.PER_ITEM), itemsNumber);
         return setDefaultAttributesAndCompleteOrder(comment);
     }
 

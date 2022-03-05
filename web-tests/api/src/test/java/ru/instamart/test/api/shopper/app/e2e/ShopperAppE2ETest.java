@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
+import org.apache.commons.lang3.RandomUtils;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
@@ -40,7 +41,7 @@ public class ShopperAppE2ETest extends RestBase {
     public void preconditions() {
         shopperApp.authorisation(UserManager.getDefaultShopper());
         shopperApp.deleteCurrentAssembly();
-        String COMMENT = "SHP-TEST-MULTI";
+        String COMMENT = EnvironmentProperties.SERVER.equals("production") ? "SHP-TEST-MULTI" + RandomUtils.nextInt(1, 50): "SHP-TEST-MULTI";
         shipment = shopperApp.getShipmentByComment(COMMENT);
 
         if (Objects.isNull(shipment)) {
