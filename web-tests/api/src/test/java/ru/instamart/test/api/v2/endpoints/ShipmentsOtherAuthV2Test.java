@@ -25,7 +25,7 @@ public class ShipmentsOtherAuthV2Test extends RestBase {
             description = "Получения статуса шипмента с существующим shipmentNumber другого пользователя")
     public void getShipmentState403() {
         SessionFactory.makeSession(SessionType.API_V2);
-        apiV2.fillCart(apiV2.getProducts(EnvironmentProperties.DEFAULT_SID));
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         String number = apiV2.getShipmentsNumber();
         SessionFactory.clearSession(SessionType.API_V2);
         SessionFactory.makeSession(SessionType.API_V2);

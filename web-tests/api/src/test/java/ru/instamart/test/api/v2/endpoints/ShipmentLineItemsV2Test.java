@@ -3,6 +3,7 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
@@ -46,8 +47,8 @@ public class ShipmentLineItemsV2Test extends RestBase {
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
-        products = apiV2.getProductsFromEachDepartmentInStore(1);
-        order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 1);
+        products = apiV2.getProductsFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         deliveryWindowId = order.getShipments().get(0).getDeliveryWindow().getId();
         DeliveryWindowsDao.INSTANCE.updateDeliveryWindowSettings(deliveryWindowId, 999, 1, 999, 1);
     }
@@ -61,7 +62,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, MergeLineItemsV2Response.class);
         newPrice = order.getTotal() + products.get(1).getPrice();
-        SoftAssert softAssert = new SoftAssert();
+        final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(newPrice, response.as(MergeLineItemsV2Response.class).getOrder().getTotal(), softAssert);
 
         final Response responseWithUpdatedOrder = OrdersV2Request.GET(order.getNumber());
@@ -78,11 +79,11 @@ public class ShipmentLineItemsV2Test extends RestBase {
             description = "Добавление того же товара",
             priority = 1)
     public void mergeSameLineItem() {
-        final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(0).getId(), 1);
+        final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), order.getShipments().get(0).getLineItems().get(0).getProduct().getId(), 1);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, MergeLineItemsV2Response.class);
-        Double updatedPrice = newPrice + products.get(0).getPrice();
-        SoftAssert softAssert = new SoftAssert();
+        Double updatedPrice = newPrice + order.getShipments().get(0).getLineItems().get(0).getProduct().getPrice();
+        final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(updatedPrice, response.as(MergeLineItemsV2Response.class).getOrder().getTotal(), softAssert);
 
         final Response responseWithUpdatedOrder = OrdersV2Request.GET(order.getNumber());
