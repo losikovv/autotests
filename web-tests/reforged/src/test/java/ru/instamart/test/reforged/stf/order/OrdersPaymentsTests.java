@@ -8,13 +8,12 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.data.Juridical;
-import ru.instamart.kraken.data.JuridicalData;
-import ru.instamart.kraken.data.PaymentCards;
+import ru.instamart.kraken.data.*;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -41,8 +40,7 @@ public final class OrdersPaymentsTests extends BaseTest {
 
     @CaseId(1624)
     @Story("Тест заказа с оплатой картой онлайн")
-    @Test(  description = "Тест заказа с оплатой картой онлайн",
-            groups = {"smoke","regression", "acceptance"})
+    @Test(description = "Тест заказа с оплатой картой онлайн", groups = {"smoke","regression"})
     public void successOrderWithCardOnline() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -82,8 +80,7 @@ public final class OrdersPaymentsTests extends BaseTest {
 
     @CaseId(1625)
     @Story("Тест заказа с оплатой картой курьеру")
-    @Test(  description = "Тест заказа с оплатой картой курьеру",
-            groups = {"smoke","regression", "acceptance"})
+    @Test(description = "Тест заказа с оплатой картой курьеру", groups = {"smoke","regression"})
     public void successOrderWithCardCourier() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -119,7 +116,7 @@ public final class OrdersPaymentsTests extends BaseTest {
 
     @CaseId(1626)
     @Story("Тест заказа с оплатой банковским переводом")
-    @Test(description = "Тест заказа с оплатой банковским переводом", groups = {"regression", "acceptance"})
+    @Test(description = "Тест заказа с оплатой банковским переводом", groups = "regression")
     public void successOrderWithBankTransfer() {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
@@ -157,5 +154,61 @@ public final class OrdersPaymentsTests extends BaseTest {
 
         userShipments().checkStatusShipmentReady();
         userShipments().checkPaymentMethodForBusiness();
+    }
+
+    @CaseIDs({@CaseId(3238), @CaseId(3236), @CaseId(3237)})
+    @Story("Ошибки валидации")
+    @Test(description = "Добавление новой карты", groups = "regression")
+    public void testValidationErrorForNewCard() {
+        final var data = TestVariables.testAddressData();
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
+
+        checkout().goToPage();
+        checkout().setDeliveryOptions().clickToForSelf();
+        checkout().setDeliveryOptions().fillApartment(data.getApartment());
+        checkout().setDeliveryOptions().fillFloor(data.getFloor());
+        checkout().setDeliveryOptions().checkElevator();
+        checkout().setDeliveryOptions().fillEntrance(data.getEntrance());
+        checkout().setDeliveryOptions().fillDoorPhone(data.getDomofon());
+        checkout().setDeliveryOptions().fillComments(data.getComments());
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+
+        checkout().setContacts().fillContactInfo(ordersUser);
+        checkout().setContacts().clickToSubmit();
+
+        checkout().setReplacementPolicy().clickToSubmit();
+
+        checkout().setSlot().setLastActiveSlot();
+
+        checkout().setPayment().clickToByCardOnline();
+        checkout().setPayment().clickToAddNewPaymentCard();
+
+        checkout().interactAddPaymentCardModal().fillCardNumber("1111 1111 1111 1111");
+        checkout().interactAddPaymentCardModal().fillExpMonth("12");
+        checkout().interactAddPaymentCardModal().fillExpYear("49");
+        checkout().interactAddPaymentCardModal().fillHolderName("IVANOV IVAN");
+        checkout().interactAddPaymentCardModal().fillCvv("404");
+        checkout().interactAddPaymentCardModal().clickToSaveModal();
+        checkout().interactAddPaymentCardModal().checkValidationErrorVisible("В номере карты допущены ошибки");
+
+        checkout().interactAddPaymentCardModal().fillCardNumber("4242 4242 4242 4242");
+        checkout().interactAddPaymentCardModal().fillExpMonth("0");
+        checkout().interactAddPaymentCardModal().fillExpYear("21");
+        checkout().interactAddPaymentCardModal().fillCvv("1");
+        checkout().interactAddPaymentCardModal().fillHolderName("TEST TEST");
+        checkout().interactAddPaymentCardModal().checkValidationErrorVisible("Некорректный месяц");
+        checkout().interactAddPaymentCardModal().checkValidationErrorVisible("Некорректный год");
+        checkout().interactAddPaymentCardModal().checkValidationErrorVisible("Код CVV должен содержать 3 символа");
+
+        checkout().interactAddPaymentCardModal().fillCardData(PaymentCards.testCard());
+        checkout().interactAddPaymentCardModal().fillHolderName("ТЕСТ");
+        checkout().interactAddPaymentCardModal().checkValidationErrorVisible("Только латинские буквы и пробел");
+        checkout().interactAddPaymentCardModal().fillHolderName("");
+        checkout().interactAddPaymentCardModal().checkValidationErrorVisible("Укажите имя владельца кредитной карты");
     }
 }

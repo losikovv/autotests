@@ -42,6 +42,6 @@ public final class UserShipmentsPage implements StfPage, UserShipmentsCheck {
 
     @Override
     public String pageUrl() {
-        return "/user/shipments";
+        return "user/shipments";
     }
 }

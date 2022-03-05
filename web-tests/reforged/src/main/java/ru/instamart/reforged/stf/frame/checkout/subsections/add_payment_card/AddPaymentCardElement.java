@@ -1,6 +1,8 @@
 package ru.instamart.reforged.stf.frame.checkout.subsections.add_payment_card;
 
 import org.openqa.selenium.By;
+import ru.instamart.reforged.core.ByKraken;
+import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Input;
 
 public interface AddPaymentCardElement {
@@ -10,5 +12,5 @@ public interface AddPaymentCardElement {
     Input expYear = new Input(By.xpath("//input[@data-cp='expDateYear']"), "Поле ввода года эксплуатации карты");
     Input cvv = new Input(By.xpath("//input[@data-cp='cvv']"), "Поле ввода cvv");
     Input holderName = new Input(By.xpath("//input[@data-cp='name']"), "Поле ввода имени владельца карты");
-
+    Element cardError = new Element(ByKraken.xpath("//div[text()='%s']"), "сообщение об ошибке при добавлении карты");
 }
