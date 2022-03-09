@@ -149,8 +149,8 @@ public class NotificationsPositionsV3Test extends RestBase {
         String retailerSku = lineItem.getProduct().getRetailerSku();
         Integer quantity = lineItem.getPacks();
         Double gramsPerUnit = lineItem.getProduct().getGramsPerUnit() * quantity + 250;
-        Double expQuantity = Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
-        Double expTotal = Math.floor(lineItem.getProduct().getUnitPrice() * gramsPerUnit / 100);
+        Integer expQuantity = (int)Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
+        Double expTotal = Math.floor(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
 
         Response responseInWork = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
@@ -171,9 +171,9 @@ public class NotificationsPositionsV3Test extends RestBase {
 
         simplyAwait(2);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
-        Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal() * 10);
+        Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
 
-        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getUnitQuantity(), expQuantity,
+        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
@@ -192,8 +192,8 @@ public class NotificationsPositionsV3Test extends RestBase {
         String retailerSku = lineItem.getProduct().getRetailerSku();
         Integer quantity = lineItem.getPacks();
         Double gramsPerUnit = lineItem.getProduct().getGramsPerUnit() * quantity + 250;
-        Double expQuantity = Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
-        Double expTotal = Math.floor(lineItem.getProduct().getUnitPrice() * gramsPerUnit / 100);
+        Integer expQuantity = (int)Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
+        Double expTotal = Math.floor(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
 
         Response responseInWork = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
@@ -214,9 +214,9 @@ public class NotificationsPositionsV3Test extends RestBase {
 
         simplyAwait(2);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
-        Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal() * 10);
+        Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
 
-        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getUnitQuantity(), expQuantity,
+        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
@@ -403,51 +403,8 @@ public class NotificationsPositionsV3Test extends RestBase {
         String retailerSku = lineItem.getProduct().getRetailerSku();
         Integer quantity = lineItem.getPacks();
         Double gramsPerUnit = lineItem.getProduct().getGramsPerUnit() * quantity + 250;
-        Double expQuantity = Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
-        Double expTotal = Math.floor(lineItem.getProduct().getUnitPrice() * gramsPerUnit / 100);
-
-        Response responseInWork = NotificationsV3Request.POST(
-                order.getShipments().get(0).getNumber(),
-                NotificationTypeV3.IN_WORK.getValue(),
-                retailerSku,
-                quantity,
-                quantity,
-                String.valueOf(gramsPerUnit));
-        checkStatusCode200(responseInWork);
-        Response responseReady = NotificationsV3Request.POST(
-                order.getShipments().get(0).getNumber(),
-                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
-                retailerSku,
-                quantity,
-                quantity + 3,
-                String.valueOf(gramsPerUnit));
-        checkStatusCode200(responseReady);
-
-        simplyAwait(2);
-        OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
-        Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal() * 10);
-
-        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getUnitQuantity(), expQuantity,
-                "Количество товаров отличается от расчетного значения");
-        Assert.assertEquals(total, expTotal,
-                "Сумма отличается от расчетного значения");
-    }
-
-    @Story("Передача точного веса")
-    @CaseId(1959)
-    @Test(description = "Передано 0 квантов при не 0 весе ритейлером (фасованные)",
-            groups = {"api-instamart-regress"})
-    public void weightNotNullPackage() {
-        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
-        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_PACKAGE);
-
-        LineItemV2 lineItem = order.getShipments().get(0).getLineItems().get(0);
-
-        String retailerSku = lineItem.getProduct().getRetailerSku();
-        Integer quantity = lineItem.getPacks();
-        Double gramsPerUnit = lineItem.getProduct().getGramsPerUnit() * quantity + 250;
-        Double expQuantity = Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
-        Double expTotal = Math.floor(lineItem.getProduct().getUnitPrice() * gramsPerUnit / 100);
+        Integer expQuantity = (int)Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
+        Double expTotal = Math.floor(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
 
         Response responseInWork = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
@@ -468,9 +425,52 @@ public class NotificationsPositionsV3Test extends RestBase {
 
         simplyAwait(2);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
-        Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal() * 10);
+        Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
 
-        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getUnitQuantity(), expQuantity,
+        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
+                "Количество товаров отличается от расчетного значения");
+        Assert.assertEquals(total, expTotal,
+                "Сумма отличается от расчетного значения");
+    }
+
+    @Story("Передача точного веса")
+    @CaseId(1959)
+    @Test(description = "Передано 0 квантов при не 0 весе ритейлером (фасованные)",
+            groups = {"api-instamart-regress"})
+    public void weightNotNullPackage() {
+        SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
+        OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_PACKAGE);
+
+        LineItemV2 lineItem = order.getShipments().get(0).getLineItems().get(0);
+
+        String retailerSku = lineItem.getProduct().getRetailerSku();
+        Integer quantity = lineItem.getPacks();
+        Double gramsPerUnit = lineItem.getProduct().getGramsPerUnit() * quantity + 250;
+        Integer expQuantity = (int)Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
+        Double expTotal = Math.floor(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
+
+        Response responseInWork = NotificationsV3Request.POST(
+                order.getShipments().get(0).getNumber(),
+                NotificationTypeV3.IN_WORK.getValue(),
+                retailerSku,
+                quantity,
+                quantity,
+                String.valueOf(gramsPerUnit));
+        checkStatusCode200(responseInWork);
+        Response responseReady = NotificationsV3Request.POST(
+                order.getShipments().get(0).getNumber(),
+                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
+                retailerSku,
+                quantity,
+                0,
+                String.valueOf(gramsPerUnit));
+        checkStatusCode200(responseReady);
+
+        simplyAwait(2);
+        OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
+        Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
+
+        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
@@ -491,8 +491,8 @@ public class NotificationsPositionsV3Test extends RestBase {
         String retailerSku = lineItem.getProduct().getRetailerSku();
         Integer quantity = lineItem.getPacks();
         Double gramsPerUnit = lineItem.getProduct().getGramsPerUnit() * quantity - 20;
-        Double expQuantity = Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
-        Double expTotal = Math.floor(lineItem.getProduct().getUnitPrice() * gramsPerUnit / 100);
+        Integer expQuantity = (int)Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
+        Double expTotal = Math.floor(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
 
         Response responseInWork = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
@@ -513,9 +513,9 @@ public class NotificationsPositionsV3Test extends RestBase {
 
         simplyAwait(2);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
-        Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal() * 10);
+        Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
 
-        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getUnitQuantity(), expQuantity,
+        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
@@ -534,8 +534,8 @@ public class NotificationsPositionsV3Test extends RestBase {
         String retailerSku = lineItem.getProduct().getRetailerSku();
         Integer quantity = lineItem.getPacks();
         Double gramsPerUnit = lineItem.getProduct().getGramsPerUnit() * quantity - 20;
-        Double expQuantity = Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
-        Double expTotal = Math.floor(lineItem.getProduct().getUnitPrice() * gramsPerUnit / 100);
+        Integer expQuantity = (int)Math.floor(gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
+        Double expTotal = Math.floor(lineItem.getProduct().getPrice() * gramsPerUnit / lineItem.getProduct().getGramsPerUnit());
 
         Response responseInWork = NotificationsV3Request.POST(
                 order.getShipments().get(0).getNumber(),
@@ -556,9 +556,9 @@ public class NotificationsPositionsV3Test extends RestBase {
 
         simplyAwait(2);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
-        Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal() * 10);
+        Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
 
-        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getUnitQuantity(), expQuantity,
+        Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getQuantity(), expQuantity,
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");

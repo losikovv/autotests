@@ -20,7 +20,7 @@ import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v3.NotificationsV3Request;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.request.v3.NotificationsV3Request.POST;
 import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 
@@ -71,19 +71,19 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Story("Позитивные тесты")
     @CaseId(1461)
     @Test(  description = "Canceled после создания (Сборка ритейлера, доставка Сбермаркета)",
-            groups = "api-instamart-regress")
+            groups = "api-instamart-smoke")
     public void cancelOrderDeliveryBySbermarket() {
         Response responseCanceled = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
         checkStatusCode200(responseCanceled);
 
         OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
-        Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus());
+        Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не перешел в статус Отменен");
     }
 
     @Story("Позитивные тесты")
     @CaseId(1461)
     @Test(  description = "Canceled после создания (Сборка и доставка ритейлером)",
-            groups = "api-instamart-regress")
+            groups = "api-instamart-smoke")
     public void cancelOrderDeliveryByRetailer() {
         Response responseCanceled = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
         checkStatusCode200(responseCanceled);
@@ -187,7 +187,7 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Story("Позитивные тесты")
     @CaseId(1466)
     @Test(  description = "In_work после создания (Сборка ритейлера, доставка Сбермаркета)",
-            groups = "api-instamart-regress")
+            groups = "api-instamart-smoke")
     public void orderInWorkDeliveryBySbermarket() {
         Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
@@ -199,7 +199,7 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Story("Позитивные тесты")
     @CaseId(1466)
     @Test(  description = "In_work после создания (Сборка и доставка ритейлером)",
-            groups = "api-instamart-regress")
+            groups = "api-instamart-smoke")
     public void orderInWorkDeliveryByRetailer() {
         Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
@@ -211,7 +211,7 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Story("Позитивные тесты")
     @CaseId(1467)
     @Test(  description = "Assembled после order.in_work (Сборка ритейлера, доставка Сбермаркета)",
-            groups = "api-instamart-regress")
+            groups = "api-instamart-smoke")
     public void orderAssembledDeliveryBySbermarket() {
         Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
@@ -225,7 +225,7 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Story("Позитивные тесты")
     @CaseId(1467)
     @Test(  description = "Assembled после order.in_work (Сборка и доставка ритейлером)",
-            groups = "api-instamart-regress")
+            groups = "api-instamart-smoke")
     public void orderAssembledDeliveryByRetailer() {
         Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode200(responseInWork);
@@ -239,7 +239,7 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Story("Позитивные тесты")
     @CaseId(1468)
     @Test(  description = "Ready_for_delivery после order.in_work (Сборка ритейлера, доставка Сбермаркета)",
-            groups = "api-instamart-regress")
+            groups = "api-instamart-smoke")
     public void orderReadyForDelivery() {
         String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
@@ -263,7 +263,7 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Story("Позитивные тесты")
     @CaseId(1468)
     @Test(  description = "Ready_for_delivery после order.in_work (Сборка и доставка ритейлером)",
-            groups = "api-instamart-regress")
+            groups = "api-instamart-smoke")
     public void orderReadyForDeliveryDeliveryByRetailer() {
         String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
@@ -287,7 +287,7 @@ public class NotificationsPositiveV3Test extends RestBase {
     @Story("Позитивные тесты")
     @CaseId(2075)
     @Test(  description = "Delivered после ready_for_delivery (Сборка и доставка ритейлером)",
-            groups = "api-instamart-regress")
+            groups = "api-instamart-smoke")
     public void orderDeliveredDeliveryByRetailer() {
         String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
@@ -313,6 +313,39 @@ public class NotificationsPositiveV3Test extends RestBase {
         OrderV2 shippedOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
         Assert.assertEquals(shippedOrder.getShipmentState(), OrderStatusV2.SHIPPED.getStatus(), "Заказ не перешел в статус Доставлен");
         //добавить проверку лайн айтемов
+    }
+
+    @Story("Негативные тесты")
+    @CaseId(1465)
+    @Test(  description = "Canceled после доставки",
+            groups = "api-instamart-smoke")
+    public void cancelOrderDeliveredDeliveryByRetailer() {
+        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+
+        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = NotificationsV3Request.POST(
+                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
+                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode200(responseReadyForDelivery);
+        Response responseDelivered = NotificationsV3Request.POST(
+                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
+                NotificationTypeV3.DELIVERED.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode200(responseDelivered);
+        Response responseCanceled = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        //checkStatusCode422(responseCanceled);
+        //todo включить когда пофиксят код ответа
+
+        simplyAwait(2);
+        OrderV2 shippedOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(shippedOrder.getShipmentState(), OrderStatusV2.SHIPPED.getStatus(), "Заказ не перешел в статус Доставлен");
     }
 
 }
