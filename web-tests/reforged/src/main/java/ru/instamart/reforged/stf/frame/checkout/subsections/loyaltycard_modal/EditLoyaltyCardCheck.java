@@ -7,17 +7,6 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface EditLoyaltyCardCheck extends EditLoyaltyCardElement {
 
-    @Step("Проверяем что модальное окно ввода карты лояльности скрылось")
-    default void checkLoyaltyCardModalNotVisible() {
-        waitAction().shouldNotBeVisible(modal);
-    }
-
-    @Step("Модальное окно открыто")
-    default void checkModalWindow() {
-        waitAction().shouldBeVisible(modal);
-        waitAction().shouldNotBeAnimated(modal);
-    }
-
     @Step("Проверяем, что показывается алерт пустого инпута карты")
     default void checkEmptyCardNumberAlert() {
         waitAction().shouldBeVisible(emptyCardNumberAlert);
