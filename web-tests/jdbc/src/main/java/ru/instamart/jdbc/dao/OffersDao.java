@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import static org.testng.Assert.fail;
 
@@ -48,10 +49,36 @@ public final class OffersDao extends AbstractDao<Long, OffersEntity> {
             offer.setName(resultSet.getString("name"));
             offer.setPublished(resultSet.getInt("published"));
             offer.setStock(resultSet.getInt("stock"));
+            offer.setUuid(resultSet.getString("uuid"));
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return offer;
+    }
+
+    @Override
+    public Optional<OffersEntity> findById(Long id) {
+        OffersEntity offer = null;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement( String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
+            preparedStatement.setObject(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                offer = new OffersEntity();
+                offer.setId(resultSet.getLong("id"));
+                offer.setProductId(resultSet.getLong("product_id"));
+                offer.setProductSku(resultSet.getString("product_sku"));
+                offer.setRetailerSku(resultSet.getString("retailer_sku"));
+                offer.setRetailerId(resultSet.getInt("retailer_id"));
+                offer.setName(resultSet.getString("name"));
+                offer.setPublished(resultSet.getInt("published"));
+                offer.setStock(resultSet.getInt("stock"));
+                offer.setUuid(resultSet.getString("uuid"));
+            }
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return Optional.ofNullable(offer);
     }
 
     @Override
