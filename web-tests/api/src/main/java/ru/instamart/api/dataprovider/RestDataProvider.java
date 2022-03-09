@@ -838,7 +838,7 @@ public class RestDataProvider extends RestBase {
                 {1372}, //globus
                 {999}, //megamart
                 {10}, //metro
-                {772}, //okey
+                //{772}, //okey - 404
                 {4} //selgros
         };
     }
