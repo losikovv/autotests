@@ -16,7 +16,7 @@ public final class B2BCart implements B2BCartCheck {
     @Step("Вводим количество единиц товара: {itemCount}")
     public void setItemCount(final String itemCount) {
         itemCounter.click();
-        itemCounterInput.fill(itemCount);
+        itemCounterInput.fillField(itemCount);
         itemCounterInput.getActions().sendKeys(Keys.ENTER);
     }
 }

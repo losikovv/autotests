@@ -8,7 +8,10 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.data.*;
+import ru.instamart.kraken.data.Juridical;
+import ru.instamart.kraken.data.JuridicalData;
+import ru.instamart.kraken.data.PaymentCards;
+import ru.instamart.kraken.data.TestVariables;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
@@ -156,10 +159,10 @@ public final class OrdersPaymentsTests extends BaseTest {
         userShipments().checkPaymentMethodForBusiness();
     }
 
-    @CaseIDs({@CaseId(3238), @CaseId(3236), @CaseId(3237)})
+    @CaseIDs({@CaseId(3238), @CaseId(3235)})
     @Story("Ошибки валидации")
-    @Test(description = "Добавление новой карты", groups = "regression")
-    public void testValidationErrorForNewCard() {
+    @Test(description = "Добавление новой карты после попытки ввода некорректного номера карты", groups = "regression")
+    public void testAddPaymentCardAfterCardNumberValidation() {
         final var data = TestVariables.testAddressData();
 
         shop().goToPage();
@@ -170,12 +173,7 @@ public final class OrdersPaymentsTests extends BaseTest {
 
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForSelf();
-        checkout().setDeliveryOptions().fillApartment(data.getApartment());
-        checkout().setDeliveryOptions().fillFloor(data.getFloor());
-        checkout().setDeliveryOptions().checkElevator();
-        checkout().setDeliveryOptions().fillEntrance(data.getEntrance());
-        checkout().setDeliveryOptions().fillDoorPhone(data.getDomofon());
-        checkout().setDeliveryOptions().fillComments(data.getComments());
+        checkout().setDeliveryOptions().fillDeliveryAddress(data);
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
 
         checkout().setContacts().fillContactInfo(ordersUser);
@@ -197,6 +195,39 @@ public final class OrdersPaymentsTests extends BaseTest {
         checkout().interactAddPaymentCardModal().checkValidationErrorVisible("В номере карты допущены ошибки");
 
         checkout().interactAddPaymentCardModal().fillCardNumber("4242 4242 4242 4242");
+        checkout().interactAddPaymentCardModal().clickToSaveModal();
+
+        checkout().interactAddPaymentCardModal().checkModalWindowNotVisible();
+    }
+
+    @CaseIDs({ @CaseId(3236), @CaseId(3239)})
+    @Story("Ошибки валидации")
+    @Test(description = "Добавление новой карты. Некорректная дата окончания действия карты", groups = "regression")
+    public void testAddPaymentCardAfterCardExpireDataValidation() {
+        final var data = TestVariables.testAddressData();
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
+
+        checkout().goToPage();
+        checkout().setDeliveryOptions().clickToForSelf();
+        checkout().setDeliveryOptions().fillDeliveryAddress(data);
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+
+        checkout().setContacts().fillContactInfo(ordersUser);
+        checkout().setContacts().clickToSubmit();
+
+        checkout().setReplacementPolicy().clickToSubmit();
+
+        checkout().setSlot().setLastActiveSlot();
+
+        checkout().setPayment().clickToByCardOnline();
+        checkout().setPayment().clickToAddNewPaymentCard();
+
+        checkout().interactAddPaymentCardModal().fillCardNumber("4242 4242 4242 4242");
         checkout().interactAddPaymentCardModal().fillExpMonth("0");
         checkout().interactAddPaymentCardModal().fillExpYear("21");
         checkout().interactAddPaymentCardModal().fillCvv("1");
@@ -205,10 +236,51 @@ public final class OrdersPaymentsTests extends BaseTest {
         checkout().interactAddPaymentCardModal().checkValidationErrorVisible("Некорректный год");
         checkout().interactAddPaymentCardModal().checkValidationErrorVisible("Код CVV должен содержать 3 символа");
 
+        checkout().interactAddPaymentCardModal().fillExpMonth("12");
+        checkout().interactAddPaymentCardModal().fillExpYear("49");
+        checkout().interactAddPaymentCardModal().fillHolderName("IVANOV IVAN");
+        checkout().interactAddPaymentCardModal().fillCvv("404");
+        checkout().interactAddPaymentCardModal().clickToSaveModal();
+
+        checkout().interactAddPaymentCardModal().checkModalWindowNotVisible();
+    }
+
+    @CaseIDs({@CaseId(3239), @CaseId(3237)})
+    @Story("Ошибки валидации")
+    @Test(description = "Добавление новой карты после попытки ввода некорректного имя держателя", groups = "regression")
+    public void testAddPaymentCardAfterCardHolderValidation() {
+        final var data = TestVariables.testAddressData();
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(ordersUser);
+        shop().interactHeader().checkProfileButtonVisible();
+        shop().addCookie(CookieFactory.COOKIE_ALERT);
+
+        checkout().goToPage();
+        checkout().setDeliveryOptions().clickToForSelf();
+        checkout().setDeliveryOptions().fillDeliveryAddress(data);
+        checkout().setDeliveryOptions().clickToSubmitForDelivery();
+
+        checkout().setContacts().fillContactInfo(ordersUser);
+        checkout().setContacts().clickToSubmit();
+
+        checkout().setReplacementPolicy().clickToSubmit();
+
+        checkout().setSlot().setLastActiveSlot();
+
+        checkout().setPayment().clickToByCardOnline();
+        checkout().setPayment().clickToAddNewPaymentCard();
+
         checkout().interactAddPaymentCardModal().fillCardData(PaymentCards.testCard());
         checkout().interactAddPaymentCardModal().fillHolderName("ТЕСТ");
         checkout().interactAddPaymentCardModal().checkValidationErrorVisible("Только латинские буквы и пробел");
         checkout().interactAddPaymentCardModal().fillHolderName("");
         checkout().interactAddPaymentCardModal().checkValidationErrorVisible("Укажите имя владельца кредитной карты");
+
+        checkout().interactAddPaymentCardModal().fillHolderName("TEST TEST");
+        checkout().interactAddPaymentCardModal().clickToSaveModal();
+
+        checkout().interactAddPaymentCardModal().checkModalWindowNotVisible();
     }
 }

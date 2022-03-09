@@ -1,6 +1,9 @@
 package ru.instamart.reforged.stf.page.checkout.firstStep;
 
 import io.qameta.allure.Step;
+import ru.instamart.kraken.data.AddressDetailsData;
+
+import static ru.instamart.reforged.stf.page.StfRouter.checkout;
 
 public class DeliveryOptionStep implements DeliveryOptionCheck {
 
@@ -27,6 +30,16 @@ public class DeliveryOptionStep implements DeliveryOptionCheck {
     @Step("Нажать 'Добавить компанию'")
     public void clickToAddCompany() {
         addCompany.click();
+    }
+
+    @Step("Заполнить адрес")
+    public void fillDeliveryAddress(final AddressDetailsData data) {
+        fillApartment(data.getApartment());
+        fillFloor(data.getFloor());
+        checkElevator();
+        fillEntrance(data.getEntrance());
+        fillDoorPhone(data.getDomofon());
+        fillComments(data.getComments());
     }
 
     @Step("Заполнить поле 'Номер квартиры/офиса'")

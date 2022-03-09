@@ -46,14 +46,14 @@ public final class CheckoutBonusesTests extends BaseTest {
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
         checkout().interactEditLoyaltyCardModal().fillValue(mnogoru().getCardNumber());
         checkout().interactEditLoyaltyCardModal().clickToSaveModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
         checkout().checkBonusCardApplied(mnogoru().getName());
 
         checkout().clickToAddLoyaltyCard(aeroflot().getName());
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
         checkout().interactEditLoyaltyCardModal().fillValue(aeroflot().getCardNumber());
         checkout().interactEditLoyaltyCardModal().clickToSaveModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
         checkout().checkBonusCardApplied(aeroflot().getName());
     }
 
@@ -71,14 +71,14 @@ public final class CheckoutBonusesTests extends BaseTest {
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
         checkout().interactEditLoyaltyCardModal().fillValue(mnogoru().getCardNumber());
         checkout().interactEditLoyaltyCardModal().clickToSaveModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
         checkout().checkBonusCardActive(mnogoru().getName());
 
         checkout().clickToAddLoyaltyCard(aeroflot().getName());
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
         checkout().interactEditLoyaltyCardModal().fillValue(aeroflot().getCardNumber());
         checkout().interactEditLoyaltyCardModal().clickToSaveModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
         checkout().checkBonusCardActive(aeroflot().getName());
 
         checkout().clickToSelectLoyaltyCard(mnogoru().getName());
@@ -105,7 +105,7 @@ public final class CheckoutBonusesTests extends BaseTest {
         checkout().interactEditLoyaltyCardModal().fillValue(mnogoru().getCardNumber());
         checkout().interactEditLoyaltyCardModal().clickToSaveModal();
 
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
 
         checkout().clickToEditLoyaltyCard(mnogoru().getName());
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
@@ -118,7 +118,7 @@ public final class CheckoutBonusesTests extends BaseTest {
         checkout().interactEditLoyaltyCardModal().fillValue(aeroflot().getCardNumber());
         checkout().interactEditLoyaltyCardModal().clickToSaveModal();
 
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
 
         checkout().clickToEditLoyaltyCard(aeroflot().getName());
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
@@ -139,7 +139,7 @@ public final class CheckoutBonusesTests extends BaseTest {
         checkout().clickToAddLoyaltyCard(mnogoru().getName());
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
         checkout().interactEditLoyaltyCardModal().clickToCancelModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
         checkout().checkBonusCardNotApplied(mnogoru().getName());
     }
 
@@ -156,7 +156,7 @@ public final class CheckoutBonusesTests extends BaseTest {
         checkout().clickToAddLoyaltyCard(mnogoru().getName());
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
         checkout().interactEditLoyaltyCardModal().clickToCloseModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
         checkout().checkBonusCardNotApplied(mnogoru().getName());
     }
 
@@ -176,7 +176,7 @@ public final class CheckoutBonusesTests extends BaseTest {
         checkout().interactEditLoyaltyCardModal().clickToSaveModal();
         checkout().interactEditLoyaltyCardModal().checkEmptyCardNumberAlert();
         checkout().interactEditLoyaltyCardModal().clickToCloseModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
         checkout().checkBonusCardNotApplied(mnogoru().getName());
     }
 
@@ -198,7 +198,7 @@ public final class CheckoutBonusesTests extends BaseTest {
         checkout().interactEditLoyaltyCardModal().clickToSaveModal();
         checkout().interactEditLoyaltyCardModal().checkWrongCardNumberAlert();
         checkout().interactEditLoyaltyCardModal().clickToCloseModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
         checkout().checkBonusCardNotApplied(mnogoru().getName());
     }
 
@@ -218,14 +218,14 @@ public final class CheckoutBonusesTests extends BaseTest {
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
         checkout().interactEditLoyaltyCardModal().fillValue(mnogoru().getCardNumber());
         checkout().interactEditLoyaltyCardModal().clickToSaveModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
         checkout().checkBonusCardApplied(mnogoru().getName());
 
         checkout().clickToEditLoyaltyCard(mnogoru().getName());
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
         checkout().interactEditLoyaltyCardModal().fillValue(cardNumber);
         checkout().interactEditLoyaltyCardModal().clickToSaveModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
         checkout().checkBonusCardApplied(mnogoru().getName());
 
         checkout().clickToEditLoyaltyCard(mnogoru().getName());
@@ -247,13 +247,13 @@ public final class CheckoutBonusesTests extends BaseTest {
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
         checkout().interactEditLoyaltyCardModal().fillValue(mnogoru().getCardNumber());
         checkout().interactEditLoyaltyCardModal().clickToSaveModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
         checkout().checkBonusCardApplied(mnogoru().getName());
 
         checkout().clickToEditLoyaltyCard(mnogoru().getName());
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
         checkout().interactEditLoyaltyCardModal().clickToCancelModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
         checkout().checkBonusCardApplied(mnogoru().getName());
 
         checkout().clickToEditLoyaltyCard(mnogoru().getName());
@@ -275,13 +275,13 @@ public final class CheckoutBonusesTests extends BaseTest {
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
         checkout().interactEditLoyaltyCardModal().fillValue(mnogoru().getCardNumber());
         checkout().interactEditLoyaltyCardModal().clickToSaveModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
         checkout().checkBonusCardApplied(mnogoru().getName());
 
         checkout().clickToEditLoyaltyCard(mnogoru().getName());
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
         checkout().interactEditLoyaltyCardModal().clickToCloseModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
         checkout().checkBonusCardApplied(mnogoru().getName());
 
         checkout().clickToEditLoyaltyCard(mnogoru().getName());
@@ -303,7 +303,7 @@ public final class CheckoutBonusesTests extends BaseTest {
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
         checkout().interactEditLoyaltyCardModal().fillValue(mnogoru().getCardNumber());
         checkout().interactEditLoyaltyCardModal().clickToSaveModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
         checkout().checkBonusCardApplied(mnogoru().getName());
 
         checkout().clickToEditLoyaltyCard(mnogoru().getName());
@@ -312,7 +312,7 @@ public final class CheckoutBonusesTests extends BaseTest {
         checkout().interactEditLoyaltyCardModal().clickToSaveModal();
         checkout().interactEditLoyaltyCardModal().checkEmptyCardNumberAlert();
         checkout().interactEditLoyaltyCardModal().clickToCloseModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
 
         checkout().clickToEditLoyaltyCard(mnogoru().getName());
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
@@ -334,13 +334,13 @@ public final class CheckoutBonusesTests extends BaseTest {
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
         checkout().interactEditLoyaltyCardModal().fillValue(mnogoru().getCardNumber());
         checkout().interactEditLoyaltyCardModal().clickToSaveModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
         checkout().checkBonusCardApplied(mnogoru().getName());
 
         checkout().clickToEditLoyaltyCard(mnogoru().getName());
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
         checkout().interactEditLoyaltyCardModal().clickToCancelModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
 
         checkout().clickToEditLoyaltyCard(mnogoru().getName());
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
@@ -361,13 +361,13 @@ public final class CheckoutBonusesTests extends BaseTest {
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
         checkout().interactEditLoyaltyCardModal().fillValue(mnogoru().getCardNumber());
         checkout().interactEditLoyaltyCardModal().clickToSaveModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
         checkout().checkBonusCardApplied(mnogoru().getName());
 
         checkout().clickToEditLoyaltyCard(mnogoru().getName());
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
         checkout().interactEditLoyaltyCardModal().clickToCloseModal();
-        checkout().interactEditLoyaltyCardModal().checkLoyaltyCardModalNotVisible();
+        checkout().interactEditLoyaltyCardModal().checkModalWindowNotVisible();
 
         checkout().clickToEditLoyaltyCard(mnogoru().getName());
         checkout().interactEditLoyaltyCardModal().checkModalWindow();
