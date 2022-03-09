@@ -154,7 +154,7 @@ public final class ShoppingCartTests extends BaseTest {
 
         b2cShop().interactHeader().clickToStoreSelector();
         b2cShop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsOpen();
-        b2cShop().interactHeader().interactStoreSelector().clickToSecondStoreCard();
+        b2cShop().interactHeader().interactStoreSelector().clickToStoreWithSid(DEFAULT_AUCHAN_SID);
         b2cShop().interactHeader().checkEnteredAddressIsVisible();
 
         b2cShop().plusFirstItemToCart();
