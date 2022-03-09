@@ -34,6 +34,9 @@ public class SpreeShipmentsDao extends AbstractDao<Long, SpreeShipmentsEntity> {
                 shipment.setTotal(resultSet.getDouble("total"));
                 shipment.setItemCount(resultSet.getInt("item_count"));
                 shipment.setTotalQuantity(resultSet.getInt("total_quantity"));
+                shipment.setUuid(resultSet.getString("uuid"));
+                shipment.setInvoiceNumber(resultSet.getString("invoice_number"));
+                shipment.setInvoiceTotal(resultSet.getDouble("invoice_total"));
             } else return null;
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());

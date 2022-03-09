@@ -221,6 +221,27 @@ public final class ApiV1Endpoints {
     public static final class Shoppers {
         public static final String MARKETING_SAMPLE_ITEMS = "shoppers/marketing_sample_items?shipment[uuid]={shipmentUuid}";
         public static final String ORDER_AVAILABLE_PAYMENT_TOOLS = "shoppers/order_available_payment_tools?order_id={orderNumber}";
+
+        public static class Events {
+            public static final String ASSEMBLY_APPROVED = "shoppers/events/assembly_approved";
+            public static final String ASSEMBLY_CANCELLED = "shoppers/events/assembly_cancelled";
+            public static final String ASSEMBLY_CREATED = "shoppers/events/assembly_created";
+            public static final String ASSEMBLY_DESTROYED = "shoppers/events/assembly_destroyed";
+            public static final String ASSEMBLY_PURCHASED = "shoppers/events/assembly_purchased";
+            public static final String ASSEMBLY_SHIPPED = "shoppers/events/assembly_shipped";
+            public static final String ASSEMBLY_SHIPPING_STARTED = "shoppers/events/assembly_shipping_started";
+            public static final String ASSEMBLY_SHIPPING_STOPPED = "shoppers/events/assembly_shipping_stopped";
+            public static final String ASSEMBLY_UPDATED = "shoppers/events/assembly_updated";
+            public static final String LINE_ITEM_СANCELLED = "shoppers/events/line_item_cancelled";
+            public static final String LINE_ITEM_СREATED = "shoppers/events/line_item_created";
+            public static final String LINE_ITEM_REPLACED = "shoppers/events/line_item_replaced";
+            public static final String LINE_ITEM_RESTORED = "shoppers/events/line_item_restored";
+            public static final String LINE_ITEM_RETURNED = "shoppers/events/line_item_returned";
+            public static final String LINE_ITEM_UPDATED = "shoppers/events/line_item_updated";
+            public static final String ORDER_PAYMENT_TOOL_UPDATED = "shoppers/events/order_payment_tool_updated";
+            public static final String RECEIPT_CREATED = "shoppers/events/receipt_created";
+            public static final String STORE_HEALTHCHECK = "shoppers/events/store_healthcheck";
+        }
     }
 
     public static final class Stores {
