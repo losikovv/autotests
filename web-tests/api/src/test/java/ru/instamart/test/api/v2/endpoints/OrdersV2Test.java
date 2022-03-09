@@ -711,7 +711,7 @@ public class OrdersV2Test extends RestBase {
 
     @CaseId(2142)
     @Story("Бонусы спасибо")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Получение информации о возможности оплатить бонусами для чужого заказа")
     public void getSpasiboInfoForSomeoneElsesOrder() {
         String currentOrderNumber = apiV2.getCurrentOrderNumber();

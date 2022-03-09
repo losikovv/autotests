@@ -77,7 +77,9 @@ public class AssemblyItemSHP extends BaseObject {
             private Integer originalQuantity;
             @JsonSchema(required = true)
             private Integer pcs;
+            @Null
             private String productionDate;
+            @Null
             private String bestBefore;
             private Integer vatRate;
             @JsonSchema(required = true)
