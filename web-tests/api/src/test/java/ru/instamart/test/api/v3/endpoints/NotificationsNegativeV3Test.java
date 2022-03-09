@@ -43,7 +43,7 @@ public class NotificationsNegativeV3Test extends RestBase {
     @Story("Негативные тесты")
     @CaseId(1448)
     @Test(  description = "Ошибка 405 (Интеграция для учета)",
-            groups = "api-instamart-regress",
+            groups = "api-instamart-smoke",
             dataProvider = "notificationTypes",
             dataProviderClass = ApiV3DataProvider.class)
     public void orderForAccounting405(NotificationTypeV3 type) {
@@ -58,7 +58,7 @@ public class NotificationsNegativeV3Test extends RestBase {
     @Story("Негативные тесты")
     @CaseId(1504)
     @Test(  description = "Ошибка 405 (Шоппер)",
-            groups = "api-instamart-regress",
+            groups = "api-instamart-smoke",
             dataProvider = "notificationTypes",
             dataProviderClass = ApiV3DataProvider.class)
     public void postNotifications405(NotificationTypeV3 type) {
