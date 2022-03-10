@@ -120,7 +120,7 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Добавить товар в избранное с существующим id")
     public void addFavoritesList200() {
-        ProductV2 product = apiV2.getProductFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_SID).get(0);
+        ProductV2 product = apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_SID).get(0);
         final Response response = FavoritesV2Request.POST(product.getId());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, FavoritesItemV2Response.class);

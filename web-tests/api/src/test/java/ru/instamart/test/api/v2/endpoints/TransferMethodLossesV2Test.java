@@ -152,7 +152,7 @@ public class TransferMethodLossesV2Test extends RestBase {
 
         apiV2.dropCart(userData, apiV2.getAddressBySid(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID));
         currentOrderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
-        lineItem = apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID).get(0).getId(), 1);
+        lineItem = apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID).get(0).getId(), 1);
     }
 
     @CaseIDs(value = {@CaseId(1578), @CaseId(1579), @CaseId(1580)})
@@ -357,7 +357,7 @@ public class TransferMethodLossesV2Test extends RestBase {
         compareTwoObjects(response.as(TransferMethodLossesV2Response.class).getLosses().size(), 0);
 
         SpreeOrdersDao.INSTANCE.updateShippingKind(currentOrderNumber, ShippingMethodV2.PICKUP.getMethod());
-        lineItem = apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentInStore(22).get(0).getId(), 1);
+        lineItem = apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentOnMainPage(22).get(0).getId(), 1);
     }
 
     @CaseIDs(value = {@CaseId(1674), @CaseId(1675)})
@@ -551,8 +551,8 @@ public class TransferMethodLossesV2Test extends RestBase {
         apiV2.dropCart(userData, apiV2.getAddressBySid(1));
         currentOrderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
         SpreeOrdersDao.INSTANCE.updateShippingKind(currentOrderNumber, ShippingMethodV2.BY_COURIER.getMethod());
-        lineItem = apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID).get(0).getId(), 1);
-        apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentInStore(72).get(0).getId(), 1);
+        lineItem = apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID).get(0).getId(), 1);
+        apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentOnMainPage(72).get(0).getId(), 1);
         final Response response = OrdersV2Request.TransferMethod.Losses.GET(OrdersV2Request.TransferMethodParams.builder()
                 .shippingMethod(ShippingMethodV2.PICKUP.getMethod())
                 .pickupStoreId(72)

@@ -93,7 +93,7 @@ public final class ApiHelper {
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
-        apiV2.fillCart(apiV2.getProducts(sid));
+        apiV2.fillCart(apiV2.getProductFromEachDepartmentOnMainPage(sid));
     }
 
     /**

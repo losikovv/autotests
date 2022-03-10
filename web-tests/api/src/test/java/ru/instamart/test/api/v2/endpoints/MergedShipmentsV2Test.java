@@ -39,7 +39,7 @@ public class MergedShipmentsV2Test extends RestBase {
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
-        products = apiV2.getProductsFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
+        products = apiV2.getProductsFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
     }
 

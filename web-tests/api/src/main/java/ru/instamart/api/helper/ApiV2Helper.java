@@ -274,27 +274,24 @@ public final class ApiV2Helper {
     /**
      * Получаем список продуктов: по одному из каждой категории
      */
-    @Deprecated
     @Step("Получаем список продуктов: по одному из каждой категории для магазина sid = {sid}")
-    public List<ProductV2> getProductFromEachDepartmentInStore(int sid) {
-        return getProductsFromEachDepartmentInStore(sid, 1, new SoftAssert());
+    public List<ProductV2> getProductFromEachDepartmentOnMainPage(int sid) {
+        return getProductsFromEachDepartmentOnMainPage(sid, 1, new SoftAssert());
     }
 
     /**
      * Получаем список продуктов: максимум (6) из каждой категории
      */
-    @Deprecated
     @Step("Получаем список продуктов: максимум (6) из каждой категории для магазина sid = {sid}")
-    public List<ProductV2> getProductsFromEachDepartmentInStore(int sid) {
-        return getProductsFromEachDepartmentInStore(sid, 6, new SoftAssert());
+    public List<ProductV2> getProductsFromEachDepartmentOnMainPage(int sid) {
+        return getProductsFromEachDepartmentOnMainPage(sid, 6, new SoftAssert());
     }
 
     /**
      * Получаем список продуктов: максимум (6) из каждой категории и проверяем корректность категорий
      */
-    @Deprecated
-    public List<ProductV2> getProductsFromEachDepartmentInStore(int sid, SoftAssert softAssert) {
-        return getProductsFromEachDepartmentInStore(sid, 6, softAssert);
+    public List<ProductV2> getProductsFromEachDepartmentOnMainPage(int sid, SoftAssert softAssert) {
+        return getProductsFromEachDepartmentOnMainPage(sid, 6, softAssert);
     }
 
     /**
@@ -303,10 +300,9 @@ public final class ApiV2Helper {
      * @param sid                                сид магазина
      * @param numberOfProductsFromEachDepartment количество продуктов из каждой категории (не больше 6)
      */
-    @Deprecated
-    private List<ProductV2> getProductsFromEachDepartmentInStore(int sid,
-                                                                 int numberOfProductsFromEachDepartment,
-                                                                 SoftAssert softAssert) {
+    private List<ProductV2> getProductsFromEachDepartmentOnMainPage(int sid,
+                                                                    int numberOfProductsFromEachDepartment,
+                                                                    SoftAssert softAssert) {
         Response response = DepartmentsV2Request.GET(sid, numberOfProductsFromEachDepartment);
         checkStatusCode200(response);
         List<DepartmentV2> departments = response.as(DepartmentsV2Response.class).getDepartments().stream()
@@ -1115,14 +1111,14 @@ public final class ApiV2Helper {
     }
 
     public FavoritesItemV2Response addFavoritesProductBySid(Integer sid) {
-        ProductV2 product = getProductFromEachDepartmentInStore(sid).get(0);
+        ProductV2 product = getProductFromEachDepartmentOnMainPage(sid).get(0);
         final Response response = FavoritesV2Request.POST(product.getId());
         checkStatusCode200(response);
         return response.as(FavoritesItemV2Response.class);
     }
 
     public List<ProductV2> addFavoritesQtyListProductBySid(Integer sid, Integer qty) {
-        List<ProductV2> products = getProductFromEachDepartmentInStore(sid);
+        List<ProductV2> products = getProductFromEachDepartmentOnMainPage(sid);
         List<ProductV2> productsList = new ArrayList<>();
         products.stream()
                 .limit(qty + 1)
@@ -1136,7 +1132,7 @@ public final class ApiV2Helper {
     }
 
     public void addFavoritesListProductBySid(final int sid, final int count) {
-        getProductsFromEachDepartmentInStore(sid)
+        getProductsFromEachDepartmentOnMainPage(sid)
                 .stream()
                 .limit(count)
                 .forEach(product -> {
