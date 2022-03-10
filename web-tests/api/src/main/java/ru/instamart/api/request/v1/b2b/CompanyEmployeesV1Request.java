@@ -29,4 +29,22 @@ public class CompanyEmployeesV1Request extends ApiV1RequestBase {
             throw new SkipException("Пользователь создан только на кракене");
         }
     }
+
+    @Step("{method} /" + ApiV1Endpoints.CompanyEmployees.BY_ID)
+    public static Response PUT(Integer employeeID, boolean isApproved) {
+            JSONObject body = new JSONObject();
+            JSONObject requestParams = new JSONObject();
+            requestParams.put("approved", isApproved);
+            body.put("employee", requestParams);
+            return givenWithAuth()
+                    .body(body)
+                    .contentType(ContentType.JSON)
+                    .put(ApiV1Endpoints.CompanyEmployees.BY_ID, employeeID);
+    }
+
+    @Step("{method} /" + ApiV1Endpoints.CompanyEmployees.BY_ID)
+    public static Response DELETE(Integer employeeID) {
+        return givenWithAuth()
+                .delete(ApiV1Endpoints.CompanyEmployees.BY_ID, employeeID);
+    }
 }

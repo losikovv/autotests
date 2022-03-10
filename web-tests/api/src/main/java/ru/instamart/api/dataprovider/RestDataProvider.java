@@ -793,8 +793,8 @@ public class RestDataProvider extends RestBase {
         Long productId = apiV2.getProductsFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_SID).get(0).getId();
         Long alcoholProductId = SpreeProductsDao.INSTANCE.getOfferIdForAlcohol(1);
         return new Object[][]{
-                {productId, "\"store_id\":\"Дозаказать можно только из того же магазина\""},
-                {alcoholProductId, "\"shipping_category_id\":\"Категории доставки не совпадают или в дозаказе участвует алкоголь\""},
+                {productId, "\"store_id\": \"Дозаказать можно только из того же магазина\""},
+                {alcoholProductId, "\"shipping_category_id\": \"В заказе алкоголь. Его нельзя добавить к заказу с доставкой\""},
         };
     }
 
@@ -1198,6 +1198,14 @@ public class RestDataProvider extends RestBase {
         return  paymentMethods.stream().filter(p -> !p.getType().equals("sber_pay"))
                 .map(list -> new Object[]{list})
                 .toArray(Object[][]::new);
+    }
+
+    @DataProvider(name = "booleanData")
+    public static Object[][] getBooleanData() {
+        return new Object[][]{
+                {true},
+                {false}
+        };
     }
 
 
