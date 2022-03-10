@@ -369,6 +369,7 @@ public final class ApiHelper {
 
     @Step("Добавляем новый регион {zoneName} для магазина в админке")
     public OperationalZoneV1 createOperationalZonesInAdmin(String zoneName) {
+        admin.auth();
         return admin.addOperationalZones(zoneName);
     }
 
@@ -532,7 +533,7 @@ public final class ApiHelper {
         SpreeRetailersDao.INSTANCE.deleteRetailerByName(retailerName);
     }
 
-    @Step("Создаем магазин для ретейлера {retailerName}")
+    @Step("Создаем магазин для ретейлера {retailerName} в городе {city}")
     public StoresAdminRequest.Store createStoreInAdmin(String retailerName, String city) {
         admin.auth();
         StoresAdminRequest.Store store = getStoreForRetailerTests(retailerName, city);

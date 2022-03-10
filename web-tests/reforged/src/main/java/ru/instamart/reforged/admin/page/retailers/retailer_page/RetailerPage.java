@@ -26,7 +26,7 @@ public final class RetailerPage implements AdminPage, RetailerPageCheck{
     }
 
     @Step("Вернуть текст первого адреса")
-    public String returnFirstAddressFromTable() {
+    public String getFirstAddressFromTable() {
         return addressesInTable.getElementText(0);
     }
 

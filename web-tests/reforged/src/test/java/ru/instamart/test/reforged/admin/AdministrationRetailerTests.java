@@ -11,7 +11,6 @@ import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.test.reforged.BaseTest;
-import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -22,14 +21,14 @@ import static ru.instamart.reforged.admin.AdminRout.retailers;
 public final class AdministrationRetailerTests extends BaseTest {
 
     private final ApiHelper apiHelper = new ApiHelper();
-    String retailerName = Generate.literalString(6) + "_retailer";
+    private final String retailerName = Generate.literalString(6) + "_retailer";
 
-    String cityNameFirst = Generate.literalString(6) + "_city";
-    String cityNameSecond = Generate.literalString(6) + "_city";
+    private final String cityNameFirst = Generate.literalString(6) + "_city";
+    private final String cityNameSecond = Generate.literalString(6) + "_city";
 
-    StoresAdminRequest.Store firstStore = new StoresAdminRequest.Store();
-    StoresAdminRequest.Store secondStore = new StoresAdminRequest.Store();
-    StoresAdminRequest.Store thirdStore = new StoresAdminRequest.Store();
+    private StoresAdminRequest.Store firstStore = new StoresAdminRequest.Store();
+    private StoresAdminRequest.Store secondStore = new StoresAdminRequest.Store();
+    private StoresAdminRequest.Store thirdStore = new StoresAdminRequest.Store();
 
     @BeforeClass(alwaysRun = true)
     public void prepareData() {
@@ -95,97 +94,6 @@ public final class AdministrationRetailerTests extends BaseTest {
         zonePage().assertAll();
     }
 
-    @CaseId(213)
-    @Story("Страница ретейлеров")
-    @Test(description = "Ретейлер без действующих магазинов недоступен", groups = {"acceptance", "regression"})
-    public void retailerInaccessibilityWithoutActiveStores() {
-        String retailerNameUnique = Generate.literalString(6) + "_retailer";
-        String cityNameFirstUnique = Generate.literalString(6) + "_city";
-
-        StoresAdminRequest.Store firstStore;
-
-        apiHelper.createRetailerInAdmin(retailerNameUnique);
-
-        apiHelper.setupCity(cityNameFirstUnique);
-        firstStore = apiHelper.createStoreInAdmin(retailerNameUnique, cityNameFirstUnique);
-
-        apiHelper.setupStoreForActivation(firstStore);
-
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdminAllRoles());
-
-        retailers().goToPage();
-        retailers().checkAddNewRetailerButtonVisible();
-        retailers().clickOnRetailer(retailerNameUnique);
-
-        retailer().checkAddNewStoreButtonVisible();
-        retailer().clickOnFirstStore();
-
-        retailer().checkAllStoresDisable();
-
-        retailers().goToPage();
-        retailers().checkRetailerInactive(retailerNameUnique);
-
-        apiHelper.deleteRetailerByNameInAdmin(retailerNameUnique);
-
-        apiHelper.deleteCityInAdmin(cityNameFirstUnique);
-        apiHelper.deleteOperationalZonesInAdmin(cityNameFirstUnique);
-
-        apiHelper.deleteStoreInAdmin(firstStore);
-    }
-
-    @CaseId(214)
-    @Story("Страница ретейлеров")
-    @Test(description = "Ритейлер доступен, если у него есть 1 или более действующих магазинов", groups = {"acceptance", "regression"})
-    public void retailerAccessibilityWithActiveStore() {
-        String retailerNameUnique = Generate.literalString(6) + "_retailer";
-        String cityNameFirstUnique = Generate.literalString(6) + "_city";
-
-        StoresAdminRequest.Store firstStore;
-
-        apiHelper.createRetailerInAdmin(retailerNameUnique);
-
-        apiHelper.setupCity(cityNameFirstUnique);
-        firstStore = apiHelper.createStoreInAdmin(retailerNameUnique, cityNameFirstUnique);
-
-        apiHelper.setupStoreForActivation(firstStore);
-
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdminAllRoles());
-
-        retailers().goToPage();
-        retailers().checkAddNewRetailerButtonVisible();
-
-        retailers().clickOnPlusForRetailer(retailerNameUnique);
-        retailers().clickOnPlusForFirstCity();
-
-        retailers().clickOnActivateStoreViaAddress(cityNameFirstUnique + ", Mira, 211 ");
-
-        retailers().interactActivateStoreModal().checkActivateStoreModalVisible();
-        retailers().interactActivateStoreModal().clickOnOkButton();
-        retailers().interactActivateStoreModal().checkActivateStoreModalNotVisible();
-
-        retailers().goToPage();
-        retailers().checkAddNewRetailerButtonVisible();
-        retailers().clickOnRetailer(retailerNameUnique);
-
-        retailer().checkAddNewStoreButtonVisible();
-        retailer().clickOnFirstStore();
-
-        retailer().checkSomeStoreEnable();
-
-        retailers().goToPage();
-        retailers().checkRetailerActive(retailerNameUnique);
-
-        apiHelper.deleteRetailerByNameInAdmin(retailerNameUnique);
-
-        apiHelper.deleteCityInAdmin(cityNameFirstUnique);
-        apiHelper.deleteOperationalZonesInAdmin(cityNameFirstUnique);
-
-        apiHelper.deleteStoreInAdmin(firstStore);
-
-    }
-
     @CaseId(536)
     @Story("Страница ретейлеров")
     @Test(description = "Cортировка городов по кол-ву магазинов в каждом и по алфавиту", groups = {"acceptance", "regression"})
@@ -231,7 +139,7 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().clickOnPlusForRetailer(retailerName);
         retailers().clickOnFirstStore();
 
-        address = retailers().returnFirstAddressFromTable();
+        address = retailers().getFirstAddressFromTable();
         retailers().clickOnFirstAddress();
 
         store().checkBackToStoresListButtonVisible();
@@ -372,55 +280,6 @@ public final class AdministrationRetailerTests extends BaseTest {
 
         shopAdd().checkPageContains("retailers/"+ retailerName  + "_slug/stores/new");
         shopAdd().checkRegionDropdownVisible();
-    }
-
-    @CaseIDs(value = {@CaseId(541), @CaseId(542)})
-    @Story("Страница ретейлеров")
-    @Test(description = "Активация, деактивация магазина", groups = {"acceptance", "regression"})
-    public void shopActivateAndDeactivate() {
-        String retailerNameUnique = Generate.literalString(6) + "_retailer";
-        String cityNameFirstUnique = Generate.literalString(6) + "_city";
-
-        StoresAdminRequest.Store firstStore;
-
-        apiHelper.createRetailerInAdmin(retailerNameUnique);
-
-        apiHelper.setupCity(cityNameFirstUnique);
-        firstStore = apiHelper.createStoreInAdmin(retailerNameUnique, cityNameFirstUnique);
-
-        apiHelper.setupStoreForActivation(firstStore);
-
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdminAllRoles());
-
-        retailers().goToPage();
-        retailers().checkAddNewRetailerButtonVisible();
-
-        retailers().clickOnPlusForRetailer(retailerNameUnique);
-        retailers().clickOnPlusForFirstCity();
-
-        retailers().clickOnActivateStoreViaAddress(cityNameFirstUnique + ", Mira, 211 ");
-
-        retailers().interactActivateStoreModal().checkActivateStoreModalVisible();
-        retailers().interactActivateStoreModal().clickOnOkButton();
-        retailers().interactActivateStoreModal().checkActivateStoreModalNotVisible();
-
-        retailers().checkStoreActiveViaAddress(cityNameFirstUnique + ", Mira, 211 ");
-
-        retailers().clickOnDeactivateStoreViaAddress(cityNameFirstUnique + ", Mira, 211 ");
-
-        retailers().checkDeactivateStorePopupVisible();
-        retailers().clickOkOnDeactivateStorePopup();
-        retailers().checkDeactivateStorePopupNotVisible();
-
-        retailers().checkStoreInactiveViaAddress(cityNameFirstUnique + ", Mira, 211 ");
-
-        apiHelper.deleteRetailerByNameInAdmin(retailerNameUnique);
-
-        apiHelper.deleteCityInAdmin(cityNameFirstUnique);
-        apiHelper.deleteOperationalZonesInAdmin(cityNameFirstUnique);
-
-        apiHelper.deleteStoreInAdmin(firstStore);
     }
 
     @CaseId(580)
