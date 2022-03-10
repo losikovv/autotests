@@ -70,7 +70,7 @@ public class ZonesAdminTest extends RestBase {
         Assert.assertNull(createdZone);
     }
 
-    @CaseIDs(value = {@CaseId(2063), @CaseId(2064)})
+    @CaseIDs(value = {@CaseId(2062), @CaseId(2063)})
     @Test(groups = {"api-instamart-regress"},
             description = "Редактирование торговой зоны",
             dataProvider = "adminZones",

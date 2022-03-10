@@ -81,7 +81,7 @@ public class ShipmentsV1Test extends RestBase {
         for (AdminShipmentV1 shipment: shipments) {
             List<String> paymentMethodNames = new ArrayList<>();
             shipment.getPayments().forEach(p -> paymentMethodNames.add(p.getPaymentMethod().getName()));
-            softAssert.assertTrue(paymentMethodNames.contains(paymentMethod.getName()));
+            softAssert.assertTrue(paymentMethodNames.contains(paymentMethod.getName()), "Пришел неверный тип платежа");
         }
         softAssert.assertAll();
     }
