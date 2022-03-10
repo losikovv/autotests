@@ -3,8 +3,11 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.restassured.response.Response;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.ProfileV2Request;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -14,6 +17,11 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 @Epic("ApiV2")
 @Feature("Профиль пользователя")
 public class ProfileV2NoAuthTest extends RestBase {
+
+    @BeforeClass(alwaysRun = true)
+    public void before(){
+        SessionFactory.clearSession(SessionType.API_V2);
+    }
 
     @CaseId(160)
     @Test(description = "Получение данных профиля пользователя. Запрос без токена",
