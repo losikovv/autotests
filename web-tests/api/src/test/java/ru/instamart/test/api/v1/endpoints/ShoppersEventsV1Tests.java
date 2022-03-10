@@ -58,7 +58,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         Long paymentToolId = apiV1.getPaymentTools().get(0).getId();
         final Response response = EventsV1Request.OrderPaymentTool.POST(order.getNumber(), paymentToolId);
         checkStatusCode(response, 202);
-        ThreadUtil.simplyAwait(1);
+        ThreadUtil.simplyAwait(2);
         SpreeOrdersEntity orderFromDb = SpreeOrdersDao.INSTANCE.getOrderByNumber(order.getNumber());
         compareTwoObjects(orderFromDb.getPaymentToolId(), paymentToolId);
     }
@@ -88,7 +88,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         final Response response = EventsV1Request.LineItem.Created.POST(lineItemData);
         checkStatusCode(response, 202);
 
-        ThreadUtil.simplyAwait(1);
+        ThreadUtil.simplyAwait(2);
         lineItemFromDb = SpreeLineItemsDao.INSTANCE.getLineItemByOfferIdAndShipmentId(offer.getId(), shipment.getId());
         checkFieldIsNotEmpty(lineItemFromDb, "добавленный товар");
         final SoftAssert softAssert = new SoftAssert();
@@ -116,7 +116,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         final Response response = EventsV1Request.LineItem.Cancelled.POST(lineItemData);
         checkStatusCode(response, 202);
 
-        ThreadUtil.simplyAwait(1);
+        ThreadUtil.simplyAwait(2);
         SpreeLineItemsEntity cancelledLineItemFromDb = SpreeLineItemsDao.INSTANCE.findById(lineItemFromDb.getId()).get();
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(cancelledLineItemFromDb.getAssemblyIssue(), "Отмена: нет в наличии", softAssert);
@@ -138,7 +138,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         final Response response = EventsV1Request.LineItem.Cancelled.POST(lineItemData);
         checkStatusCode(response, 202);
 
-        ThreadUtil.simplyAwait(1);
+        ThreadUtil.simplyAwait(2);
         SpreeLineItemsEntity cancelledLineItemFromDb = SpreeLineItemsDao.INSTANCE.findById(lineItemFromDb.getId()).get();
         Assert.assertNull(cancelledLineItemFromDb.getAssemblyIssue());
     }
@@ -162,7 +162,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         final Response response = EventsV1Request.LineItem.Updated.POST(lineItemData);
         checkStatusCode(response, 202);
 
-        ThreadUtil.simplyAwait(1);
+        ThreadUtil.simplyAwait(2);
         SpreeLineItemsEntity updatedLineItemFromDb = SpreeLineItemsDao.INSTANCE.findById(lineItemFromDb.getId()).get();
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(updatedLineItemFromDb.getQuantity(), 4, softAssert);
@@ -192,7 +192,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         final Response response = EventsV1Request.LineItem.Returned.POST(lineItemData);
         checkStatusCode(response, 202);
 
-        ThreadUtil.simplyAwait(1);
+        ThreadUtil.simplyAwait(2);
         SpreeLineItemsEntity updatedLineItemFromDb = SpreeLineItemsDao.INSTANCE.findById(lineItemFromDb.getId()).get();
         compareTwoObjects(updatedLineItemFromDb.getAssemblyIssue(), "Возврат: Забыли доставить");
     }
@@ -205,7 +205,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         final Response response = EventsV1Request.Assembly.Created.POST(getAssemblyData(shipment.getUuid()));
         checkStatusCode(response, 202);
 
-        ThreadUtil.simplyAwait(1);
+        ThreadUtil.simplyAwait(2);
         SpreeShipmentsEntity updatedShipment = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber());
         compareTwoObjects(updatedShipment.getState(), StateV2.COLLECTING.getValue());
 
@@ -254,7 +254,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         final Response response = EventsV1Request.Assembly.Approved.POST(shipment.getUuid());
         checkStatusCode(response, 202);
 
-        ThreadUtil.simplyAwait(1);
+        ThreadUtil.simplyAwait(2);
         SpreeShipmentsEntity updatedShipment = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber());
         compareTwoObjects(updatedShipment.getState(), StateV2.COLLECTING.getValue());
     }
@@ -267,7 +267,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         final Response response = EventsV1Request.Assembly.Purchased.POST(getAssemblyData(shipment.getUuid()));
         checkStatusCode(response, 202);
 
-        ThreadUtil.simplyAwait(1);
+        ThreadUtil.simplyAwait(2);
         SpreeShipmentsEntity updatedShipment = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber());
         compareTwoObjects(updatedShipment.getState(), StateV2.READY_TO_SHIP.getValue());
     }
@@ -280,7 +280,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         final Response response = EventsV1Request.Assembly.ShippingStarted.POST(getAssemblyData(shipment.getUuid()));
         checkStatusCode(response, 202);
 
-        ThreadUtil.simplyAwait(1);
+        ThreadUtil.simplyAwait(2);
         SpreeShipmentsEntity updatedShipment = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber());
         compareTwoObjects(updatedShipment.getState(), StateV2.SHIPPING.getValue());
     }
@@ -293,7 +293,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         final Response response = EventsV1Request.Assembly.ShippingStopped.POST(getAssemblyData(shipment.getUuid()));
         checkStatusCode(response, 202);
 
-        ThreadUtil.simplyAwait(1);
+        ThreadUtil.simplyAwait(2);
         SpreeShipmentsEntity updatedShipment = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber());
         compareTwoObjects(updatedShipment.getState(), StateV2.READY_TO_SHIP.getValue());
     }
@@ -308,7 +308,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         final Response response = EventsV1Request.Assembly.Shipped.POST(eventData);
         checkStatusCode(response, 202);
 
-        ThreadUtil.simplyAwait(1);
+        ThreadUtil.simplyAwait(2);
         SpreeShipmentsEntity updatedShipment = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber());
         compareTwoObjects(updatedShipment.getState(), StateV2.SHIPPED.getValue());
     }
@@ -321,7 +321,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         final Response response = EventsV1Request.ReceiptCreated.POST(shipment.getUuid());
         checkStatusCode(response, 202);
 
-        ThreadUtil.simplyAwait(1);
+        ThreadUtil.simplyAwait(2);
         FiscalReceiptsEntity fiscalReceipt = FiscalReceiptsDao.INSTANCE.getReceiptByShipmenId(shipment.getId());
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(fiscalReceipt.getTotal(), 100.0, softAssert);
