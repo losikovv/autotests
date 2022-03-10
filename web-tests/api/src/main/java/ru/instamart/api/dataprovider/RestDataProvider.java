@@ -790,7 +790,7 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "invalidProductsId")
     public static Object[][] getInvalidProductsId() {
-        Long productId = apiV2.getProductsFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_SID).get(0).getId();
+        Long productId = apiV2.getProductsFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_SID).get(0).getId();
         Long alcoholProductId = SpreeProductsDao.INSTANCE.getOfferIdForAlcohol(1);
         Long pharmaProductId = SpreeProductsDao.INSTANCE.getOfferIdForPharma(1);
         return new Object[][]{

@@ -49,7 +49,7 @@ public class ShipmentsV1Tests extends RestBase {
             apiV1.authByPhone(UserManager.getQaUser());
         }
         apiV1.changeAddress(apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_SID), ShippingMethodV2.BY_COURIER.getMethod());
-        lineItem = apiV1.addItemToCart(apiV2.getProductFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_SID).get(0).getId());
+        lineItem = apiV1.addItemToCart(apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_SID).get(0).getId());
     }
 
 

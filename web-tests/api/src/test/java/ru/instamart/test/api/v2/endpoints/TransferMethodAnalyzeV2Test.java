@@ -119,7 +119,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
 
         apiV2.dropCart(userData, apiV2.getAddressBySid(1));
         currentOrderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
-        apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentInStore(1).get(0).getId(), 1);
+        apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentOnMainPage(1).get(0).getId(), 1);
     }
 
     @CaseIDs(value = {@CaseId(959), @CaseId(960), @CaseId(991), @CaseId(992), @CaseId(993)})
@@ -257,7 +257,7 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
         compareTwoObjects(AnalyzeResultV2.OK.getValue(), response.as(TransferMethodAnalyzeV2Response.class).getResult());
 
         SpreeOrdersDao.INSTANCE.updateShippingKind(currentOrderNumber, ShippingMethodV2.PICKUP.getMethod());
-        apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentInStore(22).get(0).getId(), 1);
+        apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentOnMainPage(22).get(0).getId(), 1);
     }
 
     @CaseIDs(value = {@CaseId(1059), @CaseId(1060), @CaseId(1061), @CaseId(1062), @CaseId(1063)})
@@ -402,8 +402,8 @@ public class TransferMethodAnalyzeV2Test extends RestBase {
         apiV2.dropCart(userData, apiV2.getAddressBySid(1));
         currentOrderNumber = OrdersV2Request.POST().as(OrderV2Response.class).getOrder().getNumber();
         SpreeOrdersDao.INSTANCE.updateShippingKind(currentOrderNumber, ShippingMethodV2.BY_COURIER.getMethod());
-        apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentInStore(1).get(0).getId(), 1);
-        apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentInStore(72).get(0).getId(), 1);
+        apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentOnMainPage(1).get(0).getId(), 1);
+        apiV2.addItemToCart(apiV2.getProductsFromEachDepartmentOnMainPage(72).get(0).getId(), 1);
         final Response response = OrdersV2Request.TransferMethod.Analyze.GET(OrdersV2Request.TransferMethodParams.builder()
                 .shippingMethod(ShippingMethodV2.PICKUP.getMethod())
                 .pickupStoreId(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID)

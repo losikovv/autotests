@@ -52,7 +52,7 @@ public class CheckoutV1Tests extends RestBase {
             apiV1.authByPhone(UserManager.getQaUser());
         }
         address = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_SID);
-        offerId = apiV2.getProductFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_SID).get(0).getId();
+        offerId = apiV2.getProductFromEachDepartmentOnMainPage(EnvironmentProperties.DEFAULT_SID).get(0).getId();
         apiV1.fillCart(address, ShippingMethodV2.BY_COURIER.getMethod(),offerId);
     }
 

@@ -19,7 +19,6 @@ import ru.instamart.api.model.v2.TaxonV2;
 import ru.instamart.api.request.v2.ProductsV2Request;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.api.dataprovider.RestDataProvider;
 
 import java.util.List;
 
@@ -43,7 +42,7 @@ public class StoreE2ETests extends RestBase {
         log.debug(store.toString());
 
         final SoftAssert softAssert = new SoftAssert();
-        apiV2.getProductsFromEachDepartmentInStore(store.getId(), softAssert);
+        apiV2.getProductsFromEachDepartmentOnMainPage(store.getId(), softAssert);
         softAssert.assertAll();
     }
 
@@ -56,7 +55,7 @@ public class StoreE2ETests extends RestBase {
         log.debug("Магазин {} url={}/api/v2/departments?sid={}", store, RestAssured.baseURI, store.getId());
 
         final SoftAssert softAssert = new SoftAssert();
-        final List<ProductV2> products = apiV2.getProductsFromEachDepartmentInStore(store.getId());
+        final List<ProductV2> products = apiV2.getProductsFromEachDepartmentOnMainPage(store.getId());
         for (final ProductV2 product : products) {
             softAssert.assertEquals(ProductsV2Request.GET(product.getId()).getStatusCode(),200,
                     "\n" + product + " " + RestAssured.baseURI + "/api/v2/products/" + product.getId());
