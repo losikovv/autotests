@@ -83,7 +83,7 @@ public class MergedShipmentsV2Test extends RestBase {
         OrderV2 newOrder = OrdersV2Request.GET(orderNumber).as(OrderV2Response.class).getOrder();
         final Response responseWithMerge = ShipmentsV2Request.Merge.POST(newOrder.getShipments().get(0).getNumber(), order.getShipments().get(0).getNumber());
         checkStatusCode422(responseWithMerge);
-        Assert.assertTrue(responseWithMerge.asString().contains("\"shipping_category_id\":\"Категории доставки не совпадают или в дозаказе участвует алкоголь\""));
+        Assert.assertTrue(responseWithMerge.asString().contains("\"shipping_category_id\":\"В заказе алкоголь. Его нельзя добавить к заказу с доставкой\""));
     }
 
     @CaseId(1474)
@@ -105,5 +105,21 @@ public class MergedShipmentsV2Test extends RestBase {
         final Response response = OrdersV2Request.MergeStatus.GET("failedOrder");
         checkStatusCode404(response);
         checkError(response, "Заказ не существует");
+    }
+
+    @CaseId(2046)
+    @Story("Мердж подзаказа")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Добавление в подзаказ подзаказа с аптечной продукцией",
+            dependsOnMethods = "mergeShipments")
+    public void mergeShipmentWithPharmaShipment() {
+        String orderNumber = apiV2.getOpenOrder().getNumber();
+        SpreeOrdersDao.INSTANCE.updateShippingKind(orderNumber, ShippingMethodV2.PICKUP.getMethod());
+        final Response response = LineItemsV2Request.POST(SpreeProductsDao.INSTANCE.getOfferIdForPharma(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID), 1, orderNumber);
+        checkStatusCode200(response);
+        OrderV2 newOrder = OrdersV2Request.GET(orderNumber).as(OrderV2Response.class).getOrder();
+        final Response responseWithMerge = ShipmentsV2Request.Merge.POST(newOrder.getShipments().get(0).getNumber(), order.getShipments().get(0).getNumber());
+        checkStatusCode422(responseWithMerge);
+        Assert.assertTrue(responseWithMerge.asString().contains("\"shipping_category_id\":\"В заказе лекарства. Их нельзя добавить к заказу с доставкой\""));
     }
 }
