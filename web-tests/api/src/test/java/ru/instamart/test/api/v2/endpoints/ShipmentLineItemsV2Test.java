@@ -110,7 +110,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
                 "Вернулся неверный текст ошибки");
     }
 
-    @CaseIDs(value = {@CaseId(1008), @CaseId(1012)})
+    @CaseIDs(value = {@CaseId(1008), @CaseId(1012), @CaseId(2045)})
     @Story("Добавление товара в заказ")
     @Test(groups = {"api-instamart-regress"},
             description = "Добавление товара c невалидным productId",
