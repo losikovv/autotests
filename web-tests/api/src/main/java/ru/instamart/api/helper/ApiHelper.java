@@ -369,7 +369,7 @@ public final class ApiHelper {
 
     @Step("Добавляем новый регион {zoneName} для магазина в админке")
     public OperationalZoneV1 createOperationalZonesInAdmin(String zoneName) {
-        admin.auth();
+        admin.authApi();
         return admin.addOperationalZones(zoneName);
     }
 

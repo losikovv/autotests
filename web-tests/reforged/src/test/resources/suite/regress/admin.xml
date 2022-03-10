@@ -18,6 +18,7 @@
             <class name="ru.instamart.test.reforged.admin.AdministrationPagesSectionTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationRetailerRegionsTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationRetailerTests"/>
+            <class name="ru.instamart.test.reforged.admin.AdministrationRetailerActivateTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationShipmentsSectionTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationShippingSettingsTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationUsersSectionTests"/>
