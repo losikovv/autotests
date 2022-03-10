@@ -25,6 +25,7 @@ import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
@@ -77,7 +78,11 @@ public class ShipmentsV1Test extends RestBase {
         checkResponseJsonSchema(response, AdminShipmentsV1Response.class);
         List<AdminShipmentV1> shipments = response.as(AdminShipmentsV1Response.class).getShipments();
         final SoftAssert softAssert = new SoftAssert();
-        shipments.forEach(s -> s.getPayments().forEach(p -> compareTwoObjects(p.getPaymentMethod().getName(), paymentMethod.getName(), softAssert)));
+        for (AdminShipmentV1 shipment: shipments) {
+            List<String> paymentMethodNames = new ArrayList<>();
+            shipment.getPayments().forEach(p -> paymentMethodNames.add(p.getPaymentMethod().getName()));
+            softAssert.assertTrue(paymentMethodNames.contains(paymentMethod.getName()));
+        }
         softAssert.assertAll();
     }
 

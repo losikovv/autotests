@@ -39,5 +39,5 @@ public class SpreeOrdersEntity {
     private Integer expressDelivery;
     private Integer ownerId;
     private String ownerType;
-    private Integer paymentToolId;
+    private Long paymentToolId;
 }

@@ -4,6 +4,7 @@ import io.restassured.specification.RequestSpecification;
 import ru.instamart.api.common.Specification;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.jdbc.dao.SpreeUsersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static io.restassured.RestAssured.given;
@@ -32,5 +33,11 @@ public class ApiV1RequestBase {
                 .cookies(SessionFactory
                         .getSession(SessionType.API_V1)
                         .getCookies());
+    }
+
+    public static RequestSpecification givenWithAuthAndApiKey() {
+        return givenWithAuth()
+                .header("X-Spree-Token", SpreeUsersDao.INSTANCE.getUserByEmail(SessionFactory.getSession(SessionType.API_V1).getLogin()).getSpreeApiKey());
+
     }
 }
