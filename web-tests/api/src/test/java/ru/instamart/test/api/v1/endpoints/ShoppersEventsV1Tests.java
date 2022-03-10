@@ -45,7 +45,7 @@ public class ShoppersEventsV1Tests extends RestBase {
 
     @CaseId(2149)
     @Test(description = "Healthcheck магазина",
-            groups = {"api-instamart-regress", "api-instamart-prod"})
+            groups = {"api-instamart-regress"})
     public void checkStores(){
         final Response response = EventsV1Request.StoreHealthCheck.POST(new String[]{StoresDao.INSTANCE.findById(EnvironmentProperties.DEFAULT_SID).get().getUuid()});
         checkStatusCode(response, 202);
