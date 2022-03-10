@@ -83,7 +83,7 @@ public class MergedShipmentsV2Test extends RestBase {
         OrderV2 newOrder = OrdersV2Request.GET(orderNumber).as(OrderV2Response.class).getOrder();
         final Response responseWithMerge = ShipmentsV2Request.Merge.POST(newOrder.getShipments().get(0).getNumber(), order.getShipments().get(0).getNumber());
         checkStatusCode422(responseWithMerge);
-        Assert.assertTrue(responseWithMerge.asString().contains("\"shipping_category_id\": \"В заказе алкоголь. Его нельзя добавить к заказу с доставкой\""), "Пришел неверный текст ошибки");
+        Assert.assertTrue(responseWithMerge.asString().contains("\"shipping_category_id\":\"В заказе алкоголь. Его нельзя добавить к заказу с доставкой\""), "Пришел неверный текст ошибки");
     }
 
     @CaseId(1474)
