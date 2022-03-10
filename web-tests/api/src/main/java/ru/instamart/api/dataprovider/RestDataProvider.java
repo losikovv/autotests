@@ -792,9 +792,11 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getInvalidProductsId() {
         Long productId = apiV2.getProductsFromEachDepartmentInStore(EnvironmentProperties.DEFAULT_SID).get(0).getId();
         Long alcoholProductId = SpreeProductsDao.INSTANCE.getOfferIdForAlcohol(1);
+        Long pharmaProductId = SpreeProductsDao.INSTANCE.getOfferIdForPharma(1);
         return new Object[][]{
                 {productId, "\"store_id\":\"Дозаказать можно только из того же магазина\""},
-                {alcoholProductId, "\"shipping_category_id\":\"Категории доставки не совпадают или в дозаказе участвует алкоголь\""},
+                {alcoholProductId, "\"shipping_category_id\":\"В заказе алкоголь. Его нельзя добавить к заказу с доставкой\""},
+                {pharmaProductId, "\"shipping_category_id\":\"В заказе лекарства. Их нельзя добавить к заказу с доставкой\""},
         };
     }
 

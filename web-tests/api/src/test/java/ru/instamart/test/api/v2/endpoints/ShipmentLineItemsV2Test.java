@@ -109,7 +109,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
         Assert.assertTrue(response.asString().contains("\"too_heavy\":\"Заказ тяжелый. Можно оставить товар в корзине — если захотите добавить к следующему заказу\""));
     }
 
-    @CaseIDs(value = {@CaseId(1008), @CaseId(1012)})
+    @CaseIDs(value = {@CaseId(1008), @CaseId(1012), @CaseId(2045)})
     @Story("Добавление товара в заказ")
     @Test(groups = {"api-instamart-regress"},
             description = "Добавление товара c невалидным productId",
