@@ -55,7 +55,7 @@ public class TaxonomiesAdminTest extends RestBase {
         final Response response = TaxonomiesAdminRequest.POST("");
         checkStatusCode(response, 200, ContentType.HTML);
         Long taxonomyId = SpreeTaxonomiesDao.INSTANCE.getIdByName("");
-        Assert.assertNull(taxonomyId);
+        Assert.assertNull(taxonomyId, "Создалась категория с пустым названием");
     }
 
     @CaseId(1890)
@@ -88,6 +88,6 @@ public class TaxonomiesAdminTest extends RestBase {
     public void deleteTaxonomy() {
         final Response response = TaxonomiesAdminRequest.DELETE(taxonomyId);
         checkStatusCode302(response);
-        Assert.assertTrue(SpreeTaxonomiesDao.INSTANCE.findById(taxonomyId).isEmpty());
+        Assert.assertTrue(SpreeTaxonomiesDao.INSTANCE.findById(taxonomyId).isEmpty(), "Категория не удалилась");
     }
 }

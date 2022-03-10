@@ -99,6 +99,6 @@ public class StatesAdminTest extends RestBase {
     public void deleteState() {
         final Response response = StatesAdminRequest.DELETE(1L, stateId);
         checkStatusCode302(response);
-        Assert.assertTrue(SpreeStatesDao.INSTANCE.findById(stateId).isEmpty());
+        Assert.assertTrue(SpreeStatesDao.INSTANCE.findById(stateId).isEmpty(), "Регион не удалился");
     }
 }

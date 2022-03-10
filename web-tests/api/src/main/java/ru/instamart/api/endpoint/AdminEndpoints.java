@@ -18,6 +18,9 @@ public final class AdminEndpoints {
 
     public static final String GENERAL_SETTINGS = "general_settings";
 
+    public static final String FAQ_GROUP = "faq_groups/{faqGroupId}";
+    public static final String FAQ_GROUPS = "faq_groups";
+
     public static final String MANUFACTURER = "manufacturers/{manufacturerId}";
     public static final String MANUFACTURERS = "manufacturers";
 
