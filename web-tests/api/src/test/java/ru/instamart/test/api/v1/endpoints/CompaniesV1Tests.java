@@ -354,7 +354,7 @@ public class CompaniesV1Tests extends RestBase {
     public void deleteCompanyEmployee() {
         final Response response = CompanyEmployeesV1Request.DELETE(employeeId);
         checkStatusCode200(response);
-        Assert.assertTrue(CompanyEmployeesDao.INSTANCE.findById(employeeId).isEmpty());
+        Assert.assertTrue(CompanyEmployeesDao.INSTANCE.findById(employeeId).isEmpty(), "Работник не удалился");
     }
 
     @Story("Admin Web")
