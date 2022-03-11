@@ -44,7 +44,7 @@ public final class UploadComponent extends AbstractComponent {
     }
 
     public void upload(final String filePath, final Object... args) {
-        setBy(ByKraken.xpath(((ByKraken) getBy()).getDefaultXpathExpression(), args));
+        setBy(ByKraken.xpathExpression(((ByKraken) getBy()).getDefaultXpathExpression(), args));
         upload(filePath);
     }
 

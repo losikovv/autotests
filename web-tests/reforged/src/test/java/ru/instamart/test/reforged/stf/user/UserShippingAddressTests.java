@@ -208,7 +208,7 @@ public final class UserShippingAddressTests extends BaseTest {
     @Test(description = "Тест на ввод адреса в модалке, после добавления товара из каталога", groups = "regression")
     public void successSetShippingAddressAfterAddingProductFromCatalog() {
         shop().goToPage();
-        shop().plusFirstItemToCart();
+        shop().plusItemToCart("1", "0");
         shop().interactHeader().interactAddress().checkYmapsReady();
         shop().interactHeader().interactAddress().fillAddress(defaultAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
@@ -458,7 +458,7 @@ public final class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
         shop().interactHeader().interactStoreSelector().clickToFirstStoreCard();
-        shop().plusFirstItemToCart();
+        shop().plusItemToCart("1", "0");
         shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsNotOpen();
     }
 
@@ -521,7 +521,7 @@ public final class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
 
         shop().goToPage(ShopUrl.VKUSVILL);
-        shop().plusFirstItemToCart();
+        shop().plusItemToCart("1", "0");
         shop().interactStoreModal().checkStoreModalIsOpen();
     }
 }

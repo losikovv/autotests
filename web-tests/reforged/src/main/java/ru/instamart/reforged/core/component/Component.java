@@ -10,7 +10,7 @@ public interface Component {
     default By getBy(final Object... args) {
         if (getBy() instanceof ByKraken) {
             final ByKraken byKraken = (ByKraken) getBy();
-            return ByKraken.xpath(byKraken.getDefaultXpathExpression(), args);
+            return ByKraken.xpathExpression(byKraken.getDefaultXpathExpression(), args);
         }
         return getBy();
     }

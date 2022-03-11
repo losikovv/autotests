@@ -12,9 +12,9 @@ import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface ShopCheck extends Check, ShopElement {
 
-    @Step("Проверяем присутствие элемента Внутри Таблицы на странице")
-    default void checkMinusButtonAddedAddressIsVisible() {
-        waitAction().shouldBeVisible(minusFirstItemFromCartAddedAddress);
+    @Step("Проверяем присутствие элемента - строка №{line}, элемент по порядку №{element} Внутри Таблицы на странице")
+    default void checkMinusButtonIsVisible(String line, String element) {
+        waitAction().shouldBeVisible(minusItemFromCart, line, element);
     }
 
     @Step("Проверяем, что отображается карточка товара")

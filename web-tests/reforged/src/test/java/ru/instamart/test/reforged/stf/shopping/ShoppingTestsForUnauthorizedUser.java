@@ -58,7 +58,7 @@ public final class ShoppingTestsForUnauthorizedUser extends BaseTest {
         shop().interactAddress().clickOnSave();
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
-        shop().plusFirstItemToCart();
+        shop().plusItemToCart("1", "0");
 
         shop().goToPage();
         shop().interactHeader().clickToCart();

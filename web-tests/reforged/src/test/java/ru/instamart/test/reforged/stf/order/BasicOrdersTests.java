@@ -327,8 +327,8 @@ public final class BasicOrdersTests extends BaseTest {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        final var itemName = shop().getSecondProductTitle();
-        shop().plusSecondItemToCart();
+        final var itemName = shop().getProductTitle("1", "1");
+        shop().plusItemToCart("1", "1");
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().goToPage();

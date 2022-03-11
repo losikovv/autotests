@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 public final class ByKraken extends By implements Serializable {
 
@@ -21,8 +22,12 @@ public final class ByKraken extends By implements Serializable {
 
     public ByKraken(final String xpathExpression, final Object... args) {
         this.defaultXpathExpression = xpathExpression;
-        //TODO: Заменить медленный format на свою реализацию
-        this.xpathExpression = String.format(defaultXpathExpression, args);
+        if (nonNull(args) && (args.length > 0)) {
+            //TODO: Заменить медленный format на свою реализацию
+            this.xpathExpression = String.format(defaultXpathExpression, args);
+        } else {
+            this.xpathExpression = defaultXpathExpression;
+        }
     }
 
     @Override
@@ -35,11 +40,7 @@ public final class ByKraken extends By implements Serializable {
         return ((FindsByXPath) context).findElementByXPath(xpathExpression);
     }
 
-    public static By xpath(final String name) {
-        return xpath(name, "");
-    }
-
-    public static By xpath(final String name, final Object... args) {
+    public static By xpathExpression(final String name, final Object... args) {
         if (isNull(name))
             throw new IllegalArgumentException(
                     "Cannot find elements when name text is null.");

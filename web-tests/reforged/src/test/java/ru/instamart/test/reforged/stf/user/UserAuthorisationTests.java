@@ -8,7 +8,6 @@ import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
-import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -52,7 +51,7 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().plusFirstItemToCart();
+        shop().plusItemToCart("1", "0");
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().goToPage();

@@ -52,9 +52,9 @@ public interface CheckoutElement {
             "панель свернутого шага 'Способ получения'");
 
     Element loyaltyCardLoader = new Element(By.xpath("//div[@class='loyalty-programs__list']//div[contains(@class, 'Loading')]"), "Лоадер в списке карт лояльности");
-    Element editLoyaltyCard = new Element(ByKraken.xpath("//div[contains(text(), '%s')]/ancestor::div[@class='loyalty-program__content']/following-sibling::div[@class='loyalty-program__edit']"),
+    Element editLoyaltyCard = new Element(ByKraken.xpathExpression("//div[contains(text(), '%s')]/ancestor::div[@class='loyalty-program__content']/following-sibling::div[@class='loyalty-program__edit']"),
             "редактирование карты лояльности");
-    Element activeLoyaltyCard = new Element(ByKraken.xpath("//div[@class='loyalty-program__name' and text()='%s']/ancestor::div[@class='loyalty-program loyalty-program--active']"),
+    Element activeLoyaltyCard = new Element(ByKraken.xpathExpression("//div[@class='loyalty-program__name' and text()='%s']/ancestor::div[@class='loyalty-program loyalty-program--active']"),
             "карта лояльности активна");
 
     Element checkoutLoader = new Element(By.xpath("//div[contains(@class, 'Loading')]"), "Лоадер чекаута");
