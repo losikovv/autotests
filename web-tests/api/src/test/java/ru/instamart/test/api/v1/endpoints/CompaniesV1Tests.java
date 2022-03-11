@@ -8,20 +8,20 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
-import ru.instamart.api.model.v1.b2b.CompanyV1;
-import ru.instamart.api.model.v1.b2b.ManagerV1;
-import ru.instamart.api.model.v1.b2b.SalesContractV1;
-import ru.instamart.api.model.v1.b2b.UserV1;
+import ru.instamart.api.dataprovider.RestDataProvider;
+import ru.instamart.api.model.v1.b2b.*;
 import ru.instamart.api.request.v1.b2b.*;
 import ru.instamart.api.response.v1.PaymentAccountV1Response;
-import ru.instamart.api.response.v1.b2b.CompaniesV1Response;
-import ru.instamart.api.response.v1.b2b.CompanyManagerV1Response;
-import ru.instamart.api.response.v1.b2b.CompanySalesContractV1Response;
-import ru.instamart.api.response.v1.b2b.CompanyV1Response;
+import ru.instamart.api.response.v1.b2b.*;
+import ru.instamart.jdbc.dao.CompanyEmployeesDao;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.JuridicalData;
+import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
+import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.text.SimpleDateFormat;
@@ -29,9 +29,8 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
 import static org.testng.Assert.*;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Epic("ApiV1")
 @Feature("B2B endpoints")
@@ -40,6 +39,7 @@ public class CompaniesV1Tests extends RestBase {
     private CompanyV1 company;
     private final ManagerV1 manager = new ManagerV1();
     private final SalesContractV1 salesContract = new SalesContractV1();
+    private Integer employeeId;
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
@@ -275,6 +275,96 @@ public class CompaniesV1Tests extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, PaymentAccountV1Response.class);
         Assert.assertTrue(response.as(PaymentAccountV1Response.class).getPaymentAccount().getBalance() < 0, "Баланс больше 0");
+    }
+
+    @Story("Admin Web")
+    @CaseId(2202)
+    @Test(description = "Добавление работника в компанию",
+            groups = {"api-instamart-regress"})
+    public void addCompanyEmployee() {
+        UserData user = UserManager.getQaUser();
+        UserV1 userV1 = new UserV1();
+        userV1.setId(Integer.valueOf(user.getId()));
+
+        final Response response = CompanyEmployeesV1Request.POST(company.getId(), userV1);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, CompanyEmployeeV1Response.class);
+
+        EmployeeV1 employee = response.as(CompanyEmployeeV1Response.class).getEmployee();
+        employeeId = employee.getId();
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(employee.getApproved(), false, softAssert);
+        compareTwoObjects(employee.getUser().getId().toString(), user.getId(), softAssert);
+        compareTwoObjects(employee.getUser().getEmail(), user.getEmail(), softAssert);
+        softAssert.assertAll();
+    }
+
+    @Story("Admin Web")
+    @CaseId(2203)
+    @Test(description = "Добавление работника в несуществующую компанию",
+            groups = {"api-instamart-regress"})
+    public void addEmployeeToNonExistentCompany() {
+        final Response response = CompanyEmployeesV1Request.POST(0, new UserV1());
+        checkStatusCode404(response);
+        checkErrorText(response, "Объект не найден");
+    }
+
+    @Story("Admin Web")
+    @CaseId(2204)
+    @Test(description = "Добавление несуществующего работника в компанию",
+            groups = {"api-instamart-regress"})
+    public void addNonexistentCompanyEmployee() {
+        UserV1 userV1 = new UserV1();
+        userV1.setId(0);
+        final Response response = CompanyEmployeesV1Request.POST(company.getId(), userV1);
+        checkStatusCode404(response);
+        checkErrorText(response, "Объект не найден");
+    }
+
+    @Story("Admin Web")
+    @CaseIDs(value = {@CaseId(2205), @CaseId(2206)})
+    @Test(description = "Подтверждение работника",
+            groups = {"api-instamart-regress"},
+            dataProvider = "booleanData",
+            dataProviderClass = RestDataProvider.class,
+            dependsOnMethods = "addCompanyEmployee")
+    public void editCompanyEmployee(boolean isApproved) {
+        final Response response = CompanyEmployeesV1Request.PUT(employeeId, isApproved);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, CompanyEmployeeV1Response.class);
+        EmployeeV1 employee = response.as(CompanyEmployeeV1Response.class).getEmployee();
+        compareTwoObjects(employee.getApproved(), isApproved);
+    }
+
+    @Story("Admin Web")
+    @CaseId(2207)
+    @Test(description = "Подтверждение несуществующего работника",
+            groups = {"api-instamart-regress"})
+    public void editNonExistentCompanyEmployee() {
+        final Response response = CompanyEmployeesV1Request.PUT(0, true);
+        checkStatusCode404(response);
+        checkErrorText(response, "Объект не найден");
+    }
+
+    @Story("Admin Web")
+    @CaseId(2208)
+    @Test(description = "Удаление работника",
+            groups = {"api-instamart-regress"},
+            dependsOnMethods = "editCompanyEmployee")
+    public void deleteCompanyEmployee() {
+        final Response response = CompanyEmployeesV1Request.DELETE(employeeId);
+        checkStatusCode200(response);
+        Assert.assertTrue(CompanyEmployeesDao.INSTANCE.findById(employeeId).isEmpty(), "Работник не удалился");
+    }
+
+    @Story("Admin Web")
+    @CaseId(2209)
+    @Test(description = "Удаление несуществующего работника",
+            groups = {"api-instamart-regress"})
+    public void deleteNonExistentCompanyEmployee() {
+        final Response response = CompanyEmployeesV1Request.DELETE(0);
+        checkStatusCode404(response);
+        checkErrorText(response, "Объект не найден");
     }
 
     @AfterClass(alwaysRun = true)

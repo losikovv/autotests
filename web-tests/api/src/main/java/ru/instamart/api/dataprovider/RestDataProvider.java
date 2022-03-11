@@ -1202,6 +1202,14 @@ public class RestDataProvider extends RestBase {
                 .toArray(Object[][]::new);
     }
 
+    @DataProvider(name = "booleanData")
+    public static Object[][] getBooleanData() {
+        return new Object[][]{
+                {true},
+                {false}
+        };
+    }
+
 
     @DataProvider(name = "postCompanyDocuments")
     public static Object[][] postCompanyDocuments() {

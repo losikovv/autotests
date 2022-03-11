@@ -106,7 +106,8 @@ public class ShipmentLineItemsV2Test extends RestBase {
     public void mergeLineItemWithExtraWeight() {
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(3).getId(), 1000000000);
         checkStatusCode422(response);
-        Assert.assertTrue(response.asString().contains("\"too_heavy\":\"Заказ тяжелый. Можно оставить товар в корзине — если захотите добавить к следующему заказу\""));
+        Assert.assertTrue(response.asString().contains("\"too_heavy\":\"Заказ тяжелый. Можно оставить товар в корзине — если захотите добавить к следующему заказу\""),
+                "Вернулся неверный текст ошибки");
     }
 
     @CaseIDs(value = {@CaseId(1008), @CaseId(1012), @CaseId(2045)})
@@ -119,7 +120,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
     public void mergeLineItemWithInvalidItem(Long productId, String errorMessage) {
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), productId, 1);
         checkStatusCode422(response);
-        Assert.assertTrue(response.asString().contains(errorMessage));
+        Assert.assertTrue(response.asString().contains(errorMessage), "Вернулся неверный текст ошибки");
     }
 
     @CaseId(1009)
@@ -131,7 +132,8 @@ public class ShipmentLineItemsV2Test extends RestBase {
         StoreConfigsDao.INSTANCE.updateEditingSettings(1, 48, 0);
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(4).getId(), 1);
         checkStatusCode422(response);
-        Assert.assertTrue(response.asString().contains("\"order_not_editable\":\"Заказ собирают. Можно оставить товар в корзине — если захотите добавить к следующему заказу\""));
+        Assert.assertTrue(response.asString().contains("\"order_not_editable\":\"Заказ собирают. Можно оставить товар в корзине — если захотите добавить к следующему заказу\""),
+                "Вернулся неверный текст ошибки");
     }
 
     @CaseId(1152)
@@ -143,7 +145,8 @@ public class ShipmentLineItemsV2Test extends RestBase {
         StoreConfigsDao.INSTANCE.updateEditingSettings(1, 1, 1);
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(4).getId(), 1);
         checkStatusCode422(response);
-        Assert.assertTrue(response.asString().contains("\"not_available_in_the_store\":\"В магазине нет такой возможности. Можно оставить товар в корзине — если захотите добавить к следующему заказу\""));
+        Assert.assertTrue(response.asString().contains("\"not_available_in_the_store\":\"В магазине нет такой возможности. Можно оставить товар в корзине — если захотите добавить к следующему заказу\""),
+                "Вернулся неверный текст ошибки");
         StoreConfigsDao.INSTANCE.updateEditingSettings(1, 1, 0);
     }
 
@@ -158,7 +161,8 @@ public class ShipmentLineItemsV2Test extends RestBase {
         ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(6).getId(), 1);
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(6).getId(), 1);
         checkStatusCode422(response);
-        Assert.assertTrue(response.asString().contains("\"items_count_balance_reached\":\"В заказе много товаров. Можно оставить товар в корзине — если захотите добавить к следующему заказу\""));
+        Assert.assertTrue(response.asString().contains("\"items_count_balance_reached\":\"В заказе много товаров. Можно оставить товар в корзине — если захотите добавить к следующему заказу\""),
+                "Вернулся неверный текст ошибки");
     }
 
     @CaseId(1005)
@@ -171,7 +175,8 @@ public class ShipmentLineItemsV2Test extends RestBase {
         changeToCollecting(shipmentNumber);
         final Response response = ShipmentsV2Request.LineItems.POST(shipmentNumber, products.get(4).getId(), 1);
         checkStatusCode422(response);
-        Assert.assertTrue(response.asString().contains("\"invalid_shipment_state_collecting\":\"Заказ собирают. Можно оставить товар в корзине — если захотите добавить к следующему заказу\"}"));
+        Assert.assertTrue(response.asString().contains("\"invalid_shipment_state_collecting\":\"Заказ собирают. Можно оставить товар в корзине — если захотите добавить к следующему заказу\"}"),
+                "Вернулся неверный текст ошибки");
     }
 
     @CaseId(1007)
@@ -183,7 +188,8 @@ public class ShipmentLineItemsV2Test extends RestBase {
         changeToCancel(order.getNumber());
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(4).getId(), 1);
         checkStatusCode422(response);
-        Assert.assertTrue(response.asString().contains("\"invalid_shipment_state_canceled\":\"Заказ отменён. Можно оставить товар в корзине — если захотите добавить к следующему заказу\""));
+        Assert.assertTrue(response.asString().contains("\"invalid_shipment_state_canceled\":\"Заказ отменён. Можно оставить товар в корзине — если захотите добавить к следующему заказу\""),
+                "Вернулся неверный текст ошибки");
     }
 
     @AfterClass(alwaysRun = true)
