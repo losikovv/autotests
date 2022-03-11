@@ -3,6 +3,7 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import ru.instamart.api.request.v2.PaymentToolsWithTypesV2Request;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
@@ -21,6 +22,7 @@ import ru.instamart.api.response.v2.PaymentToolsWithTypesV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
 
@@ -45,9 +47,9 @@ public class PaymentToolsV2Test extends RestBase {
         checkStatusCode200(response);
         PaymentToolsV2Response paymentToolsV2Response = response.as(PaymentToolsV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
-        paymentToolsV2Response.getPaymentTools().stream()
+        paymentToolsV2Response.getPaymentTools()
                 .forEach(value -> softAssert.assertNotNull(PaymentToolV2.getIfKeyIsPresent(value.getType()), "Способ оплаты пустой"));
-        paymentToolsV2Response.getPaymentTools().stream()
+        paymentToolsV2Response.getPaymentTools()
                 .forEach(value -> softAssert.assertNotNull(PaymentToolV2.getIfNameIsPresent(value.getName()), "Способ оплаты пустой"));
         softAssert.assertAll();
     }
@@ -117,5 +119,27 @@ public class PaymentToolsV2Test extends RestBase {
         final Response response = PaymentToolsV2Request.GET("failedOrderNumber");
         checkStatusCode404(response);
         checkError(response, "Заказ не существует");
+    }
+
+    @CaseId(2217)
+    @Story("Способы оплаты")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Несуществующий номер заказа")
+    public void getPaymentToolsWithTypes404() {
+        final Response response = PaymentToolsWithTypesV2Request.GET(null,"failedOrderId");
+        checkStatusCode404(response);
+        checkError(response, "Заказ не существует");
+    }
+
+    @CaseId(2216)
+    @Story("Способы оплаты")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Существующий номер заказа")
+    public void getPaymentToolsWithTypes200() {
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        String orderNumber = apiV2.getCurrentOrderNumber();
+        final Response response = PaymentToolsWithTypesV2Request.GET(null, orderNumber);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, PaymentToolTypesV2Response.class);
     }
 }
