@@ -16,6 +16,7 @@ import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -226,13 +227,14 @@ public final class UserShippingAddressTests extends BaseTest {
         home().interactAddressModal().fillAddressTmp(defaultAddress);
         home().interactAddressModal().selectFirstAddressTmp();
         home().interactAddressModal().clickFindStores();
-        home().clickOnFirstStore();
+        home().waitPageLoad();
+        home().clickOnStoreWithSid(DEFAULT_METRO_MOSCOW_SID);
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().interactHeader().checkIsSetAddressEqualToInput(defaultAddress,
                 shop().interactHeader().getShippingAddressFromHeader());
 
         //TODO: Костыль из-за бейсика
-        shop().goToPage(ShopUrl.AUCHAN);
+        shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());

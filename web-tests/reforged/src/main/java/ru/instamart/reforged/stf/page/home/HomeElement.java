@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.page.home;
 
 import org.openqa.selenium.By;
+import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.*;
 import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
@@ -33,6 +34,7 @@ public interface HomeElement {
     Element deliveryBlockTitle = new Element(By.xpath("//h2[@data-qa='b2c_home_landing_delivery_retailers_block_title']"), "блок доставки заголовок лендинга Сбермаркета");
     Element deliveryBlockSubTitle = new Element(By.xpath("//h4[@data-qa='b2c_home_landing_delivery_retailers_block_subtitle']"), "блок доставки sub заголовок лендинга Сбермаркета");
     ElementCollection deliveryStores = new ElementCollection(By.xpath("//a[contains(@data-qa, 'b2c_home_landing_stores_block_store_card_')]"), "список магазинов");
+    Element storeBySid = new Element(ByKraken.xpath("//a[contains(@data-qa,'b2c_home_landing_stores_block_store_card')][@href='/stores/%s']"),"Карточка магазина по номеру SID");
 
     Element advantagesBlockContainer = new Element(By.xpath("//div[@data-qa='b2c_home_landing_advantages_block']"), "блок advantages лендинга Сбермаркета");
     Element infoBlockContainer = new Element(By.xpath("//div[@data-qa='b2c_home_landing_info_block']"), "блок info лендинга Сбермаркета");

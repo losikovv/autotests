@@ -144,6 +144,7 @@ public final class UserFavoritesTests extends BaseTest {
     public void successRegAfterAddFavoriteOnCatalog() {
         shop().goToPage();
         shop().addFirstItemToFavorite();
+        shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
     }
