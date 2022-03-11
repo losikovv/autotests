@@ -1210,7 +1210,6 @@ public class RestDataProvider extends RestBase {
         };
     }
 
-
     @DataProvider(name = "postCompanyDocuments")
     public static Object[][] postCompanyDocuments() {
         String name = "ООО \"Ромашка_" + (int) (Math.random() * 9999) + "\"";
@@ -1284,6 +1283,48 @@ public class RestDataProvider extends RestBase {
 //                                .build(),
 //                        "Вы не состоите в компании с таким ИНН. Проверьте ИНН или закрепите компанию на сайте СберМаркет во вкладке «Для бизнеса»"
 //                }
+        };
+    }
+
+    @DataProvider(name = "forMapFailedTestParams")
+    public static Object[][] forMapFailedTestParams() {
+        return new Object[][]{
+                {
+                        null,
+                        "Недопустимые параметры запроса: bbox отсутствует"
+                },
+                {
+                        StoresV2Request.ForMapParams.builder()
+                                .retailerIds("1")
+                                .build(),
+                        "Недопустимые параметры запроса: bbox отсутствует"
+                },
+                {
+                        StoresV2Request.ForMapParams.builder()
+                                .shippingMethod(ShippingMethodV2.BY_COURIER.getMethod())
+                                .build(),
+                        "Недопустимые параметры запроса: bbox отсутствует"
+                },
+                {
+                        StoresV2Request.ForMapParams.builder()
+                                .bbox("55.640161, 37.682901~55.712339, 37.748081")
+                                .build(),
+                        "Недопустимые параметры запроса: bbox {:text=>\"Неправильное значение параметра bbox, должно быть вида '160.599911,55.101101~160.7555111,55.311111'\", :code=>:invalid_bbox_param}"
+                },
+                {
+                        StoresV2Request.ForMapParams.builder()
+                                .bbox("56.291423,43.967728~56.332495,44.058287")
+                                .shippingMethod("failedShippingMethod")
+                                .build(),
+                        "Недопустимые параметры запроса: shipping_method должно быть одним из: by_courier, by_courier_for_companies, pickup"
+                },
+                {
+                        StoresV2Request.ForMapParams.builder()
+                                .bbox("56.291423,43.967728~56.332495,44.058287")
+                                .retailerIds("failedRetailerIds")
+                                .build(),
+                        "Недопустимые параметры запроса: retailer_ids {:text=>\"Все значения в списке должны быть integer\", :code=>:invalid_types_in_list}"
+                }
         };
     }
 }

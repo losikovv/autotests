@@ -159,4 +159,26 @@ public final class StoresV2Test extends RestBase {
         checkStatusCode200(response);
         assertTrue(response.as(StoresV2Response.class).getStores().isEmpty(), "Stores is missed");
     }
+
+    @CaseId(2213)
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+            dataProvider = "forMapFailedTestParams",
+            dataProviderClass = RestDataProvider.class,
+            description = "Получение магазинов для вывода на карте без обязательных параметров")
+    public void failedTestForMap(StoresV2Request.ForMapParams params, String errorMessage) {
+        final Response response = StoresV2Request.ForMap.GET(params);
+        checkStatusCode422(response);
+        checkError(response, errorMessage);
+    }
+
+    @CaseId(2212)
+    @Test(groups = {"api-instamart-regress"}, description = "Получение магазинов для вывода на карте")
+    public void testForMap() {
+        StoresV2Request.ForMapParams params = StoresV2Request.ForMapParams.builder()
+                .bbox("56.291423,43.967728~56.332495,44.058287")
+                .build();
+        final Response response = StoresV2Request.ForMap.GET(params);
+
+        checkStatusCode200(response);
+    }
 }

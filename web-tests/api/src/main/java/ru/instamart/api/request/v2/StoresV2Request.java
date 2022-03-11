@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +14,7 @@ import ru.instamart.api.request.ApiV2RequestBase;
 import ru.sbermarket.common.Mapper;
 
 import java.util.Map;
+import java.util.Objects;
 
 public final class StoresV2Request extends ApiV2RequestBase {
 
@@ -33,6 +35,17 @@ public final class StoresV2Request extends ApiV2RequestBase {
     @Step("{method} /" + ApiV2EndPoints.Stores.BY_SID)
     public static Response GET(int sid) {
         return givenWithSpec().get(ApiV2EndPoints.Stores.BY_SID, sid);
+    }
+
+    public static class ForMap {
+        @Step("{method} /" + ApiV2EndPoints.Stores.FOR_MAP)
+        public static Response GET(ForMapParams params) {
+            RequestSpecification requestSpecification = givenWithSpec().log().all();
+            if (Objects.nonNull(params)) {
+                requestSpecification.queryParams(Mapper.INSTANCE.objectToMap(params));
+            }
+            return requestSpecification.get(ApiV2EndPoints.Stores.FOR_MAP);
+        }
     }
 
     public static class PromotionCards {
@@ -82,5 +95,18 @@ public final class StoresV2Request extends ApiV2RequestBase {
         private String shippingMethod;
         @JsonProperty(value = "operational_zone_id")
         private Integer operationalZoneId;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Data
+    @Builder
+    public static final class ForMapParams {
+        private String bbox;
+        @JsonProperty(value = "shipping_method")
+        private String shippingMethod;
+        @JsonProperty(value = "retailer_ids")
+        private String retailerIds;
     }
 }

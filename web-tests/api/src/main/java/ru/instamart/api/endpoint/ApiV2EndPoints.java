@@ -195,6 +195,7 @@ public final class ApiV2EndPoints {
 
     public static final class Stores {
         public static final String BY_SID = "v2/stores/{sid}";
+        public static final String FOR_MAP = "v2/stores/for_map";
         public static final String HEALTH_CHECK = "v2/stores/{sid}/healthcheck";
         public static final String NEXT_DELIVERIES = "v2/stores/{sid}/next_deliveries";
         public static final String PROMOTION_CARDS = "v2/stores/{sid}/promotion_cards";
