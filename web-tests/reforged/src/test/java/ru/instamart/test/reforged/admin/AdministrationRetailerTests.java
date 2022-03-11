@@ -3,13 +3,14 @@ package ru.instamart.test.reforged.admin;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.test.reforged.BaseTest;
-import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
@@ -20,12 +21,35 @@ import static ru.instamart.reforged.admin.AdminRout.retailers;
 public final class AdministrationRetailerTests extends BaseTest {
 
     private final ApiHelper apiHelper = new ApiHelper();
+    private final String retailerName = Generate.literalString(6) + "_retailer";
+
+    private final String cityNameFirst = Generate.literalString(6) + "_city";
+    private final String cityNameSecond = Generate.literalString(6) + "_city";
+
+    private StoresAdminRequest.Store firstStore = new StoresAdminRequest.Store();
+    private StoresAdminRequest.Store secondStore = new StoresAdminRequest.Store();
+    private StoresAdminRequest.Store thirdStore = new StoresAdminRequest.Store();
+
+    @BeforeClass(alwaysRun = true)
+    public void prepareData() {
+        apiHelper.createRetailerInAdmin(retailerName);
+
+        apiHelper.setupCity(cityNameFirst);
+        firstStore = apiHelper.createStoreInAdmin(retailerName, cityNameFirst);
+
+        apiHelper.setupCity(cityNameSecond);
+        secondStore = apiHelper.createStoreInAdmin(retailerName, cityNameSecond);
+        thirdStore = apiHelper.createStoreInAdmin(retailerName, cityNameSecond);
+
+        apiHelper.setupStoreForActivation(firstStore);
+        apiHelper.setupStoreForActivation(secondStore);
+        apiHelper.setupStoreForActivation(thirdStore);
+    }
 
     @CaseId(535)
     @Story("Страница ретейлеров")
     @Test(description = "На страницу выводится весь список ретейлеров с информацией об их доступности и датах их создания", groups = {"acceptance", "regression"})
     public void successViewRetailerPage() {
-
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
@@ -41,18 +65,17 @@ public final class AdministrationRetailerTests extends BaseTest {
     @Story("Страница ретейлеров")
     @Test(description = "Корректное отображение страницы загрузки зон", groups = {"acceptance", "regression"})
     public void successViewRetailerZones() {
-
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
         retailers().goToPage();
         retailers().checkAddNewRetailerButtonVisible();
-        retailers().clickOnRetailer("METRO");
+        retailers().clickOnRetailer(retailerName);
 
         retailer().checkAddNewStoreButtonVisible();
-        retailer().clickOnStore("тест-352519385 (17)");
+        retailer().clickOnFirstStore();
 
-        retailer().clickOnAddress("Москва, просп. Мира, 211, стр. 1");
+        retailer().clickOnFirstAddress();
 
         store().checkBackToStoresListButtonVisible();
         final var storeName = store().returnStoreName();
@@ -71,48 +94,6 @@ public final class AdministrationRetailerTests extends BaseTest {
         zonePage().assertAll();
     }
 
-    @CaseId(213)
-    @Story("Страница ретейлеров")
-    @Test(description = "Ретейлер без действующих магазинов недоступен", groups = {"acceptance", "regression"})
-    public void retailerInaccessibilityWithoutActiveStores() {
-
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdminAllRoles());
-
-        retailers().goToPage();
-        retailers().checkAddNewRetailerButtonVisible();
-        retailers().clickOnRetailer("ZBS.retailer");
-
-        retailer().checkAddNewStoreButtonVisible();
-        retailer().clickOnStore("тест-352519385 (1)");
-
-        retailer().checkAllStoresDisable();
-
-        retailers().goToPage();
-        retailers().checkRetailerInactive("ZBS.retailer");
-    }
-
-    @CaseId(214)
-    @Story("Страница ретейлеров")
-    @Test(description = "Ритейлер доступен, если у него есть 1 или более действующих магазинов", groups = {"acceptance", "regression"})
-    public void retailerAccessibilityWithActiveStore() {
-
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdminAllRoles());
-
-        retailers().goToPage();
-        retailers().checkAddNewRetailerButtonVisible();
-        retailers().clickOnRetailer("METRO");
-
-        retailer().checkAddNewStoreButtonVisible();
-        retailer().clickOnStore("тест-352519385 (17)");
-
-        retailer().checkSomeStoreEnable();
-
-        retailers().goToPage();
-        retailers().checkRetailerActive("METRO");
-    }
-
     @CaseId(536)
     @Story("Страница ретейлеров")
     @Test(description = "Cортировка городов по кол-ву магазинов в каждом и по алфавиту", groups = {"acceptance", "regression"})
@@ -122,7 +103,7 @@ public final class AdministrationRetailerTests extends BaseTest {
 
         retailers().goToPage();
         retailers().checkAddNewRetailerButtonVisible();
-        retailers().clickOnPlusForRetailer("METRO");
+        retailers().clickOnPlusForRetailer(retailerName);
 
         retailers().checkStoreSortViaNumbersCorrect();
 
@@ -138,8 +119,8 @@ public final class AdministrationRetailerTests extends BaseTest {
 
         retailers().goToPage();
         retailers().checkAddNewRetailerButtonVisible();
-        retailers().clickOnPlusForRetailer("METRO");
-        retailers().clickOnStore("тест-352519385 (17)");
+        retailers().clickOnPlusForRetailer(retailerName);
+        retailers().clickOnFirstStore();
 
         retailers().checkStoreSortViaCreationDateCorrect();
     }
@@ -148,17 +129,21 @@ public final class AdministrationRetailerTests extends BaseTest {
     @Story("Страница ретейлеров")
     @Test(description = "При клике на адрес магазина происходит переход на его страницу", groups = {"acceptance", "regression"})
     public void successTransitOnStorePageViaClickOnAddress() {
+        String address;
+
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
         retailers().goToPage();
         retailers().checkAddNewRetailerButtonVisible();
-        retailers().clickOnPlusForRetailer("METRO");
-        retailers().clickOnStore("тест-352519385 (17)");
-        retailers().clickOnAddress("Москва, просп. Мира, 211, стр. 1");
+        retailers().clickOnPlusForRetailer(retailerName);
+        retailers().clickOnFirstStore();
+
+        address = retailers().getFirstAddressFromTable();
+        retailers().clickOnFirstAddress();
 
         store().checkBackToStoresListButtonVisible();
-        store().checkAddressCorrect("Москва, просп. Мира, 211, стр. 1");
+        store().checkAddressCorrect(address);
     }
 
     @CaseId(532)
@@ -175,11 +160,11 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().checkOptionsInRetailerSearchVisible();
 
         retailers().clickOnRetailerSearchElement();
-        retailers().fillRetailerSearch("METRO");
+        retailers().fillRetailerSearch(retailerName);
         retailers().clickOnFirstRetailerInSearchSuggest();
 
-        retailers().checkRetailerLabelInSearchFieldVisible("METRO");
-        retailers().checkRetailerSearchCorrect("METRO");
+        retailers().checkRetailerLabelInSearchFieldVisible(retailerName);
+        retailers().checkRetailerSearchCorrect(retailerName);
     }
 
     @CaseId(533)
@@ -291,50 +276,10 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().goToPage();
         retailers().checkAddNewRetailerButtonVisible();
 
-        retailers().clickOnAddStore("Flora");
+        retailers().clickOnAddStore(retailerName);
 
-        shopAdd().checkPageContains("retailers/flora/stores/new");
+        shopAdd().checkPageContains("retailers/"+ retailerName  + "_slug/stores/new");
         shopAdd().checkRegionDropdownVisible();
-    }
-
-    @CaseIDs(value = {@CaseId(541), @CaseId(542)})
-    @Story("Страница ретейлеров")
-    @Test(description = "Активация, деактивация магазина", groups = {"acceptance", "regression"})
-    public void shopActivateAndDeactivate() {
-        final String retailerName = "Retailer_" + Generate.literalString(6);
-        final StoresAdminRequest.Store store;
-
-        apiHelper.createRetailerInAdmin(retailerName);
-        store = apiHelper.createStoreInAdmin(retailerName);
-        apiHelper.setupStoreForActivation(store);
-
-        login().goToPage();
-        login().auth(UserManager.getDefaultAdminAllRoles());
-
-        retailers().goToPage();
-        retailers().checkAddNewRetailerButtonVisible();
-
-        retailers().clickOnPlusForRetailer(retailerName);
-        retailers().clickOnPlusForCity("москва (1)");
-
-        retailers().clickOnActivateStoreViaAddress("Moscow, Mira, 211 ");
-
-        retailers().interactActivateStoreModal().checkActivateStoreModalVisible();
-        retailers().interactActivateStoreModal().clickOnOkButton();
-        retailers().interactActivateStoreModal().checkActivateStoreModalNotVisible();
-
-        retailers().checkStoreActiveViaAddress("Moscow, Mira, 211 ");
-
-        retailers().clickOnDeactivateStoreViaAddress("Moscow, Mira, 211 ");
-
-        retailers().checkDeactivateStorePopupVisible();
-        retailers().clickOkOnDeactivateStorePopup();
-        retailers().checkDeactivateStorePopupNotVisible();
-
-        retailers().checkStoreInactiveViaAddress("Moscow, Mira, 211 ");
-
-        apiHelper.deleteRetailerByNameInAdmin(retailerName);
-        apiHelper.deleteStoreInAdmin(store);
     }
 
     @CaseId(580)
@@ -379,12 +324,27 @@ public final class AdministrationRetailerTests extends BaseTest {
         retailers().goToPage();
         retailers().checkAddNewRetailerButtonVisible();
 
-        retailers().fillRegionSearch("Казань");
+        retailers().fillRegionSearch(cityNameFirst);
         retailers().checkOptionsInRegionSearchVisible();
         retailers().clickOnFirstRegionInSearchSuggest();
 
         retailers().refresh();
         retailers().clickOnPlusForFirstRetailer();
-        retailers().checkRetailerRegionCorrect("Казань");
+        retailers().checkRetailerRegionCorrect(cityNameFirst);
+    }
+
+    @AfterClass(alwaysRun = true)
+    public void clearData() {
+        apiHelper.deleteRetailerByNameInAdmin(retailerName);
+
+        apiHelper.deleteCityInAdmin(cityNameFirst);
+        apiHelper.deleteOperationalZonesInAdmin(cityNameFirst);
+
+        apiHelper.deleteCityInAdmin(cityNameSecond);
+        apiHelper.deleteOperationalZonesInAdmin(cityNameSecond);
+
+        apiHelper.deleteStoreInAdmin(firstStore);
+        apiHelper.deleteStoreInAdmin(secondStore);
+        apiHelper.deleteStoreInAdmin(thirdStore);
     }
 }

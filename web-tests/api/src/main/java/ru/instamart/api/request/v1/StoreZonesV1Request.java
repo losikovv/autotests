@@ -6,6 +6,7 @@ import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.request.ApiV1RequestBase;
+import ru.instamart.kraken.data.Generate;
 
 import java.io.File;
 
@@ -38,7 +39,7 @@ public class StoreZonesV1Request extends ApiV1RequestBase {
         @Step("{method} /" + ApiV1Endpoints.Stores.ZONES)
         public static Response POST(Integer storeId, String area) {
             JSONObject body = new JSONObject();
-            body.put("name", "polygon");
+            body.put("name", Generate.literalString(5));
             body.put("area", area);
             return givenWithAuth()
                     .contentType(ContentType.JSON)

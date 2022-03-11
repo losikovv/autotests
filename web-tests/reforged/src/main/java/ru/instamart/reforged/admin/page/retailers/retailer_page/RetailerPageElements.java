@@ -3,6 +3,7 @@ package ru.instamart.reforged.admin.page.retailers.retailer_page;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.Button;
+import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
 
 public interface RetailerPageElements {
@@ -13,4 +14,6 @@ public interface RetailerPageElements {
     ElementCollection activeStoresInTable = new ElementCollection(By.xpath("//div[contains(@aria-label,'stores')]//span[text()='Доступен']"), "Надписи о доступности магазинов");
 
     Button addNewStoreButton = new Button(By.xpath("//span[contains(text(), 'Добавить магазин')]/ancestor::button"), "Кнопка добавления нового магазина");
+    Element addressInTableWithText = new Element(ByKraken.xpath("//a[contains(@href,'stores')]//span[text()='%s ']"), "Элемент адреса магазина с определенным текстом");
+    Element addressInTable = new Element(ByKraken.xpath("//a[contains(@href,'stores')]//span[@role='img']/preceding-sibling::span"), "Первый адрес магазина");
 }

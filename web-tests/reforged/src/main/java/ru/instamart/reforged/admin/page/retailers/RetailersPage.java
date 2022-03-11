@@ -35,9 +35,19 @@ public final class RetailersPage implements AdminPage, RetailersPageCheck {
         cityPlusIconInTable.click(city);
     }
 
+    @Step("Нажать на плюс у первого города")
+    public void clickOnPlusForFirstCity() {
+        firstCityPlusIconInTable.click();
+    }
+
     @Step("Нажать 'активировать' у магазина по адресу {0}")
     public void clickOnActivateStoreViaAddress(final String address) {
         storeActivateInTable.click(address);
+    }
+
+    @Step("Нажать 'активировать' у первого магазина")
+    public void clickOnActivateFirstStore() {
+        firstStoreActivateInTable.click();
     }
 
     @Step("Нажать 'Деактивировать' у магазина по адресу {0}")
@@ -90,9 +100,24 @@ public final class RetailersPage implements AdminPage, RetailersPageCheck {
         storesInTable.clickOnElementWithText(store);
     }
 
+    @Step("Нажать на первый магазин")
+    public void clickOnFirstStore() {
+        storesInTable.clickOnFirst();
+    }
+
     @Step("Нажать на адрес {0}")
     public void clickOnAddress(final String address) {
-        addressInTable.click(address);
+        addressInTableWithText.click(address);
+    }
+
+    @Step("Нажать на первый адрес")
+    public void clickOnFirstAddress() {
+        addressInTable.click();
+    }
+
+    @Step("Вернуть текст первого адреса")
+    public String getFirstAddressFromTable() {
+        return addressesInTable.getElementText(0);
     }
 
     @Step("Кликнуть на кнопку 'Добавить ритейлера'")

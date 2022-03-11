@@ -26,7 +26,7 @@ import static ru.instamart.kraken.util.TimeUtil.getDeliveryDateFrom;
 
 public class StoresAdminRequest extends AdminRequestBase {
 
-   @Step("{method} /" + AdminEndpoints.STORES)
+    @Step("{method} /" + AdminEndpoints.STORES)
     public static Response POST(Store store) {
         return givenWithAuth()
                 .formParams(Mapper.INSTANCE.objectToMap(store))
@@ -271,12 +271,12 @@ public class StoresAdminRequest extends AdminRequestBase {
                 .build();
     }
 
-    public static Store getStoreForRetailerTests(final String retailerName) {
+    public static Store getStoreForRetailerTests(final String retailerName, final String city) {
         List<Long> paymentMethodIds = SpreePaymentMethodsDao.INSTANCE.getPaymentMethodsIds();
         return Store.builder()
                 .retailerId(SpreeRetailersDao.INSTANCE.getIdByName(retailerName))
-                .operationalZoneId(OperationalZonesDao.INSTANCE.getIdByName("Москва"))
-                .cityId(CitiesDao.INSTANCE.getCityByName("Москва").getId())
+                .operationalZoneId(OperationalZonesDao.INSTANCE.getIdByName(city))
+                .cityId(CitiesDao.INSTANCE.getCityByName(city).getId())
                 .timeZone("Europe/Moscow")
                 .inn(generateInnUL())
                 .legalName("Autotest-" + Generate.literalString(6))
@@ -334,12 +334,12 @@ public class StoresAdminRequest extends AdminRequestBase {
                 .paymentMethodSmbusiness2(paymentMethodIds.get(1))
                 .paymentMethodSmbusiness3(paymentMethodIds.get(2))
                 .countryId(1L)
-                .fullAddress("Moscow, Mira av., 211")
-                .city("Moscow")
+                .fullAddress(city + ", Mira av., 211")
+                .city(city)
                 .street("Mira")
                 .building(211)
-                .lat(55.638317)
-                .lon(37.539508)
+                .lat((double) RandomUtils.nextInt(50, 55))
+                .lon((double) RandomUtils.nextInt(30, 35))
                 .build();
     }
 
