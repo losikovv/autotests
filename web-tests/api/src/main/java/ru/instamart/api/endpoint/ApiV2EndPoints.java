@@ -22,6 +22,7 @@ public final class ApiV2EndPoints {
     public static final String FEATURE_FLAGS = "v2/feature_flags";
     public static final String INSTACOIN_ACCOUNT = "v2/instacoin_account";
     public static final String LEGAL_ENTITY = "v2/legal_entity";
+    public static final String LOYALTIES = "v2/loyalties";
     public static final String LINE_ITEMS = "v2/line_items";
     public static final String ONBOARDING_PAGES = "v2/onboarding_pages";
     public static final String ORDERS = "v2/orders";
