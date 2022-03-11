@@ -62,6 +62,7 @@
             <class name="ru.instamart.test.api.v2.endpoints.FavoritesListV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.FeatureFlagsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.LegalEntityV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.LoyaltiesV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.OrdersV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.OrdersV2NoAuthTest"/>
             <class name="ru.instamart.test.api.v2.endpoints.OrdersComplexCollectV2Test"/>
