@@ -57,7 +57,6 @@ public class SbermarketLandingTests extends BaseTest {
         home().interactAuthModal().checkSberBusinessIdIsNotVisible();
         home().interactAuthModal().checkSberIdIsVisible();
         home().interactAuthModal().checkVkIsVisible();
-        home().interactAuthModal().checkFacebookIsVisible();
         home().interactAuthModal().checkMailRuIsVisible();
     }
 }

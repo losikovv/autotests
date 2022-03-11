@@ -160,7 +160,7 @@ public final class ApiHelper {
         apiV2.getCurrentOrderNumber();
         apiV2.deleteAllShipments();
         apiV2.setAddressAttributes(user, address);
-        apiV2.fillCart(apiV2.getProducts(apiV2.getCurrentStore(address, retailerName).getId()));
+        apiV2.fillCart(apiV2.getProductFromEachDepartmentOnMainPage(apiV2.getCurrentStore(address, retailerName).getId()));
     }
 
     /**
@@ -234,6 +234,7 @@ public final class ApiHelper {
         apiV2.getAvailableDeliveryWindow();
 
         apiV2.setDefaultOrderAttributes();
+        apiV2.completeOrder();
     }
 
     /**
@@ -255,6 +256,7 @@ public final class ApiHelper {
         apiV2.getAvailableDeliveryWindowOnTomorrow();
 
         apiV2.setDefaultOrderAttributes();
+        apiV2.completeOrder();
     }
 
     /**
