@@ -18,7 +18,7 @@ public class PaymentToolsWithoutAuthV2Test extends RestBase {
 
     @CaseId(2217)
     @Story("Способы оплаты")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Без авторизации")
     public void getPaymentToolsWithTypes401() {
         final Response response = PaymentToolsWithTypesV2Request.GET(null, "failedOrderId");
