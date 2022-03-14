@@ -7,7 +7,7 @@ import ru.instamart.reforged.core.component.ElementCollection;
 
 public interface StoreZoneElements {
 
-    Element zonePageTitle = new Element(ByKraken.xpath("//span[contains(text(), 'Редактирование зон магазина %s')]"), "Заголовок страницы редактирования зоны");
+    Element zonePageTitle = new Element(ByKraken.xpathExpression("//span[contains(text(), 'Редактирование зон магазина %s')]"), "Заголовок страницы редактирования зоны");
     Element zonePage = new Element(By.xpath("//div[@data-qa='store_zones_page']"), "Страница редактирования зоны");
     Element zonesTable = new Element(By.xpath("//div[@class='ant-table-wrapper']"), "Таблица зон");
     Element hint = new Element(By.xpath("//p[contains(text(), 'перенастроить зоны')]"), "Подсказка о таблице зон");

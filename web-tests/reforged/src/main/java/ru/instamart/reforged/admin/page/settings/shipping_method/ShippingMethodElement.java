@@ -13,7 +13,7 @@ public interface ShippingMethodElement {
 
     Button addNewDelivery = new Button(By.xpath("//span[text()='Новый способ доставки']"), "кнопка 'Новый способ доставки'");
 
-    Button editButton = new Button(ByKraken.xpath("//td[text()='%s']/ancestor::tr/descendant::button"), "редактирование метода доставки");
+    Button editButton = new Button(ByKraken.xpathExpression("//td[text()='%s']/ancestor::tr/descendant::button"), "редактирование метода доставки");
     Button addNewMarketingRule = new Button(By.xpath("//div/span[text()='Правила маркетинговой стоимости доставки']/parent::div/following::div[3]//button"),
             "кнопка добавления правила");
     Element selectMarketingCalculator = new Element(By.xpath("//div/span[text()='Правила маркетинговой стоимости доставки']/parent::div/following::div[2]//div[text()='Тип калькулятора']"),
@@ -44,7 +44,7 @@ public interface ShippingMethodElement {
     Button deleteNominalRule = new Button(By.xpath("//div/span[text()='Правила номинальной стоимости доставки']/parent::div/following::div[2]//span[@aria-label='delete']"),
             "кнопка удаления номинального правила");
 
-    Element selectorValue = new Element(ByKraken.xpath("//div[contains(text(), '%s')]"), "пункт в селекторе");
+    Element selectorValue = new Element(ByKraken.xpathExpression("//div[contains(text(), '%s')]"), "пункт в селекторе");
     Input deliveryPrice = new Input(By.xpath("//label[text()='Цена доставки']/parent::div//input"), "поле Цена доставки");
     Input assemblySurcharge = new Input(By.xpath("//label[text()='Надбавка за сборку']/parent::div//input"), "поле Надбавка за сборку");
     Input bagSurcharge = new Input(By.xpath("//label[text()='Надбавка за пакеты']/parent::div//input"), "поле Надбавка за пакеты");

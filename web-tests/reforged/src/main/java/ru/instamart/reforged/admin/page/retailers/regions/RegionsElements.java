@@ -18,8 +18,8 @@ public interface RegionsElements {
     ElementCollection tableRowsNumbers = new ElementCollection(By.xpath("//td[1]/p"), "Номера регионов в таблице");
     Element pageTitle = new Element(By.xpath("//h4[@class='ant-typography']"), "Заголовок страницы с таблицей регионов 'Список регионов'");
     Element regionsTable = new Element(By.xpath("//div[@class='ant-table-wrapper']"), "Таблица с доступными регионами");
-    Element removeRegion = new Element(ByKraken.xpath("//a[text()='%s']/ancestor::tr/descendant::a[@data-action='remove']"), "удаление региона");
-    Element city = new Element(ByKraken.xpath("//p[text()='%s']"), "тестовый город в списке городов");
+    Element removeRegion = new Element(ByKraken.xpathExpression("//a[text()='%s']/ancestor::tr/descendant::a[@data-action='remove']"), "удаление региона");
+    Element city = new Element(ByKraken.xpathExpression("//p[text()='%s']"), "тестовый город в списке городов");
 
     ElementCollection regionSettingsButtons = new ElementCollection(By.xpath("//div[@class='ant-table-wrapper']//span[contains(text(), 'Настройка региона')]"), "Все кнопки настроек региона в таблице регионов");
     ElementCollection dispatchSettingsButtons = new ElementCollection(By.xpath("//div[@class='ant-table-wrapper']//span[contains(text(), 'Настройка диспетчеризации')]"), "Все кнопки настроек диспетчеризации в таблице регионов");

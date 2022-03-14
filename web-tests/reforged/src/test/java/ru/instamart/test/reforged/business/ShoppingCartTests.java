@@ -81,7 +81,7 @@ public final class ShoppingCartTests extends BaseTest {
         b2cShop().interactAddress().checkAddressModalIsNotVisible();
         b2cShop().interactHeader().checkEnteredAddressIsVisible();
 
-        b2cShop().plusFirstItemToCart();
+        b2cShop().plusItemToCart("1", "0");
         b2cShop().interactHeader().checkCartNotificationIsVisible();
         b2cShop().interactHeader().checkCartNotificationIsNotVisible();
         b2cShop().interactHeader().clickBuyForBusiness();
@@ -112,7 +112,7 @@ public final class ShoppingCartTests extends BaseTest {
         b2cShop().interactAddress().checkAddressModalIsNotVisible();
         b2cShop().interactHeader().checkEnteredAddressIsVisible();
 
-        b2cShop().plusFirstItemToCart();
+        b2cShop().plusItemToCart("1", "0");
         b2cShop().interactHeader().checkCartNotificationIsVisible();
         b2cShop().interactHeader().checkCartNotificationIsNotVisible();
         b2cShop().interactHeader().clickBuyForBusiness();
@@ -148,7 +148,7 @@ public final class ShoppingCartTests extends BaseTest {
         b2cShop().interactAddress().checkAddressModalIsNotVisible();
         b2cShop().interactHeader().checkEnteredAddressIsVisible();
 
-        b2cShop().plusFirstItemToCart();
+        b2cShop().plusItemToCart("1", "0");
         b2cShop().interactHeader().checkCartNotificationIsVisible();
         b2cShop().interactHeader().checkCartNotificationIsNotVisible();
 
@@ -157,7 +157,7 @@ public final class ShoppingCartTests extends BaseTest {
         b2cShop().interactHeader().interactStoreSelector().clickToStoreWithSid(DEFAULT_AUCHAN_SID);
         b2cShop().interactHeader().checkEnteredAddressIsVisible();
 
-        b2cShop().plusFirstItemToCart();
+        b2cShop().plusItemToCart("1", "0");
         b2cShop().interactHeader().checkCartNotificationIsVisible();
         b2cShop().interactHeader().checkCartNotificationIsNotVisible();
 

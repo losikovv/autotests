@@ -58,7 +58,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().plusFirstItemToCart();
+        shop().plusItemToCart("1", "0");
         shop().goToPage();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartNotEmpty();
@@ -102,7 +102,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().plusFirstItemToCart();
+        shop().plusItemToCart("1", "0");
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().goToPage();
@@ -187,7 +187,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().plusFirstItemToCart();
+        shop().plusItemToCart("1", "0");
         shop().goToPage();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
@@ -209,7 +209,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().plusFirstItemToCart();
+        shop().plusItemToCart("1", "0");
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().goToPage();
@@ -234,7 +234,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().plusFirstItemToCart();
+        shop().plusItemToCart("1", "0");
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().goToPage(ShopUrl.AUCHAN);
@@ -367,8 +367,8 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactAuthModal().authViaPhone(userData);
         shop().interactHeader().checkProfileButtonVisible();
 
-        shop().plusFirstItemToCart();
-        final var shopProductName = shop().getFirstProductTitle();
+        shop().plusItemToCart("1", "0");
+        final var shopProductName = shop().getProductTitle("1", "0");
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();
@@ -421,8 +421,8 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        final var shopProductName = shop().getSecondProductTitleNonLogin();
-        shop().plusSecondItemToCartNonLogin();
+        final var shopProductName = shop().getProductTitle("0", "1");
+        shop().plusItemToCart("0", "1");
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().goToPage();
@@ -485,8 +485,8 @@ public final class ShoppingCartTests extends BaseTest {
 
         shop().interactHeader().checkEnteredAddressIsVisible();
 
-        shop().plusFirstItemToCartNonLogin();
-        final var shopProductName = shop().getFirstProductTitleNonLogin();
+        shop().plusItemToCart("0", "0");
+        final var shopProductName = shop().getProductTitle("0", "0");
         shop().interactHeader().checkCartNotificationIsVisible();
 
         shop().interactHeader().clickToCart();

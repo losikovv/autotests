@@ -70,53 +70,28 @@ public final class ShopPage implements StfPage, ShopCheck {
         openAddress.click();
     }
 
-    @Step("Нажать на плюс у первого товара")
-    public void plusFirstItemToCart() {
-        plusFirstItemToCartAddedAddress.click();
+    /**
+     *   @param line - номер линии по порядку, начиная с 0, в которой находится искомый товар,
+     *   @param element - номер самого элемента по порядку, начиная с 0
+     */
+    @Step("Нажать на плюс у товара - строка №{line}, элемент по порядку №{element}")
+    public void plusItemToCart(String line, String element) {
+        plusItemToCart.click(line, element);
     }
 
-    @Step("Нажать на плюс у второго товара")
-    public void plusSecondItemToCart() {
-        plusSecondItemToCartAddedAddress.click();
-    }
-
-    @Step("Нажать на плюс у первого товара")
-    public void plusFirstItemToCartNonLogin() {
-        plusFirstItemToCartNonLogin.click();
-    }
-
-    @Step("Нажать на плюс у второго товара")
-    public void plusSecondItemToCartNonLogin() {
-        plusSecondItemToCartNonLogin.click();
-    }
-
-    @Step("Вернуть значение имени первого товара")
-    public String getFirstProductTitle() {
+    /**
+     *   @param line - номер линии по порядку, начиная с 0, в которой находится искомый товар,
+     *   @param element - номер самого элемента по порядку, начиная с 0
+     */
+    @Step("Вернуть значение имени товара - строка №{line}, элемент по порядку №{element}")
+    public String getProductTitle(String line, String element) {
         //Если текст длиннее 59 символов, то он обрезается и появляется title
-        return firstProductTitle.getTitleOrText();
+        return productTitle.getTitleOrText(line, element);
     }
 
-    @Step("Вернуть значение имени второго товара")
-    public String getSecondProductTitle() {
-        //Если текст длиннее 59 символов, то он обрезается и появляется title
-        return secondProductTitle.getTitleOrText();
-    }
-
-    @Step("Вернуть значение имени первого товара")
-    public String getFirstProductTitleNonLogin() {
-        //Если текст длиннее 59 символов, то он обрезается и появляется title
-        return firstProductTitleNonLogin.getTitleOrText();
-    }
-
-    @Step("Вернуть значение имени второго товара")
-    public String getSecondProductTitleNonLogin() {
-        //Если текст длиннее 59 символов, то он обрезается и появляется title
-        return secondProductTitleNonLogin.getTitleOrText();
-    }
-
-    @Step("Нажать на минус у первого товара")
-    public void minusFirstItemFromCart() {
-        minusFirstItemFromCartAddedAddress.hoverAndClick();
+    @Step("Нажать на минус у товара - строка №{line}, элемент по порядку №{element}")
+    public void minusFirstItemFromCart(String line, String element) {
+        minusItemFromCart.click(line, element);
     }
 
     @Step("Добавить первый товар в избранное")
