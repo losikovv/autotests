@@ -156,6 +156,10 @@ public final class ApiV1Endpoints {
         public static final String BY_NUMBER = "phone_confirmations/{phoneNumber}";
     }
 
+    public static final class Products {
+        public static final String OFFERS = "products/{permalink}/offers";
+    }
+
     public static final class Promotions {
         public static final String FREE_DELIVERY = "promotions/free_delivery";
     }

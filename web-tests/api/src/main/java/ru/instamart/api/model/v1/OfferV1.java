@@ -30,6 +30,7 @@ public class OfferV1 extends BaseObject {
     @JsonSchema(required = true)
     private Double discount;
 
+    @Null
     @JsonSchema(required = true)
     private Boolean discounted;
 
@@ -47,14 +48,17 @@ public class OfferV1 extends BaseObject {
     @JsonProperty(value = "product_id")
     private Long productId;
 
+    @Null
     @JsonSchema(required = true)
     @JsonProperty(value = "retailer_id")
     private Integer retailerId;
 
+    @Null
     @JsonSchema(required = true)
     @JsonProperty(value = "store_id")
     private Integer storeId;
 
+    @Null
     @JsonSchema(required = true)
     @JsonProperty(value = "retailer_sku")
     private String retailerSku;
@@ -149,6 +153,7 @@ public class OfferV1 extends BaseObject {
     @JsonSchema(required = true)
     private String permalink;
 
+    @Null
     @EqualsAndHashCode.Exclude
     private StoresV1 store;
 
