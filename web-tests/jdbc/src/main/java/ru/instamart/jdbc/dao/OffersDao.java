@@ -74,6 +74,7 @@ public final class OffersDao extends AbstractDao<Long, OffersEntity> {
                 offer.setPublished(resultSet.getInt("published"));
                 offer.setStock(resultSet.getInt("stock"));
                 offer.setUuid(resultSet.getString("uuid"));
+                offer.setDeletedAt(resultSet.getTimestamp("deleted_at"));
             }
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());

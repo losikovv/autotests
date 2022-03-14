@@ -6,10 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.enums.v2.ProductSortTypeV2;
 import ru.instamart.api.enums.v2.StateV2;
-import ru.instamart.api.model.v1.MarketingSampleV1;
-import ru.instamart.api.model.v1.PaymentToolV1;
-import ru.instamart.api.model.v1.ShippingPolicyV1;
-import ru.instamart.api.model.v1.UserShipmentV1;
+import ru.instamart.api.model.common.OfferForRequest;
+import ru.instamart.api.model.v1.*;
 import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
@@ -332,5 +330,17 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(userShipment.getPaymentMethod().getId(), (long) paymentTool.getPaymentMethod().getId(), nextSoftAssert);
         compareTwoObjects(userShipment.getEmail(), user.getEmail(), nextSoftAssert);
         nextSoftAssert.assertAll();
+    }
+
+    @Step("Сравниваем оффер из запроса с оффером из ответа")
+    public static void checkOffer(OfferForRequest offer, OfferV1 offerFromResponse, boolean isPublished) {
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(offerFromResponse.getName(), offer.getOffer().getName(), softAssert);
+        compareTwoObjects(offerFromResponse.getPriceType(), offer.getOffer().getPriceType(), softAssert);
+        compareTwoObjects(offerFromResponse.getStock(), offer.getOffer().getStock(), softAssert);
+        compareTwoObjects(offerFromResponse.getMaxStock(), offer.getOffer().getMaxStock(), softAssert);
+        compareTwoObjects(offerFromResponse.getPickupOrder(), 1, softAssert);
+        compareTwoObjects(offerFromResponse.getPublished(), isPublished, softAssert);
+        softAssert.assertAll();
     }
 }
