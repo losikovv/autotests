@@ -12,6 +12,7 @@ public final class ApiV1Endpoints {
     public static final String COMPANY_MANAGERS = "company_managers";
     public static final String COMPANY_PRESENCE = "company_presence?inn={inn}";
     public static final String COMPANY_SALES_CONTRACT = "company_sales_contracts";
+    public static final String COMPENSATION_PROMOTIONS = "compensation_promotions";
     public static final String DELIVERY_WINDOW_KINDS = "delivery_window_kinds";
     public static final String LEGAL_ENTITY = "legal_entity?inn={inn}";
     public static final String LINE_ITEMS = "line_items";
@@ -21,6 +22,7 @@ public final class ApiV1Endpoints {
     public static final String ORDERS = "orders?page={pageNumber}";
     public static final String PHONE_CONFIRMATIONS = "phone_confirmations";
     public static final String PROMOTION_CARD_CATEGORIES = "promotion_card_categories";
+    public static final String PROMOTIONS = "promotions";
     public static final String REPLACEMENT_POLICIES = "replacement_policies";
     public static final String RETAILERS = "retailers";
     public static final String RETAILER_POSITIONS = "retailer_positions";
