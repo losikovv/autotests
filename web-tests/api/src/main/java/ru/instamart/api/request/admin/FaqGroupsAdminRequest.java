@@ -36,7 +36,7 @@ public class FaqGroupsAdminRequest extends AdminRequestBase {
 
     @Step("{method} /" + AdminEndpoints.FAQ_GROUPS)
     public static Response GET() {
-        return givenWithAuth()
+        return givenWithAuthAndSpa()
                 .get(AdminEndpoints.FAQ_GROUPS);
     }
 }
