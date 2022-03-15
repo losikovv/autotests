@@ -2,6 +2,7 @@ package ru.instamart.reforged.stf.block.footer;
 
 import org.openqa.selenium.By;
 import ru.instamart.kraken.data.TestVariables;
+import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Link;
@@ -66,4 +67,7 @@ public interface FooterElement {
             "ссылка на политику обработки персональных данных в футере");
     Link publicOfferLink = new Link(By.xpath("//footer//a[@href='/terms-sbermarket']"),
             "ссылка на Официальное уведомление в футере");
+
+    Link footerElementWithText = new Link(ByKraken.xpathExpression("//footer//a[text()='%s']"),
+            "элемент с текстом в футере");
 }

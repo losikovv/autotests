@@ -6,6 +6,6 @@ public final class JobPage implements StfPage {
 
     @Override
     public String pageUrl() {
-        return "landings/job";
+        return "https://job.sbermarket.ru/";
     }
 }

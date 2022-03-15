@@ -4,10 +4,10 @@ import org.openqa.selenium.By;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.*;
 import ru.instamart.reforged.stf.block.footer.Footer;
-import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
 import ru.instamart.reforged.stf.drawer.cookie.CookieDrawer;
 import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
+import ru.instamart.reforged.stf.frame.delivery_zones.DeliveryZones;
 
 public interface HomeElement {
 
@@ -15,6 +15,7 @@ public interface HomeElement {
     Address addressModal = new Address();
     Footer footer = new Footer();
     CookieDrawer cookieAlert = new CookieDrawer();
+    DeliveryZones deliveryZones = new DeliveryZones();
 
     Element headerContainer = new Element(By.xpath("//header[@data-qa='b2c_home_landing_header_block']"), "шапка лендинга Сбермаркета");
     Element headerLogo = new Element(By.xpath("//div[@data-qa='b2c_home_landing_header_block_logo']"), "логотип Сбермаркета в шапке лендинга");

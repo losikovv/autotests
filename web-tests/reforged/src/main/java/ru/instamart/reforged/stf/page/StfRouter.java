@@ -89,6 +89,10 @@ public final class StfRouter extends Router {
         return (JobPage) getPage(JobPage.class);
     }
 
+    public static PrivacyPolicyPage privacyPolicy() {
+        return (PrivacyPolicyPage) getPage(PrivacyPolicyPage.class);
+    }
+
     public static DriversHiringPage driversHiring() {
         return (DriversHiringPage) getPage(DriversHiringPage.class);
     }

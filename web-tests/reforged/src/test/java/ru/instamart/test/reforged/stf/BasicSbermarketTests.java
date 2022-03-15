@@ -6,12 +6,12 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.api.model.v2.RetailerV2;
 import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.DoNotOpenBrowser;
 import ru.instamart.reforged.core.data_provider.StaticPage;
 import ru.instamart.reforged.core.service.Curl;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertTrue;
@@ -133,32 +133,45 @@ public final class BasicSbermarketTests extends BaseTest {
         shop().interactFooter().checkPublicOfferLinkVisible();
     }
 
-    @CaseId(1439)
-    @Story("Валидация элементов")
-    @Test(description = "Тест валидности переходов по ссылка в футере Сбермаркета", groups = {"regression", "MRAutoCheck"})
-    public void testFooterLink() {
+    @CaseIDs(value = {@CaseId(3470)})
+    @Story("Статические страницы")
+    @Test(
+            dataProviderClass = StaticPage.class,
+            dataProvider = "footerLinkPage",
+            description = "Тест валидности переходов по ссылкам в футере Сбермаркета",
+            groups = "regression")
+    public void successFooterLinkTransition(final String text, final String url) {
         home().goToPage();
         home().addCookie(CookieFactory.COOKIE_ALERT);
         home().refresh();
         home().scrollDown();
 
-        home().interactFooter().clickToAbout();
-        about().checkPageIsAvailable();
+        home().interactFooter().clickToFooterElementWithText(text);
+        home().checkPageUrl(url);
+    }
 
+    @CaseIDs(value = {@CaseId(3470)})
+    @Story("Статические страницы")
+    @Test(
+            description = "Тест валидности переходов по ссылкам в футере Сбермаркета," +
+                            " кейсы с открытием документа и модального окна",
+            groups = "regression")
+    public void successFooterLinkTransitionOtherCases() {
         home().goToPage();
+        home().addCookie(CookieFactory.COOKIE_ALERT);
+        home().refresh();
         home().scrollDown();
-        home().interactFooter().clickToContacts();
-        contacts().checkPageIsAvailable();
 
-        home().goToPage();
-        home().scrollDown();
-        home().interactFooter().clickToReturnPolicy();
-        rules().checkPageIsAvailable();
+        home().interactFooter().clickToFooterElementWithText("Обработка персональных данных");
 
-        home().goToPage();
+        home().switchToNextWindow();
+        privacyPolicy().checkPageUrl(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + privacyPolicy().pageUrl());
+        home().switchToFirstWindow();
+
+        home().refresh();
         home().scrollDown();
-        home().interactFooter().clickToPublicOffer();
-        terms().checkPageIsAvailable();
+        home().interactFooter().clickToDeliveryZones();
+        home().interactDeliveryZonesModal().checkDeliveryZonesModalIsOpen();
     }
 
     @DoNotOpenBrowser
