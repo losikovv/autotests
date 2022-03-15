@@ -25,4 +25,9 @@ public class AdminRequestBase {
                         .getSession(SessionType.ADMIN)
                         .getCookies());
     }
+
+    public static RequestSpecification givenWithAuthAndSpa() {
+        return givenWithAuth()
+                .basePath("spa/");
+    }
 }

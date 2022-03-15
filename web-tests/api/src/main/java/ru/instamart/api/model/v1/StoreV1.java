@@ -58,10 +58,6 @@ public class StoreV1 extends BaseObject {
     private Object externalAssembly;
 
     @JsonSchema(required = true)
-    @JsonProperty("external_assembly_kind")
-    private String externalAssemblyKind;
-
-    @JsonSchema(required = true)
     @JsonProperty("has_conveyor")
     private Boolean hasConveyor;
 

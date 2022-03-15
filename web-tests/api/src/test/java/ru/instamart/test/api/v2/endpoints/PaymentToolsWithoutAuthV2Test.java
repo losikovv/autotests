@@ -6,6 +6,8 @@ import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.v2.PaymentToolsWithTypesV2Request;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -21,6 +23,7 @@ public class PaymentToolsWithoutAuthV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Без авторизации")
     public void getPaymentToolsWithTypes401() {
+        SessionFactory.clearSession(SessionType.API_V2);
         final Response response = PaymentToolsWithTypesV2Request.GET(null, "failedOrderId");
         checkStatusCode401(response);
         checkError(response, "Ключ доступа невалиден или отсутствует");
