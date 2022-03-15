@@ -102,4 +102,13 @@ public interface Page extends PageCheck {
         Kraken.waitAction().cookiesShouldBeExist(cookies.stream().map(Cookie::getName).collect(Collectors.toSet()));
         Kraken.addCookiesIfNotExist(cookies);
     }
+
+    /**
+     * Подменяет определенное местоположение на указанный регион
+     *
+     * @param cityName - название города, на английском: Moscow, Novosibirsk, Barnaul
+     */
+    default void setLocation(final String cityName) {
+        cookieChange(CookieFactory.setLocation(cityName));
+    }
 }

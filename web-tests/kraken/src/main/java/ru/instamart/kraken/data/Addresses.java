@@ -8,6 +8,10 @@ public final class Addresses {
             return "проспект Мира, 211к1";
         }
 
+        public static String defaultAddressRest(){
+            return "Москва, просп. Мира, 211, стр. 1";
+        }
+
         public static String testAddress() {
             return "Ленинский проспект, 67, Москва";
         }

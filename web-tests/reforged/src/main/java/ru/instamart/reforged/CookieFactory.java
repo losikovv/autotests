@@ -38,4 +38,12 @@ public final class CookieFactory {
             "sbermarket.tech",
             "/",
             date);
+
+    public static Cookie setLocation(final String cityName) {
+        return new Cookie("city_info",
+                "%7B%22slug%22%3A%22" + cityName + "%22%2C%22lat%22%3A00.0000%2C%22lon%22%3A00.0000%7D",
+                "sbermarket.tech",
+                "/",
+                date);
+    }
 }

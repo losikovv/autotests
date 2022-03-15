@@ -1,7 +1,7 @@
 package ru.instamart.reforged.stf.page.home;
 
 import io.qameta.allure.Step;
-import ru.instamart.kraken.config.EnvironmentProperties;
+import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -45,17 +45,17 @@ public interface HomeCheck extends Check, HomeElement {
 
     @Step("Проверяем, что отображается блок магазинов лендинга Сбермаркета")
     default void checkDeliveryContainerVisible() {
-        waitAction().shouldBeVisible(deliveryBlockContainer);
+        waitAction().shouldBeVisible(deliveryRetailersBlockContainer);
     }
 
     @Step("Проверяем, что отображается заголовок доставки магазинов лендинга Сбермаркета")
     default void checkDeliveryTitleVisible() {
-        waitAction().shouldBeVisible(deliveryBlockTitle);
+        waitAction().shouldBeVisible(deliveryRetailersBlockTitle);
     }
 
     @Step("Проверяем, что отображается суб заголовок доставки магазинов лендинга Сбермаркета")
     default void checkDeliverySubTitleVisible() {
-        waitAction().shouldBeVisible(deliveryBlockSubTitle);
+        waitAction().shouldBeVisible(deliveryRetailersBlockSubTitle);
     }
 
     @Step("Проверяем, что отображается блок advantages лендинга Сбермаркета")
@@ -106,5 +106,27 @@ public interface HomeCheck extends Check, HomeElement {
     @Step("Проверяем, что отображается кнопка huawei play лендинга Сбермаркета")
     default void checkHuaweiPlayButtonVisible() {
         waitAction().shouldBeVisible(appGallery);
+    }
+
+    @Step("Проверяем, что отображается ФИО пользователя")
+    default void checkUserCredentialsDisplayed() {
+        waitAction().shouldBeVisible(headerAuthCredential);
+    }
+
+    @Step("Проверяем, что отображается кнопка выхода")
+    default void checkLogoutButtonDisplayed() {
+        waitAction().shouldBeVisible(headerAuthLogoutButton);
+    }
+
+    @Step("Проверяем, что заголовок баннера: '{expectedTitle}'")
+    default void checkBannerTitleText(final String actualTitle, final String expectedTitle) {
+        Assert.assertEquals(actualTitle, expectedTitle,
+                String.format("Заголовок баннера: '%s' отличается от ожидаемого: '%s'", actualTitle, expectedTitle));
+    }
+
+    @Step("Проверяем, что заголовок блока найденных магазинов: '{expectedBlockTitle}'")
+    default void checkDeliveryBlockTitle(final String actualBlockTitle, final String expectedBlockTitle) {
+        Assert.assertEquals(actualBlockTitle, expectedBlockTitle,
+                String.format("Заголовк блока с магазинами (ритейлерами): '%s' отличается от ожидаемого: '%s' магазинов", actualBlockTitle, expectedBlockTitle));
     }
 }

@@ -24,7 +24,6 @@ public final class StfRouter extends Router {
         return (HomePage) getPage(HomePage.class);
     }
 
-
     public static UserProfilePage userEdit() {
         return (UserProfilePage) getPage(UserProfilePage.class);
     }
