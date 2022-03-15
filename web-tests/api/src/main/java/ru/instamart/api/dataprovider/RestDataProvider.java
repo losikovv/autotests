@@ -1327,4 +1327,26 @@ public class RestDataProvider extends RestBase {
                 }
         };
     }
+
+    @DataProvider(name = "notificationsFailed")
+    public static Object[][] notificationsFailed() {
+        apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
+        String orderNumber = apiV2.getOpenOrder().getNumber();
+
+        return new Object[][]{
+                {
+                        null
+                },
+                {
+                        NotificationsV2Request.Events.builder()
+                        .event(NotificationsV2Request.Event.builder()
+                                .type("order.paid")
+                                .payload(NotificationsV2Request.Payload.builder()
+                                        .orderId(orderNumber)
+                                        .build())
+                                .build())
+                        .build()
+                }
+        };
+    }
 }
