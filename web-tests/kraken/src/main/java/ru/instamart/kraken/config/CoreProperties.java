@@ -12,6 +12,8 @@ public final class CoreProperties {
     public static String DEFAULT_ENVIRONMENT;
     @Config(configName = NAME, fieldName = "defaultSms", defaultValue = "111111")
     public static String DEFAULT_SMS;
+    @Config(configName = NAME, fieldName = "defaultUiSms", defaultValue = "199011")
+    public static String DEFAULT_UI_SMS;
 
     @Config(configName = NAME, fieldName = "qaseApiToken", defaultValue = "", crypted = true)
     public static String QASE_API_TOKEN;
