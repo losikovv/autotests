@@ -30,4 +30,16 @@ public interface BashCommands {
             return command;
         }
     }
+
+    @AllArgsConstructor
+    enum Promotions implements BashCommands {
+        /**
+         * Создание промо для компенсаций
+         */
+        CREATE_COMPENSATION_PROMOTIONS("/vault/vault-env bundle exec rake promotions:create_compensation_promotions");
+        private String command;
+        public String get() {
+            return command;
+        }
+    }
 }

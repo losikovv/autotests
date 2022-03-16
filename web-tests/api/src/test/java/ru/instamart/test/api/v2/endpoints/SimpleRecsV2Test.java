@@ -31,7 +31,7 @@ public final class SimpleRecsV2Test extends RestBase {
     private SimpleRecsV2Request.SimpleRecsV2 allRequiredParameters;
 
     @BeforeMethod(alwaysRun = true)
-    public void prepareData(){
+    public void prepareData() {
         allRequiredParameters = SimpleRecsV2Request.SimpleRecsV2.builder()
                 .context(SimpleRecsV2Request.Context.builder()
                         .app(SimpleRecsV2Request.App.builder()
@@ -53,7 +53,14 @@ public final class SimpleRecsV2Test extends RestBase {
                         .build())
                 .ext(
                         SimpleRecsV2Request.Ext.builder()
-                                .place("main").build()
+                                .place("main")
+                                .paging(SimpleRecsV2Request.Paging.builder()
+                                        .limit(10)
+                                        .offset(0)
+                                        .maxCount(15)
+                                        .build())
+                                .build()
+
                 )
                 .build();
     }
@@ -97,7 +104,13 @@ public final class SimpleRecsV2Test extends RestBase {
                         .build())
                 .ext(
                         SimpleRecsV2Request.Ext.builder()
-                                .place("main").build()
+                                .place("main")
+                                .paging(SimpleRecsV2Request.Paging.builder()
+                                        .limit(10)
+                                        .offset(0)
+                                        .maxCount(15)
+                                        .build())
+                                .build()
                 )
                 .build();
         final Response response = SimpleRecsV2Request.Personal.POST(allRequiredParameters);
@@ -111,8 +124,7 @@ public final class SimpleRecsV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Упрощенный запрос блока рекомендаций с отсутствующим обязательным параметром",
             dataProvider = "json",
-            dataProviderClass = JsonProvider.class
-    )
+            dataProviderClass = JsonProvider.class)
     public void getBlankSimpleRecsTest(RestDataProvider.SimpleRecsV2TestData testData) {
         Allure.step(testData.getDescription());
         SimpleRecsV2Request.SimpleRecsV2 simpleRecsV2 = testData.getSimpleRec();
