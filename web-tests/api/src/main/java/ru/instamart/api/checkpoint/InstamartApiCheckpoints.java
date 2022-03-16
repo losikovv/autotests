@@ -12,6 +12,7 @@ import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.StoresAdminRequest;
+import ru.instamart.api.request.v1.OrdersV1Request;
 import ru.instamart.api.request.v1.ShippingPoliciesV1Request;
 import ru.instamart.api.response.v1.CompleteOrderV1Response;
 import ru.instamart.api.response.v1.MultiretailerOrderV1Response;
@@ -341,6 +342,18 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(offerFromResponse.getMaxStock(), offer.getOffer().getMaxStock(), softAssert);
         compareTwoObjects(offerFromResponse.getPickupOrder(), 1, softAssert);
         compareTwoObjects(offerFromResponse.getPublished(), isPublished, softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем компенсацию за заказ в БД")
+    public static void checkOrderCompensations(Optional<OrderCompensationsEntity> orderCompensationFromDb, OrdersV1Request.Compensation compensation) {
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(orderCompensationFromDb.get().getEmail(), compensation.getCompensation().getEmail(), softAssert);
+        compareTwoObjects(orderCompensationFromDb.get().getEmailBody(), compensation.getCompensation().getEmailBody(), softAssert);
+        compareTwoObjects(orderCompensationFromDb.get().getComment(), compensation.getCompensation().getComment(), softAssert);
+        compareTwoObjects(orderCompensationFromDb.get().getPromotionId(), compensation.getCompensation().getPromotionId(), softAssert);
+        compareTwoObjects(orderCompensationFromDb.get().getPromoType(), compensation.getCompensation().getPromoType(), softAssert);
+        compareTwoObjects(orderCompensationFromDb.get().getReason(), compensation.getCompensation().getReason(), softAssert);
         softAssert.assertAll();
     }
 }

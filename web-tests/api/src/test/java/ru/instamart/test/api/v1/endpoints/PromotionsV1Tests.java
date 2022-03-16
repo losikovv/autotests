@@ -36,18 +36,7 @@ public class PromotionsV1Tests extends RestBase {
         checkResponseJsonSchema(response, FreeDeliveryV1Response.class);
     }
 
-    @Issue("B2C-6444")
-    @CaseId(1430)
-    @Story("Компенсации")
-    @Test(groups = {"api-instamart-regress"}, enabled = false, // работает только с новыми ролями, но тогда отваливаются другие тесты
-            description = "Получение информации о компенсациях")
-    public void getCompensationPromotions() {
-        final Response response = PromotionsV1Request.CompensationPromotions.GET();
-        checkStatusCode200(response);
-        checkResponseJsonSchema(response, CompensationPromotionsV1Response.class);
-    }
-
-    @CaseId(1430)
+    @CaseId(2245)
     @Story("Компенсации")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Получение информации о промо-акциях")

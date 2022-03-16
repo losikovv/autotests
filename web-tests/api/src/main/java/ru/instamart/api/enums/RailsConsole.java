@@ -90,7 +90,12 @@ public interface RailsConsole {
          * #Получить id магазина по uuid из адресной строки в админке
          * get(UUID)
          */
-        SID_FIND_BY_UUID("Store.find_by(uuid: '%s')");
+        SID_FIND_BY_UUID("Store.find_by(uuid: '%s')"),
+        /**
+         * Очистить кэш compensation_promotions
+         * без параметров
+         */
+        DELETE_COMPENSATIONS_CACHE("Rails.cache.delete(:compensation_promotions)");
 
 
         private String command;
@@ -147,7 +152,8 @@ public interface RailsConsole {
     @AllArgsConstructor
     enum Flipper implements RailsConsole {
         ALLOW_EXPORT_TO_EXTERNAL_SERVICES("Flipper[:allow_export_to_external_services].%s"),
-        EXPORT_TO_EXTERNAL_SERVICES_BY_WEBHOOK("Flipper[:export_to_external_services_by_webhook].%s");
+        EXPORT_TO_EXTERNAL_SERVICES_BY_WEBHOOK("Flipper[:export_to_external_services_by_webhook].%s"),
+        NEW_ADMIN_ROLES("Flipper[:new_admin_roles].%s");
 
         private String command;
 

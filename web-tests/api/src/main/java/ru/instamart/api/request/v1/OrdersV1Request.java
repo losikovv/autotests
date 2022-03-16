@@ -13,6 +13,8 @@ import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.request.ApiV1RequestBase;
 
+import java.util.List;
+
 public class OrdersV1Request extends ApiV1RequestBase {
     @Step("{method} /" + ApiV1Endpoints.ORDERS)
     public static Response GET(Integer pageNumber) {
@@ -51,6 +53,36 @@ public class OrdersV1Request extends ApiV1RequestBase {
                 .put(ApiV1Endpoints.Orders.Number.SHIPMENT, orderNumber, shipmentNumber);
     }
 
+    public static class Compensations {
+        @Step("{method} /" + ApiV1Endpoints.Orders.Number.Compensations.NEW)
+        public static Response GET(String orderNumber) {
+            return givenWithAuth()
+                    .get(ApiV1Endpoints.Orders.Number.Compensations.NEW, orderNumber);
+        }
+
+        @Step("{method} /" + ApiV1Endpoints.Orders.Number.COMPENSATIONS)
+        public static Response POST(String orderNumber, Compensation compensation) {
+            return givenWithAuth()
+                    .contentType(ContentType.JSON)
+                    .body(compensation)
+                    .post(ApiV1Endpoints.Orders.Number.COMPENSATIONS, orderNumber);
+        }
+
+        @Step("{method} /" + ApiV1Endpoints.Orders.Number.Compensations.ID)
+        public static Response GET(String orderNumber, Long compensationId) {
+            return givenWithAuth()
+                    .get(ApiV1Endpoints.Orders.Number.Compensations.ID, orderNumber, compensationId);
+        }
+
+        @Step("{method} /" + ApiV1Endpoints.Orders.Number.Compensations.ID)
+        public static Response PUT(String orderNumber, Long compensationId, Compensation compensation) {
+            return givenWithAuth()
+                    .contentType(ContentType.JSON)
+                    .body(compensation)
+                    .put(ApiV1Endpoints.Orders.Number.Compensations.ID, orderNumber, compensationId);
+        }
+    }
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
     @AllArgsConstructor
@@ -74,5 +106,43 @@ public class OrdersV1Request extends ApiV1RequestBase {
     @Data
     public static class Shipment {
         private ShipmentParams shipment;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Data
+    public static class CompensationParams {
+        private String email;
+        private String comment;
+        @JsonProperty("email_body")
+        private String emailBody;
+        private Long reason;
+        @JsonProperty("promo_type")
+        private Long promoType;
+        @JsonProperty("order_line_item_ids")
+        private List<Long> orderLineItemIds;
+        @JsonProperty("promotion_id")
+        private Long promotionId;
+        private Approvement approvement;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Data
+    public static class Compensation {
+        private CompensationParams compensation;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Data
+    public static class Approvement {
+        private String comment;
     }
 }

@@ -91,6 +91,7 @@ public class SimpleRecsV2Request extends ApiV2RequestBase {
     public static class Ext {
         @JsonProperty("place")
         private String place;
+        private Paging paging;
     }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -132,5 +133,17 @@ public class SimpleRecsV2Request extends ApiV2RequestBase {
     public static class UserExt {
         @JsonProperty("anonymous_id")
         private String anonymousId;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Data
+    public static class Paging {
+        private Integer limit;
+        private Integer offset;
+        @JsonProperty("max_count")
+        private Integer maxCount;
     }
 }

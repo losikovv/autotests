@@ -8,12 +8,14 @@ import ru.instamart.kraken.enums.Tenant;
 import java.util.List;
 
 import static ru.instamart.api.enums.BashCommands.Instacoins.ADD_USER_INSTACOIN;
+import static ru.instamart.api.enums.BashCommands.Promotions.CREATE_COMPENSATION_PROMOTIONS;
 import static ru.instamart.api.enums.BashCommands.ShipmentDelays.COMPUTE_EXPECTED_DATES;
 import static ru.instamart.api.enums.BashCommands.ShipmentDelays.SEND_NOTIFICATIONS;
 import static ru.instamart.api.enums.RailsConsole.ApiV3.*;
 import static ru.instamart.api.enums.RailsConsole.ExternalPartners.SUBSCRIPTION;
 import static ru.instamart.api.enums.RailsConsole.Order.Flipper;
 import static ru.instamart.api.enums.RailsConsole.Order.*;
+import static ru.instamart.api.enums.RailsConsole.Other.DELETE_COMPENSATIONS_CACHE;
 import static ru.instamart.api.enums.RailsConsole.User.*;
 import static ru.instamart.k8s.K8sConsumer.*;
 
@@ -191,5 +193,23 @@ public class K8sHelper {
     public static void exportToExternalServicesByWebhook(Boolean enable) {
         List<String> strings = execRailsCommandWithPod(Flipper.EXPORT_TO_EXTERNAL_SERVICES_BY_WEBHOOK.get(enable ? "enable" : "disable"));
         Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
+
+    @Step("Включение/выключение фичи new_admin_roles")
+    public static void newAdminRoles(Boolean enable) {
+        List<String> strings = execRailsCommandWithPod(Flipper.NEW_ADMIN_ROLES.get(enable ? "enable" : "disable"));
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
+
+    @Step("Очистить кэш промо-компенсаций")
+    public static void deleteOrderCompensationsCache() {
+        List<String> strings = execRailsCommandWithPod(DELETE_COMPENSATIONS_CACHE.get());
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
+    }
+
+    @Step("Создание промо для компенсаций")
+    public static void createCompensationPromotions() {
+        List<String> consoleLog = execBashCommandWithPod(CREATE_COMPENSATION_PROMOTIONS.get());
+        Allure.addAttachment("Логи консоли", String.join("\n", consoleLog));
     }
 }
