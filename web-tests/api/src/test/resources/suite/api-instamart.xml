@@ -57,6 +57,7 @@
             <class name="ru.instamart.test.api.v2.endpoints.AppConfigurationV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.AuthProviderV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.ExternalPartnersV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.CompanyPresenceV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.CreditCardsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.FavoritesListMoreSessionV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.FavoritesListV2Test"/>
