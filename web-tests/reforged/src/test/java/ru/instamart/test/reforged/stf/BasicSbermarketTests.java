@@ -150,7 +150,7 @@ public final class BasicSbermarketTests extends BaseTest {
         home().checkPageUrl(url);
     }
 
-    @CaseIDs(value = {@CaseId(3470)})
+    @CaseId(3470)
     @Story("Статические страницы")
     @Test(
             description = "Тест валидности переходов по ссылкам в футере Сбермаркета," +
