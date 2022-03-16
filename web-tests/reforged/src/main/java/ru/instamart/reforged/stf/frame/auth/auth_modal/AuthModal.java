@@ -2,7 +2,6 @@ package ru.instamart.reforged.stf.frame.auth.auth_modal;
 
 import io.qameta.allure.Issue;
 import io.qameta.allure.Step;
-import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.stf.frame.Close;
@@ -68,17 +67,6 @@ public final class AuthModal implements Close, AuthModalCheck {
     @Step("Заполнить поле с sms {sms}")
     public void fillSMS(final String sms) {
         smsInput.fill(sms);
-    }
-
-    @Step("Заполнить поле с sms значением из конфига")
-    public void fillDefaultSMS() {
-        smsInput.fill(CoreProperties.DEFAULT_SMS);
-    }
-
-    @Step("Заполнить поле с sms значением из конфига(с ожиданием)")
-    public void fillDefaultSMSWithSleep() {
-        ThreadUtil.simplyAwait(1);
-        smsInput.fill(CoreProperties.DEFAULT_SMS);
     }
 
     @Step("Отправить форму")

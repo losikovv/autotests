@@ -44,7 +44,7 @@ public class PhoneConfirmationsV1Tests extends RestBase {
             groups = {"api-instamart-smoke"},
             dependsOnMethods = "postPhoneConfirmations")
     public void putPhoneConfirmations() {
-        final Response response = PhoneConfirmationsV1Request.PUT(phoneNumber, Integer.valueOf(CoreProperties.DEFAULT_SMS));
+        final Response response = PhoneConfirmationsV1Request.PUT(phoneNumber, Integer.valueOf(CoreProperties.DEFAULT_UI_SMS));
         checkStatusCode200(response);
         checkResponseJsonSchema(response, PhoneConfirmationsV1Response.class);
     }
@@ -83,7 +83,7 @@ public class PhoneConfirmationsV1Tests extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Подтверждение телефона кодом с валидным номером без запроса")
     public void confirmPhonesWithValidPhone() {
-        final Response response = PhoneConfirmationsV1Request.PUT(Generate.phoneNumber(), Integer.valueOf(CoreProperties.DEFAULT_SMS));
+        final Response response = PhoneConfirmationsV1Request.PUT(Generate.phoneNumber(), Integer.valueOf(CoreProperties.DEFAULT_UI_SMS));
         checkStatusCode422(response);
     }
 }

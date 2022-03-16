@@ -58,13 +58,6 @@ public final class StringUtil {
         return phone.replaceAll("[^0-9]", "");
     }
 
-    public static String getSMSCode(final String phone) {
-        if (isNull(phone) || phone.isEmpty()) {
-            return CoreProperties.DEFAULT_SMS;
-        }
-        return phone.substring(phone.length() - 6);
-    }
-
     public static String getLastLine(final String text) {
         return text.replaceAll("^.+\\n", "");
     }

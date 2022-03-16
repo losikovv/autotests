@@ -120,10 +120,10 @@ public final class UserData {
         }
 
         /**
-         * @return - дефолтное значение кода из смс {@link CoreProperties#DEFAULT_SMS}
+         * @return - дефолтное значение кода из смс {@link CoreProperties#DEFAULT_UI_SMS}
          */
         private String getSmsCode() {
-                return CoreProperties.DEFAULT_SMS;
+            return CoreProperties.DEFAULT_UI_SMS;
         }
 
         private String generateEncryptedPhone() {

@@ -35,7 +35,7 @@ public class PhoneConfirmationsV2Request extends ApiV2RequestBase {
 
     public static Response PUT(String phoneNumber) {
         var phoneConfirmations = PhoneConfirmations.builder()
-                .phoneConfirmationCode(CoreProperties.DEFAULT_SMS)
+                .phoneConfirmationCode(CoreProperties.DEFAULT_UI_SMS)
                 .promoTermsAccepted(true)
                 .anonymousId(UUID.randomUUID().toString())
                 .build();
