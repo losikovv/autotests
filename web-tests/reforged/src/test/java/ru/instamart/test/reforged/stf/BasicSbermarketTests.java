@@ -133,7 +133,7 @@ public final class BasicSbermarketTests extends BaseTest {
         shop().interactFooter().checkPublicOfferLinkVisible();
     }
 
-    @CaseIDs(value = {@CaseId(3470)})
+    @CaseId(3470)
     @Story("Статические страницы")
     @Test(
             dataProviderClass = StaticPage.class,
