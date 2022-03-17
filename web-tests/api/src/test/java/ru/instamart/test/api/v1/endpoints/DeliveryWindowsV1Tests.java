@@ -45,7 +45,6 @@ public class DeliveryWindowsV1Tests extends RestBase {
     @CaseId(1145)
     @Test(description = "Получение списка окон доставки для магазина на конкретную дату",
             groups = {"api-instamart-regress"})
-           // dependsOnMethods = "generateDeliveryWindows") //TODO разобраться с новыми ролями у админа
     public void getDeliveryWindows() {
         final Response response = StoresV1Request.DeliveryWindows.GET(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         checkStatusCode200(response);
@@ -67,8 +66,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
 
     @Story("Окна доставки")
     @CaseId(1147)
-    @Test(enabled = false, //TODO разобратьс с новыми ролями у админа
-            description = "Генерация окон доставки",
+    @Test(description = "Генерация окон доставки",
             groups = {"api-instamart-regress"})
     public void generateDeliveryWindows() {
         final Response response = StoresV1Request.DeliveryWindows.POST(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
@@ -77,8 +75,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
 
     @Story("Окна доставки")
     @CaseId(1148)
-    @Test(enabled = false, //TODO разобраться с ролями для админа
-            description = "Генерация окон доставки для несуществующего магазина",
+    @Test(description = "Генерация окон доставки для несуществующего магазина",
             groups = {"api-instamart-regress"})
     public void generateDeliveryWindowsForNonExistingStore() {
         final Response response = StoresV1Request.DeliveryWindows.POST(0);
@@ -87,7 +84,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
 
     @Story("Окна доставки")
     @CaseId(1149)
-    @Test(description = "Редактирование окна доставки", enabled = false, //TODO разобратьс с новыми ролями у админа
+    @Test(description = "Редактирование окна доставки",
             groups = {"api-instamart-regress"},
             dependsOnMethods = "getDeliveryWindows")
     public void editDeliveryWindow() {
@@ -113,7 +110,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
 
     @Story("Окна доставки")
     @CaseId(1150)
-    @Test(description = "Редактирование несуществующего окна доставки", enabled = false, //TODO разобратьс с новыми ролями у админа
+    @Test(description = "Редактирование несуществующего окна доставки",
             groups = {"api-instamart-regress"})
     public void editNonExistingDeliveryWindow() {
         final Response response = DeliveryWindowsV1Request.PUT(
@@ -128,8 +125,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
 
     @Story("Окна доставки")
     @CaseId(1151)
-    @Test(enabled = false, //TODO чтот с ролями у админа
-            description = "Редактирование окна доставки c невалидными значениями",
+    @Test(description = "Редактирование окна доставки c невалидными значениями",
             groups = {"api-instamart-regress"},
             dependsOnMethods = "getDeliveryWindows")
     public void editDeliveryWindowWithInvalidValues() {

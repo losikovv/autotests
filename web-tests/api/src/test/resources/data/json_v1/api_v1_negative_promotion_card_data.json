@@ -1,0 +1,68 @@
+{
+  "data": [
+    {
+      "promotionCard": {
+        "promotion_card[title]": "Title",
+        "promotion_card[short_description]": "Autotest-xk",
+        "promotion_card[full_description]": "Autotest-tueykb",
+        "promotion_card[background_color]": "#EEEEEE",
+        "promotion_card[message_color]": "#FFFFFF",
+        "promotion_card[published]": true,
+        "promotion_card[mobile_app_link]": "https://sbermarket.ru",
+        "promotion_card[web_app_link]": "https://sbermarket.ru/2",
+        "promotion_card[category_id]": 13,
+        "promotion_card[promotion_id]": 6494,
+        "promotion_card[tenant_ids][]": "sbermarket"
+      },
+      "errorMessage": "\"type\":[\"не может быть пустым\""
+    },
+    {
+      "promotionCard": {
+        "promotion_card[title]": "Title",
+        "promotion_card[type]": "PromotionCards::DiscountCard",
+        "promotion_card[short_description]": "Autotest-xk",
+        "promotion_card[full_description]": "Autotest-tueykb",
+        "promotion_card[background_color]": "#EEEEEE",
+        "promotion_card[message_color]": "#FFFFFF",
+        "promotion_card[published]": true,
+        "promotion_card[mobile_app_link]": "https://sbermarket.ru",
+        "promotion_card[web_app_link]": "https://sbermarket.ru/2",
+        "promotion_card[category_id]": 13,
+        "promotion_card[tenant_ids][]": "sbermarket"
+      },
+      "errorMessage": "\"promotion\":[\"не может быть пустым\""
+    },
+    {
+      "promotionCard": {
+        "promotion_card[type]": "PromotionCards::DiscountCard",
+        "promotion_card[short_description]": "Autotest-xk",
+        "promotion_card[full_description]": "Autotest-tueykb",
+        "promotion_card[background_color]": "#EEEEEE",
+        "promotion_card[message_color]": "#FFFFFF",
+        "promotion_card[published]": true,
+        "promotion_card[mobile_app_link]": "https://sbermarket.ru",
+        "promotion_card[web_app_link]": "https://sbermarket.ru/2",
+        "promotion_card[category_id]": 13,
+        "promotion_card[promotion_id]": 6494,
+        "promotion_card[tenant_ids][]": "sbermarket"
+      },
+      "errorMessage": "\"title\":[\"не может быть пустым\""
+    },
+    {
+      "promotionCard": {
+        "promotion_card[title]": "Title",
+        "promotion_card[type]": "PromotionCards::DiscountCard",
+        "promotion_card[short_description]": "Autotest-xk",
+        "promotion_card[background_color]": "#EEEEEE",
+        "promotion_card[message_color]": "#FFFFFF",
+        "promotion_card[published]": true,
+        "promotion_card[mobile_app_link]": "https://sbermarket.ru",
+        "promotion_card[web_app_link]": "https://sbermarket.ru/2",
+        "promotion_card[category_id]": 13,
+        "promotion_card[promotion_id]": 6494,
+        "promotion_card[tenant_ids][]": "sbermarket"
+      },
+      "errorMessage": "\"full_description\":[\"не может быть пустым\""
+    }
+  ]
+}

@@ -22,6 +22,7 @@ public final class ApiV1Endpoints {
     public static final String ORDERS = "orders?page={pageNumber}";
     public static final String PHONE_CONFIRMATIONS = "phone_confirmations";
     public static final String PROMOTION_CARD_CATEGORIES = "promotion_card_categories";
+    public static final String PROMOTION_CARDS = "promotion_cards";
     public static final String PROMOTIONS = "promotions";
     public static final String REPLACEMENT_POLICIES = "replacement_policies";
     public static final String RETAILERS = "retailers";
@@ -166,6 +167,11 @@ public final class ApiV1Endpoints {
 
     public static final class Products {
         public static final String OFFERS = "products/{permalink}/offers";
+    }
+
+    public static final class PromotionCards {
+        public static final String ID = "promotion_cards/{promotionCardId}";
+        public static final String UPDATE_POSITIONS = "promotion_cards/update_positions";
     }
 
     public static final class Promotions {

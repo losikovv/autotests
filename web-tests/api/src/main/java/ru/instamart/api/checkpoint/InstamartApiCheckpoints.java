@@ -13,6 +13,7 @@ import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v1.OrdersV1Request;
+import ru.instamart.api.request.v1.PromotionCardsV1Request;
 import ru.instamart.api.request.v1.ShippingPoliciesV1Request;
 import ru.instamart.api.response.v1.CompleteOrderV1Response;
 import ru.instamart.api.response.v1.MultiretailerOrderV1Response;
@@ -33,6 +34,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -354,6 +356,26 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(orderCompensationFromDb.get().getPromotionId(), compensation.getCompensation().getPromotionId(), softAssert);
         compareTwoObjects(orderCompensationFromDb.get().getPromoType(), compensation.getCompensation().getPromoType(), softAssert);
         compareTwoObjects(orderCompensationFromDb.get().getReason(), compensation.getCompensation().getReason(), softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем промо-карточку")
+    public static void checkPromotionCard(PromotionCardsV1Request.PromotionCard promotionCard, PromotionCardV1 promotionCardFromResponse, List<Integer> storeIds) {
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(promotionCardFromResponse.getBackgroundColor(), promotionCard.getBackgroundColor(), softAssert);
+        compareTwoObjects(promotionCardFromResponse.getMessageColor(), promotionCard.getMessageColor(), softAssert);
+        compareTwoObjects(promotionCardFromResponse.getFullDescription(), promotionCard.getFullDescription(), softAssert);
+        compareTwoObjects(promotionCardFromResponse.getShortDescription(), promotionCard.getShortDescription(), softAssert);
+        compareTwoObjects(promotionCardFromResponse.getTitle(), promotionCard.getTitle(), softAssert);
+        compareTwoObjects("PromotionCards::" + promotionCardFromResponse.getType(), promotionCard.getType(), softAssert);
+        compareTwoObjects(promotionCardFromResponse.getPublished(), promotionCard.getPublished(), softAssert);
+        compareTwoObjects(promotionCardFromResponse.getStoreIds(), storeIds, softAssert);
+        compareTwoObjects(promotionCardFromResponse.getTenantIds().get(0), promotionCard.getTenantIds(), softAssert);
+        compareTwoObjects(promotionCardFromResponse.getCategory().getId(), promotionCard.getCategoryId(), softAssert);
+        compareTwoObjects(promotionCardFromResponse.getPromotion().getId(), promotionCard.getPromotionId(), softAssert);
+        if(Objects.nonNull(promotionCardFromResponse.getBackgroundImage())) {
+            softAssert.assertTrue(promotionCardFromResponse.getBackgroundImage().contains("sample.jpg"));
+        }
         softAssert.assertAll();
     }
 }
