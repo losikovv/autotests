@@ -23,4 +23,14 @@ public final class Footer implements FooterCheck {
     public void clickToPublicOffer() {
         publicOfferLink.click();
     }
+
+    @Step("Клик по кнопке 'Зоны доставки'")
+    public void clickToDeliveryZones() {
+        deliveryZone.click();
+    }
+
+    @Step("Клик по элементу футера с текстом {text}")
+    public void clickToFooterElementWithText(final String text) {
+        footerElementWithText.click(text);
+    }
 }

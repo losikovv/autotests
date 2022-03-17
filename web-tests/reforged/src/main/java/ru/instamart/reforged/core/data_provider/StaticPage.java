@@ -78,6 +78,22 @@ public final class StaticPage {
         };
     }
 
+    @DataProvider(name = "footerLinkPage", parallel = true)
+    public static Object[][] getFooterLinkPage() {
+        return new Object[][] {
+                {"О компании", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + about().pageUrl()},
+                {"Контакты", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + contacts().pageUrl()},
+                {"Наши вакансии", EnvironmentProperties.Env.FULL_JOB_LANDING_URL},
+                {"Документы", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + terms().pageUrl()},
+                {"Стать партнером", EnvironmentProperties.Env.FULL_JOB_LANDING_URL},
+                {"Как мы работаем", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + howWeWork().pageUrl()},
+                {"Доставка и оплата", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + delivery().pageUrl()},
+                {"Помощь", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + faq().pageUrl()},
+                {"Политика возврата", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + rules().pageUrl()},
+                {"Официальное уведомление", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + terms().pageUrl()},
+        };
+    }
+
     @DataProvider(name = "landingPage", parallel = true)
     public static Object[][] getLandingPage() {
         return new Object[][] {

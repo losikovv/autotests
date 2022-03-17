@@ -6,6 +6,7 @@ import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.drawer.cookie.CookieDrawer;
 import ru.instamart.reforged.stf.frame.address.Address;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
+import ru.instamart.reforged.stf.frame.delivery_zones.DeliveryZones;
 import ru.instamart.reforged.stf.page.StfPage;
 
 public final class HomePage implements StfPage, Window, HomeCheck {
@@ -20,6 +21,10 @@ public final class HomePage implements StfPage, Window, HomeCheck {
 
     public Footer interactFooter() {
         return footer;
+    }
+
+    public DeliveryZones interactDeliveryZonesModal() {
+        return deliveryZones;
     }
 
     public CookieDrawer interactCookieAlert() {
