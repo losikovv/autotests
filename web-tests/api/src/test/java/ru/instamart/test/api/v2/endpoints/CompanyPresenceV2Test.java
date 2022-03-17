@@ -43,7 +43,7 @@ public class CompanyPresenceV2Test extends RestBase {
 
     @CaseId(2253)
     @Story("Получить данные по уже добавленной компании")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Получить данные по уже добавленной компании с несуществующим ИНН")
     public void getCompanyPresenceNull200() {
         Response response = CompanyPresenceV2Request.GET("1234567891");
@@ -54,7 +54,7 @@ public class CompanyPresenceV2Test extends RestBase {
 
     @CaseId(2252)
     @Story("Получить данные по уже добавленной компании")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Получить данные по уже добавленной компании с существующим ИНН")
     public void getCompanyPresence200() {
         Response response = CompanyPresenceV2Request.GET(inn);
