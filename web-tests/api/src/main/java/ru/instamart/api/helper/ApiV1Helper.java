@@ -5,6 +5,7 @@ import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
@@ -25,9 +26,11 @@ import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.user.UserData;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Slf4j
@@ -203,5 +206,12 @@ public class ApiV1Helper {
             company = companies.get(0);
         }
         return company;
+    }
+
+    @Step("Получаем промоакции")
+    public List<PromotionV1> getPromotions() {
+        final Response response = PromotionsV1Request.Promotions.GET();
+        checkStatusCode200(response);
+        return response.as(PromotionsV1Response.class).getPromotions();
     }
 }

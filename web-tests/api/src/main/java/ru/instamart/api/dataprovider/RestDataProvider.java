@@ -20,6 +20,7 @@ import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.admin.ZonesAdminRequest;
+import ru.instamart.api.request.v1.PromotionCardsV1Request;
 import ru.instamart.api.request.v1.RetailersV1Request;
 import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
@@ -113,6 +114,17 @@ public class RestDataProvider extends RestBase {
     @Data
     public static class RetailerV1TestDataRoot implements DataList<RetailerV1TestData> {
         private List<RetailerV1TestData> data;
+    }
+
+    @Data
+    public static class PromotionCardsV1TestData {
+        private PromotionCardsV1Request.PromotionCard promotionCard;
+        private String errorMessage;
+    }
+
+    @Data
+    public static class PromotionCardsV1TestDataRoot implements DataList<PromotionCardsV1TestData> {
+        private List<PromotionCardsV1TestData> data;
     }
 
     @DataProvider(name = "authProviders")
