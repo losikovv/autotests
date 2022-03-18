@@ -378,4 +378,13 @@ public class InstamartApiCheckpoints {
         }
         softAssert.assertAll();
     }
+    @Step("Проверяем платеж")
+    public static void checkPayment(PaymentV1 paymentFromResponse, MultiretailerOrderV1Response order) {
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(paymentFromResponse.getAmount(), order.getTotal(), softAssert);
+        compareTwoObjects(paymentFromResponse.getState(), "completed", softAssert);
+        compareTwoObjects(paymentFromResponse.getPaymentMethod().getName(), "Картой онлайн", softAssert);
+        compareTwoObjects(paymentFromResponse.getShipments().get(0).getNumber(), order.getShipments().get(0).getNumber(), softAssert);
+        softAssert.assertAll();
+    }
 }

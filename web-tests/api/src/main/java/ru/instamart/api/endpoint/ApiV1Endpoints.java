@@ -152,11 +152,18 @@ public final class ApiV1Endpoints {
             public static final String COMPENSATIONS = "orders/{orderNumber}/compensations";
             public static final String LINE_ITEMS = "orders/{orderNumber}/line_items";
             public static final String MERGE_STATUS = "orders/{orderNumber}/merge_status";
+            public static final String PAYMENTS = "orders/{orderNumber}/payments";
+            public static final String PAYMENT_TOOLS = "orders/{orderNumber}/payment_tools";
             public static final String SHIPMENT = "orders/{orderNumber}/shipments/{shipmentNumber}";
 
             public static final class Compensations {
                 public static final String NEW = "orders/{orderNumber}/compensations/new";
                 public static final String ID = "orders/{orderNumber}/compensations/{compensationId}";
+            }
+
+            public static final class Payments {
+                public static final String PURCHASE = "orders/{orderNumber}/payments/{paymentId}/purchase";
+                public static final String ID = "orders/{orderNumber}/payments/{paymentId}";
             }
         }
     }
