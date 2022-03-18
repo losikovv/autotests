@@ -171,27 +171,6 @@ public interface HeaderCheck extends Check, HeaderElement {
         waitAction().shouldBeVisible(enteredAddress);
     }
 
-    @Step("Проверяем, что установленный адрес: '{0}' \n совпадает с адресом, отображаемом на странице: '{1}'")
-    default void checkIsSetAddressEqualToInput(final String defaultAddress, final String currentAddress) {
-        final var defaultAddressList = defaultAddress
-                .replaceAll("г\\.", "")
-                .replaceAll("ул\\.", "")
-                .replaceAll("улица", "")
-                .split(", ");
-        log.debug("> проверяем, что установленный адрес: '{}' совпадает с адресом на странице: '{}'",
-                defaultAddress,
-                currentAddress);
-        for (final var check : defaultAddressList) {
-            krakenAssert.assertTrue(
-                    currentAddress.contains(check),
-                    "\n> В адресе отображаемом на странице отсутствует элемент: "
-                            + "\n> отображаемый адрес: " + currentAddress
-                            + "\n> Ожидаемый элемент: " + check
-            );
-        }
-        assertAll();
-    }
-
     @Step("Проверяем, что установленный адрес:\"{0}\" не изменился")
     default void checkIsSetAddressNotEqualToInput(String defaultAddress, String currentAddress) {
         final String[] defaultAddressList = defaultAddress.split(", ");
