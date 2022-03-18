@@ -241,6 +241,16 @@ public final class OrdersV2Request extends ApiV2RequestBase {
         }
     }
 
+    public static class Company {
+
+        @Step("{method} /" + ApiV2EndPoints.Orders.COMPANY)
+        public static Response PATCH(final String orderNumber, final int companyId) {
+            return givenWithAuth()
+                    .queryParam("company_id", companyId)
+                    .patch(ApiV2EndPoints.Orders.COMPANY, orderNumber);
+        }
+    }
+
     public static class Completion {
         /**
          * Завершаем оформление заказа

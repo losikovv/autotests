@@ -35,6 +35,7 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.fail;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200or422;
 import static ru.instamart.api.common.RestStaticTestData.userPhone;
 import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 
@@ -267,7 +268,8 @@ public final class ApiV2Helper {
                         .stream()
                         .filter(product -> product.getPriceType().equals(ProductPriceTypeV2.PER_PACKAGE.getValue()))
                         .collect(Collectors.toList());
-            default: throw new SkipException("Указанный price_type не поддерживается");
+            default:
+                throw new SkipException("Указанный price_type не поддерживается");
         }
     }
 
@@ -519,7 +521,7 @@ public final class ApiV2Helper {
                 .collect(Collectors.toList());
         assertFalse(shippingRatesOnDemand.isEmpty(),
                 "Нет слотов быстрой доставки в магазине admin/stores/" + currentSid.get());
-        DeliveryWindowV2 deliveryWindow = shippingRatesOnDemand.get(shippingRatesOnDemand.size()-1).getDeliveryWindow();
+        DeliveryWindowV2 deliveryWindow = shippingRatesOnDemand.get(shippingRatesOnDemand.size() - 1).getDeliveryWindow();
 
         currentDeliveryWindowId.set(deliveryWindow.getId());
 
@@ -1399,5 +1401,23 @@ public final class ApiV2Helper {
     public LineItemV2 changeAddressAndAddItemToCart(AddressV2 address, Long offerId, Integer quantity) {
         setAddressAttributes(address);
         return addItemToCart(offerId, quantity);
+    }
+
+    @Step("Получение компаний текущего пользователя")
+    public CompaniesV2Response getCompany() {
+        final Response response = UserV2Request.GET();
+        checkStatusCode200(response);
+        return response.as(CompaniesV2Response.class);
+    }
+
+    @Step("Добавляем компанию")
+    public CompanyV2 addCompany(final String inn, final String name) {
+        final Response response = UserV2Request.POST(inn, name);
+        checkStatusCode200or422(response);
+
+        return response.statusCode() == 200 ? response.as(CompanyV2Response.class).getCompany() : getCompany().getCompanies().stream()
+                .filter(p -> p.getInn().equals(inn))
+                .collect(Collectors.toList())
+                .get(0);
     }
 }
