@@ -28,23 +28,6 @@ public class OrdersV1Request extends ApiV1RequestBase {
                 .get(ApiV1Endpoints.Orders.NUMBER, orderNumber);
     }
 
-    public static class LineItems {
-        @Step("{method} /" + ApiV1Endpoints.Orders.Number.LINE_ITEMS)
-        public static Response GET(String orderNumber) {
-            return givenWithAuth()
-                    .queryParam("order_number", orderNumber)
-                    .get(ApiV1Endpoints.Orders.Number.LINE_ITEMS, orderNumber);
-        }
-    }
-
-    public static class MergeStatus {
-        @Step("{method} /" + ApiV1Endpoints.Orders.Number.MERGE_STATUS)
-        public static Response GET(String orderNumber) {
-            return givenWithAuth()
-                    .get(ApiV1Endpoints.Orders.Number.MERGE_STATUS, orderNumber);
-        }
-    }
-
     @Step("{method} /" + ApiV1Endpoints.Orders.Number.SHIPMENT)
     public static Response PUT(String orderNumber, String shipmentNumber, Shipment shipment) {
         return givenWithAuth()
@@ -80,6 +63,61 @@ public class OrdersV1Request extends ApiV1RequestBase {
                     .contentType(ContentType.JSON)
                     .body(compensation)
                     .put(ApiV1Endpoints.Orders.Number.Compensations.ID, orderNumber, compensationId);
+        }
+    }
+
+    public static class LineItems {
+        @Step("{method} /" + ApiV1Endpoints.Orders.Number.LINE_ITEMS)
+        public static Response GET(String orderNumber) {
+            return givenWithAuth()
+                    .queryParam("order_number", orderNumber)
+                    .get(ApiV1Endpoints.Orders.Number.LINE_ITEMS, orderNumber);
+        }
+    }
+
+    public static class MergeStatus {
+        @Step("{method} /" + ApiV1Endpoints.Orders.Number.MERGE_STATUS)
+        public static Response GET(String orderNumber) {
+            return givenWithAuth()
+                    .get(ApiV1Endpoints.Orders.Number.MERGE_STATUS, orderNumber);
+        }
+    }
+
+    public static class Payments {
+        @Step("{method} /" + ApiV1Endpoints.Orders.Number.PAYMENTS)
+        public static Response GET(String orderNumber) {
+            return givenWithAuth()
+                    .get(ApiV1Endpoints.Orders.Number.PAYMENTS, orderNumber);
+        }
+
+        @Step("{method} /" + ApiV1Endpoints.Orders.Number.PAYMENTS)
+        public static Response POST(String orderNumber, Long paymentToolId) {
+            JSONObject body = new JSONObject();
+            body.put("payment_tool_id", paymentToolId);
+            return givenWithAuth()
+                    .contentType(ContentType.JSON)
+                    .body(body)
+                    .post(ApiV1Endpoints.Orders.Number.PAYMENTS, orderNumber);
+        }
+
+        @Step("{method} /" + ApiV1Endpoints.Orders.Number.Payments.ID)
+        public static Response GET(String orderNumber, Long paymentId) {
+            return givenWithAuth()
+                    .get(ApiV1Endpoints.Orders.Number.Payments.ID, orderNumber, paymentId);
+        }
+
+        @Step("{method} /" + ApiV1Endpoints.Orders.Number.Payments.PURCHASE)
+        public static Response PUT(String orderNumber, Long paymentId) {
+            return givenWithAuth()
+                    .put(ApiV1Endpoints.Orders.Number.Payments.PURCHASE, orderNumber, paymentId);
+        }
+    }
+
+    public static class PaymentTools {
+        @Step("{method} /" + ApiV1Endpoints.Orders.Number.PAYMENT_TOOLS)
+        public static Response GET(String orderNumber) {
+            return givenWithAuth()
+                    .get(ApiV1Endpoints.Orders.Number.PAYMENT_TOOLS, orderNumber);
         }
     }
 

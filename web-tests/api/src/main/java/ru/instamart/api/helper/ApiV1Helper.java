@@ -5,9 +5,10 @@ import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
-import org.testng.asserts.SoftAssert;
 import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.enums.v1.OrderKindV1;
+import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v1.*;
 import ru.instamart.api.model.v1.b2b.CompanyV1;
@@ -26,12 +27,11 @@ import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.user.UserData;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.request.v1.CheckoutV1Request.getOrderAttributes;
 
 @Slf4j
 public class ApiV1Helper {
@@ -175,6 +175,22 @@ public class ApiV1Helper {
         List<NextDeliveryV2> filteredNextDeliveries = currentShipment.get().getNextDeliveries().stream().filter(d -> d.getId() >= 0).collect(Collectors.toList());
         final Response response = CheckoutV1Request.PUT(currentShipment.get(), filteredNextDeliveries.get(0));
         checkStatusCode200(response);
+    }
+
+    @Step("Завершаем заказ")
+    public void finishOrder(UserData user, Long paymentToolId, OrderKindV1 orderKind) {
+        final Response response = CheckoutV1Request.PUT(getOrderAttributes(user, paymentToolId, orderKind.getValue()));
+        checkStatusCode200(response);
+    }
+
+    @Step("Оформляем заказ")
+    public MultiretailerOrderV1Response order(AddressV2 address, Long offerId, UserData user) {
+        fillCart(address, ShippingMethodV2.BY_COURIER.getMethod(), offerId);
+        addReplacementPolicy();
+        addDeliveryWindow();
+        MultiretailerOrderV1Response order = getMultiRetailerOrder();
+        finishOrder(user, getPaymentTools().get(0).getId(), OrderKindV1.HOME);
+        return order;
     }
 
     @Step("Получаем компанию по ИНН {inn}")
