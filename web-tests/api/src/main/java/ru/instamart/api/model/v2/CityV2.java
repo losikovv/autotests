@@ -1,4 +1,3 @@
-
 package ru.instamart.api.model.v2;
 
 import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;

@@ -111,4 +111,8 @@ public class OrderV2 extends BaseObject {
 
     @JsonSchema(required = true)
     private List<Object> discounts = null;
+
+    @Null
+    @JsonSchema(required = true)
+    private CompanyV2 company;
 }

@@ -96,6 +96,7 @@ public final class ApiV2EndPoints {
     public static final class Orders {
         public static final String BY_NUMBER = "v2/orders/{orderNumber}";
         public static final String CANCELLATIONS = "v2/orders/{orderNumber}/cancellations";
+        public static final String COMPANY = "v2/orders/{orderNumber}/company";
         public static final String COMPLETION = "v2/orders/{orderNumber}/completion";
         public static final String CURRENT = "v2/orders/current";
         public static final String LINE_ITEMS = "v2/orders/{orderNumber}/line_items";
@@ -209,6 +210,9 @@ public final class ApiV2EndPoints {
         public static final String BY_ID = "v2/taxons/{taxonId}";
     }
 
+    public static final class User {
+        public static final String COMPANIES = "v2/user/companies";
+    }
     public static final class Users {
         public static final String BY_EMAIL = "v2/users/{email}";
         public static final String REFERRAL_PROGRAM = "v2/users/{email}/referral_program";
