@@ -69,4 +69,14 @@ public final class ProductCard implements ProductCardCheck, Close {
     public String getPriceWithDiscount() {
         return priceWithDiscount.getText();
     }
+
+    @Step("Получаем цену первого товара из рекомендаций")
+    public String getFirstProductNameFromRecs() {
+        return productRecsNames.getElementText(0);
+    }
+
+    @Step("Нажимаем на кнопку 'Добавить в корзину' у первого товара рекомендаций")
+    public void plusFirstProductToCart() {
+        plusFirstItemToCartButtons.clickOnFirst();
+    }
 }

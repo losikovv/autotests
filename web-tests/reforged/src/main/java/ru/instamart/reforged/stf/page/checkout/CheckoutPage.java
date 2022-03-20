@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.page.checkout;
 
 import io.qameta.allure.Step;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.stf.block.helpdesk.HelpDesk;
 import ru.instamart.reforged.stf.frame.checkout.subsections.add_payment_card.AddPaymentCard;
 import ru.instamart.reforged.stf.frame.checkout.subsections.edit_payment_card.EditPaymentCard;
@@ -113,6 +114,16 @@ public final class CheckoutPage implements StfPage, CheckoutCheck {
     @Step("Редактировать карту лояльности {0}")
     public void clickToEditLoyaltyCard(final String bonusCard) {
         editLoyaltyCard.click(bonusCard);
+    }
+
+    @Step("Получаем значение стоимости товаров в корзине")
+    public double getOrderAmount() {
+        return StringUtil.stringToDouble(orderAmount.getText());
+    }
+
+    @Step("Получаем значение количества позиций в корзине")
+    public int getPositionsCount() {
+        return StringUtil.extractNumberFromString(positionsCount.getText());
     }
 
     @Override

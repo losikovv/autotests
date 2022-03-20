@@ -122,4 +122,16 @@ public interface CheckoutCheck extends Check, CheckoutElement {
     default void checkCheckoutSidebarSpinnerNotVisible() {
         waitAction().shouldNotBeVisible(sideBarSpinner);
     }
+
+    @Step("Сравниваем сумму заказа до и после регистрации")
+    default void compareOrderAmountAfterRegistration(double orderAmountFromCart, double orderAmountFromCheckout) {
+        krakenAssert.assertEquals(orderAmountFromCart, orderAmountFromCheckout,
+                "Сумма заказа из корзины после регистрации не совпадает с ожидаемой");
+    }
+
+    @Step("Сравниваем количество позиций до и после регистрации")
+    default void comparePositionCountAfterRegistration(double positionCountFromCart, double positionCountFromCheckout) {
+        krakenAssert.assertEquals(positionCountFromCart, positionCountFromCheckout,
+                "Количество позиций из корзины после регистрации не совпадает с ожидаемой");
+    }
 }

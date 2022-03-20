@@ -42,4 +42,7 @@ public interface ProductCardElement {
 
     Button reserveButton = new Button(By.xpath("//button[contains(text(), 'Зарезервировать') and @data-qa='addToCart_buy_button']"),
             "Кнопка 'Зарезервировать' на карточке товара алко");
+
+    ElementCollection productRecsNames = new ElementCollection(By.xpath("//div[@id='Carousel1']//a//h3"), "Коллекция названий продуктов в рекомендациях");
+    ElementCollection plusFirstItemToCartButtons = new ElementCollection(By.xpath("//div[@id='Carousel1']//button[@title='Добавить в корзину']"), "Кнопка добавить в корзину у первого товара рекомендаций");
 }

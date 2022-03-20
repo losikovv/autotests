@@ -392,7 +392,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
         final var firstItemQuantity = shop().interactCart().getFirstItem().getCount();
-        final var startOrderAmount = shop().interactCart().returnOrderAmount();
+        final var startOrderAmount = shop().interactCart().getOrderAmount();
         shop().interactCart().getFirstItem().increaseCount();
         shop().interactCart().getFirstItem().checkSpinnerIsVisible();
         shop().interactCart().getFirstItem().checkSpinnerIsNotVisible();
@@ -401,7 +401,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
         shop().interactCart().getFirstItem().compareItemQuantityInCart(firstItemQuantity + 1);
-        final var secondOrderAmount = shop().interactCart().returnOrderAmount();
+        final var secondOrderAmount = shop().interactCart().getOrderAmount();
         shop().interactCart().checkAmountNotEquals(startOrderAmount, secondOrderAmount);
         shop().assertAll();
     }
@@ -458,7 +458,7 @@ public final class ShoppingCartTests extends BaseTest {
 
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
-        final var startOrderAmount = shop().interactCart().returnOrderAmount();
+        final var startOrderAmount = shop().interactCart().getOrderAmount();
         final var startProductsQuantity = shop().interactCart().getFirstRetailer().getItemsCountInList();
         shop().interactCart().getFirstItem().deleteItem();
         shop().interactCart().checkDeleteAnimationOver();
@@ -468,7 +468,7 @@ public final class ShoppingCartTests extends BaseTest {
         shop().refresh();
         shop().interactHeader().clickToCart();
         shop().interactCart().checkCartOpen();
-        final var secondOrderAmount = shop().interactCart().returnOrderAmount();
+        final var secondOrderAmount = shop().interactCart().getOrderAmount();
         shop().interactCart().checkAmountNotEquals(startOrderAmount, secondOrderAmount);
         shop().interactCart().getFirstRetailer().compareItemsInCart(startProductsQuantity - 1);
         shop().assertAll();
@@ -602,6 +602,30 @@ public final class ShoppingCartTests extends BaseTest {
 
         seoIncognito().clickAddToCartButton();
         seoIncognito().interactHeader().interactAddress().checkAddressModalVisible();
+    }
 
+    @CaseId(2615)
+    @Test(description = "Добавление товара в корзину из блока рекомендаций на карточке товара", groups = "regression")
+    public void successAddToCardFromProductCardRecommendations() {
+        var userData = UserManager.getQaUser();
+        helper.setAddressBySid(userData, DEFAULT_SID);
+
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().authViaPhone(userData);
+        shop().interactHeader().checkProfileButtonVisible();
+
+        shop().openSitePage("metro/maslo-aro-extra-virgin-olivkovoe?sid=81");
+        shop().interactProductCard().checkProductCardVisible();
+        final var firstProductFromRecs = shop().interactProductCard().getFirstProductNameFromRecs();
+
+        shop().interactProductCard().plusFirstProductToCart();
+        shop().interactProductCard().close();
+
+        shop().interactHeader().clickToCart();
+        shop().interactCart().checkCartOpen();
+
+        final var cartProductName = shop().interactCart().getFirstItem().getName();
+        shop().interactCart().compareProductNameInCart(cartProductName, firstProductFromRecs);
     }
 }
