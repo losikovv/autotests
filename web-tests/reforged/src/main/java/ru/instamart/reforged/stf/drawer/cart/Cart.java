@@ -79,11 +79,6 @@ public final class Cart implements CartCheck {
         return StringUtil.stringToDouble(orderAmount.getText());
     }
 
-    @Step("Получаем значение количества позиций в корзине")
-    public int getPositionsCount() {
-        return StringUtil.extractNumberFromString(positionsCount.getText());
-    }
-
     @Step("Увеличиваем кол-во товара до тех пор, пока заказ не станет доступен")
     public void increaseFirstItemCountToMin() {
         Item item = getFirstItem();

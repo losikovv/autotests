@@ -111,7 +111,7 @@ public final class UserRegistrationTests extends BaseTest {
         shop().interactHeader().clickToCart();
         shop().interactCart().increaseFirstItemCountToMin();
         final var orderAmount = shop().interactCart().getOrderAmount();
-        final var positionsCount = shop().interactCart().getPositionsCount();
+        final var positionsCount = shop().interactCart().getFirstRetailer().getItemsCountInHeader();
 
         shop().interactCart().submitOrder();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());

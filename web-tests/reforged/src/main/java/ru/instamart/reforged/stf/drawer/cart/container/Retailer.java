@@ -94,7 +94,7 @@ public final class Retailer extends Container {
     }
 
     @Step("Получаем количество продуктов, указанное в шапке магазина")
-    private String getItemsCountInHeader() {
+    public String getItemsCountInHeader() {
         return itemsCountInHeader.getText();
     }
 
