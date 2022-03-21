@@ -64,6 +64,7 @@ public final class ApiV1Endpoints {
             public static final String DOCUMENTS = "admin/shipments/{shipmentNumber}/documents/{document}.pdf";
             public static final String LEFTOVERS = "admin/shipments/{shipmentUUID}/leftovers";
             public static final String REDISPATCH = "admin/shipments/{shipmentUUID}/redispatch";
+            public static final String SHIPMENT_RETURNS = "admin/shipments/{shipmentUUID}/shipment_returns";
         }
     }
 
