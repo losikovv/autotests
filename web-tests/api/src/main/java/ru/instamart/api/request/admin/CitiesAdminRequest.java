@@ -43,7 +43,7 @@ public class CitiesAdminRequest extends AdminRequestBase {
 
     @Step("{method} /" + AdminEndpoints.CITIES)
     public static Response GET() {
-        return givenWithAuth()
+        return givenWithAuthAndSpa()
                 .get(AdminEndpoints.CITIES);
     }
 
