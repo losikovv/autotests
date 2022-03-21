@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.v1.admin.LeftoversAdminV1Request;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
@@ -19,7 +20,7 @@ public class LeftoversV1Test extends RestBase {
         admin.authApi();
     }
 
-    //@CaseId() todo ожидает создание тест-кейса
+    @CaseId(2310)
     @Test(groups = {"api-instamart-regress"},
         description = "Отображение таблицы товаров на стр. возвратов")
     public void getLeftovers() {
