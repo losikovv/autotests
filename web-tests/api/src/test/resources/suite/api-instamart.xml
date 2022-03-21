@@ -74,6 +74,8 @@
             <class name="ru.instamart.test.api.v2.endpoints.OrdersComplexCollectV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.PhoneConfirmationsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.ProductsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ProductFeedbacksV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ProductFeedbacksWithoutAuthV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.ProfileV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.ProfileV2NoAuthTest"/>
             <class name="ru.instamart.test.api.v2.endpoints.PromotionLimitV2Test"/>

@@ -35,6 +35,7 @@ public final class ApiV2EndPoints {
     public static final String PHONES = "v2/phones";
     public static final String PHONE_CONFIRMATIONS = "v2/phone_confirmations";
     public static final String PRODUCTS = "v2/products";
+    public static final String PRODUCT_FEEDBACKS = "v2/product_feedbacks";
     public static final String PROFILE = "v2/profile";
     public static final String PURCHASED_PRODUCTS = "v2/purchased_products";
     public static final String REPLACEMENT_POLICIES = "v2/replacement_policies";
@@ -132,6 +133,12 @@ public final class ApiV2EndPoints {
         public static final class CreditCardAuthorizations {
             public static final String FINISH = "v2/payments/sber/credit_card_authorizations/finish";
         }
+    }
+
+    public static final class ProductFeedbacks {
+        public static final String BY_ID = "v2/product_feedbacks/{id}";
+        public static final String CAN_POST_FEEDBACK = "v2/product_feedbacks/can_post_feedback";
+        public static final String ACTUAL_FEEDBACK = "v2/product_feedbacks/actual_feedback";
     }
 
     public static final class PhoneConfirmations {
