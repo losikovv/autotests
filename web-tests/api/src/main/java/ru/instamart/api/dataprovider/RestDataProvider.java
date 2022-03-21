@@ -1361,4 +1361,51 @@ public class RestDataProvider extends RestBase {
                 }
         };
     }
+
+    @DataProvider(name = "sendProductFeedbacks")
+    public static Object[][] sendProductFeedbacks()   {
+        String productSku = apiV2.getProducts(EnvironmentProperties.DEFAULT_SID).get(0).getSku();
+        return new Object[][]{
+                {
+                    ProductFeedbacksV2Request.Feedbacks.builder()
+                        .sku(productSku)
+                        .storeId(String.valueOf(EnvironmentProperties.DEFAULT_SID))
+                        .score(4)
+                        .pros("свежий")
+                        .cons("Слишком зеленый")
+                        .text("Очень хрупкий")
+                        .build()
+                },
+                {
+                        ProductFeedbacksV2Request.Feedbacks.builder()
+                                .sku(productSku)
+                                .storeId(String.valueOf(EnvironmentProperties.DEFAULT_SID))
+                                .score(4)
+//                                .pros("свежий")
+                                .cons("Слишком зеленый")
+                                .text("Очень хрупкий")
+                                .build()
+                },
+                {
+                        ProductFeedbacksV2Request.Feedbacks.builder()
+                                .sku(productSku)
+                                .storeId(String.valueOf(EnvironmentProperties.DEFAULT_SID))
+                                .score(4)
+                                .pros("свежий")
+//                                .cons("Слишком зеленый")
+                                .text("Очень хрупкий")
+                                .build()
+                },
+                {
+                        ProductFeedbacksV2Request.Feedbacks.builder()
+                                .sku(productSku)
+                                .storeId(String.valueOf(EnvironmentProperties.DEFAULT_SID))
+                                .score(4)
+                                .pros("свежий")
+                                .cons("Слишком зеленый")
+//                                .text("Очень хрупкий")
+                                .build()
+                }
+        };
+    }
 }
