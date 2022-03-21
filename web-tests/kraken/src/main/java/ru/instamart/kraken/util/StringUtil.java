@@ -15,6 +15,8 @@ public final class StringUtil {
     private static final Pattern pattern = Pattern.compile("\\d+\\.\\d+");
     private static final Pattern citiesPattern = Pattern.compile("\\(([^\\D+]+)\\)");
     private static final String PHONE_PATTERN = "(\\d{3})(\\d{3})(\\d{2})(\\d+)";
+    private static final String EXTRA_ZERO_PATTERN = "^(0\\d\\:\\d\\d)";
+    private static final String HOUR_PATTERN = "^(\\d\\:\\d\\d)";
 
     private StringUtil() {
     }
@@ -88,5 +90,12 @@ public final class StringUtil {
      */
     public static String convertDigitsStringToPhoneNumberWithBrackets(final String text) {
         return text.replaceFirst(PHONE_PATTERN, "+7 ($1) $2-$3-$4");
+    }
+
+    /**
+     * Парсит строку типа "09:00-10:00" в "9:00-10:00" для сравнения времени доставки
+     */
+    public static String cutExtraZerosFromDate(final String hours) {
+        return hours.replaceAll(EXTRA_ZERO_PATTERN, HOUR_PATTERN);
     }
 }

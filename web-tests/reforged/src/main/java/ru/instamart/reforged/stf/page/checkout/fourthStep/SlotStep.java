@@ -33,4 +33,14 @@ public class SlotStep implements SlotStepCheck {
     public void clickToSubmit() {
         submit.click();
     }
+
+    @Step("Выбрать первый активный слот")
+    public String getDeliveryDate() {
+        return activeTabDate.getText();
+    }
+
+    @Step("Выбрать первый активный слот")
+    public String getDeliveryTime() {
+        return activeTimeSlot.getText();
+    }
 }

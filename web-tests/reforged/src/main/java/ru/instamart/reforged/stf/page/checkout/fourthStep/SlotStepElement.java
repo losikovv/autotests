@@ -16,4 +16,8 @@ public interface SlotStepElement {
     Element deliveryPlaceholder = new Element(By.xpath("//div[text()='Интервалы доставки недоступны']"), "empty");
 
     Element nextDayTab = new Element(By.xpath("//span[text()='Завтра']/parent::div"), "Вкладка слотов следующего дня");
+    Element activeTabDate = new Element(By.xpath("//div[@class='panel-tab panel-tab--active']/span[@class='panel-tab__date']"), "Дата на активной вкладке слотов");
+    Element activeTimeSlot = new Element(By.xpath("//div[@class='windows-selector-item windows-selector-item--selected']//span[@class='windows-selector-item__interval']"), "Выбранное время на активной вкладке слотов");
+
+    Element slotSetFail = new Element(By.xpath("//div[@class='checkout-panel checkout-panel--invalid checkout-panel--active']"), "Алерт выбора слота");
 }
