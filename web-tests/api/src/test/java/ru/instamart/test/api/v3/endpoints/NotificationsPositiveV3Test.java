@@ -240,7 +240,7 @@ public class NotificationsPositiveV3Test extends RestBase {
     @CaseId(1468)
     @Test(  description = "Ready_for_delivery после order.in_work (Сборка ритейлера, доставка Сбермаркета)",
             groups = "api-instamart-smoke")
-    public void orderReadyForDelivery() {
+    public void orderReadyForDeliveryDeliveryBySbermarket() {
         String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
 
@@ -317,7 +317,7 @@ public class NotificationsPositiveV3Test extends RestBase {
 
     @Story("Негативные тесты")
     @CaseId(1465)
-    @Test(  description = "Canceled после доставки",
+    @Test(  description = "Canceled после доставки негатив.",
             groups = "api-instamart-smoke")
     public void cancelOrderDeliveredDeliveryByRetailer() {
         String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
@@ -340,12 +340,283 @@ public class NotificationsPositiveV3Test extends RestBase {
                 quantity);
         checkStatusCode200(responseDelivered);
         Response responseCanceled = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
-        //checkStatusCode422(responseCanceled);
-        //todo включить когда пофиксят код ответа
+        checkStatusCode422(responseCanceled);
 
-        simplyAwait(2);
         OrderV2 shippedOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
-        Assert.assertEquals(shippedOrder.getShipmentState(), OrderStatusV2.SHIPPED.getStatus(), "Заказ не перешел в статус Доставлен");
+        Assert.assertEquals(shippedOrder.getShipmentState(), OrderStatusV2.SHIPPED.getStatus(), "Заказ не остался в статусе Доставлен");
+    }
+
+    @Story("Негативные тесты")
+    @CaseId(2189)
+    @Test(  description = "Повторная отправка in_work негатив. (Сборка ритейлера, доставка Сбермаркета)",
+            groups = "api-instamart-regress")
+    public void orderInWorkRepeatDeliveryBySbermarket() {
+        Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode200(responseInWork);
+        Response responseInWorkRepeat = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode422(responseInWorkRepeat);
+
+        OrderV2 collectingOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+        Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не остался в статусе Собирается");
+    }
+
+    @Story("Негативные тесты")
+    @CaseId(2189)
+    @Test(  description = "Повторная отправка in_work негатив. (Сборка и доставка ритейлером)",
+            groups = "api-instamart-regress")
+    public void orderInWorkRepeatDeliveryByRetailer() {
+        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode200(responseInWork);
+        Response responseInWorkRepeat = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode422(responseInWorkRepeat);
+
+        OrderV2 collectingOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(collectingOrder.getShipmentState(), OrderStatusV2.COLLECTING.getStatus(), "Заказ не остался в статусе Собирается");
+    }
+
+    @Story("Негативные тесты")
+    @CaseId(2190)
+    @Test(  description = "In_work после ready_for_delivery негатив. (Сборка ритейлера, доставка Сбермаркета)",
+            groups = "api-instamart-regress")
+    public void orderInWorkAfterReadyForDelivery() {
+        String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
+
+        Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = NotificationsV3Request.POST(
+                orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
+                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode200(responseReadyForDelivery);
+        Response responseInWorkRepeat = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode422(responseInWorkRepeat);
+
+        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не остался в статусе Готов к доставке");
+    }
+
+    @Story("Негативные тесты")
+    @CaseId(2190)
+    @Test(  description = "In_work после ready_for_delivery негатив. (Сборка и доставка ритейлером)",
+            groups = "api-instamart-regress")
+    public void orderInWorkAfterReadyForDeliveryDeliveryByRetailer() {
+        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+
+        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = NotificationsV3Request.POST(
+                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
+                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode200(responseReadyForDelivery);
+        Response responseInWorkRepeat = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode422(responseInWorkRepeat);
+
+        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не остался в статусе Готов к доставке");
+    }
+
+    @Story("Негативные тесты")
+    @CaseId(2191)
+    @Test(  description = "In_work после доставки негатив.",
+            groups = "api-instamart-regress")
+    public void orderInWorkAfterDeliveredDeliveryByRetailer() {
+        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+
+        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = NotificationsV3Request.POST(
+                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
+                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode200(responseReadyForDelivery);
+        Response responseDelivered = NotificationsV3Request.POST(
+                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
+                NotificationTypeV3.DELIVERED.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode200(responseDelivered);
+        Response responseInWorkRepeat = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode422(responseInWorkRepeat);
+
+        OrderV2 shippedOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(shippedOrder.getShipmentState(), OrderStatusV2.SHIPPED.getStatus(), "Заказ не остался в статусе Доставлен");
+    }
+
+    @Story("Негативные тесты")
+    @CaseId(2192)
+    @Test(  description = "In_work после отмены негатив. (Сборка ритейлера, доставка Сбермаркета)",
+            groups = "api-instamart-regress")
+    public void orderInWorkAfterCancelOrderDeliveryBySbermarket() {
+        Response responseCanceled = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        checkStatusCode200(responseCanceled);
+        Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode422(responseInWork);
+
+        OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+        Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не остался в статусе Отменен");
+    }
+
+    @Story("Негативные тесты")
+    @CaseId(2192)
+    @Test(  description = "In_work после отмены негатив. (Сборка и доставка ритейлером)",
+            groups = "api-instamart-regress")
+    public void orderInWorkAfterCancelOrderDeliveryByRetailer() {
+        Response responseCanceled = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        checkStatusCode200(responseCanceled);
+        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode422(responseInWork);
+
+        OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не остался в статусе Отменен");
+    }
+
+    @Story("Негативные тесты")
+    @CaseId(2186)
+    @Test(  description = "Повторная отправка ready_for_delivery негатив. (Сборка ритейлера, доставка Сбермаркета)",
+            groups = "api-instamart-regress")
+    public void orderReadyForDeliveryRepeatDeliveryBySbermarket() {
+        String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
+
+        Response responseInWork = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = NotificationsV3Request.POST(
+                orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
+                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode200(responseReadyForDelivery);
+        Response responseReadyForDeliveryRepeat = NotificationsV3Request.POST(
+                orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
+                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode422(responseReadyForDeliveryRepeat);
+
+        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не перешел в статус Готов к доставке");
+    }
+
+    @Story("Негативные тесты")
+    @CaseId(2186)
+    @Test(  description = "Повторная отправка ready_for_delivery негатив. (Сборка и доставка ритейлером)",
+            groups = "api-instamart-regress")
+    public void orderReadyForDeliveryRepeatDeliveryByRetailer() {
+        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+
+        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = NotificationsV3Request.POST(
+                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
+                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode200(responseReadyForDelivery);
+        Response responseReadyForDeliveryRepeat = NotificationsV3Request.POST(
+                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
+                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode422(responseReadyForDeliveryRepeat);
+
+        OrderV2 readyOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не перешел в статус Готов к доставке");
+    }
+
+    @Story("Негативные тесты")
+    @CaseId(2187)
+    @Test(  description = "Ready_for_delivery после доставки негатив.",
+            groups = "api-instamart-regress")
+    public void orderReadyForDeliveryAfterDeliveredDeliveryByRetailer() {
+        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+
+        Response responseInWork = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
+        checkStatusCode200(responseInWork);
+        Response responseReadyForDelivery = NotificationsV3Request.POST(
+                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
+                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode200(responseReadyForDelivery);
+        Response responseDelivered = NotificationsV3Request.POST(
+                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
+                NotificationTypeV3.DELIVERED.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode200(responseDelivered);
+        Response responseReadyForDeliveryRepeat = NotificationsV3Request.POST(
+                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
+                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode422(responseReadyForDeliveryRepeat);
+
+        OrderV2 shippedOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(shippedOrder.getShipmentState(), OrderStatusV2.SHIPPED.getStatus(), "Заказ не остался в статусе Доставлен");
+    }
+
+    @Story("Негативные тесты")
+    @CaseId(2188)
+    @Test(  description = "Ready_for_delivery после отмены негатив. (Сборка ритейлера, доставка Сбермаркета)",
+            groups = "api-instamart-regress")
+    public void orderReadyForDeliveryAfterCancelOrderDeliveryBySbermarket() {
+        String retailerSku = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryBySbermarket.getShipments().get(0).getLineItems().get(0).getPacks();
+
+        Response responseCanceled = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        checkStatusCode200(responseCanceled);
+        Response responseReadyForDeliveryRepeat = NotificationsV3Request.POST(
+                orderDeliveryBySbermarket.getShipments().get(0).getNumber(),
+                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode422(responseReadyForDeliveryRepeat);
+
+        OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
+        Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не остался в статусе Отменен");
+    }
+
+    @Story("Негативные тесты")
+    @CaseId(2188)
+    @Test(  description = "Ready_for_delivery после отмены негатив. (Сборка и доставка ритейлером)",
+            groups = "api-instamart-regress")
+    public void orderReadyForDeliveryAfterCancelOrderDeliveryByRetailer() {
+        String retailerSku = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
+        Integer quantity = orderDeliveryByRetailer.getShipments().get(0).getLineItems().get(0).getPacks();
+
+        Response responseCanceled = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
+        checkStatusCode200(responseCanceled);
+        Response responseReadyForDeliveryRepeat = NotificationsV3Request.POST(
+                orderDeliveryByRetailer.getShipments().get(0).getNumber(),
+                NotificationTypeV3.READY_FOR_DELIVERY.getValue(),
+                retailerSku,
+                quantity,
+                quantity);
+        checkStatusCode422(responseReadyForDeliveryRepeat);
+
+        OrderV2 canceledOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
+        Assert.assertEquals(canceledOrder.getShipmentState(), OrderStatusV2.CANCELED.getStatus(), "Заказ не остался в статусе Отменен");
     }
 
 }

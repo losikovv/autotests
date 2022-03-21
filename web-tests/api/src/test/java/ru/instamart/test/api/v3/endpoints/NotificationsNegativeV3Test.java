@@ -72,7 +72,7 @@ public class NotificationsNegativeV3Test extends RestBase {
 
     @Story("Негативные тесты")
     @CaseId(1503)
-    @Test(description = "Ошибка 422 (передан неизвестный статус)", groups = "api-instamart-regress")
+    @Test(description = "Передан неизвестный статус негатив.", groups = "api-instamart-regress")
     public void postNotificationsUnknown422() {
         Response response = NotificationsV3Request.POST(orderShopper.getShipments().get(0).getNumber(), "order.unknown");
 
