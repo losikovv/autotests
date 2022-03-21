@@ -40,6 +40,28 @@ public class RestAddresses {
                     .build();
         }
 
+        //По этому адресу работает только 1-я зона доставки Metro с пересекающимися зонами (sid = 8)
+        public static AddressV2 metroCrossZone1Address() {
+            return AddressV2.builder()
+                    .city("Москва")
+                    .street("улица Первомайская")
+                    .building("3")
+                    .lat(55.790980698484084)
+                    .lon(37.772179471321564)
+                    .build();
+        }
+
+        //По этому адресу работает только 2-я зона доставки Metro с пересекающимися зонами (sid = 8)
+        public static AddressV2 metroCrossZone2Address() {
+            return AddressV2.builder()
+                    .city("Москва")
+                    .street("улица Большая Косинская")
+                    .building("118")
+                    .lat(55.723811890093366)
+                    .lon(37.85521172714293)
+                    .build();
+        }
+
         public static class Vkusvill {
 
             public static AddressV2 michurinsky() {
@@ -141,6 +163,16 @@ public class RestAddresses {
                     .building("15")
                     .lat(45.0752396)
                     .lon(39.0292711)
+                    .build();
+        }
+
+        public static AddressV2 outOfDeliveryArea() {
+            return AddressV2.builder()
+                    .city("г. Хадыженск")
+                    .street("ул. Грибоедова")
+                    .building("42")
+                    .lat(44.4096801)
+                    .lon(39.5278277)
                     .build();
         }
     }

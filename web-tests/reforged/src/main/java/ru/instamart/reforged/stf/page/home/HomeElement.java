@@ -28,8 +28,12 @@ public interface HomeElement {
 
     Element addressBlockContainer = new Element(By.xpath("//div[@data-qa='b2c_home_landing_address_block']"), "блок адреса доставки лендинга Сбермаркета");
     Element addressBlockText = new Element(By.xpath("//div[@data-qa='b2c_home_landing_address_block']/div/p"), "текст баннера Сбермаркета");
-    Input addressBlockAddressInput = new Input(By.xpath("//div[@data-qa='b2c_home_landing_address_block']/div/div/div/div/input"), "инпут с указанием адреса доставки на лендинге");
+    Input addressBlockAddressInput = new Input(By.xpath("//div[@data-qa='b2c_home_landing_address_block']//input"), "инпут с указанием адреса доставки на лендинге");
+    Input clearAddressInput = new Input(By.xpath("//div[@data-qa='b2c_home_landing_address_block']//input[@value='']"), "Очищенное поле ввода");
+    Element addressCleanButton = new Element(By.xpath("//div[@data-qa='b2c_home_landing_address_block']//input/following-sibling::div/i"), "Кнопка очистви введенного адреса в баннере");
+    DropDown dropDownAddresses = new DropDown(By.xpath("//div[@data-qa='b2c_home_landing_address_block']//input/following::div[2]/div/div/div"), "Выпадающий список найденных адресов");
     Button addressBlockAddressButton = new Button(By.xpath("//button[@data-qa='b2c_home_landing_address_block_map_modal_button_desktop']"), "кнопка с указанием адреса доставки на лендинге");
+    Element outOfDeliveryAreaAlert = new Element(By.xpath("//div[@data-qa='b2c_home_landing_address_block']//button[contains(.,'самовывоз')]/../.."), "Уведомдение об адресе вне зоны доставки");
 
     //До ввода адреса отображается список ритейлеров в городе на основе геолокации или выбранного в лендинге города
     Element deliveryRetailersBlockContainer = new Element(By.xpath("//div[@data-qa='b2c_home_landing_delivery_retailers_block']"), "блок доставки лендинга Сбермаркета");
@@ -40,7 +44,8 @@ public interface HomeElement {
     //После ввода адреса отображается список магазинов, осуществляющих доставку по указанному адресу
     Element deliveryStoresBlockTitle = new Element(By.xpath("//h2[@data-qa='b2c_home_landing_stores_block_title']"), "Заголовок блока магазинов");
     ElementCollection deliveryStores = new ElementCollection(By.xpath("//a[contains(@data-qa, 'b2c_home_landing_stores_block_store_card_')]"), "Магазины в блоке");
-    Element storeBySid = new Element(ByKraken.xpath("//a[contains(@data-qa,'b2c_home_landing_stores_block_store_card')][@href='/stores/%s']"),"Карточка магазина по номеру SID");
+    Element storeBySid = new Element(ByKraken.xpathExpression("//a[contains(@data-qa,'b2c_home_landing_stores_block_store_card')][@href='/stores/%s']"), "Карточка магазина по номеру SID");
+    Element nextDeliveryBySid = new Element(ByKraken.xpathExpression("(//a[contains(@data-qa,'b2c_home_landing_stores_block_store_card')][@href='/stores/%s']//picture)[2]/following-sibling::div[contains(.,'сегодня')]"), "Ближайшее время доставки для магазина по номеру SID");
 
     Element advantagesBlockContainer = new Element(By.xpath("//div[@data-qa='b2c_home_landing_advantages_block']"), "блок advantages лендинга Сбермаркета");
     Element infoBlockContainer = new Element(By.xpath("//div[@data-qa='b2c_home_landing_info_block']"), "блок info лендинга Сбермаркета");

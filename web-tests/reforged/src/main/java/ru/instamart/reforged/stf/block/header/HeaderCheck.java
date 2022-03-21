@@ -1,6 +1,7 @@
 package ru.instamart.reforged.stf.block.header;
 
 import io.qameta.allure.Step;
+import org.testng.Assert;
 import ru.instamart.reforged.core.Check;
 
 import static org.testng.Assert.assertEquals;
@@ -199,6 +200,11 @@ public interface HeaderCheck extends Check, HeaderElement {
     @Step("Проверяем, что отображается введенный адрес")
     default void checkEnteredAddressIsVisible() {
         waitAction().shouldBeVisible(enteredAddress);
+    }
+
+    @Step("Проверяем, что отображается ближайший интервал доставки: '{expectedNextDelivery}'")
+    default void checkNextDeliveryEquals(final String expectedNextDelivery) {
+        Assert.assertEquals(nextDelivery.getText(), expectedNextDelivery, String.format("Указанный интервал доставки отличается от ожидаемого: '%s'", expectedNextDelivery));
     }
 
     @Step("Проверяем, что не отображается введенный адрес")

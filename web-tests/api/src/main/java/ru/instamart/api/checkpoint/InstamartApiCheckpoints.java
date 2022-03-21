@@ -3,6 +3,7 @@ package ru.instamart.api.checkpoint;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
+import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.enums.v2.ProductSortTypeV2;
 import ru.instamart.api.enums.v2.StateV2;
@@ -31,6 +32,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
@@ -386,5 +388,18 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(paymentFromResponse.getPaymentMethod().getName(), "Картой онлайн", softAssert);
         compareTwoObjects(paymentFromResponse.getShipments().get(0).getNumber(), order.getShipments().get(0).getNumber(), softAssert);
         softAssert.assertAll();
+    }
+
+    @Step("Проверяем, что интервалы доставки для первой зоны: '{zone1DeliveryInterval}' и второй зоны: '{zone2DeliveryInterval}' отличаются")
+    public static void checkDeliveryIntervalsNonEquals(final String zone1DeliveryInterval, final String zone2DeliveryInterval) {
+        Assert.assertNotEquals(zone1DeliveryInterval, zone2DeliveryInterval, "Интервалы доставки для выбранных зон одинаковы");
+    }
+
+    @Step("Выбираем ближайший интервал доставки из двух: '{zone1DeliveryInterval}' и '{zone2DeliveryInterval}'")
+    public static String getNearestInterval(final String zone1DeliveryInterval, final String zone2DeliveryInterval) {
+        final String intervalReplacement = "сегодня |\\–.+";
+        LocalTime firstDeliveryStartAt = LocalTime.parse(zone1DeliveryInterval.replaceAll(intervalReplacement, ""));
+        LocalTime secondDeliveryStartAt = LocalTime.parse(zone2DeliveryInterval.replaceAll(intervalReplacement, ""));
+        return firstDeliveryStartAt.isBefore(secondDeliveryStartAt) ? zone1DeliveryInterval : zone2DeliveryInterval;
     }
 }

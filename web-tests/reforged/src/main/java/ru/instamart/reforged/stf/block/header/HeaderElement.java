@@ -27,6 +27,7 @@ public interface HeaderElement {
     Button firstSelectAddress = new Button(By.xpath("//button[@data-qa='shipping_method_button']"), "empty");
     Element hotlineWorkHoursText = new Element(By.xpath("//header//span[text()='" + TestVariables.CompanyParams.companyHotlineWorkhoursShort + "']"), "empty");
     Element enteredAddress = new Element(By.xpath("//span[@data-qa='current-ship-address']"), "Лэйбл отображающий введенный адрес в шапке");
+    Element nextDelivery = new Element(By.xpath("//b[contains(.,'Ближайшая доставка')]/span[3]"), "Ближайшая доставка");
 
     Link forB2B = new Link(By.xpath("//a[contains(@href, '/transfer/to_b2b')]"), "empty");
     Link buyForBusiness = new Link(By.xpath("//div[contains(@class,'header-navbar__b2b-showcase-button')]/*"), "Ссылка 'Покупайте для бизнеса'");
