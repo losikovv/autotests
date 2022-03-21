@@ -7,7 +7,7 @@ public interface B2BPaymentStepElement {
 
     Button byCardToCourier = new Button(By.xpath("//button[@data-qa='checkout_form_payment_method_lifepay']"), "Кнопка 'Картой при получении'");
     Button byBusinessAccount = new Button(By.xpath("//button[@data-qa='checkout_form_payment_method_sber_bank_invoice']"), "Кнопка 'По счёту'");
-    Button byCardOnline = new Button(By.xpath("//button[@data-qa='checkout_form_payment_method_cloud_payments_gateway']"), "Кнопка 'Картой онлайн'");
+    Button byCardOnline = new Button(By.xpath("//button[@data-qa='checkout_form_payment_method_sber_gateway']"), "Кнопка 'Картой онлайн'");
 
     // Вкладка "По счёту"
     Input inn = new Input(By.xpath("//input[@name='requisites.inn']"), "Поле ввода 'ИНН'");

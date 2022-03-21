@@ -12,5 +12,6 @@ public final class PaymentCardData {
     private final String expiryYear;
     private final String cardholderName;
     private final String cvvNumber;
+    private final String password;
     private final boolean secure;
 }

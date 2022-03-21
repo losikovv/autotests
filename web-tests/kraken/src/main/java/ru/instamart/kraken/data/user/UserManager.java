@@ -234,7 +234,7 @@ public final class UserManager {
     public static UserData getDefaultSberBusinessIdUser() {
         if (isNull(defaultSberBusinessIdUser)) {
             defaultSberBusinessIdUser = UserData.builder()
-                    .email(Crypt.INSTANCE.decrypt("Cuih++LCNGJ/peMbzjrFkw=="))
+                    .email(Crypt.INSTANCE.decrypt("TsojgTDYsWVS6pLyGsAG3A=="))
                     .password(Crypt.INSTANCE.decrypt("N09waZFwNRQIUCCOOf8RLA=="))
                     .build();
         }

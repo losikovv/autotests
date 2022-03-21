@@ -26,7 +26,7 @@ public class CheckoutTests extends BaseTest {
     public void addBusinessCardInCheckout() {
         var company = JuridicalData.juridical();
         var user = UserManager.getQaUser();
-        var card = PaymentCards.testCard();
+        var card = PaymentCards.testBusinessCard();
         helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), user.getEmail());
         helper.dropAndFillCart(user, EnvironmentProperties.DEFAULT_SID);
 
@@ -61,6 +61,7 @@ public class CheckoutTests extends BaseTest {
         checkout().interactEditPaymentCardModal().fillCardData(card);
         checkout().interactEditPaymentCardModal().clickToSaveModal();
 
+        //TODO в списке тестовых карт для шлюза Сбер'а нет бизнес-карты. Решает Артём Кофтаенко
         checkout().setPayment().checkCardNameContains(checkout().setPayment().getFirstCardName(), "Бизнеc-карта");
 
         checkout().setPayment().switchGetClosingDocuments();

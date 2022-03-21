@@ -14,9 +14,8 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.reforged.cloud_payments.page.CloudPaymentsPageRouter.*;
+import static ru.instamart.reforged.sber_payments.SberPaymentsPageRouter.sberPayments;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
-import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
 
 @Epic("STF UI")
 @Feature("Чекаут. Шаг #5. Оплата")
@@ -74,9 +73,8 @@ public class CheckoutPaymentStepTests {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        cloudPayments().checkPageContains(EnvironmentProperties.Env.DEMO_CLOUD_PAYMENTS_URL + "acs");
-        cloudPayments().fillAnswer("4");
-        cloudPayments().clickOnConfirmPaymentButton();
+        sberPayments().checkPageContains(EnvironmentProperties.Env.DEMO_RBSUAT_PAYMENTS_URL + "acs");
+        sberPayments().fillPassword(card.getPassword());
 
         userShipments().checkPageContains(userShipments().pageUrl());
 
