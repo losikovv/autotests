@@ -73,8 +73,8 @@ public final class StaticPage {
     public static Object[][] getServicePage() {
         return new Object[][] {
                 {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + certificate().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + job().pageUrl()},
-                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + driversHiring().pageUrl()}
+                {EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + driversHiring().pageUrl()},
+                {job().pageUrl()}
         };
     }
 

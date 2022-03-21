@@ -218,7 +218,7 @@ public final class BasicSbermarketTests extends BaseTest {
             dataProvider = "servicePage",
             description = "Тест доступности сервисных страниц",
             groups = "regression")
-    public void successServicePagesAreAvailable(final String url) {
+    public void successCheckServicePagesAreAvailable(final String url) {
         assertTrue(Curl.pageAvailable(url), "Страница " + url + " недоступна");
     }
 
