@@ -27,7 +27,7 @@ public class SbermarketLandingTests extends BaseTest {
         home().checkAddressBlockTextIsVisible();
         home().checkAddressBlockAddressButtonIsVisible();
 
-        home().checkDeliveryContainerVisible();
+        home().checkDeliveryRetailersContainerVisible();
         home().checkDeliveryTitleVisible();
         home().checkDeliverySubTitleVisible();
 

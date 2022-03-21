@@ -33,6 +33,11 @@ public interface HomeCheck extends Check, HomeElement {
         waitAction().shouldBeVisible(addressBlockContainer);
     }
 
+    @Step("Проверяем, что полее ввода адреса очищено")
+    default void checkAddressInputClear() {
+        waitAction().shouldBeVisible(clearAddressInput);
+    }
+
     @Step("Проверяем, что отображается кнопка с указанием адреса доставки на лендинге")
     default void checkAddressBlockAddressButtonIsVisible() {
         waitAction().shouldBeVisible(addressBlockAddressButton);
@@ -43,9 +48,25 @@ public interface HomeCheck extends Check, HomeElement {
         waitAction().shouldBeVisible(addressBlockText);
     }
 
-    @Step("Проверяем, что отображается блок магазинов лендинга Сбермаркета")
-    default void checkDeliveryContainerVisible() {
+    @Step("Проверяем, что текст в блоке адреса на баннере: '{actualText}' соответствует ожидаемому: '{expectedText}'")
+    default void checkAddressBlockTextEquals(final String actualText, final String expectedText) {
+        Assert.assertEquals(actualText, expectedText,
+                String.format("Текст в блоке адреса баннера: '%s' отличается от ожидаемого: '%s'", actualText, expectedText));
+    }
+
+    @Step("Проверяем, что отображается уведомление о том, что адрес вне зоны доставки")
+    default void checkOutOfDeliveryAreaMessageDisplayed() {
+        waitAction().shouldBeVisible(outOfDeliveryAreaAlert);
+    }
+
+    @Step("Проверяем, что отображается блок ритейлеров лендинга Сбермаркета")
+    default void checkDeliveryRetailersContainerVisible() {
         waitAction().shouldBeVisible(deliveryRetailersBlockContainer);
+    }
+
+    @Step("Проверяем, что отображается блок магазинов лендинга Сбермаркета")
+    default void checkDeliveryStoresContainerVisible() {
+        waitAction().shouldBeVisible(deliveryStores);
     }
 
     @Step("Проверяем, что отображается заголовок доставки магазинов лендинга Сбермаркета")
@@ -128,5 +149,11 @@ public interface HomeCheck extends Check, HomeElement {
     default void checkDeliveryBlockTitle(final String actualBlockTitle, final String expectedBlockTitle) {
         Assert.assertEquals(actualBlockTitle, expectedBlockTitle,
                 String.format("Заголовк блока с магазинами (ритейлерами): '%s' отличается от ожидаемого: '%s' магазинов", actualBlockTitle, expectedBlockTitle));
+    }
+
+    @Step("Проверяем, что указанный в карточке магазина интервал ближайшей доставки соответствует ожидаемому")
+    default void checkNextDeliveryInCardEquals(final String actualValue, final String expectedValue) {
+        Assert.assertEquals(actualValue, expectedValue,
+                String.format("Указанный в карточке магазина интервал ближайшей доставки: '%s' не соответствует ожидаемому: '%s'", actualValue, expectedValue));
     }
 }

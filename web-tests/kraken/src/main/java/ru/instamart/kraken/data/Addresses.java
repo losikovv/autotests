@@ -1,14 +1,14 @@
 package ru.instamart.kraken.data;
 
 public final class Addresses {
-    
+
     public static class Moscow {
 
         public static String defaultAddress() {
             return "проспект Мира, 211к1";
         }
 
-        public static String defaultAddressRest(){
+        public static String defaultAddressRest() {
             return "Москва, просп. Мира, 211, стр. 1";
         }
 
@@ -22,6 +22,21 @@ public final class Addresses {
 
         public static String outOfZoneAddressMoscow() {
             return "Подольск, ул Дружбы, д 15";
+        }
+
+        //По этому адресу работает первая зона доставки Metro с пересекающимися зонами (sid = 8)
+        public static String crossZone1MetroAddress() {
+            return "Москва, ул Первомайская, 3";
+        }
+
+        //По этому адресу работает вторая зона доставки Metro с пересекающимися зонами (sid = 8)
+        public static String crossZone2MetroAddress() {
+            return "Москва, улица Большая Косинская, 118";
+        }
+
+        //По этому адресу работают обе зоны доставки Metro с пересекающимися зонами (sid = 8)
+        public static String crossZonesMetroAddress() {
+            return "Реутов, Носовихинское шоссе, 8";
         }
     }
 
@@ -71,6 +86,10 @@ public final class Addresses {
 
         public static String defaultAddress() {
             return "Краснодар, ул Аграрная, д 1";
+        }
+
+        public static String outOfDeliveryArea() {
+            return "Хадыженск, ул. Грибоедова, д. 42";
         }
     }
 

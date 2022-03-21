@@ -24,7 +24,6 @@ import ru.instamart.api.response.v1.admin.ShipmentsAdminV1Response;
 import ru.instamart.jdbc.dao.*;
 import ru.instamart.jdbc.dao.shopper.OperationalZonesShopperDao;
 import ru.instamart.jdbc.dao.shopper.RetailersShopperDao;
-import ru.instamart.jdbc.entity.OffersEntity;
 import ru.instamart.jdbc.entity.StoresEntity;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.StoreZonesCoordinates;
@@ -625,5 +624,10 @@ public final class ApiHelper {
         admin.createDeliveryWindow(storeFromDb.getId());
 
         return admin.getDeliveryWindows(storeFromDb.getId());
+    }
+
+    @Step("Получаем информацию о ближайшей возможной доставке из магазина SID = '{sid}' по адресу {address}")
+    public String getNextDeliveryInfo(final int sid, final AddressV2 address) {
+        return apiV2.getNextDeliveryInfo(sid, address);
     }
 }

@@ -1420,4 +1420,20 @@ public final class ApiV2Helper {
                 .collect(Collectors.toList())
                 .get(0);
     }
+
+    public String getNextDeliveryInfo(final int sid, final AddressV2 address) {
+        Map<String, String> params = new HashMap<>();
+        params.put("cargo", "false");
+        params.put("shipping_method", "by_courier");
+        params.put("lat", address.getLat().toString());
+        params.put("lon", address.getLon().toString());
+
+        final Response response = StoresV2Request.NextDeliveries.GET(sid, params);
+        checkStatusCode200(response);
+
+        if (response.as(NextDeliveriesV2Response.class).getNextDeliveries().isEmpty())
+            return "Доступные интервалы доставки закончились";
+
+        return response.as(NextDeliveriesV2Response.class).getNextDeliveries().get(0).getSummary();
+    }
 }

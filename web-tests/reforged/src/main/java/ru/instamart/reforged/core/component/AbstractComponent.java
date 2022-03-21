@@ -19,7 +19,7 @@ import static java.util.Objects.isNull;
 @Slf4j
 public abstract class AbstractComponent implements Component {
 
-    public static final Pattern LOCATOR = Pattern.compile("/[^\\r\\n]*");
+    public static final Pattern LOCATOR = Pattern.compile("[(|/][^\\r\\n]*");
 
     protected WebElement component;
     protected boolean isCacheDisable = true;
