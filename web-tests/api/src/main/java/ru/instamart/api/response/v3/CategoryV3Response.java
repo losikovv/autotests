@@ -1,0 +1,17 @@
+package ru.instamart.api.response.v3;
+
+import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import ru.instamart.api.model.v3.CategoryV3;
+import ru.instamart.api.response.BaseResponseObject;
+
+import javax.validation.constraints.NotEmpty;
+
+@Data
+@EqualsAndHashCode(callSuper=false)
+public class CategoryV3Response extends BaseResponseObject {
+    @NotEmpty
+    @JsonSchema(required = true)
+    private CategoryV3 category;
+}

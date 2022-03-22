@@ -7,9 +7,15 @@ import ru.instamart.api.request.ApiV3RequestBase;
 
 public class CategoriesV3Request extends ApiV3RequestBase {
 
-    @Step("{method} /" + ApiV3Endpoints.Stores.StoreId.CATEGORIES)
+    @Step("{method} /" + ApiV3Endpoints.Stores.CATEGORIES)
     public static Response GET(Integer sid) {
         return givenMetroMarketPlace()
-                .get(ApiV3Endpoints.Stores.StoreId.CATEGORIES, sid);
+                .get(ApiV3Endpoints.Stores.CATEGORIES, sid);
+    }
+
+    @Step("{method} /" + ApiV3Endpoints.Stores.CATEGORY)
+    public static Response GET(Integer sid, Long categoryId) {
+        return givenMetroMarketPlace()
+                .get(ApiV3Endpoints.Stores.CATEGORY, sid, categoryId);
     }
 }

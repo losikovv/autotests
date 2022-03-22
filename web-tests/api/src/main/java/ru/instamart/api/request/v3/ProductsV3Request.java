@@ -9,10 +9,10 @@ import ru.sbermarket.common.Mapper;
 
 public class ProductsV3Request extends ApiV3RequestBase {
 
-    @Step("{method} /" + ApiV3Endpoints.Stores.StoreId.PRODUCTS)
-    public static Response GET(ProductsFilterParams params, Integer storeId) {
+    @Step("{method} /" + ApiV3Endpoints.Stores.PRODUCTS)
+    public static Response GET(ProductsFilterParams params, Integer sid) {
         return givenMetroMarketPlace()
                 .queryParams(Mapper.INSTANCE.objectToMap(params))
-                .get(ApiV3Endpoints.Stores.StoreId.PRODUCTS, storeId);
+                .get(ApiV3Endpoints.Stores.PRODUCTS, sid);
     }
 }

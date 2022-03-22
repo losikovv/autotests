@@ -18,14 +18,14 @@ public class OrderV3Request extends ApiV3RequestBase {
     /**
      *  Получение ордера по UUID
      */
-    @Step("{method} /" + ApiV3Endpoints.Orders.ORDER_BY_UUID)
-    public static Response GET(String UUID, String clientToken)
-    {
+    @Step("{method} /" + ApiV3Endpoints.ORDER)
+    public static Response GET(String UUID, String clientToken) {
         return givenWithSpec()
                 .contentType(ContentType.JSON)
                 .header("Api-Version","3.0")
                 .header("Client-Token", clientToken)
-                .get(ApiV3Endpoints.Orders.ORDER_BY_UUID,UUID);
+                .queryParam("include", "contact,shipping,shipping_crew,packages,payments")
+                .get(ApiV3Endpoints.ORDER, UUID);
     }
 
     public static Response GET(String UUID)
