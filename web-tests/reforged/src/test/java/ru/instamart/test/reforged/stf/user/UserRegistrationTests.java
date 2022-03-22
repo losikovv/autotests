@@ -91,4 +91,38 @@ public final class UserRegistrationTests extends BaseTest {
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
     }
+
+    @CaseId(2622)
+    @Story("Регистрация из корзины")
+    @Test(description = "Регистрация при попытке перехода из корзины в чекаут", groups = "regression")
+    public void successRegFromCartWithQuantityAndAmountCheck() {
+        shop().goToPage();
+        shop().interactHeader().clickToSelectAddressFirstTime();
+        shop().interactAddress().checkYmapsReady();
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().selectFirstAddress();
+        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddress().clickOnSave();
+        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactHeader().checkEnteredAddressIsVisible();
+        shop().plusItemToCart("1", "0");
+
+        shop().goToPage();
+        shop().interactHeader().clickToCart();
+        shop().interactCart().increaseFirstItemCountToMin();
+        final var orderAmount = shop().interactCart().getOrderAmount();
+        final var positionsCount = shop().interactCart().getFirstRetailer().getItemsCountInHeader();
+
+        shop().interactCart().submitOrder();
+        shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
+        checkout().checkCheckoutButtonIsVisible();
+
+        final var orderAmountInCheckout = checkout().getOrderAmount();
+        final var positionsCountInCheckout = checkout().getPositionsCount();
+
+        checkout().compareOrderAmountAfterRegistration(orderAmount, orderAmountInCheckout);
+        checkout().comparePositionCountAfterRegistration(positionsCount, positionsCountInCheckout);
+
+        checkout().assertAll();
+    }
 }

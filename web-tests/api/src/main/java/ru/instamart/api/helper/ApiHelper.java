@@ -173,6 +173,17 @@ public final class ApiHelper {
         return apiV2.setAddressAttributes(user, address);
     }
 
+    /**
+     * @param user должен иметь phone и encryptedPhone
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     */
+    @Step("Указываем адрес с помощью API")
+    public AddressV2 setAddressBySid(final UserData user, final Integer sid) {
+        apiV2.authByPhone(user);
+        apiV2.getCurrentOrderNumber();
+        return apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
+    }
+
     @Step("Добавить карту '{1}' пользователю '{0}'")
     public void addCreditCard(final UserData user, final CreditCard creditCard) {
         apiV2.authByPhone(user);

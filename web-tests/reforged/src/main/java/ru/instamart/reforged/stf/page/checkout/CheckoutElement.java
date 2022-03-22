@@ -61,4 +61,6 @@ public interface CheckoutElement {
 
     Element sideBarSpinner = new Element(By.xpath("//div[@class='checkout-summary']//span[contains(text(), 'Загрузка...')]"), "Лоадер сайдбара");
 
+    Element orderAmount = new Element(By.xpath("//span[@class='checkout-summary__price']"), "Лейбл суммы заказа");
+    Element positionsCount =  new Element(By.xpath("//div[@class='checkout-summary__weight']/preceding-sibling::div"), "Количество позиций корзины");
 }

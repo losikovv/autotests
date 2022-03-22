@@ -75,7 +75,7 @@ public final class Cart implements CartCheck {
     }
 
     @Step("Получаем значение стоимости товаров в корзине")
-    public double returnOrderAmount() {
+    public double getOrderAmount() {
         return StringUtil.stringToDouble(orderAmount.getText());
     }
 
