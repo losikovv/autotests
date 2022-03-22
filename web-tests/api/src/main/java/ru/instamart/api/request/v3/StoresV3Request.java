@@ -32,7 +32,7 @@ public class StoresV3Request extends ApiV3RequestBase {
         /**
          * Получение списка магазинов на доставку
          */
-        @Step("{method} /" + ApiV3Endpoints.Stores.DELIVERY)
+        @Step("{method} /" + ApiV3Endpoints.STORES)
         public static Response GET() {
             JSONObject requestParams = new JSONObject();
             requestParams.put("lat", 55.747581);
@@ -42,7 +42,8 @@ public class StoresV3Request extends ApiV3RequestBase {
                     .body(requestParams)
                     .header("Api-Version", "3.0")
                     .header("Client-Token", "14cd5d341d768bd4926fc9f5ce262094")
-                    .get(ApiV3Endpoints.Stores.DELIVERY);
+                    .queryParam("shipping_method", "delivery")
+                    .get(ApiV3Endpoints.STORES);
         }
     }
 
@@ -50,7 +51,7 @@ public class StoresV3Request extends ApiV3RequestBase {
         /**
          * Получение списка магазинов на самовывоз
          */
-        @Step("{method} /" + ApiV3Endpoints.Stores.PICKUP_FROM_STORE)
+        @Step("{method} /" + ApiV3Endpoints.STORES)
         public static Response GET() {
             JSONObject requestParams = new JSONObject();
             requestParams.put("lat", 55.747581);
@@ -58,14 +59,15 @@ public class StoresV3Request extends ApiV3RequestBase {
             return givenWithAuth()
                     .contentType(ContentType.JSON)
                     .body(requestParams)
-                    .get(ApiV3Endpoints.Stores.PICKUP_FROM_STORE);
+                    .queryParam("shipping_method", "pickup_from_store")
+                    .get(ApiV3Endpoints.STORES);
         }
     }
     public static class ClosestShippingOptions {
         /**
          * Получение ближайших опций доставки из магазино
          */
-        @Step("{method} /" + ApiV3Endpoints.Stores.CLOSEST_SHIPPING_OPTIONS)
+        @Step("{method} /" + ApiV3Endpoints.STORES)
         public static Response GET() {
             JSONObject requestParams = new JSONObject();
             requestParams.put("lat", 55.747581);
@@ -75,14 +77,15 @@ public class StoresV3Request extends ApiV3RequestBase {
                     .body(requestParams)
                     .header("Api-Version", "3.0")
                     .header("Client-Token", "14cd5d341d768bd4926fc9f5ce262094")
-                    .get(ApiV3Endpoints.Stores.CLOSEST_SHIPPING_OPTIONS);
+                    .queryParam("include", "closest_shipping_options")
+                    .get(ApiV3Endpoints.STORES);
         }
     }
     public static class RetailerId {
         /**
          * Получение списка магазинов по ритейлеру Metro
          */
-        @Step("{method} /" + ApiV3Endpoints.Stores.RETAILER_ID)
+        @Step("{method} /" + ApiV3Endpoints.STORES)
         public static Response GET() {
             JSONObject requestParams = new JSONObject();
             requestParams.put("lat", 55.747581);
@@ -92,7 +95,8 @@ public class StoresV3Request extends ApiV3RequestBase {
                     .body(requestParams)
                     .header("Api-Version", "3.0")
                     .header("Client-Token", "14cd5d341d768bd4926fc9f5ce262094")
-                    .get(ApiV3Endpoints.Stores.RETAILER_ID);
+                    .queryParam("retailer_id", "metro")
+                    .get(ApiV3Endpoints.STORES);
         }
     }
 }
