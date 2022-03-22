@@ -148,12 +148,37 @@ public interface HomeCheck extends Check, HomeElement {
     @Step("Проверяем, что заголовок блока найденных магазинов: '{expectedBlockTitle}'")
     default void checkDeliveryBlockTitle(final String actualBlockTitle, final String expectedBlockTitle) {
         Assert.assertEquals(actualBlockTitle, expectedBlockTitle,
-                String.format("Заголовк блока с магазинами (ритейлерами): '%s' отличается от ожидаемого: '%s' магазинов", actualBlockTitle, expectedBlockTitle));
+                String.format("Заголовок блока с магазинами (ритейлерами): '%s' отличается от ожидаемого: '%s' магазинов", actualBlockTitle, expectedBlockTitle));
+    }
+
+    @Step("Проверяем, что количество найденных ритейлеров: '{actualRetailersCardCount}' соответствует ожидаемому: '{expectedRetailersCardCount}'")
+    default void checkRetailersCardCountEquals(final int actualRetailersCardCount, final int expectedRetailersCardCount) {
+        Assert.assertEquals(actualRetailersCardCount, expectedRetailersCardCount, "Отображаемое количество карточек ритейлеров не соответствует ожидаемому");
+    }
+
+    @Step("Проверяем, что количество найденных магазинов: '{actualStoresCardCount}' соответствует ожидаемому: '{expectedStoresCardCount}'")
+    default void checkStoresCardCountEquals(final int actualStoresCardCount, final int expectedStoresCardCount) {
+        Assert.assertEquals(actualStoresCardCount, expectedStoresCardCount, "Отображаемое количество карточек ритейлеров не соответствует ожидаемому");
     }
 
     @Step("Проверяем, что указанный в карточке магазина интервал ближайшей доставки соответствует ожидаемому")
     default void checkNextDeliveryInCardEquals(final String actualValue, final String expectedValue) {
         Assert.assertEquals(actualValue, expectedValue,
                 String.format("Указанный в карточке магазина интервал ближайшей доставки: '%s' не соответствует ожидаемому: '%s'", actualValue, expectedValue));
+    }
+
+    @Step("Проверяем, кто карточка магазина Sid = {storeSid} отображается")
+    default void checkStoreCardDisplayed(final int storeSid) {
+        waitAction().shouldBeVisible(storeBySid, storeSid);
+    }
+
+    @Step("Проверяем, что отображается сообщение об ошибке")
+    default void checkAlertDisplayed() {
+        waitAction().shouldBeVisible(alert);
+    }
+
+    @Step("Проверяем, что текст всплывающего сообщения: '{actualText}' соответствует ожидаемому: '{expectedText}'")
+    default void checkAlertTextEquals(final String actualText, final String expectedText) {
+        Assert.assertEquals(actualText, expectedText, "Текст всплывающего сообщения не соответствует ожидаемому");
     }
 }

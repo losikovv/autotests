@@ -64,7 +64,7 @@ public final class Addresses {
     public static class NizhnyNovgorod {
 
         public static String defaultAddress() {
-            return "Нижний Новгород, тер Гск Кузнечиха, д 1";
+            return "Нижний Новгород, Сормовское шоссе, 30";
         }
     }
 
