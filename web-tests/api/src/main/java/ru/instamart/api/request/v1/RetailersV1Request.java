@@ -77,6 +77,20 @@ public class RetailersV1Request extends ApiV1RequestBase {
         }
     }
 
+    public static class RetailerAgreements {
+        @Step("{method} /" + ApiV1Endpoints.RETAILER_AGREEMENTS)
+        public static Response GET() {
+            return givenWithAuth().get(ApiV1Endpoints.RETAILER_AGREEMENTS);
+        }
+    }
+
+    public static class RetailerContractTypes {
+        @Step("{method} /" + ApiV1Endpoints.RETAILER_CONTRACT_TYPES)
+        public static Response GET() {
+            return givenWithAuth().get(ApiV1Endpoints.RETAILER_CONTRACT_TYPES);
+        }
+    }
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @AllArgsConstructor
     @NoArgsConstructor

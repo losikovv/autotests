@@ -25,6 +25,8 @@ public final class ApiV1Endpoints {
     public static final String PROMOTION_CARDS = "promotion_cards";
     public static final String PROMOTIONS = "promotions";
     public static final String REPLACEMENT_POLICIES = "replacement_policies";
+    public static final String RETAILER_AGREEMENTS = "retailer_agreements";
+    public static final String RETAILER_CONTRACT_TYPES = "retailer_contract_types";
     public static final String RETAILERS = "retailers";
     public static final String RETAILER_POSITIONS = "retailer_positions";
     public static final String SHIPPING_METHOD_KINDS = "shipping_method_kinds";
