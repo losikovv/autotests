@@ -134,6 +134,30 @@ public final class ApiV1Endpoints {
         public static final String BY_ID = "line_items/{lineItemId}";
     }
 
+    public static final class Next {
+        public static final String APP_CONFIG = "next/app_config";
+        public static final String DYNAMIC_ROUTE_TYPE = "next/dynamic_route_type";
+        public static final String REFERRAL_PROGRAM = "next/referral_program";
+        public static final String RETAILER_PROMO_CARDS = "next/retailer_promo_cards";
+        public static final String RETAILER_WELCOME_BANNER = "next/retailer_welcome_banner";
+        public static final String SESSION = "next/session";
+        public static final String TRACKERS = "next/trackers";
+
+        public static final class Page {
+            public static final String SERVER = "next/page/server";
+            public static final String FOOTER = "next/page/footer";
+            public static final String BROWSER_HEAD = "next/page/browser_head";
+            public static final String FLASHES = "next/page/flashes";
+        }
+
+        public static final class Seo {
+            public static final class Products {
+                public static final String PERMALINK = "next/seo/products/{permalink}";
+                public static final String REDIRECT_PARAMS = "next/seo/products/{permalink}/redirect_params";
+            }
+        }
+    }
+
     public static final class MarketingSamples {
         public static final String BY_ID = "marketing_samples/{sampleId}";
     }
