@@ -19,8 +19,8 @@ import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.kraken.config.EnvironmentProperties.Env.DEMO_CLOUD_PAYMENTS_URL;
-import static ru.instamart.reforged.cloud_payments.page.CloudPaymentsPageRouter.cloudPayments;
+import static ru.instamart.kraken.config.EnvironmentProperties.Env.DEMO_RBSUAT_PAYMENTS_URL;
+import static ru.instamart.reforged.sber_payments.SberPaymentsPageRouter.sberPayments;
 import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
@@ -117,7 +117,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        checkout().checkPageContains(DEMO_CLOUD_PAYMENTS_URL + "acs");
+        sberPayments().checkPageContains(DEMO_RBSUAT_PAYMENTS_URL + "acs");
     }
 
     @CaseIDs(value = {@CaseId(2066), @CaseId(3043), @CaseId(2641)})
@@ -394,7 +394,7 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        checkout().checkPageContains(DEMO_CLOUD_PAYMENTS_URL + "acs");
+        sberPayments().checkPageContains(DEMO_RBSUAT_PAYMENTS_URL + "acs");
     }
 
     @CaseId(2626)
@@ -465,9 +465,9 @@ public final class BasicOrdersTests extends BaseTest {
 
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
-        cloudPayments().checkPageContains(DEMO_CLOUD_PAYMENTS_URL + "acs");
-        cloudPayments().fillAnswer("4");
-        cloudPayments().clickOnConfirmPaymentButton();
+        sberPayments().checkPageContains(DEMO_RBSUAT_PAYMENTS_URL + "acs");
+        sberPayments().checkPasswordInputVisible();
+        sberPayments().fillPassword(card.getPassword());
 
         userShipments().checkPageContains(userShipments().pageUrl());
 

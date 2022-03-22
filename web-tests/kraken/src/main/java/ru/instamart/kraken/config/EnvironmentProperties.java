@@ -63,6 +63,8 @@ public final class EnvironmentProperties {
     public static String DB_PGSQL_PASSWORD;
     @Config(configName = NAME, fieldName = "cloudPaymentsUrl", defaultValue = "")
     public static String CLOUD_PAYMENTS_URL;
+    @Config(configName = NAME, fieldName = "rbsuatPaymentsUrl", defaultValue = "")
+    public static String RBSUAT_PAYMENTS_URL;
     @Config(configName = NAME, fieldName = "jobLandingUrl", defaultValue = "")
     public static String JOB_LANDING_URL;
 
@@ -159,6 +161,7 @@ public final class EnvironmentProperties {
         public static String FULL_SHOPPER_GW_URL = PROTOCOL + "://" + SHOPPER_GW_URL + "/";
         public static String FULL_SSO_AUTH_URL = PROTOCOL + "://" + SSO_AUTH_URL + "/";
         public static String DEMO_CLOUD_PAYMENTS_URL = PROTOCOL + "://" + CLOUD_PAYMENTS_URL + "/";
+        public static String DEMO_RBSUAT_PAYMENTS_URL = PROTOCOL + "://" + RBSUAT_PAYMENTS_URL + "/";
         public static String FULL_JOB_LANDING_URL = PROTOCOL + "://" + JOB_LANDING_URL + "/";
 
         private static String getDomainName(String url) {

@@ -4,12 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
 import ru.instamart.kraken.config.CoreProperties;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.util.PhoneCrypt;
-import ru.instamart.kraken.util.StringUtil;
 
 import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
 
 @AllArgsConstructor
 @Data
@@ -55,6 +52,7 @@ public final class UserData {
         private String role;
         private String email;
         private String phone;
+        private String smsCode;
         private String password;
         private String name;
         private String token;
@@ -90,6 +88,11 @@ public final class UserData {
             return this;
         }
 
+        public UserDataBuilder smsCode(final String smsCode) {
+            this.smsCode = smsCode;
+            return this;
+        }
+
         public UserDataBuilder password(final String password) {
             this.password = password;
             return this;
@@ -116,7 +119,7 @@ public final class UserData {
         }
 
         public UserData build() {
-            return new UserData(id, uuid, role, email, phone, getSmsCode(), password, name, token, generateEncryptedPhone(), anonymousId, qaSessionId);
+            return new UserData(id, uuid, role, email, phone, (smsCode == null ? getSmsCode() : smsCode), password, name, token, generateEncryptedPhone(), anonymousId, qaSessionId);
         }
 
         /**

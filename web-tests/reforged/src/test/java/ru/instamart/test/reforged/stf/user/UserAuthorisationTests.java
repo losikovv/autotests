@@ -162,7 +162,8 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactAuthModal().interactAuthSberBusinessIdPage()
                 .setPassword(UserManager.getDefaultSberBusinessIdUser().getPassword());
         shop().interactAuthModal().interactAuthSberBusinessIdPage().clickToNext();
-        shop().interactAuthModal().interactAuthSberBusinessIdPage().enterCode("11111");
+        shop().interactAuthModal().interactAuthSberBusinessIdPage()
+                .enterCode(UserManager.getDefaultSberBusinessIdUser().getSmsCode());
         shop().waitPageLoad();
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();

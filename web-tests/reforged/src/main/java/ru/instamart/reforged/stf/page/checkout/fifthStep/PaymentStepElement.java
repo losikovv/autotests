@@ -8,7 +8,7 @@ public interface PaymentStepElement {
 
     Button byCardToCourier = new Button(By.xpath("//button[@data-qa='checkout_form_payment_method_lifepay']"), "empty");
     Button byBusinessAccount = new Button(By.xpath("//button[@data-qa='checkout_form_payment_method_sber_bank_invoice']"), "empty");
-    Button byCardOnline = new Button(By.xpath("//button[@data-qa='checkout_form_payment_method_cloud_payments_gateway']"), "empty");
+    Button byCardOnline = new Button(By.xpath("//button[@data-qa='checkout_form_payment_method_sber_gateway']"), "empty");
     //byBankInvoice
     Input inn = new Input(By.xpath("//input[@name='requisites.inn']"), "empty");
     Input requisitesName = new Input(By.xpath("//input[@name='requisites.name']"), "empty");
