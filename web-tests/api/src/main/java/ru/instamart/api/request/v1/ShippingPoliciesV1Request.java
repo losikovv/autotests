@@ -49,6 +49,14 @@ public class ShippingPoliciesV1Request extends ApiV1RequestBase {
     }
 
     public static class ShippingPoliciesRules {
+        @Step("{method} /" + ApiV1Endpoints.ShippingPolicies.SHIPPING_POLICY_RULES)
+        public static Response POST(Long shippingPoliciesId, ShippingPolicyRules shippingPolicyRule) {
+            return givenWithAuth()
+                    .contentType(ContentType.JSON)
+                    .body(shippingPolicyRule)
+                    .post(ApiV1Endpoints.ShippingPolicies.SHIPPING_POLICY_RULES, shippingPoliciesId);
+        }
+
         @Step("{method} /" + ApiV1Endpoints.ShippingPolicies.ShippingPolicyRules.ID)
         public static Response DELETE(Long shippingPoliciesId, Long shippingPolicyRuleId) {
             return givenWithAuth()
@@ -95,6 +103,17 @@ public class ShippingPoliciesV1Request extends ApiV1RequestBase {
         private List<RulesAttribute> rulesAttributes;
         @JsonProperty
         private String title;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    @Data
+    public static class ShippingPolicyRules {
+        @JsonProperty("rule_type")
+        private String ruleType;
+        private RulesAttribute preferences;
     }
 
     public static ShippingPolicies getShippingPolicies(Integer retailerId) {
