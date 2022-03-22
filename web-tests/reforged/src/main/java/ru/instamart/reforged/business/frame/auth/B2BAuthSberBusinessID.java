@@ -48,6 +48,6 @@ public final class B2BAuthSberBusinessID {
         setLogin(UserManager.getDefaultSberBusinessIdUser().getEmail());
         setPassword(UserManager.getDefaultSberBusinessIdUser().getPassword());
         clickToNext();
-        enterCode("11111");
+        enterCode(UserManager.getDefaultSberBusinessIdUser().getSmsCode());
     }
 }

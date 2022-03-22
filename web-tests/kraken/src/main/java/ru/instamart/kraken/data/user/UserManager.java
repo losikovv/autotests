@@ -236,6 +236,7 @@ public final class UserManager {
             defaultSberBusinessIdUser = UserData.builder()
                     .email(Crypt.INSTANCE.decrypt("TsojgTDYsWVS6pLyGsAG3A=="))
                     .password(Crypt.INSTANCE.decrypt("N09waZFwNRQIUCCOOf8RLA=="))
+                    .smsCode(Crypt.INSTANCE.decrypt("tLU2NTESIXtLt/eQcHvutw=="))
                     .build();
         }
         return defaultSberBusinessIdUser;
