@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
+import org.apache.commons.lang3.RandomUtils;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -12,6 +13,7 @@ import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.v1.RetailerSortTypeV1;
+import ru.instamart.api.enums.v1.RulesAttributesTypeV1;
 import ru.instamart.api.model.v1.EtaV1;
 import ru.instamart.api.model.v1.ShippingPolicyV1;
 import ru.instamart.api.model.v2.RetailerV2;
@@ -527,17 +529,47 @@ public class RetailersV1Tests extends RestBase {
     }
 
     @Story("Ритейлеры - Слоты доставки")
+    @CaseIDs(value = {@CaseId(2345), @CaseId(2349), @CaseId(2350), @CaseId(2351), @CaseId(2352)})
+    @Test(description = "Создание правила доступности слотов доставки",
+            groups = {"api-instamart-regress"},
+            dataProvider = "shippingPolicyRulesData",
+            dataProviderClass = RestDataProvider.class,
+            dependsOnMethods = {"createShippingPolicies", "getShippingPolicy", "getAllShippingPolicies"})
+    public void createShippingPolicyRule(ShippingPoliciesV1Request.ShippingPolicyRules shippingPolicyRules) {
+        final Response response = ShippingPoliciesV1Request.ShippingPoliciesRules.POST(shippingPolicy.getId(), shippingPolicyRules);
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ShippingPolicyV1Response.class);
+    }
+
+    @Story("Ритейлеры - Слоты доставки")
+    @CaseId(2356)
+    @Test(description = "Создание правила доступности слотов доставки для несуществующего правила",
+            groups = {"api-instamart-regress"},
+            dependsOnMethods = {"createShippingPolicies", "getShippingPolicy", "getAllShippingPolicies"})
+    public void createShippingPolicyRuleForNonExistentPolicy() {
+        ShippingPoliciesV1Request.ShippingPolicyRules shippingPolicyRules = ShippingPoliciesV1Request.ShippingPolicyRules.builder()
+                .ruleType(RulesAttributesTypeV1.DELIVERY_WINDOW_NUMBER.getValue())
+                .preferences(ShippingPoliciesV1Request.RulesAttribute.builder()
+                        .preferredNumber(RandomUtils.nextInt(1, 10))
+                        .build())
+                .build();
+        final Response response = ShippingPoliciesV1Request.ShippingPoliciesRules.POST(0L, shippingPolicyRules);
+        checkStatusCode404(response);
+        checkErrorText(response, "Объект не найден");
+    }
+
+    @Story("Ритейлеры - Слоты доставки")
     @CaseId(1352)
     @Test(description = "Удаление правила доступности слотов доставки",
             groups = {"api-instamart-regress"},
-            dependsOnMethods = {"createShippingPolicies", "getShippingPolicy", "getAllShippingPolicies"})
+            dependsOnMethods = {"createShippingPolicyRule", "createShippingPolicyRuleForNonExistentPolicy"})
     public void deleteShippingPolicyRule() {
         Long shippingPolicyRuleId = shippingPolicy.getRules().get(0).getId();
         final Response response = ShippingPoliciesV1Request.ShippingPoliciesRules.DELETE(shippingPolicy.getId(), shippingPolicyRuleId);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ShippingPolicyV1Response.class);
         ShippingPolicyV1 updatedShippingPolicy = response.as(ShippingPolicyV1Response.class).getShippingPolicy();
-        compareTwoObjects(updatedShippingPolicy.getRules().size(), 4);
+        compareTwoObjects(updatedShippingPolicy.getRules().size(), 9);
         Assert.assertFalse(ShippingPolicyRulesDao.INSTANCE.findById(shippingPolicyRuleId).isPresent());
     }
 
@@ -545,7 +577,7 @@ public class RetailersV1Tests extends RestBase {
     @CaseId(1353)
     @Test(description = "Удаление несуществующего правила доступности слотов доставки",
             groups = {"api-instamart-regress"},
-            dependsOnMethods = "createShippingPolicies")
+            dependsOnMethods = {"createShippingPolicyRule", "createShippingPolicyRuleForNonExistentPolicy"})
     public void deleteNonExistingShippingPolicyRule() {
         final Response response = ShippingPoliciesV1Request.ShippingPoliciesRules.DELETE(shippingPolicy.getId(), 0L);
         checkStatusCode404(response);

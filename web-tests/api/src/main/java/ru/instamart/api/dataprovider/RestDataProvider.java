@@ -3,11 +3,13 @@ package ru.instamart.api.dataprovider;
 import io.restassured.response.Response;
 import lombok.Data;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.common.Specification;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.enums.v1.RulesAttributesTypeV1;
 import ru.instamart.api.enums.v2.AnalyzeResultV2;
 import ru.instamart.api.enums.v2.AuthProviderV2;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
@@ -22,6 +24,7 @@ import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.admin.ZonesAdminRequest;
 import ru.instamart.api.request.v1.PromotionCardsV1Request;
 import ru.instamart.api.request.v1.RetailersV1Request;
+import ru.instamart.api.request.v1.ShippingPoliciesV1Request;
 import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.request.v2.AddressesV2Request.Addresses;
 import ru.instamart.api.request.v2.*;
@@ -181,7 +184,7 @@ public class RestDataProvider extends RestBase {
                 {422, ""},
                 {422, " "}, //todo bug - null error message
                 {422, "москва"}//, //todo bug - null error message
-               // {422, "тест-" + Generate.literalCyrillicString(251)} //todo bug 500
+                // {422, "тест-" + Generate.literalCyrillicString(251)} //todo bug 500
         };
     }
 
@@ -198,8 +201,8 @@ public class RestDataProvider extends RestBase {
 
         Specification.setResponseSpecDefault();
 
-        if(EnvironmentProperties.SERVER.equals("production")) {
-            return new Object[][] {
+        if (EnvironmentProperties.SERVER.equals("production")) {
+            return new Object[][]{
                     {retailerList.get(0)},
                     {retailerList.get(1)}
             };
@@ -212,7 +215,7 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "retailersSpree-parallel", parallel = true)
     public static Object[][] getAvailableRetailersSpreeParallel() {
-            return getAvailableRetailersSpree();
+        return getAvailableRetailersSpree();
     }
 
     @DataProvider(name = "retailersSpree", parallel = true)
@@ -223,8 +226,8 @@ public class RestDataProvider extends RestBase {
 
         Specification.setResponseSpecDefault();
 
-        if(EnvironmentProperties.SERVER.equals("production")) {
-            return new Object[][] {
+        if (EnvironmentProperties.SERVER.equals("production")) {
+            return new Object[][]{
                     {retailerList.get(0)},
                     {retailerList.get(1)}
             };
@@ -237,7 +240,7 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "stores-parallel", parallel = true)
     public static Object[][] getAvailableStoresParallel() {
-            return getAvailableStores();
+        return getAvailableStores();
     }
 
     @DataProvider(name = "stores")
@@ -247,8 +250,8 @@ public class RestDataProvider extends RestBase {
         List<StoreV2> storeList = apiV2.getAvailableStores();
         Specification.setResponseSpecDefault();
 
-        if(EnvironmentProperties.SERVER.equals("production")) {
-            return new Object[][] {
+        if (EnvironmentProperties.SERVER.equals("production")) {
+            return new Object[][]{
                     {storeList.get(0)},
                     {storeList.get(1)}
             };
@@ -261,7 +264,7 @@ public class RestDataProvider extends RestBase {
 
     @DataProvider(name = "storeOfEachRetailer-parallel", parallel = true)
     public static Object[][] getStoreOfEachRetailerParallel() {
-            return getStoreOfEachRetailer();
+        return getStoreOfEachRetailer();
     }
 
     @DataProvider(name = "storeOfEachRetailer", parallel = true)
@@ -273,7 +276,7 @@ public class RestDataProvider extends RestBase {
             checkStatusCode200(response);
             List<StoreV2> retailerStores = response.as(StoresV2Response.class).getStores();
 
-            return new Object[][] {
+            return new Object[][]{
                     {retailerStores.get(0)},
                     {retailerStores.get(1)}
             };
@@ -364,12 +367,12 @@ public class RestDataProvider extends RestBase {
     public static Object[][] getOfferOfEachRetailer() {
         Specification.setResponseSpecDataProvider();
 
-        if(EnvironmentProperties.SERVER.equals("production")) {
+        if (EnvironmentProperties.SERVER.equals("production")) {
             Response response = RetailersV1Request.Stores.GET(apiV2.getAvailableRetailers().get(0).getId());
             checkStatusCode200(response);
             List<StoreV2> retailerStores = response.as(StoresV2Response.class).getStores();
             List<OfferV1> offerList = apiV1.getActiveOffers(retailerStores.get(0).getUuid());
-            return new Object[][] {
+            return new Object[][]{
                     {offerList.get(0)},
                     {offerList.get(1)}
             };
@@ -1208,8 +1211,8 @@ public class RestDataProvider extends RestBase {
     @DataProvider(name = "paymentTools")
     public static Object[][] getPaymentTools() {
         List<OrderPaymentMethodV1> paymentMethods = new ArrayList<>();
-        apiV1.getPaymentTools().forEach(tool ->  paymentMethods.add(tool.getPaymentMethod()));
-        return  paymentMethods.stream().filter(p -> !p.getType().equals("sber_pay"))
+        apiV1.getPaymentTools().forEach(tool -> paymentMethods.add(tool.getPaymentMethod()));
+        return paymentMethods.stream().filter(p -> !p.getType().equals("sber_pay"))
                 .map(list -> new Object[]{list})
                 .toArray(Object[][]::new);
     }
@@ -1219,6 +1222,42 @@ public class RestDataProvider extends RestBase {
         return new Object[][]{
                 {true},
                 {false}
+        };
+    }
+
+    @DataProvider(name = "shippingPolicyRulesData")
+    public static Object[][] getShippingPolicyRules() {
+        return new Object[][]{
+                {ShippingPoliciesV1Request.ShippingPolicyRules.builder()
+                        .ruleType(RulesAttributesTypeV1.DAYS_FROM_NOW.getValue())
+                        .preferences(ShippingPoliciesV1Request.RulesAttribute.builder()
+                                .preferredDays(RandomUtils.nextInt(1, 15))
+                                .build())
+                        .build()},
+                {ShippingPoliciesV1Request.ShippingPolicyRules.builder()
+                        .ruleType(RulesAttributesTypeV1.TIME_BEFORE_SHIPMENT.getValue())
+                        .preferences(ShippingPoliciesV1Request.RulesAttribute.builder()
+                                .preferredTimeGap(RandomUtils.nextInt(500, 1000))
+                                .build())
+                        .build()},
+                {ShippingPoliciesV1Request.ShippingPolicyRules.builder()
+                        .ruleType(RulesAttributesTypeV1.TIME_FROM_MIDNIGHT.getValue())
+                        .preferences(ShippingPoliciesV1Request.RulesAttribute.builder()
+                                .preferredTime(RandomUtils.nextInt(60000, 80000))
+                                .build())
+                        .build()},
+                {ShippingPoliciesV1Request.ShippingPolicyRules.builder()
+                        .ruleType(RulesAttributesTypeV1.DELIVERY_WINDOW_NUMBER.getValue())
+                        .preferences(ShippingPoliciesV1Request.RulesAttribute.builder()
+                                .preferredNumber(RandomUtils.nextInt(1, 10))
+                                .build())
+                        .build()},
+                {ShippingPoliciesV1Request.ShippingPolicyRules.builder()
+                        .ruleType(RulesAttributesTypeV1.TIME_BEFORE_EXPRESS_SHIPMENT.getValue())
+                        .preferences(ShippingPoliciesV1Request.RulesAttribute.builder()
+                                .preferredTimeGap(RandomUtils.nextInt(1000, 1500))
+                                .build())
+                        .build()}
         };
     }
 
@@ -1351,30 +1390,30 @@ public class RestDataProvider extends RestBase {
                 },
                 {
                         NotificationsV2Request.Events.builder()
-                        .event(NotificationsV2Request.Event.builder()
-                                .type("order.paid")
-                                .payload(NotificationsV2Request.Payload.builder()
-                                        .orderId(orderNumber)
+                                .event(NotificationsV2Request.Event.builder()
+                                        .type("order.paid")
+                                        .payload(NotificationsV2Request.Payload.builder()
+                                                .orderId(orderNumber)
+                                                .build())
                                         .build())
-                                .build())
-                        .build()
+                                .build()
                 }
         };
     }
 
     @DataProvider(name = "sendProductFeedbacks")
-    public static Object[][] sendProductFeedbacks()   {
+    public static Object[][] sendProductFeedbacks() {
         String productSku = apiV2.getProducts(EnvironmentProperties.DEFAULT_SID).get(0).getSku();
         return new Object[][]{
                 {
-                    ProductFeedbacksV2Request.Feedbacks.builder()
-                        .sku(productSku)
-                        .storeId(String.valueOf(EnvironmentProperties.DEFAULT_SID))
-                        .score(4)
-                        .pros("свежий")
-                        .cons("Слишком зеленый")
-                        .text("Очень хрупкий")
-                        .build()
+                        ProductFeedbacksV2Request.Feedbacks.builder()
+                                .sku(productSku)
+                                .storeId(String.valueOf(EnvironmentProperties.DEFAULT_SID))
+                                .score(4)
+                                .pros("свежий")
+                                .cons("Слишком зеленый")
+                                .text("Очень хрупкий")
+                                .build()
                 },
                 {
                         ProductFeedbacksV2Request.Feedbacks.builder()

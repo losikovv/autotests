@@ -238,6 +238,7 @@ public final class ApiV1Endpoints {
 
     public static final class ShippingPolicies {
         public static final String ID = "shipping_policies/{id}";
+        public static final String SHIPPING_POLICY_RULES = "shipping_policies/{id}/shipping_policy_rules";
 
         public static final class ShippingPolicyRules {
             public static final String ID = "shipping_policies/{id}/shipping_policy_rules/{rulesId}";
