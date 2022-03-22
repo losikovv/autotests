@@ -20,9 +20,7 @@ import ru.instamart.api.request.v1.RetailerPositionV1Request;
 import ru.instamart.api.request.v1.RetailersV1Request;
 import ru.instamart.api.request.v1.ShippingPoliciesV1Request;
 import ru.instamart.api.response.ErrorResponse;
-import ru.instamart.api.response.v1.EansV1Response;
-import ru.instamart.api.response.v1.ShippingPoliciesV1Response;
-import ru.instamart.api.response.v1.ShippingPolicyV1Response;
+import ru.instamart.api.response.v1.*;
 import ru.instamart.api.response.v2.RetailerV2Response;
 import ru.instamart.api.response.v2.RetailersV2Response;
 import ru.instamart.jdbc.dao.OperationalZonesDao;
@@ -599,6 +597,26 @@ public class RetailersV1Tests extends RestBase {
         final Response response = ShippingPoliciesV1Request.DELETE(0L);
         checkStatusCode404(response);
         checkErrorText(response, "Объект не найден");
+    }
+
+    @Story("Ритейлеры - Соглашения")
+    @CaseId(2339)
+    @Test(description = "Получение списка соглашений ритейлеров",
+            groups = {"api-instamart-regress", "api-instamart-prod"})
+    public void getRetailerAgreements() {
+        final Response response = RetailersV1Request.RetailerAgreements.GET();
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, RetailerAgreementsV1Response.class);
+    }
+
+    @Story("Ритейлеры - Соглашения")
+    @CaseId(2340)
+    @Test(description = "Получение списка типов контрактов ритейлеров",
+            groups = {"api-instamart-regress", "api-instamart-prod"})
+    public void getRetailerContractTypes() {
+        final Response response = RetailersV1Request.RetailerContractTypes.GET();
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ContractTypesV1Response.class);
     }
 
 
