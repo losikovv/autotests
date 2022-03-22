@@ -43,12 +43,10 @@ public class AppConfigV1Response extends BaseResponseObject {
     private TenantV1 tenant;
 
     @Null
-    @JsonSchema(required = true)
     @JsonProperty("ui_features")
     private Object uiFeatures;
 
     @Null
-    @JsonSchema(required = true)
     private UserV1 user;
 
     @JsonSchema(required = true)
