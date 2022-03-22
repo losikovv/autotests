@@ -8,38 +8,41 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
+import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.CompanyV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v2.CompanyPresenceV2Request;
 import ru.instamart.api.request.v2.OrdersV2Request;
+import ru.instamart.api.request.v2.UserV2Request;
+import ru.instamart.api.response.ErrorResponse;
+import ru.instamart.api.response.v2.CompaniesExistV2Response;
 import ru.instamart.api.response.v2.CompanyV2Response;
 import ru.instamart.api.response.v2.OrderV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertNull;
+import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
-import static ru.instamart.api.factory.SessionFactory.getSession;
-import static ru.instamart.api.factory.SessionFactory.makeSession;
-import static ru.instamart.kraken.data.Generate.generateINN;
 
 @Epic("ApiV2")
 @Feature("Компании")
-public class CompanyPresenceV2Test extends RestBase {
+public class UserCompanyV2Test extends RestBase {
 
-    private String inn = generateINN(10);
-    private UserData userData;
+    private String inn = "2453252070";
+    private UserData userData = UserManager.getDefaultApiUser();
     private CompanyV2 collect;
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        makeSession(SessionType.API_V2);
-        userData = getSession(SessionType.API_V2).getUserData();
+        SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.PHONE, userData);
         collect = apiV2.addCompany(inn, "ООО Тест");
         apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
     }
@@ -77,7 +80,7 @@ public class CompanyPresenceV2Test extends RestBase {
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(companyV2Response.getCompany().getInn(), inn, "Введенный ИНН отличается");
         softAssert.assertEquals(companyV2Response.getCompany().getName(), "ООО Тест", "Введенное наименование отличается");
-        softAssert.assertEquals(companyV2Response.getCompany().getOwnerName(), "Qa S.", "Owner name отличается от введенного");
+        softAssert.assertEquals(companyV2Response.getCompany().getOwnerName(), "Test T.", "Owner name отличается от введенного");
         softAssert.assertAll();
     }
 
@@ -120,5 +123,39 @@ public class CompanyPresenceV2Test extends RestBase {
         softAssert.assertAll();
     }
 
+    @CaseId(2344)
+    @Story("Получить факт наличия компаний у пользователя")
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+            description = "Получить факт наличия компаний у пользователя с компанией")
+    public void getCompaniesExist200() {
+        final Response response = UserV2Request.Exist.GET();
+        checkStatusCode200(response);
+        assertTrue(response.as(CompaniesExistV2Response.class).isCompaniesExist(), "Компания отсутствует");
+    }
 
+    @CaseId(2341)
+    @Story("Прикрепить пользователя к компании")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Прикрепить пользователя к компании с невалидными company_security_code")
+    public void companyEmployees422() {
+        final Response response = UserV2Request.CompanyEmployees.POST(inn, "notValidCode");
+        checkStatusCode422(response);
+        final SoftAssert softAssert = new SoftAssert();
+        ErrorResponse error = response.as(ErrorResponse.class);
+        softAssert.assertEquals(error.getErrors().getCompanySecurityCode(), "Неправильный код безопасности", "Невалидная ошибка");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getField(), "company_security_code", "Невалидный тип ошибки");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getMessage(), "Неправильный код безопасности", "Невалидная ошибка");
+        softAssert.assertEquals(error.getErrorMessages().get(0).getHumanMessage(), "Неправильный код безопасности", "Невалидная ошибка");
+        softAssert.assertAll();
+    }
+
+    @CaseId(2342)
+    @Story("Прикрепить пользователя к компании")
+    @Test(groups = {"api-instamart-regress"},
+            description = "Прикрепить пользователя к компании с невалидными inn")
+    public void companyEmployees404() {
+        final Response response = UserV2Request.CompanyEmployees.POST("notValidINN", "notValidCode");
+        checkStatusCode404(response);
+        checkError(response, "Компания не существует");
+    }
 }
