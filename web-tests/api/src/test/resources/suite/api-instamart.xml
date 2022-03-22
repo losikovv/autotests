@@ -62,7 +62,6 @@
             <class name="ru.instamart.test.api.v2.endpoints.AppConfigurationV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.AuthProviderV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.ExternalPartnersV2Test"/>
-            <class name="ru.instamart.test.api.v2.endpoints.CompanyPresenceV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.CreditCardsV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.FavoritesListMoreSessionV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.FavoritesListV2Test"/>
@@ -113,6 +112,8 @@
             <class name="ru.instamart.test.api.v2.endpoints.CategoriesV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.DeliveryAvailabilityV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.ReviewIssuesV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.UserCompanyV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.UserWithoutCompanyV2Test"/>
         </classes>
     </test>
     <!-- api-v3-tests -->

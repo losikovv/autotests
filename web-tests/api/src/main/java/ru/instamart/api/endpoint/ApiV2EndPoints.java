@@ -219,6 +219,8 @@ public final class ApiV2EndPoints {
 
     public static final class User {
         public static final String COMPANIES = "v2/user/companies";
+        public static final String COMPANY_EMPLOYEES = "v2/user/company_employees";
+        public static final String EXIST = "v2/user/companies/exist";
     }
     public static final class Users {
         public static final String BY_EMAIL = "v2/users/{email}";
