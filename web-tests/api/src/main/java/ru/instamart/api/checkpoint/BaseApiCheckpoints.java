@@ -6,6 +6,7 @@ import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
+import ru.instamart.api.model.v2.ErrorMessageV2;
 import ru.instamart.api.response.ErrorResponse;
 
 import java.util.Collection;
@@ -59,7 +60,16 @@ public class BaseApiCheckpoints {
     @Step("Проверка правильного error сообщения")
     public static void checkErrorText(Response response, String textError) {
         ErrorResponse error = response.as(ErrorResponse.class);
-        Assert.assertEquals(error.getError(), textError);
+        Assert.assertEquals(error.getError(), textError, "Сообщения об ошибке не совпадают");
+    }
+
+    @Step("Проверка правильного error сообщения")
+    public static void checkErrorField(Response response, String field, String messageText) {
+        ErrorMessageV2 errorMessage = response.as(ErrorResponse.class).getErrorMessages().get(0);
+        final SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(errorMessage.getField(), field, "Пришло неверное поле ошибки");
+        softAssert.assertEquals(errorMessage.getMessage(), messageText, "Сообщения об ошибке не совпадают");
+        softAssert.assertAll();
     }
 
     /**
