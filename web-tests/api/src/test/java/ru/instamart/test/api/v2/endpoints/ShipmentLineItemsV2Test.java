@@ -7,7 +7,6 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
-import org.testng.Assert;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
@@ -28,8 +27,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 import static ru.instamart.api.helper.K8sHelper.changeToCancel;
@@ -106,8 +104,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
     public void mergeLineItemWithExtraWeight() {
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(3).getId(), 1000000000);
         checkStatusCode422(response);
-        Assert.assertTrue(response.asString().contains("\"too_heavy\":\"Заказ тяжелый. Можно оставить товар в корзине — если захотите добавить к следующему заказу\""),
-                "Вернулся неверный текст ошибки");
+        checkErrorField(response, "too_heavy", "Заказ тяжелый. Можно оставить товар в корзине — если захотите добавить к следующему заказу");
     }
 
     @CaseIDs(value = {@CaseId(1008), @CaseId(1012), @CaseId(2045)})
@@ -117,10 +114,10 @@ public class ShipmentLineItemsV2Test extends RestBase {
             dataProvider = "invalidProductsId",
             dataProviderClass = RestDataProvider.class,
             priority = 2)
-    public void mergeLineItemWithInvalidItem(Long productId, String errorMessage) {
+    public void mergeLineItemWithInvalidItem(Long productId, String field, String errorMessage) {
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), productId, 1);
         checkStatusCode422(response);
-        Assert.assertTrue(response.asString().contains(errorMessage), "Вернулся неверный текст ошибки");
+        checkErrorField(response, field, errorMessage);
     }
 
     @CaseId(1009)
@@ -132,8 +129,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
         StoreConfigsDao.INSTANCE.updateEditingSettings(1, 48, 0);
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(4).getId(), 1);
         checkStatusCode422(response);
-        Assert.assertTrue(response.asString().contains("\"order_not_editable\":\"Заказ собирают. Можно оставить товар в корзине — если захотите добавить к следующему заказу\""),
-                "Вернулся неверный текст ошибки");
+        checkErrorField(response, "order_not_editable", "Заказ скоро начнут собирать. Можно оставить товар в корзине — если захотите добавить к следующему заказу");
     }
 
     @CaseId(1152)
@@ -145,8 +141,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
         StoreConfigsDao.INSTANCE.updateEditingSettings(1, 1, 1);
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(4).getId(), 1);
         checkStatusCode422(response);
-        Assert.assertTrue(response.asString().contains("\"not_available_in_the_store\":\"В магазине нет такой возможности. Можно оставить товар в корзине — если захотите добавить к следующему заказу\""),
-                "Вернулся неверный текст ошибки");
+        checkErrorField(response, "not_available_in_the_store", "В магазине нет такой возможности. Можно оставить товар в корзине — если захотите добавить к следующему заказу");
         StoreConfigsDao.INSTANCE.updateEditingSettings(1, 1, 0);
     }
 
@@ -161,8 +156,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
         ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(6).getId(), 1);
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(6).getId(), 1);
         checkStatusCode422(response);
-        Assert.assertTrue(response.asString().contains("\"items_count_balance_reached\":\"В заказе много товаров. Можно оставить товар в корзине — если захотите добавить к следующему заказу\""),
-                "Вернулся неверный текст ошибки");
+        checkErrorField(response, "items_count_balance_reached", "В заказе много товаров. Можно оставить товар в корзине — если захотите добавить к следующему заказу");
     }
 
     @CaseId(1005)
@@ -175,8 +169,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
         changeToCollecting(shipmentNumber);
         final Response response = ShipmentsV2Request.LineItems.POST(shipmentNumber, products.get(4).getId(), 1);
         checkStatusCode422(response);
-        Assert.assertTrue(response.asString().contains("\"invalid_shipment_state_collecting\":\"Заказ собирают. Можно оставить товар в корзине — если захотите добавить к следующему заказу\"}"),
-                "Вернулся неверный текст ошибки");
+        checkErrorField(response, "invalid_shipment_state_collecting", "Заказ собирают. Можно оставить товар в корзине — если захотите добавить к следующему заказу");
     }
 
     @CaseId(1007)
@@ -188,8 +181,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
         changeToCancel(order.getNumber());
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(4).getId(), 1);
         checkStatusCode422(response);
-        Assert.assertTrue(response.asString().contains("\"invalid_shipment_state_canceled\":\"Заказ отменён. Можно оставить товар в корзине — если захотите добавить к следующему заказу\""),
-                "Вернулся неверный текст ошибки");
+        checkErrorField(response, "invalid_shipment_state_canceled", "Заказ отменён. Можно оставить товар в корзине — если захотите добавить к следующему заказу");
     }
 
     @AfterClass(alwaysRun = true)

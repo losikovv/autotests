@@ -298,7 +298,7 @@ public class ShipmentsV1Test extends RestBase {
 
     @CaseId(2129)
     @Story("Заказы")
-    @Test(description = "Возврат на диспетчеризацию",
+    @Test(description = "Возврат на диспетчеризацию", enabled = false, //ATST-2003
             groups = {"api-instamart-regress"},
             dependsOnMethods = "getShipmentsByOperationalZoneId")
     public void returnToDispatch() {
@@ -318,7 +318,7 @@ public class ShipmentsV1Test extends RestBase {
 
     @CaseId(2131)
     @Story("Заказы")
-    @Test(description = "Возврат на диспетчеризацию несуществующего заказа",
+    @Test(description = "Возврат на диспетчеризацию несуществующего заказа", enabled = false, //ATST-2003
             groups = {"api-instamart-regress"})
     public void returnNonexistentShipmentToDispatch() {
         final Response response = ShipmentsAdminV1Request.POST("failedUuid", "Autotest" + Generate.literalString(6));

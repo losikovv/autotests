@@ -806,9 +806,9 @@ public class RestDataProvider extends RestBase {
         Long alcoholProductId = SpreeProductsDao.INSTANCE.getOfferIdForAlcohol(1);
         Long pharmaProductId = SpreeProductsDao.INSTANCE.getOfferIdForPharma(1);
         return new Object[][]{
-                {productId, "\"store_id\":\"Дозаказать можно только из того же магазина\""},
-                {alcoholProductId, "\"shipping_category_id\":\"В заказе алкоголь. Его нельзя добавить к заказу с доставкой\""},
-                {pharmaProductId, "\"shipping_category_id\":\"В заказе лекарства. Их нельзя добавить к заказу с доставкой\""},
+                {productId, "store_id", "Дозаказать можно только из того же магазина"},
+                {alcoholProductId, "shipping_category_id", "В заказе алкоголь. Его нельзя добавить к заказу с доставкой"},
+                {pharmaProductId, "shipping_category_id", "В заказе лекарства. Их нельзя добавить к заказу с доставкой"},
         };
     }
 
