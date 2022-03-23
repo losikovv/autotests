@@ -44,4 +44,6 @@ public interface UserShipmentsElement {
 
     Element userPhone = new Element(By.xpath("//span[@data-qa='user-shipment-phone']"), "Лейбл телефона пользователя");
     Element userEmail = new Element(By.xpath("//span[@data-qa='user-shipment-email']"), "Лейбл емейла пользователя");
+
+    Element deliveryInterval = new Element(By.xpath("//div[@data-qa='user-shipment-interval']"), "Интервал доставки");
 }

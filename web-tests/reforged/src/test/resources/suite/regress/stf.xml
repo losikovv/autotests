@@ -18,6 +18,7 @@
       <class name="ru.instamart.test.reforged.stf.checkout.CheckoutPromocodeTests"/>
       <class name="ru.instamart.test.reforged.stf.checkout.CheckoutContactsStepTests"/>
       <class name="ru.instamart.test.reforged.stf.checkout.CheckoutAddressStepTests"/>
+      <class name="ru.instamart.test.reforged.stf.checkout.CheckoutDeliverySlotsTests"/>
 
       <class name="ru.instamart.test.reforged.stf.landings.DriversHiringLandingTests"/>
       <class name="ru.instamart.test.reforged.stf.landings.SbermarketLandingTests"/>

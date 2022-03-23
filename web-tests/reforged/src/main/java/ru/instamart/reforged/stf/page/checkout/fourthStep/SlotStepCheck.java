@@ -22,4 +22,8 @@ public interface SlotStepCheck extends Check, SlotStepElement {
         waitAction().shouldBeClickable(firstActiveSlotTime);
     }
 
+    @Step("Проверяем видимость ошибки невыбранного слота")
+    default void checkSlotSetFailVisible() {
+        waitAction().shouldBeVisible(slotSetFail);
+    }
 }
