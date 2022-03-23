@@ -125,7 +125,7 @@ public class UserCompanyV2Test extends RestBase {
 
     @CaseId(2344)
     @Story("Получить факт наличия компаний у пользователя")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Получить факт наличия компаний у пользователя с компанией")
     public void getCompaniesExist200() {
         final Response response = UserV2Request.Exist.GET();
