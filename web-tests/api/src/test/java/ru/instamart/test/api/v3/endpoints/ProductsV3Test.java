@@ -14,7 +14,7 @@ import ru.instamart.api.model.common.ProductsFilterParams;
 import ru.instamart.api.model.v2.FacetV2;
 import ru.instamart.api.model.v2.MetaV2;
 import ru.instamart.api.model.v2.OptionV2;
-import ru.instamart.api.model.v3.ProductDataV3;
+import ru.instamart.api.model.v3.ProductV3;
 import ru.instamart.api.request.v3.ProductsV3Request;
 import ru.instamart.api.response.v2.ProductsV2Response;
 import ru.instamart.api.response.v3.ErrorsV3Response;
@@ -37,7 +37,7 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 @Feature("Продукты")
 public class ProductsV3Test extends RestBase {
 
-    private ProductDataV3 product;
+    private ProductV3 product;
 
     @CaseId(1368)
     @Story("Получить список доступных продуктов (Поиск)")
@@ -50,7 +50,7 @@ public class ProductsV3Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV3Response.class);
         final ProductsV3Response productsV3Response = response.as(ProductsV3Response.class);
-        List<ProductDataV3> products = productsV3Response.getProducts();
+        List<ProductV3> products = productsV3Response.getProducts();
         product = products.get(0);
     }
 
@@ -75,7 +75,7 @@ public class ProductsV3Test extends RestBase {
                 .build(), EnvironmentProperties.DEFAULT_SID);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV3Response.class);
-        final List<ProductDataV3> products = response.as(ProductsV3Response.class).getProducts();
+        final List<ProductV3> products = response.as(ProductsV3Response.class).getProducts();
 
         products.forEach(product -> assertFalse(
                 product.getName().matches("/хлеб/"),
@@ -141,7 +141,7 @@ public class ProductsV3Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV3Response.class);
         final ProductsV3Response productsV3Response = response.as(ProductsV3Response.class);
-        final List<ProductDataV3> products = productsV3Response.getProducts();
+        final List<ProductV3> products = productsV3Response.getProducts();
         products.forEach(product -> assertTrue(product.getDiscount() > 0.0));
     }
 
@@ -158,7 +158,7 @@ public class ProductsV3Test extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, ProductsV3Response.class);
         final ProductsV3Response productsV3Response = response.as(ProductsV3Response.class);
-        final List<ProductDataV3> products = productsV3Response.getProducts();
+        final List<ProductV3> products = productsV3Response.getProducts();
         products.forEach(product -> assertTrue(product.getName().contains("Valio"), "Пришел неверный бренд"));
     }
 
