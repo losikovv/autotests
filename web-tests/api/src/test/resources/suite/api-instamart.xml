@@ -54,6 +54,8 @@
             <class name="ru.instamart.test.api.v1.endpoints.PaymentsV1Tests"/>
             <class name="ru.instamart.test.api.admin_api.ShipmentReturnsV1Test"/>
             <class name="ru.instamart.test.api.v1.endpoints.NextV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.TokensV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.UsersV1Tests"/>
         </classes>
     </test>
     <!-- api-v2-tests -->

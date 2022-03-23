@@ -36,6 +36,7 @@ public final class ApiV1Endpoints {
     public static final String SHOPPING_SESSION = "shopping_session";
     public static final String STORES = "stores";
     public static final String TOKENS = "tokens";
+    public static final String USERS = "users";
     public static final String USER_SESSIONS = "user_sessions";
 
     /**

@@ -168,6 +168,7 @@ public class PromotionCardsV1Tests extends RestBase {
             description = "Удаление In App баннера",
             dependsOnMethods = "changePromotionCardPosition")
     public void deletePromotionCard() {
+        admin.authApi();
         final Response response = PromotionCardsV1Request.DELETE(promotionCardId);
         checkStatusCode200(response);
         Assert.assertTrue(PromotionCardsDao.INSTANCE.findById(promotionCardId).isEmpty(), "Промо-карточка не удалилась");
