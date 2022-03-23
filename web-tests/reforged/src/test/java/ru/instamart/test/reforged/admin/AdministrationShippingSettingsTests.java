@@ -42,9 +42,14 @@ public final class AdministrationShippingSettingsTests extends BaseTest {
                 .stream()
                 .filter(m -> m.getName().equals("Autotest"))
                 .findAny().orElseGet(() -> {
-                    var method = ShippingMethod.builder().build();
+                    var method = ShippingMethod.builder().name("Autotest").kindId(3).build();
                     helper.createShippingMethod(method);
-                    return null;
+                    return helper
+                            .getShippingMethod()
+                            .stream()
+                            .filter(m -> m.getName().equals("Autotest"))
+                            .findAny()
+                            .orElse(null);
                 });
         Assert.assertNotNull(shippingMethod, "Отсутствует метод доставки Autotest");
     }
@@ -125,17 +130,18 @@ public final class AdministrationShippingSettingsTests extends BaseTest {
         //Одно и тоже с 529
     }
 
+    //TODO: Сейчас это создает кучу данных в базе, удалять пока что не представляется возможным.
     @CaseId(511)
-    @Test(description = "Создать новый способ доставки", groups = {"acceptance", "regression"})
+    @Test(enabled = false, description = "Создать новый способ доставки", groups = {"acceptance", "regression"})
     public void testCreateNewDelivery() {
         shippingMethod().goToPage();
         shippingMethod().addNewDelivery();
 
-        shippingNewMethod().fillMethodName("Вывоз Алкоголя");
+        shippingNewMethod().fillMethodName("Autotest_Вывоз_Алкоголя");
         shippingNewMethod().selectType("Самовывоз");
         shippingNewMethod().addDeliveryCategory("Алкоголь");
         shippingNewMethod().clickToSubmit();
-        shippingNewMethod().interactFlashAlert().checkSuccessFlash();
+        shippingNewMethod().checkPageContains("admin/spa/shipping_methods");
     }
 
     @Skip
