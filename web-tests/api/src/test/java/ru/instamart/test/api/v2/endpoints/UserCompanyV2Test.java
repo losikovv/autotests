@@ -114,7 +114,6 @@ public class UserCompanyV2Test extends RestBase {
         String orderNumber = apiV2.getOpenOrder().getNumber();
 
         final Response response = OrdersV2Request.Company.PATCH(orderNumber, collect.getId());
-        response.prettyPeek();
         OrderV2 orderV2 = response.as(OrderV2Response.class).getOrder();
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(orderV2.getNumber(), orderNumber, "Номер ордера отличается от введенного");

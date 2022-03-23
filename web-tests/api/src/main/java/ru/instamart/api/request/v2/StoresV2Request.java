@@ -40,7 +40,7 @@ public final class StoresV2Request extends ApiV2RequestBase {
     public static class ForMap {
         @Step("{method} /" + ApiV2EndPoints.Stores.FOR_MAP)
         public static Response GET(ForMapParams params) {
-            RequestSpecification requestSpecification = givenWithSpec().log().all();
+            RequestSpecification requestSpecification = givenWithSpec();
             if (Objects.nonNull(params)) {
                 requestSpecification.queryParams(Mapper.INSTANCE.objectToMap(params));
             }

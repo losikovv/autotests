@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class ProductDataV3 extends BaseObject {
+public class ProductV3 extends BaseObject {
     @JsonSchema(required = true)
     private String id;
 
