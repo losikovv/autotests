@@ -13,6 +13,8 @@ import ru.instamart.reforged.stf.page.StfPage;
 
 public final class HomePage implements StfPage, Window, HomeCheck {
 
+    private static final String EXPRESS_GROUP_FILTER_URL = "retailer_selection/express";
+
     public AuthModal interactAuthModal() {
         return authModal;
     }
@@ -120,6 +122,16 @@ public final class HomePage implements StfPage, Window, HomeCheck {
     @Step("Получаем время доставки, указанное в карточке магазина SID = '{storeSid}'")
     public String getNextDeliveryBySid(final int storeSid) {
         return nextDeliveryBySid.getText(storeSid);
+    }
+
+    @Step("Открываем страницу магазинов в группе 'express'")
+    public void openExpressGroupPage() {
+        goToPage(EXPRESS_GROUP_FILTER_URL);
+    }
+
+    @Step("Получаем текст всплывающего сообщения")
+    public String getAlertText() {
+        return alert.getText();
     }
 
     @Override

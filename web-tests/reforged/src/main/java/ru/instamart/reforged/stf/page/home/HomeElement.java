@@ -20,6 +20,7 @@ public interface HomeElement {
     Element headerContainer = new Element(By.xpath("//header[@data-qa='b2c_home_landing_header_block']"), "шапка лендинга Сбермаркета");
     Element headerLogo = new Element(By.xpath("//div[@data-qa='b2c_home_landing_header_block_logo']"), "логотип Сбермаркета в шапке лендинга");
     Button loginButton = new Button(By.xpath("//button[@data-qa='b2c_home_landing_header_block_user_panel_login_button']"), "кнопка 'Войти'");
+    Element alert = new Element(By.xpath("//div[contains(@class,'alert')]"), "Вспрывающее сообщение в правом верхнем углу)");
 
     Element headerAuthBlockContainer = new Element(By.xpath("//button[@data-qa='b2c_home_landing_header_block_user_panel']"), "блок для авторизованного пользователя");
     Element headerAuthIcon = new Element(By.xpath("//button[@data-qa='b2c_home_landing_header_block_user_panel_account_button']"), "иконка для авторизованного пользователя");
