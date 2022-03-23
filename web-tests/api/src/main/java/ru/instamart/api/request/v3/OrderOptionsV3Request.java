@@ -30,11 +30,9 @@ public class OrderOptionsV3Request extends ApiV3RequestBase {
             itemParams.put("price", testData.getItemPrice());
             itemParams.put("discount", testData.getItemDiscount());
             itemParams.put("promo_total", testData.getItemPromoTotal());
-            return givenWithSpec()
+            return givenWithAuth(testData.getClientToken())
                     .contentType(ContentType.JSON)
                     .body(requestParams)
-                    .header("Api-Version","3.0")
-                    .header("Client-Token",testData.getClientToken())
                     .put(ApiV3Endpoints.OrderOptions.PICKUP_FROM_STORE);
         }
     }
@@ -60,11 +58,9 @@ public class OrderOptionsV3Request extends ApiV3RequestBase {
             itemParams.put("price", testData.getItemPrice());
             itemParams.put("discount", testData.getItemDiscount());
             itemParams.put("promo_total", testData.getItemPromoTotal());
-            return givenWithSpec()
+            return givenWithAuth(testData.getClientToken())
                     .contentType(ContentType.JSON)
                     .body(requestParams)
-                    .header("Api-Version","3.0")
-                    .header("Client-Token", testData.getClientToken())
                     .put(ApiV3Endpoints.OrderOptions.DELIVERY);
         }
     }

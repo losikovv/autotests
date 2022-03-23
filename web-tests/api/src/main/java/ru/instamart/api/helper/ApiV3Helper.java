@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
+import ru.instamart.api.enums.v3.ClientV3;
 import ru.instamart.api.model.testdata.ApiV3TestData;
 import ru.instamart.api.model.v3.*;
 import ru.instamart.api.request.v3.OrderOptionsV3Request;
@@ -11,6 +12,7 @@ import ru.instamart.api.request.v3.OrderV3Request;
 import ru.instamart.api.request.v3.StoresV3Request;
 import ru.instamart.api.response.v3.OrderOptionsV3Response;
 import ru.instamart.jdbc.dao.ApiClientsDao;
+import ru.instamart.kraken.enums.Tenant;
 
 import java.util.Arrays;
 import java.util.List;
@@ -171,14 +173,14 @@ public final class ApiV3Helper {
     }
 
     @Step("Получаем токен api-клиента")
-    public static String getApiClientToken(String clientName) {
+    public static String getApiClientToken(ClientV3 client) {
         String token;
-        String tokenFromDb = ApiClientsDao.INSTANCE.getClientTokenByName(clientName);
+        String tokenFromDb = ApiClientsDao.INSTANCE.getClientTokenByName(client.getName());
         if (tokenFromDb != null) {
             token = tokenFromDb;
         } else {
-            createApiClient(clientName, "sbermarket");
-            token = ApiClientsDao.INSTANCE.getClientTokenByName(clientName);
+            createApiClient(client.getName(), Tenant.SBERMARKET);
+            token = ApiClientsDao.INSTANCE.getClientTokenByName(client.getName());
         }
         return token;
     }

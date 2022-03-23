@@ -6,6 +6,7 @@ import io.restassured.response.Response;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV3Endpoints;
+import ru.instamart.api.enums.v3.ClientV3;
 import ru.instamart.api.model.testdata.ApiV3TestData;
 import ru.instamart.api.request.ApiV3RequestBase;
 
@@ -20,17 +21,15 @@ public class OrderV3Request extends ApiV3RequestBase {
      */
     @Step("{method} /" + ApiV3Endpoints.ORDER)
     public static Response GET(String UUID, String clientToken) {
-        return givenWithSpec()
+        return givenWithAuth(clientToken)
                 .contentType(ContentType.JSON)
-                .header("Api-Version","3.0")
-                .header("Client-Token", clientToken)
                 .queryParam("include", "contact,shipping,shipping_crew,packages,payments")
                 .get(ApiV3Endpoints.ORDER, UUID);
     }
 
     public static Response GET(String UUID)
     {
-        return GET(UUID, getApiClientToken("goods"));
+        return GET(UUID, getApiClientToken(ClientV3.GOODS));
     }
 
     public static class PickupFromStore {
@@ -65,11 +64,9 @@ public class OrderV3Request extends ApiV3RequestBase {
             JSONObject replacementParams = new JSONObject();
             requestParams.put("replacement", replacementParams);
             replacementParams.put( "option_id", replacementOptionId);
-            return givenWithSpec()
+            return givenWithAuth(testData.getClientToken())
                     .contentType(ContentType.JSON)
                     .body(requestParams)
-                    .header("Api-Version","3.0")
-                    .header("Client-Token",testData.getClientToken())
                     .post(ApiV3Endpoints.Orders.PICKUP_FROM_STORE);
         }
     }
@@ -83,17 +80,15 @@ public class OrderV3Request extends ApiV3RequestBase {
         {
             JSONObject requestParams = new JSONObject();
             requestParams.put("status","canceled");
-            return givenWithSpec()
+            return givenWithAuth(clientToken)
                     .contentType(ContentType.JSON)
-                    .header("Api-Version","3.0")
-                    .header("Client-Token", clientToken)
                     .body(requestParams)
                     .put(ApiV3Endpoints.Orders.CANCEL,UUID);
         }
 
         public static Response PUT(String UUID)
         {
-            return PUT(UUID, getApiClientToken("sber_devices"));
+            return PUT(UUID, getApiClientToken(ClientV3.SBER_DEVICES));
         }
     }
 
@@ -145,11 +140,9 @@ public class OrderV3Request extends ApiV3RequestBase {
             JSONObject replacementParams = new JSONObject();
             requestParams.put("replacement", replacementParams);
             replacementParams.put("option_id", replacementOptionId);
-            return givenWithSpec()
+            return givenWithAuth(testData.getClientToken())
                     .contentType(ContentType.JSON)
                     .body(requestParams)
-                    .header("Api-Version", "3.0")
-                    .header("Client-Token", testData.getClientToken())
                     .post(ApiV3Endpoints.Orders.DELIVERY);
         }
     }

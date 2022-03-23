@@ -5,6 +5,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV3Endpoints;
+import ru.instamart.api.enums.v3.ClientV3;
 import ru.instamart.api.request.ApiV3RequestBase;
 
 @SuppressWarnings("unchecked")
@@ -19,11 +20,9 @@ public class StoresV3Request extends ApiV3RequestBase {
             JSONObject requestParams = new JSONObject();
             requestParams.put("lat", 55.747581);
             requestParams.put("lon", 37.797110);
-            return givenWithSpec()
+            return givenWithAuth(ClientV3.SBER_DEVICES)
                     .contentType(ContentType.JSON)
                     .body(requestParams)
-                    .header("Api-Version", "3.0")
-                    .header("Client-Token", "14cd5d341d768bd4926fc9f5ce262094")
                     .get(ApiV3Endpoints.STORES);
         }
     }
@@ -37,11 +36,9 @@ public class StoresV3Request extends ApiV3RequestBase {
             JSONObject requestParams = new JSONObject();
             requestParams.put("lat", 55.747581);
             requestParams.put("lon", 37.797110);
-            return givenWithSpec()
+            return givenWithAuth(ClientV3.SBER_DEVICES)
                     .contentType(ContentType.JSON)
                     .body(requestParams)
-                    .header("Api-Version", "3.0")
-                    .header("Client-Token", "14cd5d341d768bd4926fc9f5ce262094")
                     .queryParam("shipping_method", "delivery")
                     .get(ApiV3Endpoints.STORES);
         }
@@ -56,7 +53,7 @@ public class StoresV3Request extends ApiV3RequestBase {
             JSONObject requestParams = new JSONObject();
             requestParams.put("lat", 55.747581);
             requestParams.put("lon", 37.797110);
-            return givenWithAuth()
+            return givenWithAuth(ClientV3.SBER_DEVICES)
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .queryParam("shipping_method", "pickup_from_store")
@@ -65,18 +62,16 @@ public class StoresV3Request extends ApiV3RequestBase {
     }
     public static class ClosestShippingOptions {
         /**
-         * Получение ближайших опций доставки из магазино
+         * Получение ближайших опций доставки из магазина
          */
         @Step("{method} /" + ApiV3Endpoints.STORES)
         public static Response GET() {
             JSONObject requestParams = new JSONObject();
             requestParams.put("lat", 55.747581);
             requestParams.put("lon", 37.797110);
-            return givenWithSpec()
+            return givenWithAuth(ClientV3.SBER_DEVICES)
                     .contentType(ContentType.JSON)
                     .body(requestParams)
-                    .header("Api-Version", "3.0")
-                    .header("Client-Token", "14cd5d341d768bd4926fc9f5ce262094")
                     .queryParam("include", "closest_shipping_options")
                     .get(ApiV3Endpoints.STORES);
         }
@@ -90,11 +85,9 @@ public class StoresV3Request extends ApiV3RequestBase {
             JSONObject requestParams = new JSONObject();
             requestParams.put("lat", 55.747581);
             requestParams.put("lon", 37.797110);
-            return givenWithSpec()
+            return givenWithAuth(ClientV3.SBER_DEVICES)
                     .contentType(ContentType.JSON)
                     .body(requestParams)
-                    .header("Api-Version", "3.0")
-                    .header("Client-Token", "14cd5d341d768bd4926fc9f5ce262094")
                     .queryParam("retailer_id", "metro")
                     .get(ApiV3Endpoints.STORES);
         }

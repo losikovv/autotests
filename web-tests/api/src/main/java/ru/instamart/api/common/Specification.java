@@ -118,7 +118,6 @@ public enum Specification {
                 .build();
 
         apiV3RequestSpec = new RequestSpecBuilder()
-                //todo перевести на спецификацию все тесты по Apiv3
                 .setBaseUri(apiV3FullUrl)
                 .setBasePath("api/")
                 .setAccept(ContentType.JSON)
