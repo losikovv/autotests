@@ -9,6 +9,7 @@ import lombok.Data;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV3Endpoints;
+import ru.instamart.api.enums.v3.ClientV3;
 import ru.instamart.api.request.ApiV3RequestBase;
 import ru.sbermarket.common.Mapper;
 
@@ -73,7 +74,7 @@ public class NotificationsV3Request extends ApiV3RequestBase {
         if (Objects.nonNull(quantity)) position.put("quantity", quantity);
         if (Objects.nonNull(weight)) position.put("weight", weight);
 
-        return givenMetroMarketPlace()
+        return givenWithAuth(ClientV3.METRO_MARKETPLACE)
                 .contentType(ContentType.JSON)
                 .body(requestParams)
                 .post(ApiV3Endpoints.NOTIFICATIONS);
@@ -125,7 +126,7 @@ public class NotificationsV3Request extends ApiV3RequestBase {
         total.put("totalPrice", "500");
         total.put("discountTotalPrice", "500");
 
-        return givenMetroMarketPlace()
+        return givenWithAuth(ClientV3.METRO_MARKETPLACE)
                 .contentType(ContentType.JSON)
                 .body(requestParams)
                 .post(ApiV3Endpoints.NOTIFICATIONS);
@@ -134,7 +135,7 @@ public class NotificationsV3Request extends ApiV3RequestBase {
     @Step("{method} /" + ApiV3Endpoints.NOTIFICATIONS)
     public static Response POST(NotificationsV3Request.Notifications notifications) {
 
-        return givenMetroMarketPlace()
+        return givenWithAuth(ClientV3.METRO_MARKETPLACE)
                 .contentType(ContentType.JSON)
                 .body(Mapper.INSTANCE.objectToString(notifications))
                 .post(ApiV3Endpoints.NOTIFICATIONS);

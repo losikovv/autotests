@@ -166,8 +166,8 @@ public class K8sHelper {
     }
 
     @Step("Создание api-клиента через консоль")
-    public static void createApiClient(String clientId, String tenantId) {
-        List<String> strings = execRailsCommandWithPod(CREATE_API_CLIENT.get(clientId, tenantId));
+    public static void createApiClient(String clientId, Tenant tenant) {
+        List<String> strings = execRailsCommandWithPod(CREATE_API_CLIENT.get(clientId, tenant.getId()));
         Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
     }
 

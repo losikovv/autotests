@@ -5,6 +5,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV3Endpoints;
+import ru.instamart.api.enums.v3.ClientV3;
 import ru.instamart.api.request.ApiV3RequestBase;
 
 public class SetupInfoV3Request extends ApiV3RequestBase {
@@ -16,11 +17,9 @@ public class SetupInfoV3Request extends ApiV3RequestBase {
     public static Response GET() {
 
         JSONObject requestParams = new JSONObject();
-        return givenWithSpec()
+        return givenWithAuth(ClientV3.SBER_DEVICES)
                 .contentType(ContentType.JSON)
                 .body(requestParams)
-                .header("Api-Version","3.0")
-                .header("Client-Token","14cd5d341d768bd4926fc9f5ce262094")
                 .get(ApiV3Endpoints.SETUP_INFO);
     }
 
@@ -32,7 +31,7 @@ public class SetupInfoV3Request extends ApiV3RequestBase {
         public static Response GET() {
 
             JSONObject requestParams = new JSONObject();
-            return givenWithAuth()
+            return givenWithAuth(ClientV3.SBER_DEVICES)
                     .contentType(ContentType.JSON)
                     .body(requestParams)
                     .get(ApiV3Endpoints.SetupInfo.STORES);
