@@ -1,17 +1,20 @@
+
 package ru.instamart.api.response.v1;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import ru.instamart.api.model.v1.ShoppersBackendV1;
+import ru.instamart.api.model.v1.UserShortV1;
 import ru.instamart.api.response.BaseResponseObject;
+
+import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class TokensV1Response extends BaseResponseObject {
+public class UsersV1Response extends BaseResponseObject {
 
+    @NotEmpty
     @JsonSchema(required = true)
-    @JsonProperty(value = "shoppers_backend")
-    private ShoppersBackendV1 shoppersBackend;
+    private List<UserShortV1> users;
 }

@@ -1,6 +1,6 @@
+
 package ru.instamart.api.model.v1;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.imifou.jsonschema.module.addon.annotation.JsonSchema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -8,16 +8,14 @@ import ru.instamart.api.model.BaseObject;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class ShoppersBackendV1 extends BaseObject {
-    @JsonSchema(required = true)
-    @JsonProperty(value = "base_url")
-    private String baseUrl;
+public class UserShortV1 extends BaseObject {
 
     @JsonSchema(required = true)
-    @JsonProperty(value = "client_jwt")
-    private String clientJwt;
+    private String email;
 
     @JsonSchema(required = true)
-    @JsonProperty(value = "client_id")
-    private String clientId;
+    private String fullname;
+
+    @JsonSchema(required = true)
+    private Long id;
 }

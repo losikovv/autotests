@@ -12,4 +12,11 @@ public class UsersV1Request extends ApiV1RequestBase {
         return givenWithAuth()
                 .get(ApiV1Endpoints.Users.Shipments.BY_NUMBER, userId, shipmentNumber);
     }
+
+    @Step("{method} /" + ApiV1Endpoints.USERS)
+    public static Response GET(String userEmail) {
+        return givenWithAuth()
+                .queryParam("email", userEmail)
+                .get(ApiV1Endpoints.USERS);
+    }
 }
