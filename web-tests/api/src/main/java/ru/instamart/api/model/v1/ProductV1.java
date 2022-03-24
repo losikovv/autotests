@@ -41,10 +41,6 @@ public class ProductV1 extends BaseObject {
     private List<ImageV1> images;
 
     @JsonSchema(required = true)
-    @JsonProperty("is_alcohol")
-    private Boolean isAlcohol;
-
-    @JsonSchema(required = true)
     @JsonProperty("items_per_pack")
     private Long itemsPerPack;
 
