@@ -21,6 +21,7 @@ import ru.instamart.api.response.v2.CompaniesExistV2Response;
 import ru.instamart.api.response.v2.CompanyV2Response;
 import ru.instamart.api.response.v2.OrderV2Response;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
@@ -31,18 +32,21 @@ import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
+import static ru.instamart.api.factory.SessionFactory.getSession;
+import static ru.instamart.api.factory.SessionFactory.makeSession;
 
 @Epic("ApiV2")
 @Feature("Компании")
 public class UserCompanyV2Test extends RestBase {
 
-    private String inn = "2453252070";
-    private UserData userData = UserManager.getDefaultApiUser();
+    private String inn = Generate.generateINN(10);
+    private UserData userData;
     private CompanyV2 collect;
 
     @BeforeClass(alwaysRun = true, description = "Авторизация")
     public void preconditions() {
-        SessionFactory.createSessionToken(SessionType.API_V2, SessionProvider.PHONE, userData);
+        makeSession(SessionType.API_V2);
+        userData = getSession(SessionType.API_V2).getUserData();
         collect = apiV2.addCompany(inn, "ООО Тест");
         apiV2.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
     }
@@ -80,7 +84,7 @@ public class UserCompanyV2Test extends RestBase {
         final SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(companyV2Response.getCompany().getInn(), inn, "Введенный ИНН отличается");
         softAssert.assertEquals(companyV2Response.getCompany().getName(), "ООО Тест", "Введенное наименование отличается");
-        softAssert.assertEquals(companyV2Response.getCompany().getOwnerName(), "Test T.", "Owner name отличается от введенного");
+        softAssert.assertEquals(companyV2Response.getCompany().getOwnerName(), "Qa S.", "Owner name отличается от введенного");
         softAssert.assertAll();
     }
 
@@ -137,7 +141,7 @@ public class UserCompanyV2Test extends RestBase {
     @Test(groups = {"api-instamart-regress"},
             description = "Прикрепить пользователя к компании с невалидными company_security_code")
     public void companyEmployees422() {
-        final Response response = UserV2Request.CompanyEmployees.POST(inn, "notValidCode");
+        final Response response = UserV2Request.CompanyEmployees.POST(inn, "code"+ Generate.string(10));
         checkStatusCode422(response);
         final SoftAssert softAssert = new SoftAssert();
         ErrorResponse error = response.as(ErrorResponse.class);
