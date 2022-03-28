@@ -62,6 +62,22 @@ public class SpreeProductsDao extends AbstractDao<Long, SpreeProductsEntity> {
         return id;
     }
 
+    public Long getOfferIdByPermalink(String permalink, Integer storeId) {
+        Long id = null;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "o.id") +
+                     " sp JOIN offers o ON sp.id = o.product_id WHERE sp.permalink = ? AND o.store_id = ? AND o.published = 1 AND sp.deleted_at IS NULL AND o.deleted_at IS NULL")) {
+            preparedStatement.setString(1, permalink);
+            preparedStatement.setInt(2, storeId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            id = resultSet.getLong("id");
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return id;
+    }
+
     public SpreeProductsEntity getProduct() {
         SpreeProductsEntity spreeProductsEntity = new SpreeProductsEntity();
         try (Connection connect = ConnectionMySQLManager.get();

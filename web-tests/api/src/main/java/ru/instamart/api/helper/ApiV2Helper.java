@@ -366,6 +366,13 @@ public final class ApiV2Helper {
         return lineItem;
     }
 
+    @Step("Добавляем товары в корзину")
+    public List<LineItemV2> addItemsToCart(List<Long> productIDs) {
+        return productIDs.stream()
+                .map(productID -> addItemToCart(productID, 1))
+                .collect(Collectors.toList());
+    }
+
     @Step("Получаем минимальную сумму корзины")
     public int getMinOrderAmount(int sid) {
         double minSum = getStore(sid).getMinOrderAmount();

@@ -7,6 +7,7 @@ import ru.instamart.reforged.stf.drawer.account_menu.AccountMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.TransferCartModal;
 import ru.instamart.reforged.stf.frame.address.Address;
+import ru.instamart.reforged.stf.frame.prereplacement_modal.PrereplacementModal;
 import ru.instamart.reforged.stf.frame.store_selector.StoreSelector;
 
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
@@ -31,6 +32,10 @@ public final class Header implements HeaderCheck {
 
     public TransferCartModal interactTransferCartModal() {
         return transferCartModal;
+    }
+
+    public PrereplacementModal interactPrereplacementModal() {
+        return prereplacementModal;
     }
 
     @Step("Нажать на лого")
@@ -197,5 +202,19 @@ public final class Header implements HeaderCheck {
     @Step("Нажимаем на ссылку 'Покупайте для бизнеса'")
     public void clickBuyForBusiness() {
         buyForBusiness.click();
+    }
+
+    @Step("Нажимаем на попап-уведомление 'Выберите замену для товара'")
+    public void clickPrereplacementPopup() {
+        //TODO ожидаем, пока исчезнет попап-алерт с ошибкой, который перекрывает кнопку. Убрать после того, как баг пофиксят и ошибка уйдёт
+        checkErrorAlertIsNotDisplayed();
+        popupAlert.click();
+    }
+
+    @Step("Закрываем попап-уведомление 'Выберите замену для товара'")
+    public void closePrereplacementPopup() {
+        //TODO ожидаем, пока исчезнет попап-алерт с ошибкой, который перекрывает кнопку. Убрать после того, как баг пофиксят и ошибка уйдёт
+        checkErrorAlertIsNotDisplayed();
+        closePopupAlert.click();
     }
 }

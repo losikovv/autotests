@@ -7,6 +7,7 @@ import ru.instamart.reforged.stf.drawer.account_menu.AccountMenu;
 import ru.instamart.reforged.stf.drawer.cart.Cart;
 import ru.instamart.reforged.stf.frame.TransferCartModal;
 import ru.instamart.reforged.stf.frame.address.Address;
+import ru.instamart.reforged.stf.frame.prereplacement_modal.PrereplacementModal;
 import ru.instamart.reforged.stf.frame.store_selector.StoreSelector;
 
 public interface HeaderElement {
@@ -16,6 +17,7 @@ public interface HeaderElement {
     AccountMenu accountMenu = new AccountMenu();
     StoreSelector storeSelectorDrawer = new StoreSelector();
     TransferCartModal transferCartModal = new TransferCartModal();
+    PrereplacementModal prereplacementModal = new PrereplacementModal();
 
     Element header = new Element(By.xpath("//header"), "контейнер для шапки");
 
@@ -69,4 +71,7 @@ public interface HeaderElement {
 
     Element cartNotification = new Element(By.xpath("//div[@class='notification']"), "Алерт добавления товара в корзину");
 
+    //Предзамены
+    Element popupAlert = new Element(By.xpath("//div[@role='alert']"), "Всплывающее сообщение 'Выберите замену для товара'");
+    Button closePopupAlert = new Button(By.xpath("//div[@role='alert']/button"), "Кнопка 'Закрыть' всплывающего сообщения 'Выберите замену для товара'");
 }
