@@ -1,15 +1,8 @@
-package ru.instamart.reforged.admin.page.settings.all_cities.city_add;
+package ru.instamart.reforged.admin.block.add_city;
 
 import io.qameta.allure.Step;
-import ru.instamart.reforged.admin.AdminPage;
 
-
-public class CityAddPage implements AdminPage, CityAddCheck {
-
-    @Override
-    public String pageUrl() {
-        return "cities/new";
-    }
+public class AddCity implements AddCityCheck{
 
     @Step("Ввести имя города: {0}")
     public void inputCityName(String cityName) {

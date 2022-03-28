@@ -31,6 +31,7 @@ public final class UserManager {
     private static UserData defaultUser;
     private static UserData defaultAdmin;
     private static UserData defaultAdminAllRoles;
+    private static UserData defaultAdminSmsRole;
     private static UserData defaultShopper;
     private static UserData stf6Shopper1;
     private static UserData stf6Shopper2;
@@ -87,6 +88,19 @@ public final class UserManager {
                     .build();
         }
         return defaultAdminAllRoles;
+    }
+
+    public static UserData getAdminSmsRole() {
+        if (isNull(defaultAdminSmsRole)) {
+            defaultAdminSmsRole = UserData.builder()
+                    .role("superadmin")
+                    .email(Crypt.INSTANCE.decrypt("KlMoYV/REWC3sSm3Tzk0WtH1SVSFpTuQ7swGVY8kfHY="))
+                    .phone(Crypt.INSTANCE.decrypt("z2UvelSsJ4QsKh9rGmQZDw=="))
+                    .password(PASSWD_1)
+                    .name("autotest superadminallroles")
+                    .build();
+        }
+        return defaultAdminSmsRole;
     }
 
     public static UserData getShp6Shopper1() {
