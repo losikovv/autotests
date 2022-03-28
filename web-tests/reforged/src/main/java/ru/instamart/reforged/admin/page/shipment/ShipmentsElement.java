@@ -1,7 +1,11 @@
 package ru.instamart.reforged.admin.page.shipment;
 
 import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.*;
+import ru.instamart.reforged.admin.table.ShipmentTable;
+import ru.instamart.reforged.core.component.Button;
+import ru.instamart.reforged.core.component.Checkbox;
+import ru.instamart.reforged.core.component.Element;
+import ru.instamart.reforged.core.component.Input;
 
 public interface ShipmentsElement {
 
@@ -37,40 +41,15 @@ public interface ShipmentsElement {
     Button clearFilterButton = new Button(By.xpath("//a[@class='button icon-remove']"), "empty");
     Element foundCount = new Element(By.className("leader-text"), "empty");
 
-    Table table = new Table();
-
     Button submit = new Button(By.xpath("//button[@type='submit']"), "отправка запроса на фильтрацию");
+    Element foundShipments = new Element(By.xpath("//div[contains(text(),'Найдено заказов:')]"), "элемент с количеством найденных заказов");
+    ShipmentTable tableComponent = new ShipmentTable();
 
     Element title = new Element(By.xpath("//div[@class='table-cell']"), "empty");
 
-    Button nextPager = new Button(By.linkText("Следущая"),
-            "ссылка Следующая страница");
-    Button previousPager = new Button(By.linkText("Предыдущая"),
-            "ссылка Предыдущая страница");
-    Button lastPage = new Button(By.linkText("Последняя"),
-            "ссылка Последняя страница");
-    Button firstPage = new Button(By.linkText("Первая"),
-            "ссылка Первая страница");
-    Button currentPage = new Button(By.xpath("//span[@class='page current']"),
-            "номер текущей страницы пейджера");
-
-    Element dateAndTimeFirstCell = new Element(
-            By.xpath("//th[text()='Дата и время доставки']//following::a[contains(@href,'delivery_windows')] [1]"),
-            "дата и время доставки из первой ячейки в таблице");
-
-    ElementCollection dateAndTimeColumn = new ElementCollection(
-            By.xpath("//th[text()='Дата и время доставки']//following::a[contains(@href,'delivery_windows')]"),
-            "список всех дат и времен доставки из колонки после фильтрации");
-
-    Element phoneFirstCell = new Element(
-            By.xpath("//th[text()='Куда']//following::div[@class='where-to__phone with-tip'] [1]"),
-            "телефон клиента из первой ячейки в таблице");
-
-    ElementCollection phoneColumn = new ElementCollection(
-            By.xpath("//table/tbody/tr/td[count(//table/thead/tr/th[.='Куда']/preceding-sibling::th)+1]"),
-            "список всех телефонов из колонки после фильтрации");
-
-    Element foundShipments = new Element(
-            By.xpath("//div[contains(text(),'Найдено заказов:')]"),
-            "элемент с количеством найденных заказов");
+    Button nextPager = new Button(By.linkText("Следущая"), "ссылка Следующая страница");
+    Button previousPager = new Button(By.linkText("Предыдущая"), "ссылка Предыдущая страница");
+    Button lastPage = new Button(By.linkText("Последняя"), "ссылка Последняя страница");
+    Button firstPage = new Button(By.linkText("Первая"), "ссылка Первая страница");
+    Button currentPage = new Button(By.xpath("//span[@class='page current']"), "номер текущей страницы пейджера");
 }

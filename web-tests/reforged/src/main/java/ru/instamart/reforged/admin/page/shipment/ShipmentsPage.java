@@ -1,20 +1,66 @@
 package ru.instamart.reforged.admin.page.shipment;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
+import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.admin.AdminPage;
+import ru.instamart.reforged.admin.table.ShipmentTable;
 import ru.instamart.reforged.core.Kraken;
 
 public final class ShipmentsPage implements AdminPage, ShipmentsCheck {
 
-    @Step("Получить номер заказа из первой строки")
-    public String getOrderNumber() {
-        return table.getFirstLine().findElement(By.xpath("//td/span[2]/a")).getText();
+    @Step("Получить номер заказа из строки {0}")
+    public String getOrderNumber(final int line) {
+        return tableComponent.getOrderNumber(line);
     }
 
-    @Step("Получить номер отправки из первой строки")
-    public String getShipmentNumber() {
-        return table.getFirstLine().findElement(By.xpath("//td/span/a")).getText();
+    @Step("Нажать на номер заказа из строки {0}")
+    public void clickToOrderNumber(final int line) {
+        tableComponent.clickToOrderNumber(line);
+    }
+
+    @Step("Получить номер отправки из строки {0}")
+    public String getShipmentNumber(final int line) {
+        return tableComponent.getShipmentNumber(line);
+    }
+
+    @Step("Получить номер отправки из строки {0}")
+    public String getSum(final int line) {
+        return StringUtil.parseNumericFromString(tableComponent.getSum(line));
+    }
+
+    @Step("Получить статус оплаты заказа из строки {0}")
+    public ShipmentTable.PaymentStatus getPaymentStatus(final int line) {
+        return tableComponent.getPaymentStatus(line);
+    }
+
+    @Step("Получить статус доставки заказа из строки {0}")
+    public ShipmentTable.DeliveryStatus getDeliveryStatus(final int line) {
+        return tableComponent.getDeliveryStatus(line);
+    }
+
+    @Step("Получить ретейлера из строки {0}")
+    public String getRetailer(final int line) {
+        return tableComponent.getRetailer(line);
+    }
+
+    @Step("Получить город ретейлера из строки {0}")
+    public String getRetailerCity(final int line) {
+        return tableComponent.getRetailerCity(line);
+    }
+
+    @Step("Получить комментарий к заказу из строки {0}")
+    public String getComment(final int line) {
+        return tableComponent.getComment(line);
+    }
+
+    @Step("Добавить комментарий {0} к заказу из строки {1}")
+    public void addComment(final String text, final int line) {
+        tableComponent.addComment(text, line);
+    }
+
+    @Step("Нажать на редактирование заказа из строки {0}")
+    public void clickToEdit(final int line) {
+        tableComponent.clickOnEdit(line);
     }
 
     @Step("Получить количество найденных товаров")
@@ -64,19 +110,6 @@ public final class ShipmentsPage implements AdminPage, ShipmentsCheck {
     @Step("Подставляем в фильтр 'Дата и Время до' переданное значение: {0}")
     public void setDateAndTimeFilterToTableDefault(final String deliveryDate) {
         deliveryTimeTo.fill(deliveryDate);
-    }
-
-    @Step("Получаем дату доставки из первой стройки таблицы с заказами")
-    public String getFirstDeliveryDateFromTable() {
-        dateAndTimeFirstCell.getActions().mouseOver();
-        final String[] dateAndTime = dateAndTimeFirstCell.getText().split(" ");
-        return dateAndTime[0].replace("с", "");
-    }
-
-    @Step("Получаем номер телефона из первой стройки таблицы с заказами")
-    public String getFirstPhoneFromTable() {
-        dateAndTimeFirstCell.getActions().mouseOver();
-        return phoneFirstCell.getText();
     }
 
     @Step("Подставляем в фильтр телефон переданное значение: {0}")

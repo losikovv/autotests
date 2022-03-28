@@ -13,6 +13,7 @@ import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.Skip;
 import ru.instamart.kraken.util.StringUtil;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.kraken.util.TimeUtil;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -155,6 +156,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         final var shipmentsBeforeFiltration = shipments().getNumberOfShipments();
         shipments().setShipmentOrOrderNumber(shipment.order.number);
         shipments().search();
+        shipments().waitPageLoad();
         final var shipmentsAfterFiltration = shipments().getNumberOfShipments();
         shipments().checkNumberOfShipmentsAfterFiltration(shipmentsBeforeFiltration, shipmentsAfterFiltration);
         shipments().checkLastPagePager();
@@ -173,6 +175,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         final var shipmentsBeforeFiltration = shipments().getNumberOfShipments();
         shipments().setPhoneFilterFromTableDefault("+7 990");
         shipments().search();
+        shipments().waitPageLoad();
         final var shipmentsAfterFiltration = shipments().getNumberOfShipments();
         final var pages = shipments().getNumberOfPagesAfterFiltration(shipmentsAfterFiltration);
         shipments().checkNumberOfShipmentsAfterFiltration(shipmentsBeforeFiltration, shipmentsAfterFiltration);
@@ -206,8 +209,9 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().waitPageLoad();
         shipments().setShipmentOrOrderNumber(orderNumber);
         shipments().search();
+        shipments().waitPageLoad();
         shipments().checkFoundOrderOrShipmentCount(shipments().getFoundCount(), 1);
-        shipments().checkOrderOrShipmentNumber(shipments().getOrderNumber(), orderNumber);
+        shipments().checkOrderOrShipmentNumber(shipments().getOrderNumber(0), orderNumber);
     }
 
     @CaseId(445)
@@ -232,8 +236,9 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().waitPageLoad();
         shipments().setShipmentOrOrderNumber(shipmentNumber);
         shipments().search();
+        shipments().waitPageLoad();
         shipments().checkFoundOrderOrShipmentCount(shipments().getFoundCount(), 1);
-        shipments().checkOrderOrShipmentNumber(shipments().getShipmentNumber(), shipmentNumber);
+        shipments().checkOrderOrShipmentNumber(shipments().getShipmentNumber(0), shipmentNumber);
     }
 
     // TODO тест можно ускорить - использовать тестовый заказ из конфига
@@ -273,7 +278,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().setShipmentOrOrderNumber(shipmentNumber);
         shipments().search();
         shipments().waitPageLoad();
-        shipments().checkOrderOrShipmentNumber(shipments().getShipmentNumber(), shipmentNumber);
+        shipments().checkOrderOrShipmentNumber(shipments().getShipmentNumber(0), shipmentNumber);
     }
 
     //Нет четких требований к кейсу
@@ -301,6 +306,6 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         shipments().setShipmentOrOrderNumber(shipmentNumber);
         shipments().search();
         shipments().waitPageLoad();
-        shipments().checkOrderOrShipmentNumber(shipments().getShipmentNumber(), shipmentNumber);
+        shipments().checkOrderOrShipmentNumber(shipments().getShipmentNumber(0), shipmentNumber);
     }
 }
