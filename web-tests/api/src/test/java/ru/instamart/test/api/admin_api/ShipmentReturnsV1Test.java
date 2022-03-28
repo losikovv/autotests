@@ -36,6 +36,16 @@ public class ShipmentReturnsV1Test extends RestBase {
         checkStatusCode200(response);
     }
 
+    @Skip(onServer = Server.STAGING)
+    @CaseId(2313)
+    @Test(groups = {"api-instamart-regress"},
+            description = "Детализация истории возвратов на стр. возвратов")
+    public void getShipmentReturn() {
+        Response response = ShipmentReturnsAdminV1Request.GET("8fbb749f-5353-45a5-90e2-3823fc05df60", "d1ebed51-892e-403a-bf37-62884fce588d");//TODO: расхардкодить, добавить проверку схемы.
+
+        checkStatusCode200(response);
+    }
+
     @AfterClass(alwaysRun = true)
     public void postconditions() {
         newAdminRoles(false);
