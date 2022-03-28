@@ -11,4 +11,10 @@ public class ShipmentReturnsAdminV1Request extends ApiV1RequestBase {
         return givenWithAuth()
                 .get(ApiV1Endpoints.Admin.Shipments.SHIPMENT_RETURNS, shipmentUUID);
     }
+
+    @Step("{method} /" + ApiV1Endpoints.Admin.Shipments.SHIPMENT_RETURN)
+    public static Response GET(String shipmentUUID, String shipmentReturnUUID){
+        return givenWithAuth()
+                .get(ApiV1Endpoints.Admin.Shipments.SHIPMENT_RETURN, shipmentUUID, shipmentReturnUUID);
+    }
 }
