@@ -61,7 +61,7 @@ public class NotificationsPositionsV3Test extends RestBase {
                 quantity);
         checkStatusCode200(responseReady);
 
-        simplyAwait(2);
+        simplyAwait(3);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
 
         Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
@@ -95,7 +95,7 @@ public class NotificationsPositionsV3Test extends RestBase {
                 --quantity);
         checkStatusCode200(responseReady);
 
-        simplyAwait(2);
+        simplyAwait(3);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
 
         Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
@@ -127,7 +127,7 @@ public class NotificationsPositionsV3Test extends RestBase {
                 ++quantity);
         checkStatusCode200(responseReady);
 
-        simplyAwait(2);
+        simplyAwait(3);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
 
         Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
@@ -169,7 +169,7 @@ public class NotificationsPositionsV3Test extends RestBase {
                 String.valueOf(gramsPerUnit));
         checkStatusCode200(responseReady);
 
-        simplyAwait(2);
+        simplyAwait(3);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
         Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
 
@@ -212,7 +212,7 @@ public class NotificationsPositionsV3Test extends RestBase {
                 String.valueOf(gramsPerUnit));
         checkStatusCode200(responseReady);
 
-        simplyAwait(2);
+        simplyAwait(3);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
         Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
 
@@ -253,7 +253,7 @@ public class NotificationsPositionsV3Test extends RestBase {
                 String.valueOf(gramsPerUnit));
         checkStatusCode200(responseReady);
 
-        simplyAwait(2);
+        simplyAwait(3);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
         Double expTotal = lineItem.getProduct().getUnitPrice() * quantity;
         Double total = readyOrder.getShipments().get(0).getLineItems().get(0).getTotal();
@@ -295,7 +295,7 @@ public class NotificationsPositionsV3Test extends RestBase {
                 String.valueOf(gramsPerUnit));
         checkStatusCode200(responseReady);
 
-        simplyAwait(2);
+        simplyAwait(3);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
         Double expTotal = lineItem.getProduct().getUnitPrice() * quantity;
         Double total = readyOrder.getShipments().get(0).getLineItems().get(0).getTotal();
@@ -337,7 +337,7 @@ public class NotificationsPositionsV3Test extends RestBase {
                 "0");
         checkStatusCode200(responseReady);
 
-        simplyAwait(2);
+        simplyAwait(3);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
         Double total = readyOrder.getShipments().get(0).getLineItems().get(0).getTotal();
 
@@ -378,7 +378,7 @@ public class NotificationsPositionsV3Test extends RestBase {
                 "0");
         checkStatusCode200(responseReady);
 
-        simplyAwait(2);
+        simplyAwait(3);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
         Double total = readyOrder.getShipments().get(0).getLineItems().get(0).getTotal();
 
@@ -423,7 +423,7 @@ public class NotificationsPositionsV3Test extends RestBase {
                 String.valueOf(gramsPerUnit));
         checkStatusCode200(responseReady);
 
-        simplyAwait(2);
+        simplyAwait(3);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
         Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
 
@@ -466,7 +466,7 @@ public class NotificationsPositionsV3Test extends RestBase {
                 String.valueOf(gramsPerUnit));
         checkStatusCode200(responseReady);
 
-        simplyAwait(2);
+        simplyAwait(3);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
         Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
 
@@ -511,7 +511,7 @@ public class NotificationsPositionsV3Test extends RestBase {
                 String.valueOf(gramsPerUnit));
         checkStatusCode200(responseReady);
 
-        simplyAwait(2);
+        simplyAwait(3);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
         Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
 
@@ -554,7 +554,7 @@ public class NotificationsPositionsV3Test extends RestBase {
                 String.valueOf(gramsPerUnit));
         checkStatusCode200(responseReady);
 
-        simplyAwait(2);
+        simplyAwait(3);
         OrderV2 readyOrder = apiV2.getOrder(order.getNumber());
         Double total = Math.floor(readyOrder.getShipments().get(0).getLineItems().get(0).getTotal());
 
