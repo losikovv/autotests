@@ -15,18 +15,18 @@ public final class Pages implements AdminPage, PagesCheck {
 
     @Step("Перейти к редактированию страницы {0}")
     public void editEntry(final String name) {
-        table.getLine(name).findElement(By.xpath(".//ancestor::td[@class='actions']/a[@data-action='edit']")).click();
+        tableComponent.clickToEdit(name);
     }
 
     @Step("Удалить запись {0} из таблицы")
     public void deleteEntry(final Long id) {
-        tableEntrySpecificDelete.click(id);
+        tableComponent.clickToRemoveById(id);
         confirmBrowserAlert();
     }
 
     @Step("Вернуть pageId")
-    public Long returnPageId(StaticPageData data) {
-        return StringUtil.stringToLong(table.getLine(data.getPageName()).getAttribute("id"));
+    public Long getPageId(StaticPageData data) {
+        return tableComponent.getPageId(data.getPageName());
     }
 
     @Override

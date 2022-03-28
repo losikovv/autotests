@@ -47,7 +47,7 @@ public final class AdministrationPagesSectionTests extends BaseTest {
 
         pages().goToPage();
         pages().checkTable();
-        final var id = pages().returnPageId(staticPage);
+        final var id = pages().getPageId(staticPage);
 
         pages().openSitePage(staticPage.getPageURL());
         pages().checkPageIsAvailable();

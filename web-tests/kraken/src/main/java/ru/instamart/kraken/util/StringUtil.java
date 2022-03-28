@@ -26,7 +26,11 @@ public final class StringUtil {
     }
 
     public static int extractNumberFromString(final String text) {
-        return Integer.parseInt(text.replaceAll("\\D+", ""));
+        return Integer.parseInt(parseNumericFromString(text));
+    }
+
+    public static String parseNumericFromString(final String text) {
+        return text.replaceAll("\\D+", "");
     }
 
     public static double stringToDouble(String stringToParse) {
@@ -68,7 +72,7 @@ public final class StringUtil {
      * Парсит строку типа "Екатеринбург (17)" в (Integer)17, или "тест-375756123 (13)" в (Integer)13
      */
     public static int parseNumberCitiesFromString(final String text) {
-        Matcher matcher = citiesPattern.matcher(text);
+        final var matcher = citiesPattern.matcher(text);
         if (matcher.find()) {
             return Integer.parseInt(matcher.group(1));
         } else return 0;

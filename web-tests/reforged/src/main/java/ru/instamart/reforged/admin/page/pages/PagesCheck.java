@@ -20,14 +20,4 @@ public interface PagesCheck extends Check, PagesElement {
     default void checkDeleteAlertVisible() {
         Kraken.waitAction().shouldBeVisible(deleteAlert);
     }
-
-    @Step("Проверяем отсутствие страницы с id {0} внутри таблицы страниц")
-    default void checkSpecificEntryNotVisible(Long id) {
-        Kraken.waitAction().shouldNotBeVisible(tableEntrySpecific, id);
-    }
-
-    @Step("Проверяем страницу с id {0} внутри таблицы страниц")
-    default void checkSpecificEntryVisible(Long id) {
-        Kraken.waitAction().shouldNotBeVisible(tableEntrySpecific, id);
-    }
 }

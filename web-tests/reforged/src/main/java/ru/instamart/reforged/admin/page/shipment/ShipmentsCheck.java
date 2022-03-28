@@ -2,7 +2,7 @@ package ru.instamart.reforged.admin.page.shipment;
 
 import io.qameta.allure.Step;
 import org.testng.Assert;
-import ru.instamart.kraken.util.StringUtil;
+import ru.instamart.reforged.admin.table.ShipmentTable;
 import ru.instamart.reforged.core.Check;
 
 import static org.testng.Assert.assertEquals;
@@ -63,22 +63,24 @@ public interface ShipmentsCheck extends Check, ShipmentsElement {
 
     @Step("Проверяем, что колонка Дата и Время содержит только отфильтрованные значения: {0}")
     default void checkDateAndTimeShipmentsColumn(final String deliveryDate) {
-        dateAndTimeColumn.getElements().forEach(element -> {
-            var actual = element.getText();
-            krakenAssert.assertTrue(actual.contains(deliveryDate),
-                    String.format("В колонке присутствует дата %s отличная от примененного фильтра %s", actual, deliveryDate)
-            );
-        });
+        tableComponent
+                .getDataFromColumn(ShipmentTable.Column.DATE_AND_TIME_FOR_DELIVERY.getLabel())
+                        .forEach(text -> {
+                                krakenAssert.assertTrue(
+                                        text.contains(deliveryDate),
+                                        String.format("В колонке присутствует дата %s отличная от примененного фильтра %s", text, deliveryDate)
+                                );
+                        });
         krakenAssert.assertAll();
     }
 
     @Step("Проверяем, что колонка Куда содержит только отфильтрованные значения: {0}")
     default void checkPhoneShipmentsColumn(final String phone) {
-        phoneColumn.getElements().forEach(element -> {
-            var actual = element.getText();
-            krakenAssert.assertTrue(actual.contains(phone),
-                    String.format("В колонке присутствует телефон '%s' отличный от примененного фильтра '%s'", actual, phone));
-        });
+        tableComponent.getPhones()
+                        .forEach(actualPhone -> {
+                            krakenAssert.assertTrue(actualPhone.contains(phone),
+                                    String.format("В колонке присутствует телефон '%s' отличный от примененного фильтра '%s'", actualPhone, phone));
+                        });
         krakenAssert.assertAll();
     }
 
