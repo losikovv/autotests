@@ -58,7 +58,7 @@ public interface HeaderElement {
 
     ElementCollection taxonCategoriesCollection = new ElementCollection(By.xpath("//div[@data-qa='taxon']"), "Список категорий в подсказке поиска");
     ElementCollection taxonCategoriesCollectionImagesAlco = new ElementCollection(By.cssSelector("svg.header-search-list-category__icon-content"), "Картинки 18+ списка категорий в подсказке поиска");
-    ElementCollection searchSuggestsCollectionImagesAlco = new ElementCollection(By.cssSelector("svg.header-search-list-product__image-content"), "Картинки 18+ в подсказках поиска");
+    ElementCollection searchSuggestsCollectionImagesAlco = new ElementCollection(By.xpath("//div[@data-qa='suggester_header_tab_panel_0']//img[contains(@src,'adult-warning')]"), "Картинки 18+ в подсказках поиска");
 
     Button profile = new Button(By.xpath("//button[@data-qa='profile-button_button']"), "кнопка профиль пользователя в хэдере");
     Button cart = new Button(By.xpath("//button[@data-qa='open-cart-button']"), "кнопка корзины");

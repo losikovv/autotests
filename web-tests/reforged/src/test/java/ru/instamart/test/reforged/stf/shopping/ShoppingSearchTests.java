@@ -149,12 +149,10 @@ public final class ShoppingSearchTests extends BaseTest {
         search().interactCart().checkCartNotEmpty();
     }
 
-    //TODO: Переписать и поставить баги
     @CaseId(2589)
-    @Test(enabled = false, description = "Работоспособность сортировки товаров", groups = {"regression"})
+    @Test(description = "Работоспособность сортировки товаров", groups = {"regression"})
     public void successApplySort() {
         shop().goToPage(ShopUrl.OKEY, true);
-        shop().checkSpinnerIsNotVisible();
         shop().addCookie(CookieFactory.COOKIE_ALERT);
         shop().interactHeader().fillSearch("кофе");
         shop().interactHeader().clickSearchButton();
@@ -162,7 +160,6 @@ public final class ShoppingSearchTests extends BaseTest {
         search().selectSort("Сначала дешевые");
         search().checkSortEnabled("Сначала дешевые");
 
-        search().waitPageLoad();
         search().checkPriceAscSortCorrect();
     }
 
@@ -233,9 +230,8 @@ public final class ShoppingSearchTests extends BaseTest {
         search().checkPageScrolled();
     }
 
-    //TODO: Переписать и поставить баги
     @CaseId(2591)
-    @Test(enabled = false, description = "Сортировка + фильтрация товаров: сначала дорогие, скидки + убывание, конкретный бренд", groups = {"regression"})
+    @Test(description = "Сортировка + фильтрация товаров: сначала дорогие, скидки + убывание, конкретный бренд", groups = {"regression"})
     public void successApplyFiltersAndSortExpensiveDesc() {
         shop().openSitePage("okey/search?keywords=чай&sid=128");
 
@@ -282,14 +278,12 @@ public final class ShoppingSearchTests extends BaseTest {
         search().checkFilterDisabled("Стерилизованное");
     }
 
-    @Issue("B2C-7775")
     @CaseId(2737)
-    @Test(enabled = false, description = "Отображение алкоголя в результатах поиска при неподтверждении возраста: нажатие за пределы модального окна", groups = {"regression"})
+    @Test(description = "Отображение алкоголя в результатах поиска при неподтверждении возраста: нажатие за пределы модального окна", groups = {"regression"})
     public void alcoholSearchModalClose() {
         shop().goToPage();
         shop().interactHeader().fillSearch("вино красное");
         shop().interactHeader().checkSuggesterVisible();
-        search().interactHeader().checkAlcoStubInCategories();
         search().interactHeader().checkAlcoStubInSuggest();
         search().interactHeader().clickSearchButton();
 
