@@ -254,7 +254,7 @@ public class NotificationsPositiveV3Test extends RestBase {
                 quantity);
         checkStatusCode200(responseReadyForDelivery);
 
-        simplyAwait(2);
+        simplyAwait(3);
         OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
         Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не перешел в статус Готов к доставке");
         //добавить проверку лайн айтемов
@@ -278,7 +278,7 @@ public class NotificationsPositiveV3Test extends RestBase {
                 quantity);
         checkStatusCode200(responseReadyForDelivery);
 
-        simplyAwait(2);
+        simplyAwait(3);
         OrderV2 readyOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
         Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не перешел в статус Готов к доставке");
         //добавить проверку лайн айтемов
@@ -309,7 +309,7 @@ public class NotificationsPositiveV3Test extends RestBase {
                 quantity);
         checkStatusCode200(responseDelivered);
 
-        simplyAwait(2);
+        simplyAwait(3);
         OrderV2 shippedOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
         Assert.assertEquals(shippedOrder.getShipmentState(), OrderStatusV2.SHIPPED.getStatus(), "Заказ не перешел в статус Доставлен");
         //добавить проверку лайн айтемов
