@@ -1,6 +1,5 @@
 package ru.instamart.test.api;
 
-import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.models.V1PodList;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
@@ -9,8 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.sbermarket.common.Crypt;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -27,7 +26,7 @@ public class KubernetesClientTest extends RestBase {
     @Story("Список подов для namespace")
     @Test(groups = {"api-instamart-regress"},
             description = "Список подов для namespace = s-sb-stfkraken")
-    public void kubeTest() throws IOException, ApiException {
+    public void kubeTest() {
         V1PodList list = getPodList(namespace, labelSelector);
         AtomicReference<String> attach = new AtomicReference<>();
         list.getItems().forEach(item -> attach.set(item.getMetadata().getName()));
@@ -37,7 +36,7 @@ public class KubernetesClientTest extends RestBase {
     @Story("Логи пода")
     @Test(groups = {"api-instamart-regress"},
             description = "Список последних 10 строк лога")
-    public void kubeLogs() throws IOException, ApiException {
+    public void kubeLogs() {
         V1PodList list = getPodList(namespace, labelSelector);
         List<String> logs = getLogs(list.getItems().get(0), "puma", 10);
         AtomicReference<String> attach = new AtomicReference<>();

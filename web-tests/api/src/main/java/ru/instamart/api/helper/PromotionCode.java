@@ -3,22 +3,26 @@ package ru.instamart.api.helper;
 import ru.instamart.jdbc.dao.PromotionCodesDao;
 import ru.instamart.jdbc.dto.PromotionCodesFilters;
 import ru.instamart.jdbc.entity.PromotionCodesEntity;
+import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.util.List;
 
 
 public class PromotionCode {
     public static String getPromotionCode() {
-        PromotionCodesFilters filters = PromotionCodesFilters.builder()
-                .value("auto%")
-                .usageLimit(5000)
-                .limit(1)
-                .build();
-        List<PromotionCodesEntity> allPromoCodes = PromotionCodesDao.INSTANCE.findAll(filters);
-        if(allPromoCodes.size()!=0) {
-            return allPromoCodes.get(0).getValue();
+        if (!EnvironmentProperties.SERVER.equals("production")) {
+            PromotionCodesFilters filters = PromotionCodesFilters.builder()
+                    .value("auto%")
+                    .usageLimit(5000)
+                    .limit(1)
+                    .build();
+            List<PromotionCodesEntity> allPromoCodes = PromotionCodesDao.INSTANCE.findAll(filters);
+            if (allPromoCodes.size() != 0) {
+                return allPromoCodes.get(0).getValue();
+            }
+            return "auto300lomxs4"; //default promo code
         }
-        return "auto300lomxs4"; //default promo code
+        return null;
     }
 
 
@@ -29,7 +33,7 @@ public class PromotionCode {
                 .limit(1)
                 .build();
         List<PromotionCodesEntity> allExpiredPromoCodes = PromotionCodesDao.INSTANCE.findAll(expiredFilters);
-        if(allExpiredPromoCodes.size()!=0) {
+        if (allExpiredPromoCodes.size() != 0) {
             return allExpiredPromoCodes.get(0).getValue();
         } else {
             PromotionCodesFilters filters = PromotionCodesFilters.builder()
@@ -38,7 +42,7 @@ public class PromotionCode {
                     .limit(2)
                     .build();
             List<PromotionCodesEntity> allPromoCodes = PromotionCodesDao.INSTANCE.findAll(filters);
-            if(allPromoCodes.size() > 0) {
+            if (allPromoCodes.size() > 0) {
                 String promoCode = allPromoCodes.get(1).getValue();
                 PromotionCodesDao.INSTANCE.updateUsageLimit(0, promoCode);
                 return promoCode;

@@ -26,7 +26,7 @@ ext.versions = [
         commonsLang3:'3.12.0',
         swaggerCoverage:'1.4.5',
 
-        common:'1.0.4',
+        common:'1.0.5',
         ab:'1.1.0',
         qase:'1.0.0',
         qa:'1.5.5'
