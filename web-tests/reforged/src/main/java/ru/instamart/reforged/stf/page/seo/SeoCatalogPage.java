@@ -62,6 +62,11 @@ public final class SeoCatalogPage implements StfPage, SeoCatalogCheck {
         Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + shop.getUrl() + pageUrl());
     }
 
+    @Step("Выбрать сортировку {text}")
+    public void selectSort(final String text) {
+        selectSort.selectByText(text);
+    }
+
     @Override
     public String pageUrl() {
         return "/c/new-bakalieia/krupy/griechnievaia";

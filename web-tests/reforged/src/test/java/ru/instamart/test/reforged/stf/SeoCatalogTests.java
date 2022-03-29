@@ -12,8 +12,8 @@ import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
 import ru.instamart.test.reforged.BaseTest;
 
-import static ru.instamart.reforged.stf.page.StfRouter.seo;
-import static ru.instamart.reforged.stf.page.StfRouter.shop;
+import static ru.instamart.reforged.stf.page.StfRouter.*;
+import static ru.instamart.reforged.stf.page.StfRouter.search;
 
 @Epic("STF UI")
 @Feature("Seo Каталог")
@@ -78,5 +78,21 @@ public final class SeoCatalogTests extends BaseTest {
         seo().interactHeader().clickToCart();
         seo().interactCart().checkCartOpen();
         seo().interactCart().checkCartNotEmpty();
+    }
+
+    @CaseId(2589)
+    @Test(description = "Работоспособность сортировки товаров(сначала дешевые)", groups = "regression" )
+    public void successSortProductsViaCheap() {
+        seo().openSitePage("auchan/c/new-sladosti/piechienie/ovsianoie");
+        seo().refreshWithoutBasicAuth();
+
+        seo().selectSort("Сначала дешевые");
+        seo().checkSortEnabled("Сначала дешевые");
+
+        seo().waitPageLoad();
+        seo().checkSearchImgLoaded();
+
+        seo().refresh();
+        seo().checkPriceAscSortCorrect();
     }
 }
