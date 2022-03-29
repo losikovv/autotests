@@ -50,11 +50,9 @@ public class CitiesAdminTest extends RestBase {
         checkStatusCode(response, 200, ContentType.HTML);
     }
 
-    @Issue("B2C-6444")
-    @Skip(onServer = Server.STAGING)
-    @CaseId(1124)
+    @Deprecated
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress"}, description = "Создание города c обязательными параметрами")
+    @Test(groups = {}, description = "Создание города c обязательными параметрами")
     public void createCityWithRequiredParams() {
         cityName = "Autotest-" + Generate.literalString(6);
         admin.createCity(new CitiesAdminRequest.City(cityName));
@@ -66,11 +64,9 @@ public class CitiesAdminTest extends RestBase {
         softAssert.assertAll();
     }
 
-    @Issue("B2C-6444")
-    @Skip(onServer = Server.STAGING)
-    @CaseId(1125)
+    @Deprecated
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress"}, description = "Создание города со всеми возможными параметрами")
+    @Test(groups = {}, description = "Создание города со всеми возможными параметрами")
     public void createCityWithAllParams() {
         lockedCityName = "Autotest-" + Generate.literalString(6);
         lockedCitySlug = "Autotest-" + Generate.literalString(6);
@@ -87,21 +83,18 @@ public class CitiesAdminTest extends RestBase {
         checkCityInDb(city, cityFromDb);
     }
 
-    @CaseId(1126)
+    @Deprecated
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress"}, description = "Создание города c пустыми обязательными параметрами")
+    @Test(groups = {}, description = "Создание города c пустыми обязательными параметрами")
     public void createCityWithEmptyRequiredParams() {
         final Response response = CitiesAdminRequest.POST(new CitiesAdminRequest.City());
         checkStatusCode400(response);
     }
 
-    @Issue("B2C-6444")
-    @Skip(onServer = Server.STAGING)
-    @CaseId(1127)
+    @Deprecated
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress"},
-            description = "Редактирование города с обязательными параметрами",
-            dependsOnMethods = "createCityWithRequiredParams")
+    @Test(groups = {},
+            description = "Редактирование города с обязательными параметрами")
     public void editCityWithRequiredParams() {
         String updatedCityName = "Autotest-" + Generate.literalString(6);
         final Response response = CitiesAdminRequest.PATCH(new CitiesAdminRequest.City(updatedCityName), cityName);
@@ -110,25 +103,19 @@ public class CitiesAdminTest extends RestBase {
         checkFieldIsNotEmpty(cityFromDb, "город в БД");
     }
 
-    @Issue("B2C-6444")
-    @Skip(onServer = Server.STAGING)
-    @CaseId(1128)
+    @Deprecated
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress"},
-            description = "Редактирование города c пустыми обязательными параметрами",
-            dependsOnMethods = "createCityWithRequiredParams")
+    @Test(groups = {},
+            description = "Редактирование города c пустыми обязательными параметрами")
     public void editCityWithEmptyRequiredParams() {
         final Response response = CitiesAdminRequest.PATCH(new CitiesAdminRequest.City(), cityName);
         checkStatusCode400(response);
     }
 
-    @Issue("B2C-6444")
-    @Skip(onServer = Server.STAGING)
-    @CaseId(1129)
+    @Deprecated
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress"},
-            description = "Редактирование города со всеми возможными параметрами",
-            dependsOnMethods = {"editCityWithRequiredParams", "editCityWithEmptyRequiredParams"})
+    @Test(groups = {},
+            description = "Редактирование города со всеми возможными параметрами")
     public void editCityWithAllParams() {
         updatedCityName = "Autotest-" + Generate.literalString(6);
         updatedCitySlug = "Autotest-" + Generate.literalString(6);
@@ -146,13 +133,10 @@ public class CitiesAdminTest extends RestBase {
         checkCityInDb(city, cityFromDb);
     }
 
-    @Issue("B2C-6444")
-    @Skip(onServer = Server.STAGING)
-    @CaseId(1130)
+    @Deprecated
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress"},
-            description = "Редактирование заблокированного для изменений города",
-            dependsOnMethods = "createCityWithAllParams")
+    @Test(groups = {},
+            description = "Редактирование заблокированного для изменений города")
     public void editLockedCity() {
         String cityName = "Autotest-" + Generate.literalString(6);
         final Response response = CitiesAdminRequest.PATCH(new CitiesAdminRequest.City(cityName), lockedCitySlug);
@@ -161,35 +145,27 @@ public class CitiesAdminTest extends RestBase {
         Assert.assertNull(cityFromDb, "Заблокированный для редактирования город обновился");
     }
 
-    @Issue("B2C-6444")
-    @Skip(onServer = Server.STAGING)
-    @CaseId(1131)
+    @Deprecated
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress"},
-            description = "Удаление города",
-            dependsOnMethods = "editCityWithAllParams")
+    @Test(groups = {},
+            description = "Удаление города")
     public void deleteCity() {
         admin.deleteCity(updatedCitySlug);
         CitiesEntity cityFromDb = CitiesDao.INSTANCE.getCityByName(updatedCityName);
         Assert.assertNull(cityFromDb, "Город не удалился");
     }
 
-    @Issue("B2C-6444")
-    @Skip(onServer = Server.STAGING)
-    @CaseId(1132)
+    @Deprecated
     @Story("Список городов в настройках")
-    @Test(groups = {"api-instamart-regress"},
-            description = "Удаление заблокированного для изменений города",
-            dependsOnMethods = "createCityWithAllParams")
+    @Test(groups = {},
+            description = "Удаление заблокированного для изменений города")
     public void deleteLockedCity() {
         admin.deleteCity(lockedCitySlug);
         CitiesEntity cityFromDb = CitiesDao.INSTANCE.getCityByName(lockedCityName);
         checkFieldIsNotEmpty(cityFromDb, "город в БД");
     }
 
-    @Issue("B2C-6444")
-    @Skip(onServer = Server.STAGING)
-    @AfterClass(alwaysRun = true)
+    @AfterClass(enabled = false)
     public void clearData() {
         if(Objects.nonNull(lockedCityName)) CitiesDao.INSTANCE.deleteCityByName(lockedCityName);
     }
