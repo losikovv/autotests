@@ -170,6 +170,10 @@ public final class ApiV2EndPoints {
 
     public static final class Searches {
         public static final String SUGGESTIONS = "v2/searches/suggestions";
+
+        public static final class Suggestions {
+            public static final String TOP_PHRASES = "v2/searches/suggestions/top_phrases";
+        }
     }
 
     public static final class Sessions {
@@ -223,6 +227,7 @@ public final class ApiV2EndPoints {
         public static final String COMPANY_EMPLOYEES = "v2/user/company_employees";
         public static final String EXIST = "v2/user/companies/exist";
     }
+
     public static final class Users {
         public static final String BY_EMAIL = "v2/users/{email}";
         public static final String REFERRAL_PROGRAM = "v2/users/{email}/referral_program";
