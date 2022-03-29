@@ -11,6 +11,7 @@ import ru.instamart.api.response.v2.CurrentTimeV2Response;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertNotNull;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 
 @Epic("ApiV2")
 @Feature("Серверное время")
@@ -22,6 +23,7 @@ public class CurrentTimeV2Test extends RestBase {
             description = "Получение текущего серверного времени")
     public void currentTimeTest() {
         final Response response = CurrentTimeV2Request.GET();
+        checkStatusCode200(response);
         CurrentTimeV2Response currentTimeV2Response = response.as(CurrentTimeV2Response.class);
         assertNotNull(currentTimeV2Response,"Время пришло пустым");
     }

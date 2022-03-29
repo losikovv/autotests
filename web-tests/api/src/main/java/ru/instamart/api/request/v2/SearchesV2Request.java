@@ -7,7 +7,6 @@ import ru.instamart.api.endpoint.ApiV2EndPoints;
 import ru.instamart.api.request.ApiV2RequestBase;
 import ru.sbermarket.common.Mapper;
 
-import java.util.Map;
 import java.util.Objects;
 
 public final class SearchesV2Request extends ApiV2RequestBase {
@@ -32,6 +31,22 @@ public final class SearchesV2Request extends ApiV2RequestBase {
             return givenWithSpec()
                     .queryParams(Mapper.INSTANCE.objectToMap(jsonObject))
                     .get(ApiV2EndPoints.Searches.SUGGESTIONS);
+        }
+
+        public static class TopPhrases {
+
+            @Step("{method} /" + ApiV2EndPoints.Searches.Suggestions.TOP_PHRASES)
+            public static Response GET() {
+                return givenWithAuth()
+                        .get(ApiV2EndPoints.Searches.Suggestions.TOP_PHRASES);
+            }
+
+            @Step("{method} /" + ApiV2EndPoints.Searches.Suggestions.TOP_PHRASES)
+            public static Response GET(int sid) {
+                return givenWithAuth()
+                        .queryParam("sid", sid)
+                        .get(ApiV2EndPoints.Searches.Suggestions.TOP_PHRASES);
+            }
         }
     }
 }
