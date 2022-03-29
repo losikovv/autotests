@@ -1447,4 +1447,14 @@ public class RestDataProvider extends RestBase {
                 }
         };
     }
+
+    @DataProvider(name = "getAllFeatureFlags")
+    public static Object[][] getAllFeatureFlags(){
+        final Response response = FeatureFlagsV2Request.GET();
+        checkStatusCode200(response);
+        FeatureFlagsV2Response featureFlags = response.as(FeatureFlagsV2Response.class);
+        return featureFlags.getFeatureFlags().stream()
+                .map(list -> new Object[]{list})
+                .toArray(Object[][]::new);
+    }
 }
