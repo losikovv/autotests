@@ -17,6 +17,7 @@ public final class ApiV2EndPoints {
     public static final String COMPANY_DOCUMENTS = "v2/company_documents";
     public static final String COMPANY_PRESENCE = "v2/company_presence";
     public static final String CREDIT_CARDS = "v2/credit_cards";
+    public static final String CURRENT_TIME = "v2/current_time";
     public static final String DEEPLINKS = "v2/deeplinks";
     public static final String DELIVERY_AVAILABILITY = "v2/delivery_availability";
     public static final String DEPARTMENTS = "v2/departments";
