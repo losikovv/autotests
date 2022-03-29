@@ -44,7 +44,7 @@ public enum Specification {
 
     public void initSpec() {
         final String apiV1FullUrl = EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH;
-        final String adminFullUrl = EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH;
+        final String adminFullUrl = EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD;
         final String apiV2FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
         final String apiV3FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
         final String prodFullUrl =  EnvironmentProperties.Env.PROD_FULL_SITE_URL;

@@ -13,6 +13,7 @@ import ru.instamart.api.model.v2.*;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
 import ru.instamart.api.request.admin.PagesAdminRequest;
 import ru.instamart.api.request.admin.StoresAdminRequest;
+import ru.instamart.api.request.v1.CitiesV1Request;
 import ru.instamart.api.request.v1.OrdersV1Request;
 import ru.instamart.api.request.v1.PromotionCardsV1Request;
 import ru.instamart.api.request.v1.ShippingPoliciesV1Request;
@@ -401,5 +402,17 @@ public class InstamartApiCheckpoints {
         LocalTime firstDeliveryStartAt = LocalTime.parse(zone1DeliveryInterval.replaceAll(intervalReplacement, ""));
         LocalTime secondDeliveryStartAt = LocalTime.parse(zone2DeliveryInterval.replaceAll(intervalReplacement, ""));
         return firstDeliveryStartAt.isBefore(secondDeliveryStartAt) ? zone1DeliveryInterval : zone2DeliveryInterval;
+    }
+
+    @Step("Проверяем созданным город")
+    public static void checkCity(CityV1 cityFromResponse, CitiesV1Request.City city) {
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(cityFromResponse.getName(), city.getName(), softAssert);
+        compareTwoObjects(cityFromResponse.getSlug(), city.getSlug(), softAssert);
+        compareTwoObjects(cityFromResponse.getNameFrom(), city.getNameFrom(), softAssert);
+        compareTwoObjects(cityFromResponse.getNameTo(), city.getNameTo(), softAssert);
+        compareTwoObjects(cityFromResponse.getNameIn(), city.getNameIn(), softAssert);
+        compareTwoObjects(cityFromResponse.getLocked(), false, softAssert);
+        softAssert.assertAll();
     }
 }

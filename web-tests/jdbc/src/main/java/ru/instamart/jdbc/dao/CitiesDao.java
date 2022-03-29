@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import static org.testng.Assert.fail;
 
@@ -58,5 +59,40 @@ public class CitiesDao extends AbstractDao<Long, CitiesEntity> {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return resultCount;
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        int result = 0;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE id = ?")) {
+            preparedStatement.setLong(1, id);
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return result == 1;
+    }
+
+    @Override
+    public Optional<CitiesEntity> findById(Long id) {
+        CitiesEntity city = null;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE id = ?")) {
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                city = new CitiesEntity();
+                city.setId(resultSet.getLong("id"));
+                city.setSlug(resultSet.getString("slug"));
+                city.setNameIn(resultSet.getString("name_in"));
+                city.setNameTo(resultSet.getString("name_to"));
+                city.setNameFrom(resultSet.getString("name_from"));
+                city.setLocked(resultSet.getInt("locked"));
+            }
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return Optional.ofNullable(city);
     }
 }
