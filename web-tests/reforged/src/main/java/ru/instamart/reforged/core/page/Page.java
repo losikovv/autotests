@@ -19,6 +19,11 @@ public interface Page extends PageCheck {
         Kraken.open(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH + page);
     }
 
+    @Step("Открыть страницу {0} в админке")
+    default void openAdminPageWithoutSpa(final String page) {
+        Kraken.open(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD + page);
+    }
+
     @Step("Открыть страницу {0} на сайте")
     default void openSitePage(final String page) {
         Kraken.open(EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + page);

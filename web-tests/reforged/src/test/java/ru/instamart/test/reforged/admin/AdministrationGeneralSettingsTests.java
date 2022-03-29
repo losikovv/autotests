@@ -2,7 +2,6 @@ package ru.instamart.test.reforged.admin;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.test.reforged.BaseTest;
@@ -20,7 +19,7 @@ public final class AdministrationGeneralSettingsTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        settings().goToPage();
+        settings().openAdminPageWithoutSpa(settings().pageUrl());
 
         settings().checkGeneralSettingsPageHeaderVisible();
         settings().checkSeoSettingsSectionVisible();
@@ -110,27 +109,30 @@ public final class AdministrationGeneralSettingsTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        cityAdd().goToPage();
-        cityAdd().checkPageTitleVisible();
-        cityAdd().checkReturnButtonVisible();
+        allCities().goToPage();
+        allCities().clickOnAddCityButton();
 
-        cityAdd().checkCityNameInputLabelVisible();
-        cityAdd().checkCityNameInputVisible();
+        allCities().interactAddCityModal().checkModalOpen();
+        allCities().interactAddCityModal().checkModalTitleVisible();
+        allCities().interactAddCityModal().checkCloseButtonVisible();
 
-        cityAdd().checkCityNameInInputLabelVisible();
-        cityAdd().checkCityNameInInputVisible();
+        allCities().interactAddCityModal().checkCityNameInputLabelVisible();
+        allCities().interactAddCityModal().checkCityNameInputVisible();
 
-        cityAdd().checkCityNameFromInputLabelVisible();
-        cityAdd().checkCityNameFromInputVisible();
+        allCities().interactAddCityModal().checkCityNameInInputLabelVisible();
+        allCities().interactAddCityModal().checkCityNameInInputVisible();
 
-        cityAdd().checkCityNameToInputLabelVisible();
-        cityAdd().checkcityNameToInputVisible();
+        allCities().interactAddCityModal().checkCityNameFromInputLabelVisible();
+        allCities().interactAddCityModal().checkCityNameFromInputVisible();
 
-        cityAdd().checkCityLockedLabelVisible();
-        cityAdd().checkCityLockedVisible();
+        allCities().interactAddCityModal().checkCityNameToInputLabelVisible();
+        allCities().interactAddCityModal().checkCityNameToInputVisible();
 
-        cityAdd().checkCreateButtonVisible();
-        cityAdd().checkCancelButtonVisible();
+        allCities().interactAddCityModal().checkCityLinkLabelVisible();
+        allCities().interactAddCityModal().checkCityLinkInputVisible();
+
+        allCities().interactAddCityModal().checkCreateButtonVisible();
+        allCities().interactAddCityModal().checkCancelButtonVisible();
 
     }
 
@@ -140,27 +142,32 @@ public final class AdministrationGeneralSettingsTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        cityEdit().openAdminPage("cities/tula/edit");
-        cityEdit().checkPageTitleVisible();
-        cityEdit().checkReturnButtonVisible();
+        allCities().goToPage();
+        allCities().clickOnEditCityButton("Абакан");
 
-        cityEdit().checkCityNameInputLabelVisible();
-        cityEdit().checkCityNameInputVisible();
+        allCities().interactEditCityModal().checkModalOpen();
+        allCities().interactEditCityModal().checkModalTitleVisible();
+        allCities().interactEditCityModal().checkCloseButtonVisible();
 
-        cityEdit().checkCityNameInInputLabelVisible();
-        cityEdit().checkCityNameInInputVisible();
+        allCities().interactEditCityModal().checkCityNameInputLabelVisible();
+        allCities().interactEditCityModal().checkCityNameInputVisible();
 
-        cityEdit().checkCityNameFromInputLabelVisible();
-        cityEdit().checkCityNameFromInputVisible();
+        allCities().interactEditCityModal().checkCityNameInInputLabelVisible();
+        allCities().interactEditCityModal().checkCityNameInInputVisible();
 
-        cityEdit().checkCityNameToInputLabelVisible();
-        cityEdit().checkcityNameToInputVisible();
+        allCities().interactEditCityModal().checkCityNameFromInputLabelVisible();
+        allCities().interactEditCityModal().checkCityNameFromInputVisible();
 
-        cityEdit().checkCityLockedLabelVisible();
-        cityEdit().checkCityLockedVisible();
+        allCities().interactEditCityModal().checkCityNameToInputLabelVisible();
+        allCities().interactEditCityModal().checkCityNameToInputVisible();
 
-        cityEdit().checkEditButtonVisible();
-        cityEdit().checkCancelButtonVisible();
+        allCities().interactEditCityModal().checkCityLinkLabelVisible();
+        allCities().interactEditCityModal().checkCityLinkInputVisible();
+
+        allCities().interactEditCityModal().checkCityLockedButtonVisible();
+
+        allCities().interactEditCityModal().checkCreateButtonVisible();
+        allCities().interactEditCityModal().checkCancelButtonVisible();
     }
 
     @CaseId(367)
@@ -229,13 +236,11 @@ public final class AdministrationGeneralSettingsTests extends BaseTest {
         companySettings().checkSaveChangesVisible();
     }
 
-    //Ролевая модель переделывается и временами сильно меняется
-    @Issue("B2C-6444")
     @CaseId(394)
-    @Test(enabled = false, description = "Корректное отображение страницы настроек смс", groups = {"acceptance", "regression"})
+    @Test(description = "Корректное отображение страницы настроек смс", groups = {"acceptance", "regression"})
     public void smsSettingsPageValidate() {
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().auth(UserManager.getAdminSmsRole());
 
         smsSettings().goToPage();
         smsSettings().checkPageTitleVisible();

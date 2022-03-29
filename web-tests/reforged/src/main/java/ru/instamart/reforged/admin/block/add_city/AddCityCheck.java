@@ -1,20 +1,25 @@
-package ru.instamart.reforged.admin.page.settings.all_cities.city_add;
+package ru.instamart.reforged.admin.block.add_city;
 
 import io.qameta.allure.Step;
 import ru.instamart.reforged.core.Check;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
-public interface CityAddCheck extends Check, CityAddElements {
+public interface AddCityCheck extends Check, AddCityElement{
 
     @Step("Проверяем, что Название страницы отображается")
-    default void checkPageTitleVisible() {
-        waitAction().shouldBeVisible(pageTitle);
+    default void checkModalTitleVisible() {
+        waitAction().shouldBeVisible(modalTitle);
     }
 
-    @Step("Проверяем, что кнопка отмены добавления нового города отображается")
-    default void checkReturnButtonVisible() {
-        waitAction().shouldBeVisible(returnButton);
+    @Step("Проверяем, что модальное окно создания города отображается")
+    default void checkModalOpen() {
+        waitAction().shouldBeVisible(modal);
+    }
+
+    @Step("Проверяем, что кнопка закрытия добавления нового города отображается")
+    default void checkCloseButtonVisible() {
+        waitAction().shouldBeVisible(closeButton);
     }
 
     @Step("Проверяем, что лейбл для ввода имени города в имен.падеж отображается")
@@ -53,18 +58,18 @@ public interface CityAddCheck extends Check, CityAddElements {
     }
 
     @Step("Проверяем, что инпут ввода имени города в направит.падеже отображается")
-    default void checkcityNameToInputVisible() {
+    default void checkCityNameToInputVisible() {
         waitAction().shouldBeVisible(cityNameToInput);
     }
 
-    @Step("Проверяем, что лейбл чекбокса блокировки города отображается")
-    default void checkCityLockedLabelVisible() {
-        waitAction().shouldBeVisible(cityLockedLabel);
+    @Step("Проверяем, что лейбл ввода ссылки отображается")
+    default void checkCityLinkLabelVisible() {
+        waitAction().shouldBeVisible(cityLinkLabel);
     }
 
-    @Step("Проверяем, что чекбокс город заблокирован для редактирования отображается")
-    default void checkCityLockedVisible() {
-        waitAction().shouldBeVisible(cityLocked);
+    @Step("Проверяем, что инпут ввода ссылки отображается")
+    default void checkCityLinkInputVisible() {
+        waitAction().shouldBeVisible(cityLinkInput);
     }
 
     @Step("Проверяем, что кнопка подтверждения добавления нового города отображается")
