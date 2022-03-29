@@ -8,6 +8,7 @@ import ru.sbermarket.common.config.Env;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Optional;
 
 import static java.util.Objects.nonNull;
 
@@ -147,18 +148,19 @@ public final class EnvironmentProperties {
         }
 
         public static String ENV_NAME = TENANT + "-" + SERVER;
+        public static String BASIC_URL_WITH_AUTH = Optional.ofNullable(HTTP_AUTH).orElse("") + BASIC_URL + "/";
+
         public static String FULL_SITE_URL = PROTOCOL + "://" + BASIC_URL + "/";
-        public static String FULL_SITE_URL_WITH_BASIC_AUTH = PROTOCOL + "://" + HTTP_AUTH + BASIC_URL + "/";
-        public static String FULL_B2C_URL_WITH_BASIC_AUTH = PROTOCOL + "://" + HTTP_AUTH + B2C_URL + "/";
+        public static String FULL_SITE_URL_WITH_BASIC_AUTH = PROTOCOL + "://" + Optional.ofNullable(HTTP_AUTH).orElse("") + BASIC_URL + "/";
+        public static String FULL_B2C_URL_WITH_BASIC_AUTH = PROTOCOL + "://" + Optional.ofNullable(HTTP_AUTH).orElse("") + B2C_URL + "/";
         public static String FULL_ADMIN_URL = FULL_SITE_URL + "admin/spa/";
         public static String FULL_ADMIN_URL_WITH_BASIC_AUTH = FULL_SITE_URL_WITH_BASIC_AUTH + "admin/spa/";
         public static String FULL_ADMIN_URL_OLD = FULL_SITE_URL + "admin/";
         public static String FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD = FULL_SITE_URL_WITH_BASIC_AUTH + "admin/";
         public static String FULL_SHOPPER_URL = PROTOCOL + "://" + SHOPPER_URL + "/";
-        public static String PROD_WEB_SITE_URL = PROTOCOL + "://" + BASIC_URL + "/";
         public static String PROD_FULL_SITE_URL = PROTOCOL + "://" + "api." + BASIC_URL + "/";
         public static String QA_FULL_URL = PROTOCOL + "://" + QA_URL + "/";
-        public static String ADMIN_FULL_URL = PROTOCOL + "://" + ADMIN_URL + "/";
+        public static String ADMIN_FULL_URL = PROTOCOL + "://" + Optional.ofNullable(ADMIN_URL).orElse(BASIC_URL_WITH_AUTH) + "/";
         public static String ONE_SESSION = System.getProperty("one_session");
         public static String FULL_SHOPPER_GW_URL = PROTOCOL + "://" + SHOPPER_GW_URL + "/";
         public static String FULL_SSO_AUTH_URL = PROTOCOL + "://" + SSO_AUTH_URL + "/";

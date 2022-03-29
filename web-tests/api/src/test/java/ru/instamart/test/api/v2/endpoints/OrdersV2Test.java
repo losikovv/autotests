@@ -3,7 +3,6 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -24,6 +23,7 @@ import ru.instamart.api.response.v2.*;
 import ru.instamart.jdbc.dao.UserIdDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 
@@ -32,9 +32,9 @@ import static org.testng.Assert.assertTrue;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.common.RestStaticTestData.*;
+import static ru.instamart.api.helper.K8sHelper.execRakeTaskAddBonus;
 import static ru.instamart.api.helper.PromotionCode.getExpiredPromotionCode;
 import static ru.instamart.api.helper.PromotionCode.getPromotionCode;
-import static ru.instamart.api.helper.K8sHelper.execRakeTaskAddBonus;
 
 @Epic("ApiV2")
 @Feature("Заказы (orders)")
@@ -46,9 +46,7 @@ public class OrdersV2Test extends RestBase {
     public void preconditions() {
         SessionFactory.makeSession(SessionType.API_V2);
         OrdersV2Request.POST();
-        if(!EnvironmentProperties.SERVER.equals("production")) {
-            promoCode = getPromotionCode();
-        }
+        promoCode = getPromotionCode();
     }
 
     @CaseId(1419)

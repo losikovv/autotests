@@ -38,7 +38,6 @@ public enum Specification {
     @Getter private RequestSpecification surgeRequestSpec;
     @Getter private RequestSpecification risExporterRequestSpec;
     @Getter private RequestSpecification prodRequestSpec;
-    @Getter private RequestSpecification prodWebRequestSpec;
     @Getter private RequestSpecification prodAdminRequestSpec;
     @Getter private RequestSpecification shopperAdminRequestSpec;
     @Getter private RequestSpecification locatorRequestSpec;
@@ -49,7 +48,7 @@ public enum Specification {
         final String apiV2FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
         final String apiV3FullUrl = EnvironmentProperties.Env.FULL_SITE_URL;
         final String prodFullUrl =  EnvironmentProperties.Env.PROD_FULL_SITE_URL;
-        final String prodWebUrl =  EnvironmentProperties.Env.PROD_WEB_SITE_URL;
+
         final String prodAdminUrl =  EnvironmentProperties.Env.ADMIN_FULL_URL;
         final String shopperFullBaseUrl = EnvironmentProperties.Env.FULL_SHOPPER_GW_URL;
         final String shopperFullAdminUrl = EnvironmentProperties.Env.FULL_SHOPPER_URL;
@@ -102,6 +101,12 @@ public enum Specification {
                 .addFilter(new AllureRestAssuredCustom())
                 .addFilter(new SwaggerCoverageV3RestAssured())
                 .build();
+        prodAdminRequestSpec = new RequestSpecBuilder()
+                .setBaseUri(prodAdminUrl)
+                .setBasePath("api/")
+                .setAccept(ContentType.JSON)
+                .addFilter(new AllureRestAssuredCustom())
+                .build();
 
         apiAdminRequestSpec = new RequestSpecBuilder()
                 .setBaseUri(adminFullUrl)
@@ -115,6 +120,12 @@ public enum Specification {
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
                 .addFilter(new SwaggerCoverageV3RestAssured())
+                .build();
+
+        prodRequestSpec = new RequestSpecBuilder()
+                .setBaseUri(prodFullUrl)
+                .setAccept(ContentType.JSON)
+                .addFilter(new AllureRestAssuredCustom())
                 .build();
 
         apiV3RequestSpec = new RequestSpecBuilder()
@@ -176,25 +187,25 @@ public enum Specification {
                 .addFilter(new AllureRestAssuredCustom())
                 .build();
 
-        prodRequestSpec = new RequestSpecBuilder()
-                .setBaseUri(prodFullUrl)
-                .setAccept(ContentType.JSON)
-                .addFilter(new AllureRestAssuredCustom())
-                .build();
+//        prodRequestSpec = new RequestSpecBuilder()
+//                .setBaseUri(prodFullUrl)
+//                .setAccept(ContentType.JSON)
+//                .addFilter(new AllureRestAssuredCustom())
+//                .build();
 
-        prodWebRequestSpec = new RequestSpecBuilder()
-                .setBaseUri(prodWebUrl)
-                .setBasePath("api/")
-                .setAccept(ContentType.JSON)
-                .addFilter(new AllureRestAssuredCustom())
-                .build();
+//        prodWebRequestSpec = new RequestSpecBuilder()
+//                .setBaseUri(prodWebUrl)
+//                .setBasePath("api/")
+//                .setAccept(ContentType.JSON)
+//                .addFilter(new AllureRestAssuredCustom())
+//                .build();
 
-        prodAdminRequestSpec = new RequestSpecBuilder()
-                .setBaseUri(prodAdminUrl)
-                .setBasePath("api/")
-                .setAccept(ContentType.JSON)
-                .addFilter(new AllureRestAssuredCustom())
-                .build();
+//        prodAdminRequestSpec = new RequestSpecBuilder()
+//                .setBaseUri(prodAdminUrl)
+//                .setBasePath("api/")
+//                .setAccept(ContentType.JSON)
+//                .addFilter(new AllureRestAssuredCustom())
+//                .build();
     }
 
     static public void setResponseSpecDataProvider() {
