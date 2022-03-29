@@ -18,7 +18,7 @@ public class AdminRequestBase {
      * Добавляем куки сессии к запросу
      */
     public static RequestSpecification givenWithAuth() {
-        return givenWithSpec().log().all()
+        return givenWithSpec()
                 .formParam("utf-8", "✓")
                 .formParam("authenticity_token", SessionFactory.getSession(SessionType.ADMIN).getToken())
                 .cookies(SessionFactory

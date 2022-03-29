@@ -404,7 +404,7 @@ public class InstamartApiCheckpoints {
         return firstDeliveryStartAt.isBefore(secondDeliveryStartAt) ? zone1DeliveryInterval : zone2DeliveryInterval;
     }
 
-    @Step("Проверяем созданным город")
+    @Step("Проверяем созданный город")
     public static void checkCity(CityV1 cityFromResponse, CitiesV1Request.City city) {
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(cityFromResponse.getName(), city.getName(), softAssert);

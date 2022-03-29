@@ -28,7 +28,7 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkCity;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
-@Epic("Admin")
+@Epic("ApiV1")
 @Feature("Города")
 public class CitiesV1Test extends RestBase {
 
