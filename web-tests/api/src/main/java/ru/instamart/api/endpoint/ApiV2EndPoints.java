@@ -82,6 +82,10 @@ public final class ApiV2EndPoints {
         }
     }
 
+    public static final class FeatureFlags {
+        public static final String BY_NAME = "v2/feature_flags/{name}";
+    }
+
     public static final class FavoritesList {
         public static final String ITEMS = "v2/favorites_list/items";
         public static final String PRODUCTS_SKU = "v2/favorites_list/products_sku";
