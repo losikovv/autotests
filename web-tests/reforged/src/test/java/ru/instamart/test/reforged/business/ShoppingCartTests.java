@@ -14,8 +14,7 @@ import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.config.EnvironmentProperties.*;
-import static ru.instamart.reforged.business.page.BusinessRouter.b2cShop;
-import static ru.instamart.reforged.business.page.BusinessRouter.shop;
+import static ru.instamart.reforged.business.page.BusinessRouter.*;
 
 @Epic("SMBUSINESS UI")
 @Feature("Основные тесты корзины")
@@ -68,7 +67,7 @@ public final class ShoppingCartTests extends BaseTest {
     public void testTransferCartNoSuchRetailer() {
         var userData = UserManager.getQaUser();
 
-        b2cShop().goToPageFromTenant(ShopUrl.AZBUKAVKUSA);
+        b2cShop().goToPageFromTenant(ShopUrl.AZBUKAVKUSA, true);
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(userData);
         b2cShop().interactHeader().checkProfileButtonVisible();
@@ -135,7 +134,7 @@ public final class ShoppingCartTests extends BaseTest {
     public void testTransferCartB2CToB2BMultiply() {
         var userData = UserManager.getQaUser();
 
-        b2cShop().goToPageFromTenant();
+        b2cShop().goToPageFromTenant(true);
         b2cShop().interactHeader().clickToLogin();
         b2cShop().interactAuthModal().authViaPhone(userData);
         b2cShop().interactHeader().checkProfileButtonVisible();
@@ -153,8 +152,8 @@ public final class ShoppingCartTests extends BaseTest {
         b2cShop().interactHeader().checkCartNotificationIsNotVisible();
 
         b2cShop().interactHeader().clickToStoreSelector();
-        b2cShop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsOpen();
-        b2cShop().interactHeader().interactStoreSelector().clickToStoreWithSid(DEFAULT_AUCHAN_SID);
+        b2cHome().checkDeliveryStoresContainerVisible();
+        b2cHome().clickOnStoreWithSid(DEFAULT_AUCHAN_SID);
         b2cShop().interactHeader().checkEnteredAddressIsVisible();
 
         b2cShop().plusItemToCart("1", "0");

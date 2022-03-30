@@ -8,13 +8,13 @@ import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.reforged.stf.page.StfRouter;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_AUCHAN_SID;
 import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID;
-import static ru.instamart.reforged.stf.page.StfRouter.shop;
-import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
+import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Раздел 'Вы покупали ранее'")
@@ -77,7 +77,7 @@ public final class ShoppingYouBoughtBeforeTests extends BaseTest {
         helper.makeOrder(shoppingCartUser, DEFAULT_METRO_MOSCOW_SID, 3);
         helper.setAddress(shoppingCartUser, RestAddresses.Moscow.defaultAddress());
 
-        shop().goToPage();
+        shop().goToPage(true);
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(shoppingCartUser);
         shop().interactAuthModal().checkModalIsNotVisible();
@@ -86,7 +86,7 @@ public final class ShoppingYouBoughtBeforeTests extends BaseTest {
         shop().checkFirstCategoryIs(shop().getFirstCategoryTitle(), "Вы покупали ранее");
 
         shop().interactHeader().clickToStoreSelector();
-        shop().interactHeader().interactStoreSelector().clickToStoreWithSid(DEFAULT_AUCHAN_SID);
+        home().clickOnStoreWithSid(DEFAULT_AUCHAN_SID);
 
         shop().interactHeader().checkEnteredAddressIsVisible();
         shop().checkYouBoughtBeforeCategoryNotDisplayed();

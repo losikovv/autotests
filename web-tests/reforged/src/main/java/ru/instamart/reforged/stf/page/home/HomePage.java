@@ -74,6 +74,11 @@ public final class HomePage implements StfPage, Window, HomeCheck {
         return deliveryRetailers.elementCount();
     }
 
+    @Step("Нажать на первого ретейлера")
+    public void clickOnFirstRetailer() {
+        deliveryRetailers.clickOnFirst();
+    }
+
     @Step("Получаем количество отображаемых магазинов")
     public int getStoresCountInBlock() {
         return deliveryStores.elementCount();

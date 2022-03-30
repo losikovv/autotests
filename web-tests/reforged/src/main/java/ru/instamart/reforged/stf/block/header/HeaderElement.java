@@ -38,7 +38,7 @@ public interface HeaderElement {
     Link deliveryAndPayment = new Link(By.xpath("//a[@data-qa='header-navbar-button']//span[contains(text(), 'Доставка')]"), "empty");
 
     Button categoryMenu = new Button(By.xpath("//button[@data-qa='catalog-button']"), "кнопка 'Каталог'");
-    Button storeSelector = new Button(By.xpath("//button[@data-qa='open-store-selector-button']"), "кнопка выбора магазина");
+    Button storeSelector = new Button(By.xpath("//a[@href='/']"), "Кнопка 'Все магазины'");
 
     Element searchContainer = new Element(By.xpath("//div[@data-qa='search']"), "Контейнер поиска");
     Input searchInput = new Input(By.xpath("//input[@data-qa='suggester_header_form_input']"), "Инпут поиска");

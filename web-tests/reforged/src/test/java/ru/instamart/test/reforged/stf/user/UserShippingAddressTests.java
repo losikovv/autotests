@@ -40,12 +40,11 @@ public final class UserShippingAddressTests extends BaseTest {
     @Story("Дефолтные настройки адреса доставки")
     @Test(description = "Тест дефолтного списка магазинов, при отсутствии адреса доставки", groups = "regression")
     public void successOperateDefaultShopList() {
-        shop().goToPage();
+        shop().goToPage(true);
         shop().interactHeader().clickToStoreSelector();
-        shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsOpen();
-        shop().interactHeader().interactStoreSelector().checkStoreSelectorDrawerIsNotEmpty();
-        shop().interactHeader().interactStoreSelector().close();
-        shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsNotOpen();
+        home().checkDeliveryRetailersContainerVisible();
+        home().clickOnFirstRetailer();
+        home().interactAddressModal().checkYmapsReadyTmp();
     }
 
     @CaseId(31)
@@ -74,9 +73,7 @@ public final class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().interactAddress().checkIsAddressOutOfZone();
         shop().interactHeader().interactAddress().close();
         shop().interactHeader().clickToStoreSelector();
-        shop().interactHeader().interactStoreSelector().checkStoreSelectorDrawerIsEmpty();
-        shop().interactHeader().interactStoreSelector().close();
-        shop().interactHeader().interactStoreSelector().checkStoreSelectorFrameIsNotOpen();
+        home().checkOutOfDeliveryAreaMessageDisplayed();
     }
 
     @CaseId(32)
