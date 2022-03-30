@@ -162,12 +162,16 @@ public final class ShopPage implements StfPage, ShopCheck {
 
     @Override
     public void goToPageFromTenant() {
-        goToPageFromTenant(ShopUrl.DEFAULT);
+        goToPageFromTenant(ShopUrl.DEFAULT, false);
     }
 
-    public void goToPageFromTenant(final ShopUrl shop) {
+    public void goToPageFromTenant(final boolean isFixedUUID) {
+        goToPageFromTenant(ShopUrl.DEFAULT, isFixedUUID);
+    }
+
+    public void goToPageFromTenant(final ShopUrl shop, final boolean isFixedUUID) {
         goToPageFromTenant(shop.getUrl());
-        cookiesChange(false);
+        cookiesChange(isFixedUUID);
     }
 
     /**

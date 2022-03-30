@@ -7,6 +7,7 @@ import ru.instamart.reforged.business.page.user.companies.B2BUserCompaniesPage;
 import ru.instamart.reforged.business.page.user.companies.companyInfo.B2BCompanyInfoPage;
 import ru.instamart.reforged.business.page.user.profile.B2BUserProfilePage;
 import ru.instamart.reforged.core.page.Router;
+import ru.instamart.reforged.stf.page.home.HomePage;
 import ru.instamart.reforged.stf.page.shop.ShopPage;
 import ru.instamart.reforged.stf.page.user.companies.UserCompaniesPage;
 import ru.instamart.reforged.stf.page.user.companies.companyInfo.CompanyInfoPage;
@@ -40,6 +41,10 @@ public class BusinessRouter extends Router {
 
     public static ShopPage b2cShop() {
         return (ShopPage) getPage(ShopPage.class);
+    }
+
+    public static HomePage b2cHome() {
+        return (HomePage) getPage(HomePage.class);
     }
 
     public static UserCompaniesPage b2cCompanies() {
