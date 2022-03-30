@@ -38,8 +38,8 @@ public class FaqGroupsAdminTest extends RestBase {
         checkStatusCode(response, 200, ContentType.HTML);
     }
 
-    @CaseId(2194)
-    @Test(groups = {"api-instamart-regress"},
+    @Deprecated
+    @Test(groups = {},
             description = "Создание группы FAQ")
     public void createFaqGroup() {
         String name = "Autotest-" + Generate.literalString(6);
@@ -49,8 +49,8 @@ public class FaqGroupsAdminTest extends RestBase {
         checkFieldIsNotEmpty(faqGroupId, "id группы FAQ");
     }
 
-    @CaseId(2195)
-    @Test(groups = {"api-instamart-regress"},
+    @Deprecated
+    @Test(groups = {},
             description = "Создание группы FAQ с пустым названием")
     public void createFaqGroupWithEmptyName() {
         final Response response = FaqGroupsAdminRequest.POST("");
@@ -59,8 +59,8 @@ public class FaqGroupsAdminTest extends RestBase {
         Assert.assertNull(faqGroupId, "Создалась группа FAQ с пустым названием");
     }
 
-    @CaseId(2196)
-    @Test(groups = {"api-instamart-regress"},
+    @Deprecated
+    @Test(groups = {},
             description = "Редактирование группы FAQ",
             dependsOnMethods = "createFaqGroup")
     public void editFaqGroup() {
@@ -71,8 +71,8 @@ public class FaqGroupsAdminTest extends RestBase {
         compareTwoObjects(faqGroupFromDb.getName(), name);
     }
 
-    @CaseId(2197)
-    @Test(groups = {"api-instamart-regress"},
+    @Deprecated
+    @Test(groups = {},
             description = "Редактирование группы FAQ с пустым названием",
             dependsOnMethods = "editFaqGroup")
     public void editFaqGroupWithEmptyName() {
@@ -82,8 +82,8 @@ public class FaqGroupsAdminTest extends RestBase {
         compareTwoObjects(faqGroupFromDb.getName(), name);
     }
 
-    @CaseId(2198)
-    @Test(groups = {"api-instamart-regress"},
+    @Deprecated
+    @Test(groups = {},
             description = "Удаление группы FAQ",
             dependsOnMethods = "editFaqGroupWithEmptyName")
     public void deleteFaqGroup() {

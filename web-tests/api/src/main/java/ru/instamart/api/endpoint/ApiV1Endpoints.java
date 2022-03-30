@@ -45,6 +45,8 @@ public final class ApiV1Endpoints {
     public static final class Admin {
         public static final String APP_CONFIG = "admin/app_config";
         public static final String CITIES = "admin/cities";
+        public static final String CURRENCIES = "admin/currencies";
+        public static final String FAQ_GROUPS = "admin/faq_groups";
         public static final String MAIN_NAVIGATION = "admin/main_navigation";
         public static final String OPERATIONAL_ZONES = "admin/operational_zones";
         public static final String USER_PERMISSIONS = "admin/user_permissions";
@@ -62,6 +64,15 @@ public final class ApiV1Endpoints {
             public static final String PAYMENT_STATES = "admin/dictionaries/payment_states";
             public static final String SHIPMENT_COMBINED_STATES = "admin/dictionaries/shipment_combined_states";
             public static final String TENANTS = "admin/dictionaries/tenants";
+        }
+
+        public static final class FaqGroups {
+            public static final String FAQ_GROUP = "admin/faq_groups/{faqGroupId}";
+            public static final String UPDATE_POSITIONS = "admin/faq_groups/update_positions";
+        }
+
+        public static final class ExternalPartners {
+            public static final String SUBSCRIPTION = "admin/external_partners/subscriptions/{subscriptionId}";
         }
 
         public static final class OperationalZones {

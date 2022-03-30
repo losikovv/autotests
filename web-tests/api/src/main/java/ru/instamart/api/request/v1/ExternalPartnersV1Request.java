@@ -24,4 +24,12 @@ public class ExternalPartnersV1Request extends ApiV1RequestBase {
             }
         }
     }
+
+    public static class Subscriptions {
+        @Step("{method} /" + ApiV1Endpoints.Admin.ExternalPartners.SUBSCRIPTION)
+        public static Response GET(Long subscriptionId) {
+            return givenWithAuth()
+                    .get(ApiV1Endpoints.Admin.ExternalPartners.SUBSCRIPTION, subscriptionId);
+        }
+    }
 }
