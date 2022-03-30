@@ -57,6 +57,8 @@
             <class name="ru.instamart.test.api.v1.endpoints.TokensV1Tests"/>
             <class name="ru.instamart.test.api.v1.endpoints.UsersV1Tests"/>
             <class name="ru.instamart.test.api.admin_api.CitiesV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.FaqGroupsV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.CurrenciesV1Test"/>
         </classes>
     </test>
     <!-- api-v2-tests -->

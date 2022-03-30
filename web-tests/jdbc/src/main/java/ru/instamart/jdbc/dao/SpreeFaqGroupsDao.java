@@ -49,4 +49,17 @@ public class SpreeFaqGroupsDao extends AbstractDao<Long, SpreeFaqGroupsEntity> {
         }
         return Optional.ofNullable(spreeFaqGroupsEntity);
     }
+
+    public int getCount() {
+        int resultCount = 0;
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "COUNT(*) AS total"))) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            resultCount = resultSet.getInt("total");
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return resultCount;
+    }
 }

@@ -17,4 +17,5 @@ public class ErrorsV2 extends BaseObject {
     private String value;
     @JsonProperty("company_security_code")
     private String companySecurityCode;
+    private String name;
 }
