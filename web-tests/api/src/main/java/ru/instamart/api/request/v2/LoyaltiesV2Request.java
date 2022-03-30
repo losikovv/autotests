@@ -12,4 +12,13 @@ public final class LoyaltiesV2Request extends ApiV2RequestBase {
         return givenWithAuth()
                 .get(ApiV2EndPoints.LOYALTIES);
     }
+
+    public static class SberLoyaltyInfo {
+
+        @Step("{method} /" + ApiV2EndPoints.Loyalties.SBER_LOYALTY_INFO )
+        public static Response GET() {
+            return givenWithAuth()
+                    .get(ApiV2EndPoints.Loyalties.SBER_LOYALTY_INFO);
+        }
+    }
 }

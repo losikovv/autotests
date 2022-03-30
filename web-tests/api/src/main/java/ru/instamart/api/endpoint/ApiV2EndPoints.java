@@ -91,6 +91,10 @@ public final class ApiV2EndPoints {
         public static final String PRODUCTS_SKU = "v2/favorites_list/products_sku";
     }
 
+    public static final class Loyalties {
+        public static final String SBER_LOYALTY_INFO = "v2/loyalties/sber_loyalty_info";
+    }
+
     public static final class LineItems {
         public static final String BY_ID = "v2/line_items/{productId}";
     }
