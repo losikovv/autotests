@@ -29,5 +29,11 @@ public class PromotionsV1Request extends ApiV1RequestBase {
             return givenWithAuth()
                     .get(ApiV1Endpoints.PROMOTIONS);
         }
+
+        @Step("{method} /" + ApiV1Endpoints.Admin.Promotions.PROMOTION)
+        public static Response GET(Long promotionId) {
+            return givenWithAuth()
+                    .get(ApiV1Endpoints.Admin.Promotions.PROMOTION, promotionId);
+        }
     }
 }

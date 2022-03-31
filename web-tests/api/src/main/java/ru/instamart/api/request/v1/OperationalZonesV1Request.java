@@ -43,4 +43,12 @@ public class OperationalZonesV1Request extends ApiV1RequestBase {
                 .body(body)
                 .put(ApiV1Endpoints.Admin.OperationalZones.BY_ID, operationalZoneID);
     }
+
+    public static class AdminOperationalZones {
+        @Step("{method} /" + ApiV1Endpoints.Admin.OPERATIONAL_ZONES)
+        public static Response GET() {
+            return givenWithAuth()
+                    .get(ApiV1Endpoints.Admin.OPERATIONAL_ZONES);
+        }
+    }
 }

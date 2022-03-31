@@ -59,6 +59,8 @@
             <class name="ru.instamart.test.api.admin_api.CitiesV1Test"/>
             <class name="ru.instamart.test.api.admin_api.FaqGroupsV1Test"/>
             <class name="ru.instamart.test.api.admin_api.CurrenciesV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.HdeV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.TenantsV1Test"/>
         </classes>
     </test>
     <!-- api-v2-tests -->

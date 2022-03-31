@@ -34,4 +34,15 @@ public class ShippingMethodsV1Tests extends RestBase {
         int countFromDb = ShippingMethodKindsDao.INSTANCE.getCount();
         compareTwoObjects(response.as(ShippingMethodKindsV1Response.class).getShippingMethodKinds().size(), countFromDb);
     }
+
+    @CaseId(2137)
+    @Test(description = "Получение списка способов доставки",
+            groups = {"api-instamart-regress"})
+    public void getAdminShippingMethodKinds() {
+        final Response response = ShippingMethodKindsV1Request.Admin.GET();
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, ShippingMethodKindsV1Response.class);
+        int countFromDb = ShippingMethodKindsDao.INSTANCE.getCount();
+        compareTwoObjects(response.as(ShippingMethodKindsV1Response.class).getShippingMethodKinds().size(), countFromDb);
+    }
 }
