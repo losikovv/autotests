@@ -12,15 +12,18 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.OrderStatusV2;
+import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.helper.K8sHelper;
+import ru.instamart.api.model.v2.AssemblyItemV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v3.NotificationsV3Request;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 import static ru.instamart.api.request.v3.NotificationsV3Request.POST;
 import static ru.instamart.kraken.util.ThreadUtil.simplyAwait;
 
@@ -254,10 +257,14 @@ public class NotificationsPositiveV3Test extends RestBase {
                 quantity);
         checkStatusCode200(responseReadyForDelivery);
 
-        simplyAwait(3);
+        simplyAwait(2);
         OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
         Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не перешел в статус Готов к доставке");
-        //добавить проверку лайн айтемов
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryBySbermarket.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
+
+
     }
 
     @Story("Позитивные тесты")
@@ -278,10 +285,12 @@ public class NotificationsPositiveV3Test extends RestBase {
                 quantity);
         checkStatusCode200(responseReadyForDelivery);
 
-        simplyAwait(3);
+        simplyAwait(2);
         OrderV2 readyOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
         Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не перешел в статус Готов к доставке");
-        //добавить проверку лайн айтемов
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
     @Story("Позитивные тесты")
@@ -309,10 +318,12 @@ public class NotificationsPositiveV3Test extends RestBase {
                 quantity);
         checkStatusCode200(responseDelivered);
 
-        simplyAwait(3);
+        simplyAwait(2);
         OrderV2 shippedOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
         Assert.assertEquals(shippedOrder.getShipmentState(), OrderStatusV2.SHIPPED.getStatus(), "Заказ не перешел в статус Доставлен");
-        //добавить проверку лайн айтемов
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
     @Story("Негативные тесты")
@@ -394,8 +405,12 @@ public class NotificationsPositiveV3Test extends RestBase {
         Response responseInWorkRepeat = POST(orderDeliveryBySbermarket.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode422(responseInWorkRepeat);
 
+        simplyAwait(2);
         OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
         Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не остался в статусе Готов к доставке");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryBySbermarket.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
     @Story("Негативные тесты")
@@ -418,8 +433,12 @@ public class NotificationsPositiveV3Test extends RestBase {
         Response responseInWorkRepeat = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.IN_WORK.getValue());
         checkStatusCode422(responseInWorkRepeat);
 
+        simplyAwait(2);
         OrderV2 readyOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
         Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не остался в статусе Готов к доставке");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
     @Story("Негативные тесты")
@@ -506,8 +525,12 @@ public class NotificationsPositiveV3Test extends RestBase {
                 quantity);
         checkStatusCode422(responseReadyForDeliveryRepeat);
 
+        simplyAwait(2);
         OrderV2 readyOrder = apiV2.getOrder(orderDeliveryBySbermarket.getNumber());
         Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не перешел в статус Готов к доставке");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryBySbermarket.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
     @Story("Негативные тесты")
@@ -535,8 +558,12 @@ public class NotificationsPositiveV3Test extends RestBase {
                 quantity);
         checkStatusCode422(responseReadyForDeliveryRepeat);
 
+        simplyAwait(2);
         OrderV2 readyOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
         Assert.assertEquals(readyOrder.getShipmentState(), OrderStatusV2.READY_TO_SHIP.getStatus(), "Заказ не перешел в статус Готов к доставке");
+
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(orderDeliveryByRetailer.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
     @Story("Негативные тесты")

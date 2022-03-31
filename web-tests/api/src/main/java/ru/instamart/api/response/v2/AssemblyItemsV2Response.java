@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class ShipmentAssemblyItemsV2Response extends BaseResponseObject {
+public class AssemblyItemsV2Response extends BaseResponseObject {
 
     @JsonProperty("assembly_items")
     private List<AssemblyItemV2> assemblyItems;

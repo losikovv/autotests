@@ -12,9 +12,11 @@ import ru.instamart.api.dataprovider.ApiV3DataProvider;
 import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
+import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.helper.K8sHelper;
+import ru.instamart.api.model.v2.AssemblyItemV2;
 import ru.instamart.api.model.v2.LineItemV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.admin.StoresAdminRequest;
@@ -66,6 +68,8 @@ public class NotificationsPositionsV3Test extends RestBase {
 
         Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
                 "Количество товаров отличается после сборки");
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(order.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
     @Story("Позиции заказа")
@@ -75,7 +79,7 @@ public class NotificationsPositionsV3Test extends RestBase {
             groups = {"api-instamart-regress"},
             dataProvider = "ordersWithDifferentPricers",
             dataProviderClass = ApiV3DataProvider.class)
-    //todo включить когда появится возможность создавать заказы с весовыми товарами
+    //todo включить когда появится возможность создавать заказы с количеством товара больше 1
     public void less(OrderV2 order) {
         String retailerSku = order.getShipments().get(0).getLineItems().get(0).getProduct().getRetailerSku();
         Integer quantity = order.getShipments().get(0).getLineItems().get(0).getPacks();
@@ -100,6 +104,8 @@ public class NotificationsPositionsV3Test extends RestBase {
 
         Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
                 "Количество товаров отличается от переданного");
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(order.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
     @Story("Позиции заказа")
@@ -132,14 +138,14 @@ public class NotificationsPositionsV3Test extends RestBase {
 
         Assert.assertEquals(readyOrder.getShipments().get(0).getLineItems().get(0).getPacks(), quantity,
                 "Количество товаров отличается от переданного");
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(order.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
     @Story("Передача точного веса")
     @CaseId(949)
-    @Test(enabled = false,
-    description = "Вес передан ритейлером (весовые товары)",
+    @Test(description = "Вес передан ритейлером (весовые товары)",
             groups = {"api-instamart-regress"})
-    //todo включить когда появится возможность создавать заказы с весовыми товарами
     public void weightKilo() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_KILO);
@@ -177,6 +183,8 @@ public class NotificationsPositionsV3Test extends RestBase {
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(order.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
     @Story("Передача точного веса")
@@ -220,6 +228,8 @@ public class NotificationsPositionsV3Test extends RestBase {
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(order.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
     @Story("Передача точного веса")
@@ -262,6 +272,8 @@ public class NotificationsPositionsV3Test extends RestBase {
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(order.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
     @Story("Передача точного веса")
@@ -304,6 +316,8 @@ public class NotificationsPositionsV3Test extends RestBase {
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(order.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
     @Story("Передача точного веса")
@@ -345,6 +359,8 @@ public class NotificationsPositionsV3Test extends RestBase {
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(order.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
     @Story("Передача точного веса")
@@ -386,14 +402,14 @@ public class NotificationsPositionsV3Test extends RestBase {
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(order.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
     @Story("Передача точного веса")
     @CaseId(976)
-    @Test(enabled = false,
-    description = "Передано 0 квантов при не 0 весе ритейлером (весовые)",
+    @Test(description = "Передано 0 квантов при не 0 весе ритейлером (весовые)",
             groups = {"api-instamart-regress"})
-    //todo включить когда появится возможность создавать заказы с весовыми товарами
     public void weightNotNullKilo() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_KILO);
@@ -431,6 +447,8 @@ public class NotificationsPositionsV3Test extends RestBase {
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(order.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
     @Story("Передача точного веса")
@@ -474,14 +492,14 @@ public class NotificationsPositionsV3Test extends RestBase {
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(order.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
     @Story("Передача точного веса")
     @CaseId(1092)
-    @Test(enabled = false,
-    description = "Собрано меньше 1 кванта (весовые товары)",
+    @Test(description = "Собрано меньше 1 кванта (весовые товары)",
             groups = {"api-instamart-regress"})
-        //todo включить когда появится возможность создавать заказы с весовыми товарами
     public void weightLessKilo() {
         SessionFactory.makeSession(SessionType.API_V2, SessionProvider.PHONE);
         OrderV2 order = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), 58, ProductPriceTypeV2.PER_KILO);
@@ -519,6 +537,8 @@ public class NotificationsPositionsV3Test extends RestBase {
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(order.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 
     @Story("Передача точного веса")
@@ -562,5 +582,7 @@ public class NotificationsPositionsV3Test extends RestBase {
                 "Количество товаров отличается от расчетного значения");
         Assert.assertEquals(total, expTotal,
                 "Сумма отличается от расчетного значения");
+        AssemblyItemV2 assemblyItem = apiV2.getAssemblyItems(order.getShipments().get(0).getNumber()).get(0);
+        Assert.assertEquals(assemblyItem.getState(), StateV2.ASSEMBLED.getValue(), "Позиция не перешла в статус Собран");
     }
 }

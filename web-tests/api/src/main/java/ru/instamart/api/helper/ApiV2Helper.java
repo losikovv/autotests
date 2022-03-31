@@ -1443,4 +1443,12 @@ public final class ApiV2Helper {
 
         return response.as(NextDeliveriesV2Response.class).getNextDeliveries().get(0).getSummary();
     }
+
+    @Step("Получаем список товаров в заказе {shipmentNumber}")
+    public List<AssemblyItemV2> getAssemblyItems(String shipmentNumber) {
+        final Response response = ShipmentsV2Request.AssemblyItems.GET(shipmentNumber);
+        checkStatusCode200(response);
+
+        return response.as(AssemblyItemsV2Response.class).getAssemblyItems();
+    }
 }
