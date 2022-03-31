@@ -242,7 +242,7 @@ public final class AdministrationGeneralSettingsTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getAdminSmsRole());
 
-        smsSettings().goToPage();
+        smsSettings().openAdminPageWithoutSpa(smsSettings().pageUrl());
         smsSettings().checkPageTitleVisible();
         smsSettings().checkSendSmsVisible();
         smsSettings().checkSendSmsStartVisible();
