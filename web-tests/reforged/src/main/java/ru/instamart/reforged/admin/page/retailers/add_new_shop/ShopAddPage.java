@@ -8,8 +8,8 @@ import ru.instamart.reforged.core.enums.ShopUrl;
 
 public class ShopAddPage implements AdminPage, ShopAddCheck {
 
-    public void goToPage(final ShopUrl shop) {
-        Kraken.open(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH + "retailers/" + shop + "/stores/new");
+    public void goToPage(final String shop) {
+        Kraken.open(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD + "retailers/" + shop + "/stores/new");
     }
 
     @Step("Выбираем тестовый регион: {0} в дропдауне регионов")
@@ -19,7 +19,7 @@ public class ShopAddPage implements AdminPage, ShopAddCheck {
 
     @Override
     public void goToPage() {
-        goToPage(ShopUrl.DEFAULT);
+        goToPage(ShopUrl.DEFAULT.getUrl());
     }
 
     @Override

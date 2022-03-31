@@ -35,7 +35,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        shipments().goToPage();
+        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
         shipments().checkPageTitle();
         shipments().checkOrderDateFrom();
         shipments().checkOrderDateTo();
@@ -50,7 +50,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        shipments().goToPage();
+        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
         shipments().checkPageTitle();
         shipments().nextPagerClick();
         shipments().checkCurrentPageNumber("2");
@@ -69,7 +69,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        shipments().goToPage();
+        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
         shipments().checkPageTitle();
         shipments().setDateAndTimeFilterFromTableDefault(TimeUtil.getDeliveryDateFrom());
         shipments().setDateAndTimeFilterToTableDefault(TimeUtil.getDeliveryDateTo());
@@ -95,7 +95,8 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
-        shipments().goToPage();
+
+        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
         shipments().checkPageTitle();
         shipments().setPhoneFilterFromTableDefault(phone);
         shipments().search();
@@ -123,7 +124,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        shipments().goToPage();
+        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
         shipments().checkPageTitle();
         shipments().setPhoneAndDateFilterDefault(phone, deliveryStartDateDt);
         shipments().setDateAndTimeFilterToTableDefault(deliveryEndDateDt);
@@ -151,7 +152,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        shipments().goToPage();
+        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
         shipments().checkPageTitle();
         final var shipmentsBeforeFiltration = shipments().getNumberOfShipments();
         shipments().setShipmentOrOrderNumber(shipment.order.number);
@@ -170,7 +171,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        shipments().goToPage();
+        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
         shipments().checkPageTitle();
         final var shipmentsBeforeFiltration = shipments().getNumberOfShipments();
         shipments().setPhoneFilterFromTableDefault("+7 990");
@@ -205,7 +206,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        shipments().goToPage();
+        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
         shipments().waitPageLoad();
         shipments().setShipmentOrOrderNumber(orderNumber);
         shipments().search();
@@ -232,7 +233,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        shipments().goToPage();
+        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
         shipments().waitPageLoad();
         shipments().setShipmentOrOrderNumber(shipmentNumber);
         shipments().search();
@@ -273,7 +274,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
-        shipments().goToPage();
+        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
         shipments().setB2BOrders();
         shipments().setShipmentOrOrderNumber(shipmentNumber);
         shipments().search();
@@ -301,7 +302,7 @@ public final class AdministrationShipmentsSectionTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.forB2BUser());
 
-        shipments().goToPage();
+        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
         shipments().setB2BOrders();
         shipments().setShipmentOrOrderNumber(shipmentNumber);
         shipments().search();

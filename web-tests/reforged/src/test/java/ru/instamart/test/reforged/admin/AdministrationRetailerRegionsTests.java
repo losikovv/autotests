@@ -17,6 +17,7 @@ public final class AdministrationRetailerRegionsTests extends BaseTest {
     private final ApiHelper apiHelper = new ApiHelper();
 
     @CaseId(469)
+    @Flaky
     @Story("Тест добавления нового региона для магазинов в админке")
     @Test(description = "Тест добавления нового региона для магазинов в админке", groups = {"acceptance", "regression", "smoke"})
     public void successCreateNewRetailerRegion() {
@@ -34,12 +35,14 @@ public final class AdministrationRetailerRegionsTests extends BaseTest {
         regions().interactRegionsAddModal().fillNewTestRegionName(regionName);
         regions().interactRegionsAddModal().clickToCreateNewRegion();
 
+        regions().goToPage();
         regions().checkAddNewRegionButtonVisible();
         regions().checkRegionInTableVisible(regionName);
 
         shopAdd().goToPage();
         shopAdd().selectTestRegionInRegionsDropdown(regionName);
 
+        //пока почему то флакует коннект с базой, может падать
         apiHelper.deleteOperationalZonesInShopper(regionName);
 
         regions().goToPage();

@@ -33,7 +33,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        users().goToPage();
+        users().openAdminPageWithoutSpa(users().pageUrl());
         users().fillSearchByEmail(email);
         users().clickToSearch();
         users().checkFoundUserEmail(users().getFoundUserEmail(), email);
@@ -49,7 +49,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
-        users().goToPage();
+        users().openAdminPageWithoutSpa(users().pageUrl());
         users().fillSearchByPhoneNumber(userData.getPhone());
         users().clickToSearch();
         users().clickToEditUser();
@@ -74,7 +74,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdmin());
 
-        users().goToPage();
+        users().openAdminPageWithoutSpa(users().pageUrl());
         users().fillSearchByPhoneNumber(userData.getPhone());
         users().clickToSearch();
         users().clickToEditUser();
@@ -101,7 +101,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
-        users().goToPage();
+        users().openAdminPageWithoutSpa(users().pageUrl());
         users().fillSearchByPhoneNumber(userData.getPhone());
         users().clickToSearch();
         users().clickToEditUser();
@@ -124,7 +124,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
-        users().goToPage();
+        users().openAdminPageWithoutSpa(users().pageUrl());
         users().fillSearchByPhoneNumber(userData.getPhone());
         users().clickToSearch();
         users().clickToEditUser();
@@ -143,10 +143,9 @@ public class AdministrationUsersSectionTests extends BaseTest {
         usersEdit().checkB2BIsNotSelected();
     }
 
-    @Skip
     @Issue("B2C-3186")
     @CaseId(508)
-    @Test(description = "Отвязка платежный карт", groups = {"acceptance", "regression"})
+    @Test(enabled = false, description = "Отвязка платежный карт", groups = {"acceptance", "regression"})
     public void testBlockPaymentCards() {
         final var userData = UserManager.getQaUser();
         final var creditCard = CreditCardsV2Request.CreditCard.builder()
@@ -162,7 +161,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
-        users().goToPage();
+        users().openAdminPageWithoutSpa(users().pageUrl());
         users().fillSearchByPhoneNumber(userData.getPhone());
         users().clickToSearch();
         users().clickToEditUser();
@@ -180,7 +179,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
-        users().goToPage();
+        users().openAdminPageWithoutSpa(users().pageUrl());
         users().fillSearchByPhoneNumber(userData.getPhone());
         users().clickToSearch();
         users().clickToEditUser();

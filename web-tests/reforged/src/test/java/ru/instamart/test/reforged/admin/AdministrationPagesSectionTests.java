@@ -27,7 +27,8 @@ public final class AdministrationPagesSectionTests extends BaseTest {
     public void validatePagesRootPage() {
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
-        pages().goToPage();
+
+        pages().openAdminPageWithoutSpa(pages().pageUrl());
         pages().checkTable();
         pages().checkTableEntry();
     }
@@ -40,18 +41,20 @@ public final class AdministrationPagesSectionTests extends BaseTest {
 
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
-        pages().goToPage();
+
+        pages().openAdminPageWithoutSpa(pages().pageUrl());
         pages().clickToNewPage();
         newPages().fillPageData(staticPage);
         newPages().submit();
 
-        pages().goToPage();
+        pages().openAdminPageWithoutSpa(pages().pageUrl());
         pages().checkTable();
         final var id = pages().getPageId(staticPage);
 
-        pages().openSitePage(staticPage.getPageURL());
+        pages().openAdminPageWithoutSpa(staticPage.getPageURL());
         pages().checkPageIsAvailable();
-        pages().goToPage();
+
+        pages().openAdminPageWithoutSpa(pages().pageUrl());
         pages().deleteEntry(id);
         pages().checkDeleteAlertVisible();
     }
@@ -68,7 +71,7 @@ public final class AdministrationPagesSectionTests extends BaseTest {
 
         helper.createStaticPageInAdmin(staticPage);
 
-        pages().goToPage();
+        pages().openAdminPageWithoutSpa(pages().pageUrl());
         pages().checkTable();
         pages().editEntry(staticPage.getPageName());
         newPages().fillPageData(staticPageEdited);
