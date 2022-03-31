@@ -221,4 +221,14 @@ public interface HeaderCheck extends Check, HeaderElement {
     default void checkErrorAlertIsNotDisplayed() {
         waitAction().shouldNotBeVisible(alert);
     }
+
+    @Step("Проверяем, что появилось всплывающее сообщение о возможности предзамены")
+    default void checkPrereplacementPopupDisplayed(){
+        waitAction().shouldBeVisible(popupAlert);
+    }
+
+    @Step("Проверяем, что не отображается всплывающее сообщение о возможности предзамены")
+    default void checkPrereplacementPopupNotDisplayed(){
+        waitAction().shouldNotBeVisible(popupAlert);
+    }
 }

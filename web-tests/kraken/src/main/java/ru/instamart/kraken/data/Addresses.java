@@ -38,6 +38,11 @@ public final class Addresses {
         public static String crossZonesMetroAddress() {
             return "Реутов, Носовихинское шоссе, 8";
         }
+
+        //Адрес для проверок предзамен
+        public static String prereplacementAddress() {
+            return "Москва, Новозаводская улица, 14А";
+        }
     }
 
     public static class SaintPetersburg {

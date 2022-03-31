@@ -3,8 +3,10 @@ package ru.instamart.reforged.stf.drawer.cart.container;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import ru.instamart.reforged.core.Container;
 import ru.instamart.reforged.core.component.inner.InnerButton;
+import ru.instamart.reforged.core.component.inner.InnerCollectionComponent;
 import ru.instamart.reforged.core.component.inner.InnerElement;
 import ru.instamart.reforged.core.component.inner.InnerInput;
 
@@ -25,6 +27,14 @@ public final class Item extends Container {
     private final InnerElement itemPackageSize = new InnerElement(getContainer(), By.xpath(".//dd"), "Размер упаковки товара");
     private final InnerElement itemsAmount = new InnerElement(getContainer(), By.xpath(".//button[@data-qa='cart_delete_item_button']/../div"), "Общая стоимость товара");
     private final InnerElement costSpinner = new InnerElement(getContainer(), By.xpath("//div[@data-qa='line-item']//span[contains(text(),'Загрузка')]"), "Спиннер пересчета цены позиции");
+
+    //Предзамены Задача на добавление data-qa атрибутов B2C-8387
+    private final InnerElement selectReplacement = new InnerElement(getContainer(), By.xpath("//button[contains(.,'Выбрать замену')]"), "Кнопка 'Выбрать замену'");
+    private final InnerElement prereplacementBlock = new InnerElement(getContainer(), By.xpath("//div[./b[contains(.,'Ваша замена')]]/.."), "Блок товаров, выбранных для предзамены");
+    private final InnerCollectionComponent itemForReplacementImage = new InnerCollectionComponent(getContainer(), By.xpath("//div[./b[contains(.,'Ваша замена')]]/../div[3]/picture"), "Изображения товаров на замену");
+    private final InnerElement itemForReplaceName = new InnerElement(getContainer(), By.xpath("//div[./b[contains(.,'Ваша замена')]]/../div[4]/div[1]/div[1]"), "Название товара, выбранного на замену");
+    private final InnerElement editReplacement = new InnerElement(getContainer(), By.xpath("//div[./b[contains(.,'Ваша замена')]]/../button[1]/div"), "Кнопка 'Редактировать' (замену)");
+    private final InnerElement removeReplacement = new InnerElement(getContainer(), By.xpath("//div[./b[contains(.,'Ваша замена')]]/../button[2]"), "Кнопка 'Удалить' (замену)");
 
     public Item(final WebElement container) {
         super(container);
@@ -86,5 +96,45 @@ public final class Item extends Container {
     @Step("Получаем итоговую стоимость продукта")
     private String getTotalAmount() {
         return itemsAmount.getText();
+    }
+
+    @Step("Проверяем, что отображается кнопка 'Выбрать замену'")
+    public void checkReplaceButtonDisplayed() {
+        waitAction().shouldBeVisible(selectReplacement);
+    }
+
+    @Step("Нажимаем на кнопку 'Выбрать замену'")
+    public void clickSelectReplacement() {
+        selectReplacement.hoverAndClick();
+    }
+
+    @Step("Проверяем, что отображается блок с выбранными предзаменами")
+    public void checkPrereplacementBlockDisplayed() {
+        waitAction().shouldBeVisible(prereplacementBlock);
+    }
+
+    @Step("Проверяем, что блок с выбранными предзаменами не отображается")
+    public void checkPrereplacementBlockNotDisplayed() {
+        waitAction().shouldNotBeVisible(prereplacementBlock);
+    }
+
+    @Step("Нажимаем на кнопку 'Редактировать' (замену)")
+    public void clickEditReplacement() {
+        editReplacement.hoverAndClick();
+    }
+
+    @Step("Нажимаем на кнопку 'Удалить' (замену)")
+    public void clickRemoveReplacement() {
+        removeReplacement.hoverAndClick();
+    }
+
+    @Step("Проверяем, что название выбранного на замену товара соответствует ожидаемому: {expectedReplacementItemName}")
+    public void checkReplacementItemNameEquals(final String expectedReplacementItemName) {
+        Assert.assertEquals(itemForReplaceName.getText(), expectedReplacementItemName, "Наименование товара, выбранного на замену отличается от ожидаемого");
+    }
+
+    @Step("Проверяем, что в блоке с предзаменами указано несколько товаров")
+    public void checkPrereplacementAnySuiteDisplayed() {
+        Assert.assertTrue(itemForReplacementImage.elementCount() > 1, "Количество товаров, отображаемых в блоке выбранных замен не соответствует ожидаемому");
     }
 }

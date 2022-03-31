@@ -62,6 +62,17 @@ public class RestAddresses {
                     .build();
         }
 
+        //Адрес, используемый в кейсах предзамен
+        public static AddressV2 prereplacementAddress() {
+            return AddressV2.builder()
+                    .city("Москва")
+                    .street("улица Новозаводская")
+                    .building("14А")
+                    .lat(55.75385309349555)
+                    .lon(37.49936848919324)
+                    .build();
+        }
+
         public static class Vkusvill {
 
             public static AddressV2 michurinsky() {

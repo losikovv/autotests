@@ -166,6 +166,19 @@ public final class ApiHelper {
      * @param user должен иметь phone и encryptedPhone
      *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
      */
+    @Step("Наполняем корзину с помощью API")
+    public void addItemsToCart(final UserData user, final Integer sid, final List<Long> productIDs) {
+        apiV2.authByPhone(user);
+        apiV2.getCurrentOrderNumber();
+        apiV2.deleteAllShipments();
+        apiV2.setAddressAttributes(user, apiV2.getAddressBySid(sid));
+        apiV2.addItemsToCart(productIDs);
+    }
+
+    /**
+     * @param user должен иметь phone и encryptedPhone
+     *             encryptedPhone получается с помощью рельсовой команды Ciphers::AES.encrypt(‘’, key: ENV[‘CIPHER_KEY_PHONE’])
+     */
     @Step("Указываем адрес с помощью API")
     public AddressV2 setAddress(final UserData user, AddressV2 address) {
         apiV2.authByPhone(user);

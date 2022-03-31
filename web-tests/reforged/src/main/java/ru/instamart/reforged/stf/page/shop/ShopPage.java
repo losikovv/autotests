@@ -71,8 +71,8 @@ public final class ShopPage implements StfPage, ShopCheck {
     }
 
     /**
-     *   @param line - номер линии по порядку, начиная с 0, в которой находится искомый товар,
-     *   @param element - номер самого элемента по порядку, начиная с 0
+     * @param line    - номер линии по порядку, начиная с 0, в которой находится искомый товар,
+     * @param element - номер самого элемента по порядку, начиная с 0
      */
     @Step("Нажать на плюс у товара - строка №{line}, элемент по порядку №{element}")
     public void plusItemToCart(String line, String element) {
@@ -80,8 +80,8 @@ public final class ShopPage implements StfPage, ShopCheck {
     }
 
     /**
-     *   @param line - номер линии по порядку, начиная с 0, в которой находится искомый товар,
-     *   @param element - номер самого элемента по порядку, начиная с 0
+     * @param line    - номер линии по порядку, начиная с 0, в которой находится искомый товар,
+     * @param element - номер самого элемента по порядку, начиная с 0
      */
     @Step("Вернуть значение имени товара - строка №{line}, элемент по порядку №{element}")
     public String getProductTitle(String line, String element) {
@@ -148,6 +148,11 @@ public final class ShopPage implements StfPage, ShopCheck {
     public List<String> getFirstCategoryProductNames() {
         //TODO Костыль потому что название продукта длинее 60 символов обрезается, невозможно сравнить в карточке, корзине, истории
         return CollectionUtil.cropItemsByLengthAndSort(firstCategoryProductNames.getTextFromAllElements(), 59);
+    }
+
+    @Step("Открываем карточку продукта в магазине '{shop}' по ссылке: '{productPermalink}'")
+    public void openProductCardByLink(final ShopUrl shop, final String productPermalink) {
+        goToPage(shop.getUrl() + "/" + productPermalink);
     }
 
     @Override

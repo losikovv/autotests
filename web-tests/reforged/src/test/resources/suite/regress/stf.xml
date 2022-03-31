@@ -33,6 +33,7 @@
       <class name="ru.instamart.test.reforged.stf.order.OrdersCitiesTests"/>
       <class name="ru.instamart.test.reforged.stf.order.OrdersRetailersTests"/>
       <class name="ru.instamart.test.reforged.stf.order.OrderEvaluationTests"/>
+      <class name="ru.instamart.test.reforged.stf.order.OrdersPrereplacementsTests"/>
 
       <!-- Ждет включения данной фичи на стейдже или перехода на полноценный препрод -->
       <!--
