@@ -12,4 +12,12 @@ public class ShippingMethodKindsV1Request extends ApiV1RequestBase {
         return givenWithAuth()
                 .get(ApiV1Endpoints.SHIPPING_METHOD_KINDS);
     }
+
+    public static class Admin {
+        @Step("{method} /" + ApiV1Endpoints.Admin.SHIPPING_METHOD_KINDS)
+        public static Response GET() {
+            return givenWithAuth()
+                    .get(ApiV1Endpoints.Admin.SHIPPING_METHOD_KINDS);
+        }
+    }
 }

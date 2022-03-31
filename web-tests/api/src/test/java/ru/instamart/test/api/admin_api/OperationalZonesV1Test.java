@@ -11,6 +11,7 @@ import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.request.v1.OperationalZonesV1Request;
 import ru.instamart.api.response.v1.OperationalZoneV1Response;
+import ru.instamart.api.response.v1.OperationalZonesV1Response;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;
@@ -103,5 +104,15 @@ public class OperationalZonesV1Test extends RestBase {
         Response response = OperationalZonesV1Request.PUT(0, "test");
 
         checkStatusCode404(response);
+    }
+
+    @CaseId(2514)
+    @Story("Список регионов (операционные зоны)")
+    @Test(description = "Получение списка регионов",
+            groups = {"api-instamart-regress"})
+    public void getOperationalZones() {
+        final Response response = OperationalZonesV1Request.GET();
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, OperationalZonesV1Response.class);
     }
 }

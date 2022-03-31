@@ -49,9 +49,11 @@ public final class ApiV1Endpoints {
         public static final String FAQ_GROUPS = "admin/faq_groups";
         public static final String MAIN_NAVIGATION = "admin/main_navigation";
         public static final String OPERATIONAL_ZONES = "admin/operational_zones";
-        public static final String USER_PERMISSIONS = "admin/user_permissions";
         public static final String SHIPMENTS = "admin/shipments.json";
         public static final String SHIPMENT = "admin/shipments/{uuid}";
+        public static final String SHIPPING_METHOD_KINDS = "admin/shipping_method_kinds";
+        public static final String TENANTS = "admin/tenants";
+        public static final String USER_PERMISSIONS = "admin/user_permissions";
 
         public static final class Cities {
             public static final String CITY = "admin/cities/{cityId}";
@@ -71,6 +73,10 @@ public final class ApiV1Endpoints {
             public static final String UPDATE_POSITIONS = "admin/faq_groups/update_positions";
         }
 
+        public static final class Hde {
+            public static final String TICKETS = "admin/hde/tickets";
+        }
+
         public static final class ExternalPartners {
             public static final String SUBSCRIPTION = "admin/external_partners/subscriptions/{subscriptionId}";
         }
@@ -78,6 +84,10 @@ public final class ApiV1Endpoints {
         public static final class OperationalZones {
             public static final String BY_ID = "admin/operational_zones/{operationalZoneID}";
             public static final String DISPATCH_SETTING = "admin/operational_zones/{operationalZoneID}/dispatch_setting";
+        }
+
+        public static final class Promotions {
+            public static final String PROMOTION = "admin/promotions/{promotionId}";
         }
 
         public static final class Shipments {
