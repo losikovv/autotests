@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.helper.ApiHelper;
@@ -13,6 +14,7 @@ import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -20,10 +22,15 @@ import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
 
 @Epic("STF UI")
 @Feature("Чекаут. Шаг #2. Контакты")
-public class CheckoutContactsStepTests {
+public final class CheckoutContactsStepTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
     private UserData userData;
+
+    @BeforeMethod(alwaysRun = true)
+    public void beforeMethod() {
+        this.userData = UserManager.getQaUser();
+    }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
@@ -34,7 +41,6 @@ public class CheckoutContactsStepTests {
     @Story("Корзина")
     @Test(description = "Тест на изменение телефона и контактов", groups = "regression")
     public void successChangePhoneAndContacts() {
-        userData = UserManager.getQaUser();
         helper.makeOrder(userData, EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID, 1);
         helper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
 

@@ -2,10 +2,8 @@ package ru.instamart.reforged.stf.page.user.shipments;
 
 import io.qameta.allure.Step;
 import org.testng.Assert;
-import ru.instamart.kraken.helper.DateTimeHelper;
 import ru.instamart.kraken.util.CollectionUtil;
 import ru.instamart.kraken.util.StringUtil;
-import ru.instamart.kraken.util.TimeUtil;
 import ru.instamart.reforged.core.Check;
 
 import java.util.List;
@@ -110,7 +108,9 @@ public interface UserShipmentsCheck extends Check, UserShipmentsElement {
 
     @Step("Проверка соответствия даты и времени доставки ожидаемым {expectedDate}")
     default void checkDeliveryIntervalCorrect(final String expectedInterval) {
-        Assert.assertEquals(StringUtil.cutExtraZerosFromDate(deliveryInterval.getText()).replaceAll("\n"," "), expectedInterval,
+        Assert.assertEquals(
+                StringUtil.cutExtraZerosFromDate(deliveryInterval.getText()).replaceAll("\n"," "),
+                expectedInterval,
                 "Дата и время доставки не соответствует ожидаемым");
     }
 }

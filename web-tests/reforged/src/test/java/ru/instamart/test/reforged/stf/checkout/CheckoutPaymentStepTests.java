@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -12,6 +13,7 @@ import ru.instamart.kraken.data.PaymentCards;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.sber_payments.SberPaymentsPageRouter.sberPayments;
@@ -19,10 +21,16 @@ import static ru.instamart.reforged.stf.page.StfRouter.*;
 
 @Epic("STF UI")
 @Feature("Чекаут. Шаг #5. Оплата")
-public class CheckoutPaymentStepTests {
+public final class CheckoutPaymentStepTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
     private UserData userData;
+
+    @BeforeMethod(alwaysRun = true)
+    public void beforeMethod() {
+        this.userData = UserManager.getQaUser();
+        this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+    }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
@@ -34,9 +42,6 @@ public class CheckoutPaymentStepTests {
     @Test(description = "Тест удаления карты оплаты", groups = "regression")
     public void successDeleteSavedCard() {
         //TODO: после починки addCreditCard() нужно добавить сюда добавление карты через апи
-        userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
-
         var company = JuridicalData.juridical();
         var card = PaymentCards.testCard();
 

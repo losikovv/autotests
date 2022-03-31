@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -11,6 +12,7 @@ import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.reforged.CookieFactory;
+import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.stf.page.StfRouter.*;
@@ -18,10 +20,16 @@ import static ru.instamart.reforged.stf.page.StfRouter.userShipments;
 
 @Epic("STF UI")
 @Feature("Чекаут. Шаг #4. Время получения.")
-public class CheckoutDeliverySlotsTests {
+public final class CheckoutDeliverySlotsTests extends BaseTest {
 
     private final ApiHelper helper = new ApiHelper();
     private UserData userData;
+
+    @BeforeMethod(alwaysRun = true)
+    public void beforeMethod() {
+        this.userData = UserManager.getQaUser();
+        this.helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
+    }
 
     @AfterMethod(alwaysRun = true, description = "Отмена ордера")
     public void afterTest() {
@@ -32,9 +40,6 @@ public class CheckoutDeliverySlotsTests {
     @Story("Корзина")
     @Test(description = "Изменение ранее выбранного слота доставки", groups = "regression")
     public void successChangePreviousDeliverySlotAndOrder() {
-        userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
-
         var company = JuridicalData.juridical();
 
         shop().goToPage();
@@ -80,6 +85,7 @@ public class CheckoutDeliverySlotsTests {
         checkout().checkCheckoutLoaderNotVisible();
         checkout().setReplacementPolicy().clickToSubmit();
 
+        checkout().setSlot().setNextDay();
         checkout().setSlot().setFirstActiveSlot();
 
         var deliveryDate = checkout().setSlot().getDeliveryDate();
@@ -97,9 +103,6 @@ public class CheckoutDeliverySlotsTests {
     @Story("Корзина")
     @Test(description = "Невозможность завершения заказа при невыбранном слоте доставки", groups = "regression")
     public void failedContinueWithUnselectedDeliverySlot() {
-        userData = UserManager.getQaUser();
-        helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
-
         var company = JuridicalData.juridical();
 
         shop().goToPage();
