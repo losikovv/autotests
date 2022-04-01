@@ -2,6 +2,7 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
@@ -72,9 +73,10 @@ public class FavoritesListMoreSessionV2Test extends RestBase {
         softAssert.assertAll();
     }
 
+    @Issue("ARC-2090")
     @CaseId(520)
     @Story("Получить список избранных товаров")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, enabled = false,
             description = "Получаем пустой список любимых товаров у дефолтного магазина")
     public void emptyFavoritesForDefaultSid() {
         final Response response = FavoritesV2Request.GET(EnvironmentProperties.DEFAULT_SID);

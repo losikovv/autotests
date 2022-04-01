@@ -16,7 +16,6 @@ public class MetaV2 extends BaseObject {
     private Integer currentPage;
 
     @Null
-    @JsonSchema(required = true)
     @JsonProperty(value = "next_page")
     private Integer nextPage;
 

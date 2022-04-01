@@ -415,4 +415,13 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(cityFromResponse.getLocked(), false, softAssert);
         softAssert.assertAll();
     }
+    @Step("Проверяем FAQ")
+    public static void checkFaq(FaqV1 faqResponse, String text, Long faqGroupId, int position) {
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(faqResponse.getAnswer(), text, softAssert);
+        compareTwoObjects(faqResponse.getQuestion(), text, softAssert);
+        compareTwoObjects(faqResponse.getFaqGroupId(), faqGroupId, softAssert);
+        compareTwoObjects(faqResponse.getPosition(), position, softAssert);
+        softAssert.assertAll();
+    }
 }

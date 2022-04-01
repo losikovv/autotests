@@ -2,6 +2,7 @@ package ru.instamart.test.api.admin_api;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -37,9 +38,10 @@ public class ShipmentReturnsV1Test extends RestBase {
         checkStatusCode200(response);
     }
 
+    @Issue("B2C-6444")
     @Skip(onServer = Server.STAGING)
     @CaseId(2313)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"}, enabled = false,
             description = "Детализация истории возвратов на стр. возвратов")
     public void getShipmentReturn() {
         Response response = ShipmentReturnsAdminV1Request.GET("8fbb749f-5353-45a5-90e2-3823fc05df60", "d1ebed51-892e-403a-bf37-62884fce588d");//TODO: расхардкодить, добавить проверку схемы.
