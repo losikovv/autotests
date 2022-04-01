@@ -1,13 +1,9 @@
 package ru.instamart.kraken.util;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static java.util.Objects.isNull;
 
 @Slf4j
 public final class StringUtil {
@@ -15,8 +11,7 @@ public final class StringUtil {
     private static final Pattern pattern = Pattern.compile("\\d+\\.\\d+");
     private static final Pattern citiesPattern = Pattern.compile("\\(([^\\D+]+)\\)");
     private static final String PHONE_PATTERN = "(\\d{3})(\\d{3})(\\d{2})(\\d+)";
-    private static final String EXTRA_ZERO_PATTERN = "^(0\\d\\:\\d\\d)";
-    private static final String HOUR_PATTERN = "^(\\d\\:\\d\\d)";
+    private static final String EXTRA_ZERO_PATTERN = "(?<= |-)0";
 
     private StringUtil() {
     }
@@ -99,7 +94,7 @@ public final class StringUtil {
     /**
      * Парсит строку типа "09:00-10:00" в "9:00-10:00" для сравнения времени доставки
      */
-    public static String cutExtraZerosFromDate(final String hours) {
-        return hours.replaceAll(EXTRA_ZERO_PATTERN, HOUR_PATTERN);
+    public static String cutExtraZerosFromDate(String hours) {
+        return hours.replaceAll(EXTRA_ZERO_PATTERN, "");
     }
 }
