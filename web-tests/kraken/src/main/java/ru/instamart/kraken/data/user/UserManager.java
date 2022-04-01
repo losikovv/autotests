@@ -215,6 +215,13 @@ public final class UserManager {
         return defaultVkUser;
     }
 
+    public static UserData getNewVkUser() {
+        return UserData.builder()
+                .email(Crypt.INSTANCE.decrypt("GokqBKIyx6KtQFfpDDsEvA=="))
+                .password(Crypt.INSTANCE.decrypt("subivm/a2hcvqUlEJfHAag=="))
+                .build();
+    }
+
     public static UserData getDefaultFbUser() {
         if (isNull(defaultFbUser)) {
             defaultFbUser = UserData.builder()

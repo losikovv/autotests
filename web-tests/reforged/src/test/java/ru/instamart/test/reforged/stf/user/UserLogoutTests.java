@@ -45,7 +45,7 @@ public final class UserLogoutTests extends BaseTest {
         home().checkLoginButtonIsVisible();
     }
 
-    @CaseId(1475)
+    @CaseId(2548)
     @Story("Позитивный кейс")
     @Test(description = "Тест сброса адреса доставки и корзины после деавторизации", groups = {"acceptance", "regression"})
     public void noShipAddressAndEmptyCartAfterLogout() {
