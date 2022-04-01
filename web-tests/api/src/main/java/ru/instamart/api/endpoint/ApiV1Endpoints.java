@@ -71,6 +71,12 @@ public final class ApiV1Endpoints {
         public static final class FaqGroups {
             public static final String FAQ_GROUP = "admin/faq_groups/{faqGroupId}";
             public static final String UPDATE_POSITIONS = "admin/faq_groups/update_positions";
+
+            public static final class FaqGroup {
+                public static final String FAQS = "admin/faq_groups/{faqGroupId}/faqs";
+                public static final String FAQ = "admin/faq_groups/{faqGroupId}/faqs/{faqId}";
+                public static final String UPDATE_POSITIONS = "admin/faq_groups/{faqGroupId}/faqs/update_positions";
+            }
         }
 
         public static final class Hde {

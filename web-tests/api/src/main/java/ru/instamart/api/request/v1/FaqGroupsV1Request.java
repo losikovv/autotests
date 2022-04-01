@@ -63,4 +63,66 @@ public class FaqGroupsV1Request extends ApiV1RequestBase {
                 .body(body)
                 .post(ApiV1Endpoints.Admin.FaqGroups.UPDATE_POSITIONS);
     }
+
+    public static class Faq {
+        @Step("{method} /" + ApiV1Endpoints.Admin.FaqGroups.FaqGroup.FAQS)
+        public static Response GET(Long faqGroupId) {
+            return givenWithAuth()
+                    .get(ApiV1Endpoints.Admin.FaqGroups.FaqGroup.FAQS, faqGroupId);
+        }
+
+        @Step("{method} /" + ApiV1Endpoints.Admin.FaqGroups.FaqGroup.FAQ)
+        public static Response GET(Long faqGroupId, Long faqId) {
+            return givenWithAuth()
+                    .get(ApiV1Endpoints.Admin.FaqGroups.FaqGroup.FAQ, faqGroupId, faqId);
+        }
+
+        @Step("{method} /" + ApiV1Endpoints.Admin.FaqGroups.FaqGroup.FAQS)
+        public static Response POST(Long faqGroupId, String text, int position) {
+            JSONObject body = new JSONObject();
+            JSONObject faq = new JSONObject();
+            faq.put("question", text);
+            faq.put("answer", text);
+            faq.put("position", position);
+            faq.put("faq_group_id", faqGroupId);
+            body.put("faq", faq);
+            return givenWithAuth()
+                    .contentType(ContentType.JSON)
+                    .body(body)
+                    .post(ApiV1Endpoints.Admin.FaqGroups.FaqGroup.FAQS, faqGroupId);
+        }
+
+        @Step("{method} /" + ApiV1Endpoints.Admin.FaqGroups.FaqGroup.FAQ)
+        public static Response PUT(Long faqGroupId, Long faqId, String text, int position) {
+            JSONObject body = new JSONObject();
+            JSONObject faq = new JSONObject();
+            faq.put("question", text);
+            faq.put("answer", text);
+            faq.put("position", position);
+            faq.put("faq_group_id", faqGroupId);
+            body.put("faq", faq);
+            return givenWithAuth()
+                    .contentType(ContentType.JSON)
+                    .body(body)
+                    .put(ApiV1Endpoints.Admin.FaqGroups.FaqGroup.FAQ, faqGroupId, faqId);
+        }
+
+        @Step("{method} /" + ApiV1Endpoints.Admin.FaqGroups.FaqGroup.FAQ)
+        public static Response DELETE(Long faqGroupId, Long faqId) {
+            return givenWithAuth()
+                    .delete(ApiV1Endpoints.Admin.FaqGroups.FaqGroup.FAQ, faqGroupId, faqId);
+        }
+
+        @Step("{method} /" + ApiV1Endpoints.Admin.FaqGroups.FaqGroup.UPDATE_POSITIONS)
+        public static Response POST(Long faqGroupId, Long faqId, int positionNumber) {
+            JSONObject body = new JSONObject();
+            JSONObject position = new JSONObject();
+            position.put(faqId, positionNumber);
+            body.put("positions", position);
+            return givenWithAuth()
+                    .body(body)
+                    .contentType(ContentType.JSON)
+                    .post(ApiV1Endpoints.Admin.FaqGroups.FaqGroup.UPDATE_POSITIONS, faqGroupId);
+        }
+    }
 }
