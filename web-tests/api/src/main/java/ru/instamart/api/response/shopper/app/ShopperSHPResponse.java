@@ -16,7 +16,8 @@ import java.util.List;
 public class ShopperSHPResponse extends BaseResponseObject {
     @JsonSchema(required = true)
     private ShopperSHP.Data data;
-    private List<Included> included = null;
+    @Null
+    private List<Included> included;
 
     @Data
     @EqualsAndHashCode(callSuper=false)

@@ -9,13 +9,20 @@ import org.testng.SkipException;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.shopper.AssemblyStateSHP;
 import ru.instamart.api.enums.shopper.PackageSetLocationSHP;
+import ru.instamart.api.enums.shopper.RoleSHP;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.shopper.admin.ShipmentsItemSHP;
 import ru.instamart.api.model.shopper.app.*;
+import ru.instamart.api.model.shopper.shifts.PlanningAreaShiftsItemSHP;
+import ru.instamart.api.request.shifts.PlanningAreasRequest;
+import ru.instamart.api.request.shifts.PlanningPeriodsSHPItem;
+import ru.instamart.api.request.shifts.RegionsRequest;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.request.shopper.app.*;
 import ru.instamart.api.request.shopper.localtor.LocatorRequest;
 import ru.instamart.api.response.shopper.app.*;
+import ru.instamart.api.response.shopper.shifts.PlanningAreaShiftsResponse;
+import ru.instamart.api.response.shopper.shifts.PlanningPeriodsShiftsResponse;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
@@ -38,7 +45,12 @@ import static ru.instamart.kraken.util.TimeUtil.getTimestamp;
 
 @Slf4j
 public class ShopperAppApiHelper {
-    private String currentAssemblyId;
+    private final ThreadLocal<Integer> currentRegion = new ThreadLocal<>();
+    private final ThreadLocal<Integer> currentSid = new ThreadLocal<>();
+    private final ThreadLocal<Integer> planningArea = new ThreadLocal<>();
+    private final ThreadLocal<Integer> planningPeriod = new ThreadLocal<>();
+
+    private final ThreadLocal<String> currentAssemblyId = new ThreadLocal<>();
 
     @Step("Авторизация пользователем: {user.email} в шопере")
     public void authorisation(UserData user) {
@@ -181,6 +193,35 @@ public class ShopperAppApiHelper {
         checkStatusCode200or422(response);
     }
 
+    @Step("Получаем информацию о сбрщике")
+    public ShopperSHPResponse getShopperInfo() {
+        final Response response = ShopperSHPRequest.GET();
+        checkStatusCode200(response);
+        ShopperSHPResponse shpResponse = response.as(ShopperSHPResponse.class);
+        List<ShopperSHPResponse.Included> stores = shpResponse.getIncluded().stream()
+                .filter(item -> item.getType().equals("stores"))
+                .collect(Collectors.toList());
+        currentRegion.set(stores.get(0).getAttributes().getOperationalZoneId());
+        return shpResponse;
+    }
+
+    @Step("Список планировочных районов области.")
+    public PlanningAreaShiftsItemSHP getPlanningArea() {
+        final Response response = RegionsRequest.GET(currentRegion.get());
+        checkStatusCode200(response);
+        PlanningAreaShiftsResponse planningAreaShifts = response.as(PlanningAreaShiftsResponse.class);
+        planningArea.set(planningAreaShifts.getPlanningAreaShiftsItemsList().get(0).getId());
+        return planningAreaShifts.getPlanningAreaShiftsItemsList().get(0);
+    }
+
+    @Step("Перечень периодов планирования области планирования.")
+    public List<PlanningPeriodsSHPItem> getPlanningPeriod() {
+        final Response response = PlanningAreasRequest.GET(planningArea.get(), RoleSHP.UNIVERSAL);
+        checkStatusCode200(response);
+        PlanningPeriodsShiftsResponse shiftsResponse = response.as(PlanningPeriodsShiftsResponse.class);
+        return shiftsResponse.getPlanningPeriods();
+    }
+
     /**
      * Простая сборка заказа с генерацией фискального номера чека
      */
@@ -220,7 +261,7 @@ public class ShopperAppApiHelper {
         deleteCurrentAssembly();
         ShipmentSHP.Data shipment = getShipment(shipmentNumber);
 
-        currentAssemblyId = startAssembly(shipment.getId()).getId();
+        currentAssemblyId.set(startAssembly(shipment.getId()).getId());
         assemblyItemsWithOriginalQty();
         startPaymentVerification();
         shopperCreatesPackageSets();
@@ -228,7 +269,7 @@ public class ShopperAppApiHelper {
 
         packer();
         startPurchasing();
-        return currentAssemblyId;
+        return currentAssemblyId.get();
     }
 
     @Step("Проверяем обновление информации о заказе")
@@ -307,7 +348,7 @@ public class ShopperAppApiHelper {
         Response response = AssembliesSHPRequest.POST(shipmentId);
         checkStatusCode200(response);
         AssemblySHP.Data assembly = response.as(AssemblySHPResponse.class).getData();
-        currentAssemblyId = assembly.getId();
+        currentAssemblyId.set(assembly.getId());
         return assembly;
     }
 
@@ -375,7 +416,7 @@ public class ShopperAppApiHelper {
     @Step("Получаем инфу о позициях в текущей сборке")
     public List<AssemblyItemSHP.Data> getItems() {
         log.debug("Получаем инфу о позициях в сборке");
-        Response response = AssembliesSHPRequest.GET(currentAssemblyId);
+        Response response = AssembliesSHPRequest.GET(currentAssemblyId.get());
         checkStatusCode200(response);
         return response.as(AssemblySHPResponse.class).getIncluded();
     }
@@ -390,7 +431,7 @@ public class ShopperAppApiHelper {
     @Step("Сборка позиции с id = {assemblyItemId} и количеством {itemQty}")
     private AssemblyItemSHP.Data assemblyItem(String assemblyItemId, int itemQty) {
         log.debug("Собираем товар");
-        Response response = AssemblyItemsSHPRequest.PATCH(currentAssemblyId, assemblyItemId, itemQty);
+        Response response = AssemblyItemsSHPRequest.PATCH(currentAssemblyId.get(), assemblyItemId, itemQty);
         checkStatusCode200(response);
         return response.as(AssemblyItemSHPResponse.class).getData();
     }
@@ -398,7 +439,7 @@ public class ShopperAppApiHelper {
     @Step("Добавляем новый товар")
     private AssemblyItemSHP.Data addItem(String offerUuid) {
         log.debug("Добавляем новый товар");
-        Response response = AssembliesSHPRequest.Items.POST(currentAssemblyId, offerUuid, 2);
+        Response response = AssembliesSHPRequest.Items.POST(currentAssemblyId.get(), offerUuid, 2);
         checkStatusCode200(response);
         return response.as(AssemblyItemSHPResponse.class).getData();
     }
@@ -474,14 +515,14 @@ public class ShopperAppApiHelper {
      */
     private void approveAssembly() {
         log.debug("Завершаем сборку");
-        Response response = AssembliesSHPRequest.Approve.PATCH(currentAssemblyId);
+        Response response = AssembliesSHPRequest.Approve.PATCH(currentAssemblyId.get());
         checkStatusCode200(response);
     }
 
     @Step("Подтверждаем прохождение оплаты у сборки для передачи упаковщику")
     public void startPaymentVerification() {
         log.debug("Подтверждаем прохождение оплаты у сборки для передачи упаковщику");
-        Response response = AssembliesSHPRequest.StartPaymentVerification.PUT(currentAssemblyId);
+        Response response = AssembliesSHPRequest.StartPaymentVerification.PUT(currentAssemblyId.get());
         checkStatusCode200(response);
         Assert.assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
                 AssemblyStateSHP.PAYMENT_VERIFICATION.getState());
@@ -491,7 +532,7 @@ public class ShopperAppApiHelper {
     public void shopperCreatesPackageSets() {
         log.debug("Раскладываем заказ для передачи упаковщику");
         int boxNumber = 10;
-        Response response = AssembliesSHPRequest.PackageSets.POST(currentAssemblyId, boxNumber);
+        Response response = AssembliesSHPRequest.PackageSets.POST(currentAssemblyId.get(), boxNumber);
         checkStatusCode200(response);
         Assert.assertEquals(response.as(PackageSetsSHPResponse.class).getData().size(), boxNumber);
     }
@@ -499,7 +540,7 @@ public class ShopperAppApiHelper {
     @Step("Завершаем сборку для передачи упаковщику")
     public void finishAssembling() {
         log.debug("Завершаем сборку для передачи упаковщику");
-        Response response = AssembliesSHPRequest.FinishAssembling.PUT(currentAssemblyId);
+        Response response = AssembliesSHPRequest.FinishAssembling.PUT(currentAssemblyId.get());
         checkStatusCode200(response);
         AssemblySHP.Data.Attributes attributes = response.as(AssemblySHPResponse.class).getData().getAttributes();
         Assert.assertEquals(attributes.getState(),
@@ -510,7 +551,7 @@ public class ShopperAppApiHelper {
     @Step("Берем сборку упаковщиком")
     public void packer() {
         log.debug("Берем сборку упаковщиком");
-        Response response = AssembliesSHPRequest.Packer.PUT(currentAssemblyId);
+        Response response = AssembliesSHPRequest.Packer.PUT(currentAssemblyId.get());
         checkStatusCode200(response);
         AssemblySHP.Data.Attributes attributes = response.as(AssemblySHPResponse.class).getData().getAttributes();
         Assert.assertEquals(attributes.getState(),
@@ -521,7 +562,7 @@ public class ShopperAppApiHelper {
     @Step("Оплата на кассе")
     public void startPurchasing() {
         log.debug("Начинаем оплату на кассе");
-        Response response = AssembliesSHPRequest.StartPurchasing.PUT(currentAssemblyId);
+        Response response = AssembliesSHPRequest.StartPurchasing.PUT(currentAssemblyId.get());
         checkStatusCode200(response);
         Assert.assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
                 AssemblyStateSHP.ON_CASH_DESK.getState());
@@ -541,7 +582,7 @@ public class ShopperAppApiHelper {
                 fiscalChecksum = "1",
                 transactionDetails = "1";
         Response response = AssembliesSHPRequest.Receipts.POST(
-                currentAssemblyId,
+                currentAssemblyId.get(),
                 total,
                 fiscalSecret,
                 fiscalDocumentNumber,
@@ -560,7 +601,7 @@ public class ShopperAppApiHelper {
     @Step("Упаковка заказа")
     public void startPackaging() {
         log.debug("Начинаем упаковку");
-        Response response = AssembliesSHPRequest.StartPackaging.PATCH(currentAssemblyId);
+        Response response = AssembliesSHPRequest.StartPackaging.PATCH(currentAssemblyId.get());
         checkStatusCode200(response);
         Assert.assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
                 AssemblyStateSHP.PACKAGING.getState());
@@ -569,7 +610,7 @@ public class ShopperAppApiHelper {
     @Step("Получаем данные о ячейке собранного заказа")
     public void getPackageSets() {
         log.debug("Смотрим где лежит заказ для упаковки");
-        Response response = AssembliesSHPRequest.PackageSets.GET(currentAssemblyId);
+        Response response = AssembliesSHPRequest.PackageSets.GET(currentAssemblyId.get());
         checkStatusCode200(response);
     }
 
@@ -577,7 +618,7 @@ public class ShopperAppApiHelper {
     public void packerCreatesPackageSets() {
         log.debug("Раскладываем упакованный заказ");
         Response response = AssembliesSHPRequest.PackageSets.POST(
-                currentAssemblyId, 1, 1, 1, 1);
+                currentAssemblyId.get(), 1, 1, 1, 1);
         checkStatusCode200(response);
         List<PackageSetSHP.Data> packageSets = response.as(PackageSetsSHPResponse.class).getData();
         Assert.assertEquals(packageSets.get(0).getAttributes().getLocation(), PackageSetLocationSHP.BASKET.getLocation());
@@ -589,7 +630,7 @@ public class ShopperAppApiHelper {
     @Step("Завершаем упаковку")
     public void finishPurchasing() {
         log.debug("Завершаем упаковку");
-        Response response = AssembliesSHPRequest.Purchase.PATCH(currentAssemblyId);
+        Response response = AssembliesSHPRequest.Purchase.PATCH(currentAssemblyId.get());
         checkStatusCode200(response);
         Assert.assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
                 AssemblyStateSHP.READY_TO_SHIP.getState());
@@ -598,7 +639,7 @@ public class ShopperAppApiHelper {
     @Step("Ставим сборку на паузу")
     public void pauseAssembly() {
         log.debug("Ставим сборку на паузу");
-        Response response = AssembliesSHPRequest.Pause.PATCH(currentAssemblyId);
+        Response response = AssembliesSHPRequest.Pause.PATCH(currentAssemblyId.get());
         checkStatusCode200(response);
         Assert.assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
                 AssemblyStateSHP.PAUSED.getState());
@@ -607,7 +648,7 @@ public class ShopperAppApiHelper {
     @Step("Отдаём сборку другому сборщику: ")
     public void suspendAssembly() {
         log.debug("Отдаём сборку другому сборщику");
-        Response response = AssembliesSHPRequest.Suspend.PATCH(currentAssemblyId);
+        Response response = AssembliesSHPRequest.Suspend.PATCH(currentAssemblyId.get());
         checkStatusCode200(response);
         Assert.assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
                 AssemblyStateSHP.SUSPENDED.getState());
@@ -616,14 +657,14 @@ public class ShopperAppApiHelper {
     @Step("Оплачиваем сборку через LifePay")
     public void payAssemblyByLifePay() {
         log.debug("Оплачиваем сборку через LifePay");
-        Response response = AssembliesSHPRequest.LifePay.PUT(currentAssemblyId);
+        Response response = AssembliesSHPRequest.LifePay.PUT(currentAssemblyId.get());
         checkStatusCode200(response);
     }
 
     @Step("Отмечаем сборку как доставленную")
     public void shipAssembly() {
         log.debug("Отмечаем сборку как доставленную");
-        Response response = AssembliesSHPRequest.Ship.PATCH(currentAssemblyId);
+        Response response = AssembliesSHPRequest.Ship.PATCH(currentAssemblyId.get());
         checkStatusCode200(response);
         Assert.assertEquals(response.as(AssemblySHPResponse.class).getData().getAttributes().getState(),
                 AssemblyStateSHP.SHIPPED.getState());
@@ -631,8 +672,8 @@ public class ShopperAppApiHelper {
 
     @Step("Отправляем координаты универсала")
     public void sendCurrentLocator(final Double latitude,
-                            final Double longitude,
-                            final Double speed){
+                                   final Double longitude,
+                                   final Double speed) {
         final Response response = LocatorRequest.Location.POST(latitude, longitude, speed, getTimestamp());
         checkStatusCode(response, 200, "");
     }
