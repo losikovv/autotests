@@ -80,6 +80,15 @@ public final class TimeUtil {
     public static Long getDbDateMinusMinutes(Long minutes) {
         return ZonedDateTime.now(ZONE_ID).minusMinutes(minutes).toInstant().toEpochMilli();
     }
+
+    public static String getDateTime() {
+        return zdtz.format(ZonedDateTime.now(ZONE_ID));
+    }
+
+    public static String getFutureDateTime(Long days) {
+        return zdtz.format(ZonedDateTime.now(ZONE_ID).plusDays(days));
+    }
+
 //    public static String getNearestDateTime(){
 //        java.util.Date date = Date.from(ZonedDateTime.now(ZONE_ID).toInstant());
 //        return DateUtils.round(date.getTime())
