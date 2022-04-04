@@ -45,8 +45,7 @@ public class OrderCompensationsV1Tests extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        admin.authApi();
-        newAdminRoles(true);
+        admin.authApiWithAdminNewRoles();
         deleteOrderCompensationsCache();
         createCompensationPromotions();
         AddressV2 address = apiV2.getAddressBySidMy(EnvironmentProperties.DEFAULT_SID);
@@ -193,10 +192,5 @@ public class OrderCompensationsV1Tests extends RestBase {
         final Response response = OrdersV1Request.Compensations.GET(order.getNumber(), 0L);
         checkStatusCode404(response);
         checkErrorText(response, "Объект не найден");
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void postconditions() {
-        newAdminRoles(false);
     }
 }

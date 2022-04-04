@@ -45,13 +45,18 @@ public final class ApiV1Endpoints {
     public static final class Admin {
         public static final String APP_CONFIG = "admin/app_config";
         public static final String CITIES = "admin/cities";
+        public static final String COMPANY_SETTINGS = "admin/company_settings";
         public static final String CURRENCIES = "admin/currencies";
         public static final String FAQ_GROUPS = "admin/faq_groups";
+        public static final String FEATURE_SETTINGS = "admin/feature_settings";
+        public static final String GENERAL_SETTINGS = "admin/general_settings";
         public static final String MAIN_NAVIGATION = "admin/main_navigation";
+        public static final String LOGISTIC_DENSITIES = "admin/logistic_densities";
         public static final String OPERATIONAL_ZONES = "admin/operational_zones";
         public static final String SHIPMENTS = "admin/shipments.json";
         public static final String SHIPMENT = "admin/shipments/{uuid}";
         public static final String SHIPPING_METHOD_KINDS = "admin/shipping_method_kinds";
+        public static final String SMS_SETTINGS = "admin/sms_settings";
         public static final String TENANTS = "admin/tenants";
         public static final String USER_PERMISSIONS = "admin/user_permissions";
 
