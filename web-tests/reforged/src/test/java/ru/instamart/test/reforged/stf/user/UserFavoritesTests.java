@@ -122,7 +122,7 @@ public final class UserFavoritesTests extends BaseTest {
     public void successShowMoreLoad() {
         final UserData userData = UserManager.getQaUser();
         apiHelper.setAddress(userData, RestAddresses.Moscow.defaultAddress());
-        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_AUCHAN_SID, 50);
+        apiHelper.addFavorites(userData, EnvironmentProperties.DEFAULT_AUCHAN_SID, 35);
 
         shop().goToPage(ShopUrl.AUCHAN);
         shop().interactHeader().clickToLogin();
@@ -143,6 +143,7 @@ public final class UserFavoritesTests extends BaseTest {
     @Test(description = "Регистрация, при попытке добавить товар из каталога в любимые товары неавторизованным", groups = "regression")
     public void successRegAfterAddFavoriteOnCatalog() {
         shop().goToPage();
+        shop().checkFirstProductCardIsVisible();
         shop().addFirstItemToFavorite();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());

@@ -84,7 +84,6 @@ public final class ShoppingCatalogTests extends BaseTest {
     @Test(description = "Тест открывания/закрывания карточки продукта на главной", groups = "regression")
     public void successOperateItemCardOnRetailerPage() {
         shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
         shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
@@ -97,7 +96,6 @@ public final class ShoppingCatalogTests extends BaseTest {
         shop().goToPage();
         shop().refreshWithoutBasicAuth();
 
-        shop().checkSpinnerIsNotVisible();
         shop().checkFirstProductCardIsVisible();
         shop().openFirstProductCard();
         shop().interactProductCard().checkProductCardVisible();

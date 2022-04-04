@@ -12,5 +12,6 @@ public interface AddPaymentCardElement {
     Input expYear = new Input(By.xpath("//input[@data-cp='expDateYear']"), "Поле ввода года эксплуатации карты");
     Input cvv = new Input(By.xpath("//input[@data-cp='cvv']"), "Поле ввода cvv");
     Input holderName = new Input(By.xpath("//input[@data-cp='name']"), "Поле ввода имени владельца карты");
-    Element cardError = new Element(ByKraken.xpathExpression("//div[text()='%s']"), "сообщение об ошибке при добавлении карты");
+    Element cardInputError = new Element(ByKraken.xpathExpression("//div[text()='%s']"), "сообщение об ошибке при добавлении карты");
+    Element cardModalError = new Element(By.xpath("//div[@class='checkout-form__error']"), "Сообщение об ошибке добавления карты");
 }

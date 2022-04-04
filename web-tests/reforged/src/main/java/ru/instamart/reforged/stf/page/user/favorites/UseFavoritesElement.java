@@ -19,7 +19,7 @@ public interface UseFavoritesElement {
     ElementCollection allFavorites = new ElementCollection(By.xpath("//div[@class='favorites-list']/a"), "список всех избранных");
     ElementCollection addToCart = new ElementCollection(By.xpath("//div[@class='cart-actions']"),
             "список всех кнопок добавления в корзину");
-    Button showMore = new Button(By.className("load-more-products"), "кнопка Показать еще");
+    Button showMore = new Button(By.xpath("//button[@class='load-more-products']"), "кнопка Показать еще");
 
     Element activeElementFilter = new Element(By.xpath("//a[contains(@class,'favorite-list-filter__link--active')]"), "признак активного фильтра");
     Link allGoods = new Link(By.xpath("//a[@data-content='Все товары']"), "кнопка Все товары");
