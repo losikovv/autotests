@@ -1,22 +1,9 @@
-package ru.instamart.reforged.stf.frame.auth;
+package ru.instamart.reforged.sber_id_auth.auth_page;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
-import ru.instamart.reforged.core.component.Button;
-import ru.instamart.reforged.core.component.Input;
+import ru.instamart.reforged.sber_id_auth.SberIdPage;
 
-public final class AuthSberId {
-
-    private final Input phoneNumber = new Input(By.xpath("//input[@name='phone-number']"), "empty");
-    private final Input login = new Input(By.xpath("//input[@name='login']"), "empty");
-    private final Input password = new Input(By.xpath("//input[@name='password']"), "empty");
-    private final Button changeAuthTypeOnLogin = new Button(By.xpath("//span[text() = 'Войти по логину']/parent::button"), "empty");
-    private final Button changeAuthTypeOnPhone = new Button(By.xpath("//span[text() = 'Войти по номеру телефона']/parent::button"), "empty");
-    private final Button submitLogin = new Button(By.xpath("//button[@type='submit']"), "empty");
-    private final Button submitPassword = new Button(By.xpath("//button[@type='submit']"), "empty");
-    private final Button submitSmsCode = new Button(By.xpath("//button[@type='submit']"), "кнопка подтверждения введенного кода из смс");
-    private final Button receivedSms = new Button(By.xpath("//span[text() = 'Я получил СМС-код']/parent::button"), "empty");
-    private final Input smsCode = new Input(By.xpath("//input[@name='code']"), "поле ввода кода из смс");
+public class SberIdAuthPage implements SberIdPage, SberIdAuthCheck {
 
     @Step("Ввести номер телефона на странице авторизации через sberID")
     public void fillPhoneNumber(String data) {
@@ -63,4 +50,9 @@ public final class AuthSberId {
         submitSmsCode.click();
     }
 
+
+    @Override
+    public String pageUrl() {
+        return "";
+    }
 }
