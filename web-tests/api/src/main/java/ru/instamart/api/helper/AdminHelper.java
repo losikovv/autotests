@@ -194,6 +194,17 @@ public class AdminHelper {
         SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, user);
     }
 
+    @Step("Авторизация администратором со включенными новыми ролями для API") //временное решение, пока полностью не переделают админку
+    public void authApiWithAdminNewRoles() {
+        UserData user = UserManager.getDefaultAdminAllRoles();
+        if (!EnvironmentProperties.SERVER.equals("production")) {
+            if (SpreeUsersDao.INSTANCE.getUserByEmail(user.getEmail()) == null) {
+                createAdmin(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword());
+            }
+        }
+        SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, user);
+    }
+
     @Step("Удаляем страну производства")
     public void deleteManufacturingCountries(String permalink) {
         final Response response = ManufacturingCountriesAdminRequest.DELETE(permalink);

@@ -39,18 +39,12 @@ public class ExternalPartnersV1Tests extends RestBase {
 
     private Long subscriptionId;
 
-    @BeforeClass(alwaysRun = true)
-    public void preconditions() {
-        if(!EnvironmentProperties.SERVER.equals("production")) {
-            newAdminRoles(true);
-        }
-    }
 
     @CaseId(1433)
     @Story("Получение списка подписок для пользователя")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Подписка SberPrime неактивна")
     public void getInactiveSubscription() {
-        admin.authApi();
+        apiV1.authByPhone(UserManager.getQaUser());
         final Response response = ExternalPartnersV1Request.Services.GET();
         checkStatusCode200(response);
         List<ServicesV2> services = response.as(ExternalPartnersServicesV2Response.class).getServices();
@@ -78,7 +72,7 @@ public class ExternalPartnersV1Tests extends RestBase {
             description = "Получение информации о подписке",
             dependsOnMethods = "getActiveSubscription")
     public void getSubscription() {
-        admin.authApi();
+        admin.authApiWithAdminNewRoles();
         final Response response = ExternalPartnersV1Request.Subscriptions.GET(subscriptionId);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, SubscriptionV1Response.class);
@@ -124,12 +118,5 @@ public class ExternalPartnersV1Tests extends RestBase {
         compareTwoObjects(primeCategory.getMobile().getHeader(), "Для подписчиков СберПрайм", softAssert);
         compareTwoObjects(primeCategory.getMobile().getText(), "Скидки в этом разделе действуют только для подписчиков СберПрайм", softAssert);
         softAssert.assertAll();
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void postconditions() {
-        if(!EnvironmentProperties.SERVER.equals("production")) {
-            newAdminRoles(false);
-        }
     }
 }
