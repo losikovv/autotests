@@ -121,7 +121,6 @@ public final class ShoppingCartTests extends BaseTest {
     @Test(description = "Тест на изменение кол-ва товаров в корзине через карточку товара", groups = {"regression"})
     public void successChangeItemQuantityInCartViaItemCard() {
         shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
         shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
@@ -134,7 +133,6 @@ public final class ShoppingCartTests extends BaseTest {
         shop().goToPage();
         shop().refreshWithoutBasicAuth();
 
-        shop().checkSpinnerIsNotVisible();
         shop().checkFirstProductCardIsVisible();
         shop().openFirstProductCard();
         shop().interactProductCard().clickOnBuy();
@@ -146,21 +144,18 @@ public final class ShoppingCartTests extends BaseTest {
         shop().goToPage();
         shop().refresh();
 
-        shop().checkSpinnerIsNotVisible();
         shop().checkFirstProductCardIsVisible();
         shop().openFirstProductCard();
         shop().interactProductCard().increaseItemCount();
         shop().interactProductCard().close();
         shop().interactProductCard().checkProductCardIsNotVisible();
         shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().getFirstItem().compareItemQuantityInCart(2);
 
         shop().goToPage();
         shop().refreshWithoutBasicAuth();
 
-        shop().checkSpinnerIsNotVisible();
         shop().checkFirstProductCardIsVisible();
         shop().openFirstProductCard();
         shop().interactProductCard().decreaseItemCount();
@@ -168,7 +163,6 @@ public final class ShoppingCartTests extends BaseTest {
         shop().interactProductCard().checkProductCardIsNotVisible();
 
         shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
         shop().interactHeader().clickToCart();
         shop().interactCart().getFirstItem().compareItemQuantityInCart(1);
         shop().assertAll();

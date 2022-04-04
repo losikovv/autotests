@@ -188,13 +188,13 @@ public final class OrdersPaymentsTests extends BaseTest {
 
         checkout().interactAddPaymentCardModal().fillCardNumber("1111 1111 1111 1111");
         checkout().interactAddPaymentCardModal().fillExpMonth("12");
-        checkout().interactAddPaymentCardModal().fillExpYear("49");
+        checkout().interactAddPaymentCardModal().fillExpYear("24");
         checkout().interactAddPaymentCardModal().fillHolderName("IVANOV IVAN");
-        checkout().interactAddPaymentCardModal().fillCvv("404");
+        checkout().interactAddPaymentCardModal().fillCvv("123");
         checkout().interactAddPaymentCardModal().clickToSaveModal();
-        checkout().interactAddPaymentCardModal().checkValidationErrorVisible("В номере карты допущены ошибки");
+        checkout().interactAddPaymentCardModal().checkErrorAddingCardDisplayed("Ошибка добавления карты");
 
-        checkout().interactAddPaymentCardModal().fillCardNumber("4242 4242 4242 4242");
+        checkout().interactAddPaymentCardModal().fillCardNumber("4111 1111 1111 1111");
         checkout().interactAddPaymentCardModal().clickToSaveModal();
 
         checkout().interactAddPaymentCardModal().checkModalWindowNotVisible();
