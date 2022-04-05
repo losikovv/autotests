@@ -62,6 +62,7 @@
             <class name="ru.instamart.test.api.admin_api.HdeV1Test"/>
             <class name="ru.instamart.test.api.admin_api.TenantsV1Test"/>
             <class name="ru.instamart.test.api.admin_api.SettingsV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.AdjustmentsV1Test"/>
         </classes>
     </test>
     <!-- api-v2-tests -->

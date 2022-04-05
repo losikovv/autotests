@@ -97,6 +97,20 @@ public final class ApiV1Endpoints {
             public static final String DISPATCH_SETTING = "admin/operational_zones/{operationalZoneID}/dispatch_setting";
         }
 
+        public static final class Orders {
+
+            public static final class Number {
+                public static final String ADJUSTMENTS = "admin/orders/{orderNumber}/adjustments";
+
+                public static final class Adjustments {
+                    public static final String CLOSE = "admin/orders/{orderNumber}/adjustments/close";
+                    public static final String ID = "admin/orders/{orderNumber}/adjustments/{adjustmentId}";
+                    public static final String OPEN = "admin/orders/{orderNumber}/adjustments/open";
+                    public static final String TOGGLE_STATE = "admin/orders/{orderNumber}/adjustments/{adjustmentId}/toggle_state";
+                }
+            }
+        }
+
         public static final class Promotions {
             public static final String PROMOTION = "admin/promotions/{promotionId}";
         }
