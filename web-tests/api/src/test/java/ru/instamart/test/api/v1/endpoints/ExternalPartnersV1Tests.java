@@ -19,9 +19,9 @@ import ru.instamart.api.response.v1.SberPrimeBannersWithSubscriptionV1Response;
 import ru.instamart.api.response.v1.SberPrimeBannersWithoutSubscriptionV1Response;
 import ru.instamart.api.response.v1.SubscriptionV1Response;
 import ru.instamart.api.response.v2.ExternalPartnersServicesV2Response;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
@@ -31,7 +31,6 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkExternalPartnersServices;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.helper.K8sHelper.addSberPrime;
-import static ru.instamart.api.helper.K8sHelper.newAdminRoles;
 
 @Epic("ApiV1")
 @Feature("Внешние партнеры")
@@ -44,7 +43,7 @@ public class ExternalPartnersV1Tests extends RestBase {
     @Story("Получение списка подписок для пользователя")
     @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Подписка SberPrime неактивна")
     public void getInactiveSubscription() {
-        apiV1.authByPhone(UserManager.getQaUser());
+        admin.authApi();
         final Response response = ExternalPartnersV1Request.Services.GET();
         checkStatusCode200(response);
         List<ServicesV2> services = response.as(ExternalPartnersServicesV2Response.class).getServices();
@@ -60,6 +59,7 @@ public class ExternalPartnersV1Tests extends RestBase {
         UserData user = UserManager.getQaUser();
         apiV1.authByPhone(user);
         addSberPrime(user.getEmail());
+        ThreadUtil.simplyAwait(2);
         final Response response = ExternalPartnersV1Request.Services.GET();
         checkStatusCode200(response);
         checkExternalPartnersServices(response, true, "Бесплатная доставка");
