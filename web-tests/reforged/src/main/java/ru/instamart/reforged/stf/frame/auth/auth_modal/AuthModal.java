@@ -12,7 +12,6 @@ public final class AuthModal implements Close, AuthModalCheck {
     private final AuthMail authMailWindow = new AuthMail();
     private final AuthFacebook authFacebookWindow = new AuthFacebook();
     private final AuthVk authVkWindow = new AuthVk();
-    private final AuthSberId authSberIdPage = new AuthSberId();
     private final AuthSberBusinessID authSberBusinessIdPage = new AuthSberBusinessID();
 
     public void fillPhone(final UserData userData) {
@@ -29,10 +28,6 @@ public final class AuthModal implements Close, AuthModalCheck {
 
     public AuthVk interactAuthVkWindow() {
         return authVkWindow;
-    }
-
-    public AuthSberId interactAuthSberIdPage() {
-        return authSberIdPage;
     }
 
     public AuthSberBusinessID interactAuthSberBusinessIdPage() {

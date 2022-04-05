@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Addresses;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
@@ -11,6 +12,7 @@ import ru.instamart.kraken.listener.Run;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.sber_id_auth.SberIdPageRouter.sberId;
 import static ru.instamart.reforged.stf.page.StfRouter.checkout;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
 
@@ -133,16 +135,29 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaSberId();
-        shop().interactAuthModal().interactAuthSberIdPage()
-                .fillPhoneNumber(UserManager.getDefaultSberIdUser().getEmail());
-        shop().interactAuthModal().interactAuthSberIdPage().clickToSubmitLogin();
-        shop().interactAuthModal().interactAuthSberIdPage().clickToReceivedSms();
+
+        sberId().checkPhoneInputVisible();
+        sberId().fillPhoneNumber(UserManager.getDefaultSberIdUser().getEmail());
+        sberId().clickToSubmitLogin();
+        sberId().clickToReceivedSms();
         //TODO: необходимо автоматизировать получение смс, либо получить номер с заготовленной смс
-        shop().interactAuthModal().interactAuthSberIdPage()
-                .enterCode("111111");
-        shop().interactAuthModal().interactAuthSberIdPage().clickToSubmitSmsCode();
+        sberId().enterCode("111111");
+        sberId().clickToSubmitSmsCode();
         shop().interactAuthModal().checkModalIsNotVisible();
         shop().interactHeader().checkProfileButtonVisible();
+    }
+
+    @CaseId(3522)
+    @Story("Авторизация через SberID")
+    @Test(description = "Тест перехода на сайт Sber ID", groups = {"smoke", "regression"})
+    public void checkCorrectTransitionToSberIdSite() {
+        shop().goToPage();
+        shop().interactHeader().clickToLogin();
+        shop().interactAuthModal().checkModalIsVisible();
+        shop().interactAuthModal().authViaSberId();
+
+        sberId().checkPhoneInputVisible();
+        sberId().checkPageContains(EnvironmentProperties.Env.FULL_SBER_ID_URL);
     }
 
 //    @CaseId(1459)

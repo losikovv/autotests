@@ -11,7 +11,7 @@ public interface AuthModalElement {
     Button sendSms = new Button(By.xpath("//button[@data-qa='tel_login_form_button']"), "поле ввода sms");
     Checkbox forBusiness = new Checkbox(By.xpath("//input[@data-qa='registration_form_b2b_checkbox']"), "чекбокс b2b");
 
-    Link sberId = new Link(By.xpath("//span[@class='sbid-button__logo']"), "кнопка авторизации через SberID");
+    Link sberId = new Link(By.xpath("//a[@class='sbid-button sbid-button--long']"), "кнопка авторизации через SberID");
     Link vkontakte = new Link(By.xpath("//a[@data-qa='vkontakte']"), "кнопка авторизации через vkontakte");
     Link facebook = new Link(By.xpath("//a[@data-qa='facebook']"), "кнопка авторизации через facebook");
     Link mailRu = new Link(By.xpath("//a[@data-qa='mail_ru']"), "кнопка авторизации через mail_ru");
