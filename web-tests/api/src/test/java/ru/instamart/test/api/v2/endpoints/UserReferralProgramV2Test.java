@@ -11,10 +11,9 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
-import ru.instamart.api.model.v2.UserReferralProgramV2;
 import ru.instamart.api.request.v2.UsersV2Request;
 import ru.instamart.api.response.v2.UserReferralProgramV2Response;
-import ru.instamart.jdbc.dao.InstacoinAccountsDao;
+import ru.instamart.jdbc.dao.stf.InstacoinAccountsDao;
 
 import java.util.Objects;
 

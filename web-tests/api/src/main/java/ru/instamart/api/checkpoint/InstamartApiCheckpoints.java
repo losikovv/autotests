@@ -25,11 +25,11 @@ import ru.instamart.api.response.v2.ExternalPartnersServicesV2Response;
 import ru.instamart.api.response.v2.ReviewIssuesV2Response;
 import ru.instamart.api.response.v2.TransferMethodLossesV2Response;
 import ru.instamart.api.response.v2.TransferMethodV2Response;
-import ru.instamart.jdbc.dao.ShipmentReviewIssuesDao;
-import ru.instamart.jdbc.dao.SpreeAddressesDao;
-import ru.instamart.jdbc.dao.SpreeRetailersDao;
-import ru.instamart.jdbc.dao.SpreeUsersDao;
-import ru.instamart.jdbc.entity.*;
+import ru.instamart.jdbc.dao.stf.ShipmentReviewIssuesDao;
+import ru.instamart.jdbc.dao.stf.SpreeAddressesDao;
+import ru.instamart.jdbc.dao.stf.SpreeRetailersDao;
+import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
+import ru.instamart.jdbc.entity.stf.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 

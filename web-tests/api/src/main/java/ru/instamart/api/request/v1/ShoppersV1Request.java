@@ -6,8 +6,7 @@ import ru.instamart.api.endpoint.ApiV1Endpoints;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.ApiV1RequestBase;
-import ru.instamart.jdbc.dao.SpreeUsersDao;
-import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 
 public class ShoppersV1Request extends ApiV1RequestBase {
     public static class MarketingSampleItems {

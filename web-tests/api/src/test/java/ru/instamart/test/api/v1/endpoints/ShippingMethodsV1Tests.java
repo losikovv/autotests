@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.v1.ShippingMethodKindsV1Request;
 import ru.instamart.api.response.v1.ShippingMethodKindsV1Response;
-import ru.instamart.jdbc.dao.ShippingMethodKindsDao;
+import ru.instamart.jdbc.dao.stf.ShippingMethodKindsDao;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;

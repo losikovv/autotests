@@ -17,7 +17,7 @@ import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.response.v1.DeliveryWindowKindsV1Response;
 import ru.instamart.api.response.v1.DeliveryWindowV1Response;
 import ru.instamart.api.response.v1.DeliveryWindowsV1Response;
-import ru.instamart.jdbc.dao.DeliveryWindowsDao;
+import ru.instamart.jdbc.dao.stf.DeliveryWindowsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 

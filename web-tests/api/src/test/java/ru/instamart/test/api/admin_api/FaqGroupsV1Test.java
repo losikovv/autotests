@@ -16,8 +16,8 @@ import ru.instamart.api.response.v1.FaqGroupV1Response;
 import ru.instamart.api.response.v1.FaqGroupsV1Response;
 import ru.instamart.api.response.v1.FaqV1Response;
 import ru.instamart.api.response.v1.FaqsV1Response;
-import ru.instamart.jdbc.dao.SpreeFaqDao;
-import ru.instamart.jdbc.dao.SpreeFaqGroupsDao;
+import ru.instamart.jdbc.dao.stf.SpreeFaqDao;
+import ru.instamart.jdbc.dao.stf.SpreeFaqGroupsDao;
 import ru.instamart.kraken.data.Generate;
 import ru.sbermarket.qase.annotation.CaseId;
 

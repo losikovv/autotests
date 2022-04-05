@@ -13,7 +13,7 @@ import ru.instamart.api.endpoint.AdminEndpoints;
 import ru.instamart.api.enums.v1.ExternalAssemblyKind;
 import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.request.AdminRequestBase;
-import ru.instamart.jdbc.dao.*;
+import ru.instamart.jdbc.dao.stf.*;
 import ru.instamart.kraken.data.Generate;
 import ru.sbermarket.common.Mapper;
 

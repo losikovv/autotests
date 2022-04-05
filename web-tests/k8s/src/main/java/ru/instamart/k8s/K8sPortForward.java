@@ -4,6 +4,8 @@ import io.kubernetes.client.PortForward;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.models.V1PodList;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
+import ru.instamart.k8s.model.PodsProps;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.io.IOException;
@@ -62,9 +64,23 @@ public final class K8sPortForward {
                 k8sConnectPgSql = getK8sPortForward(namespace, podList.getItems().get(0).getMetadata().getName(),
                         EnvironmentProperties.DB_PG_PORT, EnvironmentProperties.DB_PG_PORT);
             } catch (IOException | ApiException e) {
-                fail("Ошибка проброса порта 5432 до пода. Error: " + e.getMessage());
+                fail("Ошибка проброса порта " + EnvironmentProperties.DB_PG_PORT + " до пода. Error: " + e.getMessage());
             }
         }
+    }
+
+    public PortForward.PortForwardResult portForwardPgSQL(@NotNull PodsProps podsProps, final int localPort) {
+        if (Objects.isNull(k8sConnectPgSql)) {
+            try {
+                V1PodList podList = getPodList(podsProps.getNameSpace(), podsProps.getLabel());
+                k8sConnectPgSql = getK8sPortForward(podsProps.getNameSpace(), podList.getItems().get(0).getMetadata().getName(),
+                        localPort, podsProps.getRemotePort());
+                return k8sConnectPgSql;
+            } catch (IOException | ApiException e) {
+                fail("Ошибка проброса порта " + localPort + ":" + podsProps.getRemotePort() + " до пода. Error: " + e.getMessage());
+            }
+        }
+        return null;
     }
 
 }

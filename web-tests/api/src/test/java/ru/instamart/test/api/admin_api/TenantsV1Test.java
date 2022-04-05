@@ -8,7 +8,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.model.v1.AdminTenantV1;
 import ru.instamart.api.request.v1.TenantsV1Request;
 import ru.instamart.api.response.v1.TenantsV1Response;
-import ru.instamart.jdbc.dao.TenantsDao;
+import ru.instamart.jdbc.dao.stf.TenantsDao;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;

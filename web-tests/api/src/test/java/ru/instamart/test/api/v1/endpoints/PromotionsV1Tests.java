@@ -2,7 +2,6 @@ package ru.instamart.test.api.v1.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
@@ -14,8 +13,8 @@ import ru.instamart.api.request.v1.PromotionsV1Request;
 import ru.instamart.api.response.v1.FreeDeliveryV1Response;
 import ru.instamart.api.response.v1.PromotionV1Response;
 import ru.instamart.api.response.v1.PromotionsV1Response;
-import ru.instamart.jdbc.dao.SpreeActivatorsDao;
-import ru.instamart.jdbc.entity.SpreeActivatorsEntity;
+import ru.instamart.jdbc.dao.stf.SpreeActivatorsDao;
+import ru.instamart.jdbc.entity.stf.SpreeActivatorsEntity;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;

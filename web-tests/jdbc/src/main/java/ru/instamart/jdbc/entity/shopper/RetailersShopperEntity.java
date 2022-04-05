@@ -1,5 +1,8 @@
 package ru.instamart.jdbc.entity.shopper;
 
+import lombok.Data;
+
+@Data
 public class RetailersShopperEntity {
     Long id;
     String slug;

@@ -18,8 +18,8 @@ import ru.instamart.api.request.v1.MarketingSamplesV1Request;
 import ru.instamart.api.response.v1.MarketingSampleV1Response;
 import ru.instamart.api.response.v1.MarketingSamplesV1Response;
 import ru.instamart.api.response.v2.ProfileV2Response;
-import ru.instamart.jdbc.dao.MarketingSamplesDao;
-import ru.instamart.jdbc.entity.MarketingSamplesEntity;
+import ru.instamart.jdbc.dao.stf.MarketingSamplesDao;
+import ru.instamart.jdbc.entity.stf.MarketingSamplesEntity;
 
 import java.util.List;
 import java.util.Optional;

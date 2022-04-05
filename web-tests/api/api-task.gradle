@@ -122,6 +122,16 @@ task apiRisExporter(type: Test) {
     systemProperty 'qase.Title', 'Ris-Exporter API Regress'
 }
 
+task apShftsSmoke(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/api-shifts-smoke.xml'
+        includeGroups 'api-shifts'
+        systemProperty 'env',"service-shifts"
+    }
+    systemProperty 'qase.Project', 'ODFS'
+    systemProperty 'qase.Title', 'Shifts API Smoke'
+}
+
 task kafkaDispatch(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/dispatch.xml'

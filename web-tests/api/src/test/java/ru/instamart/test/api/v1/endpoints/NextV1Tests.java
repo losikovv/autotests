@@ -9,7 +9,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.model.v1.RetailerPromoCardV1;
 import ru.instamart.api.request.v1.NextV1Request;
 import ru.instamart.api.response.v1.*;
-import ru.instamart.jdbc.dao.PromoCardsRetailersDao;
+import ru.instamart.jdbc.dao.stf.PromoCardsRetailersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 

@@ -11,7 +11,7 @@ import ru.instamart.api.request.v3.OrderOptionsV3Request;
 import ru.instamart.api.request.v3.OrderV3Request;
 import ru.instamart.api.request.v3.StoresV3Request;
 import ru.instamart.api.response.v3.OrderOptionsV3Response;
-import ru.instamart.jdbc.dao.ApiClientsDao;
+import ru.instamart.jdbc.dao.stf.ApiClientsDao;
 import ru.instamart.kraken.enums.Tenant;
 
 import java.util.Arrays;
