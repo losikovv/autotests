@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
+import ru.instamart.reforged.core.enums.ShopUrl;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -192,6 +193,44 @@ public final class ShoppingCatalogTests extends BaseTest {
         search().interactProductCard().checkProductCardVisible();
         search().interactProductCard().close();
         search().interactProductCard().checkProductCardIsNotVisible();
+    }
+
+    @CaseId(3519)
+    @Test(description = "Проверка открытия модального окна карточки товара при переходе по прямой ссылке", groups = "regression")
+    public void openProductCardByLink() {
+        shop().goToPage();
+        shop().checkFirstProductCardIsVisible();
+        shop().openFirstProductCard();
+        shop().interactProductCard().checkProductCardVisible();
+
+        String productLink = shop().interactProductCard().getProductPermalink();
+        shop().interactProductCard().close();
+        shop().interactProductCard().checkProductCardIsNotVisible();
+
+        shop().openProductCardByLink(ShopUrl.DEFAULT, productLink);
+        shop().interactProductCard().checkProductCardVisible();
+        shop().interactProductCard().close();
+
+        //TODO добавочная проверка, что под карточкой отображается каталог, баг B2C-8423 в работе
+        //shop().checkDefaultShopOpened();
+        //shop().checkSnippet();
+    }
+
+    @CaseId(3520)
+    @Test(description = "Проверка корректного открытия карточки товара при обновлении страницы", groups = "regression")
+    public void openProductCardAfterRefresh() {
+        shop().goToPage();
+        shop().checkFirstProductCardIsVisible();
+        shop().openFirstProductCard();
+        shop().interactProductCard().checkProductCardVisible();
+
+        shop().refresh();
+        shop().interactProductCard().checkProductCardVisible();
+        shop().interactProductCard().close();
+
+        //TODO добавочная проверка, что под карточкой отображается каталог, баг B2C-8423 в работе
+        //shop().checkDefaultShopOpened();
+        //shop().checkSnippet();
     }
 
     @CaseId(2578)

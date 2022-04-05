@@ -1,6 +1,8 @@
 package ru.instamart.reforged.stf.frame.product_card;
 
 import io.qameta.allure.Step;
+import ru.instamart.kraken.util.StringUtil;
+import ru.instamart.reforged.core.Kraken;
 import ru.instamart.reforged.stf.block.retail_rocket.RetailRocket;
 import ru.instamart.reforged.stf.frame.Close;
 
@@ -78,5 +80,10 @@ public final class ProductCard implements ProductCardCheck, Close {
     @Step("Нажимаем на кнопку 'Добавить в корзину' у первого товара рекомендаций")
     public void plusFirstProductToCart() {
         plusFirstItemToCartButtons.clickOnFirst();
+    }
+
+    @Step("Получаем ссылку на продукт")
+    public String getProductPermalink() {
+        return StringUtil.getLastCatalogFromPath(Kraken.currentUrl());
     }
 }
