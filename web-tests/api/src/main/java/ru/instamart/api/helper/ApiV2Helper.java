@@ -1451,4 +1451,10 @@ public final class ApiV2Helper {
 
         return response.as(AssemblyItemsV2Response.class).getAssemblyItems();
     }
+
+    @Step("Применяем промокод к заказу {orderNumber}")
+    public void applyPromoCode(String orderNumber, String promoCode) {
+        final Response response = OrdersV2Request.Promotions.POST(orderNumber, promoCode);
+        checkStatusCode200(response);
+    }
 }
