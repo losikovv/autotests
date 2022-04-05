@@ -23,5 +23,15 @@ public class OperationalZonesShopperDao extends AbstractDao<Long, OperationalZon
             fail("Error init ConnectionPgSQLManager. Error: " + e.getMessage());
         }
     }
+
+    public void deleteZoneByNameLike(String zoneName) {
+        try (Connection connect = ConnectionPgSQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + " WHERE name LIKE ?")) {
+            preparedStatement.setString(1, zoneName + "%");
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+    }
 }
 
