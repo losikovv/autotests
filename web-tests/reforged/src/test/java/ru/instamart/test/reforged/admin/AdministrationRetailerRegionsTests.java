@@ -16,7 +16,6 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 public final class AdministrationRetailerRegionsTests extends BaseTest {
 
     @CaseId(469)
-    @Flaky
     @Story("Тест добавления нового региона для магазинов в админке")
     @Test(description = "Тест добавления нового региона для магазинов в админке", groups = {"acceptance", "regression", "smoke"})
     public void successCreateNewRetailerRegion() {
