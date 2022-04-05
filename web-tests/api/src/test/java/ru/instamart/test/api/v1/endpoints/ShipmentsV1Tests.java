@@ -151,7 +151,7 @@ public class ShipmentsV1Tests extends RestBase {
         compareTwoObjects(mergeShipment.getShipmentId(), (long) lineItem.getShipmentId());
     }
 
-    @CaseId(1558)
+    @CaseId(2775)
     @Story("Мерж заказов")
     @Test(groups = {"api-instamart-regression", "api-instamart-prod"},
             description = "Получение статуса мержа для несуществующего заказа")

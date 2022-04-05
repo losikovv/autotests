@@ -4,14 +4,17 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
+import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Addresses;
+import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Run;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
+import static ru.instamart.reforged.stf.page.StfRouter.*;
 import static ru.instamart.reforged.sber_id_auth.SberIdPageRouter.sberId;
 import static ru.instamart.reforged.stf.page.StfRouter.checkout;
 import static ru.instamart.reforged.stf.page.StfRouter.shop;
@@ -20,6 +23,8 @@ import static ru.instamart.reforged.stf.page.StfRouter.shop;
 @Feature("Авторизация")
 public final class UserAuthorisationTests extends BaseTest {
 
+    private final ApiHelper apiHelper = new ApiHelper();
+
     @CaseId(1455)
     @Test(description = "Тест успешной авторизации на витрине", groups = {"acceptance", "regression", "smoke"})
     public void successAuthOnMainPage() {
@@ -27,6 +32,21 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().authViaPhone(UserManager.getQaUser());
         shop().interactHeader().checkProfileButtonVisible();
+    }
+
+    @CaseId(2543)
+    @Test(description = "Авторизация по номеру телефона", groups = {"acceptance", "regression", "smoke"})
+    public void successAuthOnMainPageUserWithOrder() {
+        UserData user = UserManager.getQaUser();
+        apiHelper.dropAndFillCart(user, 1);
+
+        home().goToPage(true);
+        home().openLoginModal();
+        home().interactAuthModal().authViaPhone(user);
+
+        home().checkUserCredentialsDisplayed();
+        home().checkDeliveryStoresContainerVisible();
+        home().checkIsSetAddressEqualToInput(Addresses.Moscow.defaultAddressRest(), home().getEnteredAddress());
     }
 
     @CaseId(1456)
@@ -87,17 +107,19 @@ public final class UserAuthorisationTests extends BaseTest {
 
     @CaseId(2735)
     @Story("Авторизация через VK")
-    @Test(enabled = false, description = "Тест успешной авторизация через ВКонтакте", groups = {"smoke", "regression"})
+    @Test(description = "Тест успешной авторизация через ВКонтакте", groups = {"smoke", "regression"})
     public void successRegWithVkontakte() {
+        UserData vkUser = UserManager.getNewVkUser();
+
         shop().goToPage();
         shop().interactHeader().clickToLogin();
         shop().interactAuthModal().checkModalIsVisible();
         shop().interactAuthModal().authViaVk();
         shop().interactAuthModal().interactAuthVkWindow().switchToNextWindow();
         shop().interactAuthModal().interactAuthVkWindow()
-                .setEmail(UserManager.getDefaultVkUser().getEmail());
+                .setEmail(vkUser.getEmail());
         shop().interactAuthModal().interactAuthVkWindow()
-                .setPassword(UserManager.getDefaultVkUser().getPassword());
+                .setPassword(vkUser.getPassword());
         shop().interactAuthModal().interactAuthVkWindow()
                 .clickToLogin();
         shop().interactAuthModal().interactAuthVkWindow().switchToFirstWindow();
@@ -147,6 +169,7 @@ public final class UserAuthorisationTests extends BaseTest {
         shop().interactHeader().checkProfileButtonVisible();
     }
 
+    //@CaseId(1459)
     @CaseId(3522)
     @Story("Авторизация через SberID")
     @Test(description = "Тест перехода на сайт Sber ID", groups = {"smoke", "regression"})
