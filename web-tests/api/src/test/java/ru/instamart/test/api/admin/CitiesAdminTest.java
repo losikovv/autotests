@@ -2,7 +2,6 @@ package ru.instamart.test.api.admin;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -13,11 +12,9 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.admin.CitiesAdminRequest;
-import ru.instamart.jdbc.dao.CitiesDao;
-import ru.instamart.jdbc.entity.CitiesEntity;
+import ru.instamart.jdbc.dao.stf.CitiesDao;
+import ru.instamart.jdbc.entity.stf.CitiesEntity;
 import ru.instamart.kraken.data.Generate;
-import ru.instamart.kraken.enums.Server;
-import ru.instamart.kraken.listener.Skip;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.Objects;

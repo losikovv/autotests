@@ -15,7 +15,7 @@ import ru.instamart.api.model.v1.CityV1;
 import ru.instamart.api.request.v1.CitiesV1Request;
 import ru.instamart.api.response.v1.CitiesV1Response;
 import ru.instamart.api.response.v1.CityV1Response;
-import ru.instamart.jdbc.dao.CitiesDao;
+import ru.instamart.jdbc.dao.stf.CitiesDao;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.enums.Server;
 import ru.instamart.kraken.listener.Skip;

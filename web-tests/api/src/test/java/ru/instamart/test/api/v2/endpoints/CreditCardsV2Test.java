@@ -94,8 +94,7 @@ public class CreditCardsV2Test extends RestBase {
     @Issue("STF-6633")
     @CaseId(502)
     @Story("Добавить новую карту")
-    @Test(enabled = false,
-            groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"},
             description = "Добавить новую карту с дополнительным полем title")
     public void addNewCard() {
         String card = CreditCardsV2.CARD1.getNumber();
@@ -106,9 +105,10 @@ public class CreditCardsV2Test extends RestBase {
                 .year(CreditCardsV2.CARD1.getYear())
                 .month(CreditCardsV2.CARD1.getMonth())
                 .lastDigits(lastDigits)
-                .cryptogramPacket(CreditCardsV2.CARD1.getCryptogramPacket())
+                .cryptogramPacket("Fm3T1f23KMSUgs6yv/Cy2jYQyffFUfrK56HrFBzd1YbzN8X8HWOGKxaVUFoeCVuX1D1ROus52LSWLwRQg/xGs5iN6fsCMpYv6FnY6HC2E+YrB4RBvbYYBze/2rwjZmKoAXcLbaIKP3i6h7jS44s5VO2u6eNYr4G9yvuxJ/3QFkJGfj55p+ieGoGtmKaDfJcxzdoT1M4UnvDDMmlr6IJLCWrFpW2sA82Uk7dZXEnCl0R1EFfmPWOB8TaDfzOI3EP48ek4EtnLL3aL+xmEjvq4JJj0qm2X7f8j07VwqdIFxx7/wrl1PnjZI99WpMCyAYOYQpoxJej2eCejcNQe1VrLzQ==")
                 .build();
         final Response response = CreditCardsV2Request.POST(creditCard);
+        response.prettyPeek();
         checkStatusCode200(response);
         CreditCardV2Response creditCardV2 = response.as(CreditCardV2Response.class);
         creditCardId = creditCardV2.getCreditCard().getId();

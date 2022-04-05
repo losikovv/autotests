@@ -25,7 +25,7 @@ import ru.instamart.api.response.v1.*;
 import ru.instamart.api.response.v1.admin.ShipmentsAdminV1Response;
 import ru.instamart.api.response.v1.b2b.CompaniesV1Response;
 import ru.instamart.api.response.v1.imports.OffersFilesV1Response;
-import ru.instamart.jdbc.dao.SpreeUsersDao;
+import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;

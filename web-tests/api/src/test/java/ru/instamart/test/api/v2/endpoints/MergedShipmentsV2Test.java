@@ -19,8 +19,8 @@ import ru.instamart.api.request.v2.LineItemsV2Request;
 import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.response.v2.OrderV2Response;
-import ru.instamart.jdbc.dao.SpreeOrdersDao;
-import ru.instamart.jdbc.dao.SpreeProductsDao;
+import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
+import ru.instamart.jdbc.dao.stf.SpreeProductsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.util.List;

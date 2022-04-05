@@ -12,7 +12,7 @@ import ru.instamart.api.request.v1.OperationalZonesV1Request;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.response.v1.OperationalZoneV1Response;
 import ru.instamart.api.response.v1.OperationalZonesV1Response;
-import ru.instamart.jdbc.dao.OperationalZonesDao;
+import ru.instamart.jdbc.dao.stf.OperationalZonesDao;
 
 import java.util.List;
 

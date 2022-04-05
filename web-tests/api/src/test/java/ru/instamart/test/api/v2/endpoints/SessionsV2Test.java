@@ -11,7 +11,7 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.helper.RegistrationHelper;
 import ru.instamart.api.request.v2.SessionsV2Request;
 import ru.instamart.api.response.v2.UserDataV2Response;
-import ru.instamart.jdbc.dao.SpreeUsersDao;
+import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;

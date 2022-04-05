@@ -1,7 +1,7 @@
 package ru.instamart.jdbc.dao.shopper;
 
 import ru.instamart.jdbc.dao.AbstractDao;
-import ru.instamart.jdbc.entity.OperationalZonesEntity;
+import ru.instamart.jdbc.entity.stf.OperationalZonesEntity;
 import ru.instamart.jdbc.util.ConnectionPgSQLManager;
 
 import java.sql.Connection;

@@ -13,8 +13,8 @@ import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.model.v2.CityV2;
 import ru.instamart.api.request.v2.CitiesV2Request;
 import ru.instamart.api.response.v2.CitiesV2Response;
-import ru.instamart.jdbc.dao.CitiesDao;
-import ru.instamart.jdbc.dao.StoresDao;
+import ru.instamart.jdbc.dao.stf.CitiesDao;
+import ru.instamart.jdbc.dao.stf.StoresDao;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 

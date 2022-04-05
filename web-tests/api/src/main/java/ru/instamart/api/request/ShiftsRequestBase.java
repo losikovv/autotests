@@ -1,5 +1,6 @@
 package ru.instamart.api.request;
 
+import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import ru.instamart.api.common.Specification;
 import ru.instamart.api.enums.SessionType;
@@ -24,6 +25,8 @@ public class ShiftsRequestBase {
     public static RequestSpecification givenWithAuth() {
         return givenWithSpec()
                 .basePath("shifts/")
+                .header("client-id","Instashopper")
+                .header("user-agent","Instashopper/53.0.0 (Android; 12)")
                 .header("Authorization",
                         "Bearer " + SessionFactory.getSession(SessionType.SHOPPER_APP).getToken());
 

@@ -11,20 +11,21 @@ import ru.instamart.api.enums.shopper.AssemblyStateSHP;
 import ru.instamart.api.enums.shopper.PackageSetLocationSHP;
 import ru.instamart.api.enums.shopper.RoleSHP;
 import ru.instamart.api.factory.SessionFactory;
+import ru.instamart.api.model.shifts.PlanningAreasRequest;
+import ru.instamart.api.model.shifts.RegionsRequest;
+import ru.instamart.api.model.shifts.ShiftsRequest;
 import ru.instamart.api.model.shopper.admin.ShipmentsItemSHP;
 import ru.instamart.api.model.shopper.app.*;
-import ru.instamart.api.model.shopper.shifts.PlanningAreaShiftsItemSHP;
-import ru.instamart.api.request.shifts.PlanningAreasRequest;
-import ru.instamart.api.request.shifts.PlanningPeriodsSHPItem;
-import ru.instamart.api.request.shifts.RegionsRequest;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.request.shopper.app.*;
 import ru.instamart.api.request.shopper.localtor.LocatorRequest;
 import ru.instamart.api.response.shopper.app.*;
-import ru.instamart.api.response.shopper.shifts.PlanningAreaShiftsResponse;
-import ru.instamart.api.response.shopper.shifts.PlanningPeriodsShiftsResponse;
+import ru.instamart.api.response.shopper.shifts.PlanningAreaShiftsItemSHPResponse;
+import ru.instamart.api.response.shopper.shifts.PlanningPeriodsSHPResponse;
+//import ru.instamart.k8s.model.PodsProps;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
@@ -48,7 +49,7 @@ public class ShopperAppApiHelper {
     private final ThreadLocal<Integer> currentRegion = new ThreadLocal<>();
     private final ThreadLocal<Integer> currentSid = new ThreadLocal<>();
     private final ThreadLocal<Integer> planningArea = new ThreadLocal<>();
-    private final ThreadLocal<Integer> planningPeriod = new ThreadLocal<>();
+    private final ThreadLocal<Integer> planningPeriodId = new ThreadLocal<>();
 
     private final ThreadLocal<String> currentAssemblyId = new ThreadLocal<>();
 
@@ -206,21 +207,53 @@ public class ShopperAppApiHelper {
     }
 
     @Step("Список планировочных районов области.")
-    public PlanningAreaShiftsItemSHP getPlanningArea() {
+    public PlanningAreaShiftsItemSHPResponse getPlanningArea() {
         final Response response = RegionsRequest.GET(currentRegion.get());
         checkStatusCode200(response);
-        PlanningAreaShiftsResponse planningAreaShifts = response.as(PlanningAreaShiftsResponse.class);
-        planningArea.set(planningAreaShifts.getPlanningAreaShiftsItemsList().get(0).getId());
-        return planningAreaShifts.getPlanningAreaShiftsItemsList().get(0);
+        PlanningAreaShiftsItemSHPResponse[] planningAreaShifts = response.getBody().as(PlanningAreaShiftsItemSHPResponse[].class);
+        planningArea.set(planningAreaShifts[0].getId());
+        return planningAreaShifts[0];
     }
 
     @Step("Перечень периодов планирования области планирования.")
-    public List<PlanningPeriodsSHPItem> getPlanningPeriod() {
+    public  List<PlanningPeriodsSHPResponse> getPlanningPeriod() {
         final Response response = PlanningAreasRequest.GET(planningArea.get(), RoleSHP.UNIVERSAL);
+        response.prettyPeek();
         checkStatusCode200(response);
-        PlanningPeriodsShiftsResponse shiftsResponse = response.as(PlanningPeriodsShiftsResponse.class);
-        return shiftsResponse.getPlanningPeriods();
+        return Arrays.asList(response.as(PlanningPeriodsSHPResponse[].class));
     }
+
+    @Step("Создание новой смены для партнёра Универсала.")
+    public void postShift(PlanningPeriodsSHPResponse planning) {
+        final ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
+                .planningAreaId(planningArea.get())
+                .role(RoleSHP.UNIVERSAL.getRole())
+                .planningPeriod(
+                        ShiftsRequest.PlanningPeriods.builder()
+                                .guaranteedPayroll(planning.getBaseGuaranteedPayroll())
+                                .id(planning.getId())
+                                .build()
+                )
+                .build();
+        final Response response = ShiftsRequest.POST(postShift);
+        response.prettyPeek();//TODO
+        checkStatusCode(response, 201);
+    }
+
+    @Step("Активация смены партнера Универсала")
+    public void activateShiftsPartner(StartPointsTenants startPointsTenants) {
+        final Response response = ShiftsRequest.Start.PATCH(planningPeriodId.get(), startPointsTenants.getLat(), startPointsTenants.getLon());
+        response.prettyPeek(); //todo
+        checkStatusCode200(response);
+    }
+
+//    public void changeStateReadyToGo(){
+//        PodsProps podsProps = PodsProps.builder()
+//                .nameSpace("paas-content-operations-shifts")
+//                .label("app=postgres")
+//                .remotePort(5432)
+//                .build();
+//    }
 
     /**
      * Простая сборка заказа с генерацией фискального номера чека
@@ -676,5 +709,17 @@ public class ShopperAppApiHelper {
                                    final Double speed) {
         final Response response = LocatorRequest.Location.POST(latitude, longitude, speed, getTimestamp());
         checkStatusCode(response, 200, "");
+    }
+
+    @Step("Начало смены для сборщика универсала")
+    public void startOfShift(StartPointsTenants startPointsTenants) {
+        getShopperInfo();
+        getPlanningArea();
+        var planningPeriodItem = getPlanningPeriod();
+        var planningitem = planningPeriodItem.get(1);
+        planningPeriodId.set(planningitem.getId());
+        log.debug("Shifts accept: {}", planningPeriodId.get());
+        postShift(planningitem);
+        activateShiftsPartner(startPointsTenants);
     }
 }

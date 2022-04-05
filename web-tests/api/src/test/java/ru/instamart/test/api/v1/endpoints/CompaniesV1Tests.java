@@ -15,7 +15,7 @@ import ru.instamart.api.model.v1.b2b.*;
 import ru.instamart.api.request.v1.b2b.*;
 import ru.instamart.api.response.v1.PaymentAccountV1Response;
 import ru.instamart.api.response.v1.b2b.*;
-import ru.instamart.jdbc.dao.CompanyEmployeesDao;
+import ru.instamart.jdbc.dao.stf.CompanyEmployeesDao;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.Juridical;
 import ru.instamart.kraken.data.JuridicalData;

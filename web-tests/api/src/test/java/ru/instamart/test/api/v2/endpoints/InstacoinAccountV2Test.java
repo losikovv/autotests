@@ -11,10 +11,8 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.model.v2.UserV2;
 import ru.instamart.api.request.v2.InstacoinAccountV2Request;
 import ru.instamart.api.response.v2.InstacoinAccountV2Response;
-import ru.instamart.jdbc.dao.SpreeUsersDao;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkResponseJsonSchema;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;

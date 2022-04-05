@@ -16,8 +16,8 @@ import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.admin.PagesAdminRequest;
-import ru.instamart.jdbc.dao.SpreePagesDao;
-import ru.instamart.jdbc.entity.SpreePagesEntity;
+import ru.instamart.jdbc.dao.stf.SpreePagesDao;
+import ru.instamart.jdbc.entity.stf.SpreePagesEntity;
 import ru.instamart.kraken.data.user.UserManager;
 
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkPageInDb;
