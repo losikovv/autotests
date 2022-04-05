@@ -64,15 +64,18 @@ public final class UserShippingAddressTests extends BaseTest {
     @Story("Зона доставки")
     @Test(description = "Тест на отсутствие доступных магазинов по адресу вне зоны доставки", groups = "regression")
     public void noAvailableShopsOutOfDeliveryZone() {
-        shop().goToPage();
+        shop().goToPage(true);
         shop().interactHeader().clickToSelectAddressFirstTime();
         shop().interactHeader().interactAddress().checkYmapsReady();
         shop().interactHeader().interactAddress().fillAddress(outOfZoneAddress);
         shop().interactHeader().interactAddress().selectFirstAddress();
         shop().interactHeader().interactAddress().clickOnSave();
         shop().interactHeader().interactAddress().checkIsAddressOutOfZone();
+
         shop().interactHeader().interactAddress().close();
+        shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().clickToStoreSelector();
+
         home().checkOutOfDeliveryAreaMessageDisplayed();
     }
 
