@@ -18,6 +18,7 @@ import ru.instamart.api.request.v1.OrdersV1Request;
 import ru.instamart.api.request.v1.PromotionCardsV1Request;
 import ru.instamart.api.request.v1.ShippingPoliciesV1Request;
 import ru.instamart.api.response.v1.CompleteOrderV1Response;
+import ru.instamart.api.response.v1.MobileConfigsV1Response;
 import ru.instamart.api.response.v1.MultiretailerOrderV1Response;
 import ru.instamart.api.response.v1.UserShipmentV1Response;
 import ru.instamart.api.response.v2.ExternalPartnersServicesV2Response;
@@ -422,6 +423,15 @@ public class InstamartApiCheckpoints {
         compareTwoObjects(faqResponse.getQuestion(), text, softAssert);
         compareTwoObjects(faqResponse.getFaqGroupId(), faqGroupId, softAssert);
         compareTwoObjects(faqResponse.getPosition(), position, softAssert);
+        softAssert.assertAll();
+    }
+
+    @Step("Проверяем конфигурацию мобильного приложения")
+    public static void checkMobileConfig(Response response, int mobileExtendId, String property) {
+        MobileExtendV1 mobileExtend = response.as(MobileConfigsV1Response.class).getMobileExtend();
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(mobileExtend.getId(), (long) mobileExtendId, softAssert);
+        compareTwoObjects(mobileExtend.getProp(), property, softAssert);
         softAssert.assertAll();
     }
 }
