@@ -51,6 +51,7 @@ public final class ApiV1Endpoints {
         public static final String FEATURE_SETTINGS = "admin/feature_settings";
         public static final String GENERAL_SETTINGS = "admin/general_settings";
         public static final String MAIN_NAVIGATION = "admin/main_navigation";
+        public static final String MOBILE_CONFIGS = "admin/mobile_configs";
         public static final String LOGISTIC_DENSITIES = "admin/logistic_densities";
         public static final String OPERATIONAL_ZONES = "admin/operational_zones";
         public static final String SHIPMENTS = "admin/shipments.json";
