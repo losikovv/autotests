@@ -22,7 +22,7 @@ public class LeftoversV1Test extends RestBase {
 
     @CaseId(2310)
     @Test(groups = {"api-instamart-regress"},
-        description = "Отображение таблицы товаров на стр. возвратов")
+        description = "Отображение таблицы товаров на стр. возвратов (sberpayments)")
     public void getLeftovers() {
         Response response = LeftoversAdminV1Request.GET("bd57224a-7bb5-4974-9225-ec3ff3a68f90"); //пока хардкод
 
