@@ -2,13 +2,13 @@ package ru.instamart.test.reforged.admin;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Company;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
@@ -63,6 +63,68 @@ public final class AdministrationCompaniesTests extends BaseTest {
     @CaseId(25)
     @Test(description = "Добавление новой компании пользователя", groups = {"acceptance", "regression"})
     public void testAddUserCompany() {
+        var userData = UserManager.getQaUser();
+        var company = new Company(Generate.generateINN(10), Generate.literalString(10), userData.getEmail());
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        companies().goToPage();
+        companies().clickToAddCompany();
+
+        addCompanies().fillCompany(company);
+        addCompanies().clickToSubmit();
+
+        companies().fillInn(company.getInn());
+        companies().clickToSearch();
+
+        companies().checkCompanyNameExist(company.getCompanyName());
+        companies().checkInnExist(company.getInn());
+    }
+
+    @CaseId(477)
+    @Test(description = "Тест поиска компании по ИНН", groups = {"regression"})
+    public void testSearchCompany() {
+        var userData = UserManager.getQaUser();
+        var company = new Company(Generate.generateINN(10), Generate.literalString(10), userData.getEmail());
+        helper.addCompanyForUser(company.getInn(), company.getCompanyName(), userData.getEmail());
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        companies().goToPage();
+        companies().fillInn(company.getInn());
+        companies().clickToSearch();
+
+        companies().checkCompanyNameExist(company.getCompanyName());
+        companies().checkInnExist(company.getInn());
+    }
+
+    @CaseId(478)
+    @Test(description = "Тест создание компании через админку (ИП)", groups = {"acceptance", "regression"})
+    public void testAddUserCompanyIP() {
+        var userData = UserManager.getQaUser();
+        var company = new Company(Generate.generateINN(12), Generate.literalString(10), userData.getEmail());
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        companies().goToPage();
+        companies().clickToAddCompany();
+
+        addCompanies().fillCompany(company);
+        addCompanies().clickToSubmit();
+
+        companies().fillInn(company.getInn());
+        companies().clickToSearch();
+
+        companies().checkCompanyNameExist(company.getCompanyName());
+        companies().checkInnExist(company.getInn());
+    }
+
+    @CaseId(479)
+    @Test(description = "Тест создание компании через админку (ЮЛ)", groups = {"acceptance", "regression"})
+    public void testAddUserCompanyOOO() {
         var userData = UserManager.getQaUser();
         var company = new Company(Generate.generateINN(10), Generate.literalString(10), userData.getEmail());
 
