@@ -95,7 +95,12 @@ public interface RailsConsole {
          * Очистить кэш compensation_promotions
          * без параметров
          */
-        DELETE_COMPENSATIONS_CACHE("Rails.cache.delete(:compensation_promotions)");
+        DELETE_COMPENSATIONS_CACHE("Rails.cache.delete(:compensation_promotions)"),
+        /**
+         * Удалить последний shipment_return
+         * без параметров
+         */
+        DELETE_SHIPMENT_RETURN("ShipmentReturn.last.delete");
 
 
         private String command;

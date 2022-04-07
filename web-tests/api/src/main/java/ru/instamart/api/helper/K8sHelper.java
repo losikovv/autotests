@@ -16,6 +16,7 @@ import static ru.instamart.api.enums.RailsConsole.ExternalPartners.SUBSCRIPTION;
 import static ru.instamart.api.enums.RailsConsole.Order.Flipper;
 import static ru.instamart.api.enums.RailsConsole.Order.*;
 import static ru.instamart.api.enums.RailsConsole.Other.DELETE_COMPENSATIONS_CACHE;
+import static ru.instamart.api.enums.RailsConsole.Other.DELETE_SHIPMENT_RETURN;
 import static ru.instamart.api.enums.RailsConsole.User.*;
 import static ru.instamart.k8s.K8sConsumer.*;
 
@@ -211,5 +212,10 @@ public class K8sHelper {
     public static void createCompensationPromotions() {
         List<String> consoleLog = execBashCommandWithPod(CREATE_COMPENSATION_PROMOTIONS.get());
         Allure.addAttachment("Логи консоли", String.join("\n", consoleLog));
+    }
+    @Step("Удалить последний shipment_return")
+    public static void deleteLastShipmentReturn() {
+        List<String> strings = execRailsCommandWithPod(DELETE_SHIPMENT_RETURN.get());
+        Allure.addAttachment("Логи рельсовой консоли", String.join("\n", strings));
     }
 }
