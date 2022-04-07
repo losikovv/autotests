@@ -18,7 +18,8 @@ public final class ShoppingCatalogTests extends BaseTest {
     @Test(description = "Тест работы cо шторкой каталога", groups = "regression")
     public void successValidateCatalogDrawer() {
         shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
+        shop().checkFirstProductCardIsVisible();
+
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
         shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
@@ -38,7 +39,8 @@ public final class ShoppingCatalogTests extends BaseTest {
     @Test(description = "Тест открытия категории 1 уровня из шторки каталога", groups = {"MRAutoCheck", "regression"})
     public void successGoToDepartmentFromCatalogDrawer() {
         shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
+        shop().checkFirstProductCardIsVisible();
+
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
         shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
@@ -61,7 +63,8 @@ public final class ShoppingCatalogTests extends BaseTest {
     @Test(description = "Тест открытия категории 2 уровня из шторки каталога", groups = "regression")
     public void successGoToTaxonFromCatalogDrawer() {
         shop().goToPage();
-        shop().checkSpinnerIsNotVisible();
+        shop().checkFirstProductCardIsVisible();
+
         shop().interactHeader().clickToSelectAddress();
         shop().interactAddress().checkYmapsReady();
         shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());

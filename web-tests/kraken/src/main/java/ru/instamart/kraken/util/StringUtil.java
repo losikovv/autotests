@@ -11,7 +11,7 @@ public final class StringUtil {
     private static final Pattern pattern = Pattern.compile("\\d+\\.\\d+");
     private static final Pattern citiesPattern = Pattern.compile("\\(([^\\D+]+)\\)");
     private static final String PHONE_PATTERN = "(\\d{3})(\\d{3})(\\d{2})(\\d+)";
-    private static final String EXTRA_ZERO_PATTERN = "(?<= |-)0";
+    private static final String EXTRA_ZERO_PATTERN = "0(\\d:)";
     private static final String LAST_CATALOG_FROM_PATH = "^.+/";
 
     private StringUtil() {
@@ -96,7 +96,7 @@ public final class StringUtil {
      * Парсит строку типа "09:00-10:00" в "9:00-10:00" для сравнения времени доставки
      */
     public static String cutExtraZerosFromDate(String hours) {
-        return hours.replaceAll(EXTRA_ZERO_PATTERN, "");
+        return hours.replaceAll(EXTRA_ZERO_PATTERN, "$1");
     }
 
     /**
