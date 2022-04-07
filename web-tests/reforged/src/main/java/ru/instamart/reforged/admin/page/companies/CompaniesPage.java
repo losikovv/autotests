@@ -1,7 +1,6 @@
 package ru.instamart.reforged.admin.page.companies;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.Keys;
 import ru.instamart.reforged.admin.AdminPage;
 
 public final class CompaniesPage implements AdminPage, CompaniesCheck {
@@ -21,16 +20,9 @@ public final class CompaniesPage implements AdminPage, CompaniesCheck {
         addCompany.click();
     }
 
-    @Step("Перейти в редактирование компании '{0}'")
-    public void goToCompanyEdit(final String companyName) {
-        companyTable.clickOnColumnElement(companyName);
-    }
-
-    @Step("Изменить имя компании на '{0}'")
-    public void changeCompanyName(final String companyName) {
-        buttonEditCompanyName.click();
-        editCompanyName.fillField(companyName);
-        editCompanyName.getActions().sendKeys(Keys.ENTER);
+    @Step("Перейти в редактирование найденной компании")
+    public void goToFirstCompanyEdit() {
+        companies.clickCompanyName(0);
     }
 
     @Override

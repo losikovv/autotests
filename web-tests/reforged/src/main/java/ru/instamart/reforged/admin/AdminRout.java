@@ -1,8 +1,12 @@
 package ru.instamart.reforged.admin;
 
 import ru.instamart.reforged.admin.page.companies.CompaniesPage;
+import ru.instamart.reforged.admin.page.companies.company.CompanyPage;
 import ru.instamart.reforged.admin.page.companies.new_companies.NewCompaniesPage;
+import ru.instamart.reforged.admin.page.login.LoginPage;
 import ru.instamart.reforged.admin.page.main.MainPage;
+import ru.instamart.reforged.admin.page.pages.Pages;
+import ru.instamart.reforged.admin.page.pages.new_page.NewPage;
 import ru.instamart.reforged.admin.page.retailers.RetailersPage;
 import ru.instamart.reforged.admin.page.retailers.add_new_retailer.RetailerAddPage;
 import ru.instamart.reforged.admin.page.retailers.add_new_shop.ShopAddPage;
@@ -10,18 +14,15 @@ import ru.instamart.reforged.admin.page.retailers.regions.RegionsPage;
 import ru.instamart.reforged.admin.page.retailers.retailer_page.RetailerPage;
 import ru.instamart.reforged.admin.page.retailers.retailer_page.store_page.StorePage;
 import ru.instamart.reforged.admin.page.retailers.retailer_page.store_page.store_zone_edit.StoreZone;
-import ru.instamart.reforged.admin.page.settings.shipping_method.ShippingMethodPage;
+import ru.instamart.reforged.admin.page.sections.*;
 import ru.instamart.reforged.admin.page.settings.all_cities.AllCitiesPage;
 import ru.instamart.reforged.admin.page.settings.company_settings.CompanySettingsPage;
 import ru.instamart.reforged.admin.page.settings.general_settings.GeneralSettingsPage;
 import ru.instamart.reforged.admin.page.settings.payments_settings.PaymentsSettingsPage;
+import ru.instamart.reforged.admin.page.settings.shipping_method.ShippingMethodPage;
 import ru.instamart.reforged.admin.page.settings.shipping_method.new_method.ShippingNewMethodPage;
 import ru.instamart.reforged.admin.page.settings.sms_settings.SmsSettingsPage;
 import ru.instamart.reforged.admin.page.shipment.ShipmentsPage;
-import ru.instamart.reforged.admin.page.login.LoginPage;
-import ru.instamart.reforged.admin.page.pages.new_page.NewPage;
-import ru.instamart.reforged.admin.page.pages.Pages;
-import ru.instamart.reforged.admin.page.sections.*;
 import ru.instamart.reforged.admin.page.users.UsersPage;
 import ru.instamart.reforged.admin.page.usersEdit.UsersEditPage;
 import ru.instamart.reforged.core.page.Router;
@@ -118,6 +119,10 @@ public final class AdminRout extends Router {
 
     public static CompaniesPage companies() {
         return (CompaniesPage) getPage(CompaniesPage.class);
+    }
+
+    public static CompanyPage company() {
+        return (CompanyPage) getPage(CompanyPage.class);
     }
 
     public static NewCompaniesPage addCompanies() {
