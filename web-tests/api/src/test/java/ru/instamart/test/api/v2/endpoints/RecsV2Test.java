@@ -26,7 +26,7 @@ public final class RecsV2Test extends RestBase {
 
     @Story("Полные рекомендации (recs)")
     @CaseId(974)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, enabled = false, //TODO: нужно включить после доработки получения реков по номеру закоза
             description = "Запрос рекомендаций с обязательными параметрами",
             dataProvider = "recsData",
             dataProviderClass = RestDataProvider.class)
