@@ -24,6 +24,11 @@ public interface CompanyElement {
     //Статус
     Button confirmStatus = new Button(By.xpath("//div[./label[@title='Статус']]/following-sibling::div//button"), "Кнопка 'Подтвердить статус'");
 
+    //Менеджер
+    Input fillEmailToAddManager = new Input(By.xpath("//div[@data-qa='company_page_manager']//input"), "Поле ввода e-mail менеджера");
+    ElementCollection companyManagers = new ElementCollection(By.xpath("//div[@data-qa='company_page_manager']//li[contains(@class,'ant-list-item')]"), "Менеджеры");
+    ElementCollection companyManagerDeleteButtons = new ElementCollection(By.xpath("//div[@data-qa='company_page_manager']//li[contains(@class,'ant-list-item')]//button"), "Кнопки 'Удалить' (менеджера)");
+
     //Представители
     Input fillEmailToAddEmployee = new Input(By.xpath("//div[@data-qa='company_page_employees']//input"), "Поле ввода e-mail представителя");
     ElementCollection foundedUsers = new ElementCollection(By.xpath("//div[@class='rc-virtual-list-holder-inner']/div[contains(@class,'ant-select-item')]"), "Выпадающий список найденных пользователей");

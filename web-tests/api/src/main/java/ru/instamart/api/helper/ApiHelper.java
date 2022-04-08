@@ -349,6 +349,11 @@ public final class ApiHelper {
         admin.addCompany(inn, companyName, ownerEmail);
     }
 
+    @Step("Добавляем роль менеджера пользователю '{userData}'")
+    public void addManagerRoleToUser(UserData userData) {
+        K8sHelper.addRoleToUser(userData.getId(), B2B_MANAGER.getRole());
+    }
+
     @Step("Добавляем менеджера '{userData}' компании '{inn}'")
     public void addManagerForCompany(String inn, UserData userData) {
         admin.authApi();
