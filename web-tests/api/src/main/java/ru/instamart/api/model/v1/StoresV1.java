@@ -130,6 +130,7 @@ public class StoresV1 extends BaseObject {
 
     private RetailerV1 retailer;
 
+    @Null
     @JsonProperty("operational_zone")
     private OperationalZoneV1 operationalZone;
 

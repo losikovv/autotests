@@ -148,14 +148,14 @@ public class InstamartApiCheckpoints {
     }
     @Step("Проверяем информацию о подписке, пришедшую в ответе")
     public static void checkExternalPartnersServices(Response response, Boolean isActive, String text) {
-        ServicesV2 service = response.as(ExternalPartnersServicesV2Response.class).getServices().get(0);
-        checkFieldIsNotEmpty(service, "сервис");
+        List<ServicesV2> services = response.as(ExternalPartnersServicesV2Response.class).getServices();
+        checkFieldIsNotEmpty(services, "сервисы");
         final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(service.getName(), "SberPrime", softAssert);
-        compareTwoObjects(service.getKind(), "sber_prime", softAssert);
-        compareTwoObjects(service.getText(), text, softAssert);
-        compareTwoObjects(service.getDiscountType(), "free_delivery", softAssert);
-        compareTwoObjects(service.getSubscription().getActive(), isActive, softAssert);
+        compareTwoObjects(services.get(0).getName(), "SberPrime", softAssert);
+        compareTwoObjects(services.get(0).getKind(), "sber_prime", softAssert);
+        compareTwoObjects(services.get(0).getText(), text, softAssert);
+        compareTwoObjects(services.get(0).getDiscountType(), "free_delivery", softAssert);
+        compareTwoObjects(services.get(0).getSubscription().getActive(), isActive, softAssert);
         softAssert.assertAll();
     }
 
