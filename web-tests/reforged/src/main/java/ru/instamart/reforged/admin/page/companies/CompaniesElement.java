@@ -1,17 +1,17 @@
 package ru.instamart.reforged.admin.page.companies;
 
 import org.openqa.selenium.By;
+import ru.instamart.reforged.admin.table.CompaniesTable;
 import ru.instamart.reforged.core.component.Button;
+import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Input;
-import ru.instamart.reforged.core.component.Table;
 
 public interface CompaniesElement {
 
     Input search = new Input(By.name("inn"), "поле поиска по inn");
     Button buttonSearch = new Button(By.xpath("//span[text()='Найти']"), "Кнопка 'Найти'");
     Button addCompany = new Button(By.xpath("//span[text()=' Добавить компанию']"), "кнопка добавить компанию");
-    Table companyTable = new Table();
 
-    Button buttonEditCompanyName = new Button(By.xpath("//div/label[text()='Название']/../..//span[@aria-label='edit']"), "кнопка редактирования имени компании");
-    Input editCompanyName = new Input(By.xpath("//input[@placeholder='Название компании']"), "поле для ввода имени компании");
+    Element companiesTable = new Element(By.xpath("//table/tbody"), "Записи в таблице");
+    CompaniesTable companies = new CompaniesTable();
 }
