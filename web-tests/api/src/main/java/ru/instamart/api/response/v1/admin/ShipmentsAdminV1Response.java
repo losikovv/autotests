@@ -17,8 +17,9 @@ public final class ShipmentsAdminV1Response extends BaseResponseObject {
     public List<Shipment> shipments;
     public MetaV1 meta;
 
+    @EqualsAndHashCode(callSuper = true)
     @Data
-    public static class Shipment {
+    public static class Shipment extends BaseResponseObject {
         public int id;
         public String uuid;
         public String number;
