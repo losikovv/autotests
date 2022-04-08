@@ -79,6 +79,7 @@ public class StoreV1 extends BaseObject {
     @JsonProperty("on_demand")
     private Boolean onDemand;
 
+    @Null
     @JsonSchema(required = true)
     @JsonProperty("operational_zone")
     private OperationalZoneV1 operationalZone;
