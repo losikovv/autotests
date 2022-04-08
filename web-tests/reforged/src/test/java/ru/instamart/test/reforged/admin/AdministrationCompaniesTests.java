@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Company;
 import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
@@ -162,6 +163,69 @@ public final class AdministrationCompaniesTests extends BaseTest {
         companies().checkCompaniesCount(1);
         companies().checkFirstCompanyName(company.getCompanyName());
         companies().checkFirstCompanyINN(company.getInn());
+    }
+
+    @CaseId(480)
+    @Test(description = "Тест добавление менеджера к компании", groups = {"regression"})
+    public void testAddCompanyManager() {
+        var managerData = UserManager.getQaUser();
+        helper.addManagerRoleToUser(managerData);
+        var userData = UserManager.getQaUser();
+        var company = JuridicalData.juridical();
+        helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        companies().goToPage();
+        companies().fillInn(company.getInn());
+        companies().clickToSearch();
+
+        companies().checkCompaniesVisible();
+        companies().goToFirstCompanyEdit();
+        company().checkCompanyPageVisible();
+        company().checkCompanyManagersNotDisplayed();
+
+        company().fillManagerEmail(managerData.getEmail());
+        company().checkFoundedUsersDisplayed();
+        company().selectFirstOfFoundedUsers();
+
+        company().checkNoticePopupDisplayed();
+        company().checkNoticeTextEquals("Менеджер компании добавлен");
+
+        company().checkCompanyManagersListSize(1);
+    }
+
+    @CaseId(481)
+    @Test(description = "Тест удаление менеджера компании", groups = {"regression"})
+    public void testDeleteCompanyManager() {
+        var userData = UserManager.getQaUser();
+        var managerData = UserManager.getQaUser();
+        var company = JuridicalData.juridical();
+        helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
+        helper.addManagerForCompany(company.getInn(), managerData);
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        companies().goToPage();
+        companies().fillInn(company.getInn());
+        companies().clickToSearch();
+
+        companies().checkCompaniesVisible();
+        companies().goToFirstCompanyEdit();
+        company().checkCompanyPageVisible();
+        company().checkCompanyManagersDisplayed();
+        company().checkCompanyManagersListSize(1);
+
+        company().clickDeleteManager();
+        company().checkConfirmActionModalDisplayed();
+        company().checkConfirmActionModalTextEquals("Удалить менеджера компании?");
+        company().clickConfirmStatusModalOk();
+        company().checkNoticePopupDisplayed();
+        company().checkNoticeTextEquals("Менеджер компании удален");
+
+        company().checkCompanyManagersNotDisplayed();
     }
 
     @CaseId(485)

@@ -39,6 +39,21 @@ public final class CompanyPage implements AdminPage, CompanyCheck {
         companyEmployeeConfirmButtons.clickOnFirst();
     }
 
+    @Step("Вводим email менеджера")
+    public void fillManagerEmail(final String email) {
+        fillEmailToAddManager.fill(email);
+    }
+
+    @Step("Выбираем первого найденного пользователя в выпадающем списке")
+    public void selectFirstOfFoundedUsers() {
+        foundedUsers.clickOnFirst();
+    }
+
+    @Step("Нажимаем на кнопку 'Удалить менеджера'")
+    public void clickDeleteManager() {
+        companyManagerDeleteButtons.clickOnFirst();
+    }
+
     @Step("Нажимаем на кнопку 'Удалить представителя'")
     public void clickDeleteEmployee() {
         companyEmployeeDeleteButtons.clickOnFirst();

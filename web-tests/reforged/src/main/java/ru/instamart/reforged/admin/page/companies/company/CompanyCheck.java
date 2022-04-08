@@ -48,6 +48,21 @@ public interface CompanyCheck extends Check, CompanyElement {
         Assert.assertEquals(noticePopup.getText(), expectedText, "Текст всплывающего уведомления отличается от ожидаемого");
     }
 
+    @Step("Проверяем, что отобразился список менеджеров")
+    default void checkCompanyManagersDisplayed() {
+        waitAction().shouldBeVisible(companyManagers);
+    }
+
+    @Step("Проверяем, что в списке менеджеров '{expectedManagersCount}' сотрудников")
+    default void checkCompanyManagersListSize(final int expectedManagersCount) {
+        Assert.assertEquals(companyManagers.elementCount(), expectedManagersCount, "Количество менеджеров организации отличается от ожидаемого");
+    }
+
+    @Step("Проверяем, что у компании отсутствуют менеджеры")
+    default void checkCompanyManagersNotDisplayed() {
+        waitAction().shouldNotBeVisible(companyManagers);
+    }
+
     @Step("Проверяем, что отобразился список представителей")
     default void checkCompanyEmployeesDisplayed() {
         waitAction().shouldBeVisible(companyEmployees);
