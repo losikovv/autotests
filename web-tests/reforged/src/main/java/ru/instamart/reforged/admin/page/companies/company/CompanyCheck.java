@@ -82,4 +82,49 @@ public interface CompanyCheck extends Check, CompanyElement {
     default void checkFoundedUsersDisplayed() {
         waitAction().shouldBeVisible(foundedUsers);
     }
+
+    @Step("Проверяем, что в списке договоров пусто")
+    default void checkContractsListIsEmpty() {
+        waitAction().shouldNotBeVisible(contracts);
+    }
+
+    @Step("Проверяем, что в списке договоров '{expectedContractsCount}' записей")
+    default void checkContractsCount(final int expectedContractsCount) {
+        Assert.assertEquals(contracts.elementCount(), expectedContractsCount, "Количество договоров в списке отличается от ожидаемого");
+    }
+
+    @Step("Проверяем, что отображается поле ввода номера договора")
+    default void checkContractNumberInputVisible() {
+        waitAction().shouldBeVisible(contractNumberInput);
+    }
+
+    @Step("Проверяем, что номер договора: '{expectedNumber}'")
+    default void checkContractNumber(final String expectedNumber) {
+        Assert.assertEquals(contractNumber.getText(), "№" + expectedNumber, "Номер договора не соответствует ожидаемому");
+    }
+
+    @Step("Проверяем, что дата договора не заполнена")
+    default void checkContractDateIsEmpty() {
+        waitAction().shouldNotBeVisible(contractDate);
+    }
+
+    @Step("Проверяем, что дата договора: '{expectedDate}'")
+    default void checkContractDate(final String expectedDate) {
+        Assert.assertEquals(contractDate.getText(), expectedDate, "Дата договора не соответствует ожидаемой");
+    }
+
+    @Step("Проверяем, что договор действующий")
+    default void checkContractNotInArchive() {
+        waitAction().shouldBeVisible(archiveLabel);
+    }
+
+    @Step("Проверяем, что договор переведен в архив")
+    default void checkContractInArchive() {
+        waitAction().shouldBeVisible(archiveLabel);
+    }
+
+    @Step("Проверяем, что отображается календарь")
+    default void checkCalendarVisible() {
+        waitAction().shouldBeVisible(calendarToday);
+    }
 }

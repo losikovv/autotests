@@ -8,6 +8,7 @@ import ru.instamart.kraken.data.Company;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.JuridicalData;
 import ru.instamart.kraken.data.user.UserManager;
+import ru.instamart.kraken.util.TimeUtil;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -228,6 +229,117 @@ public final class AdministrationCompaniesTests extends BaseTest {
         company().checkCompanyManagersNotDisplayed();
     }
 
+    @CaseId(482)
+    @Test(description = "Тест добавление договора (с указанной датой)", groups = {"regression"})
+    public void testAddContractOneStep() {
+        var userData = UserManager.getQaUser();
+        var company = JuridicalData.juridical();
+        var contractNumber = Generate.digitalString(5);
+        helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        companies().goToPage();
+        companies().fillInn(company.getInn());
+        companies().clickToSearch();
+
+        companies().checkCompaniesVisible();
+
+        companies().goToFirstCompanyEdit();
+        company().checkCompanyPageVisible();
+
+        company().checkContractsListIsEmpty();
+        company().clickAddContract();
+        company().checkContractNumberInputVisible();
+        company().fillContractNumber(contractNumber);
+        company().clickDateInput();
+        company().checkCalendarVisible();
+        company().clickToday();
+        company().clickSaveContract();
+
+        company().checkConfirmActionModalDisplayed();
+        company().checkConfirmActionModalTextEquals("Документ будет отмечен как подписанный, вы уверены?");
+
+        company().clickConfirmStatusModalYes();
+
+        company().checkNoticePopupDisplayed();
+        company().checkNoticeTextEquals("Договор успешно создан!");
+        company().checkNoticePopupNotDisplayed();
+
+        company().checkContractsCount(1);
+        company().checkContractNumber(contractNumber);
+        company().checkContractDate(TimeUtil.getDateWithoutTimeViaSlash());
+
+        company().clickAddContract();
+        company().checkNoticePopupDisplayed();
+        company().checkNoticeTextEquals("Уже имеется активный договор");
+    }
+
+    @CaseId(482)
+    @Test(description = "Тест добавление и редактирование договора", groups = {"regression"})
+    public void testAddContractTwoStep() {
+        var userData = UserManager.getQaUser();
+        var company = JuridicalData.juridical();
+        var contractNumber = Generate.digitalString(5);
+        helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        companies().goToPage();
+        companies().fillInn(company.getInn());
+        companies().clickToSearch();
+
+        companies().checkCompaniesVisible();
+
+        companies().goToFirstCompanyEdit();
+        company().checkCompanyPageVisible();
+
+        company().checkContractsListIsEmpty();
+        company().clickAddContract();
+        company().checkContractNumberInputVisible();
+        company().fillContractNumber(contractNumber);
+        company().clickSaveContract();
+
+        company().checkNoticePopupDisplayed();
+        company().checkNoticeTextEquals("Договор успешно создан!");
+        company().checkNoticePopupNotDisplayed();
+
+        company().checkContractsCount(1);
+        company().checkContractNumber(contractNumber);
+        company().checkContractDateIsEmpty();
+
+        company().clickAddContract();
+        company().checkNoticePopupDisplayed();
+        company().checkNoticeTextEquals("Уже имеется активный договор");
+        company().checkNoticePopupNotDisplayed();
+
+        company().clickEditContract();
+        company().checkContractNumberInputVisible();
+        company().clickDateInput();
+        company().checkCalendarVisible();
+        company().clickToday();
+        company().clickSaveContract();
+
+        company().checkConfirmActionModalDisplayed();
+        company().checkConfirmActionModalTextEquals("Документ будет отмечен как подписанный, вы уверены?");
+
+        company().clickConfirmStatusModalYes();
+
+        company().checkNoticePopupDisplayed();
+        company().checkNoticeTextEquals("Договор успешно обновлен!");
+        company().checkNoticePopupNotDisplayed();
+
+        company().checkContractsCount(1);
+        company().checkContractNumber(contractNumber);
+        company().checkContractDate(TimeUtil.getDateWithoutTimeViaSlash());
+
+        company().clickAddContract();
+        company().checkNoticePopupDisplayed();
+        company().checkNoticeTextEquals("Уже имеется активный договор");
+    }
+
     @CaseId(485)
     @Test(description = "Тест работа кнопки 'Подтвердить компанию'", groups = {"regression"})
     public void testConfirmCompany() {
@@ -345,6 +457,59 @@ public final class AdministrationCompaniesTests extends BaseTest {
         company().checkNoticeTextEquals("Успех! Данные компании обновлены");
 
         company().checkCompanyEmployeesListSize(1);
+    }
+
+
+    @CaseId(490)
+    @Test(description = "Тест удаление договора", groups = {"regression"})
+    public void testDeleteContract() {
+        var userData = UserManager.getQaUser();
+        var company = JuridicalData.juridical();
+        var contractNumber = Generate.digitalString(5);
+        helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        companies().goToPage();
+        companies().fillInn(company.getInn());
+        companies().clickToSearch();
+
+        companies().checkCompaniesVisible();
+
+        companies().goToFirstCompanyEdit();
+        company().checkCompanyPageVisible();
+
+        company().clickAddContract();
+        company().checkContractNumberInputVisible();
+        company().fillContractNumber(contractNumber);
+        company().clickDateInput();
+        company().checkCalendarVisible();
+        company().clickToday();
+        company().clickSaveContract();
+
+        company().checkConfirmActionModalDisplayed();
+        company().clickConfirmStatusModalYes();
+
+        company().checkNoticePopupNotDisplayed();
+
+        company().checkContractsCount(1);
+        company().checkContractNotInArchive();
+
+        company().clickEditContract();
+        company().checkContractNumberInputVisible();
+        company().clickArchiveContract();
+
+        company().checkConfirmActionModalDisplayed();
+        company().checkConfirmActionModalTextEquals("Отправить договор в архив?");
+        company().clickConfirmStatusModalYes();
+
+        company().checkNoticePopupDisplayed();
+        company().checkNoticeTextEquals("Договор успешно заархивирован!");
+        company().checkContractInArchive();
+
+        company().clickAddContract();
+        company().checkContractNumberInputVisible();
     }
 
     @CaseId(491)

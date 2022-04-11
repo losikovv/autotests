@@ -64,9 +64,59 @@ public final class CompanyPage implements AdminPage, CompanyCheck {
         confirmActionModalOk.click();
     }
 
+    @Step("Нажимаем на кнопку 'Да' в окне подтверждения действия")
+    public void clickConfirmStatusModalYes() {
+        confirmActionModalYes.click();
+    }
+
     @Step("Нажимаем на кнопку 'Отмена' в окне подтверждения действия")
     public void clickConfirmStatusModalCancel() {
         confirmActionModalCancel.click();
+    }
+
+    @Step("Нажимаем кнопку 'Добавить договор'")
+    public void clickAddContract() {
+        addContract.click();
+    }
+
+    @Step("Нажимаем кнопку 'Сохранить договор'")
+    public void clickSaveContract() {
+        saveContract.click();
+    }
+
+    @Step("Нажимаем кнопку 'Редактировать договор'")
+    public void clickEditContract() {
+        editContract.click();
+    }
+
+    @Step("Нажимаем кнопку 'Архивировать договор'")
+    public void clickArchiveContract() {
+        deleteContract.click();
+    }
+
+    @Step("Нажимаем кнопку 'Отменить' (добавление/редактирование договора)")
+    public void clickAddEditCancel() {
+        cancelEdit.click();
+    }
+
+    @Step("Вводим номер договора: {contractNumber}")
+    public void fillContractNumber(final String contractNumber) {
+        contractNumberInput.fillField(contractNumber);
+    }
+
+    @Step("Кликает в поле ввода даты договора")
+    public void clickDateInput() {
+        contractDateInput.click();
+    }
+
+    @Step("Вводим дату договора: {contractDate}")
+    public void fillContractDate(final String contractDate) {
+        contractDateInput.fillField(contractDate);
+    }
+
+    @Step("Нажимаем кнопку 'Сегодня' в календаре")
+    public void clickToday() {
+        calendarToday.hoverAndClick();
     }
 
     @Override

@@ -12,6 +12,7 @@ public final class TimeUtil {
 
     private static final DateTimeFormatter dt = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
     private static final DateTimeFormatter dtd = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter dtds = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter zdt = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private static final DateTimeFormatter zdtz = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
     private static final DateTimeFormatter dtdb = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -39,6 +40,10 @@ public final class TimeUtil {
 
     public static String getDateWithoutTime() {
         return dtd.format(ZonedDateTime.now(ZONE_ID));
+    }
+
+    public static String getDateWithoutTimeViaSlash() {
+        return dtds.format(ZonedDateTime.now(ZONE_ID));
     }
 
     public static String getFutureDateWithoutTime(Long days) {
