@@ -1457,4 +1457,16 @@ public final class ApiV2Helper {
         final Response response = OrdersV2Request.Promotions.POST(orderNumber, promoCode);
         checkStatusCode200(response);
     }
+
+    @Step("Получаем первый доступный слот ON_DEMAND")
+    public DeliveryWindowV2 getAvailableDeliveryWindowOnDemand(final UserData user, final Integer sid) {
+        authByPhone(user);
+
+        getCurrentOrderNumber();
+
+        setAddressAttributes(user, getAddressBySid(sid));
+        fillCart(getProducts(sid));
+
+        return getAvailableDeliveryWindowOnDemand();
+    }
 }

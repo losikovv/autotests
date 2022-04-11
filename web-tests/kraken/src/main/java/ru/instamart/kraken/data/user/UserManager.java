@@ -149,6 +149,7 @@ public final class UserManager {
             defaultShopper = UserData.builder()
                     .email(Crypt.INSTANCE.decrypt("fge71qP00DC40VYpfYee6w=="))
                     .phone(Crypt.INSTANCE.decrypt("vodVNuxqMcNPIBazZFHfAA=="))
+                    .uuid("777f2bc4-65f0-4c74-8304-ac1fba530062")
                     .build();
         }
 
@@ -159,6 +160,7 @@ public final class UserManager {
                     defaultShopper = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("DNzBqyrPJQuc1LP0FzyiiQ=="))
                             .phone(Crypt.INSTANCE.decrypt("VKxPCYWxtW47hpCL/Qj43Q=="))
+                            .uuid("d7f1f6aa-8890-42fe-9696-28502458048a")
                             .build();
                     break;
                 case "push":
@@ -167,12 +169,14 @@ public final class UserManager {
                         defaultShopper = UserData.builder()
                                 .email(Crypt.INSTANCE.decrypt("K0wOsUQv9wDe1F4a6TtDKg=="))
                                 .phone(Crypt.INSTANCE.decrypt("SnggaupjoOoDXgTrdww1PA=="))
+                                .uuid("bb6065f4-da72-4511-9d47-c61dab0d3055")
                                 .build();
                     } else {
                         log.debug("User shopper CI_RUN_ALL_JOBS login");
                         defaultShopper = UserData.builder()
                                 .email(Crypt.INSTANCE.decrypt("/IsVBUY1et+En340g78Rvg=="))
                                 .phone(Crypt.INSTANCE.decrypt("91K1YSFP8P4lmL8eDk/bAg=="))
+                                .uuid("3bc2867e-c7d1-4c2d-a359-a2673e255c33")
                                 .build();
                     }
                     break;
@@ -181,6 +185,7 @@ public final class UserManager {
                     defaultShopper = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("qq6/4elx6MF64Jw9VdI6xg=="))
                             .phone(Crypt.INSTANCE.decrypt("jKQeEMXjzX5ROozXx40AgA=="))
+                            .uuid("261d5dba-9a4a-4c56-bc71-a068c29f322a")
                             .build();
                     break;
                 default:
@@ -188,6 +193,7 @@ public final class UserManager {
                     defaultShopper = UserData.builder()
                             .email(Crypt.INSTANCE.decrypt("/IsVBUY1et+En340g78Rvg=="))
                             .phone(Crypt.INSTANCE.decrypt("91K1YSFP8P4lmL8eDk/bAg=="))
+                            .uuid("3bc2867e-c7d1-4c2d-a359-a2673e255c33")
                             .build();
                     break;
             }

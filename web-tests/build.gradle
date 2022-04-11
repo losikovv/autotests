@@ -116,7 +116,6 @@ project(":kafka") {
 
     dependencies {
         implementation project(":kraken")
-        implementation project(":api")
         implementation project(":jdbc")
         implementation project(":k8s")
 
@@ -157,6 +156,8 @@ project(":api") {
         implementation project(":kraken")
         implementation project(":jdbc")
         implementation project(":k8s")
+        implementation project(":grpc")
+        implementation project(":kafka")
 
         implementation lib.common
         implementation lib.qase
@@ -181,6 +182,8 @@ project(":api") {
         implementation lib.victoolsSchemaModuleJackson
         implementation lib.victoolsSchemaModuleJavaxValidation
         implementation lib.swaggerCoverage
+        implementation lib.grpcStub
+        implementation lib.protobufUtil
 
         compileOnly lib.lombok
 

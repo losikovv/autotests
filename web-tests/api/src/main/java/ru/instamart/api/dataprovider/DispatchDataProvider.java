@@ -1,4 +1,4 @@
-package ru.instamart.kafka.dataprovider;
+package ru.instamart.api.dataprovider;
 
 import org.testng.annotations.DataProvider;
 import ru.instamart.kraken.data.user.UserData;

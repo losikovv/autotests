@@ -1,0 +1,214 @@
+syntax = "proto3";
+
+package workflow;
+
+option go_package = "gitlab.sbermarket.tech/paas/content/operations/workflow/pkg/server/grpc/workflow";
+
+import "workflow/workflow_enums.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+
+
+service Service {
+  rpc CreateWorkflows(CreateWorkflowsRequest) returns (CreateWorkflowsResponse);
+  rpc CreateWorkflowsV2(CreateWorkflowsRequest) returns (CreateWorkflowsV2Response);
+  rpc CancelActiveWorkflowByShipmentUUID(CancelActiveWorkflowByShipmentUuidRequest) returns (google.protobuf.Empty);
+  rpc RejectWorkflowByShipmentUUID(RejectWorkflowByShipmentUuidRequest) returns (RejectWorkflowByShipmentUuidResponse);
+  rpc PutRegionSettings(PutRegionSettingsRequest) returns (PutRegionSettingsReply) {}
+  rpc GetRegionSettings(GetRegionSettingsRequest) returns (GetRegionSettingsReply) {}
+}
+
+message CancelActiveWorkflowByShipmentUuidRequest {
+	string shipment_uuid = 1;
+}
+
+// Запрос на создание маршрутных листов
+message CreateWorkflowsRequest {
+  // Список маршрутных листов
+  repeated Workflow workflows = 1;
+}
+
+// Ответ создания маршрутных листов
+message CreateWorkflowsResponse {
+  message Result {
+    enum Status {
+      SUCCESS = 0;
+      FAILURE = 1;
+    }
+
+    enum ErrorKind {
+      // Внтренняя ошибка серевера (БД и т.д.)
+      OTHER = 0;
+      // Нельзя создать МЛ относительно текущего времени раньше чем на X секунд
+      STARTED_AT_EARLY_CURRENT_TIME = 1;
+      // Пересечение сегментов (которые пришли в запросе) внутри одного МЛ
+      HAS_INTERNAL_INTERSECTION_SEGMENTS = 2;
+      // Существует активный сегмент для этого МЛ (aka существует активный МЛ)
+      HAS_ACTIVE_WORKFLOW_WITH_INTERSECTION_SEGMENTS = 3;
+      // Существует назначение в статусе ожидания действий от исполнителя
+      HAS_PENDING_ASSIGNMENT = 4;
+      // Существует пересечение даты начала нового МЛ c датой конца последнего
+      // активного
+      HAS_LAST_ACTIVE_WORKFLOW_INTERSECTION = 5;
+      // Кандидат занят
+      CANDIDATE_IS_BUSY = 6;
+      // Родительское назначение не найдено
+      PARENT_NOT_FOUND = 7;
+      // Родительское назначение уже принято или отменено
+      PARENT_NOT_AVAILABLE = 8;
+	  // Существует отложенная ручная отмена для shipment uuid
+	  HAS_PENDING_CANCELLATION = 9;
+    }
+
+    Status status = 1;
+    string error_text = 2;
+    ErrorKind error_kind = 3;
+  }
+
+  // Статусы назначений (uuid-result)
+  map<string, Result> results = 1;
+}
+
+// Ответ создания маршрутных листов версия 2
+message CreateWorkflowsV2Response {
+  message Result {
+    enum Status {
+      SUCCESS = 0;
+      FAILURE = 1;
+    }
+
+    enum ErrorKind {
+      // Внтренняя ошибка серевера (БД и т.д.)
+      OTHER = 0;
+      // Нельзя создать МЛ относительно текущего времени раньше чем на X секунд
+      STARTED_AT_EARLY_CURRENT_TIME = 1;
+      // Пересечение сегментов (которые пришли в запросе) внутри одного МЛ
+      HAS_INTERNAL_INTERSECTION_SEGMENTS = 2;
+      // Существует активный сегмент для этого МЛ (aka существует активный МЛ)
+      HAS_ACTIVE_WORKFLOW_WITH_INTERSECTION_SEGMENTS = 3;
+      // Существует назначение в статусе ожидания действий от исполнителя
+      HAS_PENDING_ASSIGNMENT = 4;
+      // Существует пересечение даты начала нового МЛ c датой конца последнего
+      // активного
+      HAS_LAST_ACTIVE_WORKFLOW_INTERSECTION = 5;
+      // Кандидат занят
+      CANDIDATE_IS_BUSY = 6;
+      // Родительское назначение не найдено
+      PARENT_NOT_FOUND = 7;
+      // Родительское назначение уже принято или отменено
+      PARENT_NOT_AVAILABLE = 8;
+	  // Существует отложенная ручная отмена для shipment uuid
+	  HAS_PENDING_CANCELLATION = 9;
+    }
+
+    Status status = 1;
+    string error_text = 2;
+    ErrorKind error_kind = 3;
+    string assignment_uuid = 4;
+  }
+
+  // Массив созданных / не созданных назначений
+  repeated Result results = 1;
+}
+
+// Запрос на отмену МЛ. Оба поля запроса обязательны
+message RejectWorkflowByShipmentUuidRequest {
+	string shipment_uuid = 1;
+	string reason = 2;
+}
+
+// Список идентификаторов отмененных маршрутных листов
+message RejectWorkflowByShipmentUuidResponse {
+	repeated uint64 workflow_ids = 1;
+}
+
+message Shift {
+  enum Transport {
+    PEDESTRIAN = 0;
+    CAR = 1;
+    BICYCLE = 2;
+    TRUCK = 3;
+    SCOOTER = 4;
+  }
+  // Идентификатор смены
+  uint64 id = 1;
+  // Транспорт
+  Transport transport = 2;
+}
+
+message Assignment {
+  // Идентификатор родительского назначения для отложенной доставки
+  string postponed_parent_uuid = 2;
+  // Идентификатор исполнителя
+  string performer_uuid = 3;
+  // Тип транспорта
+  PerformerVehicle performer_vehicle = 9;
+  // Тип доставки
+  DeliveryType delivery_type = 8;
+  // Источник назначения
+  SourceType source_type = 10;
+  // Мета-данные - поле для публикации дополнительной информации
+  map<string, string> meta = 7;
+  // Данные активной смены
+  Shift shift = 11;
+}
+
+// Сегмент
+message Segment {
+  // Тип сегмента
+  SegmentType type = 1;
+  // Порядковый номер сегмента (начинается с 0)
+  uint32 position = 2;
+  // Список заказов
+  repeated Shipment shipments = 3;
+  // геопозиция начала сегмента
+  Location location_start = 4;
+  // Дата и время планируемого начала выполнения
+  google.protobuf.Timestamp plan_started_at = 5;
+  // геопозиция окончания сегмента
+  Location location_end = 6;
+  // Дата и время планируемого завершения выполнения
+  google.protobuf.Timestamp plan_ended_at = 7;
+  // Последующий лаг во времени
+  google.protobuf.Duration time_lag = 8;
+  // Мета-данные - поле для публикации дополнительной информации
+  map<string, string> meta = 9;
+  // Длительность
+  google.protobuf.Duration duration = 10;
+  // Расстояние
+  uint64 distance = 11;
+}
+
+// Маршрутный лист
+message Workflow {
+  // Список назначений
+  repeated Assignment assignments = 2;
+  // Список сегментов
+  repeated Segment segments = 3;
+}
+
+message RegionSettings {
+	uint64 operational_zone_id = 1;
+	uint64 timeout_segment_pass_to_client_sec = 2;
+}
+
+message PutRegionSettingsRequest {
+	RegionSettings region_settings = 1;
+}
+
+message PutRegionSettingsReply {
+	bool ok = 1;
+	uint64 operational_zone_id = 2;
+	string error_msg = 3;
+}
+
+message GetRegionSettingsRequest {
+	uint64 operational_zone_id = 1;
+}
+
+message GetRegionSettingsReply {
+	bool ok = 1;
+	RegionSettings region_settings = 2;
+	string error_msg = 3;
+}

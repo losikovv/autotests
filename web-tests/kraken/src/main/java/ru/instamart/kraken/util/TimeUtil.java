@@ -5,6 +5,7 @@ import com.google.protobuf.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.util.Date;
 import java.util.Locale;
 
 public final class TimeUtil {
@@ -121,5 +122,11 @@ public final class TimeUtil {
     public static Long getTimestamp() {
         Instant instant = Instant.now();
         return instant.toEpochMilli();
+    }
+
+    public static Date getDateWithSec(int sec) {
+        Date date = new Date();
+        date.setSeconds(new Date().getSeconds() - sec);
+        return date;
     }
 }

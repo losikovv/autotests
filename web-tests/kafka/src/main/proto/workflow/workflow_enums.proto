@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package workflow;
+
+option go_package = "gitlab.sbermarket.tech/paas/content/operations/workflow/pkg/server/grpc/workflow";
+
+enum SegmentType {
+  // Подлет
+  ARRIVE = 0;
+  // Сборка
+  ASSEMBLY = 1;
+  // Передача заказа на доставку
+  PASS_TO_DELIVERY = 2;
+  // Доставка
+  DELIVERY = 3;
+  // Передача заказа клиенту
+  PASS_TO_CLIENT = 5;
+  // Получение заказа для доставки
+  RECEIVING_FOR_DELIVERY = 6;
+}
+
+// Транспорт исполнителя
+enum PerformerVehicle {
+  PEDESTRIAN = 0;
+  AUTO = 1;
+  BIKE = 2;
+}
+
+// Источник назначения
+enum SourceType {
+  // Ручное
+  MANUAL = 0;
+  // Диспатч
+  DISPATCH = 1;
+}
+
+// Тип доставки
+enum DeliveryType {
+  // Новое
+  DEFAULT = 0;
+  // Отложено
+  TAXI = 1;
+}
+
+// Геопозиция
+message Location {
+  // Широта
+  double lat = 1;
+  // Долгота
+  double lon = 2;
+}
+
+message Shipment {
+  // Номер заказа: H24485347826
+  string number = 1;
+  // UUID заказа
+  string uuid = 12;
+  // количество позиций в заказе
+  uint32 items_count = 2;
+  // общая стоимость всех позиций в заказе в рублях
+  float items_total_amount = 3;
+  // вес заказа в килограммах
+  float weight_kg = 6;
+  // uuid идентификатор магазина, из которого осуществляется заказ
+  string store_uuid = 7;
+  // признак того, что заказ тяжелый
+  bool is_heavy = 8;
+  // признак того, что заказ новый
+  bool is_new = 9;
+  // Наименование магазина
+  string store_name = 10;
+  // Адрес магазина
+  string store_address = 11;
+}

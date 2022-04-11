@@ -1,7 +1,7 @@
 package ru.instamart.kafka.listener;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.instamart.api.common.Specification;
+//import ru.instamart.api.common.Specification;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.listener.ExecutionListener;
 
@@ -17,7 +17,7 @@ public final class KafkaExecutionListener extends ExecutionListener {
     public void onExecutionStart() {
         super.onExecutionStart();
         log.debug("Init rest specification");
-        Specification.INSTANCE.initSpec();
+       // Specification.INSTANCE.initSpec();
     }
 
     @Override

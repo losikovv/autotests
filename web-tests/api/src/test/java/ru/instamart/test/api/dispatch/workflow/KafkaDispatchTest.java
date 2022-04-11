@@ -1,21 +1,19 @@
-package ru.instamart.test.kafka;
+package ru.instamart.test.api.dispatch.workflow;
 
 import com.google.protobuf.Timestamp;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
 import operations_order_service.OperationsOrderService;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import ru.instamart.api.common.RestBase;
 import ru.instamart.api.model.v2.DeliveryWindowV2;
-import ru.instamart.kafka.common.KafkaBase;
-import ru.instamart.kafka.dataprovider.DispatchDataProvider;
+import ru.instamart.api.dataprovider.DispatchDataProvider;
 import ru.instamart.kafka.emum.Pods;
 import ru.instamart.kafka.emum.StatusOrder;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.util.ThreadUtil;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
@@ -31,7 +29,7 @@ import static ru.instamart.kafka.configs.KafkaConfigs.configFctOrderStf;
 import static ru.instamart.kraken.util.TimeUtil.getTimestampFromString;
 
 @Epic("Dispatch")
-public class KafkaDispatchTest extends KafkaBase {
+public class KafkaDispatchTest extends RestBase {
 
     private long epochCurrentTime = Instant.now().getEpochSecond();
     private String placeUUID = "684609ad-6360-4bae-9556-03918c1e41c1";
@@ -39,7 +37,7 @@ public class KafkaDispatchTest extends KafkaBase {
 
     @BeforeMethod(alwaysRun = true)
     public void before() {
-        DeliveryWindowV2 availableDeliveryWindowOnDemand = api.getAvailableDeliveryWindowOnDemand(UserManager.getStf6ApiUser(), 3);
+        DeliveryWindowV2 availableDeliveryWindowOnDemand = apiV2.getAvailableDeliveryWindowOnDemand(UserManager.getStf6ApiUser(), 3);
         orderUuid = UUID.randomUUID().toString();
         shipmentUuid = UUID.randomUUID().toString();
 

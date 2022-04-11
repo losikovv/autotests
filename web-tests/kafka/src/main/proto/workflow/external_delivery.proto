@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package workflow;
+
+option go_package = "gitlab.sbermarket.tech/paas/content/operations/workflow/pkg/server/grpc/workflow";
+
+import "workflow/workflow_enums.proto";
+
+// Запрос на создание внешней доставки
+message ExternalDelivery {
+  // Идентификатор назначения от диспатча
+  string uuid = 1;
+  // Идентификатор заказа, для которого требуется внешняя доставка
+  string shipment_uuid = 2;
+  // Тип доставки
+  DeliveryType delivery_type = 3;
+}

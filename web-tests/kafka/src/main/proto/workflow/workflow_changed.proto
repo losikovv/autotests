@@ -1,0 +1,174 @@
+syntax = "proto3";
+
+package workflow;
+
+option go_package = "gitlab.sbermarket.tech/paas/content/operations/workflow/pkg/server/grpc/workflow";
+
+import "workflow/workflow_enums.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+
+message WorkflowChanged {
+  // Статус маршрутного листа
+  enum Status {
+    // Новый
+    NEW = 0;
+    // В очереди
+    QUEUED = 1;
+    // В процессе
+    IN_PROGRESS = 2;
+    // Завершен
+    COMPLETED = 3;
+    // Отменен
+    CANCELED = 4;
+  }
+
+  enum WorkflowCancellationReason {
+    // Не отменен
+    NOT_CANCELED = 0;
+    // Назначение отклонено
+    ASSIGNMENT_DECLINED = 1;
+    // Отмена исполнителем
+    CANCEL_BY_PERFORMER = 2;
+    // Заказ отменен
+    ORDER_CANCELED = 3;
+    // Перенос слота доставки
+    MOVE_SLOT = 4;
+    // Не произошло назначения на исполнение
+    NOT_ASSIGNED = 5;
+    // Работы не начаты
+    NOT_STARTED = 6;
+    // Исполнитель недоступен
+    PERFORMER_NOT_AVAILABLE = 7;
+	// Отмена вручную
+    MANUAL = 8;
+    // Отменен из-за отмены родителя
+    CANCEL_BY_PARENT = 9;
+  }
+
+  // Внутренний идентификатор маршрутного листа
+  uint64 id = 1;
+  // Идентификатор исполнителя
+  string performer_uuid = 3;
+  // Статус
+  Status status = 4;
+  // Идентификатор смены
+  uint64 shift_id = 7;
+  // Дата и время планируемого начала выполнения (мин из сегментов)
+  google.protobuf.Timestamp plan_started_at = 8;
+  // Дата и время планируемого завершения выполнения (макс из сегментов)
+  google.protobuf.Timestamp plan_ended_at = 9;
+  // Планируемая геопозиция начала выполнения (мин из сегментов)
+  Location location_start = 10;
+  // Планируемая геопозиция завершения выполнения (макс из сегментов)
+  Location location_end = 11;
+  // Дата и время создания
+  google.protobuf.Timestamp created_at = 5;
+  // Дата и время обновления
+  google.protobuf.Timestamp updated_at = 6;
+  // Причина отмены
+  WorkflowCancellationReason cancellation_reason = 12;
+
+  message Shipment {
+	  string uuid = 1;
+	  bool is_delivery = 2;
+	  bool is_assembly = 3;
+  }
+
+  repeated Shipment shipments = 13;
+
+	// Состояние назначений
+	message Assignment {
+		enum Status {
+			// Новое
+			NEW = 0;
+			// Отложено
+			POSTPONED = 1;
+			// Предложено
+			OFFERED = 2;
+			// Доставлено до исполнителя
+			SEEN = 3;
+			// Принято исполнителем
+			ACCEPTED = 4;
+			// Отклонено исполнителем
+			DECLINED = 5;
+			// Отклонено по таймауту
+			TIMEOUT = 6;
+			// Отменено
+			CANCELED = 7;
+		}
+		// Внутренний идентификатор назначения
+		uint64 id = 1;
+		// Внутренний идентификатор родительского назначения для отложенной доставки
+		uint64 postponed_parent_id = 2;
+		// Идентификатор назначения (от диспатча)
+		string uuid = 13;
+		// Идентификатор родительского назначения для отложенной доставки
+		// (от диспатча)
+		string postponed_parent_uuid = 12;
+		// Идентификатор исполнителя
+		string performer_uuid = 4;
+		// Тип транспорта
+		PerformerVehicle performer_vehicle = 14;
+		// Статус
+		Status status = 5;
+		// Тип доставки
+		DeliveryType delivery_type = 11;
+		// Источник назначения
+		SourceType source_type = 17;
+		// Список заказов
+		repeated Shipment shipments = 6;
+		// Планируемая стоимость (базовая + бонус)
+		float plan_payroll = 7;
+		// Планируемая стоимость (базовая)
+		float plan_payroll_base = 15;
+		// Планируемая стоимость (бонус)
+		float plan_payroll_bonus = 16;
+		// Мета-данные - поле для публикации дополнительной информации
+		map<string, string> meta = 8;
+		// Дата и время создания
+		google.protobuf.Timestamp created_at = 9;
+		// Дата и время обновления
+		google.protobuf.Timestamp updated_at = 10;
+	}
+
+	repeated Assignment assignments = 14;
+
+	// Состояние сегментов
+	message Segment {
+		// Внутренний идентификатор сегмента
+		uint64 id = 1;
+		// Тип сегмента
+		SegmentType type = 2;
+		// Порядковый номер сегмента (начинается с 0)
+		uint32 position = 3;
+		// Список заказов
+		repeated Shipment shipments = 5;
+		// геопозиция начала сегмента
+		Location location_start = 6;
+		// Дата и время планируемого начала выполнения
+		google.protobuf.Timestamp plan_started_at = 7;
+		// Геопозиция окончания сегмента
+		Location location_end = 8;
+		// Дата и время планируемого завершения выполнения
+		google.protobuf.Timestamp plan_ended_at = 9;
+		// Дата и время фактического начала выполнения
+		google.protobuf.Timestamp fact_started_at = 10;
+		// Дата и время фактического завершения выполнения
+		google.protobuf.Timestamp fact_ended_at = 11;
+		// Последующий лаг во времени
+		google.protobuf.Duration time_lag = 12;
+		// Мета-данные - поле для публикации дополнительной информации
+		map<string, string> meta = 13;
+		// Дата и время создания
+		google.protobuf.Timestamp created_at = 14;
+		// Дата и время обновления
+		google.protobuf.Timestamp updated_at = 15;
+		// Длительность
+		google.protobuf.Duration duration = 16;
+		// Расстояние
+		uint64 distance = 17;
+	}
+
+	repeated Segment segments = 15;
+}
