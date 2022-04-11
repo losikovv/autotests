@@ -15,6 +15,7 @@ import ru.instamart.kafka.KafkaConfig;
 import ru.instamart.kafka.emum.StatusOrder;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.util.ThreadUtil;
+import workflow.AssignmentChangedOuterClass;
 
 import java.time.Duration;
 import java.util.*;
@@ -233,6 +234,47 @@ public class KafkaConsumers {
                             }
                         }
 
+                    }
+                } catch (InvalidProtocolBufferException e) {
+                    log.debug("Fail parsing kafka message. offset: {}, error: {}", record.offset(), e.getMessage());
+                }
+            }
+            if (records.count() == 0) {
+                ThreadUtil.simplyAwait(1);
+                noRecordsCount++;
+                if (noRecordsCount > giveUp) {
+                    log.debug("No records noRecordsCount: {}, giveUp: {}", noRecordsCount, giveUp);
+                    break;
+                } else continue;
+            }
+            consumer.commitAsync();
+            break;
+        }
+        log.debug("Kafka get data");
+        consumer.close();
+        Allure.addAttachment("Filter logs", result.toString());
+        Allure.addAttachment("All logs", allLogs.toString());
+        return result;
+    }
+
+    public List<AssignmentChangedOuterClass.AssignmentChanged> consumeAssignments(String workflowUuid) {
+        List<String> allLogs = new ArrayList<>();
+        final int giveUp = 100;
+        int noRecordsCount = 0;
+        List<AssignmentChangedOuterClass.AssignmentChanged> result = new ArrayList<>();
+        while (true) {
+            ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofSeconds(50));
+            for (ConsumerRecord<String, byte[]> record : records) {
+                AssignmentChangedOuterClass.AssignmentChanged parseAssignment = null;
+                try {
+                    if (record.value() != null) {
+                        parseAssignment = AssignmentChangedOuterClass.AssignmentChanged.parseFrom(record.value());
+                        log.debug("record: {}", parseAssignment.toString());
+                        allLogs.add("Time: " + getZonedDate() + "\n Message: \n" + parseAssignment);
+
+                        if (Objects.nonNull(parseAssignment) && parseAssignment.getUuid().equals(workflowUuid)) {
+                            result.add(parseAssignment);
+                        }
                     }
                 } catch (InvalidProtocolBufferException e) {
                     log.debug("Fail parsing kafka message. offset: {}, error: {}", record.offset(), e.getMessage());

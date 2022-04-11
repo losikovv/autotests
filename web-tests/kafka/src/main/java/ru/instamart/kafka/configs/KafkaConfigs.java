@@ -34,4 +34,14 @@ public class KafkaConfigs {
                 .password(Crypt.INSTANCE.decrypt("oxtATtB9KZVs9w97BTNtYg=="))
                 .build();
     }
+
+    public static KafkaConfig configWorkflowAssignment() {
+        return KafkaConfig.builder()
+                .clientId("workflow")
+                .topic("yc.workflow.fct.assignment.0")
+                .groupName("dispatch_2b4a0c6a")
+                .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lJSSvKqtRSJptikUG4rvY3LCR8s9+J8irzGI1mDV44r6"))
+                .password(Crypt.INSTANCE.decrypt("JJVKjJO54cbtp9MUf2+/Xg=="))
+                .build();
+    }
 }

@@ -122,6 +122,26 @@ task apiRisExporter(type: Test) {
     systemProperty 'qase.Title', 'Ris-Exporter API Regress'
 }
 
+task kafkaDispatch(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/dispatch.xml'
+        includeGroups 'kafka-instamart-regress'
+    }
+    systemProperty 'qase.Project', 'DSPTCH'
+    systemProperty 'qase.Title', 'On Demand. Dispatch 2.0'
+    systemProperty 'url_stf', 'stf-6.k-stage.sbermarket.tech'
+    systemProperty 'url_shp', 'shp-6.k-stage.sbermarket.tech'
+}
+
+task apiDispatchWorkflow(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/suite/dispatch.xml'
+        includeGroups 'dispatch-workflow-regress'
+    }
+    systemProperty 'qase.Project', 'ODW'
+    systemProperty 'qase.Title', 'Dispatch Workflow Regress'
+}
+
 task localRun(type: Test) {
     useTestNG() {
         options {

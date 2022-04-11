@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package workflow;
+option go_package = "gitlab.sbermarket.tech/paas/content/operations/workflow/pkg/server/grpc/workflow";
+
+import "workflow/workflow_enums.proto";
+import "google/protobuf/timestamp.proto";
+
+message AssignmentChanged {
+  enum Status {
+    // Новое
+    NEW = 0;
+    // Отложено
+    POSTPONED = 1;
+    // Предложено
+    OFFERED = 2;
+    // Доставлено до исполнителя
+    SEEN = 3;
+    // Принято исполнителем
+    ACCEPTED = 4;
+    // Отклонено исполнителем
+    DECLINED = 5;
+    // Отклонено по таймауту
+    TIMEOUT = 6;
+    // Отменено
+    CANCELED = 7;
+  }
+  // Внутренний идентификатор назначения
+  uint64 id = 1;
+  // Внутренний идентификатор родительского назначения для отложенной доставки
+  uint64 postponed_parent_id = 2;
+  // Идентификатор назначения
+  string uuid = 13;
+  // Идентификатор родительского назначения для отложенной доставки
+  string postponed_parent_uuid = 12;
+  // Внутренний идентификатор маршрутного листа
+  uint64 workflow_id = 3;
+  // Идентификатор исполнителя
+  string performer_uuid = 4;
+  // Тип транспорта
+  PerformerVehicle performer_vehicle = 14;
+  // Статус
+  Status status = 5;
+  // Тип доставки
+  DeliveryType delivery_type = 11;
+  // Источник назначения
+  SourceType source_type = 17;
+  // Список заказов
+  repeated Shipment shipments = 6;
+  // Планируемая стоимость (базовая + бонус)
+  float plan_payroll = 7;
+  // Планируемая стоимость (базовая)
+  float plan_payroll_base = 15;
+  // Планируемая стоимость (бонус)
+  float plan_payroll_bonus = 16;
+  // Мета-данные - поле для публикации дополнительной информации
+  map<string, string> meta = 8;
+  // Дата и время создания
+  google.protobuf.Timestamp created_at = 9;
+  // Дата и время обновления
+  google.protobuf.Timestamp updated_at = 10;
+}

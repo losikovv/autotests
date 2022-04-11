@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package workflow;
+
+option go_package = "gitlab.sbermarket.tech/paas/content/operations/workflow/pkg/server/grpc/workflow";
+
+// Ответ на запрос внешней доставки
+message ExternalDeliveryChanged {
+  // Статус
+  enum Status {
+    // Заказ доставки отклонен
+    REJECTED = 0;
+    // Заказ доставки принят
+    CONFIRMED = 1;
+    // Заказ доставки завершен
+    COMPLETED = 2;
+  }
+  // Идентификатор назначения от диспатча
+  string uuid = 1;
+  // Идентификатор заказа, для которого требуется внешняя доставка
+  string shipment_uuid = 2;
+  // Статус
+  Status status = 3;
+}

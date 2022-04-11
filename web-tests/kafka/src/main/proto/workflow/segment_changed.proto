@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package workflow;
+
+option go_package = "gitlab.sbermarket.tech/paas/content/operations/workflow/pkg/server/grpc/workflow";
+
+import "workflow/workflow_enums.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+
+message SegmentChanged {
+  // Внутренний идентификатор сегмента
+  uint64 id = 1;
+  // Тип сегмента
+  SegmentType type = 2;
+  // Порядковый номер сегмента (начинается с 0)
+  uint32 position = 3;
+  // Внутренний идентификатор маршрутного листа
+  uint64 workflow_id = 4;
+  // Список заказов
+  repeated Shipment shipments = 5;
+  // геопозиция начала сегмента
+  Location location_start = 6;
+  // Дата и время планируемого начала выполнения
+  google.protobuf.Timestamp plan_started_at = 7;
+  // Геопозиция окончания сегмента
+  Location location_end = 8;
+  // Дата и время планируемого завершения выполнения
+  google.protobuf.Timestamp plan_ended_at = 9;
+  // Дата и время фактического начала выполнения
+  google.protobuf.Timestamp fact_started_at = 10;
+  // Дата и время фактического завершения выполнения
+  google.protobuf.Timestamp fact_ended_at = 11;
+  // Последующий лаг во времени
+  google.protobuf.Duration time_lag = 12;
+  // Мета-данные - поле для публикации дополнительной информации
+  map<string, string> meta = 13;
+  // Дата и время создания
+  google.protobuf.Timestamp created_at = 14;
+  // Дата и время обновления
+  google.protobuf.Timestamp updated_at = 15;
+  // Длительность
+  google.protobuf.Duration duration = 16;
+  // Расстояние
+  uint64 distance = 17;
+}

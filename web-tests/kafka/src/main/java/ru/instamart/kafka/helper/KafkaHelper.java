@@ -10,13 +10,13 @@ import ru.instamart.kafka.KafkaConfig;
 import ru.instamart.kafka.consumer.KafkaConsumers;
 import ru.instamart.kafka.emum.StatusOrder;
 import ru.instamart.kafka.producer.KafkaProducers;
+import workflow.AssignmentChangedOuterClass;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.testng.Assert.assertTrue;
-import static ru.instamart.kafka.configs.KafkaConfigs.configCmdOrderEnrichment;
-import static ru.instamart.kafka.configs.KafkaConfigs.configCmdStatusOrderRequest;
+import static ru.instamart.kafka.configs.KafkaConfigs.*;
 
 public class KafkaHelper {
 
@@ -84,5 +84,14 @@ public class KafkaHelper {
         kafkaConsumers.close();
         assertTrue(longEventOrderHashMap.size() > 0, "Logs is empty");
         return longEventOrderHashMap;
+    }
+
+    @Step("Получаем данных кафки о назначения по uuid workflow: {uuid}")
+    public List<AssignmentChangedOuterClass.AssignmentChanged> waitDataInKafkaTopicWorkflowAssignment(String uuid) {
+        var kafkaConsumers = new KafkaConsumers(configWorkflowAssignment(), 10L);
+        List<AssignmentChangedOuterClass.AssignmentChanged> longAssignmentsHashMap = kafkaConsumers.consumeAssignments(uuid);
+        kafkaConsumers.close();
+        assertTrue(longAssignmentsHashMap.size() > 0, "Logs is empty");
+        return longAssignmentsHashMap;
     }
 }
