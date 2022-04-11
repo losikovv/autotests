@@ -50,7 +50,7 @@ public class ExternalPartnersV2Test extends RestBase {
     public void getInactiveSubscription() {
         final Response response = ExternalPartnersV2Request.Services.GET();
         checkStatusCode200(response);
-        checkExternalPartnersServices(response, false, "Бесплатная доставка");
+        checkExternalPartnersServices(response, false, "3 бесплатные доставки");
     }
 
     @CaseId(1086)

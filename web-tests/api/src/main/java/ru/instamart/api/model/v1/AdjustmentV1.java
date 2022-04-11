@@ -47,19 +47,19 @@ public class AdjustmentV1 extends BaseObject {
     private String originatorType;
 
     @Null
-    @JsonSchema(required = true)
     @JsonProperty("promotion_code")
     private Object promotionCode;
 
+    @Null
     @JsonSchema(required = true)
     @JsonProperty("source_id")
     private Integer sourceId;
 
+    @Null
     @JsonSchema(required = true)
     @JsonProperty("source_type")
     private String sourceType;
 
-    @JsonSchema(required = true)
     private String state;
 
     @JsonSchema(required = true)

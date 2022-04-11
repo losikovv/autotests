@@ -222,7 +222,7 @@ public class ShoppersEventsV1Tests extends RestBase {
         final Response response = EventsV1Request.Assembly.Updated.POST(eventData);
         checkStatusCode(response, 202);
 
-        ThreadUtil.simplyAwait(2);
+        ThreadUtil.simplyAwait(3);
         SpreeShipmentsEntity updatedShipment = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber());
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(updatedShipment.getState(), StateV2.COLLECTING.getValue(), softAssert);
