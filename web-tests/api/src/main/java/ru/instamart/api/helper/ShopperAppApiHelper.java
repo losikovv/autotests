@@ -245,14 +245,6 @@ public class ShopperAppApiHelper {
         checkStatusCode200(response);
     }
 
-//    public void changeStateReadyToGo(){
-//        PodsProps podsProps = PodsProps.builder()
-//                .nameSpace("paas-content-operations-shifts")
-//                .label("app=postgres")
-//                .remotePort(5432)
-//                .build();
-//    }
-
     /**
      * Простая сборка заказа с генерацией фискального номера чека
      */
