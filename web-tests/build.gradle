@@ -204,6 +204,7 @@ project(":jdbc") {
         implementation lib.common
 
         implementation lib.lombok
+        implementation lib.kubernetesClient
         implementation lib.jacksonAnnotations
         implementation lib.jackson
         implementation lib.logback

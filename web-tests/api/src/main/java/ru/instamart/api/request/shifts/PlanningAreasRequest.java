@@ -1,4 +1,4 @@
-package ru.instamart.api.model.shifts;
+package ru.instamart.api.request.shifts;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;

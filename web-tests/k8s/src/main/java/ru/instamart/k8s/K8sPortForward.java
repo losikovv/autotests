@@ -3,9 +3,8 @@ package ru.instamart.k8s;
 import io.kubernetes.client.PortForward;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.models.V1PodList;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
-import ru.instamart.k8s.model.PodsProps;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.io.IOException;
@@ -21,6 +20,7 @@ public final class K8sPortForward {
     private static volatile K8sPortForward INSTANCE;
     private static PortForward.PortForwardResult k8sConnectMySql;
     private static PortForward.PortForwardResult k8sConnectPgSql;
+    private static PortForward.PortForwardResult k8sConnectPgSqlStage;
 
     private K8sPortForward() {
     }
@@ -69,15 +69,18 @@ public final class K8sPortForward {
         }
     }
 
-    public PortForward.PortForwardResult portForwardPgSQL(@NotNull PodsProps podsProps, final int localPort) {
-        if (Objects.isNull(k8sConnectPgSql)) {
+    public PortForward.PortForwardResult portForwardPgSQLService() {
+        if (Objects.isNull(k8sConnectPgSqlStage)) {
+            String label = "statefulset.kubernetes.io/pod-name=postgresql-0";
+            int targetPort = 5432;
+            int localPort = 5432; //ServiceHelper.INSTANCE.getFreePort();
             try {
-                V1PodList podList = getPodList(podsProps.getNameSpace(), podsProps.getLabel());
-                k8sConnectPgSql = getK8sPortForward(podsProps.getNameSpace(), podList.getItems().get(0).getMetadata().getName(),
-                        localPort, podsProps.getRemotePort());
-                return k8sConnectPgSql;
+                V1PodList podList = getPodList(EnvironmentProperties.SERVICE, label);
+                k8sConnectPgSqlStage = getK8sPortForward(EnvironmentProperties.SERVICE, podList.getItems().get(0).getMetadata().getName(),
+                        localPort, targetPort);
+                return k8sConnectPgSqlStage;
             } catch (IOException | ApiException e) {
-                fail("Ошибка проброса порта " + localPort + ":" + podsProps.getRemotePort() + " до пода. Error: " + e.getMessage());
+                fail("Ошибка проброса порта " + localPort + ":" + targetPort + " до пода. Error: " + e.getMessage());
             }
         }
         return null;

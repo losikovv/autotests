@@ -1,4 +1,4 @@
-package ru.instamart.api.model.shifts;
+package ru.instamart.api.request.shifts;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -50,6 +50,9 @@ public class ShiftsRequest extends ShiftsRequestBase {
             body.put("latitude", lat);
             return givenWithAuth()
                     .body(body)
+                    .contentType(ContentType.JSON)
+                    .log()
+                    .all()
                     .patch(ShiftsV1Endpoints.Shifts.START, id);
         }
     }
