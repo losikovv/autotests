@@ -115,7 +115,7 @@ public interface CompanyCheck extends Check, CompanyElement {
 
     @Step("Проверяем, что договор действующий")
     default void checkContractNotInArchive() {
-        waitAction().shouldBeVisible(archiveLabel);
+        waitAction().shouldNotBeVisible(archiveLabel);
     }
 
     @Step("Проверяем, что договор переведен в архив")

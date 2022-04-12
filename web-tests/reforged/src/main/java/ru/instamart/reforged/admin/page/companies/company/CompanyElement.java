@@ -21,7 +21,7 @@ public interface CompanyElement {
     Button confirmActionModalCancel = new Button(By.xpath("//div[@class='ant-popover-buttons']/button[contains(.,'Отмена')]"), "Кнопка 'Отмена' всплывающего подтвержения");
     Button confirmActionModalYes = new Button(By.xpath("//div[contains(@class,'ant-popover ')][not(contains(@class,'hidden'))]//button[contains(.,'Да')]"), "Кнопка 'Да' всплывающего подтверждения");
     Button confirmActionModalNo = new Button(By.xpath("//div[contains(@class,'ant-popover ')][not(contains(@class,'hidden'))]//button[contains(.,'Нет')]"), "Кнопка 'Нет' всплывающего подтверждения");
-    Element noticePopup = new Element(By.xpath("//div[@class='ant-message-notice']"), "Всплывающее уведомение о выполнении операции");
+    Element noticePopup = new Element(By.xpath("//div[@class='ant-message-notice-content']"), "Всплывающее уведомение о выполнении операции");
 
     //Статус
     Button confirmStatus = new Button(By.xpath("//div[./label[@title='Статус']]/following-sibling::div//button"), "Кнопка 'Подтвердить статус'");
