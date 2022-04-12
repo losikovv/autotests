@@ -58,7 +58,7 @@ public class ShipmentReturnsV1Test extends RestBase {
 
     @Skip(onServer = Server.STAGING)
     @CaseId(2311)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-regress"}, enabled = false, //TODO: нужно расхардкодить
             description = "Полный возврат средств за заказ включая доставку и сборку на стр. возвратов (sberpayments)")
     public void postShipmentReturns() {
         var body = ShipmentReturnsAdminV1Request.ShipmentReturnRequest

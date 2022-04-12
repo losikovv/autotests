@@ -88,9 +88,10 @@ public class OperationalZonesV1Test extends RestBase {
     @Test(description = "Редактирование региона с некорректным названием",
             groups = {"api-instamart-regress"},
             dataProviderClass = RestDataProvider.class,
-            dataProvider = "negativeOperationalZonesNames")
+            dataProvider = "negativeOperationalZonesNames",
+            dependsOnMethods = "createOperationalZone")
     public void updateOperationalZoneWithWrongName(Integer statusCode, String name) {
-        Response response = OperationalZonesV1Request.PUT(1, name);
+        Response response = OperationalZonesV1Request.PUT(zoneId, name);
 
         checkStatusCode(response, statusCode);
     }
