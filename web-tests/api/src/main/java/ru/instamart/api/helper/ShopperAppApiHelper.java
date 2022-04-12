@@ -11,9 +11,9 @@ import ru.instamart.api.enums.shopper.AssemblyStateSHP;
 import ru.instamart.api.enums.shopper.PackageSetLocationSHP;
 import ru.instamart.api.enums.shopper.RoleSHP;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.model.shifts.PlanningAreasRequest;
-import ru.instamart.api.model.shifts.RegionsRequest;
-import ru.instamart.api.model.shifts.ShiftsRequest;
+import ru.instamart.api.request.shifts.PlanningAreasRequest;
+import ru.instamart.api.request.shifts.RegionsRequest;
+import ru.instamart.api.request.shifts.ShiftsRequest;
 import ru.instamart.api.model.shopper.admin.ShipmentsItemSHP;
 import ru.instamart.api.model.shopper.app.*;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
@@ -210,15 +210,15 @@ public class ShopperAppApiHelper {
     public PlanningAreaShiftsItemSHPResponse getPlanningArea() {
         final Response response = RegionsRequest.GET(currentRegion.get());
         checkStatusCode200(response);
-        PlanningAreaShiftsItemSHPResponse[] planningAreaShifts = response.getBody().as(PlanningAreaShiftsItemSHPResponse[].class);
-        planningArea.set(planningAreaShifts[0].getId());
-        return planningAreaShifts[0];
+        var planningAreaShifts = Arrays.asList(response.getBody().as(PlanningAreaShiftsItemSHPResponse[].class));
+        var planningAreaShiftsItem = planningAreaShifts.get(0);
+        planningArea.set(planningAreaShiftsItem.getId());
+        return planningAreaShiftsItem;
     }
 
     @Step("Перечень периодов планирования области планирования.")
     public  List<PlanningPeriodsSHPResponse> getPlanningPeriod() {
         final Response response = PlanningAreasRequest.GET(planningArea.get(), RoleSHP.UNIVERSAL);
-        response.prettyPeek();
         checkStatusCode200(response);
         return Arrays.asList(response.as(PlanningPeriodsSHPResponse[].class));
     }
@@ -236,14 +236,12 @@ public class ShopperAppApiHelper {
                 )
                 .build();
         final Response response = ShiftsRequest.POST(postShift);
-        response.prettyPeek();//TODO
         checkStatusCode(response, 201);
     }
 
     @Step("Активация смены партнера Универсала")
     public void activateShiftsPartner(StartPointsTenants startPointsTenants) {
         final Response response = ShiftsRequest.Start.PATCH(planningPeriodId.get(), startPointsTenants.getLat(), startPointsTenants.getLon());
-        response.prettyPeek(); //todo
         checkStatusCode200(response);
     }
 

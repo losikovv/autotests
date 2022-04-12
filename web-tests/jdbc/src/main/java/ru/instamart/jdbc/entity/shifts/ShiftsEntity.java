@@ -3,7 +3,7 @@ package ru.instamart.jdbc.entity.shifts;
 import lombok.Data;
 
 @Data
-public class ShiftsEntry {
+public class ShiftsEntity {
     private Long id;
     private String created_at;
     private String updated_at;

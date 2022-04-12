@@ -1,7 +1,7 @@
 package ru.instamart.jdbc.dao.shifts;
 
 import ru.instamart.jdbc.dao.AbstractDao;
-import ru.instamart.jdbc.entity.shifts.ShiftsEntry;
+import ru.instamart.jdbc.entity.shifts.ShiftsEntity;
 import ru.instamart.jdbc.util.ConnectionPgSQLManager;
 
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 import static org.testng.Assert.fail;
 
-public class ShiftsDao extends AbstractDao<Long, ShiftsEntry> {
+public class ShiftsDao extends AbstractDao<Long, ShiftsEntity> {
     public static final ShiftsDao INSTANCE = new ShiftsDao();
     private static final String SQL_UPDATE_READY_TO_START = "UPDATE shifts SET state='ready_to_start' WHERE id=?";
 

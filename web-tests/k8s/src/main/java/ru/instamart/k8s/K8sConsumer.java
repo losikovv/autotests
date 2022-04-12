@@ -75,7 +75,7 @@ public class K8sConsumer {
             return K8sConfig.getInstance().getCoreV1Api().listNamespacedPod(namespace, null, null, null,
                     null, labelSelector, null, null, null, null, null);
         } catch (ApiException | IOException e) {
-            throw new RuntimeException("Не получилось вызвать api k8s");
+            throw new RuntimeException("Не получилось вызвать api k8s: " + e.getMessage());
         }
     }
 

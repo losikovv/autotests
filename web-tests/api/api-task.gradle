@@ -130,6 +130,8 @@ task apShftsSmoke(type: Test) {
     }
     systemProperty 'qase.Project', 'ODFS'
     systemProperty 'qase.Title', 'Shifts API Smoke'
+    systemProperty 'url_stf', 'stf-6.k-stage.sbermarket.tech'
+    systemProperty 'url_shp', 'shp-6.k-stage.sbermarket.tech'
 }
 
 task kafkaDispatch(type: Test) {

@@ -7,7 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import ru.instamart.api.helper.*;
 import ru.instamart.grpc.helper.GrpcHelper;
-import ru.instamart.jdbc.dao.SpreeUsersDao;
+import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 import ru.instamart.kafka.helper.KafkaHelper;
 import ru.instamart.kafka.helper.LogHelper;
 import ru.instamart.kraken.config.EnvironmentProperties;
