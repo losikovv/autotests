@@ -58,6 +58,7 @@ project(":kraken") {
         implementation lib.testng
         implementation lib.jsonSimple
         implementation lib.jackson
+        implementation lib.aspectjweaver
         implementation lib.allureTestng
         implementation lib.allureJavaCommons
         implementation lib.pgsqlJDBC
