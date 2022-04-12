@@ -90,6 +90,14 @@ public final class WaitAction {
                 });
     }
 
+    public void isElementsShouldNotBeExist(final Component component) {
+        createWait(component)
+                .until((ExpectedCondition<Boolean>) driver -> {
+                    final List<WebElement> webElements = driver.findElements(component.getBy());
+                    return webElements.size() == 0;
+                });
+    }
+
     public void elementSelectCheckboxState(final WebElement element, final boolean selected) {
         createWait(WaitProperties.BASIC_TIMEOUT, "Состояние чекбокса, отличается от ожидаемого")
                 .until(KrakenCondition.elementSelectCheckboxState(element, selected));

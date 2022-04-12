@@ -55,6 +55,7 @@ public interface HeaderElement {
     Link showAllResults = new Link(By.xpath("//a[@data-qa='suggester_header_show_all_link']"), "Кнопка 'Показать все ХХ результаты'");
 
     Element alert = new Element(By.xpath("//div[@class='alert alert--error']"), "Тултип-сообщение об ошибке");
+    ElementCollection alerts = new ElementCollection(By.xpath("//div[@class='alert alert--error']"), "Тултипы-сообщений об ошибке");
     Element minAmountAlert = new Element(By.xpath("//div[@class='alerts']//div[contains(@class, 'alert--error')]"), "Алерт минимальной суммы заказа в шапке");
     Element authOrRegAlert = new Element(By.xpath("//div[@class='alerts']//span[contains(text(), 'войти или зарегистрироваться')]"), "Алерт регистрации или авторизации в шапке");
 

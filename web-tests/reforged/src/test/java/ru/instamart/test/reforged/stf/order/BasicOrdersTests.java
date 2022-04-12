@@ -473,16 +473,8 @@ public final class BasicOrdersTests extends BaseTest {
 
         helper.dropAndFillCart(userData, EnvironmentProperties.DEFAULT_SID);
 
-        company = JuridicalData.juridical();
-
-        shop().goToPage();
-
         checkout().goToPage();
         checkout().setDeliveryOptions().clickToForBusiness();
-        checkout().setDeliveryOptions().clickToAddCompany();
-
-        checkout().interactAddCompanyModal().fillCompany(company);
-        checkout().interactAddCompanyModal().clickToOkButton();
 
         checkout().setDeliveryOptions().fillApartment(company.getJuridicalAddress());
         checkout().setDeliveryOptions().clickToSubmitForDelivery();
@@ -497,7 +489,6 @@ public final class BasicOrdersTests extends BaseTest {
         checkout().setSlot().setLastActiveSlot();
 
         checkout().setPayment().clickToByCardOnline();
-
         checkout().setPayment().clickToSubmitFromCheckoutColumn();
 
         userShipments().checkPageContains(userShipments().pageUrl());
