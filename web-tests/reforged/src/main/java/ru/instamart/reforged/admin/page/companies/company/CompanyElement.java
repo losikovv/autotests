@@ -15,10 +15,12 @@ public interface CompanyElement {
     Button buttonEditCompanyName = new Button(By.xpath("//div/label[text()='Название']/../..//span[@aria-label='edit']"), "кнопка редактирования имени компании");
     Input editCompanyName = new Input(By.xpath("//input[@placeholder='Название компании']"), "поле для ввода имени компании");
 
-    Element confirmActionModal = new Element(By.xpath("//div[@class='ant-popover-inner']"), "Всплывающее окно подтверждения действия");
-    Element confirmActionModalText = new Element(By.xpath("//div[@class='ant-popover-message']"), "Сообщение во всплывающем окне подтверждения действия");
+    Element confirmActionModal = new Element(By.xpath("//div[contains(@class,'ant-popover ')][not(contains(@class,'hidden'))]//div[@class='ant-popover-inner']"), "Всплывающее окно подтверждения действия");
+    Element confirmActionModalText = new Element(By.xpath("//div[contains(@class,'ant-popover ')][not(contains(@class,'hidden'))]//div[@class='ant-popover-message']"), "Сообщение во всплывающем окне подтверждения действия");
     Button confirmActionModalOk = new Button(By.xpath("//div[@class='ant-popover-buttons']/button[contains(.,'OK')]"), "Кнопка 'OK' всплывающего подтверждения");
     Button confirmActionModalCancel = new Button(By.xpath("//div[@class='ant-popover-buttons']/button[contains(.,'Отмена')]"), "Кнопка 'Отмена' всплывающего подтвержения");
+    Button confirmActionModalYes = new Button(By.xpath("//div[contains(@class,'ant-popover ')][not(contains(@class,'hidden'))]//button[contains(.,'Да')]"), "Кнопка 'Да' всплывающего подтверждения");
+    Button confirmActionModalNo = new Button(By.xpath("//div[contains(@class,'ant-popover ')][not(contains(@class,'hidden'))]//button[contains(.,'Нет')]"), "Кнопка 'Нет' всплывающего подтверждения");
     Element noticePopup = new Element(By.xpath("//div[@class='ant-message-notice']"), "Всплывающее уведомение о выполнении операции");
 
     //Статус
@@ -35,4 +37,18 @@ public interface CompanyElement {
     ElementCollection companyEmployees = new ElementCollection(By.xpath("//div[@data-qa='company_page_employees']//li[contains(@class,'ant-list-item')]"), "Представители");
     ElementCollection companyEmployeeConfirmButtons = new ElementCollection(By.xpath("(//div[@data-qa='company_page_employees']//li[contains(@class,'ant-list-item')]//button)[1]"), "Кнопки 'Подтвердить' (представителя)");
     ElementCollection companyEmployeeDeleteButtons = new ElementCollection(By.xpath("(//div[@data-qa='company_page_employees']//li[contains(@class,'ant-list-item')]//button)[2]"), "Кнопки 'Удалить' (представителя)");
+
+    //Договора
+    Button addContract = new Button(By.xpath("//div[@data-qa='company_page_contracts']//button[contains(.,'Добавить договор')]"), "Кнопка 'Добавить договор'");
+    ElementCollection contracts = new ElementCollection(By.xpath("//div[@data-qa='company_page_contracts']/form"), "Добавленные договора");
+    Element contractNumber = new Element(By.xpath("//div[@data-qa='company_page_contracts']/form//span[@class='ant-typography']"), "Номер договора");
+    Element contractDate = new Element(By.xpath("//div[@data-qa='company_page_contracts']/form//div[@class='ant-form-item-control-input-content'][not(./span)][not(.//button)]"), "Дата договора");
+    Element archiveLabel = new Element(By.xpath("//div[@data-qa='company_page_contracts']/form//span[@class='ant-tag'][contains(.,'Архив')]"), "отметка 'Архив'");
+    Button saveContract = new Button(By.xpath("//div[@data-qa='company_page_contracts']/form//button[@title='Сохранить']"), "Кнопка 'Сохранить'");
+    Button editContract = new Button(By.xpath("//div[@data-qa='company_page_contracts']/form//button[not(@title)]"), "Кнопка 'Редактирование'");
+    Button deleteContract = new Button(By.xpath("//div[@data-qa='company_page_contracts']/form//button[@title='Архивация']"), "Кнопка 'Архивация'");
+    Button cancelEdit = new Button(By.xpath("//div[@data-qa='company_page_contracts']/form//button[@title='Отмена']"), "Кнопка 'Отмена'");
+    Input contractNumberInput = new Input(By.xpath("//div[@data-qa='company_page_contracts']/form//input[@placeholder='Номер договора']"), "Инпут номера договора");
+    Input contractDateInput = new Input(By.xpath("//div[@data-qa='company_page_contracts']/form//input[@placeholder='Дата подписания']"), "Инпут даты подписания договора");
+    Button calendarToday = new Button(By.xpath("//a[@class='ant-picker-today-btn']"), "Кнопка 'Сегодня' календаря");
 }
