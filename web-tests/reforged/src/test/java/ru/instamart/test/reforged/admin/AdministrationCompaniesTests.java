@@ -459,7 +459,6 @@ public final class AdministrationCompaniesTests extends BaseTest {
         company().checkCompanyEmployeesListSize(1);
     }
 
-
     @CaseId(490)
     @Test(description = "Тест удаление договора", groups = {"regression"})
     public void testDeleteContract() {
@@ -491,6 +490,8 @@ public final class AdministrationCompaniesTests extends BaseTest {
         company().checkConfirmActionModalDisplayed();
         company().clickConfirmStatusModalYes();
 
+        company().checkNoticePopupDisplayed();
+        company().checkNoticeTextEquals("Договор успешно создан!");
         company().checkNoticePopupNotDisplayed();
 
         company().checkContractsCount(1);
