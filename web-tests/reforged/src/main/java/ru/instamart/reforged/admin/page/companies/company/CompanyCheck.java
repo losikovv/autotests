@@ -127,4 +127,14 @@ public interface CompanyCheck extends Check, CompanyElement {
     default void checkCalendarVisible() {
         waitAction().shouldBeVisible(calendarToday);
     }
+
+    @Step("Проверяем, что текущий баланс равен: '{expectedBalance}'")
+    default void checkCurrentBalance(final String expectedBalance) {
+        Assert.assertEquals(currentBalance.getText(), expectedBalance, "Текущий баланс на счёте отличается от ожидаемого");
+    }
+
+    @Step("Проверяем, что дата обновления баланса содержит: '{expectedRefreshDateTime}'")
+    default void checkBalanceRefreshDateTime(final String expectedRefreshDateTime) {
+        Assert.assertTrue(refreshBalanceDateTime.getText().contains(expectedRefreshDateTime), String.format("Данные об обновлении баланса: '%s' отличаются от ожидаемых", refreshBalanceDateTime.getText()));
+    }
 }

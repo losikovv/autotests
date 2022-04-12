@@ -51,4 +51,12 @@ public interface CompanyElement {
     Input contractNumberInput = new Input(By.xpath("//div[@data-qa='company_page_contracts']/form//input[@placeholder='Номер договора']"), "Инпут номера договора");
     Input contractDateInput = new Input(By.xpath("//div[@data-qa='company_page_contracts']/form//input[@placeholder='Дата подписания']"), "Инпут даты подписания договора");
     Button calendarToday = new Button(By.xpath("//a[@class='ant-picker-today-btn']"), "Кнопка 'Сегодня' календаря");
+
+    //Баланс
+    Element currentBalance = new Element(By.xpath("//button[@aria-label='Обновить баланс компании']/../../div//span[@class='ant-typography']"), "Текущий баланс");
+    Element refreshBalanceDateTime = new Element(By.xpath("//button[@aria-label='Обновить баланс компании']/../../div//span[contains(@class,'ant-typography-secondary')]"), "Дата и время обновления баланса");
+    Button balanceRefresh = new Button(By.xpath("//button[@aria-label='Обновить баланс компании']"), "Кнопка 'Обновить баланс'");
+
+    //Код безопасности
+    Button refreshSecurityCode = new Button(By.xpath("//button[@aria-label='Обновить код безопасности']"), "Кнопка 'Обновить код безопасности'");
 }

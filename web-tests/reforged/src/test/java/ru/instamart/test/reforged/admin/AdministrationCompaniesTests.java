@@ -340,6 +340,83 @@ public final class AdministrationCompaniesTests extends BaseTest {
         company().checkNoticeTextEquals("Уже имеется активный договор");
     }
 
+
+    @CaseId(483)
+    @Test(description = "Тест обновление баланса (положительный баланс)", groups = {"regression"})
+    public void testBalanceRefreshPositiveBalance() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        companies().goToPage();
+        companies().fillInn("8733270179");
+        companies().clickToSearch();
+
+        companies().checkCompaniesVisible();
+
+        companies().goToFirstCompanyEdit();
+        company().checkCompanyPageVisible();
+
+        company().checkCurrentBalance("10 500,00 ₽");
+
+        company().clickRefreshBalance();
+        company().checkNoticePopupDisplayed();
+        company().checkNoticeTextEquals("Баланс обновлен");
+        company().checkBalanceRefreshDateTime("Дата обновления:" + TimeUtil.getDateTimeViaSlash());
+    }
+
+    @CaseId(483)
+    @Test(description = "Тест обновление баланса (отрицательный баланс)", groups = {"regression"})
+    public void testBalanceRefreshNegativeBalance() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        companies().goToPage();
+        companies().fillInn("4727666224");
+        companies().clickToSearch();
+
+        companies().checkCompaniesVisible();
+
+        companies().goToFirstCompanyEdit();
+        company().checkCompanyPageVisible();
+
+        company().checkCurrentBalance("-10 500,00 ₽");
+
+        company().clickRefreshBalance();
+        company().checkNoticePopupDisplayed();
+        company().checkNoticeTextEquals("Баланс обновлен");
+        company().checkBalanceRefreshDateTime("Дата обновления:" + TimeUtil.getDateTimeViaSlash());
+    }
+
+    @CaseId(484)
+    @Test(description = "Тест обновление кода безопасности", groups = {"regression"})
+    public void testSecurityCodeRefresh() {
+        var userData = UserManager.getQaUser();
+        var company = JuridicalData.juridical();
+        helper.addCompanyForUser(company.getInn(), company.getJuridicalName(), userData.getEmail());
+
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        companies().goToPage();
+        companies().fillInn(company.getInn());
+        companies().clickToSearch();
+
+        companies().checkCompaniesVisible();
+
+        companies().goToFirstCompanyEdit();
+        company().checkCompanyPageVisible();
+
+        company().clickRefreshSecurityCode();
+        company().checkConfirmActionModalDisplayed();
+        company().checkConfirmActionModalTextEquals("Вы уверены, что хотите обновить код безопасности?");
+        company().clickConfirmStatusModalOk();
+
+        company().checkNoticePopupDisplayed();
+        company().checkNoticeTextEquals("Код безопасности обновлен");
+
+        //TODO Добавить проверку отправленного письма после выполнения https://jira.sbmt.io/browse/INFRADEV-8877
+    }
+
     @CaseId(485)
     @Test(description = "Тест работа кнопки 'Подтвердить компанию'", groups = {"regression"})
     public void testConfirmCompany() {
