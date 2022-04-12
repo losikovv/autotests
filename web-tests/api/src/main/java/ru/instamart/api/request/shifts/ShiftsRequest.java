@@ -51,8 +51,6 @@ public class ShiftsRequest extends ShiftsRequestBase {
             return givenWithAuth()
                     .body(body)
                     .contentType(ContentType.JSON)
-                    .log()
-                    .all()
                     .patch(ShiftsV1Endpoints.Shifts.START, id);
         }
     }
