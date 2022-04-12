@@ -7,6 +7,7 @@ import javax.validation.constraints.Null;
 
 public class Attributes{
 
+	@Null
 	@JsonProperty("logisticVolume")
 	private String logisticVolume;
 

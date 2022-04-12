@@ -130,7 +130,7 @@ public class UsersShipmentsV1Tests extends RestBase {
         changeToShip(shipmentNumber);
         final Response response = UsersV1Request.GET(user.getId(), shipmentNumber);
         checkStatusCode200(response);
-        checkUserShipmentFromResponse(response, order, user, StateV2.SHIPPED.getValue(), "Задерживаемся, но очень торопимся");
+        checkUserShipmentFromResponse(response, order, user, StateV2.SHIPPED.getValue(), null);
     }
 
     @Story("Заказы пользователя")

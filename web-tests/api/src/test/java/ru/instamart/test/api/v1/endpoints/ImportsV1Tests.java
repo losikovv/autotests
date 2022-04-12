@@ -571,6 +571,7 @@ public class ImportsV1Tests extends RestBase {
             StoresDao.INSTANCE.delete(storeId);
             StoreConfigsDao.INSTANCE.deleteByStoreId(storeId);
             StoresTenantsDao.INSTANCE.deleteStoreTenantByStoreId(storeId);
+            PaymentMethodStoresDao.INSTANCE.deletePaymentMethodByStoreId(storeId);
         }
         ImagesDraftsDao.INSTANCE.deleteImagesByName("13626");
     }

@@ -597,6 +597,8 @@ public final class ApiHelper {
 
         StoreZonesDao.INSTANCE.deleteStoreZoneByStoreId(storeId);
 
+        PaymentMethodStoresDao.INSTANCE.deletePaymentMethodByStoreId(storeId);
+
         OffersDao.INSTANCE.deleteByStoreId(storeId);
         PricesDao.INSTANCE.deletePriceByStoreId(storeId);
     }

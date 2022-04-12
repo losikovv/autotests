@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.request.admin.StoresAdminRequest;
+import ru.instamart.jdbc.dao.PaymentMethodStoresDao;
 import ru.instamart.jdbc.dao.StoreConfigsDao;
 import ru.instamart.jdbc.dao.StoresDao;
 import ru.instamart.jdbc.entity.StoreConfigsEntity;
@@ -90,6 +91,7 @@ public class StoresAdminTest extends RestBase {
         if(Objects.nonNull(id)) {
             StoresDao.INSTANCE.delete(id);
             StoreConfigsDao.INSTANCE.deleteByStoreId(id);
+            PaymentMethodStoresDao.INSTANCE.deletePaymentMethodByStoreId(id);
         }
     }
 }

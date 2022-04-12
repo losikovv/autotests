@@ -2,6 +2,7 @@ package ru.instamart.test.api.v2.endpoints;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeClass;
@@ -687,9 +688,10 @@ public class OrdersV2Test extends RestBase {
         checkError(response, "Этот заказ можно оплатить бонусами до 0 ₽");
     }
 
+    @Issue("B2C-8558")
     @CaseId(835)
     @Story("Бонусы спасибо")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, enabled = false,
             description = "Получение информации о возможности оплатить бонусами")
     public void getSpasiboInfo() {
         final Response response = OrdersV2Request.SpasiboInfo.GET(apiV2.getCurrentOrderNumber());
