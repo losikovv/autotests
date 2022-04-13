@@ -94,7 +94,8 @@ public class CreditCardsV2Test extends RestBase {
     @Issue("STF-6633")
     @CaseId(502)
     @Story("Добавить новую карту")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(enabled = false,
+            groups = {"api-instamart-regress"},
             description = "Добавить новую карту с дополнительным полем title")
     public void addNewCard() {
         String card = CreditCardsV2.CARD1.getNumber();
