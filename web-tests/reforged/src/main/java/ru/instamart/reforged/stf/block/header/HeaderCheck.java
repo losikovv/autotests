@@ -219,7 +219,7 @@ public interface HeaderCheck extends Check, HeaderElement {
 
     @Step("Проверяем, что сообщение об ошибке закрылось")
     default void checkErrorAlertIsNotDisplayed() {
-        waitAction().shouldNotBeVisible(alert);
+        waitAction().isElementsShouldNotBeExist(alerts);
     }
 
     @Step("Проверяем, что появилось всплывающее сообщение о возможности предзамены")
