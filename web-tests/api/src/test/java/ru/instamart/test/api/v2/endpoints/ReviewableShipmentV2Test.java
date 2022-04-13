@@ -21,7 +21,7 @@ import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.ReviewableShipmentV2Response;
 import ru.instamart.api.response.v2.ShipmentReviewV2Response;
-import ru.instamart.jdbc.dao.ShipmentReviewWindowClosesDao;
+import ru.instamart.jdbc.dao.stf.ShipmentReviewWindowClosesDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.sbermarket.qase.annotation.CaseIDs;

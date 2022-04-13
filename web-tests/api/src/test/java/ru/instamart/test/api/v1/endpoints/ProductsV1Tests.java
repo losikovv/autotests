@@ -11,8 +11,8 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.model.v1.ProductV1;
 import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.response.v1.ProductV1Response;
-import ru.instamart.jdbc.dao.SpreeProductsDao;
-import ru.instamart.jdbc.entity.SpreeProductsEntity;
+import ru.instamart.jdbc.dao.stf.SpreeProductsDao;
+import ru.instamart.jdbc.entity.stf.SpreeProductsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 

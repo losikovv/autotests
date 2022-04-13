@@ -8,10 +8,7 @@ import io.restassured.response.Response;
 import lombok.*;
 import org.json.simple.JSONObject;
 import ru.instamart.api.endpoint.ApiV1Endpoints;
-import ru.instamart.api.enums.SessionType;
-import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.request.ApiV1RequestBase;
-import ru.instamart.jdbc.dao.SpreeUsersDao;
 import ru.sbermarket.common.Mapper;
 
 import java.util.UUID;

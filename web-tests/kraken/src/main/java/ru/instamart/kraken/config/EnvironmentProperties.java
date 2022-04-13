@@ -22,6 +22,8 @@ public final class EnvironmentProperties {
     public static String TENANT;
     @Config(configName = NAME, fieldName = "server", defaultValue = "")
     public static String SERVER;
+    @Config(configName = NAME, fieldName = "service", defaultValue = "")
+    public static String SERVICE;
     @Config(configName = NAME, fieldName = "stage", defaultValue = "")
     public static String STAGE;
     @Config(configName = NAME, fieldName = "httpAuth", defaultValue = "", crypted = true)

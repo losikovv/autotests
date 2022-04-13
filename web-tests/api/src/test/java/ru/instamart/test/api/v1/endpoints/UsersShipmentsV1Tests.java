@@ -11,7 +11,7 @@ import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v1.UsersV1Request;
 import ru.instamart.api.response.v1.MultiretailerOrderV1Response;
-import ru.instamart.jdbc.dao.ShipmentDelaysDao;
+import ru.instamart.jdbc.dao.stf.ShipmentDelaysDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;

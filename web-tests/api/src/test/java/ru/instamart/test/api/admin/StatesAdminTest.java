@@ -10,8 +10,8 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.admin.StatesAdminRequest;
-import ru.instamart.jdbc.dao.SpreeStatesDao;
-import ru.instamart.jdbc.entity.SpreeStatesEntity;
+import ru.instamart.jdbc.dao.stf.SpreeStatesDao;
+import ru.instamart.jdbc.entity.stf.SpreeStatesEntity;
 import ru.instamart.kraken.data.Generate;
 import ru.sbermarket.qase.annotation.CaseId;
 

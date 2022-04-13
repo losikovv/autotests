@@ -1,8 +1,8 @@
 package ru.instamart.api.helper;
 
-import ru.instamart.jdbc.dao.PromotionCodesDao;
-import ru.instamart.jdbc.dto.PromotionCodesFilters;
-import ru.instamart.jdbc.entity.PromotionCodesEntity;
+import ru.instamart.jdbc.dao.stf.PromotionCodesDao;
+import ru.instamart.jdbc.dto.stf.PromotionCodesFilters;
+import ru.instamart.jdbc.entity.stf.PromotionCodesEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.util.List;

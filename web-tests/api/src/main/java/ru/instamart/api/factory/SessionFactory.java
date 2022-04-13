@@ -27,13 +27,12 @@ import ru.instamart.api.response.v1.PhoneConfirmationsV1Response;
 import ru.instamart.api.response.v1.TokensV1Response;
 import ru.instamart.api.response.v2.SessionsV2Response;
 import ru.instamart.api.response.v2.UserV2Response;
-import ru.instamart.jdbc.dao.PhoneTokensDao;
+import ru.instamart.jdbc.dao.stf.PhoneTokensDao;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
-import ru.sbermarket.common.Crypt;
 
 import java.util.HashMap;
 import java.util.Map;

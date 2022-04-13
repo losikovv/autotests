@@ -10,8 +10,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.admin.ManufacturingCountriesAdminRequest;
-import ru.instamart.jdbc.dao.SpreeManufacturingCountriesDao;
-import ru.instamart.jdbc.entity.SpreeManufacturingCountriesEntity;
+import ru.instamart.jdbc.dao.stf.SpreeManufacturingCountriesDao;
+import ru.instamart.jdbc.entity.stf.SpreeManufacturingCountriesEntity;
 import ru.instamart.kraken.data.Generate;
 import ru.sbermarket.qase.annotation.CaseId;
 

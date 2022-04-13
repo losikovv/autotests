@@ -17,7 +17,7 @@ import ru.instamart.api.request.v1.DocumentsV1Request;
 import ru.instamart.api.request.v1.admin.ShipmentsAdminV1Request;
 import ru.instamart.api.response.v1.AdminShipmentV1Response;
 import ru.instamart.api.response.v1.AdminShipmentsV1Response;
-import ru.instamart.jdbc.dao.*;
+import ru.instamart.jdbc.dao.stf.*;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.enums.Server;

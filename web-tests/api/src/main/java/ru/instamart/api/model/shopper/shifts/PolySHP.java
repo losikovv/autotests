@@ -11,7 +11,7 @@ import ru.instamart.api.model.BaseObject;
 public class PolySHP extends BaseObject {
 
 	@JsonProperty("coordinates")
-	private List<Double> coordinates;
+	private List<List<List<List<Double>>>> coordinates;
 
 	@JsonProperty("type")
 	private String type;
