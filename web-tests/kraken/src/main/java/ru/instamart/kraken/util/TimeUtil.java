@@ -12,6 +12,7 @@ public final class TimeUtil {
 
     private static final DateTimeFormatter dt = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
     private static final DateTimeFormatter dtd = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter dts = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     private static final DateTimeFormatter dtds = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter zdt = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private static final DateTimeFormatter zdtz = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
@@ -28,6 +29,10 @@ public final class TimeUtil {
             .toFormatter(Locale.ENGLISH);
 
     private TimeUtil() {
+    }
+
+    public static String getDateTimeViaSlash() {
+        return dts.format(ZonedDateTime.now());
     }
 
     public static String getDeliveryDateFrom() {
