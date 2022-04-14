@@ -2,13 +2,16 @@ package ru.instamart.reforged.admin.page.retailers;
 
 import org.openqa.selenium.By;
 import ru.instamart.reforged.admin.page.retailers.activate_store_modal.ActivateStoreModal;
+import ru.instamart.reforged.admin.page.retailers.rank_list_sidebar.RankListSidebar;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.*;
 
 public interface RetailersPageElements {
 
     ActivateStoreModal activateStoreModal = new ActivateStoreModal();
+    RankListSidebar rankListSidebar = new RankListSidebar();
 
+    Button rankList = new Button(By.xpath("//button[contains(.,'Ранжировать список')]"), "Кнопка 'Ранжировать список'");
     Button addNewRetailerButton = new Button(By.xpath("//button[@class='ant-btn ant-btn-primary']"), "Кнопка добавления нового ретейлера");
 
     ElementCollection retailersInTable = new ElementCollection(By.xpath("//div[@data-qa='table_cell_retailer_logo_name']/span"), "Строки ретейлеров в таблице");
