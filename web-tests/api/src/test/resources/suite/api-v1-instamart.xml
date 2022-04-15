@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="REST API Suite" parallel="tests" thread-count="30" data-provider-thread-count="10">
+    <listeners>
+        <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
+        <listener class-name="ru.instamart.api.listener.ApiListener"/>
+    </listeners>
+    <method-selectors>
+        <method-selector>
+            <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+        </method-selector>
+    </method-selectors>
+    <!-- api-v1-tests -->
+    <test verbose="1" name="API v1 Tests" parallel="none" thread-count="2">
+        <classes>
+            <class name="ru.instamart.test.api.v1.endpoints.OffersV1Tests"/>
+            <class name="ru.instamart.test.api.v1.contracts.OperationalZonesV1ContractTests"/>
+            <class name="ru.instamart.test.api.v1.contracts.OrdersV1ContractTests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.RetailersV1Tests"/>
+            <class name="ru.instamart.test.api.v1.contracts.StoresV1ContractTests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.UserCompaniesV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.CompanyPresenceV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.LegalEntityV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.CompaniesV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.MarketingSamplesV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.DeliveryWindowsV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.UserCompanyEmployeesV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.ProductsV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.ShipmentsV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.ShoppingSessionV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.SearchSuggestionsV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.PromotionsV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.ExternalPartnersV1Tests"/>
+            <class name="ru.instamart.test.api.admin_api.AppConfigV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.OperationalZonesV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.DictionariesWithAuthV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.DictionariesWithoutAuthV1Test"/>
+            <class name="ru.instamart.test.api.v1.endpoints.LineItemsV1Test"/>
+            <class name="ru.instamart.test.api.v1.endpoints.PhoneConfirmationsV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.ShoppingContextV1Tests"/>
+            <class name="ru.instamart.test.api.admin_api.MainNavigationV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.UserPermissionsV1Test"/>
+            <class name="ru.instamart.test.api.v1.endpoints.ImportsV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.UsersShipmentsV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.UserOnDemandShipmentsV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.CheckoutV1Tests"/>
+            <class name="ru.instamart.test.api.admin_api.LeftoversV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.ShipmentsV1Test"/>
+            <class name="ru.instamart.test.api.v1.endpoints.PromotionCardCategoriesV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.ShippingMethodsV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.ShoppersEventsV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.OrderCompensationsV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.PromotionCardsV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.PaymentsV1Tests"/>
+            <class name="ru.instamart.test.api.admin_api.ShipmentReturnsV1Test"/>
+            <class name="ru.instamart.test.api.v1.endpoints.NextV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.TokensV1Tests"/>
+            <class name="ru.instamart.test.api.v1.endpoints.UsersV1Tests"/>
+            <class name="ru.instamart.test.api.admin_api.CitiesV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.FaqGroupsV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.CurrenciesV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.HdeV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.TenantsV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.SettingsV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.AdjustmentsV1Test"/>
+            <class name="ru.instamart.test.api.admin_api.MobileConfigsV1Test"/>
+        </classes>
+    </test>
+    <!-- api-admin-tests  -->
+    <test verbose="1" name="API Admin Tests" parallel="classes" thread-count="1">
+        <classes>
+            <class name="ru.instamart.test.api.admin.CitiesAdminTest"/>
+            <class name="ru.instamart.test.api.admin.GeneralSettingsAdminTest"/>
+            <class name="ru.instamart.test.api.admin.ManufacturersAdminTest"/>
+            <class name="ru.instamart.test.api.admin.ManufacturingCountriesAdminTest"/>
+            <class name="ru.instamart.test.api.admin.PagesAdminTest"/>
+            <class name="ru.instamart.test.api.admin.StoresAdminTest"/>
+            <class name="ru.instamart.test.api.admin.TaxonomiesAdminTest"/>
+            <class name="ru.instamart.test.api.admin.OptionTypesAdminTest"/>
+            <class name="ru.instamart.test.api.admin.PropertiesAdminTest"/>
+            <class name="ru.instamart.test.api.admin.BrandsAdminTest"/>
+            <class name="ru.instamart.test.api.admin.ZonesAdminTest"/>
+            <class name="ru.instamart.test.api.admin.StatesAdminTest"/>
+            <class name="ru.instamart.test.api.admin.FaqGroupsAdminTest"/>
+        </classes>
+    </test>
+</suite>
+
