@@ -1,12 +1,17 @@
 package ru.instamart.reforged.admin.page.retailers.retailer_page;
 
 import org.openqa.selenium.By;
+import ru.instamart.reforged.admin.page.retailers.retailer_page.appearance_sidebar.AppearanceSidebar;
+import ru.instamart.reforged.admin.page.retailers.retailer_page.settings_sidebar.SettingsSidebar;
 import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.Button;
 import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.ElementCollection;
 
 public interface RetailerPageElements {
+
+    SettingsSidebar settingsSidebar = new SettingsSidebar();
+    AppearanceSidebar appearanceSidebar = new AppearanceSidebar();
 
     ElementCollection storesInTable = new ElementCollection(By.xpath("//div[contains(@aria-label, 'stores')]//tr[contains(@class, 'level-0')]"), "Строки магазинов в таблице");
     ElementCollection addressesInTable = new ElementCollection(ByKraken.xpathExpression("//td[1]//span[@role='img']/parent::a"), "Строки адресов в таблице");
@@ -16,4 +21,7 @@ public interface RetailerPageElements {
     Button addNewStoreButton = new Button(By.xpath("//span[contains(text(), 'Добавить магазин')]/ancestor::button"), "Кнопка добавления нового магазина");
     Element addressInTableWithText = new Element(ByKraken.xpath("//a[contains(@href,'stores')]//span[text()='%s ']"), "Элемент адреса магазина с определенным текстом");
     Element addressInTable = new Element(ByKraken.xpath("//a[contains(@href,'stores')]//span[@role='img']/preceding-sibling::span"), "Первый адрес магазина");
+
+    Button retailerSettings = new Button(By.xpath("//button[contains(.,'Настройки ритейлера')]"), "Кнопка 'Настройки ритейлера'");
+    Button retailerAppearance = new Button(By.xpath("//button[contains(.,'Внешний вид')]"), "Кнопка 'Внешний вид'");
 }
