@@ -23,6 +23,7 @@
             <class name="ru.instamart.test.reforged.admin.AdministrationShippingSettingsTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationUsersSectionTests"/>
             <class name="ru.instamart.test.reforged.admin.BasicAdministrationTests"/>
+            <class name="ru.instamart.test.reforged.admin.AdministrationRetailerEditTests"/>
         </classes>
     </test>
 </suite>
