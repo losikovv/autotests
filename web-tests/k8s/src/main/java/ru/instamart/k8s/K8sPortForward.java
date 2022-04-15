@@ -73,7 +73,7 @@ public final class K8sPortForward {
         if (Objects.isNull(k8sConnectPgSqlStage)) {
             String label = "statefulset.kubernetes.io/pod-name=postgresql-0";
             int targetPort = 5432;
-            int localPort = 5432; //ServiceHelper.INSTANCE.getFreePort();
+            int localPort = EnvironmentProperties.SERVICE.contains("workflow") ? 35432 : 5432; //ServiceHelper.INSTANCE.getFreePort();
             try {
                 V1PodList podList = getPodList(EnvironmentProperties.SERVICE, label);
                 k8sConnectPgSqlStage = getK8sPortForward(EnvironmentProperties.SERVICE, podList.getItems().get(0).getMetadata().getName(),

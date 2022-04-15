@@ -17,7 +17,7 @@
     </test>
     <test verbose="1" name="KAFKA">
         <classes>
-            <class name="ru.instamart.test.api.dispatch.workflow.KafkaDispatchTest"/>
+            <class name="ru.instamart.test.api.dispatch.KafkaDispatchTest"/>
         </classes>
     </test>
 </suite>

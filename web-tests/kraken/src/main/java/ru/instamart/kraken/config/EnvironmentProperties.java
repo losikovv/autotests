@@ -100,6 +100,8 @@ public final class EnvironmentProperties {
     private static String SHOPPER_GW_URL;
     @Config(configName = NAME, fieldName = "ssoAuthUrl", defaultValue = "")
     private static String SSO_AUTH_URL;
+    @Config(configName = NAME, fieldName = "pgSqlPoolSize", defaultValue = "10")
+    public static int DEFAULT_PGSQL_POOL_SIZE;
 
     public static class Env {
 

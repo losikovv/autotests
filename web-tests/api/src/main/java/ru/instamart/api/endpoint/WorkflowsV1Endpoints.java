@@ -12,7 +12,8 @@ public class WorkflowsV1Endpoints {
     }
 
     public static class Assignments {
-        public static final String SEEN = "v1/assignments{assignmentId}/seen";
-        public static final String ACCEPT = "v1/assignments{assignmentId}/accept";
+        public static final String SEEN = "v1/assignments/{assignmentId}/seen";
+        public static final String ACCEPT = "v1/assignments/{assignmentId}/accept";
+        public static final String DECLINE = "v1/assignments/{assignmentId}/decline";
     }
 }

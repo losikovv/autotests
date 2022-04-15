@@ -1,0 +1,263 @@
+syntax = "proto3";
+
+package push;
+import "google/protobuf/struct.proto";
+
+option go_package = "gitlab.sbermarket.tech/paas/content/operations/push-sender/push-sender-back/pkg/server/grpc/push";
+
+// EventPushNotification message for Kafka's topic 'yc.notifications.cmd.push.0'.
+// Contains a push notification to be sent to users.
+message EventPushNotification {
+  // Идентификатор пуша, для контроля дубликатов.
+  // Если поле задано, то в базе push-sender проверяем на наличие этого id.
+  // Опциональное поле.
+  string uuid = 1;
+
+  // Список id пользователей, которым предназначен этот пуш.
+  // Обязательное поле.
+  repeated string recipient_ids = 2;
+
+  // Идентификатор сервиса. Пример: shopper, sbermarket.
+  // Обязательное поле.
+  string service_id = 3;
+
+  // Основные данные пуша.
+  // Обязательное поле.
+  Message message = 4;
+
+  // Поля fcm/hms позволяют задать кастомные настройки пуша для провайдеров FCM и HMS соответственно.
+  // Опциональное поле.
+  FCMMessage fcm = 5;
+  // Опциональное поле.
+  HMSMessage hms = 6;
+
+  // Служит для контроля логики "дублирование СМСкой".
+  // Опциональное поле.
+  Sms try_sms = 7;
+}
+
+// Структура, содержащая наиболее часто используемые поля.
+// TODO: описать логику notification и data messages.
+// TODO: описать логику title/body.
+// TODO: рассмотреть severity.
+// https://firebase.google.com/docs/cloud-messaging/concept-options
+message Message {
+  // Обязательное поле для notification пуша.
+  string title = 1;
+
+  // Обязательное поле для notification пуша.
+  string body = 2;
+
+  // Обязательное поле для data пуша.
+  google.protobuf.Struct data = 3;
+
+  // Приоритет пуша. Возможные значения: high, normal.
+  // Опциональное поле.
+  string priority = 4;
+
+  // Время жизни пуша в секундах.
+  // Настройки time_to_live у FCM и ttl у HMS немного отличаются.
+  // Перед использование рекомендуется прочитать их документацию.
+  // Опциональное поле.
+  uint32 ttl = 5;
+}
+
+// Структура для возможности дублирования пуша СМСкой, если пуш не дошёл.
+message Sms {
+  // Отправить СМС, если за timeout_seconds или ДЕФОЛТНОЕ ЗНАЧЕНИЕ не пришел коллбек от мобильного приложения.
+  // Опциональное поле.
+  bool send_sms = 1;
+
+  // Интервал в секундах, через которое отправить СМС.
+  uint64 timeout_seconds = 2;
+}
+
+// https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream-http-messages-json
+message FCMMessage {
+  reserved 1, 2;
+  reserved "to", "registration_ids";
+  string condition = 3;
+  string collapse_key = 4;
+  reserved 5;
+  reserved "priority";
+  bool content_available = 6;
+  bool mutable_content = 7;
+  bool delay_while_idle = 8;
+  uint32 time_to_live = 9;
+  reserved 10;
+  reserved "delivery_receipt_requested";
+  bool dry_run = 11;
+  string restricted_package_name = 12;
+  FCMNotification notification = 13;
+  reserved 14;
+  reserved "data";
+  reserved 15;
+  reserved "apns";
+  reserved 16;
+  reserved "webpush";
+}
+
+// Настройки пуша FCM. 1 в 1 взято из официально документации FCM legacy HTTP API.
+// https://firebase.google.com/docs/cloud-messaging/http-server-ref#notification-payload-support
+message FCMNotification {
+  reserved 1, 2;
+  reserved "title", "body";
+  string channel_id = 3;
+  string icon = 4;
+  string image = 5;
+  string sound = 6;
+  string badge = 7;
+  string tag = 8;
+  string color = 9;
+  string click_action = 10;
+  string body_loc_key = 11;
+  string body_loc_args = 12;
+  string title_loc_key = 13;
+  string title_loc_args = 14;
+}
+
+// Настройки пуша HMS. 1 в 1 взято из официально документации HMS.
+// https://developer.huawei.com/consumer/en/doc/development/HMS-References/push-sendapi
+message HMSMessage {
+  reserved 1;
+  reserved "data";
+  HMSNotification notification = 2;
+  HMSAndroidConfig  android = 3;
+  HMSApns apns = 4;
+  reserved 5;
+  reserved "webpush";
+  repeated string token = 6;
+  string topic = 7;
+  string condition = 8;
+}
+
+message HMSNotification {
+  reserved 1, 2;
+  reserved "title", "body";
+  string image = 3;
+}
+
+message HMSAndroidConfig {
+  int64 collapse_key = 1;
+  reserved 2;
+  reserved "urgency";
+  string category = 3;
+  string ttl = 4;
+  string bi_tag = 5;
+  int64 fast_app_target = 6;
+  string data = 7;
+  HMSAndroidNotification notification = 8;
+}
+
+message HMSAndroidNotification {
+  reserved 1, 2;
+  reserved "title", "body";
+  string icon = 3;
+  string color = 4;
+  string sound = 5;
+  bool default_sound = 6;
+  string tag = 7;
+  HMSAndroidClickAction click_action = 8;
+  string body_loc_key = 9;
+  repeated string body_loc_args = 10;
+  string title_loc_key = 11;
+  repeated string title_loc_args = 12;
+  google.protobuf.Struct multi_lang_key = 13;
+  string channel_id = 14;
+  string notify_summary = 15;
+  string image = 16;
+  int64 style = 17;
+  string big_title = 18;
+  string big_body = 19;
+  int64 auto_clear = 20;
+  int64 notify_id = 21;
+  string group = 22;
+  HMSAndroidBadgeNotification badge = 23;
+  string ticker = 24;
+  bool auto_cancel = 25;
+  string importance = 26;
+  bool use_default_vibrate = 27;
+  bool use_default_light = 28;
+  repeated string vibrate_config = 29;
+  string visibility = 30;
+  HMSAndroidLightSettings light_settings = 31;
+  bool foreground_show = 32;
+}
+
+message HMSAndroidClickAction {
+  int64 type = 1;
+  string intent = 2;
+  string action = 3;
+  string url = 4;
+  string rich_resource = 5;
+}
+
+message HMSAndroidBadgeNotification {
+  int64 add_num = 1;
+  int64 set_num = 2;
+  string class = 3;
+}
+
+message HMSAndroidLightSettings {
+  HMSAndroidColor color = 1;
+  string light_on_duration = 2;
+  string light_off_duration = 3;
+}
+
+message HMSAndroidColor {
+  int64 alpha = 1;
+  int64 red = 2;
+  int64 green = 3;
+  int64 blue = 4;
+}
+
+message HMSWebPushHeaders {
+  string ttl = 1;
+  string topic = 2;
+  string urgency = 3;
+}
+
+message HMSWebPushNotification {
+  reserved 1, 2;
+  reserved "title", "body";
+  repeated HMSWebPushAction actions = 3;
+  string badge = 4;
+  string dir = 5;
+  string icon = 6;
+  string image = 7;
+  string lang = 8;
+  bool renotify = 9;
+  bool require_interaction = 10;
+  bool silent = 11;
+  string tag = 12;
+  int64 timestamp = 13;
+  repeated int64 vibrate = 14;
+}
+
+message HMSWebPushAction {
+  string action = 1;
+  string icon = 2;
+  string title = 3;
+}
+
+message HMSWebPushOption {
+  string link = 1;
+}
+
+message HMSApns {
+  HMSApnsHeaders headers = 1;
+  HMSApnsOptions hms_options = 2;
+}
+
+message HMSApnsHeaders {
+  string authorization = 1;
+  string apns_id = 2;
+  int64 apns_expiration = 3;
+  string apns_priority = 4;
+  string apns_topic = 5;
+  string apns_collapse_id = 6;
+}
+
+message HMSApnsOptions {
+  int64 target_user_type = 1;
+}

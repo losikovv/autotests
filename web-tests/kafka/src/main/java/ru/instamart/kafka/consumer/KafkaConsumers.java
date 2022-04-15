@@ -16,6 +16,9 @@ import ru.instamart.kafka.emum.StatusOrder;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.util.ThreadUtil;
 import workflow.AssignmentChangedOuterClass;
+import workflow.ExternalDeliveryOuterClass;
+import workflow.SegmentChangedOuterClass;
+import workflow.WorkflowChangedOuterClass;
 
 import java.time.Duration;
 import java.util.*;
@@ -274,6 +277,129 @@ public class KafkaConsumers {
 
                         if (Objects.nonNull(parseAssignment) && parseAssignment.getUuid().equals(workflowUuid)) {
                             result.add(parseAssignment);
+                        }
+                    }
+                } catch (InvalidProtocolBufferException e) {
+                    log.debug("Fail parsing kafka message. offset: {}, error: {}", record.offset(), e.getMessage());
+                }
+            }
+            if (records.count() == 0) {
+                ThreadUtil.simplyAwait(1);
+                noRecordsCount++;
+                if (noRecordsCount > giveUp) {
+                    log.debug("No records noRecordsCount: {}, giveUp: {}", noRecordsCount, giveUp);
+                    break;
+                } else continue;
+            }
+            consumer.commitAsync();
+            break;
+        }
+        log.debug("Kafka get data");
+        consumer.close();
+        Allure.addAttachment("Filter logs", result.toString());
+        Allure.addAttachment("All logs", allLogs.toString());
+        return result;
+    }
+
+    public List<ExternalDeliveryOuterClass.ExternalDelivery> consumeExternalDeliveries(String workflowUuid) {
+        List<String> allLogs = new ArrayList<>();
+        final int giveUp = 100;
+        int noRecordsCount = 0;
+        List<ExternalDeliveryOuterClass.ExternalDelivery> result = new ArrayList<>();
+        while (true) {
+            ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofSeconds(50));
+            for (ConsumerRecord<String, byte[]> record : records) {
+                ExternalDeliveryOuterClass.ExternalDelivery parseExternalDelivery = null;
+                try {
+                    if (record.value() != null) {
+                        parseExternalDelivery = ExternalDeliveryOuterClass.ExternalDelivery.parseFrom(record.value());
+                        log.debug("record: {}", parseExternalDelivery.toString());
+                        allLogs.add("Time: " + getZonedDate() + "\n Message: \n" + parseExternalDelivery);
+
+                        if (Objects.nonNull(parseExternalDelivery) && parseExternalDelivery.getUuid().equals(workflowUuid)) {
+                            result.add(parseExternalDelivery);
+                        }
+                    }
+                } catch (InvalidProtocolBufferException e) {
+                    log.debug("Fail parsing kafka message. offset: {}, error: {}", record.offset(), e.getMessage());
+                }
+            }
+            if (records.count() == 0) {
+                ThreadUtil.simplyAwait(1);
+                noRecordsCount++;
+                if (noRecordsCount > giveUp) {
+                    log.debug("No records noRecordsCount: {}, giveUp: {}", noRecordsCount, giveUp);
+                    break;
+                } else continue;
+            }
+            consumer.commitAsync();
+            break;
+        }
+        log.debug("Kafka get data");
+        consumer.close();
+        Allure.addAttachment("Filter logs", result.toString());
+        Allure.addAttachment("All logs", allLogs.toString());
+        return result;
+    }
+
+    public List<SegmentChangedOuterClass.SegmentChanged> consumeSegments(long segmentId) {
+        List<String> allLogs = new ArrayList<>();
+        final int giveUp = 100;
+        int noRecordsCount = 0;
+        List<SegmentChangedOuterClass.SegmentChanged> result = new ArrayList<>();
+        while (true) {
+            ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofSeconds(50));
+            for (ConsumerRecord<String, byte[]> record : records) {
+                SegmentChangedOuterClass.SegmentChanged parseSegment = null;
+                try {
+                    if (record.value() != null) {
+                        parseSegment = SegmentChangedOuterClass.SegmentChanged.parseFrom(record.value());
+                        log.debug("record: {}", parseSegment.toString());
+                        allLogs.add("Time: " + getZonedDate() + "\n Message: \n" + parseSegment);
+
+                        if (Objects.nonNull(parseSegment) && parseSegment.getId() == segmentId) {
+                            result.add(parseSegment);
+                        }
+                    }
+                } catch (InvalidProtocolBufferException e) {
+                    log.debug("Fail parsing kafka message. offset: {}, error: {}", record.offset(), e.getMessage());
+                }
+            }
+            if (records.count() == 0) {
+                ThreadUtil.simplyAwait(1);
+                noRecordsCount++;
+                if (noRecordsCount > giveUp) {
+                    log.debug("No records noRecordsCount: {}, giveUp: {}", noRecordsCount, giveUp);
+                    break;
+                } else continue;
+            }
+            consumer.commitAsync();
+            break;
+        }
+        log.debug("Kafka get data");
+        consumer.close();
+        Allure.addAttachment("Filter logs", result.toString());
+        Allure.addAttachment("All logs", allLogs.toString());
+        return result;
+    }
+
+    public List<WorkflowChangedOuterClass.WorkflowChanged> consumeWorkflows(long workflowId) {
+        List<String> allLogs = new ArrayList<>();
+        final int giveUp = 100;
+        int noRecordsCount = 0;
+        List<WorkflowChangedOuterClass.WorkflowChanged> result = new ArrayList<>();
+        while (true) {
+            ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofSeconds(50));
+            for (ConsumerRecord<String, byte[]> record : records) {
+                WorkflowChangedOuterClass.WorkflowChanged parseWorkflow = null;
+                try {
+                    if (record.value() != null) {
+                        parseWorkflow = WorkflowChangedOuterClass.WorkflowChanged.parseFrom(record.value());
+                        log.debug("record: {}", parseWorkflow.toString());
+                        allLogs.add("Time: " + getZonedDate() + "\n Message: \n" + parseWorkflow);
+
+                        if (Objects.nonNull(parseWorkflow) && parseWorkflow.getId() == workflowId) {
+                            result.add(parseWorkflow);
                         }
                     }
                 } catch (InvalidProtocolBufferException e) {

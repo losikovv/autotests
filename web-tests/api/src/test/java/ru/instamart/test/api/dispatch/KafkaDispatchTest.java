@@ -1,4 +1,4 @@
-package ru.instamart.test.api.dispatch.workflow;
+package ru.instamart.test.api.dispatch;
 
 import com.google.protobuf.Timestamp;
 import io.qameta.allure.Allure;

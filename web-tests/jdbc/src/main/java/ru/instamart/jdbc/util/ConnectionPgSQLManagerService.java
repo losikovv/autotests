@@ -16,7 +16,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import static org.testng.Assert.fail;
-import static ru.instamart.kraken.config.CoreProperties.DEFAULT_PGSQL_POOL_SIZE;
+import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_PGSQL_POOL_SIZE;
 
 @Slf4j
 public class ConnectionPgSQLManagerService {
@@ -72,7 +72,7 @@ public class ConnectionPgSQLManagerService {
     protected static Connection open() {
         try {
             return DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/app",
+                    String.format("jdbc:postgresql://localhost:%s/app", EnvironmentProperties.SERVICE.contains("workflow") ? 35432 : 5432),
                     Crypt.INSTANCE.decrypt("O4On6ImtTAIvvUDOsqOHDw=="),
                     Crypt.INSTANCE.decrypt("DQdUNB8CjrqEUiIrAaZlCg==")
             );

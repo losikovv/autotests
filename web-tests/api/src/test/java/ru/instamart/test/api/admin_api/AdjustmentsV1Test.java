@@ -16,7 +16,7 @@ import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v1.AdjustmentsV1Request;
 import ru.instamart.api.response.v1.AdjustmentV1Response;
 import ru.instamart.api.response.v1.AdjustmentsV1Response;
-import ru.instamart.jdbc.dao.SpreeAdjustmentsDao;
+import ru.instamart.jdbc.dao.stf.SpreeAdjustmentsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.sbermarket.qase.annotation.CaseId;
