@@ -14,7 +14,7 @@ public enum ServiceHelper {
 
     public int getFreePort() {
         try {
-            ServerSocket s = create(new int[]{5432, 5433, 5434});
+            ServerSocket s = create(new int[]{35432, 5432, 5433, 5434});
             log.debug("listening on port: {}", s.getLocalPort());
             return s.getLocalPort();
         } catch (IOException ex) {

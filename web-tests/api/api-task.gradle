@@ -149,6 +149,7 @@ task apiDispatchWorkflow(type: Test) {
     useTestNG() {
         suites 'src/test/resources/suite/dispatch.xml'
         includeGroups 'dispatch-workflow-regress'
+        systemProperty 'env',"service-workflow"
     }
     systemProperty 'qase.Project', 'ODW'
     systemProperty 'qase.Title', 'Dispatch Workflow Regress'
