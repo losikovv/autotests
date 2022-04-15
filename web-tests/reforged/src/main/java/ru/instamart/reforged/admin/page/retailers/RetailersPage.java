@@ -3,11 +3,16 @@ package ru.instamart.reforged.admin.page.retailers;
 import io.qameta.allure.Step;
 import ru.instamart.reforged.admin.AdminPage;
 import ru.instamart.reforged.admin.page.retailers.activate_store_modal.ActivateStoreModal;
+import ru.instamart.reforged.admin.page.retailers.rank_list_sidebar.RankListSidebar;
 
 public final class RetailersPage implements AdminPage, RetailersPageCheck {
 
     public ActivateStoreModal interactActivateStoreModal() {
         return activateStoreModal;
+    }
+
+    public RankListSidebar interactiveRankList() {
+        return rankListSidebar;
     }
 
     @Step("Вернуть количество ретейлеров на странице ретейлеров")
@@ -153,6 +158,11 @@ public final class RetailersPage implements AdminPage, RetailersPageCheck {
     @Step("Нажать кнопку 'Ok' в выпадающем списке фильтра доступности")
     public void clickOnOkRetailersFilterButton() {
         accessibilityFilterDropdownOkButton.click();
+    }
+
+    @Step("Нажимаем на кнопку 'Ранжировать список'")
+    public void clickRankList() {
+        rankList.click();
     }
 
     @Override
