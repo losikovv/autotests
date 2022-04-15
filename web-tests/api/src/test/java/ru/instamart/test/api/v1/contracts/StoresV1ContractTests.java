@@ -14,7 +14,7 @@ import ru.instamart.api.request.v1.StoresV1Request;
 import ru.instamart.api.response.v1.OffersV1Response;
 import ru.instamart.api.response.v1.StoreV1Response;
 import ru.instamart.api.response.v1.StoresV1Response;
-import ru.instamart.jdbc.dao.StoresDao;
+import ru.instamart.jdbc.dao.stf.StoresDao;
 
 import java.util.List;
 

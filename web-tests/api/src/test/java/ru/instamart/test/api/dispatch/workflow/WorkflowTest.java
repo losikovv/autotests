@@ -18,7 +18,7 @@ import ru.instamart.api.model.workflows.ShopperAssignment;
 import ru.instamart.api.request.workflows.AssignmentsRequest;
 import ru.instamart.api.request.workflows.WorkflowsRequest;
 import ru.instamart.grpc.common.GrpcContentHosts;
-import ru.instamart.jdbc.dao.SpreeShipmentsDao;
+import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseId;

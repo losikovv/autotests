@@ -9,8 +9,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.admin.TaxonomiesAdminRequest;
-import ru.instamart.jdbc.dao.SpreeTaxonomiesDao;
-import ru.instamart.jdbc.entity.SpreeTaxonomiesEntity;
+import ru.instamart.jdbc.dao.stf.SpreeTaxonomiesDao;
+import ru.instamart.jdbc.entity.stf.SpreeTaxonomiesEntity;
 import ru.instamart.kraken.data.Generate;
 import ru.sbermarket.qase.annotation.CaseId;
 

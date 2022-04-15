@@ -4,7 +4,7 @@ import io.restassured.specification.RequestSpecification;
 import ru.instamart.api.common.Specification;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.jdbc.dao.SpreeUsersDao;
+import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 
 import static io.restassured.RestAssured.given;
 

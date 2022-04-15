@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.request.admin.GeneralSettingsAdminRequest;
-import ru.instamart.jdbc.dao.SpreePreferencesDao;
+import ru.instamart.jdbc.dao.stf.SpreePreferencesDao;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkFieldIsNotEmpty;

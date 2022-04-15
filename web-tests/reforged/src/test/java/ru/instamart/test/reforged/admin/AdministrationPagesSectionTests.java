@@ -6,7 +6,7 @@ import io.qameta.allure.Story;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.helper.ApiHelper;
-import ru.instamart.jdbc.dao.SpreePagesDao;
+import ru.instamart.jdbc.dao.stf.SpreePagesDao;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.StaticPages;
 import ru.instamart.kraken.data.user.UserManager;

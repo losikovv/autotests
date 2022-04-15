@@ -119,6 +119,17 @@ public final class CompanyPage implements AdminPage, CompanyCheck {
         calendarToday.hoverAndClick();
     }
 
+    @Step("Нажимаем на кнопку 'Обновить баланс'")
+    public void clickRefreshBalance() {
+        balanceRefresh.click();
+    }
+
+    @Step("Нажимаем на кнопку 'Обновить код безопасности'")
+    public void clickRefreshSecurityCode() {
+        refreshSecurityCode.click();
+    }
+
+
     @Override
     public String pageUrl() {
         return "companies";

@@ -20,8 +20,8 @@ import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.response.v2.MergeLineItemsV2Response;
 import ru.instamart.api.response.v2.OrderV2Response;
-import ru.instamart.jdbc.dao.DeliveryWindowsDao;
-import ru.instamart.jdbc.dao.StoreConfigsDao;
+import ru.instamart.jdbc.dao.stf.DeliveryWindowsDao;
+import ru.instamart.jdbc.dao.stf.StoreConfigsDao;
 
 import java.util.List;
 import java.util.Objects;

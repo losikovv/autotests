@@ -25,8 +25,8 @@ public class PlanningAreasRequest extends ShiftsRequestBase {
             given.queryParam("role", role.getRole());
         }
         return given
-                .queryParam("started_at", getDateTime())
-                .queryParam("ended_at", getFutureDateTime(1L))
+                .queryParam("started_at", getZonedDate())
+                .queryParam("ended_at", getZonedFutureDate(1L))
                 .get(ShiftsV1Endpoints.PlanningAreas.PLANNING_PERIODS, id);
     }
 }

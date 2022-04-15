@@ -58,6 +58,7 @@ project(":kraken") {
         implementation lib.testng
         implementation lib.jsonSimple
         implementation lib.jackson
+        implementation lib.aspectjweaver
         implementation lib.allureTestng
         implementation lib.allureJavaCommons
         implementation lib.pgsqlJDBC
@@ -204,6 +205,7 @@ project(":jdbc") {
         implementation lib.common
 
         implementation lib.lombok
+        implementation lib.kubernetesClient
         implementation lib.jacksonAnnotations
         implementation lib.jackson
         implementation lib.logback

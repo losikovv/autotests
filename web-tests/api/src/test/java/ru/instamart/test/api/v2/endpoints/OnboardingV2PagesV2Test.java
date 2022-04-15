@@ -8,7 +8,7 @@ import ru.instamart.api.common.RestBase;
 import ru.instamart.api.model.v2.OnboardingPageV2;
 import ru.instamart.api.request.v2.OnboardingV2PagesV2Request;
 import ru.instamart.api.response.v2.OnboardingPagesV2Response;
-import ru.instamart.jdbc.dao.OnboardingV2PagesDao;
+import ru.instamart.jdbc.dao.stf.OnboardingV2PagesDao;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
