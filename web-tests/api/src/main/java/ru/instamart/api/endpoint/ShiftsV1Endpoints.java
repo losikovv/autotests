@@ -7,7 +7,8 @@ public final class ShiftsV1Endpoints {
         public static final String BY_ID = "v1/shifts/{id}";
         public static final String START = "v1/shifts/{id}/start";
         public static final String STOP = "v1/shifts/{id}/stop";
-
+        public static final String CANCEL = "v1/shifts/{id}/cancel";
+        public static final String PAUSE = "v1/shifts/{id}/pause";
     }
 
     public static final class Regions {

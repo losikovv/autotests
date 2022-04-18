@@ -14,6 +14,7 @@ import java.util.Objects;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static org.testng.Assert.*;
+import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
 import static ru.instamart.api.helper.JsonSchemaHelper.getJsonSchema;
 
 @Slf4j
