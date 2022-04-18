@@ -1,4 +1,4 @@
-package ru.instamart.api.response.shopper.shifts;
+package ru.instamart.api.response.shifts;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

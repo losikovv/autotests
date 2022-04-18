@@ -19,10 +19,10 @@ import ru.instamart.api.model.shopper.app.*;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.request.shopper.app.*;
 import ru.instamart.api.request.shopper.localtor.LocatorRequest;
+import ru.instamart.api.response.shifts.ShiftResponse;
 import ru.instamart.api.response.shopper.app.*;
-import ru.instamart.api.response.shopper.shifts.PlanningAreaShiftsItemSHPResponse;
-import ru.instamart.api.response.shopper.shifts.PlanningPeriodsSHPResponse;
-//import ru.instamart.k8s.model.PodsProps;
+import ru.instamart.api.response.shifts.PlanningAreaShiftsItemSHPResponse;
+import ru.instamart.api.response.shifts.PlanningPeriodsSHPResponse;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.StartPointsTenants;
@@ -217,7 +217,7 @@ public class ShopperAppApiHelper {
     }
 
     @Step("Перечень периодов планирования области планирования.")
-    public  List<PlanningPeriodsSHPResponse> getPlanningPeriod() {
+    public List<PlanningPeriodsSHPResponse> getPlanningPeriod() {
         final Response response = PlanningAreasRequest.GET(planningArea.get(), RoleSHP.UNIVERSAL);
         checkStatusCode200(response);
         return Arrays.asList(response.as(PlanningPeriodsSHPResponse[].class));
@@ -242,6 +242,12 @@ public class ShopperAppApiHelper {
     @Step("Активация смены партнера Универсала")
     public void activateShiftsPartner(StartPointsTenants startPointsTenants) {
         final Response response = ShiftsRequest.Start.PATCH(planningPeriodId.get(), startPointsTenants.getLat(), startPointsTenants.getLon());
+        checkStatusCode200(response);
+    }
+
+    @Step("Отмена смены")
+    public void cancelShifts(final long id) {
+        final Response response = ShiftsRequest.Cancel.PATCH(id);
         checkStatusCode200(response);
     }
 

@@ -63,6 +63,31 @@ public class ShiftsRequest extends ShiftsRequestBase {
         }
     }
 
+    public static class Cancel {
+        @Step("{method} /" + ShiftsV1Endpoints.Shifts.CANCEL)
+        public static Response PATCH(final long id) {
+            JSONObject body = new JSONObject();
+            body.put("cancellation_reason", "Технические проблемы");
+            return givenWithAuth()
+                    .body(body)
+                    .patch(ShiftsV1Endpoints.Shifts.CANCEL, id);
+        }
+    }
+
+    public static class Pause {
+        @Step("{method} /" + ShiftsV1Endpoints.Shifts.PAUSE)
+        public static Response POST(final long id) {
+            return givenWithAuth()
+                    .post(ShiftsV1Endpoints.Shifts.PAUSE, id);
+        }
+
+        @Step("{method} /" + ShiftsV1Endpoints.Shifts.PAUSE)
+        public static Response DELETE(final long id) {
+            return givenWithAuth()
+                    .delete(ShiftsV1Endpoints.Shifts.PAUSE, id);
+        }
+    }
+
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Builder
