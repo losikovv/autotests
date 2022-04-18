@@ -13,6 +13,7 @@
     <test verbose="1" name="Shifts service smoke API Tests" parallel="none" thread-count="1">
         <classes>
             <class name="ru.instamart.test.api.dispatch.shifts.CreateShiftsTest"/>
+            <class name="ru.instamart.test.api.dispatch.shifts.StartShiftsTest"/>
         </classes>
     </test>
 </suite>
