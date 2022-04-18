@@ -90,7 +90,6 @@ public class ShiftsApiHelper {
     @Step("Отмена смены")
     public void cancelShifts(final long id) {
         final Response response = ShiftsRequest.Cancel.PATCH(id);
-        response.prettyPeek();
         checkStatusCode200(response);
     }
 
