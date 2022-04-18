@@ -44,4 +44,34 @@ public class KafkaConfigs {
                 .password(Crypt.INSTANCE.decrypt("JJVKjJO54cbtp9MUf2+/Xg=="))
                 .build();
     }
+
+    public static KafkaConfig configWorkflowExternalDelivery() {
+        return KafkaConfig.builder()
+                .clientId("workflow")
+                .topic("yc.workflow.cmd.external-delivery.0")
+                .groupName("dispatch_2b4a0c6a")
+                .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lJSSvKqtRSJptikUG4rvY3LCR8s9+J8irzGI1mDV44r6"))
+                .password(Crypt.INSTANCE.decrypt("JJVKjJO54cbtp9MUf2+/Xg=="))
+                .build();
+    }
+
+    public static KafkaConfig configWorkflowSegment() {
+        return KafkaConfig.builder()
+                .clientId("workflow")
+                .topic("yc.workflow.fct.segment.0")
+                .groupName("dispatch_2b4a0c6a")
+                .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lJSSvKqtRSJptikUG4rvY3LCR8s9+J8irzGI1mDV44r6"))
+                .password(Crypt.INSTANCE.decrypt("JJVKjJO54cbtp9MUf2+/Xg=="))
+                .build();
+    }
+
+    public static KafkaConfig configWorkflow() {
+        return KafkaConfig.builder()
+                .clientId("workflow")
+                .topic("yc.workflow.fct.workflow.0")
+                .groupName("dispatch_2b4a0c6a")
+                .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lJSSvKqtRSJptikUG4rvY3LCR8s9+J8irzGI1mDV44r6"))
+                .password(Crypt.INSTANCE.decrypt("JJVKjJO54cbtp9MUf2+/Xg=="))
+                .build();
+    }
 }

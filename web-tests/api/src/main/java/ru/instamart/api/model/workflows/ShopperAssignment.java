@@ -83,6 +83,7 @@ public class ShopperAssignment extends BaseObject {
 
     @JsonSchema(required = true)
     private String timeout;
+
     @JsonSchema(required = true)
     private String weight;
 

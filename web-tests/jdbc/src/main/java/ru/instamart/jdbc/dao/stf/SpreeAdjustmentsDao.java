@@ -1,5 +1,6 @@
-package ru.instamart.jdbc.dao;
+package ru.instamart.jdbc.dao.stf;
 
+import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.SpreeAdjustmentsEntity;
 import ru.instamart.jdbc.util.ConnectionMySQLManager;
 

@@ -11,6 +11,9 @@ import ru.instamart.kafka.consumer.KafkaConsumers;
 import ru.instamart.kafka.emum.StatusOrder;
 import ru.instamart.kafka.producer.KafkaProducers;
 import workflow.AssignmentChangedOuterClass;
+import workflow.ExternalDeliveryOuterClass;
+import workflow.SegmentChangedOuterClass;
+import workflow.WorkflowChangedOuterClass;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -86,12 +89,39 @@ public class KafkaHelper {
         return longEventOrderHashMap;
     }
 
-    @Step("Получаем данных кафки о назначения по uuid workflow: {uuid}")
+    @Step("Получаем данных кафки о назначениях по uuid workflow: {uuid}")
     public List<AssignmentChangedOuterClass.AssignmentChanged> waitDataInKafkaTopicWorkflowAssignment(String uuid) {
         var kafkaConsumers = new KafkaConsumers(configWorkflowAssignment(), 10L);
         List<AssignmentChangedOuterClass.AssignmentChanged> longAssignmentsHashMap = kafkaConsumers.consumeAssignments(uuid);
         kafkaConsumers.close();
         assertTrue(longAssignmentsHashMap.size() > 0, "Logs is empty");
         return longAssignmentsHashMap;
+    }
+
+    @Step("Получаем данные кафки о внешних доставках по uuid workflow: {uuid}")
+    public List<ExternalDeliveryOuterClass.ExternalDelivery> waitDataInKafkaTopicWorkflowExternalDelivery(String uuid) {
+        var kafkaConsumers = new KafkaConsumers(configWorkflowExternalDelivery(), 10L);
+        List<ExternalDeliveryOuterClass.ExternalDelivery> longExternalDeliveriesHashMap = kafkaConsumers.consumeExternalDeliveries(uuid);
+        kafkaConsumers.close();
+        assertTrue(longExternalDeliveriesHashMap.size() > 0, "Logs is empty");
+        return longExternalDeliveriesHashMap;
+    }
+
+    @Step("Получаем данные кафки о сегментах маршрутного листа по id сегмента: {segmentId}")
+    public List<SegmentChangedOuterClass.SegmentChanged> waitDataInKafkaTopicWorkflowSegment(long segmentId) {
+        var kafkaConsumers = new KafkaConsumers(configWorkflowSegment(), 10L);
+        List<SegmentChangedOuterClass.SegmentChanged> longSegmentsHashMap = kafkaConsumers.consumeSegments(segmentId);
+        kafkaConsumers.close();
+        assertTrue(longSegmentsHashMap.size() > 0, "Logs is empty");
+        return longSegmentsHashMap;
+    }
+
+    @Step("Получаем данные кафки о маршрутных листах по id: {workflowId}")
+    public List<WorkflowChangedOuterClass.WorkflowChanged> waitDataInKafkaTopicWorkflow(long workflowId) {
+        var kafkaConsumers = new KafkaConsumers(configWorkflow(), 10L);
+        List<WorkflowChangedOuterClass.WorkflowChanged> longWorkflowsHashMap = kafkaConsumers.consumeWorkflows(workflowId);
+        kafkaConsumers.close();
+        assertTrue(longWorkflowsHashMap.size() > 0, "Logs is empty");
+        return longWorkflowsHashMap;
     }
 }
