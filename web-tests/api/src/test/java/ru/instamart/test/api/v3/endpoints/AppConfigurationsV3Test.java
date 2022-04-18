@@ -21,7 +21,7 @@ public class AppConfigurationsV3Test extends RestBase {
     @CaseId(2361)
     @Test(  groups = {"api-instamart-smoke"},
             description = "Получение настроек организации")
-    public void getCompanyDetails200()  {
+    public void getCompanyDetails200() {
         Response response = AppConfigurationsV3Request.CompanyDetails.GET(ClientV3.METRO_MARKETPLACE);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, AppConfigurationCompanyV3Response.class);
@@ -30,7 +30,7 @@ public class AppConfigurationsV3Test extends RestBase {
     @CaseId(2362)
     @Test(  groups = {"api-instamart-smoke"},
             description = "Получение настроек организации без авторизации")
-    public void getCompanyDetails401()  {
+    public void getCompanyDetails401() {
         Response response = AppConfigurationsV3Request.CompanyDetails.GET(null);
         checkStatusCode401(response);
     }

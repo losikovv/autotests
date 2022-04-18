@@ -6,10 +6,7 @@
   },
   "servers": [
     {
-      "url": "https://sbermarket.ru"
-    },
-    {
-      "url": "http://im.test"
+      "url": "https://admin.instamart.ru"
     }
   ],
   "paths": {
@@ -29,9 +26,7 @@
         "summary": "Получение пользовательских категорий",
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "tags": [
@@ -54,17 +49,15 @@
                     "canonical_url": "https://instamart.ru/categories/buy-again",
                     "position": null,
                     "depth": null,
+                    "appearance": {},
                     "is_promo": null,
                     "alt_icon": null,
-                    "requirements": [
-
-                    ]
+                    "requirements": []
                   }
                 ]
               }
             },
-            "content": {
-            }
+            "content": {}
           }
         }
       }
@@ -85,9 +78,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "responses": {
@@ -113,14 +104,14 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "app_configuration_company"
-                  ],
                   "properties": {
                     "app_configuration_company": {
-                      "$ref": "#/components/schemas/app_configuration_company"
+                      "$ref": "#/components/schemas/tenant_contact"
                     }
-                  }
+                  },
+                  "required": [
+                    "app_configuration_company"
+                  ]
                 }
               }
             }
@@ -142,7 +133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/errors_object"
+                  "$ref": "#/components/schemas/generic_error"
                 }
               }
             }
@@ -174,9 +165,7 @@
         "summary": "Получение дерева категорий",
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "tags": [
@@ -187,12 +176,8 @@
             "description": "Дерево категорий",
             "examples": {
               "application/json": {
-                "categories": [
-
-                ],
-                "promoted_categories": [
-
-                ]
+                "categories": [],
+                "promoted_categories": []
               }
             },
             "content": {
@@ -264,9 +249,7 @@
         "summary": "Получение поддерева категорий по id категории",
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "tags": [
@@ -278,87 +261,75 @@
             "examples": {
               "application/json": {
                 "category": {
-                  "id": 184,
-                  "parent_id": 182,
+                  "id": 188,
+                  "parent_id": 186,
                   "type": "department",
                   "name": "Бакалея",
                   "slug": "produkty-pitaniia/bakalieia",
                   "products_count": 1,
                   "icon_url": null,
                   "canonical_url": "https://instamart.ru/categories/produkty-pitaniia/bakalieia",
-                  "ad_banners": [
-
-                  ],
+                  "ad_banners": [],
                   "position": 0,
                   "depth": 1,
+                  "appearance": {},
                   "is_promo": false,
                   "alt_icon": null,
                   "children": [
                     {
-                      "id": 183,
-                      "parent_id": 184,
+                      "id": 187,
+                      "parent_id": 188,
                       "type": "taxon",
                       "name": "Чай",
                       "slug": "chai",
                       "products_count": 1,
                       "icon_url": null,
                       "canonical_url": "https://instamart.ru/categories/chai",
-                      "ad_banners": [
-
-                      ],
+                      "ad_banners": [],
                       "position": 0,
                       "depth": 2,
+                      "appearance": {},
                       "is_promo": false,
                       "alt_icon": null,
-                      "requirements": [
-
-                      ]
+                      "requirements": []
                     }
                   ],
-                  "requirements": [
-
-                  ]
+                  "requirements": []
                 },
                 "breadcrumbs": [
                   {
-                    "id": 133,
+                    "id": 137,
                     "parent_id": null,
                     "type": "department",
                     "name": "Продукты питания",
                     "slug": "produkty-pitaniia",
                     "products_count": null,
-                    "promo_services": [
-
-                    ],
+                    "promo_services": [],
                     "icon_url": null,
                     "canonical_url": "https://instamart.ru/categories/produkty-pitaniia",
                     "position": 0,
                     "depth": 0,
+                    "appearance": {},
                     "is_promo": false,
                     "alt_icon": null,
-                    "requirements": [
-
-                    ]
+                    "requirements": []
                   },
                   {
-                    "id": 135,
-                    "parent_id": 133,
+                    "id": 139,
+                    "parent_id": 137,
                     "type": "department",
                     "name": "Бакалея",
                     "slug": "produkty-pitaniia/bakalieia",
                     "products_count": null,
-                    "promo_services": [
-
-                    ],
+                    "promo_services": [],
                     "icon_url": null,
                     "canonical_url": "https://instamart.ru/categories/produkty-pitaniia/bakalieia",
                     "position": 0,
                     "depth": 1,
+                    "appearance": {},
                     "is_promo": false,
                     "alt_icon": null,
-                    "requirements": [
-
-                    ]
+                    "requirements": []
                   }
                 ]
               }
@@ -376,7 +347,7 @@
         }
       }
     },
-    "/v3/checkout/orders/{number}": {
+    "/api/v3/checkout/orders/{number}": {
       "parameters": [
         {
           "$ref": "#/components/parameters/api_version"
@@ -392,9 +363,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -414,11 +383,11 @@
             "examples": {
               "application/json": {
                 "order": {
-                  "id": 114,
-                  "number": "T20466",
-                  "total": 0.0,
-                  "promo_total": 0.0,
-                  "total_discount": 0.0,
+                  "id": 126,
+                  "number": "T20557",
+                  "total": 0,
+                  "promo_total": 0,
+                  "total_discount": 0,
                   "item_count": 0,
                   "shipping_method_kind": "by_courier",
                   "total_weight": 0,
@@ -430,36 +399,39 @@
                   "contacts": {
                     "normalized_phone": null,
                     "phone": null,
-                    "email": "test1277@test.ru"
+                    "email": "test1394@test.ru"
                   },
-                  "payments": [
-
-                  ],
+                  "payments": [],
                   "replacement_policy": null,
                   "payment_tool": null,
                   "address": null,
                   "shipments": [
                     {
-                      "id": 86,
-                      "cost": 0.0,
-                      "promo": 0.0,
-                      "discount": 0.0,
-                      "number": "H26743131130",
+                      "id": 99,
+                      "cost": 0,
+                      "promo": 0,
+                      "discount": 0,
+                      "number": "H82158171228",
                       "is_alcohol": false,
-                      "item_total": 0.0,
-                      "total": 0.0,
-                      "alerts": [
-
-                      ],
+                      "item_total": 0,
+                      "items_quantity": 0,
+                      "alerts": [],
                       "total_weight": 0,
                       "checkout": true,
-                      "shipping_rates": [
-
-                      ],
+                      "item_count": 0,
+                      "store": {
+                        "id": 150,
+                        "time_zone": "Europe/Moscow",
+                        "on_demand": false,
+                        "express_delivery": false,
+                        "local_date": "2022-03-25"
+                      },
+                      "shipping_rate": null,
+                      "delivery_window": null,
                       "retailer": {
-                        "id": 128,
-                        "name": "METRO1140",
-                        "slug": "metro1140",
+                        "id": 142,
+                        "name": "METRO1218",
+                        "slug": "metro1218",
                         "color": "#003d7a",
                         "logo_background_color": "#003d7a",
                         "logo": "",
@@ -472,9 +444,7 @@
                       }
                     }
                   ],
-                  "promotion_codes": [
-
-                  ]
+                  "promotion_codes": []
                 }
               }
             },
@@ -640,27 +610,15 @@
             }
           }
         }
-      }
-    },
-    "/v3/checkout/orders/{number}/initialization": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/api_version"
-        },
-        {
-          "$ref": "#/components/parameters/session_token"
-        }
-      ],
-      "post": {
-        "summary": "Инициализация чекаута",
+      },
+      "put": {
+        "summary": "Обновление данных заказа",
         "tags": [
           "Checkout V3"
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -676,12 +634,324 @@
         ],
         "responses": {
           "200": {
+            "description": "Обновление заказа",
+            "examples": {
+              "application/json": {
+                "order": {
+                  "id": 130,
+                  "number": "T20561",
+                  "total": 0,
+                  "promo_total": 0,
+                  "total_discount": 0,
+                  "item_count": 0,
+                  "shipping_method_kind": "by_courier",
+                  "total_weight": 0,
+                  "shipping_methods": [
+                    "by_courier",
+                    "pickup"
+                  ],
+                  "is_alcohol": false,
+                  "contacts": {
+                    "normalized_phone": "+7 495 111-22-33",
+                    "phone": "74951112233",
+                    "email": "new@email.com"
+                  },
+                  "payments": [],
+                  "replacement_policy": {
+                    "id": 59,
+                    "description": "translation missing: ru.spree.replacement_policy_descriptions.desktop.call82"
+                  },
+                  "payment_tool": null,
+                  "address": {
+                    "id": 165,
+                    "first_name": "Ivan",
+                    "last_name": "Fedorov",
+                    "full_address": "Москва, 120th street, 56 c.3, 1",
+                    "city": "Москва",
+                    "street": "120th street",
+                    "building": "56 c.3",
+                    "block": "1",
+                    "entrance": "1",
+                    "floor": "1",
+                    "apartment": "1",
+                    "comments": null,
+                    "lat": 5,
+                    "lon": 5,
+                    "kind": null,
+                    "door_phone": "1",
+                    "delivery_to_door": true
+                  },
+                  "shipments": [
+                    {
+                      "id": 102,
+                      "cost": 0,
+                      "promo": 0,
+                      "discount": 0,
+                      "number": "H33378782640",
+                      "is_alcohol": false,
+                      "item_total": 0,
+                      "items_quantity": 0,
+                      "alerts": [],
+                      "total_weight": 0,
+                      "checkout": true,
+                      "item_count": 0,
+                      "store": {
+                        "id": 153,
+                        "time_zone": "Europe/Moscow",
+                        "on_demand": false,
+                        "express_delivery": false,
+                        "local_date": "2022-03-25"
+                      },
+                      "shipping_rate": null,
+                      "delivery_window": null,
+                      "retailer": {
+                        "id": 145,
+                        "name": "METRO1227",
+                        "slug": "metro1227",
+                        "color": "#003d7a",
+                        "logo_background_color": "#003d7a",
+                        "logo": "",
+                        "available": true,
+                        "environment": "production",
+                        "retailer_agreement": {
+                          "agreement_type": "oferta_b",
+                          "url": "/oferta_b"
+                        }
+                      }
+                    }
+                  ],
+                  "promotion_codes": []
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "order": {
+                      "$ref": "#/components/schemas/order"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Не авторизован",
+            "examples": {
+              "application/json": {
+                "errors": {
+                  "status": "401",
+                  "title": "Failed to Login"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "title"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "errors"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Нет доступа",
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "type": "forbidden",
+                    "field": null,
+                    "message": "Пользователь не может выполнить это действие"
+                  }
+                ],
+                "code": 403
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            },
+                            "field": {
+                              "type": "null"
+                            },
+                            "message": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "field",
+                            "message"
+                          ]
+                        }
+                      ]
+                    },
+                    "code": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "errors",
+                    "code"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Не найден",
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "type": "not_found",
+                    "field": null,
+                    "message": "Заказ не существует"
+                  }
+                ],
+                "code": 404
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string"
+                            },
+                            "field": {
+                              "type": "null"
+                            },
+                            "message": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "field",
+                            "message"
+                          ]
+                        }
+                      ]
+                    },
+                    "code": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "errors",
+                    "code"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "order": {
+                    "type": "object",
+                    "description": "Данные заказа"
+                  },
+                  "shipment_numbers": {
+                    "type": "array",
+                    "description": "Номера шипментов, которые сейчас на оформлении",
+                    "items": {
+                      "type": "string",
+                      "example": "H123456789"
+                    }
+                  }
+                },
+                "required": [
+                  "order",
+                  "shipment_numbers"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/checkout/orders/{number}/initialization": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/api_version"
+        },
+        {
+          "$ref": "#/components/parameters/session_token"
+        }
+      ],
+      "post": {
+        "summary": "Инициализация чекаута",
+        "tags": [
+          "Checkout V3"
+        ],
+        "security": [
+          {
+            "client_token_auth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "number",
+            "in": "path",
+            "description": "Номер заказа",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
             "description": "Информация по заказу",
             "examples": {
               "application/json": null
             },
-            "content": {
-            }
+            "content": {}
           },
           "401": {
             "description": "Не авторизован",
@@ -836,7 +1106,7 @@
             "examples": {
               "application/json": {
                 "type": "unavailable_ship_address",
-                "title": "Указанный адрес не входит в зону доставки магазина METRO1161, 178th street. Обновите адрес доставки.",
+                "title": "Указанный адрес не входит в зону доставки магазина METRO1251, 221th street. Обновите адрес доставки.",
                 "status": 422
               }
             },
@@ -885,7 +1155,7 @@
         }
       }
     },
-    "/v3/checkout/orders/{number}/validation": {
+    "/api/v3/checkout/orders/{number}/validation": {
       "parameters": [
         {
           "$ref": "#/components/parameters/api_version"
@@ -901,9 +1171,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -918,13 +1186,12 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Заказ готов к оформлению",
             "examples": {
               "application/json": null
             },
-            "content": {
-            }
+            "content": {}
           },
           "401": {
             "description": "Не авторизован",
@@ -1079,7 +1346,7 @@
             "examples": {
               "application/json": {
                 "type": "unavailable_ship_address",
-                "title": "Указанный адрес не входит в зону доставки магазина METRO1176, 179th street. Обновите адрес доставки.",
+                "title": "Указанный адрес не входит в зону доставки магазина METRO1266, 222th street. Обновите адрес доставки.",
                 "status": 422
               }
             },
@@ -1110,7 +1377,258 @@
         }
       }
     },
-    "/v3/current_time": {
+    "/api/v3/checkout/replacement_policies": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/api_version"
+        },
+        {
+          "$ref": "#/components/parameters/session_token"
+        }
+      ],
+      "get": {
+        "summary": "Получение способов замены",
+        "tags": [
+          "Checkout V3"
+        ],
+        "security": [
+          {
+            "client_token_auth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Список способов замены",
+            "examples": {
+              "application/json": {
+                "replacement_policies": [
+                  {
+                    "id": 63,
+                    "description": "Не звонить мне. Убрать из заказа"
+                  }
+                ]
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "replacement_policies": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "description": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "description"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "replacement_policies"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/checkout/shipments/{shipment_number}/shipping_rates": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/api_version"
+        },
+        {
+          "$ref": "#/components/parameters/session_token"
+        }
+      ],
+      "get": {
+        "summary": "Получение слотов доставки",
+        "tags": [
+          "Checkout V3"
+        ],
+        "security": [
+          {
+            "client_token_auth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "shipment_number",
+            "in": "path",
+            "description": "Номер шипмента",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Список слотов",
+            "examples": {
+              "application/json": {
+                "shipping_rates": [
+                  {
+                    "total_value": 490,
+                    "value": 490,
+                    "is_boost": false,
+                    "is_drop": false,
+                    "is_free": false,
+                    "is_express_delivery": false,
+                    "delivery_window": {
+                      "id": 124,
+                      "starts_at": "2022-03-25T06:00:00.000+03:00",
+                      "ends_at": "2022-03-25T06:00:00.000+03:00",
+                      "weight_balance": 400000,
+                      "items_count_balance": 300,
+                      "kind": "courier",
+                      "delivery_forecast_text": null,
+                      "estimate_source": "one_hour_slot",
+                      "estimate_minutes_min": 60,
+                      "estimate_minutes_max": 60,
+                      "lifetime": null,
+                      "is_express_delivery": false,
+                      "available_for_tinkoff_dolyame": true,
+                      "time_zone": "Europe/Moscow",
+                      "human_interval": "06:00–06:00",
+                      "date": "2022-03-25",
+                      "available": true
+                    }
+                  }
+                ],
+                "meta": {
+                  "available_days": [
+                    "2022-03-25",
+                    "2022-03-26"
+                  ]
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "shipping_rates": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "total_value": {
+                              "type": "number"
+                            },
+                            "value": {
+                              "type": "number"
+                            },
+                            "is_boost": {
+                              "type": "boolean"
+                            },
+                            "is_drop": {
+                              "type": "boolean"
+                            },
+                            "is_free": {
+                              "type": "boolean"
+                            },
+                            "is_express_delivery": {
+                              "type": "boolean"
+                            },
+                            "delivery_window": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "starts_at": {
+                                  "type": "string"
+                                },
+                                "ends_at": {
+                                  "type": "string"
+                                },
+                                "weight_balance": {
+                                  "type": "integer"
+                                },
+                                "items_count_balance": {
+                                  "type": "integer"
+                                },
+                                "kind": {
+                                  "type": "string"
+                                },
+                                "delivery_forecast_text": {
+                                  "type": null
+                                },
+                                "estimate_source": {
+                                  "type": "string"
+                                },
+                                "estimate_minutes_min": {
+                                  "type": "integer"
+                                },
+                                "estimate_minutes_max": {
+                                  "type": "integer"
+                                },
+                                "lifetime": {
+                                  "type": null
+                                },
+                                "is_express_delivery": {
+                                  "type": "boolean"
+                                },
+                                "available_for_tinkoff_dolyame": {
+                                  "type": "boolean"
+                                },
+                                "time_zone": {
+                                  "type": "string"
+                                },
+                                "human_interval": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "available_days": {
+                          "type": "array",
+                          "items": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "string"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "shipping_rates",
+                    "meta"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/current_time": {
       "get": {
         "summary": "Текущее серверное время",
         "tags": [
@@ -1118,9 +1636,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -1133,7 +1649,7 @@
             "description": "Получение серверного времени",
             "examples": {
               "application/json": {
-                "current_time": "2022-02-24T01:00:00.000+03:00"
+                "current_time": "2022-03-25T13:41:43.534+03:00"
               }
             },
             "content": {
@@ -1201,7 +1717,7 @@
                           "title": "-10% со СберПрайм",
                           "title_short": "-10%",
                           "tooltip": "На товар есть скидка по промокоду PRIME",
-                          "url": "https://instamart.ru/metro/c/tolko-dlia-podpischikov-praim?sid=152",
+                          "url": "https://instamart.ru/metro/c/tolko-dlia-podpischikov-praim?sid=181",
                           "button_text": "Все товары со скидкой"
                         },
                         "inactive": {
@@ -1220,7 +1736,7 @@
                 "purchased": null,
                 "departments": [
                   {
-                    "id": 279,
+                    "id": 283,
                     "type": "taxon",
                     "name": "Чай",
                     "slug": "chai",
@@ -1228,34 +1744,30 @@
                     "icon_url": null,
                     "products": [
                       {
-                        "id": "0000000338",
-                        "legacy_offer_id": 280,
-                        "legacy_product_id": 277,
-                        "sku": "20563",
-                        "retailer_sku": "0000000338",
+                        "id": "0000000408",
+                        "legacy_offer_id": 305,
+                        "legacy_product_id": 302,
+                        "sku": "20669",
+                        "retailer_sku": "0000000408",
                         "name": "Ахмад",
                         "price": 1236.7,
                         "original_price": 1236.7,
-                        "discount": 0.0,
+                        "discount": 0,
                         "human_volume": "100 г.",
-                        "volume": 100.0,
+                        "volume": 100,
                         "volume_type": "weight",
                         "items_per_pack": 1,
                         "discount_ends_at": null,
                         "slug": "akhmad",
                         "max_select_quantity": 999,
-                        "canonical_url": "https://instamart.ru/products/20563-akhmad",
+                        "canonical_url": "https://instamart.ru/products/20669-akhmad",
                         "available": true,
                         "vat_info": null,
                         "promo_badge_ids": [
                           1
                         ],
-                        "image_urls": [
-
-                        ],
-                        "requirements": [
-
-                        ]
+                        "image_urls": [],
+                        "requirements": []
                       }
                     ]
                   }
@@ -1295,9 +1807,7 @@
             "description": "Список департаментов",
             "examples": {
               "application/json": {
-                "promo_badges": [
-
-                ],
+                "promo_badges": [],
                 "favorite_products": null,
                 "deals": null,
                 "purchased": {
@@ -1308,40 +1818,34 @@
                   "icon_url": null,
                   "products": [
                     {
-                      "id": "0000000294",
-                      "legacy_offer_id": 236,
-                      "legacy_product_id": 236,
-                      "sku": "20522",
-                      "retailer_sku": "0000000294",
-                      "name": "Product #205",
-                      "price": 1000.0,
-                      "original_price": 1000.0,
-                      "discount": 0.0,
+                      "id": "0000000364",
+                      "legacy_offer_id": 261,
+                      "legacy_product_id": 261,
+                      "sku": "20628",
+                      "retailer_sku": "0000000364",
+                      "name": "Product #275",
+                      "price": 1000,
+                      "original_price": 1000,
+                      "discount": 0,
                       "human_volume": "100 г.",
-                      "volume": 100.0,
+                      "volume": 100,
                       "volume_type": "weight",
                       "items_per_pack": 1,
                       "discount_ends_at": null,
-                      "slug": "product-205",
+                      "slug": "product-275",
                       "max_select_quantity": 999,
-                      "canonical_url": "https://instamart.ru/products/20522-product-205",
+                      "canonical_url": "https://instamart.ru/products/20628-product-275",
                       "available": true,
                       "vat_info": null,
-                      "promo_badge_ids": [
-
-                      ],
-                      "image_urls": [
-
-                      ],
-                      "requirements": [
-
-                      ]
+                      "promo_badge_ids": [],
+                      "image_urls": [],
+                      "requirements": []
                     }
                   ]
                 },
                 "departments": [
                   {
-                    "id": 219,
+                    "id": 223,
                     "type": "taxon",
                     "name": "Чай",
                     "slug": "chai",
@@ -1349,189 +1853,153 @@
                     "icon_url": null,
                     "products": [
                       {
-                        "id": "0000000284",
-                        "legacy_offer_id": 226,
-                        "legacy_product_id": 226,
-                        "sku": "20511",
-                        "retailer_sku": "0000000284",
+                        "id": "0000000354",
+                        "legacy_offer_id": 251,
+                        "legacy_product_id": 251,
+                        "sku": "20617",
+                        "retailer_sku": "0000000354",
                         "name": "Ахмад",
                         "price": 1236.7,
                         "original_price": 1236.7,
-                        "discount": 0.0,
+                        "discount": 0,
                         "human_volume": "100 г.",
-                        "volume": 100.0,
+                        "volume": 100,
                         "volume_type": "weight",
                         "items_per_pack": 1,
                         "discount_ends_at": null,
                         "slug": "akhmad",
                         "max_select_quantity": 999,
-                        "canonical_url": "https://instamart.ru/products/20511-akhmad",
+                        "canonical_url": "https://instamart.ru/products/20617-akhmad",
                         "available": true,
                         "vat_info": null,
-                        "promo_badge_ids": [
-
-                        ],
-                        "image_urls": [
-
-                        ],
-                        "requirements": [
-
-                        ]
+                        "promo_badge_ids": [],
+                        "image_urls": [],
+                        "requirements": []
                       },
                       {
-                        "id": "0000000289",
-                        "legacy_offer_id": 231,
-                        "legacy_product_id": 231,
-                        "sku": "20516",
-                        "retailer_sku": "0000000289",
-                        "name": "Product #200",
+                        "id": "0000000359",
+                        "legacy_offer_id": 256,
+                        "legacy_product_id": 256,
+                        "sku": "20622",
+                        "retailer_sku": "0000000359",
+                        "name": "Product #270",
                         "price": 1236.7,
                         "original_price": 1236.7,
-                        "discount": 0.0,
+                        "discount": 0,
                         "human_volume": "100 г.",
-                        "volume": 100.0,
+                        "volume": 100,
                         "volume_type": "weight",
                         "items_per_pack": 1,
                         "discount_ends_at": null,
-                        "slug": "product-200",
+                        "slug": "product-270",
                         "max_select_quantity": 999,
-                        "canonical_url": "https://instamart.ru/products/20516-product-200",
+                        "canonical_url": "https://instamart.ru/products/20622-product-270",
                         "available": true,
                         "vat_info": null,
-                        "promo_badge_ids": [
-
-                        ],
-                        "image_urls": [
-
-                        ],
-                        "requirements": [
-
-                        ]
+                        "promo_badge_ids": [],
+                        "image_urls": [],
+                        "requirements": []
                       },
                       {
-                        "id": "0000000290",
-                        "legacy_offer_id": 232,
-                        "legacy_product_id": 232,
-                        "sku": "20517",
-                        "retailer_sku": "0000000290",
-                        "name": "Product #201",
+                        "id": "0000000360",
+                        "legacy_offer_id": 257,
+                        "legacy_product_id": 257,
+                        "sku": "20623",
+                        "retailer_sku": "0000000360",
+                        "name": "Product #271",
                         "price": 1236.7,
                         "original_price": 1236.7,
-                        "discount": 0.0,
+                        "discount": 0,
                         "human_volume": "100 г.",
-                        "volume": 100.0,
+                        "volume": 100,
                         "volume_type": "weight",
                         "items_per_pack": 1,
                         "discount_ends_at": null,
-                        "slug": "product-201",
+                        "slug": "product-271",
                         "max_select_quantity": 999,
-                        "canonical_url": "https://instamart.ru/products/20517-product-201",
+                        "canonical_url": "https://instamart.ru/products/20623-product-271",
                         "available": true,
                         "vat_info": null,
-                        "promo_badge_ids": [
-
-                        ],
-                        "image_urls": [
-
-                        ],
-                        "requirements": [
-
-                        ]
+                        "promo_badge_ids": [],
+                        "image_urls": [],
+                        "requirements": []
                       },
                       {
-                        "id": "0000000291",
-                        "legacy_offer_id": 233,
-                        "legacy_product_id": 233,
-                        "sku": "20518",
-                        "retailer_sku": "0000000291",
-                        "name": "Product #202",
+                        "id": "0000000361",
+                        "legacy_offer_id": 258,
+                        "legacy_product_id": 258,
+                        "sku": "20624",
+                        "retailer_sku": "0000000361",
+                        "name": "Product #272",
                         "price": 1236.7,
                         "original_price": 1236.7,
-                        "discount": 0.0,
+                        "discount": 0,
                         "human_volume": "100 г.",
-                        "volume": 100.0,
+                        "volume": 100,
                         "volume_type": "weight",
                         "items_per_pack": 1,
                         "discount_ends_at": null,
-                        "slug": "product-202",
+                        "slug": "product-272",
                         "max_select_quantity": 999,
-                        "canonical_url": "https://instamart.ru/products/20518-product-202",
+                        "canonical_url": "https://instamart.ru/products/20624-product-272",
                         "available": true,
                         "vat_info": null,
-                        "promo_badge_ids": [
-
-                        ],
-                        "image_urls": [
-
-                        ],
-                        "requirements": [
-
-                        ]
+                        "promo_badge_ids": [],
+                        "image_urls": [],
+                        "requirements": []
                       },
                       {
-                        "id": "0000000292",
-                        "legacy_offer_id": 234,
-                        "legacy_product_id": 234,
-                        "sku": "20519",
-                        "retailer_sku": "0000000292",
-                        "name": "Product #203",
+                        "id": "0000000362",
+                        "legacy_offer_id": 259,
+                        "legacy_product_id": 259,
+                        "sku": "20625",
+                        "retailer_sku": "0000000362",
+                        "name": "Product #273",
                         "price": 1236.7,
                         "original_price": 1236.7,
-                        "discount": 0.0,
+                        "discount": 0,
                         "human_volume": "100 г.",
-                        "volume": 100.0,
+                        "volume": 100,
                         "volume_type": "weight",
                         "items_per_pack": 1,
                         "discount_ends_at": null,
-                        "slug": "product-203",
+                        "slug": "product-273",
                         "max_select_quantity": 999,
-                        "canonical_url": "https://instamart.ru/products/20519-product-203",
+                        "canonical_url": "https://instamart.ru/products/20625-product-273",
                         "available": true,
                         "vat_info": null,
-                        "promo_badge_ids": [
-
-                        ],
-                        "image_urls": [
-
-                        ],
-                        "requirements": [
-
-                        ]
+                        "promo_badge_ids": [],
+                        "image_urls": [],
+                        "requirements": []
                       },
                       {
-                        "id": "0000000293",
-                        "legacy_offer_id": 235,
-                        "legacy_product_id": 235,
-                        "sku": "20520",
-                        "retailer_sku": "0000000293",
-                        "name": "Product #204",
+                        "id": "0000000363",
+                        "legacy_offer_id": 260,
+                        "legacy_product_id": 260,
+                        "sku": "20626",
+                        "retailer_sku": "0000000363",
+                        "name": "Product #274",
                         "price": 1236.7,
                         "original_price": 1236.7,
-                        "discount": 0.0,
+                        "discount": 0,
                         "human_volume": "100 г.",
-                        "volume": 100.0,
+                        "volume": 100,
                         "volume_type": "weight",
                         "items_per_pack": 1,
                         "discount_ends_at": null,
-                        "slug": "product-204",
+                        "slug": "product-274",
                         "max_select_quantity": 999,
-                        "canonical_url": "https://instamart.ru/products/20520-product-204",
+                        "canonical_url": "https://instamart.ru/products/20626-product-274",
                         "available": true,
                         "vat_info": null,
-                        "promo_badge_ids": [
-
-                        ],
-                        "image_urls": [
-
-                        ],
-                        "requirements": [
-
-                        ]
+                        "promo_badge_ids": [],
+                        "image_urls": [],
+                        "requirements": []
                       }
                     ]
                   },
                   {
-                    "id": 223,
+                    "id": 227,
                     "type": "department",
                     "name": "Крепкий алкоголь",
                     "slug": "kriepkii-alkoghol",
@@ -1539,39 +2007,33 @@
                     "icon_url": null,
                     "products": [
                       {
-                        "id": "0000000287",
-                        "legacy_offer_id": 229,
-                        "legacy_product_id": 229,
-                        "sku": "20514",
-                        "retailer_sku": "0000000287",
+                        "id": "0000000357",
+                        "legacy_offer_id": 254,
+                        "legacy_product_id": 254,
+                        "sku": "20620",
+                        "retailer_sku": "0000000357",
                         "name": "Jameson",
                         "price": 1236.7,
                         "original_price": 1236.7,
-                        "discount": 0.0,
+                        "discount": 0,
                         "human_volume": "100 г.",
-                        "volume": 100.0,
+                        "volume": 100,
                         "volume_type": "weight",
                         "items_per_pack": 1,
                         "discount_ends_at": null,
                         "slug": "jameson",
                         "max_select_quantity": 999,
-                        "canonical_url": "https://instamart.ru/products/20514-jameson",
+                        "canonical_url": "https://instamart.ru/products/20620-jameson",
                         "available": true,
                         "vat_info": null,
-                        "promo_badge_ids": [
-
-                        ],
-                        "image_urls": [
-
-                        ],
-                        "requirements": [
-
-                        ]
+                        "promo_badge_ids": [],
+                        "image_urls": [],
+                        "requirements": []
                       }
                     ]
                   },
                   {
-                    "id": 225,
+                    "id": 229,
                     "type": "taxon",
                     "name": "Вино",
                     "slug": "vino",
@@ -1579,34 +2041,28 @@
                     "icon_url": null,
                     "products": [
                       {
-                        "id": "0000000285",
-                        "legacy_offer_id": 227,
-                        "legacy_product_id": 227,
-                        "sku": "20512",
-                        "retailer_sku": "0000000285",
+                        "id": "0000000355",
+                        "legacy_offer_id": 252,
+                        "legacy_product_id": 252,
+                        "sku": "20618",
+                        "retailer_sku": "0000000355",
                         "name": "Монастырское",
                         "price": 1236.7,
                         "original_price": 1236.7,
-                        "discount": 0.0,
+                        "discount": 0,
                         "human_volume": "100 г.",
-                        "volume": 100.0,
+                        "volume": 100,
                         "volume_type": "weight",
                         "items_per_pack": 1,
                         "discount_ends_at": null,
                         "slug": "monastyrskoie",
                         "max_select_quantity": 999,
-                        "canonical_url": "https://instamart.ru/products/20512-monastyrskoie",
+                        "canonical_url": "https://instamart.ru/products/20618-monastyrskoie",
                         "available": true,
                         "vat_info": null,
-                        "promo_badge_ids": [
-
-                        ],
-                        "image_urls": [
-
-                        ],
-                        "requirements": [
-
-                        ]
+                        "promo_badge_ids": [],
+                        "image_urls": [],
+                        "requirements": []
                       }
                     ]
                   }
@@ -1702,12 +2158,10 @@
             "description": "Информация о категории",
             "examples": {
               "application/json": {
-                "promo_badges": [
-
-                ],
+                "promo_badges": [],
                 "favorite_products": null,
                 "department": {
-                  "id": 340,
+                  "id": 344,
                   "type": "department",
                   "name": "Бакалея",
                   "slug": "produkty-pitaniia/bakalieia",
@@ -1716,7 +2170,7 @@
                 },
                 "departments": [
                   {
-                    "id": 339,
+                    "id": 343,
                     "type": "taxon",
                     "name": "Чай",
                     "slug": "chai",
@@ -1724,34 +2178,28 @@
                     "icon_url": null,
                     "products": [
                       {
-                        "id": "0000000373",
-                        "legacy_offer_id": 315,
-                        "legacy_product_id": 312,
-                        "sku": "20598",
-                        "retailer_sku": "0000000373",
+                        "id": "0000000443",
+                        "legacy_offer_id": 340,
+                        "legacy_product_id": 337,
+                        "sku": "20704",
+                        "retailer_sku": "0000000443",
                         "name": "Ахмад",
                         "price": 1236.7,
                         "original_price": 1236.7,
-                        "discount": 0.0,
+                        "discount": 0,
                         "human_volume": "100 г.",
-                        "volume": 100.0,
+                        "volume": 100,
                         "volume_type": "weight",
                         "items_per_pack": 1,
                         "discount_ends_at": null,
                         "slug": "akhmad",
                         "max_select_quantity": 999,
-                        "canonical_url": "https://instamart.ru/products/20598-akhmad",
+                        "canonical_url": "https://instamart.ru/products/20704-akhmad",
                         "available": true,
                         "vat_info": null,
-                        "promo_badge_ids": [
-
-                        ],
-                        "image_urls": [
-
-                        ],
-                        "requirements": [
-
-                        ]
+                        "promo_badge_ids": [],
+                        "image_urls": [],
+                        "requirements": []
                       }
                     ]
                   }
@@ -1788,21 +2236,17 @@
             "description": "Информация о категории",
             "examples": {
               "application/json": {
-                "promo_badges": [
-
-                ],
+                "promo_badges": [],
                 "favorite_products": null,
                 "department": {
-                  "id": 328,
+                  "id": 332,
                   "type": "department",
                   "name": "Бакалея",
                   "slug": "produkty-pitaniia/bakalieia",
                   "products_count": 1,
                   "icon_url": null
                 },
-                "departments": [
-
-                ],
+                "departments": [],
                 "meta": {
                   "current_page": 2,
                   "total_pages": 1,
@@ -1856,9 +2300,7 @@
         "summary": "Список избранного пользователя",
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "tags": [
@@ -1882,7 +2324,7 @@
             "examples": {
               "application/json": {
                 "retailer_skus": [
-                  "0000000383"
+                  "0000000453"
                 ]
               }
             },
@@ -1906,17 +2348,13 @@
         "summary": "Добавить позицию в список избранного пользователя",
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "tags": [
           "Избранные товары"
         ],
-        "parameters": [
-
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Добавленная позиция избранного",
@@ -1924,38 +2362,32 @@
               "application/json": {
                 "item": {
                   "id": 5,
-                  "name": "Product #239",
-                  "sku": "20611",
-                  "product_id": 325,
+                  "name": "Product #309",
+                  "sku": "20717",
+                  "product_id": 350,
                   "product": {
-                    "id": "0000000386",
-                    "legacy_offer_id": 328,
-                    "legacy_product_id": 325,
-                    "sku": "20611",
-                    "retailer_sku": "0000000386",
-                    "name": "Product #239",
+                    "id": "0000000456",
+                    "legacy_offer_id": 353,
+                    "legacy_product_id": 350,
+                    "sku": "20717",
+                    "retailer_sku": "0000000456",
+                    "name": "Product #309",
                     "price": 1236.7,
                     "original_price": 1236.7,
-                    "discount": 0.0,
+                    "discount": 0,
                     "human_volume": "100 г",
-                    "volume": 100.0,
+                    "volume": 100,
                     "volume_type": "weight",
                     "items_per_pack": 1,
                     "discount_ends_at": null,
-                    "slug": "product-239",
+                    "slug": "product-309",
                     "max_select_quantity": 999,
-                    "canonical_url": "https://instamart.ru/products/20611-product-239",
+                    "canonical_url": "https://instamart.ru/products/20717-product-309",
                     "available": true,
                     "vat_info": null,
-                    "promo_badge_ids": [
-
-                    ],
-                    "image_urls": [
-
-                    ],
-                    "requirements": [
-
-                    ]
+                    "promo_badge_ids": [],
+                    "image_urls": [],
+                    "requirements": []
                   },
                   "image": null
                 }
@@ -2004,17 +2436,13 @@
         "summary": "Добавить/удалить позицию в списке избранного пользователя",
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "tags": [
           "Избранные товары"
         ],
-        "parameters": [
-
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Добавленная позиция избранного",
@@ -2082,9 +2510,7 @@
         "summary": "Удалить позицию из списка избранного пользователя",
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "tags": [
@@ -2107,8 +2533,7 @@
             "examples": {
               "application/json": null
             },
-            "content": {
-            }
+            "content": {}
           }
         }
       }
@@ -2126,9 +2551,7 @@
         "summary": "Получение списка фича-флагов",
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "tags": [
@@ -2195,6 +2618,54 @@
                   {
                     "name": "ios_flat_catalog_v2",
                     "enabled": false
+                  },
+                  {
+                    "name": "is_sms_retriever_enabled_android",
+                    "enabled": false
+                  },
+                  {
+                    "name": "checkout_web_new",
+                    "enabled": false
+                  },
+                  {
+                    "name": "facebook_auth_enabled",
+                    "enabled": false
+                  },
+                  {
+                    "name": "eta_block_without_cart_android",
+                    "enabled": false
+                  },
+                  {
+                    "name": "eta_block_with_cart_android",
+                    "enabled": false
+                  },
+                  {
+                    "name": "is_native_products_list_android",
+                    "enabled": false
+                  },
+                  {
+                    "name": "multiretailer_ios",
+                    "enabled": false
+                  },
+                  {
+                    "name": "multiretailer_android",
+                    "enabled": false
+                  },
+                  {
+                    "name": "android_account_addresses",
+                    "enabled": false
+                  },
+                  {
+                    "name": "android_facebook_auth",
+                    "enabled": false
+                  },
+                  {
+                    "name": "pre_replacements_ios",
+                    "enabled": false
+                  },
+                  {
+                    "name": "pre_replacements_android",
+                    "enabled": false
                   }
                 ]
               }
@@ -2243,9 +2714,7 @@
         "summary": "Получение фича-флага по ключу",
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "tags": [
@@ -2266,15 +2735,14 @@
                 "code": 404
               }
             },
-            "content": {
-            }
+            "content": {}
           },
           "ok": {
             "description": "Фиче-флаг получен",
             "examples": {
               "application/json": {
                 "feature_flag": {
-                  "name": "ios_flat_catalog_v2",
+                  "name": "pre_replacements_android",
                   "enabled": true
                 }
               }
@@ -2308,9 +2776,7 @@
         "summary": "Получение списка продуктов категории",
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "tags": [
@@ -2337,17 +2803,17 @@
               "application/json": {
                 "products": [
                   {
-                    "id": "0000000397",
-                    "legacy_offer_id": 340,
-                    "legacy_product_id": 335,
-                    "sku": "20621",
-                    "retailer_sku": "0000000397",
-                    "name": "Product #249",
+                    "id": "0000000467",
+                    "legacy_offer_id": 365,
+                    "legacy_product_id": 360,
+                    "sku": "20727",
+                    "retailer_sku": "0000000467",
+                    "name": "Product #319",
                     "price": 1236.7,
                     "original_price": 1236.7,
-                    "discount": 0.0,
+                    "discount": 0,
                     "human_volume": "100 г",
-                    "volume": 100.0,
+                    "volume": 100,
                     "volume_type": "weight",
                     "items_per_pack": 1,
                     "discount_ends_at": null,
@@ -2355,20 +2821,16 @@
                     "grams_per_unit": 500,
                     "unit_price": 1236.7,
                     "original_unit_price": 1236.7,
-                    "slug": "product-249",
+                    "slug": "product-319",
                     "max_select_quantity": 999,
-                    "canonical_url": "https://instamart.ru/products/20621-product-249",
+                    "canonical_url": "https://instamart.ru/products/20727-product-319",
                     "available": true,
                     "vat_info": null,
                     "promo_badge_ids": [
                       1
                     ],
-                    "image_urls": [
-
-                    ],
-                    "requirements": [
-
-                    ]
+                    "image_urls": [],
+                    "requirements": []
                   }
                 ],
                 "meta": {
@@ -2389,7 +2851,7 @@
                           "title": "-10% со СберПрайм",
                           "title_short": "-10%",
                           "tooltip": "На товар есть скидка по промокоду PRIME",
-                          "url": "https://instamart.ru/metro/c/tolko-dlia-podpischikov-praim?sid=175",
+                          "url": "https://instamart.ru/metro/c/tolko-dlia-podpischikov-praim?sid=204",
                           "button_text": "Все товары со скидкой"
                         },
                         "inactive": {
@@ -2445,9 +2907,7 @@
         "summary": "Получение списка маркетинговых категорий",
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "tags": [
@@ -2492,9 +2952,7 @@
         "summary": "Получение маркетинговой категории",
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "tags": [
@@ -2543,7 +3001,7 @@
         }
       }
     },
-    "/v3/notifications": {
+    "/api/v3/notifications": {
       "post": {
         "summary": "Отправка события",
         "tags": [
@@ -2551,9 +3009,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -2567,8 +3023,7 @@
             "examples": {
               "application/json": null
             },
-            "content": {
-            }
+            "content": {}
           },
           "401": {
             "description": "Не авторизован",
@@ -2584,8 +3039,7 @@
                 "code": 401
               }
             },
-            "content": {
-            }
+            "content": {}
           },
           "422": {
             "description": "Требуемые данные отсутствуют или некорректны",
@@ -2604,8 +3058,7 @@
                 ]
               }
             },
-            "content": {
-            }
+            "content": {}
           }
         },
         "requestBody": {
@@ -2652,7 +3105,7 @@
         }
       }
     },
-    "/v3/order_options/delivery": {
+    "/api/v3/order_options/delivery": {
       "put": {
         "summary": "Возвращает возможные опции заказа для доставки",
         "tags": [
@@ -2660,9 +3113,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -2675,10 +3126,8 @@
             "description": "Данные валидны",
             "examples": {
               "application/json": {
-                "optionals": [
-
-                ],
-                "store_id": "25c60621-ac27-4fae-8d64-6bffdf05ee40",
+                "optionals": [],
+                "store_id": "068818ea-e593-40b3-ba7a-63afe7897335",
                 "payment_methods": [
                   {
                     "type": "cash",
@@ -2699,21 +3148,41 @@
                         "id": "by_courier:170832e5-1885-43f5-9b5e-2a538a618a43",
                         "price": 49000,
                         "original_price": 49000,
-                        "starts_at": "2022-02-24T02:00:00.000+03:00",
-                        "ends_at": "2022-02-24T02:00:00.000+03:00"
+                        "starts_at": "2022-03-25T14:42:04.000+03:00",
+                        "ends_at": "2022-03-25T14:42:04.000+03:00"
                       }
                     ]
                   }
                 ],
-                "replacement_options": [
-
-                ]
+                "replacement_options": []
               }
             },
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/order_options_response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Не авторизован",
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "type": "unauthorized",
+                    "field": null,
+                    "message": "Вы не авторизованы"
+                  }
+                ],
+                "code": 401
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_object"
                 }
               }
             }
@@ -2735,28 +3204,6 @@
                   }
                 ],
                 "code": 422
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errors_object"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Не авторизован",
-            "examples": {
-              "application/json": {
-                "errors": [
-                  {
-                    "type": "unauthorized",
-                    "field": null,
-                    "message": "Вы не авторизованы"
-                  }
-                ],
-                "code": 401
               }
             },
             "content": {
@@ -2870,7 +3317,7 @@
         }
       }
     },
-    "/v3/order_options/pickup_from_store": {
+    "/api/v3/order_options/pickup_from_store": {
       "put": {
         "summary": "Возвращает возможные опции заказа для самовывоза",
         "tags": [
@@ -2878,9 +3325,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -2893,13 +3338,9 @@
             "description": "Данные валидны",
             "examples": {
               "application/json": {
-                "optionals": [
-
-                ],
-                "store_id": "79849785-f228-4ffe-894a-3f9485c013e9",
-                "payment_methods": [
-
-                ],
+                "optionals": [],
+                "store_id": "0628ef84-7dee-4955-a72d-a16ae7383ed8",
+                "payment_methods": [],
                 "shipping_methods": [
                   {
                     "type": "pickup",
@@ -2908,21 +3349,41 @@
                         "id": "pickup:8370e4f7-88e1-45d9-98a7-b767417bd538",
                         "price": 49000,
                         "original_price": 49000,
-                        "starts_at": "2022-02-24T02:00:00.000+03:00",
-                        "ends_at": "2022-02-24T02:00:00.000+03:00"
+                        "starts_at": "2022-03-25T14:42:07.000+03:00",
+                        "ends_at": "2022-03-25T14:42:07.000+03:00"
                       }
                     ]
                   }
                 ],
-                "replacement_options": [
-
-                ]
+                "replacement_options": []
               }
             },
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/order_options_response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Не авторизован",
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "type": "unauthorized",
+                    "field": null,
+                    "message": "Вы не авторизованы"
+                  }
+                ],
+                "code": 401
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_object"
                 }
               }
             }
@@ -2944,28 +3405,6 @@
                   }
                 ],
                 "code": 422
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errors_object"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Не авторизован",
-            "examples": {
-              "application/json": {
-                "errors": [
-                  {
-                    "type": "unauthorized",
-                    "field": null,
-                    "message": "Вы не авторизованы"
-                  }
-                ],
-                "code": 401
               }
             },
             "content": {
@@ -3061,7 +3500,7 @@
         }
       }
     },
-    "/v3/orders/{order_id}/mergeable": {
+    "/api/v3/orders/{order_id}/mergeable": {
       "post": {
         "summary": "Проверка возможности заказа",
         "tags": [
@@ -3069,9 +3508,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -3103,10 +3540,10 @@
                     "details": "Shipment should have 'ready' state, but it 'pending'"
                   }
                 ],
-                "delivery_cost": 490.0,
+                "delivery_cost": 490,
                 "delivery_time": {
-                  "starts_at": "2022-02-25T09:00:00.000+03:00",
-                  "ends_at": "2022-02-25T12:00:00.000+03:00"
+                  "starts_at": "2022-03-26T09:00:00.000+03:00",
+                  "ends_at": "2022-03-26T12:00:00.000+03:00"
                 }
               }
             },
@@ -3114,6 +3551,28 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/merge_items_response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Не авторизован",
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "type": "unauthorized",
+                    "field": null,
+                    "message": "Вы не авторизованы"
+                  }
+                ],
+                "code": 401
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_object"
                 }
               }
             }
@@ -3132,8 +3591,7 @@
                 "code": 404
               }
             },
-            "content": {
-            }
+            "content": {}
           },
           "422": {
             "description": "Прередан запрос не соответствующий контракту",
@@ -3143,32 +3601,10 @@
                   {
                     "type": null,
                     "field": "offers",
-                    "message": "cannot find offers with id: 0000000415_suffix"
+                    "message": "cannot find offers with id: 0000000485_suffix"
                   }
                 ],
                 "code": 422
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errors_object"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Не авторизован",
-            "examples": {
-              "application/json": {
-                "errors": [
-                  {
-                    "type": "unauthorized",
-                    "field": null,
-                    "message": "Вы не авторизованы"
-                  }
-                ],
-                "code": 401
               }
             },
             "content": {
@@ -3227,7 +3663,7 @@
         }
       }
     },
-    "/v3/orders/{order_id}/merge_items": {
+    "/api/v3/orders/{order_id}/merge_items": {
       "post": {
         "summary": "Выполнение дозаказа",
         "tags": [
@@ -3235,9 +3671,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -3269,10 +3703,10 @@
                     "details": "Shipment should have 'ready' state, but it 'pending'"
                   }
                 ],
-                "delivery_cost": 490.0,
+                "delivery_cost": 490,
                 "delivery_time": {
-                  "starts_at": "2022-02-25T09:00:00.000+03:00",
-                  "ends_at": "2022-02-25T12:00:00.000+03:00"
+                  "starts_at": "2022-03-26T09:00:00.000+03:00",
+                  "ends_at": "2022-03-26T12:00:00.000+03:00"
                 }
               }
             },
@@ -3280,29 +3714,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/merge_items_response"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Прередан запрос не соответствующий контракту",
-            "examples": {
-              "application/json": {
-                "errors": [
-                  {
-                    "type": null,
-                    "field": "items",
-                    "message": "price not passed",
-                    "sku": "0000000423"
-                  }
-                ],
-                "code": 422
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errors_object"
                 }
               }
             }
@@ -3319,6 +3730,29 @@
                   }
                 ],
                 "code": 401
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Прередан запрос не соответствующий контракту",
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "type": null,
+                    "field": "items",
+                    "message": "price not passed",
+                    "sku": "0000000493"
+                  }
+                ],
+                "code": 422
               }
             },
             "content": {
@@ -3412,7 +3846,7 @@
         }
       }
     },
-    "/v3/orders/{order_id}/status": {
+    "/api/v3/orders/{order_id}/status": {
       "put": {
         "summary": "Отмена заказа",
         "tags": [
@@ -3420,9 +3854,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -3498,28 +3930,6 @@
               }
             }
           },
-          "422": {
-            "description": "Прередан некорректный статус",
-            "examples": {
-              "application/json": {
-                "errors": [
-                  {
-                    "type": null,
-                    "field": "status",
-                    "message": "status not allowed"
-                  }
-                ],
-                "code": 422
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errors_object"
-                }
-              }
-            }
-          },
           "401": {
             "description": "Не авторизован",
             "examples": {
@@ -3532,6 +3942,28 @@
                   }
                 ],
                 "code": 401
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Прередан некорректный статус",
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "type": null,
+                    "field": "status",
+                    "message": "status not allowed"
+                  }
+                ],
+                "code": 422
               }
             },
             "content": {
@@ -3567,7 +3999,7 @@
         }
       }
     },
-    "/v3/orders/delivery": {
+    "/api/v3/orders/delivery": {
       "post": {
         "summary": "Создать заказ c доставкой",
         "tags": [
@@ -3575,9 +4007,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -3589,7 +4019,9 @@
           "200": {
             "description": "Информация по заказу",
             "examples": {
-              "application/json": null
+              "application/json": {
+                "id": "metro1407:df5590cb-0537-4e2d-9f53-1e2440b3f699"
+              }
             },
             "content": {
               "application/json": {
@@ -3720,6 +4152,12 @@
                     "example": "Комментарий к заказу",
                     "maxLength": 4294967295
                   },
+                  "ext_user_id": {
+                    "type": "string",
+                    "description": "Идентификатор пользователя внешней витрины (поле обязательно для эквайринга Сбера)",
+                    "example": "eb337b43-96bc-450f-9adc-4e5c34a76d69",
+                    "max_length": 255
+                  },
                   "b2b": {
                     "type": "boolean",
                     "description": "Покупатель b2b",
@@ -3730,6 +4168,14 @@
                     "description": "Идентификатор покупателя",
                     "example": "120033562301",
                     "maxLength": 65
+                  },
+                  "request_ip": {
+                    "type": "string",
+                    "description": "IP адрес клиента, обязательный если используется эквайринг от Сбера",
+                    "pattern": "ipv4",
+                    "example": "123.123.123.123",
+                    "minLength": 7,
+                    "maxLength": 15
                   },
                   "items": {
                     "type": "array",
@@ -3979,7 +4425,7 @@
         }
       }
     },
-    "/v3/orders/pickup_from_store": {
+    "/api/v3/orders/pickup_from_store": {
       "post": {
         "summary": "Создать заказ c выдачей в магазине",
         "tags": [
@@ -3987,9 +4433,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -4001,7 +4445,9 @@
           "200": {
             "description": "Информация по заказу",
             "examples": {
-              "application/json": null
+              "application/json": {
+                "id": "metro1413:4b6f0e3e-054d-492f-a05b-77f0cd110257"
+              }
             },
             "content": {
               "application/json": {
@@ -4127,6 +4573,12 @@
                     "example": "Комментарий к заказу",
                     "maxLength": 4294967295
                   },
+                  "ext_user_id": {
+                    "type": "string",
+                    "description": "Идентификатор пользователя внешней витрины (поле обязательно для эквайринга Сбера)",
+                    "example": "eb337b43-96bc-450f-9adc-4e5c34a76d69",
+                    "max_length": 255
+                  },
                   "b2b": {
                     "type": "boolean",
                     "description": "Покупатель b2b",
@@ -4137,6 +4589,14 @@
                     "description": "Идентификатор покупателя",
                     "example": "120033562301",
                     "maxLength": 65
+                  },
+                  "request_ip": {
+                    "type": "string",
+                    "description": "IP адрес клиента, обязательный если используется эквайринг от Сбера",
+                    "pattern": "ipv4",
+                    "example": "123.123.123.123",
+                    "minLength": 7,
+                    "maxLength": 15
                   },
                   "items": {
                     "type": "array",
@@ -4286,7 +4746,7 @@
         }
       }
     },
-    "/v3/orders/{id}": {
+    "/api/v3/orders/{id}": {
       "get": {
         "summary": "Показать заказ по uuid",
         "tags": [
@@ -4294,9 +4754,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -4336,21 +4794,17 @@
                 "external_promocode": null,
                 "external_customer_id": null,
                 "b2b": false,
-                "opaque_packages": [
-
-                ],
+                "opaque_packages": [],
                 "total": 100000,
-                "features": [
-
-                ],
+                "features": [],
                 "item_total": 100000,
                 "ship_total": 0,
                 "item_count": 1,
                 "promo_total": 0,
                 "shipment_state": "ready",
                 "payment_state": "not_paid",
-                "created_at": "2022-02-24T01:00:00.000+03:00",
-                "updated_at": "2022-02-24T01:00:00.000+03:00",
+                "created_at": "2022-03-25T13:42:21.000+03:00",
+                "updated_at": "2022-03-25T13:42:22.000+03:00",
                 "state": "complete",
                 "comment": null,
                 "contact": {
@@ -4358,38 +4812,31 @@
                   "last_name": "Fedorov",
                   "phone": "74951112233"
                 },
-                "shipping_crew": [
-
-                ],
+                "shipping_crew": [],
                 "packages": [
                   {
                     "id": "443e918d-7b93-466f-930f-f3a0e9461103",
                     "number": "H03304470352",
                     "item_count": 1,
-                    "features": [
-
-                    ],
+                    "features": [],
                     "total": 100000,
                     "item_total": 100000,
                     "ship_total": 0,
                     "promo_total": 0,
-                    "weight": 500.0,
+                    "weight": 500,
                     "state": "ready",
-                    "modifications": [
-
-                    ],
+                    "modifications": [],
                     "line_items": [
                       {
-                        "product_id": "0000000433",
-                        "name": "Product #280",
-                        "quantity": 1.0,
+                        "product_id": "0000000503",
+                        "name": "Product #350",
+                        "quantity": 1,
                         "total_weight": 500,
-                        "features": [
-
-                        ],
+                        "features": [],
                         "price": 50000,
                         "price_per_kilo": 100000,
                         "original_price": 50000,
+                        "original_price_per_kilo": 100000,
                         "total": 100000,
                         "promo_total": 0,
                         "state": null,
@@ -4403,7 +4850,7 @@
                         "modifications": [
                           {
                             "price": 0,
-                            "quantity": 0.0
+                            "quantity": 0
                           }
                         ],
                         "vat_rate": 20
@@ -4414,28 +4861,22 @@
                     "id": "c9d94b10-712c-4857-88c7-0928f9ebd0cb",
                     "number": "H67476206434",
                     "item_count": 0,
-                    "features": [
-
-                    ],
+                    "features": [],
                     "total": 0,
                     "item_total": 0,
                     "ship_total": 0,
                     "promo_total": 0,
-                    "weight": 0.0,
+                    "weight": 0,
                     "state": "pending",
-                    "modifications": [
-
-                    ],
-                    "line_items": [
-
-                    ]
+                    "modifications": [],
+                    "line_items": []
                   }
                 ],
                 "payments": [
                   {
                     "type": "cash",
                     "package_ids": [
-                      109
+                      154
                     ],
                     "state": "checkout",
                     "option_id": "cash:N8YDG62K"
@@ -4451,22 +4892,22 @@
                   "state": "ready",
                   "address": {
                     "city": "Москва",
-                    "street": "120th street",
+                    "street": "148th street",
                     "building": "56 c.3",
                     "block": "1",
                     "entrance": "1",
                     "floor": "1",
                     "apartment": "1",
                     "comments": null,
-                    "lat": 5.0,
-                    "lon": 5.0,
+                    "lat": 5,
+                    "lon": 5,
                     "kind": null,
                     "door_phone": "1",
                     "delivery_to_door": true
                   },
                   "delivery_window": {
-                    "starts_at": "2022-02-24T01:00:00.000+03:00",
-                    "ends_at": "2022-02-24T04:00:00.000+03:00"
+                    "starts_at": "2022-03-25T13:42:22.000+03:00",
+                    "ends_at": "2022-03-25T16:42:22.000+03:00"
                   },
                   "rates": [
                     {
@@ -4752,8 +5193,8 @@
                                   "type": "number",
                                   "format": "float",
                                   "description": "Количество продуктов",
-                                  "maximum": 2147483647.0,
-                                  "minimum": 0.0,
+                                  "maximum": 2147483647,
+                                  "minimum": 0,
                                   "example": 1.42
                                 },
                                 "total_weight": {
@@ -4785,6 +5226,13 @@
                                   "maximum": 2147483647,
                                   "minimum": 0,
                                   "example": 12
+                                },
+                                "original_price_per_kilo": {
+                                  "type": "integer",
+                                  "description": "Полная цена продукта за КГ",
+                                  "maximum": 2147483647,
+                                  "minimum": 0,
+                                  "example": 10
                                 },
                                 "promo_total": {
                                   "type": "integer",
@@ -4856,9 +5304,9 @@
                                         "type": "number",
                                         "format": "float",
                                         "description": "Измененное количество продукта",
-                                        "maximum": 2147483647.0,
-                                        "minimum": 0.0,
-                                        "example": 12.0
+                                        "maximum": 2147483647,
+                                        "minimum": 0,
+                                        "example": 12
                                       }
                                     },
                                     "required": [
@@ -5080,15 +5528,15 @@
                             "lat": {
                               "type": "number",
                               "description": "Широта",
-                              "minimum": -90.0,
-                              "maximum": 90.0,
+                              "minimum": -90,
+                              "maximum": 90,
                               "example": 55.766116
                             },
                             "lon": {
                               "type": "number",
                               "description": "Долгота",
-                              "minimum": -180.0,
-                              "maximum": 180.0,
+                              "minimum": -180,
+                              "maximum": 180,
                               "example": 55.766116
                             },
                             "kind": {
@@ -5278,28 +5726,6 @@
               }
             }
           },
-          "404": {
-            "description": "Заказ не найден",
-            "examples": {
-              "application/json": {
-                "errors": [
-                  {
-                    "type": "not_found",
-                    "field": null,
-                    "message": "Заказ не существует"
-                  }
-                ],
-                "code": 404
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errors_object"
-                }
-              }
-            }
-          },
           "401": {
             "description": "Не авторизован",
             "examples": {
@@ -5321,11 +5747,33 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Заказ не найден",
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "type": "not_found",
+                    "field": null,
+                    "message": "Заказ не существует"
+                  }
+                ],
+                "code": 404
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_object"
+                }
+              }
+            }
           }
         }
       }
     },
-    "/v3/payments/cloud_payments/credit_card_authorizations": {
+    "/api/v3/payments/cloud_payments/credit_card_authorizations": {
       "post": {
         "summary": "Инициация процесса авторизации карты",
         "tags": [
@@ -5333,9 +5781,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -5406,8 +5852,7 @@
                 "code": "unprocessable_entity"
               }
             },
-            "content": {
-            }
+            "content": {}
           }
         },
         "requestBody": {
@@ -5499,7 +5944,7 @@
         }
       }
     },
-    "/v3/payments/cloud_payments/credit_card_authorizations/finish": {
+    "/api/v3/payments/cloud_payments/credit_card_authorizations/finish": {
       "post": {
         "summary": "Заверщение процесса авторизации карты",
         "tags": [
@@ -5550,13 +5995,12 @@
             "examples": {
               "application/json": null
             },
-            "content": {
-            }
+            "content": {}
           }
         }
       }
     },
-    "/v3/payments/cloud_payments": {
+    "/api/v3/payments/cloud_payments": {
       "get": {
         "summary": "Получение данных карты",
         "tags": [
@@ -5565,9 +6009,7 @@
         "description": "Получить данные карты по payment_option_id или order_uuid с payment_identifier",
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -5625,25 +6067,7 @@
                 "term_url": "https://custom.url"
               }
             },
-            "content": {
-            }
-          },
-          "404": {
-            "description": "Не найдено",
-            "examples": {
-              "application/json": {
-                "errors": [
-                  {
-                    "type": "not_found",
-                    "field": null,
-                    "message": "Платежное средство не существует"
-                  }
-                ],
-                "code": 404
-              }
-            },
-            "content": {
-            }
+            "content": {}
           },
           "400": {
             "description": "Отсутствует обязательный параметр",
@@ -5659,13 +6083,28 @@
                 "code": 400
               }
             },
-            "content": {
-            }
+            "content": {}
+          },
+          "404": {
+            "description": "Не найдено",
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "type": "not_found",
+                    "field": null,
+                    "message": "Платежное средство не существует"
+                  }
+                ],
+                "code": 404
+              }
+            },
+            "content": {}
           }
         }
       }
     },
-    "/v3/payments/sber_payments/credit_card_authorizations": {
+    "/api/v3/payments/sber_payments/credit_card_authorizations": {
       "post": {
         "summary": "Инициация процесса авторизации карты",
         "tags": [
@@ -5673,9 +6112,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -5727,8 +6164,7 @@
                 "code": "unprocessable_entity"
               }
             },
-            "content": {
-            }
+            "content": {}
           }
         },
         "requestBody": {
@@ -5768,7 +6204,7 @@
         }
       }
     },
-    "/v3/payments/sber_payments/credit_card_authorizations/finish": {
+    "/api/v3/payments/sber_payments/credit_card_authorizations/finish": {
       "post": {
         "summary": "Заверщение процесса авторизации карты",
         "tags": [
@@ -5776,9 +6212,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -5792,7 +6226,7 @@
             "examples": {
               "application/json": {
                 "display_number": "•••• 1111",
-                "payment_option_id": "YKDukDgYDo7EHSlUeA9hWjhUI3BihaLOzV4TVG9l/wI=",
+                "payment_option_id": "d8maIREDyLeqz1M2aAqsBLJ45nD36vQJQHfDGtloPTk=",
                 "errors": "Ограничение по карте. Пожалуйста, обратитесь в банк, выпустивший карту.",
                 "code": "ok"
               }
@@ -5830,8 +6264,7 @@
                 "code": "unprocessable_entity"
               }
             },
-            "content": {
-            }
+            "content": {}
           }
         },
         "requestBody": {
@@ -5863,7 +6296,7 @@
         }
       }
     },
-    "/v3/payments/sber_payments/credit_cards": {
+    "/api/v3/payments/sber_payments/credit_cards": {
       "get": {
         "summary": "Получение данных карты",
         "tags": [
@@ -5871,9 +6304,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -5967,6 +6398,22 @@
               }
             }
           },
+          "400": {
+            "description": "Отсутствует обязательный параметр",
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "type": "parameter_missing",
+                    "field": "order_uuid",
+                    "message": "Отсутствует обязательный параметр"
+                  }
+                ],
+                "code": 400
+              }
+            },
+            "content": {}
+          },
           "401": {
             "description": "Не авторизован",
             "examples": {
@@ -5981,8 +6428,7 @@
                 "code": 401
               }
             },
-            "content": {
-            }
+            "content": {}
           },
           "404": {
             "description": "Не найден",
@@ -5998,30 +6444,117 @@
                 "code": 404
               }
             },
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/v3/payments/sber_payments/credit_card": {
+      "delete": {
+        "summary": "Удаление привязанной карты",
+        "tags": [
+          "Credit Cards (Sber Payments)"
+        ],
+        "security": [
+          {
+            "client_token_auth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/api_version"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Задача удаления карты успешно запланирована",
+            "examples": {
+              "application/json": {
+                "result": "ok"
+              }
+            },
             "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "string",
+                      "description": "внешний id владельца карты",
+                      "example": "ok",
+                      "maxLength": 255
+                    }
+                  },
+                  "required": [
+                    "result"
+                  ]
+                }
+              }
             }
           },
-          "400": {
-            "description": "Отсутствует обязательный параметр",
+          "401": {
+            "description": "Не авторизован",
             "examples": {
               "application/json": {
                 "errors": [
                   {
-                    "type": "parameter_missing",
-                    "field": "order_uuid",
-                    "message": "Отсутствует обязательный параметр"
+                    "type": "unauthorized",
+                    "field": null,
+                    "message": "Вы не авторизованы"
                   }
                 ],
-                "code": 400
+                "code": 401
               }
             },
-            "content": {
+            "content": {}
+          },
+          "422": {
+            "description": "Перреданы некорректные параметры",
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "type": null,
+                    "field": "payment_tool",
+                    "message": "must be present"
+                  }
+                ],
+                "code": 422
+              }
+            },
+            "content": {}
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "payment_option_id": {
+                    "type": "string",
+                    "description": "зашифрованный id payment_tool-а",
+                    "example": "PAO+OVW/viuOYSHBxX0EVhutm1k0MNoeASkfoHSu0WA=",
+                    "maxLength": 255
+                  },
+                  "ext_user_id": {
+                    "type": "string",
+                    "description": "внешний id владельца карты",
+                    "example": "ext_user",
+                    "maxLength": 255
+                  }
+                },
+                "required": [
+                  "payment_option_id",
+                  "ext_user_id"
+                ]
+              }
             }
           }
         }
       }
     },
-    "/v3/payments/sber_payments/order_finalizations/finish": {
+    "/api/v3/payments/sber_payments/order_finalizations/finish": {
       "get": {
         "summary": "Инициация процесса авторизации SberPay",
         "tags": [
@@ -6029,9 +6562,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -6069,7 +6600,7 @@
                   "sber_spasibo_error": null
                 },
                 "redirect": {
-                  "destination": "/user/shipments/H36768735423"
+                  "destination": "/user/shipments/H32216078062"
                 }
               }
             },
@@ -6128,6 +6659,54 @@
               }
             }
           },
+          "400": {
+            "description": "Отсутствует обязательный параметр",
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "type": "parameter_missing",
+                    "field": "order_number",
+                    "message": "Отсутствует обязательный параметр"
+                  }
+                ],
+                "code": 400
+              }
+            },
+            "content": {}
+          },
+          "401": {
+            "description": "Отсутствует или неверный токен авторизации",
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "type": "unauthorized",
+                    "field": null,
+                    "message": "Вы не авторизованы"
+                  }
+                ],
+                "code": 401
+              }
+            },
+            "content": {}
+          },
+          "404": {
+            "description": "Не найден",
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "type": "not_found",
+                    "field": null,
+                    "message": "Заказ не существует"
+                  }
+                ],
+                "code": 404
+              }
+            },
+            "content": {}
+          },
           "422": {
             "description": "Ошибка авторизации. Получение ссылки на редирект.",
             "examples": {
@@ -6177,56 +6756,196 @@
                 }
               }
             }
-          },
-          "401": {
-            "description": "Отсутствует или неверный токен авторизации",
+          }
+        }
+      }
+    },
+    "/api/v3/payments/sber_payments/sberpay_authorizations": {
+      "post": {
+        "summary": "Инициация процесса авторизации sperpay",
+        "tags": [
+          "Sberpay"
+        ],
+        "security": [
+          {
+            "client_token_auth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/api_version"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Авторизационный платеж создан",
             "examples": {
               "application/json": {
-                "errors": [
-                  {
-                    "type": "unauthorized",
-                    "field": null,
-                    "message": "Вы не авторизованы"
-                  }
-                ],
-                "code": 401
+                "order_id": "372952ec-45fa-4edb-bb95-d617b1ee9b2a",
+                "sbol_deep_link": "qwe"
               }
             },
             "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "order_id",
+                    "sbol_deep_link"
+                  ],
+                  "properties": {
+                    "order_id": {
+                      "type": "string",
+                      "description": "Номер транзакции",
+                      "example": "372952ec-45fa-4edb-bb95-d617b1ee9b2a",
+                      "minLength": 36,
+                      "maxLength": 36
+                    },
+                    "sbol_deep_link": {
+                      "type": "string",
+                      "description": "Deeplink, по которому необходимо перенаправить пользователя",
+                      "example": "ru.sberbankmobile/payments/p2p?type=card_number",
+                      "maxLength": 255
+                    }
+                  }
+                }
+              }
             }
           },
-          "404": {
-            "description": "Не найден",
+          "422": {
+            "description": "Ошибка создания формы авторизации",
             "examples": {
               "application/json": {
-                "errors": [
-                  {
-                    "type": "not_found",
-                    "field": null,
-                    "message": "Заказ не существует"
-                  }
+                "errors": "Ошибка добавления карты",
+                "code": "unprocessable_entity"
+              }
+            },
+            "content": {}
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "app2app",
+                  "os_type",
+                  "deep_link",
+                  "ext_user_id"
                 ],
-                "code": 404
+                "properties": {
+                  "app2app": {
+                    "type": "boolean",
+                    "description": "Атрибут, указывающий на способ оплаты через приложение СБОЛ",
+                    "example": true
+                  },
+                  "os_type": {
+                    "type": "string",
+                    "description": "Операционная система устройства пользователя",
+                    "enum": [
+                      "ios",
+                      "android"
+                    ],
+                    "example": "ios"
+                  },
+                  "deep_link": {
+                    "type": "string",
+                    "description": "Ссылка на приложение мерчанта для возврата с успешной оплатой",
+                    "example": "ru.sberbankmobile/payments/p2p?type=card_number",
+                    "maxLength": 255
+                  },
+                  "ext_user_id": {
+                    "type": "string",
+                    "description": "Некий ID пользователя - владельца карты, может быть числом, UUID-ом, номером телефона, email-ом, и т.д.",
+                    "example": "eb337b43-96bc-450f-9adc-4e5c34a76d69"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/payments/sber_payments/sberpay_authorizations/finish": {
+      "post": {
+        "summary": "Заверщение процесса авторизации sberpay",
+        "tags": [
+          "Sberpay"
+        ],
+        "security": [
+          {
+            "client_token_auth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/api_version"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Авторизация не пройдена",
+            "examples": {
+              "application/json": {
+                "payment_option_id": "y+0jdXGVPDyIMAeV9JL4/pzNpt/ixgDuDZACRmNfloo=",
+                "errors": "Ограничение по карте. Пожалуйста, обратитесь в банк, выпустивший карту.",
+                "code": "ok"
               }
             },
             "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "payment_option_id"
+                  ],
+                  "properties": {
+                    "display_number": {
+                      "type": "string",
+                      "description": "Маскированный номер карты",
+                      "example": "•••• 7890"
+                    }
+                  }
+                }
+              }
             }
           },
-          "400": {
-            "description": "Отсутствует обязательный параметр",
+          "422": {
+            "description": "Авторизация не пройдена (некорректный номер транзакции, недоступен ПШ, и прочее)",
             "examples": {
               "application/json": {
-                "errors": [
-                  {
-                    "type": "parameter_missing",
-                    "field": "order_number",
-                    "message": "Отсутствует обязательный параметр"
-                  }
-                ],
-                "code": 400
+                "errors": "Ошибка добавления карты",
+                "code": "unprocessable_entity"
               }
             },
-            "content": {
+            "content": {}
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "transaction_number",
+                  "ext_user_id"
+                ],
+                "properties": {
+                  "transaction_number": {
+                    "type": "string",
+                    "description": "Номер транзакции (order_id) из первого шага",
+                    "example": "372952ec-45fa-4edb-bb95-d617b1ee9b2a",
+                    "minLength": 36,
+                    "maxLength": 36
+                  },
+                  "ext_user_id": {
+                    "type": "string",
+                    "description": "ID пользователя из первого шага",
+                    "example": "eb337b43-96bc-450f-9adc-4e5c34a76d69"
+                  }
+                }
+              }
             }
           }
         }
@@ -6315,17 +7034,17 @@
               "application/json": {
                 "products": [
                   {
-                    "id": "0000000467",
-                    "legacy_offer_id": 410,
-                    "legacy_product_id": 400,
-                    "sku": "20713",
-                    "retailer_sku": "0000000467",
-                    "name": "Product #314",
+                    "id": "0000000537",
+                    "legacy_offer_id": 435,
+                    "legacy_product_id": 425,
+                    "sku": "20819",
+                    "retailer_sku": "0000000537",
+                    "name": "Product #384",
                     "price": 1236.7,
                     "original_price": 1236.7,
-                    "discount": 0.0,
+                    "discount": 0,
                     "human_volume": "100 г.",
-                    "volume": 100.0,
+                    "volume": 100,
                     "volume_type": "weight",
                     "items_per_pack": 1,
                     "discount_ends_at": null,
@@ -6333,33 +7052,27 @@
                     "grams_per_unit": 100,
                     "unit_price": 1236.7,
                     "original_unit_price": 1236.7,
-                    "slug": "product-314",
+                    "slug": "product-384",
                     "max_select_quantity": 999,
-                    "canonical_url": "https://instamart.ru/products/20713-product-314",
+                    "canonical_url": "https://instamart.ru/products/20819-product-384",
                     "available": true,
                     "vat_info": null,
-                    "promo_badge_ids": [
-
-                    ],
-                    "requirements": [
-
-                    ],
-                    "image_urls": [
-
-                    ]
+                    "promo_badge_ids": [],
+                    "requirements": [],
+                    "image_urls": []
                   },
                   {
-                    "id": "0000000468",
-                    "legacy_offer_id": 411,
-                    "legacy_product_id": 401,
-                    "sku": "20714",
-                    "retailer_sku": "0000000468",
-                    "name": "Product #315",
+                    "id": "0000000538",
+                    "legacy_offer_id": 436,
+                    "legacy_product_id": 426,
+                    "sku": "20820",
+                    "retailer_sku": "0000000538",
+                    "name": "Product #385",
                     "price": 1236.7,
                     "original_price": 1236.7,
-                    "discount": 0.0,
+                    "discount": 0,
                     "human_volume": "100 г.",
-                    "volume": 100.0,
+                    "volume": 100,
                     "volume_type": "weight",
                     "items_per_pack": 1,
                     "discount_ends_at": null,
@@ -6367,17 +7080,13 @@
                     "grams_per_unit": 100,
                     "unit_price": 1236.7,
                     "original_unit_price": 1236.7,
-                    "slug": "product-315",
+                    "slug": "product-385",
                     "max_select_quantity": 999,
-                    "canonical_url": "https://instamart.ru/products/20714-product-315",
+                    "canonical_url": "https://instamart.ru/products/20820-product-385",
                     "available": true,
                     "vat_info": null,
-                    "promo_badge_ids": [
-
-                    ],
-                    "requirements": [
-
-                    ],
+                    "promo_badge_ids": [],
+                    "requirements": [],
                     "image_urls": [
                       "https://instamart.ru/spree/products/87/original/1x1.png?1614955404"
                     ]
@@ -6396,17 +7105,13 @@
                     "key": "brand",
                     "name": "Бренд",
                     "type": "multi_select",
-                    "options": [
-
-                    ]
+                    "options": []
                   },
                   {
                     "key": "country",
                     "name": "Страна изготовления",
                     "type": "multi_select",
-                    "options": [
-
-                    ]
+                    "options": []
                   }
                 ],
                 "sort": [
@@ -6433,13 +7138,9 @@
                   "key": "root_category",
                   "name": "Категория",
                   "type": "select",
-                  "options": [
-
-                  ]
+                  "options": []
                 },
-                "promo_badges": [
-
-                ]
+                "promo_badges": []
               }
             },
             "content": {
@@ -6529,14 +7230,12 @@
             "examples": {
               "application/json": {
                 "product": {
-                  "id": "0000000477",
-                  "legacy_offer_id": 420,
-                  "legacy_product_id": 410,
+                  "id": "0000000547",
+                  "legacy_offer_id": 445,
+                  "legacy_product_id": 435,
                   "description": "<img src=\"https://storefront.staging.instamart.ru/spree/products/129959/original/picanta.jpg\" width=700px height=0px alt=\"Пиканта\"> <img src=\"https://storefront.staging.instamart.ru/spree/products/129959/original/picanta.jpg\" width=\"100%\" alt=\"Пиканта\"> <iframe width=\"100%\" height=350px src=\"https://www.youtube.com/embed/wSIhSSbhvJ4\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>",
                   "available": true,
-                  "promo_badge_ids": [
-
-                  ],
+                  "promo_badge_ids": [],
                   "properties": [
                     {
                       "name": "shelf_life",
@@ -6544,13 +7243,9 @@
                       "value": "2 дня"
                     }
                   ],
-                  "related_products": [
-
-                  ]
+                  "related_products": []
                 },
-                "promo_badges": [
-
-                ]
+                "promo_badges": []
               }
             },
             "content": {
@@ -6590,79 +7285,40 @@
           "Товары"
         ],
         "responses": {
-          "ok": {
-            "description": "Список продуктов",
-            "examples": {
-              "application/json": {
-                "products": [
-
-                ],
-                "meta": {
-                  "current_page": 1,
-                  "next_page": null,
-                  "total_pages": 0,
-                  "per_page": 10,
-                  "total_count": 0
-                },
-                "promo_badges": [
-
-                ]
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "products": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/offer"
-                    }
-                  },
-                  "promo_badges": {
-                    "$ref": "#/components/schemas/promo_badges"
-                  }
-                }
-              }
-            }
-          },
           "200": {
             "description": "Список продуктов",
             "examples": {
               "application/json": {
                 "products": [
                   {
-                    "id": "0000000482",
-                    "legacy_offer_id": 425,
-                    "legacy_product_id": 415,
-                    "sku": "20733",
-                    "retailer_sku": "0000000482",
-                    "name": "Product #329",
-                    "price": 1000.0,
-                    "original_price": 1000.0,
-                    "discount": 0.0,
+                    "id": "0000000552",
+                    "legacy_offer_id": 450,
+                    "legacy_product_id": 440,
+                    "sku": "20839",
+                    "retailer_sku": "0000000552",
+                    "name": "Product #399",
+                    "price": 1000,
+                    "original_price": 1000,
+                    "discount": 0,
                     "human_volume": "100 г",
-                    "volume": 100.0,
+                    "volume": 100,
                     "volume_type": "weight",
                     "items_per_pack": 1,
                     "discount_ends_at": null,
                     "price_type": "per_kilo",
                     "grams_per_unit": 500,
-                    "unit_price": 1000.0,
-                    "original_unit_price": 1000.0,
-                    "slug": "product-329",
+                    "unit_price": 1000,
+                    "original_unit_price": 1000,
+                    "slug": "product-399",
                     "max_select_quantity": 999,
-                    "canonical_url": "https://instamart.ru/products/20733-product-329",
+                    "canonical_url": "https://instamart.ru/products/20839-product-399",
                     "available": false,
                     "vat_info": null,
                     "promo_badge_ids": [
                       1
                     ],
-                    "image_urls": [
-
-                    ],
-                    "requirements": [
-
-                    ]
+                    "image_urls": [],
+                    "requirements": []
                   }
                 ],
                 "meta": {
@@ -6683,7 +7339,7 @@
                           "title": "-10% со СберПрайм",
                           "title_short": "-10%",
                           "tooltip": "На товар есть скидка по промокоду PRIME",
-                          "url": "https://instamart.ru/metro/c/tolko-dlia-podpischikov-praim?sid=252",
+                          "url": "https://instamart.ru/metro/c/tolko-dlia-podpischikov-praim?sid=281",
                           "button_text": "Все товары со скидкой"
                         },
                         "inactive": {
@@ -6714,11 +7370,42 @@
                 }
               }
             }
+          },
+          "ok": {
+            "description": "Список продуктов",
+            "examples": {
+              "application/json": {
+                "products": [],
+                "meta": {
+                  "current_page": 1,
+                  "next_page": null,
+                  "total_pages": 0,
+                  "per_page": 10,
+                  "total_count": 0
+                },
+                "promo_badges": []
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "products": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/offer"
+                    }
+                  },
+                  "promo_badges": {
+                    "$ref": "#/components/schemas/promo_badges"
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
-    "/v3/referral_program_config": {
+    "/api/v3/referral_program_config": {
       "parameters": [
         {
           "$ref": "#/components/parameters/api_version"
@@ -6734,9 +7421,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "responses": {
@@ -6770,7 +7455,230 @@
         }
       }
     },
-    "/v3/setup_info/stores": {
+    "/api/v3/retailers": {
+      "get": {
+        "summary": "Получить список ретейлеров",
+        "tags": [
+          "Retailers"
+        ],
+        "security": [
+          {
+            "client_token_auth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/api_version"
+          },
+          {
+            "name": "lat",
+            "in": "query",
+            "description": "Широта, допустимые значения: [-90, 90]",
+            "example": 55.181312,
+            "schema": {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 90
+            },
+            "required": false
+          },
+          {
+            "name": "lon",
+            "in": "query",
+            "description": "Долгота, допустимые значения: [-180, 180]",
+            "example": 61.3679104,
+            "schema": {
+              "type": "number",
+              "minimum": -180,
+              "maximum": 180
+            },
+            "required": false
+          },
+          {
+            "name": "shipping_method",
+            "in": "query",
+            "description": "Способ доставки: delivery - для доставки, pickup_from_store - для самовывоза",
+            "example": "delivery",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "delivery",
+                "pickup_from_store"
+              ]
+            },
+            "required": false
+          },
+          {
+            "name": "city_id",
+            "in": "query",
+            "description": "Идентификатор города",
+            "example": "1",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "description": "Какие поля включать в ответ, макс. длина 255",
+            "example": "stores_count,shipping_methods",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": -1,
+              "maximum": 50000
+            },
+            "description": "Радиус поиска ретейлеров вокруг заданной точки, в метрах. Если передан -1, будет значение по умолчанию (50км)",
+            "example": 10000
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Получение списка ритейлеров",
+            "examples": {
+              "application/json": [
+                {
+                  "name": "METRO1560",
+                  "slug": "metro1560",
+                  "stores_count": 1,
+                  "appearance": null,
+                  "shipping_methods": [
+                    {
+                      "title": "Самовывоз",
+                      "type": "pickup"
+                    }
+                  ]
+                }
+              ]
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Название",
+                        "example": "Metro",
+                        "maxLength": 255
+                      },
+                      "slug": {
+                        "type": "string",
+                        "description": "Код ритейлера",
+                        "example": "metro",
+                        "maxLength": 255
+                      },
+                      "appearance": {
+                        "description": "Внешний вид",
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "$ref": "#/components/schemas/retailer_appearance"
+                          }
+                        ]
+                      },
+                      "stores_count": {
+                        "type": "integer",
+                        "description": "Количество магазинов у ритейлера подходящих под условие",
+                        "example": 12
+                      },
+                      "shipping_methods": {
+                        "type": "array",
+                        "description": "Способы доставки",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "title": {
+                              "type": "string",
+                              "description": "Название способа доставки",
+                              "example": "Курьером",
+                              "maxLength": 255
+                            },
+                            "type": {
+                              "type": "string",
+                              "description": "Тип способа доставки",
+                              "example": "by_courier",
+                              "maxLength": 255
+                            }
+                          },
+                          "required": [
+                            "title",
+                            "type"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "slug",
+                      "appearance"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Не авторизован",
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "type": "unauthorized",
+                    "field": null,
+                    "message": "Вы не авторизованы"
+                  }
+                ],
+                "code": 401
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Некорректный параметр",
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "type": null,
+                    "field": "shipping_method",
+                    "message": "имеет непредусмотренное значение"
+                  }
+                ],
+                "code": 422
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors_object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/setup_info/stores": {
       "get": {
         "summary": "Доступные для ритейлера магазины",
         "tags": [
@@ -6778,9 +7686,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -6824,9 +7730,7 @@
           "200": {
             "description": "Cписок магазинов",
             "examples": {
-              "application/json": [
-
-              ]
+              "application/json": []
             },
             "content": {
               "application/json": {
@@ -6947,8 +7851,8 @@
                                   "items": {
                                     "type": "number",
                                     "format": "float",
-                                    "minimum": -180.0,
-                                    "maximum": 180.0
+                                    "minimum": -180,
+                                    "maximum": 180
                                   }
                                 }
                               },
@@ -7056,7 +7960,7 @@
         }
       }
     },
-    "/v3/setup_info": {
+    "/api/v3/setup_info": {
       "get": {
         "summary": "Справочная информация об интеграции",
         "tags": [
@@ -7064,9 +7968,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -7206,9 +8108,7 @@
         "summary": "Получение списка зон доставки ритейлера",
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "tags": [
@@ -7223,9 +8123,7 @@
                   "retailer": {
                     "color": "#003d7a"
                   },
-                  "stores": [
-
-                  ]
+                  "stores": []
                 }
               }
             },
@@ -7242,7 +8140,7 @@
         }
       }
     },
-    "/v3/stores/{id}/closest_shipping_options": {
+    "/api/v3/stores/{id}/closest_shipping_options": {
       "post": {
         "summary": "Ближайшие опции доставки",
         "tags": [
@@ -7250,9 +8148,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -7278,14 +8174,14 @@
               "application/json": {
                 "data": [
                   {
-                    "option_id": "by_courier:2c4fb730-5a53-4c26-84dd-64546926cfe2",
+                    "option_id": "by_courier:179f6c8f-5ed0-4311-a8dd-1a785d6e940a",
                     "starts_at": "2021-03-05T19:43:17.000+03:00",
                     "ends_at": "2021-03-05T19:43:17.000+03:00",
                     "express_delivery": false,
                     "summary": "сегодня 19:43–19:43"
                   },
                   {
-                    "option_id": "by_courier:c9820074-08e9-4f19-a394-cb6df6c9536c",
+                    "option_id": "by_courier:6e287d1d-7f6f-44a4-8f2a-ea61038c5158",
                     "starts_at": "2021-03-06T09:00:00.000+03:00",
                     "ends_at": "2021-03-06T12:00:00.000+03:00",
                     "express_delivery": false,
@@ -7542,7 +8438,7 @@
         }
       }
     },
-    "/v3/stores/for_map": {
+    "/api/v3/stores/for_map": {
       "get": {
         "summary": "Получение магазинов для вывода на карте",
         "tags": [
@@ -7551,9 +8447,7 @@
         "description": "Получение магазинов для вывода на карте",
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -7602,12 +8496,8 @@
             "description": "Список получен",
             "examples": {
               "application/json": {
-                "stores": [
-
-                ],
-                "retailers": [
-
-                ]
+                "stores": [],
+                "retailers": []
               }
             },
             "content": {
@@ -7719,7 +8609,7 @@
         }
       }
     },
-    "/v3/stores": {
+    "/api/v3/stores": {
       "get": {
         "summary": "Проверяет доступные магазины для заказа",
         "tags": [
@@ -7727,9 +8617,7 @@
         ],
         "security": [
           {
-            "client_token_auth": [
-
-            ]
+            "client_token_auth": []
           }
         ],
         "parameters": [
@@ -7803,6 +8691,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "example": -1,
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": -1,
+              "maximum": 50000
+            },
+            "description": "Ограничение радиуса поиска магазинов самовывоза. Работает только с lat/lon и shipping_method=pickup_from_store"
           }
         ],
         "responses": {
@@ -7812,12 +8712,12 @@
               "application/json": [
                 {
                   "id": "161bac2f-1544-4ec6-b8c7-6735e894e0bf",
-                  "store_id": 273,
-                  "name": "METRO1431, 262th street",
-                  "min_order_amount": 0.0,
-                  "min_order_amount_pickup": 0.0,
-                  "min_first_order_amount": 0.0,
-                  "min_first_order_amount_pickup": 0.0,
+                  "store_id": 302,
+                  "name": "METRO1554, 307th street",
+                  "min_order_amount": 0,
+                  "min_order_amount_pickup": 0,
+                  "min_first_order_amount": 0,
+                  "min_first_order_amount_pickup": 0,
                   "distance": null,
                   "delivery_forecast_text": null,
                   "on_demand": false,
@@ -7832,17 +8732,15 @@
                       "type": "pickup"
                     }
                   ],
-                  "labels": [
-
-                  ],
+                  "labels": [],
                   "retailer": {
-                    "name": "METRO1431",
+                    "name": "METRO1554",
                     "slug": "metro",
                     "appearance": {
                       "background_color": "#100042",
                       "image_color": "#100043",
                       "black_theme": false,
-                      "logo_image": "/retailer_banners/1/logo_images/1x1.png?1645653600",
+                      "logo_image": "/retailer_banners/1/logo_images/1x1.png?1648204981",
                       "side_image": "/side_images/original/missing.png"
                     }
                   }
@@ -8047,28 +8945,18 @@
               }
             }
           },
-          "422": {
-            "description": "Отсутствует обязательный параметр",
+          "401": {
+            "description": "Не авторизован",
             "examples": {
               "application/json": {
                 "errors": [
                   {
-                    "type": null,
-                    "field": "lon",
-                    "message": "не может быть пустым"
-                  },
-                  {
-                    "type": null,
-                    "field": "lon",
-                    "message": "не является числом"
-                  },
-                  {
-                    "type": null,
-                    "field": "lon",
-                    "message": "недостаточной длины (не может быть меньше 1 символа)"
+                    "type": "unauthorized",
+                    "field": null,
+                    "message": "Вы не авторизованы"
                   }
                 ],
-                "code": 422
+                "code": 401
               }
             },
             "content": {
@@ -8101,18 +8989,28 @@
               }
             }
           },
-          "401": {
-            "description": "Не авторизован",
+          "422": {
+            "description": "Отсутствует обязательный параметр",
             "examples": {
               "application/json": {
                 "errors": [
                   {
-                    "type": "unauthorized",
-                    "field": null,
-                    "message": "Вы не авторизованы"
+                    "type": null,
+                    "field": "lon",
+                    "message": "не может быть пустым"
+                  },
+                  {
+                    "type": null,
+                    "field": "lon",
+                    "message": "не является числом"
+                  },
+                  {
+                    "type": null,
+                    "field": "lon",
+                    "message": "недостаточной длины (не может быть меньше 1 символа)"
                   }
                 ],
-                "code": 401
+                "code": 422
               }
             },
             "content": {
@@ -8243,68 +9141,33 @@
           "code"
         ]
       },
-      "department": {
+      "generic_error": {
         "type": "object",
+        "required": [
+          "errors",
+          "code"
+        ],
         "properties": {
-          "id": {
-            "description": "ID департамента",
-            "type": "integer"
-          },
-          "taxon_id": {
-            "description": "ID категории",
-            "type": "integer"
-          },
-          "type": {
-            "description": "Тип категории",
-            "type": "string"
-          },
-          "slug": {
-            "description": "slug категории",
-            "type": "string"
-          },
-          "icon_url": {
-            "type": "string",
-            "description": "URL иконки",
-            "nullable": true
-          },
-          "name": {
-            "description": "Название категории",
-            "type": "string"
-          },
-          "products_count": {
-            "description": "Число продуктов",
-            "type": "integer"
-          },
-          "products": {
-            "description": "Список продуктов",
+          "errors": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/offer"
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "field": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
             }
           },
-          "children": {
-            "description": "Подотделы отдела",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/department"
-            }
-          }
-        }
-      },
-      "referral_program_config": {
-        "type": "object",
-        "properties": {
-          "min_order_amount_with_precision": {
-            "description": "Минимальная сумма заказа для реферальной программы",
-            "type": "numeric"
-          },
-          "ambassador_instacoins_with_precision": {
-            "description": "Сумма в инстакойнах для приведшего реферала",
-            "type": "numeric"
-          },
-          "referral_instacoins_with_precision": {
-            "description": "Сумма в инстакойнах для реферала",
-            "type": "numeric"
+          "code": {
+            "type": "integer"
           }
         }
       },
@@ -8375,6 +9238,137 @@
           "retailer",
           "stores"
         ]
+      },
+      "department": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "ID департамента",
+            "type": "integer"
+          },
+          "taxon_id": {
+            "description": "ID категории",
+            "type": "integer"
+          },
+          "type": {
+            "description": "Тип категории",
+            "type": "string"
+          },
+          "slug": {
+            "description": "slug категории",
+            "type": "string"
+          },
+          "icon_url": {
+            "type": "string",
+            "description": "URL иконки",
+            "nullable": true
+          },
+          "name": {
+            "description": "Название категории",
+            "type": "string"
+          },
+          "products_count": {
+            "description": "Число продуктов",
+            "type": "integer"
+          },
+          "products": {
+            "description": "Список продуктов",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/offer"
+            }
+          },
+          "children": {
+            "description": "Подотделы отдела",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/department"
+            }
+          }
+        }
+      },
+      "referral_program_config": {
+        "type": "object",
+        "properties": {
+          "min_order_amount_with_precision": {
+            "description": "Минимальная сумма заказа для реферальной программы",
+            "type": "numeric"
+          },
+          "ambassador_instacoins_with_precision": {
+            "description": "Сумма в инстакойнах для приведшего реферала",
+            "type": "numeric"
+          },
+          "referral_instacoins_with_precision": {
+            "description": "Сумма в инстакойнах для реферала",
+            "type": "numeric"
+          }
+        }
+      },
+      "tenant_contact": {
+        "type": "object",
+        "required": [
+          "company_phone",
+          "company_name",
+          "company_address",
+          "company_inn",
+          "company_kpp",
+          "company_ogrn",
+          "company_settlement_acc",
+          "company_bank",
+          "company_bik",
+          "company_correspondent_acc"
+        ],
+        "properties": {
+          "company_phone": {
+            "type": "string",
+            "description": "Номер телефона поддержки клиентов"
+          },
+          "company_name": {
+            "type": "string",
+            "description": "Реквизиты - название организации",
+            "nullable": true
+          },
+          "company_address": {
+            "type": "string",
+            "description": "Реквизиты - адрес организации",
+            "nullable": true
+          },
+          "company_inn": {
+            "type": "string",
+            "description": "Реквизиты - ИНН",
+            "nullable": true
+          },
+          "company_kpp": {
+            "type": "string",
+            "description": "Реквизиты - КПП",
+            "nullable": true
+          },
+          "company_ogrn": {
+            "type": "string",
+            "description": "Реквизиты - ОГРН",
+            "nullable": true
+          },
+          "company_settlement_acc": {
+            "type": "string",
+            "description": "Реквизиты - номер р/с",
+            "nullable": true
+          },
+          "company_bank": {
+            "type": "string",
+            "description": "Реквизиты - название банка",
+            "nullable": true
+          },
+          "company_bik": {
+            "type": "string",
+            "description": "Реквизиты - БИК",
+            "nullable": true
+          },
+          "company_correspondent_acc": {
+            "type": "string",
+            "description": "Реквизиты - К/С",
+            "nullable": true
+          }
+        }
       },
       "ad_banner": {
         "type": "object",
@@ -8603,6 +9597,55 @@
             "type": "string",
             "format": "date-time",
             "description": "Время окончания слота доставки"
+          },
+          "weight_balance": {
+            "type": "integer",
+            "description": "Вес заказа"
+          },
+          "items_count_balance": {
+            "type": "integer",
+            "description": "Кол-во позиций в заказе"
+          },
+          "kind": {
+            "type": "string",
+            "description": "Способ доставки"
+          },
+          "delivery_forecast_text": {
+            "type": "string",
+            "nullable": true,
+            "description": "Интервал доставки в формате \"10:15–10:25\""
+          },
+          "lifetime": {
+            "type": "integer",
+            "nullable": true
+          },
+          "is_express_delivery": {
+            "type": "boolean"
+          },
+          "estimate_source": {
+            "type": "string"
+          },
+          "time_zone": {
+            "type": "string"
+          },
+          "human_interval": {
+            "type": "string"
+          },
+          "estimate_minutes_min": {
+            "type": "integer"
+          },
+          "estimate_minutes_max": {
+            "type": "integer"
+          },
+          "available_for_tinkoff_dolyame": {
+            "type": "boolean"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "available": {
+            "type": "boolean"
           }
         }
       },
@@ -8772,7 +9815,7 @@
           "delivery_cost": {
             "type": "float",
             "description": "Стоимость доставки",
-            "example": 200.0,
+            "example": 200,
             "minimum": -2147483648,
             "maximum": 2147483647
           },
@@ -8879,8 +9922,7 @@
           "optionals": {
             "description": "Пустой массив",
             "type": "array",
-            "items": {
-            }
+            "items": {}
           },
           "payment_methods": {
             "type": "array",
@@ -9118,9 +10160,7 @@
           },
           "payment_tool": {
             "type": "array",
-            "default": [
-
-            ],
+            "default": [],
             "nullable": true,
             "items": {
               "$ref": "#/components/schemas/payment_tool"
@@ -9128,9 +10168,7 @@
           },
           "promotion_codes": {
             "type": "array",
-            "default": [
-
-            ],
+            "default": [],
             "description": "Список примененных промокодов",
             "items": {
               "$ref": "#/components/schemas/promotion_code"
@@ -9570,9 +10608,7 @@
           },
           "requirements": {
             "type": "array",
-            "default": [
-
-            ],
+            "default": [],
             "items": {
               "$ref": "#/components/schemas/requirement"
             }
@@ -9659,9 +10695,7 @@
           },
           "alerts": {
             "type": "array",
-            "default": [
-
-            ],
+            "default": [],
             "description": "Cписок предупреждений об ошибках в заказе",
             "items": {
               "type": "object",
@@ -9703,11 +10737,56 @@
           "retailer": {
             "$ref": "#/components/schemas/retailer"
           },
-          "shipping_rates": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/shipping_rate"
-            }
+          "shipping_rate": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/shipping_rate"
+              }
+            ]
+          },
+          "delivery_window": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/delivery_window"
+              }
+            ]
+          },
+          "store": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/shipment_store"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "shipment_store": {
+        "type": "object",
+        "description": "Магазин",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "time_zone": {
+            "type": "string"
+          },
+          "express_delivery": {
+            "type": "boolean"
+          },
+          "on_demand": {
+            "type": "boolean"
+          },
+          "local_date": {
+            "type": "date"
           }
         }
       },
@@ -9841,72 +10920,6 @@
           "products_count",
           "icon_url"
         ]
-      },
-      "app_configuration_company": {
-        "type": "object",
-        "required": [
-          "company_phone",
-          "company_name",
-          "company_address",
-          "company_inn",
-          "company_kpp",
-          "company_ogrn",
-          "company_settlement_acc",
-          "company_bank",
-          "company_bik",
-          "company_correspondent_acc"
-        ],
-        "properties": {
-          "company_phone": {
-            "type": "string",
-            "description": "Номер телефона поддержки клиентов"
-          },
-          "company_name": {
-            "type": "string",
-            "description": "Реквизиты - название организации",
-            "nullable": true
-          },
-          "company_address": {
-            "type": "string",
-            "description": "Реквизиты - адрес организации",
-            "nullable": true
-          },
-          "company_inn": {
-            "type": "string",
-            "description": "Реквизиты - ИНН",
-            "nullable": true
-          },
-          "company_kpp": {
-            "type": "string",
-            "description": "Реквизиты - КПП",
-            "nullable": true
-          },
-          "company_ogrn": {
-            "type": "string",
-            "description": "Реквизиты - ОГРН",
-            "nullable": true
-          },
-          "company_settlement_acc": {
-            "type": "string",
-            "description": "Реквизиты - номер р/с",
-            "nullable": true
-          },
-          "company_bank": {
-            "type": "string",
-            "description": "Реквизиты - название банка",
-            "nullable": true
-          },
-          "company_bik": {
-            "type": "string",
-            "description": "Реквизиты - БИК",
-            "nullable": true
-          },
-          "company_correspondent_acc": {
-            "type": "string",
-            "description": "Реквизиты - К/С",
-            "nullable": true
-          }
-        }
       }
     }
   }
