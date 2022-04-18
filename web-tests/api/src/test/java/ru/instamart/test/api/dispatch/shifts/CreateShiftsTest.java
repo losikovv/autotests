@@ -4,6 +4,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -18,11 +19,10 @@ import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseIDs;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
-import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkError;
+import static org.testng.Assert.assertEquals;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
 
@@ -38,9 +38,16 @@ public class CreateShiftsTest extends RestBase {
     public void preconditions() {
         UserData user = UserManager.getShp6Shopper1();
         shopperApp.authorisation(user);
-        shopperApp.getShopperInfo();
-        planningArea = shopperApp.getPlanningArea().getId();
-        planningPeriod = shopperApp.getPlanningPeriod();
+        shiftsApi.getShopperInfo();
+        planningArea = shiftsApi.getPlanningArea().getId();
+        planningPeriod = shiftsApi.getPlanningPeriod();
+    }
+
+    @AfterClass(alwaysRun = true)
+    public void after() {
+        List<ShiftResponse> shifts = shiftsApi.shifts();
+        shifts.stream()
+                .forEach(item->shiftsApi.cancelShifts(item.getId()));
     }
 
     @CaseIDs({@CaseId(1), @CaseId(123)})
@@ -74,13 +81,14 @@ public class CreateShiftsTest extends RestBase {
     @Test(groups = {"api-shifts"},
             description = "Создание свободной смены (с нулевой оплатой)")
     public void creationOfShiftInZeroGuaranteedPayroll() {
+        PlanningPeriodsSHPResponse planningPeriodItem = planningPeriod.get(1);
         final ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
                 .planningAreaId(planningArea)
                 .role(RoleSHP.UNIVERSAL.getRole())
                 .planningPeriod(
                         ShiftsRequest.PlanningPeriods.builder()
                                 .guaranteedPayroll(0)
-                                .id(planningPeriod.get(0).getId())
+                                .id(planningPeriodItem.getId())
                                 .build()
                 )
                 .build();
@@ -88,9 +96,9 @@ public class CreateShiftsTest extends RestBase {
         checkStatusCode(response, 201);
         ShiftResponse shiftResponse = response.as(ShiftResponse.class);
         final SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(shiftResponse.getPlanningPeriods().get(0).getId(), planningPeriod.get(0).getId(),
+        softAssert.assertEquals(shiftResponse.getPlanningPeriods().get(0).getId(), planningPeriodItem.getId(),
                 "Id планируемого периода не совпадает");
-        softAssert.assertEquals(shiftResponse.getPlanningPeriods().get(0).getGuaranteedPayroll(), planningPeriod.get(0).getBaseGuaranteedPayroll(),
+        softAssert.assertEquals(shiftResponse.getPlanningPeriods().get(0).getGuaranteedPayroll(), planningPeriodItem.getBaseGuaranteedPayroll(),
                 "Гарантированная оплата не равна заданному");
         softAssert.assertAll();
     }
@@ -100,11 +108,11 @@ public class CreateShiftsTest extends RestBase {
     @Test(groups = {"api-shifts"},
             description = "Создание смен на день больше чем максимальное установленное количество часов")
     public void create422() {
-        List<ShiftsRequest.PlanningPeriods> planningPeriods = null;
-        for (int i = 0; i <= 12; i++) {
-            planningPeriods.set(i, ShiftsRequest.PlanningPeriods.builder()
+        List<ShiftsRequest.PlanningPeriods> planningPeriods = new ArrayList<>();
+        for (int i = 0; i <= 10; i++) {
+            planningPeriods.add(ShiftsRequest.PlanningPeriods.builder()
                     .guaranteedPayroll(0)
-                    .id(planningPeriod.get(i).getId())
+                    .id(planningPeriod.get(i + 2).getId())
                     .build());
         }
         final ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
@@ -113,8 +121,9 @@ public class CreateShiftsTest extends RestBase {
                 .planningPeriods(planningPeriods)
                 .build();
         final Response response = ShiftsRequest.POST(postShift);
-        response.prettyPeek();
-        //checkStatusCode(response, 201);
+        checkStatusCode(response, 201);
+        ShiftResponse shiftResponse = response.as(ShiftResponse.class);
+        assertEquals(shiftResponse.getState(), "new", "State пришел не отличной от new");
     }
 
     @CaseId(137)
@@ -124,7 +133,7 @@ public class CreateShiftsTest extends RestBase {
             description = "Партнер не может создать смену на одно время для двух магазинов")
     public void createTwoShifts422() {
         final ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
-                .planningAreaId(10)
+                .planningAreaId(3944)
                 .role(RoleSHP.UNIVERSAL.getRole())
                 .planningPeriod(
                         ShiftsRequest.PlanningPeriods.builder()
@@ -168,5 +177,4 @@ public class CreateShiftsTest extends RestBase {
         softAssert.assertEquals(errorTypeResponse.getType(), "shift-intersection", "Error type message not valid");
         softAssert.assertAll();
     }
-
 }

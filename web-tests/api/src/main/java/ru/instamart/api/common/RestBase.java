@@ -28,6 +28,7 @@ public class RestBase {
     protected GrpcHelper grpc = new GrpcHelper();
     protected static final KafkaHelper kafka = new KafkaHelper();
     protected static final LogHelper kubeLog = new LogHelper();
+    protected static final ShiftsApiHelper shiftsApi = new ShiftsApiHelper();
 
     @AfterSuite(alwaysRun = true)
     public void clearData() {

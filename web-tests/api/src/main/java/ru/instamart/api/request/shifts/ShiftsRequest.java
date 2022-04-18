@@ -13,7 +13,19 @@ import ru.sbermarket.common.Mapper;
 
 import java.util.List;
 
+import static ru.instamart.kraken.util.TimeUtil.getFutureDateWithoutTime;
+import static ru.instamart.kraken.util.TimeUtil.getPastDateWithoutTime;
+
 public class ShiftsRequest extends ShiftsRequestBase {
+
+    @Step("{method} /" + ShiftsV1Endpoints.SHIFTS)
+    public static Response GET() {
+        return givenWithAuth()
+                .queryParam("plan_start_date", getPastDateWithoutTime(7L))
+                .queryParam("plan_end_date", getFutureDateWithoutTime(7L))
+                .queryParam("state", "new", "ready_to_start", "in_progress", "on_pause")
+                .get(ShiftsV1Endpoints.SHIFTS);
+    }
 
     @Step("{method} /" + ShiftsV1Endpoints.SHIFTS)
     public static Response GET(final ShiftQuery query) {
@@ -69,6 +81,7 @@ public class ShiftsRequest extends ShiftsRequestBase {
             JSONObject body = new JSONObject();
             body.put("cancellation_reason", "Технические проблемы");
             return givenWithAuth()
+                    .contentType(ContentType.JSON)
                     .body(body)
                     .patch(ShiftsV1Endpoints.Shifts.CANCEL, id);
         }
@@ -98,7 +111,8 @@ public class ShiftsRequest extends ShiftsRequestBase {
         @JsonProperty("shift_date")
         private final String shiftDate;
         private final String state;
-        private final String role;
+        @Singular
+        private final List<String> roles;
         @JsonProperty("plan_start_date")
         private final String planStartDate;
         @JsonProperty("plan_end_date")
