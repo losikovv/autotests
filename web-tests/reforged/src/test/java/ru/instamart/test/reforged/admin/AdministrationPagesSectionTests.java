@@ -40,7 +40,7 @@ public final class AdministrationPagesSectionTests extends BaseTest {
         final StaticPageData staticPage = StaticPages.newStaticPage();
 
         login().goToPage();
-        login().auth(UserManager.getDefaultAdminAllRoles());
+        login().auth(UserManager.getDefaultAdmin());
 
         pages().openAdminPageWithoutSpa(pages().pageUrl());
         pages().clickToNewPage();
@@ -51,7 +51,7 @@ public final class AdministrationPagesSectionTests extends BaseTest {
         pages().checkTable();
         final var id = pages().getPageId(staticPage);
 
-        pages().openAdminPageWithoutSpa(staticPage.getPageURL());
+        pages().openSitePage(staticPage.getPageURL());
         pages().checkPageIsAvailable();
 
         pages().openAdminPageWithoutSpa(pages().pageUrl());
