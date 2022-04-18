@@ -28,7 +28,7 @@ public final class ActualizeQaseTest {
 
     @DataProvider(name = "project")
     private static Object[][] getProject() {
-        return new Object[][]{
+        return new Object[][] {
                 {"INAPI"},
                 {"SHAPI"},
                 {"STF"},
