@@ -33,6 +33,7 @@ before_script:
 stages:
   - build
   - tests-api
+  - tests-api-ui
   - tests-ui
   - custom-run
 
@@ -83,6 +84,21 @@ stages:
 
 .template_api_tests:
   stage: tests-api
+  tags:
+    - k8s-stage
+  artifacts:
+    when: always
+    paths:
+      - web-tests/api/build/allure-results/
+      - web-tests/api/logs/
+      - web-tests/api/build/reports/tests/
+      - web-tests/api/swagger-coverage-output
+      - web-tests/api/build/report.html
+    expire_in: 1 week
+  allow_failure: false
+
+.template_api_ui_tests:
+  stage: tests-api-ui
   tags:
     - k8s-stage
   artifacts:

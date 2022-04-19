@@ -9,7 +9,7 @@ ext.versions = [
         lombok: '1.18.20',
         jackson: '2.12.3',
         webdrivermanager: '4.4.3',
-        pgsqlJDBC: '42.2.0',
+        pgsqlJDBC: '42.2.1',
         kafkaClients: '3.0.0',
         kubernetesClient: '13.0.1',
         mysqlJDBC: '8.0.26',
@@ -29,7 +29,7 @@ ext.versions = [
 
         common:'1.0.5',
         ab:'1.1.0',
-        qase:'1.0.0',
+        qase:'1.0.5',
         qa:'1.5.5'
 ]
 

@@ -1,21 +1,6 @@
 package ru.instamart.kraken.service;
 
 import io.qameta.allure.TmsLink;
-import ru.sbermarket.qase.QaseApi;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
-import ru.sbermarket.qase.enums.Automation;
-import ru.sbermarket.qase.enums.RunResultStatus;
-import ru.sbermarket.qase.exceptions.QaseException;
-import ru.sbermarket.qase.v1.attachments.Attachment;
-import ru.sbermarket.qase.v1.defects.Defect;
-import ru.sbermarket.qase.v1.suites.Suite;
-import ru.sbermarket.qase.v1.testcases.TestCase;
-import ru.sbermarket.qase.v1.testplans.TestPlan;
-import ru.sbermarket.qase.v1.testrunresults.TestRunResult;
-import ru.sbermarket.qase.v1.testruns.TestRun;
-import ru.sbermarket.qase.services.TestCaseService;
-import ru.sbermarket.qase.services.TestRunResultService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -24,19 +9,35 @@ import org.testng.ITestResult;
 import org.testng.internal.TestResult;
 import ru.instamart.kraken.config.CoreProperties;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.sbermarket.qase.QaseApi;
+import ru.sbermarket.qase.annotation.CaseIDs;
+import ru.sbermarket.qase.annotation.CaseId;
+import ru.sbermarket.qase.enums.Automation;
+import ru.sbermarket.qase.enums.RunResultStatus;
+import ru.sbermarket.qase.exceptions.QaseException;
+import ru.sbermarket.qase.services.TestCaseService;
+import ru.sbermarket.qase.v1.attachments.Attachment;
+import ru.sbermarket.qase.v1.defects.Defect;
+import ru.sbermarket.qase.v1.suites.Suite;
+import ru.sbermarket.qase.v1.testcases.TestCase;
+import ru.sbermarket.qase.v1.testplans.TestPlan;
+import ru.sbermarket.qase.v1.testrunresults.TestRunResult;
+import ru.sbermarket.qase.v1.testruns.TestRun;
 
 import java.io.File;
 import java.lang.reflect.Method;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static ru.sbermarket.qase.utils.IntegrationUtils.getStacktrace;
+import static java.util.Objects.nonNull;
 import static ru.instamart.kraken.helper.DateTimeHelper.getDateFromMSK;
+import static ru.sbermarket.qase.utils.IntegrationUtils.getStacktrace;
 
 @Slf4j
 @Accessors(chain = true)
@@ -179,7 +180,7 @@ public final class QaseService {
             }
             if (result.getParameters().length == 0) {
                 Arrays.stream(caseIDs)
-                        .filter(item -> Objects.nonNull(item))
+                        .filter(Objects::nonNull)
                         .forEach(item -> createTestResult(item.value(), status, timeSpent, comment, stacktrace, isDefect, attachmentHash));
             }
         }
@@ -289,44 +290,63 @@ public final class QaseService {
             } while (testCasesSize > 0);
 
             int automatedNumber = 0;
-            int actualizedNumber = 0;
-            for (TestCase testCase : allTestCases) {
-                try {
-                    TestRunResultService.Filter filter = qaseApi
-                            .testRunResults()
-                            .filter()
-                            .caseId((int) testCase.getId())
-                            .fromEndTime(LocalDateTime.now().minusDays(2));
-                    log.debug("Получаем последние результаты прогонов теста " + testCase.getTitle());
-                    List<TestRunResult> testRunResults = qaseApi
-                            .testRunResults()
-                            .getAll(projectCode, 100, 0, filter)
-                            .getTestRunResultList();
+            int addToAuto = 0;
+            int removeFromAuto = 0;
 
-                    boolean automated = false;
-                    for (TestRunResult testRunResult : testRunResults) {
-                        if (testRunResult.getComment() != null && testRunResult.getComment().startsWith(DESCRIPTION_PREFIX.trim())) {
-                            automated = true;
-                            automatedNumber++;
-                            break;
-                        }
-                    }
-                    if (testCase.getAutomation() == 2 && !automated) {
-                        log.debug("Указываем, что тест не автоматизирован");
-                        qaseApi.testCases().update(projectCode, (int) testCase.getId(), Automation.is_not_automated);
-                        actualizedNumber++;
-                    } else if (testCase.getAutomation() != 2 && automated) {
-                        log.debug("Указываем, что тест автоматизирован");
-                        qaseApi.testCases().update(projectCode, (int) testCase.getId(), Automation.automated);
-                        actualizedNumber++;
+            //Создаем фильтр от 00:00 текущего дня до текущий день минус два дня
+            var filter = qaseApi
+                    .testRuns()
+                    .filter()
+                    .fromStartTime(LocalDateTime.now().minusDays(2))
+                    .toStartTime(LocalDateTime.now().with(LocalTime.MIN));
+            //Пытаемся получить последние 40 прогонов для проекта учитывая фильтрацию и включающие список кейсов(их id)
+            var testRun = qaseApi.testRuns()
+                    //стоит учитывать, что если сделать выборку боль 40 или если значительно увеличится список кейсов в прогоне, то qase
+                    //будет отдавать 502 и тогда нужно будет сделать через offset
+                    .getAll(projectCode, 40, 0, filter, true)
+                    .getTestRunList()
+                    .stream()
+                    .filter(t -> {
+                        //Фильтруем полученный список по наличию [Automation] в дескрипшене
+                        //К сожалению несмотря на то, что появился флаг isAutomated при создании прогона, фильтровать по нему все еще нельзя
+                        //из-за чего этот костыль имеет место быть. Так же это приводит к тому, что в результате получается меньше чем 40 последних прогонов
+                var desc = t.getDescription();
+                return nonNull(desc) && desc.contains(DESCRIPTION_PREFIX);
+            }).collect(Collectors.toList());
+
+            //Собираем все id кейсов в HashSet, именно HashSet тут не случайно,
+            //а из-за того что дальше идет contains по Set. HashSet гарантирует константный O(1) contains
+            final var cases = testRun.stream().flatMap(t -> t.getCases().stream()).collect(Collectors.toCollection(HashSet::new));
+
+            for (final var testCase : allTestCases) {
+                try {
+                    final int caseId = (int) testCase.getId();
+                    final var inList = cases.contains(caseId);
+                    //Если текущий кейс не автоматизирован и он был списке авто прогонов
+                    if (testCase.getAutomation() != 2 && inList) {
+                        log.debug("Указываем, что тест={} автоматизирован", testCase.getId());
+                        qaseApi.testCases().update(projectCode, caseId, Automation.automated);
+                        automatedNumber++;
+                        addToAuto++;
+                    //Если текущий кейс был автоматизирован, но его теперь не в списке авто прогонов
+                    } else if (testCase.getAutomation() == 2 && !inList) {
+                        log.debug("Указываем, что тест={} не автоматизирован", testCase.getId());
+                        qaseApi.testCases().update(projectCode, caseId, Automation.is_not_automated);
+                        automatedNumber--;
+                        removeFromAuto++;
+                    //Хреновина чисто для того, что бы более точно посчитать количество автоматизированных кейсов
+                    } else if (testCase.getAutomation() == 2) {
+                        automatedNumber++;
                     }
                 } catch (QaseException qaseException) {
                     log.error("Something went wrong: " + qaseException);
                 }
             }
+            log.info("Актуализация кейсов для проекта: {}", projectCode);
             log.info("Всего тест кейсов: {}", allTestCases.size());
+            log.info("Добавлено в список автоматизированных: {}", addToAuto);
+            log.info("Удалено из списка автоматизированных: {}", removeFromAuto);
             log.info("Всего автоматизировано: {}", automatedNumber);
-            log.info("Сейчас актуализировано: {}", actualizedNumber);
         } catch (Exception e) {
             log.error("FATAL: something went wrong when try to actualize test cases", e);
         }
