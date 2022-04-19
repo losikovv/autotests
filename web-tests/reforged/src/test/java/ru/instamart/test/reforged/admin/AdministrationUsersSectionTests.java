@@ -4,7 +4,6 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
-import ru.sbermarket.qase.annotation.CaseId;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestAddresses;
 import ru.instamart.api.enums.v2.CreditCardsV2;
@@ -13,8 +12,8 @@ import ru.instamart.api.request.v2.CreditCardsV2Request;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
-import ru.instamart.kraken.listener.Skip;
 import ru.instamart.test.reforged.BaseTest;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.reforged.admin.AdminRout.*;
 
@@ -72,7 +71,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         main().doLogout();
 
         login().goToPage();
-        login().auth(UserManager.getDefaultAdmin());
+        login().auth(UserManager.getDefaultAdminAllRoles());
 
         users().openAdminPageWithoutSpa(users().pageUrl());
         users().fillSearchByPhoneNumber(userData.getPhone());
@@ -89,7 +88,7 @@ public class AdministrationUsersSectionTests extends BaseTest {
         login().setPassword(password);
         login().submit();
 
-        main().interactAuthoredHeader().checkIsNotAuth();
+        login().checkErrorInvalidEmailOrPassword();
     }
 
     @CaseId(33)
