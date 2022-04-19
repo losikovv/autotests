@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -72,7 +73,7 @@ public class ConnectionPgSQLManagerService {
     protected static Connection open() {
         try {
             return DriverManager.getConnection(
-                    String.format("jdbc:postgresql://localhost:%s/app", EnvironmentProperties.SERVICE.contains("workflow") ? 35432 : 5432),
+                    String.format("jdbc:postgresql://localhost:%s/app", Optional.ofNullable(EnvironmentProperties.SERVICE_PG_PORT).orElse(5432)),
                     Crypt.INSTANCE.decrypt("O4On6ImtTAIvvUDOsqOHDw=="),
                     Crypt.INSTANCE.decrypt("DQdUNB8CjrqEUiIrAaZlCg==")
             );

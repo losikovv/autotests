@@ -3,12 +3,12 @@ package ru.instamart.k8s;
 import io.kubernetes.client.PortForward;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.models.V1PodList;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Optional;
 
 import static org.testng.Assert.fail;
 import static ru.instamart.k8s.K8sConsumer.getK8sPortForward;
@@ -73,7 +73,8 @@ public final class K8sPortForward {
         if (Objects.isNull(k8sConnectPgSqlStage)) {
             String label = "statefulset.kubernetes.io/pod-name=postgresql-0";
             int targetPort = 5432;
-            int localPort = EnvironmentProperties.SERVICE.contains("workflow") ? 35432 : 5432; //ServiceHelper.INSTANCE.getFreePort();
+            int localPort = Optional.ofNullable(EnvironmentProperties.SERVICE_PG_PORT).orElse(5432);
+            log.info("ports: {}", localPort);
             try {
                 V1PodList podList = getPodList(EnvironmentProperties.SERVICE, label);
                 k8sConnectPgSqlStage = getK8sPortForward(EnvironmentProperties.SERVICE, podList.getItems().get(0).getMetadata().getName(),

@@ -18,8 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 
 @Slf4j
 public class ShiftsApiHelper {
@@ -66,7 +65,7 @@ public class ShiftsApiHelper {
     }
 
     @Step("Создание новой смены для партнёра Универсала.")
-    public void postShift(PlanningPeriodsSHPResponse planning) {
+    public ShiftResponse postShift(PlanningPeriodsSHPResponse planning) {
         final ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
                 .planningAreaId(planningArea.get())
                 .role(RoleSHP.UNIVERSAL.getRole())
@@ -79,6 +78,7 @@ public class ShiftsApiHelper {
                 .build();
         final Response response = ShiftsRequest.POST(postShift);
         checkStatusCode(response, 201);
+        return response.as(ShiftResponse.class);
     }
 
     @Step("Активация смены партнера Универсала")
@@ -90,20 +90,27 @@ public class ShiftsApiHelper {
     @Step("Отмена смены")
     public void cancelShifts(final long id) {
         final Response response = ShiftsRequest.Cancel.PATCH(id);
-        response.prettyPeek();
-        checkStatusCode200(response);
+        checkStatusCode200or422(response);
     }
 
+    @Step("Создание ближайшей смены")
+    public ShiftResponse createShift(){
+        getShopperInfo();
+        getPlanningArea();
+        var shifts = shifts().stream().map(item->item.getPlanningPeriods().get(0).getId()).collect(Collectors.toList());
+        var planningPeriodItem = getPlanningPeriod();
+        List<PlanningPeriodsSHPResponse> collect = planningPeriodItem.stream()
+                .filter(item -> !shifts.contains(item.getId()))
+                .collect(Collectors.toList());
+        var planningitem = collect.get(1);
+        planningPeriodId.set(planningitem.getId());
+        log.debug("Shifts accept: {}", planningPeriodId.get());
+        return postShift(planningitem);
+    }
 
     @Step("Начало смены для сборщика универсала")
     public void startOfShift(StartPointsTenants startPointsTenants) {
-        getShopperInfo();
-        getPlanningArea();
-        var planningPeriodItem = getPlanningPeriod();
-        var planningitem = planningPeriodItem.get(1);
-        planningPeriodId.set(planningitem.getId());
-        log.debug("Shifts accept: {}", planningPeriodId.get());
-        postShift(planningitem);
+        createShift();
         activateShiftsPartner(startPointsTenants);
     }
 }
