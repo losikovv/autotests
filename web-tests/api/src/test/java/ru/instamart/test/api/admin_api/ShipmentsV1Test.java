@@ -49,7 +49,7 @@ public class ShipmentsV1Test extends RestBase {
     @CaseIDs(value = {@CaseId(2092), @CaseId(2093)})
     @Story("Cписок заказов")
     @Test(description = "Заказы с разными статусами",
-            dataProvider = "shipmentStatuses",
+            dataProvider = "shipmentStatuses", enabled = false, //TODO: добавить баг от Кати Щегловой
             dataProviderClass = RestDataProvider.class,
             groups = {"api-instamart-regress"})
     public void getShipmentsWithDifferentStates(CombinedStateV1 state) {
@@ -118,7 +118,7 @@ public class ShipmentsV1Test extends RestBase {
         orderNumber = shipments.get(0).getOrder().getNumber();
         shipment = shipments.get(0);
         final SoftAssert softAssert = new SoftAssert();
-        shipments.forEach(s -> softAssert.assertTrue(List.of("Moscow", "Elino").contains(s.getOrder().getShipAddress().getCity()), "Пришел неверный город"));
+        shipments.forEach(s -> softAssert.assertTrue(List.of("Moscow", "Москва", "Elino", "Балашиха").contains(s.getOrder().getShipAddress().getCity()), "Пришел неверный город"));
         softAssert.assertAll();
     }
 
@@ -142,7 +142,7 @@ public class ShipmentsV1Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(2098), @CaseId(2099), @CaseId(2100), @CaseId(2101), @CaseId(2102)})
     @Story("Cписок заказов")
-    @Test(description = "Заказы с разными статусами оплаты",
+    @Test(description = "Заказы с разными статусами оплаты", enabled = false, //TODO: добавить баг от Кати Щегловой
             dataProvider = "paymentStatuses",
             dataProviderClass = RestDataProvider.class,
             groups = {"api-instamart-regress"})

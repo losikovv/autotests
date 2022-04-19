@@ -41,7 +41,7 @@ public class StatesAdminRequest extends AdminRequestBase {
 
     @Step("{method} /" + AdminEndpoints.Countries.STATES)
     public static Response GET(Long countryId) {
-        return givenWithAuth()
+        return givenWithAuthAndSpa()
                 .get(AdminEndpoints.Countries.STATES, countryId);
     }
 }
