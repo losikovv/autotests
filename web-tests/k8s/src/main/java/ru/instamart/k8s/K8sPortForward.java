@@ -69,15 +69,15 @@ public final class K8sPortForward {
         }
     }
 
-    public PortForward.PortForwardResult portForwardPgSQLService() {
+    public PortForward.PortForwardResult portForwardPgSQLService(String namespace, int port) {
         if (Objects.isNull(k8sConnectPgSqlStage)) {
             String label = "statefulset.kubernetes.io/pod-name=postgresql-0";
             int targetPort = 5432;
-            int localPort = Optional.ofNullable(EnvironmentProperties.SERVICE_PG_PORT).orElse(5432);
+            int localPort = port;
             log.info("ports: {}", localPort);
             try {
-                V1PodList podList = getPodList(EnvironmentProperties.SERVICE, label);
-                k8sConnectPgSqlStage = getK8sPortForward(EnvironmentProperties.SERVICE, podList.getItems().get(0).getMetadata().getName(),
+                V1PodList podList = getPodList(namespace, label);
+                k8sConnectPgSqlStage = getK8sPortForward(namespace, podList.getItems().get(0).getMetadata().getName(),
                         localPort, targetPort);
                 return k8sConnectPgSqlStage;
             } catch (IOException | ApiException e) {
@@ -86,5 +86,4 @@ public final class K8sPortForward {
         }
         return null;
     }
-
 }

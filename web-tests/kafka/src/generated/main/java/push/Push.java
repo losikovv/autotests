@@ -26719,9 +26719,9 @@ public final class Push {
       "ation\030\003 \001(\003\022\025\n\rapns_priority\030\004 \001(\t\022\022\n\nap" +
       "ns_topic\030\005 \001(\t\022\030\n\020apns_collapse_id\030\006 \001(\t" +
       "\"*\n\016HMSApnsOptions\022\030\n\020target_user_type\030\001" +
-      " \001(\003BbZ`gitlab.sbermarket.tech/paas/cont" +
-      "ent/operations/push-sender/push-sender-b" +
-      "ack/pkg/server/grpc/pushb\006proto3"
+      " \001(\003BZZXgitlab.sbmt.io/paas/content/oper" +
+      "ations/push-sender/push-sender-back/pkg/" +
+      "server/grpc/pushb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

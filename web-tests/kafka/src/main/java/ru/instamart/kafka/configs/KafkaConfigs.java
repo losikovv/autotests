@@ -74,4 +74,14 @@ public class KafkaConfigs {
                 .password(Crypt.INSTANCE.decrypt("JJVKjJO54cbtp9MUf2+/Xg=="))
                 .build();
     }
+
+    public static KafkaConfig configNotifications() {
+        return KafkaConfig.builder()
+                .clientId("notifications")
+                .topic("yc.notifications.cmd.push.0")
+                .groupName("dispatch_2b4a0c6a")
+                .login(Crypt.INSTANCE.decrypt("dIOB+Ef13KgRMN6N0cm7lJSSvKqtRSJptikUG4rvY3LCR8s9+J8irzGI1mDV44r6"))
+                .password(Crypt.INSTANCE.decrypt("JJVKjJO54cbtp9MUf2+/Xg=="))
+                .build();
+    }
 }

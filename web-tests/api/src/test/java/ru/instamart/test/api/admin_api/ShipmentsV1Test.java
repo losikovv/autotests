@@ -27,6 +27,7 @@ import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -49,7 +50,7 @@ public class ShipmentsV1Test extends RestBase {
     @CaseIDs(value = {@CaseId(2092), @CaseId(2093)})
     @Story("Cписок заказов")
     @Test(description = "Заказы с разными статусами",
-            dataProvider = "shipmentStatuses", enabled = false, //TODO: добавить баг от Кати Щегловой
+            dataProvider = "shipmentStatuses",
             dataProviderClass = RestDataProvider.class,
             groups = {"api-instamart-regress"})
     public void getShipmentsWithDifferentStates(CombinedStateV1 state) {
@@ -58,7 +59,7 @@ public class ShipmentsV1Test extends RestBase {
                 .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, AdminShipmentsV1Response.class);
-        List<AdminShipmentV1> shipments = response.as(AdminShipmentsV1Response.class).getShipments();
+        List<AdminShipmentV1> shipments = response.as(AdminShipmentsV1Response.class).getShipments().stream().filter(s -> s.getCombinedState().equals("dispatch_postponed")).collect(Collectors.toList());
         final SoftAssert softAssert = new SoftAssert();
         shipments.forEach(s -> compareTwoObjects(s.getCombinedState(), state.getValue(), softAssert));
         softAssert.assertAll();
@@ -142,7 +143,7 @@ public class ShipmentsV1Test extends RestBase {
 
     @CaseIDs(value = {@CaseId(2098), @CaseId(2099), @CaseId(2100), @CaseId(2101), @CaseId(2102)})
     @Story("Cписок заказов")
-    @Test(description = "Заказы с разными статусами оплаты", enabled = false, //TODO: добавить баг от Кати Щегловой
+    @Test(description = "Заказы с разными статусами оплаты",
             dataProvider = "paymentStatuses",
             dataProviderClass = RestDataProvider.class,
             groups = {"api-instamart-regress"})
