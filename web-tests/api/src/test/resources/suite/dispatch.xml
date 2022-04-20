@@ -10,9 +10,10 @@
             <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
         </method-selector>
     </method-selectors>
-    <test verbose="1" name="WORKFLOW" parallel="classes" thread-count="1">
+    <test verbose="1" name="WORKFLOW" parallel="none" thread-count="1">
         <classes>
             <class name="ru.instamart.test.api.dispatch.workflow.WorkflowTest"/>
+            <class name="ru.instamart.test.api.dispatch.workflow.TimeoutWorkflowTest"/>
         </classes>
     </test>
     <test verbose="1" name="KAFKA">

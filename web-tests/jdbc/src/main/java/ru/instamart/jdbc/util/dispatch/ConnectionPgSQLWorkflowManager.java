@@ -1,8 +1,9 @@
-package ru.instamart.jdbc.util;
+package ru.instamart.jdbc.util.dispatch;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.instamart.jdbc.util.ConnectionPgSQLManager;
 import ru.instamart.k8s.K8sPortForward;
-import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.sbermarket.common.Crypt;
 
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
@@ -14,24 +15,26 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import static org.testng.Assert.fail;
-import static ru.instamart.kraken.config.CoreProperties.DEFAULT_MYSQL_POOL_SIZE;
+import static ru.instamart.jdbc.enums.dispatch.Services.WORKFLOW;
+import static ru.instamart.kraken.config.EnvironmentProperties.DEFAULT_PGSQL_POOL_SIZE;
 
 @Slf4j
-public class ConnectionMySQLManager {
+public class ConnectionPgSQLWorkflowManager {
 
     private static BlockingQueue<Connection> pool;
     private static List<Connection> sourceConnections;
 
     static {
+        portForward();
         loadDriver();
         initConnectionPool();
     }
 
-    private ConnectionMySQLManager() {
+    private ConnectionPgSQLWorkflowManager() {
     }
 
-    private static void portForward(){
-        K8sPortForward.getInstance().portForwardMySQL();
+    protected static void portForward() {
+        K8sPortForward.getInstance().portForwardPgSQLService(WORKFLOW.getNamespace(), WORKFLOW.getPort());
     }
 
     public static Connection get() {
@@ -42,13 +45,13 @@ public class ConnectionMySQLManager {
         }
     }
 
-    private static void initConnectionPool() {
-        pool = new ArrayBlockingQueue<>(DEFAULT_MYSQL_POOL_SIZE);
-        sourceConnections = new ArrayList<>(DEFAULT_MYSQL_POOL_SIZE);
-        for (int i = 0; i < DEFAULT_MYSQL_POOL_SIZE; i++) {
+    protected static void initConnectionPool() {
+        pool = new ArrayBlockingQueue<>(DEFAULT_PGSQL_POOL_SIZE);
+        sourceConnections = new ArrayList<>(DEFAULT_PGSQL_POOL_SIZE);
+        for (int i = 0; i < 1; i++) {
             var connection = open();
             var proxyConnection = (Connection)
-                    Proxy.newProxyInstance(ConnectionMySQLManager.class.getClassLoader(), new Class[]{Connection.class},
+                    Proxy.newProxyInstance(ConnectionPgSQLManager.class.getClassLoader(), new Class[]{Connection.class},
                             (proxy, method, args) -> method.getName().equals("close")
                                     ? pool.add((Connection) proxy)
                                     : method.invoke(connection, args));
@@ -59,20 +62,19 @@ public class ConnectionMySQLManager {
 
     protected static void loadDriver() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
-        } catch (Exception e) {
-            log.error("Error mySQL Driver init");
-            fail("Error mySQL Driver init");
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
     protected static Connection open() {
         try {
-            portForward();
-            return DriverManager.getConnection
-                    (EnvironmentProperties.DB_URL + "?" +
-                            "user=" + EnvironmentProperties.DB_MYSQL_USERNAME +
-                            "&password=" + EnvironmentProperties.DB_MYSQL_PASSWORD);
+            return DriverManager.getConnection(
+                    String.format("jdbc:postgresql://localhost:%s/app", WORKFLOW.getPort()),
+                    Crypt.INSTANCE.decrypt("O4On6ImtTAIvvUDOsqOHDw=="),
+                    Crypt.INSTANCE.decrypt("DQdUNB8CjrqEUiIrAaZlCg==")
+            );
         } catch (SQLException ex) {
             log.error("SQLException: " + ex.getMessage() +
                     "SQLState: " + ex.getSQLState() +

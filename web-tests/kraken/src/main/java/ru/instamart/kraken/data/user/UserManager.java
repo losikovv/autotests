@@ -33,6 +33,8 @@ public final class UserManager {
     private static UserData defaultAdminAllRoles;
     private static UserData defaultAdminSmsRole;
     private static UserData defaultShopper;
+    private static UserData krakenUniversal;
+    private static UserData krakenUniversal2;
     private static UserData stf6Shopper1;
     private static UserData stf6Shopper2;
     private static UserData stf6Shopper3;
@@ -134,6 +136,26 @@ public final class UserManager {
                     .build();
         }
         return stf6Shopper3;
+    }
+
+    public static UserData getKrakenUniversal() {
+        if (isNull(krakenUniversal)) {
+            krakenUniversal = UserData.builder()
+                    .phone(Crypt.INSTANCE.decrypt("gqGtx2TyUwPh0VYmzd2ZYg=="))
+                    .uuid("499fbd65-fca9-4da9-a7e0-32d64d88e3c8")
+                    .build();
+        }
+        return krakenUniversal;
+    }
+
+    public static UserData getKrakenUniversal2() {
+        if (isNull(krakenUniversal2)) {
+            krakenUniversal2 = UserData.builder()
+                    .phone(Crypt.INSTANCE.decrypt("0KdZx6GFU+um3PcT/t4h2A=="))
+                    .uuid("bb6306b6-cb54-424d-9121-71da64eba1d5")
+                    .build();
+        }
+        return krakenUniversal2;
     }
 
     public static UserData getDefaultShopper() {

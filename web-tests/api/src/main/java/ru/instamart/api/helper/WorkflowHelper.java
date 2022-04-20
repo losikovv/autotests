@@ -4,9 +4,13 @@ import com.google.protobuf.Duration;
 import com.google.protobuf.Timestamp;
 import com.google.protobuf.util.Timestamps;
 import io.qameta.allure.Step;
+import io.restassured.response.Response;
 import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.api.request.workflows.AssignmentsRequest;
 import ru.instamart.jdbc.dao.stf.StoresDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.StartPointsTenants;
+import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import workflow.ServiceGrpc;
 import workflow.WorkflowEnums;
@@ -14,7 +18,14 @@ import workflow.WorkflowOuterClass;
 
 import java.util.Date;
 
-public class DispatchHelper {
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
+import static ru.instamart.kraken.data.StartPointsTenants.METRO_WORKFLOW_END;
+import static ru.instamart.kraken.data.StartPointsTenants.METRO_WORKFLOW_START;
+
+public class WorkflowHelper {
+
+    private static final UserData firstShopper = UserManager.getKrakenUniversal();
+    private static final UserData secondShopper = UserManager.getKrakenUniversal2();
 
     @Step("Подготавливаем запрос для создания маршрутного листа")
     public static WorkflowOuterClass.CreateWorkflowsRequest getWorkflowsRequest(OrderV2 order, String shipmentUuid, Timestamp time, WorkflowEnums.DeliveryType deliveryType) {
@@ -22,7 +33,7 @@ public class DispatchHelper {
                 .newBuilder()
                 .addWorkflows(WorkflowOuterClass.Workflow.newBuilder()
                         .addAssignments(WorkflowOuterClass.Assignment.newBuilder()
-                                .setPerformerUuid(UserManager.getDefaultShopper().getUuid())
+                                .setPerformerUuid(firstShopper.getUuid())
                                 .setSourceTypeValue(WorkflowEnums.SourceType.DISPATCH.getNumber())
                                 .setPerformerVehicleValue(WorkflowEnums.PerformerVehicle.PEDESTRIAN_VALUE)
                                 .setDeliveryTypeValue(deliveryType.getNumber())
@@ -43,13 +54,13 @@ public class DispatchHelper {
                                         .setStoreAddress("Москва, Дорожная,  д. 1, корп. 1")
                                         .build())
                                 .setLocationStart(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.63533180125311)
-                                        .setLon(37.62462253918757)
+                                        .setLat(METRO_WORKFLOW_START.getLat())
+                                        .setLon(METRO_WORKFLOW_START.getLon())
                                         .build())
                                 .setPlanStartedAt(time)
                                 .setLocationEnd(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.60166514312233)
-                                        .setLon(37.62097454092305)
+                                        .setLat(METRO_WORKFLOW_END.getLat())
+                                        .setLon(METRO_WORKFLOW_END.getLon())
                                         .build())
                                 .setPlanEndedAt(time)
                                 .setDuration(Duration.newBuilder().setSeconds(10).build())
@@ -71,13 +82,13 @@ public class DispatchHelper {
                                         .setStoreAddress("Москва, Дорожная,  д. 1, корп. 1")
                                         .build())
                                 .setLocationStart(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.63533180125311)
-                                        .setLon(37.62462253918757)
+                                        .setLat(METRO_WORKFLOW_START.getLat())
+                                        .setLon(METRO_WORKFLOW_START.getLon())
                                         .build())
                                 .setPlanStartedAt(time)
                                 .setLocationEnd(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.60166514312233)
-                                        .setLon(37.62097454092305)
+                                        .setLat(METRO_WORKFLOW_END.getLat())
+                                        .setLon(METRO_WORKFLOW_END.getLon())
                                         .build())
                                 .setPlanEndedAt(time)
                                 .setDuration(Duration.newBuilder().setSeconds(10).build())
@@ -99,13 +110,13 @@ public class DispatchHelper {
                                         .setStoreAddress("Москва, Дорожная,  д. 1, корп. 1")
                                         .build())
                                 .setLocationStart(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.63533180125311)
-                                        .setLon(37.62462253918757)
+                                        .setLat(METRO_WORKFLOW_START.getLat())
+                                        .setLon(METRO_WORKFLOW_START.getLon())
                                         .build())
                                 .setPlanStartedAt(time)
                                 .setLocationEnd(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.60166514312233)
-                                        .setLon(37.62097454092305)
+                                        .setLat(METRO_WORKFLOW_END.getLat())
+                                        .setLon(METRO_WORKFLOW_END.getLon())
                                         .build())
                                 .setPlanEndedAt(time)
                                 .setDuration(Duration.newBuilder().setSeconds(10).build())
@@ -121,7 +132,7 @@ public class DispatchHelper {
                 .newBuilder()
                 .addWorkflows(WorkflowOuterClass.Workflow.newBuilder()
                         .addAssignments(WorkflowOuterClass.Assignment.newBuilder()
-                                .setPerformerUuid(UserManager.getShp6Shopper2().getUuid())
+                                .setPerformerUuid(secondShopper.getUuid())
                                 .setSourceTypeValue(WorkflowEnums.SourceType.DISPATCH_VALUE)
                                 .setPerformerVehicleValue(WorkflowEnums.PerformerVehicle.PEDESTRIAN_VALUE)
                                 .setDeliveryTypeValue(WorkflowEnums.DeliveryType.DEFAULT_VALUE)
@@ -143,13 +154,13 @@ public class DispatchHelper {
                                         .setStoreAddress("Москва, Дорожная,  д. 1, корп. 1")
                                         .build())
                                 .setLocationStart(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.63533180125311)
-                                        .setLon(37.62462253918757)
+                                        .setLat(METRO_WORKFLOW_START.getLat())
+                                        .setLon(METRO_WORKFLOW_START.getLon())
                                         .build())
                                 .setPlanStartedAt(Timestamps.MAX_VALUE)
                                 .setLocationEnd(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.60166514312233)
-                                        .setLon(37.62097454092305)
+                                        .setLat(METRO_WORKFLOW_END.getLat())
+                                        .setLon(METRO_WORKFLOW_END.getLon())
                                         .build())
                                 .setPlanEndedAt(Timestamps.MAX_VALUE)
                                 .setDuration(Duration.newBuilder().setSeconds(10).build())
@@ -171,13 +182,13 @@ public class DispatchHelper {
                                         .setStoreAddress("Москва, Дорожная,  д. 1, корп. 1")
                                         .build())
                                 .setLocationStart(WorkflowEnums.Location.newBuilder()
-                                        .setLat(56.63533180125311)
-                                        .setLon(39.62462253918757)
+                                        .setLat(METRO_WORKFLOW_START.getLat())
+                                        .setLon(METRO_WORKFLOW_START.getLon())
                                         .build())
                                 .setPlanStartedAt(Timestamps.fromDate(new Date()))
                                 .setLocationEnd(WorkflowEnums.Location.newBuilder()
-                                        .setLat(57.60166514312233)
-                                        .setLon(39.62097454092305)
+                                        .setLat(METRO_WORKFLOW_END.getLat())
+                                        .setLon(METRO_WORKFLOW_END.getLon())
                                         .build())
                                 .setPlanEndedAt(Timestamps.fromDate(new Date()))
                                 .setDuration(Duration.newBuilder().setSeconds(12).build())
@@ -199,13 +210,13 @@ public class DispatchHelper {
                                         .setStoreAddress("Москва, Дорожная,  д. 1, корп. 1")
                                         .build())
                                 .setLocationStart(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.63533180188311)
-                                        .setLon(37.62462253918857)
+                                        .setLat(METRO_WORKFLOW_START.getLat())
+                                        .setLon(METRO_WORKFLOW_START.getLon())
                                         .build())
                                 .setPlanStartedAt(Timestamps.fromDate(new Date()))
                                 .setLocationEnd(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.60166514312283)
-                                        .setLon(37.62097454092308)
+                                        .setLat(METRO_WORKFLOW_END.getLat())
+                                        .setLon(METRO_WORKFLOW_END.getLon())
                                         .build())
                                 .setPlanEndedAt(Timestamps.fromDate(new Date()))
                                 .setDuration(Duration.newBuilder().setSeconds(14).build())
@@ -221,7 +232,7 @@ public class DispatchHelper {
                 .newBuilder()
                 .addWorkflows(WorkflowOuterClass.Workflow.newBuilder()
                         .addAssignments(WorkflowOuterClass.Assignment.newBuilder()
-                                .setPerformerUuid(UserManager.getDefaultShopper().getUuid())
+                                .setPerformerUuid(firstShopper.getUuid())
                                 .setSourceTypeValue(WorkflowEnums.SourceType.DISPATCH.getNumber())
                                 .setPerformerVehicleValue(WorkflowEnums.PerformerVehicle.PEDESTRIAN_VALUE)
                                 .setDeliveryTypeValue(WorkflowEnums.DeliveryType.DEFAULT_VALUE)
@@ -246,13 +257,13 @@ public class DispatchHelper {
                                         .setStoreAddress("Москва, Дорожная,  д. 1, корп. 1")
                                         .build())
                                 .setLocationStart(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.63533180125311)
-                                        .setLon(37.62462253918757)
+                                        .setLat(METRO_WORKFLOW_START.getLat())
+                                        .setLon(METRO_WORKFLOW_START.getLon())
                                         .build())
                                 .setPlanStartedAt(Timestamps.MAX_VALUE)
                                 .setLocationEnd(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.60166514312233)
-                                        .setLon(37.62097454092305)
+                                        .setLat(METRO_WORKFLOW_END.getLat())
+                                        .setLon(METRO_WORKFLOW_END.getLon())
                                         .build())
                                 .setPlanEndedAt(Timestamps.MAX_VALUE)
                                 .setDuration(Duration.newBuilder().setSeconds(10).build())
@@ -274,13 +285,13 @@ public class DispatchHelper {
                                         .setStoreAddress("Москва, Дорожная,  д. 1, корп. 1")
                                         .build())
                                 .setLocationStart(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.63533180125311)
-                                        .setLon(37.62462253918757)
+                                        .setLat(METRO_WORKFLOW_START.getLat())
+                                        .setLon(METRO_WORKFLOW_START.getLon())
                                         .build())
                                 .setPlanStartedAt(Timestamps.MAX_VALUE)
                                 .setLocationEnd(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.60166514312233)
-                                        .setLon(37.62097454092305)
+                                        .setLat(METRO_WORKFLOW_END.getLat())
+                                        .setLon(METRO_WORKFLOW_END.getLon())
                                         .build())
                                 .setPlanEndedAt(Timestamps.MAX_VALUE)
                                 .setDuration(Duration.newBuilder().setSeconds(10).build())
@@ -302,13 +313,13 @@ public class DispatchHelper {
                                         .setStoreAddress("Москва, Дорожная,  д. 1, корп. 1")
                                         .build())
                                 .setLocationStart(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.63533180125311)
-                                        .setLon(37.62462253918757)
+                                        .setLat(METRO_WORKFLOW_START.getLat())
+                                        .setLon(METRO_WORKFLOW_START.getLon())
                                         .build())
                                 .setPlanStartedAt(Timestamps.MAX_VALUE)
                                 .setLocationEnd(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.60166514312233)
-                                        .setLon(37.62097454092305)
+                                        .setLat(METRO_WORKFLOW_END.getLat())
+                                        .setLon(METRO_WORKFLOW_END.getLon())
                                         .build())
                                 .setPlanEndedAt(Timestamps.MAX_VALUE)
                                 .setDuration(Duration.newBuilder().setSeconds(10).build())
@@ -319,12 +330,12 @@ public class DispatchHelper {
     }
 
     @Step("Подготавливаем запрос для создания маршрутного листа c разными магазинами в сегментах")
-    public static WorkflowOuterClass.CreateWorkflowsRequest getWorkflowsRequestWithDifferentStores(OrderV2 order, String shipmentUuid) {
-        return  WorkflowOuterClass.CreateWorkflowsRequest
+    public static WorkflowOuterClass.CreateWorkflowsRequest getWorkflowsRequestWithDifferentStores(OrderV2 order, String shipmentUuid, String performerUuid) {
+        return WorkflowOuterClass.CreateWorkflowsRequest
                 .newBuilder()
                 .addWorkflows(WorkflowOuterClass.Workflow.newBuilder()
                         .addAssignments(WorkflowOuterClass.Assignment.newBuilder()
-                                .setPerformerUuid(UserManager.getDefaultShopper().getUuid())
+                                .setPerformerUuid(performerUuid)
                                 .setSourceTypeValue(WorkflowEnums.SourceType.DISPATCH.getNumber())
                                 .setPerformerVehicleValue(WorkflowEnums.PerformerVehicle.PEDESTRIAN_VALUE)
                                 .setDeliveryTypeValue(WorkflowEnums.DeliveryType.DEFAULT_VALUE)
@@ -343,13 +354,13 @@ public class DispatchHelper {
                                         .setIsNew(false)
                                         .build())
                                 .setLocationStart(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.63533180125311)
-                                        .setLon(37.62462253918757)
+                                        .setLat(METRO_WORKFLOW_START.getLat())
+                                        .setLon(METRO_WORKFLOW_START.getLon())
                                         .build())
                                 .setPlanStartedAt(Timestamps.MAX_VALUE)
                                 .setLocationEnd(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.60166514312233)
-                                        .setLon(37.62097454092305)
+                                        .setLat(METRO_WORKFLOW_END.getLat())
+                                        .setLon(METRO_WORKFLOW_END.getLon())
                                         .build())
                                 .setPlanEndedAt(Timestamps.MAX_VALUE)
                                 .setDuration(Duration.newBuilder().setSeconds(10).build())
@@ -369,13 +380,13 @@ public class DispatchHelper {
                                         .setIsNew(false)
                                         .build())
                                 .setLocationStart(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.63533180125311)
-                                        .setLon(37.62462253918757)
+                                        .setLat(METRO_WORKFLOW_START.getLat())
+                                        .setLon(METRO_WORKFLOW_START.getLon())
                                         .build())
                                 .setPlanStartedAt(Timestamps.MAX_VALUE)
                                 .setLocationEnd(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.60166514312233)
-                                        .setLon(37.62097454092305)
+                                        .setLat(METRO_WORKFLOW_END.getLat())
+                                        .setLon(METRO_WORKFLOW_END.getLon())
                                         .build())
                                 .setPlanEndedAt(Timestamps.MAX_VALUE)
                                 .setDuration(Duration.newBuilder().setSeconds(10).build())
@@ -395,13 +406,13 @@ public class DispatchHelper {
                                         .setIsNew(false)
                                         .build())
                                 .setLocationStart(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.63533180125311)
-                                        .setLon(37.62462253918757)
+                                        .setLat(METRO_WORKFLOW_START.getLat())
+                                        .setLon(METRO_WORKFLOW_START.getLon())
                                         .build())
                                 .setPlanStartedAt(Timestamps.MAX_VALUE)
                                 .setLocationEnd(WorkflowEnums.Location.newBuilder()
-                                        .setLat(55.60166514312233)
-                                        .setLon(37.62097454092305)
+                                        .setLat(METRO_WORKFLOW_END.getLat())
+                                        .setLon(METRO_WORKFLOW_END.getLon())
                                         .build())
                                 .setPlanEndedAt(Timestamps.MAX_VALUE)
                                 .setDuration(Duration.newBuilder().setSeconds(10).build())
@@ -412,7 +423,6 @@ public class DispatchHelper {
     }
 
 
-
     @Step("Отменяем маршрутный лист")
     public static void cancelWorkflow(ServiceGrpc.ServiceBlockingStub clientWorkflow, String shipmentUuid) {
         var request = WorkflowOuterClass.RejectWorkflowByShipmentUuidRequest
@@ -421,5 +431,24 @@ public class DispatchHelper {
                 .build();
 
         var response = clientWorkflow.rejectWorkflowByShipmentUUID(request);
+    }
+
+    @Step("Берем в работу маршрутный лист")
+    public static void acceptWorkflow(String assignmentId) {
+        final Response response = AssignmentsRequest.Accept.PATCH(assignmentId);
+        checkStatusCode200(response);
+    }
+
+    @Step("Берем в работу маршрутный лист и начинаем маршрут")
+    public static void acceptWorkflowAndStart(String assignmentId, StartPointsTenants coordinates) {
+        final Response response = AssignmentsRequest.Accept.PATCH(assignmentId, coordinates);
+        checkStatusCode200(response);
+    }
+
+    @Step("Создаем маршрутный лист")
+    public static String getWorkflowUuid(OrderV2 order, String shipmentUuid, Timestamp timestamp, ServiceGrpc.ServiceBlockingStub clientWorkflow) {
+        var request = getWorkflowsRequest(order, shipmentUuid, timestamp, WorkflowEnums.DeliveryType.DEFAULT);
+        var response = clientWorkflow.createWorkflows(request);
+        return response.getResultsMap().keySet().toArray()[0].toString();
     }
 }

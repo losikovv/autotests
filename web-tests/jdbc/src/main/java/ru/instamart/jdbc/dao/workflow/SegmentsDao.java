@@ -2,7 +2,7 @@ package ru.instamart.jdbc.dao.workflow;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.workflow.SegmentsEntity;
-import ru.instamart.jdbc.util.ConnectionPgSQLManagerService;
+import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLWorkflowManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +20,7 @@ public class SegmentsDao extends AbstractDao<Long, SegmentsEntity> {
 
     public List<SegmentsEntity> getSegmentsByWorkflowUuid(String workflowUuid) {
         List<SegmentsEntity> segmentsEntities = new ArrayList<>();
-        try (Connection connect = ConnectionPgSQLManagerService.get();
+        try (Connection connect = ConnectionPgSQLWorkflowManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "s.*") + " s JOIN assignments a ON s.workflow_id = a.workflow_id " +
                      "WHERE a.uuid = ?")) {
             preparedStatement.setString(1, workflowUuid);
@@ -43,7 +43,7 @@ public class SegmentsDao extends AbstractDao<Long, SegmentsEntity> {
                 segmentsEntities.add(segmentsEntity);
             }
         } catch (SQLException e) {
-            fail("Error init ConnectionPgSQLManagerService. Error: " + e.getMessage());
+            fail("Error init ConnectionPgSQLWorkflowManager. Error: " + e.getMessage());
         }
         return segmentsEntities;
     }

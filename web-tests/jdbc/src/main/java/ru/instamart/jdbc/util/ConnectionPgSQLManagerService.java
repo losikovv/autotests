@@ -35,7 +35,7 @@ public class ConnectionPgSQLManagerService {
 
     protected static void portForward() {
         if (Objects.nonNull(EnvironmentProperties.SERVICE)) {
-            K8sPortForward.getInstance().portForwardPgSQLService();
+            K8sPortForward.getInstance().portForwardPgSQLService(EnvironmentProperties.SERVICE, Optional.ofNullable(EnvironmentProperties.SERVICE_PG_PORT).orElse(5432));
         }
     }
 

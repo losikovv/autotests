@@ -6,6 +6,7 @@ import lombok.Cleanup;
 import order.Order;
 import order_enrichment.OrderEnrichment;
 import order_status.OrderStatus;
+import push.Push;
 import ru.instamart.kafka.KafkaConfig;
 import ru.instamart.kafka.consumer.KafkaConsumers;
 import ru.instamart.kafka.emum.StatusOrder;
@@ -123,5 +124,14 @@ public class KafkaHelper {
         kafkaConsumers.close();
         assertTrue(longWorkflowsHashMap.size() > 0, "Logs is empty");
         return longWorkflowsHashMap;
+    }
+
+    @Step("Получаем данные кафки о сообщениях по id маршрутного листа: {workflowId}")
+    public List<Push.EventPushNotification> waitDataInKafkaTopicNotifications(long workflowId) {
+        var kafkaConsumers = new KafkaConsumers(configNotifications(), 10L);
+        List<Push.EventPushNotification> longNotificationHashMap = kafkaConsumers.consumeNotifications(workflowId);
+        kafkaConsumers.close();
+        assertTrue(longNotificationHashMap.size() > 0, "Logs is empty");
+        return longNotificationHashMap;
     }
 }

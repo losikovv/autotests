@@ -1,6 +1,5 @@
 package ru.instamart.test.api.dispatch.workflow;
 
-import com.google.protobuf.Duration;
 import com.google.protobuf.util.Timestamps;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -10,6 +9,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import push.Push;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
@@ -22,9 +22,11 @@ import ru.instamart.api.request.workflows.SegmentsRequest;
 import ru.instamart.api.request.workflows.WorkflowsRequest;
 import ru.instamart.api.response.workflows.AssignmentResponse;
 import ru.instamart.grpc.common.GrpcContentHosts;
+import ru.instamart.jdbc.dao.candidates.CandidatesDao;
 import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
 import ru.instamart.jdbc.dao.workflow.AssignmentsDao;
 import ru.instamart.jdbc.dao.workflow.SegmentsDao;
+import ru.instamart.jdbc.entity.candidates.CandidatesEntity;
 import ru.instamart.jdbc.entity.workflow.AssignmentsEntity;
 import ru.instamart.jdbc.entity.workflow.SegmentsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -42,12 +44,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
-import static ru.instamart.api.checkpoint.DispatchCheckpoints.checkSegments;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
-import static ru.instamart.api.helper.DispatchHelper.*;
+import static ru.instamart.api.checkpoint.WorkflowCheckpoints.*;
+import static ru.instamart.api.helper.WorkflowHelper.*;
+import static ru.instamart.kraken.data.StartPointsTenants.METRO_WORKFLOW_END;
 import static ru.instamart.kraken.util.TimeUtil.getDateWithSec;
+import static workflow.AssignmentChangedOuterClass.AssignmentChanged.Status.*;
+import static workflow.WorkflowOuterClass.CreateWorkflowsResponse.Result.ErrorKind.*;
 
-@Epic("Dispatch")
+@Epic("On Demand")
 @Feature("Workflow")
 public class WorkflowTest extends RestBase {
 
@@ -71,7 +76,7 @@ public class WorkflowTest extends RestBase {
         secondOrder = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         secondShipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(secondOrder.getShipments().get(0).getNumber()).getUuid();
         shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
-        shopperApp.authorisation(UserManager.getDefaultShopper());
+        shopperApp.authorisation(UserManager.getKrakenUniversal());
     }
 
     @CaseId(101)
@@ -103,7 +108,7 @@ public class WorkflowTest extends RestBase {
                 .setWorkassignId(responseForCreation.getResultsMap().keySet().toArray()[0].toString())
                 .setWorkassignType("ASSEMBLY")
                 .setAssignedShopper(OrderPricing.Shopper.newBuilder()
-                        .setShopperUuid(UserManager.getDefaultShopper().getUuid())
+                        .setShopperUuid(UserManager.getKrakenUniversal().getUuid())
                         .setShopperType("PEDESTRIAN")
                         .build())
                 .setShipment(OrderPricing.Shipment.newBuilder()
@@ -142,13 +147,7 @@ public class WorkflowTest extends RestBase {
 
         var responseForCreation = clientWorkflow.createWorkflows(request);
 
-        final SoftAssert softAssert = new SoftAssert();
-        for (WorkflowOuterClass.CreateWorkflowsResponse.Result result : responseForCreation.getResultsMap().values()) {
-            compareTwoObjects(result.getStatus().toString(), "FAILURE", softAssert);
-            compareTwoObjects(result.getErrorText(), "Has active workflow with intersection segments", softAssert);
-            compareTwoObjects(result.getErrorKind().toString(), "HAS_ACTIVE_WORKFLOW_WITH_INTERSECTION_SEGMENTS", softAssert);
-        }
-        softAssert.assertAll();
+        checkGrpcError(responseForCreation, "Has active workflow with intersection segments", HAS_ACTIVE_WORKFLOW_WITH_INTERSECTION_SEGMENTS.toString());
     }
 
     @CaseId(141)
@@ -186,7 +185,7 @@ public class WorkflowTest extends RestBase {
         List<WorkflowChangedOuterClass.WorkflowChanged> workflows = kafka.waitDataInKafkaTopicWorkflow(workflowId);
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(workflows.get(0).getStatus(), WorkflowChangedOuterClass.WorkflowChanged.Status.NEW, softAssert);
-        compareTwoObjects(assignments.get(0).getStatus(), AssignmentChangedOuterClass.AssignmentChanged.Status.OFFERED, softAssert);
+        compareTwoObjects(assignments.get(0).getStatus(), OFFERED, softAssert);
         compareTwoObjects(externalDeliveries.get(0).getDeliveryType(), WorkflowEnums.DeliveryType.TAXI, softAssert);
         softAssert.assertAll();
     }
@@ -214,7 +213,7 @@ public class WorkflowTest extends RestBase {
             groups = "dispatch-workflow-regress",
             dependsOnMethods = "createWorkflowWithTransport")
     public void createWorkflowWithDifferentStores() {
-        var request = getWorkflowsRequestWithDifferentStores(order, shipmentUuid);
+        var request = getWorkflowsRequestWithDifferentStores(order, shipmentUuid, UserManager.getKrakenUniversal().getUuid());
 
         var response = clientWorkflow.createWorkflows(request);
 
@@ -231,7 +230,7 @@ public class WorkflowTest extends RestBase {
         compareTwoObjects(segments.get(1).getStoreName(), "METRO, Нижний Новгород Нартова", softAssert);
         compareTwoObjects(segments.get(1).getStoreAddress(), "ул. Степная, д. 75", softAssert);
         compareTwoObjects(segments.get(2).getStoreName(), "METRO, просп. Мира", softAssert);
-        compareTwoObjects(segments.get(2).getStoreAddress(), "Москва, просп. Мира, 211, стр. 1", softAssert);
+       // compareTwoObjects(segments.get(2).getStoreAddress(), "Москва, просп. Мира, 211, стр. 1", softAssert);
         softAssert.assertAll();
     }
 
@@ -244,21 +243,15 @@ public class WorkflowTest extends RestBase {
 
         var response = clientWorkflow.createWorkflows(request);
 
-        final SoftAssert softAssert = new SoftAssert();
-        for (WorkflowOuterClass.CreateWorkflowsResponse.Result result : response.getResultsMap().values()) {
-            compareTwoObjects(result.getStatus().toString(), "FAILURE", softAssert);
-            compareTwoObjects(result.getErrorText(), "Parent assignment not available", softAssert);
-            compareTwoObjects(result.getErrorKind().toString(), "PARENT_NOT_AVAILABLE", softAssert);
-        }
-        softAssert.assertAll();
+        checkGrpcError(response, "Parent assignment not available", PARENT_NOT_AVAILABLE.toString());
     }
 
-    @CaseId(37)
+    @CaseIDs(value = {@CaseId(37), @CaseId(123), @CaseId(93)})
     @Test(description = "Создание маршрутного листа за 30 секунд от текущего времени",
             groups = "dispatch-workflow-regress",
             dependsOnMethods = "createWorkflowWithNotAvailableParentWorkflow")
     public void createWorkflow30SecToNow() {
-        var request = getWorkflowsRequest(order, shipmentUuid, Timestamps.fromDate(getDateWithSec(30)), WorkflowEnums.DeliveryType.DEFAULT);
+        var request = getWorkflowsRequest(order, shipmentUuid, getDateWithSec(30), WorkflowEnums.DeliveryType.DEFAULT);
 
         var response = clientWorkflow.createWorkflows(request);
 
@@ -268,9 +261,14 @@ public class WorkflowTest extends RestBase {
         List<AssignmentChangedOuterClass.AssignmentChanged> assignments = kafka.waitDataInKafkaTopicWorkflowAssignment(workflowUuid);
         workflowId = assignments.get(0).getWorkflowId();
         List<WorkflowChangedOuterClass.WorkflowChanged> workflows = kafka.waitDataInKafkaTopicWorkflow(workflowId);
+        List<Push.EventPushNotification> notifications = kafka.waitDataInKafkaTopicNotifications(workflowId);
+        CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getKrakenUniversal().getUuid());
         final SoftAssert softAssert = new SoftAssert();
         compareTwoObjects(workflows.get(0).getStatus(), WorkflowChangedOuterClass.WorkflowChanged.Status.NEW, softAssert);
-        compareTwoObjects(assignments.get(0).getStatus(), AssignmentChangedOuterClass.AssignmentChanged.Status.OFFERED, softAssert);
+        compareTwoObjects(assignments.get(0).getStatus(), OFFERED, softAssert);
+        compareTwoObjects(notifications.get(notifications.size() - 1).getMessage().getData().getFieldsMap().get("type").getStringValue(), "ASSIGNMENT_CREATED", softAssert);
+        compareTwoObjects(notifications.get(notifications.size() - 1).getMessage().getData().getFieldsMap().get("performer_uuid").getStringValue(), UserManager.getKrakenUniversal().getUuid(), softAssert);
+        compareTwoObjects(candidate.getActive(), false, softAssert);
         softAssert.assertAll();
     }
 
@@ -310,11 +308,11 @@ public class WorkflowTest extends RestBase {
         final Response response = AssignmentsRequest.Seen.PATCH(assignmentId);
         checkStatusCode(response, 204);
         List<AssignmentChangedOuterClass.AssignmentChanged> assignments = kafka.waitDataInKafkaTopicWorkflowAssignment(workflowUuid);
-        compareTwoObjects(assignments.get(assignments.size() - 1).getStatus(), AssignmentChangedOuterClass.AssignmentChanged.Status.SEEN);
+        compareTwoObjects(assignments.get(assignments.size() - 1).getStatus(), SEEN);
     }
 
-    @CaseId(21)
-    @Test(description = "Пометка назначения как просмотренного",
+    @CaseIDs(value = {@CaseId(21), @CaseId(94)})
+    @Test(description = "Пометка назначения как принятого",
             groups = "dispatch-workflow-regress",
             dependsOnMethods = "markWorkflowAsSeen")
     public void markWorkflowAsAccepted() {
@@ -322,7 +320,11 @@ public class WorkflowTest extends RestBase {
         checkStatusCode200(response);
         checkResponseJsonSchema(response, AssignmentResponse.class);
         List<AssignmentChangedOuterClass.AssignmentChanged> assignments = kafka.waitDataInKafkaTopicWorkflowAssignment(workflowUuid);
-        compareTwoObjects(assignments.get(assignments.size() - 1).getStatus(), AssignmentChangedOuterClass.AssignmentChanged.Status.ACCEPTED);
+        CandidatesEntity candidate = CandidatesDao.INSTANCE.getCandidateByUuid(UserManager.getKrakenUniversal().getUuid());
+        final SoftAssert softAssert = new SoftAssert();
+        compareTwoObjects(assignments.get(assignments.size() - 1).getStatus(), ACCEPTED, softAssert);
+        compareTwoObjects(candidate.getActive(), true, softAssert);
+        softAssert.assertAll();
     }
 
     @CaseId(65)
@@ -344,12 +346,12 @@ public class WorkflowTest extends RestBase {
             groups = "dispatch-workflow-regress",
             dependsOnMethods = "getWorkflows")
     public void acceptWorkflowWithCoordinates() {
-        var request = getWorkflowsRequest(order, shipmentUuid, Timestamps.fromDate(getDateWithSec(30)), WorkflowEnums.DeliveryType.DEFAULT);
+        var request = getWorkflowsRequest(order, shipmentUuid, getDateWithSec(30), WorkflowEnums.DeliveryType.DEFAULT);
         var createResponse = clientWorkflow.createWorkflows(request);
         workflowUuid = createResponse.getResultsMap().keySet().toArray()[0].toString();
         AssignmentsEntity assignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(workflowUuid);
 
-        final Response response = AssignmentsRequest.Accept.PATCH(assignmentsEntity.getId().toString(), 37.62097454092305, 55.60166514312233);
+        final Response response = AssignmentsRequest.Accept.PATCH(assignmentsEntity.getId().toString(), METRO_WORKFLOW_END);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, AssignmentResponse.class);
         segments = SegmentsDao.INSTANCE.getSegmentsByWorkflowUuid(workflowUuid).stream()
@@ -364,15 +366,15 @@ public class WorkflowTest extends RestBase {
     public void passWorkflow() {
         SegmentsRequest.SegmentData segmentData = SegmentsRequest.SegmentData.builder()
                 .segmentId(segments.get(0).getId())
-                .lat(55.60166514312233)
-                .lon(37.62097454092305)
+                .lat(METRO_WORKFLOW_END.getLat())
+                .lon(METRO_WORKFLOW_END.getLon())
                 .build();
-        final Response response = SegmentsRequest.PATCH(segments.get(0).getWorkflowId(),segmentData);
+        final Response response = SegmentsRequest.PATCH(segments.get(0).getWorkflowId(), segmentData);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, AssignmentResponse.class);
 
         List<AssignmentChangedOuterClass.AssignmentChanged> assignments = kafka.waitDataInKafkaTopicWorkflowAssignment(workflowUuid);
-        compareTwoObjects(assignments.get(assignments.size() - 1).getStatus(), AssignmentChangedOuterClass.AssignmentChanged.Status.ACCEPTED);
+        compareTwoObjects(assignments.get(assignments.size() - 1).getStatus(), ACCEPTED);
         List<SegmentChangedOuterClass.SegmentChanged> segmentsFromKafka = kafka.waitDataInKafkaTopicWorkflowSegment(segments.get(1).getId());
         segments = SegmentsDao.INSTANCE.getSegmentsByWorkflowUuid(workflowUuid).stream()
                 .sorted(Comparator.comparing(SegmentsEntity::getPosition)).collect(Collectors.toList());
@@ -390,7 +392,7 @@ public class WorkflowTest extends RestBase {
                 .lon(17.62097454092305)
                 .skipGeoWarn(false)
                 .build();
-        final Response response = SegmentsRequest.PATCH(segments.get(1).getWorkflowId(),segmentData);
+        final Response response = SegmentsRequest.PATCH(segments.get(1).getWorkflowId(), segmentData);
         checkStatusCode422(response);
         Error error = response.as(Error.class);
         final SoftAssert softAssert = new SoftAssert();
@@ -426,7 +428,7 @@ public class WorkflowTest extends RestBase {
             groups = "dispatch-workflow-regress",
             dependsOnMethods = "passWorkflowWithLongDistanceWithoutCheck")
     public void createWorkflowWithPassedSegment() {
-        var request = getWorkflowsRequest(order, shipmentUuid, Timestamps.fromDate(getDateWithSec(30)), WorkflowEnums.DeliveryType.DEFAULT);
+        var request = getWorkflowsRequest(order, shipmentUuid, getDateWithSec(40), WorkflowEnums.DeliveryType.DEFAULT);
         var response = clientWorkflow.createWorkflows(request);
 
         compareTwoObjects(response.getResultsMap().get(response.getResultsMap().keySet().toArray()[0].toString()).toString(), "");
@@ -434,24 +436,155 @@ public class WorkflowTest extends RestBase {
         checkFieldIsNotEmpty(workflowUuid, "Не вернулся uuid workflow");
         List<AssignmentChangedOuterClass.AssignmentChanged> assignments = kafka.waitDataInKafkaTopicWorkflowAssignment(workflowUuid);
         workflowId = assignments.get(0).getWorkflowId();
-        compareTwoObjects(assignments.get(0).getStatus(), AssignmentChangedOuterClass.AssignmentChanged.Status.OFFERED);
+        compareTwoObjects(assignments.get(0).getStatus(), OFFERED);
     }
 
     @CaseId(22)
-    @Test(description = "Создание маршрутного листа с сегментом, который был пройден в отклонненом маршрутном листе",
+    @Test(description = "Отклонение назначения",
             groups = "dispatch-workflow-regress",
             dependsOnMethods = "createWorkflowWithPassedSegment")
     public void cancelOfferedWorkflow() {
         AssignmentsEntity assignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(workflowUuid);
         final Response response = AssignmentsRequest.Decline.PATCH(assignmentsEntity.getId());
         checkStatusCode(response, 204);
+        checkCanceledWorkflow(workflowUuid, workflowId, DECLINED, kafka);
+    }
+
+    @CaseId(125)
+    @Test(description = "Отмена отложенного назначения при отклонении родительского назначения",
+            groups = "dispatch-workflow-regress",
+            dependsOnMethods = "cancelOfferedWorkflow")
+    public void cancelOfferedParentWorkflow() {
+        String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateWithSec(30), clientWorkflow);
+
+        var childRequest = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, secondOrder, secondShipmentUuid, workflowUuid);
+        var childResponse = clientWorkflow.createWorkflows(childRequest);
+        String childWorkflowUuid = childResponse.getResultsMap().keySet().toArray()[0].toString();
+
+        AssignmentsEntity assignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(workflowUuid);
+        final Response response = AssignmentsRequest.Decline.PATCH(assignmentsEntity.getId());
+        checkStatusCode(response, 204);
+        checkCanceledWorkflow(childWorkflowUuid, AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(childWorkflowUuid).getWorkflowId(), CANCELED, kafka);
+    }
+
+
+
+    @CaseId(142)
+    @Test(description = "Отмена ранее отмененного маршрутного листа по uuid шимпента",
+            groups = "dispatch-workflow-regress",
+            dependsOnMethods = "cancelOfferedParentWorkflow")
+    public void cancelNonExistentWorkflow() {
+        var request = WorkflowOuterClass.RejectWorkflowByShipmentUuidRequest
+                .newBuilder()
+                .setShipmentUuid(shipmentUuid)
+                .build();
+
+        var response = clientWorkflow.rejectWorkflowByShipmentUUID(request);
+
+        Assert.assertTrue(response.getWorkflowIdsList().isEmpty(), "Пришли маршрутные листы");
+    }
+
+    @CaseId(143)
+    @Test(description = "Создание маршрутного листа для заказа в статусе pending_rejection_requests",
+            groups = "dispatch-workflow-regress",
+            dependsOnMethods = "cancelNonExistentWorkflow")
+    public void createWorkflowWithPendingCancellation() {
+        var request = getWorkflowsRequest(order, shipmentUuid, Timestamps.MAX_VALUE, WorkflowEnums.DeliveryType.DEFAULT);
+
+        var responseForCreation = clientWorkflow.createWorkflows(request);
+
+        checkGrpcError(responseForCreation, "Has pending cancellations", HAS_PENDING_CANCELLATION.toString());
+    }
+
+    @CaseId(130)
+    @Test(description = "Отсутствие автостарта маршрутного листа при принятии назначения",
+            groups = "dispatch-workflow-regress",
+            dependsOnMethods = "createWorkflowWithPendingCancellation")
+    public void acceptWorkflowWithWorkflowInProgress() {
+        String firstWorkflowUuid = getWorkflowUuid(order, shipmentUuid, Timestamps.MAX_VALUE, clientWorkflow);
+        AssignmentsEntity firstAssignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(firstWorkflowUuid);
+        acceptWorkflowAndStart(firstAssignmentsEntity.getId().toString(), METRO_WORKFLOW_END);
+
+        String secondWorkflowUuid = getWorkflowUuid(secondOrder, secondShipmentUuid, Timestamps.MAX_VALUE, clientWorkflow);
+        AssignmentsEntity secondAssignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(secondWorkflowUuid);
+
+        acceptWorkflow(secondAssignmentsEntity.getId().toString());
+
+        List<WorkflowChangedOuterClass.WorkflowChanged> workflows = kafka.waitDataInKafkaTopicWorkflow(secondAssignmentsEntity.getWorkflowId());
+        compareTwoObjects(workflows.get(workflows.size() - 1).getStatus(), WorkflowChangedOuterClass.WorkflowChanged.Status.QUEUED);
+    }
+
+
+    @CaseId(92)
+    @Test(description = "Создание маршрутного листа для заблокированного кандидата",
+            groups = "dispatch-workflow-regress",
+            dependsOnMethods = "acceptWorkflowWithWorkflowInProgress")
+    public void createWorkflowForBusyCandidate() {
+        cancelWorkflow(clientWorkflow, secondShipmentUuid);
+        String candidateUuid = CandidatesDao.INSTANCE.getCandidateUuidByStatus(false);
+
+        var request = getWorkflowsRequestWithDifferentStores(secondOrder, secondShipmentUuid, candidateUuid);
+        var response = clientWorkflow.createWorkflows(request);
+
+        checkGrpcError(response, "Candidate is busy", CANDIDATE_IS_BUSY.toString());
+    }
+
+    @CaseId(68)
+    @Test(description = "Сортировка маршрутных листов по времени",
+            groups = "dispatch-workflow-regress",
+            dependsOnMethods = "createWorkflowForBusyCandidate")
+    public void getAssignmentsByTime() {
+        cancelWorkflow(clientWorkflow, shipmentUuid);
+
+        String firstWorkflowUuid = getWorkflowUuid(order, shipmentUuid, getDateWithSec(30), clientWorkflow);
+        AssignmentsEntity firstAssignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(firstWorkflowUuid);
+        acceptWorkflowAndStart(firstAssignmentsEntity.getId().toString(), METRO_WORKFLOW_END);
+
+        String secondWorkflowUuid = getWorkflowUuid(secondOrder, secondShipmentUuid, Timestamps.MAX_VALUE, clientWorkflow);
+        AssignmentsEntity secondAssignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(secondWorkflowUuid);
+        acceptWorkflow(secondAssignmentsEntity.getId().toString());
+
+        final Response response = WorkflowsRequest.GET();
+        checkStatusCode200(response);
+        checkResponseJsonSchema(response, AssignmentResponse[].class);
+        List<AssignmentResponse> assignments = Arrays.asList(response.as(AssignmentResponse[].class));
+        List<AssignmentResponse> sortedAssignments = assignments.stream().sorted(Comparator.comparing(AssignmentResponse::getId)).collect(Collectors.toList());
+        compareTwoObjects(assignments, sortedAssignments);
+
+        cancelWorkflow(clientWorkflow, secondShipmentUuid);
+        cancelWorkflow(clientWorkflow, shipmentUuid);
+    }
+
+    @CaseId(97)
+    @Test(description = "Отмена заказа для назначения в статусе offered",
+            groups = "dispatch-workflow-regress", enabled = false,
+            dependsOnMethods = "cancelOfferedParentWorkflow")
+    public void cancelOrderWithOfferedWorkflow() {
+        String workflowUuid = getWorkflowUuid(secondOrder, secondShipmentUuid, getDateWithSec(30), clientWorkflow);
+
+        apiV2.cancelOrder(secondOrder.getNumber());
 
         List<AssignmentChangedOuterClass.AssignmentChanged> assignments = kafka.waitDataInKafkaTopicWorkflowAssignment(workflowUuid);
+        long workflowId = assignments.get(assignments.size() - 1).getWorkflowId();
         List<WorkflowChangedOuterClass.WorkflowChanged> workflows = kafka.waitDataInKafkaTopicWorkflow(workflowId);
-        final SoftAssert softAssert = new SoftAssert();
-        compareTwoObjects(workflows.get(workflows.size() - 1).getStatus(), WorkflowChangedOuterClass.WorkflowChanged.Status.CANCELED, softAssert);
-        compareTwoObjects(assignments.get(assignments.size() - 1).getStatus(), AssignmentChangedOuterClass.AssignmentChanged.Status.DECLINED, softAssert);
-        softAssert.assertAll();
+        checkStatuses(assignments, workflows, CANCELED);
+    }
+
+    @CaseId(98)
+    @Test(description = "Отмена заказа для назначения в статусе in progress",
+            groups = "dispatch-workflow-regress", enabled = false,
+            dependsOnMethods = "cancelOfferedParentWorkflow")
+    public void cancelOrderWithWorkflow() {
+        String workflowUuid = getWorkflowUuid(secondOrder, secondShipmentUuid, getDateWithSec(30), clientWorkflow);
+        AssignmentsEntity assignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(workflowUuid);
+        acceptWorkflowAndStart(assignmentsEntity.getId().toString(), METRO_WORKFLOW_END);
+
+        apiV2.cancelOrder(secondOrder.getNumber());
+
+        List<AssignmentChangedOuterClass.AssignmentChanged> assignments = kafka.waitDataInKafkaTopicWorkflowAssignment(workflowUuid);
+        long workflowId = assignments.get(assignments.size() - 1).getWorkflowId();
+        List<WorkflowChangedOuterClass.WorkflowChanged> workflows = kafka.waitDataInKafkaTopicWorkflow(workflowId);
+        checkStatuses(assignments, workflows, CANCELED);
     }
 
 

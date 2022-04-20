@@ -11,6 +11,7 @@ import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.config.SaslConfigs;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import push.Push;
 import ru.instamart.kafka.KafkaConfig;
 import ru.instamart.kafka.emum.StatusOrder;
 import ru.instamart.kraken.config.CoreProperties;
@@ -262,7 +263,7 @@ public class KafkaConsumers {
 
     public List<AssignmentChangedOuterClass.AssignmentChanged> consumeAssignments(String workflowUuid) {
         List<String> allLogs = new ArrayList<>();
-        final int giveUp = 100;
+        final int giveUp = 500;
         int noRecordsCount = 0;
         List<AssignmentChangedOuterClass.AssignmentChanged> result = new ArrayList<>();
         while (true) {
@@ -385,7 +386,7 @@ public class KafkaConsumers {
 
     public List<WorkflowChangedOuterClass.WorkflowChanged> consumeWorkflows(long workflowId) {
         List<String> allLogs = new ArrayList<>();
-        final int giveUp = 100;
+        final int giveUp = 200;
         int noRecordsCount = 0;
         List<WorkflowChangedOuterClass.WorkflowChanged> result = new ArrayList<>();
         while (true) {
@@ -400,6 +401,49 @@ public class KafkaConsumers {
 
                         if (Objects.nonNull(parseWorkflow) && parseWorkflow.getId() == workflowId) {
                             result.add(parseWorkflow);
+                        }
+                    }
+                } catch (InvalidProtocolBufferException e) {
+                    log.debug("Fail parsing kafka message. offset: {}, error: {}", record.offset(), e.getMessage());
+                }
+            }
+            if (records.count() == 0) {
+                ThreadUtil.simplyAwait(1);
+                noRecordsCount++;
+                if (noRecordsCount > giveUp) {
+                    log.debug("No records noRecordsCount: {}, giveUp: {}", noRecordsCount, giveUp);
+                    break;
+                } else continue;
+            }
+            consumer.commitAsync();
+            break;
+        }
+        log.debug("Kafka get data");
+        consumer.close();
+        Allure.addAttachment("Filter logs", result.toString());
+        Allure.addAttachment("All logs", allLogs.toString());
+        return result;
+    }
+
+    public List<Push.EventPushNotification> consumeNotifications(long workflowId) {
+        List<String> allLogs = new ArrayList<>();
+        final int giveUp = 200;
+        int noRecordsCount = 0;
+        List<Push.EventPushNotification> result = new ArrayList<>();
+        while (true) {
+            ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofSeconds(50));
+            for (ConsumerRecord<String, byte[]> record : records) {
+                Push.EventPushNotification parseNotification = null;
+                try {
+                    if (record.value() != null) {
+                        parseNotification = Push.EventPushNotification.parseFrom(record.value());
+                        log.debug("record: {}", parseNotification.toString());
+                        allLogs.add("Time: " + getZonedDate() + "\n Message: \n" + parseNotification);
+
+                        var value = parseNotification.getMessage().getData().getFieldsMap().get("workflow_id");
+
+                        if (Objects.nonNull(parseNotification) && Objects.nonNull(value) && value.getStringValue().equals(String.valueOf(workflowId))) {
+                            result.add(parseNotification);
                         }
                     }
                 } catch (InvalidProtocolBufferException e) {

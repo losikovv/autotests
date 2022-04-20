@@ -143,9 +143,11 @@ public final class TimeUtil {
         return instant.toEpochMilli();
     }
 
-    public static Date getDateWithSec(int sec) {
-        Date date = new Date();
-        date.setSeconds(new Date().getSeconds() - sec);
-        return date;
+    public static Timestamp getDateWithSec(int sec) {
+        Instant instant = Instant.now().minusSeconds(sec);
+        return Timestamp.newBuilder()
+                .setSeconds(instant.getEpochSecond())
+                .setNanos(instant.getNano())
+                .build();
     }
 }
