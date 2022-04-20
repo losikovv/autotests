@@ -10,6 +10,7 @@ public interface ShipmentCancelModalCheck extends ShipmentCancelModalElement, Ch
     @Step("Проверяем что модальное окно отмены заказа показано")
     default void shipmentCancelModalVisible() {
         waitAction().shouldBeVisible(shipmentCancelModal);
+        waitAction().shouldNotBeAnimated(shipmentCancelModal);
     }
 
     @Step("Проверяем что модальное окно отмены заказа не видно")
