@@ -8,6 +8,7 @@ public final class ShipmentCancelModal implements Close, ShipmentCancelModalChec
     @Step("Подтвердить действие")
     public void clickToAccept() {
         accept.click();
+        checkRequestsWasLoad();
     }
 
     @Step("Отклонить действие")
