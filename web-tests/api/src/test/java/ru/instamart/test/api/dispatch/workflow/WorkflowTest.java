@@ -62,7 +62,7 @@ public class WorkflowTest extends RestBase {
     private String assignmentId;
     private List<SegmentsEntity> segments;
 
-    @BeforeClass(alwaysRun = true)
+    @BeforeClass(alwaysRun = true)  
     public void preconditions() {
         clientWorkflow = ServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_OPERATIONS_WORKFLOW));
         clientAnalytics = ShipmentPriceServiceGrpc.newBlockingStub(grpc.createChannel(GrpcContentHosts.PAAS_CONTENT_ANALYTICS_ORDER_PRICING));

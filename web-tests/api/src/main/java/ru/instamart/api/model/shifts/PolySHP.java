@@ -1,4 +1,4 @@
-package ru.instamart.api.model.shopper.shifts;
+package ru.instamart.api.model.shifts;
 
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;

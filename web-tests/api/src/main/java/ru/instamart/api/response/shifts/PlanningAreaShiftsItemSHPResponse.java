@@ -1,10 +1,10 @@
-package ru.instamart.api.response.shopper.shifts;
+package ru.instamart.api.response.shifts;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.instamart.api.model.BaseObject;
-import ru.instamart.api.model.shopper.shifts.PolySHP;
+import ru.instamart.api.model.shifts.PolySHP;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
