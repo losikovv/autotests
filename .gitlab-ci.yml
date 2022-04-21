@@ -34,6 +34,7 @@ stages:
   - build
   - tests-api
   - tests-api-ui
+  - generate-report
   - tests-ui
   - custom-run
 
@@ -273,3 +274,14 @@ generate:data:
   tags:
     - k8s-stage
   allow_failure: true
+
+generate:report:
+  only:
+    refs:
+      - schedules
+    variables:
+      - $REGRESSION == 'true' && $PRODUCTION == 'false'
+  stage: generate-report
+  script:
+    - cd ..
+    - bash ./generate-report.sh api api-instamart-preprod-regress

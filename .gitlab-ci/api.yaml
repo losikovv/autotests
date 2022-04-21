@@ -28,7 +28,8 @@ tests:ApiInstamartRegress:
     - echo $URL_SHP
     - gradle clean build apiInstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
-    - bash ./report.sh api api-instamart-preprod-regress
+    - bash ./clean-directory.sh api api-instamart-preprod-regress
+    - bash ./send-files.sh api api-instamart-preprod-regress
 
 tests:ApiV1InstamartRegress:
   extends:
@@ -41,7 +42,21 @@ tests:ApiV1InstamartRegress:
     - echo $URL_SHP
     - gradle clean build apiV1InstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
   after_script:
-    - bash ./report.sh api api-instamart-ui-preprod-regress
+    - bash ./send-files.sh api api-instamart-preprod-regress
+
+tests:ApiV3InstamartRegress:
+  extends:
+    - ".template_api_ui_tests"
+    - ".template_schedule"
+  resource_group: apiInstamartUI:$URL_STF
+  script:
+    - echo $P_ENV
+    - echo $URL_STF
+    - echo $URL_SHP
+    - gradle clean build apiV3InstamartRegress -Penv=$P_ENV -Pqase=true -Pkey=$ATST_APP_SECRET_KEY -Ppip_url=$CI_PIPELINE_URL -Purl_stf=$URL_STF -Purl_shp=$URL_SHP
+  after_script:
+    - bash ./send-files.sh api api-instamart-preprod-regress
+
 
 tests:ApiInstamartRegress:manual:
   extends:
