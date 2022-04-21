@@ -67,7 +67,7 @@
 <!--        </classes>-->
 <!--    </test>-->
     <!-- api-v2-tests -->
-    <test verbose="1" name="API v2 Tests" parallel="classes" thread-count="15">
+    <test verbose="1" name="API v2 Tests" parallel="classes" thread-count="25">
         <classes>
             <class name="ru.instamart.test.api.v2.endpoints.AppConfigurationV2Test"/>
             <class name="ru.instamart.test.api.v2.endpoints.AuthProviderV2Test"/>
