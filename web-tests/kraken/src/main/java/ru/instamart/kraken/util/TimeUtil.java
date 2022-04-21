@@ -5,7 +5,6 @@ import com.google.protobuf.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.util.Date;
 import java.util.Locale;
 
 public final class TimeUtil {
@@ -87,6 +86,10 @@ public final class TimeUtil {
 
     public static String getDbDate(LocalDateTime date) {
         return dtdb.format(ZonedDateTime.ofInstant(date.atZone(ZONE_ID).toInstant(), ZoneId.of("UTC")));
+    }
+
+    public static String getDbDate() {
+        return dtdb.format(ZonedDateTime.now(ZONE_UTC));
     }
 
     public static String getPastZoneDbDate(Long days) {
