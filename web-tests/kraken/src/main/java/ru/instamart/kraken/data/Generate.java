@@ -26,22 +26,37 @@ public final class Generate {
         return Generate.string("literal", length);
     }
 
-    /** Сгенерировать рандомноую кириллическую буквенную строку указанной длины */
+    /**
+     * Сгенерировать рандомноую кириллическую буквенную строку указанной длины
+     */
     public static String literalCyrillicString(int length) {
         return Generate.string("cyrillic", length);
     }
 
-    /** Сгенерировать рандомноую цифровую строку указанной длины*/
+    /**
+     * Сгенерировать рандомноую цифровую строку указанной длины
+     */
     public static String digitalString(int length) {
         return Generate.string("digital", length);
     }
 
-    /** Сгенерировать int c рандомным числом указанной длины */
+    /**
+     * Сгенерировать рандомноую символьную строку указанной длины
+     */
+    public static String symbolString(int length) {
+        return Generate.string("symbol", length);
+    }
+
+    /**
+     * Сгенерировать int c рандомным числом указанной длины
+     */
     public static int integer(int length) {
         return Integer.parseInt(digitalString(length));
     }
 
-    /** Сгенерировать long c рандомным числом указанной длины */
+    /**
+     * Сгенерировать long c рандомным числом указанной длины
+     */
     public static long longInt(int length) {
         return Long.parseLong(digitalString(length));
     }
@@ -94,6 +109,8 @@ public final class Generate {
                 return "abcdefghijklmnopqrstuvwxyz";
             case "cyrillic":
                 return "абвгдежзийклмнопрстуфхцчшщъыьэюя";
+            case "symbol":
+                return "`~!@#$%^&*()?+=.,\\|/";
             default:
                 return "";
         }
