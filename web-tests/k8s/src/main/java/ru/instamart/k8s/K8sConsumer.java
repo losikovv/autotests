@@ -348,7 +348,7 @@ public class K8sConsumer {
                 }
             } catch (IOException e) {
                 if (!closed.get()) {
-                    log.error("Froward error", e);
+                    log.error("Forward error", e);
                 }
             }
         });

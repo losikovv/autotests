@@ -34,4 +34,9 @@ public interface Check {
         }
         krakenAssert.assertAll();
     }
+
+    @Step("Проверяем, что все запросы загрузились")
+    default void checkRequestsWasLoad() {
+        Kraken.jsAction().checkPendingRequests();
+    }
 }

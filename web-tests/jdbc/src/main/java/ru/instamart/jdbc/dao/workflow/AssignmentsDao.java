@@ -2,7 +2,7 @@ package ru.instamart.jdbc.dao.workflow;
 
 import ru.instamart.jdbc.dao.AbstractDao;
 import ru.instamart.jdbc.entity.workflow.AssignmentsEntity;
-import ru.instamart.jdbc.util.ConnectionPgSQLManagerService;
+import ru.instamart.jdbc.util.dispatch.ConnectionPgSQLWorkflowManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +18,7 @@ public class AssignmentsDao extends AbstractDao<Long, AssignmentsEntity> {
 
     public AssignmentsEntity getAssignmentByWorkflowUuid(String workflowUuid) {
         AssignmentsEntity assignmentsEntity = null;
-        try (Connection connect = ConnectionPgSQLManagerService.get();
+        try (Connection connect = ConnectionPgSQLWorkflowManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE uuid = ?")) {
             preparedStatement.setString(1, workflowUuid);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -38,7 +38,7 @@ public class AssignmentsDao extends AbstractDao<Long, AssignmentsEntity> {
                 assignmentsEntity.setPerformerName(resultSet.getString("performer_name"));
             } else return null;
         } catch (SQLException e) {
-            fail("Error init ConnectionPgSQLManagerService. Error: " + e.getMessage());
+            fail("Error init ConnectionPgSQLWorkflowManager. Error: " + e.getMessage());
         }
         return assignmentsEntity;
     }

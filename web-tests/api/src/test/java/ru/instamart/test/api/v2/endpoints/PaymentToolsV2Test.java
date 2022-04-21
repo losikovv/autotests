@@ -88,7 +88,9 @@ public class PaymentToolsV2Test extends RestBase {
 
     @CaseId(1116)
     @Story("Способы оплаты")
-    @Test(groups = {"api-instamart-regress"},
+    @Deprecated
+    @Test(enabled = false,
+            groups = {"api-instamart-regress"},
             description = "Существующий номер заказа")
     public void getPaymentToolsWithOrder200() {
         apiV2.dropAndFillCart(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
@@ -113,7 +115,9 @@ public class PaymentToolsV2Test extends RestBase {
 
     @CaseId(1117)
     @Story("Способы оплаты")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Deprecated
+    @Test(enabled = false,
+            groups = {"api-instamart-regress", "api-instamart-prod"},
             description = "Несуществующий номер заказа")
     public void getPaymentToolsWithOrder404() {
         final Response response = PaymentToolsV2Request.GET("failedOrderNumber");

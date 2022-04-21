@@ -3,7 +3,7 @@ syntax = "proto3";
 package push;
 import "google/protobuf/struct.proto";
 
-option go_package = "gitlab.sbermarket.tech/paas/content/operations/push-sender/push-sender-back/pkg/server/grpc/push";
+option go_package = "gitlab.sbmt.io/paas/content/operations/push-sender/push-sender-back/pkg/server/grpc/push";
 
 // EventPushNotification message for Kafka's topic 'yc.notifications.cmd.push.0'.
 // Contains a push notification to be sent to users.

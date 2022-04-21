@@ -18,6 +18,7 @@ public final class TimeUtil {
     private static final DateTimeFormatter zdtz = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
     private static final DateTimeFormatter dtdb = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static final ZoneId ZONE_ID = ZoneId.of("Europe/Moscow");
+    private static final ZoneId ZONE_UTC = ZoneId.of("UTC");
     private static final DateTimeFormatter formatter = new DateTimeFormatterBuilder()
             .parseCaseInsensitive()
             .appendPattern("dd MMMM yyyy")
@@ -65,6 +66,14 @@ public final class TimeUtil {
 
     public static String getZonedFutureDate(Long days) {
         return zdt.format(ZonedDateTime.now(ZONE_ID).plusDays(days));
+    }
+
+    public static String getZonedUTCDate() {
+        return zdt.format(ZonedDateTime.now(ZONE_UTC));
+    }
+
+    public static String getZonedUTCFutureDate(Long days) {
+        return zdt.format(ZonedDateTime.now(ZONE_UTC).plusDays(days));
     }
 
     public static String getDbDeliveryDateFrom(Long days) {
@@ -134,9 +143,11 @@ public final class TimeUtil {
         return instant.toEpochMilli();
     }
 
-    public static Date getDateWithSec(int sec) {
-        Date date = new Date();
-        date.setSeconds(new Date().getSeconds() - sec);
-        return date;
+    public static Timestamp getDateWithSec(int sec) {
+        Instant instant = Instant.now().minusSeconds(sec);
+        return Timestamp.newBuilder()
+                .setSeconds(instant.getEpochSecond())
+                .setNanos(instant.getNano())
+                .build();
     }
 }
