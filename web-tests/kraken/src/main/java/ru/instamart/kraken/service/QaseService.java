@@ -141,7 +141,7 @@ public final class QaseService {
      * Отправляем статус прохождения теста
      */
     public void sendResult(final ITestResult result, final RunResultStatus status) {
-        if(!started) return;
+        if (!started) return;
         this.sendResult(result, status, null);
     }
 
@@ -221,29 +221,68 @@ public final class QaseService {
     }
 
     public void deleteOldTestRuns() {
-        final List<TestRun> testRunList = qaseApi.testRuns()
-                .getAll(projectCode, 30, true)
-                .getTestRunList();
+        //Создаем фильтр с выборкой старше трех недель от текущего времени
+        final var filter = qaseApi
+                .testRuns()
+                .filter()
+                .toStartTime(DAYS_TO_DIE);
 
-        testRunList.forEach(testRun -> {
-            if ((testRun.getDescription() != null && testRun.getDescription().contains(DESCRIPTION_PREFIX))
-                    && (testRun.getStartTime() != null && DAYS_TO_DIE.isAfter(testRun.getStartTime()))) {
+        //Получаем все прогоны удовлетворяющие фильтру
+        final List<TestRun> allTestRuns = new ArrayList<>();
+        int testRunSize;
+        int offset = 0;
+        do {
+            try {
+                //Тут специально по 50 иначе кейс начинает 500
+                log.debug("Получаем {} страницу тестовых прогонов", offset / 50 + 1);
+                final List<TestRun> testRunList = qaseApi.testRuns()
+                        .getAll(projectCode, 50, offset, filter, false)
+                        .getTestRunList();
+                allTestRuns.addAll(testRunList);
+                testRunSize = testRunList.size();
+                log.debug("Получили {} тестовых прогонов", testRunSize);
+            } catch (QaseException qaseException) {
+                log.error("Something went wrong: " + qaseException);
+                testRunSize = 0;
+            }
+            offset += 50;
+        } while (testRunSize > 0);
+
+        final var testRunIds = allTestRuns
+                .stream()
+                //Фильтруем полученный список прогонов, по тем что были созданы автотестами
+                .filter(testRun -> nonNull(testRun.getDescription()) && testRun.getDescription().contains(DESCRIPTION_PREFIX))
+                //Из полученного списка извлекаем все id, так как остальная инфа нам не нужна
+                .map(TestRun::getId)
+                .collect(Collectors.toList());
+
+        testRunIds.forEach(id -> {
+            try {
+                //Создаем фильтр по прогону
+                //TODO: хоть в апи и написано, что поддерживается указание, через запятую, но по факту это не работает
+                final var filterRunId = qaseApi.testRunResults().filter().run(Math.toIntExact(id));
                 final List<TestRunResult> testRunResults = qaseApi
                         .testRunResults()
-                        .getAll(projectCode, 100, 0, qaseApi.testRunResults().filter().run((int) testRun.getId()))
+                        .getAll(projectCode, 100, 0, filterRunId)
                         .getTestRunResultList();
-                testRunResults.forEach(testRunResult -> testRunResult.getAttachments().forEach(attachment -> {
-                    final Matcher matcher = ATTACHMENT_PATTERN_HASH.matcher(attachment.getUrl());
-                    if (matcher.find()) {
-                        qaseApi.attachments().delete(matcher.group(1));
-                    }
-                }));
-                try {
-                    qaseApi.testRuns().delete(projectCode, testRun.getId());
-                    log.info("CLEANUP: Delete old test run={} for project={}", testRun.getId(), testRun.getTitle());
-                } catch (Exception e) {
-                    log.warn("CLEANUP: Delete old test failed run={} for project={}", testRun.getId(), testRun.getTitle());
-                }
+
+                testRunResults.forEach(testRunResult ->
+                        //Выгребаем все скрины созданные для прогона и удалем их
+                        testRunResult.getAttachments()
+                                .forEach(attachment -> {
+                                    final Matcher matcher = ATTACHMENT_PATTERN_HASH.matcher(attachment.getUrl());
+                                    if (matcher.find()) {
+                                        final var hash = matcher.group(1);
+                                        log.info("CLEANUP: Delete old attachment={} in project={}", hash, projectCode);
+                                        qaseApi.attachments().delete(hash);
+                                    }
+                                }));
+                //Удаляем прогон
+                qaseApi.testRuns().delete(projectCode, id);
+                log.info("CLEANUP: Delete old test run={} for project={}", id, projectCode);
+            } catch (Exception e) {
+                log.warn("CLEANUP: Delete old test failed run={} for project={}", id, projectCode);
+                log.error("CLEANUP: Failure with error ", e);
             }
         });
     }
@@ -274,7 +313,7 @@ public final class QaseService {
             int offset = 0;
             do {
                 try {
-                    log.debug("Получаем {} страницу тест-кейсов", offset/100+1);
+                    log.debug("Получаем {} страницу тест-кейсов", offset / 100 + 1);
                     List<TestCase> testCases = qaseApi
                             .testCases()
                             .getAll(projectCode, 100, offset)
@@ -310,9 +349,9 @@ public final class QaseService {
                         //Фильтруем полученный список по наличию [Automation] в дескрипшене
                         //К сожалению несмотря на то, что появился флаг isAutomated при создании прогона, фильтровать по нему все еще нельзя
                         //из-за чего этот костыль имеет место быть. Так же это приводит к тому, что в результате получается меньше чем 40 последних прогонов
-                var desc = t.getDescription();
-                return nonNull(desc) && desc.contains(DESCRIPTION_PREFIX);
-            }).collect(Collectors.toList());
+                        var desc = t.getDescription();
+                        return nonNull(desc) && desc.contains(DESCRIPTION_PREFIX);
+                    }).collect(Collectors.toList());
 
             //Собираем все id кейсов в HashSet, именно HashSet тут не случайно,
             //а из-за того что дальше идет contains по Set. HashSet гарантирует константный O(1) contains
@@ -328,13 +367,13 @@ public final class QaseService {
                         qaseApi.testCases().update(projectCode, caseId, Automation.automated);
                         automatedNumber++;
                         addToAuto++;
-                    //Если текущий кейс был автоматизирован, но его теперь не в списке авто прогонов
+                        //Если текущий кейс был автоматизирован, но его теперь не в списке авто прогонов
                     } else if (testCase.getAutomation() == 2 && !inList) {
                         log.debug("Указываем, что тест={} не автоматизирован", testCase.getId());
                         qaseApi.testCases().update(projectCode, caseId, Automation.is_not_automated);
                         automatedNumber--;
                         removeFromAuto++;
-                    //Хреновина чисто для того, что бы более точно посчитать количество автоматизированных кейсов
+                        //Хреновина чисто для того, что бы более точно посчитать количество автоматизированных кейсов
                     } else if (testCase.getAutomation() == 2) {
                         automatedNumber++;
                     }
