@@ -107,7 +107,7 @@ task apiRetailerE2E(type: Test) {
 
 task apiInstamartProduction(type: Test) {
     useTestNG() {
-        suites 'src/test/resources/suite/api-instamart.xml'
+        suites 'src/test/resources/suite/api-instamart-prod.xml'
         includeGroups 'api-instamart-prod'
         systemProperty 'env',"sbermarket-production"
     }
