@@ -280,8 +280,9 @@ generate:report:
     refs:
       - schedules
     variables:
-      - $REGRESSION == 'true' && $PRODUCTION == 'false'
+      - $REGRESSION == 'true'
   stage: generate-report
   script:
     - cd ..
     - bash ./generate-report.sh api api-instamart-preprod-regress
+  when: always
