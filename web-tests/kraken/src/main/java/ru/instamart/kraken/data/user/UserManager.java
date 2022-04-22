@@ -71,7 +71,7 @@ public final class UserManager {
                     .role("superadmin")
                     .email(Crypt.INSTANCE.decrypt("Gh1MsACysUuEYv98vkOuOOx/HVxUh5J54NKCNSJCPFQ="))
                     .phone(Crypt.INSTANCE.decrypt("z2UvelSsJ4QsKh9rGmQZDw=="))
-                    .password(PASSWD_1)
+                    .password(EnvironmentProperties.ADMIN_PASSWORD)
                     .name("autotest superadmin")
                     .token(Crypt.INSTANCE.decrypt("fOirPL+gZMmUegHv1749gumS6q0SJpPUPtjMwaVPTvv3fF6EoM9AZBSUACS5kY9E"))
                     .build();
