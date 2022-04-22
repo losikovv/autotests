@@ -6,7 +6,7 @@ import ru.instamart.reforged.core.component.Input;
 
 public interface SberIdAuthElement {
 
-    Input phoneNumber = new Input(By.xpath("//input[@name='phone-number']"), "Поле ввода телефонного номера");
+    Input phoneNumber = new Input(By.xpath("//input[@name='phoneNumber']"), "Поле ввода телефонного номера");
     Input login = new Input(By.xpath("//input[@name='login']"), "Поле ввода логина");
     Input password = new Input(By.xpath("//input[@name='password']"), "Поле ввода пароля");
     Button changeAuthTypeOnLogin = new Button(By.xpath("//span[text() = 'Войти по логину']/parent::button"), "Кнопка смены типа авторизации на логин");
