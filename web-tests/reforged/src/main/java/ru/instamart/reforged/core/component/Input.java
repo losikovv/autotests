@@ -3,6 +3,7 @@ package ru.instamart.reforged.core.component;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.ByKraken;
@@ -46,6 +47,7 @@ public final class Input extends AbstractComponent {
 
     /**
      * Очистка может не работать с полями у которых атрибут autocomplete
+     *
      * @param data - заполняемое значение
      */
     public void fill(final String data) {
@@ -59,7 +61,8 @@ public final class Input extends AbstractComponent {
      * Чаще всего используется там где есть атрибут autocomplete или происходит форматирование введенного текста js'ом
      * под капотом через ожидания заполняет и сверяет, что введенный текст соответствует,
      * тому что введено, если ввод оказывается ошибочным, то стирает все в инпуте и пытается заполнить снова
-     * @param data - заполняемое значение
+     *
+     * @param data    - заполняемое значение
      * @param isPhone - из-за того что в форме авторизации js форматируется инпут, нужно передавать этот флаг в true,
      *                для всего остального false
      */
@@ -102,6 +105,12 @@ public final class Input extends AbstractComponent {
     public void clear() {
         log.debug("Clear input {} field", getDescription());
         getComponent().clear();
+    }
+
+    public void clearByKeysCombination() {
+        log.debug("Clear input {} field", getDescription());
+        getComponent().sendKeys(Keys.CONTROL + "a");
+        getComponent().sendKeys(Keys.DELETE);
     }
 
     public String getValue() {
