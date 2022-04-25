@@ -61,10 +61,8 @@ public class CheckoutTests extends BaseTest {
         checkout().interactEditPaymentCardModal().fillCardData(card);
         checkout().interactEditPaymentCardModal().clickToSaveModal();
 
-        //TODO в списке тестовых карт для шлюза Сбер'а нет бизнес-карты. Решает Артём Кофтаенко
         checkout().setPayment().checkCardNameContains(checkout().setPayment().getFirstCardName(), "Бизнеc-карта");
 
-        checkout().setPayment().switchGetClosingDocuments();
         checkout().setPayment().fillRequisitesName(company.getJuridicalName());
         checkout().setPayment().fillRequisitesAddress(company.getJuridicalAddress());
         checkout().setPayment().fillRequisitesKPP(company.getKpp());
