@@ -104,6 +104,8 @@ public final class EnvironmentProperties {
     private static String SSO_AUTH_URL;
     @Config(configName = NAME, fieldName = "pgSqlPoolSize", defaultValue = "10")
     public static int DEFAULT_PGSQL_POOL_SIZE;
+    @Config(configName = NAME, fieldName = "adminPassword", defaultValue = "", crypted = true)
+    public static String ADMIN_PASSWORD;
 
     public static class Env {
 
