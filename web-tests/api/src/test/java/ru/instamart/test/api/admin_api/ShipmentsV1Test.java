@@ -59,7 +59,7 @@ public class ShipmentsV1Test extends RestBase {
                 .build());
         checkStatusCode200(response);
         checkResponseJsonSchema(response, AdminShipmentsV1Response.class);
-        List<AdminShipmentV1> shipments = response.as(AdminShipmentsV1Response.class).getShipments().stream().filter(s -> s.getCombinedState().equals("dispatch_postponed")).collect(Collectors.toList());
+        List<AdminShipmentV1> shipments = response.as(AdminShipmentsV1Response.class).getShipments().stream().filter(s -> !s.getCombinedState().equals("dispatch_postponed")).collect(Collectors.toList());
         final SoftAssert softAssert = new SoftAssert();
         shipments.forEach(s -> compareTwoObjects(s.getCombinedState(), state.getValue(), softAssert));
         softAssert.assertAll();
