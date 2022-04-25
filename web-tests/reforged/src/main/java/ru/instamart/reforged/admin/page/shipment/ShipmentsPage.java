@@ -73,6 +73,16 @@ public final class ShipmentsPage implements AdminPage, ShipmentsCheck {
         searchNumber.fill(shipmentNumber);
     }
 
+    @Step("Вводим в поле 'Ритейлер'")
+    public void fillRetailer(final String retailerName) {
+        retailer.fill(retailerName);
+    }
+
+    @Step("Выбираем первый найденные результат в выпадающем списке виджета")
+    public void clickOnFirstResultInDropDown() {
+        inputSearchResults.selectFirst();
+    }
+
     @Step("Начать поиск с введенными данными")
     public void search() {
         submit.click();
