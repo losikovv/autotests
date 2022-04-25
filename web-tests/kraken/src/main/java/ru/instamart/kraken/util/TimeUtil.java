@@ -143,8 +143,16 @@ public final class TimeUtil {
         return instant.toEpochMilli();
     }
 
-    public static Timestamp getDateWithSec(int sec) {
+    public static Timestamp getDateMinusSec(int sec) {
         Instant instant = Instant.now().minusSeconds(sec);
+        return Timestamp.newBuilder()
+                .setSeconds(instant.getEpochSecond())
+                .setNanos(instant.getNano())
+                .build();
+    }
+
+    public static Timestamp getDatePlusSec(int sec) {
+        Instant instant = Instant.now().plusSeconds(sec);
         return Timestamp.newBuilder()
                 .setSeconds(instant.getEpochSecond())
                 .setNanos(instant.getNano())

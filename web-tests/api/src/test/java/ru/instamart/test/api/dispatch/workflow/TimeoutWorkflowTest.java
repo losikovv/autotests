@@ -3,18 +3,23 @@ package ru.instamart.test.api.dispatch.workflow;
 import com.google.protobuf.util.Timestamps;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import org.testng.Assert;
+import io.restassured.response.Response;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
+import ru.instamart.api.request.workflows.AssignmentsRequest;
 import ru.instamart.grpc.common.GrpcContentHosts;
 import ru.instamart.jdbc.dao.stf.SpreeShipmentsDao;
 import ru.instamart.jdbc.dao.workflow.AssignmentsDao;
-import ru.instamart.jdbc.dao.workflow.ChangelogsDao;
+import ru.instamart.jdbc.dao.workflow.SegmentsDao;
+import ru.instamart.jdbc.dao.workflow.WorkflowsDao;
 import ru.instamart.jdbc.entity.workflow.AssignmentsEntity;
+import ru.instamart.jdbc.entity.workflow.SegmentsEntity;
+import ru.instamart.jdbc.entity.workflow.WorkflowsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
@@ -24,14 +29,18 @@ import workflow.AssignmentChangedOuterClass;
 import workflow.ServiceGrpc;
 import workflow.WorkflowChangedOuterClass;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.WorkflowCheckpoints.checkStatuses;
+import static ru.instamart.api.checkpoint.WorkflowCheckpoints.checkWorkflowChanges;
 import static ru.instamart.api.helper.WorkflowHelper.*;
 import static ru.instamart.kraken.data.StartPointsTenants.METRO_WORKFLOW_END;
-import static ru.instamart.kraken.util.TimeUtil.getDateWithSec;
-import static workflow.AssignmentChangedOuterClass.AssignmentChanged.Status.CANCELED;
-import static workflow.AssignmentChangedOuterClass.AssignmentChanged.Status.TIMEOUT;
+import static ru.instamart.kraken.util.TimeUtil.getDateMinusSec;
+import static ru.instamart.kraken.util.TimeUtil.getDatePlusSec;
+import static workflow.AssignmentChangedOuterClass.AssignmentChanged.Status.*;
 
 @Epic("On Demand")
 @Feature("Workflow")
@@ -54,13 +63,14 @@ public class TimeoutWorkflowTest extends RestBase {
         secondOrder = apiV2.order(SessionFactory.getSession(SessionType.API_V2).getUserData(), EnvironmentProperties.DEFAULT_SID);
         secondShipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(secondOrder.getShipments().get(0).getNumber()).getUuid();
         shipmentUuid = SpreeShipmentsDao.INSTANCE.getShipmentByNumber(order.getShipments().get(0).getNumber()).getUuid();
+        shopperApp.authorisation(UserManager.getShp6Shopper3());
     }
 
     @CaseId(35)
     @Test(description = "Таймаут назначения",
             groups = "dispatch-workflow-regress")
     public void checkStatusAfterTimeout() {
-        String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateWithSec(30), clientWorkflow);
+        String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(30), clientWorkflow);
 
         ThreadUtil.simplyAwait(65);
 
@@ -75,12 +85,11 @@ public class TimeoutWorkflowTest extends RestBase {
             groups = "dispatch-workflow-regress",
             dependsOnMethods = "checkStatusAfterTimeout")
     public void checkChildWorkflowStatusAfterTimeout() {
-        String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateWithSec(30), clientWorkflow);
+        String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(30), clientWorkflow);
 
         var childRequest = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, secondOrder, secondShipmentUuid, workflowUuid);
         var childResponse = clientWorkflow.createWorkflows(childRequest);
         String childWorkflowUuid = childResponse.getResultsMap().keySet().toArray()[0].toString();
-
 
         AssignmentsEntity assignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(workflowUuid);
         acceptWorkflow(assignmentsEntity.getId().toString());
@@ -99,7 +108,7 @@ public class TimeoutWorkflowTest extends RestBase {
             dependsOnMethods = "checkChildWorkflowStatusAfterTimeout")
     public void checkChildWorkflowStatusAfterParentTimeout() {
         cancelWorkflow(clientWorkflow, shipmentUuid);
-        String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateWithSec(30), clientWorkflow);
+        String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(30), clientWorkflow);
 
         var childRequest = getWorkflowsRequestWithDifferentParams(order, shipmentUuid, secondOrder, secondShipmentUuid, workflowUuid);
         var childResponse = clientWorkflow.createWorkflows(childRequest);
@@ -120,12 +129,86 @@ public class TimeoutWorkflowTest extends RestBase {
     public void updateTimingsForWorkflowInProgress() {
         String workflowUuid = getWorkflowUuid(order, shipmentUuid, Timestamps.MAX_VALUE, clientWorkflow);
         AssignmentsEntity assignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(workflowUuid);
+        WorkflowsEntity workflowsEntity = WorkflowsDao.INSTANCE.findById(assignmentsEntity.getWorkflowId()).get();
+        List<SegmentsEntity> segmentsEntities = SegmentsDao.INSTANCE.getSegmentsByWorkflowUuid(workflowUuid).stream()
+                .sorted(Comparator.comparing(SegmentsEntity::getPosition)).collect(Collectors.toList());
         acceptWorkflowAndStart(assignmentsEntity.getId().toString(), METRO_WORKFLOW_END);
 
         ThreadUtil.simplyAwait(305);
 
-        Assert.assertNotNull(ChangelogsDao.INSTANCE.getChangelogByWorkflowId(assignmentsEntity.getWorkflowId()), "Не пришли изменения");
-        //TODO: добавить проверку изменения времени
+        checkWorkflowChanges(workflowUuid, assignmentsEntity, workflowsEntity, segmentsEntities, false);
+
+        cancelWorkflow(clientWorkflow, shipmentUuid);
     }
 
+    @CaseId(148)
+    @Test(description = "Обновление таймингов маршрутного листа в очереди", enabled = false, // Требует уточнения условий
+            groups = "dispatch-workflow-regress")
+            //dependsOnMethods = "updateTimingsForWorkflowInProgress")
+    public void updateTimingsForQueuedWorkflow() {
+        String firstWorkflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(5), clientWorkflow);
+        AssignmentsEntity firstAssignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(firstWorkflowUuid);
+        acceptWorkflowAndStart(firstAssignmentsEntity.getId().toString(), METRO_WORKFLOW_END);
+
+        String secondWorkflowUuid = getWorkflowUuid(secondOrder, secondShipmentUuid, getDatePlusSec(2640), clientWorkflow);
+        AssignmentsEntity secondAssignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(secondWorkflowUuid);
+        WorkflowsEntity secondWorkflowsEntity = WorkflowsDao.INSTANCE.findById(secondAssignmentsEntity.getWorkflowId()).get();
+        List<SegmentsEntity> secondSegmentsEntities = SegmentsDao.INSTANCE.getSegmentsByWorkflowUuid(secondWorkflowUuid).stream()
+                .sorted(Comparator.comparing(SegmentsEntity::getPosition)).collect(Collectors.toList());
+        acceptWorkflow(secondAssignmentsEntity.getId().toString());
+
+        ThreadUtil.simplyAwait(315);
+
+        checkWorkflowChanges(secondWorkflowUuid, secondAssignmentsEntity, secondWorkflowsEntity, secondSegmentsEntities, true);
+    }
+
+    @CaseId(98)
+    @Test(description = "Отмена заказа для назначения в статусе queued",
+            groups = "dispatch-workflow-regress",
+            dependsOnMethods = "updateTimingsForWorkflowInProgress")
+    public void cancelOrderWithQueuedWorkflow() {
+        SessionFactory.clearSession(SessionType.SHOPPER_APP);
+        shopperApp.authorisation(UserManager.getShp6Shopper3());
+        String firstWorkflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(5), clientWorkflow);
+        AssignmentsEntity firstAssignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(firstWorkflowUuid);
+        acceptWorkflowAndStart(firstAssignmentsEntity.getId().toString(), METRO_WORKFLOW_END);
+
+        String secondWorkflowUuid = getWorkflowUuid(secondOrder, secondShipmentUuid, getDatePlusSec(2640), clientWorkflow);
+        AssignmentsEntity secondAssignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(secondWorkflowUuid);
+        acceptWorkflow(secondAssignmentsEntity.getId().toString());
+
+        apiV2.cancelOrder(secondOrder.getNumber());
+
+        List<AssignmentChangedOuterClass.AssignmentChanged> assignments = kafka.waitDataInKafkaTopicWorkflowAssignment(secondWorkflowUuid);
+        long workflowId = assignments.get(assignments.size() - 1).getWorkflowId();
+        List<WorkflowChangedOuterClass.WorkflowChanged> workflows = kafka.waitDataInKafkaTopicWorkflow(workflowId);
+        checkStatuses(assignments, workflows, ACCEPTED);
+
+        cancelWorkflow(clientWorkflow, shipmentUuid);
+    }
+
+    @CaseId(97)
+    @Test(description = "Отмена заказа для назначения в статусе seen",
+            groups = "dispatch-workflow-regress",
+            dependsOnMethods = "updateTimingsForWorkflowInProgress")
+    public void cancelOrderWithSeenWorkflow() {
+        String workflowUuid = getWorkflowUuid(order, shipmentUuid, getDateMinusSec(5), clientWorkflow);
+        AssignmentsEntity assignmentsEntity = AssignmentsDao.INSTANCE.getAssignmentByWorkflowUuid(workflowUuid);
+        final Response response = AssignmentsRequest.Seen.PATCH(assignmentsEntity.getId().toString());
+        checkStatusCode(response, 204);
+
+        apiV2.cancelOrder(order.getNumber());
+
+        List<AssignmentChangedOuterClass.AssignmentChanged> assignments = kafka.waitDataInKafkaTopicWorkflowAssignment(workflowUuid);
+        long workflowId = assignments.get(assignments.size() - 1).getWorkflowId();
+        List<WorkflowChangedOuterClass.WorkflowChanged> workflows = kafka.waitDataInKafkaTopicWorkflow(workflowId);
+        checkStatuses(assignments, workflows, CANCELED);
+    }
+
+
+    @AfterClass(alwaysRun = true)
+    public void clearData() {
+        cancelWorkflow(clientWorkflow, secondShipmentUuid);
+        cancelWorkflow(clientWorkflow, shipmentUuid);
+    }
 }

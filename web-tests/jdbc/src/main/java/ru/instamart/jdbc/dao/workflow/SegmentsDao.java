@@ -40,6 +40,8 @@ public class SegmentsDao extends AbstractDao<Long, SegmentsEntity> {
                 segmentsEntity.setFactEndedAt(resultSet.getString("fact_ended_at"));
                 segmentsEntity.setFactLocationStart(resultSet.getString("fact_location_start"));
                 segmentsEntity.setFactLocationEnd(resultSet.getString("fact_location_end"));
+                segmentsEntity.setPlanEndedAt(resultSet.getString("plan_ended_at"));
+                segmentsEntity.setPlanStartedAt(resultSet.getString("plan_started_at"));
                 segmentsEntities.add(segmentsEntity);
             }
         } catch (SQLException e) {

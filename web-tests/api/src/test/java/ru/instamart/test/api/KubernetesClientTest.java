@@ -1,7 +1,5 @@
 package ru.instamart.test.api;
 
-import com.google.protobuf.Timestamp;
-import com.google.protobuf.util.Timestamps;
 import io.kubernetes.client.openapi.models.V1PodList;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Epic;
@@ -11,14 +9,11 @@ import org.testng.annotations.Test;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.kraken.config.EnvironmentProperties;
 
-import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static ru.instamart.k8s.K8sConsumer.getLogs;
 import static ru.instamart.k8s.K8sConsumer.getPodList;
-import static ru.instamart.kraken.util.TimeUtil.getDateWithSec;
 
 
 @Slf4j
