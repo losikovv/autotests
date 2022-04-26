@@ -93,8 +93,6 @@ public class StoresAdminRequest extends AdminRequestBase {
         private Integer disallowOrderEditingHours;
         @JsonProperty("store[config_attributes][hours_order_edit_locked]")
         private Integer hoursOrderEditLocked;
-        @JsonProperty("store[config_attributes][external_assembly_enabled]")
-        private Integer externalAssemblyEnabled;
         @JsonProperty("store[config_attributes][orders_api_integration_type]")
         private String orderApiIntegrationType;
         @JsonProperty("store[config_attributes][send_created_hook]")
@@ -219,7 +217,6 @@ public class StoresAdminRequest extends AdminRequestBase {
                 .minFirstOrderAmountPickup(0)
                 .disallowOrderEditingHours(RandomUtils.nextInt(1, 6))
                 .hoursOrderEditLocked(0)
-                .externalAssemblyEnabled(0)
                 .orderApiIntegrationType("shopper")
                 .sendCreatedHook("immediately")
                 .paymentAtCheckout("bank_card")
@@ -292,7 +289,6 @@ public class StoresAdminRequest extends AdminRequestBase {
                 .minFirstOrderAmountPickup(0)
                 .disallowOrderEditingHours(RandomUtils.nextInt(1, 6))
                 .hoursOrderEditLocked(0)
-                .externalAssemblyEnabled(0)
                 .orderApiIntegrationType("shopper")
                 .sendCreatedHook("immediately")
                 .paymentAtCheckout("bank_card")
@@ -365,7 +361,6 @@ public class StoresAdminRequest extends AdminRequestBase {
                 .minFirstOrderAmountPickup(0)
                 .disallowOrderEditingHours(4)
                 .hoursOrderEditLocked(0)
-                .externalAssemblyEnabled(1)
                 .orderApiIntegrationType(ExternalAssemblyKind.DELIVERY_BY_SBERMARKET.getValue())
                 .sendCreatedHook("immediately")
                 .paymentAtCheckout("bank_card")
@@ -438,7 +433,6 @@ public class StoresAdminRequest extends AdminRequestBase {
                 .minFirstOrderAmountPickup(0)
                 .disallowOrderEditingHours(4)
                 .hoursOrderEditLocked(0)
-                .externalAssemblyEnabled(1)
                 .orderApiIntegrationType(ExternalAssemblyKind.INTEGRATION_FOR_ACCOUNTING.getValue())
                 .sendCreatedHook("immediately")
                 .paymentAtCheckout("bank_card")
@@ -511,7 +505,6 @@ public class StoresAdminRequest extends AdminRequestBase {
                 .minFirstOrderAmountPickup(0)
                 .disallowOrderEditingHours(4)
                 .hoursOrderEditLocked(0)
-                .externalAssemblyEnabled(1)
                 .orderApiIntegrationType(ExternalAssemblyKind.DELIVERY_BY_RETAILER.getValue())
                 .sendCreatedHook("immediately")
                 .paymentAtCheckout("bank_card")
