@@ -57,7 +57,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
         }
     }
 
-    @AfterClass(alwaysRun = true,
+    @AfterClass(//alwaysRun = true, todo починить 401 ошибку
             description = "Удаляем текущую сборку")
     public void cleanup() {
         shopperApp.authorisation(UserManager.getDefaultShopper());
