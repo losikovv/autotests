@@ -30,4 +30,9 @@
       <class name="ru.instamart.test.content.catalog.CatalogApiV2Test"/>
     </classes>
   </test>
+  <test verbose="1" name="OPERATIONS">
+    <classes>
+      <class name="ru.instamart.test.content.operations.TagManagerTest"/>
+    </classes>
+  </test>
 </suite>
