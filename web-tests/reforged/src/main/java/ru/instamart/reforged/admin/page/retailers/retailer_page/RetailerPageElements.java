@@ -13,6 +13,16 @@ public interface RetailerPageElements {
     SettingsSidebar settingsSidebar = new SettingsSidebar();
     AppearanceSidebar appearanceSidebar = new AppearanceSidebar();
 
+    Element retailerName = new Element(By.xpath("//span[contains(.,'Ритейлер')]/following-sibling::span"), "Свойства ритейлера - Наименование");
+    Element retailerUrl = new Element(By.xpath("//span[contains(.,'Название ритейлера в url')]/following-sibling::span"), "Свойства ритейлера - Название ритейлера в url");
+    Element categoriesDepth = new Element(By.xpath("//span[contains(.,'Глубина вложения категорий на главной')]/following-sibling::span"), "Свойства ритейлера - Глубина вложения категорий на главной");
+    Element importKey = new Element(By.xpath("//span[contains(.,'Ключ в файле импорта')]/following-sibling::span"), "Свойства ритейлера - Ключ в файле импорта");
+    Element juridicalName = new Element(By.xpath("//span[contains(.,'Юридическое имя')]/following-sibling::span"), "Свойства ритейлера - Юридическое имя");
+    Element inn = new Element(By.xpath("//span[contains(.,'Инн')]/following-sibling::span"), "Свойства ритейлера - Инн");
+    Element phone = new Element(By.xpath("//span[contains(.,'Телефон')]/following-sibling::span"), "Свойства ритейлера - Телефон");
+    Element juridicalAddress = new Element(By.xpath("//span[contains(.,'Юридический адрес')]/following-sibling::span"), "Свойства ритейлера - Юридический адрес");
+    Element contractType = new Element(By.xpath("//span[contains(.,'Тип договора')]/following-sibling::span"), "Свойства ритейлера - Тип договора");
+
     ElementCollection storesInTable = new ElementCollection(By.xpath("//div[contains(@aria-label, 'stores')]//tr[contains(@class, 'level-0')]"), "Строки магазинов в таблице");
     ElementCollection addressesInTable = new ElementCollection(ByKraken.xpathExpression("//td[1]//span[@role='img']/parent::a"), "Строки адресов в таблице");
     ElementCollection inactiveStoresInTable = new ElementCollection(By.xpath("//div[contains(@aria-label,'stores')]//span[text()='Недоступен']"), "Надписи о недоступности магазинов");

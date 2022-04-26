@@ -38,7 +38,7 @@ public class CandidatesDao extends AbstractDao<Long, CandidatesEntity> {
     public String getCandidateUuidByStatus(boolean status) {
         String uuid = null;
         try (Connection connect = ConnectionPgSQLCandidateManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "uuid") + " WHERE active = ? ORDER BY id DESC LIMIT 1")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "uuid") + " WHERE active = ? LIMIT 1")) {
             preparedStatement.setBoolean(1, status);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();

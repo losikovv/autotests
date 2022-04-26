@@ -5,7 +5,6 @@ import com.google.protobuf.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.util.Date;
 import java.util.Locale;
 
 public final class TimeUtil {
@@ -89,6 +88,10 @@ public final class TimeUtil {
         return dtdb.format(ZonedDateTime.ofInstant(date.atZone(ZONE_ID).toInstant(), ZoneId.of("UTC")));
     }
 
+    public static String getDbDate() {
+        return dtdb.format(ZonedDateTime.now(ZONE_UTC));
+    }
+
     public static String getPastZoneDbDate(Long days) {
         return dtdb.format(ZonedDateTime.now(ZONE_ID).minusDays(days));
     }
@@ -143,8 +146,16 @@ public final class TimeUtil {
         return instant.toEpochMilli();
     }
 
-    public static Timestamp getDateWithSec(int sec) {
+    public static Timestamp getDateMinusSec(int sec) {
         Instant instant = Instant.now().minusSeconds(sec);
+        return Timestamp.newBuilder()
+                .setSeconds(instant.getEpochSecond())
+                .setNanos(instant.getNano())
+                .build();
+    }
+
+    public static Timestamp getDatePlusSec(int sec) {
+        Instant instant = Instant.now().plusSeconds(sec);
         return Timestamp.newBuilder()
                 .setSeconds(instant.getEpochSecond())
                 .setNanos(instant.getNano())

@@ -5,6 +5,8 @@ import com.google.protobuf.Timestamp;
 import com.google.protobuf.util.Timestamps;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.workflows.AssignmentsRequest;
 import ru.instamart.jdbc.dao.stf.StoresDao;
@@ -24,8 +26,7 @@ import static ru.instamart.kraken.data.StartPointsTenants.METRO_WORKFLOW_START;
 
 public class WorkflowHelper {
 
-    private static final UserData firstShopper = UserManager.getKrakenUniversal();
-    private static final UserData secondShopper = UserManager.getKrakenUniversal2();
+    private static final UserData secondShopper = UserManager.getShp6Shopper2();
 
     @Step("Подготавливаем запрос для создания маршрутного листа")
     public static WorkflowOuterClass.CreateWorkflowsRequest getWorkflowsRequest(OrderV2 order, String shipmentUuid, Timestamp time, WorkflowEnums.DeliveryType deliveryType) {
@@ -33,7 +34,7 @@ public class WorkflowHelper {
                 .newBuilder()
                 .addWorkflows(WorkflowOuterClass.Workflow.newBuilder()
                         .addAssignments(WorkflowOuterClass.Assignment.newBuilder()
-                                .setPerformerUuid(firstShopper.getUuid())
+                                .setPerformerUuid(SessionFactory.getSession(SessionType.SHOPPER_APP).getUserData().getUuid())
                                 .setSourceTypeValue(WorkflowEnums.SourceType.DISPATCH.getNumber())
                                 .setPerformerVehicleValue(WorkflowEnums.PerformerVehicle.PEDESTRIAN_VALUE)
                                 .setDeliveryTypeValue(deliveryType.getNumber())
@@ -232,7 +233,7 @@ public class WorkflowHelper {
                 .newBuilder()
                 .addWorkflows(WorkflowOuterClass.Workflow.newBuilder()
                         .addAssignments(WorkflowOuterClass.Assignment.newBuilder()
-                                .setPerformerUuid(firstShopper.getUuid())
+                                .setPerformerUuid(SessionFactory.getSession(SessionType.SHOPPER_APP).getUserData().getUuid())
                                 .setSourceTypeValue(WorkflowEnums.SourceType.DISPATCH.getNumber())
                                 .setPerformerVehicleValue(WorkflowEnums.PerformerVehicle.PEDESTRIAN_VALUE)
                                 .setDeliveryTypeValue(WorkflowEnums.DeliveryType.DEFAULT_VALUE)

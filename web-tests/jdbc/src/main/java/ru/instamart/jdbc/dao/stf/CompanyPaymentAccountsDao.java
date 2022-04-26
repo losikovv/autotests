@@ -27,9 +27,9 @@ public final class CompanyPaymentAccountsDao extends AbstractDao<Long, OffersEnt
              PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL)) {
             preparedStatement.setInt(1, companyId);
             preparedStatement.setInt(2, balance);
-            preparedStatement.setString(3, TimeUtil.getDateWithoutTime());
-            preparedStatement.setString(4, TimeUtil.getDateWithoutTime());
-            preparedStatement.setString(5, TimeUtil.getDateWithoutTime());
+            preparedStatement.setString(3, TimeUtil.getDbDate());
+            preparedStatement.setString(4, TimeUtil.getDbDate());
+            preparedStatement.setString(5, TimeUtil.getDbDate());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());

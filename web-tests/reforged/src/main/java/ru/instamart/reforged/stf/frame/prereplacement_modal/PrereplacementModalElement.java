@@ -14,7 +14,7 @@ public interface PrereplacementModalElement {
     Button previous = new Button(By.xpath("//div[contains(@id,'Carousel')]/button[@title='Назад']"), "Кнопка прокрутки товаров 'Назад'");
     Button next = new Button(By.xpath("//div[contains(@id,'Carousel')]/button[@title='Вперед']"), "Кнопка прокрутки товаров 'Вперед'");
 
-    ElementCollection itemsToReplace = new ElementCollection(By.xpath("//ul[contains(@id,'Carousel')]/li"), "Товары, для которых подобраны предзамены");
+    ElementCollection itemsToReplace = new ElementCollection(By.xpath("//div[contains(@class,'is-draggable')]/div/div"), "Товары, для которых подобраны предзамены");
 
     ElementCollection itemsForReplace = new ElementCollection(By.xpath("//li[.//button[contains(.,'Выбра')]]"), "Товары на замену");
     ElementCollection itemsForReplaceNames = new ElementCollection(By.xpath("//li[.//button[contains(.,'Выбра')]]//h3"), "Наименования товаров на замену");

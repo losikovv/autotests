@@ -30,11 +30,11 @@ public final class Item extends Container {
 
     //Предзамены Задача на добавление data-qa атрибутов B2C-8387
     private final InnerElement selectReplacement = new InnerElement(getContainer(), By.xpath("//button[contains(.,'Выбрать замену')]"), "Кнопка 'Выбрать замену'");
-    private final InnerElement prereplacementBlock = new InnerElement(getContainer(), By.xpath("//div[./b[contains(.,'Ваша замена')]]/.."), "Блок товаров, выбранных для предзамены");
-    private final InnerCollectionComponent itemForReplacementImage = new InnerCollectionComponent(getContainer(), By.xpath("//div[./b[contains(.,'Ваша замена')]]/../div[3]/picture"), "Изображения товаров на замену");
-    private final InnerElement itemForReplaceName = new InnerElement(getContainer(), By.xpath("//div[./b[contains(.,'Ваша замена')]]/../div[4]/div[1]/div[1]"), "Название товара, выбранного на замену");
-    private final InnerElement editReplacement = new InnerElement(getContainer(), By.xpath("//div[./b[contains(.,'Ваша замена')]]/../button[1]/div"), "Кнопка 'Редактировать' (замену)");
-    private final InnerElement removeReplacement = new InnerElement(getContainer(), By.xpath("//div[./b[contains(.,'Ваша замена')]]/../button[2]"), "Кнопка 'Удалить' (замену)");
+    private final InnerElement prereplacementBlock = new InnerElement(getContainer(), By.xpath("(//div[@data-qa='line-item']//div[contains(.,'Ваша замена')]/..)[last()]"), "Блок товаров, выбранных для предзамены");
+    private final InnerCollectionComponent itemForReplacementImage = new InnerCollectionComponent(getContainer(), By.xpath("(//div[@data-qa='line-item']//div[contains(.,'Ваша замена')]/..)[last()]/div[3]/picture"), "Изображения товаров на замену");
+    private final InnerElement itemForReplaceName = new InnerElement(getContainer(), By.xpath("(//div[@data-qa='line-item']//div[contains(.,'Ваша замена')]/..)[last()]/div[4]/div[1]/div[1]"), "Название товара, выбранного на замену");
+    private final InnerElement editReplacement = new InnerElement(getContainer(), By.xpath("(//div[@data-qa='line-item']//div[contains(.,'Ваша замена')]/..)[last()]//button[1]"), "Кнопка 'Редактировать' (замену)");
+    private final InnerElement removeReplacement = new InnerElement(getContainer(), By.xpath("(//div[@data-qa='line-item']//div[contains(.,'Ваша замена')]/..)[last()]//button[2]"), "Кнопка 'Удалить' (замену)");
 
     public Item(final WebElement container) {
         super(container);
@@ -130,7 +130,8 @@ public final class Item extends Container {
 
     @Step("Проверяем, что название выбранного на замену товара соответствует ожидаемому: {expectedReplacementItemName}")
     public void checkReplacementItemNameEquals(final String expectedReplacementItemName) {
-        Assert.assertEquals(itemForReplaceName.getText(), expectedReplacementItemName, "Наименование товара, выбранного на замену отличается от ожидаемого");
+        Assert.assertTrue(itemForReplaceName.getText().contains(expectedReplacementItemName.replace("...", "")),
+                String.format("Наименование товара, выбранного на замену: %s отличается от ожидаемого: %s", itemForReplaceName.getText(), expectedReplacementItemName));
     }
 
     @Step("Проверяем, что в блоке с предзаменами указано несколько товаров")

@@ -65,22 +65,22 @@ public interface ShipmentsCheck extends Check, ShipmentsElement {
     default void checkDateAndTimeShipmentsColumn(final String deliveryDate) {
         tableComponent
                 .getDataFromColumn(ShipmentTable.Column.DATE_AND_TIME_FOR_DELIVERY.getLabel())
-                        .forEach(text -> {
-                                krakenAssert.assertTrue(
-                                        text.contains(deliveryDate),
-                                        String.format("В колонке присутствует дата %s отличная от примененного фильтра %s", text, deliveryDate)
-                                );
-                        });
+                .forEach(text -> {
+                    krakenAssert.assertTrue(
+                            text.contains(deliveryDate),
+                            String.format("В колонке присутствует дата %s отличная от примененного фильтра %s", text, deliveryDate)
+                    );
+                });
         krakenAssert.assertAll();
     }
 
     @Step("Проверяем, что колонка Куда содержит только отфильтрованные значения: {0}")
     default void checkPhoneShipmentsColumn(final String phone) {
         tableComponent.getPhones()
-                        .forEach(actualPhone -> {
-                            krakenAssert.assertTrue(actualPhone.contains(phone),
-                                    String.format("В колонке присутствует телефон '%s' отличный от примененного фильтра '%s'", actualPhone, phone));
-                        });
+                .forEach(actualPhone -> {
+                    krakenAssert.assertTrue(actualPhone.contains(phone),
+                            String.format("В колонке присутствует телефон '%s' отличный от примененного фильтра '%s'", actualPhone, phone));
+                });
         krakenAssert.assertAll();
     }
 
@@ -88,5 +88,10 @@ public interface ShipmentsCheck extends Check, ShipmentsElement {
     default void checkNumberOfShipmentsAfterFiltration(final String beforeFiltration, final String afterFiltration) {
         Assert.assertNotEquals(beforeFiltration, afterFiltration,
                 "после применения фильтра количество заказов не изменилось");
+    }
+
+    @Step("Проверяем, что в списке добавленных ритейлеров фильтра присутствует '{retailerName}'")
+    default void checkRetailerInFilterContains(final String retailerName) {
+        Assert.assertTrue(retailers.isElementWithTextPresent(retailerName), "Ритейлер '" + retailerName + "' не найден в списке добавленных в фильтр");
     }
 }
