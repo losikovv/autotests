@@ -171,5 +171,19 @@ public class TagManagerTest extends GrpcBase {
         assertEquals(tag.getName(), tagName);
         assertEquals(tag.getOwnerId(), ownerId);
     }
+
+    @Story("Тэг")
+    @CaseId(29)
+    @Test(description = "Получение списка тегов владельца по несуществующему id владельца",
+            groups = {"grpc-tag-manager"},
+            expectedExceptions = StatusRuntimeException.class,
+            expectedExceptionsMessageRegExp = "NOT_FOUND: cannot find owner by id")
+    public void getTagsByUnknownOwner() {
+        var request = Tagmanager.GetTagsByOwnerRequest.newBuilder()
+                .setOwnerId(Integer.MAX_VALUE)
+                .build();
+
+        client.getTagsByOwner(request);
+    }
 }
 
