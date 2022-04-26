@@ -8,7 +8,7 @@ subprojects {
         mavenCentral()
         maven { url 'https://packages.confluent.io/maven/' }
         maven {
-            url "https://gitlab.sbermarket.tech/api/v4/groups/200/-/packages/maven"
+            url "https://gitlab.sbmt.io/api/v4/groups/200/-/packages/maven"
             name "GitLab"
             credentials(HttpHeaderCredentials) {
                 name = 'Deploy-Token'
