@@ -1,7 +1,9 @@
 package ru.instamart.test.reforged.admin;
 
 import io.qameta.allure.Story;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
+import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.kraken.data.Generate;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.test.reforged.BaseTest;
@@ -13,8 +15,17 @@ import static ru.instamart.reforged.admin.AdminRout.*;
 @Story("Новый ритейлер /retailers/new")
 public class AdministrationRetailerAddTests extends BaseTest {
 
-    private final String retailerName = Generate.literalString(6) + "_retailer";
+    private final ApiHelper apiHelper = new ApiHelper();
+    private final String retailerName = "AdministrationRetailerAddTests_" + Generate.literalString(6);
     private final String importKey = Generate.digitalString(6);
+    private final String phone = Generate.phoneNumber();
+    private final String inn = Generate.generateINN(10);
+    private final String categoriesDepth = Generate.digitalString(1);
+
+    @AfterClass(alwaysRun = true)
+    public void clearData() {
+        apiHelper.deleteRetailerByNameInAdmin(retailerName);
+    }
 
     @CaseIDs
             ({@CaseId(206), @CaseId(207), @CaseId(208)})
@@ -132,5 +143,50 @@ public class AdministrationRetailerAddTests extends BaseTest {
 
         retailerAdd().fillImportKey(importKey);
         retailerAdd().checkImportKeyInputErrorNotVisible();
+    }
+
+    @CaseIDs({
+            @CaseId(211), @CaseId(215), @CaseId(217)})
+    @Test(description = "Успешное создание ритейлера со всеми заполненными данными", groups = {"regression"})
+    public void successAddNewRetailer() {
+        login().goToPage();
+        login().auth(UserManager.getDefaultAdmin());
+
+        retailers().goToPage();
+        retailers().checkAddNewRetailerButtonVisible();
+        retailers().clickOnAddRetailerButton();
+
+        retailerAdd().checkNameInputVisible();
+        retailerAdd().fillName(retailerName);
+        retailerAdd().fillShortName(retailerName + "ShortName");
+        retailerAdd().fillShortDescription(retailerName + "Description");
+        retailerAdd().fillShortURL(retailerName + "ShortUrl");
+        retailerAdd().fillJuridicalName(retailerName + "JuridicalName");
+        retailerAdd().fillINN(inn);
+        retailerAdd().fillPhone(phone);
+        retailerAdd().fillJuridicalAddress(retailerName + "JuridicalAddress");
+        retailerAdd().fillCategoriesDepth(categoriesDepth);
+        retailerAdd().fillImportKey(importKey);
+        retailerAdd().uploadLogo("src/test/resources/data/logo.png");
+        retailerAdd().uploadIcon("src/test/resources/data/icon.png");
+
+        retailerAdd().clickSubmit();
+
+        retailer().checkPageContains(retailerName + "ShortUrl");
+        retailer().checkRetailerName(retailerName);
+        retailer().checkRetailerUrlName(retailerName + "ShortUrl");
+        retailer().checkRetailerCategoriesDepth(categoriesDepth);
+        retailer().checkImportKey(importKey);
+        retailer().checkJuridicalName(retailerName + "JuridicalName");
+        retailer().checkINN(inn);
+        retailer().checkPhone("+7" + phone);
+        retailer().checkJuridicalAddress(retailerName + "JuridicalAddress");
+        retailer().checkContractType("Агентский договор");
+
+        shipments().openAdminPageWithoutSpa(shipments().pageUrl());
+        shipments().checkCustomerName();
+        shipments().fillRetailer(retailerName);
+        shipments().clickOnFirstResultInDropDown();
+        shipments().checkRetailerInFilterContains(retailerName);
     }
 }

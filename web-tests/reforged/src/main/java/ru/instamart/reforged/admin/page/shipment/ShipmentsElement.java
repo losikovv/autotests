@@ -2,10 +2,7 @@ package ru.instamart.reforged.admin.page.shipment;
 
 import org.openqa.selenium.By;
 import ru.instamart.reforged.admin.table.ShipmentTable;
-import ru.instamart.reforged.core.component.Button;
-import ru.instamart.reforged.core.component.Checkbox;
-import ru.instamart.reforged.core.component.Element;
-import ru.instamart.reforged.core.component.Input;
+import ru.instamart.reforged.core.component.*;
 
 public interface ShipmentsElement {
 
@@ -24,8 +21,9 @@ public interface ShipmentsElement {
     Input innNumber = new Input(By.id("search_inn"), "empty");
     Input invoiceNumber = new Input(By.id("search_invoice_number"), "empty");
     Input orderStatus = new Input(By.id("s2id_search_state"), "empty");
-    Input retailer = new Input(By.id("s2id_search_retailer_id"), "empty");
-    Input store = new Input(By.id("s2id_search_store_id"), "empty");
+    Input retailer = new Input(By.id("s2id_autogen2"), "Поле ввода для добавление ритейлера в фильтр");
+    ElementCollection retailers = new ElementCollection(By.xpath("//div[@id='s2id_search_retailer_id']//li[@class='select2-search-choice']"), "Добавленные ритейлеры");
+    Input store = new Input(By.id("s2id_search_store_id"), "Поле ввода 'Ритейлер' фильтра");
     Input paymentMethod = new Input(By.id("s2id_search_payment_method_id"), "empty");
     Input paymentStatus = new Input(By.id("s2id_search_payment_state"), "empty");
     Input promocode = new Input(By.id("search_coupon_code"), "empty");
@@ -52,4 +50,6 @@ public interface ShipmentsElement {
     Button lastPage = new Button(By.linkText("Последняя"), "ссылка Последняя страница");
     Button firstPage = new Button(By.linkText("Первая"), "ссылка Первая страница");
     Button currentPage = new Button(By.xpath("//span[@class='page current']"), "номер текущей страницы пейджера");
+
+    DropDown inputSearchResults = new DropDown(By.xpath("//div[@class='select2-result-label']"), "Выпадающий список найденных результатов в поле ввода");
 }
