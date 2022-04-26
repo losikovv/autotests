@@ -277,12 +277,11 @@ generate:data:
 
 generate:report:
   only:
-    refs:
-      - schedules
     variables:
       - $REGRESSION == 'true'
   stage: generate-report
   script:
+    - if [ $URL_STF == "stf-kraken.k-stage.sbermarket.tech" ]; then ALLURE_POSTFIX="preprod"; else ALLURE_POSTFIX="staging"; fi
     - cd ..
-    - bash ./generate-report.sh api api-instamart-preprod-regress
+    - bash ./generate-report.sh api api-instamart-$ALLURE_POSTFIX-regress
   when: always
