@@ -44,6 +44,7 @@ public class LoyaltiesV2Test extends RestBase {
     public void getSberLoyaltyInfo200() {
         final Response response = LoyaltiesV2Request.SberLoyaltyInfo.GET();
         checkStatusCode200(response);
+        response.prettyPeek();
         final RegisteredV2Response registeredV2Response = response.as(RegisteredV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
 
@@ -57,7 +58,7 @@ public class LoyaltiesV2Test extends RestBase {
         softAssert.assertFalse(registered.getUrls().getHowToUrl().isEmpty(), "how_to_url пришел пустым");
 
         NotRegisteredV2 notRegistered = registeredV2Response.getNotRegistered();
-        softAssert.assertEquals(notRegistered.getTitle(), "СберСпасибо помогает экономить", "Наименование программы не совпадает");
+        softAssert.assertEquals(notRegistered.getTitle(), "СберСпасибо помогает экономить", "Наименование программы не совпадает");
         softAssert.assertEquals(notRegistered.getDescription(), "Бонусы появятся после заказа", "description программы не совпадает");
         softAssert.assertEquals(notRegistered.getButtonTitle(), "Участвовать", "button_title программы не совпадает");
         softAssert.assertTrue(notRegistered.getBanners().size() > 0, "Банеры пришли пустые");
@@ -67,7 +68,7 @@ public class LoyaltiesV2Test extends RestBase {
 
         NoSberIdV2 noSberId = registeredV2Response.getNoSberId();
         softAssert.assertEquals(noSberId.getTitle(), "Безопасный вход по Сбер ID", "Наименование программы не совпадает");
-        softAssert.assertEquals(noSberId.getDescription(), "Чтобы покупать выгоднее и копить бонусы", "description программы не совпадает");
+        softAssert.assertEquals(noSberId.getDescription(), "Чтобы покупать выгоднее и копить бонусы", "description программы не совпадает");
         softAssert.assertEquals(noSberId.getButtonTitle(), "Войти по Сбер ID", "button_title программы не совпадает");
         softAssert.assertTrue(noSberId.getBanners().size() > 0, "Банеры пришли пустые");
         softAssert.assertFalse(noSberId.getUrls().getPersonalAgreementUrl().isEmpty(), "personal_agreement_url пришел пустым");
