@@ -583,7 +583,7 @@ public final class ApiHelper {
         importOffersInStore(store);
         importStoreZones(store);
         createScheduleMockup(store);
-        createStoreSchedule(store);
+        createDeliveryZones(store);
     }
 
     @Step("Удаляем магазин из админки")
@@ -601,6 +601,8 @@ public final class ApiHelper {
 
         OffersDao.INSTANCE.deleteByStoreId(storeId);
         PricesDao.INSTANCE.deletePriceByStoreId(storeId);
+
+        StoreSchedulesDao.INSTANCE.deleteByStoreId(storeId);
     }
 
     @Step("Импорт оффера для магазина")
@@ -641,8 +643,8 @@ public final class ApiHelper {
         admin.createStoreSchedule(storeFromDb.getUuid());
     }
 
-    @Step("Создание расписания магазина")
-    public void createStoreSchedule(StoresAdminRequest.Store store) {
+    @Step("Создание зон доставки")
+    public void createDeliveryZones(StoresAdminRequest.Store store) {
         Long deliveryWindowId = createAndGetAvailableDeliveryWindows(store).get(0).getId();
         admin.auth();
         admin.updateDeliveryWindowWithDefaultValues(deliveryWindowId);

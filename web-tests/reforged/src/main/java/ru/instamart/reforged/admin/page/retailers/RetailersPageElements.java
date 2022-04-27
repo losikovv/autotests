@@ -67,7 +67,7 @@ public interface RetailersPageElements {
     Button okButtonOnDeactivateStorePopup = new Button(ByKraken.xpathExpression("//div[@class='ant-popover-content']//button[contains(@class,'ant-btn-primary')]"), "Кнопка подтверждения деактивации магазина на попапе");
     Element deactivateStorePopup = new Element(ByKraken.xpathExpression("//div[contains(text(),'магазин недоступным')]/ancestor::div[@class='ant-popover-content']"), "Попап отключения магазина");
 
-    Element accessibilityFilterButton = new Element(By.xpath("//span[text()='Доступность']/following-sibling::span[@class='ant-table-filter-trigger-container']"), "Кнопка выбора фильтра доступности");
+    Element accessibilityFilterButton = new Element(By.xpath("//span[text()='Доступность']/following-sibling::span[@class='ant-table-filter-trigger-container']//span[@role='img']"), "Кнопка выбора фильтра доступности");
     DropDown accessibilityFilterDropdown = new DropDown(By.xpath("//div[@class='ant-table-filter-dropdown']"), "Выпадающий список фильтра доступности");
 
     Element accessibleRetailersOption = new Element(By.xpath("//div[@class='ant-table-filter-dropdown']//span[text()='Только доступные']"), "Строка выбора доступных ретейлеров");
@@ -77,4 +77,6 @@ public interface RetailersPageElements {
 
     ElementCollection accessibleRetailerInTable = new ElementCollection(By.xpath("//div[@data-qa='table_cell_availability']//span[text()='Доступен']"), "Доступные ретейлеры в таблице");
     ElementCollection inaccessibleRetailerInTable = new ElementCollection(By.xpath("//div[@data-qa='table_cell_availability']//span[text()='Недоступен']"), "Недоступные ретейлеры в таблице");
+
+    Element retailersLoadCondition = new Element(By.xpath("//div[@aria-label='retailers loaded']"), "Загруженная таблица ретейлеров");
 }

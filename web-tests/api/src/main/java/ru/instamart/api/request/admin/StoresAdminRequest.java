@@ -15,6 +15,7 @@ import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.request.AdminRequestBase;
 import ru.instamart.jdbc.dao.stf.*;
 import ru.instamart.kraken.data.Generate;
+import ru.instamart.kraken.util.DoubleUtil;
 import ru.sbermarket.common.Mapper;
 
 import java.util.HashMap;
@@ -338,8 +339,10 @@ public class StoresAdminRequest extends AdminRequestBase {
                 .city(city)
                 .street("Mira")
                 .building(211)
-                .lat((double) RandomUtils.nextInt(50, 55))
-                .lon((double) RandomUtils.nextInt(30, 35))
+                .lat(DoubleUtil.roundAvoid(
+                        DoubleUtil.getRandomDoubleBetweenRange(50.0, 55.0), 6))
+                .lon(DoubleUtil.roundAvoid(
+                        DoubleUtil.getRandomDoubleBetweenRange(30.0, 35.0), 6))
                 .build();
     }
 
