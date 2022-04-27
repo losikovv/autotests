@@ -44,7 +44,6 @@ public class LoyaltiesV2Test extends RestBase {
     public void getSberLoyaltyInfo200() {
         final Response response = LoyaltiesV2Request.SberLoyaltyInfo.GET();
         checkStatusCode200(response);
-        response.prettyPeek();
         final RegisteredV2Response registeredV2Response = response.as(RegisteredV2Response.class);
         final SoftAssert softAssert = new SoftAssert();
 
