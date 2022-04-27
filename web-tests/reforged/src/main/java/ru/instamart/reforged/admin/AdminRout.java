@@ -13,6 +13,7 @@ import ru.instamart.reforged.admin.page.retailers.add_new_shop.ShopAddPage;
 import ru.instamart.reforged.admin.page.retailers.regions.RegionsPage;
 import ru.instamart.reforged.admin.page.retailers.retailer_page.RetailerPage;
 import ru.instamart.reforged.admin.page.retailers.retailer_page.store_page.StorePage;
+import ru.instamart.reforged.admin.page.retailers.retailer_page.store_page.store_edit.StoreEditPage;
 import ru.instamart.reforged.admin.page.retailers.retailer_page.store_page.store_zone_edit.StoreZone;
 import ru.instamart.reforged.admin.page.sections.*;
 import ru.instamart.reforged.admin.page.settings.all_cities.AllCitiesPage;
@@ -22,6 +23,8 @@ import ru.instamart.reforged.admin.page.settings.payments_settings.PaymentsSetti
 import ru.instamart.reforged.admin.page.settings.shipping_method.ShippingMethodPage;
 import ru.instamart.reforged.admin.page.settings.shipping_method.new_method.ShippingNewMethodPage;
 import ru.instamart.reforged.admin.page.settings.sms_settings.SmsSettingsPage;
+import ru.instamart.reforged.admin.page.settings.store_groups.StoreGroupsPage;
+import ru.instamart.reforged.admin.page.settings.store_groups.new_group.EditStoreGroupPage;
 import ru.instamart.reforged.admin.page.shipment.ShipmentsPage;
 import ru.instamart.reforged.admin.page.shipment.shipment.ShipmentPage;
 import ru.instamart.reforged.admin.page.shipment.shipment.delivery_windows.ShipmentDeliveryWindowsPage;
@@ -69,6 +72,10 @@ public final class AdminRout extends Router {
 
     public static StorePage store() {
         return (StorePage) getPage(StorePage.class);
+    }
+
+    public static StoreEditPage storeEdit() {
+        return (StoreEditPage) getPage(StoreEditPage.class);
     }
 
     public static StoreZone zonePage() {
@@ -153,6 +160,14 @@ public final class AdminRout extends Router {
 
     public static SmsSettingsPage smsSettings() {
         return (SmsSettingsPage) getPage(SmsSettingsPage.class);
+    }
+
+    public static StoreGroupsPage storeGroups() {
+        return (StoreGroupsPage) getPage(StoreGroupsPage.class);
+    }
+
+    public static EditStoreGroupPage editStoreGroup() {
+        return (EditStoreGroupPage) getPage(EditStoreGroupPage.class);
     }
 
     private AdminRout() {

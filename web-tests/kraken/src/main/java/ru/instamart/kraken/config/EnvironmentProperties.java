@@ -34,6 +34,8 @@ public final class EnvironmentProperties {
     public static int DEFAULT_SID;
     @Config(configName = NAME, fieldName = "defaultMetroMoscowSid", defaultValue = "1")
     public static int DEFAULT_METRO_MOSCOW_SID;
+    @Config(configName = NAME, fieldName = "defaultMetroMoscowUuid", defaultValue = "")
+    public static String DEFAULT_METRO_MOSCOW_UUID;
     @Config(configName = NAME, fieldName = "defaultAuchanSid", defaultValue = "72")
     public static int DEFAULT_AUCHAN_SID;
     @Config(configName = NAME, fieldName = "defaultMetroCrossZonesSid", defaultValue = "8")
