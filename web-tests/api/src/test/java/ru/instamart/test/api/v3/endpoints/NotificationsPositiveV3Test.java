@@ -353,6 +353,7 @@ public class NotificationsPositiveV3Test extends RestBase {
         Response responseCanceled = POST(orderDeliveryByRetailer.getShipments().get(0).getNumber(), NotificationTypeV3.CANCELED.getValue());
         checkStatusCode422(responseCanceled);
 
+        simplyAwait(1);
         OrderV2 shippedOrder = apiV2.getOrder(orderDeliveryByRetailer.getNumber());
         Assert.assertEquals(shippedOrder.getShipmentState(), OrderStatusV2.SHIPPED.getStatus(), "Заказ не остался в статусе Доставлен");
     }
