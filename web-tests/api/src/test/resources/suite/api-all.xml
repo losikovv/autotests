@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="REST API Suite">
+        <suite-files>
+            <suite-file path="api-v1-instamart.xml"/>
+            <suite-file path="api-v2-instamart.xml"/>
+            <suite-file path="api-v3-instamart.xml"/>
+        </suite-files>
+</suite>
+

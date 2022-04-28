@@ -34,7 +34,7 @@ public class ShoppingContextV1Tests extends RestBase {
 
     @CaseIDs(value = {@CaseId(1554), @CaseId(1555)})
     @Story("Настройки параметров покупок")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-smoke"},
             description = "Добавление адреса",
             dataProvider = "shippingMethods",
             dataProviderClass = RestDataProvider.class)

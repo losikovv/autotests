@@ -32,8 +32,8 @@ public class NotificationsPositionsV3Test extends RestBase {
 
     @BeforeClass(alwaysRun = true)
     public void preconditions() {
-        K8sHelper.allowExportToExternalServices(true);
-        K8sHelper.exportToExternalServicesByWebhook(true);
+        apiV3.checkFlipper("allow_export_to_external_services");
+        apiV3.checkFlipper("export_to_external_services_by_webhook");
         admin.auth();
         admin.editStore(58, StoresAdminRequest.getStoreLentaOrekhoviyBulvar());
     }

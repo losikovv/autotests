@@ -25,7 +25,7 @@ import static ru.instamart.api.helper.PromotionCode.getPromotionCode;
 public class NextV1Tests extends RestBase {
 
     @CaseId(2317)
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-smoke"},
             description = "Получение фронтенд конфигурации")
     public void getAppConfig() {
         final Response response = NextV1Request.AppConfig.GET();

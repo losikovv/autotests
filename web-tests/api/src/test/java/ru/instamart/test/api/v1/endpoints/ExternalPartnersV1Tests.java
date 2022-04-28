@@ -41,7 +41,7 @@ public class ExternalPartnersV1Tests extends RestBase {
 
     @CaseId(1433)
     @Story("Получение списка подписок для пользователя")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Подписка SberPrime неактивна")
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"}, description = "Подписка SberPrime неактивна")
     public void getInactiveSubscription() {
         admin.authApi();
         final Response response = ExternalPartnersV1Request.Services.GET();

@@ -12,6 +12,7 @@ import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v1.UsersV1Request;
 import ru.instamart.api.response.v1.MultiretailerOrderV1Response;
 import ru.instamart.jdbc.dao.stf.ShipmentDelaysDao;
+import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -26,8 +27,8 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.checkErrorText;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkUserShipmentFromResponse;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
-import static ru.instamart.api.helper.K8sHelper.*;
 import static ru.instamart.kraken.util.TimeUtil.getDbDate;
+import static ru.instamart.kraken.util.TimeUtil.getDbDeliveryDateFrom;
 
 @Epic("ApiV1")
 @Feature("Заказы")
@@ -50,7 +51,7 @@ public class UsersShipmentsV1Tests extends RestBase {
     @Story("Заказы пользователя")
     @CaseId(1333)
     @Test(description = "Получение информации о заказе пользователя в статусе pending",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-smoke"})
     public void getPendingUserShipment() {
         final Response response = UsersV1Request.GET(user.getId(), shipmentNumber);
         checkStatusCode404(response);
@@ -60,7 +61,7 @@ public class UsersShipmentsV1Tests extends RestBase {
     @Story("Заказы пользователя")
     @CaseId(1333)
     @Test(description = "Получение информации о заказе пользователя в статусе ready",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-smoke"},
             dependsOnMethods = "getPendingUserShipment")
     public void getReadyUserShipment() {
         apiV2.setDefaultAttributesAndCompleteOrder();
@@ -91,7 +92,7 @@ public class UsersShipmentsV1Tests extends RestBase {
             groups = {"api-instamart-regress"},
             dependsOnMethods = "getReadyUserShipmentWithDelay")
     public void getCollectingUserShipment() {
-        changeToCollecting(shipmentNumber);
+        SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), StateV2.COLLECTING.getValue());
         final Response response = UsersV1Request.GET(user.getId(), shipmentNumber);
         checkStatusCode200(response);
         checkUserShipmentFromResponse(response, order, user, StateV2.COLLECTING.getValue(), "Задерживаемся, но очень торопимся");
@@ -103,7 +104,7 @@ public class UsersShipmentsV1Tests extends RestBase {
             groups = {"api-instamart-regress"},
             dependsOnMethods = "getCollectingUserShipment")
     public void getReadyToShipUserShipment() {
-        changeToReadyToShip(shipmentNumber);
+        SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), StateV2.READY_TO_SHIP.getValue());
         final Response response = UsersV1Request.GET(user.getId(), shipmentNumber);
         checkStatusCode200(response);
         checkUserShipmentFromResponse(response, order, user, StateV2.READY_TO_SHIP.getValue(), "Задерживаемся, но очень торопимся");
@@ -115,7 +116,7 @@ public class UsersShipmentsV1Tests extends RestBase {
             groups = {"api-instamart-regress"},
             dependsOnMethods = "getReadyToShipUserShipment")
     public void getShippingUserShipment() {
-        changeToShipping(shipmentNumber);
+        SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), StateV2.SHIPPING.getValue());
         final Response response = UsersV1Request.GET(user.getId(), shipmentNumber);
         checkStatusCode200(response);
         checkUserShipmentFromResponse(response, order, user, StateV2.SHIPPING.getValue(), "Задерживаемся, но очень торопимся");
@@ -127,10 +128,10 @@ public class UsersShipmentsV1Tests extends RestBase {
             groups = {"api-instamart-regress"},
             dependsOnMethods = "getShippingUserShipment")
     public void getShippedUserShipment() {
-        changeToShip(shipmentNumber);
+        SpreeOrdersDao.INSTANCE.updateShipmentStateToShip(order.getNumber(), getDbDeliveryDateFrom(0L));
         final Response response = UsersV1Request.GET(user.getId(), shipmentNumber);
         checkStatusCode200(response);
-        checkUserShipmentFromResponse(response, order, user, StateV2.SHIPPED.getValue(), null);
+        checkUserShipmentFromResponse(response, order, user, StateV2.SHIPPED.getValue(), "Задерживаемся, но очень торопимся");
     }
 
     @Story("Заказы пользователя")
@@ -140,7 +141,7 @@ public class UsersShipmentsV1Tests extends RestBase {
             dependsOnMethods = "getShippedUserShipment")
     public void getCanceledUserShipment() {
         OrderV2 order = apiV2.order(user, EnvironmentProperties.DEFAULT_SID);
-        changeToCancel(order.getNumber());
+        SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), StateV2.CANCELED.getValue());
         final Response response = UsersV1Request.GET(user.getId(), order.getShipments().get(0).getNumber());
         checkStatusCode200(response);
         checkUserShipmentFromResponse(response, order, user, StateV2.CANCELED.getValue(), null);

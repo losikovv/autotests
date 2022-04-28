@@ -38,7 +38,6 @@ public class GetOrderV3Test extends RestBase {
             dataProvider = "metro_marketplace",
             dataProviderClass = ApiV3DataProvider.class,
             description = "Показать заказ по uuid самовывоз Metro_Marketplace")
-
     public void getOrders(ApiV3TestData testData) {
         order = apiV3.createOrderPickupFromStore(testData);
         Response response = OrderV3Request.GET(order.getId(), testData.getClientToken());

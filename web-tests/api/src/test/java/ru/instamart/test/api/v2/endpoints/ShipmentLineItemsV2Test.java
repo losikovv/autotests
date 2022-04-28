@@ -3,15 +3,15 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import ru.instamart.kraken.config.EnvironmentProperties;
-import ru.sbermarket.qase.annotation.CaseIDs;
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.dataprovider.RestDataProvider;
 import ru.instamart.api.enums.SessionType;
+import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.LineItemV2;
 import ru.instamart.api.model.v2.OrderV2;
@@ -21,7 +21,11 @@ import ru.instamart.api.request.v2.ShipmentsV2Request;
 import ru.instamart.api.response.v2.MergeLineItemsV2Response;
 import ru.instamart.api.response.v2.OrderV2Response;
 import ru.instamart.jdbc.dao.stf.DeliveryWindowsDao;
+import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.jdbc.dao.stf.StoreConfigsDao;
+import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.sbermarket.qase.annotation.CaseIDs;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,8 +34,6 @@ import java.util.stream.Collectors;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode422;
-import static ru.instamart.api.helper.K8sHelper.changeToCancel;
-import static ru.instamart.api.helper.K8sHelper.changeToCollecting;
 
 @Epic("ApiV2")
 @Feature("Заказы (shipments)")
@@ -166,7 +168,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
             priority = 6)
     public void mergeLineItemForCollectingOrder() {
         String shipmentNumber = order.getShipments().get(0).getNumber();
-        changeToCollecting(shipmentNumber);
+        SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), StateV2.COLLECTING.getValue());
         final Response response = ShipmentsV2Request.LineItems.POST(shipmentNumber, products.get(4).getId(), 1);
         checkStatusCode422(response);
         checkErrorField(response, "invalid_shipment_state_collecting", "Заказ собирают. Можно оставить товар в корзине — если захотите добавить к следующему заказу");
@@ -178,7 +180,7 @@ public class ShipmentLineItemsV2Test extends RestBase {
             description = "Добавление другого товара - заказ отменен",
             priority = 7)
     public void mergeLineItemForCancelledOrder() {
-        changeToCancel(order.getNumber());
+        SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), StateV2.CANCELED.getValue());
         final Response response = ShipmentsV2Request.LineItems.POST(order.getShipments().get(0).getNumber(), products.get(4).getId(), 1);
         checkStatusCode422(response);
         checkErrorField(response, "invalid_shipment_state_canceled", "Заказ отменён. Можно оставить товар в корзине — если захотите добавить к следующему заказу");

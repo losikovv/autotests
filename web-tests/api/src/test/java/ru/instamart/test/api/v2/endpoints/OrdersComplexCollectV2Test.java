@@ -3,10 +3,8 @@ package ru.instamart.test.api.v2.endpoints;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import org.testng.annotations.BeforeClass;
-import ru.instamart.api.response.v2.*;
-import ru.sbermarket.qase.annotation.CaseId;
 import io.restassured.response.Response;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
@@ -15,13 +13,19 @@ import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.v2.OrdersV2Request;
 import ru.instamart.api.request.v2.ShipmentsV2Request;
+import ru.instamart.api.response.v2.LineItemCancellationsV2Response;
+import ru.instamart.api.response.v2.LineItemReplacementsV2Response;
+import ru.instamart.api.response.v2.OrderV2Response;
+import ru.instamart.api.response.v2.OrdersV2Response;
+import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.sbermarket.qase.annotation.CaseId;
 
 import static org.testng.Assert.assertFalse;
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
-import static ru.instamart.api.helper.K8sHelper.changeToShip;
+import static ru.instamart.kraken.util.TimeUtil.getDbDeliveryDateFrom;
 
 @Epic("ApiV2")
 @Feature("Заказы (orders)")
@@ -39,7 +43,7 @@ public class OrdersComplexCollectV2Test extends RestBase {
                 EnvironmentProperties.DEFAULT_SID);
         orderNumber = order.getNumber();
         shipmentNumber = order.getShipments().get(0).getNumber();
-        changeToShip(shipmentNumber);
+        SpreeOrdersDao.INSTANCE.updateShipmentStateToShip(orderNumber, getDbDeliveryDateFrom(0L));
     }
 
     @CaseId(306)

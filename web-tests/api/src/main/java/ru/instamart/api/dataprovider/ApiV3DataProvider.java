@@ -8,15 +8,15 @@ import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.ProductPriceTypeV2;
 import ru.instamart.api.enums.v3.ClientV3;
 import ru.instamart.api.enums.v3.NotificationTypeV3;
+import ru.instamart.api.enums.v3.PricersV3;
 import ru.instamart.api.factory.SessionFactory;
 import ru.instamart.api.model.testdata.ApiV3TestData;
-import ru.instamart.k8s.rails_response.OfferResponse;
+import ru.instamart.jdbc.dao.stf.OffersDao;
 import ru.instamart.kraken.data_provider.DataList;
 
 import java.util.List;
 
 import static ru.instamart.api.helper.ApiV3Helper.getApiClientToken;
-import static ru.instamart.api.helper.K8sHelper.*;
 
 public class ApiV3DataProvider extends RestBase {
 
@@ -64,17 +64,13 @@ public class ApiV3DataProvider extends RestBase {
     @DataProvider(name = "goods")
     public static Object[][] getItemIdsGoods() {
         String token = getApiClientToken(ClientV3.GOODS);
-        OfferResponse pricerPerItem = getPricerPerItemProductFilter(1, 8, 2, OfferResponse.class);
-        String retailerSkuPerItem = pricerPerItem.getOffer().getProductSku();
+        String retailerSkuPerItem = OffersDao.INSTANCE.getSkuByPricer(1, 8, 2, PricersV3.PER_ITEM.getValue()).getProductSku();
 
-        OfferResponse pricerPerKilo = getPricerPerKiloProductFilter(1, 8, 2, OfferResponse.class);
-        String retailerSkuPerKilo = pricerPerKilo.getOffer().getProductSku();
+        String retailerSkuPerKilo = OffersDao.INSTANCE.getSkuByPricer(1, 8, 2,  PricersV3.PER_KILO.getValue()).getProductSku();
 
-        OfferResponse pricerPerPackage = getPricerPerPackageProductFilter(1, 8, 2, OfferResponse.class);
-        String retailerSkuPerPackage = pricerPerPackage.getOffer().getProductSku();
+        String retailerSkuPerPackage = OffersDao.INSTANCE.getSkuByPricer(1, 8, 2,  PricersV3.PER_PACKAGE.getValue()).getProductSku();
 
-        OfferResponse pricerPerPack = getPricerPerPackProductFilter(1, 8, 2, OfferResponse.class);
-        String retailerSkuPerPack = pricerPerPack.getOffer().getProductSku();
+        String retailerSkuPerPack = OffersDao.INSTANCE.getSkuByPricer(1, 8, 2,  PricersV3.PER_PACK.getValue()).getProductSku();
 
         Object[][] idsArray = new Object[4][1];
         idsArray[0] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerItem).shipTotal("1299").itemIdName("PerItem").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken(token).retailer_id("metro").clientTokenName("Goods").storeId("d1106342-817f-4c3e-8c18-0005295f641a").build()};
@@ -88,17 +84,13 @@ public class ApiV3DataProvider extends RestBase {
     @DataProvider(name = "sber_devices")
     public static Object[][] getItemIdsSberDevices() {
         String token = getApiClientToken(ClientV3.SBER_DEVICES);
-        OfferResponse pricerPerItem = getPricerPerItemProductFilter(1, 8, 2, OfferResponse.class);
-        String retailerSkuPerItem = pricerPerItem.getOffer().getProductSku();
+        String retailerSkuPerItem = OffersDao.INSTANCE.getSkuByPricer(1, 8, 2,  PricersV3.PER_ITEM.getValue()).getProductSku();
 
-        OfferResponse pricerPerKilo = getPricerPerKiloProductFilter(1, 8, 2, OfferResponse.class);
-        String retailerSkuPerKilo = pricerPerKilo.getOffer().getProductSku();
+        String retailerSkuPerKilo = OffersDao.INSTANCE.getSkuByPricer(1, 8, 2,  PricersV3.PER_KILO.getValue()).getProductSku();
 
-        OfferResponse pricerPerPackage = getPricerPerPackageProductFilter(1, 8, 2, OfferResponse.class);
-        String retailerSkuPerPackage = pricerPerPackage.getOffer().getProductSku();
+        String retailerSkuPerPackage = OffersDao.INSTANCE.getSkuByPricer(1, 8, 2,  PricersV3.PER_PACKAGE.getValue()).getProductSku();
 
-        OfferResponse pricerPerPack = getPricerPerPackProductFilter(1, 8, 2, OfferResponse.class);
-        String retailerSkuPerPack = pricerPerPack.getOffer().getProductSku();
+        String retailerSkuPerPack = OffersDao.INSTANCE.getSkuByPricer(1, 8, 2,  PricersV3.PER_PACK.getValue()).getProductSku();
 
         Object[][] idsArray = new Object[4][1];
         idsArray[0] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerItem).shipTotal("1299").itemIdName("PerItem").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken(token).retailer_id("metro").clientTokenName("SberDevices").storeId("d1106342-817f-4c3e-8c18-0005295f641a").build()};
@@ -112,17 +104,13 @@ public class ApiV3DataProvider extends RestBase {
     @DataProvider(name = "metro_marketplace")
     public static Object[][] getItemIdsMetroMarketplace() {
         String token = getApiClientToken(ClientV3.METRO_MARKETPLACE);
-        OfferResponse pricerPerItem = getPricerPerItemProductFilter(1, 8, 2, OfferResponse.class);
-        String retailerSkuPerItem = pricerPerItem.getOffer().getRetailerSku();
+        String retailerSkuPerItem = OffersDao.INSTANCE.getSkuByPricer(1, 8, 2,  PricersV3.PER_ITEM.getValue()).getRetailerSku();
 
-        OfferResponse pricerPerKilo = getPricerPerKiloProductFilter(1, 8, 2, OfferResponse.class);
-        String retailerSkuPerKilo = pricerPerKilo.getOffer().getRetailerSku();
+        String retailerSkuPerKilo = OffersDao.INSTANCE.getSkuByPricer(1, 8, 2,  PricersV3.PER_KILO.getValue()).getRetailerSku();
 
-        OfferResponse pricerPerPackage = getPricerPerPackageProductFilter(1, 8, 2, OfferResponse.class);
-        String retailerSkuPerPackage = pricerPerPackage.getOffer().getRetailerSku();
+        String retailerSkuPerPackage = OffersDao.INSTANCE.getSkuByPricer(1, 8, 2,  PricersV3.PER_PACKAGE.getValue()).getRetailerSku();
 
-        OfferResponse pricerPerPack = getPricerPerPackProductFilter(1, 8, 2, OfferResponse.class);
-        String retailerSkuPerPack = pricerPerPack.getOffer().getRetailerSku();
+        String retailerSkuPerPack = OffersDao.INSTANCE.getSkuByPricer(1, 8, 2,  PricersV3.PER_PACK.getValue()).getRetailerSku();
 
 
         Object[][] idsArray = new Object[4][1];
@@ -136,17 +124,13 @@ public class ApiV3DataProvider extends RestBase {
     @DataProvider(name = "Aliexpress")
     public static Object[][] getItemIdsAliexpress() {
         String token = getApiClientToken(ClientV3.ALIEXPRESS);
-        OfferResponse pricerPerItem = getPricerPerItemProductFilter(15, 72, 2, OfferResponse.class);
-        String retailerSkuPerItem = pricerPerItem.getOffer().getRetailerSku();
+        String retailerSkuPerItem = OffersDao.INSTANCE.getSkuByPricer(15, 72, 2,  PricersV3.PER_ITEM.getValue()).getRetailerSku();
 
-        OfferResponse pricerPerKilo = getPricerPerKiloProductFilter(15, 72, 2, OfferResponse.class);
-        String retailerSkuPerKilo = pricerPerKilo.getOffer().getRetailerSku();
+        String retailerSkuPerKilo = OffersDao.INSTANCE.getSkuByPricer(15, 72, 2,  PricersV3.PER_KILO.getValue()).getRetailerSku();
 
-        OfferResponse pricerPerPackage = getPricerPerPackageProductFilter(15, 72, 2, OfferResponse.class);
-        String retailerSkuPerPackage = pricerPerPackage.getOffer().getRetailerSku();
+        String retailerSkuPerPackage = OffersDao.INSTANCE.getSkuByPricer(15, 72, 2,  PricersV3.PER_PACKAGE.getValue()).getRetailerSku();
 
-        OfferResponse pricerPerPack = getPricerPerPackProductFilter(15, 72, 2, OfferResponse.class);
-        String retailerSkuPerPack = pricerPerPack.getOffer().getRetailerSku();
+        String retailerSkuPerPack = OffersDao.INSTANCE.getSkuByPricer(15, 72, 2,  PricersV3.PER_PACK.getValue()).getRetailerSku();
 
         Object[][] idsArray = new Object[4][1];
         idsArray[0] = new Object[]{ApiV3TestData.builder().itemId(retailerSkuPerItem).shipTotal("1299").itemIdName("PerItem").itemQuantity(5).itemPrice(1000).itemDiscount(100).itemPromoTotal(100).clientToken(token).retailer_id("auchan").clientTokenName("Aliexpress").storeId("4872ead0-274b-49a2-955e-a5101a7de9cb").build()};
@@ -160,17 +144,13 @@ public class ApiV3DataProvider extends RestBase {
     @DataProvider(name = "Auchan")
     public static Object[][] getItemIdsAuchan() {
         String token = getApiClientToken(ClientV3.AUCHAN);
-        OfferResponse pricerPerItem = getPricerPerItemProductFilter(15, 72, 2, OfferResponse.class);
-        String retailerSkuPerItem = pricerPerItem.getOffer().getRetailerSku();
+        String retailerSkuPerItem = OffersDao.INSTANCE.getSkuByPricer(15, 72, 2,  PricersV3.PER_ITEM.getValue()).getRetailerSku();
 
-        OfferResponse pricerPerKilo = getPricerPerKiloProductFilter(15, 72, 2, OfferResponse.class);
-        String retailerSkuPerKilo = pricerPerKilo.getOffer().getRetailerSku();
+        String retailerSkuPerKilo = OffersDao.INSTANCE.getSkuByPricer(15, 72, 2,  PricersV3.PER_KILO.getValue()).getRetailerSku();
 
-        OfferResponse pricerPerPackage = getPricerPerPackageProductFilter(15, 72, 2, OfferResponse.class);
-        String retailerSkuPerPackage = pricerPerPackage.getOffer().getRetailerSku();
+        String retailerSkuPerPackage = OffersDao.INSTANCE.getSkuByPricer(15, 72, 2,  PricersV3.PER_PACKAGE.getValue()).getRetailerSku();
 
-        OfferResponse pricerPerPack = getPricerPerPackProductFilter(15, 72, 2, OfferResponse.class);
-        String retailerSkuPerPack = pricerPerPack.getOffer().getRetailerSku();
+        String retailerSkuPerPack = OffersDao.INSTANCE.getSkuByPricer(15, 72, 2,  PricersV3.PER_PACK.getValue()).getRetailerSku();
 
         Object[][] idsArray = new Object[4][1];
 

@@ -44,7 +44,7 @@ public class DeliveryWindowsV1Tests extends RestBase {
     @Story("Окна доставки")
     @CaseId(1145)
     @Test(description = "Получение списка окон доставки для магазина на конкретную дату",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-smoke"})
     public void getDeliveryWindows() {
         final Response response = StoresV1Request.DeliveryWindows.GET(EnvironmentProperties.DEFAULT_METRO_MOSCOW_SID);
         checkStatusCode200(response);
