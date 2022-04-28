@@ -41,7 +41,7 @@ public class StoresV1ContractTests extends RestBase {
     @Story("Магазины")
     @CaseId(126)
     @Test(description = "Контрактный тест магазина",
-            groups = {"api-instamart-regress", "api-instamart-prod"},
+            groups = {"api-instamart-smoke", "api-instamart-prod"},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "storeOfEachRetailer-parallel")
     public void getStore(StoreV2 store) {

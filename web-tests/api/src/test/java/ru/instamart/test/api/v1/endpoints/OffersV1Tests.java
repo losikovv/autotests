@@ -47,7 +47,7 @@ public class OffersV1Tests extends RestBase {
     @Story("Поиск товаров")
     @CaseId(111)
     @Test(  description = "Контрактный тест поиска товаров в магазине",
-            groups = {"api-instamart-regress", "api-instamart-prod"},
+            groups = {"api-instamart-smoke", "api-instamart-prod"},
             dataProviderClass = RestDataProvider.class,
             dataProvider = "offerOfEachRetailer-parallel")
     public void getOffer(OfferV1 offer) {
@@ -60,7 +60,7 @@ public class OffersV1Tests extends RestBase {
     @Story("Поиск товаров")
     @CaseId(1382)
     @Test(  description = "Поиск товаров в магазине по SKU",
-            groups = {"api-instamart-regress", "api-instamart-prod"},
+            groups = {"api-instamart-smoke", "api-instamart-prod"},
             dependsOnMethods = "getOffer")
     public void getOfferBySku() {
         final Response response = StoresV1Request.Offers.GET(offerForRequest.getStoreId(), offerForRequest.getProductSku());

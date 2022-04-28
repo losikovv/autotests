@@ -13,6 +13,7 @@ import ru.instamart.api.model.v1.PaymentV1;
 import ru.instamart.api.model.v2.AddressV2;
 import ru.instamart.api.request.v1.OrdersV1Request;
 import ru.instamart.api.response.v1.*;
+import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.jdbc.dao.stf.SpreePaymentsDao;
 import ru.instamart.jdbc.entity.stf.SpreePaymentsEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
@@ -27,7 +28,7 @@ import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.InstamartApiCheckpoints.checkPayment;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode404;
-import static ru.instamart.api.helper.K8sHelper.changeToShip;
+import static ru.instamart.kraken.util.TimeUtil.getDbDeliveryDateFrom;
 
 @Epic("ApiV1")
 @Feature("Оплата")
@@ -105,7 +106,7 @@ public class PaymentsV1Tests extends RestBase {
             description = "Оплата заказа",
             dependsOnMethods = "createPayment")
     public void purchaseOrder() {
-        changeToShip(order.getShipments().get(0).getNumber());
+        SpreeOrdersDao.INSTANCE.updateShipmentStateToShip(order.getNumber(), getDbDeliveryDateFrom(0L));
         final Response response = OrdersV1Request.Payments.PUT(order.getNumber(), paymentId);
         checkStatusCode200(response);
         checkResponseJsonSchema(response, OrderPaymentV1Response.class);

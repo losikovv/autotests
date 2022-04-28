@@ -12,6 +12,8 @@ import ru.instamart.api.request.v3.OrderV3Request;
 import ru.instamart.api.request.v3.StoresV3Request;
 import ru.instamart.api.response.v3.OrderOptionsV3Response;
 import ru.instamart.jdbc.dao.stf.ApiClientsDao;
+import ru.instamart.jdbc.dao.stf.FlipperGatesDao;
+import ru.instamart.jdbc.entity.stf.FlipperGatesEntity;
 import ru.instamart.kraken.enums.Tenant;
 
 import java.util.Arrays;
@@ -19,6 +21,7 @@ import java.util.List;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.api.helper.K8sHelper.createApiClient;
+import static ru.instamart.kraken.util.TimeUtil.getDbDeliveryDateFrom;
 
 @Slf4j
 public final class ApiV3Helper {
@@ -183,5 +186,13 @@ public final class ApiV3Helper {
             token = ApiClientsDao.INSTANCE.getClientTokenByName(client.getName());
         }
         return token;
+    }
+
+    @Step("Проверяем, включен ли фича-флаг во флиппере, и включаем, если нет")
+    public static void checkFlipper(String featureKey) {
+        FlipperGatesEntity flipper = FlipperGatesDao.INSTANCE.getFlipperByKey(featureKey);
+        if (flipper == null) {
+            FlipperGatesDao.INSTANCE.addFlipper(featureKey, getDbDeliveryDateFrom(0L));
+        }
     }
 }

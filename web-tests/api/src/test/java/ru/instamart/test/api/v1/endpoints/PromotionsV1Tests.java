@@ -44,7 +44,7 @@ public class PromotionsV1Tests extends RestBase {
 
     @CaseId(2245)
     @Story("Компенсации")
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"},
+    @Test(groups = {"api-instamart-smoke", "api-instamart-prod"},
             description = "Получение информации о промо-акциях")
     public void getPromotions() {
         final Response response = PromotionsV1Request.Promotions.GET();

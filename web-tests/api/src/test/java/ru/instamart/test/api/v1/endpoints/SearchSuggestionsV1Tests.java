@@ -27,7 +27,7 @@ public class SearchSuggestionsV1Tests extends RestBase {
     @CaseIDs(value = {@CaseId(1420), @CaseId(1421), @CaseId(1422)})
     @Story("Поисковые подсказки")
     @Test(description = "Получение поисковых подсказок",
-            groups = {"api-instamart-regress", "api-instamart-prod"},
+            groups = {"api-instamart-smoke", "api-instamart-prod"},
             dataProvider = "positiveQuery",
             dataProviderClass = RestDataProvider.class)
     public void getSearchSuggestions(String query) {
