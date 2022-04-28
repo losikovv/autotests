@@ -16,13 +16,15 @@ public class StoreSchedulesDao extends AbstractDao<Long, StoreSchedulesEntity> {
 
     private final String DELETE_SQL = "DELETE FROM store_schedules ";
 
-    public void deleteByStoreId(Integer storeId) {
+    public boolean deleteByStoreId(Integer storeId) {
+        int result = 0;
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(DELETE_SQL + "WHERE store_id = ?")) {
             preparedStatement.setLong(1, storeId);
-            preparedStatement.executeUpdate();
+            result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
+        return result == 1;
     }
 }

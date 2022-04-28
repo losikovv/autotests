@@ -2,11 +2,15 @@ package ru.instamart.kraken.util;
 
 import java.util.Random;
 
-public class DoubleUtil {
+public final class DoubleUtil {
+
+    private static final Random r = new Random();
+
+    private DoubleUtil() {
+    }
 
     //принимает мин и макс значение для генерации double со знаками после запятой
     public static double getRandomDoubleBetweenRange(double min, double max){
-        Random r = new Random();
         return min + (max - min) * r.nextDouble();
     }
 
