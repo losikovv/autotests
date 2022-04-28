@@ -30,7 +30,8 @@ public class ExternalPartnersV2Test extends RestBase {
     }
 
     @CaseId(270)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Отправка запроса без store_id")
+    @Test(enabled = false, //Прайм -10% выпилен с прода DMND-1912
+            groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Отправка запроса без store_id")
     public void testWithoutShopId() {
         final Response response = ExternalPartnersV2Request.Banners.SberPrime.GET("");
         checkStatusCode400(response);
@@ -38,7 +39,8 @@ public class ExternalPartnersV2Test extends RestBase {
     }
 
     @CaseId(269)
-    @Test(groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Отправка запроса c store_id")
+    @Test(enabled = false, //Прайм -10% выпилен с прода DMND-1912
+            groups = {"api-instamart-regress", "api-instamart-prod"}, description = "Отправка запроса c store_id")
     public void testWithShopId() {
         final Response response = ExternalPartnersV2Request.Banners.SberPrime.GET("1");
         checkStatusCode200(response);
