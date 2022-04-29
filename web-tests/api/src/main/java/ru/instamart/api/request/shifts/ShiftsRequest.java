@@ -93,6 +93,15 @@ public class ShiftsRequest extends ShiftsRequestBase {
             return givenWithAuth()
                     .post(ShiftsV1Endpoints.Shifts.PAUSE, id);
         }
+        @Step("{method} /" + ShiftsV1Endpoints.Shifts.PAUSE)
+        public static Response POST(final long id, final boolean overlimit) {
+            JSONObject json = new JSONObject();
+            json.put("overlimit", overlimit);
+            return givenWithAuth()
+                    .body(json)
+                    .contentType(ContentType.JSON)
+                    .post(ShiftsV1Endpoints.Shifts.PAUSE, id);
+        }
 
         @Step("{method} /" + ShiftsV1Endpoints.Shifts.PAUSE)
         public static Response DELETE(final long id) {

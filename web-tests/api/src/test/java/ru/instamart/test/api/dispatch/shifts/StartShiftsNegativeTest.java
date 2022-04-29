@@ -28,7 +28,7 @@ public class StartShiftsNegativeTest extends RestBase {
     private int planningPeriodId;
 
     @BeforeClass(alwaysRun = true,
-            description = "Получаем оформленный заказ")
+            description = "Оформляем смену")
     public void preconditions() {
         UserData user = UserManager.getShp6Shopper2();
         shopperApp.authorisation(user);
