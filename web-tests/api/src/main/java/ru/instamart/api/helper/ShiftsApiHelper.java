@@ -55,7 +55,7 @@ public class ShiftsApiHelper {
         checkStatusCode200(response);
         var planningAreaShifts = Arrays.asList(response.getBody().as(PlanningAreaShiftsItemSHPResponse[].class));
         var planningAreaShiftsFilter = planningAreaShifts.stream().filter(item->item.getId()==EnvironmentProperties.DEFAULT_SHIFTS_ZONE_ID).collect(Collectors.toList());
-        assertTrue(planningAreaShiftsFilter.size()>0, "Не найден данные дефолтной зоны");
+        assertTrue(planningAreaShiftsFilter.size()>0, "Не найдены данные дефолтной зоны");
         return planningAreaShiftsFilter.get(0);
     }
 
