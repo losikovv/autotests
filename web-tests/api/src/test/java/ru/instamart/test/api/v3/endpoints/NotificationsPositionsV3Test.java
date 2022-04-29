@@ -21,6 +21,7 @@ import ru.instamart.api.model.v2.LineItemV2;
 import ru.instamart.api.model.v2.OrderV2;
 import ru.instamart.api.request.admin.StoresAdminRequest;
 import ru.instamart.api.request.v3.NotificationsV3Request;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.sbermarket.qase.annotation.CaseId;
 
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
@@ -34,8 +35,10 @@ public class NotificationsPositionsV3Test extends RestBase {
     public void preconditions() {
         apiV3.checkFlipper("allow_export_to_external_services");
         apiV3.checkFlipper("export_to_external_services_by_webhook");
-        admin.auth();
-        admin.editStore(58, StoresAdminRequest.getStoreLentaOrekhoviyBulvar());
+        if (!EnvironmentProperties.SERVER.equals("preprod")) {
+            admin.auth();
+            admin.editStore(58, StoresAdminRequest.getStoreLentaOrekhoviyBulvar());
+        }
     }
 
     @Story("Позиции заказа")
