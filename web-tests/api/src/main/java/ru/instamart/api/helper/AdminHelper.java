@@ -259,7 +259,6 @@ public class AdminHelper {
 
     public void createStoreSchedule(String storeUuid) {
         final Response response = StoreSchedulesV1Request.Schedules.POST(storeUuid);
-        response.prettyPrint();
         checkStatusCode200(response);
     }
 

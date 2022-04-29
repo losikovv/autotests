@@ -22,6 +22,7 @@ import ru.instamart.api.response.ErrorResponse;
 import ru.instamart.api.response.v2.ReviewableShipmentV2Response;
 import ru.instamart.api.response.v2.ShipmentReviewV2Response;
 import ru.instamart.jdbc.dao.stf.ShipmentReviewWindowClosesDao;
+import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.sbermarket.qase.annotation.CaseIDs;
@@ -31,7 +32,7 @@ import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.*;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
-import static ru.instamart.api.helper.K8sHelper.changeToShip;
+import static ru.instamart.kraken.util.TimeUtil.getDbDeliveryDateFrom;
 
 @Epic("ApiV2")
 @Feature("Отзывы о заказе")
@@ -50,7 +51,7 @@ public class ReviewableShipmentV2Test extends RestBase {
         order = apiV2.getOpenOrder();
         if (order == null) throw new SkipException("Заказ не удалось оплатить");
         shipmentNumber = order.getShipments().get(0).getNumber();
-        changeToShip(shipmentNumber);
+        SpreeOrdersDao.INSTANCE.updateShipmentStateToShip(order.getNumber(), getDbDeliveryDateFrom(0L));
     }
 
     @CaseIDs(value = {@CaseId(468), @CaseId(1164)})

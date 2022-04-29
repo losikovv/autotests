@@ -132,6 +132,21 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
         waitAction().shouldNotBeVisible(spinner);
     }
 
+    @Step("Проверяем, что ретейлеры загружены")
+    default void checkRetailersLoaded() {
+        waitAction().shouldBeVisible(retailersLoadCondition);
+    }
+
+    @Step("Проверяем, что ретейлеры не загружены")
+    default void checkRetailersNotLoaded() {
+        waitAction().shouldNotBeVisible(retailersLoadCondition);
+    }
+
+    @Step("Проверяем, что кнопка фильтра доступности кликабельна")
+    default void checkAccessibilityFilterButtonClickable() {
+        waitAction().shouldBeClickable(accessibilityFilterButton);
+    }
+
     @Step("Проверяем, что спиннер показан")
     default void checkRegionSearchSpinnerVisible() {
         waitAction().shouldBeVisible(spinnerRegionSearch);

@@ -1,30 +1,12 @@
 package ru.instamart.api.model.v3;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import ru.instamart.api.model.BaseObject;
 
-public class PaymentMethodOptionV3 {
+@Data
+@EqualsAndHashCode(callSuper=false)
+public class PaymentMethodOptionV3 extends BaseObject {
     private String id;
     private String name;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).append("id", id).append("name", name).toString();
-    }
-
 }

@@ -9,7 +9,7 @@ public class ReplacementPoliciesV1Request extends ApiV1RequestBase {
 
     @Step("{method} /" + ApiV1Endpoints.REPLACEMENT_POLICIES)
     public static Response GET() {
-        return givenWithAuth()
+        return givenWithSpec()
                 .get(ApiV1Endpoints.REPLACEMENT_POLICIES);
     }
 }

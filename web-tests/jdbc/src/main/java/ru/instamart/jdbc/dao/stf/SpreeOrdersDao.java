@@ -15,10 +15,11 @@ public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
 
     public static final SpreeOrdersDao INSTANCE = new SpreeOrdersDao();
     private final String SELECT_SQL = "SELECT %s FROM spree_orders";
+    private final String UPDATE_SQL = "UPDATE spree_orders";
 
     public void updateShippingKind(String orderNumber, String shippingKind) {
         try (Connection connect = ConnectionMySQLManager.get();
-             PreparedStatement preparedStatement = connect.prepareStatement("UPDATE spree_orders SET shipping_method_kind = ? WHERE number = ?")) {
+             PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " SET shipping_method_kind = ? WHERE number = ?")) {
             preparedStatement.setString(1, shippingKind);
             preparedStatement.setString(2, orderNumber);
             preparedStatement.executeUpdate();
@@ -51,5 +52,31 @@ public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return order;
+    }
+
+    public void updateShipmentStateToShip(String orderNumber, String shippedAt) {
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " so JOIN spree_shipments ss ON so.id = ss.order_id " +
+                     "SET so.state = 'shipped', ss.state = 'shipped', ss.shipped_at = ? WHERE so.number = ?")) {
+            preparedStatement.setString(1, shippedAt);
+            preparedStatement.setString(2, orderNumber);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+    }
+
+    public void updateShipmentState(String orderNumber, String state) {
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " so JOIN spree_shipments ss ON so.id = ss.order_id " +
+                     "SET so.state = ?, so.shipment_state = ?, ss.state = ? WHERE so.number = ?")) {
+            preparedStatement.setString(1, state);
+            preparedStatement.setString(2, state);
+            preparedStatement.setString(3, state);
+            preparedStatement.setString(4, orderNumber);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
     }
 }

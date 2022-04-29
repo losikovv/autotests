@@ -100,7 +100,7 @@ public class RetailersV1Tests extends RestBase {
     @Story("Ритейлеры")
     @CaseId(1273)
     @Test(description = "Получение списка ритейлеров по региону",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-smoke"})
     public void getRetailersByOperationalZones() {
         Long operationalZoneId = OperationalZonesDao.INSTANCE.getIdByName("Москва");
         final Response response = RetailersV1Request.GET(RetailersV1Request.RetailerParams.builder()

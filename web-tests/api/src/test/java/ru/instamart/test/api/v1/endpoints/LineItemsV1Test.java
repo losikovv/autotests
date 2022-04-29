@@ -39,7 +39,7 @@ public class LineItemsV1Test extends RestBase {
     @CaseId(57)
     @Story("Товары в заказе")
     @Test(description = "Получение информации о товарах в заказе",
-            groups = {"api-instamart-regress"},
+            groups = {"api-instamart-smoke"},
             dependsOnMethods = "createLineItem")
     public void getLineItemsByOrderNumber() {
         final Response response = OrdersV1Request.LineItems.GET(apiV1.getMultiRetailerOrder().getNumber());

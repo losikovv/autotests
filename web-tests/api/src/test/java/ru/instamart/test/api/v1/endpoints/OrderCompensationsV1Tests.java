@@ -55,7 +55,7 @@ public class OrderCompensationsV1Tests extends RestBase {
 
     @CaseId(2246)
     @Story("Компенсации")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-smoke"},
             description = "Получение информации о промо-компенсациях")
     public void getCompensationPromotions() {
         final Response response = PromotionsV1Request.CompensationPromotions.GET();
@@ -66,7 +66,7 @@ public class OrderCompensationsV1Tests extends RestBase {
 
     @CaseId(2247)
     @Story("Компенсация по заказу")
-    @Test(groups = {"api-instamart-regress"},
+    @Test(groups = {"api-instamart-smoke"},
             description = "Получение информации о доступной компенсациях для заказа")
     public void getCompensationsInfo() {
         final Response response = OrdersV1Request.Compensations.GET(order.getNumber());

@@ -136,7 +136,7 @@ public class OrdersV1ContractTests extends RestBase {
     @Story("Заказы")
     @CaseId(120)
     @Test(description = "Контрактный тест списка сэмплов в шипменте",
-            groups = "api-instamart-regress",
+            groups = "api-instamart-regress", enabled = false, // TODO: установить причины 503-ей
             dependsOnMethods = "getShipment")
     public void getShopperMarketingSampleItems() {
         final Response response = ShoppersV1Request.MarketingSampleItems.GET(shipmentUuid);

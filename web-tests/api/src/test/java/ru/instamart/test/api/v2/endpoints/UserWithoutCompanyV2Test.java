@@ -44,7 +44,8 @@ public class UserWithoutCompanyV2Test extends RestBase {
     @CaseId(2360)
     @Story("Создание")
     @Test(groups = {"api-instamart-regress"},
-            description = "Создание компании без")
+            description = "Создание компании без",
+            dependsOnMethods = "getCompaniesExist200")
     public void createCompany200() {
         String name = "Autotest_" + string(10);
         final Response response = UserV2Request.POST(inn, name);

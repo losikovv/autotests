@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="REST API V2 Suite" parallel="tests" thread-count="30" data-provider-thread-count="10">
+    <listeners>
+        <listener class-name="ru.instamart.api.listener.ApiExecutionListener"/>
+        <listener class-name="ru.instamart.api.listener.ApiListener"/>
+    </listeners>
+    <method-selectors>
+        <method-selector>
+            <selector-class name="ru.instamart.kraken.listener.TestMethodSelector"/>
+        </method-selector>
+    </method-selectors>
+    <!-- api-v2-tests -->
+    <test verbose="1" name="API v2 Tests" parallel="classes" thread-count="30">
+        <classes>
+            <class name="ru.instamart.test.api.v2.endpoints.AppConfigurationV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.AuthProviderV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ExternalPartnersV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.CreditCardsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.CurrentTimeV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.FavoritesListMoreSessionV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.FavoritesListV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.FeatureFlagsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.LegalEntityV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.LoyaltiesV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.NotificationsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.OrdersV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.OrdersV2NoAuthTest"/>
+            <class name="ru.instamart.test.api.v2.endpoints.OrdersComplexCollectV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.PhoneConfirmationsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ProductsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ProductFeedbacksV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ProductFeedbacksWithoutAuthV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ProfileV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ProfileV2NoAuthTest"/>
+            <class name="ru.instamart.test.api.v2.endpoints.PromotionLimitV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.PromotionsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.RecsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ReplacementPoliciesV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ReviewableShipmentV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ReviewableShipmentWithoutFinishedOrderV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.SearchesV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ShipAddressV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ShipmentsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ShipmentsOtherAuthV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ShipmentAssemblyItemsStatusV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.SimpleAdsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.SimpleRecsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.StoresV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.TaxonsV2Test"/>
+            <class name="ru.instamart.test.api.v2.e2e.OrderE2ETests"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ExternalAnalyticsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.SberCardAuthorizationV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.OnboardingV2PagesV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.UserReferralProgramV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.InstacoinAccountV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ShipmentLineItemsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.MergedShipmentsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.PaymentToolsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.PaymentToolsWithoutAuthV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.TransferMethodAnalyzeV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.TransferMethodLossesV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.TransferMethodV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ActiveShipmentsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.CitiesV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.SessionsV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.CategoriesV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.DeliveryAvailabilityV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.ReviewIssuesV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.UserCompanyV2Test"/>
+            <class name="ru.instamart.test.api.v2.endpoints.UserWithoutCompanyV2Test"/>
+        </classes>
+    </test>
+    <!-- api-delivery-club-tests  -->
+    <test verbose="1" name="API Delivery Club Tests" parallel="classes" thread-count="1">
+        <classes>
+            <class name="ru.instamart.test.api.delivery_club.endpoints.AuthenticationDCTest"/>
+            <class name="ru.instamart.test.api.delivery_club.endpoints.StoresWithAuthDCTest"/>
+            <class name="ru.instamart.test.api.delivery_club.endpoints.StoresWithoutAuthDCTest"/>
+        </classes>
+    </test>
+    <!-- api-kube-tests  -->
+    <test verbose="1" name="API KUBERNETES Tests" parallel="classes" thread-count="1">
+        <classes>
+            <class name="ru.instamart.test.api.KubernetesClientTest"/>
+        </classes>
+    </test>
+
+    <test verbose="1" name="API DC Tests" parallel="classes" thread-count="1">
+        <classes>
+            <class name="ru.instamart.test.api.ris_exporter.AuthenticationRisTest"/>
+            <class name="ru.instamart.test.api.ris_exporter.CategoriesRisTest"/>
+            <class name="ru.instamart.test.api.ris_exporter.ProductsRisTest"/>
+            <class name="ru.instamart.test.api.ris_exporter.StockRisTest"/>
+            <class name="ru.instamart.test.api.ris_exporter.WithoutAuthenticationRisTest"/>
+        </classes>
+    </test>
+</suite>
+

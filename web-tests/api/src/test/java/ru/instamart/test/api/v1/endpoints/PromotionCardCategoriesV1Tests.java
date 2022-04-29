@@ -22,7 +22,7 @@ public class PromotionCardCategoriesV1Tests extends RestBase {
     @Story("Промо-карточки")
     @CaseId(2136)
     @Test(description = "Получение списка категорий промокарточек",
-            groups = {"api-instamart-regress"})
+            groups = {"api-instamart-smoke"})
     public void getPromotionCardsCategories() {
         final Response response = PromotionCardCategoriesV1Request.GET();
         checkStatusCode200(response);
