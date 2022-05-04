@@ -44,7 +44,7 @@ public final class UserShippingAddressTests extends BaseTest {
         shop().interactHeader().clickToStoreSelector();
         home().checkDeliveryRetailersContainerVisible();
         home().clickOnFirstRetailer();
-        home().interactAddressModal().checkYmapsReadyTmp();
+        home().interactAddressModal().checkYmapsReady();
     }
 
     @CaseId(31)
@@ -66,14 +66,16 @@ public final class UserShippingAddressTests extends BaseTest {
     public void noAvailableShopsOutOfDeliveryZone() {
         shop().goToPage(true);
         shop().interactHeader().clickToSelectAddressFirstTime();
-        shop().interactHeader().interactAddress().checkYmapsReady();
-        shop().interactHeader().interactAddress().fillAddress(outOfZoneAddress);
-        shop().interactHeader().interactAddress().selectFirstAddress();
-        shop().interactHeader().interactAddress().clickOnSave();
-        shop().interactHeader().interactAddress().checkIsAddressOutOfZone();
+        shop().interactAddressLarge().checkYmapsReady();
 
-        shop().interactHeader().interactAddress().close();
-        shop().interactHeader().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.outOfZoneAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
+        shop().interactAddressLarge().checkIsAddressOutOfZone();
+
+        shop().interactAddressLarge().close();
+        shop().interactAddressLarge().checkAddressModalNotVisible();
         shop().interactHeader().clickToStoreSelector();
 
         home().checkOutOfDeliveryAreaMessageDisplayed();
@@ -221,11 +223,11 @@ public final class UserShippingAddressTests extends BaseTest {
     @Story("Сохранение и изменение адреса доставки")
     @Test(description = "Адрес сохраняется при регистрации нового пользователя", groups = "regression")
     public void testSuccessSaveAddressAfterRegistration() {
-        home().goToPage();
+        home().goToPage(true);
         home().clickToSetAddress();
-        home().interactAddressModal().checkYmapsReadyTmp();
-        home().interactAddressModal().fillAddressTmp(defaultAddress);
-        home().interactAddressModal().selectFirstAddressTmp();
+        home().interactAddressModal().checkYmapsReady();
+        home().interactAddressModal().fillAddress(defaultAddress);
+        home().interactAddressModal().selectFirstAddress();
         home().interactAddressModal().clickFindStores();
         home().waitPageLoad();
         home().clickOnStoreWithSid(DEFAULT_METRO_MOSCOW_SID);

@@ -5,14 +5,14 @@ import ru.instamart.reforged.core.ByKraken;
 import ru.instamart.reforged.core.component.*;
 import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.drawer.cookie.CookieDrawer;
-import ru.instamart.reforged.stf.frame.address.Address;
+import ru.instamart.reforged.stf.frame.address.AddressLarge;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 import ru.instamart.reforged.stf.frame.delivery_zones.DeliveryZones;
 
 public interface HomeElement {
 
     AuthModal authModal = new AuthModal();
-    Address addressModal = new Address();
+    AddressLarge addressModal = new AddressLarge();
     Footer footer = new Footer();
     CookieDrawer cookieAlert = new CookieDrawer();
     DeliveryZones deliveryZones = new DeliveryZones();

@@ -239,12 +239,14 @@ public final class ShoppingCatalogTests extends BaseTest {
     @CaseId(2578)
     @Test(description = "Переход в витрину магазина с главной страницы сайта", groups = "regression")
     public void successShowcaseTransitionFromMainLanding() {
-        home().goToPage();
+        home().goToPage(true);
         home().clickToSetAddress();
-        home().interactAddressModal().checkYmapsReadyTmp();
-        home().interactAddressModal().fillAddressTmp(Addresses.Moscow.defaultAddress());
-        home().interactAddressModal().selectFirstAddressTmp();
+        home().interactAddressModal().checkYmapsReady();
+        home().interactAddressModal().fillAddress(Addresses.Moscow.defaultAddress());
+        home().interactAddressModal().selectFirstAddress();
         home().interactAddressModal().clickFindStores();
+        home().interactAddressModal().checkAddressModalNotVisible();
+
         home().clickOnFirstStore();
         shop().interactHeader().checkLoginIsVisible();
     }
