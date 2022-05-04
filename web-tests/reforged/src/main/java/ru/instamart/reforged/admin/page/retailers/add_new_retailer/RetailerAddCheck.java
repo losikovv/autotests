@@ -60,6 +60,6 @@ public interface RetailerAddCheck extends Check, RetailerAddElements {
 
     @Step("Проверяем, что текст ошибки ввода в поле 'Файле импорта' соответствует ожидаемому: {expectedErrorText}")
     default void checkImportKeyInputErrorText(final String expectedErrorText) {
-        Assert.assertEquals(importKeyInputError.getText(), expectedErrorText, "Текст ошибки ввода в поле 'Короткий URL' отличается от ожидаемого");
+        Assert.assertEquals(importKeyInputError.getText(), expectedErrorText, "Текст ошибки ввода в поле 'Файл импорта' отличается от ожидаемого");
     }
 }
