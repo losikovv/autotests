@@ -8,7 +8,11 @@ import ru.instamart.reforged.core.page.Page;
 public interface AdminPage extends Page {
 
     default void goToPage() {
-        Kraken.open(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH + pageUrl());
+        goToPage(pageUrl());
+    }
+
+    default void goToPage(final String pageUrl) {
+        Kraken.open(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH + pageUrl);
         Kraken.jsAction().waitForDocumentReady();
     }
 
