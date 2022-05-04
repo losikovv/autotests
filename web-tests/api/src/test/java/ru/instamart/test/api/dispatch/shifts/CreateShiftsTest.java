@@ -14,6 +14,7 @@ import ru.instamart.api.request.shifts.ShiftsRequest;
 import ru.instamart.api.response.ErrorTypeResponse;
 import ru.instamart.api.response.shifts.ShiftResponse;
 import ru.instamart.api.response.shifts.PlanningPeriodsSHPResponse;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.sbermarket.qase.annotation.CaseIDs;
@@ -30,16 +31,14 @@ import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode4
 @Feature("Endpoints")
 public class CreateShiftsTest extends RestBase {
 
-    private Integer planningArea;
     private List<PlanningPeriodsSHPResponse> planningPeriod;
 
     @BeforeClass(alwaysRun = true,
-            description = "Получаем оформленный заказ")
+            description = "Оформляем смену")
     public void preconditions() {
         UserData user = UserManager.getShp6Shopper1();
         shopperApp.authorisation(user);
         shiftsApi.getShopperInfo();
-        planningArea = shiftsApi.getPlanningArea().getId();
         planningPeriod = shiftsApi.getPlanningPeriod();
     }
 
@@ -56,7 +55,7 @@ public class CreateShiftsTest extends RestBase {
             description = "Создание смены с ПП в будущем")
     public void creationOfShift201() {
         final ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
-                .planningAreaId(planningArea)
+                .planningAreaId(EnvironmentProperties.DEFAULT_SHIFTS_ZONE_ID)
                 .role(RoleSHP.UNIVERSAL.getRole())
                 .planningPeriod(
                         ShiftsRequest.PlanningPeriods.builder()
@@ -83,7 +82,7 @@ public class CreateShiftsTest extends RestBase {
     public void creationOfShiftInZeroGuaranteedPayroll() {
         PlanningPeriodsSHPResponse planningPeriodItem = planningPeriod.get(1);
         final ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
-                .planningAreaId(planningArea)
+                .planningAreaId(EnvironmentProperties.DEFAULT_SHIFTS_ZONE_ID)
                 .role(RoleSHP.UNIVERSAL.getRole())
                 .planningPeriod(
                         ShiftsRequest.PlanningPeriods.builder()
@@ -116,7 +115,7 @@ public class CreateShiftsTest extends RestBase {
                     .build());
         }
         final ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
-                .planningAreaId(planningArea)
+                .planningAreaId(EnvironmentProperties.DEFAULT_SHIFTS_ZONE_ID)
                 .role(RoleSHP.UNIVERSAL.getRole())
                 .planningPeriods(planningPeriods)
                 .build();
@@ -159,7 +158,7 @@ public class CreateShiftsTest extends RestBase {
             description = "Партнер не может создать смену на одно время для двух магазинов")
     public void createShiftsBeforeOneMinutesToStart422() {
         final ShiftsRequest.PostShift postShift = ShiftsRequest.PostShift.builder()
-                .planningAreaId(planningArea)
+                .planningAreaId(EnvironmentProperties.DEFAULT_SHIFTS_ZONE_ID)
                 .role(RoleSHP.UNIVERSAL.getRole())
                 .planningPeriod(
                         ShiftsRequest.PlanningPeriods.builder()

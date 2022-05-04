@@ -23,6 +23,11 @@ public final class ShipmentsPage implements AdminPage, ShipmentsCheck {
         return tableComponent.getShipmentNumber(line);
     }
 
+    @Step("Нажать на номер доставки из строки {0}")
+    public void clickToShipmentNumber(final int line) {
+        tableComponent.clickToShipmentNumber(line);
+    }
+
     @Step("Получить номер отправки из строки {0}")
     public String getSum(final int line) {
         return StringUtil.parseNumericFromString(tableComponent.getSum(line));

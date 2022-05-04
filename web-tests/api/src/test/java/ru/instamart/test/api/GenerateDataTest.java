@@ -11,6 +11,7 @@ import ru.instamart.kraken.config.EnvironmentProperties;
 public class GenerateDataTest {
     private final ApiV2Helper apiV2 = new ApiV2Helper();
     private final int numberOfTestRuns = 20;
+    private final int shipmentSingleForUICount = 10;
 
     @Test(groups = "generate-data")
     public void generateOrdersWithSingleItem() {
@@ -35,6 +36,19 @@ public class GenerateDataTest {
                     EnvironmentProperties.DEFAULT_SID,
                     5,
                     "SHP-TEST-MULTI");
+        }
+    }
+
+    @Test(groups = "generate-data")
+    public void generateUIOrdersWithSingleItem() {
+        SessionFactory.makeSession(SessionType.API_V2);
+        for (int i = 0; i < shipmentSingleForUICount; i++) {
+            log.info("Создание заказа для тестов UI с 1 товаром");
+            apiV2.order(
+                    SessionFactory.getSession(SessionType.API_V2).getUserData(),
+                    EnvironmentProperties.DEFAULT_SID,
+                    1,
+                    "UI-TEST-SINGLE");
         }
     }
 }

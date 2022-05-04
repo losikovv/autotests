@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import ru.instamart.api.common.RestBase;
 import ru.instamart.api.model.shifts.PlanningPeriodsItem;
 import ru.instamart.api.request.shifts.ShiftsRequest;
@@ -20,19 +21,19 @@ import ru.sbermarket.qase.annotation.CaseId;
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode;
 import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
 import static ru.instamart.kraken.data.StartPointsTenants.METRO_3;
 
 @Epic("Shifts")
 @Feature("Endpoints")
-public class StartShiftsTest extends RestBase {
+public class ShiftsPlanTest extends RestBase {
 
-    private Integer planningArea;
     private List<PlanningPeriodsSHPResponse> planningPeriod;
     private int planningPeriodId;
 
     @BeforeClass(alwaysRun = true,
-            description = "Получаем оформленный заказ")
+            description = "Оформляем смену")
     public void preconditions() {
         UserData user = UserManager.getShp6Shopper1();
         shopperApp.authorisation(user);
@@ -56,7 +57,7 @@ public class StartShiftsTest extends RestBase {
         final Response response = ShiftsRequest.Start.PATCH(planningPeriodId, METRO_3.getLat(), METRO_3.getLon());
         checkStatusCode200(response);
         ShiftResponse shiftResponse = response.as(ShiftResponse.class);
-        assertEquals(shiftResponse.getState(),"in_progress", "State смены не в статусе \"in_progress\"");
+        assertEquals(shiftResponse.getState(), "in_progress", "State смены не в статусе \"in_progress\"");
         assertEquals(shiftResponse.getId(), planningPeriodId, "Id отличается от planningPeriodId");
     }
 
@@ -71,7 +72,49 @@ public class StartShiftsTest extends RestBase {
         final Response response = ShiftsRequest.Start.PATCH(planningPeriodId, METRO_3.getLat(), METRO_3.getLon());
         checkStatusCode200(response);
         ShiftResponse shiftResponse = response.as(ShiftResponse.class);
-        assertEquals(shiftResponse.getState(),"in_progress", "State смены не в статусе \"in_progress\"");
+        assertEquals(shiftResponse.getState(), "in_progress", "State смены не в статусе \"in_progress\"");
+        assertEquals(shiftResponse.getId(), planningPeriodId, "Id отличается от planningPeriodId");
+    }
+
+    @CaseId(75)
+    @Story("Пауза смены")
+    @Test(groups = {"api-shifts"},
+            dependsOnMethods = "startShift200",
+            description = "Взять паузу в in_progress смене (лимит не израсходован)")
+    public void pauseShifts200() {
+        final Response response = ShiftsRequest.Pause.POST(planningPeriodId);
+        checkStatusCode(response, 201);
+        ShiftResponse shiftResponse = shiftsApi.shifts().get(0);
+        final SoftAssert sa = new SoftAssert();
+        sa.assertEquals(shiftResponse.getId(), planningPeriodId, "planningPeriodId не совпадает");
+        sa.assertEquals(shiftResponse.getState(), "on_pause", "state не равен on_pause");
+        sa.assertAll();
+    }
+
+    @CaseId(77)
+    @Story("Пауза смены")
+    @Test(groups = {"api-shifts"},
+            dependsOnMethods = "pauseShifts200",
+            description = "Взять паузу в in_progress смене (лимит израсходован)")
+    public void secondPauseShifts200() {
+        final Response resp = ShiftsRequest.Pause.DELETE(planningPeriodId);
+        checkStatusCode(resp, 204);
+        final Response response = ShiftsRequest.Pause.POST(planningPeriodId, true);
+        checkStatusCode(response, 201);
+        ShiftResponse shiftResponse = shiftsApi.shifts().get(0);
+        assertEquals(shiftResponse.getState(), "on_pause", "State смены не в статусе \"on_pause\"");
+        assertEquals(shiftResponse.getId(), planningPeriodId, "Id отличается от planningPeriodId");
+    }
+
+    @CaseId(55)
+    @Story("Завершение смены")
+    @Test(groups = {"api-shifts"},
+            description = "Завершение смены досрочно, более чем 10 мин до планового окончания, с указанием причины")
+    public void stopShifts200() {
+        final Response response = ShiftsRequest.Stop.POST(planningPeriodId);
+        checkStatusCode200(response);
+        ShiftResponse shiftResponse = response.as(ShiftResponse.class);
+        assertEquals(shiftResponse.getState(), "completed", "State смены не в статусе \"completed\"");
         assertEquals(shiftResponse.getId(), planningPeriodId, "Id отличается от planningPeriodId");
     }
 }

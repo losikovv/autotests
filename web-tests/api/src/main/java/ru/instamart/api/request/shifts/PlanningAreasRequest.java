@@ -29,4 +29,18 @@ public class PlanningAreasRequest extends ShiftsRequestBase {
                 .queryParam("ended_at", getZonedUTCFutureDate(1L))
                 .get(ShiftsV1Endpoints.PlanningAreas.PLANNING_PERIODS, id);
     }
+    @Step("{method} /" + ShiftsV1Endpoints.PlanningAreas.PLANNING_PERIODS)
+    public static Response GET(final long id,
+                               final RoleSHP role,
+                               final String startedAt,
+                               final String endedAt) {
+        RequestSpecification given = givenWithAuth();
+        if(Objects.nonNull(role)) {
+            given.queryParam("role", role.getRole());
+        }
+        return given
+                .queryParam("started_at", startedAt)
+                .queryParam("ended_at", endedAt)
+                .get(ShiftsV1Endpoints.PlanningAreas.PLANNING_PERIODS, id);
+    }
 }

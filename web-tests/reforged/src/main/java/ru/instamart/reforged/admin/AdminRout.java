@@ -23,6 +23,8 @@ import ru.instamart.reforged.admin.page.settings.shipping_method.ShippingMethodP
 import ru.instamart.reforged.admin.page.settings.shipping_method.new_method.ShippingNewMethodPage;
 import ru.instamart.reforged.admin.page.settings.sms_settings.SmsSettingsPage;
 import ru.instamart.reforged.admin.page.shipment.ShipmentsPage;
+import ru.instamart.reforged.admin.page.shipment.shipment.ShipmentPage;
+import ru.instamart.reforged.admin.page.shipment.shipment.delivery_windows.ShipmentDeliveryWindowsPage;
 import ru.instamart.reforged.admin.page.users.UsersPage;
 import ru.instamart.reforged.admin.page.usersEdit.UsersEditPage;
 import ru.instamart.reforged.core.page.Router;
@@ -99,6 +101,14 @@ public final class AdminRout extends Router {
 
     public static ShipmentsPage shipments() {
         return (ShipmentsPage) getPage(ShipmentsPage.class);
+    }
+
+    public static ShipmentPage shipmentPage() {
+        return (ShipmentPage) getPage(ShipmentPage.class);
+    }
+
+    public static ShipmentDeliveryWindowsPage shipmentPageDelivery() {
+        return (ShipmentDeliveryWindowsPage) getPage(ShipmentDeliveryWindowsPage.class);
     }
 
     public static UsersPage users() {

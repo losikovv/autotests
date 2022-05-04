@@ -25,6 +25,7 @@
             <class name="ru.instamart.test.reforged.admin.BasicAdministrationTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationRetailerEditTests"/>
             <class name="ru.instamart.test.reforged.admin.AdministrationRetailerAddTests"/>
+            <class name="ru.instamart.test.reforged.admin.AdministrationOrdersEditTests"/>
         </classes>
     </test>
 </suite>

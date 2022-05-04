@@ -2,7 +2,9 @@ package ru.instamart.api.helper;
 
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomUtils;
 import ru.instamart.api.enums.v1.ImportStatusV1;
+import ru.instamart.api.model.shopper.app.ShipmentSHP;
 import ru.instamart.api.model.v1.DeliveryWindowV1;
 import ru.instamart.api.model.v1.OperationalZoneV1;
 import ru.instamart.api.model.v1.RetailerV1;
@@ -25,9 +27,11 @@ import ru.instamart.jdbc.dao.shopper.OperationalZonesShopperDao;
 import ru.instamart.jdbc.dao.shopper.RetailersShopperDao;
 import ru.instamart.jdbc.dao.stf.*;
 import ru.instamart.jdbc.entity.stf.StoresEntity;
+import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.StaticPageData;
 import ru.instamart.kraken.data.StoreZonesCoordinates;
 import ru.instamart.kraken.data.user.UserData;
+import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
 
 import java.util.List;
@@ -43,6 +47,7 @@ public final class ApiHelper {
 
     private final ApiV2Helper apiV2 = new ApiV2Helper();
     private final AdminHelper admin = new AdminHelper();
+    private final ShopperAppApiHelper shopperApp = new ShopperAppApiHelper();
 
     @Step("Подтверждение кода с помощью API")
     public SessionV2 confirmPhone(final String phone, final String code, final boolean promoTermsAccepted) {
@@ -662,5 +667,12 @@ public final class ApiHelper {
     @Step("Получаем информацию о ближайшей возможной доставке из магазина SID = '{sid}' по адресу {address}")
     public String getNextDeliveryInfo(final int sid, final AddressV2 address) {
         return apiV2.getNextDeliveryInfo(sid, address);
+    }
+
+    @Step("Получаем заказы из шоппера с комментарием: {comment}")
+    public ShipmentSHP.Data getShipmentByComment(String comment) {
+        shopperApp.authorisation(UserManager.getDefaultShopper());
+        comment = EnvironmentProperties.SERVER.equals("production") ? comment + RandomUtils.nextInt(1, 50) : comment;
+        return shopperApp.getShipmentByComment(comment);
     }
 }
