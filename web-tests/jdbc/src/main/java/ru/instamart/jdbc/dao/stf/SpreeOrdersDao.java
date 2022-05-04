@@ -54,6 +54,34 @@ public class SpreeOrdersDao extends AbstractDao<Long, SpreeOrdersEntity> {
         return order;
     }
 
+    public SpreeOrdersEntity getOrderByShipment(String shipmentNumber) {
+        SpreeOrdersEntity order = new SpreeOrdersEntity();
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") +
+                     " so JOIN spree_shipments ss ON ss.order_id = so.id" +
+                     " WHERE ss.number = ?")) {
+            preparedStatement.setString(1, shipmentNumber);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                order.setId(resultSet.getLong("id"));
+                order.setNumber(resultSet.getString("number"));
+                order.setState(resultSet.getString("state"));
+                order.setUserId(resultSet.getLong("user_id"));
+                order.setShipAddressId(resultSet.getLong("ship_address_id"));
+                order.setShipmentState(resultSet.getString("shipment_state"));
+                order.setPaymentState(resultSet.getString("payment_state"));
+                order.setEmail(resultSet.getString("email"));
+                order.setEmail(resultSet.getString("email"));
+                order.setReplacementPolicyId(resultSet.getInt("replacement_policy_id"));
+                order.setShippingMethodKind(resultSet.getString("shipping_method_kind"));
+                order.setPaymentToolId(resultSet.getLong("payment_tool_id"));
+            } else return null;
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
+        return order;
+    }
+
     public void updateShipmentStateToShip(String orderNumber, String shippedAt) {
         try (Connection connect = ConnectionMySQLManager.get();
              PreparedStatement preparedStatement = connect.prepareStatement(UPDATE_SQL + " so JOIN spree_shipments ss ON so.id = ss.order_id " +

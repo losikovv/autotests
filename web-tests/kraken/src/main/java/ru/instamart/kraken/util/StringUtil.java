@@ -13,6 +13,9 @@ public final class StringUtil {
     private static final String PHONE_PATTERN = "(\\d{3})(\\d{3})(\\d{2})(\\d+)";
     private static final String EXTRA_ZERO_PATTERN = "0(\\d:)";
     private static final String LAST_CATALOG_FROM_PATH = "^.+/";
+    private static final String NOT_SLOTS_IN_INTERVAL = "^.+:\\d{2} | \\D.+";
+    private static final String AVAILABLE_SLOT_COUNT = "\\/.+";
+    private static final String TOTAL_SLOT_COUNT = "^.+\\/";
 
     private StringUtil() {
     }
@@ -104,5 +107,40 @@ public final class StringUtil {
      */
     public static String getLastCatalogFromPath(String url) {
         return url.replaceAll(LAST_CATALOG_FROM_PATH, "");
+    }
+
+    /**
+     * Заменяем дефис - знак отличается на разных страницах и в данных, полученных из API
+     */
+    public static String hyphenReplace(String stringToReplace) {
+        return stringToReplace.replaceAll("–", "-");
+    }
+
+    /**
+     * Получаем временной интервал из полного описания слота доставки
+     */
+    public static String getTimeFromDeliveryText(final String deliveryText) {
+        return deliveryText.replaceAll(" .+", "");
+    }
+
+    /**
+     * Получаем информацию о слотах из полного описания интервала доставки
+     */
+    public static String getSlotsFromDeliveryText(final String deliveryText) {
+        return deliveryText.replaceAll(NOT_SLOTS_IN_INTERVAL, "");
+    }
+
+    /**
+     * Получаем информацию о доступных слотах
+     */
+    public static String getAvailableSlotCount(final String slotsInfo) {
+        return slotsInfo.replaceAll(AVAILABLE_SLOT_COUNT, "");
+    }
+
+    /**
+     * Получаем информацию о доступных слотах
+     */
+    public static String getTotalSlotCount(final String slotsInfo) {
+        return slotsInfo.replaceAll(TOTAL_SLOT_COUNT, "");
     }
 }
