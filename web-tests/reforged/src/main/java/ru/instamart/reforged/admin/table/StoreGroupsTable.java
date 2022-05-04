@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import ru.instamart.reforged.core.component.TableComponent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.isNull;
@@ -27,12 +26,7 @@ public final class StoreGroupsTable extends TableComponent {
     }
 
     public List<String> getGroupNames() {
-        final var column = getElementsFromColumn(Column.NAME.label);
-        final var groupNames = new ArrayList<String>();
-        column.forEach(line -> {
-            groupNames.add(line.getText());
-        });
-        return groupNames;
+        return getDataFromColumn(Column.NAME.label);
     }
 
     public void clickToEdit(final int line) {

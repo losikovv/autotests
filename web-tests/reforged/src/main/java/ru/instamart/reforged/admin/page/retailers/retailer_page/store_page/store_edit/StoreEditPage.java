@@ -1,15 +1,9 @@
 package ru.instamart.reforged.admin.page.retailers.retailer_page.store_page.store_edit;
 
 import io.qameta.allure.Step;
-import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.reforged.admin.AdminPage;
-import ru.instamart.reforged.core.Kraken;
 
 public class StoreEditPage implements AdminPage, StoreEditCheck {
-
-    public void goToPage(final String retailer, final String storeUUID) {
-        Kraken.open(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD + "retailers/" + retailer + "/stores/" + storeUUID + "/edit");
-    }
 
     @Step("Кликаем на группу магазинов: {storeLabel}")
     public void clickOnStoreLabel(final String storeLabel) {
@@ -21,12 +15,17 @@ public class StoreEditPage implements AdminPage, StoreEditCheck {
         submit.hoverAndClick();
     }
 
+    public void goToPage(final String retailer, final String storeUUID) {
+        goToPageOld(String.format(pageUrl(), retailer, storeUUID));
+    }
+
     @Override
     public void goToPage() {
+        throw new RuntimeException("Для перехода на страницу редактирования магазина необходимо использовать метод с параметрами");
     }
 
     @Override
     public String pageUrl() {
-        return "";
+        return "retailers/%s/stores/%s/edit";
     }
 }
