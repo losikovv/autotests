@@ -133,7 +133,6 @@ public class AdministrationRetailerAddTests extends BaseTest {
 
         retailerAdd().fillImportKey(Generate.symbolString(10));
         retailerAdd().checkImportKeyInputErrorVisible();
-        retailerAdd().checkImportKeyInputText("");
         retailerAdd().clearImportKey();
 
         retailerAdd().fillImportKey(Generate.literalCyrillicString(10));

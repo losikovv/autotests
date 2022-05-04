@@ -18,15 +18,12 @@ import static ru.instamart.reforged.admin.AdminRout.retailers;
 public class AdministrationRetailerActivateTests extends BaseTest {
 
     private final ApiHelper apiHelper = new ApiHelper();
-    private String retailerName;
-    private String cityNameFirst;
-    private StoresAdminRequest.Store firstStore;
+    private String retailerName = Generate.literalString(6) + "_retailer";
+    private String cityNameFirst = Generate.literalString(6) + "_city";
+    private StoresAdminRequest.Store firstStore = new StoresAdminRequest.Store();
 
     @BeforeMethod(alwaysRun = true)
     public void prepareData() {
-        retailerName = Generate.literalString(6) + "_retailer";
-        cityNameFirst = Generate.literalString(6) + "_city";
-
         apiHelper.createRetailerInAdmin(retailerName);
 
         apiHelper.setupCity(cityNameFirst);
@@ -41,6 +38,7 @@ public class AdministrationRetailerActivateTests extends BaseTest {
 
         apiHelper.deleteCityInAdmin(cityNameFirst);
         apiHelper.deleteOperationalZonesInAdmin(cityNameFirst);
+        apiHelper.deleteOperationalZonesInShopper(cityNameFirst);
 
         apiHelper.deleteStoreInAdmin(firstStore);
     }
