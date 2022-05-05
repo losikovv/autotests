@@ -29,6 +29,7 @@ import ru.instamart.jdbc.dao.stf.*;
 import ru.instamart.jdbc.entity.stf.StoresEntity;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.StaticPageData;
+import ru.instamart.kraken.data.StoreLabelData;
 import ru.instamart.kraken.data.StoreZonesCoordinates;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
@@ -667,6 +668,18 @@ public final class ApiHelper {
     @Step("Получаем информацию о ближайшей возможной доставке из магазина SID = '{sid}' по адресу {address}")
     public String getNextDeliveryInfo(final int sid, final AddressV2 address) {
         return apiV2.getNextDeliveryInfo(sid, address);
+    }
+
+    @Step("Удаляем группу магазинов: '{storeLabelName}'")
+    public void deleteStoreLabel(final String storeLabelName) {
+        admin.authApi();
+        admin.deleteStoreLabel(admin.getStoreLabelByName(storeLabelName).getId());
+    }
+
+    @Step("Добавляем группу магазинов: '{storeLabelData}'")
+    public void createStoreLabel(final StoreLabelData storeLabelData) {
+        admin.authApi();
+        admin.createStoreLabel(storeLabelData);
     }
 
     @Step("Получаем заказы из шоппера с комментарием: {comment}")

@@ -6,10 +6,7 @@ import ru.instamart.api.enums.SessionProvider;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.v2.ShippingMethodV2;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.model.v1.DeliveryWindowV1;
-import ru.instamart.api.model.v1.ImportsFileV1;
-import ru.instamart.api.model.v1.OperationalZoneV1;
-import ru.instamart.api.model.v1.RetailerV1;
+import ru.instamart.api.model.v1.*;
 import ru.instamart.api.model.v1.b2b.CompanyV1;
 import ru.instamart.api.model.v1.b2b.ManagerV1;
 import ru.instamart.api.model.v1.b2b.UserV1;
@@ -18,22 +15,24 @@ import ru.instamart.api.request.v1.*;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.MarketingPricers;
 import ru.instamart.api.request.v1.ShippingMethodsV1Request.NominalPricers;
 import ru.instamart.api.request.v1.admin.ShipmentsAdminV1Request;
+import ru.instamart.api.request.v1.admin.StoreLabelsAdminV1Request;
 import ru.instamart.api.request.v1.b2b.CompaniesV1Request;
 import ru.instamart.api.request.v1.b2b.CompanyEmployeesV1Request;
 import ru.instamart.api.request.v1.b2b.CompanyManagersV1Request;
 import ru.instamart.api.response.v1.*;
 import ru.instamart.api.response.v1.admin.ShipmentsAdminV1Response;
+import ru.instamart.api.response.v1.admin.StoreLabelsAdminV1Response;
 import ru.instamart.api.response.v1.b2b.CompaniesV1Response;
 import ru.instamart.api.response.v1.imports.OffersFilesV1Response;
 import ru.instamart.jdbc.dao.stf.SpreeUsersDao;
 import ru.instamart.kraken.config.EnvironmentProperties;
+import ru.instamart.kraken.data.StoreLabelData;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 
 import java.util.List;
 
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode200;
-import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.checkStatusCode302;
+import static ru.instamart.api.checkpoint.StatusCodeCheckpoints.*;
 import static ru.instamart.api.helper.K8sHelper.createAdmin;
 
 public class AdminHelper {
@@ -194,7 +193,8 @@ public class AdminHelper {
         SessionFactory.createSessionToken(SessionType.API_V1, SessionProvider.EMAIL, user);
     }
 
-    @Step("Авторизация администратором со включенными новыми ролями для API") //временное решение, пока полностью не переделают админку
+    @Step("Авторизация администратором со включенными новыми ролями для API")
+    //временное решение, пока полностью не переделают админку
     public void authApiWithAdminNewRoles() {
         UserData user = UserManager.getDefaultAdminAllRoles();
         if (!EnvironmentProperties.SERVER.equals("production")) {
@@ -282,5 +282,36 @@ public class AdminHelper {
         final Response responseGet = StoresV1Request.DeliveryWindows.GET(storeId);
         checkStatusCode200(responseGet);
         return responseGet.as(DeliveryWindowsV1Response.class).getDeliveryWindows();
+    }
+
+    public List<AdminStoreLabelsItemV1> getStoreLabels() {
+        final Response responseGet = StoreLabelsAdminV1Request.GET();
+        checkStatusCode200(responseGet);
+        return responseGet.as(StoreLabelsAdminV1Response.class).getStoreLabels();
+    }
+
+    public AdminStoreLabelsItemV1 getStoreLabelByName(final String storeLabelName) {
+        return getStoreLabels().stream()
+                .filter(storeLabelsItemV1 -> storeLabelsItemV1.getTitle().equals(storeLabelName))
+                .findFirst()
+                .orElse(new AdminStoreLabelsItemV1());
+    }
+
+    public void createStoreLabel(StoreLabelData storeLabelData) {
+        AdminStoreLabelsItemV1 storeLabelsItemV1 = AdminStoreLabelsItemV1.builder()
+                .title(storeLabelData.getTitle())
+                .subtitle(storeLabelData.getSubtitle())
+                .code(storeLabelData.getCode())
+                .icon(storeLabelData.getIcon())
+                .level(storeLabelData.getLevel())
+                .position(storeLabelData.getPosition())
+                .build();
+        final Response response = StoreLabelsAdminV1Request.POST(storeLabelsItemV1);
+        checkStatusCode(response, 201);
+    }
+
+    public void deleteStoreLabel(Integer storeLabelID) {
+        final Response response = StoreLabelsAdminV1Request.DELETE(storeLabelID);
+        checkStatusCode204or404(response);
     }
 }

@@ -123,6 +123,11 @@ public final class ApiV1Endpoints {
             public static final String SHIPMENT_RETURNS = "admin/shipments/{shipmentUUID}/shipment_returns";
             public static final String SHIPMENT_RETURN = "admin/shipments/{shipmentUUID}/shipment_returns/{shipmentReturnUUID}";
         }
+
+        public static final class StoreLabels {
+            public static final String STORE_LABEL = "admin/store_labels/{storeLabelId}";
+            public static final String STORE_LABELS = "admin/store_labels";
+        }
     }
 
     public static final class Checkout {

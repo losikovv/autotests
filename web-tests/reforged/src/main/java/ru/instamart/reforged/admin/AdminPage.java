@@ -16,6 +16,11 @@ public interface AdminPage extends Page {
         Kraken.jsAction().waitForDocumentReady();
     }
 
+    default void goToPageOld(final String pageUrl) {
+        Kraken.open(EnvironmentProperties.Env.FULL_ADMIN_URL_WITH_BASIC_AUTH_OLD + pageUrl);
+        Kraken.jsAction().waitForDocumentReady();
+    }
+
     @Override
     @Step("Ожидание загрузки страницы")
     default void waitPageLoad() {
