@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ru.instamart.api.enums.v2.StateV2;
 import ru.instamart.api.helper.ApiHelper;
 import ru.instamart.api.model.shopper.app.ShipmentSHP;
 import ru.instamart.jdbc.dao.stf.SpreeOrdersDao;
@@ -16,7 +17,6 @@ import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.test.reforged.BaseTest;
 import ru.sbermarket.qase.annotation.CaseId;
 
-import static ru.instamart.api.helper.K8sHelper.changeToCancel;
 import static ru.instamart.reforged.admin.AdminRout.*;
 
 @Epic("Админка STF")
@@ -37,7 +37,7 @@ public final class AdministrationOrdersEditTests extends BaseTest {
 
     @AfterClass(alwaysRun = true)
     public void cancelOrder() {
-        changeToCancel(order.getNumber());
+        SpreeOrdersDao.INSTANCE.updateShipmentState(order.getNumber(), StateV2.CANCELED.getValue());
     }
 
     @CaseId(133)

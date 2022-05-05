@@ -7,6 +7,7 @@ import ru.instamart.reforged.core.component.Element;
 import ru.instamart.reforged.core.component.Input;
 
 public interface AddressLargeElement {
+    //Тикет на добавление data-qa атрибутов https://jira.sbmt.io/browse/B2C-8801
 
     Element addressModal = new Element(By.xpath("//ymaps[contains(@class,'-inner-panes')]"), "Яндекс-карты");
     Element markerSelectOnMap = new Element(By.xpath("(//div[contains(.,'Адрес можно выбирать прямо на карте')])[last()]"), "Маркер с предложением выбрать адрес на карте");
