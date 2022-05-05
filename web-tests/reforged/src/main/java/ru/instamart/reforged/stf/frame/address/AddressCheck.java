@@ -34,12 +34,6 @@ public interface AddressCheck extends AddressElement, Check {
         waitAction().shouldBeVisible(ymapReady);
     }
 
-    @Deprecated
-    @Step("Проверяем, что яндекс карты готовы к работе")
-    default void checkYmapsReadyTmp() {
-        waitAction().shouldBeVisible(ymapReadyTmp);
-    }
-
     @Step("Проверка что сохраненных адресов '{0}'")
     default void checkCountOfStoredAddresses(final int count) {
         assertEquals(storedAddresses.elementCount(), count, "Недостаточное количество сохраненных адресов");

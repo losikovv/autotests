@@ -6,7 +6,7 @@ import ru.instamart.reforged.CookieFactory;
 import ru.instamart.reforged.core.page.Window;
 import ru.instamart.reforged.stf.block.footer.Footer;
 import ru.instamart.reforged.stf.drawer.cookie.CookieDrawer;
-import ru.instamart.reforged.stf.frame.address.Address;
+import ru.instamart.reforged.stf.frame.address.AddressLarge;
 import ru.instamart.reforged.stf.frame.auth.auth_modal.AuthModal;
 import ru.instamart.reforged.stf.frame.delivery_zones.DeliveryZones;
 import ru.instamart.reforged.stf.page.StfPage;
@@ -19,7 +19,7 @@ public final class HomePage implements StfPage, Window, HomeCheck {
         return authModal;
     }
 
-    public Address interactAddressModal() {
+    public AddressLarge interactAddressModal() {
         return addressModal;
     }
 

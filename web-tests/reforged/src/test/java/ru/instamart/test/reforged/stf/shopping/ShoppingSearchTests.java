@@ -2,7 +2,6 @@ package ru.instamart.test.reforged.stf.shopping;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
 import io.qameta.allure.Story;
 import org.testng.annotations.Test;
 import ru.instamart.kraken.data.Addresses;
@@ -130,12 +129,13 @@ public final class ShoppingSearchTests extends BaseTest {
     public void successAddItemToCartFromSearchResults() {
         shop().goToPage(true);
         shop().interactHeader().clickToSelectAddressFirstTime();
-        shop().interactAddress().checkYmapsReady();
-        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddress().selectFirstAddress();
-        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddress().clickOnSave();
-        shop().interactAddress().checkAddressModalIsNotVisible();
+        shop().interactAddressLarge().checkYmapsReady();
+
+        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddressLarge().selectFirstAddress();
+        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddressLarge().clickSave();
+        shop().interactAddressLarge().checkAddressModalNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().goToPage(true);

@@ -11,15 +11,11 @@ public interface AddressElement {
     Button selfDelivery = new Button(By.xpath("//button[@data-qa='address-edit-selector-pickup']"), "empty");
 
     Input address = new Input(By.xpath("//input[@data-qa='address-modal-input']"), "поле ввода адреса");
-    //TODO: Ждет data-qa
-    Input addressTmp = new Input(By.xpath("//main//input"), "поле ввода адреса");
     Element firstPrevAddresses = new Element(By.xpath("//div[@data-qa='address-modal-addresses']//div[@class='address-modal__address']"), "первый адрес из блока Предыдущие адреса");
 
     Input addressNew = new Input(By.xpath("//div[contains(@class,'AddressModal')]//input"), "поле ввода адреса");
 
     DropDown dropDownAddress = new DropDown(By.xpath("//input[@data-qa='address-modal-input']/following::div[2]/div/div/div"), "empty");
-    //TODO: Ждет data-qa
-    DropDown dropDownAddressTmp = new DropDown(By.xpath("//main//input/following::div[2]/div/div/div"), "empty");
     Button save = new Button(By.xpath("//button[@data-qa='address-modal-submit']"), "кнопка Сохранить");
     Button findStores = new Button(By.xpath("//button[@data-qa='b2c_home_landing_address_block_address_modal_submit_button']"), "кнопка 'Найти магазины'");
     Element outOfShippingZone = new Element(By.xpath("//div[text()='Адрес не в зоне доставки']"), "лейбл Адрес не в зоне доставки");
@@ -37,7 +33,5 @@ public interface AddressElement {
 
     Element markerImageOnMapInAdvice = new Element(By.xpath("//div[contains(@class, 'notice')]/descendant::img[contains(@src, '/marker')]"), "empty");
     Element ymapReady = new Element(By.xpath("//div[@data-qa='address-modal']//ymaps"), "Элемент яндекс карт, готовый к работе");
-    //TODO: Ждет data-qa
-    Element ymapReadyTmp = new Element(By.xpath("//main//ymaps"), "Элемент яндекс карт, готовый к работе");
     ElementCollection storedAddresses = new ElementCollection(By.xpath("//div[@class='address-modal__address']"), "список сохраненных адресов");
 }
