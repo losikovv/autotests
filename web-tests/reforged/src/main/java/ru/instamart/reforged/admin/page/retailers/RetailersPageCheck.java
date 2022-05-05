@@ -101,7 +101,7 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
 
     @Step("Проверяем, что список магазинов отсортирован по алфавиту")
     default void checkIfStoreAlphabeticallySorted() {
-        List<String> listCities = storesInTable.getTextFromAllElements();
+        final var listCities = storesInTable.getTextFromAllElements();
         List<Integer> listCitiesNumbers = listCities.stream().map(StringUtil::parseNumberCitiesFromString)
                 .collect(Collectors.toList());
 
@@ -184,23 +184,23 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
 
     @Step("Проверяем, что сортировка по имени ретейлера ASC корректна")
     default void checkSortViaNameAsc() {
-        List<String> retailersNamesInTable = retailersInTable.getTextFromAllElements();
-        List<String> sorted = CollectionUtil.sortListCaseInsensitive(retailersNamesInTable);
+        final var retailersNamesInTable = retailersInTable.getTextFromAllElements();
+        final var sorted = CollectionUtil.sortListCaseInsensitive(retailersNamesInTable);
         krakenAssert.assertEquals(retailersNamesInTable, sorted,
                 "Города по имени ASC отсортированы некорректно");
     }
 
     @Step("Проверяем, что сортировка по имени ретейлера DESC корректна")
     default void checkSortViaNameDesc() {
-        List<String> retailersNamesInTable = retailersInTable.getTextFromAllElements();
-        List<String> sorted = CollectionUtil.reverseListOrderCaseInsensitive(retailersNamesInTable);
+        final var retailersNamesInTable = retailersInTable.getTextFromAllElements();
+        final List<String> sorted = CollectionUtil.reverseListOrderCaseInsensitive(retailersNamesInTable);
         krakenAssert.assertEquals(retailersNamesInTable, sorted,
                 "Города по имени DESC отсортированы некорректно");
     }
 
     @Step("Проверяем, что сортировка по дате создания ASC корректна")
     default void checkSortViaCreationDateAsc() {
-        List<String> retailersCreationDate = retailersCreationDateInTable.getTextFromAllElements();
+        final var retailersCreationDate = retailersCreationDateInTable.getTextFromAllElements();
         List<ZonedDateTime> retailersCreationDateConverted = retailersCreationDate.stream()
                 .map(TimeUtil::convertStringToDate).collect(Collectors.toList());
         List<ZonedDateTime> retailersCreationDateSorted = CollectionUtil.sortList(retailersCreationDateConverted);
@@ -210,7 +210,7 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
 
     @Step("Проверяем, что сортировка по дате создания DESC корректна")
     default void checkSortViaCreationDateDesc() {
-        List<String> retailersCreationDate = retailersCreationDateInTable.getTextFromAllElements();
+        final var retailersCreationDate = retailersCreationDateInTable.getTextFromAllElements();
         List<ZonedDateTime> retailersCreationDateConverted = retailersCreationDate.stream()
                 .map(TimeUtil::convertStringToDate).collect(Collectors.toList());
         List<ZonedDateTime> retailersCreationDateSorted = CollectionUtil.reverseListOrder(retailersCreationDateConverted);

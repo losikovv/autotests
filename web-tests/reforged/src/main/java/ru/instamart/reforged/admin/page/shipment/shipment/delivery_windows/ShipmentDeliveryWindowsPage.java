@@ -5,6 +5,7 @@ import ru.instamart.kraken.util.ThreadUtil;
 import ru.instamart.reforged.admin.AdminPage;
 
 import java.util.List;
+import java.util.Set;
 
 public final class ShipmentDeliveryWindowsPage implements AdminPage, ShipmentDeliveryWindowsCheck {
 
@@ -14,7 +15,7 @@ public final class ShipmentDeliveryWindowsPage implements AdminPage, ShipmentDel
     }
 
     @Step("Получаем информацию о доступных интервалах доставки")
-    public List<String> getAvailableIntervals() {
+    public Set<String> getAvailableIntervals() {
         return availableIntervals.getTextFromAllElements();
     }
 

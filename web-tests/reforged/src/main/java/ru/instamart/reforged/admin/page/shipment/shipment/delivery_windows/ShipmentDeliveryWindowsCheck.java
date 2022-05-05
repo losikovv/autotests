@@ -6,6 +6,7 @@ import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 
 import java.util.List;
+import java.util.Set;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
@@ -44,7 +45,7 @@ public interface ShipmentDeliveryWindowsCheck extends Check, ShipmentDeliveryWin
     }
 
     @Step("Проверяем информацию о слотах в доступных интервалах доставки")
-    default void checkSlotsInfoInAvailableIntervals(final List<String> availableIntervals) {
+    default void checkSlotsInfoInAvailableIntervals(final Set<String> availableIntervals) {
         availableIntervals.forEach(
                 interval -> krakenAssert.assertFalse(StringUtil.getSlotsFromDeliveryText(interval).isEmpty(),
                         "Не удалось обнаружить информацию о слотах в интервале " + interval));
