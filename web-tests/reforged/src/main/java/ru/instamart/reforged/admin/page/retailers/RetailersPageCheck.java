@@ -8,7 +8,8 @@ import ru.instamart.kraken.util.TimeUtil;
 import ru.instamart.reforged.core.Check;
 
 import java.time.ZonedDateTime;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static ru.instamart.reforged.core.Kraken.waitAction;
@@ -101,7 +102,7 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
 
     @Step("Проверяем, что список магазинов отсортирован по алфавиту")
     default void checkIfStoreAlphabeticallySorted() {
-        List<String> listCities = storesInTable.getTextFromAllElements();
+        final var listCities = storesInTable.getTextFromAllElements();
         List<Integer> listCitiesNumbers = listCities.stream().map(StringUtil::parseNumberCitiesFromString)
                 .collect(Collectors.toList());
 
@@ -184,36 +185,36 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
 
     @Step("Проверяем, что сортировка по имени ретейлера ASC корректна")
     default void checkSortViaNameAsc() {
-        List<String> retailersNamesInTable = retailersInTable.getTextFromAllElements();
-        List<String> sorted = CollectionUtil.sortListCaseInsensitive(retailersNamesInTable);
+        final var retailersNamesInTable = retailersInTable.getTextFromAllElements();
+        final var sorted = CollectionUtil.sortListCaseInsensitive(retailersNamesInTable);
         krakenAssert.assertEquals(retailersNamesInTable, sorted,
                 "Города по имени ASC отсортированы некорректно");
     }
 
     @Step("Проверяем, что сортировка по имени ретейлера DESC корректна")
     default void checkSortViaNameDesc() {
-        List<String> retailersNamesInTable = retailersInTable.getTextFromAllElements();
-        List<String> sorted = CollectionUtil.reverseListOrderCaseInsensitive(retailersNamesInTable);
+        final var retailersNamesInTable = retailersInTable.getTextFromAllElements();
+        final var sorted = CollectionUtil.reverseListOrderCaseInsensitive(retailersNamesInTable);
         krakenAssert.assertEquals(retailersNamesInTable, sorted,
                 "Города по имени DESC отсортированы некорректно");
     }
 
     @Step("Проверяем, что сортировка по дате создания ASC корректна")
     default void checkSortViaCreationDateAsc() {
-        List<String> retailersCreationDate = retailersCreationDateInTable.getTextFromAllElements();
-        List<ZonedDateTime> retailersCreationDateConverted = retailersCreationDate.stream()
+        final var retailersCreationDate = retailersCreationDateInTable.getTextFromAllElements();
+        final List<ZonedDateTime> retailersCreationDateConverted = retailersCreationDate.stream()
                 .map(TimeUtil::convertStringToDate).collect(Collectors.toList());
-        List<ZonedDateTime> retailersCreationDateSorted = CollectionUtil.sortList(retailersCreationDateConverted);
+        final List<ZonedDateTime> retailersCreationDateSorted = CollectionUtil.sortList(retailersCreationDateConverted);
         krakenAssert.assertEquals(retailersCreationDateConverted, retailersCreationDateSorted,
                 "Ретейлеры по дате создания ASC отсортированы некорректно");
     }
 
     @Step("Проверяем, что сортировка по дате создания DESC корректна")
     default void checkSortViaCreationDateDesc() {
-        List<String> retailersCreationDate = retailersCreationDateInTable.getTextFromAllElements();
-        List<ZonedDateTime> retailersCreationDateConverted = retailersCreationDate.stream()
+        final var retailersCreationDate = retailersCreationDateInTable.getTextFromAllElements();
+        final List<ZonedDateTime> retailersCreationDateConverted = retailersCreationDate.stream()
                 .map(TimeUtil::convertStringToDate).collect(Collectors.toList());
-        List<ZonedDateTime> retailersCreationDateSorted = CollectionUtil.reverseListOrder(retailersCreationDateConverted);
+        final List<ZonedDateTime> retailersCreationDateSorted = CollectionUtil.reverseListOrder(retailersCreationDateConverted);
         krakenAssert.assertEquals(retailersCreationDateConverted, retailersCreationDateSorted,
                 "Ретейлеры по дате создания DESC отсортированы некорректно");
     }
@@ -234,6 +235,4 @@ public interface RetailersPageCheck extends Check, RetailersPageElements {
     default void checkAccessibilityFilterButtonNotAnimated() {
         waitAction().shouldNotBeAnimated(accessibilityFilterButton);
     }
-
-
 }

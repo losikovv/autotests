@@ -6,7 +6,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.instamart.reforged.core.Kraken;
 
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -106,9 +109,9 @@ public final class ElementCollection extends CollectionComponent {
         return getComponents();
     }
 
-    public List<String> getTextFromAllElements() {
+    public Set<String> getTextFromAllElements() {
         log.debug("Get text from all elements of element collection {}'s with locator {}", getClass().getSimpleName(), getBy());
-        return getElements().stream().map(WebElement::getText).collect(Collectors.toList());
+        return getElements().stream().map(WebElement::getText).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     public int elementCount() {

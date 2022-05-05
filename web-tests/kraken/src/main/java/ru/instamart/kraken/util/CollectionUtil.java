@@ -24,7 +24,7 @@ public final class CollectionUtil {
     /**
      * Собирает два списка в один сохраняя порядок
      */
-    public static <K, V> Map<K, V> mergeIntoMap(final List<K> keys, final List<V> values) {
+    public static <K, V> Map<K, V> mergeIntoMap(final Collection<K> keys, final Collection<V> values) {
         final Iterator<K> keyIter = keys.iterator();
         final Iterator<V> valIter = values.iterator();
         return IntStream.range(0, keys.size()).boxed()
@@ -66,27 +66,27 @@ public final class CollectionUtil {
     }
 
     // Сортировка списка в прямом порядке
-    public static <K> List<K> sortList(List<K> list) {
+    public static <K> List<K> sortList(Collection<K> list) {
         return list.stream().sorted().collect(Collectors.toList());
     }
 
     // Сортировка списка в обратном порядке
-    public static <K> List<K> reverseListOrder(List<K> list) {
+    public static <K> List<K> reverseListOrder(Collection<K> list) {
         return list.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList());
     }
 
     // Сортировка списка в прямом порядке регистронезависимо
-    public static <K> List<K> sortListCaseInsensitive(List<K> list) {
+    public static <K> List<K> sortListCaseInsensitive(Collection<K> list) {
         return list.stream().sorted((Comparator<? super K>) String.CASE_INSENSITIVE_ORDER).collect(Collectors.toList());
     }
 
     // Сортировка списка в обратном порядке регистронезависимо
-    public static <K> List<K> reverseListOrderCaseInsensitive(List<K> list) {
+    public static <K> List<K> reverseListOrderCaseInsensitive(Collection<K> list) {
         return list.stream().sorted((Comparator<? super K>) Collections.reverseOrder(String.CASE_INSENSITIVE_ORDER)).collect(Collectors.toList());
     }
 
     // Обрезка элементов списка (String) по длине и сортировка
-    public static List<String> cropItemsByLengthAndSort(List<String> list, int maxLength) {
+    public static List<String> cropItemsByLengthAndSort(Collection<String> list, int maxLength) {
         return list.stream().map(text -> text.substring(0, Math.min(text.length(), maxLength))).sorted().collect(Collectors.toList());
     }
 }
