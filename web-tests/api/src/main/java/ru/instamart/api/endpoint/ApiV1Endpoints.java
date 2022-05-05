@@ -60,6 +60,7 @@ public final class ApiV1Endpoints {
         public static final String SMS_SETTINGS = "admin/sms_settings";
         public static final String TENANTS = "admin/tenants";
         public static final String USER_PERMISSIONS = "admin/user_permissions";
+        public static final String USERS = "admin/users";
 
         public static final class Cities {
             public static final String CITY = "admin/cities/{cityId}";
@@ -110,6 +111,13 @@ public final class ApiV1Endpoints {
                     public static final String TOGGLE_STATE = "admin/orders/{orderNumber}/adjustments/{adjustmentId}/toggle_state";
                 }
             }
+        }
+
+        public static final class PromotionDetails {
+            public static final class PromotionCode {
+                public static final String PROMOTION_CODE_DETAILS = "admin/promotion_details/promotion_code/promotion_code_details";
+            }
+
         }
 
         public static final class Promotions {
