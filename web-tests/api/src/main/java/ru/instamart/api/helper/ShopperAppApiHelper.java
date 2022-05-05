@@ -9,23 +9,15 @@ import org.testng.SkipException;
 import ru.instamart.api.enums.SessionType;
 import ru.instamart.api.enums.shopper.AssemblyStateSHP;
 import ru.instamart.api.enums.shopper.PackageSetLocationSHP;
-import ru.instamart.api.enums.shopper.RoleSHP;
 import ru.instamart.api.factory.SessionFactory;
-import ru.instamart.api.request.shifts.PlanningAreasRequest;
-import ru.instamart.api.request.shifts.RegionsRequest;
-import ru.instamart.api.request.shifts.ShiftsRequest;
 import ru.instamart.api.model.shopper.admin.ShipmentsItemSHP;
 import ru.instamart.api.model.shopper.app.*;
 import ru.instamart.api.request.shopper.admin.ShopperAdminRequest;
 import ru.instamart.api.request.shopper.app.*;
 import ru.instamart.api.request.shopper.localtor.LocatorRequest;
-import ru.instamart.api.response.shifts.ShiftResponse;
 import ru.instamart.api.response.shopper.app.*;
-import ru.instamart.api.response.shifts.PlanningAreaShiftsItemSHPResponse;
-import ru.instamart.api.response.shifts.PlanningPeriodsSHPResponse;
 import ru.instamart.kraken.config.EnvironmentProperties;
 import ru.instamart.kraken.data.Generate;
-import ru.instamart.kraken.data.StartPointsTenants;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
@@ -53,6 +45,7 @@ public class ShopperAppApiHelper {
     @Step("Авторизация пользователем: {user.email} в шопере")
     public void authorisation(UserData user) {
         SessionFactory.createSessionToken(SessionType.SHOPPER_APP, user);
+        refreshAuth();
     }
 
     public void refreshAuth() {
