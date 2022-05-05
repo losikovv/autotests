@@ -57,7 +57,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
         }
     }
 
-    @AfterClass(//alwaysRun = true, todo починить 401 ошибку
+    @AfterClass(alwaysRun = true,
             description = "Удаляем текущую сборку")
     public void cleanup() {
         shopperApp.authorisation(UserManager.getDefaultShopper());
@@ -119,7 +119,7 @@ public class ShipmentfulShopperAppTest extends RestBase {
 
     @Story("Получение информации о заказах")
     @CaseId(105)
-    @Test(enabled = false,
+    @Test(enabled = false, //пустой ответ
             description = "Получаем все заказы для сборщика",
             groups = {"api-shopper-regress", "api-shopper-prod"})
     public void getShopperShipment200() {
