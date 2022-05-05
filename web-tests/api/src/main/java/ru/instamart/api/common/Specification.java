@@ -36,6 +36,7 @@ public enum Specification {
     @Getter private RequestSpecification apiAdminRequestSpec;
     @Getter private RequestSpecification shopperRequestSpec;
     @Getter private RequestSpecification surgeRequestSpec;
+    @Getter private RequestSpecification etaRequestSpec;
     @Getter private RequestSpecification risExporterRequestSpec;
     @Getter private RequestSpecification prodRequestSpec;
     @Getter private RequestSpecification prodAdminRequestSpec;
@@ -175,6 +176,13 @@ public enum Specification {
 
         surgeRequestSpec = new RequestSpecBuilder()
                 .setBaseUri("https://paas-content-operations-surge.k-stage.sbermarket.tech")
+                .setBasePath("api/")
+                .setAccept(ContentType.JSON)
+                .addFilter(new AllureRestAssuredCustom())
+                .build();
+
+        etaRequestSpec = new RequestSpecBuilder()
+                .setBaseUri("https://paas-content-operations-eta.k-stage.sbmt.io")
                 .setBasePath("api/")
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssuredCustom())
