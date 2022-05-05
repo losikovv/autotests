@@ -72,7 +72,7 @@ public class StatusCodeCheckpoints {
         checkStatusCode(response, 500);
     }
 
-    public static void checkStatusGroup400(final Response response){
+    public static void checkStatusGroup400(final Response response) {
         response.then().statusCode(both(greaterThan(399)).and(lessThan(500)));
         Allure.step("Проверка на статус код клиентской ошибки (400-499)");
     }
@@ -84,6 +84,10 @@ public class StatusCodeCheckpoints {
             response.then().contentType(ContentType.JSON);
             Allure.step("Проверка на JSON тип контента");
         }
+    }
+
+    public static void checkStatusCode204or404(final Response response) {
+        response.then().statusCode(anyOf(is(204), is(404)));
     }
 
     public static void checkStatusCode200or422(final Response response) {

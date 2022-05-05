@@ -13,6 +13,7 @@ import static org.testng.Assert.fail;
 public class OperationalZonesShopperDao extends AbstractDao<Long, OperationalZonesEntity> {
     public static final OperationalZonesShopperDao INSTANCE = new OperationalZonesShopperDao();
     private final String DELETE_SQL = "DELETE FROM operational_zones ";
+    //Локально может падать, тк подключение использует RO юзера
 
     public void deleteZoneByName(String zoneName) {
         try (Connection connect = ConnectionPgSQLManager.get();

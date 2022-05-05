@@ -47,6 +47,7 @@ public final class ShipmentDeliveryWindowsPage implements AdminPage, ShipmentDel
 
     @Override
     public void goToPage() {
+        throw new RuntimeException("Для перехода на страницу редактирования времени доставки заказа необходимо использовать метод с параметрами");
     }
 
     @Override

@@ -325,19 +325,22 @@ public final class AdministrationRetailerTests extends BaseTest {
     @Story("Страница ретейлеров")
     @Test(description = "Фильтрация ритейлеров и магазинов по региону", groups = {"acceptance", "regression"})
     public void retailerFilterViaRegion() {
+        String cityName = "Москва";
+
         login().goToPage();
         login().auth(UserManager.getDefaultAdminAllRoles());
 
         retailers().goToPage();
         retailers().checkAddNewRetailerButtonVisible();
 
-        retailers().fillRegionSearch(cityNameFirst);
+        retailers().checkRetailersLoaded();
+        retailers().fillRegionSearch(cityName);
         retailers().checkOptionsInRegionSearchVisible();
         retailers().clickOnFirstRegionInSearchSuggest();
 
         retailers().refresh();
         retailers().clickOnPlusForFirstRetailer();
-        retailers().checkRetailerRegionCorrect(cityNameFirst);
+        retailers().checkRetailerRegionCorrect(cityName);
     }
 
     @AfterClass(alwaysRun = true)
@@ -346,9 +349,11 @@ public final class AdministrationRetailerTests extends BaseTest {
 
         apiHelper.deleteCityInAdmin(cityNameFirst);
         apiHelper.deleteOperationalZonesInAdmin(cityNameFirst);
+        apiHelper.deleteOperationalZonesInShopper(cityNameFirst);
 
         apiHelper.deleteCityInAdmin(cityNameSecond);
         apiHelper.deleteOperationalZonesInAdmin(cityNameSecond);
+        apiHelper.deleteOperationalZonesInShopper(cityNameSecond);
 
         apiHelper.deleteStoreInAdmin(firstStore);
         apiHelper.deleteStoreInAdmin(secondStore);
