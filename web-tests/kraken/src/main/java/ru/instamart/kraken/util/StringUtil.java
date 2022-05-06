@@ -112,8 +112,8 @@ public final class StringUtil {
     /**
      * Заменяем дефис - знак отличается на разных страницах и в данных, полученных из API
      */
-    public static String hyphenReplace(String stringToReplace) {
-        return stringToReplace.replaceAll("–", "-");
+    public static String hyphenReplaceAndCutExtraZero(String stringToReplace) {
+        return cutExtraZerosFromDate(stringToReplace.replaceAll("–", "-"));
     }
 
     /**

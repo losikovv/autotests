@@ -5,9 +5,9 @@ import org.testng.Assert;
 import ru.instamart.kraken.util.StringUtil;
 import ru.instamart.reforged.core.Check;
 
-import java.util.List;
 import java.util.Set;
 
+import static ru.instamart.kraken.util.StringUtil.hyphenReplaceAndCutExtraZero;
 import static ru.instamart.reforged.core.Kraken.waitAction;
 
 public interface ShipmentDeliveryWindowsCheck extends Check, ShipmentDeliveryWindowsElement {
@@ -25,7 +25,8 @@ public interface ShipmentDeliveryWindowsCheck extends Check, ShipmentDeliveryWin
     @Step("Проверяем, что указанный интервал доставки соответствует ожидаемому: {expectedDeliveryIntervalText}")
     default void checkSavedDeliveryIntervalTextContains(final String expectedDeliveryIntervalText) {
         Assert.assertTrue(
-                StringUtil.hyphenReplace(savedShipmentInterval.getText()).contains(StringUtil.hyphenReplace(expectedDeliveryIntervalText)),
+                hyphenReplaceAndCutExtraZero(savedShipmentInterval.getText())
+                        .contains(hyphenReplaceAndCutExtraZero(expectedDeliveryIntervalText)),
                 String.format("Указанный слот доставки: '%s' не содержит ожидаемый текст: '%s'", savedShipmentInterval.getText(), expectedDeliveryIntervalText));
     }
 

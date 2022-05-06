@@ -90,7 +90,6 @@ public final class StaticPage {
                 {"Доставка и оплата", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + delivery().pageUrl()},
                 {"Помощь", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + faq().pageUrl()},
                 {"Политика возврата", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + rules().pageUrl()},
-                {"Официальное уведомление", EnvironmentProperties.Env.FULL_SITE_URL_WITH_BASIC_AUTH + terms().pageUrl()},
         };
     }
 
