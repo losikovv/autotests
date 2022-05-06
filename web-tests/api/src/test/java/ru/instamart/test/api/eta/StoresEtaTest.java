@@ -25,13 +25,11 @@ public class StoresEtaTest extends RestBase {
     public void getStoreParameters() {
         String storeId = "c158f834-b944-4c84-9165-65f311e6aed4";
         final Response response = StoresEtaRequest.Parameters.GET(storeId);
-
-        checkStatusCode200(response);
-
         StoreParametersEtaResponse parameters = response.as(StoreParametersEtaResponse.class);
 
-        assertEquals(parameters.getId(), storeId, "Вернулся не верный uuid магазина");
+        checkStatusCode200(response);
         checkResponseJsonSchema(response, StoreParametersEtaResponse.class);
+        assertEquals(parameters.getId(), storeId, "Вернулся не верный uuid магазина");
     }
 
     @CaseId(219)
@@ -41,11 +39,9 @@ public class StoresEtaTest extends RestBase {
         String storeId = "11111111-1111-1111-1111-111111111111";
         String expectedResult = String.format("магазин id = %s не существует", storeId);
         final Response response = StoresEtaRequest.Parameters.GET(storeId);
-
-        checkStatusCode404(response);
-
         ErrorResponse parameters = response.as(ErrorResponse.class);
 
+        checkStatusCode404(response);
         Allure.step("Проверка получения верной ошибки", () -> {
             assertEquals(parameters.getMessage(), expectedResult, "Не верная ошибка");
         });
@@ -55,13 +51,10 @@ public class StoresEtaTest extends RestBase {
     @Test(description = "Получение ошибки не валидного uuid магазина",
             groups = "api-eta")
     public void getStoreParametersInvalid() {
-        String storeId = "test";
-        final Response response = StoresEtaRequest.Parameters.GET(storeId);
-
-        checkStatusCode400(response);
-
+        final Response response = StoresEtaRequest.Parameters.GET("test");
         ErrorResponse parameters = response.as(ErrorResponse.class);
 
+        checkStatusCode400(response);
         Allure.step("Проверка получения верной ошибки", () -> {
             assertEquals(parameters.getMessage(), "Invalid storeID, must be a valid UUID", "Не верная ошибка");
         });
