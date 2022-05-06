@@ -129,13 +129,13 @@ public final class ShoppingSearchTests extends BaseTest {
     public void successAddItemToCartFromSearchResults() {
         shop().goToPage(true);
         shop().interactHeader().clickToSelectAddressFirstTime();
-        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddress().checkYmapsReady();
 
-        shop().interactAddressLarge().fillAddress(Addresses.Moscow.defaultAddress());
-        shop().interactAddressLarge().selectFirstAddress();
-        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddressLarge().clickSave();
-        shop().interactAddressLarge().checkAddressModalNotVisible();
+        shop().interactAddress().fillAddress(Addresses.Moscow.defaultAddress());
+        shop().interactAddress().selectFirstAddress();
+        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddress().clickOnSave();
+        shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().checkEnteredAddressIsVisible();
 
         shop().goToPage(true);
