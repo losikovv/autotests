@@ -23,12 +23,10 @@ public class RetailersEtaTest extends RestBase {
     public void getRetailerParameters() {
         String retailerId = "1";
         final Response response = RetailersEtaRequest.Parameters.GET(retailerId);
-
-        checkStatusCode200(response);
-
         RetailerParametersEtaResponse parameters = response.as(RetailerParametersEtaResponse.class);
 
-        assertEquals(parameters.getId(), retailerId, "Вернулся некорректный id");
+        checkStatusCode200(response);
         checkResponseJsonSchema(response, RetailerParametersEtaResponse.class);
+        assertEquals(parameters.getId(), retailerId, "Вернулся не верный id ритейлера");
     }
 }

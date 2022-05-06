@@ -7,7 +7,6 @@ import ru.instamart.api.request.EtaRequestBase;
 
 public class RetailersEtaRequest extends EtaRequestBase {
 
-
     public static class Parameters {
         @Step("{method} /" + EtaEndpoints.Retailers.PARAMETERS)
         public static Response GET(String retailerId) {
