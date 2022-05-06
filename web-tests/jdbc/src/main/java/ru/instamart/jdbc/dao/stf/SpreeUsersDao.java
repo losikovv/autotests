@@ -18,6 +18,7 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
     public static final SpreeUsersDao INSTANCE = new SpreeUsersDao();
     private final String SELECT_SQL = "SELECT %s FROM spree_users";
     private final String DELETE_SQL = "DELETE FROM spree_users";
+    private static final String INSERT_SQL = "INSERT INTO spree_roles_users(role_id, user_id) VALUES(?, ?)";
 
     public SpreeUsersEntity getUserByEmail(String email) {
         SpreeUsersEntity user = new SpreeUsersEntity();
@@ -25,7 +26,7 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
              PreparedStatement preparedStatement = connect.prepareStatement(String.format(SELECT_SQL, "*") + " WHERE email = ?")) {
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 user.setId(resultSet.getLong("id"));
                 user.setLogin(resultSet.getString("login"));
                 user.setSpreeApiKey(resultSet.getString("spree_api_key"));
@@ -82,5 +83,16 @@ public class SpreeUsersDao extends AbstractDao<Long, SpreeUsersEntity> {
             fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
         }
         return null;
+    }
+
+    public void addRoleToUser(Integer userId, Integer roleId) {
+        try (Connection connect = ConnectionMySQLManager.get();
+             PreparedStatement preparedStatement = connect.prepareStatement(INSERT_SQL)) {
+            preparedStatement.setInt(1, roleId);
+            preparedStatement.setInt(2, userId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            fail("Error init ConnectionMySQLManager. Error: " + e.getMessage());
+        }
     }
 }

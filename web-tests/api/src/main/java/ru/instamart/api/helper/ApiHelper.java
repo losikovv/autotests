@@ -34,11 +34,11 @@ import ru.instamart.kraken.data.StoreZonesCoordinates;
 import ru.instamart.kraken.data.user.UserData;
 import ru.instamart.kraken.data.user.UserManager;
 import ru.instamart.kraken.util.ThreadUtil;
+import ru.instamart.kraken.util.TimeUtil;
 
 import java.util.List;
 
 import static ru.instamart.api.checkpoint.BaseApiCheckpoints.compareTwoObjects;
-import static ru.instamart.api.helper.K8sHelper.changeToShip;
 import static ru.instamart.api.request.admin.StoresAdminRequest.getStoreForRetailerTests;
 import static ru.instamart.kraken.data.user.UserRoles.B2B_MANAGER;
 import static ru.sbermarket.common.FileUtils.changeXlsFileSheetName;
@@ -320,9 +320,9 @@ public final class ApiHelper {
     }
 
     public void makeAndCompleteOrder(final UserData user, final int sid, final int itemsNumber) {
-        final var order = makeOrder(user, sid, itemsNumber);
-        final var shipmentNumber = order.getShipments().get(0).getNumber();
-        changeToShip(shipmentNumber);
+        final var shipment = makeOrder(user, sid, itemsNumber);
+        final var order = SpreeOrdersDao.INSTANCE.getOrderByShipment(shipment.getShipments().get(0).getNumber());
+        SpreeOrdersDao.INSTANCE.updateShipmentStateToShip(order.getNumber(), TimeUtil.getDbDate());
     }
 
     @Step("Отменяем заказ с помощью API")
@@ -357,13 +357,13 @@ public final class ApiHelper {
 
     @Step("Добавляем роль менеджера пользователю '{userData}'")
     public void addManagerRoleToUser(UserData userData) {
-        K8sHelper.addRoleToUser(userData.getId(), B2B_MANAGER.getRole());
+        SpreeUsersDao.INSTANCE.addRoleToUser(Integer.parseInt(userData.getId()), B2B_MANAGER.getId());
     }
 
     @Step("Добавляем менеджера '{userData}' компании '{inn}'")
     public void addManagerForCompany(String inn, UserData userData) {
         admin.authApi();
-        K8sHelper.addRoleToUser(userData.getId(), B2B_MANAGER.getRole());
+        addManagerRoleToUser(userData);
         int companyId = admin.getCompanies(inn).get(0).getId();
         admin.addManager(companyId, userData.getId());
     }
