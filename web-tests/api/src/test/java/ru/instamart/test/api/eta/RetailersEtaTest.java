@@ -28,7 +28,7 @@ public class RetailersEtaTest extends RestBase {
 
         RetailerParametersEtaResponse parameters = response.as(RetailerParametersEtaResponse.class);
 
-        assertEquals(parameters.getId(), retailerId, "Вернулся некорректный id");
+        assertEquals(parameters.getId(), retailerId, "Вернулся не верный id ритейлера");
         checkResponseJsonSchema(response, RetailerParametersEtaResponse.class);
     }
 }
