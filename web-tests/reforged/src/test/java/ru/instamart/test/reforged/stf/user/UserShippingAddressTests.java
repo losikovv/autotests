@@ -66,16 +66,16 @@ public final class UserShippingAddressTests extends BaseTest {
     public void noAvailableShopsOutOfDeliveryZone() {
         shop().goToPage(true);
         shop().interactHeader().clickToSelectAddressFirstTime();
-        shop().interactAddressLarge().checkYmapsReady();
+        shop().interactAddress().checkYmapsReady();
 
-        shop().interactAddressLarge().fillAddress(Addresses.Moscow.outOfZoneAddress());
-        shop().interactAddressLarge().selectFirstAddress();
-        shop().interactAddressLarge().checkMarkerOnMapInAdviceIsNotVisible();
-        shop().interactAddressLarge().clickSave();
-        shop().interactAddressLarge().checkIsAddressOutOfZone();
+        shop().interactAddress().fillAddress(Addresses.Moscow.outOfZoneAddress());
+        shop().interactAddress().selectFirstAddress();
+        shop().interactAddress().checkMarkerOnMapInAdviceIsNotVisible();
+        shop().interactAddress().clickOnSave();
+        shop().interactAddress().checkIsAddressOutOfZone();
 
-        shop().interactAddressLarge().close();
-        shop().interactAddressLarge().checkAddressModalNotVisible();
+        shop().interactAddress().close();
+        shop().interactAddress().checkAddressModalIsNotVisible();
         shop().interactHeader().clickToStoreSelector();
 
         home().checkOutOfDeliveryAreaMessageDisplayed();
